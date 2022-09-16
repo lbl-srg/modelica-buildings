@@ -33,7 +33,9 @@ package Defaults "Package with default sizing parameters"
   constant Modelica.Units.SI.PressureDifference dpChiWatChi=5E4
     "Chiller CHW pressure drop";
   constant Modelica.Units.SI.PressureDifference dpConWatChi=5E4
-    "Chiller CW pressure drop";
+    "Chiller CW pressure drop (water-cooled)";
+  constant Modelica.Units.SI.PressureDifference dpConAirChi=2000
+    "Chiller air pressure drop through condenser (air-cooled)";
   constant Modelica.Units.SI.PressureDifference dpChiWatEco=3E4
     "WSE CHW pressure drop";
   constant Modelica.Units.SI.PressureDifference dpConWatEco=3E4

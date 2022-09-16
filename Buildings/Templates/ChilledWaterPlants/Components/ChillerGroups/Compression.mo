@@ -5,6 +5,7 @@ model Compression "Group of compression chillers"
   Buildings.Templates.Components.Chillers.Compression chi[nChi](
     redeclare each final package MediumChiWat=MediumChiWat,
     redeclare each final package MediumCon=MediumCon,
+    each final allowFlowReversal=allowFlowReversal,
     each final typ=typChi,
     final dat=dat.datChi,
     each final energyDynamics=energyDynamics,
@@ -13,6 +14,7 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, rotation=90)));
 
   // Sensors
+  // FIXME: bind have_sen to plant configuration per G36 rules.
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiSup[nChi](
     redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal,
@@ -30,14 +32,14 @@ model Compression "Group of compression chillers"
   Buildings.Templates.Components.Sensors.Temperature TConWatChiSup[nChi](
     redeclare each final package Medium=MediumCon,
     final m_flow_nominal=mConWatChi_flow_nominal,
-    each final have_sen=true,
+    each have_sen=true,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW supply temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiRet[nChi](
     redeclare each final package Medium=MediumCon,
     final m_flow_nominal=mConWatChi_flow_nominal,
-    each final have_sen=true,
+    each have_sen=true,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW return temperature"
     annotation (Placement(transformation(extent={{-90,110},{-110,130}})));
@@ -75,7 +77,7 @@ model Compression "Group of compression chillers"
   replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChiIso[nChi]
     if typOptValChiWatIso==Buildings.Templates.Components.Types.ValveOption.Choices
     constrainedby Buildings.Templates.Components.Interfaces.PartialValve(
-    redeclare each final package Medium = MediumCon,
+    redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatChiIso)
     "Chiller CHW isolation valve - Select between modulating or two-position"
@@ -88,8 +90,8 @@ model Compression "Group of compression chillers"
           "Two-way modulating valve")), Placement(transformation(extent={{150,
             110},{170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatChi[nChi](
-    redeclare each final package Medium=MediumCon)
-    if typOptValConWatIso==Buildings.Templates.Components.Types.ValveOption.NoValve
+    redeclare each final package Medium=MediumChiWat)
+    if typOptValChiWatIso==Buildings.Templates.Components.Types.ValveOption.NoValve
     "No chiller CHW isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,70}})));
 equation

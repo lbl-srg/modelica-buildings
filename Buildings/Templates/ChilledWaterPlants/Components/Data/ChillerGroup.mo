@@ -13,33 +13,31 @@ record ChillerGroup "Record for chiller group model"
     each final min=0)
     "CHW mass flow rate for each chiller"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal[nChi](
+  parameter Modelica.Units.SI.MassFlowRate mConFluChi_flow_nominal[nChi](
     each final min=0,
     start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
       then capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiWatCoo)/
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (Buildings.Templates.Data.Defaults.TConWatRet-
-    Buildings.Templates.Data.Defaults.TConWatSup) else fill(0,nChi))
-    "CW mass flow rate for each chiller"
-    annotation(Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi](
-    each final min=0,
-    start=if typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
+    Buildings.Templates.Data.Defaults.TConWatSup) elseif
+    typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
       then capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiAirCoo)*
     Buildings.Templates.Data.Defaults.mConAirByCap else fill(0, nChi))
-    "Air mass flow rate at condenser for each chiller"
+    "Condenser cooling fluid mass flow rate for each chiller"
     annotation(Dialog(group="Nominal condition",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.AirCooled));
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi](
     each final min=0,
     each start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW pressure drop for each chiller"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpConWatChi_nominal[nChi](
+  parameter Modelica.Units.SI.PressureDifference dpConFluChi_nominal[nChi](
     each final min=0,
-    each start=Buildings.Templates.Data.Defaults.dpConWatChi)
-    "CW pressure drop for each chiller"
+    each start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then Buildings.Templates.Data.Defaults.dpConWatChi elseif
+    typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
+    Buildings.Templates.Data.Defaults.dpConAirChi else 0)
+    "Condenser cooling fluid pressure drop"
     annotation (Dialog(group="Nominal condition",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
@@ -71,18 +69,16 @@ record ChillerGroup "Record for chiller group model"
       PLRMin=PLRChi_min,
       PLRMinUnl=PLRUnlChi_min,
       mEva_flow_nominal=mChiWatChi_flow_nominal,
-      mCon_flow_nominal=mConWatChi_flow_nominal)
+      mCon_flow_nominal=mConFluChi_flow_nominal)
     "Chiller performance data"
     annotation(Dialog(group="Nominal condition"));
-
   final parameter Buildings.Templates.Components.Data.Chiller datChi[nChi](
     each final typ=typChi,
     final mChiWat_flow_nominal=mChiWatChi_flow_nominal,
-    final mConWat_flow_nominal=mConWatChi_flow_nominal,
-    final mConAir_flow_nominal=mConAirChi_flow_nominal,
+    final mConFlu_flow_nominal=mConFluChi_flow_nominal,
     final cap_nominal=capChi_nominal,
     final dpChiWat_nominal=dpChiWatChi_nominal,
-    final dpConWat_nominal=dpConWatChi_nominal,
+    final dpConFlu_nominal=dpConFluChi_nominal,
     final TChiWatSup_nominal=TChiWatChiSup_nominal,
     final TChiWatSup_max=TChiWatChiSup_max,
     final PLRUnl_min=PLRUnlChi_min,

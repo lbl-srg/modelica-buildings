@@ -238,7 +238,7 @@ model ChillerGroup "Validation model for chiller group"
     final tau=tau)
     "Chiller group CHW inlet manifold"
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
-  Fluid.Sources.Boundary_pT bouConWat(redeclare final package Medium =
+  Fluid.Sources.Boundary_pT bouCon(redeclare final package Medium =
         MediumConWat, nPorts=1) "CW pressure boundary condition" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -362,7 +362,7 @@ model ChillerGroup "Validation model for chiller group"
     final tau=tau)
     "Chiller group CHW inlet manifold"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Fluid.Sources.Boundary_pT bouConWat1(redeclare final package Medium =
+  Fluid.Sources.Boundary_pT bouCon1(redeclare final package Medium =
         MediumConWat, nPorts=1) "CW pressure boundary condition" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -407,6 +407,116 @@ model ChillerGroup "Validation model for chiller group"
     "Chiller CHW isolation valves control bus" annotation (Placement(
         transformation(extent={{120,80},{160,120}}), iconTransformation(extent={
             {-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri2
+    "Primary CHW pumps control bus"
+    annotation (Placement(transformation(extent={{180,-100},{220,-60}}),
+        iconTransformation(extent={{-316,184},{-276,224}})));
+  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla2
+    "Plant control bus"
+    annotation (Placement(transformation(extent={{180,-80},{220,-40}}),
+                 iconTransformation(extent={{-432,12},{-412,32}})));
+  Buildings.Templates.Components.Interfaces.Bus busChi2[nChi]
+    "Chiller control bus" annotation (Placement(transformation(extent={{180,-60},
+            {220,-20}}), iconTransformation(extent={{-422,198},{-382,238}})));
+  Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso1
+                                                                  [nChi]
+    "Chiller CHW isolation valves control bus" annotation (Placement(
+        transformation(extent={{120,-60},{160,-20}}),iconTransformation(extent={
+            {-422,198},{-382,238}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri2(
+    redeclare final package Medium = MediumChiWat,
+    final nPorts=nChi,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final tau=tau) "Primary CHW pumps outlet manifold"
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+  Buildings.Templates.Components.Pumps.Multiple pumChiWatPri2(
+    redeclare final package Medium = MediumChiWat,
+    final dat=datPumChiWatPri,
+    final nPum=nChi,
+    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    "Primary CHW pumps"
+    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
+  Fluid.HeatExchangers.HeaterCooler_u loa2(
+    redeclare final package Medium = MediumChiWat,
+    final m_flow_nominal=sum(mChiWatChi_flow_nominal),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final Q_flow_nominal=sum(capChi_nominal),
+    dp_nominal=0)
+    "Cooling load"
+    annotation (Placement(transformation(extent={{30,-170},{10,-150}})));
+  Modelica.Blocks.Sources.RealExpression sigModLoa2(y=sum(pumChiWatPri.sigCon.y)
+        /nChi)
+    "Load modulating signal"
+    annotation (Placement(transformation(extent={{10,-156},{30,-136}})));
+  Fluid.Sensors.TemperatureTwoPort TChiWatPriSup2(redeclare final package
+      Medium = MediumChiWat, final m_flow_nominal=sum(mChiWatChi_flow_nominal))
+    "Primary CHW supply temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={30,-100})));
+  Fluid.Sensors.MassFlowRate mChiWatPri_flow2(redeclare final package Medium =
+        MediumChiWat)
+    "Primary CHW flow"
+    annotation (Placement(transformation(extent={{50,-110},{70,-90}})));
+  Fluid.Sources.Boundary_pT bouChiWat2(redeclare final package Medium =
+        MediumChiWat, final nPorts=1)
+    "CHW pressure boundary condition"
+    annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={0,-180})));
+  ChillerGroups.Compression chi2(
+    redeclare final package MediumChiWat = MediumChiWat,
+    redeclare final package MediumCon = MediumAir,
+    final dat=datChiAirCoo,
+    final nChi=nChi,
+    final energyDynamics=energyDynamics,
+    typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
+    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
+    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    typArrPumConWat=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    typCtrSpePumConWat=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant,
+    typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
+    "Chiller group"
+    annotation (Placement(transformation(extent={{-100,-190},{-60,-70}})));
+  Buildings.Templates.Components.Routing.MultipleToSingle inlChiWatChi2(
+    redeclare final package Medium = MediumChiWat,
+    final nPorts=nChi,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final tau=tau)
+    "Chiller group CHW inlet manifold"
+    annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
+  Fluid.Sources.Boundary_pT bouCon2(
+    redeclare final package Medium = MediumAir,
+    final nPorts=nChi)
+    "Condenser cooling fluid pressure boundary condition"
+    annotation (
+     Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-190,-100})));
+  Buildings.Templates.Components.Routing.MultipleToMultiple inlPumChiWatPri2(
+    redeclare final package Medium = MediumChiWat,
+    nPorts_a=nChi,
+    have_comLeg=true,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final tau=tau)
+    "Primary CHW pumps inlet manifold"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Fluid.Sources.MassFlowSource_T souCon[nChi](
+    redeclare each final package Medium = MediumAir,
+    final m_flow=mConAirChi_flow_nominal,
+    each final nPorts=1)
+    "Condenser air flow source"
+    annotation (
+      Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={-190,-160})));
 equation
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{-20,180},{-20,180}},color={0,127,255}));
@@ -450,7 +560,7 @@ equation
     annotation (Line(points={{-130,120},{-130,120}}, color={0,127,255}));
   connect(outPumConWat.ports_b, chi.ports_aCon)
     annotation (Line(points={{-110,120},{-100,120}}, color={0,127,255}));
-  connect(tow.port_b, bouConWat.ports[1]) annotation (Line(points={{-186,120},{-180,
+  connect(tow.port_b, bouCon.ports[1]) annotation (Line(points={{-186,120},{-180,
           120},{-180,100}}, color={0,127,255}));
   connect(y1Chi.y[1], busPumConWat.y1) annotation (Line(points={{-228,320},{160,
           320},{160,180},{200,180}}, color={255,0,255}));
@@ -510,8 +620,8 @@ equation
     annotation (Line(points={{-130,-20},{-130,-20}}, color={0,127,255}));
   connect(outPumConWat1.ports_b, chi1.ports_aCon)
     annotation (Line(points={{-110,-20},{-100,-20}}, color={0,127,255}));
-  connect(tow1.port_b, bouConWat1.ports[1]) annotation (Line(points={{-186,-20},
-          {-180,-20},{-180,-40}}, color={0,127,255}));
+  connect(tow1.port_b, bouCon1.ports[1]) annotation (Line(points={{-186,-20},{-180,
+          -20},{-180,-40}}, color={0,127,255}));
   connect(y1Chi.y[1], busPumConWat1.y1) annotation (Line(points={{-228,320},{160,
           320},{160,40},{200,40}}, color={255,0,255}));
   connect(busPumConWat1, pumConWat1.bus) annotation (Line(
@@ -531,15 +641,69 @@ equation
   connect(TChiWat.y, busChi1.TChiWatSupSet) annotation (Line(points={{-156,400},
           {166,400},{166,104},{200,104},{200,100}}, color={0,0,127}));
   connect(yValIso.y[1], busValChiWatChiIso.y) annotation (Line(points={{-228,240},
-          {140,240},{140,100}}, color={0,0,127}));
+          {120,240},{120,170},{140,170},{140,100}},
+                                color={0,0,127}));
   connect(yValIso.y[1], busValConWatChiIso.y) annotation (Line(points={{-228,240},
-          {140,240},{140,120},{240,120},{240,100}}, color={0,0,127}));
+          {120,240},{120,120},{240,120},{240,100}}, color={0,0,127}));
   connect(busValChiWatChiIso, busPla1.valChiWatChiIso) annotation (Line(
-      points={{140,100},{140,80},{200,80}},
+      points={{140,100},{140,84},{200,84},{200,80}},
       color={255,204,51},
       thickness=0.5));
   connect(busValConWatChiIso, busPla1.valConWatChiIso) annotation (Line(
       points={{240,100},{240,80},{200,80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(y1Chi.y[1],busPumChiWatPri2. y1) annotation (Line(points={{-228,320},{
+          160,320},{160,-78},{200,-78},{200,-80}},
+                                                color={255,0,255}));
+  connect(busPla2,chi2. bus) annotation (Line(
+      points={{200,-60},{-80,-60},{-80,-70}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(y1Chi.y[1],busChi2. y1) annotation (Line(points={{-228,320},{160,320},
+          {160,-40},{200,-40}}, color={255,0,255}));
+  connect(busChi2,busPla2. chi) annotation (Line(
+      points={{200,-40},{200,-60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(TChiWat.y,busChi2. TChiWatSupSet) annotation (Line(points={{-156,400},
+          {166,400},{166,-36},{200,-36},{200,-40}}, color={0,0,127}));
+  connect(yValIso.y[1], busValChiWatChiIso1.y) annotation (Line(points={{-228,240},
+          {120,240},{120,-40},{140,-40}},
+                                color={0,0,127}));
+  connect(busValChiWatChiIso1, busPla2.valChiWatChiIso) annotation (Line(
+      points={{140,-40},{140,-56},{200,-56},{200,-60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(pumChiWatPri2.ports_b,outPumChiWatPri2. ports_a)
+    annotation (Line(points={{-20,-100},{-20,-100}},
+                                                 color={0,127,255}));
+  connect(sigModLoa2.y,loa2. u) annotation (Line(points={{31,-146},{40,-146},{40,
+          -154},{32,-154}},
+                     color={0,0,127}));
+  connect(outPumChiWatPri2.port_b,TChiWatPriSup2. port_a)
+    annotation (Line(points={{0,-100},{20,-100}},
+                                              color={0,127,255}));
+  connect(TChiWatPriSup2.port_b,mChiWatPri_flow2. port_a)
+    annotation (Line(points={{40,-100},{50,-100}}, color={0,127,255}));
+  connect(loa2.port_a,mChiWatPri_flow2. port_b) annotation (Line(points={{30,-160},
+          {80,-160},{80,-100},{70,-100}}, color={0,127,255}));
+  connect(bouChiWat2.ports[1],loa2. port_b)
+    annotation (Line(points={{0,-170},{0,-160},{10,-160}}, color={0,127,255}));
+  connect(loa2.port_b,inlChiWatChi2. port_b)
+    annotation (Line(points={{10,-160},{-30,-160}}, color={0,127,255}));
+  connect(inlChiWatChi2.ports_a,chi2. ports_aChiWat)
+    annotation (Line(points={{-50,-160},{-60,-160}}, color={0,127,255}));
+  connect(chi2.ports_bChiWat,inlPumChiWatPri2. ports_a)
+    annotation (Line(points={{-60,-100},{-60,-100}}, color={0,127,255}));
+  connect(inlPumChiWatPri2.ports_b,pumChiWatPri2. ports_a)
+    annotation (Line(points={{-40,-100},{-40,-100}}, color={0,127,255}));
+  connect(chi2.ports_bCon, bouCon2.ports)
+    annotation (Line(points={{-100,-100},{-180,-100}}, color={0,127,255}));
+  connect(souCon.ports[1], chi2.ports_aCon)
+    annotation (Line(points={{-180,-160},{-100,-160}}, color={0,127,255}));
+  connect(busPumChiWatPri2, pumChiWatPri2.bus) annotation (Line(
+      points={{200,-80},{-30,-80},{-30,-90}},
       color={255,204,51},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(extent={{-260,-640},{260,440}})),

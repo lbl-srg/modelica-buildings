@@ -10,17 +10,11 @@ record Chiller "Data for chillers"
     final min=0)
     "CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mConFlu_flow_nominal(
     final min=0)
-    "CW mass flow rate"
+    "Condenser cooling fluid (e.g. CW) mass flow rate"
     annotation(Dialog(group="Nominal condition",
-    enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Modelica.Units.SI.MassFlowRate mConAir_flow_nominal(
-    final min=0,
-    start=Buildings.Templates.Data.Defaults.mConAirByCap*cap_nominal)
-    "Air mass flow rate at condenser"
-    annotation(Dialog(group="Nominal condition",
-    enable=typ == Buildings.Templates.Components.Types.Chiller.AirCooled));
+    enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.HeatFlowRate cap_nominal(
     final min=0)
     "Cooling capacity"
@@ -30,12 +24,15 @@ record Chiller "Data for chillers"
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpConWat_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpConFlu_nominal(
     final min=0,
-    start=Buildings.Templates.Data.Defaults.dpConWatChi)
-    "CW pressure drop"
+    start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then Buildings.Templates.Data.Defaults.dpConWatChi elseif
+    typ == Buildings.Templates.Components.Types.Chiller.AirCooled then
+    Buildings.Templates.Data.Defaults.dpConAirChi else 0)
+    "Condenser cooling fluid pressure drop"
     annotation (Dialog(group="Nominal condition",
-    enable=typ == Buildings.Templates.Components.Types.Chiller.WaterCooled));
+    enable=typ==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal(
     final min=260)
     "CHW supply temperature"
@@ -61,7 +58,7 @@ record Chiller "Data for chillers"
       PLRMin=PLR_min,
       PLRMinUnl=PLRUnl_min,
       mEva_flow_nominal=mChiWat_flow_nominal,
-      mCon_flow_nominal=mConWat_flow_nominal)
+      mCon_flow_nominal=mConFlu_flow_nominal)
     "Chiller performance data"
     annotation(Dialog(group="Nominal condition"));
 end Chiller;
