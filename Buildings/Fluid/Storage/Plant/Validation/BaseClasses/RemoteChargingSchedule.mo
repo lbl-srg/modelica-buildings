@@ -41,6 +41,7 @@ that allows remote charging.
     <th>Chiller flow</th>
     <th>Tank flow</th>
     <th>Plant flow direction</th>
+    <th>Description</th>
   </tr>
 </thead>
 <tbody>
@@ -50,6 +51,7 @@ that allows remote charging.
     <td>0</td>
     <td>0</td>
     <td>No flow</td>
+    <td>Plant closed and disconnected from network</td>
   </tr>
   <tr>
     <td>2.</td>
@@ -57,6 +59,8 @@ that allows remote charging.
     <td>1</td>
     <td>-1</td>
     <td>No flow</td>
+    <td>Plant disconnected fron the network;<br/>
+        Tank charged by local chiller</td>
   </tr>
   <tr>
     <td>3.</td>
@@ -64,6 +68,7 @@ that allows remote charging.
     <td>2</td>
     <td>-1</td>
     <td>Normal</td>
+    <td>Chiller outputs to the network and charges the tank at the same time</td>
   </tr>
   <tr>
     <td>4.</td>
@@ -71,6 +76,8 @@ that allows remote charging.
     <td>1</td>
     <td>0</td>
     <td>Normal</td>
+    <td>Chiller outputs to the network;<br/>
+        Tank on hold (not charging nor discharging)</td>
   </tr>
   <tr>
     <td>5.</td>
@@ -78,6 +85,7 @@ that allows remote charging.
     <td>1</td>
     <td>1</td>
     <td>Normal</td>
+    <td>Chiller and tank both outputting to the network</td>
   </tr>
   <tr>
     <td>6.</td>
@@ -85,6 +93,8 @@ that allows remote charging.
     <td>0</td>
     <td>1</td>
     <td>Normal</td>
+    <td>Chiller off;<br/>
+        Tank discharging to the network</td>
   </tr>
   <tr>
     <td>7.</td>
@@ -92,6 +102,8 @@ that allows remote charging.
     <td>0</td>
     <td>-1</td>
     <td>Reverse</td>
+    <td>Chiller off;<br/>
+        Tank being charged by the network</td>
   </tr>
 </tbody>
 </table>
