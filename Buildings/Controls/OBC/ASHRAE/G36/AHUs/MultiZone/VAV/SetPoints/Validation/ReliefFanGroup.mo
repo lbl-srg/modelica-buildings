@@ -1,14 +1,15 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation;
-model ReliefFan "Validate model for calculating relief fan control"
+model ReliefFanGroup
+  "Validate model for calculating relief fans control"
 
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan relFanCon(
-    final k=0.5) "Relief damper control, with staging up fans"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGroup
+    relFanCon(final k=0.5) "Relief damper control, with staging up fans"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan relFanCon1
-    "Relief damper control, with staging up fans and the fan alarm"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGroup
+    relFanCon1 "Relief damper control, with staging up fans and the fan alarm"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan relFanCon2
-    "Relief damper control, with the staging up and down fans"
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGroup
+    relFanCon2 "Relief damper control, with the staging up and down fans"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFan1(
@@ -130,14 +131,14 @@ equation
 
 annotation (
   experiment(StopTime=3600, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/Validation/ReliefFan.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/SetPoints/Validation/ReliefFanGroup.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFan</a>
-for relief fans for systems with multiple zones.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGroup\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGroup</a>
+for relief fan group for systems with multiple zones.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -159,4 +160,4 @@ First implementation.
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-140,-160},{140,160}})));
-end ReliefFan;
+end ReliefFanGroup;

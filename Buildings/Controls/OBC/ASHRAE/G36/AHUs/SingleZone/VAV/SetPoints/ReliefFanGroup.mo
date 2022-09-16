@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
-block ReliefFan "Sequence for relief fan control for AHUs using actuated relief dampers with relief fan(s)"
+block ReliefFanGroup
+  "Sequence for relief fans control for AHUs using actuated relief dampers with relief fan(s)"
 
   parameter Integer nSupFan = 2
     "Total number of AHU supply fans that are serving the same common space";
@@ -784,4 +785,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ReliefFan;
+end ReliefFanGroup;
