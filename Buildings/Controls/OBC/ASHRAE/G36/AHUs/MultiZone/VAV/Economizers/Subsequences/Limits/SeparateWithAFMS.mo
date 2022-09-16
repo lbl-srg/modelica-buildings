@@ -90,29 +90,34 @@ block SeparateWithAFMS
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
     final max=1,
-    final unit="1") "Actual supply fan speed" annotation (Placement(
-        transformation(extent={{-260,-60},{-220,-20}}), iconTransformation(
-          extent={{-140,-110},{-100,-70}})));
+    final unit="1")
+    "Actual supply fan speed"
+    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDam(
     final min=0,
     final max=1,
     final unit="1")
     "Minimum outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{220,220},{260,260}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,70},{140,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaMinOut
+    "True: enable minimum outdoor air control loop"
+    annotation (Placement(transformation(extent={{220,140},{260,180}}),
+        iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam_min(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") "Physically minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-        iconTransformation(extent={{100,30},{140,70}})));
+        iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam_max(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1")
     "Physically maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{220,-180},{260,-140}}),
-        iconTransformation(extent={{100,10},{140,50}})));
+        iconTransformation(extent={{100,-10},{140,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam_min(
     final min=retDamPhy_min,
     final max=retDamPhy_max,
@@ -347,9 +352,10 @@ equation
           {50,-100},{98,-100}}, color={0,0,127}));
   connect(minOutDamPos.y, yMinOutDam)
     annotation (Line(points={{182,240},{240,240}}, color={0,0,127}));
-
   connect(u1SupFan, enaMinCon.u1)
     annotation (Line(points={{-240,160},{-82,160}}, color={255,0,255}));
+  connect(enaMinCon.y, yEnaMinOut)
+    annotation (Line(points={{-58,160},{240,160}}, color={255,0,255}));
 annotation (
   defaultComponentName="ecoLim",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -409,20 +415,25 @@ annotation (
           pattern=LinePattern.Dash,
           textString="yRetDam_min"),
         Text(
-          extent={{42,40},{98,22}},
+          extent={{42,20},{98,2}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
-          extent={{42,60},{98,42}},
+          extent={{42,40},{98,22}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
-          extent={{46,90},{98,72}},
+          extent={{46,100},{98,82}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yMinOutDam")}),
+          textString="yMinOutDam"),
+        Text(
+          extent={{54,78},{96,64}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yEnaMinOut")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-300},{220,300}})),
   Documentation(info="<html>
 <p>

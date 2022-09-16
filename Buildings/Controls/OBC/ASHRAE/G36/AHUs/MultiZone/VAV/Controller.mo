@@ -624,11 +624,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Measured AHU return airflow rate"
     annotation (Placement(transformation(extent={{-400,-460},{-360,-420}}),
         iconTransformation(extent={{-240,-380},{-200,-340}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1MinOutAirDam
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp
-    "Minimum outdoor air damper status, true when it is open"
-    annotation (Placement(transformation(extent={{-400,-490},{-360,-450}}),
-        iconTransformation(extent={{-240,-410},{-200,-370}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi_actual(
     final min=0,
     final max=1,
@@ -950,7 +945,7 @@ block Controller "Multizone VAV air handling unit controller"
     final k=1)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Gain factor"
-    annotation (Placement(transformation(extent={{-220,-380},{-200,-360}})));
+    annotation (Placement(transformation(extent={{-240,-380},{-220,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneStd(
     final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
     "No energy standard"
@@ -1038,14 +1033,15 @@ equation
           -150},{40,-51},{60,-51}}, color={0,0,127}));
   connect(u1SupFan, ecoCon.u1SupFan) annotation (Line(points={{-380,380},{-300,
           380},{-300,-54},{60,-54}}, color={255,0,255}));
-  connect(ecoCon.yOutDam_min, frePro.uOutDamPosMin) annotation (Line(points={{84,-22},
-          {128,-22},{128,-181},{178,-181}},      color={0,0,127}));
+  connect(ecoCon.yOutDam_min, frePro.uOutDamPosMin) annotation (Line(points={{84,-21},
+          {128,-21},{128,-181},{178,-181}},      color={0,0,127}));
   connect(TAirSup, frePro.TAirSup) annotation (Line(points={{-380,340},{-290,340},
           {-290,-195},{178,-195}}, color={0,0,127}));
-  connect(frePro.u1FreSta, u1FreSta) annotation (Line(points={{178,-198},{96,-198},
-          {96,-180},{-380,-180}},  color={255,0,255}));
-  connect(frePro.u1SofSwiRes, u1SofSwiRes) annotation (Line(points={{178,-200},{
-          96,-200},{96,-220},{-380,-220}},   color={255,0,255}));
+  connect(frePro.u1FreSta, u1FreSta) annotation (Line(points={{178,-198},{92,
+          -198},{92,-180},{-380,-180}},
+                                   color={255,0,255}));
+  connect(frePro.u1SofSwiRes, u1SofSwiRes) annotation (Line(points={{178,-200},
+          {92,-200},{92,-220},{-380,-220}},  color={255,0,255}));
   connect(frePro.uRelFan, uRelFan) annotation (Line(points={{178,-214},{136,-214},
           {136,-280},{-380,-280}}, color={0,0,127}));
   connect(frePro.TAirMix, TAirMix) annotation (Line(points={{178,-219},{144,-219},
@@ -1073,7 +1069,7 @@ equation
   connect(frePro.yOutDam, yOutDam) annotation (Line(points={{202,-187},{270,-187},
           {270,30},{380,30}}, color={0,0,127}));
   connect(ecoCon.yMinOutDam, frePro.uMinOutDam) annotation (Line(points={{84,-27},
-          {120,-27},{120,-189},{178,-189}}, color={0,0,127}));
+          {116,-27},{116,-189},{178,-189}}, color={0,0,127}));
   connect(frePro.yMinOutDam, yMinOutDam) annotation (Line(points={{202,-190},{230,
           -190},{230,160},{380,160}}, color={0,0,127}));
   connect(frePro.ySupFan, ySupFan) annotation (Line(points={{202,-197},{300,-197},
@@ -1124,8 +1120,6 @@ equation
           {128,-477},{128,-210},{178,-210}}, color={0,0,127}));
   connect(frePro.yAla, yAla) annotation (Line(points={{202,-219},{292,-219},{292,
           -290},{380,-290}}, color={255,127,0}));
-  connect(retFanDpCon.u1MinOutAirDam, u1MinOutAirDam)
-    annotation (Line(points={{-162,-470},{-380,-470}}, color={255,0,255}));
   connect(conTSupSet.TAirSupSet, TAirSupSet) annotation (Line(points={{-138,450},
           {120,450},{120,500},{380,500}}, color={0,0,127}));
   connect(tit24OutAirSet.effAbsOutAir_normalized, ecoCon.effAbsOutAir_normalized)
@@ -1165,21 +1159,23 @@ equation
   connect(uAhuOpeMod, ecoCon.uOpeMod) annotation (Line(points={{-380,560},{-240,
           560},{-240,-57},{60,-57}}, color={255,127,0}));
   connect(ecoCon.y1MinOutDam, frePro.u1MinOutDam) annotation (Line(points={{84,-29},
-          {112,-29},{112,-191},{178,-191}},      color={255,0,255}));
+          {108,-29},{108,-191},{178,-191}},      color={255,0,255}));
   connect(frePro.y1MinOutDam, y1MinOutDam) annotation (Line(points={{202,-192},{
           240,-192},{240,130},{380,130}}, color={255,0,255}));
   connect(retFanDpCon.yRelDam, yRelDam) annotation (Line(points={{-138,-468},{168,
           -468},{168,60},{380,60}},     color={0,0,127}));
-  connect(VSumZonPri_flow, gai1.u) annotation (Line(points={{-380,216},{-260,216},
-          {-260,-370},{-222,-370}}, color={0,0,127}));
+  connect(VSumZonPri_flow, gai1.u) annotation (Line(points={{-380,216},{-260,
+          216},{-260,-370},{-242,-370}},
+                                    color={0,0,127}));
   connect(retFanAirTra.yRetFan, gai.u) annotation (Line(points={{-138,-400},{-100,
           -400},{-100,-430},{-62,-430}}, color={0,0,127}));
   connect(gai.y, addPar.u)
     annotation (Line(points={{-38,-430},{-22,-430}}, color={0,0,127}));
   connect(addPar.y, retFanAirTra.VAirRet_flow) annotation (Line(points={{2,-430},
           {20,-430},{20,-452},{-200,-452},{-200,-400},{-162,-400}}, color={0,0,127}));
-  connect(gai1.y, retFanAirTra.VAirSup_flow) annotation (Line(points={{-198,-370},
-          {-180,-370},{-180,-394},{-162,-394}}, color={0,0,127}));
+  connect(gai1.y, retFanAirTra.VAirSup_flow) annotation (Line(points={{-218,
+          -370},{-200,-370},{-200,-394},{-162,-394}},
+                                                color={0,0,127}));
   connect(u1RelFan, frePro.u1RelFan) annotation (Line(points={{-380,-250},{112,-250},
           {112,-212},{178,-212}}, color={255,0,255}));
   connect(retFanAirTra.y1RetFan, frePro.u1RetFan) annotation (Line(points={{-138,
@@ -1190,8 +1186,9 @@ equation
           {330,-160},{380,-160}}, color={255,0,255}));
   connect(frePro.yFreProSta, freProMod.u) annotation (Line(points={{202,-215},{220,
           -215},{220,-500},{170,-500},{170,-560},{178,-560}}, color={255,127,0}));
-  connect(conSupFan.y1SupFan, frePro.u1SupFan) annotation (Line(points={{-198,517},
-          {104,517},{104,-203},{178,-203}}, color={255,0,255}));
+  connect(conSupFan.y1SupFan, frePro.u1SupFan) annotation (Line(points={{-198,
+          517},{100,517},{100,-203},{178,-203}},
+                                            color={255,0,255}));
   connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{202,-195},{290,-195},
           {290,-40},{380,-40}}, color={255,0,255}));
   connect(frePro.y1RetFan, y1RetFan) annotation (Line(points={{202,-200},{310,-200},
@@ -1212,6 +1209,9 @@ equation
     annotation (Line(points={{242,340},{258,340}}, color={255,0,255}));
   connect(not2.y, assMes2.u)
     annotation (Line(points={{282,340},{298,340}}, color={255,0,255}));
+  connect(ecoCon.yEnaMinOut, retFanDpCon.u1MinOutAirDam) annotation (Line(
+        points={{84,-23},{122,-23},{122,-160},{-180,-160},{-180,-470},{-162,
+          -470}}, color={255,0,255}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1427,11 +1427,6 @@ annotation (
        Text(extent={{166,-190},{196,-208}},
           textColor={255,127,0},
           textString="yAla"),
-       Text(
-          extent={{-196,-378},{-108,-398}},
-          textColor={255,0,255},
-          textString="u1MinOutAirDam",
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
        Text(extent={{142,352},{198,334}},
           textColor={0,0,0},
           textString="TAirSupSet"),
