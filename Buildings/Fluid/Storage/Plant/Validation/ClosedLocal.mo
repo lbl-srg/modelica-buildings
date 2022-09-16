@@ -58,7 +58,51 @@ equation
 <p>
 This is a validation model where the storage plant with a closed tank is configured
 NOT to allow remotely charging the tank.
+It contains the following schedule:
 </p>
+<table summary= \"operation modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Time slot</th>
+    <th>Plant flow</th>
+    <th>Chiller flow</th>
+    <th>Tank flow</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1.</td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>Both chiller and tank outputting to the network</td>
+  </tr>
+  <tr>
+    <td>2.</td>
+    <td>0</td>
+    <td>1</td>
+    <td>-1</td>
+    <td>Plant disconnected from the network;<br/>
+        Chiller charges the tank</td>
+  </tr>
+  <tr>
+    <td>3.</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>Chiller outputting to the network;<br/>
+        Tank on hold (not charging nor discharging)</td>
+  </tr>
+  <tr>
+    <td>4.</td>
+    <td>2</td>
+    <td>1</td>
+    <td>1</td>
+    <td>Both chiller and tank outputting to the network</td>
+  </tr>
+</tbody>
+</table>
 </html>", revisions="<html>
 <ul>
 <li>
