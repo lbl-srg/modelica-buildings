@@ -1,1 +1,5 @@
+OperationModes
+DemandLevels
 ControlOpenLoop
+ControlClosedLoop
+ControlEfficiencyMode
