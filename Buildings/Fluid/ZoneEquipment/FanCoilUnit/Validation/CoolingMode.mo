@@ -203,7 +203,7 @@ equation
     experiment(
       StopTime=86400,
       Interval=60,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/CoolingMode.mos"
       "Simulate and plot"),
     Documentation(info="<html>

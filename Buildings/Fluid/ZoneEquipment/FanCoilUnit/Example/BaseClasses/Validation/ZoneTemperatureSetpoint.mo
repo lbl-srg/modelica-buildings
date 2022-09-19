@@ -38,5 +38,6 @@ equation
       </li>
       </ul>
       </html>"),
-    experiment(StopTime=100));
+    experiment(StopTime=100,
+    Tolerance=1e-06));
 end ZoneTemperatureSetpoint;

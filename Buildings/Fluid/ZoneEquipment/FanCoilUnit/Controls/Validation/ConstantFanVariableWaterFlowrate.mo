@@ -66,5 +66,6 @@ equation
       First implementation.
       </li>
       </ul>
-      </html>"));
+      </html>"),
+    experiment(Tolerance=1e-06));
 end ConstantFanVariableWaterFlowrate;
