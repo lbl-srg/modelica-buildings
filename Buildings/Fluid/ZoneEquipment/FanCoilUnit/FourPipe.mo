@@ -274,9 +274,31 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final Q_flow_nominal=QHeaCoi_flow_nominal) if not has_HW
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Math.Gain gai(final k=mAir_flow_nominal)
+
+  Modelica.Blocks.Math.Gain gai(
+    final k=mAir_flow_nominal)
     "Find mass flowrate value by multiplying nominal flowrate by normalized fan speed signal"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+
+  Modelica.Blocks.Interfaces.RealOutput yFan_actual(
+    final unit="1",
+    displayUnit="1")
+    "Normalized measured fan speed signal"
+    annotation (Placement(transformation(extent={{360,100},{380,120}}),
+      iconTransformation(extent={{200,130},{220,150}})));
+
+  Modelica.Blocks.Math.Gain gaiFanNor(
+    final k=1/mAir_flow_nominal)
+    "Find normalized fan signal by dividing actual fan mass flowrate by nominal flowrate"
+    annotation (Placement(transformation(extent={{300,100},{320,120}})));
+
+  Modelica.Blocks.Interfaces.RealOutput TAirSup(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")
+    "Measured supply air temperature"
+    annotation (Placement(transformation(extent={{360,70},{380,90}}),
+      iconTransformation(extent={{200,130},{220,150}})));
 
 protected
   final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
@@ -370,6 +392,12 @@ equation
     annotation (Line(points={{-210,-40},{-220,-40}}, color={0,127,255}));
   connect(VAirExh_flow.port_b, out.ports[2]) annotation (Line(points={{-240,-40},
           {-252,-40},{-252,-22},{-260,-22}}, color={0,127,255}));
+  connect(gaiFanNor.y, yFan_actual)
+    annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
+  connect(fan.m_flow_actual, gaiFanNor.u) annotation (Line(points={{221,-5},{
+          240,-5},{240,110},{298,110}}, color={0,0,127}));
+  connect(TAirLvg.T, TAirSup)
+    annotation (Line(points={{250,1},{250,80},{370,80}}, color={0,0,127}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(
