@@ -68,7 +68,7 @@ record SizingData "Sizing calculations and values for component parameters"
     "Heat transferred in cooling coil"
     annotation(Dialog(enable=false, tab="Calculated parameters"));
 
-  parameter Modelica.Media.Interfaces.PartialSimpleMedium.ThermodynamicState stateChiWatIn_nominal = Modelica.Media.Water.ConstantPropertyLiquidWater.setState_pTX(pAir, TChiWatSup_nominal)
+  parameter Modelica.Media.Water.ConstantPropertyLiquidWater.ThermodynamicState stateChiWatIn_nominal = Modelica.Media.Water.ConstantPropertyLiquidWater.setState_pTX(pAir, TChiWatSup_nominal)
     "Thermodynamic state for chilled water at coil inlet"
     annotation(Dialog(enable=false, tab="Calculated parameters"));
 
