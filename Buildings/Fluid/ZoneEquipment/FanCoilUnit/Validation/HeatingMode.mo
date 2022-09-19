@@ -72,7 +72,7 @@ model HeatingMode
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     final columns=2:19,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -106,7 +106,7 @@ model HeatingMode
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    final filNam=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 

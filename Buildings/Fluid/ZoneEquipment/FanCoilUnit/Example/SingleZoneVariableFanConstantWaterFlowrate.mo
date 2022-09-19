@@ -107,9 +107,9 @@ model SingleZoneVariableFanConstantWaterFlowrate
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
-    final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
+    final epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    final weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     final usePrecompiledFMU=false,
     final computeWetBulbTemperature=false)
     "Building model"
