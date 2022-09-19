@@ -7,14 +7,14 @@ block RemoteCharging
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
     "Type of plant setup";
 
-  parameter Modelica.Units.SI.Time tDelValSup=180 "Delay time for the supply valve"
+  parameter Modelica.Units.SI.Time tDelValSup=45 "Delay time for the supply valve"
     annotation (Dialog(group="Singal Delays"));
-  parameter Modelica.Units.SI.Time tDelPumSup=180 "Delay time for the supply pump"
+  parameter Modelica.Units.SI.Time tDelPumSup=120 "Delay time for the supply pump"
     annotation (Dialog(group="Singal Delays"));
-  parameter Modelica.Units.SI.Time tDelValRet=180 "Delay time for the return valve"
+  parameter Modelica.Units.SI.Time tDelValRet=45 "Delay time for the return valve"
     annotation (Dialog(group="Singal Delays",
     enable= plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Modelica.Units.SI.Time tDelPumRet=180 "Delay time for the return pump"
+  parameter Modelica.Units.SI.Time tDelPumRet=120 "Delay time for the return pump"
     annotation (Dialog(group="Singal Delays",
     enable= plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
 
