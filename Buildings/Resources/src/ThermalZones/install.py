@@ -46,7 +46,7 @@ if __name__ == '__main__':
       raise OSError(msg) from e
   
   if executable is None:
-    raise OSError("A Python installation of at least version 3 is required to run this script. Executable 'python' nor 'python3' is pointint to a valid version.")
+    raise OSError("A Python installation of at least version 3 is required to run this script. Executable 'python' nor 'python3' is pointing to a valid version.")
 
   proc = [executable, os.path.join(os.path.dirname(os.path.realpath(__file__)), "EnergyPlus_9_6_0", "install.py")] 
 
