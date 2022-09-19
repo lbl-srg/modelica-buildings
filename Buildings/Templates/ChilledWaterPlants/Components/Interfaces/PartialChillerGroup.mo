@@ -61,20 +61,17 @@ model PartialChillerGroup "Interface class for chiller group"
   final parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
     dat.mChiWatChi_flow_nominal
     "CHW mass flow rate for each chiller";
-  final parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal[nChi]=
-    dat.mConWatChi_flow_nominal
+  final parameter Modelica.Units.SI.MassFlowRate mConFluChi_flow_nominal[nChi]=
+    dat.mConFluChi_flow_nominal
     "CW mass flow rate for each chiller";
-  final parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi]=
-    dat.mConAirChi_flow_nominal
-    "Air mass flow rate at condenser for each chiller";
   final parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi]=
     dat.capChi_nominal
     "Cooling capacity for each chiller";
   final parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi]=
     dat.dpChiWatChi_nominal
     "CHW pressure drop for each chiller";
-  final parameter Modelica.Units.SI.PressureDifference dpConWatChi_nominal[nChi]=
-    dat.dpConWatChi_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpConFluChi_nominal[nChi]=
+    dat.dpConFluChi_nominal
     "CW pressure drop for each chiller";
   final parameter Modelica.Units.SI.Temperature TChiWatChiSup_nominal[nChi]=
     dat.TChiWatChiSup_nominal
@@ -88,7 +85,7 @@ model PartialChillerGroup "Interface class for chiller group"
     annotation (Dialog(enable=false));
   parameter Buildings.Templates.Components.Data.Valve datValConWatChiIso[nChi](
     each final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-    final m_flow_nominal=mConWatChi_flow_nominal,
+    final m_flow_nominal=mConFluChi_flow_nominal,
     each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
     "Series chillers CHW bypass valve parameters"
     annotation (Dialog(enable=false));

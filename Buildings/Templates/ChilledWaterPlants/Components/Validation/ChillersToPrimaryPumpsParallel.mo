@@ -131,10 +131,6 @@ model ChillersToPrimaryPumpsParallel
     dp_nominal=0)
     "Cooling load"
     annotation (Placement(transformation(extent={{10,110},{-10,130}})));
-  Modelica.Blocks.Sources.RealExpression sigModLoa(
-    y=sum(pumChiWatPri.sigCon.y)/nChi)
-    "Load modulating signal"
-    annotation (Placement(transformation(extent={{-10,124},{10,144}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatPriSup(
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal))
@@ -222,10 +218,6 @@ model ChillersToPrimaryPumpsParallel
     dp_nominal=0)
     "Cooling load"
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
-  Modelica.Blocks.Sources.RealExpression sigModLoa1(
-    y=sum(pumChiWatPri.sigCon.y)/nChi)
-    "Load modulating signal"
-    annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatPriSup1(
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal))
@@ -301,6 +293,29 @@ model ChillersToPrimaryPumpsParallel
   .Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla
     "Plant control bus" annotation (Placement(transformation(extent={{220,60},{
             260,100}}), iconTransformation(extent={{-432,12},{-412,32}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChi]
+    "Convert pump return signal to real" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={240,190})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa(k=fill(1/nChi, nChi),
+      nin=nChi) "Compute load modulating signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={240,160})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+                                                               [nChi]
+    "Convert pump return signal to real" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={240,40})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa1(k=fill(1/nChi, nChi),
+      nin=nChi) "Compute load modulating signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={240,10})));
 equation
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{-10,180},{16,180}}, color={0,127,255}));
@@ -320,9 +335,6 @@ equation
       points={{200,220},{200,210},{-20,210},{-20,190}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigModLoa.y, loa.u)
-    annotation (Line(points={{11,134},{20,134},{20,126},{12,126}},
-                                                               color={0,0,127}));
   connect(outPumChiWatPri.port_b, TChiWatPriSup.port_a)
     annotation (Line(points={{36,180},{50,180}}, color={0,127,255}));
   connect(TChiWatPriSup.port_b, mChiWatPri_flow.port_a)
@@ -360,9 +372,6 @@ equation
       points={{200,80},{200,60},{-20,60},{-20,50}},
       color={255,204,51},
       thickness=0.5));
-  connect(sigModLoa1.y, loa1.u) annotation (Line(points={{11,-6},{20,-6},{20,
-          -14},{12,-14}},
-                     color={0,0,127}));
   connect(outPumChiWatPri1.port_b, TChiWatPriSup1.port_a)
     annotation (Line(points={{36,40},{50,40}}, color={0,127,255}));
   connect(TChiWatPriSup1.port_b, mChiWatPri_flow1.port_a)
@@ -417,6 +426,22 @@ equation
           -80},{-120,-60},{-160,-60}}, color={0,127,255}));
   connect(busValChiWatChiByp, busPla.valChiWatChiByp) annotation (Line(
       points={{240,100},{240,80}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(booToRea.y,comSigLoa. u)
+    annotation (Line(points={{240,178},{240,172}},   color={0,0,127}));
+  connect(busPumChiWatPri.y1_actual, booToRea.u) annotation (Line(
+      points={{200,220},{240,220},{240,202}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(comSigLoa.y, loa.u)
+    annotation (Line(points={{240,148},{240,126},{12,126}}, color={0,0,127}));
+  connect(booToRea1.y, comSigLoa1.u)
+    annotation (Line(points={{240,28},{240,22}}, color={0,0,127}));
+  connect(comSigLoa1.y, loa1.u)
+    annotation (Line(points={{240,-2},{240,-14},{12,-14}}, color={0,0,127}));
+  connect(busPumChiWatPri1.y1_actual, booToRea1.u) annotation (Line(
+      points={{200,80},{220,80},{220,60},{240,60},{240,52}},
       color={255,204,51},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(extent={{-260,-640},{260,440}})),

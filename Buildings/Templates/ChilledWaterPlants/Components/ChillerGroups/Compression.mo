@@ -31,14 +31,14 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{110,-110},{90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiSup[nChi](
     redeclare each final package Medium=MediumCon,
-    final m_flow_nominal=mConWatChi_flow_nominal,
+    final m_flow_nominal=mConFluChi_flow_nominal,
     each have_sen=true,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW supply temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiRet[nChi](
     redeclare each final package Medium=MediumCon,
-    final m_flow_nominal=mConWatChi_flow_nominal,
+    final m_flow_nominal=mConFluChi_flow_nominal,
     each have_sen=true,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW return temperature"
@@ -79,7 +79,7 @@ model Compression "Group of compression chillers"
     constrainedby Buildings.Templates.Components.Interfaces.PartialValve(
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
-    final dat=datValConWatChiIso)
+    final dat=datValChiWatChiIso)
     "Chiller CHW isolation valve - Select between modulating or two-position"
     annotation (
     Dialog(enable=typOptValChiWatIso==Buildings.Templates.Components.Types.ValveOption.Choices),

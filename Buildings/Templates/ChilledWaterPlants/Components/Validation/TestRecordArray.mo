@@ -1,5 +1,6 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Validation;
 model TestRecordArray
+  extends Modelica.Icons.Example;
 
   record SingleChillerRecord
     parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal=30
@@ -53,11 +54,9 @@ model TestRecordArray
       final capChi_nominal=capChi_nominal,
       final TChiWatSup_nominal=fill(TChiWatSup_nominal, nChi),
       final per=per);
-
   end ChillerGroupRecord;
 
   parameter ChillerGroupRecord rec(
-    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes per);
-
+    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per);
 
 end TestRecordArray;
