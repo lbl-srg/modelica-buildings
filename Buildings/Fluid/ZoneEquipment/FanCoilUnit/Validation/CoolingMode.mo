@@ -32,7 +32,7 @@ model CoolingMode
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
-    redeclare package MediumCW = MediumW,
+    redeclare package MediumCHW = MediumW,
     redeclare package MediumHW = MediumW,
     final mAir_flow_nominal=FCUSizing.mAir_flow_nominal,
     final QHeaCoi_flow_nominal=13866,
