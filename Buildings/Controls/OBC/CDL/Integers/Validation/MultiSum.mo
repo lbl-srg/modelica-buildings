@@ -47,24 +47,23 @@ model MultiSum
 
 equation
   connect(ramp1.y,round1.u)
-    annotation (Line(points={{-58,40},{-42,40}},color={0,0,127}));
+    annotation (Line(points={{-59,40},{-42,40}},color={0,0,127}));
   connect(ramp2.y,round2.u)
-    annotation (Line(points={{-58,0},{-42,0}},color={0,0,127}));
+    annotation (Line(points={{-59,0},{-42,0}},color={0,0,127}));
   connect(ramp3.y,round3.u)
-    annotation (Line(points={{-58,-40},{-42,-40}},color={0,0,127}));
+    annotation (Line(points={{-59,-40},{-42,-40}},color={0,0,127}));
   connect(round3.y,reaToInt2.u)
-    annotation (Line(points={{-18,-40},{-2,-40}},color={0,0,127}));
+    annotation (Line(points={{-19,-40},{-2,-40}},color={0,0,127}));
   connect(round2.y,reaToInt1.u)
-    annotation (Line(points={{-18,0},{-2,0}},color={0,0,127}));
+    annotation (Line(points={{-19,0},{-2,0}},color={0,0,127}));
   connect(round1.y,reaToInt.u)
-    annotation (Line(points={{-18,40},{-2,40}},color={0,0,127}));
+    annotation (Line(points={{-19,40},{-2,40}},color={0,0,127}));
   connect(reaToInt.y,add1.u[1])
-    annotation (Line(points={{22,40},{40,40},{40,-2.33333},{58,-2.33333}},
-                                                                        color={255,127,0}));
+    annotation (Line(points={{21,40},{40,40},{40,4.66667},{58,4.66667}},color={255,127,0}));
   connect(reaToInt1.y,add1.u[2])
-    annotation (Line(points={{22,0},{38,0},{38,0},{58,0}},color={255,127,0}));
+    annotation (Line(points={{21,0},{38,0},{38,0},{58,0}},color={255,127,0}));
   connect(reaToInt2.y,add1.u[3])
-    annotation (Line(points={{22,-40},{40,-40},{40,2.33333},{58,2.33333}},  color={255,127,0}));
+    annotation (Line(points={{21,-40},{40,-40},{40,-4.66667},{58,-4.66667}},color={255,127,0}));
   annotation (
     experiment(
       StopTime=1.0,
