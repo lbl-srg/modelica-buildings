@@ -10,25 +10,25 @@ partial model PartialBranchPorts
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aFroNet(
     redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
+    p(final displayUnit="Pa"))
     "Port whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
         iconTransformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bToNet(
     redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
+    p(final displayUnit="Pa"))
     "Port whose nominal flow direction is to the district network" annotation (
       Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
           extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bToChi(
     redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
+    p(final displayUnit="Pa"))
     "Port whose nominal flow direction is to the chiller" annotation (Placement(
         transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
           extent={{-110,-70},{-90,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aFroChi(
     redeclare final package Medium = Medium,
-    p(displayUnit="Pa"))
+    p(final displayUnit="Pa"))
     "Port whose nominal flow direction is from the chiller" annotation (
       Placement(transformation(extent={{-110,50},{-90,70}}), iconTransformation(
           extent={{-110,50},{-90,70}})));
