@@ -40,7 +40,8 @@ model SingleZoneVariableFanConstantWaterFlowrate
     final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.FanData fanPer)
+    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.FanData fanPer,
+    out(medium(T(start=293.15))))
     "Fan coil system model"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
 
