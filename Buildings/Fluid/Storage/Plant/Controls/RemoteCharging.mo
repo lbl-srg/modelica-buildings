@@ -21,7 +21,7 @@ block RemoteCharging
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-110,70}), iconTransformation(
+          origin={-110,110}),iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-110,80})));
@@ -96,7 +96,7 @@ block RemoteCharging
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,50}), iconTransformation(
+        origin={-110,90}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,40})));
@@ -110,7 +110,7 @@ block RemoteCharging
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={70,10})));
+        origin={50,10})));
   Buildings.Controls.Continuous.LimPID conPI_pumSup(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
@@ -168,6 +168,25 @@ block RemoteCharging
         rotation=-90,
         origin={190,-70})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Max pos
+    "Only allows non-negative flow setpoint"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-50,50})));
+  Buildings.Controls.OBC.CDL.Continuous.Min negPumRet
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    "Only allows non-positive flow setpoint" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={110,50})));
+  Buildings.Controls.OBC.CDL.Continuous.Min negValCha
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    "Only allows non-positive flow setpoint" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={50,50})));
 initial equation
   assert(plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
   or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
@@ -183,15 +202,10 @@ equation
                                                         color={255,0,255}));
   connect(notRemCha.y, andOut.u2) annotation (Line(points={{182,38},{182,22}},
                          color={255,0,255}));
-  connect(conPI_pumRet.u_s, mTanSet_flow)
-    annotation (Line(points={{110,22},{110,70},{-110,70}},
-                                                         color={0,0,127}));
 
   connect(andOut.u1, uAva)
     annotation (Line(points={{190,22},{190,30},{230,30}}, color={255,0,255}));
 
-  connect(conPI_pumSup.u_s, mTanSet_flow)
-    annotation (Line(points={{-50,22},{-50,70},{-110,70}}, color={0,0,127}));
   connect(andOut.y, swiPumSup.u2) annotation (Line(points={{190,-2},{190,-40},{-50,
           -40},{-50,-58}}, color={255,0,255}));
   connect(conPI_pumSup.y, swiPumSup.u1) annotation (Line(points={{-50,-1},{-50,-10},
@@ -209,7 +223,7 @@ equation
   connect(booToReaValSupToNet.y, yValSup[1]) annotation (Line(points={{-10,-82},
           {-10,-90},{30,-90},{30,-112.5}}, color={0,0,127}));
   connect(conPI_pumRet.u_m, mTan_flow) annotation (Line(points={{98,10},{90,10},
-          {90,50},{-110,50}}, color={0,0,127}));
+          {90,90},{-110,90}}, color={0,0,127}));
   connect(andCha.u2, uRemCha) annotation (Line(points={{142,22},{142,70},{230,70}},
         color={255,0,255}));
   connect(andCha.u1, uAva)
@@ -229,19 +243,35 @@ equation
   connect(booToReaValRetFroNet.y, yValRet[2]) annotation (Line(points={{190,-82},
           {190,-90},{170,-90},{170,-107.5}}, color={0,0,127}));
   connect(conPI_pumSup.u_m, mTan_flow) annotation (Line(points={{-62,10},{-68,10},
-          {-68,50},{-110,50}},     color={0,0,127}));
-  connect(swiValCha.u1, conPI_valCha.y) annotation (Line(points={{78,-58},{78,-10},
-          {70,-10},{70,-1}}, color={0,0,127}));
+          {-68,90},{-110,90}},     color={0,0,127}));
+  connect(swiValCha.u1, conPI_valCha.y) annotation (Line(points={{78,-58},{78,-6},
+          {50,-6},{50,-1}},  color={0,0,127}));
   connect(swiValCha.u2, andCha.y) annotation (Line(points={{70,-58},{70,-50},{150,
           -50},{150,-2}}, color={255,0,255}));
   connect(swiValCha.u3, zero.y)
     annotation (Line(points={{62,-58},{62,-30},{-79,-30}}, color={0,0,127}));
-  connect(conPI_valCha.u_m, mTan_flow) annotation (Line(points={{58,10},{50,10},
-          {50,50},{-110,50}}, color={0,0,127}));
-  connect(conPI_valCha.u_s, mTanSet_flow)
-    annotation (Line(points={{70,22},{70,70},{-110,70}}, color={0,0,127}));
+  connect(conPI_valCha.u_m, mTan_flow) annotation (Line(points={{38,10},{30,10},
+          {30,90},{-110,90}}, color={0,0,127}));
   connect(swiValCha.y, yValSup[2]) annotation (Line(points={{70,-82},{70,-90},{30,
           -90},{30,-107.5}}, color={0,0,127}));
+  connect(pos.u2, mTanSet_flow)
+    annotation (Line(points={{-56,62},{-56,110},{-110,110}}, color={0,0,127}));
+  connect(zero.y, pos.u1) annotation (Line(points={{-79,-30},{-30,-30},{-30,68},
+          {-44,68},{-44,62}}, color={0,0,127}));
+  connect(conPI_pumSup.u_s, pos.y)
+    annotation (Line(points={{-50,22},{-50,38}}, color={0,0,127}));
+  connect(negValCha.u2, mTanSet_flow)
+    annotation (Line(points={{44,62},{44,110},{-110,110}}, color={0,0,127}));
+  connect(conPI_valCha.u_s, negValCha.y)
+    annotation (Line(points={{50,22},{50,38}}, color={0,0,127}));
+  connect(zero.y, negValCha.u1) annotation (Line(points={{-79,-30},{70,-30},{70,
+          68},{56,68},{56,62}}, color={0,0,127}));
+  connect(negPumRet.u2, mTanSet_flow)
+    annotation (Line(points={{104,62},{104,110},{-110,110}}, color={0,0,127}));
+  connect(zero.y, negPumRet.u1) annotation (Line(points={{-79,-30},{130,-30},{130,
+          68},{116,68},{116,62}}, color={0,0,127}));
+  connect(conPI_pumRet.u_s, negPumRet.y)
+    annotation (Line(points={{110,22},{110,38}}, color={0,0,127}));
   annotation (
   defaultComponentName="conRemCha",
   Diagram(coordinateSystem(extent={{-100,-100},{220,80}})),  Icon(
