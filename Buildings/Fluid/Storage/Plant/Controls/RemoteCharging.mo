@@ -204,7 +204,7 @@ block RemoteCharging
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delValRet(
     final delayTime=tDelValRet)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-                    "Delays the valve signal" annotation (Placement(
+    "Delays the valve signal"                 annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -250,6 +250,19 @@ block RemoteCharging
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,50})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delValSupFroNet(
+    final delayTime=tDelValSup)
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    "Delays the valve signal" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={190,-110})));
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay delValRetFroNet(
+    final delayTime=tDelValRet) "Delays the valve signal" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={30,-110})));
 initial equation
   assert(plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
   or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
@@ -294,12 +307,8 @@ equation
   connect(booToReaValRetToNet.y, yValRet[1]) annotation (Line(points={{150,-202},
           {150,-210},{170,-210},{170,-232.5}},
                                              color={0,0,127}));
-  connect(booToReaValSupFroNet.u, andCha.y) annotation (Line(points={{30,-178},{
-          30,-50},{150,-50},{150,-2}}, color={255,0,255}));
   connect(booToReaValSupFroNet.y, yValSup[2]) annotation (Line(points={{30,-202},
           {30,-227.5}},                   color={0,0,127}));
-  connect(booToReaValRetFroNet.u, andOut.y)
-    annotation (Line(points={{190,-178},{190,-2}},color={255,0,255}));
   connect(booToReaValRetFroNet.y, yValRet[2]) annotation (Line(points={{190,-202},
           {190,-210},{170,-210},{170,-227.5}},
                                              color={0,0,127}));
@@ -338,8 +347,6 @@ equation
           110,-50},{110,-58}}, color={255,0,255}));
   connect(notPumRet1.y, delPumRet.u)
     annotation (Line(points={{110,-82},{110,-98}}, color={255,0,255}));
-  connect(swiValCha.u2, andCha.y) annotation (Line(points={{70,-178},{70,-50},{
-          150,-50},{150,-2}}, color={255,0,255}));
   connect(pos.u2, mTanSet_flow)
     annotation (Line(points={{-56,62},{-56,110},{-110,110}}, color={0,0,127}));
   connect(zero.y, pos.u1) annotation (Line(points={{-79,-30},{-30,-30},{-30,68},
@@ -358,6 +365,16 @@ equation
           68},{116,68},{116,62}}, color={0,0,127}));
   connect(conPI_pumRet.u_s, negPumRet.y)
     annotation (Line(points={{110,22},{110,38}}, color={0,0,127}));
+  connect(booToReaValRetFroNet.u, delValSupFroNet.y)
+    annotation (Line(points={{190,-178},{190,-122}}, color={255,0,255}));
+  connect(delValSupFroNet.u, andOut.y)
+    annotation (Line(points={{190,-98},{190,-2}}, color={255,0,255}));
+  connect(booToReaValSupFroNet.u, delValRetFroNet.y)
+    annotation (Line(points={{30,-178},{30,-122}}, color={255,0,255}));
+  connect(delValRetFroNet.u, andCha.y) annotation (Line(points={{30,-98},{30,-50},
+          {150,-50},{150,-2}}, color={255,0,255}));
+  connect(swiValCha.u2, delValRetFroNet.y) annotation (Line(points={{70,-178},{70,
+          -170},{30,-170},{30,-122}}, color={255,0,255}));
   annotation (
   defaultComponentName="conRemCha",
   Diagram(coordinateSystem(extent={{-100,-220},{220,120}})), Icon(
