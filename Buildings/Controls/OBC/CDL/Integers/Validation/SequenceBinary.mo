@@ -10,7 +10,8 @@ model SequenceBinary
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
     final nSta=4,
     final minStaOn=1,
-    final h=0.05) "Total number of fired stages, with smaller stage hold time"
+    final h=0.05)
+    "Total number of fired stages, with smaller stage ON-OFF holding time"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(
     final nSta=4,
@@ -58,8 +59,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Integers.SequenceBinary</a>.
 </p>
 <p>
-It validates the effects of using different stage ON/OFF holding time and shows the
-results when the stage OFF durationg time is set to zero.
+It shows the results that when the stage ON/OFF holding time are set differently.
 </p>
 </html>",
 revisions="<html>
