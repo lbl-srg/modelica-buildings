@@ -142,15 +142,6 @@ equation
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
-        Line(
-          points={{40,100},{40,50},{0,50}},
-          color={0,0,0},
-          pattern=LinePattern.Dash,
-          visible=tankIsOpen),
-        Line(
-          points={{80,100},{80,50},{60,50}},
-          color={0,0,0},
-          pattern=LinePattern.Dash),
         Line(points={{-42,-60}}, color={28,108,200}),
         Line(points={{-60,-58},{-60,50},{0,50},{0,-52},{60,-52},{60,60}}, color=
              {28,108,200}),
