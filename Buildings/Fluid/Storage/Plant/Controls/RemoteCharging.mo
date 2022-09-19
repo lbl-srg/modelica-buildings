@@ -124,8 +124,8 @@ block RemoteCharging
         origin={50,10})));
   Buildings.Controls.Continuous.LimPID conPI_pumSup(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
-    Ti=10,
+    k=0.2,
+    Ti=5,
     reverseActing=true)  "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
