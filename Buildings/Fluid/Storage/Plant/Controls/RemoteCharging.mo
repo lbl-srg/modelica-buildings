@@ -58,7 +58,7 @@ block RemoteCharging
         rotation=-90,
         origin={30,-70})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiValCha
-    if not plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
     "True = on (y>0); false = off (y=0)."         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -104,7 +104,9 @@ block RemoteCharging
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=500,
     Ti=50,
-    reverseActing=false)                   "PI controller"
+    reverseActing=false)
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+                                           "PI controller"
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
