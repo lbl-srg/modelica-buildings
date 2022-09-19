@@ -14,14 +14,16 @@ model SingleZoneVariableFanConstantWaterFlowrate
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     final T=279.15,
-    nPorts=1) "Sink for chilled water"
+    final nPorts=1)
+    "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={110,-100})));
 
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     final T=318.15,
-    final nPorts=1) "Sink for heating hot water"
+    final nPorts=1)
+    "Sink for heating hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={40,-100})));
 
@@ -51,17 +53,18 @@ model SingleZoneVariableFanConstantWaterFlowrate
     "Constant real signal of 0.2 for the outdoor air economizer"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
-  Controls.VariableFanConstantWaterFlowrate conVarFanConWat(
-    controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    kCoo=0.5,
-    TiCoo=300,
-    TdCoo=0.5,
-    controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    kHea=0.5,
-    minFanSpe=0.15,
-    tFanEnaDel=60,
-    tFanEna=600,
-    dTHys=0.5)
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate conVarFanConWat(
+    final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final kCoo=0.5,
+    final TiCoo=300,
+    final TdCoo=0.5,
+    final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    final kHea=0.5,
+    final minFanSpe=0.15,
+    final tFanEnaDel=60,
+    final tFanEna=600,
+    final dTHys=0.5)
+    "FCU controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
@@ -69,7 +72,8 @@ model SingleZoneVariableFanConstantWaterFlowrate
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 
-  BaseClasses.ZoneTemperatureSetpoint TZonSet
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.ZoneTemperatureSetpoint TZonSet
+    "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
@@ -80,23 +84,26 @@ model SingleZoneVariableFanConstantWaterFlowrate
     "Find input fan signal by multiplying fan enable signal and fan speed signal"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrFanProOn(final t=
-        0.05)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrFanProOn(
+    final t=0.05)
     "Check if fan is running with speed greater than 10%"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=60)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=60)
     "Ensure fan is running for minimum time period before generating proven on signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
+  Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
     redeclare package Medium = MediumA,
     final zoneName="West Zone",
     final nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{68,100},{108,140}})));
 
-  Modelica.Blocks.Sources.Constant qIntGai(final k=0) "Internal heat gain"
+  Modelica.Blocks.Sources.Constant qIntGai(
+    final k=0)
+    "Internal heat gain"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
@@ -129,6 +136,7 @@ model SingleZoneVariableFanConstantWaterFlowrate
       origin={140,-100})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Check if fan is not operating"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
@@ -148,7 +156,8 @@ model SingleZoneVariableFanConstantWaterFlowrate
     "Find internal heat gain for zone only when it is occupied"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(nout=3)
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
+    final nout=3)
     "Convert internal heat gain value to vector"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
@@ -184,8 +193,8 @@ equation
           {-14,-12},{-14,-20},{20,-20},{20,-24},{28,-24}}, color={0,0,127}));
   connect(mulFanSig.y, fanCoiUni.uFan) annotation (Line(points={{52,-30},{60,-30},
           {60,4},{68,4}}, color={0,0,127}));
-  connect(fanCoiUni.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,14},
-          {120,14},{120,-66},{-140,-66},{-140,-50},{-132,-50}},     color={0,0,127}));
+  connect(fanCoiUni.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,16},
+          {120,16},{120,-66},{-140,-66},{-140,-50},{-132,-50}},     color={0,0,127}));
   connect(greThrFanProOn.y, truDel.u)
     annotation (Line(points={{-108,-50},{-102,-50}},
                                                    color={255,0,255}));
@@ -236,45 +245,37 @@ equation
       "Simulate and plot"),
     Documentation(info="<html>
       <p>
-      This is an open-loop validation model for the fan coil unit system model 
-      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem\">
-      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem</a>. It consists of:
+      This is an example model for the fan coil unit system model 
+      demonstrating use-case with a variable fan, constant pump flowrate controller. 
+      It consists of:
       <ul>
       <li>
       an instance of the fan coil unit system model <code>fanCoiUni</code>.
       </li>
       <li>
-      mixed volume <code>souAir</code> for imposing the boundary conditions of 
-      the zone air.
+      thermal zone model <code>zon</code> of class <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+      Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>.
       </li>
       <li>
       ideal media sources <code>souCoo</code> and <code>souHea</code> for simulating 
       the supply of chilled water and heating hot-water respectively.
       </li>
       <li>
-      data-table reader <code>datRea</code> for reading the simulation results from EnergyPlus.
+      fan coil unit controller <code>conVarFanConWat</code> of class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate</a>.
+      </li>
+      <li>
+      occupancy schedule controller <code>occSch</code>.
+      </li>
+      <li>
+      zone temperature setpoint controller <code>TZonSet</code>.
       </li>
       </ul>
       </p>
       <p>
-      The simulation model is set-up to replicate an EnergyPlus model <code>FanCoilAutoSize_ConstantFlowVariableFan.idf</code>
-      (available in the <code>/Resources/Data</code> section for this subpackage.)
-      An annual simulation was run on the above EnergyPlus model, and various output 
-      variables were recorded. These were then inserted into a data-file that is 
-      read by <code>datRea</code> in this model.
-      <br>
-      The data values are used to impose the boundary conditions on the simulation 
-      as well as compare the performance of the Modelica model with the equivalent 
-      EnergyPlus model. Once the simulation is complete, the values for the supply
-      air temperature and supply air flowrate, as well as the power consumption 
-      of the various components are compared against their counterparts from the 
-      EnergyPlus model.
-      <br>
-      This model validates the cooling mode operation by running the simulation from 07/01
-      through 07/10 with the weather file <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>.
-      It then makes plots for the supply air temperature and flowrate, as well as 
-      the energy consumption of the cooling coil, including sensible and latent components,
-      and the energy consumption of the supply fan.
+      The simulation model provides a closed-loop example of <code>fanCoiUni</code> that
+      is operated by <code>conVarFanConWat</code> and regulates the zone temperature 
+      in <code>zon</code> at the setpoint generated by <code>TZonSet</code>.
       </p>
       </html>", revisions="<html>
       <ul>

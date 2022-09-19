@@ -285,7 +285,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     displayUnit="1")
     "Normalized measured fan speed signal"
     annotation (Placement(transformation(extent={{360,100},{380,120}}),
-      iconTransformation(extent={{200,130},{220,150}})));
+      iconTransformation(extent={{200,150},{220,170}})));
 
   Modelica.Blocks.Math.Gain gaiFanNor(
     final k=1/mAir_flow_nominal)
@@ -298,7 +298,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{360,70},{380,90}}),
-      iconTransformation(extent={{200,130},{220,150}})));
+      iconTransformation(extent={{200,90},{220,110}})));
 
 protected
   final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
