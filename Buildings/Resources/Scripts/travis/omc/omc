@@ -97,7 +97,8 @@ echo "*************"
 echo "**** bas_nam:"
 echo $bas_nam
 echo "*************"
-exit 1
+ls -lhtr
+echo "*************"
 docker run \
   --user=developer \
   -i \
@@ -110,5 +111,4 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
-ls -lhtr /tmp/tmp-Buildings-1* 2>&1
 exit $?
