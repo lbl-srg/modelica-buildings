@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation;
 model ReliefFanGroup
-  "Validate model for calculating relief fans control"
+  "Validate model for controlling relief fans group"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReliefFanGroup
     relFanCon(final k=0.5) "Relief damper control, with staging up fans"

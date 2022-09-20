@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block ReliefFanGroup
-  "Sequence for relief fans control for AHUs using actuated relief dampers with relief fan(s)"
+  "Sequence for controlling relief fan group"
 
   parameter Integer nSupFan = 2
     "Total number of AHU supply fans that are serving the same common space";
@@ -53,8 +53,7 @@ block ReliefFanGroup
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelFan[nRelFan](
     final unit=fill("1", nRelFan),
-    final max=fill(1, nRelFan))
-    "Relief fan commanded speed"
+    final max=fill(1, nRelFan)) "Relief fan commanded speed"
     annotation (Placement(transformation(extent={{500,210},{540,250}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam[nRelFan](
@@ -399,7 +398,7 @@ equation
   connect(u1SupFan, enaRelGro.u) annotation (Line(points={{-540,350},{-510,350},
           {-510,310},{-502,310}}, color={255,0,255}));
   connect(booToRea1.y, pro.u1) annotation (Line(points={{-438,310},{138,310}},
-                           color={0,0,127}));
+          color={0,0,127}));
   connect(enaRelGro.y, booToRea1.u)
     annotation (Line(points={{-478,310},{-462,310}}, color={255,0,255}));
   connect(conP.y, greThr.u) annotation (Line(points={{-358,280},{-340,280},{-340,
@@ -637,7 +636,7 @@ equation
   connect(xor.y, not5.u) annotation (Line(points={{102,-210},{110,-210},{110,-228},
           {-20,-228},{-20,-248},{-2,-248}}, color={255,0,255}));
 
-annotation (defaultComponentName="relFanCon",
+annotation (defaultComponentName="relFanGroCon",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={
         Text(extent={{-100,140},{100,100}},
@@ -719,7 +718,7 @@ annotation (defaultComponentName="relFanCon",
           textString="Stage 0: open all the damper, but not turn on any relief fan")}),
 Documentation(info="<html>
 <p>
-Sequence for controlling relief fans and their dampers for AHUs using actuated
+Sequence for controlling group of relief fans and their dampers for AHUs using actuated
 relief dampers with relief fan(s). It is developed based on Section 5.16.9 of ASHRAE
 Guideline 36, May 2020.
 </p>
@@ -756,10 +755,10 @@ system group that are enabled; close the dampers when the loop output drops to 0
 5 minutes.
 </li>
 <li>
-Stage Up. When control loop is above minimum speed (<code>relFanSpe_min</code>) plus 15%, start
-stage-up timer. Each time the timer reaches 7 minutes, start the next relief fan (and
-open the associated damper) in the relief system group, per staging order, and reset
-the timer to 0. The timer is reset to 0 and frozen if control loop is below minimum
+Stage Up. When control loop output is above minimum speed (<code>relFanSpe_min</code>)
+plus 15%, start stage-up timer. Each time the timer reaches 7 minutes, start the next
+relief fan (and open the associated damper) in the relief system group, per staging order,
+and reset the timer to 0. The timer is reset to 0 and frozen if control loop is below minimum
 speed plus 15%. Note, when staging from Stage 0 (no relief fans) to Stage 1 (one relief
 fan), the discharge dampers of all nonoperating relief fans must be closed.
 </li>
