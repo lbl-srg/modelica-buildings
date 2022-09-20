@@ -143,7 +143,7 @@ test-dymola:
 
 test-openmodelica:
 	(cd $(ROOT)/Buildings && \
-	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources:$(PYTHONPATH) && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification --debug); \
 	  find /tmp/tmp-Buildings* -name Buildings_Controls_Continuous_Examples_LimPIDWithReset_buildingspy.json -exec cat {} +
 

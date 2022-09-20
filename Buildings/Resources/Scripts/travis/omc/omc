@@ -97,4 +97,5 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
+ls -lhtr /tmp/tmp-Buildings-1* 2>&1
 exit $?
