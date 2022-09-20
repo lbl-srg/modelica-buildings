@@ -4,9 +4,9 @@ model Compression "Compression chiller"
   Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1=MediumCon,
     redeclare final package Medium2=MediumChiWat,
-    final m1_flow_nominal=mConFlu_flow_nominal,
+    final m1_flow_nominal=mCon_flow_nominal,
     final m2_flow_nominal=mChiWat_flow_nominal,
-    final dp1_nominal=dpConFlu_nominal,
+    final dp1_nominal=dpCon_nominal,
     final dp2_nominal=dpChiWat_nominal,
     final per=dat.per,
     final tau1=tau,

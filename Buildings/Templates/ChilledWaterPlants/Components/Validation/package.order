@@ -2,5 +2,7 @@ ChillerGroup
 ChillerGroupDebug
 ChillersToPrimaryPumpsParallel
 ChillersToPrimaryPumpsSeries
+CoolerGroup
+CoolerGroupDebug
 Economizer
 TestRecordArray

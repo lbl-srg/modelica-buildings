@@ -1,0 +1,16 @@
+
+simulateModel("Buildings.Templates.ChilledWaterPlants.Components.Validation.CoolerGroup",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=2000.0,
+  resultFile="CoolerGroup");
+createPlot(id=1,
+  position={15, 15, 1184, 744},
+  y={"coo.coo[2].sta_a.T", "coo.coo[2].sta_b.T", "coo.coo[1].sta_a.T", "coo.coo[1].sta_b.T"},
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  position={215, 15, 1184, 744},
+  y={"coo1.coo[2].sta_a.T", "coo1.coo[2].sta_b.T", "coo1.coo[1].sta_a.T", "coo1.coo[1].sta_b.T"},
+  autoscale=true,
+  grid=true);

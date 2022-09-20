@@ -31,29 +31,6 @@ model WaterCooled "Water-cooled plants"
     "Condenser water medium";
 
   inner replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Parallel
-    cooTowSec constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolingTowers(
-      redeclare final package Medium = MediumConWat, final dat=dat.cooTowSec)
-    "Cooling tower section" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-220,0})), choices(choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Parallel
-          cooTowSec "Cooling towers in parallel")));
-  inner replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Headered
-    pumCon constrainedby
-    Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump(
-      redeclare final package Medium = MediumConWat, final dat=dat.pumCon)
-    "Condenser water pumps" annotation (Placement(transformation(extent={{-120,
-            -110},{-100,-90}})),
-                         choices(choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Headered
-          pumCon "Headered condenser water pumps"), choice(redeclare
-          Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Dedicated
-          pumCon "Dedicated condenser water pumps")));
-  inner replaceable
     Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer(
@@ -69,13 +46,6 @@ model WaterCooled "Water-cooled plants"
           Buildings.Templates.ChilledWaterPlants.Components.Economizers.WatersideEconomizer
           eco "Waterside economizer")));
 
-  Buildings.Templates.Components.Sensors.Temperature TConWatSup(
-    redeclare final package Medium = MediumConWat,
-    final have_sen=true,
-    final m_flow_nominal=dat.mCon_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Common condenser water supply temperature from towers"
-    annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatRet(
     redeclare final package Medium = MediumConWat,
     final have_sen=true,
@@ -93,13 +63,6 @@ model WaterCooled "Water-cooled plants"
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={-140,-180})));
-  Buildings.Fluid.Sources.Boundary_pT bouConWat(
-    redeclare final package Medium = MediumConWat,
-    nPorts=1)
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-140,10})));
 
 protected
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
@@ -108,20 +71,12 @@ protected
 
 equation
   // Sensors
-  connect(TConWatSup.y, bus.TConWatSup);
   connect(TConWatRet.y, bus.TConWatRet);
 
   // Bus connection
-  connect(cooTowSec.weaBus,busWea);
-  connect(cooTowSec.busCon, bus);
   connect(eco.bus, bus);
 
   // Mechanical
-  connect(TConWatRet.port_a, cooTowSec.port_a)
-    annotation (Line(points={{-190,-180},{-230,-180},{-230,0}},
-      color={0,127,255}));
-  connect(cooTowSec.port_b, TConWatSup.port_a)
-    annotation (Line(points={{-210,0},{-190,0}},     color={0,127,255}));
   connect(chiSec.port_b1, mixConWat.port_3)
     annotation (Line(points={{-78,-130},{-78,-140},{-140,-140},{-140,-170}},
       color={0,127,255}));
@@ -134,7 +89,4 @@ equation
   connect(eco.port_b2, chiSec.port_a2)
     annotation (Line(points={{-64,-152},{-20,-152},{-20,-130},{-66,-130}},
                                                                color={0,127,255}));
-  connect(TConWatSup.port_b, bouConWat.ports[1]) annotation (Line(points={{-170,0},
-          {-145,0},{-145,-3.55271e-15},{-140,-3.55271e-15}},    color={0,127,
-          255}));
 end WaterCooled;

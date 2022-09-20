@@ -32,7 +32,7 @@ model ChillerGroup "Validation model for chiller group"
     annotation (Evaluate=true,Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi]=
     capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiAirCoo)*
-    Buildings.Templates.Data.Defaults.mConAirByCap
+    Buildings.Templates.Data.Defaults.mConAirByCapChi
     "Air mass flow rate at condenser for each air-cooled chiller"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal=
@@ -90,9 +90,9 @@ model ChillerGroup "Validation model for chiller group"
     final nChi=nChi,
     final typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
-    final mConFluChi_flow_nominal=mConWatChi_flow_nominal,
+    final mConChi_flow_nominal=mConWatChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
-    final dpConFluChi_nominal=dpConWatChi_nominal,
+    final dpConChi_nominal=dpConWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
     PLRChi_min=fill(0.15, nChi),
@@ -102,7 +102,7 @@ model ChillerGroup "Validation model for chiller group"
     final nChi=nChi,
     final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
-    final mConFluChi_flow_nominal=mConAirChi_flow_nominal,
+    final mConChi_flow_nominal=mConAirChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),

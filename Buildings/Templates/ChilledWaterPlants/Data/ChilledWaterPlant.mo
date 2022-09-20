@@ -36,8 +36,7 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Buildings.Templates.Components.Data.PumpMultiple pumCon(final nChi=
         chiSec.nChi, m_flow_nominal=mCon_flow_nominal) "CW pumps"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Components.Data.CoolingTowers
+  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.CoolerGroup
     cooTowSec(m_flow_nominal=mCon_flow_nominal) "Cooling tower section"
     annotation (Dialog(group="Equipment", enable=not isAirCoo));
 

@@ -13,7 +13,7 @@ record ChillerGroup "Record for chiller group model"
     each final min=0)
     "CHW mass flow rate for each chiller"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mConFluChi_flow_nominal[nChi](
+  parameter Modelica.Units.SI.MassFlowRate mConChi_flow_nominal[nChi](
     each final min=0,
     start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
       then capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiWatCoo)/
@@ -22,7 +22,7 @@ record ChillerGroup "Record for chiller group model"
     Buildings.Templates.Data.Defaults.TConWatSup) elseif
     typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
       then capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiAirCoo)*
-    Buildings.Templates.Data.Defaults.mConAirByCap else fill(0, nChi))
+    Buildings.Templates.Data.Defaults.mConAirByCapChi else fill(0, nChi))
     "Condenser cooling fluid mass flow rate for each chiller"
     annotation(Dialog(group="Nominal condition",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -31,7 +31,7 @@ record ChillerGroup "Record for chiller group model"
     each start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW pressure drop for each chiller"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpConFluChi_nominal[nChi](
+  parameter Modelica.Units.SI.PressureDifference dpConChi_nominal[nChi](
     each final min=0,
     each start=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
     then Buildings.Templates.Data.Defaults.dpConWatChi elseif
@@ -69,20 +69,6 @@ record ChillerGroup "Record for chiller group model"
       PLRMin=PLRChi_min,
       PLRMinUnl=PLRUnlChi_min,
       mEva_flow_nominal=mChiWatChi_flow_nominal,
-      mCon_flow_nominal=mConFluChi_flow_nominal)
-    "Chiller performance data"
-    annotation(Dialog(group="Nominal condition"));
-  final parameter Buildings.Templates.Components.Data.Chiller datChi[nChi](
-    each final typ=typChi,
-    final mChiWat_flow_nominal=mChiWatChi_flow_nominal,
-    final mConFlu_flow_nominal=mConFluChi_flow_nominal,
-    final cap_nominal=capChi_nominal,
-    final dpChiWat_nominal=dpChiWatChi_nominal,
-    final dpConFlu_nominal=dpConFluChi_nominal,
-    final TChiWatSup_nominal=TChiWatChiSup_nominal,
-    final TChiWatSup_max=TChiWatChiSup_max,
-    final PLRUnl_min=PLRUnlChi_min,
-    final PLR_min=PLRChi_min,
-    final per=per)
-    "Parameter record of each chiller";
+      mCon_flow_nominal=mConChi_flow_nominal)
+    "Chiller performance data";
 end ChillerGroup;

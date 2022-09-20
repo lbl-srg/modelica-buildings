@@ -1,6 +1,7 @@
 Bus
 PartialChiller
 PartialCoil
+PartialCooler
 PartialDamper
 PartialFan
 PartialPump

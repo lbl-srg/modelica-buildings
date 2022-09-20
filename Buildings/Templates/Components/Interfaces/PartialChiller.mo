@@ -3,7 +3,7 @@ partial model PartialChiller "Partial chiller model"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1=MediumCon,
     redeclare final package Medium2=MediumChiWat,
-    final m1_flow_nominal=mConFlu_flow_nominal,
+    final m1_flow_nominal=mCon_flow_nominal,
     final m2_flow_nominal=mChiWat_flow_nominal,
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal);
@@ -23,13 +23,13 @@ partial model PartialChiller "Partial chiller model"
 
   parameter Buildings.Templates.Components.Data.Chiller dat(
     final typ=typ)
-    "Chiller data";
+    "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=
     dat.mChiWat_flow_nominal
     "CHW mass flow rate";
-  final parameter Modelica.Units.SI.MassFlowRate mConFlu_flow_nominal=
-    dat.mConFlu_flow_nominal
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
+    dat.mCon_flow_nominal
     "Condenser cooling fluid mass flow rate";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
     dat.cap_nominal
@@ -37,8 +37,8 @@ partial model PartialChiller "Partial chiller model"
   final parameter Modelica.Units.SI.PressureDifference dpChiWat_nominal=
     dat.dpChiWat_nominal
     "CHW pressure drop";
-  final parameter Modelica.Units.SI.PressureDifference dpConFlu_nominal=
-    dat.dpConFlu_nominal
+  final parameter Modelica.Units.SI.PressureDifference dpCon_nominal=
+    dat.dpCon_nominal
     "Condenser cooling fluid pressure drop";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     dat.TChiWatSup_nominal

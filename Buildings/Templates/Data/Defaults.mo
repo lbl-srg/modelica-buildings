@@ -8,7 +8,7 @@ package Defaults "Package with default sizing parameters"
     "Maximum CHW supply temperature";
   constant Modelica.Units.SI.Temperature TChiWatRet=12+273.15
     "CHW return temperature";
-  constant Modelica.Units.SI.Temperature TConWatSup=30+273.15
+  constant Modelica.Units.SI.Temperature TConWatSup=29.4+273.15
     "CW supply temperature";
   constant Modelica.Units.SI.Temperature TConWatRet=35+273.15
     "CW return temperature";
@@ -20,8 +20,24 @@ package Defaults "Package with default sizing parameters"
     "WSE entering CW temperature";
   constant Modelica.Units.SI.Temperature TConWatEcoLvg=16+273.15
     "WSE leaving CW temperature";
-  constant Real mConAirByCap(unit="(kg/s)/W")=1E-4
-    "Air mass flow rate at condenser per cooling capacity";
+
+  constant Modelica.Units.SI.Temperature TAirDryCooEnt=35+273.15
+    "Dry cooler entering air drybulb temperature";
+  constant Modelica.Units.SI.Temperature TWetBulTowEnt=23.9+273.15
+    "CT entering air wetbulb temperature";
+  constant Real PFanByFloConWatTow(unit="W/(kg/s)")=340
+    "CT fan power divided by CW mass flow rate";
+  constant Real ratFloWatByAirTow(unit="1")=1.45
+    "CT CW mass flow rate divided by air mass flow rate";
+  constant Modelica.Units.SI.PressureDifference dpConWatFriTow=1E4
+    "CW flow-friction losses through open-circuit tower and piping only (without static head or valve)";
+  constant Modelica.Units.SI.PressureDifference dpConWatStaTow=3E4
+    "CW static pressure drop (for open cooling towers only)";
+  constant Modelica.Units.SI.PressureDifference dpConWatTowClo=5E4
+    "CW flow-friction losses through closed-circuit tower and piping only (without valve)";
+
+  constant Real mConAirByCapChi(unit="(kg/s)/W")=1E-4
+    "Air mass flow rate at condenser divided by chiller capacity";
   constant Real COPChiAirCoo(unit="1")=3.0
     "Air-cooled chiller COP";
   constant Real COPChiWatCoo(unit="1")=5.0

@@ -21,10 +21,14 @@ package Types "Package with type definitions"
       WaterBasedHeating
       "Hot water coil")
     "Enumeration to configure the coil";
-  type CoolingTower = enumeration(
-      Merkel
-      "Merkel model of a cooling tower")
-    "Enumeration to configure the cooling tower";
+  type Cooler = enumeration(
+      CoolingTowerClosed
+      "Closed-circuit cooling tower",
+      CoolingTowerOpen
+      "Open-circuit cooling tower",
+      DryCooler
+      "Dry cooler")
+    "Enumeration to configure the condenser water cooling equipment";
   type Damper = enumeration(
       NoPath
       "No fluid path",
@@ -134,11 +138,6 @@ package Types "Package with type definitions"
       TwoWayTwoPosition
       "Two-way two-position valve")
     "Enumeration to configure the valve";
-  type ValveOption = enumeration(
-      Choices "Modulating or two-position valve possible",
-      Modulating "Modulating valve required",
-      NoValve "No valve")
-    "Enumeration to specify the possible options for isolation valves";
   annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.

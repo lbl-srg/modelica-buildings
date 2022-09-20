@@ -10,7 +10,7 @@ record Chiller "Data for chillers"
     final min=0)
     "CHW mass flow rate"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mConFlu_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal(
     final min=0)
     "Condenser cooling fluid (e.g. CW) mass flow rate"
     annotation(Dialog(group="Nominal condition",
@@ -24,7 +24,7 @@ record Chiller "Data for chillers"
     start=Buildings.Templates.Data.Defaults.dpChiWatChi)
     "CHW pressure drop"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpConFlu_nominal(
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
     final min=0,
     start=if typ == Buildings.Templates.Components.Types.Chiller.WaterCooled
     then Buildings.Templates.Data.Defaults.dpConWatChi elseif
@@ -58,7 +58,6 @@ record Chiller "Data for chillers"
       PLRMin=PLR_min,
       PLRMinUnl=PLRUnl_min,
       mEva_flow_nominal=mChiWat_flow_nominal,
-      mCon_flow_nominal=mConFlu_flow_nominal)
-    "Chiller performance data"
-    annotation(Dialog(group="Nominal condition"));
+      mCon_flow_nominal=mCon_flow_nominal)
+    "Chiller performance data";
 end Chiller;

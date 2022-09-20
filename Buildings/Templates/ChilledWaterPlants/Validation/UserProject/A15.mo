@@ -3,7 +3,7 @@ model A15
   "Parallel Chillers, Variable Primary Chilled Water, Constant Condenser Water, Dedicated Pumps"
   extends Buildings.Templates.ChilledWaterPlants.WaterCooled(
     redeclare
-      Buildings.Templates.ChilledWaterPlants.Components.CoolingTowers.Parallel
+      Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTower
       cooTowSec(final nCooTow=2),
     redeclare
       Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Parallel

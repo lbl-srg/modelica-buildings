@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components;
-package CoolingTowers "Models for cooling towers"
+package CoolerGroups "Models for condenser water cooling equipment groups"
   extends Modelica.Icons.VariantsPackage;
 
-end CoolingTowers;
+end CoolerGroups;

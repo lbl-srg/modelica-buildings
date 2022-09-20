@@ -8,7 +8,7 @@ model Compression "Group of compression chillers"
     redeclare each final package MediumCon=MediumCon,
     each final allowFlowReversal=allowFlowReversal,
     each final typ=typChi,
-    final dat=dat.datChi,
+    final dat=datChi,
     each final energyDynamics=energyDynamics,
     each final tau=tau)
     "Chiller"
@@ -32,14 +32,14 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{110,-110},{90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiSup[nChi](
     redeclare each final package Medium=MediumCon,
-    final m_flow_nominal=mConFluChi_flow_nominal,
+    final m_flow_nominal=mConChi_flow_nominal,
     each have_sen=true,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW supply temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiRet[nChi](
     redeclare each final package Medium=MediumCon,
-    final m_flow_nominal=mConFluChi_flow_nominal,
+    final m_flow_nominal=mConChi_flow_nominal,
     each have_sen=true,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW return temperature"
@@ -144,15 +144,15 @@ Current limitations:
 <li>
 Same type of cooling fluid (air or water) for all chillers.
 This is definitive considering the use of multiple-ports connectors
-that require a unique medium model. 
-</li> 
-<li> 
+that require a unique medium model.
+</li>
+<li>
 Same type of CW (and CHW) isolation valve for all chillers.
-This is a technical debt that will be purged when actuator models are 
+This is a technical debt that will be purged when actuator models are
 refactored as container classes.
-</li> 
+</li>
 Hence, only the same type of head pressure control for all chillers is supported.
 (as the latter conditions the former).
-</ul> 
+</ul>
 </html>"));
 end Compression;
