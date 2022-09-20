@@ -116,6 +116,7 @@ docker run \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   ls -lh /mnt/shared 1>&2 && \
-  cd \"/mnt/shared/${bas_nam}\" && \
+  cd \"/mnt/shared\" && \
+  cd \"${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
