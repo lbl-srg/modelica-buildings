@@ -9,15 +9,11 @@ model NetworkConnection
     "Type of plant setup";
 
   //Pump sizing & interlock
-  parameter Buildings.Fluid.Movers.Data.Generic perPumSup(
-    pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
+  parameter Buildings.Fluid.Movers.Data.Generic perPumSup
     "Performance data for the supply pump"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})),
     Dialog(group="Pump Sizing and Interlock"));
-  parameter Buildings.Fluid.Movers.Data.Generic perPumRet(
-    pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
+  parameter Buildings.Fluid.Movers.Data.Generic perPumRet
     "Performance data for the return pump"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})),
     Dialog(group="Pump Sizing and Interlock", enable=
