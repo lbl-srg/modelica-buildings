@@ -56,7 +56,13 @@ model TestRecordArray
       final per=per);
   end ChillerGroupRecord;
 
-  parameter ChillerGroupRecord rec(
-    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per);
+  model M
+    replaceable parameter ChillerGroupRecord rec
+      constrainedby ChillerGroupRecord;
+  end M;
 
+  ChillerGroupRecord rec(
+    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per);
+
+  M mod(rec=rec);
 end TestRecordArray;

@@ -1,6 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups;
 model Compression "Group of compression chillers"
-  extends  Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup;
+  extends
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup;
 
   Buildings.Templates.Components.Chillers.Compression chi[nChi](
     redeclare each final package MediumChiWat=MediumChiWat,
@@ -49,51 +50,43 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium=MediumCon,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatChiIso)
-    if typOptValConWatIso==Buildings.Templates.Components.Types.ValveOption.Modulating
+    if typValConWatIso_internal==Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CW isolation valve - Modulating"
     annotation (Placement(transformation(extent={{-150,150},{-170,170}})));
-  replaceable Buildings.Templates.Components.Valves.TwoWayModulating valConWatChiIso[nChi]
-   if typOptValConWatIso == Buildings.Templates.Components.Types.ValveOption.Choices
-    constrainedby Buildings.Templates.Components.Interfaces.PartialValve(
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChiIsoTwo[nChi](
     redeclare each final package Medium = MediumCon,
     each final allowFlowReversal=allowFlowReversal,
-    final dat=datValConWatChiIso)
-    "Chiller CW isolation valve - Select between modulating or two-position"
-    annotation (
-    Dialog(enable=typOptValConWatIso==Buildings.Templates.Components.Types.ValveOption.Choices),
-    choices(choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatIso
-          "Two-way two-position valve"), choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayModulating valConWatIso
-          "Two-way modulating valve")), Placement(transformation(extent={{-150,
-            110},{-170,130}})));
+    final dat=datValConWatChiIso,
+    each final text_flip=true)
+    if typValConWatIso_internal == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    "Chiller CW isolation valve - Two-position"
+    annotation (Placement(transformation(extent={{-150,110},{-170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasConWatChi[nChi](
     redeclare each final package Medium=MediumCon)
-    if typOptValConWatIso==Buildings.Templates.Components.Types.ValveOption.NoValve
+    if typValConWatIso_internal==Buildings.Templates.Components.Types.Valve.None
     "No chiller CW isolation valve"
     annotation (Placement(transformation(extent={{-150,90},{-170,70}})));
 
   // CHW isolation valve
-  replaceable Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChiIso[nChi]
-    if typOptValChiWatIso==Buildings.Templates.Components.Types.ValveOption.Choices
-    constrainedby Buildings.Templates.Components.Interfaces.PartialValve(
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiIsoTwo[nChi](
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiIso)
-    "Chiller CHW isolation valve - Select between modulating or two-position"
-    annotation (
-    Dialog(enable=typOptValChiWatIso==Buildings.Templates.Components.Types.ValveOption.Choices),
-    choices(choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatIso
-          "Two-way two-position valve"), choice(redeclare replaceable
-          Buildings.Templates.Components.Valves.TwoWayModulating valChiWatIso
-          "Two-way modulating valve")), Placement(transformation(extent={{150,
-            110},{170,130}})));
+    if typValChiWatIso_internal == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    "Chiller CHW isolation valve - Two-position"
+    annotation (Placement(transformation(extent={{150,110},{170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatChi[nChi](
     redeclare each final package Medium=MediumChiWat)
-    if typOptValChiWatIso==Buildings.Templates.Components.Types.ValveOption.NoValve
+    if typValChiWatIso_internal==Buildings.Templates.Components.Types.Valve.None
     "No chiller CHW isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,70}})));
+  Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChiIsoMod[nChi](
+    redeclare each final package Medium = MediumChiWat,
+    each final allowFlowReversal=allowFlowReversal,
+    final dat=datValChiWatChiIso)
+    if typValChiWatIso_internal == Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    "Chiller CHW isolation valve - Modulating"
+    annotation (Placement(transformation(extent={{150,150},{170,170}})));
 equation
   /* Control point connection - start */
   connect(bus.chi, chi.bus);
@@ -102,19 +95,20 @@ equation
   connect(bus.TConWatChiSup, TConWatChiSup.y);
   connect(bus.TConWatChiRet, TConWatChiRet.y);
   connect(bus.valConWatChiIso, valConWatChiIsoMod.bus);
-  connect(bus.valConWatChiIso, valConWatChiIso.bus);
-  connect(bus.valChiWatChiIso, valChiWatChiIso.bus);
+  connect(bus.valConWatChiIso, valConWatChiIsoTwo.bus);
+  connect(bus.valChiWatChiIso, valChiWatChiIsoTwo.bus);
+  connect(bus.valChiWatChiIso, valChiWatChiIsoMod.bus);
   /* Control point connection - stop */
 
-  connect(TChiWatChiSup.port_b, valChiWatChiIso.port_a)
+  connect(TChiWatChiSup.port_b, valChiWatChiIsoTwo.port_a)
     annotation (Line(points={{110,120},{150,120}}, color={0,127,255}));
   connect(TChiWatChiSup.port_b, pasChiWatChi.port_a) annotation (Line(points={{110,120},
           {140,120},{140,80},{150,80}},      color={0,127,255}));
   connect(pasChiWatChi.port_b, ports_bChiWat) annotation (Line(points={{170,80},
           {180,80},{180,120},{200,120}}, color={0,127,255}));
-  connect(valChiWatChiIso.port_b, ports_bChiWat)
+  connect(valChiWatChiIsoTwo.port_b, ports_bChiWat)
     annotation (Line(points={{170,120},{200,120}}, color={0,127,255}));
-  connect(valConWatChiIso.port_b, ports_bCon)
+  connect(valConWatChiIsoTwo.port_b, ports_bCon)
     annotation (Line(points={{-170,120},{-200,120}}, color={0,127,255}));
   connect(valConWatChiIsoMod.port_b, ports_bCon) annotation (Line(points={{-170,
           160},{-180,160},{-180,120},{-200,120}}, color={0,127,255}));
@@ -122,7 +116,7 @@ equation
           80},{-180,120},{-200,120}}, color={0,127,255}));
   connect(valConWatChiIsoMod.port_a, TConWatChiRet.port_b) annotation (Line(
         points={{-150,160},{-140,160},{-140,120},{-110,120}}, color={0,127,255}));
-  connect(TConWatChiRet.port_b, valConWatChiIso.port_a)
+  connect(TConWatChiRet.port_b, valConWatChiIsoTwo.port_a)
     annotation (Line(points={{-110,120},{-150,120}}, color={0,127,255}));
   connect(TConWatChiRet.port_b, pasConWatChi.port_a) annotation (Line(points={{-110,
           120},{-140,120},{-140,80},{-150,80}}, color={0,127,255}));
@@ -138,6 +132,10 @@ equation
     annotation (Line(points={{-200,-100},{-110,-100}}, color={0,127,255}));
   connect(chi.port_b2, TChiWatChiSup.port_a) annotation (Line(points={{6,10},{20,
           10},{20,120},{90,120}}, color={0,127,255}));
+  connect(TChiWatChiSup.port_b, valChiWatChiIsoMod.port_a) annotation (Line(
+        points={{110,120},{140,120},{140,160},{150,160}}, color={0,127,255}));
+  connect(valChiWatChiIsoMod.port_b, ports_bChiWat) annotation (Line(points={{170,160},
+          {180,160},{180,120},{200,120}},      color={0,127,255}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
 Current limitations:

@@ -96,7 +96,7 @@ model ChillerGroup "Validation model for chiller group"
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
     PLRChi_min=fill(0.15, nChi),
-    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
+    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
     "Parameter record for water-cooled chiller group";
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup datChiAirCoo(
     final nChi=nChi,
@@ -107,7 +107,7 @@ model ChillerGroup "Validation model for chiller group"
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
     PLRChi_min=fill(0.15, nChi),
-    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
+    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
     "Parameter record for air-cooled chiller group";
 
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
