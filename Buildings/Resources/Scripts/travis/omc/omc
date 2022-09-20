@@ -85,6 +85,19 @@ done
 
 # --user=${UID} \
 
+echo "**** MOD_MOUNT:"
+echo $MOD_MOUNT
+echo "*************"
+echo "**** sha_dir:"
+echo $sha_dir
+echo "*************"
+echo "**** DOCKER_MODELICAPATH:"
+echo $DOCKER_MODELICAPATH
+echo "*************"
+echo "**** bas_nam:"
+echo $bas_nam
+echo "*************"
+exit 1
 docker run \
   --user=developer \
   -i \
