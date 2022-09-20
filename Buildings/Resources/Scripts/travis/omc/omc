@@ -104,12 +104,13 @@ echo "*************"
 ls -lhtr
 echo "*************"
 
+# ${MOD_MOUNT} \
+
 docker run \
   --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  ${MOD_MOUNT} \
   --mount type=bind,src=${sha_dir},dst=/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
