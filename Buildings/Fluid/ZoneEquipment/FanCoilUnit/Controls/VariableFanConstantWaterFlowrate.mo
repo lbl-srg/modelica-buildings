@@ -75,6 +75,14 @@ block VariableFanConstantWaterFlowrate
     "Minimum duration for which fan is enabled"
     annotation(Dialog(group="System parameters"));
 
+  parameter Modelica.Units.SI.Time tValEna = 600
+    "Minimum duration for which heating/cooling valve action is enabled"
+    annotation(Dialog(group="System parameters"));
+
+  parameter Modelica.Units.SI.Time tValDis = 300
+    "Minimum duration for which heating/cooling valve action is disabled"
+    annotation(Dialog(group="System parameters"));
+
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling coooling and heating mode"
     annotation(Dialog(tab="Advanced"));
@@ -141,14 +149,14 @@ block VariableFanConstantWaterFlowrate
 
 protected
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(
-    final trueHoldDuration=600,
-    final falseHoldDuration=300)
+    final trueHoldDuration=tValEna,
+    final falseHoldDuration=tValDis)
     "Ensure cooling is enabled and disabled for minimum time duration"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(
-    final trueHoldDuration=600,
-    final falseHoldDuration=300)
+    final trueHoldDuration=tValEna,
+    final falseHoldDuration=tValDis)
     "Ensure heating is enabled and disabled for minimum time durations"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
