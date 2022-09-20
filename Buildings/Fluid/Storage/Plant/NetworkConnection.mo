@@ -8,19 +8,27 @@ model NetworkConnection
     nom.plaTyp
     "Type of plant setup";
 
-  //Pump sizing
+  //Pump sizing & interlock
   parameter Buildings.Fluid.Movers.Data.Generic perPumSup(
     pressure(dp=nom.dp_nominal*{2,1.2,0},
                  V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
     "Performance data for the supply pump"
-    annotation (Placement(transformation(extent={{-80,100},{-60,120}})),
-    Dialog(group="Pump Sizing"));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})),
+    Dialog(group="Pump Sizing and Interlock"));
   parameter Buildings.Fluid.Movers.Data.Generic perPumRet(
     pressure(dp=nom.dp_nominal*{2,1.2,0},
                  V_flow=nom.m_flow_nominal/1.2*{0,1.2,2}))
     "Performance data for the return pump"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})),
-    Dialog(group="Pump Sizing", enable=
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})),
+    Dialog(group="Pump Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Real tPumSupClo=0.01
+    "Threshold that pumSup is considered off"
+    annotation (Dialog(group="Pump Sizing and Interlock", enable=
+    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+  parameter Real tPumRetClo=0.01
+    "Threshold that pumRet is considered off"
+    annotation (Dialog(group="Pump Sizing and Interlock", enable=
     plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
 
   //Control valve sizing & interlock
@@ -165,10 +173,20 @@ model NetworkConnection
     "A pair of interlocked valves"
     annotation (Placement(transformation(extent={{20,-92},{60,-52}})));
 
+  Buildings.Fluid.Storage.Plant.Controls.Interlock conInt(
+    final t1=tPumSupClo,
+    final t2=tPumRetClo)
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    "Interlock for pumps"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+  Modelica.Blocks.Routing.RealPassThrough pas
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
+    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+    "Block for signal routing" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-50,90})));
 equation
-  connect(pumSup.y, yPumSup) annotation (Line(points={{-50,72},{-50,110},{-10,
-          110},{-10,130}},
-                     color={0,0,127}));
   connect(port_aFroChi, pumSup.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
   connect(pasSup.port_b, port_bToNet) annotation (Line(points={{50,100},{68,100},
@@ -179,9 +197,6 @@ equation
           {90,-30},{40,-30}}, color={0,127,255}));
   connect(pasRet.port_b, port_bToChi) annotation (Line(points={{20,-30},{-80,-30},
           {-80,-60},{-100,-60}}, color={0,127,255}));
-  connect(pumRet.y, yPumRet) annotation (Line(points={{-50,-48},{-50,-20},{72,
-          -20},{72,110},{30,110},{30,130}},
-                                     color={0,0,127}));
   connect(intValSup.port_bToNet, port_bToNet)
     annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
   connect(intValSup.port_bToChi, port_aFroChi) annotation (Line(points={{20,36},
@@ -204,6 +219,22 @@ equation
           {10,100},{30,100}}, color={0,127,255}));
   connect(pumRet.port_b, intValRet.port_aFroChi)
     annotation (Line(points={{-40,-60},{20,-60}}, color={0,127,255}));
+  connect(pumSup.y, pas.y)
+    annotation (Line(points={{-50,72},{-50,79}}, color={0,0,127}));
+  connect(pas.u, yPumSup) annotation (Line(points={{-50,102},{-50,110},{-10,110},
+          {-10,130}}, color={0,0,127}));
+  connect(yPumSup, conInt.u1_in) annotation (Line(points={{-10,130},{-10,110},{-66,
+          110},{-66,18},{-62,18}}, color={0,0,127}));
+  connect(pumSup.y_actual, conInt.u1_actual) annotation (Line(points={{-39,67},{
+          -34,67},{-34,28},{-70,28},{-70,14},{-62,14}}, color={0,0,127}));
+  connect(conInt.y1, pumSup.y) annotation (Line(points={{-39,14},{-30,14},{-30,76},
+          {-50,76},{-50,72}}, color={0,0,127}));
+  connect(conInt.u2_in, yPumRet) annotation (Line(points={{-62,6},{-74,6},{-74,116},
+          {30,116},{30,130}}, color={0,0,127}));
+  connect(conInt.y2, pumRet.y) annotation (Line(points={{-39,6},{-30,6},{-30,-40},
+          {-50,-40},{-50,-48}}, color={0,0,127}));
+  connect(pumRet.y_actual, conInt.u2_actual) annotation (Line(points={{-39,-53},
+          {-34,-53},{-34,-8},{-66,-8},{-66,2},{-62,2}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
