@@ -28,34 +28,6 @@ model InterlockedValves
     m_flow_nominal=nom.mTan_flow_nominal)
     "Valve whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValToNetClo(
-    final t=tValToNetClo)
-    "= true if valve closed" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,30})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiValFroNet
-    "True: let signal pass through; false: outputs zero" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,-30})));
-  Modelica.Blocks.Sources.Constant zero(final k=0) "Constant 0"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,30})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold isValFroNetClo(
-    final t=tValFroNetClo)
-    "= true if valve closed" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,-30})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiValToNet
-    "True: let signal pass through; false: outputs zero" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,30})));
   Modelica.Blocks.Interfaces.RealInput yVal[2] "Real inputs for valve position"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -64,6 +36,11 @@ model InterlockedValves
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,110})));
+  Buildings.Fluid.Storage.Plant.Controls.Interlock conInt(
+    final t1=tValToNetClo,
+    final t2=tValFroNetClo)
+    "Valve interlock"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(port_aFroChi, valToNet.port_a)
     annotation (Line(points={{-100,60},{-10,60}}, color={0,127,255}));
@@ -73,26 +50,18 @@ equation
     annotation (Line(points={{100,-60},{10,-60}}, color={0,127,255}));
   connect(valFroNet.port_b, port_bToChi)
     annotation (Line(points={{-10,-60},{-100,-60}}, color={0,127,255}));
-  connect(valToNet.y_actual, isValToNetClo.u) annotation (Line(points={{5,67},{
-          4,67},{4,72},{50,72},{50,42}}, color={0,0,127}));
-  connect(isValToNetClo.y, swiValFroNet.u2)
-    annotation (Line(points={{50,18},{50,-18}}, color={255,0,255}));
-  connect(swiValFroNet.y, valFroNet.y)
-    annotation (Line(points={{50,-42},{50,-48},{0,-48}}, color={0,0,127}));
-  connect(zero.y, swiValFroNet.u3) annotation (Line(points={{-1.9984e-15,19},{-1.9984e-15,
-          0},{42,0},{42,-18}}, color={0,0,127}));
-  connect(valFroNet.y_actual, isValFroNetClo.u) annotation (Line(points={{-5,
-          -53},{-6,-53},{-6,-48},{-50,-48},{-50,-42}}, color={0,0,127}));
-  connect(swiValToNet.y, valToNet.y)
-    annotation (Line(points={{-50,42},{-50,72},{0,72}}, color={0,0,127}));
-  connect(zero.y, swiValToNet.u3) annotation (Line(points={{-1.9984e-15,19},{-1.9984e-15,
-          0},{-42,0},{-42,18}}, color={0,0,127}));
-  connect(isValFroNetClo.y, swiValToNet.u2)
-    annotation (Line(points={{-50,-18},{-50,18}}, color={255,0,255}));
-  connect(swiValToNet.u1, yVal[1]) annotation (Line(points={{-58,18},{-58,0},{
-          -70,0},{-70,96},{0,96},{0,107.5}}, color={0,0,127}));
-  connect(swiValFroNet.u1, yVal[2]) annotation (Line(points={{58,-18},{58,0},{
-          70,0},{70,96},{0,96},{0,112.5}}, color={0,0,127}));
+  connect(conInt.u1_in, yVal[1]) annotation (Line(points={{-12,8},{-60,8},{-60,
+          90},{0,90},{0,107.5}}, color={0,0,127}));
+  connect(conInt.u2_in, yVal[2]) annotation (Line(points={{-12,-4},{-60,-4},{
+          -60,90},{0,90},{0,112.5}}, color={0,0,127}));
+  connect(conInt.y1, valToNet.y)
+    annotation (Line(points={{11,4},{20,4},{20,72},{0,72}}, color={0,0,127}));
+  connect(valFroNet.y, conInt.y2) annotation (Line(points={{0,-48},{20,-48},{20,
+          -4},{11,-4}}, color={0,0,127}));
+  connect(conInt.u1_actual, valToNet.y_actual) annotation (Line(points={{-12,4},
+          {-20,4},{-20,40},{14,40},{14,68},{5,68},{5,67}}, color={0,0,127}));
+  connect(conInt.u2_actual, valFroNet.y_actual) annotation (Line(points={{-12,
+          -8},{-20,-8},{-20,-52},{-5,-52},{-5,-53}}, color={0,0,127}));
   annotation (Icon(graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
         Line(points={{-100,-60},{100,-60}},
