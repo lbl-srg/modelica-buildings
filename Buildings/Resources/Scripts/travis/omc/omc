@@ -117,7 +117,6 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   ls -lh /mnt/shared 1>&2 && \
   cd \"/mnt/shared\" && \
-  chown -R developer ${bas_nam} && \
   cd ${bas_nam} && \
   omc ${arg_lis}"
 exit $?
