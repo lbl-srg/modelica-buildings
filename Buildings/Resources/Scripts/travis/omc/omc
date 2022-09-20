@@ -111,7 +111,7 @@ docker run \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
-  --mount type=bind,src=${sha_dir},dst=/mnt/shared \
+  -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
