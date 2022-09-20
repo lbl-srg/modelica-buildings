@@ -85,6 +85,10 @@ done
 
 # --user=${UID} \
 
+
+echo "**** UID:"
+echo $UID
+echo "*************"
 echo "**** MOD_MOUNT:"
 echo $MOD_MOUNT
 echo "*************"
