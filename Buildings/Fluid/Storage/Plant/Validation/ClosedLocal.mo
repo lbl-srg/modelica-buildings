@@ -1,112 +1,46 @@
 within Buildings.Fluid.Storage.Plant.Validation;
 model ClosedLocal
-  "Validation model of a storage plant with an open tank"
+  "Validation model of a storage plant with a closed tank and NO remote charging ability"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
-    netCon(plaTyp=nom.plaTyp),
-      nom(final plaTyp=
-        Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal),
-    tanBra(tankIsOpen=false));
-
-  Modelica.Blocks.Sources.TimeTable set_mPumSec_flow(table=[0,1; 900,1; 900,-1;
-        1800,-1; 1800,0; 2700,0; 2700,1; 3600,1])
-    "Secondary mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Buildings.Controls.Continuous.LimPID conPID_PumSec(
-    k=1,
-    Ti=15) "PI controller" annotation (Placement(transformation(
+  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
+    nom(
+      plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal),
+    netCon(pumSup(y_start=0.707)));
+  Modelica.Blocks.Sources.TimeTable mSet_flow(table=[0,0; 900,0; 900,1; 1800,1;
+        1800,0; 2700,0; 2700,1; 3600,1]) "Mass flow rate setpoint"
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+  Buildings.Controls.Continuous.LimPID conPID_PumSec(k=0.5, Ti=15)
+           "PI controller" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-10,70})));
-  Modelica.Blocks.Math.Gain gai(k=1/nom.mTan_flow_nominal)    "Gain"
+        origin={-50,90})));
+  Modelica.Blocks.Math.Gain gai(k=1/nom.m_flow_nominal)       "Gain"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-10,30})));
-
-  Modelica.Blocks.Sources.Constant mSet_flow(k=nom.mChi_flow_nominal)
-    "Chiller branch flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT sou_p(
-    redeclare final package Medium = Medium,
-    final p=300000,
-    final T=nom.T_CHWR_nominal,
-    nPorts=1) "Pressurisation point" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-30,-50})));
+        origin={-50,60})));
 equation
-  connect(gai.y, conPID_PumSec.u_m)
-    annotation (Line(points={{-10,41},{-10,58}},  color={0,0,127}));
-  connect(set_mPumSec_flow.y, conPID_PumSec.u_s)
-    annotation (Line(points={{-39,70},{-22,70}}, color={0,0,127}));
+  connect(netCon.port_bToChi, senMasFlo.port_a) annotation (Line(points={{0,-6},{
+          -70,-6},{-70,30},{-60,30}},  color={0,127,255}));
+  connect(gai.y,conPID_PumSec. u_m)
+    annotation (Line(points={{-50,71},{-50,78}},  color={0,0,127}));
+  connect(mSet_flow.y, conPID_PumSec.u_s)
+    annotation (Line(points={{-79,90},{-62,90}}, color={0,0,127}));
+  connect(gai.u, senMasFlo.m_flow)
+    annotation (Line(points={{-50,48},{-50,41}}, color={0,0,127}));
   connect(netCon.yPumSup, conPID_PumSec.y)
-    annotation (Line(points={{18,11},{18,70},{1,70}}, color={0,0,127}));
-  connect(mSet_flow.y, ideChiBra.mPumSet_flow)
-    annotation (Line(points={{-79,-30},{-56,-30},{-56,-11}}, color={0,0,127}));
-  connect(tanBra.mTan_flow, gai.u)
-    annotation (Line(points={{-16,11},{-10,11},{-10,18}}, color={0,0,127}));
-  connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-20,
-          -50},{0,-50},{0,-6},{-10,-6}}, color={0,127,255}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedLocal.mos"
+    annotation (Line(points={{8,11},{8,90},{-39,90}}, color={0,0,127}));
+annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedLocal.mos"
         "Simulate and plot"),
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-<p>
-This is a validation model where the storage plant with a closed tank is configured
-NOT to allow remotely charging the tank.
-It contains the following schedule:
-</p>
-<table summary= \"operation modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<thead>
-  <tr>
-    <th>Time slot</th>
-    <th>Plant flow</th>
-    <th>Chiller flow</th>
-    <th>Tank flow</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>1.</td>
-    <td>2</td>
-    <td>1</td>
-    <td>1</td>
-    <td>Both chiller and tank outputting to the network</td>
-  </tr>
-  <tr>
-    <td>2.</td>
-    <td>0</td>
-    <td>1</td>
-    <td>-1</td>
-    <td>Plant disconnected from the network;<br/>
-        Chiller charges the tank</td>
-  </tr>
-  <tr>
-    <td>3.</td>
-    <td>1</td>
-    <td>1</td>
-    <td>0</td>
-    <td>Chiller outputting to the network;<br/>
-        Tank on hold (not charging nor discharging)</td>
-  </tr>
-  <tr>
-    <td>4.</td>
-    <td>2</td>
-    <td>1</td>
-    <td>1</td>
-    <td>Both chiller and tank outputting to the network</td>
-  </tr>
-</tbody>
-</table>
+[]
 </html>", revisions="<html>
 <ul>
 <li>
-February 18, 2022 by Hongxiang Fu:<br/>
+September 20, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
