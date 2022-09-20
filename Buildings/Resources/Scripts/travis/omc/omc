@@ -105,17 +105,15 @@ ls -lhtr
 echo "*************"
 
 docker run \
-  --user=${UID} \
-  -e HOST_UID=`id -u` \
+  --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
   ${MOD_MOUNT} \
-  -v ${sha_dir}:/mnt/shared \
+  --mount type=bind,src=${sha_dir},dst=/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
-  chown -R ${HOST_UID}:${HOST_UID} /mnt/shared/${bas_nam} && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
