@@ -86,6 +86,7 @@ done
 # --user=${UID} \
 
 docker run \
+  --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
