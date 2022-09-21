@@ -4,13 +4,16 @@ model OpenDualSource
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource(
     nomPla2(plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-    tanBra(tankIsOpen=true));
+    tanBra(tankIsOpen=true),
+    netCon(perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
+                              dp=(300000 + nomPla2.dp_nominal - 101325)*{2,0})),
+           perPumRet(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
+                              dp=(300000 - 101325)*{2,0}))));
 equation
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-96,-79},{-96,-46},{-81,-46}}, color={0,0,127}));
   connect(conRemCha.yPumRet, netCon.yPumRet)
     annotation (Line(points={{-64,-61},{-64,-79}}, color={0,0,127}));
-
   connect(conRemCha.yValRet, netCon.yValRet)
     annotation (Line(points={{-60,-61},{-60,-79}}, color={0,0,127}));
     annotation (

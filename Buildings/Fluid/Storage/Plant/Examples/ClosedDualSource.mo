@@ -2,7 +2,9 @@ within Buildings.Fluid.Storage.Plant.Examples;
 model ClosedDualSource
   "District system model with two sources and three users"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource;
+  extends Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource(
+      netCon(perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
+                                dp=nomPla2.dp_nominal*{2,0}))));
 
   parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation(
     final displayUnit="Pa")=
@@ -18,7 +20,6 @@ model ClosedDualSource
         rotation=0,
         origin={-170,20})));
 equation
-
   connect(sou_p1.ports[1], pumSup1.port_a) annotation (Line(points={{-160,20},{-54,
           20},{-54,80},{-60,80}}, color={0,127,255}));
     annotation (
