@@ -22,7 +22,7 @@ function create_mount_command()
    # Each entry in pat will be a mounted read-only volume
    local mnt_cmd=""
    for ele in ${pat//:/ }; do
-      mnt_cmd="${mnt_cmd} -v ${ele}:/mnt${ele}"
+      mnt_cmd="${mnt_cmd} -v ${ele}:/mnt${ele}:ro"
    done
 
    # On Darwin, the exported temporary folder needs to be /private/var/folders, not /var/folders
