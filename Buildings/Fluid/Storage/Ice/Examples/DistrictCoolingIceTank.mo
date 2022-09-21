@@ -296,10 +296,17 @@ model DistrictCoolingIceTank
   Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k=273.15 + 6)
     "Set point for secondary chilled water temperature"
     annotation (Placement(transformation(extent={{-480,240},{-460,260}})));
-  Controls.OBC.CDL.Integers.Sources.Constant powMod(
-    k=Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency)
+  Controls.OBC.CDL.Integers.Sources.Constant powMod(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency))
     "Power mode of plant (fixme, to be set dynamically)"
     annotation (Placement(transformation(extent={{-480,280},{-460,300}})));
+  BaseClasses.ControlDemandLevel ctrDemLev
+    annotation (Placement(transformation(extent={{-420,280},{-400,300}})));
+  Sensors.TemperatureTwoPort senTemSupSec(redeclare package Medium =
+        MediumWater, m_flow_nominal=mWat_flow_nominal)
+    "Water supply temperature to load" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={292,100})));
 equation
   connect(pumSto.port_b, iceTan.port_a)
     annotation (Line(points={{-240,-40},{-240,0}}, color={0,127,255}));
@@ -372,8 +379,6 @@ equation
     annotation (Line(points={{160,-60},{160,-170}}, color={0,127,255}));
   connect(jun7.port_3, jun4.port_3)
     annotation (Line(points={{260,90},{260,-170}}, color={0,127,255}));
-  connect(jun7.port_2, disCooCoi.port_a) annotation (Line(points={{270,100},{320,
-          100},{320,20}},     color={0,127,255}));
   connect(pumLoa.port_b, jun4.port_2) annotation (Line(points={{320,-60},{320,-180},
           {270,-180}},       color={0,127,255}));
   connect(jun4.port_1, jun5.port_2)
@@ -442,6 +447,17 @@ equation
           {-452,232.56},{-452,250},{-458,250}}, color={0,0,127}));
   connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,238.048},{
           -446,238.048},{-446,290},{-458,290}}, color={255,127,0}));
+  connect(ctrDemLev.y, con.demLev) annotation (Line(points={{-398,290},{-392,
+          290},{-392,260},{-432,260},{-432,243.76},{-420.667,243.76}}, color={
+          255,127,0}));
+  connect(ctrDemLev.u_s, chiWatTSet.y) annotation (Line(points={{-422,295},{
+          -440,295},{-440,250},{-458,250}}, color={0,0,127}));
+  connect(jun7.port_2, senTemSupSec.port_a)
+    annotation (Line(points={{270,100},{282,100}}, color={0,127,255}));
+  connect(senTemSupSec.port_b, disCooCoi.port_a) annotation (Line(points={{302,
+          100},{320,100},{320,20}}, color={0,127,255}));
+  connect(senTemSupSec.T, ctrDemLev.u_m) annotation (Line(points={{292,111},{
+          292,312},{-432,312},{-432,285},{-422,285}}, color={0,0,127}));
   annotation (
     experiment(
       StartTime=0,
@@ -473,10 +489,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-500,-320},{500,320}}), graphics={Text(
-          extent={{-420,350},{-212,234}},
-          textColor={255,0,0},
-          textString=
-              "Todo: connect demand level using new block binarySequence")}),
+    Diagram(coordinateSystem(extent={{-500,-320},{500,320}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DistrictCoolingIceTank;

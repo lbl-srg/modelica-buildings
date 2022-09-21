@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "TSet.y",
+    "TMea.y",
+    "ctrDemLev.y"
+  };

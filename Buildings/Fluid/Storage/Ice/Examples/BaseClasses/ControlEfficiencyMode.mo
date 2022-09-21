@@ -45,12 +45,12 @@ block ControlEfficiencyMode
         transformation(extent={{240,-220},{280,-180}}), iconTransformation(
           extent={{240,-220},{280,-180}})));
 
-  Controls.OBC.CDL.Integers.LessThreshold allOff(t=Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal)
+  Controls.OBC.CDL.Integers.LessThreshold allOff(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
     "Outputs true if all should be off"
     annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
   Controls.OBC.CDL.Logical.Not not1
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
-  Controls.OBC.CDL.Integers.GreaterThreshold higDem(t=Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal)
+  Controls.OBC.CDL.Integers.GreaterThreshold higDem(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
     "Outputs true if operated in high demand"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Controls.OBC.CDL.Continuous.Hysteresis hysSOC2(uLow=0.01, uHigh=0.02)
