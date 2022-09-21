@@ -118,7 +118,10 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   ls -lh /mnt/shared 1>&2 && \
   cd \"/mnt/shared\" && \
-  echo \"Current directory is `pwd`\" 1>&2 && \
   cd ${bas_nam} && \
+  echo \"*** permissions of library:\" 1>&2 && \
+  ls -lh /home/developer/.openmodelica/libraries 1>&2 && \
+  echo \"*******\" 1>&2 && \
+  echo \"*** starting omc with arg_lis = ${arg_lis}\" 1>&2 && \
   omc ${arg_lis}"
 exit $?
