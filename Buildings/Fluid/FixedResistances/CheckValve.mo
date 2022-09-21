@@ -110,14 +110,14 @@ Note that the small reverse flows can still occur with this model.
 The basic flow function
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
+  m&#775; = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>,
 </p>
 <p>
 with regularization near the origin, is used to compute the pressure drop.
 The flow coefficient
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 <p>
 is increased from <code>l*KV_Si</code> to <code>KV_Si</code>,
