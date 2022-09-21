@@ -77,7 +77,7 @@ partial model PartialPlant "Base class for validation models"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={90,0})));
-  Modelica.Blocks.Sources.Constant dp(final k=-nom.dp_nominal*0.6)
+  Modelica.Blocks.Sources.Constant dp(final k=-nom.dp_nominal*0.3)
     "Constant differential pressure"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Fluid.FixedResistances.Junction junSup(
