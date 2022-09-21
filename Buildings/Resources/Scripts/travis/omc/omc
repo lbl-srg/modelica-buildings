@@ -9,9 +9,7 @@
 # required directories.
 #################################################
 set -e
-
 IMG_NAME=${OMC_VERSION}
-
 DOCKER_USERNAME=michaelwetter
 
 # Function declarations
