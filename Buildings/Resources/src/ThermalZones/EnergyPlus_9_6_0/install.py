@@ -253,7 +253,7 @@ def update_actuator_output_tables(spawn_dir, spawn_exe):
 #    for file in glob.glob(os.path.join("Buildings", "Resources", "bin", "**/spawn-?.?.?-*"), recursive=True):
 #        if spawn_exe in file:
 #            # Add to git
-#            print("Adding {} to git".(file))
+#            print("Adding {} to git".format(file))
 #            repo.index.add([file])
 #        else:
 #            print("Removing {} from git".format(file))
