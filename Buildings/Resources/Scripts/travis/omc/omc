@@ -107,7 +107,7 @@ echo "*************"
 # ${MOD_MOUNT} \
 
 docker run \
-  --user=${UID} \
+  --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
