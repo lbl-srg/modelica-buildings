@@ -85,7 +85,7 @@ done
 
 # --user=${UID} \
 
-chmod a+rw -R $cur_dir
+chmod a+rwx $cur_dir
 
 echo "**** UID:"
 echo $UID
