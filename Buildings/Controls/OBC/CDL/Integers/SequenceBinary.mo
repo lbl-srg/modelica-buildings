@@ -19,13 +19,27 @@ block SequenceBinary "Output total stages that should be ON"
     final min=0,
     final max=1)
     "Real input for specifying stages"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+    annotation (Placement(transformation(extent={{-160,100},{-120,140}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Total number of stages that should be ON"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{220,0},{260,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+  Change cha
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  Logical.Latch lat
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Discrete.TriggeredSampler triSam
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Conversions.IntegerToReal intToRea
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+  Conversions.RealToInteger reaToInt
+    annotation (Placement(transformation(extent={{180,10},{200,30}})));
+  Logical.Timer tim(t=minStaOn)
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+  Logical.Pre pre
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 protected
   final parameter Real staInt = 1/nSta
     "Stage interval";
@@ -34,41 +48,57 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
     final nout=nSta)
     "Replicate input"
-    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[nSta](
     final t=staThr,
     final h=fill(h/2, nSta))
     "Check if the input is greater than thresholds"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol[nSta](
-    final trueHoldDuration=fill(minStaOn,nSta),
-    final falseHoldDuration=fill(minStaOff, nSta))
-    "Hold the minimum time of stage ON and OFF"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
+    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
     final nin=nSta)
     "Calculate total number of stages that should be ON"
-    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
 
 equation
-  connect(greThr.y, truFalHol.u)
-    annotation (Line(points={{-28,0},{-12,0}}, color={255,0,255}));
-  connect(truFalHol.y, booToInt.u)
-    annotation (Line(points={{12,0},{28,0}},color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
-    annotation (Line(points={{52,0},{68,0}}, color={255,127,0}));
-  connect(mulSumInt.y, y) annotation (Line(points={{92,0},{120,0}},
-        color={255,127,0}));
+    annotation (Line(points={{2,120},{18,120}},
+                                             color={255,127,0}));
   connect(u, reaScaRep.u)
-    annotation (Line(points={{-120,0},{-92,0}}, color={0,0,127}));
+    annotation (Line(points={{-140,120},{-102,120}},
+                                                color={0,0,127}));
   connect(reaScaRep.y, greThr.u)
-    annotation (Line(points={{-68,0},{-52,0}}, color={0,0,127}));
+    annotation (Line(points={{-78,120},{-62,120}},
+                                               color={0,0,127}));
 
+  connect(mulSumInt.y, cha.u) annotation (Line(points={{42,120},{70,120},{70,92},
+          {-110,92},{-110,-50},{-102,-50}},
+                                         color={255,127,0}));
+  connect(intToRea.y, triSam.u)
+    annotation (Line(points={{-78,60},{-42,60}},
+                                              color={0,0,127}));
+  connect(mulSumInt.y, intToRea.u) annotation (Line(points={{42,120},{70,120},{70,
+          92},{-110,92},{-110,60},{-102,60}},
+                                           color={255,127,0}));
+  connect(cha.y, lat.u)
+    annotation (Line(points={{-78,-50},{-62,-50}},color={255,0,255}));
+  connect(reaToInt.y, y) annotation (Line(points={{202,20},{240,20}},
+                color={255,127,0}));
+  connect(lat.y, tim.u)
+    annotation (Line(points={{-38,-50},{78,-50}},color={255,0,255}));
+  connect(greThr.y, booToInt.u)
+    annotation (Line(points={{-38,120},{-22,120}},
+                                                color={255,0,255}));
+  connect(tim.passed, pre.u) annotation (Line(points={{102,-58},{110,-58},{110,
+          -120},{-110,-120},{-110,-90},{-102,-90}},
+                                              color={255,0,255}));
+  connect(pre.y, lat.clr) annotation (Line(points={{-78,-90},{-70,-90},{-70,-56},
+          {-62,-56}},color={255,0,255}));
 annotation (defaultComponentName="seqBin",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                    graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -96,7 +126,7 @@ annotation (defaultComponentName="seqBin",
           extent={{-62,70},{64,100}},
           textColor={0,0,0},
           textString="h=%h")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
   Documentation(info="<html>
 <p>
 Block that outputs total number of stages that should be ON (<code>true</code>).

@@ -4,7 +4,7 @@ model SequenceBinary
 
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(
     final nSta=4,
-    final minStaOn=2,
+    final minStaOn=4,
     final h=0.05) "Total number of fired stages"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
