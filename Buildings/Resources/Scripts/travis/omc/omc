@@ -83,46 +83,24 @@ do
     shift
 done
 
-# --user=${UID} \
-
+# On travis, the current working directory /tmp/tmp-Buildings-0-o0h50lbn (or similar)
+# is created # with permissions drwx------ and owned by the travis user and group (UID=2000).
+# However, omc must be run as user developer (UID=1000) as it accesses ~/.openmodelica/libraries.
+# But running as developer does not allow the docker to access /tmp/tmp-Buildings-0-o0h50lbn.
+# The chmod command below gives access to the current working directory for all users.
+# See also https://app.travis-ci.com/github/lbl-srg/modelica-buildings/builds/255798277
 chmod a+rwx $cur_dir
-
-echo "**** UID:"
-echo $UID
-echo "*************"
-echo "**** MOD_MOUNT:"
-echo $MOD_MOUNT
-echo "*************"
-echo "**** sha_dir:"
-echo $sha_dir
-echo "*************"
-echo "**** DOCKER_MODELICAPATH:"
-echo $DOCKER_MODELICAPATH
-echo "*************"
-echo "**** bas_nam:"
-echo $bas_nam
-echo "*************"
-ls -lhtr
-echo "*************"
-
-# ${MOD_MOUNT} \
-#  --user=developer \
 
 docker run \
   --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
+  ${MOD_MOUNT} \
   -v ${sha_dir}:/mnt/shared \
   --rm \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
-  ls -lh /mnt/shared 1>&2 && \
-  cd \"/mnt/shared\" && \
-  cd ${bas_nam} && \
-  echo \"*** permissions of library:\" 1>&2 && \
-  ls -lh /home/developer/.openmodelica/libraries 1>&2 && \
-  echo \"*******\" 1>&2 && \
-  echo \"*** starting omc with arg_lis = ${arg_lis}\" 1>&2 && \
+  cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis}"
 exit $?
