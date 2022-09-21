@@ -35,5 +35,8 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={Line(
+          points={{-100,60},{-80,40},{-40,80}},
+          color={0,140,72},
+          thickness=10)}));
 end SpeedControlled_Nrpm;
