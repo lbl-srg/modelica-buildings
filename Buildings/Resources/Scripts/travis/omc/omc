@@ -117,6 +117,7 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   ls -lh /mnt/shared 1>&2 && \
   cd \"/mnt/shared\" && \
+  echo \"Current directory is `pwd`\" 1>&2 && \
   cd ${bas_nam} && \
   omc ${arg_lis}"
 exit $?
