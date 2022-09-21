@@ -2,14 +2,20 @@ within Buildings.Fluid.Storage.Plant.Validation;
 model ClosedRemote
   "Validation model of a storage plant with a closed tank and remote charging ability"
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlantRemote(
+  extends
+    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
     nom(
-      plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote));
+      plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote),
+      netCon(perPumSup(pressure(V_flow=nom.m_flow_nominal/1.2*{0,2},
+                                dp=nom.dp_nominal*{2,0}))));
+  Buildings.Fluid.Sources.Boundary_pT bou(
+    redeclare final package Medium = Medium,
+    final p(displayUnit="Pa") = 300000,
+    nPorts=1) "Pressure boundary"
+    annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
 equation
-  connect(netCon.port_bToChi, senMasFlo.port_a) annotation (Line(points={{0,-6},{
-          -70,-6},{-70,30},{-60,30}},  color={0,127,255}));
-  connect(senMasFlo.m_flow, conRemCha.mTan_flow)
-    annotation (Line(points={{-50,41},{-50,54},{-1,54}}, color={0,0,127}));
+  connect(bou.ports[1], idePreSou.port_a) annotation (Line(points={{80,-50},{74,
+          -50},{74,-14},{50,-14},{50,-10}}, color={0,127,255}));
 annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
