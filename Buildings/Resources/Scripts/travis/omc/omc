@@ -105,9 +105,10 @@ ls -lhtr
 echo "*************"
 
 # ${MOD_MOUNT} \
+#  --user=developer \
 
 docker run \
-  --user=developer \
+  --user=$(id -u):$(id -g) \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
