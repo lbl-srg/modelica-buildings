@@ -145,9 +145,8 @@ partial model PartialDualSource
         origin={-100,-90})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra2(
     redeclare final package Medium = MediumCHW,
-    final nom=nomPla2,
-    final cheVal(final dpValve_nominal=0.1*nomPla2.dp_nominal,
-                 final dpFixed_nominal=0.1*nomPla2.dp_nominal)) "Chiller branch"
+    final nom=nomPla2)
+    "Chiller branch"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = MediumCHW,

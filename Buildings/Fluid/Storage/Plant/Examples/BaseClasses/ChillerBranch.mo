@@ -24,11 +24,6 @@ model ChillerBranch
         rotation=90,
         origin={0,-50})));
 
-  Buildings.Fluid.FixedResistances.CheckValve cheVal(
-    redeclare package Medium = Medium,
-    m_flow_nominal=nom.m_flow_nominal) "Check valve with series resistance"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},  rotation=90,
-        origin={0,-10})));
   Buildings.Fluid.Chillers.ElectricEIR chi(
     redeclare final package Medium1 = MediumCDW,
     redeclare final package Medium2 = Medium,
@@ -112,9 +107,6 @@ model ChillerBranch
     annotation (Placement(transformation(extent={{110,50},{90,70}}),
         iconTransformation(extent={{110,50},{90,70}})));
 equation
-  connect(pum.port_b, cheVal.port_a)
-    annotation (Line(points={{6.10623e-16,-40},{6.10623e-16,-30},{-5.55112e-16,-30},
-          {-5.55112e-16,-20}},                 color={0,127,255}));
   connect(on.y, chi.on) annotation (Line(points={{42,-30},{48,-30},{48,33},{22,33}},
                 color={255,0,255}));
   connect(set_TEvaLvg.y, chi.TSet) annotation (Line(points={{41,0},{46,0},{46,27},
@@ -126,13 +118,12 @@ equation
     annotation (Line(points={{30,60},{30,36},{20,36}}, color={0,127,255}));
   connect(sinCDW.ports[1], chi.port_b1)
     annotation (Line(points={{-10,60},{-10,36},{0,36}},color={0,127,255}));
-  connect(cheVal.port_b, chi.port_a2) annotation (Line(points={{6.10623e-16,0},{
-          6.10623e-16,16},{0,16},{0,24}},
-                         color={0,127,255}));
   connect(pum.port_a, port_a) annotation (Line(points={{-5.55112e-16,-60},{100,-60}},
         color={0,127,255}));
   connect(chi.port_b2, port_b) annotation (Line(points={{20,24},{86,24},{86,60},
           {100,60}}, color={0,127,255}));
+  connect(chi.port_a2, pum.port_b) annotation (Line(points={{0,24},{0,-34},{
+          6.10623e-16,-34},{6.10623e-16,-40}}, color={0,127,255}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

@@ -27,11 +27,9 @@ model ClosedSingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra(
     redeclare final package Medium = Medium,
-    final nom=nom,
-    final cheVal(final dpValve_nominal=0.1*nom.dp_nominal,
-                 final dpFixed_nominal=0.1*nom.dp_nominal))
-    "Chiller branch"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    final nom=nom) "Chiller branch"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-80,0})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
