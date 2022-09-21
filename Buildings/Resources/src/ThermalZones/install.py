@@ -21,8 +21,8 @@ if __name__ == '__main__':
   # Parse the arguments
   args = parser.parse_args()
   
-  # Check if subprocess should be invoked with executable 'python' or 'python3', because install.py is assuming we are using Python 3 to work properly.
-  # We do this because executable 'python' might be of version 2, while 'python3' is of version 3 (assuming it exists).
+  # Check if subprocess should be invoked with executable 'python' or 'python3', because install.py requires Python 3.
+  # Executable 'python' might be of version 2, while 'python3' is of version 3 (assuming it exists).
   executable_name = 'python'
   cmd = [executable_name, '-c', 'import sys; print(sys.version_info.major)']
   try:
@@ -30,12 +30,14 @@ if __name__ == '__main__':
   except FileNotFoundError:
     # Test executable 'python3' before we decide to exit with an error
     python_major_version = None
-    pass
+  
   executable = executable_name if python_major_version == '3' else None
-  if python_major_version != '3': # check executable 'python3', if not found we will exit with a formatted error.
+  
+  # Now check executable 'python3' if necessary, if 'python3' is not found we will exit with a formatted error.
+  if python_major_version != '3':
+    executable_name = 'python3'
+    cmd = [executable_name, '-c', 'import sys; print(sys.version_info.major)']
     try:
-      executable_name = 'python3'
-      cmd = [executable_name, '-c', 'import sys; print(sys.version_info.major)']
       python_major_version = subprocess.run(cmd, shell=False, stdout = subprocess.PIPE).stdout.decode().strip()
       executable = executable_name if python_major_version == '3' else None
     except FileNotFoundError as e:
