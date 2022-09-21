@@ -85,6 +85,7 @@ done
 
 # --user=${UID} \
 
+chmod a+rw -R $cur_dir
 
 echo "**** UID:"
 echo $UID
@@ -108,7 +109,7 @@ echo "*************"
 #  --user=developer \
 
 docker run \
-  --user=$(id -u):$(id -g) \
+  --user=developer \
   -i \
   $DOCKER_INTERACTIVE \
   --detach=false \
