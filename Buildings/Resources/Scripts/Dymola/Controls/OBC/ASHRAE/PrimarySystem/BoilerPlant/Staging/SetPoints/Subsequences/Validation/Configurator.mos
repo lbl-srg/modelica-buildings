@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Configurator", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="Configurator");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Configurator", startTime=0,tolerance=1e-6, stopTime=7200, outputInterval=1, method="dassl", resultFile="Configurator");
 removePlots(false);
 createPlot(id=1, position={0, 0, 813, 1000}, y={"conf.nSta", "conf.nBoi"}, range={0.0, 10.0, 2.0, 6.0}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 813, 196}, y={"conf.uBoiAva[1]", "conf.uBoiAva[2]", "conf.uBoiAva[3]"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});

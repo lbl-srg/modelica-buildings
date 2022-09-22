@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Examples.BoilerPlant.PlantModel.Validation.BoilerPlant", startTime=0,tolerance=1e-4, stopTime=60000, outputInterval=1, method="cvode", resultFile="BoilerPlant");
+simulateModel("Buildings.Examples.BoilerPlant.PlantModel.Validation.BoilerPlant", startTime=0,tolerance=1e-4, stopTime=60000, outputInterval=1, method="cvode", resultFile="BoilerPlant");
 removePlots(false);
 
 createPlot(id=1, position={0, 0, 1549, 998}, y={"boilerPlant.yZonTem"}, range={0.0, 60000.0, 18.0, 26.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});

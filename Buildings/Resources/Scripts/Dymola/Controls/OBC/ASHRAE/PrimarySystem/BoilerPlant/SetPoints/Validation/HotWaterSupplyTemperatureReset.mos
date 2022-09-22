@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.HotWaterSupplyTemperatureReset", startTime=0,tolerance=1e-6, stopTime=7200, method="dassl", resultFile="HotWaterSupplyTemperatureReset1");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.HotWaterSupplyTemperatureReset", startTime=0,tolerance=1e-6, stopTime=7200, method="dassl", resultFile="HotWaterSupplyTemperatureReset1");
 createPlot(id=1, position={0, 0, 1495, 998}, y={"hotWatSupTemRes.uHotWatPumSta[1]", "hotWatSupTemRes.uHotWatPumSta[2]"}, range={0.0, 7200.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});
 createPlot(id=1, position={0, 0, 1495, 162}, y={"hotWatSupTemRes.nHotWatSupResReq", "hotWatSupTemRes.nHotWatResReqIgn"}, range={0.0, 7200.0, 1.6, 2.4000000000000004}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1495, 162}, y={"hotWatSupTemRes.uStaCha"}, range={0.0, 7200.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});

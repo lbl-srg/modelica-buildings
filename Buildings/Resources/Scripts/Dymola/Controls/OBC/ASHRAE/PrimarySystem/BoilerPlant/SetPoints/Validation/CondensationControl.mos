@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.CondensationControl", startTime=0,tolerance=1e-6, stopTime=60, method="dassl", resultFile="CondensationControl");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.CondensationControl", startTime=0,tolerance=1e-6, stopTime=60, method="dassl", resultFile="CondensationControl");
 
 createPlot(id=1, position={0, 0, 1545, 978}, y={"conSet.THotWatRet", "conSet.TRetSet", "conSet.TRetMinAll"}, range={0.0, 60.0, 54.0, 66.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
 createPlot(id=1, position={0, 0, 1545, 496}, y={"conSet.yMinBypValPos"}, range={0.0, 60.0, 0.0, 1.2000000000000002}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
