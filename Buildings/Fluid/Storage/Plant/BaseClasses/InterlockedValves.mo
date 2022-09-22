@@ -15,7 +15,6 @@ model InterlockedValves
     final dpValve_nominal=dpValToNet_nominal,
     use_inputFilter=true,
     y_start=0,
-    l=1E-5,
     m_flow_nominal=nom.m_flow_nominal)
     "Valve whose nominal flow direction is to the district network"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
@@ -24,7 +23,6 @@ model InterlockedValves
     final dpValve_nominal=dpValFroNet_nominal,
     use_inputFilter=true,
     y_start=0,
-    l=1E-5,
     m_flow_nominal=nom.mTan_flow_nominal)
     "Valve whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
