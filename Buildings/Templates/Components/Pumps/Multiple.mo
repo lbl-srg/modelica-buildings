@@ -4,11 +4,13 @@ model Multiple "Multiple pumps in parallel"
     final typ=Buildings.Templates.Components.Types.Pump.Multiple);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum[nPum](
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare each final package Medium=Medium,
     final per=dat.per,
     each final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    each addPowerToMedium=false)
+    each final addPowerToMedium=addPowerToMedium,
+    each final energyDynamics=energyDynamics,
+    each final tau=tau,
+    each final allowFlowReversal=allowFlowReversal)
     "Pumps"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));
