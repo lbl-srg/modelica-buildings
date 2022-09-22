@@ -306,6 +306,10 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
+  openmodelica:
+    comment: 'TimeoutExpired: translation timed out after 300 seconds'
+    translate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
   openmodelica:
     comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
