@@ -70,7 +70,7 @@ protected
     "Identifies boilers designated to operate in a given stage"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nSta,nBoi]
     "Outputs a zero matrix populated with ones for any available boiler in the current stage"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 

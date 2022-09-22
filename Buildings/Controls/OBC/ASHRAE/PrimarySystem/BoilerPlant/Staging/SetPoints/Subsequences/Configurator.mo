@@ -62,9 +62,7 @@ block Configurator "Configures boiler staging"
     "Asserts whether boilers are tagged in ascending order with regards to capacity"
     annotation (Placement(transformation(extent={{60,150},{80,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[nBoi](
-    final k1=fill(1, nBoi),
-    final k2=fill(-1, nBoi))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[nBoi]
     "Subtracts signals"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 
@@ -125,8 +123,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](
-    final k2=fill(-1, nSta))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nSta]
     "Subtracts count of available boilers from the design count, at each stage"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
@@ -145,7 +142,7 @@ protected
     "Boiler stage type matrix"
     annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
@@ -189,7 +186,7 @@ protected
     "Logical and with a vector input"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nSta,nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nSta,nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
@@ -200,7 +197,7 @@ protected
     "Find highest BFirMin in each stage"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[nSta]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[nSta]
     "Product"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
@@ -219,13 +216,13 @@ equation
   connect(booToRea.y,sumNumAvaBoi. u)
     annotation (Line(points={{-178,-40},{-142,-40}},
       color={0,0,127}));
-  connect(sumNumBoi.y, add2.u1)
+  connect(sumNumBoi.y,sub2. u1)
     annotation (Line(points={{-118,20},{-100,20},{-100,-4},{-82,-4}},
       color={0,0,127}));
-  connect(sumNumAvaBoi.y, add2.u2)
+  connect(sumNumAvaBoi.y,sub2. u2)
     annotation (Line(points={{-118,-40},{-100.5,-40},{-100.5,-16},{-82,-16}},
       color={0,0,127}));
-  connect(add2.y,lesThr. u)
+  connect(sub2.y,lesThr. u)
     annotation (Line(points={{-58,-10},{-42,-10}},
       color={0,0,127}));
   connect(lesThr.y, yAva)
@@ -292,11 +289,11 @@ equation
     annotation (Line(points={{-58,70},{80,70},{80,-20},{240,-20}},
       color={0,0,127}));
 
-  connect(boiDesCaps.y, add1.u2) annotation (Line(points={{-178,110},{-160,110},
+  connect(boiDesCaps.y,sub1. u2) annotation (Line(points={{-178,110},{-160,110},
           {-160,154},{-102,154}}, color={0,0,127}));
-  connect(sort1.y, add1.u1) annotation (Line(points={{-118,170},{-110,170},
+  connect(sort1.y,sub1. u1) annotation (Line(points={{-118,170},{-110,170},
           {-110,166},{-102,166}}, color={0,0,127}));
-  connect(add1.y, multiMax.u) annotation (Line(points={{-78,160},{-70,160},
+  connect(sub1.y, multiMax.u) annotation (Line(points={{-78,160},{-70,160},
           {-70,160},{-62,160}}, color={0,0,127}));
   connect(multiMax.y, abs.u)
     annotation (Line(points={{-38,160},{-22,160}}, color={0,0,127}));

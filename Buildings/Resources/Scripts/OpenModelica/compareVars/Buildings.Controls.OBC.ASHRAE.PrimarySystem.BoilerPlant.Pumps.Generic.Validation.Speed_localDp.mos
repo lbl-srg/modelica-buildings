@@ -13,6 +13,6 @@ compareVars :=
     "hotPumSpe.dpHotWat_local",
     "hotPumSpe.hotPumSpe.yHotWatPumSpe",
     "hotPumSpe.yHotWatPumSpe",
-    "hotPumSpe.pumSpe.f1",
-    "hotPumSpe.pumSpe.f2"
+    "hotPumSpe.hotPumSpe.pumSpe.f1",
+    "hotPumSpe.hotPumSpe.pumSpe.f2"
   };

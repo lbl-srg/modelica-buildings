@@ -46,8 +46,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Add addInt(
-    final k1=-1)
+  Buildings.Controls.OBC.CDL.Integers.Subtract subInt
     "Generate stage setpoints for staging down processes"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
@@ -99,18 +98,16 @@ equation
   connect(logSwi.y, chaPumSta.uNexLagPumSta) annotation (Line(points={{-18,50},{
           50,50},{50,8},{58,8}},  color={255,0,255}));
 
-  connect(addInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-18,-40},{52,
+  connect(subInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-18,-40},{52,
           -40},{52,-8},{58,-8}},    color={255,127,0}));
-
-  connect(onCouInt.y, addInt.u1) annotation (Line(points={{-86.8,0},{-84,0},{-84,
-          -34},{-42,-34}}, color={255,127,0}));
-
-  connect(conInt.y, addInt.u2) annotation (Line(points={{-78,-50},{-60,-50},{-60,
-          -46},{-42,-46}}, color={255,127,0}));
 
   connect(con.y, onCouInt.reset) annotation (Line(points={{-108,80},{-104,80},{-104,
           -14},{-94,-14},{-94,-7.2}}, color={255,0,255}));
 
+  connect(conInt.y,subInt. u1) annotation (Line(points={{-78,-50},{-60,-50},{-60,
+          -34},{-42,-34}}, color={255,127,0}));
+  connect(onCouInt.y,subInt. u2) annotation (Line(points={{-86.8,0},{-84,0},{-84,
+          -20},{-50,-20},{-50,-46},{-42,-46}}, color={255,127,0}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Pumps/Generic/Validation/ChangeStatus.mos"

@@ -235,7 +235,7 @@ protected
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-200},{30,-180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-200},{80,-180}})));
 
@@ -253,8 +253,7 @@ protected
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=TConBoiHotWatSetOff,
-    final k=1)
+    final p=TConBoiHotWatSetOff)
     "Boiler setpoint for condensing boilers in non-condensing type stage"
     annotation (Placement(transformation(extent={{-120,-200},{-100,-180}})));
 
@@ -267,7 +266,7 @@ protected
     "Convert temperature setpoint into vector"
     annotation (Placement(transformation(extent={{10,-310},{30,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[nBoi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nBoi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 

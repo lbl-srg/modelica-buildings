@@ -72,16 +72,15 @@ block EnableLag_flowrate
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain hotWatFloRat(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter hotWatFloRat(
     final k=1/VHotWat_flow_nominal)
     "Boiler hot water flow ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=staCon,
-    final k=1/nPum_nominal)
+    final p=staCon)
     "Add parameter"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=timPer)
@@ -94,15 +93,19 @@ block EnableLag_flowrate
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=1/nPum_nominal)
+    "Divide by nominal number of pumps"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Logical Not"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=staCon,
-    final k=1/nPum_nominal)
+    final p=staCon)
     "Add parameter"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
     "Convert boolean input to integer number"
@@ -118,19 +121,16 @@ protected
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-1,
-    final k=1)
+    final p=-1)
     "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
-    "Add real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Difference between current flowrate ratio and limit for staging up"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1)
-    "Add real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    "Difference between current flowrate ratio and limit for staging down"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Change cha[nPum]
@@ -154,6 +154,11 @@ protected
     "Restart timer whenever change in pump status is detected"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+    final k=1/nPum_nominal)
+    "Divide by nominal number of pumps"
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+
 equation
   connect(VHotWat_flow,hotWatFloRat. u)
     annotation (Line(points={{-160,80},{-122,80}}, color={0,0,127}));
@@ -168,35 +173,29 @@ equation
   connect(numOpePum.y,intToRea. u)
     annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
 
-  connect(intToRea.y,addPar. u)
-    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
-
-  connect(add2.y,hys. u)
+  connect(sub2.y,hys. u)
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
 
-  connect(add1.y,hys1. u)
+  connect(sub1.y,hys1. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
 
-  connect(addPar1.y, addPar2.u)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
-
-  connect(addPar.y, add2.u2)
-    annotation (Line(points={{62,0},{70,0},{70,20},{-90,20},{-90,34},{-82,34}},
+  connect(addPar.y,sub2. u2)
+    annotation (Line(points={{102,0},{120,0},{120,20},{-90,20},{-90,34},{-82,34}},
       color={0,0,127}));
 
   connect(intToRea.y, addPar1.u)
     annotation (Line(points={{22,0},{30,0},{30,-20},{-90,-20},{-90,-40},{-82,-40}},
       color={0,0,127}));
 
-  connect(addPar2.y, add1.u1)
-    annotation (Line(points={{-18,-40},{-16,-40},{-16,-60},{-90,-60},{-90,-74},{
+  connect(addPar2.y,sub1. u1)
+    annotation (Line(points={{102,-40},{120,-40},{120,-60},{-90,-60},{-90,-74},{
           -82,-74}},
                   color={0,0,127}));
 
-  connect(hotWatFloRat.y, add2.u1)
+  connect(hotWatFloRat.y,sub2. u1)
     annotation (Line(points={{-98,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
 
-  connect(hotWatFloRat.y, add1.u2)
+  connect(hotWatFloRat.y,sub1. u2)
     annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
       {-82,-86}}, color={0,0,127}));
 
@@ -225,6 +224,14 @@ equation
     annotation (Line(points={{22,-80},{38,-80}}, color={255,0,255}));
   connect(not1.y, and1.u2) annotation (Line(points={{-18,130},{-12,130},{-12,-88},
           {-2,-88}}, color={255,0,255}));
+  connect(intToRea.y, gai.u)
+    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
+  connect(gai.y, addPar.u)
+    annotation (Line(points={{62,0},{78,0}}, color={0,0,127}));
+  connect(addPar1.y, gai1.u)
+    annotation (Line(points={{-58,-40},{38,-40}}, color={0,0,127}));
+  connect(gai1.y, addPar2.u)
+    annotation (Line(points={{62,-40},{78,-40}}, color={0,0,127}));
 annotation (
   defaultComponentName="enaLagPriPum",
   Icon(coordinateSystem(preserveAspectRatio=false,
