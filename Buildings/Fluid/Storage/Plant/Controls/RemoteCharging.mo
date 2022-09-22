@@ -113,7 +113,7 @@ block RemoteCharging
         origin={-110,40})));
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=500,
+    k=5,
     Ti=50,
     reverseActing=false)
     if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
