@@ -111,16 +111,7 @@ equation
     Icon(
       coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    Documentation(revisions="<html>
-<p>
-Using modified getReal function with annotation(__Dymola_translate=true)
-avoids warning for non literal nominal attributes.
-Not supported by OCT though:
-Compliance error at line 8, column 4,
-  Constructors for external objects is not supported in functions
-
-</p>
-</html>", info="<html>
+    Documentation(info="<html>
 <p>
 This is a model for a chilled water coil with an optional
 modulating valve.

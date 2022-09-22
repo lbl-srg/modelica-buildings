@@ -39,7 +39,6 @@ partial block PartialController "Interface class for AHU controller"
         origin={100,0})));
 
   annotation (
-    __Dymola_translate=true,
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
