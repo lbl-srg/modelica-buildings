@@ -17,14 +17,13 @@ model Open
     nPorts=1) "Atmospheric pressure"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
-  connect(conRemCha.yPumRet, netCon.yPumRet)
-    annotation (Line(points={{-24,39},{-24,11}},
-                                               color={0,0,127}));
+  connect(senMasFlo.port_a, atm.ports[1]) annotation (Line(points={{-60,10},{
+          -80,10},{-80,30},{-80,30}},
+                                  color={0,127,255}));
+  connect(netCon.yPumRet, conRemCha.yPumRet)
+    annotation (Line(points={{-4,11},{-4,39}}, color={0,0,127}));
   connect(conRemCha.yValRet, netCon.yValRet)
-    annotation (Line(points={{-20,39},{-20,11}},
-                                               color={0,0,127}));
-  connect(senMasFlo.port_a, atm.ports[1]) annotation (Line(points={{-80,10},{-80,
-          10},{-80,30},{-80,30}}, color={0,127,255}));
+    annotation (Line(points={{0,39},{0,11}}, color={0,0,127}));
 annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
