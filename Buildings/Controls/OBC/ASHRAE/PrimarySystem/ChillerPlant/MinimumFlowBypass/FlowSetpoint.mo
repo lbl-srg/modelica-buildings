@@ -82,12 +82,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Timer tim1
     "Time after suppress chiller demand"
     annotation (Placement(transformation(extent={{-220,-400},{-200,-380}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch dowSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch dowSet
     "Minimum flow chilled water flow setpoint when there is stage-down command"
     annotation (Placement(transformation(extent={{240,-130},{260,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-220,-430},{-200,-410}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch byPasSet1
+  Buildings.Controls.OBC.CDL.Continuous.Switch byPasSet1
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{400,130},{420,150}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
@@ -105,7 +105,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     final k=fill(0,nChi)) "Constant zero"
     annotation (Placement(transformation(extent={{-340,110},{-320,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division floRat[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Divide floRat[nChi]
     "Flow rate ratio through each chiller"
     annotation (Placement(transformation(extent={{-280,170},{-260,190}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiRat(final nin=nChi)
@@ -131,13 +131,13 @@ protected
     annotation (Placement(transformation(extent={{-320,-40},{-300,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Xor xor[nChi] "Outputs true if exactly one input is true"
     annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 if have_parChi
     "Chilled water flow setpoint after disabling next chiller"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1 if not have_parChi
@@ -159,65 +159,65 @@ protected
     if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers after one chiller being disabled"
     annotation (Placement(transformation(extent={{-40,-240},{-20,-220}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi5[nChi] if not have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi5[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor nexChiMinFlo(final nin=nChi)
     if not have_parChi "Minimum flow rate of next enabling chiller"
     annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi6[nChi] if not have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi6[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-100,-240},{-80,-220}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2  "Logical and"
     annotation (Placement(transformation(extent={{-400,-10},{-380,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi9[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi9[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-220,340},{-200,360}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax4(
     final nin=nChi) if have_parChi
     "Maximum flow rate ratio of operating chillers"
     annotation (Placement(transformation(extent={{-180,340},{-160,360}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch  swi10[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch  swi10[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-220,300},{-200,320}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum2(
     final nin=nChi) if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-180,300},{-160,320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro3 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro3 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,320},{-40,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi11[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi11[nChi] if have_parChi
     "Maximum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-220,220},{-200,240}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum3(
     final nin=nChi) if have_parChi
     "Sum of maximum chilled water flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-180,220},{-160,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi12[nChi] if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi12[nChi] if have_parChi
     "Flow rate ratio of operating chiller"
     annotation (Placement(transformation(extent={{-220,260},{-200,280}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax5(final nin=nChi)
     if have_parChi
     "Maximum flow rate ratio of operating chillers"
     annotation (Placement(transformation(extent={{-180,260},{-160,280}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro4 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro4 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,240},{-40,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1 if have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 if have_parChi
     "Chilled water flow setpoint for current operating chillers"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax multiMax6(
     final nin=nChi) if not have_parChi
     "Largest minimum flow rate setpoint of operating chillers"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] if not have_parChi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] if not have_parChi
     "Minimum flow rate of operating chiller"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch byPasSet2
+  Buildings.Controls.OBC.CDL.Continuous.Switch byPasSet2
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{180,250},{200,270}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch upSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch upSet
     "Minimum flow chilled water flow setpoint when there is stage-up command"
     annotation (Placement(transformation(extent={{240,210},{260,230}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2
@@ -228,10 +228,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Line oneMorSet1
     "Minimum flow setpoint when adding one more chiller"
     annotation (Placement(transformation(extent={{100,-360},{120,-340}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch byPasSet4
+  Buildings.Controls.OBC.CDL.Continuous.Switch byPasSet4
     "Minimum flow chilled water flow setpoint"
     annotation (Placement(transformation(extent={{160,-310},{180,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chaSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch chaSet
     "Minimum flow chilled water flow setpoint when there is stage-change command"
     annotation (Placement(transformation(extent={{300,40},{320,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
@@ -334,7 +334,7 @@ equation
     annotation (Line(points={{-378,0},{-370,0},{-370,20},{-390,20},{-390,40},
       {-382,40}}, color={255,0,255}));
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{-358,40},{-350,40},{-350,238.2}}, color={255,0,255}));
+    annotation (Line(points={{-358,40},{-350,40},{-350,238}},   color={255,0,255}));
   connect(uChi, booToRea.u)
     annotation (Line(points={{-460,340},{-420,340},{-420,250},{-402,250}},
       color={255,0,255}));
@@ -619,7 +619,7 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(extent={{-36,42},{0,28}}, lineColor={28,108,200}),
         Rectangle(extent={{-36,28},{0,14}}, lineColor={28,108,200}),
@@ -628,28 +628,28 @@ annotation (
         Rectangle(extent={{-36,-14},{0,-28}}, lineColor={28,108,200}),
         Text(
           extent={{-32,38},{-12,32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Stage #"),
         Text(
           extent={{-30,24},{-10,18}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="0"),
         Text(
           extent={{-30,10},{-10,4}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="1"),
         Text(
           extent={{-30,-4},{-10,-10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="2"),
         Rectangle(extent={{-36,-28},{0,-42}}, lineColor={28,108,200}),
         Text(
           extent={{-30,-18},{-10,-24}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="..."),
         Text(
           extent={{-30,-32},{-10,-38}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="n"),
         Rectangle(extent={{2,42},{38,28}}, lineColor={28,108,200}),
         Rectangle(extent={{2,28},{38,14}}, lineColor={28,108,200}),
@@ -658,64 +658,64 @@ annotation (
         Rectangle(extent={{2,-14},{38,-28}}, lineColor={28,108,200}),
         Text(
           extent={{8,38},{34,32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Min flow"),
         Text(
           extent={{6,24},{34,18}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[1]"),
         Rectangle(extent={{2,-28},{38,-42}}, lineColor={28,108,200}),
         Text(
           extent={{8,-18},{28,-24}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="..."),
         Text(
           extent={{6,10},{34,4}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[2]"),
         Text(
           extent={{6,-32},{34,-38}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[n]"),
         Text(
           extent={{6,-4},{34,-10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[3]"),
         Text(
           extent={{-98,20},{-44,4}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexEnaChi"),
         Text(
           extent={{-98,0},{-44,-16}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexDisChi"),
         Text(
           extent={{-98,-82},{-52,-96}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uStaDow"),
         Text(
           extent={{-102,-64},{-60,-76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uOnOff"),
         Text(
           extent={{-98,-32},{-52,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uSubCha"),
         Text(
           extent={{-98,98},{-58,84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uStaUp"),
         Text(
           extent={{-98,78},{-38,64}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uUpsDevSta"),
         Text(
           extent={{-98,48},{-70,34}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{44,6},{98,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -734,98 +734,98 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{-112,394},{-6,378}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Plant with parallel chillers"),
         Text(
           extent={{-108,-84},{-10,-100}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Plant with series chillers"),
         Text(
           extent={{-80,114},{-8,98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
           extent={{-72,102},{-8,88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="enabling additional chiller"),
         Text(
           extent={{-60,2},{-8,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="disabling one chiller"),
         Text(
           extent={{-80,14},{-8,-2}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint when"),
         Text(
           extent={{-74,-160},{-10,-174}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="enabling additional chiller"),
         Text(
           extent={{-62,-242},{-10,-256}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="disabling one chiller"),
         Text(
           extent={{-112,372},{-10,356}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
           extent={{-74,360},{-10,346}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="current chillers status"),
         Text(
           extent={{-110,302},{-8,286}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="Minimum flow setpoint according to"),
         Text(
           extent={{-90,290},{-10,276}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="chillers status at the moment"),
         Text(
           extent={{-88,280},{-10,266}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,
           textString="when  requiring stage change"),
         Text(
           extent={{-74,-102},{-10,-116}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Right,

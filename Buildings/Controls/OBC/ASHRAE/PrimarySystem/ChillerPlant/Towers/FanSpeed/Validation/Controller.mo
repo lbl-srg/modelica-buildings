@@ -83,9 +83,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-320,-50},{-300,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,-30},{-220,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-260,260},{-240,280}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
     "Zero constant"

@@ -60,7 +60,7 @@ protected
     "Triggered sampler"
     annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Switch"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Edge"
@@ -86,34 +86,29 @@ protected
     "Minimum capacity requirement limit"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k1=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    "Find input difference"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MovingMean movMea(
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movMea(
     final delta=avePer)
     "Moving average"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2 "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2 "Product"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Max max "Maximum of two inputs"
     annotation (Placement(transformation(extent={{100,-80},{120,-60}})));
 
 equation
-  connect(TChiWatRet, add2.u2) annotation (Line(points={{-160,-50},{-130,-50},{
-          -130,-26},{-82,-26}},
-                            color={0,0,127}));
-  connect(add2.u1, TChiWatSupSet) annotation (Line(points={{-82,-14},{-130,-14},
-          {-130,10},{-160,10}}, color={0,0,127}));
-  connect(add2.y, pro.u1) annotation (Line(points={{-58,-20},{10,-20},{10,-64},
+  connect(sub1.y, pro.u1) annotation (Line(points={{-58,-20},{10,-20},{10,-64},
           {18,-64}},color={0,0,127}));
   connect(pro.y, movMea.u)
     annotation (Line(points={{42,-70},{58,-70}}, color={0,0,127}));
@@ -124,8 +119,7 @@ equation
   connect(pro.u2, pro2.y) annotation (Line(points={{18,-76},{10,-76},{10,-80},{2,
           -80}}, color={0,0,127}));
   connect(pro1.u1, density.y) annotation (Line(points={{-82,-114},{-90,-114},{-90,
-          -100},{-98,-100}},
-                           color={0,0,127}));
+          -100},{-98,-100}}, color={0,0,127}));
   connect(VChiWat_flow, pro2.u1) annotation (Line(points={{-160,-130},{-130,-130},
           {-130,-74},{-22,-74}}, color={0,0,127}));
   connect(max.u1, minLim.y) annotation (Line(points={{98,-64},{90,-64},{90,-20},
@@ -136,9 +130,8 @@ equation
           {-60,20},{-60,130},{-42,130}}, color={0,0,127}));
   connect(chaPro, edg.u)
     annotation (Line(points={{-160,110},{-102,110}}, color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{
-          -30,118.2}},
-                  color={255,0,255}));
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-78,110},{-30,110},{-30,
+          118}},       color={255,0,255}));
   connect(triSam.y, swi.u1) annotation (Line(points={{-18,130},{10,130},{10,138},
           {78,138}}, color={0,0,127}));
   connect(max.y, swi.u3) annotation (Line(points={{122,-70},{130,-70},{130,60},{
@@ -146,10 +139,14 @@ equation
   connect(swi.y, y)
     annotation (Line(points={{102,130},{160,130}},color={0,0,127}));
   connect(chaPro, truFalHol.u) annotation (Line(points={{-160,110},{-120,110},{
-          -120,80},{-42,80}},
-                         color={255,0,255}));
+          -120,80},{-42,80}}, color={255,0,255}));
   connect(truFalHol.y, swi.u2) annotation (Line(points={{-18,80},{40,80},{40,
           130},{78,130}}, color={255,0,255}));
+  connect(TChiWatSupSet, sub1.u2) annotation (Line(points={{-160,10},{-120,10},{
+          -120,-26},{-82,-26}}, color={0,0,127}));
+  connect(TChiWatRet, sub1.u1) annotation (Line(points={{-160,-50},{-100,-50},{-100,
+          -14},{-82,-14}}, color={0,0,127}));
+
   annotation (defaultComponentName = "capReq",
         Icon(graphics={
         Rectangle(
@@ -159,11 +156,11 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-62,88},{60,-76}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Load")}), Diagram(

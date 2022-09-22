@@ -22,7 +22,7 @@ model StageProcesses
     final width=0.1,
     final period=3800) "Boolean pulse"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[4] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[4] "Logical switch"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(
     final nout=4) "Replicate boolean input"
@@ -38,7 +38,7 @@ model StageProcesses
   Buildings.Controls.OBC.CDL.Logical.Pre pre1[4](
     pre_u_start={false,true,true,false}) "Tower cell actual status"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[4] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[4] "Logical switch"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[4](
     final k={0,1,1,0})

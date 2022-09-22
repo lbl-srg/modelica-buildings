@@ -6,8 +6,6 @@ compareVars :=
     "chiPlaCon.staSetCon.ySta",
     "chiPlaCon.upProCon.yChi[1]",
     "chiPlaCon.upProCon.yChi[2]",
-    "chiPlaCon.upProCon.yChiDem[1]",
-    "chiPlaCon.upProCon.yChiDem[2]",
     "chiPlaCon.upProCon.yChiHeaCon[1]",
     "chiPlaCon.upProCon.yChiHeaCon[2]",
     "chiPlaCon.upProCon.yChiWatIsoVal[1]",

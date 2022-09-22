@@ -5,15 +5,29 @@ model Controller
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta(TOutWetDes(displayUnit="degC"))
     "Waterside economizer enable status sequence"
-    annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
+    annotation (Placement(transformation(extent={{-190,40},{-170,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta1 "Waterside economizer enable status sequence"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
     wseSta2 "Waterside economizer enable status sequence"
-    annotation (Placement(transformation(extent={{160,0},{180,20}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Controller
+    wseSta3(
+    final have_byPasValCon=false,
+    TOutWetDes(displayUnit="degC"))
+    "Waterside economizer enable status sequence"
+    annotation (Placement(transformation(extent={{240,40},{260,60}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpWSE(
+    final amplitude=3000,
+    freqHz=1/3600,
+    final offset=4500)
+    "Static pressure difference across chilled water side economizer"
+    annotation (Placement(transformation(extent={{-260,-80},{-240,-60}})));
 
 protected
   parameter Real TOutWetBul(
@@ -43,117 +57,209 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow(
     final k=VChiWat_flow)
     "Chilled water flow"
-    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+    annotation (Placement(transformation(extent={{-260,0},{-240,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TOutWetSig(
     final amplitude=5,
     final period=2*15*60,
     final offset=TOutWetBul) "Measured outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{-260,100},{-240,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig(
     final k=1)
     "Cooling tower fan full load signal"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+    annotation (Placement(transformation(extent={{-260,-40},{-240,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+    annotation (Placement(transformation(extent={{-260,70},{-240,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetDow(
     final k=TWseOut)
     "Chilled water return temperature downstream of WSE"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+    annotation (Placement(transformation(extent={{-260,40},{-240,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow1(
     final k=VChiWat_flow)
     "Chilled water flow"
-    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
+    annotation (Placement(transformation(extent={{-150,0},{-130,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutWetSig1(
     final k=TOutWetBul)
     "Measured outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
+    annotation (Placement(transformation(extent={{-150,100},{-130,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig1(
     final k=1)
     "Cooling tower fan full load signal"
-    annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
+    annotation (Placement(transformation(extent={{-150,-40},{-130,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig1(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
-    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+    annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRetDow1(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
     "Chilled water return temperature downstream of WSE"
-    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
+    annotation (Placement(transformation(extent={{-150,40},{-130,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow2(
     final k=VChiWat_flow)
     "Chilled water flow"
-    annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
+    annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse TOutWetSig2(
     final amplitude=5,
     final period=2*15*60,
     final offset=TOutWetBul) "Measured outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{90,60},{110,80}})));
+    annotation (Placement(transformation(extent={{-30,100},{-10,120}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig2(
     final k=1)
     "Cooling tower fan full load signal"
-    annotation (Placement(transformation(extent={{90,-80},{110,-60}})));
+    annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig2(
     final k=TChiWatRet)
     "Chilled water return temperature upstream of WSE"
-    annotation (Placement(transformation(extent={{90,30},{110,50}})));
+    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRetDow3(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
     "Chilled water return temperature downstream of WSE"
-    annotation (Placement(transformation(extent={{90,0},{110,20}})));
+    annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=0)
+    "Stage 0"
+    annotation (Placement(transformation(extent={{-300,-20},{-280,0}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    final k=2)
+    "Stage 0"
+    annotation (Placement(transformation(extent={{-300,-60},{-280,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true) "Enabled plant"
+    annotation (Placement(transformation(extent={{-300,22},{-280,42}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiWatFlow3(
+    final k=VChiWat_flow)
+    "Chilled water flow"
+    annotation (Placement(transformation(extent={{160,0},{180,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant constTowFanSig3(
+    final k=1)
+    "Cooling tower fan full load signal"
+    annotation (Placement(transformation(extent={{160,-40},{180,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetSig3(
+    final k=TChiWatRet)
+    "Chilled water return temperature upstream of WSE"
+    annotation (Placement(transformation(extent={{160,70},{180,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRetDow2(
+    final k=TWseOut)
+    "Chilled water return temperature downstream of WSE"
+    annotation (Placement(transformation(extent={{160,40},{180,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutWetSig3(
+    final k=292.15)
+    "Measured outdoor air wet bulb temperature"
+    annotation (Placement(transformation(extent={{160,100},{180,120}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
+    final width=0.1,
+    final period=3600) "Enabled plant"
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    final k=0)
+    "Stage 0"
+    annotation (Placement(transformation(extent={{120,-20},{140,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TEntHex(
+    final height=3,
+    final duration=3600,
+    final offset=290.15)
+    "Return chilled water temperature entering heat exchanger"
+    annotation (Placement(transformation(extent={{160,-80},{180,-60}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{120,20},{140,40}})));
 equation
-  connect(constTowFanSig.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-118,
-          -70},{-80,-70},{-80,2},{-72,2}}, color={0,0,127}));
-  connect(TOutWetSig.y, wseSta.TOutWet) annotation (Line(points={{-118,70},{-80,
-          70},{-80,18},{-72,18}},color={0,0,127}));
-  connect(TChiWatRetSig.y, wseSta.TChiWatRet) annotation (Line(points={{-118,40},
-          {-100,40},{-100,14},{-72,14}},color={0,0,127}));
-  connect(chiWatFlow.y, wseSta.VChiWat_flow) annotation (Line(points={{-118,-30},
-          {-90,-30},{-90,6},{-72,6}},color={0,0,127}));
+  connect(constTowFanSig.y, wseSta.uTowFanSpeMax) annotation (Line(points={{-238,
+          -30},{-200,-30},{-200,52},{-192,52}}, color={0,0,127}));
+  connect(TOutWetSig.y, wseSta.TOutWet) annotation (Line(points={{-238,110},{-200,
+          110},{-200,60},{-192,60}}, color={0,0,127}));
+  connect(TChiWatRetSig.y, wseSta.TChiWatRet) annotation (Line(points={{-238,80},
+          {-220,80},{-220,58},{-192,58}}, color={0,0,127}));
+  connect(chiWatFlow.y, wseSta.VChiWat_flow) annotation (Line(points={{-238,10},
+          {-210,10},{-210,54},{-192,54}}, color={0,0,127}));
   connect(TChiWatRetDow.y,wseSta.TChiWatRetDow)
-    annotation (Line(points={{-118,10},{-72,10}},color={0,0,127}));
-  connect(constTowFanSig1.y, wseSta1.uTowFanSpeMax) annotation (Line(points={{-8,-70},
-          {30,-70},{30,2},{38,2}},      color={0,0,127}));
-  connect(TOutWetSig1.y, wseSta1.TOutWet) annotation (Line(points={{-8,70},{30,
-          70},{30,18},{38,18}},
-                            color={0,0,127}));
-  connect(TChiWatRetSig1.y, wseSta1.TChiWatRet) annotation (Line(points={{-8,40},
-          {10,40},{10,14},{38,14}}, color={0,0,127}));
-  connect(chiWatFlow1.y, wseSta1.VChiWat_flow) annotation (Line(points={{-8,-30},
-          {20,-30},{20,6},{38,6}}, color={0,0,127}));
+    annotation (Line(points={{-238,50},{-230,50},{-230,56},{-192,56}}, color={0,0,127}));
+  connect(constTowFanSig1.y, wseSta1.uTowFanSpeMax) annotation (Line(points={{-128,
+          -30},{-90,-30},{-90,52},{-82,52}}, color={0,0,127}));
+  connect(TOutWetSig1.y, wseSta1.TOutWet) annotation (Line(points={{-128,110},{-90,
+          110},{-90,60},{-82,60}}, color={0,0,127}));
+  connect(TChiWatRetSig1.y, wseSta1.TChiWatRet) annotation (Line(points={{-128,80},
+          {-110,80},{-110,58},{-82,58}}, color={0,0,127}));
+  connect(chiWatFlow1.y, wseSta1.VChiWat_flow) annotation (Line(points={{-128,10},
+          {-100,10},{-100,54},{-82,54}}, color={0,0,127}));
   connect(TChiWatRetDow1.y,wseSta1.TChiWatRetDow)
-    annotation (Line(points={{-8,10},{38,10}}, color={0,0,127}));
-  connect(constTowFanSig2.y, wseSta2.uTowFanSpeMax) annotation (Line(points={{112,-70},
-          {150,-70},{150,2},{158,2}},          color={0,0,127}));
-  connect(TOutWetSig2.y,wseSta2. TOutWet) annotation (Line(points={{112,70},{
-          150,70},{150,18},{158,18}},
-                                 color={0,0,127}));
-  connect(TChiWatRetSig2.y,wseSta2. TChiWatRet) annotation (Line(points={{112,40},
-          {130,40},{130,14},{158,14}},color={0,0,127}));
-  connect(chiWatFlow2.y,wseSta2. VChiWat_flow) annotation (Line(points={{112,-30},
-          {140,-30},{140,6},{158,6}}, color={0,0,127}));
+    annotation (Line(points={{-128,50},{-120,50},{-120,56},{-82,56}}, color={0,0,127}));
+  connect(constTowFanSig2.y, wseSta2.uTowFanSpeMax) annotation (Line(points={{-8,-30},
+          {30,-30},{30,52},{38,52}},           color={0,0,127}));
+  connect(TOutWetSig2.y,wseSta2. TOutWet) annotation (Line(points={{-8,110},{30,
+          110},{30,60},{38,60}}, color={0,0,127}));
+  connect(TChiWatRetSig2.y,wseSta2. TChiWatRet) annotation (Line(points={{-8,80},
+          {10,80},{10,58},{38,58}},   color={0,0,127}));
+  connect(chiWatFlow2.y,wseSta2. VChiWat_flow) annotation (Line(points={{-8,10},
+          {20,10},{20,54},{38,54}},   color={0,0,127}));
   connect(wseSta2.TChiWatRetDow, TChiWatRetDow3.y)
-    annotation (Line(points={{158,10},{112,10}}, color={0,0,127}));
+    annotation (Line(points={{38,56},{0,56},{0,50},{-8,50}}, color={0,0,127}));
+  connect(con.y, wseSta.uPla) annotation (Line(points={{-278,32},{-220,32},{-220,
+          50},{-192,50}}, color={255,0,255}));
+  connect(con.y, wseSta1.uPla) annotation (Line(points={{-278,32},{-110,32},{-110,
+          50},{-82,50}}, color={255,0,255}));
+  connect(con.y, wseSta2.uPla) annotation (Line(points={{-278,32},{10,32},{10,50},
+          {38,50}}, color={255,0,255}));
+  connect(conInt.y, wseSta.uIni) annotation (Line(points={{-278,-10},{-216,-10},
+          {-216,48},{-192,48}}, color={255,127,0}));
+  connect(conInt.y, wseSta1.uIni) annotation (Line(points={{-278,-10},{-106,-10},
+          {-106,48},{-82,48}}, color={255,127,0}));
+  connect(conInt.y, wseSta2.uIni) annotation (Line(points={{-278,-10},{14,-10},{
+          14,48},{38,48}}, color={255,127,0}));
+  connect(conInt1.y, wseSta.uChiSta) annotation (Line(points={{-278,-50},{-206,-50},
+          {-206,46},{-192,46}}, color={255,127,0}));
+  connect(conInt1.y, wseSta1.uChiSta) annotation (Line(points={{-278,-50},{-96,-50},
+          {-96,46},{-82,46}}, color={255,127,0}));
+  connect(conInt1.y, wseSta2.uChiSta) annotation (Line(points={{-278,-50},{24,-50},
+          {24,46},{38,46}}, color={255,127,0}));
+  connect(dpWSE.y, wseSta.dpChiWat) annotation (Line(points={{-238,-70},{-226,-70},
+          {-226,44},{-192,44}}, color={0,0,127}));
+  connect(dpWSE.y, wseSta1.dpChiWat) annotation (Line(points={{-238,-70},{-116,-70},
+          {-116,44},{-82,44}}, color={0,0,127}));
+  connect(dpWSE.y, wseSta2.dpChiWat) annotation (Line(points={{-238,-70},{4,-70},
+          {4,44},{38,44}}, color={0,0,127}));
+  connect(TOutWetSig3.y, wseSta3.TOutWet) annotation (Line(points={{182,110},{220,
+          110},{220,60},{238,60}}, color={0,0,127}));
+  connect(TChiWatRetSig3.y, wseSta3.TChiWatRet) annotation (Line(points={{182,80},
+          {214,80},{214,58},{238,58}}, color={0,0,127}));
+  connect(TChiWatRetDow2.y, wseSta3.TChiWatRetDow) annotation (Line(points={{182,
+          50},{196,50},{196,56},{238,56}}, color={0,0,127}));
+  connect(chiWatFlow3.y, wseSta3.VChiWat_flow) annotation (Line(points={{182,10},
+          {204,10},{204,54},{238,54}}, color={0,0,127}));
+  connect(constTowFanSig3.y, wseSta3.uTowFanSpeMax) annotation (Line(points={{182,
+          -30},{208,-30},{208,52},{238,52}}, color={0,0,127}));
+  connect(conInt2.y, wseSta3.uIni) annotation (Line(points={{142,-10},{212,-10},
+          {212,48},{238,48}}, color={255,127,0}));
+  connect(booPul.y, not1.u)
+    annotation (Line(points={{102,30},{118,30}}, color={255,0,255}));
+  connect(not1.y, wseSta3.uPla) annotation (Line(points={{142,30},{200,30},{200,
+          50},{238,50}}, color={255,0,255}));
+  connect(not1.y, wseSta3.uPum) annotation (Line(points={{142,30},{200,30},{200,
+          42},{238,42}}, color={255,0,255}));
+  connect(TEntHex.y, wseSta3.TEntHex) annotation (Line(points={{182,-70},{220,-70},
+          {220,40},{238,40}}, color={0,0,127}));
+  connect(conInt2.y, wseSta3.uChiSta) annotation (Line(points={{142,-10},{212,-10},
+          {212,46},{238,46}}, color={255,127,0}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Economizers/Validation/Controller.mos"
@@ -172,7 +278,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(graphics={
+Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+     graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
                 fillPattern = FillPattern.Solid,
@@ -182,23 +289,27 @@ Icon(graphics={
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-160,-100},{200,100}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-320,-140},{320,140}}),
         graphics={
         Text(
-          extent={{-172,-74},{-86,-112}},
-          lineColor={0,0,127},
+          extent={{-276,-88},{-194,-112}},
+          textColor={0,0,127},
           textString="Tests enable conditions 
 based on the outdoor air 
 wetbulb temperature"),
         Text(
-          extent={{-70,-72},{32,-114}},
-          lineColor={0,0,127},
+          extent={{-166,-84},{-78,-114}},
+          textColor={0,0,127},
           textString="Tests disable conditions 
 based on the chilled water  
 temperature downstream of WSE"),
         Text(
-          extent={{74,-88},{126,-102}},
-          lineColor={0,0,127},
+          extent={{-34,-88},{40,-108}},
+          textColor={0,0,127},
           textString="Combines conditions from 
-the first two tests")}));
+the first two tests"),
+        Text(
+          extent={{164,-86},{254,-98}},
+          textColor={0,0,127},
+          textString="Plant enabled in economizer mode")}));
 end Controller;

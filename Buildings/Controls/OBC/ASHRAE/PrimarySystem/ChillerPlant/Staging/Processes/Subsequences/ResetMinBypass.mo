@@ -55,11 +55,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Flow rate error divided by its setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6, final k=1)
+    final p=1e-6)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
@@ -71,10 +71,10 @@ protected
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs "Absolute value"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback floDif
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract floDif
     "Checkout the flow rate difference"
-    annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
 
@@ -115,15 +115,12 @@ equation
   connect(edg2.y, lat.u)
     annotation (Line(points={{62,40},{78,40}}, color={255,0,255}));
   connect(VChiWat_flow, floDif.u1)
-    annotation (Line(points={{-180,-20},{-152,-20}}, color={0,0,127}));
-  connect(VMinChiWat_setpoint, floDif.u2)
-    annotation (Line(points={{-180,-80},{-150,-80},{-150,-40},{-140,-40},
-      {-140,-32}}, color={0,0,127}));
+    annotation (Line(points={{-180,-20},{-140,-20},{-140,-14},{-122,-14}}, color={0,0,127}));
   connect(floDif.y, abs.u)
-    annotation (Line(points={{-128,-20},{-122,-20}}, color={0,0,127}));
+    annotation (Line(points={{-98,-20},{-82,-20}}, color={0,0,127}));
   connect(abs.y, div.u1)
-    annotation (Line(points={{-98,-20},{-90,-20},{-90,-40},{-110,-40},{-110,-54},
-      {-102,-54}}, color={0,0,127}));
+    annotation (Line(points={{-58,-20},{-40,-20},{-40,-40},{-110,-40},{-110,-54},
+          {-102,-54}}, color={0,0,127}));
   connect(hys.y, not2.u)
     annotation (Line(points={{-38,-60},{-22,-60}}, color={255,0,255}));
   connect(and2.y, and3.u1)
@@ -135,6 +132,8 @@ equation
   connect(tim.passed, and1.u3)
     annotation (Line(points={{62,-28},{114,-28},{114,72},{118,72}},
       color={255,0,255}));
+  connect(VMinChiWat_setpoint, floDif.u2) annotation (Line(points={{-180,-80},{-150,
+          -80},{-150,-26},{-122,-26}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="minBypRes",
@@ -146,35 +145,35 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{50,8},{98,-8}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yMinBypRes"),
         Text(
           extent={{-98,-32},{-50,-46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-98,-72},{-30,-88}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VMinChiWat_setpoint"),
         Text(
           extent={{-98,46},{-66,36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="chaPro"),
       Text(
         extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         textString="S"),
         Text(
           extent={{-98,88},{-52,76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uUpsDevSta")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,

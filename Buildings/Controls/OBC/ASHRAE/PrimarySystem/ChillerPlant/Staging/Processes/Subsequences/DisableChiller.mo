@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block DisableChiller "Sequence for disabling chiller in stage-down process"
 
-  parameter Integer nChi "Total number of chillers";
+  parameter Integer nChi=2 "Total number of chillers";
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
@@ -44,7 +44,7 @@ block DisableChiller "Sequence for disabling chiller in stage-down process"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{100,190},{120,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
@@ -64,7 +64,7 @@ protected
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,0},{120,20}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
@@ -72,7 +72,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
     final k=fill(false, nChi)) "False constant"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,40},{180,60}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intRep(final nout=nChi)
@@ -135,23 +135,23 @@ protected
     final k=fill(false, nChi))
     "False constant"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-190},{120,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep6(
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi5[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi5[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi6[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi6[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-250},{120,-230}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi7
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi7
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-62},{180,-42}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(
@@ -191,7 +191,7 @@ equation
   connect(edg.y,booRep1. u)
     annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
   connect(booRep1.y,triSam. trigger)
-    annotation (Line(points={{-38,70},{-10,70},{-10,88.2}}, color={255,0,255}));
+    annotation (Line(points={{-38,70},{-10,70},{-10,88}},   color={255,0,255}));
   connect(triSam.y,greEquThr. u)
     annotation (Line(points={{2,100},{18,100}}, color={0,0,127}));
   connect(greEquThr.y,logSwi. u3)
@@ -282,7 +282,7 @@ equation
     annotation (Line(points={{122,-90},{140,-90},{140,-112},{158,-112}},
       color={255,0,255}));
   connect(booRep5.y, triSam1.trigger)
-    annotation (Line(points={{-98,-240},{-70,-240},{-70,-221.8}}, color={255,0,255}));
+    annotation (Line(points={{-98,-240},{-70,-240},{-70,-222}},   color={255,0,255}));
   connect(booRep4.y, logSwi6.u2)
     annotation (Line(points={{-138,-160},{0,-160},{0,-240},{98,-240}}, color={255,0,255}));
   connect(logSwi3.y, logSwi6.u1)
@@ -321,7 +321,7 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,0},{60,-80}},
@@ -345,35 +345,35 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,98},{-44,82}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexEnaChi"),
         Text(
           extent={{-98,70},{-52,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uStaDow"),
         Text(
           extent={{-96,30},{-24,10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uEnaChiWatIsoVal"),
         Text(
           extent={{-100,-14},{-78,-24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-98,-82},{-70,-94}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uOnOff"),
         Text(
           extent={{-98,-40},{-44,-56}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexDisChi"),
         Text(
           extent={{74,6},{98,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChi"),
         Text(
           extent={{44,-72},{96,-84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yReaDemLim")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={
@@ -392,7 +392,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable small chiller"),
           Text(
@@ -400,7 +400,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable large chiller"),
           Text(
@@ -408,7 +408,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable chiller when the down-process does not require any other chiller being enabled"),
           Text(
@@ -416,7 +416,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable chiller when the down-process requires small chiller being enabled")}),
 Documentation(info="<html>

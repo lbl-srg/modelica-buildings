@@ -63,10 +63,10 @@ block NextChiller "Identify next enable and disable chillers"
   Buildings.Controls.OBC.CDL.Logical.And enaDis
     "Check if enabling and disabling chillers at the same process"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt[nChi]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt[nChi]
     "Find out the index of enabling chiller"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt1[nChi]
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt1[nChi]
     "Find out the index of disabling chiller"
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum enaChiInd(final nin = nChi)
@@ -81,22 +81,22 @@ block NextChiller "Identify next enable and disable chillers"
   Buildings.Controls.OBC.CDL.Logical.Latch dowPro
     "True when it is in stage down process"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt2
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt2
     "Find out the index of enabling chiller"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt3
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt3
     "Staging up process and it requires chiller on and off"
     annotation (Placement(transformation(extent={{120,110},{140,130}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt4
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt4
     "Disabling chiller during stage up process"
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt5
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt5
     "Find out the index of disabling chiller"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt6
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt6
     "Staging down process and it requires chiller on and off"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Integers.Product proInt7
+  Buildings.Controls.OBC.CDL.Integers.Multiply proInt7
     "Enabling chiller during stage down process"
     annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
 
@@ -231,51 +231,51 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,76},{-64,66}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="uStaSet"),
         Text(
           extent={{-100,8},{-58,-4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiSet"),
         Text(
           extent={{50,100},{98,80}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yNexEnaChi"),
         Text(
           extent={{-98,-62},{-64,-74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{50,52},{98,32}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yDisSmaChi"),
         Text(
           extent={{50,-28},{98,-48}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yDisLasChi"),
         Text(
           extent={{44,-78},{98,-100}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yEnaSmaChi"),
         Text(
           extent={{54,8},{96,-4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yOnOff"),
       Text(
         extent={{-100,100},{100,-100}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
           textString="?")}),
 Documentation(info="<html>
 <p>

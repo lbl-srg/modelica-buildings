@@ -9,7 +9,7 @@ block Controller
   parameter Boolean closeCoupledPlant=true "Flag to indicate if the plant is close coupled";
   parameter Real desCap(
      final unit="W",
-     final quantity="Power")= 1e6 "Plant design capacity";
+     final quantity="HeatFlowRate")= 1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real LIFT_min[nChi](
     final unit=fill("K",nChi),
@@ -159,7 +159,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
-    final unit="K") "Condenser water return temperature"
+    final unit="K") "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-200,-180},{-160,-140}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
@@ -172,7 +172,7 @@ block Controller
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K") if not closeCoupledPlant
-    "Condenser water supply temperature"
+    "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-200,-300},{-160,-260}}),
       iconTransformation(extent={{-240,-200},{-200,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
@@ -242,15 +242,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Any chiller is enabled and waterside economizer is not enabled"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain parLoaRat(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter parLoaRat(
     final k=1/desCap) "Plant partial load ratio"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Line plrTowMaxSpe
     "Tower maximum speed resetted by partial load ratio"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch between when waterside economizer is enabled and disabled"
     annotation (Placement(transformation(extent={{100,200},{120,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowPlrTowMaxSpe(
@@ -431,7 +431,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-240,270},{200,210}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-40,160},{40,160},{0,20},{-40,160}},
@@ -468,62 +468,62 @@ annotation (
           pattern=LinePattern.None),
         Text(
           extent={{114,-110},{144,-128}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="CWRT"),
         Text(
           extent={{-200,160},{-158,142}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-196,188},{-118,172}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uTowSpeWSE",
           visible=have_WSE),
         Text(
           extent={{-200,130},{-154,114}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
           extent={{-198,12},{-160,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTow"),
         Text(
           extent={{-200,-80},{-160,-98}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uPla"),
         Text(
           extent={{-200,100},{-126,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
           extent={{-196,72},{-104,54}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uMaxTowSpeSet"),
         Text(
           extent={{-200,40},{-134,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uFanSpe"),
         Text(
           extent={{-198,-50},{-118,-68}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
           extent={{-200,-112},{-114,-128}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatRet"),
         Text(
           extent={{-196,-142},{-94,-158}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-198,-170},{-118,-188}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatSup",
           visible=not closeCoupledPlant),
         Text(
           extent={{122,12},{200,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySpeSet")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-300},{160,280}}), graphics={
@@ -532,7 +532,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When there is no WSE:"),
           Text(
@@ -540,7 +540,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if no chiller is enabled, then tower fan speed should be zero;"),
           Text(
@@ -548,7 +548,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if any chiller is enabled, then control fan speed with sequence here;"),
           Text(
@@ -556,7 +556,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When there is WSE:"),
           Text(
@@ -564,7 +564,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if WSE is not enabled, then control fan speed with sequence here;"),
           Text(
@@ -572,7 +572,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="- if WSE is enabled, then fan speed will be controlled by uTowSpeWSE;")}),
 Documentation(info="<html>

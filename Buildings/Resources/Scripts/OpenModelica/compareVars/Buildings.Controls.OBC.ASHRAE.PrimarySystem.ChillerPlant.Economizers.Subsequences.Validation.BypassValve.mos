@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "wseVal.uWSE",
+    "wseVal.dpChiWat",
+    "wseVal.dpDes",
+    "wseVal.yRetVal",
+    "wseVal.yConWatIsoVal"
+  };

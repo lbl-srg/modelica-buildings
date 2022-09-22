@@ -35,7 +35,7 @@ protected
     final k=true) "Constant"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse ecoSta(
@@ -179,19 +179,19 @@ Icon(graphics={
         graphics={
         Text(
           extent={{-126,6},{-20,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests tuning parameter decrease
 based on WSE enable duration
 prior to disable"),
         Text(
           extent={{-10,14},{154,-18}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests tuning parameter increase
 based on WSE enable duration
 prior to disable and cooling tower
 fan speed during WSE enable."),
         Text(
           extent={{-46,-208},{48,-214}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests anti-windup")}));
 end Tuning_uEcoSta_uTowFanSpeMax;

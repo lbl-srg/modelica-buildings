@@ -119,21 +119,20 @@ protected
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
-    final delayTime=faiSafTruDelay, final delayOnInit=false)
+    final delayTime=faiSafTruDelay,
+    final delayOnInit=false)
     "Delays a true signal"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or1 "Logical or"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add0(
-    final k1=-1,
-    final k2=1) "Adder for temperatures"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub0
+    "Adder for temperatures"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=1,
-    final k2=-1) if (not have_serChi) and have_locSen
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    if (not have_serChi) and have_locSen
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
@@ -142,9 +141,8 @@ protected
     if (not have_serChi) and (not have_locSen)
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nRemSen](
-    final k1=fill(1, nRemSen),
-    final k2=fill(-1,nRemSen)) if (not have_serChi) and (not have_locSen)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nRemSen]
+    if (not have_serChi) and (not have_locSen)
     "Subtracts differential pressures"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
 
@@ -161,23 +159,19 @@ protected
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
-  connect(add1.y, hysdpSup.u)
+  connect(sub1.y, hysdpSup.u)
     annotation (Line(points={{-78,0},{-62,0}}, color={0,0,127}));
-  connect(dpChiWatPumSet_local, add1.u1) annotation (Line(points={{-160,20},{-120,
+  connect(dpChiWatPumSet_local, sub1.u1) annotation (Line(points={{-160,20},{-120,
           20},{-120,6},{-102,6}}, color={0,0,127}));
-  connect(dpChiWatPum_local, add1.u2) annotation (Line(points={{-160,-20},{-120,
+  connect(dpChiWatPum_local, sub1.u2) annotation (Line(points={{-160,-20},{-120,
           -20},{-120,-6},{-102,-6}}, color={0,0,127}));
-  connect(add0.y, hysTSup.u)
+  connect(sub0.y, hysTSup.u)
     annotation (Line(points={{-78,80},{-62,80}},   color={0,0,127}));
-  connect(TChiWatSupSet, add0.u1) annotation (Line(points={{-160,90},{-120,90},{
-          -120,86},{-102,86}},  color={0,0,127}));
-  connect(TChiWatSup, add0.u2) annotation (Line(points={{-160,50},{-120,50},{-120,
-          74},{-102,74}},   color={0,0,127}));
-  connect(add2.y, hysdpSup1.u)
+  connect(sub2.y, hysdpSup1.u)
     annotation (Line(points={{-78,-80},{-62,-80}}, color={0,0,127}));
-  connect(dpChiWatPumSet_remote, add2.u1) annotation (Line(points={{-160,-60},{-120,
+  connect(dpChiWatPumSet_remote, sub2.u1) annotation (Line(points={{-160,-60},{-120,
           -60},{-120,-74},{-102,-74}}, color={0,0,127}));
-  connect(dpChiWatPum_remote, add2.u2) annotation (Line(points={{-160,-100},{-120,
+  connect(dpChiWatPum_remote, sub2.u2) annotation (Line(points={{-160,-100},{-120,
           -100},{-120,-86},{-102,-86}}, color={0,0,127}));
   connect(or1.y, y)
     annotation (Line(points={{122,0},{160,0}}, color={255,0,255}));
@@ -197,6 +191,10 @@ equation
           -8}}, color={255,0,255}));
   connect(truDel1.y, mulOr.u)
     annotation (Line(points={{2,-80},{18,-80}}, color={255,0,255}));
+  connect(TChiWatSupSet, sub0.u2) annotation (Line(points={{-160,90},{-130,90},{
+          -130,74},{-102,74}}, color={0,0,127}));
+  connect(TChiWatSup, sub0.u1) annotation (Line(points={{-160,50},{-120,50},{-120,
+          86},{-102,86}}, color={0,0,127}));
 
 annotation (defaultComponentName = "faiSafCon",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -208,7 +206,7 @@ annotation (defaultComponentName = "faiSafCon",
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-120},{140,120}})),

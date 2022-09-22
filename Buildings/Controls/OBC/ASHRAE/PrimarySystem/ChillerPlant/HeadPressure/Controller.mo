@@ -36,7 +36,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not have_heaPreConSig
-    "Measured condenser water return temperature"
+    "Measured condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
@@ -111,7 +111,7 @@ block Controller "Head pressure controller for plants with headered condenser wa
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if have_heaPreConSig
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi if have_heaPreConSig
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0) if have_heaPreConSig "Constant"
@@ -204,7 +204,7 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-80,60},{82,-60}},

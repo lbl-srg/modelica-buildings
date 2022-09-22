@@ -18,15 +18,17 @@ block Down
     "True: headered condenser water pumps";
   parameter Boolean have_fixSpeConWatPum=false
     "True: fixed speed condenser water pump";
+  parameter Boolean need_reduceChillerDemand=false
+    "True: need limit chiller demand when chiller staging";
   parameter Real chiDemRedFac=0.75
     "Demand reducing factor of current operating chillers"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller and need_reduceChillerDemand));
   parameter Real holChiDemTim(
     final unit="s",
     final quantity="Time",
     displayUnit="s")=300
     "Maximum time to wait for the actual demand less than percentage of current load"
-    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller));
+    annotation (Dialog(group="Disable last chiller", enable=have_ponyChiller and need_reduceChillerDemand));
   parameter Real waiTim(
     final unit="s",
     final quantity="Time",
@@ -99,13 +101,13 @@ block Down
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if need_reduceChillerDemand
     "Current stage minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-320,260},{-280,300}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
     final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+    final unit=fill("A", nChi)) if need_reduceChillerDemand
     "Current chiller load"
     annotation (Placement(transformation(extent={{-320,230},{-280,270}}),
       iconTransformation(extent={{-140,100},{-100,140}})));
@@ -175,7 +177,7 @@ block Down
       iconTransformation(extent={{100,170},{140,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
     final quantity=fill("ElectricCurrent", nChi),
-    final unit=fill("A", nChi))
+    final unit=fill("A", nChi)) if need_reduceChillerDemand
     "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{280,240},{320,280}}),
       iconTransformation(extent={{100,130},{140,170}})));
@@ -184,6 +186,7 @@ block Down
     annotation (Placement(transformation(extent={{280,200},{320,240}}),
       iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yReaDemLim
+    if need_reduceChillerDemand
     "Release demand limit"
     annotation (Placement(transformation(extent={{280,160},{320,200}}),
       iconTransformation(extent={{100,60},{140,100}})));
@@ -236,6 +239,7 @@ protected
     dowSta(
     final nChi=nChi,
     final have_parChi=have_parChi,
+    final need_reduceChillerDemand=need_reduceChillerDemand,
     final chiDemRedFac=chiDemRedFac,
     final holChiDemTim=holChiDemTim,
     final minFloSet=minFloSet,
@@ -311,14 +315,14 @@ protected
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2 "Logical switch"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{140,10},{160,30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
     "Chilled water isolvation valve position"
     annotation (Placement(transformation(extent={{140,70},{160,90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
@@ -336,13 +340,13 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi [nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi [nChi]
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr  mulOr(final nin=nChi) "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-200},{-60,-180}})));
+    annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi) "Multiple or"
-    annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{-180,340},{-160,360}})));
@@ -360,7 +364,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat2
     "Maintain ON signal when chiller demand has been limited"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiWatMinSet
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiWatMinSet
     "Chilled water minimum flow set"
     annotation (Placement(transformation(extent={{200,-340},{220,-320}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat3
@@ -446,7 +450,7 @@ equation
     annotation (Line(points={{82,232},{100,232},{100,-62},{138,-62}},
       color={255,0,255}));
   connect(and5.y, disHeaCon.uUpsDevSta)
-    annotation (Line(points={{82,-120},{160,-120},{160,-92},{198,-92}},
+    annotation (Line(points={{82,-120},{160,-120},{160,-96},{198,-96}},
       color={255,0,255}));
   connect(nexChi.yLasDisChi, disHeaCon.nexChaChi)
     annotation (Line(points={{-18,316},{20,316},{20,-104},{198,-104}},
@@ -458,19 +462,19 @@ equation
     annotation (Line(points={{-138,200},{-120,200},{-120,-158},{98,-158}},
       color={255,0,255}));
   connect(disNexCWP.yChiSta, conWatPumCon.uChiSta)
-    annotation (Line(points={{122,-160},{130,-160},{130,-181},{138,-181}},
+    annotation (Line(points={{122,-160},{130,-160},{130,-183},{138,-183}},
       color={255,127,0}));
   connect(mulOr1.y, conWatPumCon.uLeaConWatReq)
-    annotation (Line(points={{-58,-220},{46,-220},{46,-178},{138,-178}},
+    annotation (Line(points={{-18,-220},{46,-220},{46,-178},{138,-178}},
       color={255,0,255}));
   connect(uChi, mulOr.u)
-    annotation (Line(points={{-300,220},{-200,220},{-200,-190},{-82,-190}},
+    annotation (Line(points={{-300,220},{-200,220},{-200,-200},{-82,-200}},
       color={255,0,255}));
   connect(uConWatReq, mulOr1.u)
-    annotation (Line(points={{-300,-120},{-250,-120},{-250,-220},{-82,-220}},
+    annotation (Line(points={{-300,-120},{-250,-120},{-250,-220},{-42,-220}},
       color={255,0,255}));
   connect(conWatPumCon.uWSE, uWSE)
-    annotation (Line(points={{138,-184},{52,-184},{52,-240},{-300,-240}},
+    annotation (Line(points={{138,-185},{52,-185},{52,-240},{-300,-240}},
       color={255,0,255}));
   connect(conWatPumCon.uConWatPumSpe, uConWatPumSpe)
     annotation (Line(points={{138,-189},{64,-189},{64,-340},{-300,-340}},
@@ -515,8 +519,8 @@ equation
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,12},
           {58,12}},       color={255,0,255}));
   connect(lat.y, disHeaCon.chaPro)
-    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-96},
-          {198,-96}},       color={255,0,255}));
+    annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-100},
+          {198,-100}},      color={255,0,255}));
   connect(lat.y, minChiWatFlo.uStaDow)
     annotation (Line(points={{-158,350},{-140,350},{-140,328},{-260,328},{-260,-329},
           {98,-329}},         color={255,0,255}));
@@ -532,10 +536,10 @@ equation
     annotation (Line(points={{138,-172},{-140,-172},{-140,-180},{-300,-180}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiEna)
-    annotation (Line(points={{-58,-190},{40,-190},{40,-174},{138,-174}},
+    annotation (Line(points={{-58,-200},{40,-200},{40,-174},{138,-174}},
       color={255,0,255}));
   connect(mulOr.y, conWatPumCon.uLeaChiSta)
-    annotation (Line(points={{-58,-190},{40,-190},{40,-176},{138,-176}},
+    annotation (Line(points={{-58,-200},{40,-200},{40,-176},{138,-176}},
       color={255,0,255}));
   connect(conWatPumCon.yDesConWatPumSpe, yDesConWatPumSpe)
     annotation (Line(points={{162,-179},{240,-179},{240,-180},{300,-180}},
@@ -665,10 +669,13 @@ equation
   connect(dowSta.uChiHeaCon, uChiHeaCon) annotation (Line(points={{58,224},{-100,
           224},{-100,130},{-300,130}}, color={255,0,255}));
   connect(uChiHeaCon, logSwi.u3) annotation (Line(points={{-300,130},{-100,130},
-          {-100,-90},{120,-90},{120,-78},{138,-78}}, color={255,0,255}));
-
+          {-100,-86},{120,-86},{120,-78},{138,-78}}, color={255,0,255}));
   connect(conWatPumCon.uConWatPum, uConWatPum) annotation (Line(points={{138,-191},
           {70,-191},{70,-380},{-300,-380}}, color={255,0,255}));
+  connect(con.y, disHeaCon.uEnaPla) annotation (Line(points={{-138,200},{-120,200},
+          {-120,-92},{198,-92}}, color={255,0,255}));
+  connect(con.y, conWatPumCon.uEnaPla) annotation (Line(points={{-138,200},{
+          -120,200},{-120,-180},{138,-180}}, color={255,0,255}));
 annotation (
   defaultComponentName="dowProCon",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-280,-400},{280,400}})),
@@ -681,7 +688,7 @@ annotation (
         borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,240},{120,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-10,140},{10,-120}},
@@ -695,125 +702,129 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,198},{-58,186}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uStaSet"),
         Text(
           extent={{-96,148},{-26,134}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yOpeParLoaRatMin"),
+          textString="yOpeParLoaRatMin",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-96,126},{-60,114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uChiLoa"),
+          textString="uChiLoa",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-100,96},{-70,84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-98,76},{-44,62}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-100,-14},{-40,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{-100,-44},{-50,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiWatReq"),
         Text(
           extent={{-98,-62},{-48,-76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uConWatReq"),
         Text(
           extent={{-98,-92},{-44,-108}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiConIsoVal"),
         Text(
           extent={{-104,-124},{-68,-136}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWSE",
           visible=have_WSE),
         Text(
           extent={{-98,-162},{-32,-176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpe",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{-98,-140},{-26,-158}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uConWatPumSpeSet",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{60,198},{100,186}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yStaPro"),
         Text(
           extent={{60,158},{96,146}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yChiDem"),
+          textString="yChiDem",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{72,126},{96,114}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChi"),
         Text(
           extent={{36,50},{96,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatIsoVal"),
         Text(
           extent={{42,8},{96,-4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowStaDow"),
         Text(
           extent={{48,-22},{96,-36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yChiHeaCon"),
         Text(
           extent={{58,-62},{96,-74}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yLeaPum"),
         Text(
           extent={{18,-104},{98,-114}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yDesConWatPumSpe",
           visible=not have_fixSpeConWatPum),
         Text(
           extent={{34,-142},{96,-156}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="yConWatPumNum"),
         Text(
           extent={{28,-180},{98,-194}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatMinFloSet"),
         Text(
           extent={{40,88},{96,74}},
-          lineColor={255,0,255},
-          textString="yReaDemLim"),
+          textColor={255,0,255},
+          textString="yReaDemLim",
+          visible=need_reduceChillerDemand),
         Text(
           extent={{-100,178},{-60,166}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiSet"),
         Text(
           extent={{-100,46},{-58,34}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{-98,16},{-44,4}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChiHeaCon"),
         Text(
           extent={{-98,-182},{-42,-196}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uConWatPum",
           visible=have_fixSpeConWatPum)}),
 Documentation(info="<html>

@@ -208,14 +208,14 @@ Icon(graphics={
         graphics={
         Text(
           extent={{-136,-120},{-76,-142}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests stage down from stages higher than stage 1.
 
 The tests assumes a false output of the failsafe condition and 
 checks functionality for the next available stage down SPLR and OPLR inputs."),
         Text(
           extent={{38,-120},{98,-142}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Tests stage down from stage 1.
 
 Test assumes WSE is on and 

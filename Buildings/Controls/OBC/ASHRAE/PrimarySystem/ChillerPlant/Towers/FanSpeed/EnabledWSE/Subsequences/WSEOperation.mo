@@ -70,7 +70,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTowSpe(
     final k=fanSpeMin) "Minimum tower speed"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback dFanSpe
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dFanSpe
     "Different between measured fan speed and the minimum fan speed"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -80,7 +80,7 @@ protected
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback dTChiSup
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTChiSup
     "Difference between chilled water supply temperature and its setpoint"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
@@ -96,7 +96,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
     final uLow=0.5*5/9,
@@ -147,15 +147,17 @@ protected
 
 equation
   connect(uFanSpe, dFanSpe.u1)
-    annotation (Line(points={{-160,100},{-92,100}}, color={0,0,127}));
+    annotation (Line(points={{-160,100},{-126,100},{-126,106},{-92,106}},
+                                                    color={0,0,127}));
   connect(dFanSpe.y, hys2.u)
     annotation (Line(points={{-68,100},{-42,100}}, color={0,0,127}));
   connect(hys2.y, not2.u)
     annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
   connect(TChiWatSup, dTChiSup.u1)
-    annotation (Line(points={{-160,-40},{-112,-40}}, color={0,0,127}));
+    annotation (Line(points={{-160,-40},{-136,-40},{-136,-34},{-112,-34}},
+                                                     color={0,0,127}));
   connect(TChiWatSupSet, dTChiSup.u2)
-    annotation (Line(points={{-160,-120},{-100,-120},{-100,-52}},
+    annotation (Line(points={{-160,-120},{-112,-120},{-112,-46}},
       color={0,0,127}));
   connect(hys1.y, not1.u)
     annotation (Line(points={{-18,140},{-2,140}}, color={255,0,255}));
@@ -191,7 +193,7 @@ equation
   connect(swi.y,ySpeSet)
     annotation (Line(points={{122,60},{160,60}}, color={0,0,127}));
   connect(minTowSpe.y, dFanSpe.u2)
-    annotation (Line(points={{-98,20},{-80,20},{-80,88}}, color={0,0,127}));
+    annotation (Line(points={{-98,20},{-92,20},{-92,94}}, color={0,0,127}));
   connect(minTowSpe.y, lin.f1)
     annotation (Line(points={{-98,20},{-80,20},{-80,-100},{20,-100},{20,-116},
       {98,-116}},color={0,0,127}));
@@ -221,7 +223,6 @@ equation
   connect(tim.passed, edg.u)
     annotation (Line(points={{102,132},{120,132},{120,80},{-50,80},{-50,60},
       {-42,60}}, color={255,0,255}));
-
   connect(TChiWatSupSet, chiWatTemCon.u_s)
     annotation (Line(points={{-160,-120},{-62,-120}}, color={0,0,127}));
   connect(TChiWatSup, chiWatTemCon.u_m) annotation (Line(points={{-160,-40},{
@@ -237,7 +238,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-40,10},{40,-10}},

@@ -24,7 +24,7 @@ model WSEOperation
     final k=273.15 + 7)
     "Chilled water supply water setpoint"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.1)
     "Minimum fan speed"

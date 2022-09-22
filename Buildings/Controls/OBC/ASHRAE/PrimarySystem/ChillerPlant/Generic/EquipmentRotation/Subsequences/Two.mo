@@ -29,7 +29,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not0[nDev] "Logical not"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nDev] "Switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nDev] "Switch"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre[nDev](
@@ -67,7 +67,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(points={{-40,60},{0,60},{0,-60},{40,-60}}, color={128,128,128}),
         Ellipse(

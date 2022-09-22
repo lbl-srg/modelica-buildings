@@ -52,7 +52,7 @@ block PredictedOutletTemperature
     iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division heaExcPlr
+  Buildings.Controls.OBC.CDL.Continuous.Divide heaExcPlr
     "Heat exchanger flow part load ratio"
     annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
 
@@ -65,19 +65,18 @@ protected
     "Heat exchanger design approach"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro "Product"
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=-1) "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Subtraction"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TWetDes(
     final k=TOutWetDes)
     "Design outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1 "Product"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1 "Product"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant towAppDes(
@@ -102,22 +101,19 @@ equation
           {-140,76},{-92,76}}, color={0,0,127}));
   connect(heaAppDes.y, pro.u2) annotation (Line(points={{-38,30},{-30,30},{-30,
           48},{-22,48}}, color={0,0,127}));
-  connect(TOutWet, add1.u1) annotation (Line(points={{-180,140},{-150,140},{-150,
-          -44},{-62,-44}}, color={0,0,127}));
-  connect(TWetDes.y, add1.u2) annotation (Line(points={{-78,-70},{-72,-70},{-72,
-          -56},{-62,-56}}, color={0,0,127}));
-  connect(add1.y, pro1.u1) annotation (Line(points={{-38,-50},{-30,-50},{-30,
+  connect(sub1.y, pro1.u1) annotation (Line(points={{-38,-50},{-30,-50},{-30,
           -44},{-22,-44}}, color={0,0,127}));
   connect(uTunPar, pro1.u2) annotation (Line(points={{-180,-140},{-30,-140},{-30,
           -56},{-22,-56}}, color={0,0,127}));
-  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{60,140},{
-          60,1.5},{78,1.5}},color={0,0,127}));
-  connect(pro.y, mulSum.u[2]) annotation (Line(points={{2,54},{20,54},{20,0.5},
-          {78,0.5}},  color={0,0,127}));
-  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{2,-50},{20,-50},{20,
-          -0.5},{78,-0.5}}, color={0,0,127}));
-  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{42,-90},{60,-90},
-          {60,-2},{78,-2},{78,-1.5}}, color={0,0,127}));
+  connect(TOutWet, mulSum.u[1]) annotation (Line(points={{-180,140},{60,140},{60,
+          -0.75},{78,-0.75}},
+                            color={0,0,127}));
+  connect(pro.y, mulSum.u[2]) annotation (Line(points={{2,54},{20,54},{20,-0.25},
+          {78,-0.25}},color={0,0,127}));
+  connect(pro1.y, mulSum.u[3]) annotation (Line(points={{2,-50},{20,-50},{20,0.25},
+          {78,0.25}},       color={0,0,127}));
+  connect(towAppDes.y, mulSum.u[4]) annotation (Line(points={{42,-90},{60,-90},{
+          60,-2},{78,-2},{78,0.75}},  color={0,0,127}));
   connect(mulSum.y, y)
     annotation (Line(points={{102,0},{180,0}}, color={0,0,127}));
   connect(heaExcPlr.y, lim.u)
@@ -125,6 +121,10 @@ equation
   connect(pro.u1, lim.y)
     annotation (Line(points={{-22,60},{-30,60},{-30,70},{-38,70}},
       color={0,0,127}));
+  connect(TOutWet, sub1.u2) annotation (Line(points={{-180,140},{-150,140},{-150,
+          -56},{-62,-56}}, color={0,0,127}));
+  connect(TWetDes.y, sub1.u1) annotation (Line(points={{-98,-30},{-80,-30},{-80,
+          -44},{-62,-44}}, color={0,0,127}));
     annotation (defaultComponentName = "wseTOut",
         Icon(graphics={
         Rectangle(
@@ -134,7 +134,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-160,-180},{160,180}})),

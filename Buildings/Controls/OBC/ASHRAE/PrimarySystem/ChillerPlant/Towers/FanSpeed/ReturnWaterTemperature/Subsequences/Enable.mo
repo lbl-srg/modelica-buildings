@@ -56,7 +56,7 @@ block Enable "Sequence for enabling and disabling tower fan"
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub0[nChi]
     "DIfference between enabled chiller head pressure control maximum tower speed and the minimum tower speed"
     annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nChi](
@@ -78,9 +78,9 @@ protected
     final uHigh=fill(2*fanSpeChe, nChi))
     "Check if chiller has been enabled, an enabled chiller will have the head pressure control maximum cooling tower speed that is greater than zero"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback1
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     "Difference between tower fan speed and the minimum fan speed"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys2(
@@ -91,7 +91,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Check if tower fan speed equals to the minimum speed"
     annotation (Placement(transformation(extent={{0,110},{20,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback2
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Difference between the return water temperature and the adjusted setpoint"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys3(
@@ -112,7 +112,7 @@ protected
     final t=cheTowOff)
     "Count the time when all tower cells are off"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Feedback feedback3
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub3
     "Difference between the return water temperature and the adjusted setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys4(
@@ -140,31 +140,29 @@ protected
     final k=fill(1, nChi)) "Constant one"
     annotation (Placement(transformation(extent={{-140,130},{-120,150}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=5/9, final k=1) "Tower temperature setpoint plus 1 degF"
+    final p=5/9) "Tower temperature setpoint plus 1 degF"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-5/9, final k=1)
+    final p=-5/9)
     "Temperature of a delta value below the tower temperature setpoint"
     annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(
     final t=cheMinFanSpe)
     "Count the time when the tower fan is at minimum speed"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2 "Logical switch"
     annotation (Placement(transformation(extent={{140,-170},{160,-150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant disFan1(
     final k=false)
     "Disable tower fan when no condenser water pump is ON"
     annotation (Placement(transformation(extent={{80,-190},{100,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Or chaTow "Change tower status"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
 
 equation
-  connect(minTowSpe.y, feedback.u2)
-    annotation (Line(points={{-118,80},{-60,80},{-60,148}}, color={0,0,127}));
-  connect(feedback.y, hys.u)
+  connect(sub0.y, hys.u)
     annotation (Line(points={{-48,160},{-42,160}}, color={0,0,127}));
   connect(hys.y, not1.u)
     annotation (Line(points={{-18,160},{-2,160}}, color={255,0,255}));
@@ -181,19 +179,17 @@ equation
   connect(one.y, swi.u3)
     annotation (Line(points={{-118,140},{-110,140},{-110,152},{-102,152}},
       color={0,0,127}));
-  connect(swi.y, feedback.u1)
-    annotation (Line(points={{-78,160},{-72,160}}, color={0,0,127}));
-  connect(uFanSpe, feedback1.u1)
-    annotation (Line(points={{-200,120},{-92,120}}, color={0,0,127}));
-  connect(minTowSpe[1].y, feedback1.u2)
-    annotation (Line(points={{-118,80},{-80,80},{-80,108}},color={0,0,127}));
-  connect(feedback1.y, hys2.u)
+  connect(swi.y, sub0.u1)
+    annotation (Line(points={{-78,160},{-76,160},{-76,166},{-72,166}},
+                                                   color={0,0,127}));
+  connect(uFanSpe, sub1.u1)
+    annotation (Line(points={{-200,120},{-146,120},{-146,126},{-92,126}},
+                                                    color={0,0,127}));
+  connect(sub1.y, hys2.u)
     annotation (Line(points={{-68,120},{-42,120}}, color={0,0,127}));
   connect(hys2.y, not2.u)
     annotation (Line(points={{-18,120},{-2,120}}, color={255,0,255}));
-  connect(TTow, feedback2.u2)
-    annotation (Line(points={{-200,0},{-80,0},{-80,28}}, color={0,0,127}));
-  connect(feedback2.y, hys3.u)
+  connect(sub2.y, hys3.u)
     annotation (Line(points={{-68,40},{-42,40}}, color={0,0,127}));
   connect(hys3.y, and2.u2)
     annotation (Line(points={{-18,40},{70,40},{70,72},{78,72}}, color={255,0,255}));
@@ -204,10 +200,10 @@ equation
     annotation (Line(points={{-118,-120},{-62,-120}},  color={255,0,255}));
   connect(not3.y, tim1.u)
     annotation (Line(points={{-38,-120},{-22,-120}}, color={255,0,255}));
-  connect(TTow, feedback3.u1)
-    annotation (Line(points={{-200,0},{-80,0},{-80,-40},{-62,-40}},
+  connect(TTow, sub3.u1)
+    annotation (Line(points={{-200,0},{-80,0},{-80,-34},{-62,-34}},
       color={0,0,127}));
-  connect(feedback3.y, hys4.u)
+  connect(sub3.y, hys4.u)
     annotation (Line(points={{-38,-40},{18,-40}},  color={0,0,127}));
   connect(mulAnd.y, enaTow.u1)
     annotation (Line(points={{42,0},{50,0},{50,-32},{58,-32}}, color={255,0,255}));
@@ -226,10 +222,8 @@ equation
       color={255,127,0}));
   connect(TTowSet, addPar1.u)
     annotation (Line(points={{-200,40},{-172,40},{-172,40},{-142,40}}, color={0,0,127}));
-  connect(addPar1.y, feedback2.u1)
-    annotation (Line(points={{-118,40},{-92,40}}, color={0,0,127}));
-  connect(addPar.y, feedback3.u2)
-    annotation (Line(points={{-118,-80},{-50,-80},{-50,-52}}, color={0,0,127}));
+  connect(addPar1.y, sub2.u1)
+    annotation (Line(points={{-118,40},{-106,40},{-106,46},{-92,46}}, color={0,0,127}));
   connect(TTowSet, addPar.u)
     annotation (Line(points={{-200,40},{-160,40},{-160,-80},{-142,-80}}, color={0,0,127}));
   connect(not2.y, tim2.u)
@@ -265,6 +259,14 @@ equation
           120},{118,120}}, color={255,0,255}));
   connect(tim1.passed, enaTow.u3) annotation (Line(points={{2,-128},{50,-128},{50,
           -48},{58,-48}}, color={255,0,255}));
+  connect(addPar.y, sub3.u2) annotation (Line(points={{-118,-80},{-80,-80},{-80,
+          -46},{-62,-46}}, color={0,0,127}));
+  connect(TTow, sub2.u2) annotation (Line(points={{-200,0},{-100,0},{-100,34},{-92,
+          34}}, color={0,0,127}));
+  connect(minTowSpe.y, sub0.u2) annotation (Line(points={{-118,80},{-60,80},{-60,
+          142},{-76,142},{-76,154},{-72,154}}, color={0,0,127}));
+  connect(minTowSpe[1].y, sub1.u2) annotation (Line(points={{-118,80},{-102,80},
+          {-102,114},{-92,114}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="enaTow",
@@ -290,7 +292,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Disable tower fans"),
           Text(
@@ -298,7 +300,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Enable tower fans"),
           Text(
@@ -306,7 +308,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Disable tower fans when no running condenser water pump")}),
   Icon(graphics={
@@ -317,7 +319,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
 Documentation(info="<html>
 <p>

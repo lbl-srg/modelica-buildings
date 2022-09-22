@@ -5,7 +5,7 @@ block IntegratedOperation
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Real chiMinCap[nChi](
     each final unit="W",
-    final quantity=fill("Power", nChi))={1e4, 1e4}
+    final quantity=fill("HeatFlowRate", nChi))={1e4, 1e4}
     "Minimum cyclining load below which chiller will begin cycling";
   parameter Real fanSpeMin = 0.1 "Minimum cooling tower fan speed";
   parameter Real fanSpeMax = 1 "Maximum cooling tower fan speed";
@@ -59,7 +59,7 @@ protected
     final k=chiMinCap)
     "Minimum cycling load of each chiller"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChi](
     final k=fill(0, nChi)) "Zero constant"
@@ -86,9 +86,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiSum minCycLoa(final nin=nChi)
     "Sum of minimum cycling load for all chillers"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div "Output first input divided by second input"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div1 "Output first input divided by second input"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1 "Output first input divided by second input"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -114,7 +114,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Check if it switches from WSE only mode to integrated operation mode"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch fanSpe "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch fanSpe "Logical switch"
     annotation (Placement(transformation(extent={{120,-90},{140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Logical latch, maintain ON signal until condition changes"
@@ -218,7 +218,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-40,10},{40,-10}},

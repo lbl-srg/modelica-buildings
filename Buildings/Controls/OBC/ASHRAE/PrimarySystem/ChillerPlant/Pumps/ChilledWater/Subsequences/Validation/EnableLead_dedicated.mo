@@ -32,10 +32,10 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 equation
-  connect(leaChiEna.y, enaLeaChiPum.uLeaChiEna) annotation (Line(points={{-58,
-          40},{20,40},{20,23},{38,23}}, color={255,0,255}));
-  connect(leaChiEna.y, disLeaChiPum.uLeaChiEna) annotation (Line(points={{-58,
-          40},{20,40},{20,-17},{38,-17}}, color={255,0,255}));
+  connect(leaChiEna.y, enaLeaChiPum.uLeaChiEna) annotation (Line(points={{-58,40},
+          {20,40},{20,23},{38,23}},     color={255,0,255}));
+  connect(leaChiEna.y, disLeaChiPum.uLeaChiEna) annotation (Line(points={{-58,40},
+          {20,40},{20,-17},{38,-17}},     color={255,0,255}));
   connect(leaChiEna.y, lat.u) annotation (Line(points={{-58,40},{20,40},{20,-20},
           {-40,-20},{-40,-40},{-22,-40}}, color={255,0,255}));
   connect(lat.y, disLeaChiPum.uLeaChiWatReq)
@@ -46,17 +46,16 @@ equation
       color={255,0,255}));
   connect(leaChiEna.y, leaChiProOn.u) annotation (Line(points={{-58,40},{-50,40},
           {-50,10},{-42,10}}, color={255,0,255}));
-  connect(leaChiProOn.y, enaLeaChiPum.uLeaChiSta) annotation (Line(points={{-18,
-          10},{10,10},{10,17},{38,17}}, color={255,0,255}));
-  connect(leaChiProOn.y, disLeaChiPum.uLeaChiSta) annotation (Line(points={{-18,
-          10},{10,10},{10,-23},{38,-23}}, color={255,0,255}));
+  connect(leaChiProOn.y, enaLeaChiPum.uLeaChiSta) annotation (Line(points={{-18,10},
+          {10,10},{10,17},{38,17}},     color={255,0,255}));
+  connect(leaChiProOn.y, disLeaChiPum.uLeaChiSta) annotation (Line(points={{-18,10},
+          {10,10},{10,-23},{38,-23}},     color={255,0,255}));
   connect(leaChiProOn.y, enaLeaChiPum.uLeaChiWatReq) annotation (Line(points={{
           -18,10},{10,10},{10,12},{38,12}}, color={255,0,255}));
   connect(enaPla.y, enaLeaChiPum.uPla) annotation (Line(points={{-58,80},{28,80},
           {28,28},{38,28}}, color={255,0,255}));
   connect(enaPla.y, disLeaChiPum.uPla) annotation (Line(points={{-58,80},{28,80},
           {28,-12},{38,-12}}, color={255,0,255}));
-
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Pumps/ChilledWater/Subsequences/Validation/EnableLead_dedicated.mos"

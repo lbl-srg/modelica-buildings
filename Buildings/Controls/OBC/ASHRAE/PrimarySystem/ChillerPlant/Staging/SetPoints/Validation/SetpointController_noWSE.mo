@@ -199,8 +199,8 @@ protected
 equation
   connect(dpChiWatSet.y, staSetCon.dpChiWatPumSet_local) annotation (Line(
         points={{-98,70},{-92,70},{-92,158.095},{57.6,158.095}}, color={0,0,127}));
-  connect(dpChiWat.y, staSetCon.dpChiWatPum_local) annotation (Line(points={{
-          -98,20},{-90,20},{-90,156.286},{57.6,156.286}}, color={0,0,127}));
+  connect(dpChiWat.y, staSetCon.dpChiWatPum_local) annotation (Line(points={{-98,20},
+          {-90,20},{-90,156.286},{57.6,156.286}},         color={0,0,127}));
   connect(TCWSupSet.y, staSetCon.TChiWatSupSet) annotation (Line(points={{-98,170},
           {-32,170},{-32,166.238},{57.6,166.238}},
                                  color={0,0,127}));
@@ -248,8 +248,8 @@ equation
   connect(dpChiWatSet1.y, staSetCon1.dpChiWatPumSet_local) annotation (Line(
         points={{-98,-170},{-92,-170},{-92,-81.9048},{57.6,-81.9048}}, color={0,
           0,127}));
-  connect(dpChiWat1.y, staSetCon1.dpChiWatPum_local) annotation (Line(points={{
-          -98,-220},{-90,-220},{-90,-83.7143},{57.6,-83.7143}}, color={0,0,127}));
+  connect(dpChiWat1.y, staSetCon1.dpChiWatPum_local) annotation (Line(points={{-98,
+          -220},{-90,-220},{-90,-83.7143},{57.6,-83.7143}},     color={0,0,127}));
   connect(TCWSupSet1.y, staSetCon1.TChiWatSupSet) annotation (Line(points={{-98,-70},
           {-32,-70},{-32,-73.7619},{57.6,-73.7619}},
                                          color={0,0,127}));

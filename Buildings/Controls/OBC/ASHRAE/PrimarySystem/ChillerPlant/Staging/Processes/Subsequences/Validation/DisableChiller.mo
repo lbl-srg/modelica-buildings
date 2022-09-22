@@ -32,7 +32,7 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant enaChi(final k=3)
     "Enabling chiller index"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiTwo "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiTwo "Chiller two status"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant onOff(final k=true)
     "Requires one chiller on and another chiller off"
@@ -46,7 +46,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noOnOff(final k=false)
     "Does not requires one chiller on and another chiller off"
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiTwo1 "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiTwo1 "Chiller two status"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noUpDev(final k=false)
     "Constant false"

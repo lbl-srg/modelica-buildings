@@ -38,7 +38,7 @@ block ChilledWaterPlantReset
     annotation (Dialog(group="Trim and respond parameters"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput TChiWatSupResReq
-    "Cooling chilled water supply temperature setpoint reset request"
+    "Chilled water supply temperature setpoint reset request"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput chaPro
@@ -79,7 +79,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Check if the input changes from false to true"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch plant reset value depends on if there is chiller stage change"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nPum] "Logical not"
@@ -115,7 +115,7 @@ equation
     annotation (Line(points={{82,60},{100,60},{100,-20},{60,-20},{60,-32},{78,-32}},
       color={0,0,127}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{2,0},{70,0},{70,48.2}}, color={255,0,255}));
+    annotation (Line(points={{2,0},{70,0},{70,48}},   color={255,0,255}));
   connect(swi.y, yChiWatPlaRes)
     annotation (Line(points={{102,-40},{140,-40}}, color={0,0,127}));
   connect(chaPro, truHol.u)
@@ -137,13 +137,13 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,255},
+          textColor={0,0,255},
           horizontalAlignment=TextAlignment.Left,
           textString="Calculate the plant reset, hold its last value when there is chiller stage change")}),
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
        graphics={Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},
@@ -152,22 +152,22 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-94,68},{-36,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{-94,12},{-10,-10}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="TChiWatSupResReq"),
         Text(
           extent={{-94,-52},{-56,-66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{38,12},{96,-12}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatPlaRes")}),
 Documentation(info="<html>

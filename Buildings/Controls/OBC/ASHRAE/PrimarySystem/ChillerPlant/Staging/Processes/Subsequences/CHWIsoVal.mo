@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block CHWIsoVal "Sequence of enable or disable chilled water isolation valve"
 
-  parameter Integer nChi
+  parameter Integer nChi=2
     "Total number of chiller, which is also the total number of chilled water isolation valve";
   parameter Real chaChiWatIsoTim(
     final unit="s",
@@ -85,7 +85,7 @@ protected
     annotation (Placement(transformation(extent={{-40,-180},{-20,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-40,-210},{-20,-190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
     final nout=nChi)
@@ -93,9 +93,9 @@ protected
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2[nChi] "Logical not"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu[nChi]
     "Check next enabling isolation valve"
@@ -185,8 +185,8 @@ equation
   connect(swi.y, yChiWatIsoVal)
     annotation (Line(points={{142,-40},{200,-40}}, color={0,0,127}));
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},
-      {-70,-111.8}},  color={255,0,255}));
+    annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},{-70,-112}},
+                      color={255,0,255}));
   connect(and2.y, booRep.u)
     annotation (Line(points={{-18,-170},{0,-170},{0,-140},{18,-140}},
       color={255,0,255}));
@@ -291,7 +291,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Check if all enabled CHW isolation valves 
 have been fully open")}),
@@ -302,31 +302,31 @@ have been fully open")}),
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-96,-74},{-60,-86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="chaPro"),
         Text(
           extent={{-96,-42},{-46,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-96,86},{-48,74}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="nexChaChi"),
         Text(
           extent={{-96,58},{-42,46}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiWatIsoVal"),
         Text(
           extent={{32,70},{96,54}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yEnaChiWatIsoVal"),
         Polygon(
@@ -341,7 +341,7 @@ have been fully open")}),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{44,-54},{98,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yChiWatIsoVal")}),
  Documentation(info="<html>

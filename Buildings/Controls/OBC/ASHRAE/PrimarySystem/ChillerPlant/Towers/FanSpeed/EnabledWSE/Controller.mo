@@ -6,7 +6,7 @@ block Controller "Tower fan speed control when waterside economizer is enabled"
   parameter Real fanSpeMax=1 "Maximum tower fan speed";
   parameter Real chiMinCap[nChi](
     each final unit="W",
-    final quantity=fill("Power", nChi))={1e4,1e4}
+    final quantity=fill("HeatFlowRate", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="Integrated operation"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
@@ -109,9 +109,9 @@ protected
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(final nin=nChi) "Logical or"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero constant"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
@@ -156,7 +156,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-20,80},{20,80},{0,10},{-20,80}},
@@ -190,31 +190,31 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,100},{-50,82}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="chiLoa"),
         Text(
           extent={{-100,70},{-64,54}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-96,30},{-66,12}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse"),
         Text(
           extent={{-96,-10},{-52,-26}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uFanSpe"),
         Text(
           extent={{-96,-52},{-40,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSup"),
         Text(
           extent={{-96,-82},{-24,-98}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
           extent={{54,12},{98,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySpeSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>

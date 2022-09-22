@@ -4,7 +4,7 @@ model Controller "Validation sequence of controlling tower"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Controller
     towCon(
     nChi=2,
-    nTowCel=4,
+    nTowCel=2,
     nConWatPum=2,
     have_WSE=true)
     "Cooling tower controller"
@@ -79,9 +79,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-320,10},{-300,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{-240,30},{-220,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiOneLoa "Chiller one load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiOneLoa "Chiller one load"
     annotation (Placement(transformation(extent={{-260,320},{-240,340}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiTwoLoa(final k=0)
     "Chiller two load"
@@ -110,11 +110,11 @@ protected
   Buildings.Controls.OBC.CDL.Logical.TrueDelay towStaUp(
     final delayTime=30) "Cooling tower stage up"
     annotation (Placement(transformation(extent={{-140,-330},{-120,-310}})));
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[4](
-    final samplePeriod=fill(5, 4))
+  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](final
+      samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{280,320},{300,340}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre1[4] "Break algebraic"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1[2] "Break algebraic"
     annotation (Placement(transformation(extent={{280,370},{300,390}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp watLev(
     final height=1.2,
@@ -128,33 +128,11 @@ protected
     final uLow=0.005, final uHigh=0.01)
     "Lead condenser water pump status"
     annotation (Placement(transformation(extent={{-240,-190},{-220,-170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep(final nout=4)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[4](
-    final k=fill(false,4))
-    "Constant zero"
-    annotation (Placement(transformation(extent={{-240,-410},{-220,-390}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2[4](
-    final k={false,true,true,false})
-    "Enabling cells index"
-    annotation (Placement(transformation(extent={{-140,-370},{-120,-350}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chaCel[4]
-    "Vector of changing tower cells when WSE is enabled"
-    annotation (Placement(transformation(extent={{-20,-390},{0,-370}})));
   Buildings.Controls.OBC.CDL.Logical.Not wseSta1 "Water side economizer status"
     annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chaCel1[4]
-    "Vector of changing tower cells when chiller is enabled"
-    annotation (Placement(transformation(extent={{40,-310},{60,-290}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=4)
-    "Replicate boolean input"
-    annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[4](
-    final k={true,false,false,true})
-    "Enabling cells index"
-    annotation (Placement(transformation(extent={{-240,-290},{-220,-270}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
+    "Constant false"
+    annotation (Placement(transformation(extent={{-80,-150},{-60,-130}})));
 equation
   connect(ram2.y, conWatSupTem.u2) annotation (Line(points={{-338,-220},{-320,-220},
           {-320,-206},{-302,-206}}, color={0,0,127}));
@@ -188,83 +166,78 @@ equation
           {-320,136},{-262,136}}, color={0,0,127}));
   connect(ram1.y, chiWatSupTem.u2) annotation (Line(points={{-338,110},{-320,110},
           {-320,124},{-262,124}}, color={0,0,127}));
-  connect(chiOneLoa.y, towCon.chiLoa[1]) annotation (Line(points={{-238,330},{-40,
-          330},{-40,378},{198,378}}, color={0,0,127}));
-  connect(chiTwoLoa.y, towCon.chiLoa[2]) annotation (Line(points={{-338,310},{-40,
-          310},{-40,380},{198,380}}, color={0,0,127}));
+  connect(chiOneLoa.y, towCon.chiLoa[1]) annotation (Line(points={{-238,330},{
+          -40,330},{-40,378.5},{198,378.5}},
+                                         color={0,0,127}));
+  connect(chiTwoLoa.y, towCon.chiLoa[2]) annotation (Line(points={{-338,310},{
+          -40,310},{-40,379.5},{198,379.5}},
+                                         color={0,0,127}));
   connect(chiOneSta.y, towCon.uChi[1]) annotation (Line(points={{-298,270},{-30,
-          270},{-30,376},{198,376}}, color={255,0,255}));
+          270},{-30,376.5},{198,376.5}}, color={255,0,255}));
   connect(chiTwoSta.y, towCon.uChi[2]) annotation (Line(points={{-338,240},{-30,
-          240},{-30,378},{198,378}}, color={255,0,255}));
-  connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,180},{-10,
-          180},{-10,373},{198,373}}, color={0,0,127}));
+          240},{-30,377.5},{198,377.5}}, color={255,0,255}));
+  connect(towFanSpe3.y,towCon.uFanSpe)  annotation (Line(points={{-298,180},{
+          -10,180},{-10,373},{198,373}},
+                                     color={0,0,127}));
   connect(chiWatSupTem.y, towCon.TChiWatSup) annotation (Line(points={{-238,130},
           {0,130},{0,371},{198,371}}, color={0,0,127}));
-  connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,-40},
-          {10,-40},{10,369},{198,369}}, color={0,0,127}));
+  connect(chiWatSupSet.y, towCon.TChiWatSupSet) annotation (Line(points={{-338,
+          -40},{10,-40},{10,369},{198,369}},
+                                        color={0,0,127}));
   connect(plaCap.y, towCon.reqPlaCap) annotation (Line(points={{-338,80},{20,80},
           {20,367},{198,367}}, color={0,0,127}));
-  connect(swi1.y, towCon.uMaxTowSpeSet[1]) annotation (Line(points={{-218,40},{30,
-          40},{30,364},{198,364}},color={0,0,127}));
+  connect(swi1.y, towCon.uMaxTowSpeSet[1]) annotation (Line(points={{-218,40},{
+          30,40},{30,364.5},{198,364.5}},
+                                       color={0,0,127}));
   connect(hpTowSpe2.y, towCon.uMaxTowSpeSet[2]) annotation (Line(points={{-338,0},
-          {40,0},{40,366},{198,366}},   color={0,0,127}));
-  connect(or3.y, towCon.uPla) annotation (Line(points={{-118,-70},{60,-70},{60,361},
-          {198,361}},      color={255,0,255}));
-  connect(conWatRetTem.y, towCon.TConWatRet) annotation (Line(points={{-278,-120},
-          {70,-120},{70,359},{198,359}}, color={0,0,127}));
+          {40,0},{40,365.5},{198,365.5}}, color={0,0,127}));
+  connect(or3.y, towCon.uPla) annotation (Line(points={{-118,-70},{60,-70},{60,
+          361},{198,361}}, color={255,0,255}));
+  connect(conWatRetTem.y, towCon.TConWatRet) annotation (Line(points={{-278,
+          -120},{70,-120},{70,359},{198,359}},
+                                         color={0,0,127}));
   connect(conWatPumSpe1.y, towCon.uConWatPumSpe) annotation (Line(points={{-278,
           -160},{80,-160},{80,357},{198,357}}, color={0,0,127}));
-  connect(conWatSupTem.y, towCon.TConWatSup) annotation (Line(points={{-278,-200},
-          {90,-200},{90,355},{198,355}}, color={0,0,127}));
+  connect(conWatSupTem.y, towCon.TConWatSup) annotation (Line(points={{-278,
+          -200},{90,-200},{90,355},{198,355}},
+                                         color={0,0,127}));
   connect(chiOneSta.y, chiSta.u) annotation (Line(points={{-298,270},{-188,270},
           {-188,-230},{-142,-230}}, color={255,0,255}));
-  connect(chiSta.y, towCon.uChiSta) annotation (Line(points={{-118,-230},{100,-230},
-          {100,353},{198,353}}, color={255,127,0}));
+  connect(chiSta.y, towCon.uChiSta) annotation (Line(points={{-118,-230},{100,
+          -230},{100,351},{198,351}},
+                                color={255,127,0}));
   connect(chiOneSta.y, towStaUp.u) annotation (Line(points={{-298,270},{-188,270},
           {-188,-320},{-142,-320}}, color={255,0,255}));
   connect(towCon.yIsoVal, zerOrdHol.u) annotation (Line(points={{222,365},{260,365},
           {260,330},{278,330}}, color={0,0,127}));
-  connect(zerOrdHol.y, towCon.uIsoVal) annotation (Line(points={{302,330},{320,330},
-          {320,300},{150,300},{150,343},{198,343}}, color={0,0,127}));
-  connect(watLev.y, towCon.watLev) annotation (Line(points={{162,60},{170,60},{170,
-          341},{198,341}}, color={0,0,127}));
+  connect(zerOrdHol.y, towCon.uIsoVal) annotation (Line(points={{302,330},{320,
+          330},{320,300},{150,300},{150,343},{198,343}},
+                                                    color={0,0,127}));
+  connect(watLev.y, towCon.watLev) annotation (Line(points={{162,60},{170,60},{
+          170,341},{198,341}},
+                           color={0,0,127}));
   connect(towCon.yTowSta, pre1.u) annotation (Line(points={{222,355},{250,355},{
           250,380},{278,380}}, color={255,0,255}));
-  connect(pre1.y, towCon.uTowSta) annotation (Line(points={{302,380},{340,380},{
-          340,280},{50,280},{50,363},{198,363}}, color={255,0,255}));
-  connect(towStaUp.y, towCon.uTowStaCha) annotation (Line(points={{-118,-320},{120,
-          -320},{120,349},{198,349}}, color={255,0,255}));
-  connect(chiStaSet.y, towCon.uChiStaSet) annotation (Line(points={{-118,-260},{
-          108,-260},{108,351},{198,351}}, color={255,127,0}));
+  connect(pre1.y, towCon.uTowSta) annotation (Line(points={{302,380},{340,380},
+          {340,280},{50,280},{50,363},{198,363}},color={255,0,255}));
+  connect(towStaUp.y, towCon.uTowStaCha) annotation (Line(points={{-118,-320},{
+          120,-320},{120,347},{198,347}},
+                                      color={255,0,255}));
+  connect(chiStaSet.y, towCon.uChiStaSet) annotation (Line(points={{-118,-260},
+          {108,-260},{108,349},{198,349}},color={255,127,0}));
   connect(conWatPumSpe1[1].y, leaConPum.u) annotation (Line(points={{-278,-160},
           {-260,-160},{-260,-180},{-242,-180}}, color={0,0,127}));
-  connect(leaConPum.y, towCon.uLeaConWatPum) annotation (Line(points={{-218,-180},
-          {114,-180},{114,347},{198,347}}, color={255,0,255}));
-  connect(con2.y, chaCel.u1) annotation (Line(points={{-118,-360},{-40,-360},{-40,
-          -372},{-22,-372}}, color={255,0,255}));
-  connect(booRep.y, chaCel.u2)
-    annotation (Line(points={{-58,-380},{-22,-380}}, color={255,0,255}));
+  connect(leaConPum.y, towCon.uLeaConWatPum) annotation (Line(points={{-218,
+          -180},{114,-180},{114,345},{198,345}},
+                                           color={255,0,255}));
   connect(wseSta.y, wseSta1.u)
     annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
   connect(wseSta1.y, or3.u3) annotation (Line(points={{-298,210},{-200,210},{-200,
           -78},{-142,-78}}, color={255,0,255}));
   connect(wseSta1.y, towCon.uWse) annotation (Line(points={{-298,210},{-200,210},
           {-200,375},{198,375}}, color={255,0,255}));
-  connect(wseSta1.y, booRep.u) annotation (Line(points={{-298,210},{-200,210},{-200,
-          -380},{-82,-380}}, color={255,0,255}));
-  connect(towStaUp.y, booRep1.u) annotation (Line(points={{-118,-320},{-100,-320},
-          {-100,-300},{-82,-300}}, color={255,0,255}));
-  connect(booRep1.y, chaCel1.u2)
-    annotation (Line(points={{-58,-300},{38,-300}}, color={255,0,255}));
-  connect(con1.y, chaCel1.u1) annotation (Line(points={{-218,-280},{-40,-280},{-40,
-          -292},{38,-292}}, color={255,0,255}));
-  connect(chaCel.y, chaCel1.u3) annotation (Line(points={{2,-380},{20,-380},{20,
-          -308},{38,-308}}, color={255,0,255}));
-  connect(con.y, chaCel.u3) annotation (Line(points={{-218,-400},{-40,-400},{-40,
-          -388},{-22,-388}}, color={255,0,255}));
-  connect(chaCel1.y, towCon.uChaCel) annotation (Line(points={{62,-300},{126,-300},
-          {126,345},{198,345}}, color={255,0,255}));
-
+  connect(con3.y, towCon.uEnaPla) annotation (Line(points={{-58,-140},{94,-140},
+          {94,353},{198,353}}, color={255,0,255}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/Validation/Controller.mos"
     "Simulate and plot"),

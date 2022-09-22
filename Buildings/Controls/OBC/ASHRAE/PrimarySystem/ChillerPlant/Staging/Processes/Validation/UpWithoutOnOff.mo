@@ -6,6 +6,7 @@ model UpWithoutOnOff
     final nChi=2,
     final totSta=4,
     final have_fixSpeConWatPum=false,
+    final need_reduceChillerDemand=true,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -45,9 +46,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](
     final pre_u_start={true,false}) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch IsoVal[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-20,-260},{0,-240}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(10, 2))
@@ -78,7 +79,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet
     "Stage setpoint index"
@@ -86,7 +87,7 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiSet[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staOne(final k=1) "Stage one"
@@ -94,7 +95,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
@@ -134,16 +135,17 @@ equation
           {140,70},{140,40},{-24,40},{-24,73},{38,73}}, color={255,0,255}));
   connect(chiStaRet.y, upProCon.uConWatReq) annotation (Line(points={{122,70},{
           140,70},{140,40},{12,40},{12,66},{38,66}}, color={255,0,255}));
-  connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-118,-170},{14,-170},
-          {14,63},{38,63}},   color={255,0,255}));
+  connect(wseSta.y, upProCon.uWSE) annotation (Line(points={{-118,-170},{14,
+          -170},{14,64},{38,64}},
+                              color={255,0,255}));
   connect(upProCon.yDesConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{62,67},
           {80,67},{80,-60},{98,-60}},       color={0,0,127}));
   connect(zerOrdHol1.y, upProCon.uConWatPumSpeSet) annotation (Line(points={{122,-60},
-          {140,-60},{140,-140},{16,-140},{16,60},{38,60}},        color={0,0,127}));
+          {140,-60},{140,-140},{16,-140},{16,62},{38,62}},        color={0,0,127}));
   connect(zerOrdHol1.y, zerOrdHol2.u) annotation (Line(points={{122,-60},{140,-60},
           {140,-90},{80,-90},{80,-110},{98,-110}}, color={0,0,127}));
   connect(zerOrdHol2.y, upProCon.uConWatPumSpe) annotation (Line(points={{122,
-          -110},{130,-110},{130,-134},{18,-134},{18,58},{38,58}},
+          -110},{130,-110},{130,-134},{18,-134},{18,60},{38,60}},
                                                            color={0,0,127}));
   connect(chiStaRet.y, upProCon.uChiHeaCon) annotation (Line(points={{122,70},{
           140,70},{140,40},{20,40},{20,53},{38,53}}, color={255,0,255}));
@@ -185,8 +187,9 @@ equation
           {-100,-118},{-62,-118}}, color={0,0,127}));
   connect(chiSta.y, sta.u)
     annotation (Line(points={{-38,-110},{-22,-110}}, color={0,0,127}));
-  connect(sta.y, upProCon.uChiSta) annotation (Line(points={{2,-110},{8,-110},{8,
-          70},{38,70}}, color={255,127,0}));
+  connect(sta.y, upProCon.uChiSta) annotation (Line(points={{2,-110},{8,-110},{
+          8,71},{38,71}},
+                        color={255,127,0}));
   connect(upProCon.yStaPro, falEdg.u) annotation (Line(points={{62,87},{70,87},{
           70,140},{78,140}}, color={255,0,255}));
   connect(falEdg.y, lat.u)
@@ -196,6 +199,10 @@ equation
   connect(lat.y, chiSta.u2) annotation (Line(points={{142,140},{150,140},{150,0},
           {-80,0},{-80,-110},{-62,-110}}, color={255,0,255}));
 
+  connect(wseSta.y, upProCon.uEnaPlaConPum) annotation (Line(points={{-118,-170},
+          {14,-170},{14,69},{38,69}}, color={255,0,255}));
+  connect(wseSta.y, upProCon.uEnaPlaConIso) annotation (Line(points={{-118,-170},
+          {14,-170},{14,58},{38,58}}, color={255,0,255}));
 annotation (
  experiment(StopTime=1500, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/Processes/Validation/UpWithoutOnOff.mos"
@@ -229,14 +236,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-148,290},{-100,282}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage up:"),
         Text(
           extent={{-138,274},{-8,264}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 1 which has chiller 1 enabled, "),
         Text(
           extent={{-136,262},{-10,248}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 2 which has chiller 1 and 2 enabled.")}));
 end UpWithoutOnOff;

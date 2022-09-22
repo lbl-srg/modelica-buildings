@@ -38,7 +38,7 @@ model DXCooledAirsideEconomizer
   parameter Real minSpeFan = 0.2
     "Minimum fan speed ratio required by variable speed fans";
 
-  Buildings.Examples.ChillerPlant.BaseClasses.SimplifiedRoom roo(
+  Buildings.Examples.ChillerPlants.DataCenter.BaseClasses.SimplifiedRoom roo(
     redeclare package Medium = Medium,
     rooLen=50,
     rooHei=3,

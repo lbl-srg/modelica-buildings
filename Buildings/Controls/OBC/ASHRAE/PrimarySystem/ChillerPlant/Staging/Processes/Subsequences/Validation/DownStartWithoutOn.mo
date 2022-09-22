@@ -5,6 +5,7 @@ model DownStartWithoutOn
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     staStaDow(
     final nChi=2,
+    need_reduceChillerDemand=true,
     final byPasSetTim=300,
     final minFloSet={1,1},
     final maxFloSet={1.5,1.5},
@@ -23,7 +24,7 @@ protected
     final k=fill(true,2))
     "Operating chiller one"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{-40,-250},{-20,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa[2](
     final k=fill(1000,2)) "Chiller load"
@@ -65,9 +66,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2](final pre_u_start=fill(
         true, 2)) "Chiller status return value"
     annotation (Placement(transformation(extent={{100,170},{120,190}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-40,130},{-20,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.95,
@@ -177,14 +178,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-122,288},{-74,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage down:"),
         Text(
           extent={{-114,276},{46,266}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 2 which has chiller one and two enabled, "),
         Text(
           extent={{-116,264},{-14,250}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 1 which only has chiller 1.")}));
 end DownStartWithoutOn;
