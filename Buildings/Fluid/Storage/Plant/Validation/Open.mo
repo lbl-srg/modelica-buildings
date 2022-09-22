@@ -2,15 +2,10 @@ within Buildings.Fluid.Storage.Plant.Validation;
 model Open
   "Validation model of a storage plant with an open tank and remote charging ability"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
-      nom(
+  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(nom(
         plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-      netCon(
-        perPumSup(pressure(dp=(300000 + nom.dp_nominal - 101325)*{2,0},
-                           V_flow=nom.m_flow_nominal/1.2*{0,2})),
-        perPumRet(pressure(dp=(300000 - 101325)*{2,0},
-                           V_flow=nom.m_flow_nominal/1.2*{0,2}))));
+      netCon(perPumSup(pressure(dp=(300000 + nom.dp_nominal - 101325)*{2,0},
+            V_flow=nom.m_flow_nominal/1.2*{0,2}))));
   Buildings.Fluid.Sources.Boundary_pT atm(
     redeclare final package Medium = Medium,
     final p(displayUnit="Pa") = 101325,
@@ -20,10 +15,6 @@ equation
   connect(senMasFlo.port_a, atm.ports[1]) annotation (Line(points={{-60,10},{
           -80,10},{-80,30},{-80,30}},
                                   color={0,127,255}));
-  connect(netCon.yPumRet, conRemCha.yPumRet)
-    annotation (Line(points={{-4,11},{-4,39}}, color={0,0,127}));
-  connect(conRemCha.yValRet, netCon.yValRet)
-    annotation (Line(points={{0,39},{0,11}}, color={0,0,127}));
 annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

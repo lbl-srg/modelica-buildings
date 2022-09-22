@@ -11,13 +11,8 @@ model NetworkConnection
   //Pump sizing & interlock
   parameter Buildings.Fluid.Movers.Data.Generic perPumSup
     "Performance data for the supply pump"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})),
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})),
     Dialog(group="Pump Sizing and Interlock"));
-  parameter Buildings.Fluid.Movers.Data.Generic perPumRet
-    "Performance data for the return pump"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})),
-    Dialog(group="Pump Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
   parameter Real tPumSupClo=0.01
     "Threshold that pumSup is considered off"
     annotation (Dialog(group="Pump Sizing and Interlock", enable=
@@ -76,11 +71,10 @@ model NetworkConnection
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,60})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasSup(
-    redeclare final package Medium = Medium) if plaTyp ==
-    Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
-    "Replaces the valve on the supply branch when the tank is closed"
+        origin={-30,60})));
+  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pas2(redeclare
+      final package Medium = Medium) if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
+    "Replaces conditional components"
     annotation (Placement(transformation(extent={{40,90},{60,110}})));
   Modelica.Blocks.Interfaces.RealInput yValSup[2]
     if plaTyp ==
@@ -104,48 +98,6 @@ model NetworkConnection
         rotation=-90,
         origin={-20,110})));
 
-  Buildings.Fluid.Movers.SpeedControlled_y pumRet(
-    redeclare final package Medium = Medium,
-    final per=perPumRet,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=true,
-    addPowerToMedium=false,
-    y_start=0,
-    T_start=nom.T_CHWR_nominal)
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Auxilliary CHW pump on the return line" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-50,-60})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pasRet(
-    redeclare final package Medium = Medium)
-    if plaTyp ==
-      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
-    or plaTyp ==
-      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    "Replaces the pump and valves on the return branch when the tank is closed"
-    annotation (Placement(transformation(extent={{60,-40},{40,-20}})));
-  Modelica.Blocks.Interfaces.RealInput yValRet[2]
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Control signals for the valves on the return line" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={50,130}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={100,110})));
-  Modelica.Blocks.Interfaces.RealInput yPumRet
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Speed input of the auxiliary pump on the return line" annotation (
-      Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={30,130}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={60,110})));
   Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intValSup(
     redeclare final package Medium = Medium,
     final nom=nom,
@@ -157,32 +109,9 @@ model NetworkConnection
     Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
      or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
     "A pair of interlocked valves"
-    annotation (Placement(transformation(extent={{-10,28},{30,68}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intValRet(
-    redeclare final package Medium = Medium,
-    final nom=nom,
-    final dpValToNet_nominal=dpValToNetRet_nominal,
-    final dpValFroNet_nominal=dpValFroNetRet_nominal,
-    final tValToNetClo=tValToNetRetClo,
-    final tValFroNetClo=tValFroNetRetClo)
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "A pair of interlocked valves"
-    annotation (Placement(transformation(extent={{-10,-92},{30,-52}})));
+    annotation (Placement(transformation(extent={{0,28},{40,68}})));
 
-  Buildings.Fluid.Storage.Plant.Controls.Interlock conInt(
-    final t1=tPumSupClo,
-    final t2=tPumRetClo)
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Interlock for pumps"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.Blocks.Routing.RealPassThrough pas
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
-    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    "Block for signal routing" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-50,90})));
-  Buildings.Fluid.FixedResistances.Junction junSup(
+  Buildings.Fluid.FixedResistances.Junction jun2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=nom.T_CHWS_nominal,
@@ -190,78 +119,52 @@ model NetworkConnection
     m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
     dp_nominal={0,0,0}) if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
      or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-                        "Junction on the supply side"
-    annotation (Placement(transformation(extent={{40,50},{60,70}})));
-  Buildings.Fluid.FixedResistances.Junction junRet(
+    "Junction" annotation (Placement(transformation(extent={{60,50},{80,70}})));
+
+  FixedResistances.Junction jun1(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=nom.T_CHWR_nominal,
+    T_start=nom.T_CHWS_nominal,
     tau=30,
-    m_flow_nominal={-nom.mTan_flow_nominal,-nom.m_flow_nominal,nom.m_flow_nominal},
-    dp_nominal={0,0,0})
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-                        "Junction on the return side" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={50,-60})));
+    m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
+    dp_nominal={0,0,0}) if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
+     or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    "Junction"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
+  BaseClasses.FluidPassThrough pas1(redeclare final package Medium = Medium)
+    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
+    "Replaces conditional components"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 equation
-  connect(port_aFroChi, pumSup.port_a)
-    annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
-  connect(pasSup.port_b, port_bToNet) annotation (Line(points={{60,100},{74,100},
-          {74,60},{100,60}}, color={0,127,255}));
-  connect(port_bToChi, pumRet.port_a)
-    annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
-  connect(port_aFroNet, pasRet.port_a) annotation (Line(points={{100,-60},{66,
-          -60},{66,-30},{60,-30}},
-                              color={0,127,255}));
-  connect(pasRet.port_b, port_bToChi) annotation (Line(points={{40,-30},{-78,
-          -30},{-78,-60},{-100,-60}},
-                                 color={0,127,255}));
-  connect(intValSup.port_bToChi, port_aFroChi) annotation (Line(points={{-10,36},
-          {-72,36},{-72,60},{-100,60}}, color={0,127,255}));
-  connect(intValSup.yVal, yValSup) annotation (Line(points={{10,70},{10,130}},
-                                   color={0,0,127}));
-  connect(intValRet.port_bToChi, port_bToChi) annotation (Line(points={{-10,-84},
-          {-78,-84},{-78,-60},{-100,-60}}, color={0,127,255}));
-  connect(intValRet.yVal, yValRet) annotation (Line(points={{10,-50},{10,-20},{
-          80,-20},{80,116},{50,116},{50,130}},
-                                      color={0,0,127}));
+  connect(pas2.port_b, port_bToNet) annotation (Line(points={{60,100},{90,100},
+          {90,60},{100,60}}, color={0,127,255}));
+  connect(intValSup.yVal, yValSup) annotation (Line(points={{20,70},{20,116},{
+          10,116},{10,130}},       color={0,0,127}));
   connect(pumSup.port_b, intValSup.port_aFroChi)
-    annotation (Line(points={{-40,60},{-10,60}},color={0,127,255}));
-  connect(pumSup.port_b, pasSup.port_a) annotation (Line(points={{-40,60},{-20,
-          60},{-20,100},{40,100}},
-                              color={0,127,255}));
-  connect(pumRet.port_b, intValRet.port_aFroChi)
-    annotation (Line(points={{-40,-60},{-10,-60}},color={0,127,255}));
-  connect(pumSup.y, pas.y)
-    annotation (Line(points={{-50,72},{-50,79}}, color={0,0,127}));
-  connect(pas.u, yPumSup) annotation (Line(points={{-50,102},{-50,110},{-10,110},
-          {-10,130}}, color={0,0,127}));
-  connect(yPumSup, conInt.u1_in) annotation (Line(points={{-10,130},{-10,110},{-66,
-          110},{-66,18},{-62,18}}, color={0,0,127}));
-  connect(pumSup.y_actual, conInt.u1_actual) annotation (Line(points={{-39,67},{
-          -34,67},{-34,28},{-70,28},{-70,14},{-62,14}}, color={0,0,127}));
-  connect(conInt.y1, pumSup.y) annotation (Line(points={{-39,14},{-30,14},{-30,76},
-          {-50,76},{-50,72}}, color={0,0,127}));
-  connect(conInt.u2_in, yPumRet) annotation (Line(points={{-62,6},{-74,6},{-74,116},
-          {30,116},{30,130}}, color={0,0,127}));
-  connect(conInt.y2, pumRet.y) annotation (Line(points={{-39,6},{-30,6},{-30,-40},
-          {-50,-40},{-50,-48}}, color={0,0,127}));
-  connect(pumRet.y_actual, conInt.u2_actual) annotation (Line(points={{-39,-53},
-          {-34,-53},{-34,-8},{-66,-8},{-66,2},{-62,2}}, color={0,0,127}));
-  connect(junSup.port_1, intValSup.port_bToNet)
-    annotation (Line(points={{40,60},{30,60}}, color={0,127,255}));
-  connect(junSup.port_2, port_bToNet)
-    annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
-  connect(junSup.port_3, intValSup.port_aFroNet)
-    annotation (Line(points={{50,50},{50,36},{30,36}}, color={0,127,255}));
-  connect(intValRet.port_bToNet, junRet.port_1)
-    annotation (Line(points={{30,-60},{40,-60}}, color={0,127,255}));
-  connect(junRet.port_2, port_aFroNet)
-    annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
-  connect(junRet.port_3, intValRet.port_aFroNet)
-    annotation (Line(points={{50,-70},{50,-84},{30,-84}}, color={0,127,255}));
+    annotation (Line(points={{-20,60},{0,60}},  color={0,127,255}));
+  connect(pumSup.port_b, pas2.port_a) annotation (Line(points={{-20,60},{-10,60},
+          {-10,100},{40,100}}, color={0,127,255}));
+  connect(jun2.port_1, intValSup.port_bToNet)
+    annotation (Line(points={{60,60},{40,60}}, color={0,127,255}));
+  connect(jun2.port_2, port_bToNet)
+    annotation (Line(points={{80,60},{100,60}}, color={0,127,255}));
+  connect(jun2.port_3, intValSup.port_aFroNet)
+    annotation (Line(points={{70,50},{70,36},{40,36}}, color={0,127,255}));
+  connect(port_bToChi, port_aFroNet)
+    annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
+  connect(pumSup.y, yPumSup) annotation (Line(points={{-30,72},{-30,116},{-10,
+          116},{-10,130}}, color={0,0,127}));
+  connect(port_aFroChi, jun1.port_1)
+    annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
+  connect(jun1.port_2, pumSup.port_a)
+    annotation (Line(points={{-60,60},{-40,60}}, color={0,127,255}));
+  connect(jun1.port_3, intValSup.port_bToChi)
+    annotation (Line(points={{-70,50},{-70,36},{0,36}}, color={0,127,255}));
+  connect(pumSup.port_a, pas1.port_b) annotation (Line(points={{-40,60},{-54,60},
+          {-54,100},{-60,100}}, color={0,127,255}));
+  connect(port_aFroChi, pas1.port_a) annotation (Line(points={{-100,60},{-86,60},
+          {-86,100},{-80,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
