@@ -123,7 +123,7 @@ model Economizer "Validation model for WSE components"
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatEco(
     table=[0,0; 1,0; 1,1; 2,1],
     timeScale=1000,
-    period=2000) "WSE CHW pump start/stop signal"
+    period=2000) "WSE CHW pump Start/Stop signal"
     annotation (Placement(transformation(extent={{-130,30},{-110,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yPumChiWatEco(table=[0,
         0; 1,0; 1.5,1; 2,1], timeScale=1000) "WSE CHW pump speed signal"

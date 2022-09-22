@@ -12,6 +12,12 @@ package Defaults "Package with default sizing parameters"
     "CW supply temperature";
   constant Modelica.Units.SI.Temperature TConWatRet=35+273.15
     "CW return temperature";
+  constant Modelica.Units.SI.Temperature TConAirEnt=35+273.15
+    "Condenser entering air temperature for air-cooled chillers";
+  constant Modelica.Units.SI.Temperature TConEnt_min=13+273.15
+    "Minimum condenser entering fluid temperature (air or water)";
+  constant Modelica.Units.SI.Temperature TConEnt_max=45+273.15
+    "Maximum condenser entering fluid temperature (air or water)";
   constant Modelica.Units.SI.Temperature TChiWatEcoEnt=18+273.15
     "WSE entering CHW temperature";
   constant Modelica.Units.SI.Temperature TChiWatEcoLvg=11+273.15
@@ -21,7 +27,7 @@ package Defaults "Package with default sizing parameters"
   constant Modelica.Units.SI.Temperature TConWatEcoLvg=16+273.15
     "WSE leaving CW temperature";
 
-  constant Modelica.Units.SI.Temperature TAirDryCooEnt=35+273.15
+  constant Modelica.Units.SI.Temperature TAirDryCooEnt=TConAirEnt
     "Dry cooler entering air drybulb temperature";
   constant Modelica.Units.SI.Temperature TWetBulTowEnt=23.9+273.15
     "CT entering air wetbulb temperature";

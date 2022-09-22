@@ -11,6 +11,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Type of chiller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nChi(
+    start=1,
     final min=1)
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -28,6 +29,19 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
   parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat
     "Type of CHW distribution system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  final parameter Boolean have_bypChiWatFix=
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2 or
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed
+    "Set to true if the plant has a fixed CHW bypass"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_pumChiWatSec=
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
+    "Set to true if the plant includes secondary CHW pumps"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
+
   // The following parameter stores the user selection.
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri_select(
     start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
@@ -61,6 +75,13 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     else Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
     "Type of primary CHW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatSec=
+    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only or
+      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only then
+      Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
+    else Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
+    "Type of secondary CHW pump speed control"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   /*
   The following parameter stores the user selection.
   We use the type PumpSingleSpeedControl instead of PumpMultipleSpeedControl because 
@@ -75,14 +96,14 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
       enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
-  final Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat=
+  final parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat=
     if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
       Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
-    elseif typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
-      and typCtrSpePumConWat_select==Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable
+    elseif typCtrSpePumConWat_select==Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable
+      and typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
       then Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableDedicated
-    elseif typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled then
-      typCtrSpePumConWat_select
+    elseif typCtrSpePumConWat_select==Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable then
+      Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
     else Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
     "Type of CW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -97,6 +118,11 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 
+  parameter Buildings.Templates.Components.Types.Cooler typCoo(
+    start=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen)
+    "Condenser water cooling equipment"
+    annotation(Evaluate=true, Dialog(group="Configuration",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer nCoo=nChi
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration",
@@ -108,27 +134,49 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
      or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
      or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
 
-  parameter Boolean have_TPriRet = not have_secPum
-    "Set to true if plant chilled water return temperature is measured"
-    annotation(Evaluate=true, Dialog(enable=have_secPum, group="Configuration"));
-  final parameter Boolean have_TSecRet = have_secPum and not have_eco
-    "Set to true if secondary return temperature is measured"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_TChiWatRet = false
-    "Set to true if loop chilled water return temperature is measured"
-    annotation(Evaluate=true, Dialog(enable=have_minFloByp and not have_eco, group="Configuration"));
-  parameter Boolean have_VSecRet_flow = false
-    "Set to true if secondary return chilled water flow is measured"
-    annotation(Evaluate=true, Dialog(enable=have_secPum, group="Configuration"));
-  final parameter Boolean have_VSecSup_flow = have_secPum and not have_VSecRet_flow
-    "Set to true if secondary supply chilled water flow is measured"
-    annotation(Evaluate=true,
-      Dialog(enable=have_secPum and not have_VSecRet_flow,
-        group="Configuration"));
+  // Following parameters to be assigned by derived classes.
+  parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
+    "Type of chiller CHW isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso
+    "Type of chiller CW isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.Valve typValCooInlIso
+    "Cooler inlet isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.Valve typValCooOutIso
+    "Cooler outlet isolation valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant dat(
-    final typChi=typChi)
+    typChi=typChi,
+    nChi=nChi,
+    nCoo=nCoo,
+    typCoo=typCoo,
+    nPumChiWatSec=nPumChiWatSec,
+    typDisChiWat=typDisChiWat,
+    typCtrSpePumConWat=typCtrSpePumConWat,
+    have_pumChiWatSec=have_pumChiWatSec)
     "Design and operating parameters";
+
+  final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
+    sum(dat.pumChiWatPri.m_flow_nominal)
+    "Primary CHW mass flow rate (total)";
+  final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=
+    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only
+      or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only
+      then mChiWatPri_flow_nominal else
+    sum(dat.pumChiWatSec.m_flow_nominal)
+    "CHW mass flow rate (total, distributed to consumers)";
+  final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
+    sum(dat.chi.mConChi_flow_nominal)
+    "Condenser cooling fluid mass flow rate (total)";
+  final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
+    sum(dat.chi.capChi_nominal)
+    "Cooling capacity (total)";
+  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
+    min(dat.chi.TChiWatChiSup_nominal)
+    "Minimum CHW supply temperature";
 
   parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow"
@@ -155,12 +203,12 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = MediumChiWat,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-     h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default))
+    h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default))
     "CHW supply"
     annotation (Placement(transformation(extent={{290,-10},{310,10}}),
         iconTransformation(extent={{192,90},{212,110}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea
-    "Weather bus"
+    "Weather data bus"
     annotation (Placement(transformation(
       extent={{-20,20},{20,-20}},
       rotation=180,
@@ -177,12 +225,12 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
         rotation=90,
         origin={-200,100})));
 
-  Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
+  Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start)=port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
 
   Modelica.Units.SI.PressureDifference dp(
     start=_dp_start,
-    displayUnit="Pa") = port_a.p - port_b.p
+    displayUnit="Pa")=port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
   MediumChiWat.ThermodynamicState sta_a=
@@ -207,14 +255,27 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
                           noEvent(port_b.Xi_outflow))
        if show_T "Medium properties in port_b";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
+protected
+  final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
+    "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.Units.SI.PressureDifference _dp_start(
+    displayUnit="Pa")=0
+    "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+
+  annotation (
+    defaultComponentName="plaChiWat",
+    Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-200},{200,200}}),
     graphics={
       Rectangle(
         extent={{-200,200},{202,-200}},
         lineColor={0,0,255},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,-214},{151,-254}},
+          textColor={0,0,255},
+          textString="%name")}),
    Diagram(coordinateSystem(
       preserveAspectRatio=false,
       extent={{-300,-280},{300,280}})),

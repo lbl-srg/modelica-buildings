@@ -51,7 +51,24 @@ record ChillerGroup "Record for chiller group model"
   parameter Modelica.Units.SI.Temperature TChiWatChiSup_max[nChi]=
     fill(Buildings.Templates.Data.Defaults.TChiWatSup_max, nChi)
     "Maximum CHW supply temperature for each chiller"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Operating limits"));
+  parameter Modelica.Units.SI.Temperature TConChiEnt_nominal[nChi](
+    each final min=273.15,
+    start=fill(if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then Buildings.Templates.Data.Defaults.TConWatSup else
+    Buildings.Templates.Data.Defaults.TConAirEnt, nChi))
+    "Condenser entering fluid temperature (CW or air)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConChiEnt_min[nChi](
+    each final min=273.15)=
+    fill(Buildings.Templates.Data.Defaults.TConEnt_min, nChi)
+    "Minimum condenser entering fluid temperature (CW or air)"
+    annotation (Dialog(group="Operating limits"));
+  parameter Modelica.Units.SI.Temperature TConChiEnt_max[nChi](
+    each final min=273.15)=
+    fill(Buildings.Templates.Data.Defaults.TConEnt_max, nChi)
+    "Maximum condenser entering fluid temperature (CW or air)"
+    annotation (Dialog(group="Operating limits"));
   parameter Real PLRUnlChi_min[nChi](
     final min=PLRChi_min,
     each final max=1)=PLRChi_min
@@ -70,5 +87,6 @@ record ChillerGroup "Record for chiller group model"
       PLRMinUnl=PLRUnlChi_min,
       mEva_flow_nominal=mChiWatChi_flow_nominal,
       mCon_flow_nominal=mConChi_flow_nominal)
-    "Chiller performance data";
+    "Chiller performance data"
+    annotation(choicesAllMatching=true);
 end ChillerGroup;

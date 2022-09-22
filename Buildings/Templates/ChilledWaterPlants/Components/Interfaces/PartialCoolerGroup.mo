@@ -60,7 +60,7 @@ partial model PartialCoolerGroup
     final PFan_nominal=dat.PFanCoo_nominal)
     "Parameter record for each cooler unit";
   final parameter Buildings.Templates.Components.Data.Valve datValCooInlIso[nCoo](
-    final typ=typValCooInlIso,
+    final typ=fill(typValCooInlIso, nCoo),
     final m_flow_nominal=mConWatCoo_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nCoo),
     dpFixed_nominal=if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None then
@@ -68,7 +68,7 @@ partial model PartialCoolerGroup
     "Inlet isolation valve parameters"
     annotation (Dialog(enable=false));
   final parameter Buildings.Templates.Components.Data.Valve datValCooOutIso[nCoo](
-    final typ=typValCooOutIso,
+    final typ=fill(typValCooOutIso, nCoo),
     final m_flow_nominal=mConWatCoo_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nCoo),
     dpFixed_nominal=
@@ -96,7 +96,7 @@ partial model PartialCoolerGroup
         rotation=0,
         origin={0,400})));
   BoundaryConditions.WeatherData.Bus busWea
-    "Weather bus"
+    "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
       iconTransformation(extent={{-230,390},{-210,410}})));
   annotation (

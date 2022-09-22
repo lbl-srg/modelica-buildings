@@ -95,6 +95,7 @@ model ChillerGroup "Validation model for chiller group"
     final dpConChi_nominal=dpConWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
+    final TConChiEnt_nominal=fill(TConWatSup_nominal, nChi),
     PLRChi_min=fill(0.15, nChi),
     redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
     "Parameter record for water-cooled chiller group";
@@ -106,6 +107,7 @@ model ChillerGroup "Validation model for chiller group"
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
+    final TConChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
     PLRChi_min=fill(0.15, nChi),
     redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
     "Parameter record for air-cooled chiller group";
@@ -136,7 +138,7 @@ model ChillerGroup "Validation model for chiller group"
     "Chiller, CW pumps and primary CHW pumps Start/Stop signal"
     annotation (Placement(transformation(extent={{-250,310},{-230,330}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
-    k=1) "Primary CHW pumps speed signal"
+    k=1) "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-250,350},{-230,370}})));
   Fluid.HeatExchangers.HeaterCooler_u loa(
     redeclare final package Medium=MediumChiWat,
@@ -182,8 +184,7 @@ model ChillerGroup "Validation model for chiller group"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable yValIso[nChi](each
       table=[0,0; 1,0; 1.5,1; 2,1],
-    each timeScale=1000)
-    "Chiller CW or CHW isolation valve opening signal"
+    each timeScale=1000) "Chiller CW or CHW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-250,230},{-230,250}})));
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla
     "Plant control bus"
@@ -203,6 +204,7 @@ model ChillerGroup "Validation model for chiller group"
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Chiller group"
     annotation (Placement(transformation(extent={{-100,90},{-60,210}})));
+
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
@@ -311,6 +313,7 @@ model ChillerGroup "Validation model for chiller group"
   ChillerGroups.Compression chi1(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumConWat,
+    typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiWatCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
@@ -458,6 +461,7 @@ model ChillerGroup "Validation model for chiller group"
   ChillerGroups.Compression chi2(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumAir,
+    typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiAirCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
@@ -469,6 +473,7 @@ model ChillerGroup "Validation model for chiller group"
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Chiller group"
     annotation (Placement(transformation(extent={{-100,-190},{-60,-70}})));
+
   Buildings.Templates.Components.Routing.MultipleToSingle inlChiWatChi2(
     redeclare final package Medium = MediumChiWat,
     final nPorts=nChi,

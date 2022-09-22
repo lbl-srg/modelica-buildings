@@ -1,15 +1,12 @@
 within Buildings.Templates.ChilledWaterPlants.Validation;
 model A14_G36Control
   "Parallel chillers, variable primary, constant speed CW pumps, headered pumps"
-  extends Buildings.Templates.ChilledWaterPlants.Validation.BaseWaterCooled(
-      redeclare
+  extends Buildings.Templates.ChilledWaterPlants.Validation.Base(redeclare
       Buildings.Templates.ChilledWaterPlants.Validation.UserProject.A14_G36Control
-      chw);
+      CHI);
 
-  Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatRem[chw.ctr.nSenDpChiWatRem](
-    y(each final unit="Pa"),
-    each k=1e4)
-    "Remote DP sensors"
+  Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatRem[CHI.ctr.nSenDpChiWatRem](
+     y(each final unit="Pa"), each k=1e4) "Remote DP sensors"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
 equation

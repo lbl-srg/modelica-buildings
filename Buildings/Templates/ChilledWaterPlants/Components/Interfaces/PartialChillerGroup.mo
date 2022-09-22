@@ -22,7 +22,7 @@ model PartialChillerGroup "Interface class for chiller group"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat(
-    start=Buildings.Templates.ChilledWaterPlants.Types.PumpMultipleSpeedControl.Constant)
+    start=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
     "Type of CW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -44,29 +44,39 @@ model PartialChillerGroup "Interface class for chiller group"
   // The following parameter stores the user selection.
   parameter Buildings.Templates.Components.Types.Valve typValChiWatIso_select(
     start=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
-    annotation(Dialog(enable=enaTypValChiWatIso));
+    "Type of chiller CHW isolation valve"
+    annotation (
+    choices(choice=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition "Two-way two-position valve",
+    choice=Buildings.Templates.Components.Types.Valve.TwoWayModulating "Two-way modulating valve"),
+    Dialog(enable=enaTypValChiWatIso));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.Components.Types.Valve typValChiWatIso=
     if enaTypValChiWatIso then typValChiWatIso_select
-    else Buildings.Templates.Components.Types.Valve.None;
+    else Buildings.Templates.Components.Types.Valve.None
+    "Type of chiller CHW isolation valve";
   final parameter Boolean enaTypValConWatIso=
     typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
     and (typCtrHea==Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None or
     typCtrSpePumConWat<>Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
       and typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
+    "Enable choices of chiller CW isolation valve type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.Components.Types.Valve typValConWatIso_select(
     start=Buildings.Templates.Components.Types.Valve.TwoWayModulating)
-    "Possible options for chiller CW isolation valve"
-    annotation(Dialog(enable=enaTypValConWatIso));
+    "Type of chiller CW isolation valve"
+    annotation (
+    choices(choice=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition "Two-way two-position valve",
+    choice=Buildings.Templates.Components.Types.Valve.TwoWayModulating "Two-way modulating valve"),
+    Dialog(enable=enaTypValConWatIso));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.Components.Types.Valve typValConWatIso=
     if (typChi<>Buildings.Templates.Components.Types.Chiller.WaterCooled or
     typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated)
     then Buildings.Templates.Components.Types.Valve.None
     elseif enaTypValConWatIso then typValConWatIso_select
-    else Buildings.Templates.Components.Types.Valve.TwoWayModulating;
+    else Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    "Type of chiller CW isolation valve";
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup dat(
     final typChi=typChi,
@@ -83,6 +93,9 @@ model PartialChillerGroup "Interface class for chiller group"
       dat.dpConChi_nominal else fill(0, nChi),
     final TChiWatSup_nominal=dat.TChiWatChiSup_nominal,
     final TChiWatSup_max=dat.TChiWatChiSup_max,
+    final TConEnt_nominal=dat.TConChiEnt_nominal,
+    final TConEnt_min=dat.TConChiEnt_min,
+    final TConEnt_max=dat.TConChiEnt_max,
     final PLRUnl_min=dat.PLRUnlChi_min,
     final PLR_min=dat.PLRChi_min,
     final per=dat.per)
@@ -109,7 +122,7 @@ model PartialChillerGroup "Interface class for chiller group"
     "CHW mass flow rate for each chiller";
   final parameter Modelica.Units.SI.MassFlowRate mConChi_flow_nominal[nChi]=
     dat.mConChi_flow_nominal
-    "CW mass flow rate for each chiller";
+    "Condenser cooling fluid mass flow rate for each chiller";
   final parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi]=
     dat.capChi_nominal
     "Cooling capacity for each chiller";

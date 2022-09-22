@@ -74,7 +74,7 @@ model ChillersToPrimaryPumpsSeries
     each period=2000) "Primary CHW pumps Start/Stop signal"
     annotation (Placement(transformation(extent={{-250,370},{-230,390}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
-    k=1) "Primary CHW pumps speed signal"
+    k=1) "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-250,410},{-230,430}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWat[nChi](
     each final k=TChiWatSup_nominal)

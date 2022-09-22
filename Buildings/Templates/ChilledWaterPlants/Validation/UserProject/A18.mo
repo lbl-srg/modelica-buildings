@@ -1,9 +1,9 @@
 within Buildings.Templates.ChilledWaterPlants.Validation.UserProject;
 model A18
   "Series Chillers with Waterside Economizer, Variable Primary Chilled Water, Variable Condenser Water, Headered Pumps"
-  extends Buildings.Templates.ChilledWaterPlants.ChilledWaterPlant(
+  extends Buildings.Templates.ChilledWaterPlants.WaterCooled(
     redeclare
-      Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTower
+      Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
       cooTowSec(final nCooTow=2),
     redeclare
       Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Series

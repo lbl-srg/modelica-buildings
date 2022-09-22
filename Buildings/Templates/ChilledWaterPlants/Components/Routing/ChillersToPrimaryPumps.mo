@@ -31,9 +31,9 @@ model ChillersToPrimaryPumps
     "Primary CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Buildings.Templates.Components.Data.Valve datValChiWatChiBypSer[nChi](
-    each final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-    each final m_flow_nominal=mChiWatPri_flow_nominal,
-    each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
+    final typ=fill(Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition, nChi),
+    final m_flow_nominal=fill(mChiWatPri_flow_nominal, nChi),
+    dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nChi))
     "Series chillers CHW bypass valve parameters"
     annotation (Dialog(enable=
       typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));

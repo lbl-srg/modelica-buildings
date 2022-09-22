@@ -122,7 +122,7 @@ model ChillersToPrimaryPumpsParallel
     each period=2000) "Primary CHW pumps Start/Stop signal"
     annotation (Placement(transformation(extent={{-250,310},{-230,330}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
-    k=1) "Primary CHW pumps speed signal"
+    k=1) "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-250,350},{-230,370}})));
   Fluid.HeatExchangers.HeaterCooler_u loa(
     redeclare final package Medium=MediumChiWat,

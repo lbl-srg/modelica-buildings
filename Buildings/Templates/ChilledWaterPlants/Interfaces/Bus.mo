@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Interfaces;
-expandable connector Bus "Control bus for chilled water classes"
+expandable connector Bus "Control bus for chilled water plant"
   extends Modelica.Icons.SignalBus;
 
   annotation (

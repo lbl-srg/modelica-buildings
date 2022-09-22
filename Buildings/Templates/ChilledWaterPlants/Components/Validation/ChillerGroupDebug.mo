@@ -95,6 +95,7 @@ model ChillerGroupDebug "Validation model for chiller group"
     final dpConChi_nominal=dpConWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
+    final TConChiEnt_nominal=fill(TConWatSup_nominal, nChi),
     PLRChi_min=fill(0.15, nChi),
     redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
     "Parameter record for water-cooled chiller group";
@@ -292,6 +293,7 @@ model ChillerGroupDebug "Validation model for chiller group"
   ChillerGroups.Compression chi1(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumConWat,
+    typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiWatCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
@@ -429,21 +431,24 @@ equation
   connect(pumConWat.ports_a, inlPumConWat.ports_b)
     annotation (Line(points={{-150,120},{-150,120}}, color={0,127,255}));
   connect(chi.ports_bCon, outConWatChi.ports_b)
-    annotation (Line(points={{-100,180},{-130,180}}, color={0,127,255}));
+    annotation (Line(points={{-100,200},{-116,200},{-116,180},{-130,180}},
+                                                     color={0,127,255}));
   connect(outConWatChi.port_a, tow.port_a) annotation (Line(points={{-150,180},{
           -220,180},{-220,120},{-206,120}},  color={0,127,255}));
   connect(loa.port_b,inlChiWatChi. port_b)
     annotation (Line(points={{10,120},{-30,120}},  color={0,127,255}));
   connect(inlChiWatChi.ports_a, chi.ports_aChiWat)
-    annotation (Line(points={{-50,120},{-60,120}}, color={0,127,255}));
+    annotation (Line(points={{-50,120},{-56,120},{-56,100},{-60,100}},
+                                                   color={0,127,255}));
   connect(chi.ports_bChiWat, inlPumChiWatPri.ports_a)
-    annotation (Line(points={{-60,180},{-60,180}}, color={0,127,255}));
+    annotation (Line(points={{-60,200},{-60,180}}, color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{-40,180},{-40,180}}, color={0,127,255}));
   connect(pumConWat.ports_b, outPumConWat.ports_a)
     annotation (Line(points={{-130,120},{-130,120}}, color={0,127,255}));
   connect(outPumConWat.ports_b, chi.ports_aCon)
-    annotation (Line(points={{-110,120},{-100,120}}, color={0,127,255}));
+    annotation (Line(points={{-110,120},{-106,120},{-106,100},{-100,100}},
+                                                     color={0,127,255}));
   connect(tow.port_b, bouCon.ports[1]) annotation (Line(points={{-186,120},{-180,
           120},{-180,100}}, color={0,127,255}));
   connect(y1Chi.y[1], busPumConWat.y1) annotation (Line(points={{-228,320},{160,
@@ -496,7 +501,7 @@ equation
     annotation (Line(points={{-150,-140},{-150,-140}},
                                                      color={0,127,255}));
   connect(chi1.ports_bCon, outConWatChi1.ports_b)
-    annotation (Line(points={{-100,-80},{-130,-80}},
+    annotation (Line(points={{-100,-60},{-116,-60},{-116,-80},{-130,-80}},
                                                    color={0,127,255}));
   connect(outConWatChi1.port_a, tow1.port_a) annotation (Line(points={{-150,-80},
           {-220,-80},{-220,-140},{-206,-140}},
@@ -505,10 +510,10 @@ equation
     annotation (Line(points={{10,-140},{-30,-140}},
                                                   color={0,127,255}));
   connect(inlChiWatChi1.ports_a, chi1.ports_aChiWat)
-    annotation (Line(points={{-50,-140},{-60,-140}},
+    annotation (Line(points={{-50,-140},{-56,-140},{-56,-160},{-60,-160}},
                                                    color={0,127,255}));
   connect(chi1.ports_bChiWat, inlPumChiWatPri1.ports_a)
-    annotation (Line(points={{-60,-80},{-60,-80}},
+    annotation (Line(points={{-60,-60},{-60,-80}},
                                                  color={0,127,255}));
   connect(inlPumChiWatPri1.ports_b, pumChiWatPri1.ports_a)
     annotation (Line(points={{-40,-80},{-40,-80}},
@@ -517,7 +522,7 @@ equation
     annotation (Line(points={{-130,-140},{-130,-140}},
                                                      color={0,127,255}));
   connect(outPumConWat1.ports_b, chi1.ports_aCon)
-    annotation (Line(points={{-110,-140},{-100,-140}},
+    annotation (Line(points={{-110,-140},{-106,-140},{-106,-160},{-100,-160}},
                                                      color={0,127,255}));
   connect(tow1.port_b, bouCon1.ports[1]) annotation (Line(points={{-186,-140},{
           -180,-140},{-180,-160}},

@@ -1,9 +1,10 @@
 within Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups;
-model CoolingTower "Cooling tower in parallel"
+model CoolingTowerOpen "Open-circuit cooling towers in parallel"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolerGroup(
-    typValCooOutIso=valCooOutIso[1].typ,
-    typValCooInlIso=valCooInlIso[1].typ);
+    final typValCooOutIso=valCooOutIso[1].typ,
+    final typValCooInlIso=valCooInlIso[1].typ,
+    final typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen);
 
   Buildings.Templates.Components.Coolers.CoolingTower coo[nCoo](
     redeclare each final package MediumConWat=MediumConWat,
@@ -92,4 +93,4 @@ equation
     defaultComponentName="coo",
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
     Icon(coordinateSystem(extent={{-400,-400},{400,400}})));
-end CoolingTower;
+end CoolingTowerOpen;

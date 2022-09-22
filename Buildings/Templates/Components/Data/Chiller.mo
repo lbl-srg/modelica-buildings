@@ -40,7 +40,24 @@ record Chiller "Data for chillers"
   parameter Modelica.Units.SI.Temperature TChiWatSup_max=
     Buildings.Templates.Data.Defaults.TChiWatSup_max
     "Maximum CHW supply temperature"
-    annotation(Dialog(group="Nominal condition"));
+    annotation(Dialog(group="Operating limits"));
+  parameter Modelica.Units.SI.Temperature TConEnt_nominal(
+    final min=273.15,
+    start=if typ==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then Buildings.Templates.Data.Defaults.TConWatSup else
+    Buildings.Templates.Data.Defaults.TConAirEnt)
+    "Condenser entering fluid temperature (CW or air)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TConEnt_min(
+    final min=273.15)=
+    Buildings.Templates.Data.Defaults.TConEnt_min
+    "Minimum condenser entering fluid temperature (CW or air)"
+    annotation (Dialog(group="Operating limits"));
+  parameter Modelica.Units.SI.Temperature TConEnt_max(
+    final min=273.15)=
+    Buildings.Templates.Data.Defaults.TConEnt_max
+    "Maximum condenser entering fluid temperature (CW or air)"
+    annotation (Dialog(group="Operating limits"));
   parameter Real PLRUnl_min(
     final min=PLR_min,
     final max=1)=PLR_min
@@ -49,7 +66,10 @@ record Chiller "Data for chillers"
     final min=0,
     final max=1)=0.15
     "Minimum part load ratio before cycling";
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per(
+    TConEnt_nominal=TConEnt_nominal,
+    TConEntMin=TConEnt_min,
+    TConEntMax=TConEnt_max)
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
       QEva_flow_nominal=-1 * cap_nominal,
       TEvaLvg_nominal=TChiWatSup_nominal,
@@ -59,5 +79,7 @@ record Chiller "Data for chillers"
       PLRMinUnl=PLRUnl_min,
       mEva_flow_nominal=mChiWat_flow_nominal,
       mCon_flow_nominal=mCon_flow_nominal)
-    "Chiller performance data";
+    "Chiller performance data"
+    annotation (
+    choicesAllMatching=true);
 end Chiller;

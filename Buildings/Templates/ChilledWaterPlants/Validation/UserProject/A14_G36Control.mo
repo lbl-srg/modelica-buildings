@@ -1,9 +1,9 @@
 within Buildings.Templates.ChilledWaterPlants.Validation.UserProject;
 model A14_G36Control
   "Parallel Chillers, Variable Primary Chilled Water, Constant Condenser Water, Headered Pumps with Guideline36 controls"
-  extends Buildings.Templates.ChilledWaterPlants.ChilledWaterPlant(
+  extends Buildings.Templates.ChilledWaterPlants.WaterCooled(
     redeclare
-      Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTower
+      Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
       cooTowSec(final nCooTow=2),
     redeclare
       Buildings.Templates.ChilledWaterPlants.Components.ChillerSection.Parallel

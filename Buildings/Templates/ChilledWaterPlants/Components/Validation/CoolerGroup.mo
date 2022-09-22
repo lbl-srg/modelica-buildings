@@ -152,14 +152,12 @@ model CoolerGroup "Validation model for cooler group"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,150})));
-  CoolerGroups.CoolingTower coo(
+  CoolerGroups.CoolingTowerOpen coo(
     show_T=true,
-    redeclare final package MediumConWat=MediumConWat,
+    redeclare final package MediumConWat = MediumConWat,
     typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen,
     final dat=datCoo,
-    final nCoo=nCoo)
-    "Cooler group"
-    annotation (Placement(transformation(
+    final nCoo=nCoo) "Cooler group" annotation (Placement(transformation(
         extent={{40,-40},{-40,40}},
         rotation=0,
         origin={-140,180})));
@@ -234,7 +232,7 @@ model CoolerGroup "Validation model for cooler group"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,-30})));
-  CoolerGroups.CoolingTower coo1(
+  CoolerGroups.CoolingTowerOpen coo1(
     show_T=true,
     redeclare final package MediumConWat = MediumConWat,
     typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen,
@@ -243,9 +241,8 @@ model CoolerGroup "Validation model for cooler group"
     redeclare replaceable Buildings.Templates.Components.Valves.None
       valCooInlIso "No Valve",
     redeclare replaceable Buildings.Templates.Components.Valves.None
-      valCooOutIso "No Valve")
-    "Cooler group"
-    annotation (Placement(transformation(
+      valCooOutIso "No Valve") "Cooler group" annotation (Placement(
+        transformation(
         extent={{40,-40},{-40,40}},
         rotation=0,
         origin={-140,0})));
