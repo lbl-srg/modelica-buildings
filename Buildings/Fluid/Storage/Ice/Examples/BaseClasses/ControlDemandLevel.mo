@@ -18,33 +18,39 @@ block ControlDemandLevel "Controller that outputs the demand level"
     final yMax=2,
     final yMin=-1,
     reverseActing=false)
-                   annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+                   annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
 protected
   Controls.OBC.CDL.Integers.SequenceBinary seqBin(
     nSta=2,
     minStaOn=10,
-    h=0.02) annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    h=0.02) annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
     "Shift the output signal to 0...3"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=1/3)
     "Convert the signal to 0...1"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+  Controls.OBC.CDL.Integers.AddParameter addPar1(p=1)
+    "Add one to convert to enumeration"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
-  connect(seqBin.y, y)
-    annotation (Line(points={{82,0},{120,0}}, color={255,127,0}));
-  connect(conPID.u_s, u_s) annotation (Line(points={{-62,0},{-80,0},{-80,50},{
-          -120,50}}, color={0,0,127}));
-  connect(conPID.u_m, u_m) annotation (Line(points={{-50,-12},{-50,-50},{-120,
-          -50}}, color={0,0,127}));
+  connect(conPID.u_s, u_s) annotation (Line(points={{-72,0},{-80,0},{-80,50},{-120,
+          50}},      color={0,0,127}));
+  connect(conPID.u_m, u_m) annotation (Line(points={{-60,-12},{-60,-50},{-120,-50}},
+                 color={0,0,127}));
   connect(conPID.y, addPar.u)
-    annotation (Line(points={{-38,0},{-22,0}}, color={0,0,127}));
+    annotation (Line(points={{-48,0},{-42,0}}, color={0,0,127}));
   connect(seqBin.u, gai.y)
-    annotation (Line(points={{58,0},{42,0}}, color={0,0,127}));
+    annotation (Line(points={{18,0},{14,0}}, color={0,0,127}));
   connect(gai.u, addPar.y)
-    annotation (Line(points={{18,0},{2,0}}, color={0,0,127}));
+    annotation (Line(points={{-10,0},{-18,0}},
+                                            color={0,0,127}));
+  connect(seqBin.y, addPar1.u)
+    annotation (Line(points={{42,0},{58,0}}, color={255,127,0}));
+  connect(addPar1.y, y)
+    annotation (Line(points={{82,0},{120,0}}, color={255,127,0}));
   annotation (
   defaultComponentName="ctrDemLev",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

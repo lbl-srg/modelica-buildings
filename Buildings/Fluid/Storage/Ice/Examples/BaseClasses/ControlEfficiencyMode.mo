@@ -53,19 +53,19 @@ block ControlEfficiencyMode
   Controls.OBC.CDL.Integers.GreaterThreshold higDem(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
     "Outputs true if operated in high demand"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysSOC2(uLow=0.01, uHigh=0.02)
-    "Hysteresis for state of charge"
-    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Controls.OBC.CDL.Logical.And andPumSto "Output true to enable storage pump"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Controls.OBC.CDL.Continuous.Hysteresis hysSOC1(uLow=0.005, uHigh=0.01)
+  Controls.OBC.CDL.Continuous.Hysteresis hysSOC(uLow=0.01, uHigh=0.02)
     "Hysteresis for state of charge"
-    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
+    annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Controls.OBC.CDL.Logical.And andPumGly
     "Output true to enable glycol chiller pump"
     annotation (Placement(transformation(extent={{40,-142},{60,-122}})));
   Controls.OBC.CDL.Logical.Sources.Constant fal(k=false) "Outputs false"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
+  Controls.OBC.CDL.Logical.Not not2
+    "Negation for enabling glycol chiller based on SOC"
+    annotation (Placement(transformation(extent={{0,-190},{20,-170}})));
 equation
   connect(demLev, allOff.u)
     annotation (Line(points={{-260,180},{-102,180}}, color={255,127,0}));
@@ -75,22 +75,16 @@ equation
           {260,20}}, color={255,0,255}));
   connect(higDem.u, demLev) annotation (Line(points={{-102,130},{-220,130},{
           -220,180},{-260,180}}, color={255,127,0}));
-  connect(SOC, hysSOC2.u)
-    annotation (Line(points={{-260,-180},{-62,-180}}, color={0,0,127}));
   connect(yPumSto, andPumSto.y)
     annotation (Line(points={{260,-80},{62,-80}}, color={255,0,255}));
-  connect(hysSOC2.y, andPumSto.u2) annotation (Line(points={{-38,-180},{32,-180},
-          {32,-88},{38,-88}}, color={255,0,255}));
   connect(andPumSto.u1, higDem.y) annotation (Line(points={{38,-80},{0,-80},{0,
           130},{-78,130}}, color={255,0,255}));
-  connect(andPumGly.u2, hysSOC1.y)
-    annotation (Line(points={{38,-140},{-38,-140}}, color={255,0,255}));
   connect(andPumGly.y, yPumGly) annotation (Line(points={{62,-132},{200,-132},{
           200,-120},{260,-120}}, color={255,0,255}));
   connect(andPumGly.u1, higDem.y) annotation (Line(points={{38,-132},{0,-132},{
           0,130},{-78,130}}, color={255,0,255}));
-  connect(hysSOC1.u, SOC) annotation (Line(points={{-62,-140},{-120,-140},{-120,
-          -180},{-260,-180}}, color={0,0,127}));
+  connect(hysSOC.u, SOC)
+    annotation (Line(points={{-62,-180},{-260,-180}}, color={0,0,127}));
   connect(yPumWatHex, higDem.y) annotation (Line(points={{260,-200},{80,-200},{
           80,130},{-78,130}}, color={255,0,255}));
   connect(yGlyChi, andPumGly.y) annotation (Line(points={{260,-20},{200,-20},{
@@ -101,6 +95,12 @@ equation
     annotation (Line(points={{182,80},{260,80}}, color={255,0,255}));
   connect(andPumSto.y, yStoOn) annotation (Line(points={{62,-80},{140,-80},{140,
           120},{260,120}}, color={255,0,255}));
+  connect(andPumSto.u2, hysSOC.y) annotation (Line(points={{38,-88},{-20,-88},{
+          -20,-180},{-38,-180}}, color={255,0,255}));
+  connect(hysSOC.y, not2.u)
+    annotation (Line(points={{-38,-180},{-2,-180}}, color={255,0,255}));
+  connect(andPumGly.u2, not2.y) annotation (Line(points={{38,-140},{30,-140},{
+          30,-180},{22,-180}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
             240}}),                                                                          graphics={  Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent={{-240,

@@ -66,7 +66,8 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
           extent={{240,-220},{280,-180}})));
 
   Controls.OBC.CDL.Continuous.PIDWithReset conPumGlyHex(controllerType=
-        Buildings.Controls.OBC.CDL.Types.SimpleController.PI)
+        Buildings.Controls.OBC.CDL.Types.SimpleController.PI, reverseActing=
+        false)
     "Controller for glycol-side pump of heat exchanger"
     annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
 
