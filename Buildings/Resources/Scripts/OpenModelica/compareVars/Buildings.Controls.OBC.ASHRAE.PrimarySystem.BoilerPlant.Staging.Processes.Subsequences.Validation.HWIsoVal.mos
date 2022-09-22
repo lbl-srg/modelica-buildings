@@ -2,7 +2,7 @@ compareVars :=
   {
     "enaHotIsoVal.uHotWatIsoVal[1]",
     "enaHotIsoVal.uHotWatIsoVal[2]",
-    "enaHotIsoVal.uStaCha",
+    "enaHotIsoVal.chaPro",
     "enaHotIsoVal.uUpsDevSta",
     "enaHotIsoVal.nexChaBoi",
     "enaHotIsoVal.yHotWatIsoVal[1]",
@@ -10,7 +10,7 @@ compareVars :=
     "enaHotIsoVal.yEnaHotWatIsoVal",
     "disHotIsoVal.uHotWatIsoVal[1]",
     "disHotIsoVal.uHotWatIsoVal[2]",
-    "disHotIsoVal.uStaCha",
+    "disHotIsoVal.chaPro",
     "disHotIsoVal.uUpsDevSta",
     "disHotIsoVal.nexChaBoi",
     "disHotIsoVal.yHotWatIsoVal[1]",

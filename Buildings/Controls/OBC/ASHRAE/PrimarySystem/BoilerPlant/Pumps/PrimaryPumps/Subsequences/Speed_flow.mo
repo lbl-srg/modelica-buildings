@@ -113,12 +113,11 @@ protected
     "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if primarySecondarySensors
-    "Compare measured flowrate in primary and secondary circuits"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if primarySecondarySensors
+    "Compare measured flowrate in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div if primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Divide div if primarySecondarySensors
     "Normalize flow-rate value"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
@@ -152,12 +151,11 @@ protected
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1) if primarySecondarySensors
+    final p=1e-6) if primarySecondarySensors
     "Ensure divisor is non-zero"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/VHotWat_flow_nominal) if not primarySecondarySensors
     "Normalize flowrate"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
@@ -191,11 +189,11 @@ equation
           -122,0},{-102,0}},       color={255,0,255}));
   connect(mulOr.y, swi.u2) annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,
           100}}, color={255,0,255}));
-  connect(VHotWatPri_flow, add2.u1) annotation (Line(points={{-140,-30},{-110,-30},
+  connect(VHotWatPri_flow,sub2. u1) annotation (Line(points={{-140,-30},{-110,-30},
           {-110,-34},{-102,-34}}, color={0,0,127}));
-  connect(VHotWatSec_flow, add2.u2) annotation (Line(points={{-140,-60},{-106,-60},
+  connect(VHotWatSec_flow,sub2. u2) annotation (Line(points={{-140,-60},{-106,-60},
           {-106,-46},{-102,-46}}, color={0,0,127}));
-  connect(add2.y, div.u1) annotation (Line(points={{-78,-40},{-70,-40},{-70,-64},
+  connect(sub2.y, div.u1) annotation (Line(points={{-78,-40},{-70,-40},{-70,-64},
           {-62,-64}}, color={0,0,127}));
   connect(addPar.y, div.u2) annotation (Line(points={{-78,-70},{-70,-70},{-70,-76},
           {-62,-76}}, color={0,0,127}));

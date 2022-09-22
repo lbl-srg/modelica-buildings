@@ -165,7 +165,7 @@ protected
     "Maximum local differential pressure "
     annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nSen]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
     "Normalized pressure difference"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
 

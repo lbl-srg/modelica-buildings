@@ -75,13 +75,12 @@ protected
     "Logical latch"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Flow rate error divided by its setpoint"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1)
+    final p=1e-6)
     "Add a small positive to avoid zero output"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
 
@@ -97,9 +96,8 @@ protected
     "Rising edge"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1)
-    "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Find difference between measured flowrate and minimum flow setpoint"
     annotation (Placement(transformation(extent={{-148,-30},{-128,-10}})));
 
 equation
@@ -156,17 +154,17 @@ equation
     annotation (Line(points={{-58,80},{-10,80},{-10,-20},{-2,-20}},
       color={255,0,255}));
 
-  connect(add2.u1, VHotWat_flow) annotation (Line(points={{-150,-14},{-154,-14},
+  connect(sub2.u1, VHotWat_flow) annotation (Line(points={{-150,-14},{-154,-14},
           {-154,-20},{-180,-20}}, color={0,0,127}));
 
-  connect(add2.u2, VMinHotWatSet_flow) annotation (Line(points={{-150,-26},{-154,
+  connect(sub2.u2, VMinHotWatSet_flow) annotation (Line(points={{-150,-26},{-154,
           -26},{-154,-80},{-180,-80}}, color={0,0,127}));
 
   connect(tim.passed, and1.u3) annotation (Line(points={{62,-28},{114,-28},{114,
           72},{118,72}}, color={255,0,255}));
   connect(hys.y, and3.u2) annotation (Line(points={{-38,-60},{-10,-60},{-10,-28},
           {-2,-28}}, color={255,0,255}));
-  connect(add2.y, div.u1) annotation (Line(points={{-126,-20},{-110,-20},{-110,-54},
+  connect(sub2.y, div.u1) annotation (Line(points={{-126,-20},{-110,-20},{-110,-54},
           {-102,-54}}, color={0,0,127}));
 annotation (
   defaultComponentName="minBypRes",

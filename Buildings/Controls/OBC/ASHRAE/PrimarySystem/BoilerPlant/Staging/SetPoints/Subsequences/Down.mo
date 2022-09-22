@@ -238,7 +238,7 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-150,34},{-130,54}})));
 
@@ -252,7 +252,7 @@ protected
     "Logical Or"
     annotation (Placement(transformation(extent={{60,8},{80,28}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Thermal capacity ratio"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
@@ -266,8 +266,7 @@ protected
     "Logical And"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add4(
-    final k2=-1) if not have_priOnl
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub4 if not have_priOnl
     "Compare primary and secondary circuit return temperature"
     annotation (Placement(transformation(extent={{-162,-190},{-142,-170}})));
 
@@ -370,8 +369,7 @@ protected
     "Signal source for minimum primary pump speed for boiler plant stage"
     annotation (Placement(transformation(extent={{-170,-140},{-150,-120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) if not have_priOnl
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if not have_priOnl
     "Compare pump speed signal and minimum pump speed for stage"
     annotation (Placement(transformation(extent={{-174,-90},{-154,-70}})));
 
@@ -426,11 +424,11 @@ equation
           130}},     color={255,0,255}));
   connect(and3.u2, or2.y) annotation (Line(points={{178,0},{134,0},{134,18},{82,
           18}}, color={255,0,255}));
-  connect(add4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,
+  connect(sub4.u1, TPriHotWatRet) annotation (Line(points={{-164,-174},{-170,
           -174},{-170,-160},{-200,-160}}, color={0,0,127}));
-  connect(add4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,
+  connect(sub4.u2, TSecHotWatRet) annotation (Line(points={{-164,-186},{-170,
           -186},{-170,-190},{-200,-190}}, color={0,0,127}));
-  connect(hys3.u, add4.y)
+  connect(hys3.u,sub4. y)
     annotation (Line(points={{-134,-180},{-140,-180}}, color={0,0,127}));
   connect(logSwi.y, and3.u3) annotation (Line(points={{122,-40},{150,-40},{150,-8},
           {178,-8}}, color={255,0,255}));
@@ -482,11 +480,11 @@ equation
     annotation (Line(points={{-148,-130},{-142,-130}}, color={0,0,127}));
   connect(uCur, extIndSig1.index) annotation (Line(points={{-30,-220},{-30,-190},
           {-80,-190},{-80,-160},{-130,-160},{-130,-142}}, color={255,127,0}));
-  connect(hys2.u, add2.y)
+  connect(hys2.u,sub2. y)
     annotation (Line(points={{-148,-80},{-152,-80}}, color={0,0,127}));
-  connect(uPumSpe, add2.u1) annotation (Line(points={{-200,-60},{-176,-60},{
+  connect(uPumSpe,sub2. u1) annotation (Line(points={{-200,-60},{-176,-60},{
           -176,-74}},       color={0,0,127}));
-  connect(extIndSig1.y, add2.u2) annotation (Line(points={{-118,-130},{-112,-130},
+  connect(extIndSig1.y,sub2. u2) annotation (Line(points={{-118,-130},{-112,-130},
           {-112,-110},{-178,-110},{-178,-86},{-176,-86}}, color={0,0,127}));
   connect(tim3.u, and1.y)
     annotation (Line(points={{-22,44},{-28,44}}, color={255,0,255}));

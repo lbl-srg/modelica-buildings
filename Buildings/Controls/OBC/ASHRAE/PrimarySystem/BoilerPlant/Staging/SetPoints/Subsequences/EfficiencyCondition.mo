@@ -95,20 +95,19 @@ block EfficiencyCondition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Division div
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6,
-    final k=1)
+    final p=1e-6)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div1
+  Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Division div2
+  Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Divider to get relative value of flow-rate"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
@@ -161,9 +160,8 @@ protected
     "Switch for flow-rate condition"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k2=-1)
-    "Adder"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    "Find difference between measurted flowrate and minimum flow setpoint for next higher stage"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=delCapReq)
@@ -194,11 +192,11 @@ equation
       color={0,0,127}));
   connect(div1.u2, uCapDes) annotation (Line(points={{-82,64},{-90,64},{-90,70},
           {-114,70},{-114,100},{-140,100}}, color={0,0,127}));
-  connect(add1.u1, VHotWat_flow) annotation (Line(points={{-82,-34},{-110,-34},{
+  connect(sub1.u1, VHotWat_flow) annotation (Line(points={{-82,-34},{-110,-34},{
           -110,-20},{-140,-20}},  color={0,0,127}));
-  connect(add1.u2, VUpMinSet_flow) annotation (Line(points={{-82,-46},{-110,-46},
+  connect(sub1.u2, VUpMinSet_flow) annotation (Line(points={{-82,-46},{-110,-46},
           {-110,-60},{-140,-60}}, color={0,0,127}));
-  connect(add1.y, div2.u1)
+  connect(sub1.y, div2.u1)
     annotation (Line(points={{-58,-40},{-50,-40},{-50,-44},{-42,-44}},
       color={0,0,127}));
   connect(div2.y, hys.u)
