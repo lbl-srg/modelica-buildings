@@ -10,14 +10,18 @@ model DistrictCoolingIceTank
   package MediumWat = Buildings.Media.Water(T_default=283.15) "Fluid medium";
   package MediumAir = Buildings.Media.Air "Fluid medium";
 
+  constant Modelica.Units.SI.SpecificEnergy Hf = 333550 "Fusion of heat of ice";
+
   parameter Real COPWat_nominal = 4 "COP of water chiller at design conditions";
   parameter Real COPGly_nominal = 3 "COP of glycol chiller at design conditions";
 
   parameter Modelica.Units.SI.HeatFlowRate QDis_flow_nominal = -422E3 "District cooling coil load";
-  parameter Real fraWatChi = 0.33 "Fraction of load served by water chiller";
-  final parameter Modelica.Units.SI.HeatFlowRate QWatChi_flow_nominal = fraWatChi*QDis_flow_nominal "Glycol chiller size, assumed 66% of design day peak load";
-  final parameter Modelica.Units.SI.HeatFlowRate QGly_flow_nominal = (1-fraWatChi)*QDis_flow_nominal "Glycol chiller size, assumed 66% of design day peak load";
-  parameter Modelica.Units.SI.Mass mIceTan = 5310 "Mass of ice in single storage tank, assumed 492 kW (Calmac Model 1190)";
+  final parameter Modelica.Units.SI.HeatFlowRate QWatChi_flow_nominal = 0.8*QDis_flow_nominal "Water chiller size";
+  final parameter Modelica.Units.SI.HeatFlowRate QGly_flow_nominal = 0.66*QDis_flow_nominal "Glycol chiller size, assumed 66% of design day peak load";
+
+  parameter Modelica.Units.SI.Time tSto = 6*3600 "Time for a full discharge of the storage at design load if storage serves all load";
+  parameter Modelica.Units.SI.Mass mIceTan = -QDis_flow_nominal*tSto/Hf
+    "Mass of ice in single storage tank";
 
   parameter Modelica.Units.SI.TemperatureDifference dTHex_nominal = 10 "Nominal temperature change across heat exchanger";
 
@@ -78,7 +82,7 @@ model DistrictCoolingIceTank
     dp_nominal=10000,
     SOC_start=3/4,
     per=perIceTan,
-    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
                    "Ice tank" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -127,9 +131,10 @@ model DistrictCoolingIceTank
             {-10,10}},                                                                              rotation=90,origin={60,10})));
 
   Modelica.Blocks.Sources.Sine gaiSecPum(
-    amplitude=1,
-    f=0.00001157,
-    offset=1) "Gain for flow rate of secondary pump"
+    amplitude=0.5,
+    f=1/(365*24*3600),
+    offset=0.5)
+              "Gain for flow rate of secondary pump"
     annotation (Placement(transformation(extent={{340,60},{360,80}})));
 
   HeatExchangers.HeaterCooler_u disCooCoi(
@@ -138,7 +143,7 @@ model DistrictCoolingIceTank
     show_T=true,
     dp_nominal=16000+500*2*200,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    Q_flow_nominal=QDis_flow_nominal)
+    Q_flow_nominal=-QDis_flow_nominal)
     "District cooling coil, with dp for 500 m district (supply and return) at 200 Pa/m each" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -216,8 +221,8 @@ model DistrictCoolingIceTank
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal,
-    nominalValuesDefineDefaultPressureCurve=true)
-                                      "Pump" annotation (Placement(
+    nominalValuesDefineDefaultPressureCurve=true,
+    final use_inputFilter=false)      "Pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -258,11 +263,9 @@ model DistrictCoolingIceTank
         extent={{10,-10},{-10,10}},
         origin={220,-50})));
 
-  Sources.Boundary_pT preSou1(
-    redeclare package Medium = MediumWat,
-    nPorts=1)
+  Sources.Boundary_pT preSouWat(redeclare package Medium = MediumWat, nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
-    annotation (Placement(transformation(extent={{106,-230},{126,-210}})));
+    annotation (Placement(transformation(extent={{70,-190},{90,-170}})));
 
   Sources.MassFlowSource_T           souGlyChiCon(
     use_T_in=true,
@@ -282,11 +285,9 @@ model DistrictCoolingIceTank
         extent={{10,-10},{-10,10}},
         origin={-50,-50})));
 
-  Sources.Boundary_pT preSou2(
-    redeclare package Medium = MediumGly,
-    nPorts=1)
+  Sources.Boundary_pT preSouGly(redeclare package Medium = MediumGly, nPorts=1)
     "Source for pressure and to account for thermal expansion of glycol"
-    annotation (Placement(transformation(extent={{-158,-230},{-138,-210}})));
+    annotation (Placement(transformation(extent={{-270,-190},{-250,-170}})));
 
   FixedResistances.Junction jun(
     redeclare package Medium = MediumGly,
@@ -294,17 +295,17 @@ model DistrictCoolingIceTank
     m_flow_nominal=mGly_flow_nominal*{1,1,1},
     dp_nominal={0,0,0})
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
-  FixedResistances.Junction jun1(
+  FixedResistances.Junction junGlySecSup(
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0}) "Junction for secondary loop glycol"
     annotation (Placement(transformation(extent={{-30,90},{-10,110}})));
-  FixedResistances.Junction jun2(
+  FixedResistances.Junction junSecGlyRet(
     redeclare package Medium = MediumGly,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mGly_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0}) "Junction for secondary loop return"
     annotation (Placement(transformation(extent={{-30,-170},{-10,-190}})));
   FixedResistances.Junction jun3(
     redeclare package Medium = MediumGly,
@@ -312,29 +313,29 @@ model DistrictCoolingIceTank
     m_flow_nominal=mGly_flow_nominal*{1,1,1},
     dp_nominal={0,0,0})
     annotation (Placement(transformation(extent={{-110,-170},{-90,-190}})));
-  FixedResistances.Junction jun4(
+  FixedResistances.Junction junSecRet(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mDis_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0}) "Junction for secondary return"
     annotation (Placement(transformation(extent={{250,-170},{270,-190}})));
-  FixedResistances.Junction jun5(
+  FixedResistances.Junction junWatChiIn(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mDis_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0}) "Junction for water chiller inlet"
     annotation (Placement(transformation(extent={{150,-170},{170,-190}})));
-  FixedResistances.Junction jun6(
+  FixedResistances.Junction junWatChiOut(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mDis_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0}) "Junction for water chiller outlet"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
-  FixedResistances.Junction jun7(
+  FixedResistances.Junction junSecSup(
     redeclare package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=mDis_flow_nominal*{1,1,1},
-    dp_nominal={0,0,0})
+    dp_nominal={0,0,0}) "Junction for secondary supply"
     annotation (Placement(transformation(extent={{250,90},{270,110}})));
   FixedResistances.Junction jun8(
     redeclare package Medium = MediumGly,
@@ -439,51 +440,50 @@ equation
           -240,-180},{-110,-180}}, color={0,127,255}));
   connect(jun3.port_3, pumChiGly.port_a)
     annotation (Line(points={{-100,-170},{-100,-60}}, color={0,127,255}));
-  connect(jun3.port_2, jun2.port_1)
+  connect(jun3.port_2, junSecGlyRet.port_1)
     annotation (Line(points={{-90,-180},{-30,-180}}, color={0,127,255}));
-  connect(jun2.port_3, jun1.port_3)
+  connect(junSecGlyRet.port_3, junGlySecSup.port_3)
     annotation (Line(points={{-20,-170},{-20,90}}, color={0,127,255}));
-  connect(jun1.port_2, hex.port_a1)
+  connect(junGlySecSup.port_2, hex.port_a1)
     annotation (Line(points={{-10,100},{54,100},{54,20}}, color={0,127,255}));
-  connect(jun.port_2, jun1.port_1)
+  connect(jun.port_2, junGlySecSup.port_1)
     annotation (Line(points={{-90,100},{-30,100}}, color={0,127,255}));
-  connect(pumHexPri.port_b, jun2.port_2) annotation (Line(points={{40,-60},{40,-180},
-          {-10,-180}},       color={0,127,255}));
-  connect(pumHexSec.port_a, jun5.port_1) annotation (Line(points={{100,-60},{100,
-          -180},{150,-180}}, color={0,127,255}));
-  connect(jun6.port_2, jun7.port_1)
+  connect(pumHexPri.port_b, junSecGlyRet.port_2) annotation (Line(points={{40,-60},
+          {40,-180},{-10,-180}}, color={0,127,255}));
+  connect(pumHexSec.port_a, junWatChiIn.port_1) annotation (Line(points={{100,-60},
+          {100,-180},{150,-180}}, color={0,127,255}));
+  connect(junWatChiOut.port_2, junSecSup.port_1)
     annotation (Line(points={{170,100},{250,100}}, color={0,127,255}));
-  connect(jun6.port_3, chiWat.port_b2) annotation (Line(points={{160,90},{160,40},
-          {186,40},{186,20}},     color={0,127,255}));
-  connect(pumChiWat.port_a, jun5.port_3)
+  connect(junWatChiOut.port_3, chiWat.port_b2) annotation (Line(points={{160,90},
+          {160,40},{186,40},{186,20}}, color={0,127,255}));
+  connect(pumChiWat.port_a, junWatChiIn.port_3)
     annotation (Line(points={{160,-60},{160,-170}}, color={0,127,255}));
-  connect(jun7.port_3, jun4.port_3)
+  connect(junSecSup.port_3, junSecRet.port_3)
     annotation (Line(points={{260,90},{260,-170}}, color={0,127,255}));
-  connect(pumLoa.port_b, jun4.port_2) annotation (Line(points={{320,-60},{320,-180},
-          {270,-180}},       color={0,127,255}));
-  connect(jun4.port_1, jun5.port_2)
+  connect(pumLoa.port_b, junSecRet.port_2) annotation (Line(points={{320,-60},{
+          320,-180},{270,-180}}, color={0,127,255}));
+  connect(junSecRet.port_1, junWatChiIn.port_2)
     annotation (Line(points={{250,-180},{170,-180}}, color={0,127,255}));
-  connect(preSou1.ports[1], jun5.port_1) annotation (Line(points={{126,-220},{140,
-          -220},{140,-180},{150,-180}},     color={0,127,255}));
-  connect(preSou2.ports[1], jun3.port_1) annotation (Line(points={{-138,-220},{
-          -126,-220},{-126,-180},{-110,-180}}, color={0,127,255}));
+  connect(preSouWat.ports[1], junWatChiIn.port_1)
+    annotation (Line(points={{90,-180},{150,-180}}, color={0,127,255}));
+  connect(preSouGly.ports[1], jun3.port_1)
+    annotation (Line(points={{-250,-180},{-110,-180}}, color={0,127,255}));
   connect(hex.port_b2, senTemHexWat.port_a) annotation (Line(points={{66,20},{66,
           24},{100,24},{100,40}}, color={0,127,255}));
-  connect(senTemHexWat.port_b, jun6.port_1) annotation (Line(points={{100,60},{100,
-          100},{150,100}}, color={0,127,255}));
+  connect(senTemHexWat.port_b, junWatChiOut.port_1) annotation (Line(points={{
+          100,60},{100,100},{150,100}}, color={0,127,255}));
   connect(gaiPumWatHex.y, pumHexSec.m_flow_in) annotation (Line(points={{62,260},
           {120,260},{120,-50},{112,-50}}, color={0,0,127}));
-  connect(con.TChiWatSet, chiWat.TSet) annotation (Line(points={{-403.333,
-          243.76},{189,243.76},{189,22}},
-                                   color={0,0,127}));
-  connect(con.TChiGlySet, chiGly.TSet) annotation (Line(points={{-403.333,
-          241.52},{-73,241.52},{-73,22}},
+  connect(con.TChiWatSet, chiWat.TSet) annotation (Line(points={{-403.333,243.76},
+          {189,243.76},{189,22}},  color={0,0,127}));
+  connect(con.TChiGlySet, chiGly.TSet) annotation (Line(points={{-403.333,241.52},
+          {-73,241.52},{-73,22}},
                               color={0,0,127}));
-  connect(con.yStoOn, valStoDis.y) annotation (Line(points={{-403.333,239.28},{
-          -362,239.28},{-362,234},{-340,234},{-340,-112},{-252,-112}},  color={
+  connect(con.yStoOn, valStoDis.y) annotation (Line(points={{-403.333,239.28},{-362,
+          239.28},{-362,234},{-340,234},{-340,-112},{-252,-112}},       color={
           0,0,127}));
-  connect(con.yStoByp, valStoCha.y) annotation (Line(points={{-403.333,237.04},
-          {-364,237.04},{-364,230},{-346,230},{-346,-68},{-190,-68},{-190,-80}},
+  connect(con.yStoByp, valStoCha.y) annotation (Line(points={{-403.333,237.04},{
+          -364,237.04},{-364,230},{-346,230},{-346,-68},{-190,-68},{-190,-80}},
         color={0,0,127}));
   connect(gaiPumSec.y, pumLoa.m_flow_in)
     annotation (Line(points={{358,-50},{332,-50}}, color={0,0,127}));
@@ -491,48 +491,40 @@ equation
           {390,70},{361,70}}, color={0,0,127}));
   connect(gaiPumWatChi.y, pumChiWat.m_flow_in) annotation (Line(points={{62,292},
           {140,292},{140,-50},{148,-50}}, color={0,0,127}));
-  connect(con.yWatChi, chiWat.on) annotation (Line(points={{-403.333,233.68},{
-          195,233.68},{195,22}},
-                             color={255,0,255}));
-  connect(con.yGlyChi, chiGly.on) annotation (Line(points={{-403.333,231.44},{
-          -67,231.44},{-67,22}},
-                             color={255,0,255}));
+  connect(con.yWatChi, chiWat.on) annotation (Line(points={{-403.333,233.68},{195,
+          233.68},{195,22}}, color={255,0,255}));
+  connect(con.yGlyChi, chiGly.on) annotation (Line(points={{-403.333,231.44},{-67,
+          231.44},{-67,22}}, color={255,0,255}));
   connect(gaiGlyPumSto.y, pumSto.m_flow_in)
     annotation (Line(points={{-298,-50},{-252,-50}}, color={0,0,127}));
   connect(gaiGlyPumChi.y, pumChiGly.m_flow_in) annotation (Line(points={{-298,-18},
           {-140,-18},{-140,-50},{-112,-50}}, color={0,0,127}));
   connect(gaiGlyPumHex.y, pumHexPri.m_flow_in) annotation (Line(points={{-298,10},
           {-282,10},{-282,-14},{12,-14},{12,-50},{28,-50}}, color={0,0,127}));
-  connect(gaiGlyPumSto.u, con.yPumSto) annotation (Line(points={{-322,-50},{
-          -360,-50},{-360,228.08},{-403.333,228.08}},
-                                                 color={0,0,127}));
-  connect(gaiGlyPumHex.u, con.yPumGlyHex) annotation (Line(points={{-322,10},{
-          -366,10},{-366,223.6},{-403.333,223.6}},
-                                              color={0,0,127}));
-  connect(gaiGlyPumChi.u, con.yPumGly) annotation (Line(points={{-322,-18},{
-          -374,-18},{-374,225.728},{-403.333,225.728}},
-                                                   color={0,0,127}));
-  connect(con.yPumWatHex, gaiPumWatHex.u) annotation (Line(points={{-403.333,
-          221.36},{-181.667,221.36},{-181.667,260},{38,260}},
-                                                      color={0,0,127}));
-  connect(con.yPumWatChi, gaiPumWatChi.u) annotation (Line(points={{-403.333,
-          219.12},{-176,219.12},{-176,292},{38,292}},
-                                              color={0,0,127}));
+  connect(gaiGlyPumSto.u, con.yPumSto) annotation (Line(points={{-322,-50},{-360,
+          -50},{-360,228.08},{-403.333,228.08}}, color={0,0,127}));
+  connect(gaiGlyPumHex.u, con.yPumGlyHex) annotation (Line(points={{-322,10},{-366,
+          10},{-366,223.6},{-403.333,223.6}}, color={0,0,127}));
+  connect(gaiGlyPumChi.u, con.yPumGly) annotation (Line(points={{-322,-18},{-374,
+          -18},{-374,225.728},{-403.333,225.728}}, color={0,0,127}));
+  connect(con.yPumWatHex, gaiPumWatHex.u) annotation (Line(points={{-403.333,221.36},
+          {-181.667,221.36},{-181.667,260},{38,260}}, color={0,0,127}));
+  connect(con.yPumWatChi, gaiPumWatChi.u) annotation (Line(points={{-403.333,219.12},
+          {-176,219.12},{-176,292},{38,292}}, color={0,0,127}));
   connect(con.SOC, iceTan.SOC) annotation (Line(points={{-420.667,222.48},{-430,
           222.48},{-430,40},{-244,40},{-244,21}}, color={0,0,127}));
-  connect(con.THexWatLea, senTemHexWat.T) annotation (Line(points={{-420.667,
-          226.848},{-428,226.848},{-428,180},{80,180},{80,50},{89,50}},
-                                                               color={0,0,127}));
+  connect(con.THexWatLea, senTemHexWat.T) annotation (Line(points={{-420.667,226.848},
+          {-428,226.848},{-428,180},{80,180},{80,50},{89,50}}, color={0,0,127}));
   connect(con.TSetLoa, chiWatTSet.y) annotation (Line(points={{-420.667,232.56},
           {-452,232.56},{-452,250},{-458,250}}, color={0,0,127}));
-  connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,238.048},{
-          -446,238.048},{-446,290},{-458,290}}, color={255,127,0}));
-  connect(ctrDemLev.y, con.demLev) annotation (Line(points={{-398,290},{-392,
-          290},{-392,260},{-432,260},{-432,243.76},{-420.667,243.76}}, color={
+  connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,238.048},{-446,
+          238.048},{-446,290},{-458,290}},      color={255,127,0}));
+  connect(ctrDemLev.y, con.demLev) annotation (Line(points={{-398,290},{-392,290},
+          {-392,260},{-432,260},{-432,243.76},{-420.667,243.76}},      color={
           255,127,0}));
   connect(ctrDemLev.u_s, chiWatTSet.y) annotation (Line(points={{-422,295},{
           -440,295},{-440,250},{-458,250}}, color={0,0,127}));
-  connect(jun7.port_2, senTemSupSec.port_a)
+  connect(junSecSup.port_2, senTemSupSec.port_a)
     annotation (Line(points={{270,100},{282,100}}, color={0,127,255}));
   connect(senTemSupSec.port_b, disCooCoi.port_a) annotation (Line(points={{302,
           100},{320,100},{320,20}}, color={0,127,255}));
@@ -560,10 +552,9 @@ equation
     annotation (Line(points={{-298,360},{-52,360},{-52,62}}, color={0,0,127}));
   annotation (
     experiment(
-      StartTime=8640000,
-      StopTime=8726400,
+      StopTime=31536000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      __Dymola_Algorithm="Radau"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Examples/DistrictCoolingIceTank.mos"
         "Simulate and Plot"),
     Documentation(info="<html>

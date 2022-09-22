@@ -65,21 +65,21 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
         transformation(extent={{240,-220},{280,-180}}), iconTransformation(
           extent={{240,-220},{280,-180}})));
 
-  Controls.OBC.CDL.Continuous.PIDWithReset conPumGlyHex(controllerType=
-        Buildings.Controls.OBC.CDL.Types.SimpleController.PI, reverseActing=
+  Controls.OBC.CDL.Continuous.PIDWithReset conPumGlyHex(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=2,
+    Ti=120,                                                   reverseActing=
         false)
     "Controller for glycol-side pump of heat exchanger"
-    annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
+    annotation (Placement(transformation(extent={{-200,-82},{-180,-62}})));
 
   ControlEfficiencyMode effMod "Controller used during efficiency mode"
     annotation (Placement(transformation(extent={{0,80},{48,130}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{180,-90},{200,-70}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
     annotation (Placement(transformation(extent={{180,-210},{200,-190}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant dTHex(k=4)
+  Controls.OBC.CDL.Continuous.Sources.Constant dTHex(k=10)
     "Design temperature drop over heat exchanger"
     annotation (Placement(transformation(extent={{-48,132},{-28,152}})));
   Controls.OBC.CDL.Continuous.Sources.Constant chiGlyTSet(k=273.15 - 7)
@@ -94,27 +94,27 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
   Controls.OBC.CDL.Continuous.Subtract sub
     annotation (Placement(transformation(extent={{20,140},{40,160}})));
   Controls.OBC.CDL.Continuous.Switch swi1
-    annotation (Placement(transformation(extent={{182,-170},{202,-150}})));
+    annotation (Placement(transformation(extent={{180,-170},{200,-150}})));
   Controls.OBC.CDL.Continuous.Sources.Constant zer(k=0) "Outputs zero"
     annotation (Placement(transformation(extent={{60,-190},{80,-170}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea5
     annotation (Placement(transformation(extent={{180,-250},{200,-230}})));
+  Controls.OBC.CDL.Continuous.Switch swiPumSto "Switch for storage pump"
+    annotation (Placement(transformation(extent={{180,-90},{200,-70}})));
 equation
   connect(TSetLoa, TChiWatSet) annotation (Line(points={{-260,0},{100,0},{100,
           200},{260,200}},
                       color={0,0,127}));
-  connect(conPumGlyHex.u_s, TSetLoa) annotation (Line(points={{-192,-60},{-220,-60},
-          {-220,0},{-260,0}}, color={0,0,127}));
-  connect(conPumGlyHex.u_m, THexWatLea) annotation (Line(points={{-180,-72},{-180,
-          -100},{-260,-100}}, color={0,0,127}));
+  connect(conPumGlyHex.u_s, TSetLoa) annotation (Line(points={{-202,-72},{-220,
+          -72},{-220,0},{-260,0}},
+                              color={0,0,127}));
+  connect(conPumGlyHex.u_m, THexWatLea) annotation (Line(points={{-190,-84},{
+          -190,-100},{-260,-100}},
+                              color={0,0,127}));
   connect(effMod.yWatChi, yWatChi) annotation (Line(points={{50,108},{160,108},
           {160,20},{260,20}}, color={255,0,255}));
   connect(effMod.yGlyChi, yGlyChi) annotation (Line(points={{50,104},{152,104},
           {152,-20},{260,-20}}, color={255,0,255}));
-  connect(yPumSto, booToRea.y)
-    annotation (Line(points={{260,-80},{202,-80}}, color={0,0,127}));
-  connect(booToRea.u, effMod.yPumSto) annotation (Line(points={{178,-80},{148,
-          -80},{148,98},{50,98}}, color={255,0,255}));
   connect(booToRea1.y, yPumGly)
     annotation (Line(points={{202,-120},{260,-120}}, color={0,0,127}));
   connect(booToRea1.u, effMod.yPumGly) annotation (Line(points={{178,-120},{140,
@@ -147,20 +147,28 @@ equation
           {-26,142}}, color={0,0,127}));
   connect(sub.y, swi.u3) annotation (Line(points={{42,150},{152,150},{152,160},
           {158,160}}, color={0,0,127}));
-  connect(effMod.yPumWatHex, conPumGlyHex.trigger) annotation (Line(points={{50,
-          86},{80,86},{80,-120},{-186,-120},{-186,-72}}, color={255,0,255}));
-  connect(swi1.u1, conPumGlyHex.y) annotation (Line(points={{180,-152},{-160,
-          -152},{-160,-60},{-168,-60}}, color={0,0,127}));
-  connect(swi1.u2, effMod.yPumWatHex) annotation (Line(points={{180,-160},{134,
+  connect(effMod.yPumWatHex, conPumGlyHex.trigger) annotation (Line(points={{50,86},
+          {80,86},{80,-120},{-196,-120},{-196,-84}},     color={255,0,255}));
+  connect(swi1.u1, conPumGlyHex.y) annotation (Line(points={{178,-152},{-160,
+          -152},{-160,-72},{-178,-72}}, color={0,0,127}));
+  connect(swi1.u2, effMod.yPumWatHex) annotation (Line(points={{178,-160},{134,
           -160},{134,86},{50,86}}, color={255,0,255}));
   connect(zer.y, swi1.u3) annotation (Line(points={{82,-180},{174,-180},{174,
-          -168},{180,-168}}, color={0,0,127}));
+          -168},{178,-168}}, color={0,0,127}));
   connect(swi1.y, yPumGlyHex)
-    annotation (Line(points={{204,-160},{260,-160}}, color={0,0,127}));
+    annotation (Line(points={{202,-160},{260,-160}}, color={0,0,127}));
   connect(booToRea5.y, yPumWatChi)
     annotation (Line(points={{202,-240},{260,-240}}, color={0,0,127}));
   connect(booToRea5.u, effMod.yPumWatChi) annotation (Line(points={{178,-240},{
           128,-240},{128,82},{50,82}}, color={255,0,255}));
+  connect(swiPumSto.u2, effMod.yPumSto) annotation (Line(points={{178,-80},{148,
+          -80},{148,98},{50,98}}, color={255,0,255}));
+  connect(swiPumSto.y, yPumSto)
+    annotation (Line(points={{202,-80},{260,-80}}, color={0,0,127}));
+  connect(swiPumSto.u3, zer.y) annotation (Line(points={{178,-88},{160,-88},{
+          160,-180},{82,-180},{82,-182}}, color={0,0,127}));
+  connect(swiPumSto.u1, conPumGlyHex.y)
+    annotation (Line(points={{178,-72},{-178,-72}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
             240}}),                                                                          graphics={  Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent={{-240,
