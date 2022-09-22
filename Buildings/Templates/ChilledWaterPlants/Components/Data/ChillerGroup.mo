@@ -3,7 +3,7 @@ record ChillerGroup "Record for chiller group model"
   extends Modelica.Icons.Record;
 
   parameter Integer nChi(final min=1)
-    "Number of chillers"
+    "Number of chillers (as installed)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Chiller typChi
     "Type of chiller"

@@ -1,7 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Validation.UserProject;
 model A17
   "Series Chillers, Constant Primary Chilled Water, Constant Condenser Water, Headered Pumps"
-  extends Buildings.Templates.ChilledWaterPlants.WaterCooled(
+  extends Buildings.Templates.ChilledWaterPlants.ChilledWaterPlant(
     redeclare
       Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTower
       cooTowSec(final nCooTow=2),

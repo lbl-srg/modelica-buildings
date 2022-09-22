@@ -5,8 +5,8 @@ model BaseWaterCooled
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Chilled water medium";
 
-  replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled chw(dat=dat)
-    "CHW plant"
+  replaceable Buildings.Templates.ChilledWaterPlants.ChilledWaterPlant chw(dat=
+        dat) "CHW plant"
     annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
   Fluid.Sources.Boundary_pT bou(redeclare final package Medium = MediumChiWat,
       nPorts=3) "Boundary conditions for CHW distribution system "

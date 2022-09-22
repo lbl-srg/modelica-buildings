@@ -2,25 +2,27 @@ within Buildings.Templates.ChilledWaterPlants.Components.Routing;
 model ChillersToPrimaryPumps
   "Hydronic interface between chillers (and optional WSE) and primary pumps"
 
-  replaceable package Medium = Buildings.Media.Water
+  replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium";
 
   parameter Integer nChi
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi(
+    start=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel)
     "Type of chiller arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=nChi>1));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri(
+    start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typArrChi<>Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco(
+    start=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Integer nPorts = nChi + (if
+  final parameter Integer nPorts=nChi + (if
     typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then 1 else 0)
     "Size of vectorized fluid connectors"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -34,15 +36,15 @@ model ChillersToPrimaryPumps
     each dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
     "Series chillers CHW bypass valve parameters"
     annotation (Dialog(enable=
-    typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));
+      typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));
   parameter Buildings.Templates.Components.Data.Valve datValChiWatChiBypPar(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
     "Parallel chillers CHW bypass valve parameters"
     annotation (Dialog(enable=
-    typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
-     and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
+      typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+      and typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -57,43 +59,43 @@ model ChillersToPrimaryPumps
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aRet(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return from CHW distribution"
     annotation (Placement(transformation(extent={{190,-110},{210,-90}}),
-    iconTransformation(extent={{190,-310},{208,-292}})));
+    iconTransformation(extent={{190,-510},{208,-492}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bRet[nPorts](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium = MediumChiWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return to chillers and WSE"
     annotation (Placement(transformation(
-          extent={{-210,-140},{-190,-60}}),iconTransformation(extent={{-210,-340},
-            {-190,-260}})));
+          extent={{-210,-140},{-190,-60}}),iconTransformation(extent={{-210,-540},
+            {-190,-460}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bSup[nChi](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium = MediumChiWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply to CHW distribution"
     annotation (Placement(
-        transformation(extent={{190,80},{210,160}}),iconTransformation(extent={{188,260},
-            {208,340}})));
+        transformation(extent={{190,80},{210,160}}),iconTransformation(extent={{190,460},
+            {210,540}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aByp(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply from minimum flow bypass or common leg"    annotation (
       Placement(transformation(extent={{190,-10},{210,10}}),iconTransformation(
           extent={{190,-10},{210,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aSup[nPorts](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium = MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    each h_outflow(start=Medium.h_default, nominal=Medium.h_default))
+    each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply from chillers and WSE"
     annotation (Placement(transformation(
-          extent={{-210,80},{-190,160}}), iconTransformation(extent={{-210,260},
-            {-190,340}})));
+          extent={{-210,80},{-190,160}}), iconTransformation(extent={{-210,460},
+            {-190,540}})));
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(
@@ -101,7 +103,7 @@ model ChillersToPrimaryPumps
             20,620}})));
 
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypSer[nChi](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiBypSer)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
@@ -110,7 +112,7 @@ model ChillersToPrimaryPumps
         rotation=270,
         origin={-160,0})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypPar(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiBypPar)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
@@ -119,7 +121,7 @@ model ChillersToPrimaryPumps
     annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=270)));
   Buildings.Templates.Components.Routing.MultipleToMultiple rouSupPar(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final nPorts_a=nChi,
     final nPorts_b=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
@@ -131,12 +133,12 @@ model ChillersToPrimaryPumps
     "Hydronic routing  - Supply side - Parallel arrangement"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid rouRetEco(redeclare
-      final package Medium = Medium)
+      final package Medium = MediumChiWat)
     if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "Hydronic routing to WSE retrun - Parallel or series arrangement with WSE"
     annotation (Placement(transformation(extent={{160,-130},{140,-110}})));
   Buildings.Templates.Components.Routing.PassThroughFluid rouRetNoECo(
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = MediumChiWat)
     if typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "Hydronic routing - Return side - Parallel or series arrangement without WSE"
     annotation (Placement(transformation(
@@ -144,7 +146,7 @@ model ChillersToPrimaryPumps
         rotation=90,
         origin={180,-70})));
   Buildings.Templates.Components.Routing.SingleToMultiple rouRetChiPar(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -152,7 +154,7 @@ model ChillersToPrimaryPumps
     "Hydronic routing to chiller return - Parallel arrangement"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoBef(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final have_sen=true,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
@@ -162,7 +164,7 @@ model ChillersToPrimaryPumps
         rotation=0,
         origin={-140,-120})));
   Buildings.Templates.Components.Routing.SingleToMultiple rouSupSer(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -171,7 +173,7 @@ model ChillersToPrimaryPumps
     "Hydronic routing  - Supply side - Series arrangement"
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoAft(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final have_sen=true,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
@@ -182,7 +184,7 @@ model ChillersToPrimaryPumps
         extent={{70,50},{90,70}},
         rotation=0)));
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiEnt(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller entering CHW return temperature (after bypass or common leg)"
@@ -191,13 +193,13 @@ model ChillersToPrimaryPumps
         rotation=0,
         origin={80,-100})));
   Buildings.Templates.Components.Routing.PassThroughFluid rouRetChiSer(
-    redeclare final package Medium = Medium)
+    redeclare final package Medium = MediumChiWat)
     if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Hydronic routing to chiller return - Series arrangement"
     annotation (Placement(transformation(extent={{10,-82},{-10,-62}})));
 
   Buildings.Templates.Components.Routing.PassThroughFluid rouSupRetSer[nChi - 1](
-     redeclare final package Medium = Medium) if nChi > 1 and typArrChi ==
+     redeclare final package Medium = MediumChiWat) if nChi > 1 and typArrChi ==
     Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Hydronic routing - Chiller return to supply - Series arrangement"
     annotation (Placement(transformation(
@@ -205,7 +207,7 @@ model ChillersToPrimaryPumps
         rotation=90,
         origin={-120,0})));
   Fluid.FixedResistances.Junction junSupChiSer[nChi](
-    redeclare each final package Medium = Medium,
+    redeclare each final package Medium = MediumChiWat,
     each final tau=tau,
     each final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
     each final energyDynamics=energyDynamics,
@@ -223,7 +225,7 @@ model ChillersToPrimaryPumps
     "Fluid junction at chiller supply - Series arrangement"
     annotation (Placement(transformation(extent={{-170,130},{-150,150}})));
   Fluid.FixedResistances.Junction junByp(
-    redeclare final package Medium = Medium,
+    redeclare final package Medium = MediumChiWat,
     final tau=tau,
     final m_flow_nominal=mChiWatPri_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,

@@ -50,7 +50,7 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium=MediumCon,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatChiIso)
-    if typValConWatIso_internal==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    if typValConWatIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CW isolation valve - Modulating"
     annotation (Placement(transformation(extent={{-150,150},{-170,170}})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChiIsoTwo[nChi](
@@ -58,12 +58,12 @@ model Compression "Group of compression chillers"
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatChiIso,
     each final text_flip=true)
-    if typValConWatIso_internal == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    if typValConWatIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CW isolation valve - Two-position"
     annotation (Placement(transformation(extent={{-150,110},{-170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasConWatChi[nChi](
     redeclare each final package Medium=MediumCon)
-    if typValConWatIso_internal==Buildings.Templates.Components.Types.Valve.None
+    if typValConWatIso==Buildings.Templates.Components.Types.Valve.None
     "No chiller CW isolation valve"
     annotation (Placement(transformation(extent={{-150,90},{-170,70}})));
 
@@ -72,19 +72,19 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiIso)
-    if typValChiWatIso_internal == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    if typValChiWatIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CHW isolation valve - Two-position"
     annotation (Placement(transformation(extent={{150,110},{170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatChi[nChi](
     redeclare each final package Medium=MediumChiWat)
-    if typValChiWatIso_internal==Buildings.Templates.Components.Types.Valve.None
+    if typValChiWatIso==Buildings.Templates.Components.Types.Valve.None
     "No chiller CHW isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,70}})));
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChiIsoMod[nChi](
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiIso)
-    if typValChiWatIso_internal == Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    if typValChiWatIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CHW isolation valve - Modulating"
     annotation (Placement(transformation(extent={{150,150},{170,170}})));
 equation

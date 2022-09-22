@@ -6,7 +6,7 @@ block PartialController "Partial controller for chilled water plant"
   parameter Buildings.Templates.ChilledWaterPlants.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nSenDpChiWatRem = 0
+  parameter Integer nSenDpChiWatRem=0
     "Number of remote chilled water differential pressure sensors"
     annotation (Dialog(tab="General", group="Chilled water pump"));
   parameter Boolean have_sendpChiWatLoc = true
@@ -40,8 +40,6 @@ block PartialController "Partial controller for chilled water plant"
   outer parameter Integer nPumCon "Number of condenser pumps";
   outer parameter Integer nCooTow "Number of cooling towers";
 
-  // Record
-
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Controller
     dat(
     final typ=typ,
@@ -50,7 +48,8 @@ block PartialController "Partial controller for chilled water plant"
     final have_eco=have_eco,
     final have_sendpChiWatLoc=have_sendpChiWatLoc,
     final have_fixSpeConWatPum=have_fixSpeConWatPum,
-    final have_ctrHeaPre=have_ctrHeaPre) "Controller data";
+    final have_ctrHeaPre=have_ctrHeaPre)
+    "Controller data";
 
   outer replaceable
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer
@@ -62,8 +61,9 @@ block PartialController "Partial controller for chilled water plant"
     Buildings.Templates.ChilledWaterPlants.Components.PumpsCondenserWater.Interfaces.PartialCondenserPump
     pumCon if isAirCoo "Condenser pumps";
 
-  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus(final nChi=nChi,
-      final nCooTow=nCooTow) "Plant control bus" annotation (Placement(
+  Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
+    "Plant control bus"
+    annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -73,7 +73,6 @@ block PartialController "Partial controller for chilled water plant"
         origin={-100,0})));
 
   annotation (
-    __Dymola_translate=true,
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},

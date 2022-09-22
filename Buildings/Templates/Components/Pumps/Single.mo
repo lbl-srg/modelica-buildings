@@ -4,11 +4,13 @@ model Single "Single pump"
     final typ=Buildings.Templates.Components.Types.Pump.Single);
 
   replaceable Buildings.Fluid.Movers.SpeedControlled_y pum(
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare final package Medium=Medium,
     final per=dat.per,
     final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    addPowerToMedium=false)
+    final addPowerToMedium=addPowerToMedium,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final allowFlowReversal=allowFlowReversal)
     "Pump"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));

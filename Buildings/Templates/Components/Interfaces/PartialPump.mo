@@ -9,6 +9,19 @@ model PartialPump "Base class for all pump models"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
+  parameter Boolean addPowerToMedium=false
+    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
+
+  parameter Modelica.Units.SI.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);

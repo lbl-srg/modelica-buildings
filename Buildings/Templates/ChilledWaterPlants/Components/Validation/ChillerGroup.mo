@@ -565,21 +565,24 @@ equation
   connect(pumConWat.ports_a, inlPumConWat.ports_b)
     annotation (Line(points={{-150,120},{-150,120}}, color={0,127,255}));
   connect(chi.ports_bCon, outConWatChi.ports_b)
-    annotation (Line(points={{-100,180},{-130,180}}, color={0,127,255}));
+    annotation (Line(points={{-100,200},{-116,200},{-116,180},{-130,180}},
+                                                     color={0,127,255}));
   connect(outConWatChi.port_a, tow.port_a) annotation (Line(points={{-150,180},{
           -220,180},{-220,120},{-206,120}},  color={0,127,255}));
   connect(loa.port_b,inlChiWatChi. port_b)
     annotation (Line(points={{10,120},{-30,120}},  color={0,127,255}));
   connect(inlChiWatChi.ports_a, chi.ports_aChiWat)
-    annotation (Line(points={{-50,120},{-60,120}}, color={0,127,255}));
+    annotation (Line(points={{-50,120},{-56,120},{-56,100},{-60,100}},
+                                                   color={0,127,255}));
   connect(chi.ports_bChiWat, inlPumChiWatPri.ports_a)
-    annotation (Line(points={{-60,180},{-60,180}}, color={0,127,255}));
+    annotation (Line(points={{-60,200},{-60,180}}, color={0,127,255}));
   connect(inlPumChiWatPri.ports_b, pumChiWatPri.ports_a)
     annotation (Line(points={{-40,180},{-40,180}}, color={0,127,255}));
   connect(pumConWat.ports_b, outPumConWat.ports_a)
     annotation (Line(points={{-130,120},{-130,120}}, color={0,127,255}));
   connect(outPumConWat.ports_b, chi.ports_aCon)
-    annotation (Line(points={{-110,120},{-100,120}}, color={0,127,255}));
+    annotation (Line(points={{-110,120},{-106,120},{-106,100},{-100,100}},
+                                                     color={0,127,255}));
   connect(tow.port_b, bouCon.ports[1]) annotation (Line(points={{-186,120},{-180,
           120},{-180,100}}, color={0,127,255}));
   connect(y1Chi.y[1], busPumConWat.y1) annotation (Line(points={{-228,320},{160,
@@ -623,21 +626,24 @@ equation
   connect(pumConWat1.ports_a, inlPumConWat1.ports_b)
     annotation (Line(points={{-150,-20},{-150,-20}}, color={0,127,255}));
   connect(chi1.ports_bCon, outConWatChi1.ports_b)
-    annotation (Line(points={{-100,40},{-130,40}}, color={0,127,255}));
+    annotation (Line(points={{-100,60},{-116,60},{-116,40},{-130,40}},
+                                                   color={0,127,255}));
   connect(outConWatChi1.port_a, tow1.port_a) annotation (Line(points={{-150,40},
           {-220,40},{-220,-20},{-206,-20}}, color={0,127,255}));
   connect(loa1.port_b, inlChiWatChi1.port_b)
     annotation (Line(points={{10,-20},{-30,-20}}, color={0,127,255}));
   connect(inlChiWatChi1.ports_a, chi1.ports_aChiWat)
-    annotation (Line(points={{-50,-20},{-60,-20}}, color={0,127,255}));
+    annotation (Line(points={{-50,-20},{-56,-20},{-56,-40},{-60,-40}},
+                                                   color={0,127,255}));
   connect(chi1.ports_bChiWat, inlPumChiWatPri1.ports_a)
-    annotation (Line(points={{-60,40},{-60,40}}, color={0,127,255}));
+    annotation (Line(points={{-60,60},{-60,40}}, color={0,127,255}));
   connect(inlPumChiWatPri1.ports_b, pumChiWatPri1.ports_a)
     annotation (Line(points={{-40,40},{-40,40}}, color={0,127,255}));
   connect(pumConWat1.ports_b, outPumConWat1.ports_a)
     annotation (Line(points={{-130,-20},{-130,-20}}, color={0,127,255}));
   connect(outPumConWat1.ports_b, chi1.ports_aCon)
-    annotation (Line(points={{-110,-20},{-100,-20}}, color={0,127,255}));
+    annotation (Line(points={{-110,-20},{-106,-20},{-106,-40},{-100,-40}},
+                                                     color={0,127,255}));
   connect(tow1.port_b, bouCon1.ports[1]) annotation (Line(points={{-186,-20},{-180,
           -20},{-180,-40}}, color={0,127,255}));
   connect(y1Chi.y[1], busPumConWat1.y1) annotation (Line(points={{-228,320},{160,
@@ -708,15 +714,18 @@ equation
   connect(loa2.port_b,inlChiWatChi2. port_b)
     annotation (Line(points={{10,-160},{-30,-160}}, color={0,127,255}));
   connect(inlChiWatChi2.ports_a,chi2. ports_aChiWat)
-    annotation (Line(points={{-50,-160},{-60,-160}}, color={0,127,255}));
+    annotation (Line(points={{-50,-160},{-56,-160},{-56,-180},{-60,-180}},
+                                                     color={0,127,255}));
   connect(chi2.ports_bChiWat,inlPumChiWatPri2. ports_a)
-    annotation (Line(points={{-60,-100},{-60,-100}}, color={0,127,255}));
+    annotation (Line(points={{-60,-80},{-60,-100}},  color={0,127,255}));
   connect(inlPumChiWatPri2.ports_b,pumChiWatPri2. ports_a)
     annotation (Line(points={{-40,-100},{-40,-100}}, color={0,127,255}));
   connect(chi2.ports_bCon, bouCon2.ports)
-    annotation (Line(points={{-100,-100},{-180,-100}}, color={0,127,255}));
+    annotation (Line(points={{-100,-80},{-140,-80},{-140,-100},{-180,-100}},
+                                                       color={0,127,255}));
   connect(souCon.ports[1], chi2.ports_aCon)
-    annotation (Line(points={{-180,-160},{-100,-160}}, color={0,127,255}));
+    annotation (Line(points={{-180,-160},{-140,-160},{-140,-180},{-100,-180}},
+                                                       color={0,127,255}));
   connect(busPumChiWatPri2, pumChiWatPri2.bus) annotation (Line(
       points={{200,-80},{-30,-80},{-30,-90}},
       color={255,204,51},
