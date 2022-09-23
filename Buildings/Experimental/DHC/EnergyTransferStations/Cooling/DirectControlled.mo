@@ -42,6 +42,9 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     displayUnit="Pa")=6000
     "Nominal pressure drop in the check valve"
     annotation(Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
+    "Nominal pressure drop in pipe junctions"
+    annotation(Dialog(group="Nominal condition"));
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
@@ -68,9 +71,12 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     annotation (Dialog(group="PID controller"));
   // Advanced parameters
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance: dynamic (3 initialization options) or steady state";
-  parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
-    "Nominal pressure drop in pipe junctions";
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation (Dialog(tab="Advanced"));
+  parameter Real bandwidth=0.2
+    "Bandwidth around reference signal for on/off controller"
+    annotation (Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput TSetDisRet
     "Setpoint for the minimum district return temperature"
     annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
@@ -179,14 +185,15 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{230,190},{250,210}})));
-  Modelica.Blocks.Logical.OnOffController onOffCon(bandwidth=0.2)
-    "On off control for the control valve"
+  Modelica.Blocks.Logical.OnOffController onOffCon(
+    final bandwidth=bandwidth)
+    "On/off control for the control valve"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Modelica.Blocks.Logical.Switch swi
-    "Switch between full opening and PI control signal."
+    "Switch between full opening and PI control signal"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant const(k=1)
-    "Full opening of the control valve."
+    "Full opening of the control valve"
     annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   Modelica.Blocks.Logical.Not notCon
     "Reverse the on/off signal"

@@ -5,7 +5,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
   package Medium=Buildings.Media.Water
     "Water medium";
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=-18000
-    "Nominal cooling load (Negative for cooling)"
+    "Nominal cooling load (negative for cooling)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=-Q_flow_nominal/(cp*(18-7))
     "Nominal mass flow rate of building cooling supply"

@@ -1,5 +1,5 @@
 // Simulate
-simulateModel("Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS", tolerance=1e-6, stopTime=31536000, method="Dassl", numberOfIntervals=500, resultFile="BuildingTimeSeriesWithETS");
+simulateModel("Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS", tolerance=1e-6, stopTime=31536000, method="Dassl", resultFile="BuildingTimeSeriesWithETS");
 // Plot commands
 removePlots(true);
 createPlot(id=1, 
@@ -21,18 +21,9 @@ createPlot(id=1,
   timeUnit="d");
 createPlot(id=2, 
   position={734, 19, 720, 561}, 
-  y={"supChiWat.T", "buiWitETS.ets.senTDisSup.T", "buiWitETS.ets.senTBuiSup.T"}, 
+  y={"supChiWat.T", "buiWitETS.ets.senTDisSup.T", "buiWitETS.ets.senTDisRet.T"}, 
   range={6.0, 24.0, -0.2, 1.2}, 
   grid=true, 
   colors={{28,108,200}, {0,140,72}, {217,67,180}}, 
   timeUnit="d",
   displayUnits={"degC", "degC", "degC"});
-createPlot(id=2, 
-  position={734, 19, 720, 278}, 
-  y={"buiWitETS.ets.senTDisRet.T", "buiWitETS.ets.senTBuiRet.T"}, 
-  range={6.0, 24.0, -0.2, 1.2}, 
-  grid=true, 
-  subPlot=2, 
-  colors={{28,108,200}, {0,140,72}}, 
-  timeUnit="d", 
-  displayUnits={"degC", "degC"});

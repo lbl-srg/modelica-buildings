@@ -65,6 +65,27 @@ model ElectricChillerParallel
   parameter Modelica.Units.SI.Pressure dpCWPumVal_nominal
     "Nominal pressure drop of condenser water pump valve"
     annotation (Dialog(group="Pump"));
+  parameter Modelica.Units.SI.Time tau=1
+    "Pump time constant at nominal flow (if energyDynamics <> SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Pump"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTimePump=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization for pumps (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+  parameter Real[numChi] yCHWP_start=fill(0,numChi)
+    "Initial value of CHW pump signals"
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+  parameter Real[numChi] yCWP_start=fill(0,numChi)
+    "Initial value of CW pump signals"
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
   parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal
     "Nominal pressure difference of the cooling tower valve";
   // control settings
@@ -97,7 +118,7 @@ model ElectricChillerParallel
     annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
    iconTransformation(extent={{-340,78},{-300,118}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
-    use_inputFilter=false,
+    final use_inputFilter=use_inputFilter,
     final per=fill(
       perChi,
       numChi),
@@ -129,7 +150,11 @@ model ElectricChillerParallel
     final per=fill(
       perCHWPum,
       numChi),
-    use_inputFilter=false,
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTimePump=riseTimePump,
+    final init=init,
+    final yPump_start=yCHWP_start,
     yValve_start=fill(
       1,
       numChi),
@@ -144,6 +169,11 @@ model ElectricChillerParallel
     final per=fill(
       perCWPum,
       numChi),
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTimePump=riseTimePump,
+    final init=init,
+    final yPump_start=yCWP_start,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCW_flow_nominal,
     final dpValve_nominal=dpCWPumVal_nominal,
@@ -306,19 +336,20 @@ equation
   connect(totPPum.y,PPum)
     annotation (Line(points={{282,160},{320,160}},color={0,0,127}));
   connect(pumCW.P,totPPum.u[1:2])
-    annotation (Line(points={{81,174},{240,174},{240,160.5},{258,160.5}},color={0,0,127}));
+    annotation (Line(points={{81,174},{240,174},{240,159.75},{258,159.75}},
+                                                                         color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,158.5},{258,158.5}},
+    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,160.75}},
       color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
-    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,199}},
+    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,200.5}},
       color={0,0,127}));
   connect(totPCoo.y,PCoo)
     annotation (Line(points={{282,240},{320,240}},color={0,0,127}));
   connect(mulChiSys.P,totPCoo.u[1:2])
-    annotation (Line(points={{39,52},{20,52},{20,239},{258,239}},
+    annotation (Line(points={{39,52},{20,52},{20,240.5},{258,240.5}},
       color={0,0,127}));
   connect(mulChiSys.port_b2,splCHWSup.port_1)
     annotation (Line(points={{60,44},{120,44},{120,-32}},color={0,127,255}));
@@ -386,6 +417,10 @@ the detailed control logic. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+September 15, 2022, by Kathryn Hinkelman:<br/>
+Propagated dynamics and initialization parameters for pumps.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and

@@ -78,6 +78,10 @@ model DirectUncontrolledETS
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=5000,
+    use_inputFilter=true,
+    riseTimePump=120,
+    yCHWP_start=fill(0.5, 2),
+    yCWP_start=fill(0, 2),
     dpCooTowVal_nominal=6000,
     dpCHWPumVal_nominal=6000,
     dpCWPumVal_nominal=6000,
@@ -109,8 +113,9 @@ model DirectUncontrolledETS
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     filNam=filNam,
-    mBui_flow_nominal=mBui_flow_nominal)
-    "Vectorized time series building load model connected with ETS for cooling."
+    mBui_flow_nominal=mBui_flow_nominal,
+    each bui(w_aLoaCoo_nominal=0.015))
+    "Vectorized time series building load model connected with ETS for cooling"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare package Medium = Medium)
@@ -144,7 +149,7 @@ equation
           -11.3333},{-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}}, color={
           0,127,255}));
   connect(dis.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-10},
-          {0,-10},{0,-11.3333},{-20,-11.3333}}, color={0,127,255}));
+          {20,-11.3333},{-20,-11.3333}},        color={0,127,255}));
   connect(senRelPre.port_b, dis.port_bDisRet) annotation (Line(points={{-8,-46},
           {-8,-60},{8,-60},{8,-16},{20,-16}}, color={0,127,255}));
   connect(senRelPre.port_a, pla.port_bSerCoo) annotation (Line(points={{-8,-26},

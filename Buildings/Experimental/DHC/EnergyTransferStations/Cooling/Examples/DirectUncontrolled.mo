@@ -16,8 +16,7 @@ extends Modelica.Icons.Example;
       Medium.T_default,
       Medium.X_default))
     "Default specific heat capacity of medium";
-  Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectUncontrolled
-    cooETS(
+  Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectUncontrolled cooETS(
     m_flow_nominal=m_flow_nominal,
     QChiWat_flow_nominal=Q_flow_nominal,
     dpSup=6000,
@@ -75,10 +74,8 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-100,66},{-80,86}})));
   Modelica.Blocks.Sources.Ramp ram(
     height=1,
-    duration(
-      displayUnit="h")=18000,
-    startTime(
-      displayUnit="h")=3600)
+    duration(displayUnit="h")=18000,
+    startTime(displayUnit="h")=3600)
     "Ramp load from zero"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Math.Product pro
@@ -93,14 +90,10 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Trapezoid tra(
     amplitude=2,
-    rising(
-      displayUnit="h")=10800,
-    width(
-      displayUnit="h")=10800,
-    falling(
-      displayUnit="h")=10800,
-    period(
-      displayUnit="h")=43200,
+    rising(displayUnit="h")=10800,
+    width(displayUnit="h")=10800,
+    falling(displayUnit="h")=10800,
+    period(displayUnit="h")=43200,
     offset=273.15+6)
     "Trapezoid signal for district supply temperature"
     annotation (Placement(transformation(extent={{-100,-76},{-80,-56}})));
