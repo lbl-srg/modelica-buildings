@@ -109,7 +109,11 @@ initial equation
           extent=DynamicSelect({{-35,35},{35,-35}}, {{-0,port_1.m_flow*0},{0,-0}}),
           lineColor={0,0,127},
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+         extent={{-60,110},{60,60}},
+          textColor={0,0,0},
+          textString=if have_controlVolume then DynamicSelect("", String(vol.T-273.15, format=".1f")) else "")}),
 defaultComponentName="jun",
     Documentation(info="<html>
 <p>
@@ -157,6 +161,10 @@ system of equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 23, 2022, by Michael Wetter:<br/>
+Added temperature of mixing volume to icon.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
