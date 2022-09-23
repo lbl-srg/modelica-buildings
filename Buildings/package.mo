@@ -250,7 +250,7 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading<br/>
                        Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading
     </td>
-    <td valign=\"top\">Added default value to the output variable.<br/>
+    <td valign=\"top\">Added default value for output variables.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
     </td>
