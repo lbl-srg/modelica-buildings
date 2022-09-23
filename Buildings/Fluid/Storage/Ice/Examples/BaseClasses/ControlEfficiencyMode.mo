@@ -30,10 +30,10 @@ block ControlEfficiencyMode
                                          yPumSto
     "Pump speed ice storage" annotation (Placement(transformation(extent={{240,-100},
             {280,-60}}), iconTransformation(extent={{240,-100},{280,-60}})));
-  Controls.OBC.CDL.Interfaces.BooleanOutput
-                                         yPumGly
-    "Pump speed glycol chiller" annotation (Placement(transformation(extent={{240,
-            -140},{280,-100}}), iconTransformation(extent={{240,-142},{280,-102}})));
+  Controls.OBC.CDL.Interfaces.BooleanOutput yPumGlyChi
+    "Pump speed glycol chiller" annotation (Placement(transformation(extent={{
+            240,-140},{280,-100}}), iconTransformation(extent={{240,-142},{280,
+            -102}})));
   Controls.OBC.CDL.Interfaces.BooleanOutput
                                          yPumWatChi
                     "Pump speed water chiller"
@@ -60,7 +60,7 @@ block ControlEfficiencyMode
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
   Controls.OBC.CDL.Logical.And andPumGly
     "Output true to enable glycol chiller pump"
-    annotation (Placement(transformation(extent={{40,-142},{60,-122}})));
+    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
   Controls.OBC.CDL.Logical.Sources.Constant fal(k=false) "Outputs false"
     annotation (Placement(transformation(extent={{160,70},{180,90}})));
   Controls.OBC.CDL.Logical.Not not2
@@ -79,16 +79,16 @@ equation
     annotation (Line(points={{260,-80},{62,-80}}, color={255,0,255}));
   connect(andPumSto.u1, higDem.y) annotation (Line(points={{38,-80},{0,-80},{0,
           130},{-78,130}}, color={255,0,255}));
-  connect(andPumGly.y, yPumGly) annotation (Line(points={{62,-132},{200,-132},{
-          200,-120},{260,-120}}, color={255,0,255}));
-  connect(andPumGly.u1, higDem.y) annotation (Line(points={{38,-132},{0,-132},{
+  connect(andPumGly.y, yPumGlyChi)
+    annotation (Line(points={{62,-120},{260,-120}}, color={255,0,255}));
+  connect(andPumGly.u1, higDem.y) annotation (Line(points={{38,-120},{0,-120},{
           0,130},{-78,130}}, color={255,0,255}));
   connect(hysSOC.u, SOC)
     annotation (Line(points={{-62,-180},{-260,-180}}, color={0,0,127}));
   connect(yPumWatHex, higDem.y) annotation (Line(points={{260,-200},{80,-200},{
           80,130},{-78,130}}, color={255,0,255}));
   connect(yGlyChi, andPumGly.y) annotation (Line(points={{260,-20},{200,-20},{
-          200,-132},{62,-132}}, color={255,0,255}));
+          200,-120},{62,-120}}, color={255,0,255}));
   connect(not1.y, yPumWatChi) annotation (Line(points={{-38,180},{100,180},{100,
           -240},{260,-240}}, color={255,0,255}));
   connect(fal.y, yStoByp)
@@ -99,7 +99,7 @@ equation
           -20,-180},{-38,-180}}, color={255,0,255}));
   connect(hysSOC.y, not2.u)
     annotation (Line(points={{-38,-180},{-2,-180}}, color={255,0,255}));
-  connect(andPumGly.u2, not2.y) annotation (Line(points={{38,-140},{30,-140},{
+  connect(andPumGly.u2, not2.y) annotation (Line(points={{38,-128},{30,-128},{
           30,-180},{22,-180}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
