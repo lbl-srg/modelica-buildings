@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "TZonSet.uOcc",
+    "TZonSet.TZonSetHea",
+    "TZonSet.TZonSetCoo"
+  };

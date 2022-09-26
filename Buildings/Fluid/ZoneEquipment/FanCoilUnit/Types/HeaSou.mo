@@ -11,10 +11,10 @@ The possible values are
 </p>
 <ol>
 <li>
-electric
+ele - Electric resistance heating coil
 </li>
 <li>
-heatingHotWater
+hotWat - Hot-water heating coil
 </li>
 </ol>
 </html>",

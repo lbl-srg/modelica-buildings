@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data;
 record SizingData "Sizing calculations and values for component parameters"
 
   extends Modelica.Icons.Record;
