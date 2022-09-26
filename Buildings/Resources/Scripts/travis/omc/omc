@@ -86,7 +86,7 @@ done
 # But running as developer does not allow the docker to access /tmp/tmp-Buildings-0-o0h50lbn.
 # The chmod command below gives access to the current working directory for all users.
 # See also https://app.travis-ci.com/github/lbl-srg/modelica-buildings/builds/255798277
-chmod a+rwx $cur_dir
+chmod a+rwx "$cur_dir"
 
 docker run \
   --user=developer \
