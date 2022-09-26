@@ -75,7 +75,7 @@ test-openmodelica-spawn-spaces-success:
 	ls -l $(TMP)
 	@chmod a+rwx $(TMP)
 	ls -l $(TMP)
-	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
+	@cd $(TMP) && sudo grep -q "The simulation finished successfully." SpawnTest.log
 	@rm -rf $(TMP)
 	@echo "    Success."
 
