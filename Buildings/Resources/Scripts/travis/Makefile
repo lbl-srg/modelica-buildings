@@ -52,6 +52,7 @@ test-openmodelica-spawn-spaces-success:
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
+	@touch $(TMP)/SpawnTest.log
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
