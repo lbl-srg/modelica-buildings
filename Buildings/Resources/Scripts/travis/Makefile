@@ -98,6 +98,10 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
+	@echo "***--- Testing cd 1"
+	@(cd "$(TMP)")
+	@echo "***--- Testing cd 2"
+	@(cd $(TMP))
 	@echo "***--- Calling omc"
 	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
 	@echo "***--- Checking output of omc"
