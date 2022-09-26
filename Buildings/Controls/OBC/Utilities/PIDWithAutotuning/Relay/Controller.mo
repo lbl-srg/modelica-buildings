@@ -92,9 +92,9 @@ equation
 <p>if e(t) &lt; - &delta;, then y(t) = y<sub>hig</sub>, y<sub>On</sub>(t) = true</p>
 <p>if e(t) &gt; &delta;, then y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</p>
 <p>otherwise, y(t) = y(t-&Delta;t), y<sub>On</sub>(t) = y<sub>On</sub>(t-&Delta;t)</p>
-<p>where <i>&delta;</i> is a dead band, <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error, <i>y<sub>hig</i></sub> and <i>y<sub>low</i></sub> are the higher value and the lower value of the output <i>y,</i> respectively.</p>
+<p>where <i>&delta;</i> is a dead band, <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error, <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the output <i>y,</i> respectively.</p>
 <p><i>t-&Delta;t</i> is the previous time step.</p>
-<p>Note that this block generates an asymmetric signal, meaning <i>y<sub>hig</sub> &ne; y<sub>low</i></sub> </p>
+<p>Note that this block generates an asymmetric signal, meaning <i>y<sub>hig</sub> &ne; y<sub>low</sub></i> </p>
 <h4>References</h4>
 <p>Josefin Berner (2017)
 \"Automatic Controller Tuning using Relay-based Model Identification.\"

@@ -46,17 +46,17 @@ model PIDWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
 
 equation
-  connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
+  connect(resSig.y, PID.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
           40},{-16,40},{-16,48}}, color={255,0,255}));
-  connect(PIWitAutotuning.trigger, PI.trigger) annotation (Line(points={{-16,-32},
+  connect(PIDWitTun.tri, PID.trigger) annotation (Line(points={{-16,-32},
           {-16,-38},{-30,-38},{-30,40},{-16,40},{-16,48}}, color={255,0,255}));
-  connect(PIWitAutotuning.u_s, PI.u_s) annotation (Line(points={{-22,-20},{-48,-20},
+  connect(PIDWitTun.u_s, PID.u_s) annotation (Line(points={{-22,-20},{-48,-20},
           {-48,60},{-22,60}}, color={0,0,127}));
-  connect(SetPoint.y, PI.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
+  connect(SetPoint.y, PID.u_s) annotation (Line(points={{-58,10},{-48,10},{-48,60},
           {-22,60}}, color={0,0,127}));
-  connect(PIWitAutotuning.y, uniDel2.u)
+  connect(PIDWitTun.y, uniDel2.u)
     annotation (Line(points={{2,-20},{8,-20}}, color={0,0,127}));
-  connect(uniDel1.u, PI.y)
+  connect(uniDel1.u, PID.y)
     annotation (Line(points={{8,60},{2,60}}, color={0,0,127}));
   connect(uniDel1.y, sub1.u1) annotation (Line(points={{32,60},{40,60},{40,86},{
           58,86}}, color={0,0,127}));
@@ -66,14 +66,14 @@ equation
           {148,-46},{148,-10},{158,-10}}, color={0,0,127}));
   connect(derivative1.y, sub1.u2) annotation (Line(points={{56,36},{50,36},{50,74},
           {58,74}}, color={0,0,127}));
-  connect(sub1.y, PI.u_m) annotation (Line(points={{82,80},{88,80},{88,54},{46,54},
+  connect(sub1.y, PID.u_m) annotation (Line(points={{82,80},{88,80},{88,54},{46,54},
           {46,42},{-10,42},{-10,48}}, color={0,0,127}));
   connect(sub2.u1, uniDel2.y) annotation (Line(points={{58,-4},{40,-4},{40,-20},
           {32,-20}}, color={0,0,127}));
   connect(derivative2.y,sub2. u2) annotation (Line(points={{58,-50},{52,-50},{
           52,-16},{58,-16}},
                           color={0,0,127}));
-  connect(sub2.y, PIWitAutotuning.u_m) annotation (Line(points={{82,-10},{88,-10},
+  connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{82,-10},{88,-10},
           {88,-26},{46,-26},{46,-38},{-10,-38},{-10,-32}}, color={0,0,127}));
   connect(derivative2.k, derivative1.k) annotation (Line(points={{82,-42},{92,-42},
           {92,44},{80,44}}, color={0,0,127}));
@@ -86,8 +86,7 @@ equation
   annotation (
     experiment(
       StopTime=10000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIDWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
     Documentation(

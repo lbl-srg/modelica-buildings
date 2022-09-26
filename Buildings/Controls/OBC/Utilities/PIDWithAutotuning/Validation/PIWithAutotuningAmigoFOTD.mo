@@ -86,8 +86,7 @@ equation
   annotation (
     experiment(
       StopTime=10000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
     Documentation(

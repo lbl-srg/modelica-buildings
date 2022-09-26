@@ -1,20 +1,20 @@
 ﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDDerivativeTime "Identify the derivative time of a PID controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(min=0)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(final min=0)
     "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(min=1E-6)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(final min=1E-6)
     "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td
     "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(k=0.3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.3)
     "Calculate the product of 0.3 and the time delay"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=0.5)
     "Calculate the product of 0.5 and the input time constant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
