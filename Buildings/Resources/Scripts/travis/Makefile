@@ -51,6 +51,7 @@ test-openmodelica-spawn-spaces-success:
 	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings."
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
+	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
@@ -70,6 +71,7 @@ test-openmodelica-spawn-spaces-success:
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
 	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
+	ls -a $(TMP)
 	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
 	@rm -rf $(TMP)
 	@echo "    Success."
