@@ -106,10 +106,10 @@ test-openmodelica-spawn-spaces-failure:
 	@ls -l $(TMP)
 	@echo "***--- Testing cd 0"
 	@cd $(TMP1)/dir\ with\ spaces
-	@echo "***--- Testing cd 1"
-	@(cd "$(TMP)")
 	@echo "***--- Testing cd 2"
 	@(cd $(TMP))
+	@echo "***--- Testing cd 1"
+	@(cd "$(TMP)")
 	@echo "***--- Calling omc"
 	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
 	@echo "***--- Checking output of omc"
