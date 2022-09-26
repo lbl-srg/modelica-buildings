@@ -85,6 +85,14 @@
   optimica:
     rtol: 1.0e-08
     solver: CVode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+  openmodelica:
+    comment: Translation failed
+    translate: false
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+  openmodelica:
+    comment: Translation failed
+    translate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
