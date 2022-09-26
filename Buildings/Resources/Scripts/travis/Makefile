@@ -109,11 +109,11 @@ test-openmodelica-spawn-spaces-failure:
 	@echo "***--- Testing cd 2"
 	@(cd $(TMP))
 	@echo "***--- Calling omc"
-	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
+	@(cd $(TMP1)/dir\ with\ spaces && omc openmod.mos > /dev/null )
 	@echo "***--- Checking output of omc"
-	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@cd $(TMP1)/dir\ with\ spaces && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
 	@echo "***--- Removing temp directory $(TMP)"
-	@rm -rf $(TMP)
+	@rm -rf $(TMP1)/dir\ with\ spaces
 	@echo "    Success."
 
 test-dymola-spawn-spaces:
