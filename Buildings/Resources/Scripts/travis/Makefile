@@ -82,6 +82,7 @@ test-openmodelica-spawn-spaces-failure:
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
+	@echo "***--- Generating openmod.mos"
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
     "setCommandLineOptions(\"-d=nogen\");\n" \
@@ -97,8 +98,11 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
+	@echo "***--- Calling omc"
 	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
+	@echo "***--- Checking output of omc"
 	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@echo "***--- Removing temp directory $(TMP)"
 	@rm -rf $(TMP)
 	@echo "    Success."
 
