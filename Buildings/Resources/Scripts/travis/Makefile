@@ -76,8 +76,8 @@ test-openmodelica-spawn-spaces-success:
 
 test-openmodelica-spawn-spaces-failure:
 	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
-	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
-	$(eval TMP := $(TMP)/dir\ with\ spaces)
+	$(eval TMP1 := $(shell mktemp --suffix=-LBL-Buildings -d))
+	$(eval TMP := $(TMP1)/dir\ with\ spaces)
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
@@ -98,8 +98,12 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@echo "***--- Testing permissions"
+	@echo "***--- Testing permissions 1"
 	@ls -l /tmp
+	@echo "***--- Testing permissions of TMP1=$(TMP1)"
+	@ls -l $(TMP1)
+	@echo "***--- Testing permissions of TMP=$(TMP)"
+	@ls -l $(TMP)
 	@echo "***--- Testing cd 1"
 	@(cd "$(TMP)")
 	@echo "***--- Testing cd 2"
