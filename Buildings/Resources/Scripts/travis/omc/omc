@@ -100,5 +100,6 @@ docker run \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis} && \
-  rm -rf tmp"
+  rm -rf tmp &&
+  rm -rf spawn-*"
 exit $?
