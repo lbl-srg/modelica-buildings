@@ -98,6 +98,8 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
+	@echo "***--- Testing permissions"
+	@ls -l /tmp
 	@echo "***--- Testing cd 1"
 	@(cd "$(TMP)")
 	@echo "***--- Testing cd 2"
