@@ -104,6 +104,8 @@ test-openmodelica-spawn-spaces-failure:
 	@ls -l $(TMP1)
 	@echo "***--- Testing permissions of TMP=$(TMP)"
 	@ls -l $(TMP)
+	@echo "***--- Testing cd 0"
+	@cd $(TMP1)/dir\ with\ spaces
 	@echo "***--- Testing cd 1"
 	@(cd "$(TMP)")
 	@echo "***--- Testing cd 2"
