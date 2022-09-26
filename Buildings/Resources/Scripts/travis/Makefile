@@ -72,7 +72,7 @@ test-openmodelica-spawn-spaces-success:
 	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
 	ls -l $(TMP)
 	@chmod a+rwx $(TMP)
-    ls -l $(TMP)
+	ls -l $(TMP)
 	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
 	@rm -rf $(TMP)
 	@echo "    Success."
