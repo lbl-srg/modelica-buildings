@@ -1,8 +1,6 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example;
-model SingleZoneVariableFanConstantWaterFlowrate
-  "Example model for a system with single-zone serviced by FCU with variable fan, constant flow pump control"
-
-  extends Modelica.Icons.Example;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses;
+model ExampleTestbed
+  "Example testbed for a zone HVAC system and controller with a single thermal zone"
 
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -40,11 +38,11 @@ model SingleZoneVariableFanConstantWaterFlowrate
     final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.FanData fanPer)
+    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData fanPer)
     "Fan coil system model"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.SizingData FCUSizing
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
@@ -72,8 +70,8 @@ model SingleZoneVariableFanConstantWaterFlowrate
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.ZoneTemperatureSetpoint TZonSet
-    "Zone temperature setpoint controller"
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses.ZoneTemperatureSetpoint
+    TZonSet "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
@@ -234,7 +232,11 @@ equation
   connect(reaScaRep.y, zon.qGai_flow) annotation (Line(points={{2,110},{20,110},
           {20,130},{66,130}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-100},{100,100}})),
+      extent={{-100,-100},{100,100}}), graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-160,-160},{160,160}})),
     experiment(
@@ -288,4 +290,4 @@ equation
       </li>
       </ul>
       </html>"));
-end SingleZoneVariableFanConstantWaterFlowrate;
+end ExampleTestbed;

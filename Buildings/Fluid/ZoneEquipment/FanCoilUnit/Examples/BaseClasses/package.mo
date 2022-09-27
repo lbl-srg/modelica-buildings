@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples;
 package BaseClasses
 annotation (Icon(graphics={
         Rectangle(

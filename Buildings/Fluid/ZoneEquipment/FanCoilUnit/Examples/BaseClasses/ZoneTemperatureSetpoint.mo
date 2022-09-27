@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses;
 block ZoneTemperatureSetpoint
   "Set point scheduler for zone temperature"
 

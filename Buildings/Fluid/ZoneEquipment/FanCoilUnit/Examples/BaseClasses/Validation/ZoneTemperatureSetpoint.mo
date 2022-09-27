@@ -1,10 +1,10 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.Validation;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses.Validation;
 model ZoneTemperatureSetpoint
   "Validation model for zone temperature setpoint controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.ZoneTemperatureSetpoint TZonSet
-    "Zone temperature setpoint controller"
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses.ZoneTemperatureSetpoint
+    TZonSet "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected

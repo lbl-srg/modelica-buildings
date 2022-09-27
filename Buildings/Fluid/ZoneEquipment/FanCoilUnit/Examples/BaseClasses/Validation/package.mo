@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses;
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses;
 package Validation "Validation models for baseclasses"
 
   annotation (Icon(graphics={
