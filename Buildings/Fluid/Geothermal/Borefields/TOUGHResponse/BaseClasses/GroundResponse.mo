@@ -2,7 +2,7 @@ within Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses;
 model GroundResponse
 
   parameter Integer nSeg=10 "Total number of segments";
-  parameter Integer nInt=10 "NUmber of points in the ground to be investigated";
+  parameter Integer nInt=10 "Number of points in the ground to be investigated";
   parameter Modelica.SIunits.Time samplePeriod=60 "Sample period of component"
     annotation(Dialog(group="Sampling"));
   parameter Integer flag=0
