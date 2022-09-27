@@ -98,24 +98,12 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@echo "***--- Testing permissions 1"
-	@ls -l /tmp
-	@echo "***--- Testing permissions of TMP1=$(TMP1)"
-	@ls -l $(TMP1)
-	@echo "***--- Testing permissions of TMP=$(TMP)"
-	@ls -l $(TMP)
-	@echo "***--- Testing cd 0"
-	@cd $(TMP1)/dir\ with\ spaces
-	@echo "***--- Testing cd 2"
-	@(cd $(TMP))
-	@echo "***--- Testing cd with command"
-	@(cd $(TMP1)/dir\ with\ spaces && echo `pwd` )
 	@echo "***--- Calling omc"
-	@(cd $(TMP1)/dir\ with\ spaces && omc openmod.mos )
+	@(cd $(TMP) && omc openmod.mos )
 	@echo "***--- Checking output of omc"
-	@cd $(TMP1)/dir\ with\ spaces && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
 	@echo "***--- Removing temp directory $(TMP)"
-	@rm -rf $(TMP1)/dir\ with\ spaces
+	@rm -rf $(TMP)
 	@echo "    Success."
 
 test-dymola-spawn-spaces:
