@@ -60,7 +60,8 @@ block Controller
   parameter Real maxRat(unit="m3/s")
     "Maximum heating-fan airflow setpoint"
     annotation (Dialog(tab="Damper and valve control"));
-  parameter CDL.Types.SimpleController controllerTypeVal "Type of controller"
+  parameter CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                                                         "Type of controller"
     annotation (Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real kVal=0.5
     "Gain of controller for valve control"

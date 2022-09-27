@@ -6,20 +6,21 @@ block Controller
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Ventilation standard, ASHRAE 62.1 or Title 24";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.
+      FixedDryBulb
     "Economizer high limit control device";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat";
 
-  parameter Boolean have_winSen
+  parameter Boolean have_winSen=false
     "Check if the zone has window status sensor";
-  parameter Boolean have_occSen
+  parameter Boolean have_occSen=false
     "Check if the zone has occupancy sensor";
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has hot water heating coil";
@@ -27,16 +28,17 @@ block Controller
     "True: the AHU has electric heating coil";
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
+      .BarometricRelief
     "Type of building pressure control system";
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
     annotation (Dialog(enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
-  parameter Real VAreBreZon_flow(unit="m3/s")
+  parameter Real VAreBreZon_flow(unit="m3/s")=0
     "Design area component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions",
                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
-  parameter Real VPopBreZon_flow(unit="m3/s")
+  parameter Real VPopBreZon_flow(unit="m3/s")=0
     "Design population component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions",
                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
@@ -158,13 +160,19 @@ block Controller
           or heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   // ----------- parameters for supply setpoints settings -----------
-  parameter Real TSup_max(unit="K", displayUnit="degC")
+  parameter Real TSup_max(
+    unit="K",
+    displayUnit="degC")=303.15
     "Maximum supply air temperature for heating"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
-  parameter Real TSup_min(unit="K", displayUnit="degC")
+  parameter Real TSup_min(
+    unit="K",
+    displayUnit="degC")=291.15
     "Minimum supply air temperature for cooling"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
-  parameter Real TSupDew_max(unit="K", displayUnit="degC")
+  parameter Real TSupDew_max(
+    unit="K",
+    displayUnit="degC")=290.15
     "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C. 
     For mild and dry climates, a high set point (e.g. 24°C) should be entered for maximum efficiency"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
@@ -190,13 +198,13 @@ block Controller
   parameter Real temPoiFou=0.75
     "Point 4 on x-axis of control map for temperature control, when it is in cooling state"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
-  parameter Real maxHeaSpe(unit="1")
+  parameter Real maxHeaSpe(unit="1")=1
     "Maximum fan speed for heating"
     annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
-  parameter Real maxCooSpe(unit="1")
+  parameter Real maxCooSpe(unit="1")=1
     "Maximum fan speed for cooling"
     annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
-  parameter Real minSpe(unit="1")
+  parameter Real minSpe(unit="1")=0.1
     "Minimum fan speed"
     annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real spePoiOne=0.5
@@ -382,8 +390,7 @@ block Controller
     "Relief fan minimum speed"
     annotation (Dialog(tab="Pressure control", group="Relief fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
-  parameter Real kRelFan(
-    final unit="1") = 1
+  parameter Real kRelFan(unit="1")=1
     "Gain of relief fan controller, normalized using dpBuiSet"
     annotation (Dialog(tab="Pressure control", group="Relief fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
@@ -1503,7 +1510,6 @@ annotation (defaultComponentName="conVAV",
           fillPattern=FillPattern.Solid,
           visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
                or (have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan),
-
           textString="yRelDam"),
         Text(
           extent={{116,-280},{198,-298}},
