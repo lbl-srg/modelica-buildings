@@ -87,8 +87,6 @@ done
 # The chmod command below gives access to the current working directory for all users.
 # See also https://app.travis-ci.com/github/lbl-srg/modelica-buildings/builds/255798277
 chmod a+rwx "$cur_dir"
-#fixme: for testing.
-exit 0
 
 docker run \
   --user=developer \
@@ -98,9 +96,9 @@ docker run \
   ${MOD_MOUNT} \
   -v ${sha_dir}:/mnt/shared \
   --rm \
+  --workdir="/mnt/shared/${bas_nam}" \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
-  cd \"/mnt/shared/${bas_nam}\" && \
   omc ${arg_lis} && \
   rm -rf tmp &&
   rm -rf spawn-*"
