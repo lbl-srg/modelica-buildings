@@ -66,7 +66,11 @@ record Chiller "Data for chillers"
     final min=0,
     final max=1)=0.15
     "Minimum part load ratio before cycling";
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per(
+  /* FIXME DS#SR00937490-01
+  Propagation of per from ChillerGroup is removed temporarily due to an issue in Dymola.
+  A local assignment in Chiller component is implemented instead.
+  */
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per(
     TConEnt_nominal=TConEnt_nominal,
     TConEntMin=TConEnt_min,
     TConEntMax=TConEnt_max)

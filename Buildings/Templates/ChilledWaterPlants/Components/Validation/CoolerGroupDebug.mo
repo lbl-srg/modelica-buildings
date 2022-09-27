@@ -155,7 +155,6 @@ model CoolerGroupDebug "Validation model for cooler group"
   CoolerGroups.CoolingTowerOpen coo(
     show_T=true,
     redeclare final package MediumConWat = MediumConWat,
-    typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen,
     final dat=datCoo,
     final nCoo=nCoo,
     redeclare replaceable Buildings.Templates.Components.Valves.None

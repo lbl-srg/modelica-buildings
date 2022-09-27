@@ -96,8 +96,7 @@ model ChillerGroupDebug "Validation model for chiller group"
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
     final TConChiEnt_nominal=fill(TConWatSup_nominal, nChi),
-    PLRChi_min=fill(0.15, nChi),
-    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
+    PLRChi_min=fill(0.15, nChi))
     "Parameter record for water-cooled chiller group";
 
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
