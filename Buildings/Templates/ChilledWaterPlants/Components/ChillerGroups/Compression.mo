@@ -89,7 +89,7 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{150,150},{170,170}})));
 equation
   /* Control point connection - start */
-  connect(busChi, chi.bus);
+  connect(bus.chi, chi.bus);
   connect(bus.TChiWatChiSup, TChiWatChiSup.y);
   connect(bus.TChiWatChiRet, TChiWatChiRet.y);
   connect(bus.TConWatChiSup, TConWatChiSup.y);

@@ -37,7 +37,9 @@ model BaseDebug
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   replaceable Buildings.Templates.ChilledWaterPlants.AirCooled CHI(
-    redeclare Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoopDebug ctr,
+    redeclare Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoopDebug ctr)
+    constrainedby
+    Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare replaceable package MediumCon = MediumConWat,
     final nChi=nChi,
@@ -92,11 +94,12 @@ model BaseDebug
   Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[nChi]
     "Chiller CW isolation valves control bus"
     annotation (Placement(
-    transformation(extent={{-240,60},{-200,100}}),iconTransformation(extent={
+    transformation(extent={{-220,120},{-180,160}}),
+                                                  iconTransformation(extent={
             {-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[nChi]
     "Chiller CHW isolation valves control bus" annotation (Placement(
-        transformation(extent={{-186,60},{-146,100}}), iconTransformation(extent={
+        transformation(extent={{-186,120},{-146,160}}),iconTransformation(extent={
             {-422,198},{-382,238}})));
   Controls.OBC.CDL.Logical.Sources.Constant  y1Chi[nChi](
     k=fill(true, nChi))
@@ -158,11 +161,11 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiIso, busPla.valChiWatChiIso) annotation (Line(
-      points={{-166,80},{-166,42},{-180,42},{-180,40}},
+      points={{-166,140},{-166,42},{-180,42},{-180,40}},
       color={255,204,51},
       thickness=0.5));
   connect(busValConWatChiIso, busPla.valConWatChiIso) annotation (Line(
-      points={{-220,80},{-200,80},{-200,44},{-188,44},{-188,40},{-180,40}},
+      points={{-200,140},{-200,44},{-188,44},{-188,40},{-180,40}},
       color={255,204,51},
       thickness=0.5));
   connect(busPumConWat, busPla.pumConWat) annotation (Line(
@@ -221,6 +224,18 @@ equation
     annotation (Line(points={{-298,0},{-230,0},{-230,20}}, color={255,0,255}));
   connect(y1Pum.y[1], busPumConWat.y1)
     annotation (Line(points={{-298,0},{-200,0},{-200,20}}, color={255,0,255}));
+  connect(y1ValIso.y[1], busValConWatChiIso.y1) annotation (Line(points={{-298,
+          80},{-280,80},{-280,140},{-200,140}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(y1ValIso.y[1], busValChiWatChiIso.y1) annotation (Line(points={{-298,
+          80},{-280,80},{-280,140},{-166,140}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
