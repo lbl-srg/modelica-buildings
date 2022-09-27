@@ -180,6 +180,15 @@ model PartialChillerGroup "Interface class for chiller group"
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,580},{20,620}})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
+    "Chiller control bus" annotation (Placement(transformation(extent={{-20,140},
+            {20,180}}), iconTransformation(extent={{-542,-30},{-502,10}})));
+equation
+  connect(bus.chi, busChi) annotation (Line(
+      points={{0,200},{0,160}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-600},{200,600}}), graphics={

@@ -73,16 +73,16 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{100,-70},{80,-50}})));
 
   // CW loop
-  Buildings.Templates.Components.Routing.MultipleToSingle outConWatChi(
-    redeclare final package Medium=MediumCon,
-    final nPorts=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-     and typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-     then nChi+1 else nChi,
+  Buildings.Templates.Components.Routing.MultipleToSingle outConChi(
+    redeclare final package Medium = MediumCon,
+    final nPorts=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+         and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+         then nChi + 1 else nChi,
     final m_flow_nominal=mCon_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal)
-    "Chiller group CW outlet manifold"
+    "Chiller group condenser fluid outlet"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   // Secondary CHW loop
@@ -153,16 +153,16 @@ partial model PartialChilledWaterLoop
 equation
   /* Control point connection - start */
   connect(bus, ctr.bus);
-  connect(bus, chi.bus);
   connect(bus, rou.bus);
+  connect(bus, chi.bus);
   connect(bus.pumChiWatPri, pumChiWatPri.bus);
   connect(bus.valChiWatMinByp, valChiWatMinByp.bus);
   connect(bus.pumChiWatSec, pumChiWatSec.bus);
   /* Control point connection - stop */
   connect(rou.ports_bSup, pumChiWatPri.ports_a)
     annotation (Line(points={{40,0},{60,0}},     color={0,127,255}));
-  connect(chi.ports_bCon, outConWatChi.ports_a)
-    annotation (Line(points={{-60,0},{-60,0}},     color={0,127,255}));
+  connect(chi.ports_bCon, outConChi.ports_a)
+    annotation (Line(points={{-60,0},{-60,0}}, color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{80,0},{80,0}},      color={0,127,255}));
   connect(outPumChiWatPri.port_b, inlPumChiWatSec.port_a) annotation (Line(

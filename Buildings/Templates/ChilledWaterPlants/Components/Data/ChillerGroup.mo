@@ -77,7 +77,10 @@ record ChillerGroup "Record for chiller group model"
     each final min=0,
     each final max=1)=fill(0.15, nChi)
     "Minimum part load ratio before cycling";
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi]
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi](
+    TConEnt_nominal=TConChiEnt_nominal,
+    TConEntMin=TConChiEnt_min,
+    TConEntMax=TConChiEnt_max)
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
       QEva_flow_nominal=-1 * capChi_nominal,
       TEvaLvg_nominal=TChiWatChiSup_nominal,

@@ -42,7 +42,8 @@ block OpenLoop "Open loop controller (output signals only)"
     typCtrSpePumConWat==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableDedicated
     "CW pump speed signal - Dedicated"
     annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1Chi[nChi](each k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1Chi[nChi](
+    k=fill(true, nChi))
     "Chiller Start/Stop signal"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant y1ValChiWatChiIso[nChi](

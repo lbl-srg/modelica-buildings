@@ -99,8 +99,18 @@ partial model PartialCoolerGroup
     "Weather data bus"
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
       iconTransformation(extent={{-230,390},{-210,410}})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busCoo[nCoo]
+    "Cooler control bus"  annotation (Placement(transformation(extent={{-20,60},
+            {20,100}}), iconTransformation(extent={{-542,-30},{-502,10}})));
+equation
+  connect(bus.coo, busCoo) annotation (Line(
+      points={{0,100},{0,80}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-400,-400},{400,400}})), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-400,-380},{400,200}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end PartialCoolerGroup;

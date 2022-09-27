@@ -42,6 +42,12 @@ model TestRecordArray
   model M
     replaceable parameter ChillerGroupRecord rec
       constrainedby ChillerGroupRecord;
+
+    parameter SingleChillerRecord recSin[rec.nChi](
+      mChiWatChi_flow_nominal=rec.mChiWatChi_flow_nominal,
+      per=rec.per);
+  initial equation
+    Modelica.Utilities.Streams.print("capFunT[5] = " + String(recSin[2].per.capFunT[5]));
   end M;
 
   ChillerGroupRecord rec(

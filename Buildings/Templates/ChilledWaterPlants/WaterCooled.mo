@@ -67,7 +67,7 @@ equation
           -280,0},{-280,-100},{-120,-100}},   color={0,127,255}));
   connect(pumConWat.ports_b, outPumConWat.ports_a)
     annotation (Line(points={{-80,-100},{-80,-100}},  color={0,127,255}));
-  connect(outConWatChi.port_b, coo.port_a)
+  connect(outConChi.port_b, coo.port_a)
     annotation (Line(points={{-80,0},{-210,0}}, color={0,127,255}));
   connect(outPumConWat.ports_b, chi.ports_aCon)
     annotation (Line(points={{-60,-100},{-60,-100}}, color={0,127,255}));

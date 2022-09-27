@@ -28,20 +28,31 @@ model Base
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,72},{90,92}})));
 
-  replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI(
-    redeclare final package MediumChiWat = MediumChiWat,
-    redeclare replaceable package MediumCon = MediumConWat,
-    final nChi=nChi,
-    typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
-    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only,
-    typArrPumChiWatPri_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    typArrPumConWat_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant,
-    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
-    typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
-    final dat=dat.CHI,
-    chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-        typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition))
+  parameter Modelica.Units.SI.Time tau=10
+    "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
+  replaceable Buildings.Templates.ChilledWaterPlants.AirCooled CHI
+    constrainedby Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
+      redeclare final package MediumChiWat = MediumChiWat,
+      redeclare replaceable package MediumCon = MediumConWat,
+      final nChi=nChi,
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
+      typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only,
+      typArrPumChiWatPri_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+      typArrPumConWat_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+      typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant,
+      typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
+      typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
+      final dat=dat.CHI,
+      chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+          typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition))
     "CHW plant"
     annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
 
