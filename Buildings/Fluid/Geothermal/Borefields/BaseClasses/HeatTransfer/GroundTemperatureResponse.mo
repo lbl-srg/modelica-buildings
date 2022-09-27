@@ -1,6 +1,6 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer;
 model GroundTemperatureResponse "Model calculating discrete load aggregation"
-  parameter Modelica.Units.SI.Time tLoaAgg(final min=Modelica.Constants.eps) =
+  parameter Modelica.Units.SI.Time tLoaAgg(final min=Modelica.Constants.eps)=
     3600 "Time resolution of load aggregation";
   parameter Integer nCel(min=1)=5 "Number of cells per aggregation level";
   parameter Boolean forceGFunCalc = false
