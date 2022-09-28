@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples;
-model ClosedSingleSource "Simple system model with one source and one user"
+model SingleSource "Simple system model with one source and one user"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model for CDW";
@@ -131,7 +131,7 @@ equation
                                   color={0,0,127}));
   connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-60,-70},
           {-34,-70},{-34,-6},{-40,-6}}, color={0,127,255}));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedSingleSource.mos"
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/SingleSource.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
 <p>
@@ -164,4 +164,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end ClosedSingleSource;
+end SingleSource;
