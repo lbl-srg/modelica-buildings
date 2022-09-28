@@ -3,25 +3,15 @@ model ClosedDualSource
   "District system model with two sources and three users"
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource(
-      netCon(perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
-                                dp=nomPla2.dp_nominal*{2,0}))));
+    netCon(perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
+                              dp=nomPla2.dp_nominal*{2,0}))),
+    bou(p=300000));
 
   parameter Modelica.Units.SI.AbsolutePressure p_Pressurisation(
     final displayUnit="Pa")=
      300000
     "Pressurisation point";
 
-  Buildings.Fluid.Sources.Boundary_pT sou_p1(
-    redeclare final package Medium = MediumCHW,
-    final p=p_Pressurisation,
-    final T=T_CHWR_nominal,
-    nPorts=1) "Pressurisation point" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-170,20})));
-equation
-  connect(sou_p1.ports[1], pumSup1.port_a) annotation (Line(points={{-160,20},{-54,
-          20},{-54,80},{-60,80}}, color={0,127,255}));
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/ClosedDualSource.mos"
         "Simulate and plot"),

@@ -4,61 +4,32 @@ model NetworkConnection
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp=
-    nom.plaTyp
+  parameter Boolean allowRemoteCharging=nom.allowRemoteCharging
     "Type of plant setup";
 
   //Pump sizing & interlock
   parameter Buildings.Fluid.Movers.Data.Generic perPumSup
     "Performance data for the supply pump"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})),
-    Dialog(group="Pump Sizing and Interlock"));
-  parameter Real tPumSupClo=0.01
-    "Threshold that pumSup is considered off"
-    annotation (Dialog(group="Pump Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Real tPumRetClo=0.01
-    "Threshold that pumRet is considered off"
-    annotation (Dialog(group="Pump Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+    Dialog(group="Pump Sizing"));
 
-  //Control valve sizing & interlock
+  //Valve sizing & interlock
   parameter Modelica.Units.SI.PressureDifference dpValToNetSup_nominal=
     0.1*nom.dp_nominal "Nominal flow rate of intValSup.valToNet"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+    annotation (Dialog(group="Valve Sizing and Interlock", enable=
+    allowRemoteCharging));
   parameter Modelica.Units.SI.PressureDifference dpValFroNetSup_nominal=
     0.1*nom.dp_nominal "Nominal flow rate of intValSup.valFroNet"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+    annotation (Dialog(group="Valve Sizing and Interlock", enable=
+    allowRemoteCharging));
   parameter Real tValToNetSupClo=0.01
     "Threshold that intValSup.ValToNet is considered closed"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+    annotation (Dialog(group="Valve Sizing and Interlock", enable=
+    allowRemoteCharging));
   parameter Real tValFroNetSupClo=0.01
     "Threshold that intValSup.ValFroNet is considered closed"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Modelica.Units.SI.PressureDifference dpValToNetRet_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of intValRet.valToNet"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Modelica.Units.SI.PressureDifference dpValFroNetRet_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of intValRet.valFroNet"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Real tValToNetRetClo=0.01
-    "Threshold that intValRet.ValToNet is considered closed"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Real tValFroNetRetClo=0.01
-    "Threshold that intValRet.ValFroNet is considered closed"
-    annotation (Dialog(group="Control Valve Sizing and Interlock", enable=
-    plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
+    annotation (Dialog(group="Valve Sizing and Interlock", enable=
+    allowRemoteCharging));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumSup(
     redeclare final package Medium = Medium,
@@ -72,23 +43,7 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,60})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pas2(redeclare
-      final package Medium = Medium) if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
-    "Replaces conditional components"
-    annotation (Placement(transformation(extent={{40,90},{60,110}})));
-  Modelica.Blocks.Interfaces.RealInput yValSup[2]
-    if plaTyp ==
-      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    or plaTyp ==
-      Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Positions of the valves on the supply line" annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={20,130}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,110})));
+
   Modelica.Blocks.Interfaces.RealInput yPumSup "Speed input of the supply pump"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -97,6 +52,16 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
+  Modelica.Blocks.Interfaces.RealInput yValSup[2]
+    if allowRemoteCharging
+    "Positions of the valves on the supply line" annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={20,130}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={20,110})));
 
   Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intValSup(
     redeclare final package Medium = Medium,
@@ -105,37 +70,37 @@ model NetworkConnection
     final dpValFroNet_nominal=dpValFroNetSup_nominal,
     final tValToNetClo=tValToNetSupClo,
     final tValFroNetClo=tValFroNetSupClo)
-    if plaTyp ==
-    Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-     or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    if allowRemoteCharging
     "A pair of interlocked valves"
     annotation (Placement(transformation(extent={{0,28},{40,68}})));
-
+  Buildings.Fluid.FixedResistances.Junction jun1(
+    redeclare final package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    T_start=nom.T_CHWS_nominal,
+    tau=30,
+    m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
+    dp_nominal={0,0,0}) if allowRemoteCharging
+    "Junction"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Fluid.FixedResistances.Junction jun2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=nom.T_CHWS_nominal,
     tau=30,
     m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
-    dp_nominal={0,0,0}) if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-     or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
+    dp_nominal={0,0,0}) if allowRemoteCharging
     "Junction" annotation (Placement(transformation(extent={{60,50},{80,70}})));
-
-  FixedResistances.Junction jun1(
-    redeclare final package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=nom.T_CHWS_nominal,
-    tau=30,
-    m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
-    dp_nominal={0,0,0}) if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-     or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-    "Junction"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-
-  BaseClasses.FluidPassThrough pas1(redeclare final package Medium = Medium)
-    if plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal
+  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pas1(
+    redeclare final package Medium = Medium)
+    if not allowRemoteCharging
     "Replaces conditional components"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+  Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough pas2(
+    redeclare final package Medium = Medium)
+    if not allowRemoteCharging
+    "Replaces conditional components"
+    annotation (Placement(transformation(extent={{40,90},{60,110}})));
+
 equation
   connect(pas2.port_b, port_bToNet) annotation (Line(points={{60,100},{90,100},
           {90,60},{100,60}}, color={0,127,255}));

@@ -3,9 +3,6 @@ model TankBranch
   "Model of the tank branch of a storage plant"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
-  parameter Boolean tankIsOpen = nom.plaTyp ==
-    Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open "Tank is open";
-
   Buildings.Fluid.FixedResistances.PressureDrop preDroTanBot(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -30,15 +27,6 @@ model TankBranch
         nom.T_CHWS_nominal,
         tan.nSeg)) "Tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.Sources.Boundary_pT atm(
-    redeclare final package Medium = Medium,
-    final p(displayUnit="Pa") = 101325,
-    final T=nom.T_CHWS_nominal,
-    final nPorts=1) if tankIsOpen
-                    "Atmosphere pressure" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-10,30})));
   Buildings.Fluid.FixedResistances.PressureDrop preDroTanTop(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -104,9 +92,6 @@ model TankBranch
         rotation=180,
         origin={-50,-60})));
 equation
-  connect(atm.ports[1], tan.port_a)
-    annotation (Line(points={{-10,20},{-10,10},{-10,10},{-10,0}},
-                                                color={0,127,255}));
   connect(tan.port_b, preDroTanBot.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
   connect(preDroTanTop.port_b, tan.port_a)

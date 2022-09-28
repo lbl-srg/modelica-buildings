@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Plant.Data;
 record NominalValues "Nominal values"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp
+  parameter Boolean allowRemoteCharging
     "Type of plant setup"
     annotation(Dialog(group="Plant configuration"));
 

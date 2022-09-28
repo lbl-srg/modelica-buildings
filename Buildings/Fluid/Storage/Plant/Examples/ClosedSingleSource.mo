@@ -10,7 +10,7 @@ model ClosedSingleSource "Simple system model with one source and one user"
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
-    final plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedLocal,
+    allowRemoteCharging=false,
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
     dp_nominal=300000,
@@ -19,7 +19,6 @@ model ClosedSingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
-    tankIsOpen=false,
     preDroTanBot(final dp_nominal=nom.dp_nominal*0.05),
     preDroTanTop(final dp_nominal=nom.dp_nominal*0.05),
     redeclare final package Medium = Medium,
@@ -35,7 +34,7 @@ model ClosedSingleSource "Simple system model with one source and one user"
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
     final nom=nom,
-    plaTyp=nom.plaTyp,
+    allowRemoteCharging=nom.allowRemoteCharging,
     perPumSup(pressure(V_flow=nom.m_flow_nominal*{0,2}, dp=nom.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));

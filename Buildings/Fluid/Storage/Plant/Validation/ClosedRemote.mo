@@ -2,20 +2,8 @@ within Buildings.Fluid.Storage.Plant.Validation;
 model ClosedRemote
   "Validation model of a storage plant with a closed tank and remote charging ability"
   extends Modelica.Icons.Example;
-  extends
-    Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
-    nom(
-      plaTyp=Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote),
-      netCon(perPumSup(pressure(V_flow=nom.m_flow_nominal/1.2*{0,2},
-                                dp=nom.dp_nominal*{2,0}))));
-  Buildings.Fluid.Sources.Boundary_pT bou(
-    redeclare final package Medium = Medium,
-    final p(displayUnit="Pa") = 300000,
-    nPorts=1) "Pressure boundary"
-    annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
-equation
-  connect(bou.ports[1], idePreSou.port_a) annotation (Line(points={{80,-50},{74,
-          -50},{74,-14},{50,-14},{50,-10}}, color={0,127,255}));
+  extends Buildings.Fluid.Storage.Plant.Validation.BaseClasses.PartialPlant(
+    bou(p=300000));
 annotation (
   experiment(Tolerance=1e-06, StopTime=3600),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),

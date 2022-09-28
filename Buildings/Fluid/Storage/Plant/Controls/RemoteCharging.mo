@@ -3,20 +3,10 @@ block RemoteCharging
   "Control block for the supply pump and nearby valves that allows remote charging"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup plaTyp=
-    Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-    "Type of plant setup";
-
   parameter Modelica.Units.SI.Time tDelValSup=45 "Delay time for the supply valve"
     annotation (Dialog(group="Singal Delays"));
   parameter Modelica.Units.SI.Time tDelPumSup=120 "Delay time for the supply pump"
     annotation (Dialog(group="Singal Delays"));
-  parameter Modelica.Units.SI.Time tDelValRet=45 "Delay time for the return valve"
-    annotation (Dialog(group="Singal Delays",
-    enable= plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
-  parameter Modelica.Units.SI.Time tDelPumRet=120 "Delay time for the return pump"
-    annotation (Dialog(group="Singal Delays",
-    enable= plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open));
 
   Modelica.Blocks.Sources.Constant zero(k=0) "Constant 0"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
@@ -155,11 +145,7 @@ block RemoteCharging
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,50})));
-initial equation
-  assert(plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open
-  or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote,
-  "To use this block, the only values allowed for plaTyp is
-  .Open or .ClosedRemote");
+
 equation
   connect(swiPumSup.y, yPumSup)
     annotation (Line(points={{-50,-202},{-50,-230}}, color={0,0,127}));
