@@ -289,7 +289,7 @@ model DualSource
     final dpDis_nominal=0) "Two-pipe connection to the storage plant"
     annotation (
       Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,-90})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla1(
@@ -299,7 +299,7 @@ model DualSource
     final allowFlowReversal=true,
     final dpDis_nominal=0) "Two-pipe connection to the chiller-only plant"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-10,110})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse2(
@@ -310,7 +310,7 @@ model DualSource
     final dpDis_nominal=0) "Two-pipe connection to the user(s)"
     annotation (Placement(
         transformation(
-        extent={{10,10},{-10,-10}},
+        extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-10,0})));
   Buildings.Fluid.FixedResistances.Junction junBou(
@@ -423,41 +423,42 @@ equation
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-106,-79},{-106,-26},{-61,-26}},
                                                              color={0,0,127}));
-  connect(netCon.port_bToNet, con2PipPla2.port_aCon)
-    annotation (Line(points={{-40,-84},{-20,-84}}, color={0,127,255}));
-  connect(con2PipPla2.port_bCon, netCon.port_aFroNet) annotation (Line(points={{-20,-90},
-          {-34,-90},{-34,-96},{-40,-96}},          color={0,127,255}));
-  connect(con2PipPla2.port_bDisRet, ideUse3.port_a) annotation (Line(points={{-4,
-          -100},{-4,-154},{50,-154},{50,-160}}, color={0,127,255}));
-  connect(ideUse3.port_b, con2PipPla2.port_aDisSup) annotation (Line(points={{50,
-          -180},{50,-186},{-10,-186},{-10,-100}}, color={0,127,255}));
-  connect(pumSup1.port_a, con2PipPla1.port_bCon) annotation (Line(points={{-60,80},
-          {-26,80},{-26,110},{-20,110}}, color={0,127,255}));
-  connect(chi1.port_b2, con2PipPla1.port_aCon) annotation (Line(points={{-124,120},
-          {-124,128},{-28,128},{-28,116},{-20,116}}, color={0,127,255}));
-  connect(con2PipPla1.port_aDisRet, ideUse1.port_a) annotation (Line(points={{-4,
-          120},{-2,120},{-2,206},{50,206},{50,200}}, color={0,127,255}));
-  connect(con2PipPla1.port_bDisSup, ideUse1.port_b) annotation (Line(points={{-10,
-          120},{-10,174},{50,174},{50,180}}, color={0,127,255}));
-  connect(con2PipUse2.port_bDisRet, con2PipPla1.port_aDisSup) annotation (Line(
-        points={{-16,10},{-16,94},{-10,94},{-10,100}}, color={0,127,255}));
-  connect(con2PipPla1.port_bDisRet, con2PipUse2.port_aDisSup) annotation (Line(
-        points={{-4,100},{-4,16},{-10,16},{-10,10}}, color={0,127,255}));
-  connect(con2PipPla2.port_bDisSup, con2PipUse2.port_aDisRet) annotation (Line(
-        points={{-10,-80},{-10,-72},{-16,-72},{-16,-10}}, color={0,127,255}));
-  connect(con2PipPla2.port_aDisRet, con2PipUse2.port_bDisSup) annotation (Line(
-        points={{-4,-80},{-4,-18},{-10,-18},{-10,-10}}, color={0,127,255}));
-  connect(con2PipUse2.port_bCon, ideUse2.port_a) annotation (Line(points={{0,
-          -6.10623e-16},{34,-6.10623e-16},{34,16},{50,16},{50,10}}, color={0,
-          127,255}));
-  connect(con2PipUse2.port_aCon, ideUse2.port_b) annotation (Line(points={{0,-6},
-          {34,-6},{34,-16},{50,-16},{50,-10}}, color={0,127,255}));
   connect(tanBra.port_bToNet, junBou.port_1)
     annotation (Line(points={{-100,-84},{-90,-84}}, color={0,127,255}));
   connect(junBou.port_2, netCon.port_aFroChi)
     annotation (Line(points={{-70,-84},{-60,-84}}, color={0,127,255}));
   connect(junBou.port_3, bou.ports[1])
     annotation (Line(points={{-80,-74},{-80,-60}}, color={0,127,255}));
+  connect(netCon.port_aFroNet, con2PipPla2.port_aCon)
+    annotation (Line(points={{-40,-96},{-20,-96}}, color={0,127,255}));
+  connect(con2PipPla2.port_bCon, netCon.port_bToNet) annotation (Line(points={{
+          -20,-90},{-34,-90},{-34,-84},{-40,-84}}, color={0,127,255}));
+  connect(con2PipPla2.port_bDisSup, ideUse3.port_a) annotation (Line(points={{
+          -10,-100},{-10,-154},{50,-154},{50,-160}}, color={0,127,255}));
+  connect(ideUse3.port_b, con2PipPla2.port_aDisRet) annotation (Line(points={{
+          50,-180},{50,-186},{-4,-186},{-4,-100}}, color={0,127,255}));
+  connect(con2PipPla2.port_bDisRet, con2PipUse2.port_aDisSup) annotation (Line(
+        points={{-4,-80},{-2,-80},{-2,-16},{-10,-16},{-10,-10}}, color={0,127,
+          255}));
+  connect(con2PipPla2.port_aDisSup, con2PipUse2.port_bDisRet) annotation (Line(
+        points={{-10,-80},{-10,-74},{-16,-74},{-16,-10}}, color={0,127,255}));
+  connect(con2PipUse2.port_aCon, ideUse2.port_a) annotation (Line(points={{0,6},
+          {0,4},{32,4},{32,16},{50,16},{50,10}}, color={0,127,255}));
+  connect(ideUse2.port_b, con2PipUse2.port_bCon) annotation (Line(points={{50,
+          -10},{50,-16},{32,-16},{32,-5.55112e-16},{0,-5.55112e-16}}, color={0,
+          127,255}));
+  connect(con2PipUse2.port_aDisRet, con2PipPla1.port_bDisSup) annotation (Line(
+        points={{-16,10},{-16,92},{-10,92},{-10,100}}, color={0,127,255}));
+  connect(con2PipPla1.port_aDisRet, con2PipUse2.port_bDisSup) annotation (Line(
+        points={{-4,100},{-4,18},{-10,18},{-10,10}}, color={0,127,255}));
+  connect(con2PipPla1.port_aDisSup, ideUse1.port_a) annotation (Line(points={{
+          -10,120},{-10,206},{50,206},{50,200}}, color={0,127,255}));
+  connect(ideUse1.port_b, con2PipPla1.port_bDisRet) annotation (Line(points={{
+          50,180},{50,174},{-4,174},{-4,120}}, color={0,127,255}));
+  connect(con2PipPla1.port_bCon, chi1.port_b2) annotation (Line(points={{-20,
+          110},{-30,110},{-30,130},{-124,130},{-124,120}}, color={0,127,255}));
+  connect(pumSup1.port_a, con2PipPla1.port_aCon) annotation (Line(points={{-60,
+          80},{-30,80},{-30,104},{-20,104}}, color={0,127,255}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
