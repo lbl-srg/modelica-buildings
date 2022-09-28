@@ -103,5 +103,6 @@ docker run \
   ${DOCKER_USERNAME}/${IMG_NAME} /bin/bash -c \
   "export MODELICAPATH=${DOCKER_MODELICAPATH} && \
   omc ${arg_lis} && \
-  rm -rf spawn-*"
+  rm -rf spawn-* && \
+  rm -rf tmp"
 exit $?
