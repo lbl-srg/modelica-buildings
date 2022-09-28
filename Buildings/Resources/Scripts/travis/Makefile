@@ -70,19 +70,18 @@ test-openmodelica-spawn-spaces-success:
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
 	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
-	@cd $(TMP) && sudo grep -q "The simulation finished successfully." SpawnTest.log
+	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
 	@rm -rf $(TMP)
 	@echo "    Success."
 
 test-openmodelica-spawn-spaces-failure:
 	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
-	$(eval TMP1 := $(shell mktemp --suffix=-LBL-Buildings -d))
-	$(eval TMP := $(TMP1)/dir\ with\ spaces)
+	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
+	$(eval TMP := $(TMP)/dir\ with\ spaces)
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
-	@echo "***--- Generating openmod.mos"
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
     "setCommandLineOptions(\"-d=nogen\");\n" \
@@ -98,11 +97,8 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@echo "***--- Calling omc"
-	@(cd $(TMP) && omc openmod.mos )
-	@echo "***--- Checking output of omc"
-	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
-	@echo "***--- Removing temp directory $(TMP)"
+	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
+	@cd $(TMP) && grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
 	@rm -rf $(TMP)
 	@echo "    Success."
 
