@@ -35,10 +35,10 @@ model ChillerBranch
     final per=perChi)
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{20,20},{0,40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(final k=true)
     "Placeholder, chiller always on"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Modelica.Blocks.Sources.Constant set_TEvaLvg(k=nom.T_CHWS_nominal)
+  Modelica.Blocks.Sources.Constant set_TEvaLvg(final k=nom.T_CHWS_nominal)
     "Evaporator leaving temperature setpoint" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

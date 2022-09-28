@@ -438,12 +438,11 @@ equation
   connect(ideUse3.port_b, con2PipPla2.port_aDisRet) annotation (Line(points={{
           50,-180},{50,-186},{-4,-186},{-4,-100}}, color={0,127,255}));
   connect(con2PipPla2.port_bDisRet, con2PipUse2.port_aDisSup) annotation (Line(
-        points={{-4,-80},{-2,-80},{-2,-16},{-10,-16},{-10,-10}}, color={0,127,
-          255}));
+        points={{-4,-80},{-4,-16},{-10,-16},{-10,-10}}, color={0,127,255}));
   connect(con2PipPla2.port_aDisSup, con2PipUse2.port_bDisRet) annotation (Line(
         points={{-10,-80},{-10,-74},{-16,-74},{-16,-10}}, color={0,127,255}));
   connect(con2PipUse2.port_aCon, ideUse2.port_a) annotation (Line(points={{0,6},
-          {0,4},{32,4},{32,16},{50,16},{50,10}}, color={0,127,255}));
+          {32,6},{32,16},{50,16},{50,10}}, color={0,127,255}));
   connect(ideUse2.port_b, con2PipUse2.port_bCon) annotation (Line(points={{50,
           -10},{50,-16},{32,-16},{32,-5.55112e-16},{0,-5.55112e-16}}, color={0,
           127,255}));
