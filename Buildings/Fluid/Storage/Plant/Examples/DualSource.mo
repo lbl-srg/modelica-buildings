@@ -228,12 +228,12 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={50,-170})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin_dpUsr(nin=3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin_dpUse(nin=3)
     "Min of pressure head measured from all users"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,250})));
-  Modelica.Blocks.Sources.Constant set_dpUsr(final k=1)
+  Modelica.Blocks.Sources.Constant set_dpUse(final k=1)
     "Normalised consumer differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -261,17 +261,17 @@ model DualSource
         3600/9*3,QCooLoa_flow_nominal; 3600/9*7,QCooLoa_flow_nominal; 3600/9*7,
         0; 3600,0])                                       "Cooling load"
     annotation (Placement(transformation(extent={{140,-160},{120,-140}})));
-  Modelica.Blocks.Math.Gain gaiUsr1(k=1/ideUse1.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUse1(k=1/ideUse1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={130,170})));
-  Modelica.Blocks.Math.Gain gaiUsr2(k=1/ideUse2.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUse2(k=1/ideUse2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={130,-20})));
-  Modelica.Blocks.Math.Gain gaiUsr3(k=1/ideUse3.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUse3(k=1/ideUse3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -333,7 +333,7 @@ equation
           {100,-4},{100,-210},{62,-210}}, color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
     annotation (Line(points={{38,-210},{22,-210}}, color={0,0,127}));
-  connect(set_dpUsr.y,conPI_pumChi1. u_s)
+  connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-99,250},{-70,250},{-70,242}},
                                                    color={0,0,127}));
   connect(ideUse1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{61,186},
@@ -345,23 +345,23 @@ equation
   connect(set_QCooLoa3_flow.y, ideUse3.QCooLoa_flow) annotation (Line(points={{119,
           -150},{110,-150},{110,-166},{61,-166}},
                                                color={0,0,127}));
-  connect(ideUse1.dpUse, gaiUsr1.u)
+  connect(ideUse1.dpUse,gaiUse1.u)
     annotation (Line(points={{61,182},{110,182},{110,170},{118,170}},
                                                        color={0,0,127}));
-  connect(ideUse2.dpUse, gaiUsr2.u) annotation (Line(points={{61,-8},{110,-8},{
+  connect(ideUse2.dpUse,gaiUse2.u) annotation (Line(points={{61,-8},{110,-8},{
           110,-20},{118,-20}}, color={0,0,127}));
-  connect(ideUse3.dpUse, gaiUsr3.u)
+  connect(ideUse3.dpUse,gaiUse3.u)
     annotation (Line(points={{61,-178},{110,-178},{110,-190},{118,-190}},
                                                           color={0,0,127}));
-  connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{141,170},{150,
+  connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,170},{150,
           170},{150,249.333},{-18,249.333}},
                                      color={0,0,127}));
-  connect(gaiUsr2.y,mulMin_dpUsr. u[2]) annotation (Line(points={{141,-20},{150,
+  connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-20},{150,
           -20},{150,250},{-18,250}},               color={0,0,127}));
-  connect(gaiUsr3.y,mulMin_dpUsr. u[3]) annotation (Line(points={{141,-190},{
+  connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-190},{
           150,-190},{150,250.667},{-18,250.667}},
                                           color={0,0,127}));
-  connect(mulMin_dpUsr.y,conPI_pumChi1. u_m)
+  connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-42,250},{-52,250},{-52,230},{-58,230}},
                                                              color={0,0,127}));
   connect(uTanDis.y, mTanSet_flow.u) annotation (Line(points={{-159,-30},{-142,-30}},
