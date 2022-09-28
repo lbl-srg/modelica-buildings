@@ -104,8 +104,15 @@ def doStep(dblInp, state):
                     os.remove('INFILE')
                 os.rename('newINFILE', 'INFILE')
 
-            # Conduct one step TOUGH simulation
+            # Conduct one step TOUGH simulation.
+            # The TOUGH simulation requires the INCON as the initial condition, the
+            # INFILE for specifying the ground properties and the initial and end simulation time,
+            # the GENER file for the heat flux bounday condition.
+            # It will generate a SAVE file.
             os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
+            # dummy code to imitatetimidate the TOUGH simulation. It is to demonstrate the
+            # Modelica-TOUGH coupling process
+            tough_avatar(Q_toTough, T_out)
 
             # Extract borehole wall temperature
             os.system("./readsave < readsave.inp > out.txt")
@@ -133,6 +140,41 @@ def doStep(dblInp, state):
             shutil.rmtree(wor_dir)
 
     return [ToModelica, state]
+
+
+''' Imitate TOUGH simulation. It will copy the SAVE file and update the temperature of the 33 elements
+    and the 10 interested points
+'''
+def tough_avatar(heatFlux, T_out):
+    totEle = len(heatFlux)
+    # Generate temperature of the ground elements and the interested points
+    
+    fin = open('SAVE')
+    fout = open('temp_SAVE', 'wt')
+    count = 0
+    for line in fin:
+        count += 1
+        if (count > 1 and count < 68):
+            if (count % 2 == 0):
+                fout.write(line)
+            else:
+                # update the temperature
+
+        elif (count == 68):
+            fout.write(line)
+        elif (count == 69):
+            # update the temperature. It is outdoor air temperature here
+
+        elif (count > 69 and count < 90):
+            if (count % 2 == 0):
+                fout.write(line)
+            else:
+                # update the interested points temperature
+        fout.write(line)
+    # remove the old SAVE file
+    os.remove('SAVE')
+    os.rename('temp_SAVE', 'SAVE')
+
 
 ''' Create set of size num with identical value
 '''
