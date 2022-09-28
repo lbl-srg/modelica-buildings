@@ -85,7 +85,7 @@ model NetworkConnection
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={10,130}), iconTransformation(
+        origin={20,130}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,110})));
@@ -93,7 +93,7 @@ model NetworkConnection
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={-10,130}),iconTransformation(
+        origin={-30,130}),iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
@@ -139,8 +139,8 @@ model NetworkConnection
 equation
   connect(pas2.port_b, port_bToNet) annotation (Line(points={{60,100},{90,100},
           {90,60},{100,60}}, color={0,127,255}));
-  connect(intValSup.yVal, yValSup) annotation (Line(points={{20,70},{20,116},{
-          10,116},{10,130}},       color={0,0,127}));
+  connect(intValSup.yVal, yValSup) annotation (Line(points={{20,70},{20,130}},
+                                   color={0,0,127}));
   connect(pumSup.port_b, intValSup.port_aFroChi)
     annotation (Line(points={{-20,60},{0,60}},  color={0,127,255}));
   connect(pumSup.port_b, pas2.port_a) annotation (Line(points={{-20,60},{-10,60},
@@ -153,8 +153,8 @@ equation
     annotation (Line(points={{70,50},{70,36},{40,36}}, color={0,127,255}));
   connect(port_bToChi, port_aFroNet)
     annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
-  connect(pumSup.y, yPumSup) annotation (Line(points={{-30,72},{-30,116},{-10,
-          116},{-10,130}}, color={0,0,127}));
+  connect(pumSup.y, yPumSup) annotation (Line(points={{-30,72},{-30,130}},
+                           color={0,0,127}));
   connect(port_aFroChi, jun1.port_1)
     annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
   connect(jun1.port_2, pumSup.port_a)
@@ -211,50 +211,7 @@ equation
           points={{-20,60},{-50,76},{-50,44},{-20,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.None),
-        Ellipse(
-          extent={{-60,-40},{-20,-80}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          startAngle=0,
-          endAngle=360,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Polygon(
-          points={{40,-60},{24,-50},{24,-70},{40,-60}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Polygon(
-          points={{40,-60},{56,-50},{56,-70},{40,-60}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Line(
-          points={{80,-60},{80,-88},{-80,-88},{-80,-60}},
-          color={28,108,200},
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Polygon(
-          points={{40,-88},{24,-78},{24,-98},{40,-88}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Polygon(
-          points={{40,-88},{56,-78},{56,-98},{40,-88}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Polygon(
-          points={{-20,-60},{-50,-44},{-50,-76},{-20,-60}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open)}),
-                                                                 Diagram(
+          fillPattern=FillPattern.None)}),                       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             120}})),
     defaultComponentName = "netCon",

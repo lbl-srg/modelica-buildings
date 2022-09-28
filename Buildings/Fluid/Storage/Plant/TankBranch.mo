@@ -150,12 +150,6 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-50,36},{50,26}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=tankIsOpen),
         Line(
           points={{38,0},{80,0},{80,-100}},
           color={127,0,0},
