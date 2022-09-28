@@ -114,7 +114,7 @@ equation
   connect(preDroTanTop.port_a, senFlo.port_b)
     annotation (Line(points={{-40,0},{-50,0},{-50,-20}}, color={0,127,255}));
   connect(senFlo.m_flow, mTan_flow) annotation (Line(points={{-61,-30},{-66,-30},
-          {-66,70},{50,70},{50,110}}, color={0,0,127}));
+          {-66,80},{50,80},{50,110}}, color={0,0,127}));
   connect(tan.Ql_flow, Ql_flow)
     annotation (Line(points={{11,7.2},{11,10},{110,10}},
                                                        color={0,0,127}));
