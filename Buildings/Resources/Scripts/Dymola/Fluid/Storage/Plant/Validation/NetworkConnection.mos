@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Validation.ClosedRemote",
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.NetworkConnection",
  stopTime=3600,
  tolerance=1e-06,
  method="dassl",
- resultFile="ClosedRemote");
+ resultFile="NetworkConnection");
 // Plot commands
 createPlot(id=1,
  position={15, 15, 929, 516},
@@ -22,4 +22,3 @@ createPlot(id=1,
  colors={{28,108,200}, {238,46,47}, {0,140,72}},
  timeUnit="s",
  displayUnits={"1", "1", "1"});
-

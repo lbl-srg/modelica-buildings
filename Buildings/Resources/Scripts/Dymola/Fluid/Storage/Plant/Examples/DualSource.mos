@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Examples.OpenDualSource",
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.DualSource",
  stopTime=3600,
  tolerance=1e-06,
  method="radau",
- resultFile="OpenDualSource");
+ resultFile="DualSource");
 // Plot commands
 createPlot(id=1,
  position={15, 15, 914, 538},
@@ -37,4 +37,3 @@ createPlot(id=3,
  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
  timeUnit="s",
  displayUnits={"Pa", "Pa", "Pa", "Pa"});
-

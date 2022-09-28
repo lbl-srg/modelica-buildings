@@ -1,6 +1,8 @@
-within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
-partial model PartialDualSource
-  "Base model of a district system model with two sources and three users"
+within Buildings.Fluid.Storage.Plant.Examples;
+model DualSource
+  "A district system model with two sources and three users"
+
+  extends Modelica.Icons.Example;
 
   package MediumCHW = Buildings.Media.Water "Medium model for CHW";
   package MediumCDW1 = Buildings.Media.Water "Medium model for CDW of chi1";
@@ -150,7 +152,9 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
-    allowRemoteCharging=nomPla2.allowRemoteCharging)
+    allowRemoteCharging=nomPla2.allowRemoteCharging,
+    perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
+                              dp=nomPla2.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(
@@ -318,7 +322,7 @@ partial model PartialDualSource
     final dp_nominal={0,0,0}) "Junction connected to the pressure boundary"
     annotation (Placement(transformation(extent={{-90,-74},{-70,-94}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
-    p(final displayUnit="Pa"),
+    p(final displayUnit="Pa") = 101325,
     redeclare final package Medium = MediumCHW,
     nPorts=1) "Pressure boundary"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -454,11 +458,14 @@ equation
     annotation (Line(points={{-70,-84},{-60,-84}}, color={0,127,255}));
   connect(junBou.port_3, bou.ports[1])
     annotation (Line(points={{-80,-74},{-80,-60}}, color={0,127,255}));
-    annotation (
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
+        "Simulate and plot"),
+        experiment(Tolerance=1e-06, StopTime=3600),
         Diagram(coordinateSystem(extent={{-180,-220},{160,280}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
+[fixme: Update documentation.]    
 This is the base model of a district system model with
 two CHW sources and three users with the following structure:
 </p>
@@ -550,10 +557,10 @@ The timetables give the system the following behaviour:
 </html>", revisions="<html>
 <ul>
 <li>
-May 16, 2022 by Hongxiang Fu:<br/>
+September 28, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
 </ul>
 </html>"));
-end PartialDualSource;
+end DualSource;
