@@ -17,22 +17,22 @@ model MultispeedFanConstantWaterFlowrate
     final timeScaleOcc=1,
     final tFanEnaDel=2,
     final tFanEna=5)
-    "Instance of controller with variable fan speed and constant water flowrate"
+    "Controller for the fan coil unit"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(final k=
-        273.15 + 25) "Cooling setpoint temperature"
+        273.15 + 25) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(final k=
-        273.15 + 23) "Heating setpoint temperature"
+        273.15 + 23) "Heating setpoint"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
     final amplitude=2,
     final freqHz=1/60,
-    final offset=273.15 + 24) "Measured zone temperature signal"
+    final offset=273.15 + 24) "Zone temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
 equation
@@ -56,17 +56,8 @@ equation
       <p>
       This simulation model is used to validate <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFan_ConstantWaterFlowrate\">
       Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFan_ConstantWaterFlowrate</a>.
-      
-      The instance <code>conMulSpeFanConWat</code> is set-up with parameters and a
-      time-varying input signal for measured zone temperature <code>conMulSpeFanConWat.TZon</code> to 
-      replicate the output values for fan enable status <code>yFan</code>, fan speed
-      <code>yFanSpe</code>, cooling coil signal signal <code>yCoo</code> and heating
-      coil signal <code>yHea</code> as seen in the logic chart below.
       </p>
-      <p align=\"center\">
-      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateMultispeedFan.png\"/>
-      </p>
-      </html>
+</html>
       ", revisions="<html>
       <ul>
       <li>
