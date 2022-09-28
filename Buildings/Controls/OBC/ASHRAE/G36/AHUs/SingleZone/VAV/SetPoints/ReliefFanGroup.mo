@@ -212,7 +212,7 @@ block ReliefFanGroup
     "Switch input values"
     annotation (Placement(transformation(extent={{-220,-250},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin1(
-    final nin=nRelFan)
+    final nin=nRelFan) "Minimum staging order of the running relief fans"
     annotation (Placement(transformation(extent={{-140,-250},{-120,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub3[nRelFan]
     "Identify next operating fan"

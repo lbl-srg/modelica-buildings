@@ -28,8 +28,8 @@ block Controller
     "True: the AHU has electric heating coil";
   parameter Boolean have_CO2Sen=true
     "True: the zone has CO2 sensor";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
-      .BarometricRelief
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
+       BarometricRelief
     "Type of building pressure control system";
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
@@ -970,6 +970,7 @@ block Controller
     final dpBuiSet=dpBuiSet,
     final k=kRelFan)
     if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "Control of relief fan when it is part of AHU"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
 
 equation

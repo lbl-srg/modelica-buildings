@@ -8,7 +8,7 @@ model ModeAndSetPoints
     final have_occSen=true,
     have_locAdj=true,
     sepAdj=true,
-    ignDemLim=false)
+    ignDemLim=false) "Operating mode and temperature setpoints"
     annotation (Placement(transformation(extent={{80,40},{100,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(

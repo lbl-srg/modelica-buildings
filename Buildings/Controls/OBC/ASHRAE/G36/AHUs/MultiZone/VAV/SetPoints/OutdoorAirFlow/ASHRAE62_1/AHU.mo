@@ -83,6 +83,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
     "Uncorrected minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
+    "First input divided by second input"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1) "Add parameter"
@@ -114,12 +115,14 @@ block AHU "Outdoor airflow related calculations at the AHU level"
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
     "Normalization for outdoor air flow rate"
     annotation (Placement(transformation(extent={{160,-110},{180,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(final k=1E-4)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant neaZer(
+    final k=1E-4)
     "Near zero value"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max2
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+
 equation
   connect(VSumAdjPopBreZon_flow, add2.u1) annotation (Line(points={{-240,90},{-200,
           90},{-200,86},{-182,86}}, color={0,0,127}));

@@ -128,8 +128,9 @@ model Controller "Validation controller model"
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert boolean to real"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre "Break loop"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
     final duration=3600,
