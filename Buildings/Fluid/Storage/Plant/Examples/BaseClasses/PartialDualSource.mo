@@ -304,7 +304,7 @@ partial model PartialDualSource
     final dpDis_nominal=0) "Two-pipe connection to the user(s)"
     annotation (Placement(
         transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-10,0})));
 equation
@@ -420,18 +420,19 @@ equation
           120},{-2,120},{-2,206},{50,206},{50,200}}, color={0,127,255}));
   connect(con2PipPla1.port_bDisSup, ideUse1.port_b) annotation (Line(points={{-10,
           120},{-10,174},{50,174},{50,180}}, color={0,127,255}));
-  connect(con2PipPla2.port_bDisSup, con2PipUse2.port_bDisRet) annotation (Line(
-        points={{-10,-80},{-10,-74},{-16,-74},{-16,-10}}, color={0,127,255}));
-  connect(con2PipUse2.port_aDisSup, con2PipPla2.port_aDisRet) annotation (Line(
-        points={{-10,-10},{-10,-16},{-4,-16},{-4,-80}}, color={0,127,255}));
-  connect(con2PipUse2.port_aDisRet, con2PipPla1.port_aDisSup) annotation (Line(
+  connect(con2PipUse2.port_bDisRet, con2PipPla1.port_aDisSup) annotation (Line(
         points={{-16,10},{-16,94},{-10,94},{-10,100}}, color={0,127,255}));
-  connect(con2PipPla1.port_bDisRet, con2PipUse2.port_bDisSup) annotation (Line(
-        points={{-4,100},{-4,18},{-10,18},{-10,10}}, color={0,127,255}));
-  connect(con2PipUse2.port_bCon, ideUse2.port_a) annotation (Line(points={{0,-5.55112e-16},
-          {34,-5.55112e-16},{34,16},{50,16},{50,10}}, color={0,127,255}));
-  connect(con2PipUse2.port_aCon, ideUse2.port_b) annotation (Line(points={{0,6},
-          {10,6},{10,-16},{50,-16},{50,-10}}, color={0,127,255}));
+  connect(con2PipPla1.port_bDisRet, con2PipUse2.port_aDisSup) annotation (Line(
+        points={{-4,100},{-4,16},{-10,16},{-10,10}}, color={0,127,255}));
+  connect(con2PipPla2.port_bDisSup, con2PipUse2.port_aDisRet) annotation (Line(
+        points={{-10,-80},{-10,-72},{-16,-72},{-16,-10}}, color={0,127,255}));
+  connect(con2PipPla2.port_aDisRet, con2PipUse2.port_bDisSup) annotation (Line(
+        points={{-4,-80},{-4,-18},{-10,-18},{-10,-10}}, color={0,127,255}));
+  connect(con2PipUse2.port_bCon, ideUse2.port_a) annotation (Line(points={{0,
+          -6.10623e-16},{34,-6.10623e-16},{34,16},{50,16},{50,10}}, color={0,
+          127,255}));
+  connect(con2PipUse2.port_aCon, ideUse2.port_b) annotation (Line(points={{0,-6},
+          {34,-6},{34,-16},{50,-16},{50,-10}}, color={0,127,255}));
     annotation (
         Diagram(coordinateSystem(extent={{-180,-220},{160,280}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
