@@ -1,30 +1,28 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
 model IdealUser "Dummy user model"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal=1);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  parameter Modelica.Units.SI.Temperature T_a_nominal=7+273.15
+  parameter Modelica.Units.SI.Temperature T_a_nominal
     "Nominal temperature of CHW supply";
-  parameter Modelica.Units.SI.Temperature T_b_nominal=12+273.15
+  parameter Modelica.Units.SI.Temperature T_b_nominal
     "Nominal temperature of CHW return";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal=500000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure difference";
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     use_inputFilter=false,
-    l=1E-5,
     dpValve_nominal=0.1*dp_nominal,
     m_flow_nominal=m_flow_nominal,
     y_start=0) "User control valve"
-    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
     "Prescribed heat flow"
     annotation (Placement(transformation(extent={{22,70},{42,90}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    nPorts=2,
+    redeclare final package Medium = Medium,
     final prescribedHeatFlowRate=true,
-    redeclare package Medium = Medium,
+    nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_nominal=m_flow_nominal,
     allowFlowReversal=true,
@@ -33,14 +31,14 @@ model IdealUser "Dummy user model"
     T_start=T_b_nominal) "Volume representing the consumer"
     annotation (
       Placement(transformation(
-        origin={0,-10},
+        origin={10,-10},
         extent={{10,10},{-10,-10}},
         rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TUsr
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TUse
     "Temperature of the user"
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=dp_nominal,
     final m_flow_nominal=m_flow_nominal) "Flow resistance of the consumer"
@@ -52,7 +50,7 @@ model IdealUser "Dummy user model"
     reverseActing=false) "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,40})));
+        origin={-50,50})));
   Modelica.Blocks.Interfaces.RealInput QCooLoa_flow
     "Cooling load of the consumer" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -61,14 +59,6 @@ model IdealUser "Dummy user model"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,110})));
-  Modelica.Blocks.Interfaces.RealInput TSet "CHW return setpoint" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,40}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-80,110})));
   Modelica.Blocks.Interfaces.RealOutput yVal_actual
     "Consumer control valve actuator position" annotation (Placement(
         transformation(
@@ -78,10 +68,11 @@ model IdealUser "Dummy user model"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={40,110})));
-  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.RelativePressure dpSen(
+    redeclare final package Medium = Medium)
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput dpUsr
+  Modelica.Blocks.Interfaces.RealOutput dpUse
     "Differential pressure of the user" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -89,29 +80,31 @@ model IdealUser "Dummy user model"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={80,110})));
+  Modelica.Blocks.Sources.Constant set_TRet(final k=T_b_nominal)
+    "CHW return temperature setpoint"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 equation
   connect(val.port_b, vol.ports[1])
-    annotation (Line(points={{-30,0},{1,0}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{11,0}},color={0,127,255}));
   connect(heaCon.port, vol.heatPort)
-    annotation (Line(points={{42,80},{54,80},{54,-10},{10,-10}},
+    annotation (Line(points={{42,80},{46,80},{46,-10},{20,-10}},
                                                        color={191,0,0}));
-  connect(vol.heatPort,TUsr. port)
-    annotation (Line(points={{10,-10},{54,-10},{54,-30},{40,-30}},
+  connect(vol.heatPort,TUse. port)
+    annotation (Line(points={{20,-10},{46,-10},{46,-30},{40,-30}},
                                                        color={191,0,0}));
-  connect(preDro.port_a, vol.ports[2]) annotation (Line(points={{60,0},{-1,0}},
+  connect(preDro.port_a, vol.ports[2]) annotation (Line(points={{60,0},{9,0}},
                             color={0,127,255}));
-  connect(TUsr.T, conPI.u_m)
-    annotation (Line(points={{19,-30},{-70,-30},{-70,28}}, color={0,0,127}));
+  connect(TUse.T, conPI.u_m)
+    annotation (Line(points={{19,-30},{-50,-30},{-50,38}}, color={0,0,127}));
   connect(heaCon.Q_flow, QCooLoa_flow)
     annotation (Line(points={{22,80},{-110,80}}, color={0,0,127}));
-  connect(conPI.u_s, TSet)
-    annotation (Line(points={{-82,40},{-110,40}}, color={0,0,127}));
-  connect(dpSen.p_rel, dpUsr)
+  connect(dpSen.p_rel,dpUse)
     annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{-35,7},{-35,40},{110,40}}, color={0,0,127}));
+    annotation (Line(points={{-25,7},{-25,16},{96,16},{96,40},{110,40}},
+                                                         color={0,0,127}));
   connect(val.port_a, port_a)
-    annotation (Line(points={{-50,0},{-100,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,0},{-100,0}}, color={0,127,255}));
   connect(dpSen.port_a, port_a) annotation (Line(
       points={{-10,-50},{-100,-50},{-100,0}},
       color={0,127,255},
@@ -123,7 +116,9 @@ equation
       color={0,127,255},
       pattern=LinePattern.Dash));
   connect(conPI.y, val.y)
-    annotation (Line(points={{-59,40},{-40,40},{-40,12}}, color={0,0,127}));
+    annotation (Line(points={{-39,50},{-30,50},{-30,12}}, color={0,0,127}));
+  connect(set_TRet.y, conPI.u_s)
+    annotation (Line(points={{-79,50},{-62,50}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>

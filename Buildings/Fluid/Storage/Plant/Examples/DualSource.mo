@@ -93,9 +93,6 @@ model DualSource
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-70,230})));
-  Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
-    "CHW return setpoint"
-    annotation (Placement(transformation(extent={{40,220},{60,240}})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW1(
     redeclare package Medium = MediumCDW1,
     m_flow=1.2*chi1.m2_flow_nominal,
@@ -329,12 +326,6 @@ model DualSource
         rotation=90,
         origin={-80,-50})));
 equation
-  connect(set_TRet.y, ideUse1.TSet) annotation (Line(points={{61,230},{80,230},{
-          80,198},{61,198}},color={0,0,127}));
-  connect(set_TRet.y, ideUse2.TSet) annotation (Line(points={{61,230},{80,230},
-          {80,8},{61,8}}, color={0,0,127}));
-  connect(set_TRet.y, ideUse3.TSet) annotation (Line(points={{61,230},{80,230},{
-          80,-162},{61,-162}},color={0,0,127}));
   connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{61,-174},
           {100,-174},{100,-210.667},{62,-210.667}},                       color=
          {0,0,127}));
@@ -354,12 +345,12 @@ equation
   connect(set_QCooLoa3_flow.y, ideUse3.QCooLoa_flow) annotation (Line(points={{119,
           -150},{110,-150},{110,-166},{61,-166}},
                                                color={0,0,127}));
-  connect(ideUse1.dpUsr, gaiUsr1.u)
+  connect(ideUse1.dpUse, gaiUsr1.u)
     annotation (Line(points={{61,182},{110,182},{110,170},{118,170}},
                                                        color={0,0,127}));
-  connect(ideUse2.dpUsr, gaiUsr2.u) annotation (Line(points={{61,-8},{110,-8},{
+  connect(ideUse2.dpUse, gaiUsr2.u) annotation (Line(points={{61,-8},{110,-8},{
           110,-20},{118,-20}}, color={0,0,127}));
-  connect(ideUse3.dpUsr, gaiUsr3.u)
+  connect(ideUse3.dpUse, gaiUsr3.u)
     annotation (Line(points={{61,-178},{110,-178},{110,-190},{118,-190}},
                                                           color={0,0,127}));
   connect(gaiUsr1.y,mulMin_dpUsr. u[1]) annotation (Line(points={{141,170},{150,

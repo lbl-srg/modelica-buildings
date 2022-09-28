@@ -46,9 +46,6 @@ model SingleSource "Simple system model with one source and one user"
     T_a_nominal=nom.T_CHWS_nominal,
     T_b_nominal=nom.T_CHWR_nominal) "Ideal user"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
-  Modelica.Blocks.Sources.Constant TRetSet(k=nom.T_CHWR_nominal)
-    "CHW return setpoint"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 1200,0;
         1200,QCooLoa_flow_nominal; 2400,QCooLoa_flow_nominal; 2400,0; 1*3600,0])
     "Prescribed cooling load"
@@ -96,8 +93,6 @@ model SingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 equation
-  connect(TRetSet.y, ideUse.TSet) annotation (Line(points={{41,10},{62,10},{62,
-          -9}},         color={0,0,127}));
   connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{41,50},
           {66,50},{66,-9}},             color={0,0,127}));
   connect(preDro1.port_b, ideUse.port_a)
@@ -107,7 +102,7 @@ equation
   connect(set_dpUsr.y, conPI_pumSec.u_s)
     annotation (Line(points={{-10,79},{-10,70.5},{-10,70.5},{-10,62}},
                                                  color={0,0,127}));
-  connect(ideUse.dpUsr, gaiPumSec.u)
+  connect(ideUse.dpUse, gaiPumSec.u)
     annotation (Line(points={{78,-9},{78,90},{42,90}}, color={0,0,127}));
   connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{19,90},{8,90},{8,50},{2,50}},

@@ -22,16 +22,13 @@ model IdealUser "Test model for the dummy user"
     "Nominal cooling load of one consumer";
 
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     final vol(final T_start=15 + 273.15),
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final T_a_nominal=T_CHWS_nominal,
     final T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant set_TRet(k=12 + 273.15)
-    "CHW return setpoint"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
     final p=p_Pressurisation,
@@ -56,8 +53,6 @@ model IdealUser "Test model for the dummy user"
     "Placeholder, prescribed cooling load"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
 equation
-  connect(set_TRet.y,ideUse. TSet)
-    annotation (Line(points={{-59,50},{-8,50},{-8,11}},color={0,0,127}));
   connect(sou.ports[1],ideUse. port_a) annotation (Line(points={{-60,
           -6.66134e-16},{-35.1,-6.66134e-16},{-35.1,0},{-10,0}},
                                                      color={0,127,255}));
