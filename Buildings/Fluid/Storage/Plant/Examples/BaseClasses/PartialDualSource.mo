@@ -275,55 +275,38 @@ partial model PartialDualSource
         origin={130,-190})));
 
 // District pipe network
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS1U1(
-    redeclare package Medium1 = MediumCHW,
-    redeclare package Medium2 = MediumCHW,
-    m1_flow_nominal=m_flow_nominal,
-    m2_flow_nominal=m_flow_nominal,
-    dp1_nominal=0.3*dp_nominal,
-    dp2_nominal=0.3*dp_nominal)
-    "CHW supply and return pipes between source 1 and user 1" annotation (
+  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla2(
+    redeclare package Medium = MediumCHW,
+    final mDis_flow_nominal=m_flow_nominal,
+    final mCon_flow_nominal=nomPla2.m_flow_nominal,
+    final allowFlowReversal=true,
+    final dpDis_nominal=0) "Two-pipe connection to the storage plant"
+    annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,150})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS1U2(
-    redeclare package Medium1 = MediumCHW,
-    redeclare package Medium2 = MediumCHW,
-    m1_flow_nominal=m_flow_nominal,
-    m2_flow_nominal=m_flow_nominal,
-    dp1_nominal=0.3*dp_nominal,
-    dp2_nominal=0.3*dp_nominal)
-    "CHW supply and return pipes between source 1 and user 2" annotation (
-      Placement(transformation(
+        origin={-10,-90})));
+  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla1(
+    redeclare package Medium = MediumCHW,
+    final mDis_flow_nominal=m_flow_nominal,
+    final mCon_flow_nominal=chi1.m2_flow_nominal,
+    final allowFlowReversal=true,
+    final dpDis_nominal=0) "Two-pipe connection to the chiller-only plant"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,50})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS2U2(
-    redeclare package Medium1 = MediumCHW,
-    redeclare package Medium2 = MediumCHW,
-    m1_flow_nominal=m_flow_nominal,
-    m2_flow_nominal=m_flow_nominal,
-    dp1_nominal=0.3*dp_nominal,
-    dp2_nominal=0.3*dp_nominal)
-    "CHW supply and return pipes between source 2 and user 2" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        origin={-10,110})));
+  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse2(
+    redeclare package Medium = MediumCHW,
+    final mDis_flow_nominal=m_flow_nominal,
+    final mCon_flow_nominal=ideUse2.m_flow_nominal,
+    final allowFlowReversal=true,
+    final dpDis_nominal=0) "Two-pipe connection to the user(s)"
+    annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={0,-50})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS2U3(
-    redeclare package Medium1 = MediumCHW,
-    redeclare package Medium2 = MediumCHW,
-    m1_flow_nominal=m_flow_nominal,
-    m2_flow_nominal=m_flow_nominal,
-    dp1_nominal=0.3*dp_nominal,
-    dp2_nominal=0.3*dp_nominal)
-    "CHW supply and return pipes between source 2 and user 3" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-130})));
-
+        origin={-10,0})));
 equation
   connect(set_TRet.y, ideUse1.TSet) annotation (Line(points={{61,230},{80,230},{
           80,198},{61,198}},color={0,0,127}));
@@ -419,41 +402,36 @@ equation
   connect(tanBra.port_aFroNet, netCon.port_bToChi)
     annotation (Line(points={{-90,-96},{-80,-96}}, color={0,127,255}));
 
-  connect(chi1.port_b2, parPipS1U1.port_a1)
-    annotation (Line(points={{-124,120},{-6,120},{-6,140}},
-                                                          color={0,127,255}));
-  connect(parPipS1U1.port_b1, ideUse1.port_a) annotation (Line(points={{-6,160},
-          {-6,210},{50,210},{50,200}}, color={0,127,255}));
-  connect(ideUse1.port_b, parPipS1U1.port_a2) annotation (Line(points={{50,180},
-          {50,170},{6,170},{6,160}}, color={0,127,255}));
-  connect(parPipS1U1.port_b2, pumSup1.port_a)
-    annotation (Line(points={{6,140},{6,80},{-60,80}}, color={0,127,255}));
-  connect(parPipS1U2.port_a2, pumSup1.port_a)
-    annotation (Line(points={{6,60},{6,80},{-60,80}}, color={0,127,255}));
-  connect(parPipS1U2.port_b1, chi1.port_b2)
-    annotation (Line(points={{-6,60},{-6,120},{-124,120}}, color={0,127,255}));
-  connect(parPipS1U2.port_a1, ideUse2.port_a) annotation (Line(points={{-6,40},
-          {-6,20},{50,20},{50,10}}, color={0,127,255}));
-  connect(ideUse2.port_b, parPipS2U2.port_a2) annotation (Line(points={{50,-10},
-          {50,-20},{6,-20},{6,-40}}, color={0,127,255}));
-  connect(parPipS2U2.port_b1, parPipS1U2.port_a1)
-    annotation (Line(points={{-6,-40},{-6,40}}, color={0,127,255}));
-  connect(parPipS1U2.port_b2, parPipS2U2.port_a2)
-    annotation (Line(points={{6,40},{6,0},{6,0},{6,-40}}, color={0,127,255}));
-  connect(netCon.port_bToNet, parPipS2U2.port_a1)
-    annotation (Line(points={{-60,-84},{-6,-84},{-6,-60}}, color={0,127,255}));
-  connect(parPipS2U2.port_b2, netCon.port_aFroNet)
-    annotation (Line(points={{6,-60},{6,-96},{-60,-96}}, color={0,127,255}));
-  connect(parPipS2U3.port_b1, parPipS2U2.port_a1)
-    annotation (Line(points={{-6,-120},{-6,-60}}, color={0,127,255}));
-  connect(parPipS2U3.port_a2, parPipS2U2.port_b2) annotation (Line(points={{6,-120},
-          {6,-90},{6,-90},{6,-60}}, color={0,127,255}));
-  connect(parPipS2U3.port_a1, ideUse3.port_a) annotation (Line(points={{-6,-140},
-          {-6,-150},{50,-150},{50,-160}}, color={0,127,255}));
-  connect(parPipS2U3.port_b2, ideUse3.port_b) annotation (Line(points={{6,-140},
-          {4,-140},{4,-190},{50,-190},{50,-180}}, color={0,127,255}));
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-96,-79},{-96,-46},{-81,-46}}, color={0,0,127}));
+  connect(netCon.port_bToNet, con2PipPla2.port_aCon)
+    annotation (Line(points={{-60,-84},{-20,-84}}, color={0,127,255}));
+  connect(con2PipPla2.port_bCon, netCon.port_aFroNet) annotation (Line(points={{
+          -20,-90},{-52,-90},{-52,-96},{-60,-96}}, color={0,127,255}));
+  connect(con2PipPla2.port_bDisRet, ideUse3.port_a) annotation (Line(points={{-4,
+          -100},{-4,-154},{50,-154},{50,-160}}, color={0,127,255}));
+  connect(ideUse3.port_b, con2PipPla2.port_aDisSup) annotation (Line(points={{50,
+          -180},{50,-186},{-10,-186},{-10,-100}}, color={0,127,255}));
+  connect(pumSup1.port_a, con2PipPla1.port_bCon) annotation (Line(points={{-60,80},
+          {-26,80},{-26,110},{-20,110}}, color={0,127,255}));
+  connect(chi1.port_b2, con2PipPla1.port_aCon) annotation (Line(points={{-124,120},
+          {-124,128},{-28,128},{-28,116},{-20,116}}, color={0,127,255}));
+  connect(con2PipPla1.port_aDisRet, ideUse1.port_a) annotation (Line(points={{-4,
+          120},{-2,120},{-2,206},{50,206},{50,200}}, color={0,127,255}));
+  connect(con2PipPla1.port_bDisSup, ideUse1.port_b) annotation (Line(points={{-10,
+          120},{-10,174},{50,174},{50,180}}, color={0,127,255}));
+  connect(con2PipPla2.port_bDisSup, con2PipUse2.port_bDisRet) annotation (Line(
+        points={{-10,-80},{-10,-74},{-16,-74},{-16,-10}}, color={0,127,255}));
+  connect(con2PipUse2.port_aDisSup, con2PipPla2.port_aDisRet) annotation (Line(
+        points={{-10,-10},{-10,-16},{-4,-16},{-4,-80}}, color={0,127,255}));
+  connect(con2PipUse2.port_aDisRet, con2PipPla1.port_aDisSup) annotation (Line(
+        points={{-16,10},{-16,94},{-10,94},{-10,100}}, color={0,127,255}));
+  connect(con2PipPla1.port_bDisRet, con2PipUse2.port_bDisSup) annotation (Line(
+        points={{-4,100},{-4,18},{-10,18},{-10,10}}, color={0,127,255}));
+  connect(con2PipUse2.port_bCon, ideUse2.port_a) annotation (Line(points={{0,-5.55112e-16},
+          {34,-5.55112e-16},{34,16},{50,16},{50,10}}, color={0,127,255}));
+  connect(con2PipUse2.port_aCon, ideUse2.port_b) annotation (Line(points={{0,6},
+          {10,6},{10,-16},{50,-16},{50,-10}}, color={0,127,255}));
     annotation (
         Diagram(coordinateSystem(extent={{-180,-220},{160,280}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
