@@ -231,9 +231,9 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">uildings.Controls.OBC.CDL.Integers.SequenceBinary
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.SequenceBinary
     </td>
-    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231P committee.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">
                        issue 3103</a>.
