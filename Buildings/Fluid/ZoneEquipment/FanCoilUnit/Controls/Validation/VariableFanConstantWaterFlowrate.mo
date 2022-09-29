@@ -9,30 +9,30 @@ model VariableFanConstantWaterFlowrate
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final tFanEnaDel=2,
     final tFanEna=5)
-    "Instance of controller with variable fan speed and constant water flowrate"
+    "Controller for the fan coil unit"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(
     final k=273.15 + 25)
-    "Cooling setpoint signal"
+    "Cooling setpoint"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(
     final k=273.15 + 23)
-    "Heating setpoint signal"
+    "Heating setpoint"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=6,
     final duration=3600,
     final offset=273.15 + 21)
-    "Measured zone temperature"
+    "Zone temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occ(
     final k=true)
-    "Occupancy signal"
+    "Occupancy status"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
@@ -54,17 +54,8 @@ equation
       <p>
       This simulation model is used to validate <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFan_ConstantWaterFlowrate\">
       Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFan_ConstantWaterFlowrate</a>.
-      
-      The instance <code>conVarFanConWat</code> is set-up with parameters and a
-      time-varying input signal for measured zone temperature <code>conVarFanConWat.TZon</code> to 
-      replicate the output values for fan enable status <code>yFan</code>, fan speed
-      <code>yFanSpe</code>, cooling coil signal signal <code>yCoo</code> and heating
-      coil signal <code>yHea</code> as seen in the logic chart below.
       </p>
-      <p align=\"center\">
-      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateVariableFan.png\"/>
-      </p>
-      </html>
+</html>
       ", revisions="<html>
       <ul>
       <li>
