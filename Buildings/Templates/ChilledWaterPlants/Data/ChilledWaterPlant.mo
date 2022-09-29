@@ -23,36 +23,37 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Integer nCoo
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat
+  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl
+    typCtrSpePumConWat
     "Type of CW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Controller ctr(
-    final typChi=typChi,
-    final nChi=nChi,
-    final typCoo=typCoo,
-    final nCoo=nCoo,
-    final typDisChiWat=typDisChiWat,
-    final typCtrSpePumConWat=typCtrSpePumConWat,
-    final nPumChiWatSec=nPumChiWatSec,
+    typChi=typChi,
+    nChi=nChi,
+    typCoo=typCoo,
+    nCoo=nCoo,
+    typDisChiWat=typDisChiWat,
+    typCtrSpePumConWat=typCtrSpePumConWat,
+    nPumChiWatSec=nPumChiWatSec,
     mChiWatChi_flow_nominal=chi.mChiWatChi_flow_nominal,
     mConWatChi_flow_nominal=chi.mConChi_flow_nominal)
     "Controller"
     annotation(Dialog(group="Controls"));
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup chi(
-    final nChi=nChi,
-    final typChi=typChi)
+    nChi=nChi,
+    typChi=typChi)
     "Chiller group";
 
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
-    final nPum=nChi,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
+    nPum=nChi,
+    typ=Buildings.Templates.Components.Types.Pump.Multiple,
     m_flow_nominal=chi.mChiWatChi_flow_nominal)
     "Primary CHW pumps"
     annotation(Dialog(group="Primary CHW loop"));
   parameter Buildings.Templates.Components.Data.Valve valChiWatMinByp(
-    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     m_flow_nominal=max(ctr.mChiWatChi_flow_min),
     dpValve_nominal=max(chi.dpChiWatChi_nominal) * max(ctr.mChiWatChi_flow_min ./ chi.mChiWatChi_flow_nominal)^2)
     "CHW minimum flow bypass valve"
@@ -60,22 +61,22 @@ record ChilledWaterPlant "Record for chilled water plant model"
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only));
 
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatSec(
-    final nPum=nPumChiWatSec,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple)
+    nPum=nPumChiWatSec,
+    typ=Buildings.Templates.Components.Types.Pump.Multiple)
     "Secondary CHW pumps"
     annotation(Dialog(group="Secondary CHW loop",
     enable=have_pumChiWatSec));
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.CoolerGroup coo(
-    final nCoo=nCoo,
-    final typCoo=typCoo,
+    nCoo=nCoo,
+    typCoo=typCoo,
     mConWatCoo_flow_nominal=chi.mConChi_flow_nominal)
     "Cooler group"
     annotation(Dialog(group="CW loop",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumConWat(
-    final nPum=nChi,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
+    nPum=nChi,
+    typ=Buildings.Templates.Components.Types.Pump.Multiple,
     m_flow_nominal=chi.mConChi_flow_nominal)
     "CW pumps"
     annotation(Dialog(group="CW loop",

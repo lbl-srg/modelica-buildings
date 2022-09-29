@@ -83,7 +83,8 @@ block PartialController "Interface class for plant controller"
         origin={100,0})));
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),                                   graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
@@ -93,6 +94,6 @@ block PartialController "Interface class for plant controller"
           extent={{-151,-114},{149,-154}},
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{220,
-            200}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-220,-260},{220,
+            260}})));
 end PartialController;

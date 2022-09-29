@@ -13,17 +13,39 @@ model Base
 
   parameter Integer nChi=2
     "Number of chillers"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nCoo=nChi
+    "Number of cooler units"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Integer nPumChiWatSec=nChi
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi=
+    Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel;
+  parameter Buildings.Templates.Components.Types.Chiller typChi=
+    Buildings.Templates.Components.Types.Chiller.AirCooled;
+  parameter Buildings.Templates.Components.Types.Cooler typCoo=
+    Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
+    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
+   Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco=
+    Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=
+    Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only;
+  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatPri=
+    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon;
 
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
-      final typChi=CHI.typChi,
-      final nChi=CHI.nChi,
-      final typDisChiWat=CHI.typDisChiWat,
+      final nChi=nChi,
+      final nCoo=nCoo,
+      final typChi=typChi,
+      final typDisChiWat=typDisChiWat,
       final have_pumChiWatSec=CHI.have_pumChiWatSec,
-      final nPumChiWatSec=CHI.nPumChiWatSec,
-      final typCoo=CHI.typCoo,
-      final nCoo=CHI.nCoo,
+      final nPumChiWatSec=nPumChiWatSec,
+      final typCoo=typCoo,
       final typCtrSpePumConWat=CHI.typCtrSpePumConWat))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,72},{90,92}})));
@@ -43,13 +65,14 @@ model Base
       final nChi=nChi,
       final energyDynamics=energyDynamics,
       final tau=tau,
-      typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
-      typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only,
-      typArrPumChiWatPri_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-      typArrPumConWat_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+      final typArrChi_select=typArrChi,
+      final typDisChiWat=typDisChiWat,
+      final typArrPumChiWatPri_select=typArrPumChiWatPri,
+      final typArrPumConWat_select=typArrPumConWat,
       typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant,
       typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
-      typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
+      final typCoo=typCoo,
+      final typEco=typEco,
       final dat=dat.CHI,
       chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
           typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition))
