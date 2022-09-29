@@ -34,21 +34,21 @@
   optimica:
     comment: 'High solver tolerance required to avoid time out.'
     rtol: 1.0E-8
-- model_name: Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer
-  optimica:
-    comment: 'Modelon support was able to reproduce this java error and said it should be fixed at the next release.'
-    translate: false
 - model_name: Buildings.Applications.BaseClasses.Equipment.Validation.PumpParallel
   optimica:
-    comment: 'Modelon support was able to reproduce this java error and said it should be fixed at the next release.'
+    comment: 'Error at translation. Modelon support said it should be resolved at the next release.'
     translate: false
 - model_name: Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer
   optimica:
-    comment: 'Modelon support was able to reproduce this java error and said it should be fixed at the next release.'
+    comment: 'Error at translation. Modelon support said it should be resolved at the next release.'
+    translate: false
+- model_name: Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer
+  optimica:
+    comment: 'Error at translation. Modelon support said it should be resolved at the next release.'
     translate: false
 - model_name: Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
   optimica:
-    comment: 'Modelon support was able to reproduce this java error and said it should be fixed at the next release.'
+    comment: 'Error at translation. Modelon support said it should be resolved at the next release.'
     translate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
