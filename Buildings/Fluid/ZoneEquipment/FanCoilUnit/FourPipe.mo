@@ -416,7 +416,7 @@ equation
     <li>
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate\">
     ConstantFanVariableWaterFlowrate</a>:
-    Modifies the cooling coil and heating coil valve positions to regulate the zone temperature
+    Modulate the cooling coil and heating coil valve positions to regulate the zone temperature
     between the heating and cooling setpoints. The fan is enabled and operated at the 
     maximum speed when there are zone heating or cooling loads. It is run at minimum speed when
     zone is occupied but there are no loads.
@@ -424,7 +424,7 @@ equation
     <li>
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
     VariableFanConstantWaterFlowrate</a>:
-    Modifies the fan speed to regulate the zone temperature between the heating 
+    Modulate the fan speed to regulate the zone temperature between the heating 
     and cooling setpoints. It is run at minimum speed when zone is occupied but 
     there are no loads. The heating and cooling coil valves are completely opened 
     when there are zone heating or cooling loads, respectively.
@@ -432,7 +432,7 @@ equation
     <li>
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFanConstantWaterFlowrate\">
     MultispeedFanConstantWaterFlowrate</a>:
-    Modifies the fan speed to regulate the zone temperature between the heating 
+    Modulate the fan speed to regulate the zone temperature between the heating 
     and cooling setpoints. It is set at a range of fixed values between the maximum 
     and minimum speed, based on the heating and cooling loop signals generated. 
     It is run at minimum speed when zone is occupied but there are no loads. The 

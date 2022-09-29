@@ -107,7 +107,7 @@ model SingleZoneVariableFanConstantWaterFlowrate
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
+    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
     final epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
     final weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     final usePrecompiledFMU=false,
@@ -244,11 +244,11 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Example/SingleZoneVariableFanConstantWaterFlowrate.mos"
       "Simulate and plot"),
     Documentation(info="<html>
-	  <p>
+          <p>
       This is an example model for the fan coil unit system model 
       demonstrating use-case with a variable fan, constant pump flowrate controller. 
       It consists of:
-	  </p>
+          </p>
       <ul>
       <li>
       an instance of the fan coil unit system model <code>fanCoiUni</code>.
