@@ -1,16 +1,12 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
 model CoolingMode
   "Validation model for cooling mode operation of fan coil unit system"
-
   extends Modelica.Icons.Example;
-
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air";
-
   replaceable package MediumW = Buildings.Media.Water
     "Medium model for water";
-
   Buildings.Fluid.Sources.Boundary_pT sinCooWat(
     redeclare package Medium = MediumW,
     final T=279.15,
@@ -18,7 +14,6 @@ model CoolingMode
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={36,-90})));
-
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = MediumW,
     final T=318.15,
@@ -27,7 +22,6 @@ model CoolingMode
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-80})));
-
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
     final dpAir_nominal(displayUnit="Pa") = 100,
@@ -42,9 +36,8 @@ model CoolingMode
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
     redeclare Data.FanData fanPer)
-    "Fan coil system model"
+    "Fan coil"
     annotation (Placement(transformation(extent={{10,-20},{50,20}})));
-
   Buildings.Fluid.Sources.MassFlowSource_T souCooWat(
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
@@ -53,7 +46,6 @@ model CoolingMode
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-90})));
-
   Buildings.Fluid.Sources.MassFlowSource_T souHeaWat(
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
@@ -63,11 +55,9 @@ model CoolingMode
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,-90})));
-
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
     final fileName=ModelicaServices.ExternalReferences.loadResource(
@@ -77,7 +67,6 @@ model CoolingMode
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"FanCoilAutoSize_ConstantFlowVariableFan.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     final use_Xi_in=true,
@@ -87,7 +76,6 @@ model CoolingMode
     final nPorts=1)
     "Source for zone air"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
     final p=101325 + 100,
@@ -95,39 +83,31 @@ model CoolingMode
     final nPorts=1)
     "Sink for zone air"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0.2)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-
   Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](final p=fill(273.15,
         3)) "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-
   Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(final p=1)
     "Add 1 to humidity ratio value to find total mass of moist air"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(final k=1)
     "Valve position of hot water coil and chilled water coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/(FCUSizing.mAir_flow_nominal))
     "Calculate normalized fan speed signal"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 
 equation
-
   connect(fanCoiUni.port_HW_b, sinHeaWat.ports[1]) annotation (Line(points={{18,
           -20},{18,-60},{-40,-60},{-40,-70}}, color={0,127,255}));
 
@@ -179,8 +159,8 @@ equation
           {-110,0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}}, color=
           {0,0,127}));
   connect(datRea.y[8], souCooWat.m_flow_in) annotation (Line(points={{-119,0},{
-          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}}, color
-        ={0,0,127}));
+          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}}, color=
+         {0,0,127}));
   connect(datRea.y[6], gai.u)
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
   connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,4},

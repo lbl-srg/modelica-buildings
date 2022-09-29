@@ -2,7 +2,6 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.Validation;
 model ConstantFanVariableWaterFlowrate
   "Validation model for controller with variable water flow rates and constant speed fan"
   extends Modelica.Icons.Example;
-
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate
     conVarWatConFan(
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -14,18 +13,15 @@ model ConstantFanVariableWaterFlowrate
     final tFanEna=5)
     "Controller for the fan coil unit"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=6,
     final duration=60,
     final offset=273.15 + 21) "Zone temperature"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(final k=
         273.15 + 25) "Cooling setpoint"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(final k=
         273.15 + 23) "Heating setpoint"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
