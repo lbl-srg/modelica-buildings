@@ -49,20 +49,21 @@ model CoolingMode
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
     final use_T_in=true,
-    nPorts=1) "Source for chilled water" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={70,-90})));
+    final nPorts=1)
+    "Source for chilled water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={70,-90})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souHeaWat(
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
     final use_T_in=true,
-    final nPorts=1) "Source for heating hot water" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={10,-90})));
+    final nPorts=1)
+    "Source for heating hot water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={10,-90})));
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
@@ -96,12 +97,14 @@ model CoolingMode
     "Sink for zone air"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0.2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(
+    final k=0.2)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](final p=fill(273.15,
-        3)) "Convert temperature from Celsius to Kelvin "
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](
+    final p=fill(273.15,3))
+    "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -113,11 +116,13 @@ model CoolingMode
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(final p=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(
+    final p=1)
     "Add 1 to humidity ratio value to find total mass of moist air"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(
+    final k=1)
     "Valve position of hot water coil and chilled water coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
@@ -179,8 +184,8 @@ equation
           {-110,0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}}, color=
           {0,0,127}));
   connect(datRea.y[8], souCooWat.m_flow_in) annotation (Line(points={{-119,0},{
-          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}}, color
-        ={0,0,127}));
+          -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}}, color=
+         {0,0,127}));
   connect(datRea.y[6], gai.u)
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
   connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,4},
