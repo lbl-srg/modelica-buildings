@@ -73,7 +73,8 @@ model IdealUser "Dummy user model"
     "Differential pressure sensor"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Modelica.Blocks.Interfaces.RealOutput dpUse
-    "Differential pressure of the user" annotation (Placement(transformation(
+    "Differential pressure from the sensor"
+                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,-80}), iconTransformation(
@@ -101,8 +102,7 @@ equation
   connect(dpSen.p_rel,dpUse)
     annotation (Line(points={{0,-59},{0,-80},{110,-80}}, color={0,0,127}));
   connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{-25,7},{-25,16},{96,16},{96,40},{110,40}},
-                                                         color={0,0,127}));
+    annotation (Line(points={{-25,7},{-25,40},{110,40}}, color={0,0,127}));
   connect(val.port_a, port_a)
     annotation (Line(points={{-40,0},{-100,0}}, color={0,127,255}));
   connect(dpSen.port_a, port_a) annotation (Line(
@@ -126,8 +126,8 @@ equation
 This is a simple ideal user model used by example models under
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
 Buildings.Fluid.Storage.Plant.Examples</a>.
-For simplicity, instead of setting up a heat exchanger to a room model,
-the consumer control valve simply tracks the return CHW temperature.
+The control valve simply tries to maintain the CHW return temperature
+at its nominal value.
 </p>
 </html>", revisions="<html>
 <ul>
