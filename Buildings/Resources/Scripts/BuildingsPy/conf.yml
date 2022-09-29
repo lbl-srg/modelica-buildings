@@ -101,6 +101,14 @@
   optimica:
     rtol: 1.0e-08
     solver: CVode
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+  openmodelica:
+    comment: Translation failed
+    translate: false
+- model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.TwoFloor_TwoZone
+  openmodelica:
+    comment: Translation failed
+    translate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
@@ -322,9 +330,21 @@
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.FLEXLAB.Rooms.Examples.X3WithRadiantFloor
+  openmodelica:
+    comment: 'TimeoutExpired: translation timed out after 300 seconds'
+    translate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case620
+  openmodelica:
+    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/583642309#L376"
+    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx.Case630
   openmodelica:
     comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
+    simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
+  openmodelica:
+    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/583660501#L376"
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case930
   openmodelica:

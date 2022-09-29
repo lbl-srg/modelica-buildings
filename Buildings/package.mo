@@ -299,6 +299,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading<br/>
+                       Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading
+    </td>
+    <td valign=\"top\">Added default value for output variables.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
 </tr>
