@@ -362,7 +362,6 @@ equation
       to <code>zero</code>.
       </li>
       </ul>
-      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFanVariableFlowrate.png\"/>
       </p>

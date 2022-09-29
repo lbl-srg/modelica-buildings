@@ -440,7 +440,6 @@ equation
     heating or cooling loads, respectively.
     </li>
     </ul>
-    </p>
     </html>
     ", revisions="<html>
     <ul>

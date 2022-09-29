@@ -200,7 +200,6 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/CoolingMode.mos"
       "Simulate and plot"),
     Documentation(info="<html>
-      <p>
       This is an open-loop validation model for the fan coil unit system model 
       implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem\">
       Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem</a>. It consists of:
@@ -220,7 +219,6 @@ equation
       data-table reader <code>datRea</code> for reading the simulation results from EnergyPlus.
       </li>
       </ul>
-      </p>
       <p>
       The simulation model is set-up to replicate an EnergyPlus model <code>FanCoilAutoSize_ConstantFlowVariableFan.idf</code>
       (available in the <code>/Resources/Data</code> section for this subpackage.)

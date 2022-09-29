@@ -244,10 +244,11 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Example/SingleZoneVariableFanConstantWaterFlowrate.mos"
       "Simulate and plot"),
     Documentation(info="<html>
-      <p>
+	  <p>
       This is an example model for the fan coil unit system model 
       demonstrating use-case with a variable fan, constant pump flowrate controller. 
       It consists of:
+	  </p>
       <ul>
       <li>
       an instance of the fan coil unit system model <code>fanCoiUni</code>.
@@ -271,7 +272,6 @@ equation
       zone temperature setpoint controller <code>TZonSet</code>.
       </li>
       </ul>
-      </p>
       <p>
       The simulation model provides a closed-loop example of <code>fanCoiUni</code> that
       is operated by <code>conVarFanConWat</code> and regulates the zone temperature 
@@ -283,7 +283,7 @@ equation
       </html>", revisions="<html>
       <ul>
       <li>
-      August 03, 2022 by Karthik Devaprasad:<br/>
+      August 03, 2022 by Karthik Devaprasad:<br>
       First implementation.
       </li>
       </ul>

@@ -345,7 +345,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-120},{140,120}})),
     Documentation(info="<html>
-      <p>
       This is a control module for the fan coil unit (FCU) system model designed as an 
       analogue to the <code>VariableFanConstantFlow</code> capacity control method 
       in EnergyPlus. The control logic is as described in the following section 
@@ -376,7 +375,6 @@ equation
       to <code>zero</code>.
       </li>
       </ul>
-      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateVariableFan.png\"/>
       </p>

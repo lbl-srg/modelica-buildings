@@ -29,7 +29,7 @@ equation
       signal for zone occupancy <code>TZonSet.uOcc</code> to check if the setpoint 
       output signals <code>TZonSet.TZonSetHea</code> and <code>TZonSet.TZonSetCoo</code>
       change accordingly.
-      </p>
+      </p></html>
       ", revisions="<html>
       <ul>
       <li>
