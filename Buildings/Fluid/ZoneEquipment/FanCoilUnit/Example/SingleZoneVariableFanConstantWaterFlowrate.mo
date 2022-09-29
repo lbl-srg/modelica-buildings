@@ -198,10 +198,10 @@ equation
   connect(greThrFanProOn.y, truDel.u)
     annotation (Line(points={{-108,-50},{-102,-50}},
                                                    color={255,0,255}));
-  connect(fanCoiUni.port_Air_a, zon.ports[1]) annotation (Line(points={{110,4},{
-          130,4},{130,80},{86,80},{86,100.9}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_a, zon.ports[1]) annotation (Line(points={{110,4},
+          {130,4},{130,80},{87,80},{87,100.9}},color={0,127,255}));
   connect(fanCoiUni.port_Air_b, zon.ports[2]) annotation (Line(points={{110,-4},
-          {140,-4},{140,90},{90,90},{90,100.9}}, color={0,127,255}));
+          {140,-4},{140,90},{89,90},{89,100.9}}, color={0,127,255}));
   connect(building.weaBus, fanCoiUni.weaBus) annotation (Line(
       points={{-30,50},{0,50},{0,17.6},{72.8,17.6}},
       color={255,204,51},
