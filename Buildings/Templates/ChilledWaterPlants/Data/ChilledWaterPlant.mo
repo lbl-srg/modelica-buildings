@@ -11,9 +11,6 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat
     "Type of CHW distribution system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_pumChiWatSec
-    "Set to true if the plant includes secondary CHW pumps"
-    annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Integer nPumChiWatSec
     "Number of secondary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -23,10 +20,15 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Integer nCoo
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl
-    typCtrSpePumConWat
+  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat
     "Type of CW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+
+  final parameter Boolean have_pumChiWatSec=
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
+    typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
+    "Set to true if the plant includes secondary CHW pumps"
+    annotation(Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Controller ctr(
     typChi=typChi,

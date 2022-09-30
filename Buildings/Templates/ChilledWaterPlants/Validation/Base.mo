@@ -36,6 +36,8 @@ model Base
     Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only;
   parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatPri=
     Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon;
+  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat=
+    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant;
 
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
@@ -43,10 +45,9 @@ model Base
       final nCoo=nCoo,
       final typChi=typChi,
       final typDisChiWat=typDisChiWat,
-      final have_pumChiWatSec=CHI.have_pumChiWatSec,
       final nPumChiWatSec=nPumChiWatSec,
       final typCoo=typCoo,
-      final typCtrSpePumConWat=CHI.typCtrSpePumConWat))
+      final typCtrSpePumConWat=typCtrSpePumConWat))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,72},{90,92}})));
 
@@ -58,8 +59,7 @@ model Base
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  replaceable Buildings.Templates.ChilledWaterPlants.AirCooled CHI
-    constrainedby Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
+  replaceable Buildings.Templates.ChilledWaterPlants.AirCooled CHI(
       redeclare final package MediumChiWat = MediumChiWat,
       redeclare replaceable package MediumCon = MediumConWat,
       final nChi=nChi,
@@ -77,12 +77,12 @@ model Base
       chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
           typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition))
     "CHW plant"
-    annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
+    annotation (Placement(transformation(extent={{-42,-30},{-2,10}})));
 
   Fluid.Sources.Boundary_pT bou(
     redeclare final package Medium=MediumChiWat,
     p=200000,
-    nPorts=3)
+    nPorts=2)
     "Boundary conditions for CHW distribution system"
     annotation (Placement(transformation(extent={{80,-20},{60,0}})));
 
@@ -92,29 +92,24 @@ model Base
     dp_nominal=dat.dpChiWatDis_nominal)
     "Flow resistance of CHW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Fluid.Sensors.Pressure pDem(
-    redeclare final package Medium=MediumChiWat) "Demand side pressure"
-    annotation (Placement(transformation(extent={{70,30},{50,50}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
 
 equation
   connect(res.port_b, bou.ports[1])
-    annotation (Line(points={{40,0},{60,0},{60,-11.3333}}, color={0,127,255}));
-  connect(bou.ports[2], pDem.port)
-    annotation (Line(points={{60,-10},{60,30}}, color={0,127,255}));
+    annotation (Line(points={{40,0},{60,0},{60,-11}},      color={0,127,255}));
   connect(weaDat.weaBus, CHI.busWea) annotation (Line(
-      points={{-50,80},{-20,80},{-20,10}},
+      points={{-60,80},{-22,80},{-22,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(res.port_a, CHI.port_b)
-    annotation (Line(points={{20,0},{0.2,0}}, color={0,127,255}));
-  connect(CHI.port_a, bou.ports[3]) annotation (Line(points={{0.2,-20.2},{60,-20.2},
-          {60,-8.66667}}, color={0,127,255}));
+  connect(CHI.port_a, bou.ports[2]) annotation (Line(points={{-1.8,-20.2},{60,-20.2},
+          {60,-9}},       color={0,127,255}));
+  connect(CHI.port_b, res.port_a)
+    annotation (Line(points={{-1.8,0},{20,0}}, color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

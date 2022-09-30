@@ -155,8 +155,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     typCoo=typCoo,
     nPumChiWatSec=nPumChiWatSec,
     typDisChiWat=typDisChiWat,
-    typCtrSpePumConWat=typCtrSpePumConWat,
-    have_pumChiWatSec=have_pumChiWatSec)
+    typCtrSpePumConWat=typCtrSpePumConWat)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=

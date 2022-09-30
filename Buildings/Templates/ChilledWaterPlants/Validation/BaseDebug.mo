@@ -19,17 +19,21 @@ model BaseDebug
   parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi=
     Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel;
   parameter Buildings.Templates.Components.Types.Chiller typChi=
-  Buildings.Templates.Components.Types.Chiller.AirCooled;
-  parameter Buildings.Templates.Components.Types.Cooler typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
+    Buildings.Templates.Components.Types.Chiller.AirCooled;
+  parameter Buildings.Templates.Components.Types.Cooler typCoo=
+    Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
     Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
 
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtrHea=
+    Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco=
+    Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
 
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=
+    Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only;
   parameter Boolean have_bypChiWatFix=false;
   parameter Boolean have_pumChiWatSec=false;
   parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatPri=
@@ -37,7 +41,7 @@ model BaseDebug
   parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatSec=
     Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon;
   parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat=
-    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon;
+    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant;
 
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso=chi.typValChiWatIso
     "Type of chiller CHW isolation valve"
@@ -59,7 +63,6 @@ model BaseDebug
       final typChi=typChi,
       final nChi=nChi,
       final typDisChiWat=typDisChiWat,
-      final have_pumChiWatSec=false,
       final nPumChiWatSec=nPumChiWatSec,
       final typCoo=typCoo,
       final nCoo=nCoo,
@@ -98,8 +101,8 @@ model BaseDebug
   Buildings.Templates.Components.Routing.MultipleToSingle outConChi(
     redeclare final package Medium = MediumCon,
     final nPorts=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-         and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-         then nChi + 1 else nChi,
+     and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+     then nChi + 1 else nChi,
     final m_flow_nominal=sum(chi.mConChi_flow_nominal),
     final energyDynamics=energyDynamics,
     final tau=tau,
@@ -137,8 +140,10 @@ model BaseDebug
     final allowFlowReversal=allowFlowReversal)
     "Primary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{160,30},{180,50}})));
-  Fluid.Sources.Boundary_pT bouCon(redeclare final package Medium = MediumCon,
-      final nPorts=1) "Air pressure boundary condition"
+  Fluid.Sources.Boundary_pT bouCon(
+    redeclare final package Medium = MediumCon,
+    final nPorts=1)
+    "Air pressure boundary condition"
     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -244,7 +249,7 @@ model BaseDebug
     Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
+    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Buildings.Templates.Components.Routing.PassThroughFluid supChiWat(redeclare
       final package Medium = MediumChiWat, final allowFlowReversal=
         allowFlowReversal)
@@ -346,7 +351,7 @@ equation
         points={{180,40},{180,20},{140,20}},          color={0,127,255}));
   for i in 1:nChi loop
     connect(weaDat.weaBus, souAir[i].weaBus) annotation (Line(
-      points={{-180,-120},{-80,-120},{-80,-60.2}},
+      points={{-180,0},{-86,0},{-86,-60.2},{-80,-60.2}},
       color={255,204,51},
       thickness=0.5));
   end for;
@@ -354,5 +359,5 @@ equation
     annotation (Line(points={{180,40},{180,0},{220,0}}, color={0,127,255}));
   connect(supChiWat.port_b, bouChiWat.ports[1]) annotation (Line(points={{240,0},
           {280,0},{280,41},{300,41}},           color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-140,-120},{380,120}})));
+  annotation (Diagram(coordinateSystem(extent={{-260,-120},{340,140}})));
 end BaseDebug;
