@@ -4,7 +4,7 @@ model ControlDemandLevel
   extends Modelica.Icons.Example;
 
 
-  Buildings.Fluid.Storage.Ice.Examples.BaseClasses.ControlDemandLevel ctrDemLev
+  Buildings.Fluid.Storage.Ice.Examples.BaseClasses.ControlDemandLevel ctrDemLev(Ti=10)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSet(
     k=283.15,
@@ -26,9 +26,10 @@ equation
           -5},{18,-5}}, color={0,0,127}));
   annotation (
       experiment(
-      StartTime=0,
       StopTime=7200,
-      Tolerance=1e-06),
+      __Dymola_NumberOfIntervals=5000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Radau"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Ice/Examples/BaseClasses/Validation/ControlDemandLevel.mos"
         "Simulate and Plot"),
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
