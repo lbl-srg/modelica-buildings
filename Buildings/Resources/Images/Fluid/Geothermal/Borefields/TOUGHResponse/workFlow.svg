@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="182.66946mm"
+   height="112.97733mm"
+   viewBox="0 0 182.66946 112.97733"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
+   sodipodi:docname="00_flowChart.svg"
+   inkscape:export-filename="/home/jianjun/Desktop/00_flowChart.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2603"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2601"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2314"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2312"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2073"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2071"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1817"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1802"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1613"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1611"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1555"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lstart">
+      <path
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1553"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1503"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1501"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1613-3"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1611-9"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-4"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path1208-2"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1555-5"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lstart"
+       inkscape:collect="always">
+      <path
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1553-9"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker1503-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path1501-1"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1555-5-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lstart">
+      <path
+         transform="matrix(1.1,0,0,1.1,1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1553-9-2"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1613-3-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1611-9-3"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2073-2"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2071-0"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker2073-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path2071-7"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(1.1,0,0,1.1,1.1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="405.73399"
+     inkscape:cy="130.52813"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="3789"
+     inkscape:window-height="1983"
+     inkscape:window-x="51"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815"
+       originx="-292.5484"
+       originy="-157.81931" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-292.54845,-26.203329)">
+    <path
+       style="opacity:0.1;fill:#00c600;fill-opacity:1;stroke:#000000;stroke-width:0.09054352;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 345.74815,26.248601 V 138.48441 H 475.17264 V 26.248601 Z"
+       id="path1715"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 292.67345,69.407283 v 11.679856 l 41.67986,-10e-7 V 69.407283 Z"
+       id="path817-8"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1503-4)"
+       d="M 352.3989,37.031343 V 54.4173"
+       id="path838-4"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 348.48963,54.873714 v 11.55047 H 390.0401 V 54.873712 Z"
+       id="path840-1"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#dce0de;fill-opacity:1;stroke:#000000;stroke-width:0.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 348.42494,85.783154 V 97.463058 H 390.1048 V 85.783154 Z"
+       id="path817-7-7"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.0812254px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.16378157"
+       x="414.44565"
+       y="101.76822"
+       id="text898-9"><tspan
+         sodipodi:role="line"
+         id="tspan896-4"
+         x="414.44565"
+         y="101.76822"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.0812254px;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.16378157">Implement in Python</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0910294"
+       x="360.03122"
+       y="58.444027"
+       id="text898-7-0"><tspan
+         sodipodi:role="line"
+         id="tspan1179-8"
+         x="360.03122"
+         y="58.444027"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';stroke-width:0.0910294">writeincon</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.18423"
+       y="41.545837"
+       id="text920-7"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan1679-5"
+         x="354.18423"
+         y="41.545837"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1023-4">Q<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan2367">i-1</tspan></tspan>: heat flow rate from each segment of the borehole to ground, at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic'"
+   id="tspan2377">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:aakar;-inkscape-font-specification:'aakar Italic';baseline-shift:sub"
+   id="tspan2375">i-1</tspan> </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.33542"
+       y="46.043758"
+       id="text920-4-2"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan1681-8"
+         x="354.33542"
+         y="46.043758"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1031-0">T<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan2371">i-1</tspan></tspan>: wall temperatures of each borehole segment, at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic'"
+   id="tspan5806">tim<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan5812">i-1</tspan></tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.56219"
+       y="50.881851"
+       id="text920-8-1"><tspan
+         sodipodi:role="line"
+         id="tspan918-3-1"
+         x="354.56219"
+         y="50.881851"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.05868289"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1015-6">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.84049785px;font-family:aakar;-inkscape-font-specification:'aakar Italic';baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan1013-2">i-1</tspan>: end time of last TOUGH simulation</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker1555-5)"
+       d="m 389.96337,60.61231 h 11.6046"
+       id="path980-8"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.71628737px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05629441"
+       x="402.19913"
+       y="57.584332"
+       id="text920-3-3"><tspan
+         sodipodi:role="line"
+         id="tspan1100-7"
+         x="402.19913"
+         y="57.584332"
+         style="stroke-width:0.05629441">&quot;SAVE&quot;: result from TOUGH at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05629441"
+   id="tspan4890-5">tim<tspan
+   style="font-size:1.76558661px;baseline-shift:sub;stroke-width:0.05629441"
+   id="tspan4892-4">i-1</tspan></tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.71815109px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05633302"
+       x="402.38797"
+       y="61.705242"
+       id="text920-3-8-6"><tspan
+         sodipodi:role="line"
+         id="tspan1106-1"
+         x="402.38797"
+         y="61.705242"
+         style="stroke-width:0.05633302">&quot;INFILE&quot;: template to be updated</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.71815109px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05633302"
+       x="402.38797"
+       y="65.636192"
+       id="text920-3-8-4-7"><tspan
+         sodipodi:role="line"
+         id="tspan1104-3"
+         x="402.38797"
+         y="65.636192"
+         style="stroke-width:0.05633302">&quot;writeincon.inp&quot;: template to be updated</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 401.41883,54.726294 v 11.845311 h 56.35776 V 54.726294 Z"
+       id="path1040-8"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Arrow2Lend-4)"
+       d="M 352.3989,66.590954 V 85.233726"
+       id="path1042-9"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.29764"
+       y="72.388687"
+       id="text920-3-8-9-99"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan4844-9"
+         x="354.29764"
+         y="72.388687">&quot;INFILE&quot;: file that includes thermal properties of ground and borehole, start/stop time and step size</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.4866"
+       y="77.26458"
+       id="text920-3-8-9-9-86"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan1110-3"
+         x="354.4866"
+         y="77.26458">&quot;INCON&quot;: initial temperatures (borehole, ground) of the simulation domain, at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan4894-8">tim<tspan
+   style="font-size:1.84049785px;baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan4896-8">i-1</tspan></tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.63782"
+       y="81.762497"
+       id="text920-3-8-9-9-8-6"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan1112-6"
+         x="354.63782"
+         y="81.762497">&quot;GENER&quot;: file that includes heat flow rate from borehole to ground</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1613-3)"
+       d="M 352.3989,97.727888 V 107.75975"
+       id="path1139-8"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.10864"
+       y="103.04256"
+       id="text920-3-7-8"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan1116-2"
+         x="354.10864"
+         y="103.04256">&quot;SAVE&quot;: TOUGH result file at time <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan4898-1">tim<tspan
+   style="font-size:1.84049785px;baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan4900-1">i</tspan></tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0910294"
+       x="361.39194"
+       y="111.42825"
+       id="text898-7-3-8"><tspan
+         sodipodi:role="line"
+         id="tspan1177-3"
+         x="361.39194"
+         y="111.42825"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';stroke-width:0.0910294">readsave</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 348.43015,113.15767 H 318.04106"
+       id="path1181-8"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.71172237px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05682778"
+       x="424.2915"
+       y="106.69042"
+       id="text1739-5"><tspan
+         sodipodi:role="line"
+         id="tspan1741-6"
+         x="424.2915"
+         y="106.69042"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.71172237px;line-height:0.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.05682778">def doStep(dblInp, state):</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.39133954px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09596504"
+       x="349.67117"
+       y="114.7636"
+       id="text898-0-9"><tspan
+         style="stroke-width:0.09596504"
+         sodipodi:role="line"
+         id="tspan1096-3"
+         x="349.67117"
+         y="114.7636">utility program to extract borehole wall</tspan><tspan
+         style="stroke-width:0.09596504"
+         sodipodi:role="line"
+         id="tspan1098-5"
+         x="349.67117"
+         y="117.75278">temperature from TOUGH results file</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 348.48963,107.50679 v 11.55047 h 41.55047 v -11.55047 z"
+       id="path840-2-7"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.39133954px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.09596504"
+       x="351.51846"
+       y="62.282368"
+       id="text898-0-8-0"><tspan
+         style="stroke-width:0.09596504"
+         sodipodi:role="line"
+         id="tspan1071-2-4"
+         x="351.51846"
+         y="62.282368">utility program to update TOUGH </tspan><tspan
+         style="stroke-width:0.09596504"
+         sodipodi:role="line"
+         id="tspan1073-2-4"
+         x="351.51846"
+         y="65.271545">input for each TOUGH call</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.1672349px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.16723324"
+       x="361.90753"
+       y="93.04406"
+       id="text898-8-7-9"><tspan
+         sodipodi:role="line"
+         id="tspan1122-3-3"
+         x="361.90753"
+         y="93.04406"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:aakar;stroke-width:0.16723324">TOUGH</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.87042356px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15532203"
+       x="303.45358"
+       y="74.831627"
+       id="text898-5-5-7"><tspan
+         sodipodi:role="line"
+         id="tspan1045-3-7"
+         x="303.45358"
+         y="74.831627"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:aakar;stroke-width:0.15532203">MODELICA</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.56630278px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05378032"
+       x="349.0979"
+       y="134.27701"
+       id="text1739-5-9-9"><tspan
+         sodipodi:role="line"
+         id="tspan1741-6-3-5"
+         x="349.0979"
+         y="134.27701"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.56630278px;line-height:0.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.05378032">state = {'tLast': <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';stroke-width:0.05378032"
+   id="tspan1166-2">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.66809678px;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';baseline-shift:sub;stroke-width:0.05378032"
+   id="tspan1164-0">i</tspan>, 'Q': <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';stroke-width:0.05378032"
+   id="tspan1162-8">Q<tspan
+   style="font-size:1.66809678px;baseline-shift:sub;stroke-width:0.05378032"
+   id="tspan1497">i</tspan></tspan>, 'T': <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';stroke-width:0.05378032"
+   id="tspan1158-3">T</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.66809678px;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';baseline-shift:sub;stroke-width:0.05378032"
+   id="tspan1156-5">i</tspan>}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.51232004px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.14095113"
+       x="379.92429"
+       y="130.62418"
+       id="text898-9-9"><tspan
+         sodipodi:role="line"
+         id="tspan896-4-6"
+         x="379.92429"
+         y="130.62418"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.51232004px;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.14095113">Update state</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1108611;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.44344437, 0.44344437;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 348.50156,126.83749 v 9.44774 h 79.70221 v -9.44774 z"
+       id="path840-2-7-5"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.08591557;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.34366225, 0.34366225;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker1613-3-6)"
+       d="m 352.50646,119.28032 v 7.40501"
+       id="path1139-8-0"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.04254818px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12209895"
+       x="359.71243"
+       y="30.998703"
+       id="text898-9-9-2"><tspan
+         sodipodi:role="line"
+         id="tspan896-4-6-1"
+         x="359.71243"
+         y="30.998703"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.04254818px;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.12209895">State of last invoke</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.37559652px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.04978381"
+       x="350.8522"
+       y="34.661705"
+       id="text1739-5-9-9-1"><tspan
+         sodipodi:role="line"
+         id="tspan1741-6-3-5-2"
+         x="350.8522"
+         y="34.661705"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.37559652px;line-height:0.25;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.04978381">state = {'tLast': <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';stroke-width:0.04978381"
+   id="tspan1166-2-6">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.54413807px;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';baseline-shift:sub;stroke-width:0.04978381"
+   id="tspan1164-0-9">i-1</tspan>, 'Q': <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';stroke-width:0.04978381"
+   id="tspan1162-8-4">Q<tspan
+   style="font-size:1.54413807px;baseline-shift:sub;stroke-width:0.04978381"
+   id="tspan1497-8">i-1</tspan></tspan>, 'T': <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';stroke-width:0.04978381"
+   id="tspan1158-3-2">T</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.54413807px;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch Italic';baseline-shift:sub;stroke-width:0.04978381"
+   id="tspan1156-5-8">i-1</tspan>}</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1108611;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.44344438, 0.44344438;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 348.50156,27.562046 v 9.44774 h 79.70221 v -9.44774 z"
+       id="path840-2-7-5-2"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="354.16815"
+       y="123.74372"
+       id="text920-4-0-8-7"><tspan
+         sodipodi:role="line"
+         id="tspan1582"
+         x="354.16815"
+         y="123.74372"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic'"
+   id="tspan1588">T<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan2717">i</tspan>:</tspan> wall temperatures of each borehole segment, at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic'"
+   id="tspan1586">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:64.99999762%;font-family:aakar;-inkscape-font-specification:'aakar Italic';baseline-shift:sub"
+   id="tspan1584">i</tspan></tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker2073)"
+       d="M 317.80822,81.586061 V 113.50973"
+       id="path1042-9-7"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 306.88302,81.290066 V 131.7318"
+       id="path1042-9-7-7"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker2314)"
+       d="M 348.45868,131.65585 H 306.73035"
+       id="path1181-8-8"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="297.43204"
+       y="135.03844"
+       id="text920-7-2"><tspan
+         sodipodi:role="line"
+         id="tspan2363"
+         x="297.43204"
+         y="135.03844"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic'"
+   id="tspan2385">Q<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan2391">i</tspan></tspan>: heat flow rate from each segment </tspan><tspan
+         sodipodi:role="line"
+         id="tspan2365"
+         x="297.43204"
+         y="138.57785">of the borehole to ground, at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic'"
+   id="tspan2395">tim<tspan
+   style="font-size:64.99999762%;baseline-shift:sub"
+   id="tspan2397">i-1</tspan></tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="311.15256"
+       y="129.4444"
+       id="text920-8-1-6"><tspan
+         sodipodi:role="line"
+         id="tspan918-3-1-1"
+         x="311.15256"
+         y="129.4444"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.05868289"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1015-6-1">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.84049785px;font-family:aakar;-inkscape-font-specification:'aakar Italic';baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan1013-2-2">i</tspan>: current time</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.4, 0.4;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 313.3389,60.498608 v 8.936329"
+       id="path1042-9-7-5"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.10095757;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.40383026, 0.40383026;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker2603)"
+       d="M 348.01324,60.769497 H 313.14816"
+       id="path1181-8-3"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="319.21899"
+       y="58.720139"
+       id="text920-8-1-6-0"><tspan
+         sodipodi:role="line"
+         id="tspan918-3-1-1-6"
+         x="319.21899"
+         y="58.720139"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.05868289"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1015-6-1-6">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.84049785px;font-family:aakar;-inkscape-font-specification:'aakar Italic';baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan1013-2-2-1">i</tspan>: current time</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="318.99957"
+       y="97.489586"
+       id="text920-4-0-8-7-39"><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan1582-6"
+         x="318.99957"
+         y="97.489586"><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1588-8">T<tspan
+   style="font-size:1.84049785px;baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan2717-5">i</tspan>:</tspan> wall temperatures</tspan><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         x="318.99957"
+         y="101.02901"
+         id="tspan2752">of each borehole</tspan><tspan
+         style="stroke-width:0.05868289"
+         sodipodi:role="line"
+         x="318.99957"
+         y="104.56842"
+         id="tspan2756">segment, at <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:aakar;-inkscape-font-specification:'aakar Italic';stroke-width:0.05868289"
+   id="tspan1586-1">tim</tspan><tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.84049785px;font-family:aakar;-inkscape-font-specification:'aakar Italic';baseline-shift:sub;stroke-width:0.05868289"
+   id="tspan1584-8">i</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:2.83153534px;line-height:1.25;font-family:aakar;-inkscape-font-specification:'aakar, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.05868289"
+       x="297.46658"
+       y="78.821609"
+       id="text920-3-8-9-99-6"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';stroke-width:0.05868289"
+         sodipodi:role="line"
+         id="tspan4844-9-6"
+         x="297.46658"
+         y="78.821609"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier 10 Pitch';-inkscape-font-specification:'Courier 10 Pitch';fill:#0000ff;fill-opacity:1"
+   id="tspan1191">when</tspan> {sampleTrigger}</tspan></text>
+  </g>
+</svg>
