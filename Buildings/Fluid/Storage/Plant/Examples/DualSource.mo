@@ -70,7 +70,7 @@ model DualSource
     allowFlowReversal=true,
     addPowerToMedium=false,
     y_start=0,
-    T_start=T_CHWR_nominal) "CHW supply pump for chi1"
+    T_start=T_CHWS_nominal) "CHW supply pump for chi1"
                                                  annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -283,7 +283,9 @@ model DualSource
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=nomPla2.m_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0) "Two-pipe connection to the storage plant"
+    final dpDis_nominal=0,
+    final junConSup(T_start=T_CHWS_nominal),
+    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the storage plant"
     annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -294,7 +296,9 @@ model DualSource
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=chi1.m2_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0) "Two-pipe connection to the chiller-only plant"
+    final dpDis_nominal=0,
+    final junConSup(T_start=T_CHWS_nominal),
+    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the chiller-only plant"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -304,7 +308,9 @@ model DualSource
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=ideUse2.m_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0) "Two-pipe connection to the user(s)"
+    final dpDis_nominal=0,
+    final junConSup(T_start=T_CHWS_nominal),
+    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
     annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -358,8 +364,8 @@ equation
                                      color={0,0,127}));
   connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-20},{150,
           -20},{150,250},{-18,250}},               color={0,0,127}));
-  connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-190},{
-          150,-190},{150,250.667},{-18,250.667}},
+  connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-190},{150,
+          -190},{150,250.667},{-18,250.667}},
                                           color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-42,250},{-52,250},{-52,230},{-58,230}},
