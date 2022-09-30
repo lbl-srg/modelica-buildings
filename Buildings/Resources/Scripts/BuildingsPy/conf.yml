@@ -219,6 +219,34 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.Guideline36
+  openmodelica:
+    comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSpring
+  openmodelica:
+    comment: 'division by zero at time 6393600, (a=3.874900467232077e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalSummer
+  openmodelica:
+    comment: 'division by zero at time 15984000, (a=2.95791846399214e-05) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.ConventionalWinter
+  openmodelica:
+    comment: 'division by zero at time 0, (a=2.918588003374964e-06) / (b=0), where divisor b expression is: max(-zonAHUCon.hvac.out.ports[3].m_flow, 1e-07) - zonAHUCon.sinZonFlo.ports[2].m_flow'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters
   openmodelica:
     comment: returned non-zero exit status 255.
@@ -234,6 +262,14 @@
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall
   openmodelica:
     comment: returned non-zero exit status 255.
+    simulate: false
+- model_name: Buildings.Obsolete.Examples.VAVReheat.Guideline36
+  openmodelica:
+    comment: timed out after 300 seconds
+    simulate: false
+- model_name: Buildings.Obsolete.Examples.VAVReheat.Validation.Guideline36SteadyState
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
     simulate: false
 - dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
