@@ -1295,13 +1295,13 @@ annotation (
           extent={{-194,78},{-124,58}},
           textColor={0,0,0},
           textString="VAirOut_flow",
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.SingleDamper)),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)),
        Text(
           extent={{-194,18},{-82,0}},
           textColor={0,0,0},
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow
-               or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
+          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
           textString="uSupFan_actual"),
        Text(
           extent={{-198,-40},{-116,-58}},
@@ -1380,7 +1380,7 @@ annotation (
           extent={{118,200},{200,182}},
           textColor={0,0,0},
           textString="yMinOutDam",
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersAirflow),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow),
        Text(extent={{86,244},{198,222}},
           textColor={0,0,0},
           textString="VEffAirOut_flow_min"),
@@ -1411,7 +1411,7 @@ annotation (
           extent={{118,172},{196,152}},
           textColor={255,0,255},
           textString="y1MinOutDam",
-          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorSection.DedicatedDampersPressure),
+          visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
        Text(extent={{132,12},{200,-8}},
           textColor={255,0,255},
           textString="y1SupFan"),
