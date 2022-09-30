@@ -484,7 +484,10 @@ equation
   end if;
 
   // Flow work
-  WFlo = dp_internal*V_flow;
+  WFlo = Buildings.Utilities.Math.Functions.smoothMax(
+           x1=dp_internal*V_flow,
+           x2=0,
+           deltaX=1E-4*dpMax*V_flow_max);
 
   // Power consumption
   if per.use_powerCharacteristic then
@@ -665,9 +668,24 @@ point is added and where two additional points are added.
 The parameter <code>curve</code> causes the correct data record
 to be used during the simulation.
 </p>
+<p>
+In order to prevent the model from producing negative mover power
+when either the flow rate or pressure rise is forced to be negative,
+the flow work <i>W&#775;<sub>flo</sub></i> is constrained to be non-negative.
+The regularisation starts around 0.01% of the characteristic maximum power
+<i>W&#775;<sub>max</sub> = V&#775;<sub>max</sub> &Delta;p<sub>max</sub></i>.
+See discussions and an example of this situation in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 6, 2022, by Hongxiang Fu:<br/>
+Added a constraint that <i>W<sub>flo</sub> = V&#775; &Delta;p &ge; 0</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
