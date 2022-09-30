@@ -83,8 +83,8 @@
     comment: timed out after 300 seconds.
     simulate: false
   optimica:
-    rtol: 1.0e-08
-    solver: CVode
+    comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
+    simulate: false
 - model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
   openmodelica:
     comment: Translation failed
@@ -94,6 +94,9 @@
     comment: Translation failed
     translate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
+  openmodelica:
+    comment: Fails to converge with dassl and CVode, also if tolerance is increased.
+    simulate: false
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
     simulate: false
