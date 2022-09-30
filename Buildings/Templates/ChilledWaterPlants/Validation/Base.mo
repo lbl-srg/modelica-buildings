@@ -61,7 +61,7 @@ model Base
 
   replaceable Buildings.Templates.ChilledWaterPlants.AirCooled CHI(
       redeclare final package MediumChiWat = MediumChiWat,
-      redeclare replaceable package MediumCon = MediumConWat,
+      redeclare replaceable package MediumCon = MediumAir,
       final nChi=nChi,
       final energyDynamics=energyDynamics,
       final tau=tau,
