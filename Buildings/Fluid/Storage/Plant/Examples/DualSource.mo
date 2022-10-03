@@ -86,8 +86,8 @@ model DualSource
         origin={-110,80})));
   Buildings.Controls.Continuous.LimPID conPI_pumChi1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
-    Ti=100,
+    k=0.2,
+    Ti=10,
     reverseActing=true) "PI controller" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -150,47 +150,23 @@ model DualSource
     final nom=nomPla2,
     final allowRemoteCharging=nomPla2.allowRemoteCharging,
     perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
-                              dp=nomPla2.dp_nominal*{2,0})))
+                       dp=nomPla2.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
-  Modelica.Blocks.Sources.BooleanTable uRemCha(
-    table={3600/9*6,3600/9*8},
+  Modelica.Blocks.Sources.BooleanTable uRemCha(table={360*7,360*9},
     startValue=false) "Tank is being charged remotely" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-170})));
-  Modelica.Blocks.Sources.BooleanTable uTanDis(
-    table={3600/9*1,3600/9*6,3600/9*8},
-    startValue=false)
-    "True = discharging; false = charging (either local or remote)" annotation (
-     Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-170,-30})));
   Buildings.Fluid.Storage.Plant.Controls.RemoteCharging conRemCha
     "Control block for the secondary pump and valves"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-30})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mTanSet_flow(
-    final realTrue=nomPla2.mTan_flow_nominal,
-    final realFalse=-nomPla2.mTan_flow_nominal)
-    "Set a positive flow rate when tank discharging and negative when charging"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-130,-30})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal mChiBra2Set_flow(
-    final realTrue=0,
-    final realFalse=nomPla2.mChi_flow_nominal)
-    "Set the flow rate to a constant value whenever the tank is not being charged remotely"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-150,-130})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2 "Tank charging remotely OR there is load"
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Tank charging remotely OR there is load"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -200,7 +176,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.8*dp_nominal,
+    dp_nominal=0.7*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -210,7 +186,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.8*dp_nominal,
+    dp_nominal=0.7*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -220,7 +196,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.8*dp_nominal,
+    dp_nominal=0.7*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -246,19 +222,17 @@ model DualSource
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal(nin=3)
     "Max of valve positions"
     annotation (Placement(transformation(extent={{60,-220},{40,-200}})));
-  Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 3600/9*1,0;
-        3600/9*1,QCooLoa_flow_nominal; 3600/9*4,QCooLoa_flow_nominal; 3600/9*4,
-        0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 360*2,0; 360*2,
+        QCooLoa_flow_nominal; 360*5,QCooLoa_flow_nominal; 360*5,0; 3600,0])
     "Cooling load"
     annotation (Placement(transformation(extent={{140,200},{120,220}})));
-  Modelica.Blocks.Sources.TimeTable set_QCooLoa2_flow(table=[0,0; 3600/9*2,0;
-        3600/9*2,QCooLoa_flow_nominal; 3600/9*5,QCooLoa_flow_nominal; 3600/9*5,
-        0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable set_QCooLoa2_flow(table=[0,0; 360*3,0; 360*3,
+        QCooLoa_flow_nominal; 360*6,QCooLoa_flow_nominal; 360*6,0; 3600,0])
     "Cooling load"
     annotation (Placement(transformation(extent={{140,10},{120,30}})));
-  Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 3600/9*3,0;
-        3600/9*3,QCooLoa_flow_nominal; 3600/9*7,QCooLoa_flow_nominal; 3600/9*7,
-        0; 3600,0])                                       "Cooling load"
+  Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 360*4,0; 360*4,
+        QCooLoa_flow_nominal; 360*8,QCooLoa_flow_nominal; 360*8,0; 3600,0])
+                                                          "Cooling load"
     annotation (Placement(transformation(extent={{140,-160},{120,-140}})));
   Modelica.Blocks.Math.Gain gaiUse1(k=1/ideUse1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
@@ -284,7 +258,8 @@ model DualSource
     final allowFlowReversal=true,
     final dpDis_nominal=0,
     final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the storage plant"
+    final junConRet(T_start=T_CHWS_nominal))
+    "Two-pipe connection to the storage plant"
     annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -297,7 +272,8 @@ model DualSource
     final allowFlowReversal=true,
     final dpDis_nominal=0,
     final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the chiller-only plant"
+    final junConRet(T_start=T_CHWS_nominal))
+    "Two-pipe connection to the chiller-only plant"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -330,6 +306,17 @@ model DualSource
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-130})));
+  Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 360*1,0;
+    360*1,-nomPla2.mTan_flow_nominal; 360*3,-nomPla2.mTan_flow_nominal; 360*3,0;
+    360*4,0; 360*4,nomPla2.mTan_flow_nominal; 360*6,nomPla2.mTan_flow_nominal;
+    360*6,0; 360*7,0; 360*7,-nomPla2.mTan_flow_nominal;
+    360*9,-nomPla2.mTan_flow_nominal;360*9,0]) "Tank flow rate setpoint"
+    annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
+  Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 360*1,0;
+    360*1,nomPla2.mTan_flow_nominal; 360*3,nomPla2.mTan_flow_nominal;
+    360*3,m_flow_nominal; 360*5,m_flow_nominal; 360*5,0])
+    "Flow rate setpoint for the chiller in the storage plant"
+    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
 equation
   connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{61,-174},
           {100,-174},{100,-210.667},{62,-210.667}},                       color=
@@ -369,14 +356,6 @@ equation
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-42,250},{-52,250},{-52,230},{-58,230}},
                                                              color={0,0,127}));
-  connect(uTanDis.y, mTanSet_flow.u) annotation (Line(points={{-159,-30},{-142,-30}},
-                              color={255,0,255}));
-  connect(mChiBra2Set_flow.u, uRemCha.y) annotation (Line(points={{-162,-130},{-170,
-          -130},{-170,-150},{-150,-150},{-150,-170},{-159,-170}},
-                            color={255,0,255}));
-  connect(chiBra2.mPumSet_flow,mChiBra2Set_flow. y)
-    annotation (Line(points={{-136,-101},{-136,-130},{-138,-130}},
-                                                             color={0,0,127}));
   connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-70,219},{-70,92}},
                            color={0,0,127}));
   connect(pumSup1.port_b, cheValPumChi1.port_a)
@@ -392,18 +371,15 @@ equation
                                                            color={0,0,127}));
   connect(on.y, chi1.on) annotation (Line(points={{-158,210},{-133,210},{-133,122}},
                     color={255,0,255}));
-  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-170},{-150,-170},{-150,
-          -150},{-50,-150},{-50,-142}},   color={255,0,255}));
+  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-170},{-50,-170},{-50,
+          -142}},                         color={255,0,255}));
   connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-210},{-42,-210},{-42,-142}},
         color={255,0,255}));
   connect(conRemCha.uAva, or2.y) annotation (Line(points={{-38,-26},{-32,-26},{-32,
           -110},{-50,-110},{-50,-118}},
                      color={255,0,255}));
-  connect(mTanSet_flow.y,conRemCha. mTanSet_flow) annotation (Line(points={{-118,
-          -30},{-110,-30},{-110,-22},{-61,-22}},
-                                               color={0,0,127}));
-  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-170},{-150,
-          -170},{-150,-150},{-28,-150},{-28,-22},{-38,-22}},
+  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-170},{-30,
+          -170},{-30,-22},{-38,-22}},
         color={255,0,255}));
   connect(conRemCha.yPumSup,netCon. yPumSup)
     annotation (Line(points={{-52,-41},{-52,-79}}, color={0,0,127}));
@@ -413,7 +389,6 @@ equation
     annotation (Line(points={{-130,-84},{-120,-84}}, color={0,127,255}));
   connect(chiBra2.port_a, tanBra.port_bToChi)
     annotation (Line(points={{-130,-96},{-120,-96}}, color={0,127,255}));
-
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-106,-79},{-106,-26},{-61,-26}},
                                                              color={0,0,127}));
@@ -455,6 +430,10 @@ equation
     annotation (Line(points={{-70,-96},{-60,-96}}, color={0,127,255}));
   connect(netCon.port_aFroChi, tanBra.port_bToNet)
     annotation (Line(points={{-60,-84},{-100,-84}}, color={0,127,255}));
+  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-159,
+          -30},{-110,-30},{-110,-22},{-61,-22}}, color={0,0,127}));
+  connect(mChi2Set_flow.y, chiBra2.mPumSet_flow) annotation (Line(points={{-159,
+          -130},{-136,-130},{-136,-101}}, color={0,0,127}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
@@ -484,7 +463,6 @@ less than 5% open and connected back when this value is higher than 10%.
 </p>
 <p>
 The <code>Timetable</code> blocks give the system the following behaviour:
-[fixme: Implement this model.]
 </p>
 <table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
