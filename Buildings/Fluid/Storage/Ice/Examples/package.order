@@ -1,7 +1,4 @@
 DistrictCoolingIceTank
-DistrictCoolingIceTankwFSM
-GlycolLoopIceTank
 Tank
-WaterLoopDistrictCooling
-WaterLoopDistrictCoolingWBui
+DELETE
 BaseClasses

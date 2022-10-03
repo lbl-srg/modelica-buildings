@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Ice.Examples;
+within Buildings.Fluid.Storage.Ice.Examples.DELETE;
 model GlycolLoopIceTank
   "Example that tests the ice tank model for a simplified district cooling application"
   extends Modelica.Icons.Example;

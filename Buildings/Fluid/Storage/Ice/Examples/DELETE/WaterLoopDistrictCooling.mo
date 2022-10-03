@@ -1,5 +1,5 @@
-within Buildings.Fluid.Storage.Ice.Examples;
-model WaterLoopDistrictCoolingWBui
+within Buildings.Fluid.Storage.Ice.Examples.DELETE;
+model WaterLoopDistrictCooling
   "Example that tests the ice tank model for a simplified district cooling application"
   extends Modelica.Icons.Example;
 
@@ -37,18 +37,23 @@ model WaterLoopDistrictCoolingWBui
     mEva_flow_nominal = 0.66*mWat_flow_nominal,
     mCon_flow_nominal = mCon_flow_nominal) annotation (Placement(transformation(extent={{134,76},{154,96}})));
 
-  Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
-    have_heaWat = false,
-    redeclare package Medium2 = MediumAir,
-    filNam = "Fluid/Storage/Ice/Examples/SampleDistrictCoolingLoadsScaled.txt",
-    QHea_flow_nominal = 1e-15,
-    nPorts_aHeaWat = 1,
-    nPorts_bHeaWat = 1,
-    nPorts_bChiWat = 1,
-    nPorts_aChiWat = 1) "Building model with district loads"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
+  Buildings.Fluid.HeatExchangers.HeaterCooler_u disCooCoi(
+    redeclare package Medium = MediumWater,
+    m_flow_nominal=mWat_flow_nominal,
+    dp_nominal=0,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_nominal=1)
+    "District cooling coil" annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
         origin={134,-22})));
+
+  Modelica.Blocks.Sources.Sine disCoiLoad(
+    amplitude=QDisCoi/2,
+    f=1/86400,
+    offset=QDisCoi/2,
+    startTime=0)
+    annotation (Placement(transformation(extent={{164,-10},{152,2}})));
 
   Buildings.Fluid.Chillers.ElectricEIR chiWat(
     redeclare package Medium1 = MediumAir,
@@ -167,8 +172,7 @@ model WaterLoopDistrictCoolingWBui
     annotation (Placement(transformation(extent={{94,40},{82,52}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val3On(k = 1) "Valve 3 on position"
     annotation (Placement(transformation(extent={{112,42},{100,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val3Off(k = 0.1)
-    "Valve 3 off position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant val3Off(k = 0.1) "Valve 3 off position"
     annotation (Placement(transformation(extent={{112,50},{100,62}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conPIVal8(
     final k(min=0) = kCon,
@@ -312,10 +316,9 @@ model WaterLoopDistrictCoolingWBui
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrT3(t = TCooStart)
     "Threshold for district cooling coil outlet temperature"
     annotation (Placement(transformation(extent={{152,-44},{164,-32}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrDis(t=QDisCoi/2) "Threshold for district cooling"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrDis(t=QDisCoi/2)
+                 "Threshold for district cooling"
     annotation (Placement(transformation(extent={{-58,-126},{-70,-114}})));
-
 equation
   connect(pum3.port_b, chiWat.port_a2)
     annotation (Line(points={{54,-58},{54,-43}}, color={0,127,255}));
@@ -434,8 +437,9 @@ equation
   connect(greThrT3.y, T0.condition) annotation (Line(points={{165.2,-38},{172,
           -38},{172,100},{-150,100},{-150,-20},{-160,-20},{-160,-8}}, color={
           255,0,255}));
-  connect(lesThrT3.y, mulOrT6.u[2]) annotation (Line(points={{165.2,-60},{166,-60},
-          {166,-100},{-132,-100},{-132,-85.2},{-131.9,-85.2}}, color={255,0,255}));
+  connect(lesThrT3.y, mulOrT6.u[2]) annotation (Line(points={{165.2,-60},{166,
+          -60},{166,-100},{-132,-100},{-132,-85.2},{-131.9,-85.2}},
+                                                               color={255,0,255}));
   connect(booToReaVal1.u, booToReaPum2.u) annotation (Line(points={{0.8,36},{-30,
           36},{-30,-54},{-17.2,-54}}, color={255,0,255}));
   connect(swiVal3.u2, booToReaPum2.u) annotation (Line(points={{95.2,46},{120,46},
@@ -456,22 +460,24 @@ equation
           {112,-56},{134,-56},{134,-52}}, color={0,127,255}));
   connect(relPrePum4.port_a, val8.port_a) annotation (Line(points={{112,-16},{112,
           8},{134,8},{134,4}}, color={0,127,255}));
-  connect(bui.ports_bChiWat[1], temSen3.port_a) annotation (Line(points={{128,
-          -32},{128,-36},{134,-36},{134,-40}}, color={0,127,255}));
-  connect(bui.ports_aChiWat[1], val8.port_b) annotation (Line(points={{128,-12},
-          {128,-8},{134,-8},{134,-4}}, color={0,127,255}));
   connect(T0.inPort, standby.outPort[2]) annotation (Line(points={{-164,4},{-164,
           4},{-165.7,4}},       color={0,0,0}));
-  connect(greThrDis.y,swiHeaFloIce. u2) annotation (Line(points={{-71.2,-120},{-78,
-          -120},{-78,-82},{-73.2,-82}}, color={255,0,255}));
-  connect(iceTanCoo.y, swiHeaFloIce.u1) annotation (Line(points={{-87.4,-64},{-84,
-          -64},{-84,-77.2},{-73.2,-77.2}}, color={0,0,127}));
-  connect(iceTanOff.y,swiHeaFloIce. u3) annotation (Line(points={{-86.8,-84},{-84,
-          -84},{-84,-86.8},{-73.2,-86.8}}, color={0,0,127}));
+  connect(val8.port_b, disCooCoi.port_a)
+    annotation (Line(points={{134,-4},{134,-12}}, color={0,127,255}));
+  connect(disCooCoi.port_b, temSen3.port_a)
+    annotation (Line(points={{134,-32},{134,-40}}, color={0,127,255}));
+  connect(disCoiLoad.y, disCooCoi.u)
+    annotation (Line(points={{151.4,-4},{140,-4},{140,-10}}, color={0,0,127}));
   connect(swiHeaFloIce.y, fixHeaFloIce.Q_flow)
     annotation (Line(points={{-58.8,-82},{-52,-82}}, color={0,0,127}));
-  connect(bui.QReqCoo_flow, greThrDis.u) annotation (Line(points={{122.667,-30},
-          {120,-30},{120,-120},{-56.8,-120}}, color={0,0,127}));
+  connect(iceTanCoo.y, swiHeaFloIce.u1) annotation (Line(points={{-87.4,-64},{-84,
+          -64},{-84,-77.2},{-73.2,-77.2}}, color={0,0,127}));
+  connect(iceTanOff.y, swiHeaFloIce.u3) annotation (Line(points={{-86.8,-84},{-84,
+          -84},{-84,-86.8},{-73.2,-86.8}}, color={0,0,127}));
+  connect(greThrDis.y, swiHeaFloIce.u2) annotation (Line(points={{-71.2,-120},{-78,
+          -120},{-78,-82},{-73.2,-82}}, color={255,0,255}));
+  connect(greThrDis.u, disCoiLoad.y) annotation (Line(points={{-56.8,-120},{144,
+          -120},{144,-4},{151.4,-4}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=259200,
@@ -501,4 +507,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-180,-120},{180,120}})),
     Icon(coordinateSystem(extent={{-180,-120},{180,120}})));
-end WaterLoopDistrictCoolingWBui;
+end WaterLoopDistrictCooling;
