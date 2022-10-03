@@ -10,3 +10,4 @@ RealScalarReplicator
 RealVectorFilter
 RealVectorReplicator
 Validation
+BooleanExtractor
