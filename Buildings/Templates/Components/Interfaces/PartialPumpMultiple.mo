@@ -54,4 +54,9 @@ partial model PartialPumpMultiple
      annotation (Placement(
         transformation(extent={{90,-40},{110,40}}), iconTransformation(extent={{90,-40},
             {110,40}})));
+  annotation (Icon(graphics={
+        Text(
+          extent={{-149,-114},{151,-154}},
+          textColor={0,0,255},
+          textString="%name")}));
 end PartialPumpMultiple;

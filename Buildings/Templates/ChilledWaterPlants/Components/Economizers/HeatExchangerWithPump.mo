@@ -19,9 +19,11 @@ model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
   Buildings.Templates.Components.Pumps.Single pumChiWat(
     have_valChe=false,
     redeclare final package Medium=MediumChiWat,
-    final allowFlowReversal=allowFlowReversal,
     final typCtrSpe=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable,
-    final dat=datPumChiWat)
+    final dat=datPumChiWat,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final allowFlowReversal=allowFlowReversal)
     "Heat exchanger CHW pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,

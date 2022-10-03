@@ -150,9 +150,10 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant dat(
     typChi=typChi,
+    typCoo=typCoo,
+    typEco=typEco,
     nChi=nChi,
     nCoo=nCoo,
-    typCoo=typCoo,
     nPumChiWatSec=nPumChiWatSec,
     typDisChiWat=typDisChiWat,
     typCtrSpePumConWat=typCtrSpePumConWat)

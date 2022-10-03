@@ -60,6 +60,17 @@ partial model PartialEconomizer "Partial waterside economizer model"
     final per=dat.perPumChiWat)
     "Heat exchanger CHW pump";
 
+  parameter Modelica.Units.SI.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_aConWat(
    redeclare final package Medium = MediumConWat,
    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),

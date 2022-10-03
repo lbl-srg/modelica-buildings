@@ -84,7 +84,10 @@ model Economizer "Validation model for WSE components"
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datEcoVal,
-    hex(show_T=true))    "WSE with CHW bypass valve"
+    hex(show_T=true),
+    final energyDynamics=energyDynamics,
+    final tau=tau)
+    "WSE with CHW bypass valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bouConWatRet(
     redeclare final package Medium=MediumConWat,
@@ -115,7 +118,10 @@ model Economizer "Validation model for WSE components"
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datEcoPum,
-    hex(show_T=true))    "WSE with HX pump"
+    hex(show_T=true),
+    final energyDynamics=energyDynamics,
+    final tau=tau)
+    "WSE with HX pump"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco
     "WSE CHW pump control bus" annotation (Placement(transformation(extent={{-20,-40},

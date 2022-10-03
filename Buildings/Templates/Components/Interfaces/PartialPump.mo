@@ -44,9 +44,4 @@ model PartialPump "Base class for all pump models"
         rotation=0,
         origin={0,100})));
 
-  annotation (Icon(graphics={
-        Text(
-          extent={{-149,-112},{151,-152}},
-          textColor={0,0,255},
-          textString="%name")}));
 end PartialPump;

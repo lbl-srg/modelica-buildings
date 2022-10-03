@@ -24,7 +24,8 @@ record PumpSingle "Record for single pump model"
     annotation(Dialog(group="Pump",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
-  parameter Modelica.Units.SI.Density rho_default=1000
+  parameter Modelica.Units.SI.Density rho_default=
+    Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
     "Default medium density"
     annotation(Dialog(enable=false));
 end PumpSingle;

@@ -53,6 +53,7 @@ record AllSystems
       dpConWatStaCoo_nominal=fill(if CHI.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
         Buildings.Templates.Data.Defaults.dpConWatStaTow else 0, CHI.nCoo)),
     pumConWat(
-      dp_nominal=1.5*(CHI.chi.dpConChi_nominal + CHI.coo.dpConWatFriCoo_nominal + CHI.coo.dpConWatStaCoo_nominal)))
+      dp_nominal=1.5*(CHI.chi.dpConChi_nominal + CHI.coo.dpConWatFriCoo_nominal + CHI.coo.dpConWatStaCoo_nominal)),
+    eco)
     "CHW plant parameters - SERIES arrangement";
 end AllSystems;

@@ -10,6 +10,10 @@ record PumpMultiple "Record for multiple pumps models"
     start=1)
     "Number of pumps"
     annotation (Dialog(group="Configuration", enable=false));
+  parameter Modelica.Units.SI.Density rho_default=
+    Modelica.Media.Water.ConstantPropertyLiquidWater.d_const
+    "Default medium density"
+    annotation(Dialog(enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal[nPum](
     each final min=0)
@@ -30,7 +34,4 @@ record PumpMultiple "Record for multiple pumps models"
     annotation(Dialog(group="Pump",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
-  parameter Modelica.Units.SI.Density rho_default=1000
-    "Default medium density"
-    annotation(Dialog(enable=false));
 end PumpMultiple;
