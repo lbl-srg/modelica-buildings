@@ -47,7 +47,7 @@ model DualSource
     PLRMinUnl=0.3,
     PLRMin=0.3,
     etaMotor=1,
-    mEva_flow_nominal=0.7*m_flow_nominal,
+    mEva_flow_nominal=m_flow_nominal,
     mCon_flow_nominal=1.2*perChi1.mEva_flow_nominal,
     TEvaLvg_nominal=280.15,
     capFunT={1,0,0,0,0,0},
@@ -63,9 +63,8 @@ model DualSource
             180}})));
  Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
     redeclare package Medium = MediumCHW,
-    per(pressure(
-          dp=dp_nominal*{2,1.2,0},
-          V_flow=(1.5*m_flow_nominal)/1.2*{0,1.2,2})),
+    per(pressure(dp=dp_nominal*{2,0},
+                 V_flow=(perChi1.mEva_flow_nominal)/1.2*{0,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -126,15 +125,17 @@ model DualSource
 // Second source: chiller and tank
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nomPla2(
     allowRemoteCharging=true,
-    mTan_flow_nominal=0.75*m_flow_nominal,
-    mChi_flow_nominal=0.75*m_flow_nominal,
+    mTan_flow_nominal=m_flow_nominal,
+    mChi_flow_nominal=2*m_flow_nominal,
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     redeclare final package Medium = MediumCHW,
-    final nom=nomPla2) "Tank branch, tank can be charged remotely" annotation (
+    final nom=nomPla2,
+    final TTan_start=nomPla2.T_CHWR_nominal)
+                       "Tank branch, tank can be charged remotely" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -199,7 +200,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal,
+    dp_nominal=0.8*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -209,7 +210,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal,
+    dp_nominal=0.8*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -219,7 +220,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal,
+    dp_nominal=0.8*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(

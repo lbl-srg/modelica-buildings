@@ -3,12 +3,15 @@ model TankBranch
   "Model of the tank branch of a storage plant"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
+  parameter Modelica.Units.SI.Temperature TTan_start=nom.T_CHWS_nominal
+    "Start temperature of the tank";
+
   Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
     final m_flow_nominal=nom.mTan_flow_nominal,
-    dp_nominal=0.1*nom.dp_nominal) "Flow resistance on tank branch" annotation
-    (Placement(transformation(
+    dp_nominal=0.1*nom.dp_nominal) "Flow resistance on tank branch" annotation (
+     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,0})));
@@ -21,7 +24,7 @@ model TankBranch
     nSeg=7,
     show_T=true,
     m_flow_nominal=nom.mTan_flow_nominal,
-    T_start=nom.T_CHWS_nominal,
+    final T_start=TTan_start,
     TFlu_start=linspace(
         nom.T_CHWR_nominal,
         nom.T_CHWS_nominal,
