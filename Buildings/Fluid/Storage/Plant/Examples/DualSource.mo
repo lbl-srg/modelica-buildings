@@ -8,7 +8,7 @@ model DualSource
   package MediumCDW1 = Buildings.Media.Water "Medium model for CDW of chi1";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
-    "Nominal mass flow rate";
+    "Nominal mass flow rate to satisfy nominal load of one user";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final displayUnit="Pa")=
      300000
@@ -64,9 +64,9 @@ model DualSource
  Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
     redeclare package Medium = MediumCHW,
     per(pressure(dp=dp_nominal*{2,0},
-                 V_flow=(perChi1.mEva_flow_nominal)/1.2*{0,2})),
+                 V_flow=(chi1.m2_flow_nominal)/1.2*{0,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=true,
+    allowFlowReversal=false,
     addPowerToMedium=false,
     y_start=0,
     T_start=T_CHWS_nominal) "CHW supply pump for chi1"
@@ -78,8 +78,7 @@ model DualSource
   Buildings.Fluid.FixedResistances.CheckValve cheValPumChi1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=chi1.m2_flow_nominal,
-    dpValve_nominal=0.1*dp_nominal,
-    dpFixed_nominal=0.1*dp_nominal) "Check valve" annotation (Placement(
+    dpValve_nominal=0.1*dp_nominal) "Check valve" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
