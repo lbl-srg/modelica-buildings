@@ -1,58 +1,45 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses;
 block ZoneTemperatureSetpoint
   "Set point scheduler for zone temperature"
-
   parameter Modelica.Units.SI.Temperature THeaOn=293.15
     "Heating setpoint during on";
-
   parameter Modelica.Units.SI.Temperature THeaOff=285.15
     "Heating setpoint during off";
-
   parameter Modelica.Units.SI.Temperature TCooOn=297.15
     "Cooling setpoint during on";
-
   parameter Modelica.Units.SI.Temperature TCooOff=303.15
     "Cooling setpoint during off";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
     "Zone occupancy signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonSetHea
     "Zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{100,30},{140,70}}),
       iconTransformation(extent={{100,20},{140,60}})));
-
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TZonSetCoo
     "Zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{100,-70},{140,-30}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
-
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetHeaOcc(
     final k=THeaOn)
     "Occupied zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Switch swiTSetHea
     "Switch between occupied and unoccupied heating setpoint temperature"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetHeaUnocc(
     final k=THeaOff)
     "Unoccupied zone heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Switch swiTSetCoo
     "Switch between occupied and unoccupied cooling setpoint temperature"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetCooOcc(
     final k=TCooOn)
     "Occupied zone cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TZonSetCooUnocc(
     final k=TCooOff)
     "Unoccupied zone cooling setpoint temperature"

@@ -1,45 +1,37 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
 block VariableFanConstantWaterFlowrate
   "Controller for fan coil system with constant water flow rates and variable speed fan"
-
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of fan cooling loop controller"
     annotation (Dialog(group="Fan control parameters - Cooling mode"));
-
   parameter Real kCoo(
     final unit="1",
     displayUnit="1")=1
     "Gain of fan cooling loop controller"
     annotation(Dialog(group="Fan control parameters - Cooling mode"));
-
   parameter Modelica.Units.SI.Time TiCoo=0.5
     "Time constant of fan cooling loop integrator block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of fan cooling loop derivative block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of fan heating loop controller"
     annotation (Dialog(group="Fan control parameters - Heating mode"));
-
   parameter Real kHea(
     final unit="1",
     displayUnit="1")=1
     "Gain of fan heating loop controller"
     annotation(Dialog(group="Fan control parameters - Heating mode"));
-
   parameter Modelica.Units.SI.Time TiHea=0.5
     "Time constant of fan heating loop integrator block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of fan heating loop derivative block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
@@ -51,25 +43,20 @@ block VariableFanConstantWaterFlowrate
     displayUnit="1",
     final min=0,
     final max=1) = 0.4
-    "Minimum allowed fan speed"
+    "Minimum fan speed"
     annotation(Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for fan enable delay"
     annotation(Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.Time tFanEna = 300
-    "Minimum duration for which fan is enabled"
+    "Minimum running time of the fan"
     annotation(Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.Time tValEna = 600
     "Minimum duration for which heating/cooling valve action is enabled"
     annotation(Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.Time tValDis = 300
     "Minimum duration for which heating/cooling valve action is disabled"
     annotation(Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling coooling and heating mode"
     annotation(Dialog(tab="Advanced"));
@@ -332,7 +319,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-120},{140,120}})),
     Documentation(info="<html>
-      <p>
       This is a control module for the fan coil unit (FCU) system model designed as an 
       analogue to the <code>VariableFanConstantFlow</code> capacity control method 
       in EnergyPlus. The control logic is as described in the following section 
@@ -363,7 +349,6 @@ equation
       to <code>zero</code>.
       </li>
       </ul>
-      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateVariableFan.png\"/>
       </p>

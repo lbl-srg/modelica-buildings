@@ -2,15 +2,12 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.Validation;
 model ZoneTemperatureSetpoint
   "Validation model for zone temperature setpoint controller"
   extends Modelica.Icons.Example;
-
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.ZoneTemperatureSetpoint TZonSet
     "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-
 protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occ(
-    final period=100)
-    "Boolean pulse signal for zone occupancy"
+    final period=100) "Occupancy schedule"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
@@ -29,7 +26,7 @@ equation
       signal for zone occupancy <code>TZonSet.uOcc</code> to check if the setpoint 
       output signals <code>TZonSet.TZonSetHea</code> and <code>TZonSet.TZonSetCoo</code>
       change accordingly.
-      </p>
+      </p></html>
       ", revisions="<html>
       <ul>
       <li>

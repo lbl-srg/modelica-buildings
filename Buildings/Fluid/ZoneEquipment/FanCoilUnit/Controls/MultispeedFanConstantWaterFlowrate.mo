@@ -1,7 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
 block MultispeedFanConstantWaterFlowrate
   "Controller for fan coil system with constant water flow rates and variable speed fan"
-
   parameter Integer nSpe(
     final min=2) = 2
     "Number of fan speeds"
@@ -20,41 +19,34 @@ block MultispeedFanConstantWaterFlowrate
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling loop controller"
     annotation (Dialog(group="Fan control parameters - Cooling mode"));
-
   parameter Real kCoo(
     final unit="1",
     displayUnit="1")=1
     "Gain of cooling loop controller"
     annotation(Dialog(group="Fan control parameters - Cooling mode"));
-
   parameter Modelica.Units.SI.Time TiCoo=0.5
     "Time constant of cooling loop integrator block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of cooling loop derivative block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating loop controller"
     annotation (Dialog(group="Fan control parameters - Heating mode"));
-
   parameter Real kHea(
     final unit="1",
     displayUnit="1")=1
     "Gain of heating loop controller"
     annotation(Dialog(group="Fan control parameters - Heating mode"));
-
   parameter Modelica.Units.SI.Time TiHea=0.5
     "Time constant of heating loop integrator block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
   parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of heating loop derivative block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
@@ -64,9 +56,9 @@ block MultispeedFanConstantWaterFlowrate
   parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
     annotation(Dialog(group="System parameters"));
-
+	
   parameter Modelica.Units.SI.Time tFanEna = 300
-    "Minimum duration for which fan is enabled"
+    "Minimum running time of the fan"
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.Time tValEna = 600
@@ -80,7 +72,6 @@ block MultispeedFanConstantWaterFlowrate
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling cooling and heating mode"
     annotation(Dialog(tab="Advanced"));
-
   parameter Real dFanSpe(
     final unit="1",
     displayUnit="1") = 0.05
@@ -276,12 +267,12 @@ protected
     "Keep fan enabled for minimum duration"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
 
-protected
+
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(final
       trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
     "Ensure cooling is enabled and disabled for minimum time duration"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-protected
+
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(final
       trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
     "Ensure heating is enabled and disabled for minimum time duration"
@@ -437,7 +428,6 @@ equation
       to <code>zero</code>.
       </li>
       </ul>
-      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateMultispeedFan.png\"/>
       </p>
