@@ -473,16 +473,17 @@ equation
           {100,100},{150,100}},         color={0,127,255}));
   connect(gaiPumWatHex.y, pumHexSec.m_flow_in) annotation (Line(points={{62,260},
           {120,260},{120,-50},{112,-50}}, color={0,0,127}));
-  connect(con.TChiWatSet, chiWat.TSet) annotation (Line(points={{-403.333,243.76},
-          {201,243.76},{201,22}},  color={0,0,127}));
-  connect(con.TChiGlySet, chiGly.TSet) annotation (Line(points={{-403.333,241.52},
-          {-61,241.52},{-61,22}},
+  connect(con.TChiWatSet, chiWat.TSet) annotation (Line(points={{-403.333,
+          243.76},{201,243.76},{201,22}},
+                                   color={0,0,127}));
+  connect(con.TChiGlySet, chiGly.TSet) annotation (Line(points={{-403.333,
+          241.52},{-61,241.52},{-61,22}},
                               color={0,0,127}));
-  connect(con.yStoOn, valStoDis.y) annotation (Line(points={{-403.333,239.28},{-362,
-          239.28},{-362,234},{-340,234},{-340,-112},{-252,-112}},       color={
+  connect(con.yStoOn, valStoDis.y) annotation (Line(points={{-403.333,239.28},{
+          -362,239.28},{-362,234},{-340,234},{-340,-112},{-252,-112}},  color={
           0,0,127}));
-  connect(con.yStoByp, valStoCha.y) annotation (Line(points={{-403.333,237.04},{
-          -364,237.04},{-364,230},{-346,230},{-346,-68},{-190,-68},{-190,-80}},
+  connect(con.yStoByp, valStoCha.y) annotation (Line(points={{-403.333,237.04},
+          {-364,237.04},{-364,230},{-346,230},{-346,-68},{-190,-68},{-190,-80}},
         color={0,0,127}));
   connect(gaiPumSec.y, pumLoa.m_flow_in)
     annotation (Line(points={{358,-50},{332,-50}}, color={0,0,127}));
@@ -496,27 +497,33 @@ equation
           {-140,-18},{-140,-50},{-112,-50}}, color={0,0,127}));
   connect(gaiGlyPumHex.y, pumHexPri.m_flow_in) annotation (Line(points={{-298,10},
           {-282,10},{-282,-14},{12,-14},{12,-50},{28,-50}}, color={0,0,127}));
-  connect(gaiGlyPumSto.u, con.yPumSto) annotation (Line(points={{-322,-50},{-360,
-          -50},{-360,228.08},{-403.333,228.08}}, color={0,0,127}));
-  connect(gaiGlyPumHex.u, con.yPumGlyHex) annotation (Line(points={{-322,10},{-366,
-          10},{-366,223.6},{-403.333,223.6}}, color={0,0,127}));
-  connect(gaiGlyPumChi.u, con.yPumGlyChi) annotation (Line(points={{-322,-18},{-374,
-          -18},{-374,225.728},{-403.333,225.728}}, color={0,0,127}));
-  connect(con.yPumWatHex, gaiPumWatHex.u) annotation (Line(points={{-403.333,221.36},
-          {-181.667,221.36},{-181.667,260},{38,260}}, color={0,0,127}));
-  connect(con.yPumWatChi, gaiPumWatChi.u) annotation (Line(points={{-403.333,219.12},
-          {-176,219.12},{-176,292},{38,292}}, color={0,0,127}));
+  connect(gaiGlyPumSto.u, con.yPumSto) annotation (Line(points={{-322,-50},{
+          -360,-50},{-360,228.08},{-403.333,228.08}},
+                                                 color={0,0,127}));
+  connect(gaiGlyPumHex.u, con.yPumGlyHex) annotation (Line(points={{-322,10},{
+          -366,10},{-366,223.6},{-403.333,223.6}},
+                                              color={0,0,127}));
+  connect(gaiGlyPumChi.u, con.yPumGlyChi) annotation (Line(points={{-322,-18},{
+          -374,-18},{-374,225.728},{-403.333,225.728}},
+                                                   color={0,0,127}));
+  connect(con.yPumWatHex, gaiPumWatHex.u) annotation (Line(points={{-403.333,
+          221.36},{-181.667,221.36},{-181.667,260},{38,260}},
+                                                      color={0,0,127}));
+  connect(con.yPumWatChi, gaiPumWatChi.u) annotation (Line(points={{-403.333,
+          219.12},{-176,219.12},{-176,292},{38,292}},
+                                              color={0,0,127}));
   connect(con.SOC, iceTan.SOC) annotation (Line(points={{-420.667,222.48},{-430,
           222.48},{-430,40},{-244,40},{-244,21}}, color={0,0,127}));
-  connect(con.THexWatLea, senTemHexWat.T) annotation (Line(points={{-420.667,226.848},
-          {-428,226.848},{-428,180},{80,180},{80,60},{89,60}}, color={0,0,127}));
+  connect(con.THexWatLea, senTemHexWat.T) annotation (Line(points={{-420.667,
+          226.848},{-428,226.848},{-428,180},{80,180},{80,60},{89,60}},
+                                                               color={0,0,127}));
   connect(con.TSetLoa, chiWatTSet.y) annotation (Line(points={{-420.667,232.56},
           {-452,232.56},{-452,250},{-458,250}}, color={0,0,127}));
-  connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,235.92},{-446,
-          235.92},{-446,290},{-458,290}},       color={255,127,0}));
-  connect(ctrDemLev.y, con.demLev) annotation (Line(points={{-398,296},{-392,296},
-          {-392,256},{-428,256},{-428,244},{-424,244},{-424,243.76},{-420.667,243.76}},
-                                                                       color={
+  connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,235.92},{
+          -446,235.92},{-446,290},{-458,290}},  color={255,127,0}));
+  connect(ctrDemLev.y, con.demLev) annotation (Line(points={{-398,296},{-392,
+          296},{-392,256},{-428,256},{-428,244},{-424,244},{-424,243.76},{
+          -420.667,243.76}},                                           color={
           255,127,0}));
   connect(ctrDemLev.u_s, chiWatTSet.y) annotation (Line(points={{-422,295},{
           -440,295},{-440,250},{-458,250}}, color={0,0,127}));
@@ -553,8 +560,8 @@ equation
   connect(ctrDemLev.yDemLev2, con.yDemLev2) annotation (Line(points={{-398,284},
           {-396,284},{-396,262},{-434,262},{-434,239.168},{-420.667,239.168}},
         color={0,0,127}));
-  connect(con.yDemLev1, ctrDemLev.yDemLev1) annotation (Line(points={{-420.667,241.408},
-          {-430,241.408},{-430,258},{-394,258},{-394,290},{-398,290}},
+  connect(con.yDemLev1, ctrDemLev.yDemLev1) annotation (Line(points={{-420.667,
+          241.408},{-430,241.408},{-430,258},{-394,258},{-394,290},{-398,290}},
         color={0,0,127}));
   annotation (
     experiment(
@@ -586,5 +593,5 @@ Implementation of ice tank in a simplified district cooling system.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-500,-320},{500,400}})),
-    Icon(coordinateSystem(extent={{-500,-320},{500,400}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end DistrictCoolingIceTank;
