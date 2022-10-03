@@ -19,8 +19,7 @@ model SingleSource "Simple system model with one source and one user"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
-    preDroTanBot(final dp_nominal=nom.dp_nominal*0.05),
-    preDroTanTop(final dp_nominal=nom.dp_nominal*0.05),
+    preDro(final dp_nominal=nom.dp_nominal*0.1),
     redeclare final package Medium = Medium,
     final nom=nom) "Tank branch"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));

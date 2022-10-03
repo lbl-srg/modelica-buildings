@@ -133,8 +133,6 @@ model DualSource
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
-    preDroTanBot(final dp_nominal=nomPla2.dp_nominal*0.05),
-    preDroTanTop(final dp_nominal=nomPla2.dp_nominal*0.05),
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2) "Tank branch, tank can be charged remotely" annotation (
       Placement(transformation(
@@ -143,13 +141,13 @@ model DualSource
         origin={-110,-90})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra2(
     redeclare final package Medium = MediumCHW,
-    final nom=nomPla2)
-    "Chiller branch"
+    final nom=nomPla2,
+    pum(per(pressure(dp=tanBra.preDro.dp_nominal*{2,0})))) "Chiller branch"
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
-    allowRemoteCharging=nomPla2.allowRemoteCharging,
+    final allowRemoteCharging=nomPla2.allowRemoteCharging,
     perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
                               dp=nomPla2.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
@@ -323,14 +321,14 @@ model DualSource
     tau=30,
     final m_flow_nominal={-nomPla2.m_flow_nominal,nomPla2.m_flow_nominal,1},
     final dp_nominal={0,0,0}) "Junction connected to the pressure boundary"
-    annotation (Placement(transformation(extent={{-90,-74},{-70,-94}})));
+    annotation (Placement(transformation(extent={{-90,-106},{-70,-86}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     p(final displayUnit="Pa") = 101325,
     redeclare final package Medium = MediumCHW,
     nPorts=1) "Pressure boundary"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-80,-50})));
+        origin={-80,-130})));
 equation
   connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{61,-174},
           {100,-174},{100,-210.667},{62,-210.667}},                       color=
@@ -414,18 +412,13 @@ equation
     annotation (Line(points={{-130,-84},{-120,-84}}, color={0,127,255}));
   connect(chiBra2.port_a, tanBra.port_bToChi)
     annotation (Line(points={{-130,-96},{-120,-96}}, color={0,127,255}));
-  connect(tanBra.port_aFroNet, netCon.port_bToChi)
-    annotation (Line(points={{-100,-96},{-60,-96}},color={0,127,255}));
 
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-106,-79},{-106,-26},{-61,-26}},
                                                              color={0,0,127}));
-  connect(tanBra.port_bToNet, junBou.port_1)
-    annotation (Line(points={{-100,-84},{-90,-84}}, color={0,127,255}));
-  connect(junBou.port_2, netCon.port_aFroChi)
-    annotation (Line(points={{-70,-84},{-60,-84}}, color={0,127,255}));
   connect(junBou.port_3, bou.ports[1])
-    annotation (Line(points={{-80,-74},{-80,-60}}, color={0,127,255}));
+    annotation (Line(points={{-80,-106},{-80,-120}},
+                                                   color={0,127,255}));
   connect(netCon.port_aFroNet, con2PipPla2.port_aCon)
     annotation (Line(points={{-40,-96},{-20,-96}}, color={0,127,255}));
   connect(con2PipPla2.port_bCon, netCon.port_bToNet) annotation (Line(points={{
@@ -455,6 +448,12 @@ equation
           110},{-30,110},{-30,130},{-124,130},{-124,120}}, color={0,127,255}));
   connect(pumSup1.port_a, con2PipPla1.port_aCon) annotation (Line(points={{-60,
           80},{-30,80},{-30,104},{-20,104}}, color={0,127,255}));
+  connect(junBou.port_1, tanBra.port_aFroNet)
+    annotation (Line(points={{-90,-96},{-100,-96}}, color={0,127,255}));
+  connect(junBou.port_2, netCon.port_bToChi)
+    annotation (Line(points={{-70,-96},{-60,-96}}, color={0,127,255}));
+  connect(netCon.port_aFroChi, tanBra.port_bToNet)
+    annotation (Line(points={{-60,-84},{-100,-84}}, color={0,127,255}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),

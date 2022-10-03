@@ -3,12 +3,12 @@ model TankBranch
   "Model of the tank branch of a storage plant"
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
-  Buildings.Fluid.FixedResistances.PressureDrop preDroTanBot(
+  Buildings.Fluid.FixedResistances.PressureDrop preDro(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
-    final m_flow_nominal=nom.mTan_flow_nominal)
-    "Flow resistance on tank branch near tank bottom" annotation (Placement(
-        transformation(
+    final m_flow_nominal=nom.mTan_flow_nominal,
+    dp_nominal=0.1*nom.dp_nominal) "Flow resistance on tank branch" annotation
+    (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,0})));
@@ -27,15 +27,6 @@ model TankBranch
         nom.T_CHWS_nominal,
         tan.nSeg)) "Tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.FixedResistances.PressureDrop preDroTanTop(
-    redeclare final package Medium = Medium,
-    final allowFlowReversal=true,
-    final m_flow_nominal=nom.mTan_flow_nominal)
-    "Flow resistance on tank branch near tank top" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-30,0})));
   Modelica.Fluid.Sensors.MassFlowRate senFlo(redeclare final package Medium =
         Medium, final allowFlowReversal=true) "Flow rate sensor for the tank,"
     annotation (Placement(transformation(
@@ -92,12 +83,8 @@ model TankBranch
         rotation=180,
         origin={-50,-60})));
 equation
-  connect(tan.port_b, preDroTanBot.port_a)
+  connect(tan.port_b, preDro.port_a)
     annotation (Line(points={{10,0},{20,0}}, color={0,127,255}));
-  connect(preDroTanTop.port_b, tan.port_a)
-    annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
-  connect(preDroTanTop.port_a, senFlo.port_b)
-    annotation (Line(points={{-40,0},{-50,0},{-50,-20}}, color={0,127,255}));
   connect(senFlo.m_flow, mTan_flow) annotation (Line(points={{-61,-30},{-66,-30},
           {-66,80},{50,80},{50,110}}, color={0,0,127}));
   connect(tan.Ql_flow, Ql_flow)
@@ -115,7 +102,7 @@ equation
     annotation (Line(points={{-100,60},{40,60}}, color={0,127,255}));
   connect(junSup.port_2, port_bToNet)
     annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
-  connect(junSup.port_3, preDroTanBot.port_b)
+  connect(junSup.port_3, preDro.port_b)
     annotation (Line(points={{50,50},{50,0},{40,0}}, color={0,127,255}));
   connect(port_bToChi, junRet.port_2)
     annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
@@ -123,6 +110,8 @@ equation
     annotation (Line(points={{-50,-50},{-50,-40}}, color={0,127,255}));
   connect(junRet.port_1, port_aFroNet)
     annotation (Line(points={{-40,-60},{100,-60}}, color={0,127,255}));
+  connect(senFlo.port_b, tan.port_a)
+    annotation (Line(points={{-50,-20},{-50,0},{-10,0}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
