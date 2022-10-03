@@ -28,7 +28,8 @@ record AllSystems
         then Buildings.Templates.Data.Defaults.TConWatSup else
         Buildings.Templates.Data.Defaults.TConAirEnt, CHI.nChi),
       PLRUnlChi_min=fill(0.15, CHI.nChi),
-      PLRChi_min=fill(0.15, CHI.nChi)),
+      PLRChi_min=fill(0.15, CHI.nChi),
+      redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per),
     ctr(
       mChiWatChi_flow_min=0.3 * CHI.chi.mChiWatChi_flow_nominal),
     pumChiWatPri(

@@ -59,7 +59,6 @@ model BaseDebug1
       final typChi=typChi,
       final nChi=nChi,
       final typDisChiWat=typDisChiWat,
-      final have_pumChiWatSec=false,
       final nPumChiWatSec=nPumChiWatSec,
       final typCoo=typCoo,
       final nCoo=nCoo,
