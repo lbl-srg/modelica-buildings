@@ -221,6 +221,8 @@ First implementation. This is for
 </ul>
 </html>", info="<html>
 <p>
+[fixme: Update documentation.]
+[fixme: Change icon and graphic to make this block left-to-right.]
 This is a control block for the group of pump and valves in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>

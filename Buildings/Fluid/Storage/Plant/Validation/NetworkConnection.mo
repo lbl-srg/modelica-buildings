@@ -139,7 +139,7 @@ equation
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-[]
+[fixme: Update documentation.]
 </p>
 </html>", revisions="<html>
 <ul>

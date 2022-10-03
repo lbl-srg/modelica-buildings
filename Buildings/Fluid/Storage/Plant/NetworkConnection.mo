@@ -179,6 +179,7 @@ equation
     defaultComponentName = "netCon",
     Documentation(info="<html>
 <p>
+[fixme: Update documentation.]
 This model is part of a storage plant model.
 It has the following components:
 </p>

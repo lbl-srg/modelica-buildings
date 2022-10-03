@@ -5,6 +5,7 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
+[fixme: Update documentation.]
 This package implements models for a storage plant with a chiller and a tank.
 The tank in this plant can be charged by its local chiller or by a remote chiller
 on the same CHW district network. The models are implemented in three main parts,

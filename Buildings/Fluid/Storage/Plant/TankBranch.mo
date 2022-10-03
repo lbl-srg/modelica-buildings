@@ -143,6 +143,7 @@ equation
     defaultComponentName = "tanBra",
     Documentation(info="<html>
 <p>
+[fixme: Update documentation.]
 This model is part of a storage plant model. This branch has a stratified tank.
 This tank can potentially be charged remotely by a chiller from its district
 CHW network other than its own local chiller. To model an open storage tank, set
