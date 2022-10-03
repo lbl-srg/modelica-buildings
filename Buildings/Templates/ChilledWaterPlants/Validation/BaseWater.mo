@@ -20,25 +20,25 @@ model BaseWater
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer nPumChiWatSec=nChi
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement
-      .Series;
-  parameter Buildings.Templates.Components.Types.Chiller typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi=
+    Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series;
+  parameter Buildings.Templates.Components.Types.Chiller typChi=
+    Buildings.Templates.Components.Types.Chiller.WaterCooled;
   parameter Buildings.Templates.Components.Types.Cooler typCoo=
     Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
     Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco=
-    Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.
-      Variable1Only;
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=
+    Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only;
 
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
       final nChi=CHI.nChi,
       final nCoo=CHI.nCoo,
       final typChi=CHI.typChi,
+      final typEco=CHI.typEco,
       final typDisChiWat=CHI.typDisChiWat,
       final nPumChiWatSec=CHI.nPumChiWatSec,
       final typCoo=CHI.typCoo,
@@ -65,16 +65,18 @@ model BaseWater
       final typArrPumChiWatPri_select=typArrPumChiWatPri,
       final typArrPumConWat_select=typArrPumConWat,
       typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant,
-      typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
-      final typEco=typEco,
+    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
       final dat=dat.CHI,
       chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
           typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition),
     redeclare
+      Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve
+      eco,
+    redeclare
       Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
       coo)
     "CHW plant"
-    annotation (Placement(transformation(extent={{-42,-30},{-2,10}})));
+    annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
 
   Fluid.Sources.Boundary_pT bou(
     redeclare final package Medium=MediumChiWat,
@@ -99,13 +101,13 @@ equation
   connect(res.port_b, bou.ports[1])
     annotation (Line(points={{40,0},{60,0},{60,-11}},      color={0,127,255}));
   connect(weaDat.weaBus, CHI.busWea) annotation (Line(
-      points={{-60,80},{-22,80},{-22,10}},
+      points={{-60,80},{-20,80},{-20,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(CHI.port_a, bou.ports[2]) annotation (Line(points={{-1.8,-20.2},{60,-20.2},
+  connect(CHI.port_a, bou.ports[2]) annotation (Line(points={{0.2,-20.2},{60,-20.2},
           {60,-9}},       color={0,127,255}));
   connect(CHI.port_b, res.port_a)
-    annotation (Line(points={{-1.8,0},{20,0}}, color={0,127,255}));
+    annotation (Line(points={{0.2,0},{20,0}},  color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

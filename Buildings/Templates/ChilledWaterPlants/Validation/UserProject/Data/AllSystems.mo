@@ -54,6 +54,14 @@ record AllSystems
         Buildings.Templates.Data.Defaults.dpConWatStaTow else 0, CHI.nCoo)),
     pumConWat(
       dp_nominal=1.5*(CHI.chi.dpConChi_nominal + CHI.coo.dpConWatFriCoo_nominal + CHI.coo.dpConWatStaCoo_nominal)),
-    eco)
+    eco(
+      mChiWat_flow_nominal=sum(CHI.chi.mChiWatChi_flow_nominal),
+      mConWat_flow_nominal=sum(CHI.chi.mConChi_flow_nominal),
+      cap_nominal=0.6 * sum(CHI.chi.capChi_nominal),
+      TChiWatEnt_nominal=Buildings.Templates.Data.Defaults.TChiWatEcoEnt,
+      TConWatEnt_nominal=Buildings.Templates.Data.Defaults.TConWatEcoEnt,
+      dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatEco,
+      dpConWat_nominal=Buildings.Templates.Data.Defaults.dpConWatEco,
+      dpPumChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatEco))
     "CHW plant parameters - SERIES arrangement";
 end AllSystems;

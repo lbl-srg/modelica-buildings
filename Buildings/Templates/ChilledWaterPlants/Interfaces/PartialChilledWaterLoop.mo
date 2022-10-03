@@ -4,7 +4,8 @@ partial model PartialChilledWaterLoop
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterPlant(
     final typValChiWatChiIso=chi.typValChiWatIso,
-    final typValConWatChiIso=chi.typValChiWatIso);
+    final typValConWatChiIso=chi.typValConWatIso,
+    final typEco=eco.typ);
 
   replaceable Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression chi
     constrainedby
@@ -73,11 +74,25 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{100,-70},{80,-50}})));
 
   // CW loop
+  Buildings.Templates.Components.Routing.MultipleToMultiple inlConChi(
+    redeclare final package Medium = MediumCon,
+    final nPorts_a=nChi,
+    final nPorts_b=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+      then nChi + 1 else nChi,
+    final m_flow_nominal=mCon_flow_nominal,
+    final have_comLeg=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final allowFlowReversal=allowFlowReversal)
+    "Chiller group condenser fluid inlet"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outConChi(
     redeclare final package Medium = MediumCon,
     final nPorts=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-         and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-         then nChi + 1 else nChi,
+      and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+      then nChi + 1 else nChi,
     final m_flow_nominal=mCon_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
@@ -124,13 +139,17 @@ partial model PartialChilledWaterLoop
 
   // WSE
   replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
-    constrainedby Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer(
+    constrainedby
+    Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer(
       redeclare final package MediumChiWat=MediumChiWat,
       redeclare final package MediumConWat=MediumCon,
       final dat=dat.eco,
-      final allowFlowReversal=allowFlowReversal)
+      final allowFlowReversal=allowFlowReversal,
+      final energyDynamics=energyDynamics)
     "Waterside economizer"
-    annotation (Placement(transformation(
+    annotation (
+    choicesAllMatching=true,
+    Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-140})));
@@ -164,7 +183,6 @@ partial model PartialChilledWaterLoop
     Dialog(group="Controls"),
     Placement(transformation(extent={{-80,130},{-60,150}})));
 
-
 equation
   /* Control point connection - start */
   connect(bus, ctr.bus);
@@ -177,7 +195,7 @@ equation
   /* Control point connection - stop */
   connect(rou.ports_bSup, pumChiWatPri.ports_a)
     annotation (Line(points={{40,0},{60,0}},     color={0,127,255}));
-  connect(chi.ports_bCon, outConChi.ports_a)
+  connect(chi.ports_bCon, outConChi.ports_a[1:nChi])
     annotation (Line(points={{-60,0},{-80,0}}, color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{80,0},{80,0}},      color={0,127,255}));
@@ -212,4 +230,10 @@ equation
           {0,-160},{-40,-160},{-40,-150}}, color={0,127,255}));
   connect(eco.port_b, rou.ports_aSup[nChi + 1]) annotation (Line(points={{-40,-130},
           {-40,-120},{-10,-120},{-10,-4},{0,-4},{0,0}}, color={0,127,255}));
+  connect(inlConChi.ports_b[1:nChi], chi.ports_aCon)
+    annotation (Line(points={{-80,-100},{-60,-100}}, color={0,127,255}));
+  connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
+        points={{-80,-100},{-80,-130},{-49,-130}}, color={0,127,255}));
+  connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
+        points={{-49,-150},{-70,-150},{-70,0},{-80,0}}, color={0,127,255}));
 end PartialChilledWaterLoop;

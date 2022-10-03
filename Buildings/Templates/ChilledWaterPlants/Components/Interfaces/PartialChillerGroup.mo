@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
-model PartialChillerGroup "Interface class for chiller group"
+partial model PartialChillerGroup "Interface class for chiller group"
   replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CHW medium";
@@ -56,8 +56,8 @@ model PartialChillerGroup "Interface class for chiller group"
     "Type of chiller CHW isolation valve";
   final parameter Boolean enaTypValConWatIso=
     typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
-    and (typCtrHea==Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None or
-    typCtrSpePumConWat<>Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
+      and (typCtrHea==Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None or
+      typCtrSpePumConWat<>Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
       and typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Enable choices of chiller CW isolation valve type"
     annotation (Evaluate=true, Dialog(group="Configuration"));

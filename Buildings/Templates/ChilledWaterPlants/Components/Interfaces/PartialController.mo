@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
-block PartialController "Interface class for plant controller"
+partial block PartialController "Interface class for plant controller"
   parameter Buildings.Templates.ChilledWaterPlants.Types.Controller typ
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -77,23 +77,22 @@ block PartialController "Interface class for plant controller"
         transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
-        origin={220,0}),  iconTransformation(
+        origin={260,0}),  iconTransformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={100,0})));
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),                                   graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                      graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-151,-114},{149,-154}},
+          extent={{-149,-114},{151,-154}},
           lineColor={0,0,255},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-220,-260},{220,
-            260}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-300},{260,300}})));
 end PartialController;

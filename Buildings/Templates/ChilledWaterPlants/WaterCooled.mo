@@ -27,18 +27,6 @@ model WaterCooled "Water-cooled chiller plant"
     final allowFlowReversal=allowFlowReversal)
     "CW pumps"
     annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
-  Buildings.Templates.Components.Routing.MultipleToMultiple outPumConWat(
-    redeclare final package Medium=MediumCon,
-    final nPorts_a=nChi,
-    final nPorts_b=if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-      then nChi+1 else nChi,
-    final m_flow_nominal=mCon_flow_nominal,
-    final have_comLeg=typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    final energyDynamics=energyDynamics,
-    final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
-    "CW pumps outlet manifold"
-    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
   replaceable
     Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
     coo constrainedby
@@ -68,12 +56,8 @@ equation
   /* Control point connection - stop */
   connect(coo.port_b, inlPumConWat.port_a) annotation (Line(points={{-230,0},{
           -280,0},{-280,-100},{-160,-100}},   color={0,127,255}));
-  connect(pumConWat.ports_b, outPumConWat.ports_a)
-    annotation (Line(points={{-110,-100},{-100,-100}},color={0,127,255}));
   connect(outConChi.port_b, coo.port_a)
     annotation (Line(points={{-100,0},{-210,0}},color={0,127,255}));
-  connect(outPumConWat.ports_b, chi.ports_aCon)
-    annotation (Line(points={{-80,-100},{-60,-100}}, color={0,127,255}));
   connect(inlPumConWat.ports_b, pumConWat.ports_a)
     annotation (Line(points={{-140,-100},{-130,-100}}, color={0,127,255}));
   connect(busWea, coo.busWea) annotation (Line(
@@ -82,9 +66,6 @@ equation
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])
     annotation (Line(points={{-160,-100},{-160,-140}}, color={0,127,255}));
-  connect(outPumConWat.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-80,-100},{-80,-130},{-49,-130}}, color={0,127,255}));
-  connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-        points={{-49,-150},{-70,-150},{-70,-4},{-80,-4},{-80,0}}, color={0,127,
-          255}));
+  connect(pumConWat.ports_b, inlConChi.ports_a)
+    annotation (Line(points={{-110,-100},{-100,-100}}, color={0,127,255}));
 end WaterCooled;
