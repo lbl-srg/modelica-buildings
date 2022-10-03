@@ -104,9 +104,10 @@ equation
 defaultComponentName = "intVal",
     Documentation(info="<html>
 <p>
-This model has two valves in parallel that are interlocked with each other.
-For each valve, its control input is overriden with zero if the other valve
-is at least 1% open to prevent a short circuit.
+This model has two valves in parallel with opposite nominal flow direction
+that are interlocked with each other. For each valve, its control input is
+overriden with zero if the other valve is at least open with a threshold value
+to prevent a short circuit.
 </p>
 </html>", revisions="<html>
 <ul>
