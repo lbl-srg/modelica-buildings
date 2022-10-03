@@ -1,23 +1,18 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FourPipe "System model for a four-pipe fan coil unit"
-
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
     "Medium model for air";
-
   replaceable package MediumHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for hot water";
-
-   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for chilled water";
-
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
     "Type of heating coil used in the FCU"
     annotation (Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
-    "Heat flow rate of electric heating coil at full power"
+    "Nominal heat flow rate of electric heating coil"
     annotation(Dialog(enable=not has_HW, group="Heating coil parameters"));
   parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
     "Nominal mass flow rate of heating hot water"
@@ -32,7 +27,7 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
-    "Thermal conductance at nominal flow, used to compute heat capacity"
+    "Nominal Thermal conductance, used to compute heat capacity"
     annotation(Dialog(group="Cooling coil parameters"));
   parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
     "Nominal mass flow rate of outdoor air"
@@ -55,13 +50,11 @@ model FourPipe "System model for a four-pipe fan coil unit"
     "Fan signal"
     annotation(Placement(transformation(extent={{-400,60},{-360,100}}),
       iconTransformation(extent={{-240,20},{-200,60}})));
-
   Modelica.Blocks.Interfaces.RealInput uEco(
     final unit="1") "Control signal for economizer"
     annotation (Placement(
         transformation(extent={{-400,100},{-360,140}}), iconTransformation(
           extent={{-240,100},{-200,140}})));
-
   Modelica.Fluid.Interfaces.FluidPort_a port_Air_a(redeclare final package
       Medium =
         MediumA) "Return air port from zone" annotation (Placement(
@@ -76,7 +69,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
       Medium = MediumCHW) "Chilled water return port" annotation (Placement(
         transformation(extent={{94,-190},{114,-170}}), iconTransformation(
           extent={{50,-210},{70,-190}})));
-
   Modelica.Fluid.Interfaces.FluidPort_a port_CHW_a(redeclare package Medium =
         MediumCHW)       "Chilled water supply port" annotation (Placement(
         transformation(extent={{134,-190},{154,-170}}), iconTransformation(
@@ -274,27 +266,23 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final Q_flow_nominal=QHeaCoi_flow_nominal) if not has_HW
     "Electric heating coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-
   Modelica.Blocks.Math.Gain gai(
     final k=mAir_flow_nominal)
     "Find mass flowrate value by multiplying nominal flowrate by normalized fan speed signal"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-
   Modelica.Blocks.Interfaces.RealOutput yFan_actual(
     final unit="1",
     displayUnit="1")
-    "Normalized measured fan speed signal"
+    "Normalized actual fan speed signal"
     annotation (Placement(transformation(extent={{360,100},{380,120}}),
       iconTransformation(extent={{200,150},{220,170}})));
-
   Modelica.Blocks.Math.Gain gaiFanNor(
     final k=1/mAir_flow_nominal)
-    "Find normalized fan signal by dividing actual fan mass flowrate by nominal flowrate"
+    "Normalized fan signal"
     annotation (Placement(transformation(extent={{300,100},{320,120}})));
-
 protected
   final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
-    "Does the zone equipment have a hot water heating coil?"
+    "Check if a hot water heating coil exists"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
 equation
@@ -416,7 +404,7 @@ equation
     <li>
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFanVariableWaterFlowrate\">
     ConstantFanVariableWaterFlowrate</a>:
-    Modifies the cooling coil and heating coil valve positions to regulate the zone temperature
+    Modulate the cooling coil and heating coil valve positions to regulate the zone temperature
     between the heating and cooling setpoints. The fan is enabled and operated at the 
     maximum speed when there are zone heating or cooling loads. It is run at minimum speed when
     zone is occupied but there are no loads.
@@ -424,7 +412,7 @@ equation
     <li>
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate\">
     VariableFanConstantWaterFlowrate</a>:
-    Modifies the fan speed to regulate the zone temperature between the heating 
+    Modulate the fan speed to regulate the zone temperature between the heating 
     and cooling setpoints. It is run at minimum speed when zone is occupied but 
     there are no loads. The heating and cooling coil valves are completely opened 
     when there are zone heating or cooling loads, respectively.
@@ -432,7 +420,7 @@ equation
     <li>
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.MultispeedFanConstantWaterFlowrate\">
     MultispeedFanConstantWaterFlowrate</a>:
-    Modifies the fan speed to regulate the zone temperature between the heating 
+    Modulate the fan speed to regulate the zone temperature between the heating 
     and cooling setpoints. It is set at a range of fixed values between the maximum 
     and minimum speed, based on the heating and cooling loop signals generated. 
     It is run at minimum speed when zone is occupied but there are no loads. The 
@@ -440,7 +428,6 @@ equation
     heating or cooling loads, respectively.
     </li>
     </ul>
-    </p>
     </html>
     ", revisions="<html>
     <ul>
