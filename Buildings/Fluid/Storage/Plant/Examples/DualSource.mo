@@ -483,74 +483,162 @@ This plant is disconnected when the largest position of user control valves
 less than 5% open and connected back when this value is higher than 10%.
 </p>
 <p>
-The timetables give the system the following behaviour:
+The <code>Timetable</code> blocks give the system the following behaviour:
+[fixme: Implement this model.]
 </p>
 <table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
   <tr>
-    <th>Time slots</th>
-    <th>1</th>
-    <th>2</th>
-    <th>3</th>
-    <th>4</th>
-    <th>5</th>
-    <th>6</th>
-    <th>7</th>
-    <th>8</th>
-    <th>9</th>
+    <th>Time Slot</th>
+    <th>Plant 1 Flow</th>
+    <th colspan=\"4\">Plant 2 Flows</th>
+    <th colspan=\"3\">Users</th>
+    <th>Description</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td>User 1</td>
-    <td>-</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
+    <td></td>
+    <td></td>
+    <td>Chiller</td>
+    <td>Tank*</td>
+    <td>Charging</td>
+    <td>Overall**</td>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+    <td></td>
   </tr>
   <tr>
-    <td>User 2</td>
-    <td>-</td>
-    <td>-</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>No load. No flow.</td>
   </tr>
   <tr>
-    <td>User 3</td>
+    <td>2</td>
+    <td>0</td>
+    <td>+</td>
     <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>-</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>Tank <br>(being charged)</td>
     <td>Local</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>No load. Tank is being charged locally.</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>+</td>
+    <td>+</td>
     <td>-</td>
-    <td>-</td>
-    <td>-</td>
-    <td>-</td>
+    <td>Local</td>
+    <td>0</td>
+    <td>Has load</td>
+    <td></td>
+    <td></td>
+    <td>Plant 1 outputs CHW to satisfy load. Plant 2 still offline and in local charging.</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>+</td>
+    <td>+</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>+</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td></td>
+    <td>Both plants output CHW. Tank holding.</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>+</td>
+    <td>+</td>
+    <td>+</td>
+    <td>N/A</td>
+    <td>+</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Both plants including tank output CHW.</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>+</td>
+    <td>0</td>
+    <td>+</td>
+    <td>N/A</td>
+    <td>+</td>
+    <td></td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Plant 1 and tank output CHW, chiller 2 off.</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>+</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td>Has load</td>
+    <td>Plant 1 outputs CHW to satisfy load. Plant 2 off.</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>+</td>
+    <td>0</td>
     <td>-</td>
     <td>Remote</td>
+    <td>-</td>
+    <td></td>
+    <td></td>
+    <td>Has load</td>
+    <td>Plant 1 outputs CHW to satisfy load and remotely charge tank.</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>+</td>
+    <td>0</td>
+    <td>-</td>
     <td>Remote</td>
     <td>-</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Plant 1 remotely charges tank.</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>No load. No flow.</td>
   </tr>
 </tbody>
 </table>
+<p>
+Notes:<br/>
+*. A positive flow rate at the tank denotes that the tank is discharging
+and a negative flow rate denotes that it is being charged.<br/>
+**. A positive flow rate denotes that the flow direction of Plant 2 is the same
+as the nominal flow direction (outputting CHW to the network).
+A negative flow only occurs when its tank is being charged remotely.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
