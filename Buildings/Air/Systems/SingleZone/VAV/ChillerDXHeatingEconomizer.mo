@@ -104,7 +104,7 @@ model ChillerDXHeatingEconomizer
   Buildings.Fluid.Sensors.TemperatureTwoPort senTSup(
     final m_flow_nominal=mAir_flow_nominal,
     final allowFlowReversal=false,
-    final tau=1,
+    final tau=0,
     redeclare package Medium = MediumA)
     "Supply air temperature sensor"
     annotation (Placement(transformation(extent={{128,30},{148,50}})));
@@ -150,7 +150,7 @@ model ChillerDXHeatingEconomizer
   Buildings.Fluid.Sensors.TemperatureTwoPort senTMixAir(
     final m_flow_nominal=mAir_flow_nominal,
     final allowFlowReversal=false,
-    final tau=1,
+    final tau=0,
     redeclare package Medium = MediumA)
     "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
@@ -632,12 +632,6 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-September 28, 2022, by Jianjun Hu:<br/>
-Changed time constant of the temperature sensors to be non-zero.<br/>
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3123\">#3123</a>.
-</li>
 <li>
 February 25, 2021, by Baptiste Ravache:<br/>
 Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
