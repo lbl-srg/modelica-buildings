@@ -22,8 +22,7 @@ model ChillersToPrimaryPumps
     start=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Integer nPorts=nChi + (if
-    typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then 1 else 0)
+  final parameter Integer nPorts=nChi + 1
     "Size of vectorized fluid connectors"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
@@ -132,34 +131,24 @@ model ChillersToPrimaryPumps
     if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     "Hydronic routing  - Supply side - Parallel arrangement"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid rouRetEco(redeclare
-      final package Medium = MediumChiWat)
-    if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-    "Hydronic routing to WSE retrun - Parallel or series arrangement with WSE"
+  Buildings.Templates.Components.Routing.PassThroughFluid rouRet(
+    redeclare final package Medium = MediumChiWat) "CHW return line"
     annotation (Placement(transformation(extent={{160,-130},{140,-110}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid rouRetNoECo(
-    redeclare final package Medium = MediumChiWat)
-    if typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-    "Hydronic routing - Return side - Parallel or series arrangement without WSE"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={180,-70})));
   Buildings.Templates.Components.Routing.SingleToMultiple rouRetChiPar(
     redeclare final package Medium = MediumChiWat,
     final nPorts=nChi,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
-    final tau=tau) if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    final tau=tau)
+    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     "Hydronic routing to chiller return - Parallel arrangement"
     annotation (Placement(transformation(extent={{10,-110},{-10,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoBef(
     redeclare final package Medium = MediumChiWat,
-    final have_sen=true,
+    final have_sen=typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-     "CHW return temperature before WSE"
+    "CHW return temperature before optional WSE"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-140,-120})));
@@ -174,15 +163,15 @@ model ChillersToPrimaryPumps
     annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatEcoAft(
     redeclare final package Medium = MediumChiWat,
-    final have_sen=true,
+    final have_sen=typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-    "CHW return temperature after WSE"
+    "CHW return temperature after optional WSE"
     annotation (Placement(
         transformation(
-        extent={{70,50},{90,70}},
-        rotation=0)));
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={140,60})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiEnt(
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWatPri_flow_nominal,
@@ -266,12 +255,10 @@ equation
           140},{180,120},{200,120}},
                                color={0,127,255}));
   connect(ports_aSup[nChi + 1], TChiWatEcoAft.port_a) annotation (Line(points={{-200,
-          120},{-80,120},{-80,60},{70,60}},                  color={0,127,255}));
-  connect(port_aRet, rouRetNoECo.port_a) annotation (Line(points={{200,-100},{180,
-          -100},{180,-80}}, color={0,127,255}));
-  connect(port_aRet, rouRetEco.port_a) annotation (Line(points={{200,-100},{180,
-          -100},{180,-120},{160,-120}}, color={0,127,255}));
-  connect(rouRetEco.port_b, TChiWatEcoBef.port_a)
+          120},{-200,100},{140,100},{140,70}},               color={0,127,255}));
+  connect(port_aRet, rouRet.port_a) annotation (Line(points={{200,-100},{180,-100},
+          {180,-120},{160,-120}}, color={0,127,255}));
+  connect(rouRet.port_b, TChiWatEcoBef.port_a)
     annotation (Line(points={{140,-120},{-130,-120}}, color={0,127,255}));
   connect(TChiWatChiEnt.port_b, rouRetChiPar.port_a)
     annotation (Line(points={{70,-100},{10,-100}}, color={0,127,255}));
@@ -284,7 +271,7 @@ equation
   connect(rouSupRetSer.port_b, ports_bRet[1:nChi - 1])
     annotation (Line(points={{-120,-10},{-120,-100},{-200,-100}}, color={0,127,255}));
   connect(ports_aSup[1:nChi], junSupChiSer.port_1) annotation (Line(points={{-200,
-          120},{-180,120},{-180,140},{-170,140}}, color={0,127,255}));
+          120},{-200,140},{-170,140}},            color={0,127,255}));
   connect(valChiWatChiBypSer.port_b, junSupChiSer.port_3)
     annotation (Line(points={{-160,10},{-160,130}}, color={0,127,255}));
   connect(junSupChiSer[1].port_2, rouSupSer.port_a)
@@ -296,9 +283,7 @@ equation
   connect(port_aByp, junByp.port_3)
     annotation (Line(points={{200,0},{150,0}}, color={0,127,255}));
   connect(TChiWatEcoAft.port_b, junByp.port_1)
-    annotation (Line(points={{90,60},{140,60},{140,10}}, color={0,127,255}));
-  connect(rouRetNoECo.port_b, junByp.port_1) annotation (Line(points={{180,-60},
-          {180,60},{140,60},{140,10}}, color={0,127,255}));
+    annotation (Line(points={{140,50},{140,10}},         color={0,127,255}));
   connect(rouRetChiPar.ports_b, ports_bRet[1:nChi])
     annotation (Line(points={{-10,-100},{-200,-100}}, color={0,127,255}));
   connect(ports_aSup[1:nChi], rouSupPar.ports_a)

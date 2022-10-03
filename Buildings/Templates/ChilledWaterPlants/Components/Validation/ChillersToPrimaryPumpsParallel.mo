@@ -318,6 +318,12 @@ model ChillersToPrimaryPumpsParallel
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,10})));
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(
+    redeclare final package Medium=MediumChiWat)
+    "Direct fluid pass-through for no WSE" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-100,150})));
 equation
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{10,180},{20,180}},  color={0,127,255}));
@@ -452,6 +458,10 @@ equation
       points={{200,80},{220,80},{220,60},{240,60},{240,52}},
       color={255,204,51},
       thickness=0.5));
+  connect(rou.ports_bRet[nChi + 1], pas.port_a) annotation (Line(points={{-80,100},
+          {-100,100},{-100,140}}, color={0,127,255}));
+  connect(pas.port_b, rou.ports_aSup[nChi + 1]) annotation (Line(points={{-100,160},
+          {-100,200},{-80,200}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-260,-640},{260,440}})),
   experiment(
     StopTime=2000,
