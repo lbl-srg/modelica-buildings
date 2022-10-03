@@ -11,11 +11,11 @@ model ChillerBranch
   Modelica.Units.SI.MassFlowRate m_flow=pum.m_flow "Mass flow rate";
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
-    redeclare package Medium = Medium,
-    per(pressure(dp=nom.dp_nominal*{2,1.2,0},
-                 V_flow=nom.m_flow_nominal/1.2*{0,1.2,2})),
+    redeclare final package Medium = Medium,
+    per(pressure(dp=0.05*nom.dp_nominal*{2,0},
+                 V_flow=nom.mChi_flow_nominal/1.2*{0,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    m_flow_nominal=nom.mChi_flow_nominal,
+    final m_flow_nominal=nom.mChi_flow_nominal,
     allowFlowReversal=true,
     addPowerToMedium=false,
     m_flow_start=0,
@@ -45,9 +45,9 @@ model ChillerBranch
         rotation=0,
         origin={30,0})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW(
-    redeclare package Medium = MediumCDW,
-    m_flow=1.2*nom.m_flow_nominal,
-    T=305.15,
+    redeclare final package Medium = MediumCDW,
+    final m_flow=1.2*nom.m_flow_nominal,
+    final T=305.15,
     nPorts=1) "Source representing CDW supply line" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -78,14 +78,14 @@ model ChillerBranch
     PLRMinUnl=0.3,
     PLRMin=0.3,
     etaMotor=1,
-    mEva_flow_nominal=0.7*nom.m_flow_nominal,
+    mEva_flow_nominal=nom.m_flow_nominal,
     mCon_flow_nominal=1.2*perChi.mEva_flow_nominal,
-    TEvaLvg_nominal=280.15,
+    TEvaLvg_nominal=nom.T_CHWS_nominal,
     capFunT={1,0,0,0,0,0},
     EIRFunT={1,0,0,0,0,0},
     EIRFunPLR={1,0,0},
-    TEvaLvgMin=276.15,
-    TEvaLvgMax=288.15,
+    TEvaLvgMin=nom.T_CHWS_nominal-4,
+    TEvaLvgMax=nom.T_CHWS_nominal+8,
     TConEnt_nominal=310.15,
     TConEntMin=303.15,
     TConEntMax=333.15)
