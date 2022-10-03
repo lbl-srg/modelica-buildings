@@ -1,6 +1,8 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses;
-model ExampleTestbed
-  "Example testbed for a zone HVAC system and controller with a single thermal zone"
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples;
+model SingleZoneVariableFanConstantWaterFlowrate_backup
+  "Example model for a system with single-zone serviced by FCU with variable fan, constant flow pump control"
+
+  extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -12,7 +14,7 @@ model ExampleTestbed
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
     final T=279.15,
-    nPorts=1)
+    final nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={110,-100})));
@@ -20,25 +22,49 @@ model ExampleTestbed
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     final T=318.15,
-    nPorts=1)
+    final nPorts=1)
     "Sink for heating hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={40,-100})));
 
-  replaceable Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces zonHVACSys(
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
+    final dpAir_nominal(displayUnit="Pa") = 100,
+    final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
     redeclare package MediumCHW = MediumW,
-    redeclare package MediumHW = MediumW)
-    "Zone HVAC system model interfaces"
+    redeclare package MediumHW = MediumW,
+    final mAir_flow_nominal=FCUSizing.mAir_flow_nominal,
+    final QHeaCoi_flow_nominal=13866,
+    final mHotWat_flow_nominal=FCUSizing.mHotWat_flow_nominal,
+    final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
+    final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
+    final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
+    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData fanPer)
+    "Fan coil system model"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
+
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.SizingData FCUSizing
+    "Sizing parameters for fan coil unit"
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.2)
     "Constant real signal of 0.2 for the outdoor air economizer"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
-  replaceable Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces conZonHVACSys
-    "Controller interfaces"
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate conVarFanConWat(
+    final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final kCoo=0.5,
+    final TiCoo=300,
+    final TdCoo=0.5,
+    final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    final kHea=0.5,
+    final minFanSpe=0.15,
+    final tFanEnaDel=60,
+    final tFanEna=600,
+    final dTHys=0.5)
+    "FCU controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
@@ -69,7 +95,9 @@ model ExampleTestbed
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
-    redeclare package Medium = MediumA, nPorts=2)
+    redeclare package Medium = MediumA,
+    final zoneName="West Zone",
+    final nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{68,100},{108,140}})));
 
@@ -79,6 +107,9 @@ model ExampleTestbed
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
 
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
+    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
+    final epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    final weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     final usePrecompiledFMU=false,
     final computeWetBulbTemperature=false)
     "Building model"
@@ -88,7 +119,7 @@ model ExampleTestbed
     redeclare package Medium = MediumW,
     final p=105000,
     final T=318.15,
-    nPorts=1)
+    final nPorts=1)
     "Source for heating hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -98,7 +129,7 @@ model ExampleTestbed
     redeclare package Medium = MediumW,
     final p=105000,
     final T=279.15,
-    nPorts=1)
+    final nPorts=1)
     "Source for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
@@ -131,13 +162,56 @@ model ExampleTestbed
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
 equation
+
+  connect(fanCoiUni.port_HW_b, sinHea.ports[1]) annotation (Line(points={{78,-20},
+          {78,-60},{40,-60},{40,-90}},  color={0,127,255}));
+
+  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-28,20},{-20,20},{-20,
+          12},{68,12}},
+                      color={0,0,127}));
+
+  connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
+    annotation (Line(points={{110,-90},{110,-70},{96,-70},{96,-20}},
+                                                 color={0,127,255}));
+  connect(occSch.occupied, conVarFanConWat.uOcc) annotation (Line(points={{-129,
+          -16},{-120,-16},{-120,-18},{-52,-18}}, color={255,0,255}));
   connect(occSch.occupied, TZonSet.uOcc) annotation (Line(points={{-129,-16},{-120,
           -16},{-120,20},{-112,20}}, color={255,0,255}));
+  connect(TZonSet.TZonSetHea, conVarFanConWat.THeaSet) annotation (Line(points={
+          {-88,24},{-80,24},{-80,-14},{-52,-14}}, color={0,0,127}));
+  connect(TZonSet.TZonSetCoo, conVarFanConWat.TCooSet) annotation (Line(points={
+          {-88,16},{-84,16},{-84,-10},{-52,-10}}, color={0,0,127}));
+  connect(conVarFanConWat.yCoo, fanCoiUni.uCoo)
+    annotation (Line(points={{-28,-4},{68,-4}}, color={0,0,127}));
+  connect(conVarFanConWat.yHea, fanCoiUni.uHea) annotation (Line(points={{-28,-8},
+          {-10,-8},{-10,-12},{68,-12}}, color={0,0,127}));
+  connect(conVarFanConWat.yFan, booToReaFan.u) annotation (Line(points={{-28,-16},
+          {-20,-16},{-20,-40},{-12,-40}}, color={255,0,255}));
   connect(booToReaFan.y, mulFanSig.u2) annotation (Line(points={{12,-40},{20,-40},
           {20,-36},{28,-36}}, color={0,0,127}));
+  connect(conVarFanConWat.yFanSpe, mulFanSig.u1) annotation (Line(points={{-28,-12},
+          {-14,-12},{-14,-20},{20,-20},{20,-24},{28,-24}}, color={0,0,127}));
+  connect(mulFanSig.y, fanCoiUni.uFan) annotation (Line(points={{52,-30},{60,-30},
+          {60,4},{68,4}}, color={0,0,127}));
+  connect(fanCoiUni.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,16},
+          {120,16},{120,-66},{-140,-66},{-140,-50},{-132,-50}},     color={0,0,127}));
   connect(greThrFanProOn.y, truDel.u)
     annotation (Line(points={{-108,-50},{-102,-50}},
                                                    color={255,0,255}));
+  connect(fanCoiUni.port_Air_a, zon.ports[1]) annotation (Line(points={{110,4},{
+          130,4},{130,80},{86,80},{86,100.9}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_b, zon.ports[2]) annotation (Line(points={{110,-4},
+          {140,-4},{140,90},{90,90},{90,100.9}}, color={0,127,255}));
+  connect(building.weaBus, fanCoiUni.weaBus) annotation (Line(
+      points={{-30,50},{0,50},{0,17.6},{72.8,17.6}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(zon.TAir, conVarFanConWat.TZon) annotation (Line(points={{109,138},{120,
+          138},{120,150},{-72,150},{-72,-6},{-52,-6}}, color={0,0,127}));
+  connect(souHea.ports[1], fanCoiUni.port_HW_a) annotation (Line(points={{70,-90},
+          {70,-80},{84,-80},{84,-20}}, color={0,127,255}));
+  connect(souCoo.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{140,-90},
+          {142,-90},{142,-62},{102,-62},{102,-20}}, color={0,127,255}));
   connect(not1.y, truDel1.u)
     annotation (Line(points={{-78,-90},{-72,-90}}, color={255,0,255}));
   connect(greThrFanProOn.y, not1.u) annotation (Line(points={{-108,-50},{-104,
@@ -146,6 +220,9 @@ equation
           -96},{-32,-96}}, color={255,0,255}));
   connect(truDel.y, lat.u) annotation (Line(points={{-78,-50},{-36,-50},{-36,
           -90},{-32,-90}}, color={255,0,255}));
+  connect(lat.y, conVarFanConWat.uFan) annotation (Line(points={{-8,-90},{0,-90},
+          {0,-60},{-30,-60},{-30,-40},{-60,-40},{-60,-2},{-52,-2}}, color={255,
+          0,255}));
   connect(occSch.occupied, booToReaOcc.u) annotation (Line(points={{-129,-16},{
           -120,-16},{-120,90},{-102,90}}, color={255,0,255}));
   connect(qIntGai.y, mulQIntGai.u1) annotation (Line(points={{-79,130},{-68,130},
@@ -156,47 +233,6 @@ equation
     annotation (Line(points={{-38,110},{-22,110}}, color={0,0,127}));
   connect(reaScaRep.y, zon.qGai_flow) annotation (Line(points={{2,110},{20,110},
           {20,130},{66,130}}, color={0,0,127}));
-  connect(zonHVACSys.port_Air_a, zon.ports[1]) annotation (Line(points={{110,4},
-          {130,4},{130,80},{86,80},{86,100.9}}, color={0,127,255}));
-  connect(zonHVACSys.port_Air_b, zon.ports[2]) annotation (Line(points={{110,-4},
-          {140,-4},{140,90},{90,90},{90,100.9}}, color={0,127,255}));
-  connect(sinHea.ports[1], zonHVACSys.port_HW_b) annotation (Line(points={{40,-90},
-          {40,-50},{78,-50},{78,-20}}, color={0,127,255}));
-  connect(zonHVACSys.port_HW_a, souHea.ports[1]) annotation (Line(points={{84,-20},
-          {84,-60},{70,-60},{70,-90}}, color={0,127,255}));
-  connect(zonHVACSys.port_CHW_b, sinCoo.ports[1]) annotation (Line(points={{96,-20},
-          {96,-60},{110,-60},{110,-90}}, color={0,127,255}));
-  connect(zonHVACSys.port_CHW_a, souCoo.ports[1]) annotation (Line(points={{102,
-          -20},{102,-50},{140,-50},{140,-90}}, color={0,127,255}));
-  connect(zonHVACSys.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,
-          16},{120,16},{120,-70},{-140,-70},{-140,-50},{-132,-50}}, color={0,0,127}));
-  connect(lat.y, conZonHVACSys.uFan) annotation (Line(points={{-8,-90},{0,-90},{
-          0,-60},{-30,-60},{-30,-40},{-60,-40},{-60,-2},{-52,-2}}, color={255,0,
-          255}));
-  connect(con.y, zonHVACSys.uEco) annotation (Line(points={{-28,20},{-20,20},{-20,
-          12},{68,12}}, color={0,0,127}));
-  connect(mulFanSig.y, zonHVACSys.uFan) annotation (Line(points={{52,-30},{60,-30},
-          {60,4},{68,4}}, color={0,0,127}));
-  connect(conZonHVACSys.yCoo, zonHVACSys.uCoo)
-    annotation (Line(points={{-28,-4},{68,-4}}, color={0,0,127}));
-  connect(conZonHVACSys.yHea, zonHVACSys.uHea) annotation (Line(points={{-28,-8},
-          {-10,-8},{-10,-12},{68,-12}}, color={0,0,127}));
-  connect(conZonHVACSys.yFanSpe, mulFanSig.u1) annotation (Line(points={{-28,-12},
-          {-14,-12},{-14,-24},{28,-24}}, color={0,0,127}));
-  connect(conZonHVACSys.yFan, booToReaFan.u) annotation (Line(points={{-28,-16},
-          {-20,-16},{-20,-40},{-12,-40}}, color={255,0,255}));
-  connect(occSch.occupied, conZonHVACSys.uOcc) annotation (Line(points={{-129,-16},
-          {-120,-16},{-120,-18},{-52,-18}}, color={255,0,255}));
-  connect(TZonSet.TZonSetHea, conZonHVACSys.THeaSet) annotation (Line(points={{-88,
-          24},{-80,24},{-80,-14},{-52,-14}}, color={0,0,127}));
-  connect(TZonSet.TZonSetCoo, conZonHVACSys.TCooSet) annotation (Line(points={{-88,
-          16},{-84,16},{-84,-10},{-52,-10}}, color={0,0,127}));
-  connect(zon.TAir, conZonHVACSys.TZon) annotation (Line(points={{109,138},{120,
-          138},{120,152},{-74,152},{-74,-6},{-52,-6}}, color={0,0,127}));
-  connect(building.weaBus, zonHVACSys.weaBus) annotation (Line(
-      points={{-30,50},{0,50},{0,17.6},{72.8,17.6}},
-      color={255,204,51},
-      thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -252,4 +288,4 @@ equation
       </li>
       </ul>
       </html>"));
-end ExampleTestbed;
+end SingleZoneVariableFanConstantWaterFlowrate_backup;

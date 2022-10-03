@@ -8,8 +8,16 @@ partial model EquipmentInterfaces
   replaceable package MediumHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for hot water";
 
-   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
+  replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for chilled water";
+
+  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
+    "Nominal mass flow rate of heating hot water"
+    annotation(Dialog(enable=has_HW, group="Heating coil parameters"));
+
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
+    "Nominal mass flow rate of chilled water"
+    annotation(Dialog(group="Cooling coil parameters"));
 
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
@@ -101,7 +109,7 @@ partial model EquipmentInterfaces
     annotation (Placement(transformation(extent={{360,70},{380,90}}),
       iconTransformation(extent={{200,90},{220,110}})));
 
-  Actuators.Valves.TwoWayLinear                 valHW(
+  Actuators.Valves.TwoWayLinear valHW(
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal,
     final dpValve_nominal=50) if has_HW

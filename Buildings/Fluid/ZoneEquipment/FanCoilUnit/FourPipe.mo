@@ -1,24 +1,21 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FourPipe "System model for a four-pipe fan coil unit"
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces;
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
+    final cooCoiTyp = Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou.chiWat);
 
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
     "Heat flow rate of electric heating coil at full power"
     annotation(Dialog(enable=not has_HW, group="Heating coil parameters"));
-  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
-    "Nominal mass flow rate of heating hot water"
-    annotation(Dialog(enable=has_HW, group="Heating coil parameters"));
+
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
     annotation(Dialog(group="System parameters"));
   parameter Modelica.Units.SI.ThermalConductance UAHeaCoi_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation(Dialog(enable=has_HW, group="Heating coil parameters"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
-    "Nominal mass flow rate of chilled water"
-    annotation(Dialog(group="Cooling coil parameters"));
+
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation(Dialog(group="Cooling coil parameters"));
