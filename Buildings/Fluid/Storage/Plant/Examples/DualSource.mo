@@ -440,28 +440,29 @@ equation
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-[fixme: Update documentation.]    
-This is the base model of a district system model with
-two CHW sources and three users with the following structure:
+This is a district system model with two CHW plants and three users
+with the following architecture:
+[fixme: Provide more details in the schematic.] 
 </p>
 <p align=\"center\">
 <img alt=\"DualSource\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/DualSource.png\"/>
 </p>
 <p>
-The first source is a simplified CHW plant with only a chiller,
-a single supply pump, and a check valve (with series resistance built in).
+The first CHW source is a simplified CHW plant with only a chiller and
+a single supply pump.
 This supply pump is controlled to ensure that all users have enough pressure head.
 </p>
 <p>
-The second source has a chiller and a stratified CHW tank. Its piping is arranged
-in a way that allows the tank to be charged remotely by the other source.
-Its supply pump is controlled to maintain the flow rate setpoint of the tank.
+The second CHW source has a chiller and a stratified CHW tank. Its piping is
+arranged in a way that allows the tank to be charged remotely by the other source.
+The secondary pump is controlled to maintain the flow rate setpoint of the tank.
 This plant is disconnected when the largest position of user control valves
 less than 5% open and connected back when this value is higher than 10%.
 </p>
 <p>
-The <code>Timetable</code> blocks give the system the following behaviour:
+The source blocks give the system the following operation schedule during
+simulation:
 </p>
 <table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
