@@ -751,6 +751,91 @@ If the control loop shows oscillatory behavior, then reduce <code>k</code> and/o
 If the control loop reacts too slow, do the opposite.
 </p>
 
+<h5>Efficiency and electrical power consumption</h5>
+<p>
+All models compute the motor power draw <i>P<sub>ele</sub></i>,
+the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
+<i>W<sub>flo</sub></i> and the heat dissipated into the medium
+<i>Q</i>. Based on the first law, the flow work is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  W<sub>flo</sub> = | V&#775; &Delta;p |,
+</p>
+<p>
+where <i>V&#775;</i> is the volume flow rate and
+<i>&Delta;p</i> is the pressure rise.
+In order to prevent the model from producing negative mover power
+when either the flow rate or pressure rise is forced to be negative,
+the flow work <i>W&#775;<sub>flo</sub></i> is constrained to be non-negative.
+The regularisation starts around 0.01% of the characteristic maximum power
+<i>W&#775;<sub>max</sub> = V&#775;<sub>max</sub> &Delta;p<sub>max</sub></i>.
+See discussions and an example of this situation in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</p>
+<p>
+The heat dissipated into the medium is as follows:
+If the motor is cooled by the fluid, as indicated by
+<code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q = P<sub>ele</sub> - W<sub>flo</sub>.
+</p>
+
+<p>
+If <code>per.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
+and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
+control volume. Hence,
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q = W<sub>hyd</sub> - W<sub>flo</sub>.
+</p>
+<p>The efficiencies are computed as</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
+  &eta;<sub>hyd</sub> = W<sub>flo</sub> &frasl; W<sub>hyd</sub> <br/>
+  &eta;<sub>mot</sub> = W<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
+</p>
+<p>where
+<i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency,
+<i>&eta;<sub>mot</sub></i> is the motor efficiency and
+<i>Q</i> is the heat released by the motor.
+</p>
+<p>
+If <code>per.use_powerCharacteristic=true</code>,
+then a set of data points for the power <i>P<sub>ele</sub></i> for different
+volume flow rates at full speed needs to be provided by the user.
+Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
+<i>P<sub>ele</sub></i>, the total efficiency is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
+</p>
+<p>
+and the two efficiencies
+<i>&eta;<sub>hyd</sub></i>
+and <i>&eta;<sub>mot</sub></i> are computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta;<sub>hyd</sub> = 1,<br/>
+  &eta;<sub>mot</sub> = &eta;.
+</p>
+<p>
+However, if <code>per.use_powerCharacteristic=false</code>, then
+performance data for
+<i>&eta;<sub>hyd</sub></i> and
+ <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
+the model computes
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
+  P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;.
+</p>
+
+<p>
+The efficiency data for the motor are a list of points
+<i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.
+</p>
+
 <h5>Fluid volume of the component</h5>
 <p>
 All models can be configured to have a fluid volume at the low-pressure side.
