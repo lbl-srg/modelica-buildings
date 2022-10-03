@@ -32,8 +32,8 @@ model NetworkConnection
     redeclare final package Medium = Medium,
     final nom=nom,
     final allowRemoteCharging=nom.allowRemoteCharging,
-    final perPumSup(pressure(V_flow=nom.m_flow_nominal/1.2*{0,2},
-                             dp=nom.dp_nominal*{2,0})))
+    final per(pressure(V_flow=nom.m_flow_nominal/1.2*{0,2},
+                 dp=nom.dp_nominal*{2,0})))
     "Pump and valves connecting the storage plant to the district network"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
@@ -99,10 +99,9 @@ model NetworkConnection
     final dp_nominal={0,0,0}) "Junction for the pressure boundary"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(conRemCha.yPumSup, netCon.yPumSup)
-    annotation (Line(points={{-12,39},{-12,11}},
-                                             color={0,0,127}));
-  connect(conRemCha.yValSup, netCon.yValSup)
+  connect(conRemCha.yPumSup, netCon.yPum)
+    annotation (Line(points={{-12,39},{-12,11}}, color={0,0,127}));
+  connect(conRemCha.yValSup, netCon.yVal)
     annotation (Line(points={{-8,39},{-8,11}}, color={0,0,127}));
   connect(mSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-79,90},
           {-30,90},{-30,58},{-21,58}},color={0,0,127}));

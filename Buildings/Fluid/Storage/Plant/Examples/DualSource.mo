@@ -148,8 +148,8 @@ model DualSource
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
     final allowRemoteCharging=nomPla2.allowRemoteCharging,
-    perPumSup(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
-                       dp=nomPla2.dp_nominal*{2,0})))
+    per(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
+                 dp=nomPla2.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={360*7,360*9},
@@ -380,9 +380,9 @@ equation
   connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-170},{-30,
           -170},{-30,-22},{-38,-22}},
         color={255,0,255}));
-  connect(conRemCha.yPumSup,netCon. yPumSup)
+  connect(conRemCha.yPumSup, netCon.yPum)
     annotation (Line(points={{-52,-41},{-52,-79}}, color={0,0,127}));
-  connect(conRemCha.yValSup,netCon. yValSup)
+  connect(conRemCha.yValSup, netCon.yVal)
     annotation (Line(points={{-48,-41},{-48,-79}}, color={0,0,127}));
   connect(chiBra2.port_b, tanBra.port_aFroChi)
     annotation (Line(points={{-130,-84},{-120,-84}}, color={0,127,255}));

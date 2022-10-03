@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
 model NetworkConnection
-  "Storage plant section with supply pump and valves"
+  "Supply pump and valves that connect the storage plant to the district network"
 
   extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
@@ -8,32 +8,31 @@ model NetworkConnection
     "Type of plant setup";
 
   //Pump sizing & interlock
-  parameter Buildings.Fluid.Movers.Data.Generic perPumSup
-    "Performance data for the supply pump"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})),
-    Dialog(group="Pump Sizing"));
+  parameter Buildings.Fluid.Movers.Data.Generic per
+    "Performance data for the supply pump" annotation (Placement(transformation(
+          extent={{-100,0},{-80,20}})), Dialog(group="Pump Sizing"));
 
   //Valve sizing & interlock
-  parameter Modelica.Units.SI.PressureDifference dpValToNetSup_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of intValSup.valToNet"
+  parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of intVal.valToNet"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
-  parameter Modelica.Units.SI.PressureDifference dpValFroNetSup_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of intValSup.valFroNet"
+  parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal=
+    0.1*nom.dp_nominal "Nominal flow rate of intVal.valFroNet"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
-  parameter Real tValToNetSupClo=0.01
-    "Threshold that intValSup.ValToNet is considered closed"
+  parameter Real tValToNetClo=0.01
+    "Threshold that intVal.ValToNet is considered closed"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
-  parameter Real tValFroNetSupClo=0.01
-    "Threshold that intValSup.ValFroNet is considered closed"
+  parameter Real tValFroNetClo=0.01
+    "Threshold that intVal.ValFroNet is considered closed"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
 
-  Buildings.Fluid.Movers.SpeedControlled_y pumSup(
+  Buildings.Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = Medium,
-    final per=perPumSup,
+    final per=per,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=true,
     addPowerToMedium=false,
@@ -44,16 +43,15 @@ model NetworkConnection
         rotation=0,
         origin={-30,60})));
 
-  Modelica.Blocks.Interfaces.RealInput yPumSup "Speed input of the supply pump"
+  Modelica.Blocks.Interfaces.RealInput yPum "Speed input of the supply pump"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={-30,130}),iconTransformation(
+        origin={-30,130}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
-  Modelica.Blocks.Interfaces.RealInput yValSup[2]
-    if allowRemoteCharging
+  Modelica.Blocks.Interfaces.RealInput yVal[2] if allowRemoteCharging
     "Positions of the valves on the supply line" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
@@ -63,14 +61,13 @@ model NetworkConnection
         rotation=-90,
         origin={20,110})));
 
-  Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intValSup(
+  Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intVal(
     redeclare final package Medium = Medium,
     final nom=nom,
-    final dpValToNet_nominal=dpValToNetSup_nominal,
-    final dpValFroNet_nominal=dpValFroNetSup_nominal,
-    final tValToNetClo=tValToNetSupClo,
-    final tValFroNetClo=tValFroNetSupClo)
-    if allowRemoteCharging
+    final dpValToNet_nominal=dpValToNet_nominal,
+    final dpValFroNet_nominal=dpValFroNet_nominal,
+    final tValToNetClo=tValToNetClo,
+    final tValFroNetClo=tValFroNetClo) if allowRemoteCharging
     "A pair of interlocked valves"
     annotation (Placement(transformation(extent={{0,28},{40,68}})));
   Buildings.Fluid.FixedResistances.Junction jun1(
@@ -104,30 +101,30 @@ model NetworkConnection
 equation
   connect(pas2.port_b, port_bToNet) annotation (Line(points={{60,100},{90,100},
           {90,60},{100,60}}, color={0,127,255}));
-  connect(intValSup.yVal, yValSup) annotation (Line(points={{20,70},{20,130}},
-                                   color={0,0,127}));
-  connect(pumSup.port_b, intValSup.port_aFroChi)
-    annotation (Line(points={{-20,60},{0,60}},  color={0,127,255}));
-  connect(pumSup.port_b, pas2.port_a) annotation (Line(points={{-20,60},{-10,60},
-          {-10,100},{40,100}}, color={0,127,255}));
-  connect(jun2.port_1, intValSup.port_bToNet)
+  connect(intVal.yVal, yVal)
+    annotation (Line(points={{20,70},{20,130}}, color={0,0,127}));
+  connect(pum.port_b, intVal.port_aFroChi)
+    annotation (Line(points={{-20,60},{0,60}}, color={0,127,255}));
+  connect(pum.port_b, pas2.port_a) annotation (Line(points={{-20,60},{-10,60},{-10,
+          100},{40,100}}, color={0,127,255}));
+  connect(jun2.port_1, intVal.port_bToNet)
     annotation (Line(points={{60,60},{40,60}}, color={0,127,255}));
   connect(jun2.port_2, port_bToNet)
     annotation (Line(points={{80,60},{100,60}}, color={0,127,255}));
-  connect(jun2.port_3, intValSup.port_aFroNet)
+  connect(jun2.port_3, intVal.port_aFroNet)
     annotation (Line(points={{70,50},{70,36},{40,36}}, color={0,127,255}));
   connect(port_bToChi, port_aFroNet)
     annotation (Line(points={{-100,-60},{100,-60}}, color={0,127,255}));
-  connect(pumSup.y, yPumSup) annotation (Line(points={{-30,72},{-30,130}},
-                           color={0,0,127}));
+  connect(pum.y, yPum)
+    annotation (Line(points={{-30,72},{-30,130}}, color={0,0,127}));
   connect(port_aFroChi, jun1.port_1)
     annotation (Line(points={{-100,60},{-80,60}}, color={0,127,255}));
-  connect(jun1.port_2, pumSup.port_a)
+  connect(jun1.port_2, pum.port_a)
     annotation (Line(points={{-60,60},{-40,60}}, color={0,127,255}));
-  connect(jun1.port_3, intValSup.port_bToChi)
+  connect(jun1.port_3, intVal.port_bToChi)
     annotation (Line(points={{-70,50},{-70,36},{0,36}}, color={0,127,255}));
-  connect(pumSup.port_a, pas1.port_b) annotation (Line(points={{-40,60},{-54,60},
-          {-54,100},{-60,100}}, color={0,127,255}));
+  connect(pum.port_a, pas1.port_b) annotation (Line(points={{-40,60},{-54,60},{-54,
+          100},{-60,100}}, color={0,127,255}));
   connect(port_aFroChi, pas1.port_a) annotation (Line(points={{-100,60},{-86,60},
           {-86,100},{-80,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -200,13 +197,13 @@ It has the following components:
   </tr>
   <tr>
     <td>Supply output valve<br/>
-        <code>intValSup.valToNet</code></td>
+        <code>intVal.valToNet</code></td>
     <td rowspan=\"2\"><code>plaTyp == .ClosedRemote</code>
         or <code>.Open</code></td>
   </tr>
   <tr>
     <td>Supply charging valve<br/>
-        <code>intValSup.valFroNet</code></td>
+        <code>intVal.valFroNet</code></td>
   </tr>
   <tr>
     <td>Auxiliary pump<br/>

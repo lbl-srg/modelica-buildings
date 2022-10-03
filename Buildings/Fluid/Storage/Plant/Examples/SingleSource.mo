@@ -33,8 +33,9 @@ model SingleSource "Simple system model with one source and one user"
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
     final nom=nom,
-    allowRemoteCharging=nom.allowRemoteCharging,
-    perPumSup(pressure(V_flow=nom.m_flow_nominal*{0,2}, dp=nom.dp_nominal*{2,0})))
+    final allowRemoteCharging=nom.allowRemoteCharging,
+    per(pressure(V_flow=nom.m_flow_nominal*{0,2},
+                 dp=nom.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
@@ -120,9 +121,8 @@ equation
           {0,-6},{0,-40},{10,-40}}, color={0,127,255}));
   connect(netCon.port_bToNet, preDro1.port_a) annotation (Line(points={{-10,6},
           {4,6},{4,-20},{10,-20}}, color={0,127,255}));
-  connect(conPI_pumSec.y,netCon. yPumSup) annotation (Line(points={{-10,39},{
-          -10,16},{-22,16},{-22,11}},
-                                  color={0,0,127}));
+  connect(conPI_pumSec.y, netCon.yPum) annotation (Line(points={{-10,39},{-10,
+          16},{-22,16},{-22,11}}, color={0,0,127}));
   connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-60,-70},
           {-34,-70},{-34,-6},{-40,-6}}, color={0,127,255}));
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/SingleSource.mos"
