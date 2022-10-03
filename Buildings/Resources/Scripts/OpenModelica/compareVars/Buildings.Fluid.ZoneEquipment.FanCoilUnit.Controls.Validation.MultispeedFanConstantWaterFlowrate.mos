@@ -3,7 +3,7 @@ compareVars :=
     "conMulSpeFanConWat.TZon",
     "conMulSpeFanConWat.TCooSet",
     "conMulSpeFanConWat.THeaSet",
-    "conMulSpeFanConWat.timTabOccSch.y[1]",
+    "conMulSpeFanConWat.uOcc",
     "conMulSpeFanConWat.yCoo",
     "conMulSpeFanConWat.yHea",
     "conMulSpeFanConWat.yFan",
