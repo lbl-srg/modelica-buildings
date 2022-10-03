@@ -48,8 +48,11 @@ model WaterCooled "Water-cooled chiller plant"
     final dat=dat.coo,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal) "Cooler group"
-    annotation (Placement(transformation(extent={{-180,-40},{-260,40}})));
+    final allowFlowReversal=allowFlowReversal)
+    "Cooler group"
+    annotation (
+    choicesAllMatching=true,
+    Placement(transformation(extent={{-180,-40},{-260,40}})));
   Fluid.Sources.Boundary_pT bouConWat(
     redeclare final package Medium = MediumCon,
     p=200000,

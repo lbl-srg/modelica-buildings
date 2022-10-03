@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Validation;
-model Base
+model BaseAir
   extends Modelica.Icons.Example;
   replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -34,20 +34,16 @@ model Base
     Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
   parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=
     Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only;
-  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatPri=
-    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon;
-  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat=
-    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant;
 
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
-      final nChi=nChi,
-      final nCoo=nCoo,
-      final typChi=typChi,
-      final typDisChiWat=typDisChiWat,
-      final nPumChiWatSec=nPumChiWatSec,
-      final typCoo=typCoo,
-      final typCtrSpePumConWat=typCtrSpePumConWat))
+      final nChi=CHI.nChi,
+      final nCoo=CHI.nCoo,
+      final typChi=CHI.typChi,
+      final typDisChiWat=CHI.typDisChiWat,
+      final nPumChiWatSec=CHI.nPumChiWatSec,
+      final typCoo=CHI.typCoo,
+      final typCtrSpePumConWat=CHI.typCtrSpePumConWat))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,72},{90,92}})));
 
@@ -71,7 +67,6 @@ model Base
       final typArrPumConWat_select=typArrPumConWat,
       typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant,
       typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
-      final typCoo=typCoo,
       final typEco=typEco,
       final dat=dat.CHI,
       chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
@@ -98,7 +93,6 @@ model Base
     "Weather data"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-
 equation
   connect(res.port_b, bou.ports[1])
     annotation (Line(points={{40,0},{60,0},{60,-11}},      color={0,127,255}));
@@ -114,4 +108,4 @@ equation
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Base;
+end BaseAir;

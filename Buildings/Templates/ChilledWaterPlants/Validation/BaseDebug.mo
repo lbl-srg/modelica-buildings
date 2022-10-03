@@ -60,12 +60,12 @@ model BaseDebug
 
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
-      final typChi=typChi,
       final nChi=nChi,
+      final nCoo=nCoo,
+      final typChi=typChi,
       final typDisChiWat=typDisChiWat,
       final nPumChiWatSec=nPumChiWatSec,
       final typCoo=typCoo,
-      final nCoo=nCoo,
       final typCtrSpePumConWat=typCtrSpePumConWat))
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{100,92},{120,112}})));

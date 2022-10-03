@@ -77,7 +77,11 @@ record ChillerGroup "Record for chiller group model"
     each final min=0,
     each final max=1)=fill(0.15, nChi)
     "Minimum part load ratio before cycling";
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi](
+  /* FIXME DS#SR00937490-01
+  Propagation of per from ChillerGroup is removed temporarily due to an issue in Dymola.
+  A local assignment in Chiller component is implemented instead.
+
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per[nChi](
     TConEnt_nominal=TConChiEnt_nominal,
     TConEntMin=TConChiEnt_min,
     TConEntMax=TConChiEnt_max)
@@ -92,4 +96,5 @@ record ChillerGroup "Record for chiller group model"
       mCon_flow_nominal=mConChi_flow_nominal)
     "Chiller performance data"
     annotation(choicesAllMatching=true);
+   */
 end ChillerGroup;
