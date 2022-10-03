@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example;
 package BaseClasses "Baseclasses used in example model"
+
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},

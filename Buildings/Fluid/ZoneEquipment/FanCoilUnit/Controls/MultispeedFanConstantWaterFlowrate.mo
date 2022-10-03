@@ -19,34 +19,41 @@ block MultispeedFanConstantWaterFlowrate
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of cooling loop controller"
     annotation (Dialog(group="Fan control parameters - Cooling mode"));
+
   parameter Real kCoo(
     final unit="1",
     displayUnit="1")=1
     "Gain of cooling loop controller"
     annotation(Dialog(group="Fan control parameters - Cooling mode"));
+
   parameter Modelica.Units.SI.Time TiCoo=0.5
     "Time constant of cooling loop integrator block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   parameter Modelica.Units.SI.Time TdCoo=0.1
     "Time constant of cooling loop derivative block"
     annotation(Dialog(group="Fan control parameters - Cooling mode",
       enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   parameter .Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating loop controller"
     annotation (Dialog(group="Fan control parameters - Heating mode"));
+
   parameter Real kHea(
     final unit="1",
     displayUnit="1")=1
     "Gain of heating loop controller"
     annotation(Dialog(group="Fan control parameters - Heating mode"));
+
   parameter Modelica.Units.SI.Time TiHea=0.5
     "Time constant of heating loop integrator block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
   parameter Modelica.Units.SI.Time TdHea=0.1
     "Time constant of heating loop derivative block"
     annotation(Dialog(group="Fan control parameters - Heating mode",
@@ -56,7 +63,7 @@ block MultispeedFanConstantWaterFlowrate
   parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
     annotation(Dialog(group="System parameters"));
-	
+
   parameter Modelica.Units.SI.Time tFanEna = 300
     "Minimum running time of the fan"
     annotation(Dialog(group="System parameters"));
@@ -72,6 +79,7 @@ block MultispeedFanConstantWaterFlowrate
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling cooling and heating mode"
     annotation(Dialog(tab="Advanced"));
+
   parameter Real dFanSpe(
     final unit="1",
     displayUnit="1") = 0.05
@@ -194,8 +202,9 @@ protected
     "Add 1 to calculated stage to switch to next speed signal"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(final uLow=-dTHys,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable cooling when zone temperature is higher than cooling setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
@@ -211,8 +220,9 @@ protected
     "Find difference between zone temperature and heating setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(final uLow=-dTHys,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable heating when zone temperature is lower than heating setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -229,7 +239,8 @@ protected
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final reverseActing=false) "PI controller for fan speed in cooling mode"
+    final reverseActing=false)
+    "PI controller for fan speed in cooling mode"
     annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPIDHea(
@@ -237,7 +248,8 @@ protected
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea,
-    final reverseActing=false) "PI controller for fan speed in heating mode"
+    final reverseActing=false)
+    "PI controller for fan speed in heating mode"
     annotation (Placement(transformation(extent={{-66,-110},{-46,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -267,16 +279,18 @@ protected
     "Keep fan enabled for minimum duration"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
 
-
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(final
-      trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(
+    final trueHoldDuration=tValEna,
+    final falseHoldDuration=tValDis)
     "Ensure cooling is enabled and disabled for minimum time duration"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(final
-      trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(
+    final trueHoldDuration=tValEna,
+    final falseHoldDuration=tValDis)
     "Ensure heating is enabled and disabled for minimum time duration"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
+
 equation
   connect(TZon, subCoo.u1) annotation (Line(points={{-160,40},{-130,40},{-130,46},
           {-102,46}}, color={0,0,127}));

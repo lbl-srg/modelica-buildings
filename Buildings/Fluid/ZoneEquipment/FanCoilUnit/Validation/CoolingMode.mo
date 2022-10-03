@@ -1,27 +1,34 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
 model CoolingMode
   "Validation model for cooling mode operation of fan coil unit system"
+
   extends Modelica.Icons.Example;
+
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air";
+
   replaceable package MediumW = Buildings.Media.Water
     "Medium model for water";
+
   Buildings.Fluid.Sources.Boundary_pT sinCooWat(
     redeclare package Medium = MediumW,
     final T=279.15,
-    nPorts=1) "Sink for chilled water" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={36,-90})));
+    final nPorts=1)
+    "Sink for chilled water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={36,-90})));
+
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = MediumW,
     final T=318.15,
-    final nPorts=1) "Sink for heating hot water" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-40,-80})));
+    final nPorts=1)
+    "Sink for heating hot water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={-40,-80})));
+
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
     final dpAir_nominal(displayUnit="Pa") = 100,
@@ -38,6 +45,7 @@ model CoolingMode
     redeclare Data.FanData fanPer)
     "Fan coil"
     annotation (Placement(transformation(extent={{10,-20},{50,20}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T souCooWat(
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
@@ -61,15 +69,16 @@ model CoolingMode
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     final columns=2:19,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"FanCoilAutoSize_ConstantFlowVariableFan.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     final use_Xi_in=true,
@@ -79,6 +88,7 @@ model CoolingMode
     final nPorts=1)
     "Source for zone air"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
+
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
     final p=101325 + 100,
@@ -96,10 +106,12 @@ model CoolingMode
     final p=fill(273.15,3))
     "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
@@ -113,6 +125,7 @@ model CoolingMode
     final k=1)
     "Valve position of hot water coil and chilled water coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/(FCUSizing.mAir_flow_nominal))
     "Calculate normalized fan speed signal"
