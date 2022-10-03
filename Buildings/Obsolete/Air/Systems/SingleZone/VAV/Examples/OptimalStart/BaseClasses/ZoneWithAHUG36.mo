@@ -187,8 +187,8 @@ equation
 Documentation(info="<html>
 <p>
 This base class contains a controller based on Guideline36 
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>,
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>,
 a single-zone VAV system
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer\">
 Buildings.Air.Systems.SingleZone.VAV.ChillerDXHeatingEconomizer</a>, 
