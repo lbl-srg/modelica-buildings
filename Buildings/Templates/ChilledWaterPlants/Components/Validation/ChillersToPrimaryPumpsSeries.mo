@@ -67,6 +67,11 @@ model ChillersToPrimaryPumpsSeries
     final m_flow_nominal=mChiWatEco_flow_nominal,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
     "Parameter record for WSE CHW bypass valve";
+  parameter Buildings.Templates.Components.Data.Valve datValChiWatChiByp(
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
+    "Parameter record for chiller CHW bypass valve";
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[nChi](
     each table=[0,0; 1,0; 1,1; 2,1],
@@ -86,9 +91,11 @@ model ChillersToPrimaryPumpsSeries
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
-    final typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
-    final typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
+    final datValChiWatChiByp=datValChiWatChiByp,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
+    typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
+    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Series chillers, headered pumps, no WSE"
     annotation (Placement(transformation(extent={{-80,130},{-40,250}})));
   Fluid.FixedResistances.PressureDrop resEva1[nChi](
@@ -179,9 +186,11 @@ model ChillersToPrimaryPumpsSeries
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
-    final typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
-    final typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithValve)
+    final datValChiWatChiByp=datValChiWatChiByp,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
+    typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
+    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithValve)
     "Series chillers, headered pumps, WSE with CHW bypass valve"
     annotation (Placement(transformation(extent={{-80,-10},{-40,110}})));
 
@@ -289,9 +298,11 @@ model ChillersToPrimaryPumpsSeries
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
-    final typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
-    final typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump)
+    final datValChiWatChiByp=datValChiWatChiByp,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
+    typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series,
+    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump)
     "Series chillers, headered pumps, WSE with HX pump"
     annotation (Placement(transformation(extent={{-80,-210},{-40,-90}})));
 

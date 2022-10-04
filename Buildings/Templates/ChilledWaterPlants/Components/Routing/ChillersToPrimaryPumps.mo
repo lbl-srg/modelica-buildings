@@ -9,41 +9,43 @@ model ChillersToPrimaryPumps
   parameter Integer nChi
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi(
-    start=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel)
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi
     "Type of chiller arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=nChi>1));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri(
-    start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat
+    "Type of CHW distribution system"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri
     "Type of primary CHW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-      enable=typArrChi<>Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco(
-    start=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   final parameter Integer nPorts=nChi + 1
     "Size of vectorized fluid connectors"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_valChiWatChiBypPar=
+    typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    and (typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only or
+     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only)
+    and typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
+    and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+    "Set to true for parallel chillers with chiller CHW bypass valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_valChiWatChiBypSer=
+    typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
+    "Set to true for series chillers with chiller CHW bypass valve"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal
     "Primary CHW mass flow rate"
     annotation (Dialog(group="Nominal condition"));
-  parameter Buildings.Templates.Components.Data.Valve datValChiWatChiBypSer[nChi](
-    final typ=fill(Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition, nChi),
-    final m_flow_nominal=fill(mChiWatPri_flow_nominal, nChi),
-    dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nChi))
-    "Series chillers CHW bypass valve parameters"
-    annotation (Dialog(enable=
-      typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series));
-  parameter Buildings.Templates.Components.Data.Valve datValChiWatChiBypPar(
+  parameter Buildings.Templates.Components.Data.Valve datValChiWatChiByp(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValIso)
-    "Parallel chillers CHW bypass valve parameters"
-    annotation (Dialog(enable=
-      typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
-      and typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
+    "Chiller CHW bypass valve parameters (identical for all valves in case of series chillers)"
+    annotation (Dialog(enable=have_valChiWatChiBypSer or have_valChiWatChiBypPar));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -104,19 +106,19 @@ model ChillersToPrimaryPumps
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypSer[nChi](
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
-    final dat=datValChiWatChiBypSer)
-    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
-    "Series chillers CHW bypass valve" annotation (Placement(transformation(
+    each final dat=datValChiWatChiByp)
+    if have_valChiWatChiBypSer
+    "Chiller CHW bypass valve - Series chillers"
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-160,0})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypPar(
     redeclare final package Medium = MediumChiWat,
     final allowFlowReversal=allowFlowReversal,
-    final dat=datValChiWatChiBypPar)
-    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
-     and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-    "Parallel chillers CHW bypass valve (only if WSE)"
+    final dat=datValChiWatChiByp)
+    if have_valChiWatChiBypPar
+    "Chiller CHW bypass valve - Parallel chillers with WSE and primary-only distribution)"
     annotation (Placement(
         transformation(extent={{10,10},{-10,-10}}, rotation=270)));
   Buildings.Templates.Components.Routing.MultipleToMultiple rouSupPar(
@@ -235,6 +237,17 @@ protected
     energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
     "Boolean flag used to remove conditional components"
     annotation(Evaluate=true);
+initial equation
+  if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
+    assert(typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    "In "+ getInstanceName() + ": "+
+    "The configuration with WSE and dedicated primary CHW pumps is not supported.");
+  end if;
+  if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series then
+    assert(typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    "In "+ getInstanceName() + ": "+
+    "The configuration with series chillers and dedicated primary CHW pumps is not supported.");
+  end if;
 equation
   /* Control point connection - start */
   connect(bus.valChiWatChiByp, valChiWatChiBypSer.bus);

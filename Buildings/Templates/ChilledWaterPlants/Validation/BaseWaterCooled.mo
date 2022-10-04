@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Validation;
-model BaseAir
+model BaseWaterCooled "Base model for validating CHW plant template with water-cooled chillers"
   extends Modelica.Icons.Example;
   replaceable package MediumChiWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -7,9 +7,7 @@ model BaseAir
   replaceable package MediumConWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CW medium";
-  replaceable package MediumAir=Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Air medium";
+
 
   parameter Integer nChi=2
     "Number of chillers"
@@ -20,18 +18,6 @@ model BaseAir
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Integer nPumChiWatSec=nChi
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi=
-    Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel;
-  parameter Buildings.Templates.Components.Types.Chiller typChi=
-    Buildings.Templates.Components.Types.Chiller.AirCooled;
-  parameter Buildings.Templates.Components.Types.Cooler typCoo=
-    Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
-   Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat=
-    Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only;
 
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
@@ -54,21 +40,26 @@ model BaseAir
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  replaceable Buildings.Templates.ChilledWaterPlants.AirCooled CHI(
-      redeclare final package MediumChiWat = MediumChiWat,
-      redeclare replaceable package MediumCon = MediumAir,
-      final nChi=nChi,
-      final energyDynamics=energyDynamics,
-      final tau=tau,
-      final typArrChi_select=typArrChi,
-      final typDisChiWat=typDisChiWat,
-      final typArrPumChiWatPri_select=typArrPumChiWatPri,
-      final typArrPumConWat_select=typArrPumConWat,
-      typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant,
-      typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
-      final dat=dat.CHI,
-      chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-          typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition))
+  replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI(
+    typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
+    typArrPumChiWatPri_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
+    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
+    chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+    typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition),
+    redeclare replaceable
+    Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
+    coo,
+    redeclare replaceable
+    Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve
+    eco)
+    constrainedby Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
+    redeclare final package MediumChiWat = MediumChiWat,
+    redeclare replaceable package MediumCon = MediumConWat,
+    final nChi=nChi,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final dat=dat.CHI)
     "CHW plant"
     annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
 
@@ -106,4 +97,4 @@ equation
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end BaseAir;
+end BaseWaterCooled;

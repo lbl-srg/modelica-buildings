@@ -46,11 +46,17 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri_select(
     start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
     "Type of primary CHW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=nChi>1));
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=nChi>1
+    and typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+    and typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    if nChi==1 then Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated else
-    typArrPumChiWatPri_select
+    if nChi==1 then Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
+    elseif typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None or
+      typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series then
+      Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
+    else typArrPumChiWatPri_select
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   // The following parameter stores the user selection.
@@ -63,7 +69,8 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
       typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
+    if nChi==1 then Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
+    elseif typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None  then
       Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
     else typArrPumConWat_select
     "Type of CW pump arrangement"

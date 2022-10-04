@@ -31,6 +31,7 @@ partial model PartialChilledWaterLoop
     redeclare final package MediumChiWat=MediumChiWat,
     final nChi=nChi,
     final typArrChi=typArrChi,
+    final typDisChiWat=typDisChiWat,
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typEco=typEco,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,

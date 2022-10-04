@@ -161,6 +161,7 @@ model BaseDebug
   Components.Routing.ChillersToPrimaryPumps rou(
     redeclare final package MediumChiWat = MediumChiWat,
     final nChi=nChi,
+    final typDisChiWat=typDisChiWat,
     final typArrChi=typArrChi,
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typEco=typEco,
@@ -269,10 +270,6 @@ equation
     annotation (Line(points={{-52,40},{-60,40}},   color={0,127,255}));
   connect(souAir.ports[1], chi.ports_aCon) annotation (Line(points={{-60,-60},{-20,
           -60}},                             color={0,127,255}));
-  connect(chi.ports_bChiWat, rou.ports_aSup)
-    annotation (Line(points={{20,40},{40,40}}, color={0,127,255}));
-  connect(chi.ports_aChiWat, rou.ports_bRet)
-    annotation (Line(points={{20,-60},{40,-60}}, color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{140,40},{160,40},{160,40}}, color={0,127,255}));
   connect(outPumChiWatPri.port_b, inlPumChiWatSec.port_a)
@@ -359,5 +356,9 @@ equation
     annotation (Line(points={{180,40},{180,0},{220,0}}, color={0,127,255}));
   connect(supChiWat.port_b, bouChiWat.ports[1]) annotation (Line(points={{240,0},
           {280,0},{280,41},{300,41}},           color={0,127,255}));
+  connect(rou.ports_bRet[1:nChi], chi.ports_aChiWat)
+    annotation (Line(points={{40,-60},{20,-60}}, color={0,127,255}));
+  connect(chi.ports_bChiWat, rou.ports_aSup[1:nChi])
+    annotation (Line(points={{20,40},{40,40}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-260,-120},{340,140}})));
 end BaseDebug;
