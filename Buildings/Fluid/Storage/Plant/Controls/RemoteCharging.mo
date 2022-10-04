@@ -211,7 +211,22 @@ equation
   annotation (
   defaultComponentName="conRemCha",
   Diagram(coordinateSystem(extent={{-100,-100},{220,100}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})),
+        coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Line(
+          points={{60,60},{60,-60},{-40,-60},{-40,0}},
+          color={28,108,200},
+          thickness=1),
+        Polygon(
+          points={{-40,0},{-30,-30},{-50,-30},{-40,0}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,0},{-20,60}},
+          lineColor={200,200,0},
+          lineThickness=3,
+          fillPattern=FillPattern.None)}),
     Documentation(revisions="<html>
 <ul>
 <li>
