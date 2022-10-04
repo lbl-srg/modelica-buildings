@@ -566,7 +566,7 @@ equation
         color={0,0,127}));
   annotation (
     experiment(
-      StopTime=172800,
+      StopTime=1814400,
       __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
