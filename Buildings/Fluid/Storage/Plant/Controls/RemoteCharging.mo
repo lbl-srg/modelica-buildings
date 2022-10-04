@@ -237,13 +237,10 @@ First implementation. This is for
 </ul>
 </html>", info="<html>
 <p>
-[fixme: Update documentation.]
-[fixme: Change icon and graphic to make this block left-to-right.]
-This is a control block for the group of pump and valves in
+This is a control block for the pump and valves in
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>
 when remote charging of the storage plant is allowed.
-It uses <code>plaTyp</code> to select components used for an open or closed tank.
 This block implements the following control objectives:
 </p>
 <table summary= \"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
@@ -255,41 +252,20 @@ This block implements the following control objectives:
 </thead>
 <tbody>
   <tr>
-    <td>Supply pump<br/>
-        <code>pumSup</code></td>
+    <td>Supply pump</td>
     <td>Outputs CHW from the plant;<br/>
-        tracks a positive flow rate setpoint at tank</td>
+        tracks the flow rate setpoint at the tank</td>
   </tr>
   <tr>
-    <td>Supply output valve<br/>
-        <code>intValSup.valToNet</code></td>
+    <td>Valve in series with the pump</td>
     <td>Opens when the supply pump is on to allow flow,<br/>
         otherwise closes to isolate the pump</td>
   </tr>
   <tr>
-    <td>Supply charging valve<br/>
-        <code>intValSup.valFroNet</code></td>
-    <td>For a closed tank, when charging,
-        tracks a negative flow rate, otherwise closed;<br/>
-        For an open tank, opens when the tank is charging
-        and closes otherwise</td>
-  </tr>
-  <tr>
-    <td>Auxiliary pump<br/>
-        <code>pumRet</code></td>
-    <td>Pumps water to the pressurised return line<br/>
-        from the open tank when it is being charged remotely</td>
-  </tr>
-  <tr>
-    <td>Return charging valve<br/>
-        <code>intValRet.valToNet</code></td>
-    <td>Opens when the auxiliary pump is on to allow flow,<br/>
-        otherwise closes to isolate the pump</td>
-  </tr>
-  <tr>
-    <td>Return output valve<br/>
-        <code>intValRet.valFroNet</code></td>
-    <td>Opens when the tank discharges and closes otherwise</td>
+    <td>Valve in parallel with the pump</td>
+    <td>When the tank is being charged remotely,
+        tracks a negative flow rate,<br/>
+        otherwise it is closed</td>
   </tr>
 </tbody>
 </table>

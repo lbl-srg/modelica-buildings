@@ -179,55 +179,27 @@ equation
     defaultComponentName = "netCon",
     Documentation(info="<html>
 <p>
-[fixme: Update documentation.]
 This model is part of a storage plant model.
-It has the following components:
+It contains the pump and valves that connect the storage plant to the district
+network. Some of its components are conditionally enabled.
 </p>
-<table summary= \"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<thead>
-  <tr>
-    <th>Component</th>
-    <th>Enabled</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Supply pump<br/>
-        <code>pumSup</code></td>
-    <td>Always</td>
-  </tr>
-  <tr>
-    <td>Supply output valve<br/>
-        <code>intVal.valToNet</code></td>
-    <td rowspan=\"2\"><code>plaTyp == .ClosedRemote</code>
-        or <code>.Open</code></td>
-  </tr>
-  <tr>
-    <td>Supply charging valve<br/>
-        <code>intVal.valFroNet</code></td>
-  </tr>
-  <tr>
-    <td>Auxiliary pump<br/>
-        <code>pumRet</code></td>
-    <td rowspan=\"3\"><code>plaTyp == .Open</code></td>
-  </tr>
-  <tr>
-    <td>Return charging valve<br/>
-        <code>intValRet.valToNet</code></td>
-  </tr>
-  <tr>
-    <td>Return output valve<br/>
-        <code>intValRet.valFroNet</code></td>
-  </tr>
-</tbody>
-</table>
 <p>
-Under configurations where remote charging is allowed
-(<code>plaTyp == .ClosedRemote</code> or <code>.Open</code>),
-these components are controlled by
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl\">
-Buildings.Fluid.Storage.Plant.BaseClasses.PumpValveControl</a>.
-See its documentation for the control objectives.
+If <code>allowRemoteCharging=true</code>, a pair of interlocked valves are
+enabled. One of them isolates the pump and the other allows CHW flow from
+the district supply line back to the plant to charge the storage tank.
+They are controlled by
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.RemoteCharging\">
+Buildings.Fluid.Storage.Plant.Controls.RemoteCharging</a>.
+The
+<a href=\"Modelica://Buildings.Fluid.FixedResistances.Junction\">
+Buildings.Fluid.FixedResistances.Junction</a>
+models are also used in this configuration to break algebraic loops.
+</p>
+<p>
+If <code>allowRemoteCharging=false</code>, the valves and the junctions are
+replaced by
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough\">
+Buildings.Fluid.Storage.Plant.BaseClasses.FluidPassThrough</a>.
 </p>
 </html>", revisions="<html>
 <ul>

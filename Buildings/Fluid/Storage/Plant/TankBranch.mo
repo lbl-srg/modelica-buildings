@@ -132,32 +132,14 @@ equation
     defaultComponentName = "tanBra",
     Documentation(info="<html>
 <p>
-[fixme: Update documentation.]
 This model is part of a storage plant model. This branch has a stratified tank.
-This tank can potentially be charged remotely by a chiller from its district
-CHW network other than its own local chiller. To model an open storage tank, set
-<code>nom.plaTyp = Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open</code>.
-This enables a volume at atmospheric pressure to be connected to the top of
-the tank. Otherwise, the tank is closed and pressurised by other means.
-</p>
-<p>
-The charghing and discharging of the tank is controlled by tracking a positive
-(discharging) or negative (charging) flow rate.
-Both the top side and the bottom side of the tank have a flow rate sensor
-in this implementation.
-For a closed tank, the bottom sensor is used for control.
-For an open tank, because it exposes the hydraulic loop to the atmospheric pressure,
-the mass flow rate of the water through the top port and bottom port of the tank
-is not automatically conserved. The pumps and valves implemented in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
-Buildings.Fluid.Storage.Plant.NetworkConnection</a>
-have to balance the flow in order to ensure that that the open tank is not flooded
-or drained.
+This tank can potentially be charged remotely by a chiller from the district
+CHW network other than its own local chiller.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-February 18, 2022 by Hongxiang Fu:<br/>
+October 4, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
