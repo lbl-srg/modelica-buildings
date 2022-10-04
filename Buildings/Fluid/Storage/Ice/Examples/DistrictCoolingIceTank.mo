@@ -370,7 +370,8 @@ model DistrictCoolingIceTank
   Controls.OBC.CDL.Integers.Sources.Constant powMod(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency))
     "Power mode of plant (fixme, to be set dynamically)"
     annotation (Placement(transformation(extent={{-480,280},{-460,300}})));
-  BaseClasses.ControlDemandLevel ctrDemLev(k=0.1, Ti=120)
+  BaseClasses.ControlDemandLevel conDemLev(k=0.1, Ti=120)
+    "Controller that outputs the demand level"
     annotation (Placement(transformation(extent={{-420,280},{-400,300}})));
   Sensors.TemperatureTwoPort senTemSupSec(
     redeclare package Medium =MediumWat,
@@ -521,17 +522,17 @@ equation
           {-452,232.56},{-452,250},{-458,250}}, color={0,0,127}));
   connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,235.92},{
           -446,235.92},{-446,290},{-458,290}},  color={255,127,0}));
-  connect(ctrDemLev.y, con.demLev) annotation (Line(points={{-398,296},{-392,
+  connect(conDemLev.y, con.demLev) annotation (Line(points={{-398,296},{-392,
           296},{-392,256},{-428,256},{-428,244},{-424,244},{-424,243.76},{
           -420.667,243.76}},                                           color={
           255,127,0}));
-  connect(ctrDemLev.u_s, chiWatTSet.y) annotation (Line(points={{-422,295},{
+  connect(conDemLev.u_s, chiWatTSet.y) annotation (Line(points={{-422,295},{
           -440,295},{-440,250},{-458,250}}, color={0,0,127}));
   connect(junSecSup.port_2, senTemSupSec.port_a)
     annotation (Line(points={{270,100},{282,100}}, color={0,127,255}));
   connect(senTemSupSec.port_b, disCooCoi.port_a) annotation (Line(points={{302,
           100},{320,100},{320,20}}, color={0,127,255}));
-  connect(senTemSupSec.T, ctrDemLev.u_m) annotation (Line(points={{292,111},{
+  connect(senTemSupSec.T,conDemLev. u_m) annotation (Line(points={{292,111},{
           292,312},{-432,312},{-432,285},{-422,285}}, color={0,0,127}));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-420,370},{-400,370}},
@@ -557,15 +558,15 @@ equation
     annotation (Line(points={{160,90},{160,70}}, color={0,127,255}));
   connect(senTemHexWat1.port_a, chiWat.port_b2) annotation (Line(points={{160,50},
           {160,40},{186,40},{186,20}}, color={0,127,255}));
-  connect(ctrDemLev.yDemLev2, con.yDemLev2) annotation (Line(points={{-398,284},
+  connect(conDemLev.yDemLev2, con.yDemLev2) annotation (Line(points={{-398,284},
           {-396,284},{-396,262},{-434,262},{-434,239.168},{-420.667,239.168}},
         color={0,0,127}));
-  connect(con.yDemLev1, ctrDemLev.yDemLev1) annotation (Line(points={{-420.667,
+  connect(con.yDemLev1,conDemLev. yDemLev1) annotation (Line(points={{-420.667,
           241.408},{-430,241.408},{-430,258},{-394,258},{-394,290},{-398,290}},
         color={0,0,127}));
   annotation (
     experiment(
-      StopTime=31536000,
+      StopTime=172800,
       __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
