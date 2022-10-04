@@ -39,7 +39,7 @@ model DualSource
     "Water cooled chiller (ports indexed 1 are on condenser side)"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-130,110})));
+        origin={-130,60})));
   parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic perChi1(
     QEva_flow_nominal=-1E6,
     COP_nominal=3,
@@ -59,8 +59,8 @@ model DualSource
     TConEntMin=303.15,
     TConEntMax=333.15) "Performance data for the chiller in plant 1"
                                                   annotation (
-      choicesAllMatching=true, Placement(transformation(extent={{-180,160},{-160,
-            180}})));
+      choicesAllMatching=true, Placement(transformation(extent={{-120,100},{-100,
+            120}})));
  Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
     redeclare package Medium = MediumCHW,
     per(pressure(dp=dp_nominal*{2,0},
@@ -74,7 +74,7 @@ model DualSource
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-70,80})));
+        origin={-70,30})));
   Buildings.Fluid.FixedResistances.CheckValve cheValPumChi1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=chi1.m2_flow_nominal,
@@ -82,15 +82,15 @@ model DualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={-110,80})));
+        origin={-110,30})));
   Buildings.Controls.Continuous.LimPID conPI_pumChi1(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.2,
     Ti=10,
     reverseActing=true) "PI controller" annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-70,230})));
+        extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={-90,170})));
   Buildings.Fluid.Sources.MassFlowSource_T souCDW1(
     redeclare package Medium = MediumCDW1,
     m_flow=1.2*chi1.m2_flow_nominal,
@@ -99,7 +99,7 @@ model DualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,130})));
+        origin={-170,80})));
   Buildings.Fluid.Sources.Boundary_pT sinCDW1(
     redeclare final package Medium = MediumCDW1,
     final p=300000,
@@ -108,18 +108,18 @@ model DualSource
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-170,90})));
+        origin={-170,40})));
   Modelica.Blocks.Sources.Constant TEvaLvgSet(k=T_CHWS_nominal)
     "Evaporator leaving temperature setpoint" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,250})));
+        origin={-170,140})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant on(k=true)
     "Placeholder, chiller always on"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,210})));
+        origin={-170,110})));
 
 // Second source: chiller and tank
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nomPla2(
@@ -129,7 +129,7 @@ model DualSource
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
-    annotation (Placement(transformation(extent={{-180,-100},{-160,-80}})));
+    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
@@ -138,11 +138,11 @@ model DualSource
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-90})));
+        origin={-70,-90})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra2(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2) "Chiller branch"
-    annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
@@ -150,25 +150,25 @@ model DualSource
     per(pressure(V_flow=nomPla2.m_flow_nominal/1.2*{0,2},
                  dp=nomPla2.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={360*7,360*9},
     startValue=false) "Tank is being charged remotely" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-170,-170})));
+        origin={-170,-10})));
   Buildings.Fluid.Storage.Plant.Controls.RemoteCharging conRemCha
     "Control block for the secondary pump and valves"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,-30})));
+        origin={-30,-50})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Tank charging remotely OR there is load"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,-130})));
+        rotation=0,
+        origin={-130,-10})));
 
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
@@ -180,7 +180,7 @@ model DualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={50,190})));
+        origin={90,90})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
@@ -190,7 +190,7 @@ model DualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={50,0})));
+        origin={90,-10})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
@@ -200,53 +200,53 @@ model DualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={50,-170})));
+        origin={90,-130})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin_dpUse(nin=3)
     "Min of pressure head measured from all users"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-30,250})));
+        origin={-30,130})));
   Modelica.Blocks.Sources.Constant set_dpUse(final k=1)
     "Normalised consumer differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,250})));
+        origin={-170,170})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCat(uLow=0.05, uHigh=0.1)
     "Shut off at con.yVal = 0.05 and restarts at 0.1" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={10,-210})));
+        origin={50,-170})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal(nin=3)
     "Max of valve positions"
-    annotation (Placement(transformation(extent={{60,-220},{40,-200}})));
+    annotation (Placement(transformation(extent={{100,-180},{80,-160}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 360*2,0; 360*2,
         QCooLoa_flow_nominal; 360*5,QCooLoa_flow_nominal; 360*5,0; 3600,0])
     "Cooling load"
-    annotation (Placement(transformation(extent={{140,200},{120,220}})));
+    annotation (Placement(transformation(extent={{140,100},{120,120}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa2_flow(table=[0,0; 360*3,0; 360*3,
         QCooLoa_flow_nominal; 360*6,QCooLoa_flow_nominal; 360*6,0; 3600,0])
     "Cooling load"
-    annotation (Placement(transformation(extent={{140,10},{120,30}})));
+    annotation (Placement(transformation(extent={{140,0},{120,20}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa3_flow(table=[0,0; 360*4,0; 360*4,
         QCooLoa_flow_nominal; 360*8,QCooLoa_flow_nominal; 360*8,0; 3600,0])
                                                           "Cooling load"
-    annotation (Placement(transformation(extent={{140,-160},{120,-140}})));
+    annotation (Placement(transformation(extent={{140,-120},{120,-100}})));
   Modelica.Blocks.Math.Gain gaiUse1(k=1/ideUse1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={130,170})));
+        origin={130,70})));
   Modelica.Blocks.Math.Gain gaiUse2(k=1/ideUse2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={130,-20})));
+        origin={130,-30})));
   Modelica.Blocks.Math.Gain gaiUse3(k=1/ideUse3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={130,-190})));
+        origin={130,-150})));
 
 // District pipe network
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla2(
@@ -262,7 +262,7 @@ model DualSource
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-10,-90})));
+        origin={50,-90})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla1(
     redeclare package Medium = MediumCHW,
     final mDis_flow_nominal=m_flow_nominal,
@@ -275,7 +275,7 @@ model DualSource
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-10,110})));
+        origin={50,50})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse2(
     redeclare package Medium = MediumCHW,
     final mDis_flow_nominal=m_flow_nominal,
@@ -288,7 +288,7 @@ model DualSource
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-10,0})));
+        origin={50,-10})));
   Buildings.Fluid.FixedResistances.Junction junBou(
     redeclare final package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -296,146 +296,147 @@ model DualSource
     tau=30,
     final m_flow_nominal={-nomPla2.m_flow_nominal,nomPla2.m_flow_nominal,1},
     final dp_nominal={0,0,0}) "Junction connected to the pressure boundary"
-    annotation (Placement(transformation(extent={{-90,-106},{-70,-86}})));
+    annotation (Placement(transformation(extent={{-40,-106},{-20,-86}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     p(final displayUnit="Pa") = 101325,
     redeclare final package Medium = MediumCHW,
     nPorts=1) "Pressure boundary"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-80,-130})));
+        origin={-30,-130})));
   Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 360*1,0;
     360*1,-nomPla2.mTan_flow_nominal; 360*3,-nomPla2.mTan_flow_nominal; 360*3,0;
     360*4,0; 360*4,nomPla2.mTan_flow_nominal; 360*6,nomPla2.mTan_flow_nominal;
     360*6,0; 360*7,0; 360*7,-nomPla2.mTan_flow_nominal;
     360*9,-nomPla2.mTan_flow_nominal;360*9,0]) "Tank flow rate setpoint"
-    annotation (Placement(transformation(extent={{-180,-40},{-160,-20}})));
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
   Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 360*1,0;
     360*1,nomPla2.mTan_flow_nominal; 360*3,nomPla2.mTan_flow_nominal;
     360*3,m_flow_nominal; 360*5,m_flow_nominal; 360*5,0])
     "Flow rate setpoint for the chiller in the storage plant"
-    annotation (Placement(transformation(extent={{-180,-140},{-160,-120}})));
+    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
 equation
-  connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{61,-174},
-          {100,-174},{100,-210.667},{62,-210.667}},                       color=
+  connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{101,
+          -134},{110,-134},{110,-170.667},{102,-170.667}},                color=
          {0,0,127}));
-  connect(ideUse2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{61,-4},
-          {100,-4},{100,-210},{62,-210}}, color={0,0,127}));
+  connect(ideUse2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{101,-14},
+          {110,-14},{110,-170},{102,-170}},
+                                          color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
-    annotation (Line(points={{38,-210},{22,-210}}, color={0,0,127}));
+    annotation (Line(points={{78,-170},{62,-170}}, color={0,0,127}));
   connect(set_dpUse.y,conPI_pumChi1.u_s)
-    annotation (Line(points={{-99,250},{-70,250},{-70,242}},
+    annotation (Line(points={{-159,170},{-102,170}},
                                                    color={0,0,127}));
-  connect(ideUse1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{61,186},
-          {100,186},{100,-209.333},{62,-209.333}},        color={0,0,127}));
-  connect(set_QCooLoa1_flow.y, ideUse1.QCooLoa_flow) annotation (Line(points={{119,210},
-          {110,210},{110,194},{61,194}},   color={0,0,127}));
-  connect(set_QCooLoa2_flow.y, ideUse2.QCooLoa_flow) annotation (Line(points={{
-          119,20},{110,20},{110,4},{61,4}}, color={0,0,127}));
+  connect(ideUse1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{101,86},
+          {110,86},{110,-169.333},{102,-169.333}},        color={0,0,127}));
+  connect(set_QCooLoa1_flow.y, ideUse1.QCooLoa_flow) annotation (Line(points={{119,110},
+          {114,110},{114,94},{101,94}},    color={0,0,127}));
+  connect(set_QCooLoa2_flow.y, ideUse2.QCooLoa_flow) annotation (Line(points={{119,10},
+          {114,10},{114,-6},{101,-6}},      color={0,0,127}));
   connect(set_QCooLoa3_flow.y, ideUse3.QCooLoa_flow) annotation (Line(points={{119,
-          -150},{110,-150},{110,-166},{61,-166}},
+          -110},{114,-110},{114,-126},{101,-126}},
                                                color={0,0,127}));
   connect(ideUse1.dpUse,gaiUse1.u)
-    annotation (Line(points={{61,182},{110,182},{110,170},{118,170}},
+    annotation (Line(points={{101,82},{114,82},{114,70},{118,70}},
                                                        color={0,0,127}));
-  connect(ideUse2.dpUse,gaiUse2.u) annotation (Line(points={{61,-8},{110,-8},{
-          110,-20},{118,-20}}, color={0,0,127}));
+  connect(ideUse2.dpUse,gaiUse2.u) annotation (Line(points={{101,-18},{114,-18},
+          {114,-30},{118,-30}},color={0,0,127}));
   connect(ideUse3.dpUse,gaiUse3.u)
-    annotation (Line(points={{61,-178},{110,-178},{110,-190},{118,-190}},
+    annotation (Line(points={{101,-138},{114,-138},{114,-150},{118,-150}},
                                                           color={0,0,127}));
-  connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,170},{150,
-          170},{150,249.333},{-18,249.333}},
+  connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,70},{150,
+          70},{150,129.333},{-18,129.333}},
                                      color={0,0,127}));
-  connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-20},{150,
-          -20},{150,250},{-18,250}},               color={0,0,127}));
-  connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-190},{150,
-          -190},{150,250.667},{-18,250.667}},
+  connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-30},{150,-30},
+          {150,130},{-18,130}},                    color={0,0,127}));
+  connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-150},{150,
+          -150},{150,130.667},{-18,130.667}},
                                           color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
-    annotation (Line(points={{-42,250},{-52,250},{-52,230},{-58,230}},
-                                                             color={0,0,127}));
-  connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-70,219},{-70,92}},
+    annotation (Line(points={{-42,130},{-90,130},{-90,158}}, color={0,0,127}));
+  connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-79,170},{-74,170},
+          {-74,48},{-70,48},{-70,42}},
                            color={0,0,127}));
   connect(pumSup1.port_b, cheValPumChi1.port_a)
-    annotation (Line(points={{-80,80},{-100,80}}, color={0,127,255}));
-  connect(cheValPumChi1.port_b, chi1.port_a2) annotation (Line(points={{-120,80},
-          {-124,80},{-124,100}},          color={0,127,255}));
-  connect(souCDW1.ports[1], chi1.port_a1) annotation (Line(points={{-160,130},{-136,
-          130},{-136,120}},                     color={0,127,255}));
-  connect(chi1.port_b1, sinCDW1.ports[1]) annotation (Line(points={{-136,100},{-136,
-          90},{-160,90}},           color={0,127,255}));
+    annotation (Line(points={{-80,30},{-100,30}}, color={0,127,255}));
+  connect(cheValPumChi1.port_b, chi1.port_a2) annotation (Line(points={{-120,30},
+          {-124,30},{-124,50}},           color={0,127,255}));
+  connect(souCDW1.ports[1], chi1.port_a1) annotation (Line(points={{-160,80},{-136,
+          80},{-136,70}},                       color={0,127,255}));
+  connect(chi1.port_b1, sinCDW1.ports[1]) annotation (Line(points={{-136,50},{-136,
+          40},{-160,40}},           color={0,127,255}));
   connect(TEvaLvgSet.y, chi1.TSet)
-    annotation (Line(points={{-159,250},{-127,250},{-127,122}},
+    annotation (Line(points={{-159,140},{-127,140},{-127,72}},
                                                            color={0,0,127}));
-  connect(on.y, chi1.on) annotation (Line(points={{-158,210},{-133,210},{-133,122}},
+  connect(on.y, chi1.on) annotation (Line(points={{-158,110},{-133,110},{-133,72}},
                     color={255,0,255}));
-  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-170},{-50,-170},{-50,
-          -142}},                         color={255,0,255}));
-  connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-210},{-42,-210},{-42,-142}},
+  connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-10},{-142,-10}},
+                                          color={255,0,255}));
+  connect(hysCat.y, or2.u2) annotation (Line(points={{38,-170},{-148,-170},{-148,
+          -18},{-142,-18}},
         color={255,0,255}));
-  connect(conRemCha.uAva, or2.y) annotation (Line(points={{-38,-26},{-32,-26},{
-          -32,-110},{-50,-110},{-50,-118}},
+  connect(conRemCha.uAva, or2.y) annotation (Line(points={{-42,-44},{-58,-44},{-58,
+          -10},{-118,-10}},
                      color={255,0,255}));
-  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-170},{
-          -30,-170},{-30,-22},{-38,-22}},
+  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-10},{-152,
+          -10},{-152,-24},{-62,-24},{-62,-48},{-42,-48}},
         color={255,0,255}));
-  connect(conRemCha.yPum, netCon.yPum) annotation (Line(points={{-52,-41},{-52,
-          -60},{-52,-60},{-52,-79}}, color={0,0,127}));
-  connect(conRemCha.yVal, netCon.yVal) annotation (Line(points={{-48,-41},{-48,
-          -60},{-48,-60},{-48,-79}}, color={0,0,127}));
+  connect(conRemCha.yPum, netCon.yPum)
+    annotation (Line(points={{-19,-56},{8,-56},{8,-79}}, color={0,0,127}));
+  connect(conRemCha.yVal, netCon.yVal)
+    annotation (Line(points={{-19,-52},{12,-52},{12,-79}}, color={0,0,127}));
   connect(chiBra2.port_b, tanBra.port_aFroChi)
-    annotation (Line(points={{-130,-84},{-120,-84}}, color={0,127,255}));
+    annotation (Line(points={{-100,-84},{-80,-84}},  color={0,127,255}));
   connect(chiBra2.port_a, tanBra.port_bToChi)
-    annotation (Line(points={{-130,-96},{-120,-96}}, color={0,127,255}));
+    annotation (Line(points={{-100,-96},{-80,-96}},  color={0,127,255}));
   connect(tanBra.mTan_flow, conRemCha.mTan_flow)
-    annotation (Line(points={{-106,-79},{-106,-26},{-61,-26}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-66,-79},{-66,-56},{-41,-56}}, color={0,0,127}));
   connect(junBou.port_3, bou.ports[1])
-    annotation (Line(points={{-80,-106},{-80,-120}},
+    annotation (Line(points={{-30,-106},{-30,-120}},
                                                    color={0,127,255}));
   connect(netCon.port_aFroNet, con2PipPla2.port_aCon)
-    annotation (Line(points={{-40,-96},{-20,-96}}, color={0,127,255}));
-  connect(con2PipPla2.port_bCon, netCon.port_bToNet) annotation (Line(points={{
-          -20,-90},{-34,-90},{-34,-84},{-40,-84}}, color={0,127,255}));
-  connect(con2PipPla2.port_bDisSup, ideUse3.port_a) annotation (Line(points={{
-          -10,-100},{-10,-154},{50,-154},{50,-160}}, color={0,127,255}));
-  connect(ideUse3.port_b, con2PipPla2.port_aDisRet) annotation (Line(points={{
-          50,-180},{50,-186},{-4,-186},{-4,-100}}, color={0,127,255}));
+    annotation (Line(points={{20,-96},{40,-96}},   color={0,127,255}));
+  connect(con2PipPla2.port_bCon, netCon.port_bToNet) annotation (Line(points={{40,-90},
+          {28,-90},{28,-84},{20,-84}},             color={0,127,255}));
+  connect(con2PipPla2.port_bDisSup, ideUse3.port_a) annotation (Line(points={{50,-100},
+          {50,-110},{90,-110},{90,-120}},            color={0,127,255}));
+  connect(ideUse3.port_b, con2PipPla2.port_aDisRet) annotation (Line(points={{90,-140},
+          {90,-150},{56,-150},{56,-100}},          color={0,127,255}));
   connect(con2PipPla2.port_bDisRet, con2PipUse2.port_aDisSup) annotation (Line(
-        points={{-4,-80},{-4,-16},{-10,-16},{-10,-10}}, color={0,127,255}));
+        points={{56,-80},{56,-30},{50,-30},{50,-20}},   color={0,127,255}));
   connect(con2PipPla2.port_aDisSup, con2PipUse2.port_bDisRet) annotation (Line(
-        points={{-10,-80},{-10,-74},{-16,-74},{-16,-10}}, color={0,127,255}));
-  connect(con2PipUse2.port_aCon, ideUse2.port_a) annotation (Line(points={{0,6},
-          {32,6},{32,16},{50,16},{50,10}}, color={0,127,255}));
-  connect(ideUse2.port_b, con2PipUse2.port_bCon) annotation (Line(points={{50,
-          -10},{50,-16},{32,-16},{32,-5.55112e-16},{0,-5.55112e-16}}, color={0,
+        points={{50,-80},{50,-70},{44,-70},{44,-20}},     color={0,127,255}));
+  connect(con2PipUse2.port_aCon, ideUse2.port_a) annotation (Line(points={{60,-4},
+          {72,-4},{72,6},{90,6},{90,0}},   color={0,127,255}));
+  connect(ideUse2.port_b, con2PipUse2.port_bCon) annotation (Line(points={{90,-20},
+          {90,-26},{72,-26},{72,-10},{60,-10}},                       color={0,
           127,255}));
   connect(con2PipUse2.port_aDisRet, con2PipPla1.port_bDisSup) annotation (Line(
-        points={{-16,10},{-16,92},{-10,92},{-10,100}}, color={0,127,255}));
+        points={{44,0},{44,32},{50,32},{50,40}},       color={0,127,255}));
   connect(con2PipPla1.port_aDisRet, con2PipUse2.port_bDisSup) annotation (Line(
-        points={{-4,100},{-4,18},{-10,18},{-10,10}}, color={0,127,255}));
-  connect(con2PipPla1.port_aDisSup, ideUse1.port_a) annotation (Line(points={{
-          -10,120},{-10,206},{50,206},{50,200}}, color={0,127,255}));
-  connect(ideUse1.port_b, con2PipPla1.port_bDisRet) annotation (Line(points={{
-          50,180},{50,174},{-4,174},{-4,120}}, color={0,127,255}));
-  connect(con2PipPla1.port_bCon, chi1.port_b2) annotation (Line(points={{-20,
-          110},{-30,110},{-30,130},{-124,130},{-124,120}}, color={0,127,255}));
-  connect(pumSup1.port_a, con2PipPla1.port_aCon) annotation (Line(points={{-60,
-          80},{-30,80},{-30,104},{-20,104}}, color={0,127,255}));
+        points={{56,40},{56,8},{50,8},{50,0}},       color={0,127,255}));
+  connect(con2PipPla1.port_aDisSup, ideUse1.port_a) annotation (Line(points={{50,60},
+          {50,110},{90,110},{90,100}},           color={0,127,255}));
+  connect(ideUse1.port_b, con2PipPla1.port_bDisRet) annotation (Line(points={{90,80},
+          {90,70},{56,70},{56,60}},            color={0,127,255}));
+  connect(con2PipPla1.port_bCon, chi1.port_b2) annotation (Line(points={{40,50},
+          {-114,50},{-114,80},{-124,80},{-124,70}},        color={0,127,255}));
+  connect(pumSup1.port_a, con2PipPla1.port_aCon) annotation (Line(points={{-60,30},
+          {32,30},{32,44},{40,44}},          color={0,127,255}));
   connect(junBou.port_1, tanBra.port_aFroNet)
-    annotation (Line(points={{-90,-96},{-100,-96}}, color={0,127,255}));
+    annotation (Line(points={{-40,-96},{-60,-96}},  color={0,127,255}));
   connect(junBou.port_2, netCon.port_bToChi)
-    annotation (Line(points={{-70,-96},{-60,-96}}, color={0,127,255}));
+    annotation (Line(points={{-20,-96},{0,-96}},   color={0,127,255}));
   connect(netCon.port_aFroChi, tanBra.port_bToNet)
-    annotation (Line(points={{-60,-84},{-100,-84}}, color={0,127,255}));
-  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-159,
-          -30},{-110,-30},{-110,-22},{-61,-22}}, color={0,0,127}));
-  connect(mChi2Set_flow.y, chiBra2.mPumSet_flow) annotation (Line(points={{-159,
-          -130},{-136,-130},{-136,-101}}, color={0,0,127}));
+    annotation (Line(points={{0,-84},{-60,-84}},    color={0,127,255}));
+  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-119,
+          -50},{-66,-50},{-66,-52},{-41,-52}},   color={0,0,127}));
+  connect(mChi2Set_flow.y, chiBra2.mPumSet_flow) annotation (Line(points={{-119,
+          -130},{-106,-130},{-106,-101}}, color={0,0,127}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
-        Diagram(coordinateSystem(extent={{-180,-220},{160,280}})), Icon(
+        Diagram(coordinateSystem(extent={{-180,-180},{160,180}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>

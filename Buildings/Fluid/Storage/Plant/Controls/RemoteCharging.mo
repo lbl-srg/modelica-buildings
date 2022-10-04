@@ -14,10 +14,10 @@ block RemoteCharging
     "Tank is being charged remotely" annotation (Placement(transformation(
           extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-110,30}),                iconTransformation(extent={{20,-20},{
-            -20,20}},
+        origin={-110,30}),                iconTransformation(extent={{-20,-20},
+            {20,20}},
         rotation=0,
-        origin={120,80})));
+        origin={-120,20})));
   Modelica.Blocks.Interfaces.RealInput mTanSet_flow
     "Tank mass flow rate setpoint"   annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
@@ -25,23 +25,23 @@ block RemoteCharging
           origin={-110,-10}),iconTransformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-110,80})));
+          origin={-110,-20})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAva
     "= true if plant is available"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-110,90}),
-        iconTransformation(extent={{20,-20},{-20,20}},
+        iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={120,40})));
+        origin={-120,60})));
   Modelica.Blocks.Interfaces.RealOutput yPum "Speed input of the pump"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={230,-70}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,-110})));
+        rotation=0,
+        origin={110,-60})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiPumSup
     "True = on (y>0); false = off (y=0)." annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -82,7 +82,7 @@ block RemoteCharging
         origin={-110,-70}),iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,40})));
+        origin={-110,-60})));
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
@@ -106,8 +106,8 @@ block RemoteCharging
         rotation=0,
         origin={230,30}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,-110})));
+        rotation=0,
+        origin={110,-20})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delPum(final delayTime=
         tDelPumSup) "Delays the pump signal" annotation (Placement(

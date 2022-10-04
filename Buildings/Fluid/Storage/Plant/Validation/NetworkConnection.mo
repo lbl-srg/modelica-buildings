@@ -16,18 +16,18 @@ model NetworkConnection
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   Buildings.Fluid.Storage.Plant.Controls.RemoteCharging conRemCha
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.TimeTable mSet_flow(table=[0,0; 900,0; 900,1; 1800,1;
         1800,-1; 2700,-1; 2700,1; 3600,1]) "Mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
+    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold isRemCha(t=1E-5)
     "Tank is being charged when the flow setpoint is negative"
-    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.BooleanTable uAva(
     final table={900},
     final startValue=false)
     "Plant availability"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
     final nom=nom,
@@ -35,11 +35,11 @@ model NetworkConnection
     final per(pressure(V_flow=nom.m_flow_nominal/1.2*{0,2},
                  dp=nom.dp_nominal*{2,0})))
     "Pump and valves connecting the storage plant to the district network"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = Medium)
     "Mass flow rate to the supply line"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource idePreSou(
     redeclare final package Medium = Medium,
     final m_flow_small=1E-5,
@@ -100,22 +100,25 @@ model NetworkConnection
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
   connect(conRemCha.yPum, netCon.yPum)
-    annotation (Line(points={{-12,39},{-12,11}}, color={0,0,127}));
+    annotation (Line(points={{1,24},{8,24},{8,11}}, color={0,0,127}));
   connect(conRemCha.yVal, netCon.yVal)
-    annotation (Line(points={{-8,39},{-8,11}}, color={0,0,127}));
-  connect(mSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-79,90},
-          {-30,90},{-30,58},{-21,58}},color={0,0,127}));
+    annotation (Line(points={{1,28},{12,28},{12,11}}, color={0,0,127}));
+  connect(mSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-79,10},
+          {-70,10},{-70,28},{-21,28}},color={0,0,127}));
   connect(mSet_flow.y, isRemCha.u)
-    annotation (Line(points={{-79,90},{-22,90}},color={0,0,127}));
-  connect(isRemCha.y, conRemCha.uRemCha) annotation (Line(points={{2,90},{8,90},
-          {8,58},{2,58}},   color={255,0,255}));
-  connect(conRemCha.uAva, uAva.y) annotation (Line(points={{2,54},{46,54},{46,
-          90},{41,90}}, color={255,0,255}));
+    annotation (Line(points={{-79,10},{-70,10},{-70,50},{-62,50}},
+                                                color={0,0,127}));
+  connect(isRemCha.y, conRemCha.uRemCha) annotation (Line(points={{-38,50},{-32,
+          50},{-32,32},{-22,32}},
+                            color={255,0,255}));
+  connect(conRemCha.uAva, uAva.y) annotation (Line(points={{-22,36},{-28,36},{
+          -28,90},{-39,90}},
+                        color={255,0,255}));
   connect(senMasFlo.m_flow, conRemCha.mTan_flow)
-    annotation (Line(points={{-50,41},{-50,54},{-21,54}}, color={0,0,127}));
-  connect(netCon.port_aFroChi,senMasFlo. port_b) annotation (Line(points={{-20,6},
-          {-34,6},{-34,30},{-40,30}}, color={0,127,255}));
-  connect(dp.y, idePreSou.dp_in) annotation (Line(points={{21,-70},{30,-70},{30,
+    annotation (Line(points={{-50,21},{-50,24},{-21,24}}, color={0,0,127}));
+  connect(netCon.port_aFroChi,senMasFlo. port_b) annotation (Line(points={{0,6},{
+          -34,6},{-34,10},{-40,10}},  color={0,127,255}));
+  connect(dp.y, idePreSou.dp_in) annotation (Line(points={{21,-70},{36,-70},{36,
           6},{42,6}}, color={0,0,127}));
   connect(junSup.port_2, preDroNet.port_a)
     annotation (Line(points={{60,30},{90,30},{90,10}}, color={0,127,255}));
@@ -125,14 +128,16 @@ equation
     annotation (Line(points={{50,-20},{50,-10}}, color={0,127,255}));
   connect(idePreSou.port_b, junSup.port_3)
     annotation (Line(points={{50,10},{50,20}}, color={0,127,255}));
-  connect(netCon.port_bToNet, junSup.port_1) annotation (Line(points={{0,6},{20,
-          6},{20,30},{40,30}}, color={0,127,255}));
+  connect(netCon.port_bToNet, junSup.port_1) annotation (Line(points={{20,6},{
+          26,6},{26,30},{40,30}},
+                               color={0,127,255}));
   connect(junRet.port_2, netCon.port_aFroNet) annotation (Line(points={{40,-30},
-          {20,-30},{20,-6},{0,-6}}, color={0,127,255}));
-  connect(netCon.port_bToChi, junBou.port_2) annotation (Line(points={{-20,-6},{
+          {26,-30},{26,-6},{20,-6}},color={0,127,255}));
+  connect(netCon.port_bToChi, junBou.port_2) annotation (Line(points={{0,-6},{
           -34,-6},{-34,-30},{-40,-30}}, color={0,127,255}));
-  connect(junBou.port_1, senMasFlo.port_a) annotation (Line(points={{-60,-30},{-64,
-          -30},{-64,30},{-60,30}}, color={0,127,255}));
+  connect(junBou.port_1, senMasFlo.port_a) annotation (Line(points={{-60,-30},{
+          -64,-30},{-64,10},{-60,10}},
+                                   color={0,127,255}));
   connect(bou.ports[1], junBou.port_3) annotation (Line(points={{-80,-70},{-50,-70},
           {-50,-40}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
