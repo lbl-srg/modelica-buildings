@@ -150,7 +150,7 @@ equation
   connect(lev1.inPort[1], to1.outPort) annotation (Line(points={{29,169.75},{22,
           169.75},{22,170},{13.5,170}}, color={0,0,0}));
   connect(conPID.y, greThr.u) annotation (Line(points={{-158,0},{-140,0},{-140,
-          90},{-88,90},{-88,150},{-82,150}},
+          150},{-82,150}},
                       color={0,0,127}));
   connect(greThr.y, to1.condition) annotation (Line(points={{-58,150},{12,150},
           {12,158}},                    color={255,0,255}));
@@ -189,8 +189,8 @@ equation
   connect(intSwi1.y, isDemLev2.u) annotation (Line(points={{140,0},{146,0},{146,
           -42},{4,-42},{4,-62},{-70,-62},{-70,-80},{-62,-80}},
                                            color={255,127,0}));
-  connect(greThr1.u, conPID.y) annotation (Line(points={{-82,110},{-88,110},{
-          -88,90},{-140,90},{-140,0},{-158,0}},
+  connect(greThr1.u, conPID.y) annotation (Line(points={{-82,110},{-140,110},{
+          -140,0},{-158,0}},
                         color={0,0,127}));
   connect(lesThr.u, conPID.y) annotation (Line(points={{-82,80},{-140,80},{-140,
           0},{-158,0}}, color={0,0,127}));
