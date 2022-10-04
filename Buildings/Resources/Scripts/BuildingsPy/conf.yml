@@ -83,8 +83,8 @@
     comment: timed out after 300 seconds.
     simulate: false
   optimica:
-    rtol: 1.0e-08
-    solver: CVode
+    comment: CVode and Radau5ODE hang since https://github.com/lbl-srg/modelica-buildings/pull/3109, likely because Xi rather than mXi is a state
+    simulate: false
 - model_name: Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
   openmodelica:
     comment: Translation failed
@@ -94,6 +94,9 @@
     comment: Translation failed
     translate: false
 - model_name: Buildings.Examples.VAVCO2.VAVSystemCTControl
+  openmodelica:
+    comment: Fails to converge with dassl and CVode, also if tolerance is increased.
+    simulate: false
   optimica:
     comment: Fails with 'The rootfinding function failed in an unrecoverable manner.' Since oct-r26446
     simulate: false
@@ -342,8 +345,6 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Summer
   openmodelica:
     comment: timed out after 300 seconds
@@ -356,20 +357,14 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Summer
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
-  optimica:
-    rtol: 1.0e-07
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingSpring
   openmodelica:
     comment: returned non-zero exit status 255.
@@ -380,15 +375,9 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
-  optimica:
-    rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.IdealHeatingCoolingWinter
   optimica:
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Unconditioned
-  optimica:
-    comment: 'Failed with RuntimeError: Process timeout after 300 seconds. Since oct-r26446.'
-    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Validation.MultipleBuildings.TwoIdenticalTwoZoneBuildings
   openmodelica:
     comment: returned non-zero exit status 139.
