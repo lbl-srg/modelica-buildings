@@ -18,10 +18,8 @@ model SingleSource "Simple system model with one source and one user"
     T_CHWR_nominal=285.15) "Nominal values"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
-  Buildings.Fluid.Storage.Plant.TankBranch tanBra(
-    preDro(final dp_nominal=nom.dp_nominal*0.1),
-    redeclare final package Medium = Medium,
-    final nom=nom) "Tank branch"
+  Buildings.Fluid.Storage.Plant.TankBranch tanBra(redeclare final package
+      Medium = Medium, final nom=nom) "Tank branch"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra(
     redeclare final package Medium = Medium,
