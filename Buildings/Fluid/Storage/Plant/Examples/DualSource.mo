@@ -373,16 +373,16 @@ equation
           -142}},                         color={255,0,255}));
   connect(hysCat.y, or2.u2) annotation (Line(points={{-2,-210},{-42,-210},{-42,-142}},
         color={255,0,255}));
-  connect(conRemCha.uAva, or2.y) annotation (Line(points={{-38,-26},{-32,-26},{-32,
-          -110},{-50,-110},{-50,-118}},
+  connect(conRemCha.uAva, or2.y) annotation (Line(points={{-38,-26},{-32,-26},{
+          -32,-110},{-50,-110},{-50,-118}},
                      color={255,0,255}));
-  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-170},{-30,
-          -170},{-30,-22},{-38,-22}},
+  connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-170},{
+          -30,-170},{-30,-22},{-38,-22}},
         color={255,0,255}));
-  connect(conRemCha.yPumSup, netCon.yPum)
-    annotation (Line(points={{-52,-41},{-52,-79}}, color={0,0,127}));
-  connect(conRemCha.yValSup, netCon.yVal)
-    annotation (Line(points={{-48,-41},{-48,-79}}, color={0,0,127}));
+  connect(conRemCha.yPum, netCon.yPum) annotation (Line(points={{-52,-41},{-52,
+          -60},{-52,-60},{-52,-79}}, color={0,0,127}));
+  connect(conRemCha.yVal, netCon.yVal) annotation (Line(points={{-48,-41},{-48,
+          -60},{-48,-60},{-48,-79}}, color={0,0,127}));
   connect(chiBra2.port_b, tanBra.port_aFroChi)
     annotation (Line(points={{-130,-84},{-120,-84}}, color={0,127,255}));
   connect(chiBra2.port_a, tanBra.port_bToChi)

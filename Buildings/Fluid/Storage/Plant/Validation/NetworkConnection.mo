@@ -99,9 +99,9 @@ model NetworkConnection
     final dp_nominal={0,0,0}) "Junction for the pressure boundary"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 equation
-  connect(conRemCha.yPumSup, netCon.yPum)
+  connect(conRemCha.yPum, netCon.yPum)
     annotation (Line(points={{-12,39},{-12,11}}, color={0,0,127}));
-  connect(conRemCha.yValSup, netCon.yVal)
+  connect(conRemCha.yVal, netCon.yVal)
     annotation (Line(points={{-8,39},{-8,11}}, color={0,0,127}));
   connect(mSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-79,90},
           {-30,90},{-30,58},{-21,58}},color={0,0,127}));
