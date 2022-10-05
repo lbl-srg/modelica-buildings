@@ -51,15 +51,15 @@ model IdealUser "Test model for the dummy user"
         0.5*3600,QCooLoa_flow_nominal; 0.75*3600,QCooLoa_flow_nominal; 0.75*3600,
         0; 1*3600,0])
     "Placeholder, prescribed cooling load"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
   connect(sou.ports[1],ideUse. port_a) annotation (Line(points={{-60,
           -6.66134e-16},{-35.1,-6.66134e-16},{-35.1,0},{-10,0}},
                                                      color={0,127,255}));
   connect(ideUse.port_b, sin.ports[1])
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(preQCooLoa_flow.y,ideUse. QCooLoa_flow) annotation (Line(points={{-39,90},
-          {-4,90},{-4,11}},              color={0,0,127}));
+  connect(preQCooLoa_flow.y,ideUse. QCooLoa_flow) annotation (Line(points={{-39,50},
+          {-4,50},{-4,11}},              color={0,0,127}));
 annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/BaseClasses/Validation/IdealUser.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>

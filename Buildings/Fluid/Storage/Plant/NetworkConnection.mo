@@ -10,7 +10,7 @@ model NetworkConnection
   //Pump sizing & interlock
   parameter Buildings.Fluid.Movers.Data.Generic per
     "Performance data for the supply pump" annotation (Placement(transformation(
-          extent={{-100,0},{-80,20}})), Dialog(group="Pump Sizing"));
+          extent={{-80,0},{-60,20}})),  Dialog(group="Pump Sizing"));
 
   //Valve sizing & interlock
   parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=

@@ -20,14 +20,14 @@ model SingleSource "Simple system model with one source and one user"
 
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(redeclare final package
       Medium = Medium, final nom=nom) "Tank branch"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ChillerBranch chiBra(
     redeclare final package Medium = Medium,
     final nom=nom) "Chiller branch"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-80,0})));
+        origin={-70,0})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
     final nom=nom,
@@ -35,7 +35,7 @@ model SingleSource "Simple system model with one source and one user"
     per(pressure(V_flow=nom.m_flow_nominal*{0,2},
                  dp=nom.dp_nominal*{2,0})))
     "Supply pump and valves that connect the plant to the district network"
-    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse(
     redeclare package Medium = Medium,
@@ -47,7 +47,7 @@ model SingleSource "Simple system model with one source and one user"
   Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 1200,0;
         1200,QCooLoa_flow_nominal; 2400,QCooLoa_flow_nominal; 2400,0; 1*3600,0])
     "Prescribed cooling load"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Controls.Continuous.LimPID conPI_pumSec(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
@@ -55,24 +55,24 @@ model SingleSource "Simple system model with one source and one user"
     reverseActing=true) "PI controller" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={-10,50})));
+        origin={-10,40})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=nom.dp_nominal*0.3,
     final m_flow_nominal=nom.m_flow_nominal) "Flow resistance of the consumer"
-    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare package Medium = Medium,
     final allowFlowReversal=true,
     final dp_nominal=nom.dp_nominal*0.3,
     final m_flow_nominal=nom.m_flow_nominal) "Flow resistance of the consumer"
-    annotation (Placement(transformation(extent={{30,-50},{10,-30}})));
+    annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
   Modelica.Blocks.Sources.Constant set_dpUsr(k=1)
     "Normalised differential pressure setpoint of the user"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-10,90})));
+        origin={-10,70})));
   Buildings.Fluid.Sources.Boundary_pT sou_p(
     redeclare final package Medium = Medium,
     final p=p_Pressurisation,
@@ -80,49 +80,48 @@ model SingleSource "Simple system model with one source and one user"
     nPorts=1) "Pressurisation point" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,-70})));
+        origin={-50,-70})));
   Modelica.Blocks.Math.Gain gaiPumSec(k=1/ideUse.dp_nominal) "Gain" annotation (
      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={30,90})));
+        origin={30,40})));
   Modelica.Blocks.Sources.Constant mSet_flow(k=nom.mChi_flow_nominal)
     "Chiller branch flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
 equation
-  connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{41,50},
-          {66,50},{66,-9}},             color={0,0,127}));
+  connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{61,10},
+          {66,10},{66,-9}},             color={0,0,127}));
   connect(preDro1.port_b, ideUse.port_a)
-    annotation (Line(points={{30,-20},{60,-20}}, color={0,127,255}));
+    annotation (Line(points={{40,-20},{60,-20}}, color={0,127,255}));
   connect(ideUse.port_b, preDro2.port_a) annotation (Line(points={{80,-20},{84,
-          -20},{84,-40},{30,-40}}, color={0,127,255}));
+          -20},{84,-40},{40,-40}}, color={0,127,255}));
   connect(set_dpUsr.y, conPI_pumSec.u_s)
-    annotation (Line(points={{-10,79},{-10,70.5},{-10,70.5},{-10,62}},
+    annotation (Line(points={{-10,59},{-10,55.5},{-10,55.5},{-10,52}},
                                                  color={0,0,127}));
   connect(ideUse.dpUse, gaiPumSec.u)
-    annotation (Line(points={{78,-9},{78,90},{42,90}}, color={0,0,127}));
+    annotation (Line(points={{78,-9},{78,40},{42,40}}, color={0,0,127}));
   connect(gaiPumSec.y, conPI_pumSec.u_m)
-    annotation (Line(points={{19,90},{8,90},{8,50},{2,50}},
-                                                          color={0,0,127}));
+    annotation (Line(points={{19,40},{2,40}},             color={0,0,127}));
   connect(tanBra.port_bToChi, chiBra.port_a)
-    annotation (Line(points={{-60,-6},{-70,-6}}, color={0,127,255}));
+    annotation (Line(points={{-50,-6},{-60,-6}}, color={0,127,255}));
   connect(tanBra.port_aFroChi, chiBra.port_b)
-    annotation (Line(points={{-60,6},{-70,6}}, color={0,127,255}));
+    annotation (Line(points={{-50,6},{-60,6}}, color={0,127,255}));
   connect(mSet_flow.y, chiBra.mPumSet_flow)
-    annotation (Line(points={{-79,-30},{-76,-30},{-76,-11}}, color={0,0,127}));
+    annotation (Line(points={{-69,-30},{-66,-30},{-66,-11}}, color={0,0,127}));
   connect(tanBra.port_aFroNet, netCon.port_bToChi)
-    annotation (Line(points={{-40,-6},{-30,-6}}, color={0,127,255}));
+    annotation (Line(points={{-30,-6},{-20,-6}}, color={0,127,255}));
   connect(tanBra.port_bToNet, netCon.port_aFroChi)
-    annotation (Line(points={{-40,6},{-30,6}}, color={0,127,255}));
-  connect(netCon.port_aFroNet, preDro2.port_b) annotation (Line(points={{-10,-6},
-          {0,-6},{0,-40},{10,-40}}, color={0,127,255}));
-  connect(netCon.port_bToNet, preDro1.port_a) annotation (Line(points={{-10,6},
-          {4,6},{4,-20},{10,-20}}, color={0,127,255}));
-  connect(conPI_pumSec.y, netCon.yPum) annotation (Line(points={{-10,39},{-10,
-          16},{-22,16},{-22,11}}, color={0,0,127}));
-  connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-60,-70},
-          {-34,-70},{-34,-6},{-40,-6}}, color={0,127,255}));
+    annotation (Line(points={{-30,6},{-20,6}}, color={0,127,255}));
+  connect(netCon.port_aFroNet, preDro2.port_b) annotation (Line(points={{0,-6},{
+          10,-6},{10,-40},{20,-40}},color={0,127,255}));
+  connect(netCon.port_bToNet, preDro1.port_a) annotation (Line(points={{0,6},{
+          14,6},{14,-20},{20,-20}},color={0,127,255}));
+  connect(conPI_pumSec.y, netCon.yPum) annotation (Line(points={{-10,29},{-10,
+          20},{-12,20},{-12,11}}, color={0,0,127}));
+  connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-40,-70},
+          {-24,-70},{-24,-6},{-30,-6}}, color={0,127,255}));
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/SingleSource.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
