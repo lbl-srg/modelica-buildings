@@ -404,6 +404,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Validation.NegativePressureOrFlow
+    </td>
+    <td valign=\"top\">Remade this model with
+                       <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+                       Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+                       instead of using a full mover model so that forcing a flow
+                       rate and a pressure rise is more straightforward.
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.Data.Generic<br/>
                        Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
                        Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
