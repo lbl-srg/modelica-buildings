@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "fan.P",
-    "fan.dpMachine",
-    "fan.m_flow"
+    "eff.PEle",
+    "eff.dp_in",
+    "eff.V_flow"
   };
