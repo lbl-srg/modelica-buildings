@@ -14,10 +14,10 @@ protected
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_hal=
     if max(pressure.V_flow) < 1E-6
       then 0
-    else (pressure.V_flow[end]
-                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
-                /(pressure.dp[end] - pressure.dp[end - 1])
-                * pressure.dp[end])/2
+    else (pressure.V_flow[n]
+                -(pressure.V_flow[n] - pressure.V_flow[n - 1])
+                /(pressure.dp[n] - pressure.dp[n - 1])
+                * pressure.dp[n])/2
     "Half of max flow, max flow is where dp=0";
   parameter Modelica.Units.SI.PressureDifference dpHalFlo=
     if max(pressure.V_flow) < 1E-6
@@ -103,7 +103,7 @@ algorithm
       r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
       for i in 1:3 loop
         if abs(r[i,2])<=1E-6 and
-          r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[end] then
+          r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[n] then
           peak.V_flow:=r[i,1];
         end if;
       end for;
