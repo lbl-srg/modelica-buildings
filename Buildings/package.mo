@@ -228,14 +228,19 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
-</tr>
-<tr><td valign=\"top\">xxx
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.BooleanExtractor<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractor
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">New CDL blocks.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
     </td>
-    </tr>
+  </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
