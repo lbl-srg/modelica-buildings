@@ -1,0 +1,8 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation.Alarms", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="zonAla1");
+createPlot(id=1, position={15, 15, 836, 862}, y={"zonAla.TZon", "zonAla.TCooSet", "zonAla.THeaSet"}, range={0.0, 7500.0, 0.0, 30.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 836, 862}, y={"zonAla.u1ResSet"}, range={0.0, 7500.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 836, 862}, y={"zonAla.yTemAla"}, range={0.0, 7500.0, -2.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 836, 862}, y={"zonAla.uOpeMod"}, range={0.0, 7500.0, -2.0, 4.0}, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={857, 11, 810, 868}, y={"zonAla.ppmCO2", "zonAla.CO2Set"}, range={0.0, 7500.0, 0.0, 1200.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", ""});
+createPlot(id=2, position={857, 11, 810, 868}, y={"zonAla.yCO2Ala"}, range={0.0, 8000.0, -0.5, 3.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+

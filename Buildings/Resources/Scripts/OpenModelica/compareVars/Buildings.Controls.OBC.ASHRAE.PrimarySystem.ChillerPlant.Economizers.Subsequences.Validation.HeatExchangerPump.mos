@@ -3,6 +3,7 @@ compareVars :=
     "wsePum.uWSE",
     "wsePum.uPum",
     "wsePum.yPumOn",
+    "wsePum.uPla",
     "wsePum.TEntWSE",
     "wsePum.TEntHex",
     "wsePum.yConWatIsoVal",
