@@ -144,8 +144,6 @@ equation
   connect(effMod.demLev, demLev) annotation (Line(points={{-2,126},{-220,126},{-220,
           182},{-240,182},{-240,180},{-260,180}},
                                  color={255,127,0}));
-  connect(SOC, effMod.SOC) annotation (Line(points={{-260,-180},{-40,-180},{-40,
-          88},{-2,88}}, color={0,0,127}));
   connect(yStoOn, booToRea3.y)
     annotation (Line(points={{260,120},{222,120}}, color={0,0,127}));
   connect(effMod.yStoOn, booToRea3.u) annotation (Line(points={{50,118},{52,118},
@@ -212,7 +210,7 @@ equation
   connect(effMod.yWatChi, swi2.u2) annotation (Line(points={{50,108},{112,108},
           {112,200},{158,200}}, color={255,0,255}));
   connect(swi2.y, TChiWatSet)
-    annotation (Line(points={{182,200},{244,200}}, color={0,0,127}));
+    annotation (Line(points={{182,200},{260,200}}, color={0,0,127}));
   connect(swi.u1, chiGlyTSet.y)
     annotation (Line(points={{158,176},{-78,176}}, color={0,0,127}));
   connect(chiWatTSet.y, swi2.u1) annotation (Line(points={{-78,30},{-60,30},{
@@ -223,9 +221,26 @@ equation
           150},{82,150}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
-            240}}),                                                                          graphics={  Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent={{-240,
+            240}}),
+    graphics={  Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent={{-240,
               240},{240,-260}}),                                                                                                                                                                                       Text(lineColor = {0, 0, 127}, extent={{-50,282},
               {50,238}},                                                                                                                                                                                                        textString = "%name")}),
     Diagram(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
-            240}})));
+            240}})),
+    Documentation(info="<html>
+<p>
+Controller that outputs control signals for the chillers, pumps and valves.
+</p>
+<p>
+The controller takes as input the current demand level, a signal for the operation mode
+that indicates the CO2 content on the electricity,
+and the load that should be served for each demand level.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 5, 2022, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>"));
 end ControlClosedLoop;

@@ -4,13 +4,15 @@ model ControlDemandLevel
   extends Modelica.Icons.Example;
 
 
-  Buildings.Fluid.Storage.Ice.Examples.BaseClasses.ControlDemandLevel conDemLev
+  Buildings.Fluid.Storage.Ice.Examples.BaseClasses.ControlDemandLevel conDemLev(
+    k=1,
+    Ti=30)
     "Controller for demand level"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Controls.OBC.CDL.Continuous.MultiplyByParameter           UA(k=20)
+  Controls.OBC.CDL.Continuous.MultiplyByParameter UA(k=20)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Controls.OBC.CDL.Continuous.Subtract           dT
+  Controls.OBC.CDL.Continuous.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Controls.OBC.CDL.Continuous.Add           dTdt "Temperature derivative"
@@ -18,7 +20,7 @@ model ControlDemandLevel
   Controls.OBC.CDL.Continuous.MultiplyByParameter Q1(k=-300)
     "Heat injection for first stage"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Controls.OBC.CDL.Continuous.Sources.Sine           TOut(
+  Controls.OBC.CDL.Continuous.Sources.Sine TOut(
     amplitude=10,
     freqHz=1/86400,
     phase=3.1415926535898,

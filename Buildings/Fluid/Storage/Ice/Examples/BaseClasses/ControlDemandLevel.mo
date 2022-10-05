@@ -53,7 +53,7 @@ block ControlDemandLevel "Controller that outputs the demand level"
     "Limiter for continuous control signal for demand level 1"
     annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
 
-  Controls.OBC.CDL.Integers.GreaterThreshold isDemLev2(t=2)
+  Controls.OBC.CDL.Integers.GreaterThreshold isDemLev2(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
     "Output true if demand level is 2"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Controls.OBC.CDL.Continuous.Switch swi1
@@ -63,10 +63,10 @@ block ControlDemandLevel "Controller that outputs the demand level"
 
   Controls.OBC.CDL.Continuous.Switch swi2
     annotation (Placement(transformation(extent={{120,-160},{140,-140}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant con(k=0.6)
-    annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant con(final k=y1Min)
+    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Controls.OBC.CDL.Continuous.Subtract     redLoa1       "Keep base load"
-    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
+    annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
   Controls.OBC.CDL.Continuous.Sources.Constant con1(k=0)
     annotation (Placement(transformation(extent={{-20,-190},{0,-170}})));
   Modelica.StateGraph.InitialStep off(nOut=1, nIn=1)
@@ -93,21 +93,26 @@ block ControlDemandLevel "Controller that outputs the demand level"
   Modelica.StateGraph.TransitionWithSignal from2To1(enableTimer=true, waitTime=
         waitTime)                                   "Switch to level 2"
     annotation (Placement(transformation(extent={{30,120},{10,140}})));
-  Controls.OBC.CDL.Integers.Sources.Constant conInt(k=1)
-    annotation (Placement(transformation(extent={{2,-26},{22,-6}})));
-  Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=2)
+  Controls.OBC.CDL.Integers.Sources.Constant conInt(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.None))
+    annotation (Placement(transformation(extent={{0,-26},{20,-6}})));
+  Controls.OBC.CDL.Integers.Sources.Constant conInt1(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Controls.OBC.CDL.Integers.Switch intSwi
     annotation (Placement(transformation(extent={{60,-18},{80,2}})));
   Controls.OBC.CDL.Integers.Switch intSwi1
     annotation (Placement(transformation(extent={{118,-10},{138,10}})));
-  Controls.OBC.CDL.Integers.Sources.Constant conInt2(k=3)
+  Controls.OBC.CDL.Integers.Sources.Constant conInt2(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Elevated))
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesThr1(t=0.1, h=0.05)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  parameter Real y1Min=0.6
+    "Minimum control signal for stage 1 if demand is elevated";
+  Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1/(1 - y1Min))
+    "Gain to ensure control range will be up to 1"
+    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
 equation
   connect(conPID.u_s, u_s) annotation (Line(points={{-182,0},{-194,0},{-194,80},
           {-220,80}},color={0,0,127}));
@@ -117,20 +122,19 @@ equation
   connect(isDemLev2.y, swi1.u2) annotation (Line(points={{-38,-80},{100,-80},{
           100,-90},{118,-90}}, color={255,0,255}));
   connect(conPID.y, swi1.u3) annotation (Line(points={{-158,0},{-140,0},{-140,
-          -144},{14,-144},{14,-98},{118,-98}}, color={0,0,127}));
+          -98},{118,-98}},                     color={0,0,127}));
   connect(redLoa.u1, conPID.y) annotation (Line(points={{18,-54},{-140,-54},{
           -140,0},{-158,0}}, color={0,0,127}));
-  connect(con.y, redLoa.u2) annotation (Line(points={{2,-120},{12,-120},{12,-66},
-          {18,-66}}, color={0,0,127}));
+  connect(con.y, redLoa.u2) annotation (Line(points={{-58,-120},{12,-120},{12,
+          -66},{18,-66}},
+                     color={0,0,127}));
   connect(isDemLev2.y, swi2.u2) annotation (Line(points={{-38,-80},{100,-80},{
           100,-90},{112,-90},{112,-150},{118,-150}}, color={255,0,255}));
-  connect(con.y, redLoa1.u2) annotation (Line(points={{2,-120},{12,-120},{12,
-          -156},{18,-156}},
+  connect(con.y, redLoa1.u2) annotation (Line(points={{-58,-120},{-28,-120},{
+          -28,-156},{-22,-156}},
                       color={0,0,127}));
-  connect(redLoa1.u1, conPID.y) annotation (Line(points={{18,-144},{-140,-144},
-          {-140,0},{-158,0}}, color={0,0,127}));
-  connect(redLoa1.y, limDemLev2.u)
-    annotation (Line(points={{42,-150},{58,-150}}, color={0,0,127}));
+  connect(redLoa1.u1, conPID.y) annotation (Line(points={{-22,-144},{-144,-144},
+          {-144,0},{-158,0}}, color={0,0,127}));
   connect(limDemLev2.y, swi2.u1) annotation (Line(points={{82,-150},{110,-150},
           {110,-142},{118,-142}}, color={0,0,127}));
   connect(con1.y, swi2.u3) annotation (Line(points={{2,-180},{112,-180},{112,
@@ -174,7 +178,7 @@ equation
           {-40,130},{-40,170},{-31,170}},                  color={0,0,0}));
   connect(lev1.active, intSwi.u2)
     annotation (Line(points={{40,159},{40,-8},{58,-8}}, color={255,0,255}));
-  connect(conInt.y, intSwi.u3) annotation (Line(points={{24,-16},{58,-16}},
+  connect(conInt.y, intSwi.u3) annotation (Line(points={{22,-16},{58,-16}},
                     color={255,127,0}));
   connect(conInt1.y, intSwi.u1) annotation (Line(points={{22,20},{50,20},{50,0},
           {58,0}},  color={255,127,0}));
@@ -186,8 +190,8 @@ equation
                          color={255,127,0}));
   connect(intSwi1.y, y) annotation (Line(points={{140,0},{220,0}},
                color={255,127,0}));
-  connect(intSwi1.y, isDemLev2.u) annotation (Line(points={{140,0},{146,0},{146,
-          -42},{4,-42},{4,-62},{-70,-62},{-70,-80},{-62,-80}},
+  connect(intSwi1.y, isDemLev2.u) annotation (Line(points={{140,0},{150,0},{150,
+          -42},{-68,-42},{-68,-80},{-62,-80}},
                                            color={255,127,0}));
   connect(greThr1.u, conPID.y) annotation (Line(points={{-82,110},{-140,110},{
           -140,0},{-158,0}},
@@ -199,6 +203,10 @@ equation
                         color={0,0,127}));
   connect(from2To1.condition, lesThr1.y)
     annotation (Line(points={{20,118},{20,50},{-58,50}}, color={255,0,255}));
+  connect(redLoa1.y, gai.u)
+    annotation (Line(points={{2,-150},{18,-150}}, color={0,0,127}));
+  connect(gai.y, limDemLev2.u)
+    annotation (Line(points={{42,-150},{58,-150}}, color={0,0,127}));
   annotation (
   defaultComponentName="conDemLev",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -220,8 +228,34 @@ equation
             Diagram(coordinateSystem(extent={{-200,-200},{200,200}})),
     Documentation(info="<html>
 <p>
-Block that converts a control error into a demand level signal.
-This block uses a PI controller to integrate the control error
+Block that converts a control error into a demand level signal,
+and outputs the control signal for the two water and glycol loop.
+</p>
+<p>
+This block uses a PI controller to compute the demand level.
+Based on limits of this control output, and delays specified by <code>waitTime</code>,
+it switches between the following demand levels:
+</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.None\">
+Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.None</a>: No demand.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.None\">
+Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal</a>:
+Normal demand.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.None\">
+Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Elevated</a>:
+Elevated demand.
+</li>
+</ul>
+<p>
+The output <code>y</code> is used to report the demand level,
+and the outputs <code>yDemLev1</code> and <code>yDemLev2</code>
+are used to output the control signal for the two levels.
 </p>
 </html>", revisions="<html>
 <ul>

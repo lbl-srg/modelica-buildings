@@ -1,7 +1,7 @@
 ControlClosedLoop
 ControlDemandLevel
 ControlEfficiencyMode
-ControlOpenLoop
+ControlLowPowerMode
 DemandLevels
 OperationModes
 Validation
