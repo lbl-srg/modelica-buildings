@@ -4,5 +4,6 @@ EulerReducedSpeed
 FlowMachineInterface
 HydraulicEfficiencyMethods
 MotorEfficiencyMethods
+NegativePressureOrFlow
 PowerInterface
 TotalEfficiencyMethods
