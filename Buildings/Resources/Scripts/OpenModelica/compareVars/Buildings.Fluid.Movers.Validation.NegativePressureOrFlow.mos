@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "fan.P",
+    "fan.dpMachine",
+    "fan.m_flow"
+  };
