@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block Supply "Supply air set point for single zone VAV system"
 
   parameter Real TSup_max(
