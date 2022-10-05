@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.CDL.Routing.Validation.IntegerExtractor", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="IntegerExtractor");
+createPlot(id=1, position={9, 3, 988, 1122}, y={"extIndIntSig.u[1]", "extIndIntSig.u[2]", "extIndIntSig.u[3]", "extIndIntSig.u[4]"}, range={0.0, 1.0, -2.0, 6.0}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={9, 3, 988, 1122}, y={"extIndIntSig.y"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={9, 3, 988, 1122}, y={"extIndIntSig1.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");
+
