@@ -40,7 +40,8 @@ model StaticTwoPortConservationEquation
 
   Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
                                                           each min=0,
-                                                          each max=1)
+                                                          each max=1,
+                                                          nominal=0.01*ones(Medium.nXi))
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -335,6 +336,11 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Set nominal attribute for <code>XiOut</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
+</li>
 <li>
 September 18, 2020, by Michael Wetter:<br/>
 Removed start value for <code>hOut</code> as it will be set by
