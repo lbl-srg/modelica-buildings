@@ -1,11 +1,29 @@
+<<<<<<< HEAD
 within Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
+=======
+<<<<<<< HEAD:Buildings/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/package.mo
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences;
+=======
+within Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints;
+>>>>>>> master:Buildings/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/SetPoints/Validation/package.mo
+>>>>>>> master
 package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains validation models for the classes in
+<<<<<<< HEAD
 <a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints\">
 Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints</a>.
+=======
+<<<<<<< HEAD:Buildings/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Validation/package.mo
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences</a>.
+=======
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints</a>.
+>>>>>>> master:Buildings/Obsolete/Controls/OBC/ASHRAE/G36_PR1/AHUs/MultiZone/VAV/SetPoints/Validation/package.mo
+>>>>>>> master
 </p>
 <p>
 Note that most validation models contain simple input data
