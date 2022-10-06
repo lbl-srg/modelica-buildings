@@ -119,7 +119,7 @@ First implementation<br/>
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
 </p>
 <p>
-where <i>k<sub>p</i></sub> is the gain of the first-order time-delayed model;
+where <i><sub>kp</sub></i> is the gain of the first-order time-delayed model;
 </p>
 <p><i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>

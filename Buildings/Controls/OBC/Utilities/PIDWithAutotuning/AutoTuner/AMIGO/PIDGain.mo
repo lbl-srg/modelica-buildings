@@ -76,7 +76,7 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 k = 1/k<sub>p</sub> + (0.2 + 0.45T/L),
 </p>
-<p>where <i>k<sub>p</i></sub> is the gain of the first-order time-delayed model;</p>
+<p>where <i>k<sub>p</sub></i> is the gain of the first-order time-delayed model;</p>
 <p><i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>
 <h4>Validation</h4>

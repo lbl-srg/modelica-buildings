@@ -95,17 +95,17 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 k = I<sub>y</sub>/I<sub>u</sub>,
 </p>
-<p>where <i>I<sub>y</i></sub> and <i>I<sub>u</i></sub> are the integral of the process output and the integral of the relay output, respectively.</p>
-<p><i>I<sub>y</i></sub> is calculated by </p>
+<p>where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the process output and the integral of the relay output, respectively.</p>
+<p><i>I<sub>y</sub></i> is calculated by </p>
 <p>I<sub>y</sub> = &int; u(t) dt;</p>
 <p>where <i>u</i> is the process output.</p>
-<p><i>I<sub>u</i></sub> is calculated by </p>
+<p><i>I<sub>u</sub></i> is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
 I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</sub>(-y<sub>low</sub> - y<sub>ref</sub>),
 </p>
-<p>where <i>y<sub>hig</i></sub> and <i>y<sub>low</i></sub> are the higher value and the lower value of the relay control output, respectively.</p>
-<p><i>y<sub>ref</i></sub> is the reference value of the relay output.</p>
-<p><i>t<sub>on</i></sub> and <i>t<sub>off</i></sub> are the length of the On period and the Off period, respectively.</p>
+<p>where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the relay control output, respectively.</p>
+<p><i>y<sub>ref</sub></i> is the reference value of the relay output.</p>
+<p><i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the On period and the Off period, respectively.</p>
 <p>During an On period, the relay switch signal becomes True;</p>
 <p>During an Off period, the relay switch signal becomes False.</p>
 <h4>References</h4>

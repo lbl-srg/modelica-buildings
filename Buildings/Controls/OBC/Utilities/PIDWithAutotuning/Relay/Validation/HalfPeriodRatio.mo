@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model HalfPeriodRatio "Test model for HalfPeriodRatio"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halfPerRat
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRat
     "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
@@ -17,9 +17,9 @@ model HalfPeriodRatio "Test model for HalfPeriodRatio"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 equation
-  connect(tOn.y[1], halfPerRat.tOn) annotation (Line(points={{-38,30},{-20,30},
-          {-20,6},{-10.2222,6}}, color={0,0,127}));
-  connect(tOff.y[1], halfPerRat.tOff) annotation (Line(points={{-38,-30},{-20,
+  connect(tOn.y[1], halPerRat.tOn) annotation (Line(points={{-38,30},{-20,30},{
+          -20,6},{-10.2222,6}}, color={0,0,127}));
+  connect(tOff.y[1], halPerRat.tOff) annotation (Line(points={{-38,-30},{-20,
           -30},{-20,-6},{-10.2222,-6}}, color={0,0,127}));
   annotation (
       experiment(

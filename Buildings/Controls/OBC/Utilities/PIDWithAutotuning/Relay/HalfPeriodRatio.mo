@@ -170,7 +170,7 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 &rho; = max(t<sub>on</sub>,t<sub>off</sub>)/ min(t<sub>on</sub>,t<sub>off</sub>),
 </p>
-<p>where <i>t<sub>on</i></sub> and <i>t<sub>on</i></sub> are the length of the On period and the Off period, respectively.</p>
+<p>where <i>t<sub>on</sub></i> and <i>t<sub>on</sub></i> are the length of the On period and the Off period, respectively.</p>
 <p>During an On period, the relay switch signal becomes True;</p>
 <p>During an Off period,  the relay switch signal becomes False.</p>
 <p>Note that only the first On period and the first Off period are considered.</p>

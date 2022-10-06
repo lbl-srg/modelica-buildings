@@ -142,7 +142,7 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the time constant and the time delay of a first-order time-delayed model</p>
 <h4>Main equations</h4>
-<P>The time constant, <i>T</i>, is calculated by <p>
+<P>The time constant, <i>T</i>, is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
 T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub>hig</sub> + y<sub>low</sub>))/(y<sub>hig</sub>-&delta;/|k|))),
 </p>
@@ -151,7 +151,7 @@ T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub
 <p><i>&delta;</i> is the dead band of a relay controller,</p>
 <p><i>k</i> is the gain of the first-order time-delayed model.</p>
 <p><i>&tau;</i> is the normalized time delay.</p>
-<P>The time delay, <i>L</i>, is calculated by <p>
+<P>The time delay, <i>L</i>, is calculated by </p>
 <p align=\"center\" style=\"font-style:italic;\">
 L = T &tau;/(1 - &tau;),
 </p>
