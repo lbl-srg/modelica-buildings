@@ -48,7 +48,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=nChi>1
-    and typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+    and typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     and typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=

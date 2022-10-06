@@ -44,6 +44,8 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
     typArrPumChiWatPri_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
+    typArrPumConWat_select=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
+    typCtrSpePumConWat_select=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable,
     typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
     chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
     typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition),
@@ -51,8 +53,7 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
     coo,
     redeclare replaceable
-    Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve
-    eco)
+      Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco)
     constrainedby Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare replaceable package MediumCon = MediumConWat,
