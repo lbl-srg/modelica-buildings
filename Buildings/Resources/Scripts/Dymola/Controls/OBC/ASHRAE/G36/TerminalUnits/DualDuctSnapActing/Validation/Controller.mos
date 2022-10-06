@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Validation.Controller", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="DualDuctSnapActing");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.TZon", "duaDucCon.TCooSet", "duaDucCon.THeaSet", "duaDucCon.TDis", "duaDucCon.TColSup", "duaDucCon.THotSup"}, range={0.0, 90000.0, 10.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {0,0,255}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.u1Win", "duaDucCon.u1Occ"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.uOpeMod"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.ppmCO2"}, range={0.0, 90000.0, -1000.0, 2000.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.VColDucDis_flow", "duaDucCon.VHotDucDis_flow"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=105, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"duaDucCon.oveFloSet", "duaDucCon.oveCooDamPos", "duaDucCon.oveHeaDamPos"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=106, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s");
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"duaDucCon.u1CooAHU", "duaDucCon.u1HeaAHU"}, range={0.0, 90000.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {238, 46,47}}, timeUnit="s");
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"duaDucCon.VSet_flow"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s", displayUnits={"m3/s"});
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"duaDucCon.yCooDam", "duaDucCon.yHeaDam"}, range={0.0, 90000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238, 46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"duaDucCon.yZonCooTemResReq", "duaDucCon.yColDucPreResReq", "duaDucCon.yLowFloAla", "duaDucCon.yColFloSenAla", "duaDucCon.yColLeaDamAla"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+

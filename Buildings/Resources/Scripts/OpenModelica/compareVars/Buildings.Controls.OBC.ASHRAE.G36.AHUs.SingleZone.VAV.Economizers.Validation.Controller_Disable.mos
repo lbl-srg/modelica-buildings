@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "economizer.enaDis.andEnaDis.y",
+    "economizer.uZonSta",
+    "economizer1.uFreProSta",
+    "economizer.damLim.yOutDam_min",
+    "economizer.damLim.yOutDam_max",
+    "economizer.yOutDam",
+    "economizer.yRetDam",
+    "economizer1.enaDis.andEnaDis.y",
+    "economizer1.uZonSta",
+    "economizer1.uFreProSta",
+    "economizer1.damLim.yOutDam_min",
+    "economizer1.damLim.yOutDam_max",
+    "economizer1.yOutDam",
+    "economizer1.yRetDam"
+  };
