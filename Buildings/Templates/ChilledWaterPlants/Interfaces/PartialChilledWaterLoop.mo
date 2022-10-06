@@ -30,6 +30,7 @@ partial model PartialChilledWaterLoop
   Components.Routing.ChillersToPrimaryPumps rou(
     redeclare final package MediumChiWat=MediumChiWat,
     final nChi=nChi,
+    final nPumChiWatPri=nPumChiWatPri,
     final typArrChi=typArrChi,
     final typDisChiWat=typDisChiWat,
     final typArrPumChiWatPri=typArrPumChiWatPri,
@@ -42,7 +43,7 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{0,-110},{40,10}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWatPri(
     redeclare final package Medium=MediumChiWat,
-    final nPum=nChi,
+    final nPum=nPumChiWatPri,
     final typCtrSpe=typCtrSpePumChiWatPri,
     final dat=dat.pumChiWatPri,
     final energyDynamics=energyDynamics,
@@ -51,7 +52,7 @@ partial model PartialChilledWaterLoop
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,
-    final nPorts=nChi,
+    final nPorts=nPumChiWatPri,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
@@ -77,7 +78,8 @@ partial model PartialChilledWaterLoop
   // CW loop
   Buildings.Templates.Components.Routing.MultipleToMultiple inlConChi(
     redeclare final package Medium = MediumCon,
-    final nPorts_a=nChi,
+    final nPorts_a=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+    then nPumConWat else nChi,
     final nPorts_b=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
       then nChi + 1 else nChi,

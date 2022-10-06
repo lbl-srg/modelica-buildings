@@ -21,9 +21,22 @@ partial block PartialController "Interface class for plant controller"
   parameter Boolean have_pumChiWatSec
     "Set to true if the plant includes secondary CHW pumps"
     annotation(Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumChiWatPri(
+    start=1,
+    final min=1)=nChi
+    "Number of primary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumConWat(
+    start=1,
+    final min=0)=nChi
+    "Number of CW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
+    typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat
     "Type of CW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -48,11 +61,15 @@ partial block PartialController "Interface class for plant controller"
     "Condenser water cooling equipment"
     annotation(Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nCoo(start=1)
+  parameter Integer nCoo(
+    start=1,
+    final min=0)=nChi
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nPumChiWatSec(start=1)
+  parameter Integer nPumChiWatSec(
+    start=1,
+    final min=0)=nChi
     "Number of secondary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2
@@ -70,6 +87,19 @@ partial block PartialController "Interface class for plant controller"
   parameter Buildings.Templates.Components.Types.Valve typValCooOutIso
     "Cooler outlet isolation valve"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Controller dat(
+    final typChi=typChi,
+    final nChi=nChi,
+    final nPumChiWatPri=nPumChiWatPri,
+    final nPumConWat=nPumConWat,
+    final typDisChiWat=typDisChiWat,
+    final nPumChiWatSec=nPumChiWatSec,
+    final typCoo=typCoo,
+    final nCoo=nCoo,
+    final typCtrSpePumConWat=typCtrSpePumConWat,
+    final typEco=typEco)
+    "Parameter record for controller";
 
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     "Plant control bus"

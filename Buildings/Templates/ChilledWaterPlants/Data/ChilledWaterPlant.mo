@@ -8,6 +8,12 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Integer nChi
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Integer nPumChiWatPri=nChi
+    "Number of primary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Integer nPumConWat=nChi
+    "Number of CW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat
     "Type of CHW distribution system"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -17,7 +23,7 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Buildings.Templates.Components.Types.Cooler typCoo
     "Condenser water cooling equipment"
     annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nCoo
+  parameter Integer nCoo=nChi
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat

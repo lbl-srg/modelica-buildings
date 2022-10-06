@@ -26,6 +26,10 @@ package Defaults "Package with default sizing parameters"
     "WSE entering CW temperature";
   constant Modelica.Units.SI.Temperature TConWatEcoLvg=16+273.15
     "WSE leaving CW temperature";
+  constant Modelica.Units.SI.Temperature TAirOutChiLoc=16+273.15
+    "Outdoor air lockout temperature below which the CHW plant is prevented from operating";
+  constant Modelica.Units.SI.TemperatureDifference dTLifChi_min=5
+    "Minimum chiller lift at minimum load";
 
   constant Modelica.Units.SI.Temperature TAirDryCooEnt=TConAirEnt
     "Dry cooler entering air drybulb temperature";
@@ -54,6 +58,12 @@ package Defaults "Package with default sizing parameters"
     "Check valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpChiWatChi=5E4
     "Chiller CHW pressure drop";
+  constant Modelica.Units.SI.PressureDifference dpChiWatSet_min=3.5E4
+    "Minimum CHW differential pressure setpoint used in CHW plant reset logic";
+  constant Modelica.Units.SI.PressureDifference dpChiWatSet_max=5E4
+    "Maximum CHW differential pressure setpoint remote from the CHW plant";
+  constant Modelica.Units.SI.PressureDifference dpChiWatLocSet_max=15E4
+    "Maximum CHW differential pressure setpoint local to the CHW plant";
   constant Modelica.Units.SI.PressureDifference dpConWatChi=5E4
     "Chiller CW pressure drop (water-cooled)";
   constant Modelica.Units.SI.PressureDifference dpConAirChi=2000

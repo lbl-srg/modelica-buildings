@@ -8,9 +8,14 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "CW medium";
 
-
   parameter Integer nChi=2
     "Number of chillers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumChiWatPri=nChi
+    "Number of primary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nPumConWat=nChi
+    "Number of CW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Integer nCoo=nChi
     "Number of cooler units"
@@ -22,6 +27,8 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
   parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
     CHI(
       final nChi=CHI.nChi,
+      final nPumChiWatPri=nPumChiWatPri,
+      final nPumConWat=nPumConWat,
       final nCoo=CHI.nCoo,
       final typChi=CHI.typChi,
       final typEco=CHI.typEco,
@@ -52,12 +59,13 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     redeclare replaceable
     Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
     coo,
-    redeclare replaceable
-      Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco)
+    redeclare replaceable Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco)
     constrainedby Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare replaceable package MediumCon = MediumConWat,
     final nChi=nChi,
+    final nPumChiWatPri=nPumChiWatPri,
+    final nPumConWat=nPumConWat,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=dat.CHI)

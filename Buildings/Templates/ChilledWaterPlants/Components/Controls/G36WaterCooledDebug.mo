@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Controls;
-block Guideline36WaterCooled
-  "Guideline 36 controller for Chilled Water plant with water-cooled chillers"
+block G36WaterCooledDebug
+  "Guideline 36 controller for CHW plant with water-cooled chillers"
   extends Interfaces.PartialController(final typ=Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36);
 
   parameter Boolean closeCoupledPlant=false
@@ -384,4 +384,4 @@ equation
           180},{-10,180},{-10,11},{-2,11}}, color={255,0,255}));
   connect(ctrPla.TChiWatSupSet, FIXME_TChiWatSupSet.u) annotation (Line(points={
           {22,18},{40,18},{40,20},{58,20}}, color={0,0,127}));
-end Guideline36WaterCooled;
+end G36WaterCooledDebug;

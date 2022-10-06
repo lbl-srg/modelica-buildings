@@ -42,35 +42,45 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Set to true if the plant includes secondary CHW pumps"
     annotation(Evaluate=true, Dialog(group="Configuration"));
 
+  parameter Integer nPumChiWatPri(
+    start=1,
+    final min=1)=nChi
+    "Number of primary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri_select(
     start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=nChi>1
-    and typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+    enable=typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     and typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    if nChi==1 then Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
-    elseif typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None or
+    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None or
       typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series then
       Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
     else typArrPumChiWatPri_select
     "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+
+  parameter Integer nPumConWat(
+    start=1,
+    final min=0)=nChi
+    "Number of CW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
+    typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat_select(
     start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
     "Type of CW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration",
-      enable=nChi>1 and
-      typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
-    if nChi==1 then Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
-    elseif typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None  then
+    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None  then
       Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
     else typArrPumConWat_select
     "Type of CW pump arrangement"
@@ -130,11 +140,15 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Condenser water cooling equipment"
     annotation(Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nCoo=nChi
+  parameter Integer nCoo(
+    start=1,
+    final min=0)=nChi
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nPumChiWatSec=nChi
+  parameter Integer nPumChiWatSec(
+    start=1,
+    final min=0)=nChi
     "Number of secondary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2
@@ -269,6 +283,22 @@ protected
     displayUnit="Pa")=0
     "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
+initial equation
+
+  if typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated then
+    assert(nPumChiWatPri==nChi,
+      "In " + getInstanceName() + ": " +
+      "In case of dedicated pumps, the number of primary CHW pumps (=" +
+      String(nPumChiWatPri) + ") must be equal to the number of chillers (=" +
+      String(nChi) + ").");
+  end if;
+  if typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated then
+    assert(nPumConWat==nChi,
+      "In " + getInstanceName() + ": " +
+      "In case of dedicated pumps, the number of CW pumps (=" +
+      String(nPumConWat) + ") must be equal to the number of chillers (=" +
+      String(nChi) + ").");
+  end if;
 
   annotation (
     defaultComponentName="plaChiWat",

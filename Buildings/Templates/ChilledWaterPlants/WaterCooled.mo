@@ -11,7 +11,7 @@ model WaterCooled "Water-cooled chiller plant"
   // CW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat(
     redeclare final package Medium=MediumCon,
-    final nPorts=nChi,
+    final nPorts=nPumConWat,
     final m_flow_nominal=mCon_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
@@ -20,7 +20,7 @@ model WaterCooled "Water-cooled chiller plant"
     annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
     redeclare final package Medium=MediumCon,
-    final nPum=nChi,
+    final nPum=nPumConWat,
     final typCtrSpe=typCtrSpePumConWat,
     final dat=dat.pumConWat,
     final energyDynamics=energyDynamics,
@@ -44,7 +44,9 @@ model WaterCooled "Water-cooled chiller plant"
   Fluid.Sources.Boundary_pT bouConWat(
     redeclare final package Medium = MediumCon,
     p=200000,
-    nPorts=1) "CW pressure boundary condition" annotation (Placement(
+    nPorts=1)
+    "CW pressure boundary condition"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
