@@ -25,7 +25,7 @@ initial equation
   pre(index)=0;
 
 equation
-  when {initial(),change(index)} then
+  when {initial(), change(index)} then
     for i in 1:nin loop
       k[i]=
         if index == i then
@@ -145,6 +145,10 @@ Block that returns
 <p>
 where <code>u</code> is a vector-valued input signal and
 <code>index</code> is an <code>Integer</code> input signal.
+</p>
+<p>
+If <code>index</code> is out of range, then the output is set to
+<code>y = outOfRangeValue</code>.
 </p>
 </html>",
       revisions="<html>
