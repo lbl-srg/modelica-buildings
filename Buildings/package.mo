@@ -237,7 +237,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                          Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal<br/>
                          Buildings.Controls.OBC.CDL.Routing.IntegerExtractor
     </td>
-    <td valign=\"top\">New CDL blocks.<br/>
+    <td valign=\"top\">Added CDL blocks to extract signals.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
     </td>

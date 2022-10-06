@@ -138,7 +138,7 @@ Extract signals from the input connector and transfer them
 to the output connector.
 </p>
 <p>
-The extracting scheme is given by the integer vector <code>extract</code>.
+The extraction scheme is specified by the integer vector <code>extract</code>.
 This vector specifies which input signals are taken and in which
 order they are transferred to the output vector. Note that the
 dimension of <code>extract</code> has to match the number of outputs.

@@ -29,7 +29,7 @@ initial equation
   pre(index)=0;
 
 equation
-  when {initial(),change(index)} then
+  when {initial(), change(index)} then
     for i in 1:nin loop
       k[i]=
         if index == i then
@@ -149,13 +149,17 @@ annotation (defaultComponentName="extIndBooSig",
     Documentation(
       info="<html>
 <p>
-Block that extracts a scalar output signal out the
-vector of input signals dependent on the Integer
-value of the input <code>index</code>:</p>
+Block that returns
+</p>
 <pre>    y = u [ index ] ;
 </pre>
 <p>
-where index is an additional Integer input signal.
+where <code>u</code> is a vector-valued input signal and
+<code>index</code> is an <code>Integer</code> input signal.
+</p>
+<p>
+If <code>index</code> is out of range, then the output is set to
+<code>y = outOfRangeValue</code>.
 </p>
 </html>",
       revisions="<html>
