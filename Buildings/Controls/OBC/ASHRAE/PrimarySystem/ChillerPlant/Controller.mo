@@ -2322,9 +2322,10 @@ annotation (
           textString="dpChiWat",
           visible=have_WSE and have_byPasValCon),
         Text(
-          extent={{-98,-44},{-50,-54}},
+          extent={{-98,-44},{-62,-56}},
           textColor={255,0,255},
-          textString="have_WSE and not have_byPasValCon"),
+          textString="uEcoPum",
+          visible=have_WSE and not have_byPasValCon),
         Text(
           extent={{34,398},{94,384}},
           textColor={0,0,125},

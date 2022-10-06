@@ -179,8 +179,8 @@ equation
     annotation (Line(points={{-158,-120},{-82,-120}},  color={255,0,255}));
   connect(not1.y, conVAV.u1SofSwiRes) annotation (Line(points={{-58,-120},{-20,
           -120},{-20,21},{18,21}}, color={255,0,255}));
-  connect(mixTem.y, conVAV.TAirMix) annotation (Line(points={{-118,-140},{-16,-140},
-          {-16,13},{18,13}}, color={0,0,127}));
+  connect(mixTem.y, conVAV.TAirMix) annotation (Line(points={{-118,-140},{-16,
+          -140},{-16,11},{18,11}}, color={0,0,127}));
   connect(outDam.y, conVAV.uOutDam) annotation (Line(points={{-158,-160},{-12,-160},
           {-12,9},{18,9}}, color={0,0,127}));
   connect(cooCoi.y, conVAV.uCooCoi_actual) annotation (Line(points={{-118,-180},

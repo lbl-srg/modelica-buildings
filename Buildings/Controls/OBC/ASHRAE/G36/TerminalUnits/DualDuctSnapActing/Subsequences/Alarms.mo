@@ -336,6 +336,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 if not have_duaSen
+    "Check if there is any supply fan proven on"
     annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
     final delayTime=fanOffTim) if not have_duaSen

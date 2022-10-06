@@ -284,8 +284,6 @@ equation
           {-120,280},{-120,298},{-102,298}},      color={255,0,255}));
   connect(zonGroSta.yEndSetBac, opeModSel.uEndSetBac) annotation (Line(points={{-138,
           278},{-118,278},{-118,296},{-102,296}},       color={255,0,255}));
-  connect(zonGroSta.TZonMax, opeModSel.TZonMax) annotation (Line(points={{-138,267},
-          {-116,267},{-116,294},{-102,294}},      color={0,0,127}));
   connect(zonGroSta.TZonMin, opeModSel.TZonMin) annotation (Line(points={{-138,265},
           {-114,265},{-114,292},{-102,292}},      color={0,0,127}));
   connect(zonGroSta.yHotZon, opeModSel.totHotZon) annotation (Line(points={{-138,
@@ -422,8 +420,8 @@ for a description of the HVAC system.
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
+<a href=\"modelica://Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1\">
+Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</a> for
 multi-zone VAV systems with economizer. 
 The figures below shows the schematic diagram and controls of an HVAC system that supplies 5 zones:
 </p>

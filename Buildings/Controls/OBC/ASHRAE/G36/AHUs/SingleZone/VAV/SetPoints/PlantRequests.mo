@@ -298,8 +298,6 @@ equation
           {78,-228}}, color={255,127,0}));
   connect(intSwi1.y, yHotWatPlaReq)
     annotation (Line(points={{102,-220},{220,-220}}, color={255,127,0}));
-  connect(yChiWatResReq, yChiWatResReq)
-    annotation (Line(points={{220,200},{220,200}}, color={255,127,0}));
   connect(TSupHeaEco, heaSupTemDif.u1)
     annotation (Line(points={{-220,-40},{-160,-40},{-160,-34},{-142,-34}}, color={0,0,127}));
 

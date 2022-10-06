@@ -56,7 +56,7 @@ block ChilledWaterPlantReset
     annotation (Placement(transformation(extent={{120,-60},{160,-20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
     final iniSet=iniSet,
     final minSet=minSet,
     final maxSet=maxSet,

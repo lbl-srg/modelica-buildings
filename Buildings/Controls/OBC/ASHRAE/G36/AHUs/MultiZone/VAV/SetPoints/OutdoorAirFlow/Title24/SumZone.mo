@@ -15,21 +15,21 @@ block SumZone "Sum of the zone level setpoints calculation"
     annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VZonAbsMin_flow[nZon](
-    final min=0,
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final min=fill(0,nZon),
+    final unit=fill("m3/s",nZon),
+    final quantity=fill("VolumeFlowRate",nZon))
     "Zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-160,0},{-120,40}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VZonDesMin_flow[nZon](
-    final min=0,
-    final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final min=fill(0,nZon),
+    final unit=fill("m3/s",nZon),
+    final quantity=fill("VolumeFlowRate",nZon))
     "Zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{-160,-70},{-120,-30}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2[nZon](
-    final unit="1") if have_CO2Sen
+    final unit=fill("1",nZon)) if have_CO2Sen
     "Zone CO2 control loop"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));

@@ -126,7 +126,7 @@ equation
   connect(hvac.TSup, con.TAirSup) annotation (Line(points={{1.2,-8},{10,-8},{10,
           -50},{-154,-50},{-154,16},{-122,16}}, color={0,0,127}));
   connect(hvac.TMix, con.TAirMix) annotation (Line(points={{1.2,-4},{14,-4},{14,
-          -52},{-150,-52},{-150,-7},{-122,-7}}, color={0,0,127}));
+          -52},{-150,-52},{-150,-9},{-122,-9}}, color={0,0,127}));
   connect(con.ySupFan, hvac.uFan) annotation (Line(points={{-78,24},{-58,24},{
           -58,18},{-42,18}},
                          color={0,0,127}));
@@ -138,8 +138,8 @@ equation
           -120},{-166,1},{-122,1}}, color={255,0,255}));
   connect(con.yOutDam, hvac.uEco) annotation (Line(points={{-78,29},{-62,29},{
           -62,-2},{-42,-2}}, color={0,0,127}));
-  connect(con.ySupFan, con.uSupFan_actual) annotation (Line(points={{-78,24},{-58,
-          24},{-58,-46},{-146,-46},{-146,-14},{-122,-14}}, color={0,0,127}));
+  connect(con.ySupFan, con.uSupFan_actual) annotation (Line(points={{-78,24},{
+          -58,24},{-58,-38},{-146,-38},{-146,-14},{-122,-14}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-220,-200},{120,200}})),
     experiment(
       StopTime=864000,

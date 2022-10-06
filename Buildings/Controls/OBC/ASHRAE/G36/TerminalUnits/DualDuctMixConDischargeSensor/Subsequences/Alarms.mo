@@ -189,6 +189,7 @@ block Alarms
     "Convert boolean true to level 3 alarm"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Check if there is any supply fan proven on"
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
     final delayTime=fanOffTim)

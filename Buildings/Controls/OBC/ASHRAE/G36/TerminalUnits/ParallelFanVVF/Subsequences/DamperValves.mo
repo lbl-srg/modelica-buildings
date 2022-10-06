@@ -289,7 +289,8 @@ block DamperValves
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.5) "Gain factor"
     annotation (Placement(transformation(extent={{-240,-80},{-220,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub "Temperature difference deadband"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Minimum outdoor airflow setpoint minus the half of minimum fan rate"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=floHys)
@@ -320,6 +321,7 @@ block DamperValves
     "Convert boolean to real"
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+    "Parallel fan rate when the zone state is cooling"
     annotation (Placement(transformation(extent={{200,-120},{220,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Or cooHea "Cooling or heating state"
     annotation (Placement(transformation(extent={{-60,-310},{-40,-290}})));

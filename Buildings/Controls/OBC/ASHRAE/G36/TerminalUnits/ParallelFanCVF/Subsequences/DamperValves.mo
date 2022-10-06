@@ -299,6 +299,7 @@ block DamperValves
     "Check if the discharge flow rate has been greater than minimum outdoor airflow setpoint by 10% for a threshold time"
     annotation (Placement(transformation(extent={{-160,-350},{-140,-330}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi
+    "Switch fan control depending on if the zone state is heating"
     annotation (Placement(transformation(extent={{100,-290},{120,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Constant true"
