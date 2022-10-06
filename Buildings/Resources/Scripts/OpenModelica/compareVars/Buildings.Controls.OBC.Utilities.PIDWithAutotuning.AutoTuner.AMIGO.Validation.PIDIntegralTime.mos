@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "PIDIntTim.T",
+    "PIDIntTim.L",
+    "PIDIntTim.Ti",
+    "RefDat.y[5]"
+  };

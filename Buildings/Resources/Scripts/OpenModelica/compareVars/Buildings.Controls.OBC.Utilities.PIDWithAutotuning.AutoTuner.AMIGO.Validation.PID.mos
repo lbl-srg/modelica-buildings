@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "PID.k",
+    "RefDat.y[4]",
+    "PID.Ti",
+    "RefDat.y[5]",
+    "PID.Td",
+    "RefDat.y[6]"
+  };

@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "onOffPer.On",
+    "onOffPer.tOn",
+    "onOffPer.tOff"
+  };

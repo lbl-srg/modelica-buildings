@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "PI.k",
+    "RefDat.y[4]",
+    "PI.Ti",
+    "RefDat.y[5]"
+  };

@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "PI.u_s",
+    "PI.u_m",
+    "PIWitTun.u_s",
+    "PIWitTun.u_m",
+    "resSig.y"
+  };
