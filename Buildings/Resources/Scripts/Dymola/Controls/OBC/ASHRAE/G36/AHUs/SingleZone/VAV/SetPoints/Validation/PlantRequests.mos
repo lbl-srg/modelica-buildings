@@ -1,0 +1,9 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.PlantRequests", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="PlantRequests_SingleZone");
+createPlot(id=1, position={10, 10, 900, 1200}, y={"plaReq.TAirSup", "plaReq.TSupHeaEco"}, range={0.0, 4000.0, 10.0, 40.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"plaReq.uCooCoi_actual", "plaReq.uHeaCoi_actual"}, range={0.0, 4000.0, -0.2, 1.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"plaReq.yHotWatResReq", "plaReq.yHotWatPlaReq"}, range={0.0, 4000.0, -0.5, 2.5}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1200}, y={"plaReq1.TAirSup", "plaReq1.TSupCoo"}, range={0.0, 3600.0, 14.0, 24.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=2, position={920, 10, 900, 1200}, y={"plaReq1.uCooCoi_actual"}, range={0.0, 3600.0, -0.2, 1.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={920, 10, 900, 1200}, y={"plaReq1.yChiWatResReq", "plaReq1.yChiPlaReq"}, range={0.0, 3600.0, -0.5, 2.5}, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+
+

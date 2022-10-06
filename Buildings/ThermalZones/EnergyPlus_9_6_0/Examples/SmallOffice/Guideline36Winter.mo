@@ -9,7 +9,9 @@ model Guideline36Winter
     mNor_flow_nominal=ACHNor*VRooNor*conv,
     mWes_flow_nominal=ACHWes*VRooWes*conv,
     redeclare Buildings.Examples.VAVReheat.BaseClasses.Guideline36 hvac,
-    redeclare Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.BaseClasses.Floor flo);
+    redeclare
+      Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.BaseClasses.Floor
+      flo);
 
   parameter Real ACHCor(final unit="1/h")=4
     "Design air change per hour core";
@@ -57,8 +59,8 @@ for a description of the building envelope.
 <p>
 The control is based on ASHRAE Guideline 36, and implemented
 using the sequences from the library
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1</a> for
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">
+Buildings.Controls.OBC.ASHRAE.G36</a> for
 multi-zone VAV systems with economizer. The schematic diagram of the HVAC and control
 sequence is shown in the figure below.
 </p>

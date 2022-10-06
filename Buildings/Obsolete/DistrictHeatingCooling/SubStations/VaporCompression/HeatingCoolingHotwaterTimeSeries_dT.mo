@@ -35,16 +35,16 @@ model HeatingCoolingHotwaterTimeSeries_dT
     loadSelector(filter="Load file (*.mos)",
                  caption="Select load file")));
 
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)
-     = gaiCoo*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
+       gaiCoo*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space cooling load", filNam=filNam) "Design heat flow rate"
     annotation (Dialog(group="Design parameter"));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)
-     = gaiHea*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
+       gaiHea*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space heating load", filNam=filNam) "Design heat flow rate"
     annotation (Dialog(group="Design parameter"));
-  parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)
-     = gaiHotWat*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
+  parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=Modelica.Constants.eps)=
+       gaiHotWat*Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
     string="#Peak water heating load", filNam=filNam)
     "Design heat flow rate for domestic hot water"
     annotation (Dialog(group="Design parameter"));
@@ -64,23 +64,23 @@ model HeatingCoolingHotwaterTimeSeries_dT
     "Outside design temperature for heating"
     annotation (Dialog(group="Nominal conditions"));
 
-  parameter Modelica.Units.SI.TemperatureDifference dTHotWatCon_nominal(min=0)
-     = 60 - 40 "Temperature difference condenser of hot water heat pump";
+  parameter Modelica.Units.SI.TemperatureDifference dTHotWatCon_nominal(min=0)=
+       60 - 40 "Temperature difference condenser of hot water heat pump";
 
   parameter Modelica.Units.SI.Pressure dp_nominal(displayUnit="Pa") = 30000
     "Pressure difference at nominal flow rate (for each flow leg)"
     annotation (Dialog(group="Design parameter"));
 
-  final parameter Modelica.Units.SI.MassFlowRate mCooCon_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.MassFlowRate mCooCon_flow_nominal(min=0)=
     -QCoo_flow_nominal/cp_default/dTCooCon_nominal
     "Design mass flow rate for cooling at district side"
     annotation (Dialog(group="Design parameter"));
-  final parameter Modelica.Units.SI.MassFlowRate mHeaEva_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.MassFlowRate mHeaEva_flow_nominal(min=0)=
     -QHea_flow_nominal/cp_default/dTHeaEva_nominal
     "Design mass flow rate for space heating at district side"
     annotation (Dialog(group="Design parameter"));
-  final parameter Modelica.Units.SI.MassFlowRate mHotWatEva_flow_nominal(min=0)
-     = QHotWat_flow_nominal/cp_default/dTHotWatCon_nominal
+  final parameter Modelica.Units.SI.MassFlowRate mHotWatEva_flow_nominal(min=0)=
+       QHotWat_flow_nominal/cp_default/dTHotWatCon_nominal
     "Design mass flow rate for domestic hot water at district side"
     annotation (Dialog(group="Design parameter"));
 

@@ -1,9 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.Validation.ZoneStatusDuplicator", method="Cvode", stopTime=1, tolerance=1e-06, resultFile="ZoneStatusDuplicator");
-createPlot(id=1, 
-    position={7, 55, 536, 240}, 
-    y={"zonStaDup.yTZon[1, 1]", "zonStaDup.yTZon[1, 2]", "zonStaDup.yTZon[2, 3]", "zonStaDup.yTZon[2, 4]", "zonStaDup.yTZon[2, 5]"}, 
-    range={0.0, 1.0, -273.0, -268.0}, 
-    grid=true, 
-    colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, 
-    timeUnit="s", 
-    displayUnits={"degC", "degC", "degC", "degC", "degC"});
