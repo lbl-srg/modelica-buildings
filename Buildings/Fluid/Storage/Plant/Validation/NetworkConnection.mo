@@ -144,8 +144,39 @@ equation
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-[fixme: Update documentation.]
+This model validates the control of reversible flow at
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>
+by
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.RemoteCharging\">
+Buildings.Fluid.Storage.Plant.Controls.RemoteCharging</a>.
 </p>
+<table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Time slot</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>1</td>
+    <td>No flow</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>Outputting CHW</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>Being charged remotely</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>Outputting CHW</td>
+  </tr>
+</tbody>
+</table>
 </html>", revisions="<html>
 <ul>
 <li>
