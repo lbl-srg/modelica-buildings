@@ -134,6 +134,11 @@ values. The power data at speeds N=4100, 3400, and 2500 RPM from the power map o
 <a href=\"modelica://Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13\">
 Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13</a>
 (shown below) was used.
+Note that the pressure curves in the figure do not seem to be independently
+measured but rather simply scaled from the nominal curve.
+However, because the Euler number method also does not account for the efficiency
+degradation along any curve <i>&Delta;p=kV&#775;<sup>2</sup></i>,
+using the Euler number method has equivalent accuracy to using such power maps.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Validation/BIDW13.png\"

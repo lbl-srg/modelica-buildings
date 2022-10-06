@@ -63,11 +63,18 @@ as shown below.
 <ul>
 <li>
 October 5, 2022, by Hongxiang Fu:<br/>
+<ul>
+<li>
 Remade this model with
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 instead of using a full mover model so that forcing a flow rate and a pressure rise
-is more straightforward.<br/>
+is more straightforward.
+</li>
+<li>
+Changed parameterisation so that the result curve is clearer.
+</li>
+</ul>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
