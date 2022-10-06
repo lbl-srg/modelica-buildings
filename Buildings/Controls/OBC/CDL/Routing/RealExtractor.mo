@@ -138,13 +138,13 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that extracts a scalar output signal out the
-vector of input signals dependent on the Integer
-value of the input <code>index</code>:</p>
+Block that returns
+</p>
 <pre>    y = u [ index ] ;
 </pre>
 <p>
-where index is an additional Integer input signal.
+where <code>u</code> is a vector-valued input signal and
+<code>index</code> is an <code>Integer</code> input signal.
 </p>
 </html>",
       revisions="<html>
