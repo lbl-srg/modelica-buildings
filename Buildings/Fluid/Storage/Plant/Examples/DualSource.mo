@@ -442,7 +442,6 @@ equation
 <p>
 This is a district system model with two CHW plants and three users
 with the following architecture:
-[fixme: Provide more details in the schematic.] 
 </p>
 <p align=\"center\">
 <img alt=\"DualSource\"
