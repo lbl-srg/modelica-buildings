@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation.Setpoints", method="Cvode", stopTime=28800, tolerance=1e-06, resultFile="ZoneTemperatures");
+createPlot(id=1, position={20, 10, 600, 350}, y={"TZonSet.THeaSet","TZonSet.TCooSet","TZonSet.TOccCooSet","TZonSet.TOccHeaSet"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47},{28,108,200},{238,46,47},{28,108,200}});
+createPlot(id=2, position={20, 390, 600, 350}, subPlot=1, y={"TZonSet.u1Win","TZonSet.u1Occ"}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=2, position={20, 390, 600, 350}, subPlot=2, y={"TZonSet.uOpeMod"}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={630, 10, 600, 350}, y={"TZonSet.cooSetAdj","TZonSet.heaSetAdj"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47},{28,108,200}});

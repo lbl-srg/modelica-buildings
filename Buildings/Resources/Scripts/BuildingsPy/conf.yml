@@ -238,6 +238,22 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.Guideline36
+  openmodelica:
+    comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Spring
+  openmodelica:
+    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Summer
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
 - model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters
   openmodelica:
     comment: returned non-zero exit status 255.
@@ -254,40 +270,48 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
-- dymola:
+- model_name: Buildings.Obsolete.Examples.VAVReheat.Guideline36
+  openmodelica:
+    comment: timed out after 300 seconds
+    simulate: false
+- model_name: Buildings.Obsolete.Examples.VAVReheat.Validation.Guideline36SteadyState
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
+  dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
-- dymola:
+- model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom
+  dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.SimpleRoom
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
-- dymola:
+- model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.Exchange
+  dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.Exchange
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
-- dymola:
+- model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
+  dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false
-  model_name: Buildings.Obsolete.Utilities.IO.Python36.Functions.Examples.ExchangeWithPassPythonObject
   openmodelica:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
     translate: false

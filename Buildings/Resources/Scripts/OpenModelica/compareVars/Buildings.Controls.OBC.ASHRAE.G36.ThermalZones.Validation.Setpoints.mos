@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "TZonSet.THeaSet",
+    "TZonSet.TCooSet",
+    "TZonSet.TOccCooSet",
+    "TZonSet.TOccHeaSet",
+    "TZonSet.u1Win",
+    "TZonSet.u1Occ",
+    "TZonSet.uOpeMod",
+    "TZonSet.cooSetAdj",
+    "TZonSet.heaSetAdj"
+  };
