@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block BooleanExtractor
-  "Extract scalar signal out of signal vector dependent on Integer input index"
-  parameter Boolean allowOutOfRange=false
-    "Index may be out of range";
+  "Extract scalar signal out of boolean signal vector dependent on Integer input index"
   parameter Integer nin=1
     "Number of inputs";
   parameter Boolean outOfRangeValue=false
@@ -20,37 +18,20 @@ block BooleanExtractor
 protected
   Boolean insideRange
     "Flag to check if the extract index is inside the range";
-  Boolean k[nin]
-    "Indicator to flag element to be extracted";
-  Boolean temp[nin]
-    "Indicator used to extract the signal";
 
 initial equation
   pre(index)=0;
 
 equation
-  when {initial(), change(index)} then
-    for i in 1:nin loop
-      k[i]=
-        if index == i then
-          true
-        else
-          false;
-    end for;
-  end when;
   insideRange = index > 0 and index <= nin;
   assert(
-    insideRange,
-    "In " + getInstanceName() + ": The extract index is out of the range.",
-    AssertionLevel.warning);
+     insideRange,
+     "In " + getInstanceName() + ": The extract index is out of the range.",
+     AssertionLevel.warning);
 
-  temp=if not allowOutOfRange or insideRange then
-      u and k
-    else
-      fill(outOfRangeValue, nin);
-  y = sum(if temp[i] then 1 else 0 for i in 1:nin) == 1;
+  y = if insideRange then u[index] else outOfRangeValue;
 
-annotation (defaultComponentName="extIndBooSig",
+annotation (defaultComponentName="extIndBoo",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -154,7 +135,7 @@ Block that returns
 <pre>    y = u [ index ] ;
 </pre>
 <p>
-where <code>u</code> is a vector-valued input signal and
+where <code>u</code> is a vector-valued <code>Boolean</code> input signal and
 <code>index</code> is an <code>Integer</code> input signal.
 </p>
 <p>
@@ -162,7 +143,7 @@ If <code>index</code> is out of range, then the output is set to
 <code>y = outOfRangeValue</code>.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 September 30, 2022, by Jianjun Hu:<br/>

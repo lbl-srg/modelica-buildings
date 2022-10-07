@@ -1,9 +1,9 @@
 compareVars :=
   {
-    "extIndBooSig.u[1]",
-    "extIndBooSig.u[2]",
-    "extIndBooSig.u[3]",
-    "extIndBooSig.u[4]",
-    "extIndBooSig.y",
-    "extIndBooSig1.y"
+    "extIndBoo.u[1]",
+    "extIndBoo.u[2]",
+    "extIndBoo.u[3]",
+    "extIndBoo.u[4]",
+    "extIndBoo.y",
+    "extIndBoo1.y"
   };

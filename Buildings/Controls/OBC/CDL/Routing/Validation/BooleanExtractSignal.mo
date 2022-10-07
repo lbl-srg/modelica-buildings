@@ -6,7 +6,13 @@ model BooleanExtractSignal
     final nout=3,
     final extract={3,2,4})
     "Block that extracts signal from a boolean input signal vector"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal extBooSig1(
+    final nin=4,
+    final nout=5,
+    final extract={3,2,4,1,1})
+    "Block that extracts signal from a boolean input signal vector"
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=true)
@@ -26,14 +32,21 @@ model BooleanExtractSignal
 
 equation
   connect(con1.y, extBooSig.u[1]) annotation (Line(points={{-58,60},{-10,60},{-10,
-          -0.75},{38,-0.75}}, color={255,0,255}));
+          29.25},{38,29.25}}, color={255,0,255}));
   connect(booPul.y, extBooSig.u[2]) annotation (Line(points={{-58,30},{-20,30},{
-          -20,-0.25},{38,-0.25}}, color={255,0,255}));
+          -20,29.75},{38,29.75}}, color={255,0,255}));
   connect(booPul1.y, extBooSig.u[3]) annotation (Line(points={{-58,-30},{10,-30},
-          {10,0.25},{38,0.25}}, color={255,0,255}));
+          {10,30.25},{38,30.25}}, color={255,0,255}));
   connect(con.y, extBooSig.u[4]) annotation (Line(points={{-58,-68},{20,-68},{20,
-          0.75},{38,0.75}}, color={255,0,255}));
-
+          30.75},{38,30.75}}, color={255,0,255}));
+  connect(con1.y, extBooSig1.u[1]) annotation (Line(points={{-58,60},{-10,60},{-10,
+          -30.75},{38,-30.75}}, color={255,0,255}));
+  connect(booPul.y, extBooSig1.u[2]) annotation (Line(points={{-58,30},{-20,30},
+          {-20,-30.25},{38,-30.25}}, color={255,0,255}));
+  connect(booPul1.y, extBooSig1.u[3]) annotation (Line(points={{-58,-30},{10,-30},
+          {10,-29.75},{38,-29.75}}, color={255,0,255}));
+  connect(con.y, extBooSig1.u[4]) annotation (Line(points={{-58,-68},{20,-68},{20,
+          -29.25},{38,-29.25}}, color={255,0,255}));
 annotation (
   experiment(StopTime=1.0,Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Routing/Validation/BooleanExtractSignal.mos" "Simulate and plot"),
@@ -42,6 +55,19 @@ annotation (
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal\">
 Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal</a>.
+</p>
+<p>
+The instance <code>extBooSig</code> has the input vector with dimension of 4 and
+the output vector with dimension of 3. The output vectors is <code>[u[3], u[2], u[4]]</code>.
+</p>
+<p>
+The instance <code>extBooSig1</code> has the input vector with dimension of 4 and
+the output vector with dimension of 5. The output vectors is <code>[u[3], u[2], u[4], u[1], u[1]]</code>.
+</p>
+<p>
+Note that when the vector parameter <code>extract</code> has any element with the value that
+is out of <code>[1, nin]</code>, e.g. <code>[1, 4]</code> for instance <code>extBooSig</code>.
+The solver will issue error and the model cannot run.
 </p>
 </html>",
 revisions="<html>

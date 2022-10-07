@@ -1,12 +1,10 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model IntegerExtractor
   "Validation model for the integer extractor block"
-  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extIndIntSig(
-    final nin=4)
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extIndInt(final nin=4)
     "Block that extracts signal from an input signal vector"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extIndIntSig1(
-    final nin=4)
+  Buildings.Controls.OBC.CDL.Routing.IntegerExtractor extIndInt1(final nin=4)
     "Block that extracts signal from an input signal vector"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
@@ -37,25 +35,25 @@ model IntegerExtractor
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
 equation
-  connect(conInt1.y, extIndIntSig1.index)
+  connect(conInt1.y, extIndInt1.index)
     annotation (Line(points={{42,-80},{50,-80},{50,-42}}, color={255,127,0}));
-  connect(conInt2.y, extIndIntSig.u[1]) annotation (Line(points={{-58,80},{-40,80},
+  connect(conInt2.y, extIndInt.u[1]) annotation (Line(points={{-58,80},{-40,80},
           {-40,79.25},{38,79.25}}, color={255,127,0}));
-  connect(intPul.y, extIndIntSig.u[2]) annotation (Line(points={{-58,40},{-30,40},
-          {-30,79.75},{38,79.75}}, color={255,127,0}));
-  connect(intPul1.y, extIndIntSig.u[3]) annotation (Line(points={{-58,0},{-20,0},
-          {-20,80.25},{38,80.25}}, color={255,127,0}));
-  connect(conInt3.y, extIndIntSig.u[4]) annotation (Line(points={{-58,-40},{-10,
-          -40},{-10,80.75},{38,80.75}}, color={255,127,0}));
-  connect(conInt2.y, extIndIntSig1.u[1]) annotation (Line(points={{-58,80},{-40,
-          80},{-40,-30.75},{38,-30.75}}, color={255,127,0}));
-  connect(intPul.y, extIndIntSig1.u[2]) annotation (Line(points={{-58,40},{-30,40},
+  connect(intPul.y, extIndInt.u[2]) annotation (Line(points={{-58,40},{-30,40},{
+          -30,79.75},{38,79.75}}, color={255,127,0}));
+  connect(intPul1.y, extIndInt.u[3]) annotation (Line(points={{-58,0},{-20,0},{-20,
+          80.25},{38,80.25}}, color={255,127,0}));
+  connect(conInt3.y, extIndInt.u[4]) annotation (Line(points={{-58,-40},{-10,-40},
+          {-10,80.75},{38,80.75}}, color={255,127,0}));
+  connect(conInt2.y, extIndInt1.u[1]) annotation (Line(points={{-58,80},{-40,80},
+          {-40,-30.75},{38,-30.75}}, color={255,127,0}));
+  connect(intPul.y, extIndInt1.u[2]) annotation (Line(points={{-58,40},{-30,40},
           {-30,-30.25},{38,-30.25}}, color={255,127,0}));
-  connect(intPul1.y, extIndIntSig1.u[3]) annotation (Line(points={{-58,0},{-20,0},
-          {-20,-29.75},{38,-29.75}}, color={255,127,0}));
-  connect(conInt3.y, extIndIntSig1.u[4]) annotation (Line(points={{-58,-40},{-10,
-          -40},{-10,-29.25},{38,-29.25}}, color={255,127,0}));
-  connect(conInt.y, extIndIntSig.index)
+  connect(intPul1.y, extIndInt1.u[3]) annotation (Line(points={{-58,0},{-20,0},{
+          -20,-29.75},{38,-29.75}}, color={255,127,0}));
+  connect(conInt3.y, extIndInt1.u[4]) annotation (Line(points={{-58,-40},{-10,-40},
+          {-10,-29.25},{38,-29.25}}, color={255,127,0}));
+  connect(conInt.y, extIndInt.index)
     annotation (Line(points={{42,30},{50,30},{50,68}}, color={255,127,0}));
 annotation (
   experiment(StopTime=1.0, Tolerance=1e-06),
@@ -65,6 +63,16 @@ annotation (
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.IntegerExtractor\">
 Buildings.Controls.OBC.CDL.Routing.IntegerExtractor</a>.
+</p>
+<p>
+The instance <code>extIndInt</code> has the input vector with dimension of 4 and
+the extract index is 2. The output is <code>u[2]</code>.
+</p>
+<p>
+The instance <code>extIndInt1</code> has the input vector with dimension of 4 and
+the extract index is 6 thus it is out of range <code>[1, 4]</code>.
+It outputs the <code>outOfRangeValue</code>, which is <code>0</code>. It also
+issues a warning to indicate that the extract index is out of range.
 </p>
 </html>",
 revisions="<html>

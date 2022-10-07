@@ -1,11 +1,11 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model BooleanExtractor
   "Validation model for the boolean extractor block"
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor extIndBooSig(
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor extIndBoo(
     final nin=4)
     "Block that extracts signal from an input signal vector"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor extIndBooSig1(
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor extIndBoo1(
     final nin=4)
     "Block that extracts signal from an input signal vector"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
@@ -35,26 +35,26 @@ model BooleanExtractor
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
 equation
-  connect(conInt.y, extIndBooSig.index)
+  connect(conInt.y, extIndBoo.index)
     annotation (Line(points={{42,30},{50,30},{50,68}}, color={255,127,0}));
-  connect(conInt1.y, extIndBooSig1.index)
+  connect(conInt1.y, extIndBoo1.index)
     annotation (Line(points={{42,-80},{50,-80},{50,-52}}, color={255,127,0}));
-  connect(con1.y, extIndBooSig.u[1]) annotation (Line(points={{-58,80},{-10,80},
-          {-10,79.25},{38,79.25}}, color={255,0,255}));
-  connect(booPul.y, extIndBooSig.u[2]) annotation (Line(points={{-58,50},{-20,50},
-          {-20,79.75},{38,79.75}}, color={255,0,255}));
-  connect(booPul1.y, extIndBooSig.u[3]) annotation (Line(points={{-58,20},{-16,20},
+  connect(con1.y, extIndBoo.u[1]) annotation (Line(points={{-58,80},{-10,80},{-10,
+          79.25},{38,79.25}}, color={255,0,255}));
+  connect(booPul.y, extIndBoo.u[2]) annotation (Line(points={{-58,50},{-20,50},{
+          -20,79.75},{38,79.75}}, color={255,0,255}));
+  connect(booPul1.y, extIndBoo.u[3]) annotation (Line(points={{-58,20},{-16,20},
           {-16,80.25},{38,80.25}}, color={255,0,255}));
-  connect(con.y, extIndBooSig.u[4]) annotation (Line(points={{-58,-18},{-12,-18},
-          {-12,80.75},{38,80.75}}, color={255,0,255}));
-  connect(con1.y, extIndBooSig1.u[1]) annotation (Line(points={{-58,80},{0,80},{
-          0,-40.75},{38,-40.75}}, color={255,0,255}));
-  connect(booPul.y, extIndBooSig1.u[2]) annotation (Line(points={{-58,50},{-20,50},
+  connect(con.y, extIndBoo.u[4]) annotation (Line(points={{-58,-18},{-12,-18},{-12,
+          80.75},{38,80.75}}, color={255,0,255}));
+  connect(con1.y, extIndBoo1.u[1]) annotation (Line(points={{-58,80},{0,80},{0,-40.75},
+          {38,-40.75}}, color={255,0,255}));
+  connect(booPul.y, extIndBoo1.u[2]) annotation (Line(points={{-58,50},{-20,50},
           {-20,-40.25},{38,-40.25}}, color={255,0,255}));
-  connect(booPul1.y, extIndBooSig1.u[3]) annotation (Line(points={{-58,20},{-16,
-          20},{-16,-39.75},{38,-39.75}}, color={255,0,255}));
-  connect(con.y, extIndBooSig1.u[4]) annotation (Line(points={{-58,-18},{-12,-18},
-          {-12,-39.25},{38,-39.25}}, color={255,0,255}));
+  connect(booPul1.y, extIndBoo1.u[3]) annotation (Line(points={{-58,20},{-16,20},
+          {-16,-39.75},{38,-39.75}}, color={255,0,255}));
+  connect(con.y, extIndBoo1.u[4]) annotation (Line(points={{-58,-18},{-12,-18},{
+          -12,-39.25},{38,-39.25}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=1.0,Tolerance=1e-06),
@@ -64,6 +64,16 @@ annotation (
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Routing.BooleanExtractor\">
 Buildings.Controls.OBC.CDL.Routing.BooleanExtractor</a>.
+</p>
+<p>
+The instance <code>extIndBoo</code> has the input vector with dimension of 4 and
+the extract index is 2. The output is <code>u[2]</code>.
+</p>
+<p>
+The instance <code>extIndBoo1</code> has the input vector with dimension of 4 and
+the extract index is 6 thus it is out of range <code>[1, 4]</code>.
+It outputs the <code>outOfRangeValue</code>, which is <code>false</code>. It also
+issues a warning to indicate that the extract index is out of range.
 </p>
 </html>",
 revisions="<html>

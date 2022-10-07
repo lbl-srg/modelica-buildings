@@ -1,5 +1,5 @@
 simulateModel("Buildings.Controls.OBC.CDL.Routing.Validation.BooleanExtractor", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="BooleanExtractor");
-createPlot(id=1, position={15, 15, 964, 1046}, y={"extIndBooSig.u[1]", "extIndBooSig.u[2]", "extIndBooSig.u[3]", "extIndBooSig.u[4]"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=1, position={15, 15, 964, 1046}, y={"extIndBooSig.y"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
-createPlot(id=1, position={15, 15, 964, 1046}, y={"extIndBooSig1.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={13, 5, 884, 1076}, y={"extIndBoo.u[1]", "extIndBoo.u[2]", "extIndBoo.u[3]", "extIndBoo.u[4]"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={905, 7, 928, 1074}, y={"extIndBoo.y"}, range={0.0, 1.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={905, 7, 928, 1074}, y={"extIndBoo1.y"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
 

@@ -14,6 +14,12 @@ block IntegerExtractSignal
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
+initial equation
+  assert(
+    sum(if (extract[i] < 1 or extract[i] > nin) then 1 else 0 for i in 1:nout) < 1,
+    "In " + getInstanceName() + ": The element of the extracting vector has out of range value.",
+    AssertionLevel.error);
+
 equation
   for i in 1:nout loop
     y[i]=u[extract[i]];
@@ -134,14 +140,15 @@ equation
     Documentation(
       info="<html>
 <p>
-Extract signals from the input connector and transfer them
-to the output connector.
+Extract signals from the vector-valued integer input signal and transfer them
+to the vector-valued integer output signal.
 </p>
 <p>
 The extraction scheme is specified by the integer vector <code>extract</code>.
 This vector specifies which input signals are taken and in which
 order they are transferred to the output vector. Note that the
-dimension of <code>extract</code> has to match the number of outputs.
+dimension of <code>extract</code> has to match the number of outputs and
+the elements of <code>extract</code> has to be in the range of <code>[1, nin]</code>.
 Additionally, the dimensions of the input connector signals and
 the output connector signals have to be explicitly defined via the
 parameters <code>nin</code> and <code>nout</code>.

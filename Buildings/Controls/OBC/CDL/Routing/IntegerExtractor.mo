@@ -1,8 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block IntegerExtractor
   "Extract scalar signal out of signal vector dependent on Integer input index"
-  parameter Boolean allowOutOfRange=false
-    "Index may be out of range";
   parameter Integer nin=1
     "Number of inputs";
   parameter Integer outOfRangeValue=0
@@ -20,34 +18,20 @@ block IntegerExtractor
 protected
   Boolean insideRange
     "Flag to check if the extract index is inside the range";
-  Integer k[nin]
-    "Indicator used to extract the signal";
 
 initial equation
   pre(index)=0;
 
 equation
-  when {initial(), change(index)} then
-    for i in 1:nin loop
-      k[i]=
-        if index == i then
-          1
-        else
-          0;
-    end for;
-  end when;
   insideRange = index > 0 and index <= nin;
   assert(
-    insideRange,
-    "In " + getInstanceName() + ": The extract index is out of the range.",
-    AssertionLevel.warning);
+     insideRange,
+     "In " + getInstanceName() + ": The extract index is out of the range.",
+     AssertionLevel.warning);
 
-  y=if not allowOutOfRange or insideRange then
-      k*u
-    else
-      outOfRangeValue;
+  y = if insideRange then u[index] else outOfRangeValue;
 
-annotation (defaultComponentName="extIndIntSig",
+annotation (defaultComponentName="extIndInt",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -151,7 +135,7 @@ Block that returns
 <pre>    y = u [ index ] ;
 </pre>
 <p>
-where <code>u</code> is a vector-valued input signal and
+where <code>u</code> is a vector-valued <code>Integer</code> input signal and
 <code>index</code> is an <code>Integer</code> input signal.
 </p>
 <p>
