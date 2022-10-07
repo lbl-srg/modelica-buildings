@@ -183,8 +183,7 @@ equation
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-[fixme: Update documentation]
-This model validates the control of reversible flow at
+This model validates the fulfilment of the control objectives at
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>
 by
@@ -194,26 +193,55 @@ Buildings.Fluid.Storage.Plant.Controls.RemoteCharging</a>.
 <table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>
   <tr>
-    <th>Time slot</th>
+    <th>Time Slot</th>
+    <th>Chiller Flow</th>
+    <th>Tank Flow</th>
+    <th>Plant Flow</th>
     <th>Description</th>
   </tr>
 </thead>
 <tbody>
   <tr>
     <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
     <td>No flow</td>
   </tr>
   <tr>
     <td>2</td>
-    <td>Outputting CHW</td>
+    <td>1</td>
+    <td>1</td>
+    <td>2</td>
+    <td>Both chiller and tank outputting</td>
   </tr>
   <tr>
     <td>3</td>
-    <td>Being charged remotely</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>Chiller outputting, tank holding</td>
   </tr>
   <tr>
     <td>4</td>
-    <td>Outputting CHW</td>
+    <td>2</td>
+    <td>-1</td>
+    <td>0</td>
+    <td>Chiller outputting and charging the tank</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>1</td>
+    <td>-1</td>
+    <td>0</td>
+    <td>Chiller charging the tank, plant off the network</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>0</td>
+    <td>-1</td>
+    <td>-1</td>
+    <td>Chiller off, tank being charged remotely</td>
   </tr>
 </tbody>
 </table>
