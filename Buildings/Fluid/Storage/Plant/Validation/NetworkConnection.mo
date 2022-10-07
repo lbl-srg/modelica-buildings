@@ -65,16 +65,15 @@ model NetworkConnection
     T_start=nom.T_CHWS_nominal,
     tau=30,
     final m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.m_flow_nominal},
-
     final dp_nominal={0,0,0}) "Junction on the supply side"
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
+
   Buildings.Fluid.FixedResistances.Junction junRet2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=nom.T_CHWS_nominal,
     tau=30,
     final m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,nom.m_flow_nominal},
-
     final dp_nominal={0,0,0}) "Junction on the return side" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -124,6 +123,15 @@ model NetworkConnection
   Modelica.Blocks.Sources.BooleanTable uRemCha(final table={3000}, final
       startValue=false) "Remote charging status"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
+    f=5/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-90,-30})));
 equation
   connect(conRemCha.yPum, netCon.yPum)
     annotation (Line(points={{1,24},{8,24},{8,11}}, color={0,0,127}));
@@ -162,13 +170,15 @@ equation
     annotation (Line(points={{-40,10},{-70,10},{-70,0}}, color={0,127,255}));
   connect(ideFloSou.port_a, junRet1.port_2) annotation (Line(points={{-70,-20},{
           -70,-50},{-40,-50}}, color={0,127,255}));
-  connect(mChiSet_flow.y, ideFloSou.m_flow_in) annotation (Line(points={{-79,-70},
-          {-74,-70},{-74,-24},{-84,-24},{-84,-16},{-78,-16}}, color={0,0,127}));
   connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-22,32},{-66,
           32},{-66,70},{-79,70}},
                               color={255,0,255}));
   connect(bou.ports[1], junRet1.port_1) annotation (Line(points={{-20,-80},{-14,
           -80},{-14,-50},{-20,-50}}, color={0,127,255}));
+  connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-79,-70},{-74,-70},{
+          -74,-48},{-90,-48},{-90,-42}}, color={0,0,127}));
+  connect(fil.y, ideFloSou.m_flow_in)
+    annotation (Line(points={{-90,-19},{-90,-16},{-78,-16}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
