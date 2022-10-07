@@ -15,32 +15,31 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}}, rotation=90)));
 
   // Sensors
-  // FIXME: bind have_sen to plant configuration per G36 rules.
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiSup[nChi](
     redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal,
-    each final have_sen=true,
+    each final have_sen=have_senTChiWatChiSup,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CHW supply temperature"
     annotation (Placement(transformation(extent={{90,110},{110,130}})));
   Buildings.Templates.Components.Sensors.Temperature TChiWatChiRet[nChi](
     redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal,
-    each final have_sen=true,
+    each final have_sen=have_senTChiWatChiRet,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CHW return temperature"
     annotation (Placement(transformation(extent={{110,-110},{90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiSup[nChi](
     redeclare each final package Medium=MediumCon,
     final m_flow_nominal=mConChi_flow_nominal,
-    each have_sen=true,
+    each have_sen=have_senTConWatChiSup,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW supply temperature"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
   Buildings.Templates.Components.Sensors.Temperature TConWatChiRet[nChi](
     redeclare each final package Medium=MediumCon,
     final m_flow_nominal=mConChi_flow_nominal,
-    each have_sen=true,
+    each have_sen=have_senTConWatChiRet,
     each final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Chiller CW return temperature"
     annotation (Placement(transformation(extent={{-90,110},{-110,130}})));
@@ -89,7 +88,7 @@ model Compression "Group of compression chillers"
     annotation (Placement(transformation(extent={{150,150},{170,170}})));
 equation
   /* Control point connection - start */
-  connect(bus.chi, chi.bus);
+  connect(busChi, chi.bus);
   connect(bus.TChiWatChiSup, TChiWatChiSup.y);
   connect(bus.TChiWatChiRet, TChiWatChiRet.y);
   connect(bus.TConWatChiSup, TConWatChiSup.y);
@@ -138,12 +137,15 @@ equation
           {180,160},{180,120},{200,120}},      color={0,127,255}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
+RFE: Implement chiller demand limit
+</p>
+<p>
 Current limitations:
 </p>
 <ul>
 <li>
 Same type of cooling fluid (air or water) for all chillers.
-This is definitive considering the use of multiple-ports connectors
+This is final considering the use of multiple-ports connectors
 that require a unique medium model.
 </li>
 <li>

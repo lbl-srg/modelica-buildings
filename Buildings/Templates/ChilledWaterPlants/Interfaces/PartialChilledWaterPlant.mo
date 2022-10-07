@@ -47,21 +47,37 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     final min=1)=nChi
     "Number of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
+    enable=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri_select(
-    start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
-    "Type of primary CHW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-    and typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumChiWatPri_select(start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    "Type of primary CHW pump arrangement" annotation (Evaluate=true, Dialog(
+        group="Configuration", enable=typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+           and typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
   // The following parameter stores the actual configuration setting.
-  final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None or
-      typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series then
-      Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
-    else typArrPumChiWatPri_select
-    "Type of primary CHW pump arrangement"
+  final parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumChiWatPri=if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+       or typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
+       then Buildings.Templates.Components.Types.PumpArrangement.Headered else
+      typArrPumChiWatPri_select "Type of primary CHW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  // The following parameter stores the user selection.
+  // This parameter is only needed to specify variable speed pumps operated at a constant speed.
+  parameter Boolean have_varPumChiWatPri_select=false
+    "Set to true for variable speed primary CHW pumps operated at one or more fixed speeds, false for constant speed pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=
+      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only or
+      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2));
+  // The following parameter stores the actual configuration setting.
+  final parameter Boolean have_varPumChiWatPri=
+    if (typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only or
+       typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2) and
+       not have_varPumChiWatPri_select then false
+    else true
+    "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_varComPumChiWatPri=true
+    "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Integer nPumConWat(
@@ -69,66 +85,42 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     final min=0)=nChi
     "Number of CW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
-    typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
+    enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+           and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat_select(
-    start=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
-    "Type of CW pump arrangement"
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumConWat_select(start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    "Type of CW pump arrangement" annotation (Evaluate=true, Dialog(group="Configuration",
+        enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+           and typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
+  // The following parameter stores the actual configuration setting.
+  final parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumConWat=if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+       then Buildings.Templates.Components.Types.PumpArrangement.Headered else
+      typArrPumConWat_select "Type of CW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  // The following parameter stores the user selection.
+  parameter Boolean have_varPumConWat_select=false
+    "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
       enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
-  final parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None  then
-      Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
-    else typArrPumConWat_select
-    "Type of CW pump arrangement"
+  final parameter Boolean have_varPumConWat=
+    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+      then true
+    else false
+    "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatPri=
-    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only or
-      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 then
-    Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
-    else Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
-    "Type of primary CHW pump speed control"
+  final parameter Boolean have_varComPumConWat=
+    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+      then true
+    elseif typArrPumConWat==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+      then false
+    else true
+    "Set to true for single common speed signal for CW pumps, false for dedicated signals"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumChiWatSec=
-    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only or
-      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only then
-      Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
-    else Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
-    "Type of secondary CHW pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  /*
-  The following parameter stores the user selection.
-  We use the type PumpSingleSpeedControl instead of PumpMultipleSpeedControl because 
-  the user may only select between constant and variable. 
-  The choice between a single common speed point or multiple dedicated speed points 
-  is constrained by the system configuration, see typCtrSpePumConWat.
-  */
-  parameter Buildings.Templates.Components.Types.PumpSingleSpeedControl typCtrSpePumConWat_select(
-    start=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant)
-    "Type of CW pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-      enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
-      typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
-  // The following parameter stores the actual configuration setting.
-  final parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpePumConWat=
-    if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
-      Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
-    elseif typCtrSpePumConWat_select==Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable
-      and typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated
-      then Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableDedicated
-    elseif typCtrSpePumConWat_select==Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable then
-      Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
-    else Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
-    "Type of CW pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtrHea(
-    start=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn)
-    "Type of head pressure control"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco(
     start=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Type of WSE"
@@ -146,14 +138,18 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     "Number of cooler units"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+
   parameter Integer nPumChiWatSec(
     start=1,
     final min=0)=nChi
     "Number of secondary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2
-     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
-     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2));
+  parameter Integer nLooChiWatSec=1
+    "Number of secondary CHW loops for distributed secondary distribution"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
 
   // Following parameters to be assigned by derived classes.
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
@@ -171,26 +167,36 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant dat(
     typChi=typChi,
-    typCoo=typCoo,
-    typEco=typEco,
     nChi=nChi,
-    nCoo=nCoo,
-    nPumChiWatSec=nPumChiWatSec,
+    nPumChiWatPri=nPumChiWatPri,
+    nPumConWat=nPumConWat,
     typDisChiWat=typDisChiWat,
-    typCtrSpePumConWat=typCtrSpePumConWat)
+    nPumChiWatSec=nPumChiWatSec,
+    typCoo=typCoo,
+    nCoo=nCoo,
+    have_varPumConWat=have_varPumConWat,
+    typEco=typEco,
+    rhoChiWat_default=rhoChiWat_default,
+    rhoConWat_default=rhoCon_default)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
     sum(dat.pumChiWatPri.m_flow_nominal)
     "Primary CHW mass flow rate (total)";
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=
-    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only
-      or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only
-      then mChiWatPri_flow_nominal else
-    sum(dat.pumChiWatSec.m_flow_nominal)
+    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
+      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
+      then sum(dat.pumChiWatSec.m_flow_nominal)
+    elseif typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed
+      then sum(dat.ctl.VChiWatSec_flow_nominal) * rhoChiWat_default
+    else mChiWatPri_flow_nominal
     "CHW mass flow rate (total, distributed to consumers)";
   final parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal=
-    sum(dat.chi.mConChi_flow_nominal)
+    if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled then
+      sum(dat.chi.mConWatChi_flow_nominal)
+    elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
+      sum(dat.chi.mConAirChi_flow_nominal)
+    else 0
     "Condenser cooling fluid mass flow rate (total)";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
     sum(dat.chi.capChi_nominal)
@@ -213,6 +219,25 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
   parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
+
+  final parameter MediumChiWat.Density rhoChiWat_default=
+    MediumChiWat.density(staChiWat_default)
+    "CHW default density";
+  final parameter MediumChiWat.ThermodynamicState staChiWat_default=
+     MediumChiWat.setState_pTX(
+       T=Buildings.Templates.Data.Defaults.TChiWatSup,
+       p=MediumChiWat.p_default,
+       X=MediumChiWat.X_default)
+    "CHW default state";
+  final parameter MediumCon.Density rhoCon_default=
+    MediumCon.density(staCon_default)
+    "Condenser cooling fluid default density";
+  final parameter MediumCon.ThermodynamicState staCon_default=
+     MediumCon.setState_pTX(
+       T=Buildings.Templates.Data.Defaults.TConEnt_max,
+       p=MediumCon.p_default,
+       X=MediumCon.X_default)
+    "Condenser cooling fluid default state";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumChiWat,
@@ -284,15 +309,15 @@ protected
     "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
 initial equation
-
-  if typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated then
+  if typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
     assert(nPumChiWatPri==nChi,
       "In " + getInstanceName() + ": " +
       "In case of dedicated pumps, the number of primary CHW pumps (=" +
       String(nPumChiWatPri) + ") must be equal to the number of chillers (=" +
       String(nChi) + ").");
   end if;
-  if typArrPumConWat==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated then
+  if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
+      typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
     assert(nPumConWat==nChi,
       "In " + getInstanceName() + ": " +
       "In case of dedicated pumps, the number of CW pumps (=" +
@@ -323,7 +348,7 @@ Current assumptions and limitations:
 </p>
 <ul>
 <li>
-The chillers are assumed to be of the same type as defined 
+The chillers are assumed to be of the same type as defined
 by the enumeration
 <a href=\\\"modelica://Buildings.Templates.Components.Types.Chiller\\\">
 Buildings.Templates.Components.Types.Chiller</a> (this is a limitation).
@@ -334,15 +359,15 @@ to the number of chillers operating at design conditions (this is a limitation).
 The same holds true for CW and CHW pump groups.
 </li>
 <li>
-Inside the CW and CHW pump groups, the pumps are assumed to 
+Inside the CW and CHW pump groups, the pumps are assumed to
 be equally sized.
 </li>
 <li>
-Variable speed primary CHW pumps are controlled to the same speed, 
-whether they are in a dedicated or headered arrangement. 
+Variable speed primary CHW pumps are controlled to the same speed,
+whether they are in a dedicated or headered arrangement.
 </li>
 <li>
-Variable speed CW pumps are controlled to different speeds 
+Variable speed CW pumps are controlled to different speeds
 if they are in a dedicated arrangement.
 Otherwise they are controlled to the same speed.
 </li>

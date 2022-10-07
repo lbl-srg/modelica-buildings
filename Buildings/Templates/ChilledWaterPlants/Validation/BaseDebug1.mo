@@ -21,11 +21,11 @@ model BaseDebug1
   parameter Buildings.Templates.Components.Types.Chiller typChi=
   Buildings.Templates.Components.Types.Chiller.AirCooled;
   parameter Buildings.Templates.Components.Types.Cooler typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated;
 
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
-   Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Dedicated;
   parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None;
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
 
@@ -54,8 +54,9 @@ model BaseDebug1
     "Cooler outlet isolation valve"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
-    CHI(
+  parameter
+    Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
+    dat(CHI(
       final typChi=typChi,
       final nChi=nChi,
       final typDisChiWat=typDisChiWat,
@@ -158,7 +159,7 @@ equation
     annotation (Line(points={{-52,40},{-60,40}},   color={0,127,255}));
   connect(souAir.ports[1], chi.ports_aCon) annotation (Line(points={{-60,-60},{-20,
           -60}},                             color={0,127,255}));
-  connect(ctr.bus, chi.bus) annotation (Line(
+  connect(ctl.bus, chi.bus) annotation (Line(
       points={{-100,80},{0,80},{0,50}},
       color={255,204,51},
       thickness=0.5));

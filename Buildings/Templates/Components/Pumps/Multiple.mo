@@ -12,8 +12,7 @@ model Multiple "Multiple pumps in parallel"
     each final tau=tau,
     each final allowFlowReversal=allowFlowReversal)
     "Pumps"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.FixedResistances.CheckValve valChe[nPum](
     redeclare each final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -45,16 +44,14 @@ model Multiple "Multiple pumps in parallel"
         rotation=-90,
         origin={20,-50})));
   Controls.OBC.CDL.Routing.RealScalarReplicator reaSpe(
-    final nout=nPum)
-    if typCtrSpe==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
+    final nout=nPum) if have_var and have_varCom
     "Replicate signal in case of common unique commanded speed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
   Controls.OBC.CDL.Continuous.Sources.Constant speCst[nPum](
-    final k=fill(1, nPum))
-    if typCtrSpe == Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
+    final k=fill(1, nPum)) if not have_var
     "Constant signal in case of constant speed pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -62,8 +59,7 @@ model Multiple "Multiple pumps in parallel"
         origin={60,70})));
   Controls.OBC.CDL.Routing.RealExtractSignal pasSpe(
     final nin=nPum,
-    final nout=nPum)
-    if typCtrSpe==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableDedicated
+    final nout=nPum) if have_var and not have_varCom
     "Direct pass through for dedicated speed signals" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

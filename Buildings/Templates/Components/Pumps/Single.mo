@@ -15,12 +15,14 @@ model Single "Single pump"
     annotation (
       Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal sigSta
-    "Start/stop signal" annotation (Placement(transformation(
+    "Start/stop signal"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-60,70})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply sigCon
-    "Resulting control signal" annotation (Placement(transformation(
+    "Resulting control signal"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,30})));
@@ -43,16 +45,16 @@ model Single "Single pump"
     "Fluid pass through if no check valve"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Constant speCst(
-    final k=1) if typCtrSpe ==
-    Buildings.Templates.Components.Types.PumpSingleSpeedControl.Constant
-    "Constant signal in case of constant speed pump" annotation (Placement(
+    final k=1) if not have_var
+    "Constant signal in case of constant speed pump"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,70})));
-  Modelica.Blocks.Routing.RealPassThrough pasSpe if typCtrSpe ==
-    Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable
-    "Direct pass through for variable speed signal" annotation (Placement(
+  Modelica.Blocks.Routing.RealPassThrough pasSpe if have_var
+    "Direct pass through for variable speed signal"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

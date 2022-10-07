@@ -21,6 +21,10 @@ package Types
       Guideline36 "Guideline 36 control sequence",
       OpenLoop "Open loop")
       "Enumeration to specify the plant controller";
+  type CoolerFanSpeedControl = enumeration(
+      ReturnTemperature "Condenser water return temperature control",
+      SupplyTemperature "Condenser water supply temperature control")
+      "Enumeration to specify the cooler fan speed control";
   type Distribution = enumeration(
       Constant1Only "Constant primary-only",
       Variable1Only "Variable primary-only",
@@ -33,8 +37,14 @@ package Types
       HeatExchangerWithPump "Heat exchanger with pump for CHW flow control",
       HeatExchangerWithValve "Heat exchanger with bypass valve for CHW flow control")
       "Enumeration to configure the WSE";
-  type PumpArrangement = enumeration(
-      Dedicated "Dedicated pumps",
-      Headered "Headered pumps")
-      "Enumeration to specify the pump arrangement";
+  type SensorLocation = enumeration(
+      Return "Sensor in the return line",
+      Supply "Sensor in the supply line")
+      "Enumeration to specify the sensor location";
+  type PrimaryOverflowMeasurement = enumeration(
+      FlowDecoupler "Flow meter in the decoupler",
+      FlowDifference "Primary and secondary loop flow meters",
+      TemperatureSupplySensor "Delta-T with single CHWST sensor measuring combined flow of all chillers",
+      TemperatureChillerSensor "Delta-T with weighted average of CHWST of all chillers proven on")
+    "Enumeration to configure the sensors for primary CHW pump control in variable primary-variable secondary plants";
 end Types;

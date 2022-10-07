@@ -13,7 +13,7 @@ model ChillersToPrimaryPumpsParallel
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
     capChi_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (TChiWatRet_nominal-TChiWatSup_nominal)
-    "CHW mass flow rate for each chiller"
+    "CHW mass flow rate - Each chiller"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
     sum(mChiWatChi_flow_nominal)
@@ -25,7 +25,7 @@ model ChillersToPrimaryPumpsParallel
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi]=
     fill(Buildings.Templates.Data.Defaults.dpChiWatChi, nChi)
-    "CHW pressure drop for each chiller"
+    "CHW pressure drop - Each chiller"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpChiWatEco_nominal=
     Buildings.Templates.Data.Defaults.dpChiWatEco
@@ -33,7 +33,7 @@ model ChillersToPrimaryPumpsParallel
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
     each min=0)=fill(1e6, nChi)
-    "Cooling capacity for each chiller (>0)"
+    "Cooling capacity - Each chiller (>0)"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
@@ -74,7 +74,7 @@ model ChillersToPrimaryPumpsParallel
     "Parameter record for chiller CHW bypass valve";
 
   Routing.ChillersToPrimaryPumps rou(
-    redeclare final package MediumChiWat=MediumChiWat,
+    redeclare final package MediumChiWat = MediumChiWat,
     final nChi=nChi,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -82,10 +82,11 @@ model ChillersToPrimaryPumpsParallel
     final datValChiWatChiByp=datValChiWatChiByp,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
     typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
-    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Parallel chillers, dedicated pumps, no WSE"
     annotation (Placement(transformation(extent={{-80,90},{-40,210}})));
+
   Fluid.FixedResistances.PressureDrop resEva[nChi](
     redeclare each final package Medium=MediumChiWat,
     final m_flow_nominal=mChiWatChi_flow_nominal,
@@ -107,7 +108,8 @@ model ChillersToPrimaryPumpsParallel
     redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWatPri,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon,
+    final have_var=true,
+    final have_varCom=true,
     final energyDynamics=energyDynamics)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-10,170},{10,190}})));
@@ -174,7 +176,7 @@ model ChillersToPrimaryPumpsParallel
     annotation (Placement(transformation(extent={{-250,270},{-230,290}})));
 
   Routing.ChillersToPrimaryPumps rou1(
-    redeclare final package MediumChiWat=MediumChiWat,
+    redeclare final package MediumChiWat = MediumChiWat,
     final nChi=nChi,
     final mChiWatPri_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
@@ -182,7 +184,7 @@ model ChillersToPrimaryPumpsParallel
     final datValChiWatChiByp=datValChiWatChiByp,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
     typArrChi=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
-    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithValve)
     "Parallel chillers, headered pumps, WSE with CHW bypass valve"
     annotation (Placement(transformation(extent={{-80,-50},{-40,70}})));
@@ -208,7 +210,8 @@ model ChillersToPrimaryPumpsParallel
     redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWatPri,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon,
+    final have_var=true,
+    final have_varCom=true,
     final energyDynamics=energyDynamics)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));

@@ -31,19 +31,19 @@ partial model PartialCoolerGroup
     "Design and operating parameters";
   final parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal[nCoo]=
     dat.mConWatCoo_flow_nominal
-    "CW mass flow rate for each cooler unit";
+    "CW mass flow rate - Each cooler unit";
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal=
     sum(mConWatCoo_flow_nominal)
     "Total CW mass flow rate (all units)";
   final parameter Modelica.Units.SI.PressureDifference dpConWatFriCoo_nominal[nCoo]=
     dat.dpConWatFriCoo_nominal
-    "CW flow-friction losses through equipment and piping only for each cooler unit (without static head or valve)";
+    "CW flow-friction losses through equipment and piping only - Each cooler unit (without static head or valve)";
   final parameter Modelica.Units.SI.PressureDifference dpConWatStaCoo_nominal[nCoo]=
     dat.dpConWatStaCoo_nominal
-    "CW static pressure drop for each cooler unit";
+    "CW static pressure drop - Each cooler unit";
   final parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo]=
     dat.mAirCoo_flow_nominal
-    "Air mass flow rate for each cooler unit";
+    "Air mass flow rate - Each cooler unit";
 
   final parameter Buildings.Templates.Components.Data.Cooler datCoo[nCoo](
     final typ=fill(typCoo, nCoo),
@@ -58,7 +58,7 @@ partial model PartialCoolerGroup
     final TConWatRet_nominal=fill(dat.TConWatRet_nominal, nCoo),
     final TConWatSup_nominal=fill(dat.TConWatSup_nominal, nCoo),
     final PFan_nominal=dat.PFanCoo_nominal)
-    "Parameter record for each cooler unit";
+    "Parameter record - Each cooler unit";
   final parameter Buildings.Templates.Components.Data.Valve datValCooInlIso[nCoo](
     final typ=fill(typValCooInlIso, nCoo),
     final m_flow_nominal=mConWatCoo_flow_nominal,

@@ -18,7 +18,7 @@ model ChillerGroup "Validation model for chiller group"
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=
     capChi_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (TChiWatRet_nominal-TChiWatSup_nominal)
-    "CHW mass flow rate for each chiller"
+    "CHW mass flow rate - Each chiller"
     annotation (Evaluate=true, Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatPri_flow_nominal=
     sum(mChiWatChi_flow_nominal)
@@ -28,12 +28,12 @@ model ChillerGroup "Validation model for chiller group"
     capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiWatCoo)/
     Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (TConWatRet_nominal-TConWatSup_nominal)
-    "CW mass flow rate for each water-cooled chiller"
+    "CW mass flow rate - Each water-cooled chiller"
     annotation (Evaluate=true,Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi]=
     capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiAirCoo)*
     Buildings.Templates.Data.Defaults.mConAirByCapChi
-    "Air mass flow rate at condenser for each air-cooled chiller"
+    "Air mass flow rate at condenser - Each air-cooled chiller"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal=
     sum(mConWatChi_flow_nominal)
@@ -42,7 +42,7 @@ model ChillerGroup "Validation model for chiller group"
 
   parameter Modelica.Units.SI.PressureDifference dpChiWatChi_nominal[nChi]=
     fill(Buildings.Templates.Data.Defaults.dpChiWatChi, nChi)
-    "CHW pressure drop for each chiller"
+    "CHW pressure drop - Each chiller"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpConWatChi_nominal[nChi]=
     fill(Buildings.Templates.Data.Defaults.dpConWatChi, nChi)
@@ -50,7 +50,7 @@ model ChillerGroup "Validation model for chiller group"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi](
     each min=0)=fill(1e6, nChi)
-    "Cooling capacity for each chiller (>0)"
+    "Cooling capacity - Each chiller (>0)"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
@@ -122,7 +122,7 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package Medium=MediumChiWat,
     final dat=datPumChiWatPri,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatPri
@@ -189,16 +189,17 @@ model ChillerGroup "Validation model for chiller group"
     annotation (Placement(transformation(extent={{180,200},{220,240}}),
                  iconTransformation(extent={{-432,12},{-412,32}})));
   ChillerGroups.Compression chi(
-    redeclare final package MediumChiWat=MediumChiWat,
-    redeclare final package MediumCon=MediumConWat,
+    redeclare final package MediumChiWat = MediumChiWat,
+    redeclare final package MediumCon = MediumConWat,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only,
     final dat=datChiWatCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
     typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
-    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
-    typArrPumConWat=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated,
-    typCtrSpePumConWat=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant,
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    have_varPumConWat=false,
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Chiller group"
     annotation (Placement(transformation(extent={{-100,90},{-60,210}})));
@@ -207,7 +208,7 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "CW pumps"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat(
@@ -258,8 +259,8 @@ model ChillerGroup "Validation model for chiller group"
   Buildings.Templates.Components.Interfaces.Bus busPumConWat
     "CW pumps control bus" annotation (Placement(transformation(extent={{180,160},
             {220,200}}), iconTransformation(extent={{-316,184},{-276,224}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWat[nChi](final k=
-        fill(TChiWatSup_nominal, nChi)) "CHW supply temperature set point"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(final k=
+        TChiWatSup_nominal) "CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-180,390},{-160,410}})));
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus" annotation (Placement(transformation(extent={{180,220},
@@ -275,7 +276,7 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package Medium = MediumChiWat,
     final dat=datPumChiWatPri,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Fluid.HeatExchangers.HeaterCooler_u loa1(
@@ -311,15 +312,17 @@ model ChillerGroup "Validation model for chiller group"
   ChillerGroups.Compression chi1(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumConWat,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
     typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiWatCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
     typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
-    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    typArrPumConWat=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    typCtrSpePumConWat=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant,
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    have_varPumConWat=false,
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Chiller group"
     annotation (Placement(transformation(extent={{-100,-50},{-60,70}})));
@@ -328,7 +331,7 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "CW pumps"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat1(
@@ -427,7 +430,7 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package Medium = MediumChiWat,
     final dat=datPumChiWatPri,
     final nPum=nChi,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
   Fluid.HeatExchangers.HeaterCooler_u loa2(
@@ -459,15 +462,18 @@ model ChillerGroup "Validation model for chiller group"
   ChillerGroups.Compression chi2(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumAir,
+    typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed,
+    typMeaCtrChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor,
     typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiAirCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
     typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
     typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
-    typArrPumChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    typArrPumConWat=Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    typCtrSpePumConWat=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant,
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    have_varPumConWat=false,
     typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Chiller group"
     annotation (Placement(transformation(extent={{-100,-190},{-60,-70}})));
@@ -604,8 +610,6 @@ equation
       points={{200,240},{200,220}},
       color={255,204,51},
       thickness=0.5));
-  connect(TChiWat.y, busChi.TChiWatSupSet) annotation (Line(points={{-158,400},{
-          166,400},{166,244},{200,244},{200,240}}, color={0,0,127}));
   connect(pumChiWatPri1.ports_b, outPumChiWatPri1.ports_a)
     annotation (Line(points={{-20,40},{-20,40}}, color={0,127,255}));
   connect(y1Chi.y[1], busPumChiWatPri1.y1) annotation (Line(points={{-228,320},{
@@ -665,8 +669,6 @@ equation
       points={{200,100},{200,80}},
       color={255,204,51},
       thickness=0.5));
-  connect(TChiWat.y, busChi1.TChiWatSupSet) annotation (Line(points={{-158,400},
-          {166,400},{166,104},{200,104},{200,100}}, color={0,0,127}));
   connect(yValIso.y[1], busValChiWatChiIso.y) annotation (Line(points={{-228,240},
           {120,240},{120,170},{140,170},{140,100}},
                                 color={0,0,127}));
@@ -693,8 +695,6 @@ equation
       points={{200,-40},{200,-60}},
       color={255,204,51},
       thickness=0.5));
-  connect(TChiWat.y,busChi2. TChiWatSupSet) annotation (Line(points={{-158,400},
-          {166,400},{166,-36},{200,-36},{200,-40}}, color={0,0,127}));
   connect(yValIso.y[1], busValChiWatChiIso1.y) annotation (Line(points={{-228,240},
           {120,240},{120,-40},{140,-40}},
                                 color={0,0,127}));
@@ -757,6 +757,15 @@ equation
       points={{200,240},{240,240},{240,192}},
       color={255,204,51},
       thickness=0.5));
+  connect(TChiWatSupSet.y, busPla.TChiWatSupSet) annotation (Line(points={{-158,
+          400},{166,400},{166,224},{184,224},{184,220},{200,220}}, color={0,0,
+          127}));
+  connect(TChiWatSupSet.y, busPla1.TChiWatSupSet) annotation (Line(points={{
+          -158,400},{166,400},{166,82},{184,82},{184,80},{200,80}}, color={0,0,
+          127}));
+  connect(TChiWatSupSet.y, busPla2.TChiWatSupSet) annotation (Line(points={{
+          -158,400},{165.873,400},{165.873,84.0635},{164,84.0635},{164,-58},{
+          182,-58},{182,-60},{200,-60}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-260,-640},{260,440}})),
   experiment(
     StopTime=2000,

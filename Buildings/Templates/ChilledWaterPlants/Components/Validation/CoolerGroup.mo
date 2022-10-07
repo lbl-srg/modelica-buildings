@@ -12,7 +12,7 @@ model CoolerGroup "Validation model for cooler group"
   parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal[nCoo]=
     capCoo_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (TConWatRet_nominal-TConWatSup_nominal)
-    "CW mass flow rate for each cooler unit"
+    "CW mass flow rate - Each cooler unit"
     annotation (Evaluate=true, Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal=
     sum(mConWatCoo_flow_nominal)
@@ -30,7 +30,7 @@ model CoolerGroup "Validation model for cooler group"
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo]=fill(1e6, nCoo)
-    "Cooling capacity for each unit (>0)"
+    "Cooling capacity - Each unit (>0)"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=
@@ -104,7 +104,7 @@ model CoolerGroup "Validation model for cooler group"
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nCoo,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "CW pumps"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat(
@@ -192,7 +192,7 @@ model CoolerGroup "Validation model for cooler group"
     redeclare final package Medium = MediumConWat,
     final dat=datPumConWat,
     final nPum=nCoo,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant)
+    final have_var=false)
     "CW pumps"
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumConWat1(

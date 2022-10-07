@@ -20,7 +20,7 @@ model TestRecordArray
 
   record SingleChillerRecord
     parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal=30
-      "CHW mass flow rate for each chiller";
+      "CHW mass flow rate - Each chiller";
     replaceable parameter BaseChillerPerformanceData per
       constrainedby BaseChillerPerformanceData(
         mEva_flow_nominal=mChiWatChi_flow_nominal);
@@ -30,7 +30,7 @@ model TestRecordArray
     parameter Integer nChi=3
       "Number of chillers";
     parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal[nChi]=fill(30, nChi)
-      "CHW mass flow rate for each chiller";
+      "CHW mass flow rate - Each chiller";
     replaceable parameter BaseChillerPerformanceData per[nChi]
       constrainedby BaseChillerPerformanceData(
         mEva_flow_nominal=mChiWatChi_flow_nominal);

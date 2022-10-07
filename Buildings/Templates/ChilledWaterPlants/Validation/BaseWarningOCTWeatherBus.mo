@@ -21,11 +21,11 @@ model BaseWarningOCTWeatherBus
   parameter Buildings.Templates.Components.Types.Chiller typChi=
   Buildings.Templates.Components.Types.Chiller.AirCooled;
   parameter Buildings.Templates.Components.Types.Cooler typCoo=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen;
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri=
-    Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated;
 
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumConWat=
-   Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Dedicated;
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Dedicated;
   parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None;
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None;
 
@@ -54,8 +54,9 @@ model BaseWarningOCTWeatherBus
     "Cooler outlet isolation valve"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat(
-    CHI(
+  parameter
+    Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
+    dat(CHI(
       final nChi=nChi,
       final nCoo=nCoo,
       final typChi=typChi,
@@ -269,7 +270,7 @@ equation
     annotation (Line(points={{240,40},{260,40}}, color={0,127,255}));
   connect(rou.ports_bSup, pumChiWatPri.ports_a)
     annotation (Line(points={{80,40},{120,40}}, color={0,127,255}));
-  connect(ctr.bus, bus) annotation (Line(
+  connect(ctl.bus, bus) annotation (Line(
       points={{-100,80},{-60,80}},
       color={255,204,51},
       thickness=0.5), Text(

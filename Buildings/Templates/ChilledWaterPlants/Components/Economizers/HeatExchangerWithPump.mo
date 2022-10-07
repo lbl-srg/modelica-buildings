@@ -16,16 +16,16 @@ model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,20})));
-  Buildings.Templates.Components.Pumps.Single pumChiWat(
+  Buildings.Templates.Components.Pumps.Single pumChiWatEco(
     have_valChe=false,
-    redeclare final package Medium=MediumChiWat,
-    final typCtrSpe=Buildings.Templates.Components.Types.PumpSingleSpeedControl.Variable,
+    redeclare final package Medium = MediumChiWat,
+    final have_var=true,
     final dat=datPumChiWat,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
-    "Heat exchanger CHW pump"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    final allowFlowReversal=allowFlowReversal) "Heat exchanger CHW pump"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,50})));
   Fluid.FixedResistances.PressureDrop resChiWatByp(
@@ -36,15 +36,13 @@ model HeatExchangerWithPump "Heat exchanger with pump for CHW flow control"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   /* Control point connection - start */
-  connect(bus.pumChiWatEco, pumChiWat.bus);
+  connect(bus.pumChiWatEco, pumChiWatEco.bus);
   connect(bus.TChiWatEcoEnt, TChiWatEcoEnt.y);
   /* Control point connection - stop */
-  connect(TChiWatEcoEnt.port_b, pumChiWat.port_a)
-    annotation (Line(points={{-20,30},{-20,40}},
-                                               color={0,127,255}));
-  connect(pumChiWat.port_b, hex.port_a2)
-    annotation (Line(points={{-20,60},{-20,68},{-10,68}},
-                                               color={0,127,255}));
+  connect(TChiWatEcoEnt.port_b, pumChiWatEco.port_a)
+    annotation (Line(points={{-20,30},{-20,40}}, color={0,127,255}));
+  connect(pumChiWatEco.port_b, hex.port_a2)
+    annotation (Line(points={{-20,60},{-20,68},{-10,68}}, color={0,127,255}));
   connect(port_a, TChiWatEcoEnt.port_a)
     annotation (Line(points={{-100,0},{-20,0},{-20,10}}, color={0,127,255}));
   connect(port_a, resChiWatByp.port_a)

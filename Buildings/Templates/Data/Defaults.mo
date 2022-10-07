@@ -26,7 +26,7 @@ package Defaults "Package with default sizing parameters"
     "WSE entering CW temperature";
   constant Modelica.Units.SI.Temperature TConWatEcoLvg=16+273.15
     "WSE leaving CW temperature";
-  constant Modelica.Units.SI.Temperature TAirOutChiLoc=16+273.15
+  constant Modelica.Units.SI.Temperature TOutChiLoc=16+273.15
     "Outdoor air lockout temperature below which the CHW plant is prevented from operating";
   constant Modelica.Units.SI.TemperatureDifference dTLifChi_min=5
     "Minimum chiller lift at minimum load";

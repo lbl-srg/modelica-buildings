@@ -12,7 +12,7 @@ model CoolerGroupDebug "Validation model for cooler group"
   parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal[nCoo]=
     capCoo_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/
     (TConWatRet_nominal-TConWatSup_nominal)
-    "CW mass flow rate for each cooler unit"
+    "CW mass flow rate - Each cooler unit"
     annotation (Evaluate=true, Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal=
     sum(mConWatCoo_flow_nominal)
@@ -30,7 +30,7 @@ model CoolerGroupDebug "Validation model for cooler group"
     "Air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capCoo_nominal[nCoo]=fill(1e6, nCoo)
-    "Cooling capacity for each unit (>0)"
+    "Cooling capacity - Each unit (>0)"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TAirEnt_nominal=

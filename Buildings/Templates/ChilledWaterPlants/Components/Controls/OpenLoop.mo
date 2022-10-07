@@ -10,24 +10,27 @@ block OpenLoop "Open loop controller (output signals only)"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
     k=1)
-    if typCtrSpePumChiWatPri == Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
+    if have_varPumChiWatPri and have_varComPumChiWatPri
     "Primary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-130,-70},{-110,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPriDed[nPumChiWatPri](
+    each k=1)
+    if have_varPumChiWatPri and not have_varComPumChiWatPri
+    "Primary CHW pump speed signal - Dedicated"
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatSec(
-    k=1)
-    if have_pumChiWatSec and
-      typCtrSpePumChiWatSec == Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
+    k=1) if have_pumChiWatSec
     "Secondary CHW pump speed signal"
     annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumConWat(
     k=1) if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-     and typCtrSpePumConWat==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
+    and have_varPumConWat and have_varComPumConWat
     "CW pump speed signal"
     annotation (Placement(transformation(extent={{-130,-190},{-110,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumConWatDed[nChi](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumConWatDed[nPumConWat](
     each k=1)
-    if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
-    typCtrSpePumConWat==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableDedicated
+    if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+    and have_varPumConWat and not have_varComPumConWat
     "CW pump speed signal - Dedicated"
     annotation (Placement(transformation(extent={{-100,-210},{-80,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatChiIso[nChi](
@@ -225,9 +228,6 @@ equation
   connect(TChiWatSupSet.y, busChi.TChiWatSupSet)
     annotation (Line(points={{-78,120},{140,120},{140,140}},
                                                       color={0,0,127}));
-  connect(yPumConWatDed.y, busPumConWat.y)
-    annotation (Line(points={{-78,-200},{140,-200},{140,-160}},
-                                                            color={0,0,127}));
   connect(yValChiWatChiIso.y, busValChiWatChiIso.y) annotation (Line(points={{-108,
           200},{-60,200},{-60,190},{132,190},{132,180},{140,180}},
                                            color={0,0,127}));
@@ -330,6 +330,18 @@ equation
       thickness=0.5));
   connect(y1ValConWatEcoIso.y[1], busValConWatEcoIso.y1) annotation (Line(
         points={{-98,-240},{24,-240},{24,-240},{140,-240}}, color={255,0,255}));
+  connect(yPumConWatDed.y, busPumConWat.y) annotation (Line(points={{-78,-200},
+          {140,-200},{140,-160}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(yPumChiWatPriDed.y, busPumChiWatPri.y) annotation (Line(points={{-78,
+          -80},{140,-80},{140,-60}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
   annotation (
   defaultComponentName="ctr",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

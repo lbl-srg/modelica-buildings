@@ -77,20 +77,9 @@ package Types "Package with type definitions"
       Multiple
       "Multiple pumps in parallel")
     "Enumeration to configure the pump";
-  type PumpSingleSpeedControl = enumeration(
-      Constant
-      "Constant speed",
-      Variable
-      "Variable speed")
-    "Enumeration to configure the speed control for single pump";
-  type PumpMultipleSpeedControl = enumeration(
-      Constant
-      "Constant speed",
-      VariableCommon
-      "Variable speed with common unique signal",
-      VariableDedicated
-      "Variable speed with dedicated signal")
-    "Enumeration to configure the speed control for multiple pumps";
+  type PumpArrangement = enumeration(
+      Dedicated "Dedicated pumps",
+      Headered "Headered pumps") "Enumeration to specify the pump arrangement";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

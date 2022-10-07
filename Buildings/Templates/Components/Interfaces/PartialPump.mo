@@ -4,6 +4,15 @@ model PartialPump "Base class for all pump models"
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
+  parameter Boolean have_var=true
+    "Set to true for variable speed pump, false for constant speed pump"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
+  parameter Boolean have_varCom=true
+    "Set to true for single common speed signal, false for dedicated signals"
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typ==Buildings.Templates.Components.Types.Pump.Multiple and have_var));
+
   parameter Boolean have_valChe=true
     "Set to true to include a check valve in pump line"
     annotation (Evaluate=true, Dialog(group="Configuration",

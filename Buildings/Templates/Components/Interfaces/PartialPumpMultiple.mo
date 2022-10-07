@@ -14,10 +14,6 @@ partial model PartialPumpMultiple
     "Number of pumps"
     annotation (Dialog(group="Configuration",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpe
-    "Type of pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
   parameter Buildings.Templates.Components.Data.PumpMultiple dat(
     final nPum=nPum,

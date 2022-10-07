@@ -20,13 +20,24 @@ model ChillersToPrimaryPumps
     final min=1)=nChi
     "Number of primary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement typArrPumChiWatPri
-    "Type of primary CHW pump arrangement"
+    enable=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
+  parameter Buildings.Templates.Components.Types.PumpArrangement
+    typArrPumChiWatPri "Type of primary CHW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_senVChiWatPri=false
+    "Set to true for primary CHW flow sensor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.SensorLocation locSenFloChiWatPri=
+     Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return
+     "Location of primary CHW flow sensor"
+     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_senVChiWatPri));
+  parameter Boolean have_senTChiWatPlaRet=false
+    "Set to true for plant CHW return temperature sensor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   final parameter Integer nPorts=nChi + 1
     "Size of vectorized fluid connectors on chiller side"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -34,7 +45,7 @@ model ChillersToPrimaryPumps
     typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     and (typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only or
      typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only)
-    and typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered
+    and typArrPumChiWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
     and typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "Set to true for parallel chillers with chiller CHW bypass valve"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -94,7 +105,7 @@ model ChillersToPrimaryPumps
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply from minimum flow bypass or common leg"    annotation (
       Placement(transformation(extent={{190,-10},{210,10}}),iconTransformation(
-          extent={{190,-10},{210,10}})));
+          extent={{190,-310},{210,-290}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aSup[nPorts](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -134,9 +145,8 @@ model ChillersToPrimaryPumps
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final have_comLeg=
-      typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered)
-    if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
+    final have_comLeg=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     "Hydronic routing  - Supply side - Parallel arrangement"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid rouRet(
@@ -180,11 +190,12 @@ model ChillersToPrimaryPumps
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={140,60})));
-  Buildings.Templates.Components.Sensors.Temperature TChiWatChiEnt(
+  Buildings.Templates.Components.Sensors.Temperature TChiWatPlaRet(
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWatPri_flow_nominal,
+    final have_sen=have_senTChiWatPlaRet,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Chiller entering CHW return temperature (after bypass or common leg)"
+    "Plant CHW return temperature (after bypass or common leg)"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -239,6 +250,16 @@ model ChillersToPrimaryPumps
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={140,0})));
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatPri_flow(
+    redeclare final package Medium = MediumChiWat,
+    final m_flow_nominal=mChiWatPri_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final have_sen=have_senVChiWatPri and
+      locSenFloChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return,
+    final text_flip=true,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    "Primary CHW volume flow rate"
+    annotation (Placement(transformation(extent={{130,-110},{110,-90}})));
 protected
   parameter Boolean have_controlVolume=
     energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
@@ -246,14 +267,14 @@ protected
     annotation(Evaluate=true);
 initial equation
   if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
-    assert(typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    "In "+ getInstanceName() + ": "+
-    "The configuration with WSE and dedicated primary CHW pumps is not supported.");
+    assert(typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
+      "In " + getInstanceName() + ": " +
+      "The configuration with WSE and dedicated primary CHW pumps is not supported.");
   end if;
   if typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series then
-    assert(typArrPumChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PumpArrangement.Headered,
-    "In "+ getInstanceName() + ": "+
-    "The configuration with series chillers and dedicated primary CHW pumps is not supported.");
+    assert(typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
+      "In " + getInstanceName() + ": " +
+      "The configuration with series chillers and dedicated primary CHW pumps is not supported.");
   end if;
 equation
   /* Control point connection - start */
@@ -261,7 +282,8 @@ equation
   connect(bus.valChiWatChiByp, valChiWatChiBypPar.bus);
   connect(bus.TChiWatEcoAft,TChiWatEcoAft.y);
   connect(bus.TChiWatEcoBef,TChiWatEcoBef.y);
-  connect(bus.TChiWatChiEnt,TChiWatChiEnt.y);
+  connect(bus.TChiWatPlaRet,TChiWatPlaRet.y);
+  connect(bus.VChiWatPri_flow, VChiWatPri_flow.y);
   /* Control point connection - stop */
   connect(rouSupPar.ports_b, ports_bSup)
     annotation (Line(points={{10,120},{200,120}}, color={0,127,255}));
@@ -271,8 +293,8 @@ equation
       Line(points={{-200,-100},{-200,-80},{-160,-80},{-160,-10}}, color={0,127,255}));
   connect(TChiWatEcoBef.port_b, ports_bRet[nChi + 1]) annotation (Line(points={{-150,
           -120},{-200,-120},{-200,-100}},                  color={0,127,255}));
-  connect(rouSupSer.ports_b, ports_bSup) annotation (Line(points={{10,140},{180,
-          140},{180,120},{200,120}},
+  connect(rouSupSer.ports_b, ports_bSup) annotation (Line(points={{10,140},{140,
+          140},{140,120},{200,120}},
                                color={0,127,255}));
   connect(ports_aSup[nChi + 1], TChiWatEcoAft.port_a) annotation (Line(points={{-200,
           120},{-200,100},{140,100},{140,70}},               color={0,127,255}));
@@ -280,13 +302,13 @@ equation
           {180,-120},{160,-120}}, color={0,127,255}));
   connect(rouRet.port_b, TChiWatEcoBef.port_a)
     annotation (Line(points={{140,-120},{-130,-120}}, color={0,127,255}));
-  connect(TChiWatChiEnt.port_b, rouRetChiPar.port_a)
+  connect(TChiWatPlaRet.port_b, rouRetChiPar.port_a)
     annotation (Line(points={{70,-100},{10,-100}}, color={0,127,255}));
-  connect(TChiWatChiEnt.port_b, rouRetChiSer.port_a) annotation (Line(points={{
+  connect(TChiWatPlaRet.port_b, rouRetChiSer.port_a) annotation (Line(points={{
           70,-100},{20,-100},{20,-72},{10,-72}}, color={0,127,255}));
   connect(rouRetChiSer.port_b, ports_bRet[nChi]) annotation (Line(points={{-10,
           -72},{-20,-72},{-20,-100},{-200,-100}}, color={0,127,255}));
-  connect(TChiWatChiEnt.port_b, valChiWatChiBypPar.port_a) annotation (Line(
+  connect(TChiWatPlaRet.port_b, valChiWatChiBypPar.port_a) annotation (Line(
         points={{70,-100},{40,-100},{40,-40},{0,-40},{0,-10}}, color={0,127,255}));
   connect(rouSupRetSer.port_b, ports_bRet[1:nChi - 1])
     annotation (Line(points={{-120,-10},{-120,-100},{-200,-100}}, color={0,127,255}));
@@ -298,8 +320,6 @@ equation
     annotation (Line(points={{-150,140},{-10,140}}, color={0,127,255}));
   connect(junSupChiSer[2:nChi].port_2, rouSupRetSer.port_a) annotation (Line(
         points={{-150,140},{-120,140},{-120,10}}, color={0,127,255}));
-  connect(junByp.port_2, TChiWatChiEnt.port_a) annotation (Line(points={{140,-10},
-          {140,-100},{90,-100}}, color={0,127,255}));
   connect(port_aByp, junByp.port_3)
     annotation (Line(points={{200,0},{150,0}}, color={0,127,255}));
   connect(TChiWatEcoAft.port_b, junByp.port_1)
@@ -308,6 +328,10 @@ equation
     annotation (Line(points={{-10,-100},{-200,-100}}, color={0,127,255}));
   connect(ports_aSup[1:nChi], rouSupPar.ports_a)
     annotation (Line(points={{-200,120},{-10,120}}, color={0,127,255}));
+  connect(junByp.port_2, VChiWatPri_flow.port_a) annotation (Line(points={{140,-10},
+          {140,-100},{130,-100}}, color={0,127,255}));
+  connect(VChiWatPri_flow.port_b,TChiWatPlaRet. port_a)
+    annotation (Line(points={{110,-100},{90,-100}}, color={0,127,255}));
 annotation (
   defaultComponentName="rou",
   Icon(coordinateSystem(preserveAspectRatio=false,
