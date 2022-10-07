@@ -5,4 +5,4 @@ createPlot(id=1, position={15, 15, 730, 1276}, y={"extIndInt.u[3]"}, range={0.0,
 createPlot(id=1, position={15, 15, 730, 1276}, y={"extIndInt.u[4]"}, range={0.0, 1.0, 3.0, 5.0}, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=2, position={757, 9, 866, 1282}, y={"extIndInt.y"}, range={0.0, 1.0, -0.1, 1.1}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
 createPlot(id=2, position={757, 9, 866, 1282}, y={"extIndInt1.y"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
-
+createPlot(id=2, position={757, 9, 866, 1282}, y={"extIndInt2.y"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");

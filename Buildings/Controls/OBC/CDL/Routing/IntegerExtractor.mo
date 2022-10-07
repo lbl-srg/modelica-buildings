@@ -3,8 +3,6 @@ block IntegerExtractor
   "Extract scalar signal out of signal vector dependent on Integer input index"
   parameter Integer nin=1
     "Number of inputs";
-  parameter Integer outOfRangeValue=0
-    "Output signal if index is out of range";
   Interfaces.IntegerInput index
     "Index of input vector element to be extracted out"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
@@ -15,21 +13,15 @@ block IntegerExtractor
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-protected
-  Boolean insideRange
-    "Flag to check if the extract index is inside the range";
-
 initial equation
   pre(index)=0;
 
 equation
-  insideRange = index > 0 and index <= nin;
   assert(
-     insideRange,
+     index > 0 and index <= nin,
      "In " + getInstanceName() + ": The extract index is out of the range.",
      AssertionLevel.warning);
-
-  y = if insideRange then u[index] else outOfRangeValue;
+  y = u[min(nin, max(1, index))];
 
 annotation (defaultComponentName="extIndInt",
     Icon(
@@ -136,12 +128,19 @@ Block that returns
 </pre>
 <p>
 where <code>u</code> is a vector-valued <code>Integer</code> input signal and
-<code>index</code> is an <code>Integer</code> input signal.
+<code>index</code> is an <code>Integer</code> input signal. When the <code>index</code>
+is out of range,
 </p>
-<p>
-If <code>index</code> is out of range, then the output is set to
-<code>y = outOfRangeValue</code>.
-</p>
+<ul>
+<li>
+If <code>index &gt; nin</code>, then the output is set to
+<code>y = u[nin]</code>.
+</li>
+<li>
+If <code>index &lt; 1</code>, then the output is set to
+<code>y = u[1]</code>.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>

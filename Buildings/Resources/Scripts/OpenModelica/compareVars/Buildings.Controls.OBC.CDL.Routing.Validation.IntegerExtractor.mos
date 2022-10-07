@@ -5,5 +5,6 @@ compareVars :=
     "extIndInt.u[3]",
     "extIndInt.u[4]",
     "extIndInt.y",
-    "extIndInt1.y"
+    "extIndInt1.y",
+    "extIndInt2.y"
   };
