@@ -232,7 +232,8 @@ partial model PartialBuildingWFloDis
     m_flow_nominal=mHw_flow_nominal*{1,-1,1},
     dp_nominal=0*{1,1,1})
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
-  Heating.DHW.BaseClasses.DirectHeatExchangerWaterHeaterWithAuxHeat genDHW(
+  Heating.DHW.BaseClasses.DELETE.DirectHeatExchangerWaterHeaterWithAuxHeatOLD
+    genDHW(
     TSetHw=TSetHw,
     mHw_flow_nominal=mHw_flow_nominal,
     mDH_flow_nominal=mDH_flow_nominal,
