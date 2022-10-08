@@ -7,8 +7,583 @@ package Heating "Package of models for district heating loads"
       "Package with base classes that are used by multiple models"
       extends Modelica.Icons.BasesPackage;
 
+      model DomesticWaterMixer "A model for a domestic water mixer"
+        replaceable package Medium = Buildings.Media.Water "Water media model";
+        parameter Modelica.Units.SI.Temperature TSet = 273.15+40 "Temperature setpoint of tempered hot water outlet";
+        parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal "Nominal doemstic hot water flow rate";
+        parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
+        parameter Real k(min=0) = 2 "Gain of controller";
+        parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
+                controllerType == Modelica.Blocks.Types.SimpleController.PI or
+                controllerType == Modelica.Blocks.Types.SimpleController.PID));
+        Modelica.Fluid.Interfaces.FluidPort_b port_tw(redeclare package Medium
+            = Medium) "Port for tempered water outlet"
+          annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+        Buildings.Controls.Continuous.LimPID conPID(
+          controllerType=Modelica.Blocks.Types.SimpleController.PI,
+          k=k,
+          Ti=Ti,
+          reset=Buildings.Types.Reset.Parameter)
+          annotation (Placement(transformation(extent={{40,40},{20,60}})));
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package
+            Medium =
+              Medium, m_flow_nominal=mDhw_flow_nominal) "Tempered water temperature sensor"
+          annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+        Modelica.Blocks.Sources.Constant conTSetCon(k=TSet) "Temperature setpoint for domestic tempered water supply to consumer"
+          annotation (Placement(transformation(extent={{80,40},{60,60}})));
+        Fluid.Actuators.Valves.ThreeWayLinear
+                   ideValHea(redeclare package Medium = Medium, final m_flow_nominal=
+              mDhw_flow_nominal,
+          dpValve_nominal=dpValve_nominal)
+                                 "Ideal valve" annotation (Placement(transformation(
+              extent={{10,10},{-10,-10}},
+              rotation=180,
+              origin={0,0})));
+        Modelica.Fluid.Interfaces.FluidPort_a port_hw(redeclare package Medium
+            = Medium) "Port for hot water supply"
+          annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
+        Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package Medium
+            = Medium) "Port for domestic cold water supply"
+          annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
+        Modelica.Blocks.Interfaces.RealOutput TTw "Temperature of the outlet tempered water"
+          annotation (Placement(transformation(extent={{100,70},{120,90}})));
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTemHw(redeclare package
+            Medium =
+              Medium, m_flow_nominal=mDhw_flow_nominal) "Hot water temperature sensor"
+          annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package
+            Medium =
+              Medium, m_flow_nominal=mDhw_flow_nominal) "Cold water temperature sensor"
+          annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+        Buildings.Fluid.Sensors.MassFlowRate senFloDhw(redeclare package Medium
+            = Medium) "Mass flow rate of domestic hot water"
+          annotation (Placement(transformation(extent={{50,-10},{70,10}})));
+        Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
+          annotation (Placement(transformation(extent={{54,22},{44,32}})));
+      equation
+        connect(conTSetCon.y, conPID.u_s)
+          annotation (Line(points={{59,50},{42,50}}, color={0,0,127}));
+        connect(senTemTw.T, conPID.u_m)
+          annotation (Line(points={{30,11},{30,38}}, color={0,0,127}));
+        connect(ideValHea.port_2, senTemTw.port_a) annotation (Line(points={{10,-6.66134e-16},
+                {20,-6.66134e-16},{20,0}}, color={0,127,255}));
+        connect(conPID.y, ideValHea.y) annotation (Line(points={{19,50},{8.88178e-16,50},
+                {8.88178e-16,12}},color={0,0,127}));
+        connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,20},{90,20},{90,
+                80},{110,80}}, color={0,0,127}));
+        connect(ideValHea.port_1, senTemHw.port_b)
+          annotation (Line(points={{-10,1.77636e-15},{-10,0},{-20,0}},
+                                                      color={0,127,255}));
+        connect(senTemHw.port_a, port_hw) annotation (Line(points={{-40,0},{-54,0},{-54,
+                60},{-100,60}}, color={0,127,255}));
+        connect(ideValHea.port_3, senTemCw.port_b)
+          annotation (Line(points={{-1.77636e-15,-10},{-1.77636e-15,-60},{-20,-60}},
+                                                              color={0,127,255}));
+        connect(senTemCw.port_a, port_cw)
+          annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
+        connect(senTemTw.port_b, senFloDhw.port_a)
+          annotation (Line(points={{40,0},{50,0}}, color={0,127,255}));
+        connect(senFloDhw.port_b, port_tw)
+          annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
+        connect(greaterThreshold.u, senFloDhw.m_flow)
+          annotation (Line(points={{55,27},{60,27},{60,11}}, color={0,0,127}));
+        connect(greaterThreshold.y, conPID.trigger)
+          annotation (Line(points={{43.5,27},{38,27},{38,38}}, color={255,0,255}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics
+              ={                      Rectangle(
+              extent={{-100,-100},{100,100}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+              Text(
+                extent={{-86,72},{-64,50}},
+                textColor={238,46,47},
+                textString="hot",
+                textStyle={TextStyle.Bold}),
+              Text(
+                extent={{-86,-44},{-52,-74}},
+                textColor={28,108,200},
+                textStyle={TextStyle.Bold},
+                textString="cold"),
+              Text(
+                extent={{10,36},{86,-34}},
+                textColor={102,44,145},
+                textStyle={TextStyle.Bold},
+                textString="tempered")}),                              Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end DomesticWaterMixer;
+
+      partial model PartialFourPortDHW
+        "A partial model for domestic water heating"
+        extends Buildings.Fluid.Interfaces.PartialFourPort;
+        replaceable package Medium = Buildings.Media.Water "Water media model";
+        parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal "Nominal mass flow rate of hot water supply";
+        parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal "Nominal mass flow rate of district heating water";
+        parameter Boolean havePEle "Flag that specifies whether electric power is required for water heating";
+
+        Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
+          "Electric power required for generation equipment"
+          annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+        Modelica.Blocks.Interfaces.RealInput TSetHw
+          "Temperature setpoint for domestic hot water supply from heater"
+          annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end PartialFourPortDHW;
+
+      model DirectHeatExchangerWaterHeaterWithAuxHeat
+        "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
+        extends
+          Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
+
+        parameter Boolean havePEle "Flag that specifies whether electric power is required for water heating";
+
+        Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
+          redeclare package Medium = Medium,
+          m_flow_nominal=mHw_flow_nominal,
+          dp_nominal=0) if havePEle == true
+                        "Supplemental electric resistance domestic hot water heater"
+          annotation (Placement(transformation(extent={{10,16},{30,-4}})));
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare
+            package Medium = Medium, m_flow_nominal=mHw_flow_nominal)
+          annotation (Placement(transformation(extent={{60,-4},{80,16}})));
+        Fluid.HeatExchangers.ConstantEffectiveness hex(
+          redeclare package Medium1 = Medium,
+          redeclare package Medium2 = Medium,
+          m1_flow_nominal=mHw_flow_nominal,
+          m2_flow_nominal=mDH_flow_nominal,
+          dp1_nominal=0,
+          dp2_nominal=0,
+          eps=0.85) "Domestic hot water heater"
+          annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+        Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium
+            = Medium, m_flow_nominal=mHw_flow_nominal)
+          annotation (Placement(transformation(extent={{-40,-4},{-20,16}})));
+      protected
+        Fluid.FixedResistances.LosslessPipe pip(
+          redeclare final package Medium = Medium,
+          final m_flow_nominal=mHw_flow_nominal,
+          final show_T=false) if havePEle == false "Pipe without electric resistance"
+          annotation (Placement(transformation(extent={{10,44},{30,24}})));
+
+      equation
+        connect(senTemHXOut.port_a, hex.port_b1)
+          annotation (Line(points={{-40,6},{-60,6}}, color={0,127,255}));
+        connect(senTemHXOut.port_b, heaDhw.port_a)
+          annotation (Line(points={{-20,6},{10,6}},color={0,127,255}));
+        connect(senTemHXOut.port_b, pip.port_a) annotation (Line(points={{-20,6},{-4,6},
+                {-4,34},{10,34}},  color={0,127,255}));
+        connect(heaDhw.port_b, senTemAuxHeaOut.port_a)
+          annotation (Line(points={{30,6},{60,6}}, color={0,127,255}));
+        connect(pip.port_b, senTemAuxHeaOut.port_a) annotation (Line(points={{30,34},{
+                44,34},{44,6},{60,6}},   color={0,127,255}));
+        connect(senTemAuxHeaOut.port_b, port_b1) annotation (Line(points={{80,6},{90,6},
+                {90,60},{100,60}}, color={0,127,255}));
+        connect(port_a1, hex.port_a1)
+          annotation (Line(points={{-100,60},{-80,60},{-80,6}}, color={0,127,255}));
+        connect(heaDhw.Q_flow, PEle) annotation (Line(points={{31,-2},{40,-2},{40,-20},
+                {94,-20},{94,0},{110,0}}, color={0,0,127}));
+        connect(TSetHw, heaDhw.TSet) annotation (Line(points={{-110,0},{-90,0},{-90,-20},
+                {0,-20},{0,-2},{8,-2}}, color={0,0,127}));
+        connect(hex.port_b2, port_b2) annotation (Line(points={{-80,-6},{-80,-60},{-100,
+                -60}}, color={0,127,255}));
+        connect(port_a2, hex.port_a2) annotation (Line(points={{100,-60},{-60,-60},{-60,
+                -6}}, color={0,127,255}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics
+              ={                      Rectangle(
+              extent={{-100,-100},{100,100}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}),                        Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end DirectHeatExchangerWaterHeaterWithAuxHeat;
+
+      model HeatPumpWaterHeaterWithTank
+        "A model for domestic water heating served by heat pump water heater and local storage tank"
+        extends
+          Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
+
+        parameter Modelica.Units.SI.Volume VTan = 0.151416 "Tank volume";
+        parameter Modelica.Units.SI.Length hTan = 1.746 "Height of tank (without insulation)";
+        parameter Modelica.Units.SI.Length dIns = 0.0762 "Thickness of insulation";
+        parameter Modelica.Units.SI.ThermalConductivity kIns=0.04 "Specific heat conductivity of insulation";
+        parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500 "Pressure drop across the heat exchanger at nominal conditions";
+        parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278 "Mass flow rate of heat exchanger";
+        parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
+
+        Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare
+            package Medium =
+                     Medium, m_flow_nominal=mHw_flow_nominal)
+          annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+        Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
+          redeclare package Medium1 = Medium,
+          redeclare package Medium2 = Medium,
+          m1_flow_nominal=mHw_flow_nominal,
+          m2_flow_nominal=mDH_flow_nominal,
+          QCon_flow_nominal=QCon_flow_nominal,
+          dp1_nominal=0,
+          dp2_nominal=0)
+                    "Domestic hot water heater"
+          annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+        Fluid.Storage.StratifiedEnhancedInternalHex tan(
+          redeclare package Medium = Medium,
+          m_flow_nominal=mHw_flow_nominal,
+          VTan=VTan,
+          hTan=hTan,
+          dIns=dIns,
+          kIns=kIns,
+          nSeg=5,
+          redeclare package MediumHex = Medium,
+          CHex=40,
+          Q_flow_nominal=0.278*4200*20,
+          hHex_a=0.995,
+          hHex_b=0.1,
+          energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+          energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
+          allowFlowReversal=false,
+          allowFlowReversalHex=false,
+          mHex_flow_nominal=mHex_flow_nominal,
+          TTan_nominal=293.15,
+          THex_nominal=323.15,
+          dpHex_nominal=dpHex_nominal)
+                                      "Hot water tank with heat exchanger configured as steady state"
+          annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
+        Fluid.Sensors.TemperatureTwoPort senTemHPOut(redeclare package Medium
+            = Medium, m_flow_nominal=mHw_flow_nominal) annotation (Placement(
+              transformation(
+              extent={{-10,-10},{10,10}},
+              rotation=0,
+              origin={50,6})));
+      equation
+        connect(tan.port_a, senTemTankOut.port_a)
+          annotation (Line(points={{-40,60},{-10,60}},
+                                                   color={0,127,255}));
+        connect(tan.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,52},
+                {-40,6},{-10,6}},                           color={0,127,255}));
+        connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-40,
+                56.2},{20,56.2},{20,56},{80,56},{80,6},{60,6}},
+                                      color={0,127,255}));
+        connect(heaPum.port_b1, senTemHPOut.port_a)
+          annotation (Line(points={{10,6},{40,6}},              color={0,127,255}));
+        connect(TSetHw, heaPum.TSet) annotation (Line(points={{-110,0},{-60,0},
+                {-60,14},{-12,14},{-12,9}}, color={0,0,127}));
+        connect(tan.port_b, port_a1)
+          annotation (Line(points={{-60,60},{-100,60}}, color={0,127,255}));
+        connect(senTemTankOut.port_b, port_b1)
+          annotation (Line(points={{10,60},{100,60}}, color={0,127,255}));
+        connect(port_a2, heaPum.port_a2) annotation (Line(points={{100,-60},{20,
+                -60},{20,-6},{10,-6}}, color={0,127,255}));
+        connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{
+                -20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
+        connect(heaPum.P, PEle) annotation (Line(points={{11,0},{30,0},{30,-20},
+                {80,-20},{80,0},{110,0}}, color={0,0,127}));
+        annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics
+              ={                      Rectangle(
+              extent={{-100,-100},{100,100}},
+              lineColor={0,0,127},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid)}),                        Diagram(
+              coordinateSystem(preserveAspectRatio=false)));
+      end HeatPumpWaterHeaterWithTank;
+
+      package DELETE "These models are outdated"
+        partial model PartialDHWGeneration
+          "A partial model for domestic water heating"
+          replaceable package Medium = Buildings.Media.Water "Water media model";
+          parameter Modelica.Units.SI.Temperature TSetHw "Temperature setpoint of hot water supply from heater";
+          parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal "Nominal mass flow rate of hot water supply";
+          parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal "Nominal mass flow rate of district heating water";
+
+          Modelica.Fluid.Interfaces.FluidPort_b port_hw(redeclare package
+              Medium =                                                             Medium) "Hot water supply port"
+            annotation (Placement(transformation(extent={{90,-10},{110,10}})));
+          Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package
+              Medium =                                                             Medium) "Port for domestic cold water inlet"
+            annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+          Modelica.Fluid.Interfaces.FluidPort_a port_dhs(redeclare package
+              Medium =                                                              Medium) "Port for district heating supply"
+            annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
+          Modelica.Fluid.Interfaces.FluidPort_b port_dhr(redeclare package
+              Medium =                                                              Medium) "Port for district heating return"
+            annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
+          Modelica.Blocks.Interfaces.RealOutput PEle "Electric power required for generation equipment"
+            annotation (Placement(transformation(extent={{96,30},{116,50}})));
+          Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw)
+            "Temperature setpoint for domestic hot water supply from heater"
+            annotation (Placement(transformation(extent={{-100,24},{-84,40}})));
+          annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+                coordinateSystem(preserveAspectRatio=false)));
+        end PartialDHWGeneration;
+
+        model DirectHeatExchangerWaterHeaterWithAuxHeatOLD
+          "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
+          extends
+            Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.DELETE.PartialDHWGeneration;
+
+          parameter Boolean haveER "Flag that specifies whether electric resistance booster is present";
+
+          Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
+            redeclare package Medium = Medium,
+            m_flow_nominal=mHw_flow_nominal,
+            dp_nominal=0) if haveER == true
+                          "Supplemental electric resistance domestic hot water heater"
+            annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+          Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare
+              package Medium = Medium, m_flow_nominal=mHw_flow_nominal)
+            annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+          Fluid.HeatExchangers.ConstantEffectiveness hex(
+            redeclare package Medium1 = Medium,
+            redeclare package Medium2 = Medium,
+            m1_flow_nominal=mHw_flow_nominal,
+            m2_flow_nominal=mDH_flow_nominal,
+            dp1_nominal=0,
+            dp2_nominal=0,
+            eps=0.85) "Domestic hot water heater"
+            annotation (Placement(transformation(extent={{-70,16},{-50,-4}})));
+          Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium
+              = Medium, m_flow_nominal=mHw_flow_nominal)
+            annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+        protected
+          Fluid.FixedResistances.LosslessPipe pip(
+            redeclare final package Medium = Medium,
+            final m_flow_nominal=mHw_flow_nominal,
+            final show_T=false) if haveER == false "Pipe without electric resistance"
+            annotation (Placement(transformation(extent={{10,-38},{30,-18}})));
+
+        equation
+          connect(senTemAuxHeaOut.port_b, port_hw)
+            annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+          connect(hex.port_a1, port_cw)
+            annotation (Line(points={{-70,0},{-100,0}}, color={0,127,255}));
+          connect(port_dhs, hex.port_a2) annotation (Line(points={{-40,100},{-40,
+                  12},{-50,12}},
+                             color={0,127,255}));
+          connect(hex.port_b2, port_dhr) annotation (Line(points={{-70,12},{-80,
+                  12},{-80,60},{-80,60},{-80,100}},
+                          color={0,127,255}));
+          connect(senTemHXOut.port_a, hex.port_b1)
+            annotation (Line(points={{-30,0},{-50,0}}, color={0,127,255}));
+          connect(senTemHXOut.port_b, heaDhw.port_a)
+            annotation (Line(points={{-10,0},{10,0}},color={0,127,255}));
+          connect(senTemHXOut.port_b, pip.port_a) annotation (Line(points={{-10,0},{0,0},
+                  {0,-28},{10,-28}}, color={0,127,255}));
+          connect(heaDhw.port_b, senTemAuxHeaOut.port_a)
+            annotation (Line(points={{30,0},{60,0}}, color={0,127,255}));
+          connect(pip.port_b, senTemAuxHeaOut.port_a) annotation (Line(points={{30,-28},
+                  {40,-28},{40,0},{60,0}}, color={0,127,255}));
+          connect(conTSetHw.y, heaDhw.TSet)
+            annotation (Line(points={{-83.2,32},{0,32},{0,8},{8,8}}, color={0,0,127}));
+          connect(heaDhw.Q_flow, PEle) annotation (Line(points={{31,8},{40,8},{40,
+                  40},{106,40}}, color={0,0,127}));
+          annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+                coordinateSystem(preserveAspectRatio=false)));
+        end DirectHeatExchangerWaterHeaterWithAuxHeatOLD;
+
+        model HeatPumpWaterHeaterWithTankOLD
+          "A model for domestic water heating served by heat pump water heater and local storage tank"
+          extends
+            Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.DELETE.PartialDHWGeneration;
+
+          parameter Modelica.Units.SI.Volume VTan = 0.151416 "Tank volume";
+          parameter Modelica.Units.SI.Length hTan = 1.746 "Height of tank (without insulation)";
+          parameter Modelica.Units.SI.Length dIns = 0.0762 "Thickness of insulation";
+          parameter Modelica.Units.SI.ThermalConductivity kIns=0.04 "Specific heat conductivity of insulation";
+          parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500 "Pressure drop across the heat exchanger at nominal conditions";
+          parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278 "Mass flow rate of heat exchanger";
+          parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
+
+          Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare
+              package Medium =
+                       Medium, m_flow_nominal=mHw_flow_nominal)
+            annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+          Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
+            redeclare package Medium1 = Medium,
+            redeclare package Medium2 = Medium,
+            m1_flow_nominal=mHw_flow_nominal,
+            m2_flow_nominal=mDH_flow_nominal,
+            QCon_flow_nominal=QCon_flow_nominal,
+            dp1_nominal=0,
+            dp2_nominal=0)
+                      "Domestic hot water heater"
+            annotation (Placement(transformation(extent={{-70,58},{-50,38}})));
+          Fluid.Storage.StratifiedEnhancedInternalHex tan(
+            redeclare package Medium = Medium,
+            m_flow_nominal=mHw_flow_nominal,
+            VTan=VTan,
+            hTan=hTan,
+            dIns=dIns,
+            kIns=kIns,
+            nSeg=5,
+            redeclare package MediumHex = Medium,
+            CHex=40,
+            Q_flow_nominal=0.278*4200*20,
+            hHex_a=0.995,
+            hHex_b=0.1,
+            energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+            energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
+            allowFlowReversal=false,
+            allowFlowReversalHex=false,
+            mHex_flow_nominal=mHex_flow_nominal,
+            TTan_nominal=293.15,
+            THex_nominal=323.15,
+            dpHex_nominal=dpHex_nominal)
+                                        "Hot water tank with heat exchanger configured as steady state"
+            annotation (Placement(transformation(extent={{-50,-10},{-70,10}})));
+          Fluid.Sensors.TemperatureTwoPort senTemHPOut(redeclare package Medium
+              = Medium, m_flow_nominal=mHw_flow_nominal) annotation (Placement(
+                transformation(
+                extent={{-10,-10},{10,10}},
+                rotation=-90,
+                origin={-28,20})));
+        equation
+          connect(senTemTankOut.port_b, port_hw)
+            annotation (Line(points={{20,0},{100,0}}, color={0,127,255}));
+          connect(port_dhs, heaPum.port_a2)
+            annotation (Line(points={{-40,100},{-40,54},{-50,54}}, color={0,127,255}));
+          connect(heaPum.port_b2, port_dhr)
+            annotation (Line(points={{-70,54},{-80,54},{-80,100}}, color={0,127,255}));
+          connect(tan.port_a, senTemTankOut.port_a)
+            annotation (Line(points={{-50,0},{0,0}}, color={0,127,255}));
+          connect(heaPum.P, PEle) annotation (Line(points={{-49,48},{0,48},{0,40},{106,
+                  40}}, color={0,0,127}));
+          connect(conTSetHw.y, heaPum.TSet) annotation (Line(points={{-83.2,32},{-80,32},
+                  {-80,39},{-72,39}}, color={0,0,127}));
+          connect(port_cw, tan.port_b)
+            annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
+          connect(tan.portHex_b, heaPum.port_a1) annotation (Line(points={{-50,-8},{-40,
+                  -8},{-40,-20},{-76,-20},{-76,42},{-70,42}}, color={0,127,255}));
+          connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-50,-3.8},
+                  {-28,-3.8},{-28,10}}, color={0,127,255}));
+          connect(heaPum.port_b1, senTemHPOut.port_a)
+            annotation (Line(points={{-50,42},{-28,42},{-28,30}}, color={0,127,255}));
+          annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+                coordinateSystem(preserveAspectRatio=false)));
+        end HeatPumpWaterHeaterWithTankOLD;
+
+        model IdealValve "Ideal three-way valve"
+          extends Modelica.Blocks.Icons.Block;
+          replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+              annotation (choicesAllMatching = true);
+          parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+            "Design chilled water supply flow";
+          parameter Boolean port_3_fraction = true "True for fraction of port 2 flow, False for fraction of m_flow_nominal";
+          Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium
+              = Medium) annotation (Placement(transformation(extent={{50,88},
+                    {70,108}}), iconTransformation(extent={{50,88},{70,108}})));
+          Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium
+              = Medium) annotation (Placement(transformation(extent={{50,-108},
+                    {70,-88}}), iconTransformation(extent={{50,-108},{70,-88}})));
+          Modelica.Fluid.Interfaces.FluidPort_a port_3(redeclare package Medium
+              = Medium) annotation (Placement(transformation(extent={{90,-10},
+                    {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
+          Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) annotation (Placement(
+                transformation(extent={{-120,-10},{-100,10}}),
+                iconTransformation(extent={{-120,-10},{-100,10}})));
+          Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package
+              Medium =
+                Medium, allowFlowReversal=false) "Mass flow rate sensor" annotation (
+              Placement(transformation(
+                extent={{10,-10},{-10,10}},
+                rotation=90,
+                origin={0,-40})));
+          Buildings.Fluid.Movers.BaseClasses.IdealSource preMasFlo(
+            redeclare package Medium = Medium,
+            control_m_flow=true,
+            control_dp=false,
+            m_flow_small=m_flow_nominal*1E-5,
+            show_V_flow=false,
+            allowFlowReversal=false) "Prescribed mass flow rate for the bypass"
+            annotation (Placement(transformation(
+                extent={{-10,10},{10,-10}},
+                rotation=180,
+                origin={50,0})));
+          Modelica.Blocks.Math.Product pro "Product for mass flow rate computation"
+            annotation (Placement(transformation(extent={{-28,6},{-8,26}})));
+          Modelica.Blocks.Sources.Constant one(final k=1) "Outputs one"
+            annotation (Placement(transformation(extent={{-90,12},{-70,32}})));
+          Modelica.Blocks.Math.Feedback feedback
+            annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
+          Modelica.Blocks.Logical.Switch fraSwi
+            annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+          Modelica.Blocks.Sources.Constant con(final k=m_flow_nominal) "Constant"
+            annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
+          Modelica.Blocks.Sources.BooleanConstant fra(k=port_3_fraction)
+            annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+        equation
+          connect(feedback.u1, one.y)
+            annotation (Line(points={{-58,22},{-69,22}},
+                                                       color={0,0,127}));
+          connect(y, feedback.u2)
+            annotation (Line(points={{-110,0},{-50,0},{-50,14}},color={0,0,127}));
+          connect(preMasFlo.port_a, port_3)
+            annotation (Line(points={{60,-1.33227e-15},{80,-1.33227e-15},{80,0},{100,
+                  0}},                                   color={0,127,255}));
+          connect(feedback.y, pro.u1)
+            annotation (Line(points={{-41,22},{-30,22}},
+                                                       color={0,0,127}));
+          connect(pro.y, preMasFlo.m_flow_in)
+            annotation (Line(points={{-7,16},{56,16},{56,8}},    color={0,0,127}));
+          connect(port_1, senMasFlo.port_a)
+            annotation (Line(points={{60,98},{60,60},{4.44089e-16,60},{4.44089e-16,
+                  -30}},                                  color={0,127,255}));
+          connect(senMasFlo.port_b, port_2)
+            annotation (Line(points={{-4.44089e-16,-50},{0,-50},{0,-72},{60,-72},{60,
+                  -92},{60,-92},{60,-98},{60,-98}},      color={0,127,255}));
+          connect(preMasFlo.port_b, senMasFlo.port_a) annotation (Line(points={{40,
+                  1.33227e-15},{4.44089e-16,1.33227e-15},{4.44089e-16,-30}},
+                                          color={0,127,255}));
+          connect(senMasFlo.m_flow, fraSwi.u1) annotation (Line(points={{-11,-40},{-60,-40},
+                  {-60,-12},{-42,-12}}, color={0,0,127}));
+          connect(con.y, fraSwi.u3) annotation (Line(points={{-79,-60},{-62,-60},{-62,-28},
+                  {-42,-28}}, color={0,0,127}));
+          connect(fraSwi.y, pro.u2) annotation (Line(points={{-19,-20},{-10,-20},{-10,0},
+                  {-40,0},{-40,10},{-30,10}}, color={0,0,127}));
+          connect(fra.y, fraSwi.u2) annotation (Line(points={{-79,-30},{-70,-30},{-70,-20},
+                  {-42,-20}}, color={255,0,255}));
+          annotation (
+            Icon(
+              graphics={
+                Polygon(
+                  points={{60,0},{68,14},{52,14},{60,0}},
+                  lineColor={0,0,0},
+                  fillColor={0,0,0},
+                  fillPattern=FillPattern.Solid),
+                Line(points={{60,100},{60,-100}}, color={28,108,200}),
+                Line(points={{102,0},{62,0}}, color={28,108,200}),
+                Polygon(
+                  points={{60,0},{68,-14},{52,-14},{60,0}},
+                  lineColor={0,0,0},
+                  fillColor={255,255,255},
+                  fillPattern=FillPattern.Solid),
+                Line(points={{62,0},{-98,0}}, color={0,0,0}),
+                Rectangle(
+                  visible=use_inputFilter,
+                  extent={{28,-10},{46,10}},
+                  lineColor={0,0,0},
+                  fillColor={135,135,135},
+                  fillPattern=FillPattern.Solid),
+                Polygon(
+                  points={{72,-8},{72,8},{60,0},{72,-8}},
+                  lineColor={0,0,0},
+                  fillColor={0,0,0},
+                  fillPattern=FillPattern.Solid)}));
+        end IdealValve;
+      end DELETE;
+    annotation (Documentation(info="<html>
+<p>
+This package contains base classes that are used to construct the classes in
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.Heating.DHW\">
+Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
+</p>
+</html>"));
+    end BaseClasses;
+
+    package Examples "Example implementations of district-integrated DHW models"
+      extends Modelica.Icons.ExamplesPackage;
+
       model DomesticWaterFixture
         "Thermostatic mixing valve and hot water fixture with representative annual load profile"
+        extends Modelica.Icons.Example;
         replaceable package Medium = Buildings.Media.Water "Medium model for water";
         parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal
           "Design domestic hot water supply flow rate of system";
@@ -46,13 +621,13 @@ package Heating "Package of models for district heating loads"
               Medium) "Domestic cold water supply port" annotation (
             Placement(transformation(extent={{-210,-50},{-190,-30}}),
               iconTransformation(extent={{-210,-50},{-190,-30}})));
-        DomesticWaterMixer tmv(
+        BaseClasses.DomesticWaterMixer tmv(
           redeclare package Medium = Medium,
           TSet=TDhwSet,
           mDhw_flow_nominal=mDhw_flow_nominal,
           dpValve_nominal=dpValve_nominal,
           k=k,
-          Ti=Ti)                               "Ideal thermostatic mixing valve"
+          Ti=Ti) "Ideal thermostatic mixing valve"
           annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
         Modelica.Blocks.Continuous.Integrator watCon(k=-1)
                                                      "Integrated hot water consumption"
@@ -107,375 +682,6 @@ First implementation.
           Icon(coordinateSystem(extent={{-200,-200},{200,200}})));
       end DomesticWaterFixture;
 
-      model DomesticWaterMixer "A model for a domestic water mixer"
-        replaceable package Medium = Buildings.Media.Water "Water media model";
-        parameter Modelica.Units.SI.Temperature TSet = 273.15+40 "Temperature setpoint of tempered hot water outlet";
-        parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal "Nominal doemstic hot water flow rate";
-        parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
-        parameter Real k(min=0) = 2 "Gain of controller";
-        parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
-                controllerType == Modelica.Blocks.Types.SimpleController.PI or
-                controllerType == Modelica.Blocks.Types.SimpleController.PID));
-        Modelica.Fluid.Interfaces.FluidPort_b port_tw(redeclare package Medium =
-              Medium) "Port for tempered water outlet"
-          annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-        Buildings.Controls.Continuous.LimPID conPID(
-          controllerType=Modelica.Blocks.Types.SimpleController.PI,
-          k=k,
-          Ti=Ti,
-          reset=Buildings.Types.Reset.Parameter)
-          annotation (Placement(transformation(extent={{40,40},{20,60}})));
-        Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package Medium =
-              Medium, m_flow_nominal=mDhw_flow_nominal) "Tempered water temperature sensor"
-          annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-        Modelica.Blocks.Sources.Constant conTSetCon(k=TSet) "Temperature setpoint for domestic tempered water supply to consumer"
-          annotation (Placement(transformation(extent={{80,40},{60,60}})));
-        Fluid.Actuators.Valves.ThreeWayLinear
-                   ideValHea(redeclare package Medium = Medium, final m_flow_nominal=
-              mDhw_flow_nominal,
-          dpValve_nominal=dpValve_nominal)
-                                 "Ideal valve" annotation (Placement(transformation(
-              extent={{10,10},{-10,-10}},
-              rotation=180,
-              origin={0,0})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_hw(redeclare package Medium =
-              Medium) "Port for hot water supply"
-          annotation (Placement(transformation(extent={{-110,50},{-90,70}})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package Medium =
-              Medium) "Port for domestic cold water supply"
-          annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
-        Modelica.Blocks.Interfaces.RealOutput TTw "Temperature of the outlet tempered water"
-          annotation (Placement(transformation(extent={{100,70},{120,90}})));
-        Buildings.Fluid.Sensors.TemperatureTwoPort senTemHw(redeclare package Medium =
-              Medium, m_flow_nominal=mDhw_flow_nominal) "Hot water temperature sensor"
-          annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-        Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium =
-              Medium, m_flow_nominal=mDhw_flow_nominal) "Cold water temperature sensor"
-          annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-        Buildings.Fluid.Sensors.MassFlowRate senFloDhw(redeclare package Medium =
-              Medium) "Mass flow rate of domestic hot water"
-          annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-        Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
-          annotation (Placement(transformation(extent={{54,22},{44,32}})));
-      equation
-        connect(conTSetCon.y, conPID.u_s)
-          annotation (Line(points={{59,50},{42,50}}, color={0,0,127}));
-        connect(senTemTw.T, conPID.u_m)
-          annotation (Line(points={{30,11},{30,38}}, color={0,0,127}));
-        connect(ideValHea.port_2, senTemTw.port_a) annotation (Line(points={{10,-6.66134e-16},
-                {20,-6.66134e-16},{20,0}}, color={0,127,255}));
-        connect(conPID.y, ideValHea.y) annotation (Line(points={{19,50},{8.88178e-16,50},
-                {8.88178e-16,12}},color={0,0,127}));
-        connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,20},{90,20},{90,
-                80},{110,80}}, color={0,0,127}));
-        connect(ideValHea.port_1, senTemHw.port_b)
-          annotation (Line(points={{-10,1.77636e-15},{-10,0},{-20,0}},
-                                                      color={0,127,255}));
-        connect(senTemHw.port_a, port_hw) annotation (Line(points={{-40,0},{-54,0},{-54,
-                60},{-100,60}}, color={0,127,255}));
-        connect(ideValHea.port_3, senTemCw.port_b)
-          annotation (Line(points={{-1.77636e-15,-10},{-1.77636e-15,-60},{-20,-60}},
-                                                              color={0,127,255}));
-        connect(senTemCw.port_a, port_cw)
-          annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
-        connect(senTemTw.port_b, senFloDhw.port_a)
-          annotation (Line(points={{40,0},{50,0}}, color={0,127,255}));
-        connect(senFloDhw.port_b, port_tw)
-          annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
-        connect(greaterThreshold.u, senFloDhw.m_flow)
-          annotation (Line(points={{55,27},{60,27},{60,11}}, color={0,0,127}));
-        connect(greaterThreshold.y, conPID.trigger)
-          annotation (Line(points={{43.5,27},{38,27},{38,38}}, color={255,0,255}));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
-      end DomesticWaterMixer;
-
-      model IdealValve "Ideal three-way valve"
-        extends Modelica.Blocks.Icons.Block;
-        replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-            annotation (choicesAllMatching = true);
-        parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-          "Design chilled water supply flow";
-        parameter Boolean port_3_fraction = true "True for fraction of port 2 flow, False for fraction of m_flow_nominal";
-        Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
-              Medium) annotation (Placement(transformation(extent={{50,88},
-                  {70,108}}), iconTransformation(extent={{50,88},{70,108}})));
-        Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium =
-              Medium) annotation (Placement(transformation(extent={{50,-108},
-                  {70,-88}}), iconTransformation(extent={{50,-108},{70,-88}})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_3(redeclare package Medium =
-              Medium) annotation (Placement(transformation(extent={{90,-10},
-                  {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-        Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) annotation (Placement(
-              transformation(extent={{-120,-10},{-100,10}}),
-              iconTransformation(extent={{-120,-10},{-100,10}})));
-        Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-              Medium, allowFlowReversal=false) "Mass flow rate sensor" annotation (
-            Placement(transformation(
-              extent={{10,-10},{-10,10}},
-              rotation=90,
-              origin={0,-40})));
-        Buildings.Fluid.Movers.BaseClasses.IdealSource preMasFlo(
-          redeclare package Medium = Medium,
-          control_m_flow=true,
-          control_dp=false,
-          m_flow_small=m_flow_nominal*1E-5,
-          show_V_flow=false,
-          allowFlowReversal=false) "Prescribed mass flow rate for the bypass"
-          annotation (Placement(transformation(
-              extent={{-10,10},{10,-10}},
-              rotation=180,
-              origin={50,0})));
-        Modelica.Blocks.Math.Product pro "Product for mass flow rate computation"
-          annotation (Placement(transformation(extent={{-28,6},{-8,26}})));
-        Modelica.Blocks.Sources.Constant one(final k=1) "Outputs one"
-          annotation (Placement(transformation(extent={{-90,12},{-70,32}})));
-        Modelica.Blocks.Math.Feedback feedback
-          annotation (Placement(transformation(extent={{-60,12},{-40,32}})));
-        Modelica.Blocks.Logical.Switch fraSwi
-          annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-        Modelica.Blocks.Sources.Constant con(final k=m_flow_nominal) "Constant"
-          annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
-        Modelica.Blocks.Sources.BooleanConstant fra(k=port_3_fraction)
-          annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-      equation
-        connect(feedback.u1, one.y)
-          annotation (Line(points={{-58,22},{-69,22}},
-                                                     color={0,0,127}));
-        connect(y, feedback.u2)
-          annotation (Line(points={{-110,0},{-50,0},{-50,14}},color={0,0,127}));
-        connect(preMasFlo.port_a, port_3)
-          annotation (Line(points={{60,-1.33227e-15},{80,-1.33227e-15},{80,0},{100,
-                0}},                                   color={0,127,255}));
-        connect(feedback.y, pro.u1)
-          annotation (Line(points={{-41,22},{-30,22}},
-                                                     color={0,0,127}));
-        connect(pro.y, preMasFlo.m_flow_in)
-          annotation (Line(points={{-7,16},{56,16},{56,8}},    color={0,0,127}));
-        connect(port_1, senMasFlo.port_a)
-          annotation (Line(points={{60,98},{60,60},{4.44089e-16,60},{4.44089e-16,
-                -30}},                                  color={0,127,255}));
-        connect(senMasFlo.port_b, port_2)
-          annotation (Line(points={{-4.44089e-16,-50},{0,-50},{0,-72},{60,-72},{60,
-                -92},{60,-92},{60,-98},{60,-98}},      color={0,127,255}));
-        connect(preMasFlo.port_b, senMasFlo.port_a) annotation (Line(points={{40,
-                1.33227e-15},{4.44089e-16,1.33227e-15},{4.44089e-16,-30}},
-                                        color={0,127,255}));
-        connect(senMasFlo.m_flow, fraSwi.u1) annotation (Line(points={{-11,-40},{-60,-40},
-                {-60,-12},{-42,-12}}, color={0,0,127}));
-        connect(con.y, fraSwi.u3) annotation (Line(points={{-79,-60},{-62,-60},{-62,-28},
-                {-42,-28}}, color={0,0,127}));
-        connect(fraSwi.y, pro.u2) annotation (Line(points={{-19,-20},{-10,-20},{-10,0},
-                {-40,0},{-40,10},{-30,10}}, color={0,0,127}));
-        connect(fra.y, fraSwi.u2) annotation (Line(points={{-79,-30},{-70,-30},{-70,-20},
-                {-42,-20}}, color={255,0,255}));
-        annotation (
-          Icon(
-            graphics={
-              Polygon(
-                points={{60,0},{68,14},{52,14},{60,0}},
-                lineColor={0,0,0},
-                fillColor={0,0,0},
-                fillPattern=FillPattern.Solid),
-              Line(points={{60,100},{60,-100}}, color={28,108,200}),
-              Line(points={{102,0},{62,0}}, color={28,108,200}),
-              Polygon(
-                points={{60,0},{68,-14},{52,-14},{60,0}},
-                lineColor={0,0,0},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid),
-              Line(points={{62,0},{-98,0}}, color={0,0,0}),
-              Rectangle(
-                visible=use_inputFilter,
-                extent={{28,-10},{46,10}},
-                lineColor={0,0,0},
-                fillColor={135,135,135},
-                fillPattern=FillPattern.Solid),
-              Polygon(
-                points={{72,-8},{72,8},{60,0},{72,-8}},
-                lineColor={0,0,0},
-                fillColor={0,0,0},
-                fillPattern=FillPattern.Solid)}));
-      end IdealValve;
-
-      partial model PartialDHWGeneration
-        "A partial model for domestic water heating"
-        replaceable package Medium = Buildings.Media.Water "Water media model";
-        parameter Modelica.Units.SI.Temperature TSetHw "Temperature setpoint of hot water supply from heater";
-        parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal "Nominal mass flow rate of hot water supply";
-        parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal "Nominal mass flow rate of district heating water";
-
-        Modelica.Fluid.Interfaces.FluidPort_b port_hw(redeclare package Medium = Medium) "Hot water supply port"
-          annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_cw(redeclare package Medium = Medium) "Port for domestic cold water inlet"
-          annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-        Modelica.Fluid.Interfaces.FluidPort_a port_dhs(redeclare package Medium = Medium) "Port for district heating supply"
-          annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
-        Modelica.Fluid.Interfaces.FluidPort_b port_dhr(redeclare package Medium = Medium) "Port for district heating return"
-          annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
-        Modelica.Blocks.Interfaces.RealOutput PEle "Electric power required for generation equipment"
-          annotation (Placement(transformation(extent={{96,30},{116,50}})));
-        Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw)
-          "Temperature setpoint for domestic hot water supply from heater"
-          annotation (Placement(transformation(extent={{-100,24},{-84,40}})));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
-      end PartialDHWGeneration;
-
-      model DirectHeatExchangerWaterHeaterWithAuxHeat
-        "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
-        extends Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialDHWGeneration;
-
-        parameter Boolean haveER "Flag that specifies whether electric resistance booster is present";
-
-        Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
-          redeclare package Medium = Medium,
-          m_flow_nominal=mHw_flow_nominal,
-          dp_nominal=0) if haveER == true
-                        "Supplemental electric resistance domestic hot water heater"
-          annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-        Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare
-            package Medium = Medium, m_flow_nominal=mHw_flow_nominal)
-          annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-        Fluid.HeatExchangers.ConstantEffectiveness hex(
-          redeclare package Medium1 = Medium,
-          redeclare package Medium2 = Medium,
-          m1_flow_nominal=mHw_flow_nominal,
-          m2_flow_nominal=mDH_flow_nominal,
-          dp1_nominal=0,
-          dp2_nominal=0,
-          eps=0.85) "Domestic hot water heater"
-          annotation (Placement(transformation(extent={{-70,16},{-50,-4}})));
-        Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
-              Medium, m_flow_nominal=mHw_flow_nominal)
-          annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-      protected
-        Fluid.FixedResistances.LosslessPipe pip(
-          redeclare final package Medium = Medium,
-          final m_flow_nominal=mHw_flow_nominal,
-          final show_T=false) if haveER == false "Pipe without electric resistance"
-          annotation (Placement(transformation(extent={{10,-38},{30,-18}})));
-
-      equation
-        connect(senTemAuxHeaOut.port_b, port_hw)
-          annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-        connect(hex.port_a1, port_cw)
-          annotation (Line(points={{-70,0},{-100,0}}, color={0,127,255}));
-        connect(port_dhs, hex.port_a2) annotation (Line(points={{-40,100},{-40,
-                12},{-50,12}},
-                           color={0,127,255}));
-        connect(hex.port_b2, port_dhr) annotation (Line(points={{-70,12},{-80,
-                12},{-80,60},{-80,60},{-80,100}},
-                        color={0,127,255}));
-        connect(senTemHXOut.port_a, hex.port_b1)
-          annotation (Line(points={{-30,0},{-50,0}}, color={0,127,255}));
-        connect(senTemHXOut.port_b, heaDhw.port_a)
-          annotation (Line(points={{-10,0},{10,0}},color={0,127,255}));
-        connect(senTemHXOut.port_b, pip.port_a) annotation (Line(points={{-10,0},{0,0},
-                {0,-28},{10,-28}}, color={0,127,255}));
-        connect(heaDhw.port_b, senTemAuxHeaOut.port_a)
-          annotation (Line(points={{30,0},{60,0}}, color={0,127,255}));
-        connect(pip.port_b, senTemAuxHeaOut.port_a) annotation (Line(points={{30,-28},
-                {40,-28},{40,0},{60,0}}, color={0,127,255}));
-        connect(conTSetHw.y, heaDhw.TSet)
-          annotation (Line(points={{-83.2,32},{0,32},{0,8},{8,8}}, color={0,0,127}));
-        connect(heaDhw.Q_flow, PEle) annotation (Line(points={{31,8},{40,8},{40,
-                40},{106,40}}, color={0,0,127}));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
-      end DirectHeatExchangerWaterHeaterWithAuxHeat;
-
-      model HeatPumpWaterHeaterWithTank
-        "A model for domestic water heating served by heat pump water heater and local storage tank"
-        extends Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialDHWGeneration;
-
-        parameter Modelica.Units.SI.Volume VTan = 0.151416 "Tank volume";
-        parameter Modelica.Units.SI.Length hTan = 1.746 "Height of tank (without insulation)";
-        parameter Modelica.Units.SI.Length dIns = 0.0762 "Thickness of insulation";
-        parameter Modelica.Units.SI.ThermalConductivity kIns=0.04 "Specific heat conductivity of insulation";
-        parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500 "Pressure drop across the heat exchanger at nominal conditions";
-        parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278 "Mass flow rate of heat exchanger";
-        parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
-
-        Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare
-            package
-            Medium = Medium, m_flow_nominal=mHw_flow_nominal)
-          annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-        Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
-          redeclare package Medium1 = Medium,
-          redeclare package Medium2 = Medium,
-          m1_flow_nominal=mHw_flow_nominal,
-          m2_flow_nominal=mDH_flow_nominal,
-          QCon_flow_nominal=QCon_flow_nominal,
-          dp1_nominal=0,
-          dp2_nominal=0)
-                    "Domestic hot water heater"
-          annotation (Placement(transformation(extent={{-70,58},{-50,38}})));
-        Fluid.Storage.StratifiedEnhancedInternalHex tan(
-          redeclare package Medium = Medium,
-          m_flow_nominal=mHw_flow_nominal,
-          VTan=VTan,
-          hTan=hTan,
-          dIns=dIns,
-          kIns=kIns,
-          nSeg=5,
-          redeclare package MediumHex = Medium,
-          CHex=40,
-          Q_flow_nominal=0.278*4200*20,
-          hHex_a=0.995,
-          hHex_b=0.1,
-          energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-          energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
-          allowFlowReversal=false,
-          allowFlowReversalHex=false,
-          mHex_flow_nominal=mHex_flow_nominal,
-          TTan_nominal=293.15,
-          THex_nominal=323.15,
-          dpHex_nominal=dpHex_nominal)
-                                      "Hot water tank with heat exchanger configured as steady state"
-          annotation (Placement(transformation(extent={{-50,-10},{-70,10}})));
-        Fluid.Sensors.TemperatureTwoPort senTemHPOut(redeclare package Medium =
-              Medium, m_flow_nominal=mHw_flow_nominal) annotation (Placement(
-              transformation(
-              extent={{-10,-10},{10,10}},
-              rotation=-90,
-              origin={-28,20})));
-      equation
-        connect(senTemTankOut.port_b, port_hw)
-          annotation (Line(points={{20,0},{100,0}}, color={0,127,255}));
-        connect(port_dhs, heaPum.port_a2)
-          annotation (Line(points={{-40,100},{-40,54},{-50,54}}, color={0,127,255}));
-        connect(heaPum.port_b2, port_dhr)
-          annotation (Line(points={{-70,54},{-80,54},{-80,100}}, color={0,127,255}));
-        connect(tan.port_a, senTemTankOut.port_a)
-          annotation (Line(points={{-50,0},{0,0}}, color={0,127,255}));
-        connect(heaPum.P, PEle) annotation (Line(points={{-49,48},{0,48},{0,40},{106,
-                40}}, color={0,0,127}));
-        connect(conTSetHw.y, heaPum.TSet) annotation (Line(points={{-83.2,32},{-80,32},
-                {-80,39},{-72,39}}, color={0,0,127}));
-        connect(port_cw, tan.port_b)
-          annotation (Line(points={{-100,0},{-70,0}}, color={0,127,255}));
-        connect(tan.portHex_b, heaPum.port_a1) annotation (Line(points={{-50,-8},{-40,
-                -8},{-40,-20},{-76,-20},{-76,42},{-70,42}}, color={0,127,255}));
-        connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-50,-3.8},
-                {-28,-3.8},{-28,10}}, color={0,127,255}));
-        connect(heaPum.port_b1, senTemHPOut.port_a)
-          annotation (Line(points={{-50,42},{-28,42},{-28,30}}, color={0,127,255}));
-        annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-              coordinateSystem(preserveAspectRatio=false)));
-      end HeatPumpWaterHeaterWithTank;
-    annotation (Documentation(info="<html>
-<p>
-This package contains base classes that are used to construct the classes in
-<a href=\"modelica://Buildings.Experimental.DHC.Loads.Heating.DHW\">
-Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
-</p>
-</html>"));
-    end BaseClasses;
-
-    package Examples "Example implementations of district-integrated DHW models"
-      extends Modelica.Icons.ExamplesPackage;
-
       model DistrictHeatExchangeDHWAuxHeat
         "Example implementation of direct district heat exchange and auxiliary line heater for DHW"
         extends Modelica.Icons.Example;
@@ -492,29 +698,31 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
                 controllerType == Modelica.Blocks.Types.SimpleController.PI or
                 controllerType == Modelica.Blocks.Types.SimpleController.PID));
-        parameter Boolean haveER = true "Flag that specifies whether electric resistance booster is present";
+        parameter Boolean havePEle "Flag that specifies whether electric power is required for water heating";
 
         Buildings.Fluid.Sources.Boundary_pT souDcw(
           redeclare package Medium = Medium,
           T(displayUnit = "degC") = TDcw,
-          nPorts=2) "Source of domestic cold water"
-          annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+          nPorts=3) "Source of domestic cold water"
+          annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
         Modelica.Blocks.Math.Gain gaiDhw(k=-0.3234)
           "Gain for multiplying domestic hot water schedule"
           annotation (Placement(transformation(extent={{64,24},{52,36}})));
         BaseClasses.DirectHeatExchangerWaterHeaterWithAuxHeat disHXAuxHea(
+          redeclare package Medium1 = Medium,
+          redeclare package Medium2 = Medium,
           redeclare package Medium = Medium,
-          TSetHw(displayUnit = "degC") = TSetHw,
-          mHw_flow_nominal = mHw_flow_nominal,
-          mDH_flow_nominal = mDH_flow_nominal,
-          haveER=haveER)
+          havePEle=havePEle,
+          TSetHw(displayUnit="degC") = TSetHw,
+          mHw_flow_nominal=mHw_flow_nominal,
+          mDH_flow_nominal=mDH_flow_nominal)
           "Direct district heat exchanger with auxiliary electric heating"
-          annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+          annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
         Buildings.Fluid.Sources.MassFlowSource_T sinDhw(
           redeclare package Medium = Medium,
           use_m_flow_in=true,
           nPorts=1) "Sink for domestic hot water supply"
-          annotation (Placement(transformation(extent={{30,-10},{10,10}})));
+          annotation (Placement(transformation(extent={{34,-10},{14,10}})));
         BaseClasses.DomesticWaterMixer tmv(
           redeclare package Medium = Medium,
           TSet(displayUnit = "degC") = TSetTw,
@@ -523,67 +731,70 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
           k=k,
           Ti=Ti)
                 "Ideal thermostatic mixing valve"
-          annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+          annotation (Placement(transformation(extent={{-20,10},{0,-10}})));
         Modelica.Blocks.Sources.Sine sine(f=0.001,
           offset=1)
           annotation (Placement(transformation(extent={{100,20},{80,40}})));
         Modelica.Blocks.Continuous.Integrator watCon(k=-1)
           "Integrated hot water consumption"
           annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-        Modelica.Blocks.Interfaces.RealOutput PEleAuxHea(displayUnit="W") if haveER ==
-          true
-          "Thermal energy added to water with electric resistance"
-          annotation (Placement(transformation(extent={{96,70},{116,90}})));
         Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
-          annotation (Placement(transformation(extent={{96,50},{116,70}})));
+          annotation (Placement(transformation(extent={{100,50},{120,70}})));
         Modelica.Blocks.Interfaces.RealOutput mDhw(displayUnit="kg") "Total hot water consumption"
-          annotation (Placement(transformation(extent={{96,-40},{116,-20}}),
-              iconTransformation(extent={{76,-60},{116,-20}})));
+          annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
+              iconTransformation(extent={{80,-60},{120,-20}})));
         Fluid.Sources.Boundary_pT souDHw(
           redeclare package Medium = Medium,
           T(displayUnit = "degC") = TDHw,
           nPorts=1) "Source of district hot water" annotation (Placement(
               transformation(
               extent={{-10,-10},{10,10}},
-              rotation=-90,
-              origin={-54,90})));
+              rotation=90,
+              origin={-20,-50})));
         Fluid.Sources.MassFlowSource_T sinDHw(
           redeclare package Medium = Medium,
           use_m_flow_in=true,
           nPorts=1) "Sink for district heating water"
-          annotation (Placement(transformation(extent={{-82,22},{-62,42}})));
-        Modelica.Blocks.Sources.Constant const(k=-1)
           annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+              rotation=90,
+              origin={-74,-50})));
+        Modelica.Blocks.Sources.Constant const(k=-1)
+          annotation (Placement(transformation(extent={{10,-10},{-10,10}},
               rotation=-90,
-              origin={-90,90})));
+              origin={-90,-90})));
+        Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw)
+          "Temperature setpoint for domestic hot water supply from heater"
+          annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
       equation
         connect(tmv.port_tw, sinDhw.ports[1])
-          annotation (Line(points={{0,0},{10,0}}, color={0,127,255}));
-        connect(gaiDhw.y, sinDhw.m_flow_in) annotation (Line(points={{51.4,30},{40,30},
-                {40,8},{32,8}}, color={0,0,127}));
+          annotation (Line(points={{0,0},{14,0}}, color={0,127,255}));
+        connect(gaiDhw.y, sinDhw.m_flow_in) annotation (Line(points={{51.4,30},{44,30},
+                {44,8},{36,8}}, color={0,0,127}));
         connect(sine.y, gaiDhw.u)
           annotation (Line(points={{79,30},{65.2,30}},
                                                      color={0,0,127}));
-        connect(watCon.u, sinDhw.m_flow_in) annotation (Line(points={{58,-30},{40,-30},
-                {40,8},{32,8}}, color={0,0,127}));
-        connect(disHXAuxHea.port_hw, tmv.port_hw) annotation (Line(points={{-40,10},{-30,
-                10},{-30,6},{-20,6}}, color={0,127,255}));
-        connect(souDcw.ports[1], disHXAuxHea.port_cw) annotation (Line(points={{-80,2},
-                {-80,6},{-70,6},{-70,10},{-60,10}}, color={0,127,255}));
-        connect(souDcw.ports[2], tmv.port_cw) annotation (Line(points={{-80,-2},{-80,-6},
-                {-70,-6},{-70,-10},{-30,-10},{-30,-6},{-20,-6}}, color={0,127,255}));
-        connect(disHXAuxHea.PEle, PEleAuxHea) annotation (Line(points={{-39.4,14},
-                {-20,14},{-20,80},{106,80}}, color={0,0,127}));
+        connect(watCon.u, sinDhw.m_flow_in) annotation (Line(points={{58,-30},{44,-30},
+                {44,8},{36,8}}, color={0,0,127}));
+        connect(souDcw.ports[2], tmv.port_cw) annotation (Line(points={{-80,30},{-30,30},
+                {-30,6},{-20,6}},                                color={0,127,255}));
         connect(tmv.TTw, TTw)
-          annotation (Line(points={{1,8},{10,8},{10,60},{106,60}}, color={0,0,127}));
+          annotation (Line(points={{1,-8},{10,-8},{10,60},{110,60}},
+                                                                   color={0,0,127}));
         connect(watCon.y, mDhw)
-          annotation (Line(points={{81,-30},{106,-30}}, color={0,0,127}));
-        connect(souDHw.ports[1], disHXAuxHea.port_dhs)
-          annotation (Line(points={{-54,80},{-54,20}}, color={0,127,255}));
-        connect(sinDHw.ports[1], disHXAuxHea.port_dhr)
-          annotation (Line(points={{-62,32},{-58,32},{-58,20}}, color={0,127,255}));
+          annotation (Line(points={{81,-30},{110,-30}}, color={0,0,127}));
         connect(const.y, sinDHw.m_flow_in)
-          annotation (Line(points={{-90,79},{-90,40},{-84,40}}, color={0,0,127}));
+          annotation (Line(points={{-90,-79},{-90,-76},{-82,-76},{-82,-62}},
+                                                                color={0,0,127}));
+        connect(conTSetHw.y, disHXAuxHea.TSetHw)
+          annotation (Line(points={{-79,0},{-71,0}}, color={0,0,127}));
+        connect(disHXAuxHea.port_a2, souDHw.ports[1]) annotation (Line(points={{-50,-6},
+                {-40,-6},{-40,-34},{-20,-34},{-20,-40}}, color={0,127,255}));
+        connect(disHXAuxHea.port_b1, tmv.port_hw) annotation (Line(points={{-50,6},{-36,
+                6},{-36,-6},{-20,-6}}, color={0,127,255}));
+        connect(disHXAuxHea.port_b2, sinDHw.ports[1])
+          annotation (Line(points={{-70,-6},{-74,-6},{-74,-40}}, color={0,127,255}));
+        connect(disHXAuxHea.port_a1, souDcw.ports[3]) annotation (Line(points={{-70,6},
+                {-76,6},{-76,31.3333},{-80,31.3333}}, color={0,127,255}));
         annotation (experiment(StopTime=3600, Interval=1));
       end DistrictHeatExchangeDHWAuxHeat;
 
@@ -613,11 +824,12 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         Modelica.Blocks.Math.Gain gaiDhw(k=-0.3234)
           "Gain for multiplying domestic hot water schedule"
           annotation (Placement(transformation(extent={{82,74},{70,86}})));
-        BaseClasses.DirectHeatExchangerWaterHeaterWithAuxHeat disHXAuxHea(
+        BaseClasses.DELETE.DirectHeatExchangerWaterHeaterWithAuxHeatOLD
+          disHXAuxHea(
           redeclare package Medium = Medium,
-          TSetHw(displayUnit = "degC") = TSetHw,
-          mHw_flow_nominal = mHw_flow_nominal,
-          mDH_flow_nominal = mDH_flow_nominal,
+          TSetHw(displayUnit="degC") = TSetHw,
+          mHw_flow_nominal=mHw_flow_nominal,
+          mDH_flow_nominal=mDH_flow_nominal,
           haveER=haveER)
           "Direct district heat exchanger with auxiliary electric heating"
           annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
@@ -773,9 +985,9 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
         connect(disHXAuxHea.port_hw, tmv.port_hw) annotation (Line(points={{-20,60},
                 {-10,60},{-10,56},{0,56}},
                                       color={0,127,255}));
-        connect(souDcw.ports[1], disHXAuxHea.port_cw) annotation (Line(points={{-60,52},
+        connect(souDcw.ports[1], disHXAuxHea.port_cw) annotation (Line(points={{-60,49},
                 {-60,60},{-40,60}},                 color={0,127,255}));
-        connect(souDcw.ports[2], tmv.port_cw) annotation (Line(points={{-60,48},
+        connect(souDcw.ports[2], tmv.port_cw) annotation (Line(points={{-60,51},
                 {-60,40},{-10,40},{-10,44},{0,44}},              color={0,127,255}));
         connect(disHXAuxHea.PEle, PEleAuxHea) annotation (Line(points={{-19.4,
                 64},{0,64},{0,120},{130,120}},
@@ -801,10 +1013,10 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
                 {-20,150},{-20,144}}, color={0,0,127}));
         connect(senTChiWatSup.port_b, pumChiWat.port_a)
           annotation (Line(points={{90,-40},{100,-40}}, color={0,127,255}));
-        connect(pumChiWat.port_b, volChiWat.ports[1]) annotation (Line(points={
-                {120,-40},{140,-40},{140,-88},{141,-88}}, color={0,127,255}));
+        connect(pumChiWat.port_b, volChiWat.ports[1]) annotation (Line(points={{120,-40},
+                {140,-40},{140,-89},{141,-89}},           color={0,127,255}));
         connect(volChiWat.ports[2], senTChiWatRet.port_b) annotation (Line(
-              points={{141,-92},{140,-92},{140,-140},{-140,-140},{-140,0},{-118,
+              points={{141,-91},{140,-91},{140,-140},{-140,-140},{-140,0},{-118,
                 0}}, color={0,127,255}));
         connect(disHXAuxHea.port_dhr, senTHeaWatRet.port_a) annotation (Line(
               points={{-38,70},{-38,78},{-140,78},{-140,40},{-116,40}}, color={
@@ -823,10 +1035,10 @@ Buildings.Experimental.DHC.Loads.Heating.DHW</a>.
                {{-40,-50},{-40,-20},{-30,-20}}, color={0,127,255}));
         connect(senTDisWatRet.port_a, ets.port_bSerAmb) annotation (Line(points=
                {{40,-50},{40,-20},{30,-20}}, color={0,127,255}));
-        connect(disWat.ports[1], senTDisWatRet.port_b) annotation (Line(points=
-                {{-2,-80},{40,-80},{40,-70}}, color={0,127,255}));
-        connect(disWat.ports[2], senTDisWatSup.port_a) annotation (Line(points=
-                {{2,-80},{-40,-80},{-40,-70}}, color={0,127,255}));
+        connect(disWat.ports[1], senTDisWatRet.port_b) annotation (Line(points={{1,-80},
+                {40,-80},{40,-70}},           color={0,127,255}));
+        connect(disWat.ports[2], senTDisWatSup.port_a) annotation (Line(points={{-1,-80},
+                {-40,-80},{-40,-70}},          color={0,127,255}));
         connect(TDisWatSup.y[1], disWat.T_in) annotation (Line(points={{-99,
                 -110},{-4,-110},{-4,-102}}, color={0,0,127}));
         connect(PEleAuxHea, PEleAuxHea)
