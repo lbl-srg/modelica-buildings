@@ -12,9 +12,7 @@ model DistrictHeatExchangeDHWAuxHeat
   parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal = mHw_flow_nominal "Nominal mass flow rate of tempered water";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
   parameter Real k(min=0) = 2 "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block";
   parameter Boolean havePEle=true "Flag that specifies whether electric power is required for water heating";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
