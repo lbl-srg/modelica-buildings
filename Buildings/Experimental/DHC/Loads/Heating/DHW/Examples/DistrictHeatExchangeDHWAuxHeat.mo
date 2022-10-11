@@ -26,8 +26,6 @@ model DistrictHeatExchangeDHWAuxHeat
     "Gain for multiplying domestic hot water schedule"
     annotation (Placement(transformation(extent={{64,24},{52,36}})));
   BaseClasses.DirectHeatExchangerWaterHeaterWithAuxHeat disHXAuxHea(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
     redeclare package Medium = Medium,
     havePEle=havePEle,
     TSetHw(displayUnit="degC") = TSetHw,
