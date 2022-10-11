@@ -4,8 +4,6 @@ model DirectHeatExchangerWaterHeaterWithAuxHeat
   extends
     Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
 
-  parameter Boolean havePEle "Flag that specifies whether electric power is required for water heating";
-
   Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
     redeclare package Medium = Medium,
     m_flow_nominal=mHw_flow_nominal,
