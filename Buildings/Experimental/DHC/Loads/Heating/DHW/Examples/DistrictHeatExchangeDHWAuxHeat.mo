@@ -18,7 +18,7 @@ model DistrictHeatExchangeDHWAuxHeat
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
     T(displayUnit = "degC") = TDcw,
-    nPorts=3) "Source of domestic cold water"
+    nPorts=2) "Source of domestic cold water"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Math.Gain gaiDhw(k=-0.3234)
     "Gain for multiplying domestic hot water schedule"
@@ -88,8 +88,6 @@ equation
                                                color={0,0,127}));
   connect(watCon.u, sinDhw.m_flow_in) annotation (Line(points={{58,-30},{44,-30},
           {44,8},{36,8}}, color={0,0,127}));
-  connect(souDcw.ports[2], tmv.port_cw) annotation (Line(points={{-80,30},{-30,30},
-          {-30,6},{-20,6}},                                color={0,127,255}));
   connect(tmv.TTw, TTw)
     annotation (Line(points={{1,-8},{10,-8},{10,60},{110,60}},
                                                              color={0,0,127}));
@@ -106,7 +104,9 @@ equation
           6},{-36,-6},{-20,-6}}, color={0,127,255}));
   connect(disHXAuxHea.port_b2, sinDHw.ports[1])
     annotation (Line(points={{-70,-6},{-74,-6},{-74,-40}}, color={0,127,255}));
-  connect(disHXAuxHea.port_a1, souDcw.ports[3]) annotation (Line(points={{-70,6},
-          {-76,6},{-76,31.3333},{-80,31.3333}}, color={0,127,255}));
+  connect(souDcw.ports[1], disHXAuxHea.port_a1) annotation (Line(points={{-80,
+          29},{-78,29},{-78,30},{-74,30},{-74,6},{-70,6}}, color={0,127,255}));
+  connect(tmv.port_cw, souDcw.ports[2]) annotation (Line(points={{-20,6},{-34,6},
+          {-34,30},{-80,30}}, color={0,127,255}));
   annotation (experiment(StopTime=3600, Interval=1));
 end DistrictHeatExchangeDHWAuxHeat;
