@@ -6,8 +6,8 @@ model DomesticWaterMixer "A model for a domestic water mixer"
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
   parameter Real k(min=0) = 2 "Gain of controller";
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
-          controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == Modelica.Blocks.Types.SimpleController.PID));
+          conPID.controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          conPID.controllerType == Modelica.Blocks.Types.SimpleController.PID));
   Modelica.Fluid.Interfaces.FluidPort_b port_tw(redeclare package Medium =
         Medium) "Port for tempered water outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
