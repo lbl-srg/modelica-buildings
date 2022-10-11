@@ -2,27 +2,32 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
 model HeatingMode
   "Validation model for heating mode operation of fan coil unit system"
   extends Modelica.Icons.Example;
+
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air";
+
   replaceable package MediumW = Buildings.Media.Water
     "Medium model for water";
 
   Buildings.Fluid.Sources.Boundary_pT sinCooWat(
     redeclare package Medium = MediumW,
     final T=279.15,
-    nPorts=1) "Sink for chilled water" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={60,-90})));
+    final nPorts=1)
+    "Sink for chilled water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={60,-90})));
+
   Buildings.Fluid.Sources.Boundary_pT sinHeaWat(
     redeclare package Medium = MediumW,
     final T=318.15,
-    final nPorts=1) "Sink for heating hot water" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-92})));
+    final nPorts=1)
+    "Sink for heating hot water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={0,-92})));
+
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
     final dpAir_nominal(displayUnit="Pa") = 100,
@@ -39,69 +44,86 @@ model HeatingMode
     redeclare Data.FanData fanPer)
     "Fan coil"
     annotation (Placement(transformation(extent={{16,-20},{56,20}})));
+
   Buildings.Fluid.Sources.MassFlowSource_T souCooWat(
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
     final use_T_in=true,
-    nPorts=1) "Source for chilled water" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={90,-90})));
+    final nPorts=1)
+    "Source for chilled water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={90,-90})));
+
   Buildings.Fluid.Sources.MassFlowSource_T souHeaWat(
     redeclare package Medium = MediumW,
     final use_m_flow_in=true,
     final use_T_in=true,
-    final nPorts=1) "Source for heating hot water" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={30,-90})));
+    final nPorts=1)
+    "Source for heating hot water"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=90,
+      origin={30,-90})));
+
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData
-    FCUSizing "Sizing parameters for fan coil unit"
+    FCUSizing
+    "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource(
-        "modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     final columns=2:19,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus simulation results"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
+
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
-    use_Xi_in=true,
-    use_T_in=true,
-    T=279.15,
-    nPorts=1)
+    final use_Xi_in=true,
+    final use_T_in=true,
+    final T=279.15,
+    final nPorts=1)
     "Source for zone air"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
+
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
     final T=279.15,
     final nPorts=1)
     "Sink for zone air"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0.2)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(
+    final k=0.2)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](final p=fill(273.15,
-        3))
+
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](
+    final p=fill(273.15,3))
     "Add 273.15 to temperature values from EPlus to convert it to Kelvin from Celsius"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate mass fractions of constituents"
     annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(final p=1)
+
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(
+    final p=1)
     "Add 1 to humidity ratio value to find total mass of moist air"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(final k=1)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(
+    final k=1)
     "Valve position of hot water coil and chilled water coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=1/(FCUSizing.mAir_flow_nominal))
     "Calculate normalized fan speed signal"

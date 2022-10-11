@@ -37,16 +37,7 @@ block VariableFanConstantWaterFlowrate
     annotation(Dialog(group="Fan control parameters - Heating mode",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Integer nRowOccSch(
-    final min = 2) = 4
-    "Number of rows in the occupancy schedule table"
-    annotation(Dialog(group="Occupancy schedule parameters"));
-  parameter Modelica.Units.SI.Time tableOcc[nRowOccSch,2] = [0, 0; 6, 1; 18, 0; 24, 0]
-    "Occupancy schedule"
-    annotation(Dialog(group="Occupancy schedule parameters"));
-  parameter Modelica.Units.SI.Time timeScaleOcc = 3600
-    "Time scale of the occupancy schedule. Set to 3600 if time in table is in hours"
-    annotation(Dialog(group="Occupancy schedule parameters"));
+
   parameter Real minFanSpe(
     final unit="1",
     displayUnit="1",

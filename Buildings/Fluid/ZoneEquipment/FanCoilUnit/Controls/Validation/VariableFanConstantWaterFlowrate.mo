@@ -6,9 +6,6 @@ model VariableFanConstantWaterFlowrate
     conVarFanConWat(
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    final nRowOccSch=5,
-    final tableOcc=[0,0; 15,1; 30,0; 45,1; 60,1],
-    final timeScaleOcc=1,
     final tFanEnaDel=2,
     final tFanEna=5)
     "Controller for the fan coil unit"
