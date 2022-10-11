@@ -15,7 +15,7 @@ model DistrictHeatExchangeDHWAuxHeat
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Boolean havePEle "Flag that specifies whether electric power is required for water heating";
+  parameter Boolean havePEle=true "Flag that specifies whether electric power is required for water heating";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
