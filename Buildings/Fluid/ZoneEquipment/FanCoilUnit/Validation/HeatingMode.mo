@@ -203,39 +203,12 @@ equation
       "Simulate and plot"),
     Documentation(info="<html>
       This is an open-loop validation model for the fan coil unit system model 
-      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem\">
-      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem</a>. It consists of:
-      <ul>
-      <li>
-      an instance of the fan coil unit system model <code>fanCoiUni</code>.
-      </li>
-      <li>
-      mixed volume <code>souAir</code> for imposing the boundary conditions of 
-      the zone air.
-      </li>
-      <li>
-      ideal media sources <code>souCoo</code> and <code>souHea</code> for simulating 
-      the supply of chilled water and heating hot-water respectively.
-      </li>
-      <li>
-      data-table reader <code>datRea</code> for reading the simulation results from EnergyPlus.
-      </li>
-      </ul>
+      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a>. 
       <p>
-      The simulation model is set-up to replicate an EnergyPlus model <code>FanCoilAutoSize_ConstantFlowVariableFan.idf</code>
-      (available in the <code>/Resources/Data</code> section for this subpackage.)
-      An annual simulation was run on the above EnergyPlus model, and various output 
-      variables were recorded. These were then inserted into a data-file that is 
-      read by <code>datRea</code> in this model.
-      <br>
-      The data values are used to impose the boundary conditions on the simulation 
-      as well as compare the performance of the Modelica model with the equivalent 
-      EnergyPlus model. Once the simulation is complete, the values for the supply
-      air temperature and supply air flowrate, as well as the power consumption 
-      of the various components are compared against their counterparts from the 
-      EnergyPlus model.
-      <br>
-      This model validates the heating mode operation by running the simulation from 01/01
+      It is similar to the example in <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.CoolingMode\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.CoolingMode.</a>
+      However, this model validates the heating mode operation by running the simulation from 01/01
       through 01/10 with the weather file <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>.
       It then makes plots for the supply air temperature and flowrate, as well as 
       the energy consumption of the cooling coil, including sensible and latent components,

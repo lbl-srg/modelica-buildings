@@ -1,14 +1,14 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FourPipe "System model for a four-pipe fan coil unit"
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for air";
+    "Medium model of air";
   replaceable package MediumHW = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for hot water";
+    "Medium model of hot water";
   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
-    "Medium model for chilled water";
+    "Medium model of chilled water";
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
-    "Type of heating coil used in the FCU"
+    "Heating coil type"
     annotation (Dialog(group="System parameters"));
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
@@ -45,24 +45,24 @@ model FourPipe "System model for a four-pipe fan coil unit"
 
   Modelica.Blocks.Interfaces.RealInput uHea(
     final unit="1")
-    "Heating loop signal"
+    "Heating loop control signal"
     annotation(Placement(transformation(extent={{-400,-140},{-360,-100}}),
       iconTransformation(extent={{-240,-140},{-200,-100}})));
 
   Modelica.Blocks.Interfaces.RealInput uCoo(
     final unit="1")
-    "Cooling loop signal"
+    "Cooling loop control signal"
     annotation(Placement(transformation(extent={{-400,-100},{-360,-60}}),
       iconTransformation(extent={{-240,-60},{-200,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput uFan(
     final unit="1")
-    "Fan signal"
+    "Fan control signal"
     annotation(Placement(transformation(extent={{-400,60},{-360,100}}),
       iconTransformation(extent={{-240,20},{-200,60}})));
   Modelica.Blocks.Interfaces.RealInput uEco(
     final unit="1")
-    "Control signal for economizer"
+    "Economizer control signal"
     annotation (Placement(transformation(extent={{-400,100},{-360,140}}),
       iconTransformation(extent={{-240,100},{-200,140}})));
 
@@ -349,16 +349,14 @@ equation
     annotation (Line(points={{-220,0},{-210,0}}, color={0,127,255}));
   connect(TAirOut.port_b, eco.port_Out)
     annotation (Line(points={{-190,0},{-180,0},{-180,-4}}, color={0,127,255}));
-  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-260,-18},{-252,
-          -18},{-252,0},{-240,0}}, color={0,127,255}));
+  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-260,-21},{-252,
+          -21},{-252,0},{-240,0}}, color={0,127,255}));
   connect(TAirMix.port_b, vAirMix.port_a)
     annotation (Line(points={{-120,-10},{-110,-10}}, color={0,127,255}));
   connect(eco.port_Sup, TAirMix.port_a) annotation (Line(points={{-160,-4},{-140,
           -4},{-140,-10}}, color={0,127,255}));
   connect(valHW.port_a, heaCoiHW.port_b1) annotation (Line(points={{-36,-64},{-36,
           -44},{-20,-44}}, color={0,127,255}));
-  connect(VHW_flow.port_a, heaCoiHW.port_a1)
-    annotation (Line(points={{4,-94},{4,-44},{0,-44}}, color={0,127,255}));
   connect(THWRet.port_a, valHW.port_b)
     annotation (Line(points={{-36,-94},{-36,-84}}, color={0,127,255}));
   connect(THWSup.port_b, VHW_flow.port_a)
@@ -421,11 +419,13 @@ equation
   connect(TAirExh.port_b, VAirExh_flow.port_a)
     annotation (Line(points={{-210,-40},{-220,-40}}, color={0,127,255}));
   connect(VAirExh_flow.port_b, out.ports[2]) annotation (Line(points={{-240,-40},
-          {-252,-40},{-252,-22},{-260,-22}}, color={0,127,255}));
+          {-252,-40},{-252,-19},{-260,-19}}, color={0,127,255}));
   connect(gaiFanNor.y, yFan_actual)
     annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
   connect(fan.m_flow_actual, gaiFanNor.u) annotation (Line(points={{221,-5},{
           240,-5},{240,110},{298,110}}, color={0,0,127}));
+  connect(heaCoiHW.port_a1, VHW_flow.port_b)
+    annotation (Line(points={{0,-44},{4,-44},{4,-74}}, color={0,127,255}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

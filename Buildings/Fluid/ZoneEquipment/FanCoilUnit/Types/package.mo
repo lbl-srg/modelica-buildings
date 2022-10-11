@@ -4,6 +4,6 @@ package Types "Package with type definitions"
 
 
 annotation (Documentation(info="<html>
-This package contains type definitions for fan coil units.
-  </html>"));
+<p>This package contains definitions of Heating coil type for fan coil units. </p>
+</html>"));
 end Types;

@@ -205,8 +205,8 @@ equation
       "Simulate and plot"),
     Documentation(info="<html>
       This is an open-loop validation model for the fan coil unit system model 
-      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem\">
-      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FanCoilUnitSystem</a>. It consists of:
+      implemented in class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe\">
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe</a>. It consists of:
       <ul>
       <li>
       an instance of the fan coil unit system model <code>fanCoiUni</code>.
