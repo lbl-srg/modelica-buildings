@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
-block PIDWithAutotuningAmigoFOTD
-  "A autotuning PID controller with an Amigo tuner and a first order time delayed system model"
+block FirstOrderAMIGO
+  "A autotuning PID controller with an AMIGO tuner and a first order time delayed system model"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real k_start(
@@ -76,7 +76,7 @@ block PIDWithAutotuningAmigoFOTD
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI PIPar
     if not with_D "Parameters of a PI controller"
     annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPra
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPar
     if with_D "Parameters of a PID controller"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
@@ -147,19 +147,19 @@ equation
   connect(rel.yErr, conProMod.u) annotation (Line(points={{44,30},{50,30},{50,
           72},{-10,72},{-10,58},{-18,58}},
                                        color={0,0,127}));
-  connect(PIDPra.kp, conProMod.k)
+  connect(PIDPar.kp, conProMod.k)
     annotation (Line(points={{-58,56},{-50,56},{-50,56.1},{-42,56.1}},
                                                  color={0,0,127}));
-  connect(PIDPra.T, conProMod.T)
+  connect(PIDPar.T, conProMod.T)
     annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
-  connect(PIDPra.L, conProMod.L) annotation (Line(points={{-58,44},{-44,44},{
+  connect(PIDPar.L, conProMod.L) annotation (Line(points={{-58,44},{-44,44},{
           -44,42},{-42,42}},
                          color={0,0,127}));
-  connect(PIDPra.k, samk.u) annotation (Line(points={{-82,57},{-94,57},{-94,-20},
+  connect(PIDPar.k, samk.u) annotation (Line(points={{-82,57},{-94,57},{-94,-20},
           {-42,-20}}, color={0,0,127}));
-  connect(PIDPra.Ti, samTi.u) annotation (Line(points={{-82,50},{-88,50},{-88,-48},
+  connect(PIDPar.Ti, samTi.u) annotation (Line(points={{-82,50},{-88,50},{-88,-48},
           {-82,-48}}, color={0,0,127}));
-  connect(samTd.u, PIDPra.Td) annotation (Line(points={{-42,-70},{-48,-70},{-48,
+  connect(samTd.u,PIDPar. Td) annotation (Line(points={{-42,-70},{-48,-70},{-48,
           34},{-82,34},{-82,43},{-82,43}}, color={0,0,127}));
   connect(PIPar.kp, conProMod.k) annotation (Line(points={{-58,86},{-50,86},{
           -50,56.1},{-42,56.1}},
@@ -245,4 +245,4 @@ First implementation<br/>
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0})}));
-end PIDWithAutotuningAmigoFOTD;
+end FirstOrderAMIGO;

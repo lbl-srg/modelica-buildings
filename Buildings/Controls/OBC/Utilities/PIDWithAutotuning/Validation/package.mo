@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
-package Validation "Collection of models that validate the SetPoints blocks of the CDL"
+package Validation "Collection of models that validate the blocks for PID autotuning"
   annotation (
     preferredView="info",
     Documentation(

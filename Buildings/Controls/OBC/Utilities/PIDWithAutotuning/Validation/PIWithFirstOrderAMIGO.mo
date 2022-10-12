@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIWithAutotuningAmigoFOTD "Test model for PIDWithAutotuning"
+model PIWithFirstOrderAMIGO "Test model for FirstOrderAMIGO"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD
-    PIWitTun(
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIWitTun(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     yHig=1,
     yLow=0.1,
@@ -88,13 +87,13 @@ equation
       StopTime=10000,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIWithAutotuningAmigoFOTD.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/Utilities/PIDWithAutotuning/Validation/PIWithFirstOrderAMIGO.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.PIDWithAutotuningAmigoFOTD</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
 This example is to compare the output of a PI controller with an autotuning feature to that of another PI controller with arbitary gains
@@ -122,4 +121,4 @@ First implementation<br/>
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-100,-80},{200,100}})));
-end PIWithAutotuningAmigoFOTD;
+end PIWithFirstOrderAMIGO;
