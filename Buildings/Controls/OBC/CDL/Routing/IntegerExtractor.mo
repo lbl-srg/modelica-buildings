@@ -7,10 +7,10 @@ block IntegerExtractor
     "Index of input vector element to be extracted out"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
   Interfaces.IntegerInput u[nin]
-    "Connector of Real input signals"
+    "Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.IntegerOutput y
-    "Connector of Real output signal"
+    "Integer signal extracted from input vector, u[index]"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation

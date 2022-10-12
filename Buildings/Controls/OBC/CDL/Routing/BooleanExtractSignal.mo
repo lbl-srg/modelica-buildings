@@ -8,10 +8,10 @@ block BooleanExtractSignal
   parameter Integer extract[nout]=1:nout
     "Extracting vector";
   Interfaces.BooleanInput u[nin]
-    "Connector of Boolean input signal"
+    "Boolean input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.BooleanOutput y[nout]
-    "Connector of Boolean output signal"
+    "Boolean signals extracted from the input vector with the extraction scheme specified by the integer vector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation

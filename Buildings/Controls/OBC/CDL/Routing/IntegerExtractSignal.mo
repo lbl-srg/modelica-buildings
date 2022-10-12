@@ -8,10 +8,10 @@ block IntegerExtractSignal
   parameter Integer extract[nout]=1:nout
     "Extracting vector";
   Interfaces.IntegerInput u[nin]
-    "Connector of Integer input signal"
+    "Integer input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.IntegerOutput y[nout]
-    "Connector of Integer output signal"
+    "Integer signals extracted from the input vector with the extraction scheme specified by the integer vector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
