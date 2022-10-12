@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model IntegerExtractSignal
-  "Validation model for the integer extract signal block"
+  "Validation model for the integer extract signals block"
   Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal extIntSig(
     final nin=4,
     final nout=3,
@@ -62,15 +62,16 @@ Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal</a>.
 </p>
 <p>
 The instance <code>extIntSig</code> has the input vector with dimension of 4 and
-the output vector with dimension of 3. The output vectors is <code>[u[3], u[2], u[4]]</code>.
+it has the output vector <code>[3, 2, 4]</code>. The output vectors is <code>[u[3], u[2], u[4]]</code>.
 </p>
 <p>
 The instance <code>extIntSig1</code> has the input vector with dimension of 4 and
-the output vector with dimension of 5. The output vectors is <code>[u[3], u[2], u[4], u[2], u[3]]</code>.
+it has the output vector <code>[3, 2, 4, 2, 3]</code>.
+The output vectors is <code>[u[3], u[2], u[4], u[2], u[3]]</code>.
 </p>
 <p>
 Note that when the vector parameter <code>extract</code> has any element with the value that
-is out of <code>[1, nin]</code>, e.g. <code>[1, 4]</code> for instance <code>extIntSig</code>.
+is out of range <code>[1, nin]</code>, e.g. <code>[1, 4]</code> for instance in <code>extIntSig</code>.
 The solver will issue error and the model cannot run.
 </p>
 </html>",

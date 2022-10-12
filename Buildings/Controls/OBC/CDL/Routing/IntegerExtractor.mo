@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block IntegerExtractor
-  "Extract scalar signal out of signal vector dependent on Integer input index"
+  "Extract scalar signal out of integer signal vector dependent on integer input index"
   parameter Integer nin=1
     "Number of inputs";
   Interfaces.IntegerInput index
@@ -133,12 +133,10 @@ is out of range,
 </p>
 <ul>
 <li>
-If <code>index &gt; nin</code>, then the output is set to
-<code>y = u[nin]</code>.
+if <code>index &gt; nin</code>, then <code>y = u[nin]</code>.
 </li>
 <li>
-If <code>index &lt; 1</code>, then the output is set to
-<code>y = u[1]</code>.
+if <code>index &lt; 1</code>, then <code>y = u[1]</code>.
 </li>
 </ul>
 </html>",
