@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing.Validation;
 model BooleanExtractSignal
-  "Validation model for the boolean extract signals block"
+  "Validation model for extracting boolean signals"
   Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal extBooSig(
     final nin=4,
     final nout=3,
@@ -58,14 +58,14 @@ Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal</a>.
 </p>
 <p>
 The instance <code>extBooSig</code> has the input vector with dimension of 4 and
-the output vector with dimension of 3. The output vectors is <code>[u[3], u[2], u[4]]</code>.
+the extracting vector is <code>[3, 2, 4]</code>. Thus the output vectors is <code>[u[3], u[2], u[4]]</code>.
 </p>
 <p>
 The instance <code>extBooSig1</code> has the input vector with dimension of 4 and
-the output vector with dimension of 5. The output vectors is <code>[u[3], u[2], u[4], u[1], u[1]]</code>.
+the extracting vector is <code>[3, 2, 4, 1, 1]</code>. Thus the output vectors is <code>[u[3], u[2], u[4], u[1], u[1]]</code>.
 </p>
 <p>
-Note that when the vector parameter <code>extract</code> has any element with the value that
+Note that when the extracting vector <code>extract</code> has any element with the value that
 is out of range <code>[1, nin]</code>, e.g. <code>[1, 4]</code> for instance in <code>extBooSig</code>.
 It will issue error and the model will not run.
 </p>
