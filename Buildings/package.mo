@@ -237,7 +237,7 @@ to <b style=\"color:blue\">existing</b> libraries:
                          Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal<br/>
                          Buildings.Controls.OBC.CDL.Routing.IntegerExtractor
     </td>
-    <td valign=\"top\">Added CDL blocks to extract signals.<br/>
+    <td valign=\"top\">Added boolean and integer extract signals.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
     </td>
@@ -258,6 +258,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
+    </td>
+    <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
   </tr>
@@ -310,6 +320,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+    </td>
+    <td valign=\"top\">Changed output from a specified value to the element with the nearest valid index when the index input is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
