@@ -51,13 +51,13 @@ model BooleanExtractor
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul(
     final amplitude=3,
     final period=1,
-    offset=-1)
+    final offset=-1)
     "Generate pulse signal of type Integer"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul1(
     final amplitude=-3,
     final period=1,
-    offset=3)
+    final offset=3)
     "Generate pulse signal of type Integer"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 

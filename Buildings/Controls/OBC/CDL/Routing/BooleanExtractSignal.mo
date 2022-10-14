@@ -140,7 +140,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Extract signals from the vector-valued  boolean input signal and transfer them
+Extract signals from the vector-valued boolean input signal and transfer them
 to the vector-valued boolean output signal.
 </p>
 <p>

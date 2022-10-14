@@ -117,7 +117,7 @@ annotation (defaultComponentName="extIndBoo",
           fillPattern=FillPattern.Solid),
         Text(
           textColor={0,0,255},
-          extent={{-150,110},{150,150}},
+          extent={{-100,100},{100,140}},
           textString="%name")}),
     Documentation(
       info="<html>
