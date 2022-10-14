@@ -5,5 +5,12 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3125
+// remove parameter allowOutOfRange, outOfRangeValue
+convertModifiers("Buildings.Controls.OBC.CDL.Routing.RealExtractor",
+                {"allowOutOfRange"}, fill("",0), true);
+onvertModifiers("Buildings.Controls.OBC.CDL.Routing.RealExtractor",
+                {"outOfRangeValue"}, fill("",0), true);
+
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1,
              "Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1")
