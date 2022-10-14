@@ -203,12 +203,12 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_9_1_0 "Version 9.1.0"
+  class Version_9_0_1 "Version 9.0.1"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.1.0 is ... xxx
+Version 9.0.1 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -377,7 +377,7 @@ xxx
 </li>
 </ul>
 </html>"));
-  end Version_9_1_0;
+  end Version_9_0_1;
 
   class Version_9_0_0 "Version 9.0.0"
   extends Modelica.Icons.ReleaseNotes;
@@ -10819,7 +10819,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_0\">Version 9.1.0</a> (xxx, 2022)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_1\">Version 9.0.1</a> (xxx, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
@@ -11368,7 +11368,7 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="9.1.0",
+version="9.0.1",
 versionDate="2022-05-31",
 dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
