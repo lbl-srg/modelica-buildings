@@ -13,9 +13,6 @@ block IntegerExtractor
     "Integer signal extracted from input vector, u[index]"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-initial equation
-  pre(index)=0;
-
 equation
   assert(
      index > 0 and index <= nin,

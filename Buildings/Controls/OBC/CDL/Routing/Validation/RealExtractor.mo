@@ -54,24 +54,26 @@ model RealExtractor
     final k=2)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=6)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul2(
+    final amplitude=6,
+    final period=3)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul3(
+    final period=3,
+    final offset=-1)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul(
     final amplitude=3,
     final period=1,
-    offset=-1)
+    final offset=-1)
     "Generate pulse signal of type Integer"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul1(
     final amplitude=-3,
     final period=1,
-    offset=3)
+    final offset=3)
     "Generate pulse signal of type Integer"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 equation
@@ -87,7 +89,7 @@ equation
     annotation (Line(points={{-58,-40},{-16,-40},{-16,90.8},{38,90.8}}, color={0,0,127}));
   connect(conInt.y,extIndSig.index)
     annotation (Line(points={{22,70},{50,70},{50,78}},color={255,127,0}));
-  connect(conInt1.y,extIndSig1.index)
+  connect(intPul2.y,extIndSig1.index)
     annotation (Line(points={{22,30},{50,30},{50,38}},   color={255,127,0}));
   connect(ram.y,extIndSig1.u[1])
     annotation (Line(points={{-58,80},{-40,80},{-40,49.2},{38,49.2}}, color={0,0,127}));
@@ -99,7 +101,7 @@ equation
     annotation (Line(points={{-58,-10},{-22,-10},{-22,50.4},{38,50.4}}, color={0,0,127}));
   connect(ram2.y,extIndSig1.u[5])
     annotation (Line(points={{-58,-40},{-16,-40},{-16,50.8},{38,50.8}},color={0,0,127}));
-  connect(conInt2.y, extIndSig2.index)
+  connect(intPul3.y, extIndSig2.index)
     annotation (Line(points={{22,-10},{50,-10},{50,-2}}, color={255,127,0}));
   connect(ram.y, extIndSig2.u[1]) annotation (Line(points={{-58,80},{-40,80},{-40,
           9.2},{38,9.2}}, color={0,0,127}));

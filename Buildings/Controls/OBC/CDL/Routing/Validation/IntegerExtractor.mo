@@ -42,12 +42,14 @@ model IntegerExtractor
     final k=2)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=6)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul4(
+    final amplitude=6,
+    final period=3)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul5(
+    final period=3,
+    final offset=-1)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul2(
@@ -64,7 +66,7 @@ model IntegerExtractor
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
 
 equation
-  connect(conInt1.y, extIndInt1.index)
+  connect(intPul4.y, extIndInt1.index)
     annotation (Line(points={{22,30},{50,30},{50,38}}, color={255,127,0}));
   connect(conInt2.y, extIndInt.u[1]) annotation (Line(points={{-58,80},{-40,80},
           {-40,89.25},{38,89.25}}, color={255,127,0}));
@@ -84,7 +86,7 @@ equation
           {-10,50.75},{38,50.75}},   color={255,127,0}));
   connect(conInt.y, extIndInt.index)
     annotation (Line(points={{22,70},{50,70},{50,78}}, color={255,127,0}));
-  connect(conInt4.y, extIndInt2.index)
+  connect(intPul5.y, extIndInt2.index)
     annotation (Line(points={{22,-10},{50,-10},{50,-2}},  color={255,127,0}));
   connect(conInt2.y, extIndInt2.u[1]) annotation (Line(points={{-58,80},{-40,80},
           {-40,9.25},{38,9.25}},     color={255,127,0}));

@@ -40,12 +40,14 @@ model BooleanExtractor
     final k=2)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=6)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul2(
+    final amplitude=6,
+    final period=3)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul3(
+    final period=3,
+    final offset=-1)
     "Index to extract input signal"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Pulse intPul(
@@ -64,7 +66,7 @@ model BooleanExtractor
 equation
   connect(conInt.y, extIndBoo.index)
     annotation (Line(points={{22,70},{50,70},{50,78}}, color={255,127,0}));
-  connect(conInt1.y, extIndBoo1.index)
+  connect(intPul2.y, extIndBoo1.index)
     annotation (Line(points={{22,30},{50,30},{50,38}}, color={255,127,0}));
   connect(con1.y, extIndBoo.u[1]) annotation (Line(points={{-58,80},{-40,80},{-40,
           89.25},{38,89.25}}, color={255,0,255}));
@@ -90,7 +92,7 @@ equation
           {-10,10.25},{38,10.25}},   color={255,0,255}));
   connect(con.y, extIndBoo2.u[4]) annotation (Line(points={{-58,-70},{-10,-70},{
           -10,10.75},{38,10.75}},   color={255,0,255}));
-  connect(conInt2.y, extIndBoo2.index)
+  connect(intPul3.y, extIndBoo2.index)
     annotation (Line(points={{22,-10},{50,-10},{50,-2}},  color={255,127,0}));
   connect(con1.y, extIndBoo3.u[1]) annotation (Line(points={{-58,80},{-40,80},{-40,
           -30.75},{38,-30.75}}, color={255,0,255}));
