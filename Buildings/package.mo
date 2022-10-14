@@ -11382,9 +11382,14 @@ versionDate="2022-05-31",
 dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
 conversion(
-  noneFromVersion="9.0.0",
-  from(version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
-       script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
+  from(
+    version={"9.0.0"},
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_9_to_10.0.0.mos"),
+  from(
+    version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
+    to="9.0.0",
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")
+  ),
 preferredView="info",
 Documentation(info="<html>
 <p>
