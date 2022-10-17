@@ -204,12 +204,12 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_9_1_0 "Version 9.1.0"
+  class Version_10_0_0 "Version 10.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.1.0 is ... xxx
+Version 10.0.0 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -411,7 +411,7 @@ xxx
 </li>
 </ul>
 </html>"));
-  end Version_9_1_0;
+  end Version_10_0_0;
 
   class Version_9_0_0 "Version 9.0.0"
   extends Modelica.Icons.ReleaseNotes;
@@ -10853,7 +10853,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_0\">Version 9.1.0</a> (xxx, 2022)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (xxx, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
@@ -11402,14 +11402,19 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="9.1.0",
+version="10.0.0",
 versionDate="2022-05-31",
 dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
 conversion(
-  noneFromVersion="9.0.0",
-  from(version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
-       script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
+  from(
+    version={"9.0.0"},
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_9_to_10.0.0.mos"),
+  from(
+    version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
+    to="9.0.0",
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")
+  ),
 preferredView="info",
 Documentation(info="<html>
 <p>
