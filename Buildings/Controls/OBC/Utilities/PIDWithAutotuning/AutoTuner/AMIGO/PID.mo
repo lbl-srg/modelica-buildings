@@ -71,7 +71,7 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain, the integral time, and the derivative time of a PI model.</p>
+<p>This block calculates the control gain, the integral time, and the derivative time of a PID model.</p>
 <P>Please refer to the following block for detailed information:</p>
 <P><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDGain</a></p>
