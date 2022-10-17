@@ -96,7 +96,7 @@ revisions="<html>
 <ul>
 <li>
 October 14, 2022, by Jianjun Hu:<br/>
-Added validation when the number of output is more than the number of input.
+Added validation when the number of outputs is more than the number of inputs.
 </li>
 <li>
 July 24, 2017, by Jianjun Hu:<br/>
