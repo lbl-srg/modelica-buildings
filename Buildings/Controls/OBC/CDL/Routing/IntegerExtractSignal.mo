@@ -16,7 +16,7 @@ block IntegerExtractSignal
 
 initial equation
   assert(
-    sum(if (extract[i] < 1 or extract[i] > nin) then 1 else 0 for i in 1:nout) < 1,
+    Modelica.Math.BooleanVectors.andTrue({(extract[i] > 0 and extract[i] <= nin) for i in 1:nout}),
     "In " + getInstanceName() + ": The element of the extracting vector has out of range value.",
     AssertionLevel.error);
 
@@ -164,10 +164,7 @@ The specification
 <p>extracts four output signals (<code>nout=4</code>)
 from the seven elements of the
 input vector (<code>nin=7</code>):</p>
-<pre>   output no. 1 is set equal to input no. 6
-   output no. 2 is set equal to input no. 3
-   output no. 3 is set equal to input no. 3
-   output no. 4 is set equal to input no. 2
+<pre>   y[1, 2, 3, 4] = u[6, 3, 3, 2];
 </pre>
 </html>",
 revisions="<html>

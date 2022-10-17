@@ -121,7 +121,7 @@ annotation (defaultComponentName="extIndInt",
 <p>
 Block that returns
 </p>
-<pre>    y = u [ index ] ;
+<pre>    y = u[index];
 </pre>
 <p>
 where <code>u</code> is a vector-valued <code>Integer</code> input signal and
@@ -130,10 +130,10 @@ is out of range,
 </p>
 <ul>
 <li>
-if <code>index &gt; nin</code>, then <code>y = u[nin]</code>.
+then <code>y = u[nin]</code> if <code>index &gt; nin</code>, and
 </li>
 <li>
-if <code>index &lt; 1</code>, then <code>y = u[1]</code>.
+<code>y = u[1]</code> if <code>index &lt; 1</code>.
 </li>
 </ul>
 </html>",

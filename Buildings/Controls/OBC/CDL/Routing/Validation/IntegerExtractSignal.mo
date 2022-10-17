@@ -72,7 +72,7 @@ Thus the output vectors is <code>[u[3], u[2], u[4], u[2], u[3]]</code>.
 <p>
 Note that when the extracting vector <code>extract</code> has any element with the value that
 is out of range <code>[1, nin]</code>, e.g. <code>[1, 4]</code> for instance in <code>extIntSig</code>.
-It will issue error and the model will not run.
+It will issue error and the model will not translate.
 </p>
 </html>",
 revisions="<html>

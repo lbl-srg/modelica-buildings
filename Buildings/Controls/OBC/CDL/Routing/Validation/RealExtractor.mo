@@ -149,7 +149,7 @@ Buildings.Controls.OBC.CDL.Routing.RealExtractor</a>.
 <p>
 The instances <code>extIndSig</code>, <code>extIndSig1</code>, <code>extIndSig2</code>,
 <code>extIndSig3</code>, and <code>extIndSig4</code> have the same input vector with
-dimension of 5. However, they have different extract index thus different output.
+dimension of 5. However, they have different extract index and thus different output.
 </p>
 <ul>
 <li>
@@ -167,13 +167,13 @@ It also issues a warning to indicate that the extract index is out of range.
 </li>
 <li>
 The instance <code>extIndSig3</code> has the extract index changing from <code>2</code>
-to <code>-1</code>. Thus it firstly outputs <code>u[2]</code> then changes to <code>u[1]</code>.
+to <code>-1</code>. Thus it first outputs <code>u[2]</code>, and then changes to <code>u[1]</code>.
 At the moment when the extract index becomes out of range, it issues a warning.
 </li>
 <li>
 The instance <code>extIndSig4</code> has the extract index changing from <code>0</code>
-to <code>3</code>. Thus it firstly outputs <code>u[1]</code> then changes to <code>u[3]</code>.
-It issues a warning at the begining moment.
+to <code>3</code>. Thus it first outputs <code>u[1]</code>, and then changes to <code>u[3]</code>.
+It issues a warning at the start of the simulation.
 </li>
 </ul>
 </html>",
