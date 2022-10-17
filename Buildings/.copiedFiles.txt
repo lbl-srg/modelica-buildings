@@ -1078,6 +1078,7 @@ Buildings/Fluid/Movers/Validation/ControlledFlowMachineDynamic.mo
 Buildings/Fluid/Movers/Validation/FlowControlled_dp.mo
 Buildings/Fluid/Movers/Validation/FlowControlled_dpSystem.mo
 Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
+Buildings/Fluid/Movers/Validation/NegativePressureOrFlow.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
 Buildings/Fluid/Movers/Validation/PumpCurveConstruction.mo
@@ -1434,6 +1435,8 @@ Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationPower.png
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/2013-IBPSA-Wetter.pdf
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/fanSpeedFiltered.png
 Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png
+Buildings/Resources/Images/Fluid/Movers/Validation/NegativePressureOrFlow.png
+Buildings/Resources/Images/Fluid/Movers/Validation/NegativePressureOrFlow.svg
 Buildings/Resources/Images/Fluid/Movers/Validation/PowerExact.png
 Buildings/Resources/Images/Fluid/Movers/Validation/PowerExact.svg
 Buildings/Resources/Images/Fluid/Movers/Validation/PowerSimplified.png
@@ -1860,6 +1863,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/ControlledFlowMachine
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_dp.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_dpSystem.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/NegativePressureOrFlow.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos
@@ -2062,9 +2066,7 @@ Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_2e83ff_256x240.png
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_454545_256x240.png
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_888888_256x240.png
 Buildings/Resources/src/convertEPW/doc/jquery/images/ui-icons_cd0a0a_256x240.png
-Buildings/Resources/src/convertEPW/doc/jquery/jquery-3.3.1.js
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-3.5.1.js
-Buildings/Resources/src/convertEPW/doc/jquery/jquery-migrate-3.0.1.js
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-ui.css
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-ui.js
 Buildings/Resources/src/convertEPW/doc/jquery/jquery-ui.min.css
@@ -2085,7 +2087,6 @@ Buildings/Resources/src/convertEPW/doc/package-search-index.zip
 Buildings/Resources/src/convertEPW/doc/package-summary.html
 Buildings/Resources/src/convertEPW/doc/package-tree.html
 Buildings/Resources/src/convertEPW/doc/resources/glass.png
-Buildings/Resources/src/convertEPW/doc/resources/inherit.gif
 Buildings/Resources/src/convertEPW/doc/resources/x.png
 Buildings/Resources/src/convertEPW/doc/script.js
 Buildings/Resources/src/convertEPW/doc/search.js
