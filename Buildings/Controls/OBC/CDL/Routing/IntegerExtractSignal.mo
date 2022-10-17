@@ -30,7 +30,7 @@ equation
       graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
+          lineColor={255,127,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
