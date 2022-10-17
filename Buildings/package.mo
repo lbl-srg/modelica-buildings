@@ -325,7 +325,8 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
     </td>
-    <td valign=\"top\">Changed output from a specified value to the element with the nearest valid index when the index input is out of range.<br/>
+    <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
+                       when the index input is out of range.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
     </td>
@@ -11413,8 +11414,7 @@ conversion(
   from(
     version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
     to="9.0.0",
-    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")
-  ),
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
