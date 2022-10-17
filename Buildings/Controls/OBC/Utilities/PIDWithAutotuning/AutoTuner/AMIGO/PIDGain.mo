@@ -17,7 +17,7 @@ block PIDGain "Identify the control gain of a PID controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Calculate the inverse of the input gain"
-    annotation (Placement(transformation(extent={{-38,40},{-18,80}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=1)
     "Constant parameter"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));

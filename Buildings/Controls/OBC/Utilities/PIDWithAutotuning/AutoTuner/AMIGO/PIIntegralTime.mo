@@ -22,7 +22,7 @@ block PIIntegralTime "Identifies the integral time of a PI controller"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of gai3 divided by the output of add3"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{20,80},{40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=12)
     "Mutiple the time delay by 12"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
@@ -79,8 +79,9 @@ equation
           {38,-76}}, color={0,0,127}));
   connect(add3.u1, add1.y) annotation (Line(points={{38,-64},{32,-64},{32,30},{
           22,30}}, color={0,0,127}));
-  connect(add3.y, div.u2) annotation (Line(points={{62,-70},{80,-70},{80,-24},{-8,
-          -24},{-8,64},{18,64}}, color={0,0,127}));
+  connect(add3.y, div.u2) annotation (Line(points={{62,-70},{80,-70},{80,-24},{
+          -8,-24},{-8,76},{18,76}},
+                                 color={0,0,127}));
   connect(div.y, add2.u1)
     annotation (Line(points={{42,70},{50,70},{50,6},{58,6}}, color={0,0,127}));
   connect(add2.u2, gai4.y) annotation (Line(points={{58,-6},{48,-6},{48,-20},{
@@ -89,8 +90,8 @@ equation
           -60}}, color={0,0,127}));
   connect(gai3.y, mul4.u1) annotation (Line(points={{-42,80},{-94,80},{-94,24},{
           -88,24},{-88,16},{-82,16}},  color={0,0,127}));
-  connect(mul4.y, div.u1) annotation (Line(points={{-58,10},{-4,10},{-4,76},{18,
-          76}}, color={0,0,127}));
+  connect(mul4.y, div.u1) annotation (Line(points={{-58,10},{-4,10},{-4,64},{18,
+          64}}, color={0,0,127}));
   annotation (defaultComponentName = "PIIntTim",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

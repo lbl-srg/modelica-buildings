@@ -12,10 +12,10 @@ block PIDIntegralTime "Identifies the integral time of a PID controller"
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
-    "Calculate the sum of the time delay and the output of gai3"
+    "Calculate the sum of the time delay and the product of 0.1 and the input time constant"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Calculate the sum of the output of gai1 and the output of gai2"
+    "Calculate the sum of the output of gai1 and the product of 0.8 and the input time constant"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of add3 divided by the output of add1"
@@ -80,7 +80,7 @@ First implementation<br/>
 <p>This block calculates the integral time of a PID model.</p>
 <h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
-T<sub>i</sub> = (0.4L + 0.8T)/(L + 0.1T)L,
+T<sub>i</sub> = L(0.4L + 0.8T)/(L + 0.1T),
 </p>
 <p>where <i>T</i> is the time constant of the first-order time-delayed model;</p>
 <p><i>L</i> is the time delay of the first-order time-delayed model.</p>
