@@ -328,7 +328,8 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
                        when the index input is out of range.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.<br/>
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
