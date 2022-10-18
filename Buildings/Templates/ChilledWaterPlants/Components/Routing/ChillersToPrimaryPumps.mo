@@ -76,49 +76,42 @@ model ChillersToPrimaryPumps
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_aRet(
-    redeclare final package Medium = MediumChiWat,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
-    "CHW return from CHW distribution"
-    annotation (Placement(transformation(extent={{190,-110},{210,-90}}),
-    iconTransformation(extent={{190,-510},{208,-492}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bRet[nPorts](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return to chillers and WSE"
     annotation (Placement(transformation(
-          extent={{-210,-140},{-190,-60}}),iconTransformation(extent={{-210,-540},
-            {-190,-460}})));
+          extent={{-210,-140},{-190,-60}}),iconTransformation(extent={{-210,
+            -1240},{-190,-1160}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bSup[nPumChiWatPri](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply to CHW pumps"
     annotation (Placement(
-        transformation(extent={{190,80},{210,160}}),iconTransformation(extent={{190,460},
-            {210,540}})));
+        transformation(extent={{190,80},{210,160}}),iconTransformation(extent={{190,
+            1160},{210,1240}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aByp(
     redeclare final package Medium = MediumChiWat,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply from minimum flow bypass or common leg"    annotation (
       Placement(transformation(extent={{190,-10},{210,10}}),iconTransformation(
-          extent={{190,-310},{210,-290}})));
+          extent={{190,-810},{210,-790}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aSup[nPorts](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply from chillers and WSE"
     annotation (Placement(transformation(
-          extent={{-210,80},{-190,160}}), iconTransformation(extent={{-210,460},
-            {-190,540}})));
+          extent={{-210,80},{-190,160}}), iconTransformation(extent={{-210,1160},
+            {-190,1240}})));
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(
-          extent={{-20,180},{20,220}}), iconTransformation(extent={{-20,580},{
-            20,620}})));
+          extent={{-20,180},{20,220}}), iconTransformation(extent={{-20,1280},{
+            20,1320}})));
 
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valChiWatChiBypSer[nChi](
     redeclare each final package Medium = MediumChiWat,
@@ -265,6 +258,14 @@ protected
     energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
     "Boolean flag used to remove conditional components"
     annotation(Evaluate=true);
+public
+  Modelica.Fluid.Interfaces.FluidPort_a port_aRet(
+    redeclare final package Medium = MediumChiWat,
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
+    "CHW return from CHW distribution"
+    annotation (Placement(transformation(extent={{190,-110},{210,-90}}),
+    iconTransformation(extent={{190,-1210},{210,-1190}})));
 initial equation
   if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
     assert(typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered,
@@ -335,11 +336,13 @@ equation
 annotation (
   defaultComponentName="rou",
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-600},{200,600}}), graphics={
+    extent={{-200,-1300},{200,1300}}),
+    graphics={
         Text(
-          extent={{-149,-614},{151,-654}},
+          extent={{-149,-1314},{151,-1354}},
           textColor={0,0,255},
-          textString="%name"), Rectangle(extent={{-200,600},{200,-600}},
+          textString="%name"),
+        Rectangle(extent={{-200,-1300},{200,1300}},
             lineColor={28,108,200})}),
  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})));
 end ChillersToPrimaryPumps;

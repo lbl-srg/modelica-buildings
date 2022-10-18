@@ -17,7 +17,7 @@ model WaterCooled "Water-cooled chiller plant"
     final tau=tau,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps inlet manifold"
-    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
+    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
   Buildings.Templates.Components.Pumps.Multiple pumConWat(
     redeclare final package Medium=MediumCon,
     final nPum=nPumConWat,
@@ -27,7 +27,7 @@ model WaterCooled "Water-cooled chiller plant"
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps"
-    annotation (Placement(transformation(extent={{-130,-110},{-110,-90}})));
+    annotation (Placement(transformation(extent={{-130,-190},{-110,-170}})));
   replaceable
     Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
     coo constrainedby
@@ -51,7 +51,7 @@ model WaterCooled "Water-cooled chiller plant"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-160,-150})));
+        origin={-160,-230})));
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumCon,
     final have_sen=ctl.typCtrFanCoo
@@ -75,7 +75,7 @@ model WaterCooled "Water-cooled chiller plant"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-200,-100})));
+        origin={-200,-180})));
 equation
   /* Control point connection - start */
   connect(bus, coo.bus);
@@ -84,21 +84,22 @@ equation
   connect(TConWatRet.y, bus.TConWatRet);
   /* Control point connection - stop */
   connect(inlPumConWat.ports_b, pumConWat.ports_a)
-    annotation (Line(points={{-140,-100},{-130,-100}}, color={0,127,255}));
+    annotation (Line(points={{-140,-180},{-130,-180}}, color={0,127,255}));
   connect(busWea, coo.busWea) annotation (Line(
       points={{-1.11022e-15,280},{0,280},{0,40},{-198,40}},
       color={255,204,51},
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])
-    annotation (Line(points={{-160,-100},{-160,-140}}, color={0,127,255}));
+    annotation (Line(points={{-160,-180},{-160,-220}}, color={0,127,255}));
   connect(pumConWat.ports_b, inlConChi.ports_a)
-    annotation (Line(points={{-110,-100},{-100,-100}}, color={0,127,255}));
+    annotation (Line(points={{-110,-180},{-100,-180}}, color={0,127,255}));
   connect(outConChi.port_b, TConWatSup.port_b)
     annotation (Line(points={{-100,0},{-130,0}}, color={0,127,255}));
   connect(TConWatSup.port_a, coo.port_a)
     annotation (Line(points={{-150,0},{-210,0}}, color={0,127,255}));
-  connect(coo.port_b, TConWatRet.port_b) annotation (Line(points={{-230,0},{-280,
-          0},{-280,-100},{-210,-100}}, color={0,127,255}));
+  connect(coo.port_b, TConWatRet.port_b) annotation (Line(points={{-230,0},{
+          -280,0},{-280,-180},{-210,-180}},
+                                       color={0,127,255}));
   connect(TConWatRet.port_a, inlPumConWat.port_a)
-    annotation (Line(points={{-190,-100},{-160,-100}}, color={0,127,255}));
+    annotation (Line(points={{-190,-180},{-160,-180}}, color={0,127,255}));
 end WaterCooled;

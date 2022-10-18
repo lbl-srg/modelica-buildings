@@ -219,32 +219,32 @@ partial model PartialChillerGroup "Interface class for chiller group"
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW supply"
     annotation (Placement(transformation(extent={{190,80},{210,160}}),
-    iconTransformation(extent={{190,460},{210,540}})));
+    iconTransformation(extent={{190,860},{210,940}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_bCon[nChi](
     redeclare each final package Medium = MediumCon,
     each m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     each h_outflow(start=MediumCon.h_default, nominal=MediumCon.h_default))
     "Condenser cooling fluid return (e.g. from chillers to cooling towers)"
     annotation (Placement(transformation(extent={{-210,80},{-190,160}}),
-        iconTransformation(extent={{-210,460},{-190,540}})));
+        iconTransformation(extent={{-210,860},{-190,940}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aCon[nChi](
     redeclare each final package Medium = MediumCon,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumCon.h_default, nominal=MediumCon.h_default))
     "Condenser cooling fluid supply (e.g. from cooling towers to chillers)"
     annotation (Placement(transformation(extent={{-210,-140},{-190,-60}}),
-        iconTransformation(extent={{-210,-540},{-190,-460}})));
+        iconTransformation(extent={{-210,-940},{-190,-860}})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aChiWat[nChi](
     redeclare each final package Medium = MediumChiWat,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     each h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return"
     annotation (Placement(transformation(extent={{190,-140},{210, -60}}),
-    iconTransformation(extent={{190,-540},{210,-460}})));
+    iconTransformation(extent={{190,-940},{210,-860}})));
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
-    iconTransformation(extent={{-20,580},{20,620}})));
+    iconTransformation(extent={{-20,980},{20,1020}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator TChiWatSupSet(nout=nChi)
     "Replicating common CHW supply temperature setpoint" annotation (Placement(
         transformation(
@@ -269,11 +269,11 @@ equation
       thickness=0.5));
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-200,-600},{200,600}}), graphics={
+    extent={{-200,-1000},{200,1000}}), graphics={
         Text(
-          extent={{-149,-614},{151,-654}},
+          extent={{-149,-1014},{151,-1054}},
           textColor={0,0,255},
           textString="%name"),
-    Rectangle(extent={{-200,600},{200,-600}},
+    Rectangle(extent={{-200,-1000},{200,1000}},
             lineColor={28,108,200})}));
 end PartialChillerGroup;

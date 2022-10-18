@@ -37,14 +37,14 @@ package Types
       HeatExchangerWithPump "Heat exchanger with pump for CHW flow control",
       HeatExchangerWithValve "Heat exchanger with bypass valve for CHW flow control")
       "Enumeration to configure the WSE";
-  type SensorLocation = enumeration(
-      Return "Sensor in the return line",
-      Supply "Sensor in the supply line")
-      "Enumeration to specify the sensor location";
   type PrimaryOverflowMeasurement = enumeration(
       FlowDecoupler "Flow meter in the decoupler",
       FlowDifference "Primary and secondary loop flow meters",
       TemperatureSupplySensor "Delta-T with single CHWST sensor measuring combined flow of all chillers",
       TemperatureChillerSensor "Delta-T with weighted average of CHWST of all chillers proven on")
     "Enumeration to configure the sensors for primary CHW pump control in variable primary-variable secondary plants";
+  type SensorLocation = enumeration(
+      Return "Sensor in the return line",
+      Supply "Sensor in the supply line")
+      "Enumeration to specify the sensor location";
 end Types;
