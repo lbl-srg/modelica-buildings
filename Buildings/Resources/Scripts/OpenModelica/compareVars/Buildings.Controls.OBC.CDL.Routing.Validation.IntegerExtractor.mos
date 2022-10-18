@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "extIndInt.u[1]",
+    "extIndInt.u[2]",
+    "extIndInt.u[3]",
+    "extIndInt.u[4]",
+    "extIndInt.index",
+    "extIndInt.y",
+    "extIndInt1.index",
+    "extIndInt1.y",
+    "extIndInt2.index",
+    "extIndInt2.y",
+    "extIndInt3.index",
+    "extIndInt3.y",
+    "extIndInt4.index",
+    "extIndInt4.y"
+  };
