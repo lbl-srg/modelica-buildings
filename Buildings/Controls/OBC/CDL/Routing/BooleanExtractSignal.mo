@@ -1,17 +1,17 @@
 within Buildings.Controls.OBC.CDL.Routing;
-block RealExtractSignal
-  "Extract signals from a real input signal vector"
+block BooleanExtractSignal
+  "Extract signals from a boolean input signal vector"
   parameter Integer nin=1
     "Number of inputs";
   parameter Integer nout=1
     "Number of outputs";
   parameter Integer extract[nout]=1:nout
     "Extracting vector";
-  Interfaces.RealInput u[nin]
-    "Real input signals"
+  Interfaces.BooleanInput u[nin]
+    "Boolean input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y[nout]
-    "Real signals extracted from the input vector with the extraction scheme specified by the integer vector"
+  Interfaces.BooleanOutput y[nout]
+    "Boolean signals extracted from the input vector with the extraction scheme specified by the integer vector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
@@ -25,110 +25,110 @@ equation
     y[i]=u[extract[i]];
   end for;
   annotation (
-    defaultComponentName="extReaSig",
+    defaultComponentName="extBooSig",
     Icon(
       graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
-          lineColor={0,0,127},
+          lineColor={255,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-90,51},{-50,-49}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Rectangle(
           extent={{50,50},{90,-50}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Polygon(
           points={{-94.4104,1.90792},{-94.4104,-2.09208},{-90.4104,-0.0920762},{-94.4104,1.90792}},
-          fillColor={0,0,127},
+          fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Line(
           points={{-72,2},{-60.1395,12.907},{-49.1395,12.907}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{-73,4},{-59,40},{-49,40}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{-113,0},{-76.0373,-0.0180176}},
-          color={0,0,127}),
+          color={255,0,255}),
         Ellipse(
           extent={{-81.0437,4.59255},{-71.0437,-4.90745}},
-          fillColor={0,0,127},
+          fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Line(
           points={{-73,-5},{-60,-40},{-49,-40}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{-72,-2},{-60.0698,-12.907},{-49.0698,-12.907}},
-          color={0,0,127}),
+          color={255,0,255}),
         Polygon(
           points={{-48.8808,-11},{-48.8808,-15},{-44.8808,-13},{-48.8808,-11}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Line(
           points={{-46,13},{-35,13},{35,-30},{45,-30}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{-45,40},{-35,40},{35,0},{44,0}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{-45,-40},{-34,-40},{35,30},{44,30}},
-          color={0,0,127}),
+          color={255,0,255}),
         Polygon(
           points={{-49,42},{-49,38},{-45,40},{-49,42}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Polygon(
           points={{-48.8728,-38.0295},{-48.8728,-42.0295},{-44.8728,-40.0295},{-48.8728,-38.0295}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Polygon(
           points={{-48.9983,14.8801},{-48.9983,10.8801},{-44.9983,12.8801},{-48.9983,14.8801}},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Ellipse(
           extent={{69.3052,4.12743},{79.3052,-5.37257}},
-          fillColor={0,0,127},
+          fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Line(
           points={{80,0},{100,0}},
-          color={0,0,127}),
+          color={255,0,255}),
         Polygon(
           points={{43.1618,32.3085},{43.1618,28.3085},{47.1618,30.3085},{43.1618,32.3085}},
-          fillColor={0,0,127},
+          fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Polygon(
           points={{43.2575,1.80443},{43.2575,-2.19557},{47.2575,-0.195573},{43.2575,1.80443}},
-          fillColor={0,0,127},
+          fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Polygon(
           points={{43.8805,-28.1745},{43.8805,-32.1745},{47.8805,-30.1745},{43.8805,-28.1745}},
-          fillColor={0,0,127},
+          fillColor={255,0,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127}),
+          lineColor={255,0,255}),
         Line(
           points={{48,0},{70,0}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{47,30},{60,30},{73,3}},
-          color={0,0,127}),
+          color={255,0,255}),
         Line(
           points={{49,-30},{60,-30},{74,-4}},
-          color={0,0,127}),
+          color={255,0,255}),
         Text(
           extent={{-150,-150},{150,-110}},
           textColor={0,0,0},
@@ -140,8 +140,8 @@ equation
     Documentation(
       info="<html>
 <p>
-Extract signals from the vector-valued real input signal and transfer them
-to the vector-valued real output signal.
+Extract signals from the vector-valued boolean input signal and transfer them
+to the vector-valued boolean output signal.
 </p>
 <p>
 The extraction scheme is specified by the integer vector <code>extract</code>.
@@ -170,18 +170,9 @@ input vector (<code>nin=7</code>):</p>
 revisions="<html>
 <ul>
 <li>
-October 14, 2022, by Jianjun Hu:<br/>
-Added assertion to check if there is any element in extracting vector is out of range.
-</li>
-<li>
-July 19, 2018, by Jianjun Hu:<br/>
-Changed block name.
-</li>
-<li>
-July 24, 2017, by Jianjun Hu:<br/>
-First implementation, based on the implementation of the
-Modelica Standard Library.
+October 5, 2022, by Jianjun Hu:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
-end RealExtractSignal;
+end BooleanExtractSignal;
