@@ -211,7 +211,7 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium=MediumChiWat,
     final have_sen=ctl.have_senDpChiWatLoc,
     final allowFlowReversal=allowFlowReversal,
-    final text_flip=-90)
+    final text_rotation=-90)
     "Local CHW differential pressure sensor"
     annotation (Placement(
         transformation(
@@ -269,6 +269,7 @@ partial model PartialChilledWaterLoop
   replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
+    final dat=dat.ctl,
     final typChi=typChi,
     final nChi=nChi,
     final typArrChi=typArrChi,
@@ -293,12 +294,31 @@ partial model PartialChilledWaterLoop
     Placement(transformation(extent={{-80,130},{-60,150}})));
 
 
-
+  // Miscellaneous
+  Fluid.Sources.Outside out(
+    redeclare replaceable package Medium=Buildings.Media.Air,
+    nPorts=2)
+    "Outdoor air conditions"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={0,250})));
+  Fluid.Sensors.RelativeHumidity phiOut(
+    redeclare replaceable package Medium=Buildings.Media.Air,
+    final warnAboutOnePortConnection=false)
+    "OA relative humidity"
+    annotation (Placement(transformation(extent={{-50,240},{-30,260}})));
+  Fluid.Sensors.Temperature TOut(
+    redeclare replaceable package Medium=Buildings.Media.Air,
+    warnAboutOnePortConnection=false)
+    "OA temperature"
+    annotation (Placement(transformation(extent={{30,240},{50,260}})));
 equation
   /* Control point connection - start */
-  connect(busWea.TDryBul, bus.TOut);
-  connect(busWea.relHum, bus.phiOut);
-  connect(bus,ctl. bus);
+  connect(TOut.T, bus.TOut);
+  connect(phiOut.phi, bus.phiOut);
+  connect(bus, ctl.bus);
   connect(bus, rou.bus);
   connect(bus, chi.bus);
   connect(bus, eco.bus);
@@ -377,4 +397,12 @@ equation
           {140,-200},{40,-200}},     color={0,127,255}));
   connect(valChiWatMinByp.port_b, VChiWatByp_flow.port_a) annotation (Line(
         points={{130,-110},{130,-120},{140,-120},{140,-140}}, color={0,127,255}));
+  connect(busWea, out.weaBus) annotation (Line(
+      points={{0,280},{0,260},{0.2,260}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(out.ports[1], TOut.port)
+    annotation (Line(points={{-1,240},{40,240}}, color={0,127,255}));
+  connect(phiOut.port, out.ports[2])
+    annotation (Line(points={{-40,240},{1,240}}, color={0,127,255}));
 end PartialChilledWaterLoop;

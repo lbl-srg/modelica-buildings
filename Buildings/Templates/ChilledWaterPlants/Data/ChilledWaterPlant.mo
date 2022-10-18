@@ -121,7 +121,9 @@ record ChilledWaterPlant "Record for chilled water plant model"
     final nPum=nPumChiWatSec,
     final rho_default=rhoChiWat_default,
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
-    m_flow_nominal=fill(ctl.VChiWatSec_flow_nominal[1] * rhoChiWat_default / nPumChiWatSec, nPumChiWatSec))
+    m_flow_nominal=if have_pumChiWatSec then
+      fill(ctl.VChiWatSec_flow_nominal[1] * rhoChiWat_default / nPumChiWatSec, nPumChiWatSec)
+      else fill(0, nPumChiWatSec))
     "Secondary CHW pumps"
     annotation(Dialog(group="Secondary CHW loop",
     enable=have_pumChiWatSec));

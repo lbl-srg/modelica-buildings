@@ -529,6 +529,10 @@ block G36 "Guideline 36 controller for CHW plant"
  if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only
     "#2299 Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME_yTowFanSpe(final k=fill(1
+        /nCoo, nCoo), final nin=1) if have_varPumChiWatPri
+    "#2299 Should be scalar and conditional"
+    annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
 protected
   Integer idx;
 initial algorithm
@@ -614,7 +618,7 @@ equation
   connect(ctl.yChiWatPum, bus.pumChiWatPri.y1);
   connect(FIXME_yChiPumSpe.y, bus.pumChiWatPri.y);
   connect(FIXME_yChiDem.u, ctl.yChiDem);
-  connect(ctl.yChi, bus.chi.y1);
+  connect(ctl.yChi, bus.y1Chi);
   connect(FIXME1_yHeaPreConVal.y, bus.valConWatChiIso.y1);
   connect(FIXME_yHeaPreConVal.y, bus.valConWatChiIso.y);
   connect(ctl.yConWatPum, bus.pumConWat.y1);
@@ -626,8 +630,8 @@ equation
   connect(FIXME_yMinValPosSet.y, bus.valChiWatMinByp.y);
   connect(FIXME_yTowCelIsoVal.y, bus.valCooInlIso.y1);
   connect(FIXME_yTowCelIsoVal.y, bus.valCooOutIso.y1);
-  connect(ctl.yTowFanSpe, bus.coo.y);
-  connect(ctl.yTowCel, bus.coo.y1);
+  connect(FIXME_yTowFanSpe.y, bus.yCoo);
+  connect(ctl.yTowCel, bus.y1Coo);
   /* Control point connection - stop */
 
   connect(p_default.y, FIXME_TOutWet.p)
@@ -644,6 +648,8 @@ equation
           -15.25},{36,-15.25},{36,-60},{118,-60}}, color={0,0,127}));
   connect(ctl.yMinValPosSet, FIXME_yMinValPosSet.u) annotation (Line(points={{22,
           -17.5},{34,-17.5},{34,-140},{118,-140}}, color={0,0,127}));
+  connect(ctl.yTowFanSpe[1], FIXME_yTowFanSpe.u[1]) annotation (Line(points={{22,
+          -28},{30,-28},{30,-260},{118,-260}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 
 </html>"));

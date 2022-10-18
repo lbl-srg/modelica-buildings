@@ -70,7 +70,7 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 equation
   /* Control point connection - start */
-  connect(bus.coo, coo.bus);
+  connect(busCoo, coo.bus);
   connect(bus.valCooInlIso, valCooInlIso.bus);
   connect(bus.valCooOutIso, valCooOutIso.bus);
   for i in 1:nCoo loop

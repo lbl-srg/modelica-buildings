@@ -253,10 +253,10 @@ record Controller "Record for plant controller"
     have_senDpChiWatLoc));
   // FIXME #2299: For dedicated CW pumps this should be a 2-D array [nSta, nPumConWat] which is more aligned with §5.20.9.6.
   parameter Real yPumConWatSta_nominal[nSta](
-    final unit="1",
-    final min=0,
-    final max=1,
-    start=fill(1, nSta))
+    each final unit="1",
+    each final min=0,
+    each final max=1,
+    each start=1)
     "CW pump speed delivering design CW flow through chillers and WSE - Each plant stage"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
@@ -287,10 +287,10 @@ record Controller "Record for plant controller"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump));
   parameter Real yPumChiWatPriSta_nominal[nSta](
-    final unit="1",
-    final min=0,
-    final max=1,
-    start=fill(1, nSta))
+    each final unit="1",
+    each final min=0,
+    each final max=1,
+    each start=1)
     "Primary CHW pump speed delivering design flow through chillers - Each plant stage"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=
@@ -298,10 +298,10 @@ record Controller "Record for plant controller"
       typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2)
       and have_varPumChiWatPri));
   parameter Real yPumChiWatPriSta_min[nSta](
-    final unit="1",
-    final min=0,
-    final max=1,
-    start=fill(0.3, nSta))
+    each final unit="1",
+    each final min=0,
+    each final max=1,
+    each start=0.3)
     "Primary CHW pump speed delivering minimum flow through chillers - Each plant stage"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2 or

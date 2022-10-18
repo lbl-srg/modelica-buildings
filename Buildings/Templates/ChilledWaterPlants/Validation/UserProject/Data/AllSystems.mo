@@ -51,7 +51,7 @@ class AllSystems
       dTLifChi_nominal=_CHI.ctl.TConWatChiRet_nominal .- _CHI.ctl.TChiWatChiSup_nominal,
       capChi_nominal=fill(1E6, _CHI.nChi),
       VChiWatPri_flow_nominal=sum(_CHI.ctl.VChiWatChi_flow_nominal),
-      VChiWatSec_flow_nominal=1.1 * _CHI.ctl.VChiWatPri_flow_nominal,
+      VChiWatSec_flow_nominal={1.1 * _CHI.ctl.VChiWatPri_flow_nominal},
       capUnlChi_min=0.15 * _CHI.ctl.capChi_nominal,
       dTAppEco_nominal=Buildings.Templates.Data.Defaults.TChiWatEcoLvg-
         Buildings.Templates.Data.Defaults.TConWatEcoEnt,
@@ -80,8 +80,8 @@ class AllSystems
       [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else
       [0,0; 1,0; 1,1],
       staCoo=if _CHI.typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
-      [0,1,1,2,2,2] else
-      [0,1,2]),
+      {0,1,1,2,2,2} else
+      {0,1,2}),
     pumChiWatPri(
       dp_nominal=fill((if CHI.typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
        then max(_CHI.chi.dpChiWatChi_nominal) else sum(_CHI.chi.dpChiWatChi_nominal)) * 1.5, _CHI.nPumChiWatPri) +

@@ -179,7 +179,8 @@ partial block PartialController "Interface class for plant controller"
     "Set to true for secondary CHW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl typCtrFanCoo
+  parameter Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl typCtrFanCoo=
+    Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature
     "Cooler fan speed control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled));
@@ -187,8 +188,7 @@ partial block PartialController "Interface class for plant controller"
     "Set to true if the plant is close coupled, i.e. pipe length from chillers to coolers under 100 feet"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36));
-  parameter Boolean have_senLevCoo(
-    start=true)
+  parameter Boolean have_senLevCoo=false
     "Set to true if cooling towers have level sensor for makeup water control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and

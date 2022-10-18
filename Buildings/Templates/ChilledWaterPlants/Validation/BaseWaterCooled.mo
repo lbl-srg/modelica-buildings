@@ -24,21 +24,9 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
   parameter Integer nPumChiWatSec=nChi
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter
-    Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
-    dat(CHI(
-      final nChi=CHI.nChi,
-      final nPumChiWatPri=nPumChiWatPri,
-      final nPumConWat=nPumConWat,
-      final nCoo=CHI.nCoo,
-      final typChi=CHI.typChi,
-      final typEco=CHI.typEco,
-      final typDisChiWat=CHI.typDisChiWat,
-      final nPumChiWatSec=CHI.nPumChiWatSec,
-      final typCoo=CHI.typCoo,
-      final have_varPumConWat=CHI.have_varPumConWat))
+  parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat
     "Design and operating parameters"
-    annotation (Placement(transformation(extent={{70,72},{90,92}})));
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -48,13 +36,16 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI(
+  inner replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI(
     typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
     typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     have_varPumConWat_select=true,
-    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
+    ctl(
+      typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
+      typCtrFanCoo=Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature,
+      have_senLevCoo=false),
     chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
         typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition),
     redeclare replaceable
@@ -71,7 +62,8 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     final nPumConWat=nPumConWat,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final dat=dat.CHI) "CHW plant"
+    final dat=dat._CHI)
+    "CHW plant"
     annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
 
   Fluid.Sources.Boundary_pT bou(
@@ -84,7 +76,7 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumChiWat,
     m_flow_nominal=CHI.mChiWat_flow_nominal,
-    dp_nominal=dat.dpChiWatDis_nominal)
+    dp_nominal=dat._CHI.ctl.dpChiWatLocSet_nominal)
     "Flow resistance of CHW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(

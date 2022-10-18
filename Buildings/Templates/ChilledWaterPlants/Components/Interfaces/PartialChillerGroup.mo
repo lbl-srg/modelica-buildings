@@ -186,7 +186,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
       dat.mConWatChi_flow_nominal
     elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled then
       dat.mConAirChi_flow_nominal
-    else 0
+    else fill(0, nChi)
     "Condenser cooling fluid mass flow rate - Each chiller";
   final parameter Modelica.Units.SI.HeatFlowRate capChi_nominal[nChi]=
     dat.capChi_nominal
@@ -257,14 +257,18 @@ protected
     "Chiller control bus" annotation (Placement(transformation(extent={{-20,120},
             {20,160}}), iconTransformation(extent={{-350,6},{-310,46}})));
 equation
+  connect(TChiWatSupSet.y, busChi.TChiWatSupSet)
+    annotation (Line(points={{0,158},{0,140}}, color={0,0,127}));
   connect(bus.TChiWatSupSet, TChiWatSupSet.u) annotation (Line(
       points={{0,200},{0,182}},
       color={255,204,51},
-      thickness=0.5));
-  connect(TChiWatSupSet.y, busChi.TChiWatSupSet)
-    annotation (Line(points={{0,158},{0,140}}, color={0,0,127}));
-  connect(bus.chi, busChi) annotation (Line(
-      points={{0,200},{0,196},{20,196},{20,140},{0,140}},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busChi, bus.chi) annotation (Line(
+      points={{0,140},{40,140},{40,190},{8,190},{8,196},{0,196},{0,200}},
       color={255,204,51},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),

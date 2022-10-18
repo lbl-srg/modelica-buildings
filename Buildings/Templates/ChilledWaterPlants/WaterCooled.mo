@@ -33,6 +33,7 @@ model WaterCooled "Water-cooled chiller plant"
     coo constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolerGroup(
     redeclare final package MediumConWat = MediumCon,
+    final have_varCom=true,
     final nCoo=nCoo,
     final dat=dat.coo,
     final energyDynamics=energyDynamics,

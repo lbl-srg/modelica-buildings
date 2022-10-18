@@ -89,14 +89,27 @@ model Compression "Group of compression chillers"
 equation
   /* Control point connection - start */
   connect(busChi, chi.bus);
-  connect(bus.TChiWatChiSup, TChiWatChiSup.y);
-  connect(bus.TChiWatChiRet, TChiWatChiRet.y);
-  connect(bus.TConWatChiSup, TConWatChiSup.y);
-  connect(bus.TConWatChiRet, TConWatChiRet.y);
   connect(bus.valConWatChiIso, valConWatChiIsoMod.bus);
   connect(bus.valConWatChiIso, valConWatChiIsoTwo.bus);
   connect(bus.valChiWatChiIso, valChiWatChiIsoTwo.bus);
   connect(bus.valChiWatChiIso, valChiWatChiIsoMod.bus);
+  /* 
+  HACK: The following clauses should be removed at translation if `not have_sen` 
+  but Dymola fails to do so.
+  Hence, explicit `if then` statements are used.
+  */
+  if have_senTChiWatChiSup then
+    connect(bus.TChiWatChiSup, TChiWatChiSup.y);
+  end if;
+  if have_senTChiWatChiRet then
+    connect(bus.TChiWatChiRet, TChiWatChiRet.y);
+  end if;
+  if have_senTConWatChiSup then
+    connect(bus.TConWatChiSup, TConWatChiSup.y);
+  end if;
+  if have_senTConWatChiRet then
+    connect(bus.TConWatChiRet, TConWatChiRet.y);
+  end if;
   /* Control point connection - stop */
 
   connect(TChiWatChiSup.port_b, valChiWatChiIsoTwo.port_a)

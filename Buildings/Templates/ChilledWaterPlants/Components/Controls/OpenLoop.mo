@@ -4,8 +4,8 @@ block OpenLoop "Open loop controller (output signals only)"
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
      final typ=Buildings.Templates.ChilledWaterPlants.Types.Controller.OpenLoop);
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet[nChi](
-    each k=Buildings.Templates.Data.Defaults.TChiWatSup)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
+    k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
@@ -55,10 +55,10 @@ block OpenLoop "Open loop controller (output signals only)"
     each k=1) if typValCooOutIso== Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Cooler outlet isolation valve opening signal"
     annotation (Placement(transformation(extent={{-50,230},{-30,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoo[nCoo](each k=1)
-    if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoo(
+    k=1) if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     "Cooler fan speed signal"
-    annotation (Placement(transformation(extent={{40,214},{60,234}})));
+    annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Chi[nChi](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
@@ -147,9 +147,6 @@ protected
   Buildings.Templates.Components.Interfaces.Bus busPumConWat
     "CW pumps control bus" annotation (Placement(transformation(extent={{120,-180},
             {160,-140}}),iconTransformation(extent={{-316,184},{-276,224}})));
-  Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
-    "Chiller control bus" annotation (Placement(transformation(extent={{120,120},
-            {160,160}}), iconTransformation(extent={{-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[nChi]
     "Chiller CW isolation valve control bus"
     annotation (Placement(
@@ -164,9 +161,6 @@ protected
     annotation (Placement(transformation(
           extent={{120,-120},{160,-80}}),  iconTransformation(extent={{-316,184},{-276,
             224}})));
-  Buildings.Templates.Components.Interfaces.Bus busCoo[nCoo]
-    "Coolers control bus" annotation (Placement(transformation(extent={{120,220},
-            {160,260}}), iconTransformation(extent={{-316,184},{-276,224}})));
   Buildings.Templates.Components.Interfaces.Bus busValCooInlIso[nCoo]
     "Cooler inlet isolation valve control bus" annotation (Placement(
         transformation(extent={{120,260},{160,300}}),  iconTransformation(
@@ -225,9 +219,6 @@ equation
       points={{140,-160},{200,-160},{200,0},{260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(TChiWatSupSet.y, busChi.TChiWatSupSet)
-    annotation (Line(points={{-78,120},{140,120},{140,140}},
-                                                      color={0,0,127}));
   connect(yValChiWatChiIso.y, busValChiWatChiIso.y) annotation (Line(points={{-108,
           200},{-60,200},{-60,190},{132,190},{132,180},{140,180}},
                                            color={0,0,127}));
@@ -239,23 +230,12 @@ equation
   connect(yValCooOutIso.y, busValCooOutIso.y) annotation (Line(points={{-28,240},
           {-20,240},{-20,260},{140,260}},
                                         color={0,0,127}));
-  connect(busChi, bus.chi) annotation (Line(
-      points={{140,140},{160,140},{160,0},{260,0}},
-      color={255,204,51},
-      thickness=0.5));
   connect(busValConWatChiIso, bus.valConWatChiIso) annotation (Line(
       points={{140,160},{170,160},{170,0},{260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatChiIso, bus.valChiWatChiIso) annotation (Line(
       points={{140,180},{180,180},{180,0},{260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(yCoo.y, busCoo.y)
-    annotation (Line(points={{62,224},{82,224},{82,240},{140,240}},
-                                                            color={0,0,127}));
-  connect(busCoo, bus.coo) annotation (Line(
-      points={{140,240},{194,240},{194,0},{260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValCooOutIso, bus.valCooOutIso) annotation (Line(
@@ -266,14 +246,6 @@ equation
       points={{140,280},{200,280},{200,0},{260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(y1Chi.y[1], busChi.y1) annotation (Line(points={{-138,140},{140,140}},
-                         color={255,0,255}), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(y1Coo.y[1], busCoo.y1)
-    annotation (Line(points={{22,240},{140,240}}, color={255,0,255}));
   connect(y1ValCooInlIso.y[1], busValCooInlIso.y1)
     annotation (Line(points={{-138,280},{140,280}}, color={255,0,255}));
   connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1)
@@ -338,6 +310,30 @@ equation
       horizontalAlignment=TextAlignment.Left));
   connect(yPumChiWatPriDed.y, busPumChiWatPri.y) annotation (Line(points={{-78,
           -80},{140,-80},{140,-60}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(y1Chi.y[1], bus.y1Chi) annotation (Line(points={{-138,140},{248,140},
+          {248,0},{260,0}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(TChiWatSupSet.y, bus.TChiWatSupSet) annotation (Line(points={{-78,120},
+          {244,120},{244,0},{260,0}}, color={0,0,127}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(y1Coo.y[1], bus.y1Coo) annotation (Line(points={{22,240},{252,240},{
+          252,0},{260,0}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(yCoo.y, bus.yCoo) annotation (Line(points={{62,220},{256,220},{256,0},
+          {260,0}}, color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
