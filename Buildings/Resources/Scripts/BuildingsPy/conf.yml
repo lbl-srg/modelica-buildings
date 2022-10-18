@@ -430,3 +430,7 @@
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
     simulate: false
+- model_name: Buildings.Experimental.DHC.Examples.Cooling.DirectUncontrolledETS
+  openmodelica:
+    comment: 'division by zero at time 15724800, (a=0) / (b=0), where divisor b expression is: 0.0'
+    simulate: false
