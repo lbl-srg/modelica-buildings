@@ -40,7 +40,7 @@ partial model PartialFlowMachine
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
-  parameter Boolean nominalValuesDefineDefaultPressureCurve=false
+  parameter Boolean nominalValuesDefineDefaultPressureCurve = false
     "Set to true to avoid warning if m_flow_nominal and dp_nominal are used to construct the default pressure curve";
 
   parameter Modelica.Units.SI.Time tau=1

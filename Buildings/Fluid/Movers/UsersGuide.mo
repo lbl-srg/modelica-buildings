@@ -892,8 +892,7 @@ These functions are implemented in
 Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 <li>
-The efficiency calculation is different, in particular, the models in this package a"
-           + "llow
+The efficiency calculation is different, in particular, the models in this package allow
 use of the Euler number to compute the hydraulic efficiency.
 </li>
 </ul>
