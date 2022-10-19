@@ -11,20 +11,9 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
   parameter Integer nChi=2
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumChiWatPri=nChi
-    "Number of primary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPumConWat=nChi
-    "Number of CW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nCoo=nChi
-    "Number of cooler units"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nPumChiWatSec=nChi
-    annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems dat
+  replaceable parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystemsWaterCooled dat
+    constrainedby Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
@@ -58,8 +47,6 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare replaceable package MediumCon = MediumConWat,
     final nChi=nChi,
-    final nPumChiWatPri=nPumChiWatPri,
-    final nPumConWat=nPumConWat,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=dat._CHI)
@@ -71,14 +58,14 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     p=200000,
     nPorts=2)
     "Boundary conditions for CHW distribution system"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
+    annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
 
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumChiWat,
     m_flow_nominal=CHI.mChiWat_flow_nominal,
     dp_nominal=dat._CHI.ctl.dpChiWatLocSet_nominal)
     "Flow resistance of CHW distribution system"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -87,15 +74,16 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
 
 equation
   connect(res.port_b, bou.ports[1])
-    annotation (Line(points={{40,0},{60,0},{60,-11}},      color={0,127,255}));
+    annotation (Line(points={{40,-10},{60,-10},{60,-21}},  color={0,127,255}));
   connect(weaDat.weaBus, CHI.busWea) annotation (Line(
       points={{-60,80},{-20,80},{-20,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(CHI.port_a, bou.ports[2]) annotation (Line(points={{0.2,-20.2},{60,-20.2},
-          {60,-9}},       color={0,127,255}));
+  connect(CHI.port_a, bou.ports[2]) annotation (Line(points={{0.2,-20},{60,-20},
+          {60,-19}},      color={0,127,255}));
   connect(CHI.port_b, res.port_a)
-    annotation (Line(points={{0.2,0},{20,0}},  color={0,127,255}));
+    annotation (Line(points={{0.2,-10},{20,-10}},
+                                               color={0,127,255}));
   annotation (
   experiment(Tolerance=1e-6, StopTime=1),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

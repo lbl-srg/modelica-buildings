@@ -252,6 +252,13 @@ partial model PartialChillerGroup "Interface class for chiller group"
         rotation=-90,
         origin={0,170})));
 
+  Modelica.Blocks.Routing.BooleanPassThrough pasSta[nChi]
+    "Direct pass through for Start/Stop signal"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-40,170})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus" annotation (Placement(transformation(extent={{-20,120},
@@ -271,6 +278,20 @@ equation
       points={{0,140},{40,140},{40,190},{8,190},{8,196},{0,196},{0,200}},
       color={255,204,51},
       thickness=0.5));
+  connect(pasSta.y, busChi.y1) annotation (Line(points={{-40,159},{-40,140},{0,
+          140}}, color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(bus.y1Chi, pasSta.u) annotation (Line(
+      points={{0,200},{0,194},{-40,194},{-40,182}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-1000},{200,1000}}), graphics={

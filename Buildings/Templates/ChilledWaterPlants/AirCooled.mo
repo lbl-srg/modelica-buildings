@@ -1,15 +1,17 @@
 within Buildings.Templates.ChilledWaterPlants;
 model AirCooled "Air-cooled chiller plant"
-  extends
-    Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
+  extends  Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Air,
     redeclare final Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco,
+    ctl(final typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn),
     final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
+    final typCoo=Buildings.Templates.Components.Types.Cooler.None,
+    final nCoo=0,
+    final nPumConWat=0,
     final typValCooInlIso=Buildings.Templates.Components.Types.Valve.None,
     final typValCooOutIso=Buildings.Templates.Components.Types.Valve.None);
 
   // Air loop
-
   Fluid.Sources.Boundary_pT bouCon(
     redeclare final package Medium = MediumCon,
     final nPorts=1)
@@ -21,6 +23,7 @@ model AirCooled "Air-cooled chiller plant"
         origin={-120,0})));
   Fluid.Sources.MassFlowSource_WeatherData souAir[nChi](
     redeclare each final package Medium = MediumCon,
+    each final nPorts=1,
     each final use_m_flow_in=true)
     "Air flow source"
     annotation (Placement(transformation(
@@ -31,7 +34,7 @@ model AirCooled "Air-cooled chiller plant"
     "Convert chiller Start/Stop signal into real value"
     annotation (Placement(transformation(extent={{-230,130},{-210,150}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter mCon_flow[nChi](
-    k=dat.chi.mConChi_flow_nominal)
+    final k=chi.mConChi_flow_nominal)
     "Compute air mass flow rate at condenser"
     annotation (Placement(transformation(extent={{-188,130},{-168,150}})));
 protected

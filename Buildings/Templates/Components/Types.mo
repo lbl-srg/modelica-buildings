@@ -22,6 +22,8 @@ package Types "Package with type definitions"
       "Hot water coil")
     "Enumeration to configure the coil";
   type Cooler = enumeration(
+      None
+      "No external cooler (typically for air-cooled chillers)",
       CoolingTowerClosed
       "Closed-circuit cooling tower",
       CoolingTowerOpen

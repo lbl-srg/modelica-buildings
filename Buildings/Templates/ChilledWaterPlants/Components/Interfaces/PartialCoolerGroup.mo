@@ -109,14 +109,21 @@ partial model PartialCoolerGroup
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,70})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractSignal pasSpe(
-    final nin=nCoo,
-    final nout=nCoo) if not have_varCom
-    "Direct pass through for dedicated speed signal"  annotation (Placement(
+  Modelica.Blocks.Routing.RealPassThrough pasSpe[nCoo]
+    if not have_varCom
+    "Direct pass through for dedicated speed signal"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={40,70})));
+  Modelica.Blocks.Routing.BooleanPassThrough pasSta[nCoo]
+    "Direct pass through for Start/Stop signal"
+    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-40,70})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busCoo[nCoo]
     "Cooler control bus"  annotation (Placement(transformation(extent={{-20,20},
@@ -125,7 +132,7 @@ equation
   connect(repSpe.y, busCoo.y)
     annotation (Line(points={{0,58},{0,40}}, color={0,0,127}));
   connect(pasSpe.y, busCoo.y)
-    annotation (Line(points={{40,58},{40,50},{0,50},{0,40}}, color={0,0,127}));
+    annotation (Line(points={{40,59},{40,50},{0,50},{0,40}}, color={0,0,127}));
   connect(bus.yCoo, repSpe.u) annotation (Line(
       points={{0,100},{0,82}},
       color={255,204,51},
@@ -150,6 +157,20 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(bus.y1Coo, pasSta.u) annotation (Line(
+      points={{0,100},{0,94},{-40,94},{-40,82}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(pasSta.y, busCoo.y1) annotation (Line(points={{-40,59},{-40,40},{0,40}},
+        color={255,0,255}), Text(
+      string="%second",
+      index=1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-400,-400},{400,400}})), Diagram(

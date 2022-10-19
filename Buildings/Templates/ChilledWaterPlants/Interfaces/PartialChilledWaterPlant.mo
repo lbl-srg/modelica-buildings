@@ -85,7 +85,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     final min=0)=nChi
     "Number of CW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
            and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.Components.Types.PumpArrangement
@@ -141,15 +141,27 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
 
   parameter Integer nPumChiWatSec(
     start=1,
-    final min=0)=nChi
+    final min=0)=if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only then 0
+    else nChi
     "Number of secondary CHW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2
-     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2));
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
   parameter Integer nLooChiWatSec=1
     "Number of secondary CHW loops for distributed secondary distribution"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
+
+  parameter Integer nAirHan(
+    final min=0)=0
+    "Number of air handling units served by the plant"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Integer nEquZon(
+    final min=0)=0
+    "Number of terminal units (zone equipment) served by the plant"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
 
   // Following parameters to be assigned by derived classes.
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
@@ -245,14 +257,14 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     h_outflow(start=MediumChiWat.h_default, nominal=MediumChiWat.h_default))
     "CHW return"
     annotation (Placement(transformation(extent={{290,-250},{310,-230}}),
-        iconTransformation(extent={{192,-112},{212,-92}})));
+        iconTransformation(extent={{192,-110},{212,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = MediumChiWat,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start = MediumChiWat.h_default, nominal = MediumChiWat.h_default))
     "CHW supply"
     annotation (Placement(transformation(extent={{290,-10},{310,10}}),
-        iconTransformation(extent={{192,90},{212,110}})));
+        iconTransformation(extent={{192,-10},{212,10}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea
     "Weather data bus"
     annotation (Placement(transformation(
@@ -270,6 +282,23 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,100})));
+  Buildings.Templates.AirHandlersFans.Interfaces.Bus busAirHan[nAirHan]
+    if nAirHan>0
+    "Air handling unit control bus"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={300,180}), iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={200,140})));
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus busEquZon[nEquZon]
+    if nEquZon>0
+    "Terminal unit control bus"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={300,100}),
+        iconTransformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={202,60})));
 
   Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start)=port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";

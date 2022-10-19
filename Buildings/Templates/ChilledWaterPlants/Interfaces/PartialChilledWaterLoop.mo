@@ -266,7 +266,8 @@ partial model PartialChilledWaterLoop
         origin={-40,-220})));
 
   // Controls
-  replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl
+  replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl(nAirHan=1,
+      nEquZon=1)
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
     final dat=dat.ctl,
@@ -291,7 +292,7 @@ partial model PartialChilledWaterLoop
     "Plant controller"
     annotation (
     Dialog(group="Controls"),
-    Placement(transformation(extent={{-80,130},{-60,150}})));
+    Placement(transformation(extent={{-10,130},{10,150}})));
 
 
   // Miscellaneous
@@ -319,6 +320,8 @@ equation
   connect(TOut.T, bus.TOut);
   connect(phiOut.phi, bus.phiOut);
   connect(bus, ctl.bus);
+  connect(busAirHan, ctl.busAirHan);
+  connect(busEquZon, ctl.busEquZon);
   connect(bus, rou.bus);
   connect(bus, chi.bus);
   connect(bus, eco.bus);

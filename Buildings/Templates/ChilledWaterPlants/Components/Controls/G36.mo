@@ -35,23 +35,26 @@ block G36 "Guideline 36 controller for CHW plant"
     "Chiller type. Recommended staging order: positive displacement, variable speed centrifugal, constant speed centrifugal"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  final parameter Real chiDesCap[nChi](unit="W")=dat.capChi_nominal
+  final parameter Real chiDesCap[nChi](
+    each final unit="W")=dat.capChi_nominal
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
-  final parameter Real chiMinCap[nChi](unit="W")=dat.capUnlChi_min
+  final parameter Real chiMinCap[nChi](
+    each final unit="W")=dat.capUnlChi_min
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
   final parameter Real TChiWatSupMin[nChi](
-    unit="K",
-    displayUnit="degC")=dat.TChiWatChiSup_nominal
+    each final unit="K",
+    each displayUnit="degC")=dat.TChiWatChiSup_nominal
     "Minimum chilled water supply temperature"
     annotation (Dialog(tab="General", group="Chillers configuration"));
 
+  // FIXME #2299: Should be provided for each chiller.
   final parameter Real minChiLif(
-    unit="K",
-    displayUnit="K")=dat.dTLifChi_min
+    final unit="K",
+    displayUnit="K")=dat.dTLifChi_min[1]
     "Minimum allowable lift at minimum load for chiller"
     annotation(Dialog(tab="General", group="Chillers configuration", enable=not have_heaPreConSig));
 
@@ -224,11 +227,13 @@ block G36 "Guideline 36 controller for CHW plant"
 
   // ---- Minimum flow bypass ----
 
-  final parameter Real minFloSet[nChi](unit="m3/s")=dat.VChiWatChi_flow_min
+  final parameter Real minFloSet[nChi](
+    each final unit="m3/s")=dat.VChiWatChi_flow_min
     "Minimum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
-  final parameter Real maxFloSet[nChi](unit="m3/s")=dat.VChiWatChi_flow_nominal
+  final parameter Real maxFloSet[nChi](
+    each final unit="m3/s")=dat.VChiWatChi_flow_nominal
     "Maximum chilled water flow through each chiller"
     annotation(Dialog(tab="Minimum flow bypass", group="Flow limits"));
 
@@ -269,7 +274,9 @@ block G36 "Guideline 36 controller for CHW plant"
     "Minimum chilled water pump differential static pressure, default 5 psi"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
 
-  final parameter Real dpChiWatPumMax[nSenChiWatPum](unit="Pa", displayUnit="Pa")=
+  final parameter Real dpChiWatPumMax[nSenChiWatPum](
+    each final unit="Pa",
+    each displayUnit="Pa")=
     dat.dpChiWatRemSet_nominal
     "Maximum chilled water pump differential static pressure, the array size equals to the number of remote pressure sensor"
     annotation (Dialog(tab="Plant Reset", group="Chilled water supply"));
@@ -287,19 +294,20 @@ block G36 "Guideline 36 controller for CHW plant"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
-  final parameter Real LIFT_min[nChi](unit="K")=dat.dTLifChi_min
+  final parameter Real LIFT_min[nChi](
+    each final unit="K")=dat.dTLifChi_min
     "Minimum LIFT of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   final parameter Real TConWatSup_nominal[nChi](
-    unit="K",
-    displayUnit="degC")=dat.TConWatChiSup_nominal
+    each final unit="K",
+    each displayUnit="degC")=dat.TConWatChiSup_nominal
     "Condenser water supply temperature (condenser entering) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
   final parameter Real TConWatRet_nominal[nChi](
-    unit="K",
-    displayUnit="degC")=dat.TConWatChiRet_nominal
+    each final unit="K",
+    each displayUnit="degC")=dat.TConWatChiRet_nominal
     "Condenser water return temperature (condenser leaving) of each chiller"
     annotation (Evaluate=true, Dialog(tab="Cooling Towers", group="Fan speed: Return temperature control"));
 
@@ -315,7 +323,7 @@ block G36 "Guideline 36 controller for CHW plant"
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller ctl(
+  Controller_debug ctl(
     final nChi=nChi,
     final closeCoupledPlant=closeCoupledPlant,
     final have_ponyChiller=have_ponyChiller,
@@ -415,9 +423,6 @@ block G36 "Guideline 36 controller for CHW plant"
       each k=true)
     "#2299: This signal should be internally computed by the stage up and down sequences"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant RFE_chiPlaReq(k=0)
-    "Connect CHW plant requests from all served AHUs and zone equipment"
-    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uConWatPumSpe[nPumConWat](
     each k=1) "#2299: Should be the commanded speed output from subcontroller."
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
@@ -467,8 +472,8 @@ block G36 "Guideline 36 controller for CHW plant"
     "#2299: Missing connectors and dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TChiWatSup(
-    k=Buildings.Templates.Data.Defaults.TChiWatSup) if not have_senTChiWatPriSup
-    "#2299: Missing dependency to plant configuration"
+    k=Buildings.Templates.Data.Defaults.TChiWatSup) if not
+    have_senTChiWatPriSup "#2299: Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TConWatSup(
     k=Buildings.Templates.Data.Defaults.TConWatSup)
@@ -483,9 +488,6 @@ block G36 "Guideline 36 controller for CHW plant"
     if typChi<>Buildings.Templates.Components.Types.Chiller.WaterCooled
     "#2299: Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant FIXME_TChiWatSupResReq(k=0)
-    "#2299: Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_yEcoConWatIsoVal(
     k=true) if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
     "#2299 Should be Boolean"
@@ -496,6 +498,7 @@ block G36 "Guideline 36 controller for CHW plant"
     "#2299 Should be scalar and conditional"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_yChiDem[nChi]
+    if need_reduceChillerDemand
     "#2299 Wrong unit"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_yHeaPreConVal[nChi]
@@ -507,7 +510,7 @@ block G36 "Guideline 36 controller for CHW plant"
     "#2299 Various plant configurations not covered: only modulating valve in controller"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_yConWatPumSpe[nPumConWat]
- if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
+    if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
     have_varPumConWat and not have_varComPumConWat
     "#2299 Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{60,-170},{80,-150}})));
@@ -526,15 +529,29 @@ block G36 "Guideline 36 controller for CHW plant"
     "#2299 Various plant configurations not covered: only modulating valve in controller"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_yMinValPosSet
- if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only
+    if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only
     "#2299 Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME_yTowFanSpe(final k=fill(1
-        /nCoo, nCoo), final nin=1) if have_varPumChiWatPri
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum FIXME_yTowFanSpe(
+    final k=fill(1/nCoo, nCoo),
+    final nin=nCoo)
     "#2299 Should be scalar and conditional"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum FIXME_TChiWatSupResReq(
+    final nin=nAirHan+nEquZon)
+    "#2299: Missing dependency to plant configuration"
+    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqChiWatPla(
+    final nin=nAirHan+nEquZon)
+    "Sum of CHW plant requests from served units"
+    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
+  Modelica.Blocks.Routing.RealPassThrough FIXME_TChiWatPlaRet
+    if have_senTChiWatPlaRet
+    "#2299: Missing dependency to plant configuration"
+    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
 protected
-  Integer idx;
+  Integer idx
+    "Iteration variable for algorithm section";
 initial algorithm
   idx := 1;
   if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
@@ -558,18 +575,23 @@ algorithm
   end when;
 equation
   /* Control point connection - start */
-  connect(bus.chi.y1ChiWatReq,ctl. uChiWatReq);
-  connect(bus.chi.y1ConWatReq,ctl. uConWatReq);
-  connect(bus.pumChiWatPri.y1_actual,ctl. uChiWatPum);
-  connect(bus.dpChiWatLoc,ctl. dpChiWat_local);
-  connect(bus.dpChiWatRem,ctl. dpChiWat_remote);
-  connect(bus.VChiWatPri_flow,ctl. VChiWat_flow);
-  connect(bus.chi.y1_actual,ctl. uChi);
-  connect(bus.TChiWatEcoAft,ctl. TChiWatRetDow);
-  // The two following bus signals are exclusive from on another.
+  connect(busChi.y1ChiWatReq, ctl.uChiWatReq);
+  connect(busChi.y1ConWatReq, ctl.uConWatReq);
+  connect(bus.pumChiWatPri.y1_actual, ctl.uChiWatPum);
+  connect(bus.dpChiWatLoc, ctl.dpChiWat_local);
+  connect(bus.dpChiWatRem, ctl.dpChiWat_remote);
+  connect(bus.VChiWatPri_flow, ctl.VChiWat_flow);
+  connect(busChi.y1_actual, ctl.uChi);
+  connect(bus.TChiWatEcoAft, ctl.TChiWatRetDow);
+  // The three following bus signals are exclusive from on another.
   // FIXME #2299: However, the use of those signals for capacity requirement in primary-only plants is incorrect.
   connect(bus.TChiWatEcoBef,ctl. TChiWatRet);
   connect(bus.TChiWatSecRet,ctl. TChiWatRet);
+  connect(bus.TChiWatPlaRet, FIXME_TChiWatPlaRet.u);
+  // FIXME #2299: Related to above comment, we need to condition the following connect clause to no WSE.
+  if typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
+    connect(FIXME_TChiWatPlaRet.y, ctl. TChiWatRet);
+  end if;
   connect(bus.TConWatSup,ctl. TConWatSup);
   connect(FIXME_TConWatSup.y,ctl. TConWatSup);
   connect(bus.TChiWatPriSup,ctl. TChiWatSup);
@@ -580,7 +602,12 @@ equation
   connect(bus.pumChiWatEco.y1_actual,ctl. uEcoPum);
   connect(bus.TChiWatEcoEnt,ctl. TEntHex);
   connect(bus.TOut,ctl. TOut);
-  connect(bus.coo.y1_actual, ctl.uTowSta);
+  connect(busCoo.y1_actual, ctl.uTowSta);
+
+  connect(busAirHan.reqChiWatRes, FIXME_TChiWatSupResReq.u);
+  connect(busEquZon.reqChiWatRes, FIXME_TChiWatSupResReq.u);
+  connect(busAirHan.reqChiWatPla, reqChiWatPla.u);
+  connect(busEquZon.reqChiWatPla, reqChiWatPla.u);
 
   connect(FIXME_uChiConIsoVal.y,ctl. uChiConIsoVal);
   connect(FIXME_uChiWatIsoVal.y,ctl. uChiWatIsoVal);
@@ -598,7 +625,6 @@ equation
   connect(FIXME_uChiLoa.y,ctl. uChiLoa);
   connect(FIXME_uChiAva.y,ctl. uChiAva);
   connect(FIXME_uChiHeaCon.y,ctl. uChiHeaCon);
-  connect(RFE_chiPlaReq.y,ctl. chiPlaReq);
   connect(FIXME_uConWatPumSpe.y,ctl. uConWatPumSpe);
   connect(FIXME_uChiCooLoa.y,ctl. uChiCooLoa);
   connect(FIXME_uFanSpe.y,ctl. uFanSpe);
@@ -619,17 +645,17 @@ equation
   connect(FIXME_yChiPumSpe.y, bus.pumChiWatPri.y);
   connect(FIXME_yChiDem.u, ctl.yChiDem);
   connect(ctl.yChi, bus.y1Chi);
-  connect(FIXME1_yHeaPreConVal.y, bus.valConWatChiIso.y1);
-  connect(FIXME_yHeaPreConVal.y, bus.valConWatChiIso.y);
+  connect(FIXME1_yHeaPreConVal.y, busValConWatChiIso.y1);
+  connect(FIXME_yHeaPreConVal.y, busValConWatChiIso.y);
   connect(ctl.yConWatPum, bus.pumConWat.y1);
   connect(ctl.yConWatPumSpe, FIXME1_yConWatPumSpe.u);
   connect(FIXME1_yConWatPumSpe.y, bus.pumConWat.y);
   connect(FIXME_yConWatPumSpe.y, bus.pumConWat.y);
-  connect(FIXME1_yChiWatIsoVal.y, bus.valChiWatChiIso.y1);
-  connect(FIXME_yChiWatIsoVal.y, bus.valChiWatChiIso.y);
+  connect(FIXME1_yChiWatIsoVal.y, busValChiWatChiIso.y1);
+  connect(FIXME_yChiWatIsoVal.y, busValChiWatChiIso.y);
   connect(FIXME_yMinValPosSet.y, bus.valChiWatMinByp.y);
-  connect(FIXME_yTowCelIsoVal.y, bus.valCooInlIso.y1);
-  connect(FIXME_yTowCelIsoVal.y, bus.valCooOutIso.y1);
+  connect(FIXME_yTowCelIsoVal.y, busValCooInlIso.y1);
+  connect(FIXME_yTowCelIsoVal.y, busValCooOutIso.y1);
   connect(FIXME_yTowFanSpe.y, bus.yCoo);
   connect(ctl.yTowCel, bus.y1Coo);
   /* Control point connection - stop */
@@ -648,8 +674,13 @@ equation
           -15.25},{36,-15.25},{36,-60},{118,-60}}, color={0,0,127}));
   connect(ctl.yMinValPosSet, FIXME_yMinValPosSet.u) annotation (Line(points={{22,
           -17.5},{34,-17.5},{34,-140},{118,-140}}, color={0,0,127}));
-  connect(ctl.yTowFanSpe[1], FIXME_yTowFanSpe.u[1]) annotation (Line(points={{22,
+  connect(ctl.yTowFanSpe, FIXME_yTowFanSpe.u) annotation (Line(points={{22,
           -28},{30,-28},{30,-260},{118,-260}}, color={0,0,127}));
+  connect(FIXME_TChiWatSupResReq.y, ctl.TChiWatSupResReq) annotation (Line(
+        points={{-118,-180},{-20,-180},{-20,-20.5},{-2,-20.5}}, color={255,127,
+          0}));
+  connect(reqChiWatPla.y, ctl.chiPlaReq) annotation (Line(points={{-118,-220},{
+          -18,-220},{-18,-22},{-2,-22}}, color={255,127,0}));
   annotation (Documentation(info="<html>
 
 </html>"));

@@ -146,7 +146,7 @@ block G36WaterCooledDebug
     "Maximum cooling tower water level recommended by manufacturer"
     annotation (Dialog(tab="Cooling Towers", group="Makeup water"));
 
-  Controller_debug ctrPla(
+  OldController_debug ctrPla(
     final closeCoupledPlant=closeCoupledPlant,
     final nChi=nChi,
     final have_parChi=have_parChi,
@@ -203,9 +203,8 @@ block G36WaterCooledDebug
     final TConWatSup_nominal=fill(dat.TConWatSup_nominal, nChi),
     final TConWatRet_nominal=fill(dat.TConWatRet_nominal, nChi),
     final watLevMin=watLevMin,
-    final watLevMax=watLevMax)
-  "Chilled water plant controller"
-  annotation (Placement(transformation(extent={{0,-40},{20,20}})));
+    final watLevMax=watLevMax) "Chilled water plant controller"
+    annotation (Placement(transformation(extent={{0,-40},{20,20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uChiConIsoVal[nChi](
       each k=true)

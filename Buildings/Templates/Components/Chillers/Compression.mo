@@ -57,12 +57,13 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(pre.y, bus.y1ChiWatReq) annotation (Line(points={{62,0},{70,0},{70,96},
+  connect(pre.y, bus.y1ChiWatReq) annotation (Line(points={{62,0},{86,0},{86,96},
           {0,96},{0,100}}, color={255,0,255}));
   connect(chi.on, preConWatReq.u) annotation (Line(points={{-12,23},{-16,23},{-16,
           -40},{38,-40}}, color={255,0,255}));
-  connect(preConWatReq.y, bus.y1ConWatReq) annotation (Line(points={{62,-40},{90,
-          -40},{90,96},{0,96},{0,100}}, color={255,0,255}));
+  connect(preConWatReq.y, bus.y1ConWatReq) annotation (Line(points={{62,-40},{
+          92,-40},{92,96},{0,96},{0,100}},
+                                        color={255,0,255}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
 The chiller request commands to the CHW or CW isolation valves 

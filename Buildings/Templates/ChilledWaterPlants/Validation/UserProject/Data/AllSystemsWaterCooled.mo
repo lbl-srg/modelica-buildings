@@ -1,9 +1,9 @@
 within Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data;
-class AllSystems
+class AllSystemsWaterCooled
   "Design and operating parameters for testing purposes"
 
   // The following instance name matches the system tag.
-  outer replaceable Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop CHI;
+  outer replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI;
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant _CHI(
     final typChi=CHI.typChi,
@@ -90,6 +90,17 @@ class AllSystems
        _CHI.ctl.dpChiWatLocSet_nominal else 0), _CHI.nChi)),
     pumChiWatSec(
       dp_nominal=fill(_CHI.ctl.dpChiWatLocSet_nominal, _CHI.nPumChiWatSec)),
+    coo(
+      mAirCoo_flow_nominal=_CHI.coo.mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratFloWatByAirTow,
+      TAirEnt_nominal=Buildings.Templates.Data.Defaults.TAirDryCooEnt,
+      PFanCoo_nominal=Buildings.Templates.Data.Defaults.PFanByFloConWatTow * _CHI.coo.mConWatCoo_flow_nominal,
+      dpConWatFriCoo_nominal=fill(if _CHI.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
+       Buildings.Templates.Data.Defaults.dpConWatFriTow else
+       Buildings.Templates.Data.Defaults.dpConWatTowClo, _CHI.nCoo),
+      dpConWatStaCoo_nominal=fill(if _CHI.typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
+        Buildings.Templates.Data.Defaults.dpConWatStaTow else 0, _CHI.nCoo)),
+    pumConWat(
+      dp_nominal=1.5*(_CHI.chi.dpConChi_nominal + _CHI.coo.dpConWatFriCoo_nominal + _CHI.coo.dpConWatStaCoo_nominal)),
     eco(
       cap_nominal=0.6 * sum(_CHI.ctl.capChi_nominal[1:2]),
       TChiWatEnt_nominal=Buildings.Templates.Data.Defaults.TChiWatEcoEnt,
@@ -98,4 +109,4 @@ class AllSystems
       dpConWat_nominal=Buildings.Templates.Data.Defaults.dpConWatEco,
       dpPumChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatEco))
     "CHW plant parameters - SERIES arrangement";
-end AllSystems;
+end AllSystemsWaterCooled;

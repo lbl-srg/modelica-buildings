@@ -7,10 +7,12 @@ record PumpSingle "Record for single pump model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    start=1,
     final min=0)
     "Individual pump nominal mass flow rate"
     annotation (Dialog(group="Pump"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    start=0,
     final min=0)
     "Total pressure rise"
     annotation (Dialog(group="Pump",

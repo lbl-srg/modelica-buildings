@@ -1,8 +1,7 @@
 within Buildings.Templates.ChilledWaterPlants.Validation;
 model BaseAirCooled "Base model for validating CHW plant template with water-cooled chillers"
   extends Buildings.Templates.ChilledWaterPlants.Validation.BaseWaterCooled(
-    nPumConWat=0,
-    nCoo=0,
+    redeclare Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystemsAirCooled dat,
     redeclare Buildings.Templates.ChilledWaterPlants.AirCooled CHI(
       redeclare package MediumCon = MediumAir,
       typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,

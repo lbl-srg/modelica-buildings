@@ -16,20 +16,27 @@ record PumpMultiple "Record for multiple pumps models"
     annotation(Dialog(enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal[nPum](
+    each start=1,
     each final min=0)
     "Individual pump nominal mass flow rate"
     annotation (
     Dialog(group="Pump"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal[nPum](
+    each start=0,
     each final min=0)
     "Total pressure rise"
     annotation (Dialog(group="Pump",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  replaceable parameter Fluid.Movers.Data.Generic per[nPum]
+  // To avoid missing support for zero-sized record in case of nPum=0 we use max(nPum, 1).
+  replaceable parameter Fluid.Movers.Data.Generic per[max(nPum, 1)]
     constrainedby Buildings.Fluid.Movers.Data.Generic(
       pressure(
-        V_flow={{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum},
-        dp={{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum}))
+        V_flow=if typ<>Buildings.Templates.Components.Types.Pump.None then
+        {{0, 1, 2} * m_flow_nominal[i] / rho_default for i in 1:nPum}
+        else [0],
+        dp=if typ<>Buildings.Templates.Components.Types.Pump.None then
+        {{1.14, 1, 0.42} * dp_nominal[i] for i in 1:nPum}
+        else [0]))
     "Performance data"
     annotation(Dialog(group="Pump",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));

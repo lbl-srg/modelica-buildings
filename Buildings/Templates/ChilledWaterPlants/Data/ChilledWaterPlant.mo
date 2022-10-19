@@ -120,7 +120,9 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatSec(
     final nPum=nPumChiWatSec,
     final rho_default=rhoChiWat_default,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
+    final typ=if have_pumChiWatSec
+      then Buildings.Templates.Components.Types.Pump.Multiple
+      else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=if have_pumChiWatSec then
       fill(ctl.VChiWatSec_flow_nominal[1] * rhoChiWat_default / nPumChiWatSec, nPumChiWatSec)
       else fill(0, nPumChiWatSec))
@@ -141,7 +143,9 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Buildings.Templates.Components.Data.PumpMultiple pumConWat(
     final nPum=nPumConWat,
     final rho_default=rhoConWat_default,
-    final typ=Buildings.Templates.Components.Types.Pump.Multiple,
+    final typ=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      then Buildings.Templates.Components.Types.Pump.Multiple
+      else Buildings.Templates.Components.Types.Pump.None,
     m_flow_nominal=fill(sum(coo.mConWatCoo_flow_nominal) / nPumConWat, nPumConWat))
     "CW pumps"
     annotation(Dialog(group="CW loop",
