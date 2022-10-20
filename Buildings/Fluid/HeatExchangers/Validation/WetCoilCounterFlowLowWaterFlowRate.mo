@@ -129,6 +129,12 @@ The validation verifies that the outlet temperatures approach the inlet temperat
 </html>", revisions="<html>
 <ul>
 <li>
+July 5, 2022, by Antoine Gautier:<br/>
+Modify air source boundary condition so air enters coil at 99.5% relative humidity.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">issue 3065</a>.
+</li>
+<li>
 May 26, 2022, by Michael Wetter:<br/>
 First implementation.<br/>
 This is for

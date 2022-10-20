@@ -305,6 +305,12 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
     </td>
 </tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate<br/>
+    </td>
+    <td valign=\"top\">Modify air source boundary condition so air enters coil at 99.5% relative humidity.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+    </td>
+</tr>
 </table>
 <!-- Uncritical errors -->
 <p>
