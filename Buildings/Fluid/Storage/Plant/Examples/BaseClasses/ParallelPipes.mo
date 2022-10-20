@@ -1,24 +1,32 @@
 within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
 model ParallelPipes "CHW supply and return pipes in parallel"
-  extends Interfaces.PartialFourPortInterface;
+  extends Interfaces.PartialFourPortInterface(
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium,
+    final m1_flow_nominal = m_flow_nominal,
+    final m2_flow_nominal = m_flow_nominal);
 
-  parameter Modelica.Units.SI.PressureDifference dp1_nominal
-    "Nominal pressure drop"
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium package";
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dp2_nominal
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    final displayUnit="Pa")
     "Nominal pressure drop"
     annotation(Dialog(group="Nominal condition"));
 
   Buildings.Fluid.FixedResistances.PressureDrop preDro1(
     redeclare package Medium = Medium1,
     final allowFlowReversal=true,
-    final dp_nominal=dp1_nominal,
+    final dp_nominal=dp_nominal,
     final m_flow_nominal=m1_flow_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Fluid.FixedResistances.PressureDrop preDro2(
     redeclare package Medium = Medium2,
     final allowFlowReversal=true,
-    final dp_nominal=dp2_nominal,
+    final dp_nominal=dp_nominal,
     final m_flow_nominal=m2_flow_nominal) "Flow resistance"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 equation
