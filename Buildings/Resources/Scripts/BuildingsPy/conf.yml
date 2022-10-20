@@ -136,6 +136,10 @@
   openmodelica:
     comment: returned non-zero exit status 1.
     simulate: false
+- model_name: Buildings.Experimental.DHC.Examples.Cooling.DirectUncontrolledETS
+  openmodelica:
+    comment: 'division by zero at time 15724800, (a=0) / (b=0), where divisor b expression is: 0.0'
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
@@ -429,8 +433,4 @@
 - model_name: Buildings.Utilities.Plotters.Examples.SingleZoneVAV
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
-    simulate: false
-- model_name: Buildings.Experimental.DHC.Examples.Cooling.DirectUncontrolledETS
-  openmodelica:
-    comment: 'division by zero at time 15724800, (a=0) / (b=0), where divisor b expression is: 0.0'
     simulate: false
