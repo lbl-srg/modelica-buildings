@@ -88,10 +88,10 @@ See
 Buildings.Fluid.HeatExchangers.BaseClasses.PartialHexElement</a>
 for a description of the physics of the sensible heat exchange.
 For the latent heat exchange, this model removes water vapor from the air stream, as
-computed by the instance <code>masExc</code>. This effectively moves water vapor molecules
-out of the air, and deposits them on the coil from where it drains from the system.
-Hence, the latent heat that is carried
-by these water vapor molecules is removed from the air stream. This is done using the heat flow source <code>heaConVapAir</code>.
+computed by the instance <code>masExc</code>, and deposits it on the coil.
+Hence, the latent heat is treated such that it transfers to the coil surface.
+The latent heat is removed from the air stream using heat flow source <code>heaConVapAir</code>
+and deposited on the coil surface using heat flow source <code>heaConVapCoi</code>.
 </p>
 <p>
 Note that the driving potential for latent heat transfer is the temperature of the instance <code>mas</code>.
