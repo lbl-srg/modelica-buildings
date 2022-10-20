@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.Validation.ReliefDamper", method="Cvode", tolerance=1e-6, stopTime=3600.0, resultFile="ReliefDamper_SingleZone");
+createPlot(id=1, position={23, 9, 1202, 1270}, y={"relDam.uOutDam_min", "relDam.uOutDam"}, range={0.0, 3600.0, 0.0, 0.9}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={23, 9, 1202, 1270}, y={"relDam.yRelDam"}, range={0.0, 3600.0, -0.05, 0.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+

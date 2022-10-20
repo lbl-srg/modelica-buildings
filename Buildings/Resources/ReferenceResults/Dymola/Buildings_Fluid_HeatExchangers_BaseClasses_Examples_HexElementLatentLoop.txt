@@ -2,7 +2,7 @@ last-generated=2022-07-06
 statistics-simulation=
 {
   "linear": " ",
-  "nonlinear": "4",
+  "nonlinear": "3",
   "number of continuous time states": "2",
   "numerical Jacobians": "0"
 }

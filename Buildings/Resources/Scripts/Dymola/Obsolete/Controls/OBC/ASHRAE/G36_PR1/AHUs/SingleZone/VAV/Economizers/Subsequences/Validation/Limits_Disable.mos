@@ -1,0 +1,10 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Economizers.Subsequences.Validation.Limits_Disable", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Limits_Disable_SingleZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"damLim1.uSupFanSpe","damLim1.VOutMinSet_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"damLim1.uSupFan", "damLim1.uFreProSta", "damLim1.uOpeMod"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"damLim1.yOutDamPosMin","damLim1.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"damLim2.uSupFanSpe","damLim2.VOutMinSet_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"damLim2.uSupFan", "damLim2.uFreProSta", "damLim2.uOpeMod"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"damLim2.yOutDamPosMin","damLim2.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"damLim3.uSupFanSpe","damLim3.VOutMinSet_flow"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"damLim3.uSupFan", "damLim3.uFreProSta", "damLim3.uOpeMod"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"damLim3.yOutDamPosMin","damLim3.yOutDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

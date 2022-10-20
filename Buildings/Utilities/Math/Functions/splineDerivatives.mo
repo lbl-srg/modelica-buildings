@@ -2,7 +2,7 @@ within Buildings.Utilities.Math.Functions;
 function splineDerivatives
   "Function to compute the derivatives for cubic hermite spline interpolation"
   extends Modelica.Icons.Function;
-  input Real x[:] "Support point, strict monotone increasing";
+  input Real x[:] "Support point, strictly increasing";
   input Real y[size(x, 1)] "Function values at x";
   input Boolean ensureMonotonicity=isMonotonic(y, strict=false)
     "Set to true to ensure monotonicity of the cubic hermite";
@@ -21,10 +21,10 @@ algorithm
            x[" + String(n) + "] = " + String(x[n]));
   // Check data
     assert(isMonotonic(x, strict=true),
-      "x-values must be strictly monontone increasing or decreasing.");
+      "x-values must be strictly increasing or decreasing.");
     if ensureMonotonicity then
       assert(isMonotonic(y, strict=false),
-        "If ensureMonotonicity=true, y-values must be monontone increasing or decreasing.");
+        "If ensureMonotonicity=true, y-values must be strictly increasing or decreasing.");
     end if;
   end if;
 
@@ -76,8 +76,8 @@ that can be used as input for evaluating a cubic hermite spline.
 </p>
 <p>
 If <code>ensureMonotonicity=true</code>, then the support points <i>y<sub>i</sub></i>
-need to be monotone increasing (or increasing), and the computed derivatives
-<i>d<sub>i</sub></i> are such that the cubic hermite is monotone increasing (or decreasing).
+need to be monotonically increasing (or increasing), and the computed derivatives
+<i>d<sub>i</sub></i> are such that the cubic hermite is monotonically increasing (or decreasing).
 The algorithm to ensure monotonicity is based on the method described in Fritsch and Carlson (1980) for
 <i>&rho; = &rho;<sub>2</sub></i>.
 </p>
