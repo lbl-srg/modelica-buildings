@@ -16,13 +16,12 @@ model DomesticWaterMixer "A model for a domestic water mixer"
     k=k,
     Ti=Ti,
     reset=Buildings.Types.Reset.Parameter)
-    annotation (Placement(transformation(extent={{40,40},{20,60}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package
-      Medium =
-        Medium, m_flow_nominal=mDhw_flow_nominal) "Tempered water temperature sensor"
+    annotation (Placement(transformation(extent={{40,60},{20,80}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package Medium
+      = Medium, m_flow_nominal=mDhw_flow_nominal) "Tempered water temperature sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Constant conTSetCon(k=TSet) "Temperature setpoint for domestic tempered water supply to consumer"
-    annotation (Placement(transformation(extent={{80,40},{60,60}})));
+    annotation (Placement(transformation(extent={{80,60},{60,80}})));
   Fluid.Actuators.Valves.ThreeWayLinear
              ideValHea(redeclare package Medium = Medium, final m_flow_nominal=
         mDhw_flow_nominal,
@@ -38,14 +37,12 @@ model DomesticWaterMixer "A model for a domestic water mixer"
         Medium) "Port for domestic cold water supply"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TTw "Temperature of the outlet tempered water"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHw(redeclare package
-      Medium =
-        Medium, m_flow_nominal=mDhw_flow_nominal) "Hot water temperature sensor"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHw(redeclare package Medium
+      = Medium, m_flow_nominal=mDhw_flow_nominal) "Hot water temperature sensor"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package
-      Medium =
-        Medium, m_flow_nominal=mDhw_flow_nominal) "Cold water temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemCw(redeclare package Medium
+      = Medium, m_flow_nominal=mDhw_flow_nominal) "Cold water temperature sensor"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Fluid.Sensors.MassFlowRate senFloDhw(redeclare package Medium =
         Medium) "Mass flow rate of domestic hot water"
@@ -54,15 +51,16 @@ model DomesticWaterMixer "A model for a domestic water mixer"
     annotation (Placement(transformation(extent={{54,22},{44,32}})));
 equation
   connect(conTSetCon.y, conPID.u_s)
-    annotation (Line(points={{59,50},{42,50}}, color={0,0,127}));
+    annotation (Line(points={{59,70},{42,70}}, color={0,0,127}));
   connect(senTemTw.T, conPID.u_m)
-    annotation (Line(points={{30,11},{30,38}}, color={0,0,127}));
+    annotation (Line(points={{30,11},{30,58}}, color={0,0,127}));
   connect(ideValHea.port_2, senTemTw.port_a) annotation (Line(points={{10,-6.66134e-16},
           {20,-6.66134e-16},{20,0}}, color={0,127,255}));
-  connect(conPID.y, ideValHea.y) annotation (Line(points={{19,50},{8.88178e-16,50},
-          {8.88178e-16,12}},color={0,0,127}));
-  connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,20},{90,20},{90,
-          80},{110,80}}, color={0,0,127}));
+  connect(conPID.y, ideValHea.y) annotation (Line(points={{19,70},{0,70},{0,12},
+          {9.99201e-16,12}},color={0,0,127}));
+  connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,30},{34,30},{34,
+          40},{96,40},{96,60},{110,60}},
+                         color={0,0,127}));
   connect(ideValHea.port_1, senTemHw.port_b)
     annotation (Line(points={{-10,1.77636e-15},{-10,0},{-20,0}},
                                                 color={0,127,255}));
@@ -80,27 +78,81 @@ equation
   connect(greaterThreshold.u, senFloDhw.m_flow)
     annotation (Line(points={{55,27},{60,27},{60,11}}, color={0,0,127}));
   connect(greaterThreshold.y, conPID.trigger)
-    annotation (Line(points={{43.5,27},{38,27},{38,38}}, color={255,0,255}));
+    annotation (Line(points={{43.5,27},{38,27},{38,58}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
+        Rectangle(
+          visible=use_inputFilter,
+          extent={{-34,-28},{32,32}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=use_inputFilter,
+          extent={{-34,32},{32,-28}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-86,72},{-64,50}},
-          textColor={238,46,47},
-          textString="hot",
+          visible=use_inputFilter,
+          extent={{-22,26},{20,-20}},
+          textColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
           textStyle={TextStyle.Bold}),
         Text(
-          extent={{-86,-44},{-52,-74}},
-          textColor={28,108,200},
-          textStyle={TextStyle.Bold},
-          textString="cold"),
-        Text(
-          extent={{10,36},{86,-34}},
-          textColor={102,44,145},
-          textStyle={TextStyle.Bold},
-          textString="tempered")}),                              Diagram(
+          extent={{-42,58},{-162,8}},
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(y, format=".2f"))),
+    Rectangle(
+      extent={{-40,22},{40,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={192,192,192},
+          origin={-78,60},
+          rotation=90),
+    Rectangle(
+      extent={{-22,22},{22,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={238,46,47},
+          origin={-78,60},
+          rotation=90),
+    Line(
+      visible=use_inputFilter,
+      points={{-32,-28},{28,-28}}),
+    Rectangle(
+      extent={{-40,22},{40,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={192,192,192},
+          origin={-78,-60},
+          rotation=90),
+    Rectangle(
+      extent={{-22,22},{22,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={28,108,200},
+          origin={-78,-60},
+          rotation=90),
+    Rectangle(
+      extent={{-40,22},{40,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={192,192,192},
+          origin={78,0},
+          rotation=90),
+    Rectangle(
+      extent={{-22,22},{22,-22}},
+      lineColor={0,0,0},
+      fillPattern=FillPattern.VerticalCylinder,
+      fillColor={102,44,145},
+          origin={78,0},
+          rotation=90)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DomesticWaterMixer;
