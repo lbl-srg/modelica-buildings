@@ -13,8 +13,7 @@ model HeatPumpWaterHeaterWithTank
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare package
-              Medium =
-               Medium, m_flow_nominal=mHw_flow_nominal)
+      Medium = Medium, m_flow_nominal=mHw_flow_nominal)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
@@ -61,8 +60,8 @@ equation
                                              color={0,127,255}));
   connect(tan.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,52},
           {-40,6},{-10,6}},                           color={0,127,255}));
-  connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-40,
-          56.2},{20,56.2},{20,56},{80,56},{80,6},{60,6}},
+  connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-40,56.2},
+          {80,56.2},{80,6},{60,6}},
                                 color={0,127,255}));
   connect(heaPum.port_b1, senTemHPOut.port_a)
     annotation (Line(points={{10,6},{40,6}},              color={0,127,255}));
@@ -83,6 +82,57 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),                        Diagram(
+        fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-20,-60},{20,-40}},
+          lineColor={95,95,95},
+          lineThickness=1,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,22},{20,-48}},
+          lineColor={175,175,175},
+          lineThickness=1,
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-20,10},{20,30}},
+          lineColor={95,95,95},
+          lineThickness=1,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-20,50},{20,20}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-20,40},{20,60}},
+          lineColor={95,95,95},
+          lineThickness=1,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-20,50},{-20,-50}},
+          color={95,95,95},
+          thickness=1),
+        Line(
+          points={{20,50},{20,-50}},
+          color={95,95,95},
+          thickness=1),
+        Polygon(
+          points={{-140,86},{-140,86}},
+          lineColor={95,95,95},
+          lineThickness=1,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.CrossDiag),
+        Polygon(
+          points={{20,40},{18,38},{14,36},{8,34},{8,26},{14,28},{18,30},{20,32},
+              {20,40}},
+          lineColor={95,95,95},
+          lineThickness=0.5,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.CrossDiag)}),                  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end HeatPumpWaterHeaterWithTank;

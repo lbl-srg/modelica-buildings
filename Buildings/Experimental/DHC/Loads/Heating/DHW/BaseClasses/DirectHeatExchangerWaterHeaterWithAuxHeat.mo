@@ -7,11 +7,10 @@ model DirectHeatExchangerWaterHeaterWithAuxHeat
   Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
     redeclare package Medium = Medium,
     m_flow_nominal=mHw_flow_nominal,
-    dp_nominal=0) if havePEle == true
-                  "Supplemental electric resistance domestic hot water heater"
+    dp_nominal=0) if havePEle == true "Supplemental electric resistance domestic hot water heater"
     annotation (Placement(transformation(extent={{10,16},{30,-4}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare package
-              Medium = Medium, m_flow_nominal=mHw_flow_nominal)
+      Medium = Medium, m_flow_nominal=mHw_flow_nominal)
     annotation (Placement(transformation(extent={{60,-4},{80,16}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex(
     redeclare package Medium1 = Medium,
@@ -60,6 +59,10 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),                        Diagram(
+        fillPattern=FillPattern.Solid), Line(
+          points={{-80,0},{-70,0},{-60,20},{-40,-20},{-20,20},{0,-20},{20,20},{
+              40,-20},{60,20},{70,0},{80,0}},
+          color={238,46,47},
+          thickness=1)}),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DirectHeatExchangerWaterHeaterWithAuxHeat;
