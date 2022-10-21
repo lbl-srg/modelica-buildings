@@ -174,7 +174,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.7*dp_nominal,
+    dp_nominal=0.1*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -184,7 +184,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.7*dp_nominal,
+    dp_nominal=0.1*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -194,7 +194,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.7*dp_nominal,
+    dp_nominal=0.1*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -254,7 +254,7 @@ model DualSource
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=chi1.m2_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0,
+    final dpDis_nominal=0.2*dp_nominal,
     final junConSup(T_start=T_CHWS_nominal),
     final junConRet(T_start=T_CHWS_nominal))
     "Two-pipe connection to the chiller-only plant"
@@ -264,10 +264,10 @@ model DualSource
         origin={50,50})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla2(
     redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=m_flow_nominal,
+    final mDis_flow_nominal=2*m_flow_nominal,
     final mCon_flow_nominal=nomPla2.m_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0,
+    final dpDis_nominal=0.2*dp_nominal,
     final junConSup(T_start=T_CHWS_nominal),
     final junConRet(T_start=T_CHWS_nominal))
     "Two-pipe connection to the storage plant"
@@ -291,10 +291,10 @@ model DualSource
         origin={50,90})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse2(
     redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=m_flow_nominal,
+    final mDis_flow_nominal=2*m_flow_nominal,
     final mCon_flow_nominal=ideUse2.m_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0,
+    final dpDis_nominal=0.2*dp_nominal,
     final junConSup(T_start=T_CHWS_nominal),
     final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
     annotation (Placement(
@@ -307,7 +307,7 @@ model DualSource
     final mDis_flow_nominal=m_flow_nominal,
     final mCon_flow_nominal=ideUse2.m_flow_nominal,
     final allowFlowReversal=true,
-    final dpDis_nominal=0,
+    final dpDis_nominal=0.2*dp_nominal,
     final junConSup(T_start=T_CHWS_nominal),
     final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
     annotation (Placement(
@@ -336,7 +336,7 @@ model DualSource
     final dp_nominal={0,0,0}) "Junction connected to the pressure boundary"
     annotation (Placement(transformation(extent={{-40,-106},{-20,-86}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
-    p(final displayUnit="Pa") = 101325,
+    p(final displayUnit="Pa") = 101325 + dp_nominal,
     redeclare final package Medium = MediumCHW,
     nPorts=1) "Pressure boundary"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -384,11 +384,13 @@ equation
     annotation (Line(points={{101,-138},{114,-138},{114,-150},{118,-150}},
                                                           color={0,0,127}));
   connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,70},{150,
-          70},{150,150},{-18,150}},  color={0,0,127}));
+          70},{150,149.333},{-18,149.333}},
+                                     color={0,0,127}));
   connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-30},{150,
           -30},{150,150},{-18,150}},               color={0,0,127}));
   connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-150},{150,
-          -150},{150,150},{-18,150}},     color={0,0,127}));
+          -150},{150,150.667},{-18,150.667}},
+                                          color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-42,150},{-90,150},{-90,158}}, color={0,0,127}));
   connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-79,170},{-70,
