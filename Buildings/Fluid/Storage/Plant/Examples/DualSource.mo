@@ -205,7 +205,7 @@ model DualSource
     "Min of pressure head measured from all users"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-30,130})));
+        origin={-30,150})));
   Modelica.Blocks.Sources.Constant set_dpUse(final k=1)
     "Normalised consumer differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -216,10 +216,10 @@ model DualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={50,-170})));
+        origin={50,-210})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal(nin=3)
     "Max of valve positions"
-    annotation (Placement(transformation(extent={{100,-180},{80,-160}})));
+    annotation (Placement(transformation(extent={{100,-220},{80,-200}})));
   Modelica.Blocks.Sources.TimeTable set_QCooLoa1_flow(table=[0,0; 360*2,0; 360*2,
         QCooLoa_flow_nominal; 360*5,QCooLoa_flow_nominal; 360*5,0; 3600,0])
     "Cooling load"
@@ -249,6 +249,19 @@ model DualSource
         origin={130,-150})));
 
 // District pipe network
+  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla1(
+    redeclare package Medium = MediumCHW,
+    final mDis_flow_nominal=m_flow_nominal,
+    final mCon_flow_nominal=chi1.m2_flow_nominal,
+    final allowFlowReversal=true,
+    final dpDis_nominal=0,
+    final junConSup(T_start=T_CHWS_nominal),
+    final junConRet(T_start=T_CHWS_nominal))
+    "Two-pipe connection to the chiller-only plant"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={50,50})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla2(
     redeclare package Medium = MediumCHW,
     final mDis_flow_nominal=m_flow_nominal,
@@ -263,19 +276,19 @@ model DualSource
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={50,-90})));
-  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla1(
+  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse1(
     redeclare package Medium = MediumCHW,
     final mDis_flow_nominal=m_flow_nominal,
-    final mCon_flow_nominal=chi1.m2_flow_nominal,
+    final mCon_flow_nominal=ideUse2.m_flow_nominal,
     final allowFlowReversal=true,
     final dpDis_nominal=0,
     final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal))
-    "Two-pipe connection to the chiller-only plant"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={50,50})));
+    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,90})));
   Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse2(
     redeclare package Medium = MediumCHW,
     final mDis_flow_nominal=m_flow_nominal,
@@ -286,9 +299,34 @@ model DualSource
     final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
     annotation (Placement(
         transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
+        extent={{-10,-10},{10,10}},
+        rotation=270,
         origin={50,-10})));
+  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse3(
+    redeclare package Medium = MediumCHW,
+    final mDis_flow_nominal=m_flow_nominal,
+    final mCon_flow_nominal=ideUse2.m_flow_nominal,
+    final allowFlowReversal=true,
+    final dpDis_nominal=0,
+    final junConSup(T_start=T_CHWS_nominal),
+    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
+    annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={50,-130})));
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PipeEnd pipEnd1(
+    redeclare final package Medium = MediumCHW)
+    "End of distribution pipe lines" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={50,130})));
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PipeEnd pipEnd2(
+    redeclare final package Medium = MediumCHW)
+    "End of distribution pipe lines" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,-170})));
   Buildings.Fluid.FixedResistances.Junction junBou(
     redeclare final package Medium = MediumCHW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -315,20 +353,21 @@ model DualSource
     360*3,m_flow_nominal; 360*5,m_flow_nominal; 360*5,0])
     "Flow rate setpoint for the chiller in the storage plant"
     annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+
 equation
   connect(ideUse3.yVal_actual, mulMax_yVal.u[1]) annotation (Line(points={{101,
-          -134},{110,-134},{110,-170.667},{102,-170.667}},                color=
+          -134},{110,-134},{110,-210.667},{102,-210.667}},                color=
          {0,0,127}));
   connect(ideUse2.yVal_actual, mulMax_yVal.u[2]) annotation (Line(points={{101,-14},
-          {110,-14},{110,-170},{102,-170}},
+          {110,-14},{110,-210},{102,-210}},
                                           color={0,0,127}));
   connect(mulMax_yVal.y, hysCat.u)
-    annotation (Line(points={{78,-170},{62,-170}}, color={0,0,127}));
+    annotation (Line(points={{78,-210},{62,-210}}, color={0,0,127}));
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-159,170},{-102,170}},
                                                    color={0,0,127}));
   connect(ideUse1.yVal_actual, mulMax_yVal.u[3]) annotation (Line(points={{101,86},
-          {110,86},{110,-169.333},{102,-169.333}},        color={0,0,127}));
+          {110,86},{110,-209.333},{102,-209.333}},        color={0,0,127}));
   connect(set_QCooLoa1_flow.y, ideUse1.QCooLoa_flow) annotation (Line(points={{119,110},
           {114,110},{114,94},{101,94}},    color={0,0,127}));
   connect(set_QCooLoa2_flow.y, ideUse2.QCooLoa_flow) annotation (Line(points={{119,10},
@@ -345,18 +384,15 @@ equation
     annotation (Line(points={{101,-138},{114,-138},{114,-150},{118,-150}},
                                                           color={0,0,127}));
   connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,70},{150,
-          70},{150,129.333},{-18,129.333}},
-                                     color={0,0,127}));
-  connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-30},{150,-30},
-          {150,130},{-18,130}},                    color={0,0,127}));
+          70},{150,150},{-18,150}},  color={0,0,127}));
+  connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-30},{150,
+          -30},{150,150},{-18,150}},               color={0,0,127}));
   connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-150},{150,
-          -150},{150,130.667},{-18,130.667}},
-                                          color={0,0,127}));
+          -150},{150,150},{-18,150}},     color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
-    annotation (Line(points={{-42,130},{-90,130},{-90,158}}, color={0,0,127}));
-  connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-79,170},{-74,170},
-          {-74,48},{-70,48},{-70,42}},
-                           color={0,0,127}));
+    annotation (Line(points={{-42,150},{-90,150},{-90,158}}, color={0,0,127}));
+  connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-79,170},{-70,
+          170},{-70,42}},  color={0,0,127}));
   connect(pumSup1.port_b, cheValPumChi1.port_a)
     annotation (Line(points={{-80,30},{-100,30}}, color={0,127,255}));
   connect(cheValPumChi1.port_b, chi1.port_a2) annotation (Line(points={{-120,30},
@@ -372,7 +408,7 @@ equation
                     color={255,0,255}));
   connect(uRemCha.y, or2.u1) annotation (Line(points={{-159,-10},{-142,-10}},
                                           color={255,0,255}));
-  connect(hysCat.y, or2.u2) annotation (Line(points={{38,-170},{-148,-170},{-148,
+  connect(hysCat.y, or2.u2) annotation (Line(points={{38,-210},{-148,-210},{-148,
           -18},{-142,-18}},
         color={255,0,255}));
   connect(conRemCha.uAva, or2.y) annotation (Line(points={{-42,-44},{-58,-44},{-58,
@@ -398,27 +434,6 @@ equation
     annotation (Line(points={{20,-96},{40,-96}},   color={0,127,255}));
   connect(con2PipPla2.port_bCon, netCon.port_bToNet) annotation (Line(points={{40,-90},
           {28,-90},{28,-84},{20,-84}},             color={0,127,255}));
-  connect(con2PipPla2.port_bDisSup, ideUse3.port_a) annotation (Line(points={{50,-100},
-          {50,-110},{90,-110},{90,-120}},            color={0,127,255}));
-  connect(ideUse3.port_b, con2PipPla2.port_aDisRet) annotation (Line(points={{90,-140},
-          {90,-150},{56,-150},{56,-100}},          color={0,127,255}));
-  connect(con2PipPla2.port_bDisRet, con2PipUse2.port_aDisSup) annotation (Line(
-        points={{56,-80},{56,-30},{50,-30},{50,-20}},   color={0,127,255}));
-  connect(con2PipPla2.port_aDisSup, con2PipUse2.port_bDisRet) annotation (Line(
-        points={{50,-80},{50,-70},{44,-70},{44,-20}},     color={0,127,255}));
-  connect(con2PipUse2.port_aCon, ideUse2.port_a) annotation (Line(points={{60,-4},
-          {72,-4},{72,6},{90,6},{90,0}},   color={0,127,255}));
-  connect(ideUse2.port_b, con2PipUse2.port_bCon) annotation (Line(points={{90,-20},
-          {90,-26},{72,-26},{72,-10},{60,-10}},                       color={0,
-          127,255}));
-  connect(con2PipUse2.port_aDisRet, con2PipPla1.port_bDisSup) annotation (Line(
-        points={{44,0},{44,32},{50,32},{50,40}},       color={0,127,255}));
-  connect(con2PipPla1.port_aDisRet, con2PipUse2.port_bDisSup) annotation (Line(
-        points={{56,40},{56,8},{50,8},{50,0}},       color={0,127,255}));
-  connect(con2PipPla1.port_aDisSup, ideUse1.port_a) annotation (Line(points={{50,60},
-          {50,110},{90,110},{90,100}},           color={0,127,255}));
-  connect(ideUse1.port_b, con2PipPla1.port_bDisRet) annotation (Line(points={{90,80},
-          {90,70},{56,70},{56,60}},            color={0,127,255}));
   connect(con2PipPla1.port_bCon, chi1.port_b2) annotation (Line(points={{40,50},
           {-114,50},{-114,80},{-124,80},{-124,70}},        color={0,127,255}));
   connect(pumSup1.port_a, con2PipPla1.port_aCon) annotation (Line(points={{-60,30},
@@ -433,10 +448,46 @@ equation
           -50},{-66,-50},{-66,-52},{-41,-52}},   color={0,0,127}));
   connect(mChi2Set_flow.y, chiBra2.mPumSet_flow) annotation (Line(points={{-119,
           -130},{-106,-130},{-106,-101}}, color={0,0,127}));
+  connect(con2PipUse2.port_aDisSup, con2PipPla1.port_aDisRet) annotation (Line(
+        points={{50,0},{50,8},{56,8},{56,40}}, color={0,127,255}));
+  connect(con2PipPla1.port_bDisSup, con2PipUse2.port_bDisRet) annotation (Line(
+        points={{50,40},{50,30},{44,30},{44,1.77636e-15}}, color={0,127,255}));
+  connect(con2PipPla2.port_aDisSup, con2PipUse2.port_aDisRet) annotation (Line(
+        points={{50,-80},{50,-70},{44,-70},{44,-20}}, color={0,127,255}));
+  connect(con2PipUse2.port_bDisSup, con2PipPla2.port_bDisRet) annotation (Line(
+        points={{50,-20},{50,-30},{56,-30},{56,-80}}, color={0,127,255}));
+  connect(con2PipPla1.port_aDisSup, con2PipUse1.port_aDisRet) annotation (Line(
+        points={{50,60},{50,66},{44,66},{44,80}}, color={0,127,255}));
+  connect(con2PipPla1.port_bDisRet, con2PipUse1.port_bDisSup) annotation (Line(
+        points={{56,60},{56,72},{50,72},{50,80}}, color={0,127,255}));
+  connect(con2PipUse1.port_bCon, ideUse1.port_a) annotation (Line(points={{60,90},
+          {74,90},{74,106},{90,106},{90,100}}, color={0,127,255}));
+  connect(ideUse1.port_b, con2PipUse1.port_aCon) annotation (Line(points={{90,80},
+          {90,74},{74,74},{74,84},{60,84}}, color={0,127,255}));
+  connect(con2PipUse2.port_bCon, ideUse2.port_a) annotation (Line(points={{60,-10},
+          {74,-10},{74,6},{90,6},{90,0}}, color={0,127,255}));
+  connect(ideUse2.port_b, con2PipUse2.port_aCon) annotation (Line(points={{90,-20},
+          {90,-26},{74,-26},{74,-16},{60,-16}}, color={0,127,255}));
+  connect(con2PipUse3.port_bCon, ideUse3.port_a) annotation (Line(points={{60,-130},
+          {74,-130},{74,-114},{90,-114},{90,-120}}, color={0,127,255}));
+  connect(ideUse3.port_b, con2PipUse3.port_aCon) annotation (Line(points={{90,-140},
+          {90,-146},{74,-146},{74,-136},{60,-136}}, color={0,127,255}));
+  connect(con2PipUse3.port_bDisRet, con2PipPla2.port_bDisSup) annotation (Line(
+        points={{44,-120},{44,-108},{50,-108},{50,-100}}, color={0,127,255}));
+  connect(con2PipUse3.port_aDisSup, con2PipPla2.port_aDisRet) annotation (Line(
+        points={{50,-120},{50,-114},{56,-114},{56,-100}}, color={0,127,255}));
+  connect(con2PipUse1.port_bDisRet, pipEnd1.port_a)
+    annotation (Line(points={{44,100},{44,120}}, color={0,127,255}));
+  connect(con2PipUse1.port_aDisSup, pipEnd1.port_b) annotation (Line(points={{50,100},
+          {50,114},{56,114},{56,120}},      color={0,127,255}));
+  connect(pipEnd2.port_b, con2PipUse3.port_aDisRet)
+    annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
+  connect(con2PipUse3.port_bDisSup, pipEnd2.port_a) annotation (Line(points={{50,
+          -140},{50,-154},{56,-154},{56,-160}}, color={0,127,255}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
-        Diagram(coordinateSystem(extent={{-200,-200},{160,200}})), Icon(
+        Diagram(coordinateSystem(extent={{-200,-240},{160,200}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
