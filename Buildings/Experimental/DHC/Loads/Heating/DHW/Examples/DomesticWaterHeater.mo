@@ -17,10 +17,9 @@ model DomesticWaterHeater
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-30,30})));
-  BaseClasses.DirectHeatExchangerWaterHeaterWithAuxHeat genDHW(
+  DirectHeatExchangerWaterHeaterWithAuxHeat genDHW(
     redeclare package Medium = Medium,
     havePEle=havePEle,
-    TSetHw(displayUnit="degC") = TSetHw,
     mHw_flow_nominal=mHw_flow_nominal,
     mDH_flow_nominal=mDH_flow_nominal) "Generation of DHW"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

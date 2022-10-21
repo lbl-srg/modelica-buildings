@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model HeatPumpWaterHeaterWithTank
   "A model for domestic water heating served by heat pump water heater and local storage tank"
   extends
@@ -40,7 +40,7 @@ model HeatPumpWaterHeaterWithTank
     hHex_b=0.1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=false,
+    allowFlowReversal=true,
     allowFlowReversalHex=false,
     mHex_flow_nominal=mHex_flow_nominal,
     TTan_nominal=293.15,
@@ -61,12 +61,10 @@ equation
   connect(tan.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,52},
           {-40,6},{-10,6}},                           color={0,127,255}));
   connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-40,56.2},
-          {80,56.2},{80,6},{60,6}},
+          {-20,56.2},{-20,40},{80,40},{80,6},{60,6}},
                                 color={0,127,255}));
   connect(heaPum.port_b1, senTemHPOut.port_a)
     annotation (Line(points={{10,6},{40,6}},              color={0,127,255}));
-  connect(TSetHw, heaPum.TSet) annotation (Line(points={{-110,0},{-60,0},
-          {-60,14},{-12,14},{-12,9}}, color={0,0,127}));
   connect(tan.port_b, port_a1)
     annotation (Line(points={{-60,60},{-100,60}}, color={0,127,255}));
   connect(senTemTankOut.port_b, port_b1)
@@ -75,8 +73,10 @@ equation
           -60},{20,-6},{10,-6}}, color={0,127,255}));
   connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{
           -20,-60},{-20,-6},{-10,-6}}, color={0,127,255}));
-  connect(heaPum.P, PEle) annotation (Line(points={{11,0},{30,0},{30,-20},
-          {80,-20},{80,0},{110,0}}, color={0,0,127}));
+  connect(heaPum.P, PEle) annotation (Line(points={{11,0},{30,0},{30,-20},{70,
+          -20},{70,0},{110,0}},     color={0,0,127}));
+  connect(TSetHw, heaPum.TSet) annotation (Line(points={{-110,0},{-60,0},{-60,20},
+          {-20,20},{-20,8},{-12,8},{-12,9}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},

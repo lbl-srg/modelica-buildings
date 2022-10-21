@@ -1,2 +1,7 @@
+DomesticWaterMixer
+DirectHeatExchangerWaterHeaterWithAuxHeat
+HeatPumpWaterHeaterWithTank
+DailyPeriodicDHWLoad
+AnnualScheduleDHWLoad
 BaseClasses
 Examples

@@ -41,14 +41,13 @@ package DELETE "These models are outdated"
       use_m_flow_in=true,
       nPorts=1) "Sink for domestic hot water supply"
       annotation (Placement(transformation(extent={{48,38},{28,58}})));
-    BaseClasses.DomesticWaterMixer tmv(
+    DomesticWaterMixer tmv(
       redeclare package Medium = Medium,
-      TSet(displayUnit = "degC") = TSetTw,
+      TSet(displayUnit="degC") = TSetTw,
       mDhw_flow_nominal=mDhw_flow_nominal,
       dpValve_nominal=dpValve_nominal,
       k=k,
-      Ti=Ti)
-            "Ideal thermostatic mixing valve"
+      Ti=Ti) "Ideal thermostatic mixing valve"
       annotation (Placement(transformation(extent={{0,40},{20,60}})));
     Modelica.Blocks.Sources.Sine sine(f=0.001,
       offset=1)

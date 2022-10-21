@@ -22,21 +22,19 @@ model DomesticWaterHeaterAndFixture
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-50})));
-  BaseClasses.HeatPumpWaterHeaterWithTank genDHW(
+  HeatPumpWaterHeaterWithTank genDHW(
     redeclare package Medium = Medium,
     havePEle=havePEle,
-    TSetHw(displayUnit="degC") = TSetHw,
     mHw_flow_nominal=mHw_flow_nominal,
     mDH_flow_nominal=mDH_flow_nominal) "Generation of DHW"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  BaseClasses.DomesticWaterMixer tmv(
+  DomesticWaterMixer tmv(
     redeclare package Medium = Medium,
-    TSet(displayUnit = "degC") = TSetTw,
+    TSet(displayUnit="degC") = TSetTw,
     mDhw_flow_nominal=mDhw_flow_nominal,
     dpValve_nominal=dpValve_nominal,
     k=kCon,
-    Ti=Ti)
-          "Ideal thermostatic mixing valve"
+    Ti=Ti) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -65,7 +63,7 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  BaseClasses.AnnualScheduleDHWLoad loaDHW(mDhw_flow_nominal=mDhw_flow_nominal)
+  AnnualScheduleDHWLoad loaDHW(mDhw_flow_nominal=mDhw_flow_nominal)
     "load for DHW"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"

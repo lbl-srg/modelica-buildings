@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model DomesticWaterMixer "A model for a domestic water mixer"
   replaceable package Medium = Buildings.Media.Water "Water media model";
   parameter Modelica.Units.SI.Temperature TSet = 273.15+40 "Temperature setpoint of tempered hot water outlet";
@@ -153,6 +153,12 @@ equation
       fillPattern=FillPattern.VerticalCylinder,
       fillColor={102,44,145},
           origin={78,0},
-          rotation=90)}),                                        Diagram(
+          rotation=90),
+      Text(
+          extent={{-153,147},{147,107}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DomesticWaterMixer;

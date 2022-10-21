@@ -1,6 +1,6 @@
-within Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses;
-model DailyPeriodicDHWLoad
-  "A model for a daily periodic domestic water draw"
+within Buildings.Experimental.DHC.Loads.Heating.DHW;
+model AnnualScheduleDHWLoad
+  "A model with an annual schedule of domestic water draws"
   replaceable package Medium = Buildings.Media.Water "Water media model";
   parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal "Nominal doemstic hot water flow rate";
 
@@ -14,12 +14,9 @@ model DailyPeriodicDHWLoad
   Modelica.Blocks.Math.Gain gaiDhw(k=-mDhw_flow_nominal) "Gain for multiplying domestic hot water schedule"
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
   Modelica.Blocks.Sources.CombiTimeTable schDhw(
-    tableOnFile=false,
-    table=[0,0.1; 3600*1,1e-5; 3600*2,1e-5; 3600*3,1e-5; 3600*4,1e-5; 3600*5,0.3;
-        3600*6,0.9; 3600*7,1; 3600*8,1; 3600*9,0.8; 3600*10,0.8; 3600*11,0.6; 3600
-        *12,0.5; 3600*13,0.5; 3600*14,0.4; 3600*15,0.5; 3600*16,0.6; 3600*17,0.7;
-        3600*18,0.9; 3600*19,0.8; 3600*20,0.8; 3600*21,0.6; 3600*22,0.5; 3600*23,
-        0.3; 3600*24,0.1],
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Heating/DHW/DHW_SingleApartment.mos"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Domestic hot water fraction schedule"
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
@@ -46,18 +43,37 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Polygon(
+          points={{-47.728,58.2054},{-65.772,38.1027},{-65.772,-4.6152},{-40,
+              -37.2823},{-14.228,-4.6152},{-14.228,38.1027},{-32.272,58.2054},{
+              -40,73.2823},{-47.728,58.2054}},
+          lineColor={28,108,200},
+          lineThickness=0.5,
+          smooth=Smooth.Bezier,
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
           points={{-7.728,38.2054},{-25.772,18.1027},{-25.772,-24.6152},{0,
-              -57.2823},{25.772,-24.6152},{25.772,18.1027},{7.728,38.2054},{0,
+              -57.282},{25.772,-24.6152},{25.772,18.1027},{7.728,38.2054},{0,
               53.2823},{-7.728,38.2054}},
           lineColor={28,108,200},
           lineThickness=0.5,
           smooth=Smooth.Bezier,
           fillColor={0,255,255},
           fillPattern=FillPattern.Solid),
-        Ellipse(
-          extent={{-70,70},{70,-70}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=1)}),                                    Diagram(
+        Polygon(
+          points={{32.272,18.2054},{14.228,-1.8973},{14.228,-44.615},{40,
+              -77.282},{65.772,-44.615},{65.772,-1.8973},{47.728,18.2054},{40,
+              33.2823},{32.272,18.2054}},
+          lineColor={28,108,200},
+          lineThickness=0.5,
+          smooth=Smooth.Bezier,
+          fillColor={0,255,255},
+          fillPattern=FillPattern.Solid),
+      Text(
+          extent={{-147,139},{153,99}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end DailyPeriodicDHWLoad;
+end AnnualScheduleDHWLoad;

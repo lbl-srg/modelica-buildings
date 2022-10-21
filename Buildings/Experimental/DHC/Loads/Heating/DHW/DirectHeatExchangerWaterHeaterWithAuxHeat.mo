@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses;
+within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model DirectHeatExchangerWaterHeaterWithAuxHeat
   "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
   extends
