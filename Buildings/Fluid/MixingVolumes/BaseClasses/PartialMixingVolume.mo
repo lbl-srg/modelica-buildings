@@ -35,7 +35,7 @@ model PartialMixingVolume
       origin={0,-100})));
 
   Medium.Temperature T = Medium.temperature_phX(
-    p=p, 
+    p=p,
     h=hOut_internal,
     X=if Medium.reducedX then cat(1, Xi, {1-sum(Xi)}) else Xi)
     "Temperature of the fluid";
