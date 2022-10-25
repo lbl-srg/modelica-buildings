@@ -24,7 +24,9 @@ Buildings.Fluid.Movers.Data.Fans.Greenheck</a>.
 For more information, see documentation of
 <code>Buildings.Fluid.HydronicConfiguration.UsersGuide.ModelParameters</code>
 (currently under the development branch of
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.)
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.
+<b>fixme</b> This needs to be revised, users should not have to consult
+a development branch to get information.)
 </li>
 <li>
 The hydraulic efficiency is computed based on the Euler number.

@@ -113,8 +113,8 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>):
 <ul>
 <li>
 * The models will ignore this record if the nominal motor power is not provided
-and cannot be estimated from the pressure curve. This is because the
-motor part load ratio cannot be found if the nominal power is unknown.
+and cannot be estimated from the pressure curve. This is because calculating the
+motor part load ratio requires knowing the nominal power.
 </li>
 <li>
 ** The models will ignore this record if the pressure curve is not provided
@@ -501,7 +501,7 @@ the function
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>.
 This function finds the peak point when both pressure and power curves are provided.
-When only the pressure curve is available, the function makes an estimation at
+When only the pressure curve is available, the function estimates the peak point to be at
 <i>V&#775;=V&#775;<sub>max</sub> &frasl; 2</i>.
 Examples:
 </p>
@@ -649,12 +649,12 @@ These options are tested in
 Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
 </p>
 <p>
-By default, the model uses the <code>.GenericCurve</code> to obtain more accurate
+By default, the model uses the <code>GenericCurve</code> to obtain more accurate
 results with variable <i>&eta;<sub>mot</sub></i>,
 unless <code>per.powerOrEfficiencyIsHydraulic=false</code>.
 There are two reasons for this setup:
 </p>
-<ul>
+<ol>
 <li>
 Consider the following two equations:
 <p align=\"center\" style=\"font-style:italic;\">
@@ -665,9 +665,10 @@ where <i>f(&sdot;)</i> refers to the curve of motor efficiency vs. motor PLR.
 When <i>W&#775;<sub>hyd</sub></i> is known
 (i.e. <code>per.powerOrEfficiencyIsHydraulic=true</code>),
 the unknowns are <i>&eta;<sub>mot</sub></i> and <i>P<sub>ele</sub></i>
-which can be solved sequentially. Otherwise, the unknowns are
-<i>&eta;<sub>mot</sub></i> and <i>W&#775;<sub>hyd</sub></i>.
-An algebraic loop is formed and the simulation may not converge.
+which can be solved explicitly. Otherwise, the unknowns are
+<i>&eta;<sub>mot</sub></i> and <i>W&#775;<sub>hyd</sub></i>,
+and an interative solution would be required which may not converge
+for some values.
 </li>
 <li>
 If the power data provided refer to the total electric power instead of
@@ -681,7 +682,7 @@ carried away by the fluid and dissipated to the ambient and now only a negligibl
 amount of heat dissipates into the ambient, the separation of
 <i>&eta;<sub>hyd</sub></i> and <i>&eta;<sub>mot</sub></i> is then not important.
 </li>
-</ul>
+</ol>
 
 <h5>Start-up and shut-down transients</h5>
 <p>
