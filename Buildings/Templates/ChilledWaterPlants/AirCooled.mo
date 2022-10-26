@@ -40,8 +40,8 @@ model AirCooled "Air-cooled chiller plant"
 protected
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus"
-    annotation (Placement(transformation(extent={{-280,
-            120},{-240,160}}), iconTransformation(extent={{-756,-40},{-716,0}})));
+    annotation (Placement(transformation(extent={{-280, 120},{-240,160}}),
+    iconTransformation(extent={{-756,-40},{-716,0}})));
 equation
   for i in 1:nChi loop
       connect(busWea, souAir[i].weaBus) annotation (Line(

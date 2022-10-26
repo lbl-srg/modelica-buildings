@@ -45,7 +45,6 @@ package Defaults "Package with default sizing parameters"
     "CW static pressure drop (for open cooling towers only)";
   constant Modelica.Units.SI.PressureDifference dpConWatTowClo=5E4
     "CW flow-friction losses through closed-circuit tower and piping only (without valve)";
-
   constant Real mConAirByCapChi(unit="(kg/s)/W")=1E-4
     "Air mass flow rate at condenser divided by chiller capacity";
   constant Real COPChiAirCoo(unit="1")=3.0

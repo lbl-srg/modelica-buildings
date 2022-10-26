@@ -159,7 +159,8 @@ partial model PartialChillerGroup "Interface class for chiller group"
     final TConEnt_min=dat.TConChiEnt_min,
     final TConEnt_max=dat.TConChiEnt_max,
     final PLRUnl_min=dat.PLRUnlChi_min,
-    final PLR_min=dat.PLRChi_min)
+    final PLR_min=dat.PLRChi_min,
+    final per=dat.per)
     "Parameter record of each chiller";
   final parameter Buildings.Templates.Components.Data.Valve datValChiWatChiIso[nChi](
     final typ=fill(typValChiWatIso, nChi),

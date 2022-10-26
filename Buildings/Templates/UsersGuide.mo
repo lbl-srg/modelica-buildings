@@ -62,6 +62,7 @@ The following abbreviations are used in that package.<br/>
 <tr><td>OA</td><td>Outdoor air</td></tr>
 <tr><td>VAV</td><td>Variable air volume</td></tr>
 <tr><td>VFD</td><td>Variable frequency drive</td></tr>
+<tr><td>WSE</td><td>Waterside economizer</td></tr>
 </table>
 
 <h4>References</h4>

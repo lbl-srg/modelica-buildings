@@ -367,6 +367,5 @@ equation
   connect(chi.ports_bChiWat, rou.ports_aSup[1:nChi])
     annotation (Line(points={{20,110},{40,110}},
                                                color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-260,-160},{340,140}})), Icon(
-        coordinateSystem(extent={{-260,-160},{340,140}})));
+  annotation (Diagram(coordinateSystem(extent={{-260,-160},{340,140}})));
 end BaseDebug;

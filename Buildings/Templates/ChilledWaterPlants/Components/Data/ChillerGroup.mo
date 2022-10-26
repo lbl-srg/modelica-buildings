@@ -27,8 +27,7 @@ record ChillerGroup "Record for chiller group model"
   parameter Modelica.Units.SI.MassFlowRate mConAirChi_flow_nominal[nChi](
     each final min=0,
     start=if typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then capChi_nominal*(1+1/Buildings.Templates.Data.Defaults.COPChiAirCoo)*
-      Buildings.Templates.Data.Defaults.mConAirByCapChi
+      then capChi_nominal*Buildings.Templates.Data.Defaults.mConAirByCapChi
       else fill(0, nChi))
     "Condenser air mass flow rate - Each chiller"
     annotation(Dialog(group="Nominal condition",
@@ -90,15 +89,14 @@ record ChillerGroup "Record for chiller group model"
     each final max=1)=fill(0.15, nChi)
     "Minimum part load ratio before cycling";
   /* FIXME DS#SR00937490-01
-  Propagation of per from ChillerGroup is removed temporarily due to an issue in Dymola.
-  A local assignment in Chiller component is implemented instead.
-
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per[nChi](
-    TConEnt_nominal=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then TConWatChiEnt_nominal 
+  Propagation of per from ChillerGroup to Chiller is not supported in Dymola.
+  */
+  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nChi](
+    TConEnt_nominal=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      then TConWatChiEnt_nominal
       elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then TConAirChiEnt_nominal 
-      else else fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
+      then TConAirChiEnt_nominal
+      else fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
     TConEntMin=TConChiEnt_min,
     TConEntMax=TConChiEnt_max)
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
@@ -109,8 +107,11 @@ record ChillerGroup "Record for chiller group model"
       PLRMin=PLRChi_min,
       PLRMinUnl=PLRUnlChi_min,
       mEva_flow_nominal=mChiWatChi_flow_nominal,
-      mCon_flow_nominal=mConChi_flow_nominal)
+      mCon_flow_nominal=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
+      then mConWatChi_flow_nominal
+      elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
+      then mConAirChi_flow_nominal
+      else fill(0, nChi))
     "Chiller performance data"
     annotation(choicesAllMatching=true);
-   */
 end ChillerGroup;

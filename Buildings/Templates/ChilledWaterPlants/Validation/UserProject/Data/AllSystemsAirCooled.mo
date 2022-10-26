@@ -29,7 +29,8 @@ class AllSystemsAirCooled
       mConAirChi_flow_nominal=_CHI.ctl.capChi_nominal * Buildings.Templates.Data.Defaults.mConAirByCapChi,
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi, _CHI.nChi),
       dpConChi_nominal=fill(Buildings.Templates.Data.Defaults.dpConWatChi, _CHI.nChi),
-      TConAirChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, _CHI.nChi)),
+      TConAirChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, _CHI.nChi),
+      redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per),
     ctl(
       TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup, _CHI.nChi),
       TConWatChiRet_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet, _CHI.nChi),

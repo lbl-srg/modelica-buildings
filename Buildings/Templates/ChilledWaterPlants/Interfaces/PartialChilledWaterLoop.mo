@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlants.Interfaces;
 partial model PartialChilledWaterLoop
-  "Partial chilled water plant with chiller group and CHW loop"
+  "Partial chilled water plant with chiller group and CHW pumps"
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterPlant(
     final typValChiWatChiIso=chi.typValChiWatIso,
@@ -266,8 +266,9 @@ partial model PartialChilledWaterLoop
         origin={-40,-220})));
 
   // Controls
-  replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl(nAirHan=1,
-      nEquZon=1)
+  replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl(
+    nAirHan=1,
+    nEquZon=1)
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
     final dat=dat.ctl,
@@ -294,9 +295,8 @@ partial model PartialChilledWaterLoop
     Dialog(group="Controls"),
     Placement(transformation(extent={{-10,130},{10,150}})));
 
-
   // Miscellaneous
-  Fluid.Sources.Outside out(
+  Buildings.Fluid.Sources.Outside out(
     redeclare replaceable package Medium=Buildings.Media.Air,
     nPorts=2)
     "Outdoor air conditions"
@@ -305,12 +305,12 @@ partial model PartialChilledWaterLoop
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,240})));
-  Fluid.Sensors.RelativeHumidity phiOut(
+  Buildings.Fluid.Sensors.RelativeHumidity phiOut(
     redeclare replaceable package Medium=Buildings.Media.Air,
     final warnAboutOnePortConnection=false)
     "OA relative humidity"
     annotation (Placement(transformation(extent={{-50,230},{-30,250}})));
-  Fluid.Sensors.Temperature TOut(
+  Buildings.Fluid.Sensors.Temperature TOut(
     redeclare replaceable package Medium=Buildings.Media.Air,
     warnAboutOnePortConnection=false)
     "OA temperature"
@@ -345,10 +345,10 @@ equation
     annotation (Line(points={{180,0},{180,0}},     color={0,127,255}));
   connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
     annotation (Line(points={{200,0},{200,0}},     color={0,127,255}));
-  connect(intChi.ports_bRet[1:nChi], chi.ports_aChiWat) annotation (Line(points
-        ={{0,-240},{-12,-240},{-12,-180},{-20,-180}}, color={0,127,255}));
-  connect(chi.ports_bChiWat, intChi.ports_aSup[1:nChi]) annotation (Line(points
-        ={{-20,0},{-10,0},{-10,0},{0,0}}, color={0,127,255}));
+  connect(intChi.ports_bRet[1:nChi], chi.ports_aChiWat) annotation (Line(points=
+         {{0,-240},{-12,-240},{-12,-180},{-20,-180}}, color={0,127,255}));
+  connect(chi.ports_bChiWat, intChi.ports_aSup[1:nChi]) annotation (Line(points=
+         {{-20,0},{-10,0},{-10,0},{0,0}}, color={0,127,255}));
   connect(intChi.ports_bRet[nChi + 1], eco.port_a) annotation (Line(points={{0,
           -240},{-40,-240},{-40,-230}}, color={0,127,255}));
   connect(eco.port_b, intChi.ports_aSup[nChi + 1]) annotation (Line(points={{-40,
@@ -406,4 +406,41 @@ equation
     annotation (Line(points={{-1,230},{40,230}}, color={0,127,255}));
   connect(phiOut.port, out.ports[2])
     annotation (Line(points={{-40,230},{1,230}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This serves as the base class to build chilled water plant 
+templates.
+The model boundaries are the condenser inlet and oulet ports
+on the CW side, and the supply and return ports on the CHW side.
+The following components are included.
+</p>
+<ul>
+<li>
+Chiller group, as modeled with any classes extending 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup\">
+Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup</a>
+</li>
+<li>
+Optional WSE, as modeled with any classes extending 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer\">
+Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer</a>
+</li>
+<li>
+Primary CHW pumps, as modeled with 
+<a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
+Buildings.Templates.Components.Pumps.Multiple</a>
+</li>
+<li>
+Optional secondary CHW pumps, as modeled with 
+<a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
+Buildings.Templates.Components.Pumps.Multiple</a>: note 
+that if the CHW distribution type is equal to
+<code>Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed</code>
+then the secondary CHW pumps are not included in this model
+and must be modeled separately from the plant.
+</li>
+<li>
+Optional CHW bypass pipe with optional modulating valve
+</ul>
+</html>"));
 end PartialChilledWaterLoop;
