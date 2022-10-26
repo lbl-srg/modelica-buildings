@@ -4,9 +4,9 @@ model HeatPumpWaterHeaterWithTank
   extends
     Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
 
-  parameter Modelica.Units.SI.Volume VTan = 0.151416 "Tank volume";
-  parameter Modelica.Units.SI.Length hTan = 1.746 "Height of tank (without insulation)";
-  parameter Modelica.Units.SI.Length dIns = 0.0762 "Thickness of insulation";
+  parameter Modelica.Units.SI.Volume VTan = 0.1703 "Tank volume";
+  parameter Modelica.Units.SI.Length hTan = 1.009 "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns = 0.1016 "Thickness of insulation";
   parameter Modelica.Units.SI.ThermalConductivity kIns=0.04 "Specific heat conductivity of insulation";
   parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500 "Pressure drop across the heat exchanger at nominal conditions";
   parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278 "Mass flow rate of heat exchanger";
