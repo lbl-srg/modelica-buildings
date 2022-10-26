@@ -275,35 +275,30 @@ protected
     if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None
     "Cooler inlet isolation valve control bus"
     annotation (Placement(
-        transformation(extent={{-260,-160},{-220,-120}}),
-                                                       iconTransformation(
+        transformation(extent={{-260,-160},{-220,-120}}), iconTransformation(
           extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValCooOutIso[nCoo]
     if typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None
     "Cooler outlet isolation valve control bus"
     annotation (Placement(
-        transformation(extent={{-260,-200},{-220,-160}}),
-                                                        iconTransformation(
+        transformation(extent={{-260,-200},{-220,-160}}), iconTransformation(
           extent={{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiIso[nChi]
     if typValChiWatChiIso<>Buildings.Templates.Components.Types.Valve.None
     "Chiller CHW isolation valve control bus"
     annotation (Placement(
-        transformation(extent={{-260,140},{-220,180}}),
-                                                      iconTransformation(extent=
+        transformation(extent={{-260,140},{-220,180}}), iconTransformation(extent=
            {{-756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValConWatChiIso[nChi]
     if typValConWatChiIso<>Buildings.Templates.Components.Types.Valve.None
     "Chiller CW isolation valve control bus"
     annotation (Placement(
-        transformation(extent={{-260,100},{-220,140}}),
-                                                    iconTransformation(extent={{
+        transformation(extent={{-260,100},{-220,140}}), iconTransformation(extent={{
             -756,150},{-716,190}})));
   Buildings.Templates.Components.Interfaces.Bus busValChiWatChiByp[nChi]
- if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
+    if typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
     "Chiller CHW bypass valve control bus - Series chillers" annotation (
-      Placement(transformation(extent={{-260,60},{-220,100}}),
-                                                             iconTransformation(
+      Placement(transformation(extent={{-260,60},{-220,100}}), iconTransformation(
           extent={{-422,198},{-382,238}})));
 equation
   connect(busValChiWatChiIso, bus.valChiWatChiIso) annotation (Line(

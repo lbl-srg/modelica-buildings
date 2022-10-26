@@ -28,8 +28,8 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
   inner replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI(
     typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
-    typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+    typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     have_varPumConWat_select=true,
     ctl(
       typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,

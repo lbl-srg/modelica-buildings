@@ -87,7 +87,7 @@ equation
   connect(inlPumConWat.ports_b, pumConWat.ports_a)
     annotation (Line(points={{-140,-180},{-130,-180}}, color={0,127,255}));
   connect(busWea, coo.busWea) annotation (Line(
-      points={{-1.11022e-15,280},{0,280},{0,40},{-198,40}},
+      points={{-1.11022e-15,280},{0,280},{0,260},{-200,260},{-200,40},{-198,40}},
       color={255,204,51},
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])

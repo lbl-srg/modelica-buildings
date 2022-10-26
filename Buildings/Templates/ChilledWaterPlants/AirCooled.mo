@@ -45,7 +45,7 @@ protected
 equation
   for i in 1:nChi loop
       connect(busWea, souAir[i].weaBus) annotation (Line(
-      points={{0,280},{0,20},{-140,20},{-140,-180.2},{-128,-180.2}},
+      points={{0,280},{0,260},{-140,260},{-140,-180.2},{-128,-180.2}},
       color={255,204,51},
       thickness=0.5));
   end for;

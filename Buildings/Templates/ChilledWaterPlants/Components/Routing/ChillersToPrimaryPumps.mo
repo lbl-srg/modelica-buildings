@@ -334,7 +334,7 @@ equation
   connect(VChiWatPri_flow.port_b,TChiWatPlaRet. port_a)
     annotation (Line(points={{110,-100},{90,-100}}, color={0,127,255}));
 annotation (
-  defaultComponentName="rou",
+  defaultComponentName="int",
   Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-200,-1300},{200,1300}}),
     graphics={

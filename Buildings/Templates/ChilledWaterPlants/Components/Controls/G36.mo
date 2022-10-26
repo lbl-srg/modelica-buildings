@@ -599,7 +599,10 @@ equation
   connect(bus.dpChiWatEco,ctl. dpChiWat);
   connect(bus.pumConWat.y1_actual,ctl. uConWatPum);
   connect(FIXME_uConWatPum.y,ctl. uConWatPum);
-  connect(bus.pumChiWatEco.y1_actual,ctl. uEcoPum);
+  // HACK Dymola does not automatically remove the clause at translation.
+  if typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump then
+    connect(bus.pumChiWatEco.y1_actual,ctl. uEcoPum);
+  end if;
   connect(bus.TChiWatEcoEnt,ctl. TEntHex);
   connect(bus.TOut,ctl. TOut);
   connect(busCoo.y1_actual, ctl.uTowSta);
@@ -612,9 +615,9 @@ equation
   connect(FIXME_uChiConIsoVal.y,ctl. uChiConIsoVal);
   connect(FIXME_uChiWatIsoVal.y,ctl. uChiWatIsoVal);
   connect(FIXME_uChiIsoVal.y,ctl. uChiIsoVal);
-  connect(bus.valConWatChiIso.y1_actual, FIXME1_uChiConIsoVal.u);
-  connect(bus.valChiWatChiIso.y_actual, FIXME1_uChiWatIsoVal.u);
-  connect(bus.valChiWatChiIso.y1_actual, FIXME1_uChiIsoVal.u);
+  connect(busValConWatChiIso.y1_actual, FIXME1_uChiConIsoVal.u);
+  connect(busValChiWatChiIso.y_actual, FIXME1_uChiWatIsoVal.u);
+  connect(busValChiWatChiIso.y1_actual, FIXME1_uChiIsoVal.u);
   connect(FIXME1_uChiConIsoVal.y,ctl. uChiConIsoVal);
   connect(FIXME1_uChiWatIsoVal.y,ctl. uChiWatIsoVal);
   connect(FIXME1_uChiIsoVal.y,ctl. uChiIsoVal);

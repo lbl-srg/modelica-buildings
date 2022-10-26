@@ -98,7 +98,7 @@ model BaseDebug
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Chiller group"
-    annotation (Placement(transformation(extent={{-20,-70},{20,50}})));
+    annotation (Placement(transformation(extent={{-20,-80},{20,120}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outConChi(
     redeclare final package Medium = MediumCon,
     final nPorts=if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
@@ -109,7 +109,7 @@ model BaseDebug
     final tau=tau,
     final allowFlowReversal=allowFlowReversal)
     "Chiller group condenser fluid outlet"
-    annotation (Placement(transformation(extent={{-32,30},{-52,50}})));
+    annotation (Placement(transformation(extent={{-40,100},{-60,120}})));
   Components.Controls.OpenLoop ctr(
     final typChi=typChi,
     final nChi=nChi,
@@ -149,7 +149,7 @@ model BaseDebug
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-70,40})));
+        origin={-78,110})));
   Fluid.Sources.MassFlowSource_WeatherData
                                  souAir[nChi](
     redeclare each final package Medium = MediumCon,
@@ -158,7 +158,7 @@ model BaseDebug
     each final nPorts=1) "Air flow source" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-70,-60})));
+        origin={-70,-70})));
   Components.Routing.ChillersToPrimaryPumps rou(
     redeclare final package MediumChiWat = MediumChiWat,
     final nChi=nChi,
@@ -171,7 +171,7 @@ model BaseDebug
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Hydronic interface between chillers (and optional WSE) and primary pumps"
-    annotation (Placement(transformation(extent={{40,-70},{80,50}})));
+    annotation (Placement(transformation(extent={{40,-140},{80,120}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
     redeclare final package Medium = MediumChiWat,
     final nPorts=nPumChiWatSec,
@@ -224,14 +224,14 @@ model BaseDebug
     m_flow_nominal=sum(chi.mChiWatChi_flow_nominal),
     dp_nominal=dat.dpChiWatDis_nominal)
     "Flow resistance of CHW distribution system"
-    annotation (Placement(transformation(extent={{140,-70},{120,-50}})));
+    annotation (Placement(transformation(extent={{140,-140},{120,-120}})));
   Controls.OBC.CDL.Conversions.BooleanToReal y1Chi[nChi]
     "Convert chiller Start/Stop signal into real value"
-    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
+    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter mCon_flow[nChi](
     k=dat.CHI.chi.mConChi_flow_nominal)
     "Compute air mass flow rate at condenser"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatMinByp(
     redeclare final package Medium = MediumChiWat,
     final dat=dat.CHI.valChiWatMinByp,
@@ -240,13 +240,13 @@ model BaseDebug
     "CHW minimum flow bypass valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={140,10})));
+        origin={140,-50})));
   Buildings.Templates.Components.Routing.PassThroughFluid bypChiWatFix(
       redeclare final package Medium = MediumChiWat, final allowFlowReversal=
         allowFlowReversal)
     if have_bypChiWatFix
     "Fixed CHW bypass (common leg)"
-    annotation (Placement(transformation(extent={{150,-30},{130,-10}})));
+    annotation (Placement(transformation(extent={{140,-100},{120,-80}})));
   BoundaryConditions.WeatherData.ReaderTMY3  weaDat(filNam=
     Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
@@ -261,16 +261,16 @@ model BaseDebug
 protected
   Buildings.Templates.Components.Interfaces.Bus busChi[nChi]
     "Chiller control bus"
-    annotation (Placement(transformation(extent={{-210,-80},
-            {-170,-40}}), iconTransformation(extent={{-756,-40},{-716,0}})));
+    annotation (Placement(transformation(extent={{-210,-90},{-170,-50}}),
+                          iconTransformation(extent={{-756,-40},{-716,0}})));
 equation
   connect(chi.ports_bCon,outConChi.ports_a)
-    annotation (Line(points={{-20,40},{-32,40}},
+    annotation (Line(points={{-20,110},{-40,110}},
                                                color={0,127,255}));
   connect(outConChi.port_b, bouCon.ports[1])
-    annotation (Line(points={{-52,40},{-60,40}},   color={0,127,255}));
-  connect(souAir.ports[1], chi.ports_aCon) annotation (Line(points={{-60,-60},{-20,
-          -60}},                             color={0,127,255}));
+    annotation (Line(points={{-60,110},{-68,110}}, color={0,127,255}));
+  connect(souAir.ports[1], chi.ports_aCon) annotation (Line(points={{-60,-70},{
+          -20,-70}},                         color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{140,40},{160,40},{160,40}}, color={0,127,255}));
   connect(outPumChiWatPri.port_b, inlPumChiWatSec.port_a)
@@ -280,7 +280,8 @@ equation
   connect(pumChiWatSec.ports_b, outPumChiWatSec.ports_a)
     annotation (Line(points={{240,40},{260,40}}, color={0,127,255}));
   connect(rou.ports_bSup, pumChiWatPri.ports_a)
-    annotation (Line(points={{80,40},{120,40}}, color={0,127,255}));
+    annotation (Line(points={{80,110},{100,110},{100,40},{120,40}},
+                                                color={0,127,255}));
   connect(ctl.bus, bus) annotation (Line(
       points={{-100,80},{-60,80}},
       color={255,204,51},
@@ -290,7 +291,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(bus, chi.bus) annotation (Line(
-      points={{-60,80},{0,80},{0,50}},
+      points={{-60,80},{0,80},{0,120}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -298,7 +299,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(bus, rou.bus) annotation (Line(
-      points={{-60,80},{60,80},{60,50}},
+      points={{-60,80},{60,80},{60,120}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -323,33 +324,36 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(outPumChiWatSec.port_b, bouChiWat.ports[1]) annotation (Line(points={{280,40},
           {290,40},{290,41},{300,41}},         color={0,127,255}));
-  connect(res.port_b, rou.port_aRet) annotation (Line(points={{120,-60},{99.95,-60},
-          {99.95,-60.1},{79.9,-60.1}}, color={0,127,255}));
-  connect(res.port_a, bouChiWat.ports[2]) annotation (Line(points={{140,-60},{300,
-          -60},{300,39}}, color={0,127,255}));
+  connect(res.port_b, rou.port_aRet) annotation (Line(points={{120,-130},{80,
+          -130}},                      color={0,127,255}));
+  connect(res.port_a, bouChiWat.ports[2]) annotation (Line(points={{140,-130},{
+          300,-130},{300,39}},
+                          color={0,127,255}));
   connect(y1Chi.y,mCon_flow. u)
-    annotation (Line(points={{-138,-60},{-122,-60}}, color={0,0,127}));
+    annotation (Line(points={{-138,-70},{-122,-70}}, color={0,0,127}));
   connect(busChi.y1,y1Chi. u) annotation (Line(
-      points={{-190,-60},{-162,-60}},
+      points={{-190,-70},{-162,-70}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.chi,busChi)  annotation (Line(
-      points={{-60,80},{-60,100},{-220,100},{-220,-60},{-190,-60}},
+      points={{-60,80},{-60,60},{-220,60},{-220,-70},{-190,-70}},
       color={255,204,51},
       thickness=0.5));
-  connect(mCon_flow.y, souAir.m_flow_in) annotation (Line(points={{-98,-60},{-90,
-          -60},{-90,-68},{-80,-68}}, color={0,0,127}));
-  connect(bypChiWatFix.port_b, rou.port_aByp) annotation (Line(points={{130,-20},
-          {90,-20},{90,-10},{80,-10}}, color={0,127,255}));
-  connect(valChiWatMinByp.port_b, rou.port_aByp) annotation (Line(points={{140,0},
-          {90,0},{90,-10},{80,-10}},      color={0,127,255}));
-  connect(bypChiWatFix.port_a, outPumChiWatPri.port_b) annotation (Line(points={{150,-20},
-          {180,-20},{180,40}},                  color={0,127,255}));
+  connect(mCon_flow.y, souAir.m_flow_in) annotation (Line(points={{-98,-70},{
+          -90,-70},{-90,-78},{-80,-78}},
+                                     color={0,0,127}));
+  connect(bypChiWatFix.port_b, rou.port_aByp) annotation (Line(points={{120,-90},
+          {80,-90}},                   color={0,127,255}));
+  connect(valChiWatMinByp.port_b, rou.port_aByp) annotation (Line(points={{140,-60},
+          {90,-60},{90,-90},{80,-90}},    color={0,127,255}));
+  connect(bypChiWatFix.port_a, outPumChiWatPri.port_b) annotation (Line(points={{140,-90},
+          {180,-90},{180,40}},                  color={0,127,255}));
   connect(outPumChiWatPri.port_b, valChiWatMinByp.port_a) annotation (Line(
-        points={{180,40},{180,20},{140,20}},          color={0,127,255}));
+        points={{180,40},{180,-20},{140,-20},{140,-40}},
+                                                      color={0,127,255}));
   for i in 1:nChi loop
     connect(weaDat.weaBus, souAir[i].weaBus) annotation (Line(
-      points={{-180,0},{-86,0},{-86,-60.2},{-80,-60.2}},
+      points={{-180,0},{-86,0},{-86,-70.2},{-80,-70.2}},
       color={255,204,51},
       thickness=0.5));
   end for;
@@ -358,8 +362,11 @@ equation
   connect(supChiWat.port_b, bouChiWat.ports[1]) annotation (Line(points={{240,0},
           {280,0},{280,41},{300,41}},           color={0,127,255}));
   connect(rou.ports_bRet[1:nChi], chi.ports_aChiWat)
-    annotation (Line(points={{40,-60},{20,-60}}, color={0,127,255}));
+    annotation (Line(points={{40,-130},{32,-130},{32,-70},{20,-70}},
+                                                 color={0,127,255}));
   connect(chi.ports_bChiWat, rou.ports_aSup[1:nChi])
-    annotation (Line(points={{20,40},{40,40}}, color={0,127,255}));
-  annotation (Diagram(coordinateSystem(extent={{-260,-120},{340,140}})));
+    annotation (Line(points={{20,110},{40,110}},
+                                               color={0,127,255}));
+  annotation (Diagram(coordinateSystem(extent={{-260,-160},{340,140}})), Icon(
+        coordinateSystem(extent={{-260,-160},{340,140}})));
 end BaseDebug;
