@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "hex.QSen2_flow",
+    "hex.QLat2_flow",
+    "hex.m1_flow",
+    "hex.m2_flow",
+    "hex.sta_a1.T",
+    "hex.sta_b1.T",
+    "hex.sta_a2.T",
+    "hex.sta_b2.T",
+    "hex.sta_a2.X[1]",
+    "hex.sta_b2.X[1]",
+    "hex.SHR"
+  };

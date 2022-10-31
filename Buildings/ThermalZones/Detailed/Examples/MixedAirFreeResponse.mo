@@ -72,17 +72,15 @@ model MixedAirFreeResponse "Free response of room model"
 
   parameter String weaFil = Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
    "Weather data file";
-  parameter Modelica.SIunits.Angle lat = Buildings.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(weaFil) "Latitude";
-  parameter Modelica.SIunits.Volume VRoo = 4555.7  "Room volum";
-  parameter Modelica.SIunits.Height hRoo = 2.74 "Room height";
-  parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
+  parameter Modelica.Units.SI.Volume VRoo=4555.7 "Room volum";
+  parameter Modelica.Units.SI.Height hRoo=2.74 "Room height";
+  parameter Modelica.Units.SI.Length hWin=1.5 "Height of windows";
   parameter Real winWalRat(min=0.01,max=0.99) = 0.33
     "Window to wall ratio for exterior walls";
-  parameter Modelica.SIunits.Area AFlo = VRoo/hRoo "Floor area";
+  parameter Modelica.Units.SI.Area AFlo=VRoo/hRoo "Floor area";
 
   Buildings.ThermalZones.Detailed.MixedAir roo(
     redeclare package Medium = Medium,
-    lat=lat,
     AFlo=AFlo,
     hRoo=hRoo,
     nConExt=0,
@@ -176,9 +174,9 @@ Buildings.ThermalZones.Detailed.MixedAir</a>.
 </p>
 <p>
 The geometry, materials and constructions of the model are consistent with those of
-<a href=\"modelica://Buildings.Examples.VAVReheat.ThermalZones.Floor\">
-Buildings.Examples.VAVReheat.ThermalZones.Floor</a>
-but here they are modelled as a single thermal zone.
+<a href=\"modelica://Buildings.Examples.VAVReheat.BaseClasses.Floor\">
+Buildings.Examples.VAVReheat.BaseClasses.Floor</a>
+but here they are modeled as a single thermal zone.
 The model is representative for one floor of the
 new construction medium office building for Chicago, IL,
 as described in the set of DOE Commercial Building Benchmarks.

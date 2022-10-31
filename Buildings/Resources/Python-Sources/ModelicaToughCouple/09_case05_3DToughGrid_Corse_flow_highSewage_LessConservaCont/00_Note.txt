@@ -1,0 +1,1 @@
+In this case, the control of the borefield pump is less conservative. Previously, the target temperature difference before and after the source (dTSou_nominal) is 4 degK, in this case, we changed it to 2 degK. So we can expect more heat and cooling requirement from the borefield.

@@ -92,21 +92,21 @@ equation
         Text(
           visible=use_X_in,
           extent={{-164,4},{-62,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="X"),
         Text(
           visible=use_Xi_in,
           extent={{-164,4},{-62,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="Xi"),
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="C")}),
@@ -127,7 +127,7 @@ Modelica.Media.IdealGases.MixtureGases.FlueGasSixComponents</a> and
 <a href=\"modelica://Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas\">
 Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas</a>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
 </li>
 <li>
 February 13, 2018, by Michael Wetter:<br/>

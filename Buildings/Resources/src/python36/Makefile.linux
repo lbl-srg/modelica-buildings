@@ -1,0 +1,45 @@
+#######################################################
+# LINUX OPERATING SYSTEMS
+#######################################################
+SHELL = /bin/sh
+ARCH = $(shell getconf LONG_BIT)
+# Makefile to compile Python interface
+# Michael Wetter (MWetter@lbl.gov) October 24, 2012
+
+# Python directories
+# PYTHONHOME must be defined before running the make file.
+# For instance:
+#   export PYTHONHOME=$HOME/miniconda3/envs/python3
+ifndef PYTHONHOME
+$(error PYTHONHOME is not set)
+endif
+PYTHONInc=$(PYTHONHOME)/include/python3.6m
+PYTHONLib=$(PYTHONHOME)/lib/x86_64-linux-gnu/
+
+# Directory where executable will be copied to
+BINDIR = ../../Library/linux$(ARCH)
+
+#######################################################
+## Compilation flags
+CC = gcc
+
+CC_FLAGS_32 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.6m -lm -m32
+CC_FLAGS_64 = -Wall -std=c89 -pedantic -msse2 -mfpmath=sse -I$(PYTHONInc) -L$(PYTHONLib) -lpython3.6m -lm -m64
+
+SRCS = pythonInterpreter.c
+OBJS = pythonInterpreter.o
+LIB  = libModelicaBuildingsPython3.6.so
+
+# Note that -fPIC is recommended on Linux according to the Modelica specification
+
+all: clean
+	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
+	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) -lc
+	mv $(LIB) $(BINDIR)
+	@echo "==== library generated in $(BINDIR)"
+
+prg: clean
+	$(CC) -g testProgram.c $(SRCS) -o testProgram  $(CC_FLAGS_$(ARCH))
+
+clean:
+	rm -f $(OBJS) $(LIB) main.o main

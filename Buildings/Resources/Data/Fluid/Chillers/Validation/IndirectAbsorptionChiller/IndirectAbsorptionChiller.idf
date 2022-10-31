@@ -1,12 +1,8 @@
 !-Generator IDFEditor 1.50
 !-Option SortedOrder UseSpecialFormat
-
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
-
-
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
-
 !IndirectAbsorptionChiller.idf
 ! Basic file description:  1 story building divided into 3 interior conditioned zones. Roof with no plenum.
 !                          Outdoor air is modulated based on occupancy and floor area.
@@ -106,66 +102,64 @@
 ! HTML Report:                    None
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
-Version,9.3;
+
+  Version,9.6;
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
-
-SimulationControl,
+  SimulationControl,
     No,                      !- Do Zone Sizing Calculation
     No,                      !- Do System Sizing Calculation
     Yes,                     !- Do Plant Sizing Calculation
     Yes,                     !- Run Simulation for Sizing Periods
-    Yes;                     !- Run Simulation for Weather File Run Periods
-
+    Yes,                     !- Run Simulation for Weather File Run Periods
+    No,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                       !- Maximum Number of HVAC Sizing Simulation Passes
 
 !-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
 
-Building,
+  Building,
     NONE,                    !- Name
     0,                       !- North Axis {deg}
     Suburbs,                 !- Terrain
-    3.9999999E-02,           !- Loads Convergence Tolerance Value
+    3.9999999E-02,           !- Loads Convergence Tolerance Value {W}
     0.4000000,               !- Temperature Convergence Tolerance Value {deltaC}
     FullInteriorAndExterior, !- Solar Distribution
     25,                      !- Maximum Number of Warmup Days
     6;                       !- Minimum Number of Warmup Days
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:INSIDE ===========
 
-SurfaceConvectionAlgorithm:Inside,TARP;
+  SurfaceConvectionAlgorithm:Inside,TARP;
 
 !-   ===========  ALL OBJECTS IN CLASS: SURFACECONVECTIONALGORITHM:OUTSIDE ===========
 
-SurfaceConvectionAlgorithm:Outside,DOE-2;
+  SurfaceConvectionAlgorithm:Outside,DOE-2;
 
 !-   ===========  ALL OBJECTS IN CLASS: HEATBALANCEALGORITHM ===========
 
-HeatBalanceAlgorithm,ConductionTransferFunction;
+  HeatBalanceAlgorithm,ConductionTransferFunction;
 
 !-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
 
-Timestep,60;
+  Timestep,60;
 
 !-   ===========  ALL OBJECTS IN CLASS: SITE:LOCATION ===========
-
-
 !  Data Source=ASHRAE 2009 Annual Design Conditions
-Site:Location,
+
+  Site:Location,
     Miami Intl Ap FL USA WMO=722020,  !- Name
     25.82,                   !- Latitude {deg}
     -80.30,                  !- Longitude {deg}
     -5.00,                   !- Time Zone {hr}
     11.00;                   !- Elevation {m}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SIZINGPERIOD:DESIGNDAY ===========
-
 ! Miami Intl Ap Annual Cooling Design Conditions Wind Speed=4.5m/s Wind Dir=140
 ! Hottest Month=July
 ! Miami Intl Ap FL USA Annual Cooling (DB=>MWB) .4%, MaxDB=33.2°C MWB=25.3°C
-SizingPeriod:DesignDay,
+
+  SizingPeriod:DesignDay,
     Miami Intl Ap Ann Clg .4% Condns DB=>MWB,  !- Name
     7,                       !- Month
     21,                      !- Day of Month
@@ -193,10 +187,9 @@ SizingPeriod:DesignDay,
     ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud) {dimensionless}
     1.00;                    !- Sky Clearness
 
-
 !-   ===========  ALL OBJECTS IN CLASS: RUNPERIOD ===========
 
-RunPeriod,
+  RunPeriod,
     Run Period 2,            !- Name
     7,                       !- Begin Month
     7,                       !- Begin Day of Month
@@ -211,9 +204,7 @@ RunPeriod,
     Yes,                     !- Use Weather File Rain Indicators
     No;                      !- Use Weather File Snow Indicators
 
-
 !-   ===========  ALL OBJECTS IN CLASS: RUNPERIODCONTROL:DAYLIGHTSAVINGTIME ===========
-
 !RunPeriod,
 !    1,                       !- Begin Month
 !    1,                       !- Begin Day Of Month
@@ -227,255 +218,252 @@ RunPeriod,
 !    Yes;                     !- Use WeatherFile Snow Indicators
 !  WMO=722020 Time Zone=NAE        (GMT-05:00) Eastern Time (US & Canada)
 !  Data Source=ASHRAE 2005 Annual Design Conditions
-RunPeriodControl:DaylightSavingTime,
+
+  RunPeriodControl:DaylightSavingTime,
     1st Sunday in April,     !- Start Date
     Last Sunday in October;  !- End Date
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SITE:GROUNDTEMPERATURE:BUILDINGSURFACE ===========
 
-Site:GroundTemperature:BuildingSurface,21.0,21.5,22.0,22.2,22.2,22.2,22.2,22.2,22.2,22.0,21.5,21.0;
+  Site:GroundTemperature:BuildingSurface,21.0,21.5,22.0,22.2,22.2,22.2,22.2,22.2,22.2,22.0,21.5,21.0;
 
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULETYPELIMITS ===========
 
-
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Any Number;              !- Name
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Fraction,                !- Name
     0.0,                     !- Lower Limit Value
     1.0,                     !- Upper Limit Value
     CONTINUOUS;              !- Numeric Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Temperature,             !- Name
     -60,                     !- Lower Limit Value
     200,                     !- Upper Limit Value
     CONTINUOUS,              !- Numeric Type
     Temperature;             !- Unit Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     Control Type,            !- Name
     0,                       !- Lower Limit Value
     4,                       !- Upper Limit Value
     DISCRETE;                !- Numeric Type
 
-ScheduleTypeLimits,
+  ScheduleTypeLimits,
     On/Off,                  !- Name
     0,                       !- Lower Limit Value
     1,                       !- Upper Limit Value
     DISCRETE;                !- Numeric Type
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SCHEDULE:COMPACT ===========
 
-Schedule:Compact,
+  Schedule:Compact,
     Activity Sch,            !- Name
     Any Number,              !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 131.8;     !- Field 4
+    Until: 24:00,131.8;      !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Work Eff Sch,            !- Name
     Any Number,              !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 0.0;       !- Field 4
+    Until: 24:00,0.0;        !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Clothing Sch,            !- Name
     Any Number,              !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 1.0;       !- Field 4
+    Until: 24:00,1.0;        !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Air Velo Sch,            !- Name
     Any Number,              !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 0.137;     !- Field 4
+    Until: 24:00,0.137;      !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     OFFICE OCCUPANCY,        !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: WeekDays SummerDesignDay,  !- Field 2
-    Until: 6:00, 0.0,        !- Field 4
-    Until: 7:00, 0.10,       !- Field 6
-    Until: 8:00, 0.50,       !- Field 8
-    Until: 12:00, 1.00,      !- Field 10
-    Until: 13:00, 0.50,      !- Field 12
-    Until: 16:00, 1.00,      !- Field 14
-    Until: 17:00, 0.50,      !- Field 16
-    Until: 18:00, 0.10,      !- Field 18
-    Until: 24:00, 0.0,       !- Field 20
+    For: WeekDays SummerDesignDay, !- Field 2
+    Until: 6:00,0.0,         !- Field 3
+    Until: 7:00,0.10,        !- Field 5
+    Until: 8:00,0.50,        !- Field 7
+    Until: 12:00,1.00,       !- Field 9
+    Until: 13:00,0.50,       !- Field 11
+    Until: 16:00,1.00,       !- Field 13
+    Until: 17:00,0.50,       !- Field 15
+    Until: 18:00,0.10,       !- Field 17
+    Until: 24:00,0.0,        !- Field 19
     For: AllOtherDays,       !- Field 21
-    Until: 24:00, 0.0;       !- Field 23
+    Until: 24:00,0.0;        !- Field 22
 
-Schedule:Compact,
+  Schedule:Compact,
     INTERMITTENT,            !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: WeekDays SummerDesignDay,  !- Field 2
-    Until: 8:00, 0.0,        !- Field 4
-    Until: 18:00, 1.00,      !- Field 6
-    Until: 24:00, 0.0,       !- Field 8
+    For: WeekDays SummerDesignDay, !- Field 2
+    Until: 8:00,0.0,         !- Field 3
+    Until: 18:00,1.00,       !- Field 5
+    Until: 24:00,0.0,        !- Field 7
     For: AllOtherDays,       !- Field 9
-    Until: 24:00, 0.0;       !- Field 11
+    Until: 24:00,0.0;        !- Field 10
 
-Schedule:Compact,
+  Schedule:Compact,
     OFFICE LIGHTING,         !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
-    For: WeekDays SummerDesignDay,  !- Field 2
-    Until: 6:00, 0.05,       !- Field 4
-    Until: 7:00, 0.20,       !- Field 6
-    Until: 17:00, 1.00,      !- Field 8
-    Until: 18:00, 0.50,      !- Field 10
-    Until: 24:00, 0.05,      !- Field 12
+    For: WeekDays SummerDesignDay, !- Field 2
+    Until: 6:00,0.05,        !- Field 3
+    Until: 7:00,0.20,        !- Field 5
+    Until: 17:00,1.00,       !- Field 7
+    Until: 18:00,0.50,       !- Field 9
+    Until: 24:00,0.05,       !- Field 11
     For: AllOtherDays,       !- Field 13
-    Until: 24:00, 0.05;      !- Field 15
+    Until: 24:00,0.05;       !- Field 14
 
-Schedule:Compact,
+  Schedule:Compact,
     On Peak,                 !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until:  9:00, 0.0,       !- Field 4
-    Until: 18:00, 1.0,       !- Field 6
-    Until: 24:00, 0.0;       !- Field 8
+    Until:  9:00,0.0,        !- Field 3
+    Until: 18:00,1.0,        !- Field 5
+    Until: 24:00,0.0;        !- Field 7
 
-Schedule:Compact,
+  Schedule:Compact,
     Off Peak,                !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 9:00, 1.0,        !- Field 4
-    Until: 18:00, 0.0,       !- Field 6
-    Until: 24:00, 1.0;       !- Field 8
+    Until: 9:00,1.0,         !- Field 3
+    Until: 18:00,0.0,        !- Field 5
+    Until: 24:00,1.0;        !- Field 7
 
-Schedule:Compact,
+  Schedule:Compact,
     ON,                      !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 1.0;       !- Field 4
+    Until: 24:00,1.0;        !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Seasonal Reset Supply Air Temp Sch,  !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 3/31,           !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 17.0,      !- Field 4
+    Until: 24:00,17.0,       !- Field 3
     Through: 9/30,           !- Field 5
     For: AllDays,            !- Field 6
-    Until: 24:00, 15.0,      !- Field 8
+    Until: 24:00,15.0,       !- Field 7
     Through: 12/31,          !- Field 9
     For: AllDays,            !- Field 10
-    Until: 24:00, 16.0;      !- Field 12
+    Until: 24:00,16.0;       !- Field 11
 
-Schedule:Compact,
+  Schedule:Compact,
     CW Loop Temp Schedule,   !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 6.67;      !- Field 4
+    Until: 24:00,6.67;       !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     HW Loop Temp Schedule,   !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 60;        !- Field 4
+    Until: 24:00,60;         !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     FanAndCoilAvailSched,    !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 3/31,           !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 1.0,       !- Field 4
+    Until: 24:00,1.0,        !- Field 3
     Through: 9/30,           !- Field 5
-    For: WeekDays SummerDesignDay WinterDesignDay,  !- Field 6
-    Until: 7:00, 0.0,        !- Field 8
-    Until: 17:00, 1.0,       !- Field 10
-    Until: 24:00, 0.0,       !- Field 12
+    For: WeekDays SummerDesignDay WinterDesignDay, !- Field 6
+    Until: 7:00,0.0,         !- Field 7
+    Until: 17:00,1.0,        !- Field 9
+    Until: 24:00,0.0,        !- Field 11
     For: AllOtherDays,       !- Field 13
-    Until: 24:00, 0.0,       !- Field 15
+    Until: 24:00,0.0,        !- Field 14
     Through: 12/31,          !- Field 16
     For: AllDays,            !- Field 17
-    Until: 24:00, 1.0;       !- Field 19
+    Until: 24:00,1.0;        !- Field 18
 
-Schedule:Compact,
+  Schedule:Compact,
     CoolingCoilAvailSched,   !- Name
     Fraction,                !- Schedule Type Limits Name
     Through: 1/1,            !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 0.0,       !- Field 4
+    Until: 24:00,0.0,        !- Field 3
     Through: 11/30,          !- Field 5
     For: WeekDays,           !- Field 6
-    Until: 7:00, 0.0,        !- Field 8
-    Until: 17:00, 1.0,       !- Field 10
-    Until: 24:00, 0.0,       !- Field 12
+    Until: 7:00,0.0,         !- Field 7
+    Until: 17:00,1.0,        !- Field 9
+    Until: 24:00,0.0,        !- Field 11
     For: SummerDesignDay,    !- Field 13
-    Until: 24:00, 1.0,       !- Field 15
+    Until: 24:00,1.0,        !- Field 14
     For: AllOtherDays,       !- Field 16
-    Until: 24:00, 0.0,       !- Field 18
+    Until: 24:00,0.0,        !- Field 17
     Through: 12/31,          !- Field 19
     For: AllDays,            !- Field 20
-    Until: 24:00, 0.0;       !- Field 22
+    Until: 24:00,0.0;        !- Field 21
 
-Schedule:Compact,
+  Schedule:Compact,
     Heating Setpoints,       !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until:  7:00, 15.0,      !- Field 4
-    Until: 17:00, 20.0,      !- Field 6
-    Until: 24:00, 15.0;      !- Field 8
+    Until:  7:00,15.0,       !- Field 3
+    Until: 17:00,20.0,       !- Field 5
+    Until: 24:00,15.0;       !- Field 7
 
-Schedule:Compact,
+  Schedule:Compact,
     Cooling Setpoints,       !- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until:  7:00, 30.0,      !- Field 4
-    Until: 17:00, 24.0,      !- Field 6
-    Until: 24:00, 30.0;      !- Field 8
+    Until:  7:00,30.0,       !- Field 3
+    Until: 17:00,24.0,       !- Field 5
+    Until: 24:00,30.0;       !- Field 7
 
-Schedule:Compact,
+  Schedule:Compact,
     Zone Control Type Sched, !- Name
     Control Type,            !- Schedule Type Limits Name
     Through: 1/31,           !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 1,         !- Field 4
+    Until: 24:00,1,          !- Field 3
     Through: 11/30,          !- Field 5
     For: AllDays,            !- Field 6
-    Until: 24:00, 2,         !- Field 8
+    Until: 24:00,2,          !- Field 7
     Through: 12/31,          !- Field 9
     For: AllDays,            !- Field 10
-    Until: 24:00, 1;         !- Field 12
+    Until: 24:00,1;          !- Field 11
 
-Schedule:Compact,
+  Schedule:Compact,
     PlantOnSched,            !- Name
     ON/OFF,                  !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 1.0;       !- Field 4
+    Until: 24:00,1.0;        !- Field 3
 
-Schedule:Compact,
+  Schedule:Compact,
     Steam-Loop-Temp-Schedule,!- Name
     Temperature,             !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: AllDays,            !- Field 2
-    Until: 24:00, 100.0;     !- Field 4
-
+    Until: 24:00,100.0;      !- Field 3
 
 !-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
 
-Material,
+  Material,
     A1 - 1 IN STUCCO,        !- Name
     Smooth,                  !- Roughness
     2.5389841E-02,           !- Thickness {m}
@@ -486,7 +474,7 @@ Material,
     0.9200000,               !- Solar Absorptance
     0.9200000;               !- Visible Absorptance
 
-Material,
+  Material,
     C4 - 4 IN COMMON BRICK,  !- Name
     Rough,                   !- Roughness
     0.1014984,               !- Thickness {m}
@@ -497,7 +485,7 @@ Material,
     0.7600000,               !- Solar Absorptance
     0.7600000;               !- Visible Absorptance
 
-Material,
+  Material,
     E1 - 3 / 4 IN PLASTER OR GYP BOARD,  !- Name
     Smooth,                  !- Roughness
     1.9050000E-02,           !- Thickness {m}
@@ -508,7 +496,7 @@ Material,
     0.9200000,               !- Solar Absorptance
     0.9200000;               !- Visible Absorptance
 
-Material,
+  Material,
     C6 - 8 IN CLAY TILE,     !- Name
     Smooth,                  !- Roughness
     0.2033016,               !- Thickness {m}
@@ -519,7 +507,7 @@ Material,
     0.8200000,               !- Solar Absorptance
     0.8200000;               !- Visible Absorptance
 
-Material,
+  Material,
     C10 - 8 IN HW CONCRETE,  !- Name
     MediumRough,             !- Roughness
     0.2033016,               !- Thickness {m}
@@ -530,7 +518,7 @@ Material,
     0.6500000,               !- Solar Absorptance
     0.6500000;               !- Visible Absorptance
 
-Material,
+  Material,
     E2 - 1 / 2 IN SLAG OR STONE,  !- Name
     Rough,                   !- Roughness
     1.2710161E-02,           !- Thickness {m}
@@ -541,7 +529,7 @@ Material,
     0.5500000,               !- Solar Absorptance
     0.5500000;               !- Visible Absorptance
 
-Material,
+  Material,
     E3 - 3 / 8 IN FELT AND MEMBRANE,  !- Name
     Rough,                   !- Roughness
     9.5402403E-03,           !- Thickness {m}
@@ -552,7 +540,7 @@ Material,
     0.7500000,               !- Solar Absorptance
     0.7500000;               !- Visible Absorptance
 
-Material,
+  Material,
     B5 - 1 IN DENSE INSULATION,  !- Name
     VeryRough,               !- Roughness
     2.5389841E-02,           !- Thickness {m}
@@ -563,7 +551,7 @@ Material,
     0.5000000,               !- Solar Absorptance
     0.5000000;               !- Visible Absorptance
 
-Material,
+  Material,
     C12 - 2 IN HW CONCRETE,  !- Name
     MediumRough,             !- Roughness
     5.0901599E-02,           !- Thickness {m}
@@ -574,10 +562,9 @@ Material,
     0.6500000,               !- Solar Absorptance
     0.6500000;               !- Visible Absorptance
 
-
 !-   ===========  ALL OBJECTS IN CLASS: WINDOWMATERIAL:GLAZING ===========
 
-WindowMaterial:Glazing,
+  WindowMaterial:Glazing,
     WIN-LAY-GLASS-LIGHT,     !- Name
     SpectralAverage,         !- Optical Data Type
     ,                        !- Window Glass Spectral Data Set Name
@@ -593,404 +580,427 @@ WindowMaterial:Glazing,
     0.84,                    !- Back Side Infrared Hemispherical Emissivity
     0.9;                     !- Conductivity {W/m-K}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
 
-Construction,
+  Construction,
     EXTWALL80,               !- Name
     A1 - 1 IN STUCCO,        !- Outside Layer
     C4 - 4 IN COMMON BRICK,  !- Layer 2
     E1 - 3 / 4 IN PLASTER OR GYP BOARD;  !- Layer 3
 
-Construction,
+  Construction,
     PARTITION06,             !- Name
     E1 - 3 / 4 IN PLASTER OR GYP BOARD,  !- Outside Layer
     C6 - 8 IN CLAY TILE,     !- Layer 2
     E1 - 3 / 4 IN PLASTER OR GYP BOARD;  !- Layer 3
 
-Construction,
+  Construction,
     FLOOR SLAB 8 IN,         !- Name
     C10 - 8 IN HW CONCRETE;  !- Outside Layer
 
-Construction,
+  Construction,
     ROOF34,                  !- Name
     E2 - 1 / 2 IN SLAG OR STONE,  !- Outside Layer
     E3 - 3 / 8 IN FELT AND MEMBRANE,  !- Layer 2
     B5 - 1 IN DENSE INSULATION,  !- Layer 3
     C12 - 2 IN HW CONCRETE;  !- Layer 4
 
-Construction,
+  Construction,
     WIN-CON-LIGHT,           !- Name
     WIN-LAY-GLASS-LIGHT;     !- Outside Layer
 
-
 !-   ===========  ALL OBJECTS IN CLASS: GLOBALGEOMETRYRULES ===========
 
-GlobalGeometryRules,
+  GlobalGeometryRules,
     UpperLeftCorner,         !- Starting Vertex Position
     CounterClockWise,        !- Vertex Entry Direction
     World;                   !- Coordinate System
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONE ===========
-
 ! original zone origin (0,0,0)
-Zone,
+
+  Zone,
     WEST ZONE,               !- Name
     0,                       !- Direction of Relative North {deg}
-    0, 0, 0,                            !- X,Y,Z  {m}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
     autocalculate,           !- Ceiling Height {m}
     autocalculate;           !- Volume {m3}
 
 ! original zone origin (6.096,0,0)
-Zone,
+
+  Zone,
     EAST ZONE,               !- Name
     0,                       !- Direction of Relative North {deg}
-    0, 0, 0,                            !- X,Y,Z  {m}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
     autocalculate,           !- Ceiling Height {m}
     autocalculate;           !- Volume {m3}
 
 ! original zone origin (0,6.096,0)
-Zone,
+
+  Zone,
     NORTH ZONE,              !- Name
     0,                       !- Direction of Relative North {deg}
-    0, 0, 0,                            !- X,Y,Z  {m}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
     1,                       !- Type
     1,                       !- Multiplier
     autocalculate,           !- Ceiling Height {m}
     autocalculate;           !- Volume {m3}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: BUILDINGSURFACE:DETAILED ===========
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn001:Wall001,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     WEST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 0, 3.048000,                     !- X,Y,Z  1 {m}
-    0, 0, 0,                            !- X,Y,Z  2 {m}
-    6.096000, 0, 0,                     !- X,Y,Z  3 {m}
-    6.096000, 0, 3.048000;              !- X,Y,Z  4 {m}
+    0,0,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    0,0,0,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,0,0,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,0,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn001:Wall002,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     WEST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 6.096000, 3.048000,              !- X,Y,Z  1 {m}
-    0, 6.096000, 0,                     !- X,Y,Z  2 {m}
-    0, 0, 0,                            !- X,Y,Z  3 {m}
-    0, 0, 3.048000;                     !- X,Y,Z  4 {m}
+    0,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    0,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    0,0,0,  !- X,Y,Z ==> Vertex 3 {m}
+    0,0,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn001:Wall003,           !- Name
     Wall,                    !- Surface Type
     PARTITION06,             !- Construction Name
     WEST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn003:Wall004,           !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  2 {m}
-    0, 6.096000, 0,                     !- X,Y,Z  3 {m}
-    0, 6.096000, 3.048000;              !- X,Y,Z  4 {m}
+    6.096000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    0,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    0,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn001:Wall004,           !- Name
     Wall,                    !- Surface Type
     PARTITION06,             !- Construction Name
     WEST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn002:Wall004,           !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 0, 3.048000,              !- X,Y,Z  1 {m}
-    6.096000, 0, 0,                     !- X,Y,Z  2 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  3 {m}
-    6.096000, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    6.096000,0,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,0,0,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn001:Flr001,            !- Name
     Floor,                   !- Surface Type
     FLOOR SLAB 8 IN,         !- Construction Name
     WEST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Ground,                  !- Outside Boundary Condition
     Zn001:Flr001,            !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     1.000000,                !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 0, 0,                            !- X,Y,Z  1 {m}
-    0, 6.096000, 0,                     !- X,Y,Z  2 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  3 {m}
-    6.096000, 0, 0;                     !- X,Y,Z  4 {m}
+    0,0,0,  !- X,Y,Z ==> Vertex 1 {m}
+    0,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,0,0;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn001:Roof001,           !- Name
     Roof,                    !- Surface Type
     ROOF34,                  !- Construction Name
     WEST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 6.096000, 3.048000,              !- X,Y,Z  1 {m}
-    0, 0, 3.048000,                     !- X,Y,Z  2 {m}
-    6.096000, 0, 3.048000,              !- X,Y,Z  3 {m}
-    6.096000, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    0,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    0,0,3.048000,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,0,3.048000,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Wall001,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    12.19200, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    12.19200, 6.096000, 0,              !- X,Y,Z  2 {m}
-    9.144000, 6.096000, 0,              !- X,Y,Z  3 {m}
-    9.144000, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    12.19200,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    12.19200,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    9.144000,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    9.144000,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Wall002,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 0, 3.048000,              !- X,Y,Z  1 {m}
-    6.096000, 0, 0,                     !- X,Y,Z  2 {m}
-    12.19200, 0, 0,                     !- X,Y,Z  3 {m}
-    12.19200, 0, 3.048000;              !- X,Y,Z  4 {m}
+    6.096000,0,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,0,0,  !- X,Y,Z ==> Vertex 2 {m}
+    12.19200,0,0,  !- X,Y,Z ==> Vertex 3 {m}
+    12.19200,0,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Wall003,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    12.19200, 0, 3.048000,              !- X,Y,Z  1 {m}
-    12.19200, 0, 0,                     !- X,Y,Z  2 {m}
-    12.19200, 6.096000, 0,              !- X,Y,Z  3 {m}
-    12.19200, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    12.19200,0,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    12.19200,0,0,  !- X,Y,Z ==> Vertex 2 {m}
+    12.19200,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    12.19200,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Wall004,           !- Name
     Wall,                    !- Surface Type
     PARTITION06,             !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn001:Wall004,           !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  2 {m}
-    6.096000, 0, 0,                     !- X,Y,Z  3 {m}
-    6.096000, 0, 3.048000;              !- X,Y,Z  4 {m}
+    6.096000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,0,0,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,0,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Wall005,           !- Name
     Wall,                    !- Surface Type
     PARTITION06,             !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn003:Wall005,           !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    9.144000, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    9.144000, 6.096000, 0,              !- X,Y,Z  2 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  3 {m}
-    6.096000, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    9.144000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    9.144000,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Flr001,            !- Name
     Floor,                   !- Surface Type
     FLOOR SLAB 8 IN,         !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn002:Flr001,            !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     1.000000,                !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 0, 0,                     !- X,Y,Z  1 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  2 {m}
-    12.19200, 6.096000, 0,              !- X,Y,Z  3 {m}
-    12.19200, 0, 0;                     !- X,Y,Z  4 {m}
+    6.096000,0,0,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    12.19200,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    12.19200,0,0;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn002:Roof001,           !- Name
     Roof,                    !- Surface Type
     ROOF34,                  !- Construction Name
     EAST ZONE,               !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    6.096000, 0, 3.048000,              !- X,Y,Z  2 {m}
-    12.19200, 0, 3.048000,              !- X,Y,Z  3 {m}
-    12.19200, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    6.096000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,0,3.048000,  !- X,Y,Z ==> Vertex 2 {m}
+    12.19200,0,3.048000,  !- X,Y,Z ==> Vertex 3 {m}
+    12.19200,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Wall001,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 12.19200, 3.048000,              !- X,Y,Z  1 {m}
-    0, 12.19200, 0,                     !- X,Y,Z  2 {m}
-    0, 6.096000, 0,                     !- X,Y,Z  3 {m}
-    0, 6.096000, 3.048000;              !- X,Y,Z  4 {m}
+    0,12.19200,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    0,12.19200,0,  !- X,Y,Z ==> Vertex 2 {m}
+    0,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    0,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Wall002,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    9.144000, 12.19200, 3.048000,       !- X,Y,Z  1 {m}
-    9.144000, 12.19200, 0,              !- X,Y,Z  2 {m}
-    0, 12.19200, 0,                     !- X,Y,Z  3 {m}
-    0, 12.19200, 3.048000;              !- X,Y,Z  4 {m}
+    9.144000,12.19200,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    9.144000,12.19200,0,  !- X,Y,Z ==> Vertex 2 {m}
+    0,12.19200,0,  !- X,Y,Z ==> Vertex 3 {m}
+    0,12.19200,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Wall003,           !- Name
     Wall,                    !- Surface Type
     EXTWALL80,               !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    9.144000, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    9.144000, 6.096000, 0,              !- X,Y,Z  2 {m}
-    9.144000, 12.19200, 0,              !- X,Y,Z  3 {m}
-    9.144000, 12.19200, 3.048000;       !- X,Y,Z  4 {m}
+    9.144000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    9.144000,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    9.144000,12.19200,0,  !- X,Y,Z ==> Vertex 3 {m}
+    9.144000,12.19200,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Wall004,           !- Name
     Wall,                    !- Surface Type
     PARTITION06,             !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn001:Wall003,           !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 6.096000, 3.048000,              !- X,Y,Z  1 {m}
-    0, 6.096000, 0,                     !- X,Y,Z  2 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  3 {m}
-    6.096000, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    0,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    0,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    6.096000,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Wall005,           !- Name
     Wall,                    !- Surface Type
     PARTITION06,             !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn002:Wall005,           !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     0.5000000,               !- View Factor to Ground
     4,                       !- Number of Vertices
-    6.096000, 6.096000, 3.048000,       !- X,Y,Z  1 {m}
-    6.096000, 6.096000, 0,              !- X,Y,Z  2 {m}
-    9.144000, 6.096000, 0,              !- X,Y,Z  3 {m}
-    9.144000, 6.096000, 3.048000;       !- X,Y,Z  4 {m}
+    6.096000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    6.096000,6.096000,0,  !- X,Y,Z ==> Vertex 2 {m}
+    9.144000,6.096000,0,  !- X,Y,Z ==> Vertex 3 {m}
+    9.144000,6.096000,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Flr001,            !- Name
     Floor,                   !- Surface Type
     FLOOR SLAB 8 IN,         !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Surface,                 !- Outside Boundary Condition
     Zn003:Flr001,            !- Outside Boundary Condition Object
     NoSun,                   !- Sun Exposure
     NoWind,                  !- Wind Exposure
     1.000000,                !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 6.096000, 0,                     !- X,Y,Z  1 {m}
-    0, 12.19200, 0,                     !- X,Y,Z  2 {m}
-    9.144000, 12.19200, 0,              !- X,Y,Z  3 {m}
-    9.144000, 6.096000, 0;              !- X,Y,Z  4 {m}
+    0,6.096000,0,  !- X,Y,Z ==> Vertex 1 {m}
+    0,12.19200,0,  !- X,Y,Z ==> Vertex 2 {m}
+    9.144000,12.19200,0,  !- X,Y,Z ==> Vertex 3 {m}
+    9.144000,6.096000,0;  !- X,Y,Z ==> Vertex 4 {m}
 
-BuildingSurface:Detailed,
+  BuildingSurface:Detailed,
     Zn003:Roof001,           !- Name
     Roof,                    !- Surface Type
     ROOF34,                  !- Construction Name
     NORTH ZONE,              !- Zone Name
+    ,                        !- Space Name
     Outdoors,                !- Outside Boundary Condition
     ,                        !- Outside Boundary Condition Object
     SunExposed,              !- Sun Exposure
     WindExposed,             !- Wind Exposure
     0,                       !- View Factor to Ground
     4,                       !- Number of Vertices
-    0, 12.19200, 3.048000,              !- X,Y,Z  1 {m}
-    0, 6.096000, 3.048000,              !- X,Y,Z  2 {m}
-    9.144000, 6.096000, 3.048000,       !- X,Y,Z  3 {m}
-    9.144000, 12.19200, 3.048000;       !- X,Y,Z  4 {m}
-
+    0,12.19200,3.048000,  !- X,Y,Z ==> Vertex 1 {m}
+    0,6.096000,3.048000,  !- X,Y,Z ==> Vertex 2 {m}
+    9.144000,6.096000,3.048000,  !- X,Y,Z ==> Vertex 3 {m}
+    9.144000,12.19200,3.048000;  !- X,Y,Z ==> Vertex 4 {m}
 
 !-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
 
-FenestrationSurface:Detailed,
+  FenestrationSurface:Detailed,
     Zn001:Wall001:Win001,    !- Name
     Window,                  !- Surface Type
     WIN-CON-LIGHT,           !- Construction Name
@@ -1000,22 +1010,21 @@ FenestrationSurface:Detailed,
     ,                        !- Frame and Divider Name
     1.0,                     !- Multiplier
     4,                       !- Number of Vertices
-    0.548000, 0, 2.5000,                !- X,Y,Z  1 {m}
-    0.548000, 0, 0.5000,                !- X,Y,Z  2 {m}
-    5.548000, 0, 0.5000,                !- X,Y,Z  3 {m}
-    5.548000, 0, 2.5000;                !- X,Y,Z  4 {m}
-
+    0.548000,0,2.5000,  !- X,Y,Z ==> Vertex 1 {m}
+    0.548000,0,0.5000,  !- X,Y,Z ==> Vertex 2 {m}
+    5.548000,0,0.5000,  !- X,Y,Z ==> Vertex 3 {m}
+    5.548000,0,2.5000;  !- X,Y,Z ==> Vertex 4 {m}
 
 !-   ===========  ALL OBJECTS IN CLASS: PEOPLE ===========
 
-People,
+  People,
     WEST ZONE,               !- Name
-    WEST ZONE,               !- Zone or ZoneList Name
+    WEST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     OFFICE OCCUPANCY,        !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     3.000000,                !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000000,               !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     Activity Sch,            !- Activity Level Schedule Name
@@ -1030,14 +1039,14 @@ People,
     Air Velo Sch,            !- Air Velocity Schedule Name
     FANGER;                  !- Thermal Comfort Model 1 Type
 
-People,
+  People,
     EAST ZONE,               !- Name
-    EAST ZONE,               !- Zone or ZoneList Name
+    EAST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     OFFICE OCCUPANCY,        !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     3.000000,                !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000000,               !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     Activity Sch,            !- Activity Level Schedule Name
@@ -1052,14 +1061,14 @@ People,
     Air Velo Sch,            !- Air Velocity Schedule Name
     FANGER;                  !- Thermal Comfort Model 1 Type
 
-People,
+  People,
     NORTH ZONE,              !- Name
-    NORTH ZONE,              !- Zone or ZoneList Name
+    NORTH ZONE,              !- Zone or ZoneList or Space or SpaceList Name
     OFFICE OCCUPANCY,        !- Number of People Schedule Name
     people,                  !- Number of People Calculation Method
     4.000000,                !- Number of People
-    ,                        !- People per Zone Floor Area {person/m2}
-    ,                        !- Zone Floor Area per Person {m2/person}
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
     0.3000000,               !- Fraction Radiant
     ,                        !- Sensible Heat Fraction
     Activity Sch,            !- Activity Level Schedule Name
@@ -1074,12 +1083,11 @@ People,
     Air Velo Sch,            !- Air Velocity Schedule Name
     FANGER;                  !- Thermal Comfort Model 1 Type
 
-
 !-   ===========  ALL OBJECTS IN CLASS: LIGHTS ===========
 
-Lights,
+  Lights,
     EAST ZONE Lights 1,      !- Name
-    EAST ZONE,               !- Zone or ZoneList Name
+    EAST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     OFFICE LIGHTING,         !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     1464.375,                !- Lighting Level {W}
@@ -1091,9 +1099,9 @@ Lights,
     0,                       !- Fraction Replaceable
     GeneralLights;           !- End-Use Subcategory
 
-Lights,
+  Lights,
     NORTH ZONE Lights 1,     !- Name
-    NORTH ZONE,              !- Zone or ZoneList Name
+    NORTH ZONE,              !- Zone or ZoneList or Space or SpaceList Name
     OFFICE LIGHTING,         !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
     878.6252,                !- Lighting Level {W}
@@ -1105,12 +1113,11 @@ Lights,
     0,                       !- Fraction Replaceable
     GeneralLights;           !- End-Use Subcategory
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ELECTRICEQUIPMENT ===========
 
-ElectricEquipment,
+  ElectricEquipment,
     WEST ZONE ElecEq 1,      !- Name
-    WEST ZONE,               !- Zone or ZoneList Name
+    WEST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     INTERMITTENT,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     2928.751,                !- Design Level {W}
@@ -1120,9 +1127,9 @@ ElectricEquipment,
     0.3000000,               !- Fraction Radiant
     0;                       !- Fraction Lost
 
-ElectricEquipment,
+  ElectricEquipment,
     EAST ZONE ElecEq 1,      !- Name
-    EAST ZONE,               !- Zone or ZoneList Name
+    EAST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     INTERMITTENT,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     1464.375,                !- Design Level {W}
@@ -1132,9 +1139,9 @@ ElectricEquipment,
     0.3000000,               !- Fraction Radiant
     0;                       !- Fraction Lost
 
-ElectricEquipment,
+  ElectricEquipment,
     NORTH ZONE ElecEq 1,     !- Name
-    NORTH ZONE,              !- Zone or ZoneList Name
+    NORTH ZONE,              !- Zone or ZoneList or Space or SpaceList Name
     INTERMITTENT,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
     2928.751,                !- Design Level {W}
@@ -1144,20 +1151,18 @@ ElectricEquipment,
     0.3000000,               !- Fraction Radiant
     0;                       !- Fraction Lost
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SIZING:PLANT ===========
-
 ! Single Boiler Supply
-Sizing:Plant,
+
+  Sizing:Plant,
     Steam Boiler Plant,      !- Plant or Condenser Loop Name
     Steam,                   !- Loop Type
     105.,                    !- Design Loop Exit Temperature {C}
     10;                      !- Loop Design Temperature Difference {deltaC}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONECONTROL:THERMOSTAT ===========
 
-ZoneControl:Thermostat,
+  ZoneControl:Thermostat,
     Zone 1 Thermostat,       !- Name
     WEST ZONE,               !- Zone or ZoneList Name
     Zone Control Type Sched, !- Control Type Schedule Name
@@ -1166,7 +1171,7 @@ ZoneControl:Thermostat,
     ThermostatSetpoint:SingleCooling,  !- Control 2 Object Type
     Cooling Setpoint with SB;!- Control 2 Name
 
-ZoneControl:Thermostat,
+  ZoneControl:Thermostat,
     Zone 2 Thermostat,       !- Name
     EAST ZONE,               !- Zone or ZoneList Name
     Zone Control Type Sched, !- Control Type Schedule Name
@@ -1175,7 +1180,7 @@ ZoneControl:Thermostat,
     ThermostatSetpoint:SingleCooling,  !- Control 2 Object Type
     Cooling Setpoint with SB;!- Control 2 Name
 
-ZoneControl:Thermostat,
+  ZoneControl:Thermostat,
     Zone 3 Thermostat,       !- Name
     NORTH ZONE,              !- Zone or ZoneList Name
     Zone Control Type Sched, !- Control Type Schedule Name
@@ -1184,24 +1189,21 @@ ZoneControl:Thermostat,
     ThermostatSetpoint:SingleCooling,  !- Control 2 Object Type
     Cooling Setpoint with SB;!- Control 2 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: THERMOSTATSETPOINT:SINGLEHEATING ===========
 
-ThermostatSetpoint:SingleHeating,
+  ThermostatSetpoint:SingleHeating,
     Heating Setpoint with SB,!- Name
     Heating Setpoints;       !- Setpoint Temperature Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: THERMOSTATSETPOINT:SINGLECOOLING ===========
 
-ThermostatSetpoint:SingleCooling,
+  ThermostatSetpoint:SingleCooling,
     Cooling Setpoint with SB,!- Name
     Cooling Setpoints;       !- Setpoint Temperature Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:REHEAT ===========
 
-AirTerminal:SingleDuct:ConstantVolume:Reheat,
+  AirTerminal:SingleDuct:ConstantVolume:Reheat,
     Reheat Zone 1,           !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     Zone 1 Reheat Air Outlet Node,  !- Air Outlet Node Name
@@ -1213,7 +1215,7 @@ AirTerminal:SingleDuct:ConstantVolume:Reheat,
     0.0,                     !- Minimum Hot Water or Steam Flow Rate {m3/s}
     0.001;                   !- Convergence Tolerance
 
-AirTerminal:SingleDuct:ConstantVolume:Reheat,
+  AirTerminal:SingleDuct:ConstantVolume:Reheat,
     Reheat Zone 2,           !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     Zone 2 Reheat Air Outlet Node,  !- Air Outlet Node Name
@@ -1225,7 +1227,7 @@ AirTerminal:SingleDuct:ConstantVolume:Reheat,
     0.0,                     !- Minimum Hot Water or Steam Flow Rate {m3/s}
     0.001;                   !- Convergence Tolerance
 
-AirTerminal:SingleDuct:ConstantVolume:Reheat,
+  AirTerminal:SingleDuct:ConstantVolume:Reheat,
     Reheat Zone 3,           !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     Zone 3 Reheat Air Outlet Node,  !- Air Outlet Node Name
@@ -1237,31 +1239,29 @@ AirTerminal:SingleDuct:ConstantVolume:Reheat,
     0.0,                     !- Minimum Hot Water or Steam Flow Rate {m3/s}
     0.001;                   !- Convergence Tolerance
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONEHVAC:AIRDISTRIBUTIONUNIT ===========
 
-ZoneHVAC:AirDistributionUnit,
+  ZoneHVAC:AirDistributionUnit,
     Zone1TermReheat,         !- Name
     Zone 1 Reheat Air Outlet Node,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:Reheat,  !- Air Terminal Object Type
     Reheat Zone 1;           !- Air Terminal Name
 
-ZoneHVAC:AirDistributionUnit,
+  ZoneHVAC:AirDistributionUnit,
     Zone2TermReheat,         !- Name
     Zone 2 Reheat Air Outlet Node,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:Reheat,  !- Air Terminal Object Type
     Reheat Zone 2;           !- Air Terminal Name
 
-ZoneHVAC:AirDistributionUnit,
+  ZoneHVAC:AirDistributionUnit,
     Zone3TermReheat,         !- Name
     Zone 3 Reheat Air Outlet Node,  !- Air Distribution Unit Outlet Node Name
     AirTerminal:SingleDuct:ConstantVolume:Reheat,  !- Air Terminal Object Type
     Reheat Zone 3;           !- Air Terminal Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONEHVAC:EQUIPMENTLIST ===========
 
-ZoneHVAC:EquipmentList,
+  ZoneHVAC:EquipmentList,
     Zone1Equipment,          !- Name
     SequentialLoad,          !- Load Distribution Scheme
     ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
@@ -1271,7 +1271,7 @@ ZoneHVAC:EquipmentList,
     ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
     ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
-ZoneHVAC:EquipmentList,
+  ZoneHVAC:EquipmentList,
     Zone2Equipment,          !- Name
     SequentialLoad,          !- Load Distribution Scheme
     ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
@@ -1281,7 +1281,7 @@ ZoneHVAC:EquipmentList,
     ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
     ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
-ZoneHVAC:EquipmentList,
+  ZoneHVAC:EquipmentList,
     Zone3Equipment,          !- Name
     SequentialLoad,          !- Load Distribution Scheme
     ZoneHVAC:AirDistributionUnit,  !- Zone Equipment 1 Object Type
@@ -1291,10 +1291,9 @@ ZoneHVAC:EquipmentList,
     ,                        !- Zone Equipment 1 Sequential Cooling Fraction Schedule Name
     ;                        !- Zone Equipment 1 Sequential Heating Fraction Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: ZONEHVAC:EQUIPMENTCONNECTIONS ===========
 
-ZoneHVAC:EquipmentConnections,
+  ZoneHVAC:EquipmentConnections,
     WEST ZONE,               !- Zone Name
     Zone1Equipment,          !- Zone Conditioning Equipment List Name
     Zone1Inlets,             !- Zone Air Inlet Node or NodeList Name
@@ -1302,7 +1301,7 @@ ZoneHVAC:EquipmentConnections,
     Zone 1 Node,             !- Zone Air Node Name
     Zone 1 Outlet Node;      !- Zone Return Air Node or NodeList Name
 
-ZoneHVAC:EquipmentConnections,
+  ZoneHVAC:EquipmentConnections,
     EAST ZONE,               !- Zone Name
     Zone2Equipment,          !- Zone Conditioning Equipment List Name
     Zone2Inlets,             !- Zone Air Inlet Node or NodeList Name
@@ -1310,7 +1309,7 @@ ZoneHVAC:EquipmentConnections,
     Zone 2 Node,             !- Zone Air Node Name
     Zone 2 Outlet Node;      !- Zone Return Air Node or NodeList Name
 
-ZoneHVAC:EquipmentConnections,
+  ZoneHVAC:EquipmentConnections,
     NORTH ZONE,              !- Zone Name
     Zone3Equipment,          !- Zone Conditioning Equipment List Name
     Zone3Inlets,             !- Zone Air Inlet Node or NodeList Name
@@ -1318,10 +1317,9 @@ ZoneHVAC:EquipmentConnections,
     Zone 3 Node,             !- Zone Air Node Name
     Zone 3 Outlet Node;      !- Zone Return Air Node or NodeList Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: FAN:CONSTANTVOLUME ===========
 
-Fan:ConstantVolume,
+  Fan:ConstantVolume,
     Supply Fan 1,            !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     0.7,                     !- Fan Total Efficiency
@@ -1332,10 +1330,9 @@ Fan:ConstantVolume,
     Air Loop Inlet Node,     !- Air Inlet Node Name
     Cooling Coil Air Inlet Node;  !- Air Outlet Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: COIL:COOLING:WATER:DETAILEDGEOMETRY ===========
 
-Coil:Cooling:Water:DetailedGeometry,
+  Coil:Cooling:Water:DetailedGeometry,
     Detailed Cooling Coil,   !- Name
     CoolingCoilAvailSched,   !- Availability Schedule Name
     0.0011,                  !- Maximum Water Flow Rate {m3/s}
@@ -1359,10 +1356,9 @@ Coil:Cooling:Water:DetailedGeometry,
     Cooling Coil Air Inlet Node,  !- Air Inlet Node Name
     Air Loop Outlet Node;    !- Air Outlet Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: COIL:HEATING:WATER ===========
 
-Coil:Heating:Water,
+  Coil:Heating:Water,
     Reheat Coil Zone 1,      !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     400.0,                   !- U-Factor Times Area Value {W/K}
@@ -1379,7 +1375,7 @@ Coil:Heating:Water,
     32.2,                    !- Rated Outlet Air Temperature {C}
     ;                        !- Rated Ratio for Air and Water Convection
 
-Coil:Heating:Water,
+  Coil:Heating:Water,
     Reheat Coil Zone 2,      !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     400.0,                   !- U-Factor Times Area Value {W/K}
@@ -1396,7 +1392,7 @@ Coil:Heating:Water,
     32.2,                    !- Rated Outlet Air Temperature {C}
     ;                        !- Rated Ratio for Air and Water Convection
 
-Coil:Heating:Water,
+  Coil:Heating:Water,
     Reheat Coil Zone 3,      !- Name
     FanAndCoilAvailSched,    !- Availability Schedule Name
     400.0,                   !- U-Factor Times Area Value {W/K}
@@ -1413,10 +1409,9 @@ Coil:Heating:Water,
     32.2,                    !- Rated Outlet Air Temperature {C}
     ;                        !- Rated Ratio for Air and Water Convection
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONTROLLER:WATERCOIL ===========
 
-Controller:WaterCoil,
+  Controller:WaterCoil,
     Main Cooling Coil Controller,  !- Name
     Temperature,             !- Control Variable
     Reverse,                 !- Action
@@ -1427,18 +1422,16 @@ Controller:WaterCoil,
     0.0011,                  !- Maximum Actuated Flow {m3/s}
     0.0;                     !- Minimum Actuated Flow {m3/s}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:CONTROLLERLIST ===========
 
-AirLoopHVAC:ControllerList,
+  AirLoopHVAC:ControllerList,
     Reheat System 1 Controllers,  !- Name
     Controller:WaterCoil,    !- Controller 1 Object Type
     Main Cooling Coil Controller;  !- Controller 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC ===========
 
-AirLoopHVAC,
+  AirLoopHVAC,
     Typical Terminal Reheat 1,  !- Name
     Reheat System 1 Controllers,  !- Controller List Name
     Reheat System 1 Avail List,  !- Availability Manager List Name
@@ -1450,48 +1443,43 @@ AirLoopHVAC,
     Zone Equipment Inlet Node,  !- Demand Side Inlet Node Names
     Air Loop Outlet Node;    !- Supply Side Outlet Node Names
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:ZONESPLITTER ===========
 
-AirLoopHVAC:ZoneSplitter,
+  AirLoopHVAC:ZoneSplitter,
     Zone Supply Air Splitter,!- Name
     Zone Equipment Inlet Node,  !- Inlet Node Name
     Zone 1 Reheat Air Inlet Node,  !- Outlet 1 Node Name
     Zone 2 Reheat Air Inlet Node,  !- Outlet 2 Node Name
     Zone 3 Reheat Air Inlet Node;  !- Outlet 3 Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:SUPPLYPATH ===========
 
-AirLoopHVAC:SupplyPath,
+  AirLoopHVAC:SupplyPath,
     TermReheatSupplyPath,    !- Name
     Zone Equipment Inlet Node,  !- Supply Air Path Inlet Node Name
     AirLoopHVAC:ZoneSplitter,!- Component 1 Object Type
     Zone Supply Air Splitter;!- Component 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:ZONEMIXER ===========
 
-AirLoopHVAC:ZoneMixer,
+  AirLoopHVAC:ZoneMixer,
     Zone Return Air Mixer,   !- Name
     Return Air Mixer Outlet, !- Outlet Node Name
     Zone 1 Outlet Node,      !- Inlet 1 Node Name
     Zone 2 Outlet Node,      !- Inlet 2 Node Name
     Zone 3 Outlet Node;      !- Inlet 3 Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AIRLOOPHVAC:RETURNPATH ===========
 
-AirLoopHVAC:ReturnPath,
+  AirLoopHVAC:ReturnPath,
     TermReheatReturnPath,    !- Name
     Return Air Mixer Outlet, !- Return Air Path Outlet Node Name
     AirLoopHVAC:ZoneMixer,   !- Component 1 Object Type
     Zone Return Air Mixer;   !- Component 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: BRANCH ===========
 
-Branch,
+  Branch,
     Air Loop Main Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Fan:ConstantVolume,      !- Component 1 Object Type
@@ -1503,7 +1491,7 @@ Branch,
     Cooling Coil Air Inlet Node,  !- Component 2 Inlet Node Name
     Air Loop Outlet Node;    !- Component 2 Outlet Node Name
 
-Branch,
+  Branch,
     Cooling Demand Inlet,    !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1511,7 +1499,7 @@ Branch,
     CW Demand Inlet Node,    !- Component 1 Inlet Node Name
     CW Demand Entrance Pipe Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Cooling Coil Branch,     !- Name
     ,                        !- Pressure Drop Curve Name
     Coil:Cooling:Water:DetailedGeometry,  !- Component 1 Object Type
@@ -1519,7 +1507,7 @@ Branch,
     Cooling Coil Water Inlet Node,  !- Component 1 Inlet Node Name
     Cooling Coil Water Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Demand Bypass Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1527,7 +1515,7 @@ Branch,
     CW Demand Bypass Inlet Node,  !- Component 1 Inlet Node Name
     CW Demand Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Cooling Demand Outlet,   !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1535,7 +1523,7 @@ Branch,
     CW Demand Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     CW Demand Outlet Node;   !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Cooling Supply Outlet,   !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1543,7 +1531,7 @@ Branch,
     Supply Side Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     CW Supply Outlet Node;   !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     CW Pump Branch,          !- Name
     ,                        !- Pressure Drop Curve Name
     Pump:VariableSpeed,      !- Component 1 Object Type
@@ -1551,7 +1539,7 @@ Branch,
     CW Supply Inlet Node,    !- Component 1 Inlet Node Name
     CW Pump Outlet Node;     !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Little Chiller Branch,   !- Name
     ,                        !- Pressure Drop Curve Name
     Chiller:Absorption:Indirect,  !- Component 1 Object Type
@@ -1559,7 +1547,7 @@ Branch,
     Little Chiller Inlet Node,  !- Component 1 Inlet Node Name
     Little Chiller Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Big Chiller Branch,      !- Name
     ,                        !- Pressure Drop Curve Name
     Chiller:Absorption:Indirect,  !- Component 1 Object Type
@@ -1567,7 +1555,7 @@ Branch,
     Big Chiller Inlet Node,  !- Component 1 Inlet Node Name
     Big Chiller Outlet Node; !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Purchased Cooling Branch,!- Name
     ,                        !- Pressure Drop Curve Name
     DistrictCooling,         !- Component 1 Object Type
@@ -1575,7 +1563,7 @@ Branch,
     Purchased Cooling Inlet Node,  !- Component 1 Inlet Node Name
     Purchased Cooling Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Supply Bypass Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1583,7 +1571,7 @@ Branch,
     CW Supply Bypass Inlet Node,  !- Component 1 Inlet Node Name
     CW Supply Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Absorption Chiller Steam-Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Chiller:Absorption:Indirect,  !- Component 1 Object Type
@@ -1591,7 +1579,7 @@ Branch,
     AbsorberSteamInletNode,  !- Component 1 Inlet Node Name
     AbsorberSteamOutletNode; !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Steam Demand 1 Steam Inlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic:Steam,    !- Component 1 Object Type
@@ -1599,7 +1587,7 @@ Branch,
     Steam Demand 1 Steam Demand Inlet Node,  !- Component 1 Inlet Node Name
     Steam Demand 1 Steam Demand Entrance Pipe Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Steam Demand 1 Steam Outlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic:Steam,    !- Component 1 Object Type
@@ -1607,7 +1595,7 @@ Branch,
     Steam Demand 1 Steam Demand Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     Steam Demand 1 Steam Demand Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Steam Boiler Plant Boiler Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Boiler:Steam,            !- Component 1 Object Type
@@ -1615,7 +1603,7 @@ Branch,
     Steam Boiler Plant Boiler Inlet Node,  !- Component 1 Inlet Node Name
     Steam Boiler Plant Boiler Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Steam Boiler Plant Steam Supply Outlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic:Steam,    !- Component 1 Object Type
@@ -1623,7 +1611,7 @@ Branch,
     Steam Boiler Plant Steam Supply Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     Steam Boiler Plant Steam Supply Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Steam Boiler Plant Steam Supply Inlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pump:VariableSpeed:Condensate,  !- Component 1 Object Type
@@ -1631,7 +1619,7 @@ Branch,
     Steam Boiler Plant Steam Supply Inlet Node,  !- Component 1 Inlet Node Name
     Steam Boiler Plant Steam Pump Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Absorption Chiller Demand Side Bypass Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic:Steam,    !- Component 1 Object Type
@@ -1639,7 +1627,7 @@ Branch,
     Absorption Chiller Demand Side Bypass Inlet Node,  !- Component 1 Inlet Node Name
     Absorption Chiller Demand Side Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Supply Inlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pump:VariableSpeed,      !- Component 1 Object Type
@@ -1647,7 +1635,7 @@ Branch,
     Condenser Supply Inlet Node,  !- Component 1 Inlet Node Name
     Condenser Pump Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Supply Tower Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     CoolingTower:SingleSpeed,!- Component 1 Object Type
@@ -1655,7 +1643,7 @@ Branch,
     Condenser Tower Inlet Node,  !- Component 1 Inlet Node Name
     Condenser Tower Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Supply Bypass Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1663,7 +1651,7 @@ Branch,
     Cond Supply Bypass Inlet Node,  !- Component 1 Inlet Node Name
     Cond Supply Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Supply Outlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1671,7 +1659,7 @@ Branch,
     Condenser Supply Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     Condenser Supply Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Demand Inlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1679,7 +1667,7 @@ Branch,
     Condenser Demand Inlet Node,  !- Component 1 Inlet Node Name
     Condenser Demand Entrance Pipe Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Little Chiller Condenser Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Chiller:Absorption:Indirect,  !- Component 1 Object Type
@@ -1687,7 +1675,7 @@ Branch,
     Little Chiller Condenser Inlet Node,  !- Component 1 Inlet Node Name
     Little Chiller Condenser Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Big Chiller Condenser Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Chiller:Absorption:Indirect,  !- Component 1 Object Type
@@ -1695,7 +1683,7 @@ Branch,
     Big Chiller Condenser Inlet Node,  !- Component 1 Inlet Node Name
     Big Chiller Condenser Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Demand Bypass Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1703,7 +1691,7 @@ Branch,
     Cond Demand Bypass Inlet Node,  !- Component 1 Inlet Node Name
     Cond Demand Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Condenser Demand Outlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1711,7 +1699,7 @@ Branch,
     Condenser Demand Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     Condenser Demand Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Heating Supply Inlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pump:VariableSpeed,      !- Component 1 Object Type
@@ -1719,7 +1707,7 @@ Branch,
     HW Supply Inlet Node,    !- Component 1 Inlet Node Name
     HW Pump Outlet Node;     !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Heating Purchased Hot Water Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     DistrictHeating,         !- Component 1 Object Type
@@ -1727,7 +1715,7 @@ Branch,
     Purchased Heat Inlet Node,  !- Component 1 Inlet Node Name
     Purchased Heat Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Heating Supply Bypass Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1735,7 +1723,7 @@ Branch,
     Heating Supply Bypass Inlet Node,  !- Component 1 Inlet Node Name
     Heating Supply Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Heating Supply Outlet Branch,  !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1743,7 +1731,7 @@ Branch,
     Heating Supply Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     HW Supply Outlet Node;   !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Reheat Inlet Branch,     !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1751,7 +1739,7 @@ Branch,
     HW Demand Inlet Node,    !- Component 1 Inlet Node Name
     HW Demand Entrance Pipe Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Reheat Outlet Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1759,7 +1747,7 @@ Branch,
     HW Demand Exit Pipe Inlet Node,  !- Component 1 Inlet Node Name
     HW Demand Outlet Node;   !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Zone 1 Reheat Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Coil:Heating:Water,      !- Component 1 Object Type
@@ -1767,7 +1755,7 @@ Branch,
     Zone 1 Reheat Water Inlet Node,  !- Component 1 Inlet Node Name
     Zone 1 Reheat Water Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Zone 2 Reheat Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Coil:Heating:Water,      !- Component 1 Object Type
@@ -1775,7 +1763,7 @@ Branch,
     Zone 2 Reheat Water Inlet Node,  !- Component 1 Inlet Node Name
     Zone 2 Reheat Water Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Zone 3 Reheat Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Coil:Heating:Water,      !- Component 1 Object Type
@@ -1783,7 +1771,7 @@ Branch,
     Zone 3 Reheat Water Inlet Node,  !- Component 1 Inlet Node Name
     Zone 3 Reheat Water Outlet Node;  !- Component 1 Outlet Node Name
 
-Branch,
+  Branch,
     Reheat Bypass Branch,    !- Name
     ,                        !- Pressure Drop Curve Name
     Pipe:Adiabatic,          !- Component 1 Object Type
@@ -1791,14 +1779,13 @@ Branch,
     Reheat Bypass Inlet Node,!- Component 1 Inlet Node Name
     Reheat Bypass Outlet Node;  !- Component 1 Outlet Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: BRANCHLIST ===========
 
-BranchList,
+  BranchList,
     Air Loop Branches,       !- Name
     Air Loop Main Branch;    !- Branch 1 Name
 
-BranchList,
+  BranchList,
     Cooling Supply Side Branches,  !- Name
     CW Pump Branch,          !- Branch 1 Name
     Little Chiller Branch,   !- Branch 2 Name
@@ -1807,34 +1794,34 @@ BranchList,
     Supply Bypass Branch,    !- Branch 5 Name
     Cooling Supply Outlet;   !- Branch 6 Name
 
-BranchList,
+  BranchList,
     Cooling Demand Side Branches,  !- Name
     Cooling Demand Inlet,    !- Branch 1 Name
     Cooling Coil Branch,     !- Branch 2 Name
     Demand Bypass Branch,    !- Branch 3 Name
     Cooling Demand Outlet;   !- Branch 4 Name
 
-BranchList,
+  BranchList,
     Steam Demand 1 Steam Demand Side Branches,  !- Name
     Steam Demand 1 Steam Inlet Branch,  !- Branch 1 Name
     Absorption Chiller Steam-Branch,  !- Branch 2 Name
     Absorption Chiller Demand Side Bypass Branch,  !- Branch 3 Name
     Steam Demand 1 Steam Outlet Branch;  !- Branch 4 Name
 
-BranchList,
+  BranchList,
     Steam Boiler Plant Steam Supply Side Branches,  !- Name
     Steam Boiler Plant Steam Supply Inlet Branch,  !- Branch 1 Name
     Steam Boiler Plant Boiler Branch,  !- Branch 2 Name
     Steam Boiler Plant Steam Supply Outlet Branch;  !- Branch 3 Name
 
-BranchList,
+  BranchList,
     Condenser Supply Side Branches,  !- Name
     Condenser Supply Inlet Branch,  !- Branch 1 Name
     Condenser Supply Tower Branch,  !- Branch 2 Name
     Condenser Supply Bypass Branch,  !- Branch 3 Name
     Condenser Supply Outlet Branch;  !- Branch 4 Name
 
-BranchList,
+  BranchList,
     Condenser Demand Side Branches,  !- Name
     Condenser Demand Inlet Branch,  !- Branch 1 Name
     Little Chiller Condenser Branch,  !- Branch 2 Name
@@ -1842,14 +1829,14 @@ BranchList,
     Condenser Demand Bypass Branch,  !- Branch 4 Name
     Condenser Demand Outlet Branch;  !- Branch 5 Name
 
-BranchList,
+  BranchList,
     Heating Supply Side Branches,  !- Name
     Heating Supply Inlet Branch,  !- Branch 1 Name
     Heating Purchased Hot Water Branch,  !- Branch 2 Name
     Heating Supply Bypass Branch,  !- Branch 3 Name
     Heating Supply Outlet Branch;  !- Branch 4 Name
 
-BranchList,
+  BranchList,
     Heating Demand Side Branches,  !- Name
     Reheat Inlet Branch,     !- Branch 1 Name
     Zone 1 Reheat Branch,    !- Branch 2 Name
@@ -1858,10 +1845,9 @@ BranchList,
     Reheat Bypass Branch,    !- Branch 5 Name
     Reheat Outlet Branch;    !- Branch 6 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONNECTOR:SPLITTER ===========
 
-Connector:Splitter,
+  Connector:Splitter,
     CW Loop Splitter,        !- Name
     CW Pump Branch,          !- Inlet Branch Name
     Little Chiller Branch,   !- Outlet Branch 1 Name
@@ -1869,37 +1855,37 @@ Connector:Splitter,
     Purchased Cooling Branch,!- Outlet Branch 3 Name
     Supply Bypass Branch;    !- Outlet Branch 4 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     CW Demand Splitter,      !- Name
     Cooling Demand Inlet,    !- Inlet Branch Name
     Demand Bypass Branch,    !- Outlet Branch 1 Name
     Cooling Coil Branch;     !- Outlet Branch 2 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     Steam Demand 1 Steam Splitter,  !- Name
     Steam Demand 1 Steam Inlet Branch,  !- Inlet Branch Name
     Absorption Chiller Steam-Branch,  !- Outlet Branch 1 Name
     Absorption Chiller Demand Side Bypass Branch;  !- Outlet Branch 2 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     Steam Boiler Plant Steam Supply Splitter,  !- Name
     Steam Boiler Plant Steam Supply Inlet Branch,  !- Inlet Branch Name
     Steam Boiler Plant Boiler Branch;  !- Outlet Branch 1 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     Condenser Demand Splitter,  !- Name
     Condenser Demand Inlet Branch,  !- Inlet Branch Name
     Big Chiller Condenser Branch,  !- Outlet Branch 1 Name
     Little Chiller Condenser Branch,  !- Outlet Branch 2 Name
     Condenser Demand Bypass Branch;  !- Outlet Branch 3 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     Condenser Supply Splitter,  !- Name
     Condenser Supply Inlet Branch,  !- Inlet Branch Name
     Condenser Supply Tower Branch,  !- Outlet Branch 1 Name
     Condenser Supply Bypass Branch;  !- Outlet Branch 2 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     Reheat Splitter,         !- Name
     Reheat Inlet Branch,     !- Inlet Branch Name
     Zone 1 Reheat Branch,    !- Outlet Branch 1 Name
@@ -1907,16 +1893,15 @@ Connector:Splitter,
     Zone 3 Reheat Branch,    !- Outlet Branch 3 Name
     Reheat Bypass Branch;    !- Outlet Branch 4 Name
 
-Connector:Splitter,
+  Connector:Splitter,
     Heating Supply Splitter, !- Name
     Heating Supply Inlet Branch,  !- Inlet Branch Name
     Heating Purchased Hot Water Branch,  !- Outlet Branch 1 Name
     Heating Supply Bypass Branch;  !- Outlet Branch 2 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONNECTOR:MIXER ===========
 
-Connector:Mixer,
+  Connector:Mixer,
     CW Loop Mixer,           !- Name
     Cooling Supply Outlet,   !- Outlet Branch Name
     Little Chiller Branch,   !- Inlet Branch 1 Name
@@ -1924,37 +1909,37 @@ Connector:Mixer,
     Purchased Cooling Branch,!- Inlet Branch 3 Name
     Supply Bypass Branch;    !- Inlet Branch 4 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     CW Demand Mixer,         !- Name
     Cooling Demand Outlet,   !- Outlet Branch Name
     Cooling Coil Branch,     !- Inlet Branch 1 Name
     Demand Bypass Branch;    !- Inlet Branch 2 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     Steam Demand 1 Steam Mixer,  !- Name
     Steam Demand 1 Steam Outlet Branch,  !- Outlet Branch Name
     Absorption Chiller Steam-Branch,  !- Inlet Branch 1 Name
     Absorption Chiller Demand Side Bypass Branch;  !- Inlet Branch 2 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     Steam Boiler Plant Steam Supply Mixer,  !- Name
     Steam Boiler Plant Steam Supply Outlet Branch,  !- Outlet Branch Name
     Steam Boiler Plant Boiler Branch;  !- Inlet Branch 1 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     Condenser Demand Mixer,  !- Name
     Condenser Demand Outlet Branch,  !- Outlet Branch Name
     Big Chiller Condenser Branch,  !- Inlet Branch 1 Name
     Little Chiller Condenser Branch,  !- Inlet Branch 2 Name
     Condenser Demand Bypass Branch;  !- Inlet Branch 3 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     Condenser Supply Mixer,  !- Name
     Condenser Supply Outlet Branch,  !- Outlet Branch Name
     Condenser Supply Tower Branch,  !- Inlet Branch 1 Name
     Condenser Supply Bypass Branch;  !- Inlet Branch 2 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     Reheat Mixer,            !- Name
     Reheat Outlet Branch,    !- Outlet Branch Name
     Zone 1 Reheat Branch,    !- Inlet Branch 1 Name
@@ -1962,204 +1947,199 @@ Connector:Mixer,
     Zone 3 Reheat Branch,    !- Inlet Branch 3 Name
     Reheat Bypass Branch;    !- Inlet Branch 4 Name
 
-Connector:Mixer,
+  Connector:Mixer,
     Heating Supply Mixer,    !- Name
     Heating Supply Outlet Branch,  !- Outlet Branch Name
     Heating Purchased Hot Water Branch,  !- Inlet Branch 1 Name
     Heating Supply Bypass Branch;  !- Inlet Branch 2 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONNECTORLIST ===========
 
-ConnectorList,
+  ConnectorList,
     Cooling Supply Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     CW Loop Splitter,        !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     CW Loop Mixer;           !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Cooling Demand Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     CW Demand Splitter,      !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     CW Demand Mixer;         !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Steam Demand 1 Steam Demand Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     Steam Demand 1 Steam Splitter,  !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     Steam Demand 1 Steam Mixer;  !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Steam Boiler Plant Steam Supply Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     Steam Boiler Plant Steam Supply Splitter,  !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     Steam Boiler Plant Steam Supply Mixer;  !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Condenser Supply Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     Condenser Supply Splitter,  !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     Condenser Supply Mixer;  !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Condenser Demand Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     Condenser Demand Splitter,  !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     Condenser Demand Mixer;  !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Heating Supply Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     Heating Supply Splitter, !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     Heating Supply Mixer;    !- Connector 2 Name
 
-ConnectorList,
+  ConnectorList,
     Heating Demand Side Connectors,  !- Name
     Connector:Splitter,      !- Connector 1 Object Type
     Reheat Splitter,         !- Connector 1 Name
     Connector:Mixer,         !- Connector 2 Object Type
     Reheat Mixer;            !- Connector 2 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: NODELIST ===========
 
-NodeList,
+  NodeList,
     Chilled Water Loop Setpoint Node List,  !- Name
     CW Supply Outlet Node;   !- Node 1 Name
 
-NodeList,
+  NodeList,
     Hot Water Loop Setpoint Node List,  !- Name
     HW Supply Outlet Node;   !- Node 1 Name
 
-NodeList,
+  NodeList,
     Zone1Inlets,             !- Name
     Zone 1 Reheat Air Outlet Node;  !- Node 1 Name
 
-NodeList,
+  NodeList,
     Zone2Inlets,             !- Name
     Zone 2 Reheat Air Outlet Node;  !- Node 1 Name
 
-NodeList,
+  NodeList,
     Zone3Inlets,             !- Name
     Zone 3 Reheat Air Outlet Node;  !- Node 1 Name
 
-NodeList,
+  NodeList,
     Supply Air Temp Nodes,   !- Name
     Air Loop Outlet Node;    !- Node 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PIPE:ADIABATIC ===========
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Demand Side Inlet Pipe,  !- Name
     CW Demand Inlet Node,    !- Inlet Node Name
     CW Demand Entrance Pipe Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Demand Side Bypass,      !- Name
     CW Demand Bypass Inlet Node,  !- Inlet Node Name
     CW Demand Bypass Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     CW Demand Side Outlet Pipe,  !- Name
     CW Demand Exit Pipe Inlet Node,  !- Inlet Node Name
     CW Demand Outlet Node;   !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Supply Side Outlet Pipe, !- Name
     Supply Side Exit Pipe Inlet Node,  !- Inlet Node Name
     CW Supply Outlet Node;   !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Supply Side Bypass,      !- Name
     CW Supply Bypass Inlet Node,  !- Inlet Node Name
     CW Supply Bypass Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Condenser Supply Side Bypass,  !- Name
     Cond Supply Bypass Inlet Node,  !- Inlet Node Name
     Cond Supply Bypass Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Condenser Supply Outlet, !- Name
     Condenser Supply Exit Pipe Inlet Node,  !- Inlet Node Name
     Condenser Supply Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Condenser Demand Inlet Pipe,  !- Name
     Condenser Demand Inlet Node,  !- Inlet Node Name
     Condenser Demand Entrance Pipe Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Condenser Demand Side Bypass,  !- Name
     Cond Demand Bypass Inlet Node,  !- Inlet Node Name
     Cond Demand Bypass Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Condenser Demand Outlet Pipe,  !- Name
     Condenser Demand Exit Pipe Inlet Node,  !- Inlet Node Name
     Condenser Demand Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Heating Supply Side Bypass,  !- Name
     Heating Supply Bypass Inlet Node,  !- Inlet Node Name
     Heating Supply Bypass Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Heating Supply Outlet,   !- Name
     Heating Supply Exit Pipe Inlet Node,  !- Inlet Node Name
     HW Supply Outlet Node;   !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Reheat Inlet Pipe,       !- Name
     HW Demand Inlet Node,    !- Inlet Node Name
     HW Demand Entrance Pipe Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Reheat Outlet Pipe,      !- Name
     HW Demand Exit Pipe Inlet Node,  !- Inlet Node Name
     HW Demand Outlet Node;   !- Outlet Node Name
 
-Pipe:Adiabatic,
+  Pipe:Adiabatic,
     Reheat Bypass,           !- Name
     Reheat Bypass Inlet Node,!- Inlet Node Name
     Reheat Bypass Outlet Node;  !- Outlet Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PIPE:ADIABATIC:STEAM ===========
 
-Pipe:Adiabatic:Steam,
+  Pipe:Adiabatic:Steam,
     Steam Demand 1 Steam Inlet Pipe,  !- Name
     Steam Demand 1 Steam Demand Inlet Node,  !- Inlet Node Name
     Steam Demand 1 Steam Demand Entrance Pipe Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic:Steam,
+  Pipe:Adiabatic:Steam,
     Steam Demand 1 Steam Outlet Pipe,  !- Name
     Steam Demand 1 Steam Demand Exit Pipe Inlet Node,  !- Inlet Node Name
     Steam Demand 1 Steam Demand Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic:Steam,
+  Pipe:Adiabatic:Steam,
     Steam Boiler Plant Steam Supply Outlet,  !- Name
     Steam Boiler Plant Steam Supply Exit Pipe Inlet Node,  !- Inlet Node Name
     Steam Boiler Plant Steam Supply Outlet Node;  !- Outlet Node Name
 
-Pipe:Adiabatic:Steam,
+  Pipe:Adiabatic:Steam,
     Absorption Chiller Demand Side Bypass,  !- Name
     Absorption Chiller Demand Side Bypass Inlet Node,  !- Inlet Node Name
     Absorption Chiller Demand Side Bypass Outlet Node;  !- Outlet Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PUMP:VARIABLESPEED ===========
-
 !******** end of steam loop to feed absorption chiller ***************
-Pump:VariableSpeed,
+
+  Pump:VariableSpeed,
     Circ Pump,               !- Name
     CW Supply Inlet Node,    !- Inlet Node Name
     CW Pump Outlet Node,     !- Outlet Node Name
@@ -2175,7 +2155,7 @@ Pump:VariableSpeed,
     0.0,                     !- Design Minimum Flow Rate {m3/s}
     Intermittent;            !- Pump Control Type
 
-Pump:VariableSpeed,
+  Pump:VariableSpeed,
     Cond Circ Pump,          !- Name
     Condenser Supply Inlet Node,  !- Inlet Node Name
     Condenser Pump Outlet Node,  !- Outlet Node Name
@@ -2191,7 +2171,7 @@ Pump:VariableSpeed,
     0.0,                     !- Design Minimum Flow Rate {m3/s}
     Intermittent;            !- Pump Control Type
 
-Pump:VariableSpeed,
+  Pump:VariableSpeed,
     HW Circ Pump,            !- Name
     HW Supply Inlet Node,    !- Inlet Node Name
     HW Pump Outlet Node,     !- Outlet Node Name
@@ -2207,10 +2187,9 @@ Pump:VariableSpeed,
     0.0,                     !- Design Minimum Flow Rate {m3/s}
     Intermittent;            !- Pump Control Type
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PUMP:VARIABLESPEED:CONDENSATE ===========
 
-Pump:VariableSpeed:Condensate,
+  Pump:VariableSpeed:Condensate,
     Steam Boiler Plant Steam Circ Pump,  !- Name
     Steam Boiler Plant Steam Supply Inlet Node,  !- Inlet Node Name
     Steam Boiler Plant Steam Pump Outlet Node,  !- Outlet Node Name
@@ -2225,11 +2204,10 @@ Pump:VariableSpeed:Condensate,
     0,                       !- Coefficient 4 of the Part Load Performance Curve
     ;                        !- Pump Flow Rate Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: BOILER:STEAM ===========
-
 !    100000,                  !- Nominal Capacity {W}
-Boiler:Steam,
+
+  Boiler:Steam,
     Steam Boiler Plant Boiler,  !- Name
     NaturalGas,              !- Fuel Type
     160000,                  !- Maximum Operating Pressure {Pa}
@@ -2245,10 +2223,9 @@ Boiler:Steam,
     Steam Boiler Plant Boiler Inlet Node,  !- Water Inlet Node Name
     Steam Boiler Plant Boiler Outlet Node;  !- Steam Outlet Node Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CHILLER:ABSORPTION:INDIRECT ===========
 
-Chiller:Absorption:Indirect,
+  Chiller:Absorption:Indirect,
     Little Chiller,          !- Name
     10000,                   !- Nominal Capacity {W}
     150,                     !- Nominal Pumping Power {W}
@@ -2267,7 +2244,7 @@ Chiller:Absorption:Indirect,
     NotModulated,            !- Chiller Flow Mode
     SteamUseFPLR;            !- Generator Heat Input Function of Part Load Ratio Curve Name
 
-Chiller:Absorption:Indirect,
+  Chiller:Absorption:Indirect,
     Big Chiller,             !- Name
     10000,                   !- Nominal Capacity {W}
     150,                     !- Nominal Pumping Power {W}
@@ -2299,28 +2276,25 @@ Chiller:Absorption:Indirect,
     2.0,                     !- Degree of Subcooling in Steam Generator {C}
     12.0;                    !- Degree of Subcooling in Steam Condensate Loop {C}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: DISTRICTCOOLING ===========
 
-DistrictCooling,
+  DistrictCooling,
     Purchased Cooling,       !- Name
     Purchased Cooling Inlet Node,  !- Chilled Water Inlet Node Name
     Purchased Cooling Outlet Node,  !- Chilled Water Outlet Node Name
     680000;                  !- Nominal Capacity {W}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: DISTRICTHEATING ===========
 
-DistrictHeating,
+  DistrictHeating,
     Purchased Heating,       !- Name
     Purchased Heat Inlet Node,  !- Hot Water Inlet Node Name
     Purchased Heat Outlet Node,  !- Hot Water Outlet Node Name
     1000000;                 !- Nominal Capacity {W}
 
-
 !-   ===========  ALL OBJECTS IN CLASS: COOLINGTOWER:SINGLESPEED ===========
 
-CoolingTower:SingleSpeed,
+  CoolingTower:SingleSpeed,
     Big Tower,               !- Name
     Condenser Tower Inlet Node,  !- Water Inlet Node Name
     Condenser Tower Outlet Node,  !- Water Outlet Node Name
@@ -2338,10 +2312,9 @@ CoolingTower:SingleSpeed,
     ,                        !- Free Convection Capacity {W}
     ;                        !- Free Convection Nominal Capacity Sizing Factor
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PLANTLOOP ===========
 
-PlantLoop,
+  PlantLoop,
     Chilled Water Loop,      !- Name
     Water,                   !- Fluid Type
     ,                        !- User Defined Fluid Type
@@ -2363,7 +2336,8 @@ PlantLoop,
     Optimal;                 !- Load Distribution Scheme
 
 !******** add steam loop to feed absorption chiller ***************
-PlantLoop,
+
+  PlantLoop,
     Steam Boiler Plant,      !- Name
     Steam,                   !- Fluid Type
     ,                        !- User Defined Fluid Type
@@ -2384,7 +2358,7 @@ PlantLoop,
     Steam Demand 1 Steam Demand Side Connectors,  !- Demand Side Connector List Name
     Optimal;                 !- Load Distribution Scheme
 
-PlantLoop,
+  PlantLoop,
     Hot Water Loop,          !- Name
     Water,                   !- Fluid Type
     ,                        !- User Defined Fluid Type
@@ -2405,10 +2379,9 @@ PlantLoop,
     Heating Demand Side Connectors,  !- Demand Side Connector List Name
     Optimal;                 !- Load Distribution Scheme
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONDENSERLOOP ===========
 
-CondenserLoop,
+  CondenserLoop,
     Chilled Water Condenser Loop,  !- Name
     Water,                   !- Fluid Type
     ,                        !- User Defined Fluid Type
@@ -2429,84 +2402,79 @@ CondenserLoop,
     Condenser Demand Side Connectors,  !- Condenser Demand Side Connector List Name
     SequentialLoad;          !- Load Distribution Scheme
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTLIST ===========
 
-PlantEquipmentList,
+  PlantEquipmentList,
     Purchased Only,          !- Name
     DistrictCooling,         !- Equipment 1 Object Type
     Purchased Cooling;       !- Equipment 1 Name
 
-PlantEquipmentList,
+  PlantEquipmentList,
     Chiller 1,               !- Name
     Chiller:Absorption:Indirect,  !- Equipment 1 Object Type
     Big Chiller;             !- Equipment 1 Name
 
-PlantEquipmentList,
+  PlantEquipmentList,
     Chiller 2,               !- Name
     Chiller:Absorption:Indirect,  !- Equipment 1 Object Type
     Little Chiller,          !- Equipment 1 Name
     Chiller:Absorption:Indirect,  !- Equipment 2 Object Type
     Big Chiller;             !- Equipment 2 Name
 
-PlantEquipmentList,
+  PlantEquipmentList,
     Steam Boiler Plant heating plant,  !- Name
     Boiler:Steam,            !- Equipment 1 Object Type
     Steam Boiler Plant Boiler;  !- Equipment 1 Name
 
-PlantEquipmentList,
+  PlantEquipmentList,
     heating plant,           !- Name
     DistrictHeating,         !- Equipment 1 Object Type
     Purchased Heating;       !- Equipment 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONDENSEREQUIPMENTLIST ===========
 
-CondenserEquipmentList,
+  CondenserEquipmentList,
     All Towers,              !- Name
     CoolingTower:SingleSpeed,!- Equipment 1 Object Type
     Big Tower;               !- Equipment 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTOPERATION:COOLINGLOAD ===========
 
-PlantEquipmentOperation:CoolingLoad,
+  PlantEquipmentOperation:CoolingLoad,
     Peak Operation,          !- Name
     0,                       !- Load Range 1 Lower Limit {W}
     210000,                  !- Load Range 1 Upper Limit {W}
     Chiller 2;               !- Range 1 Equipment List Name
 
-PlantEquipmentOperation:CoolingLoad,
+  PlantEquipmentOperation:CoolingLoad,
     Off Peak Operation,      !- Name
     0,                       !- Load Range 1 Lower Limit {W}
     20000,                   !- Load Range 1 Upper Limit {W}
     Chiller 1;               !- Range 1 Equipment List Name
 
-PlantEquipmentOperation:CoolingLoad,
+  PlantEquipmentOperation:CoolingLoad,
     Year Round Tower Operation,  !- Name
     0,                       !- Load Range 1 Lower Limit {W}
     90000000,                !- Load Range 1 Upper Limit {W}
     All Towers;              !- Range 1 Equipment List Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTOPERATION:HEATINGLOAD ===========
 
-PlantEquipmentOperation:HeatingLoad,
+  PlantEquipmentOperation:HeatingLoad,
     Steam Boiler Plant Heat Supply,  !- Name
     0,                       !- Load Range 1 Lower Limit {W}
     1000000000000000,        !- Load Range 1 Upper Limit {W}
     Steam Boiler Plant heating plant;  !- Range 1 Equipment List Name
 
-PlantEquipmentOperation:HeatingLoad,
+  PlantEquipmentOperation:HeatingLoad,
     Purchased Only,          !- Name
     0,                       !- Load Range 1 Lower Limit {W}
     1000000,                 !- Load Range 1 Upper Limit {W}
     heating plant;           !- Range 1 Equipment List Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: PLANTEQUIPMENTOPERATIONSCHEMES ===========
 
-PlantEquipmentOperationSchemes,
+  PlantEquipmentOperationSchemes,
     CW Loop Operation,       !- Name
     PlantEquipmentOperation:CoolingLoad,  !- Control Scheme 1 Object Type
     Peak Operation,          !- Control Scheme 1 Name
@@ -2515,85 +2483,80 @@ PlantEquipmentOperationSchemes,
     Peak Operation,          !- Control Scheme 2 Name
     Off Peak;                !- Control Scheme 2 Schedule Name
 
-PlantEquipmentOperationSchemes,
+  PlantEquipmentOperationSchemes,
     Steam Boiler Plant Operation,  !- Name
     PlantEquipmentOperation:HeatingLoad,  !- Control Scheme 1 Object Type
     Steam Boiler Plant Heat Supply,  !- Control Scheme 1 Name
     PlantOnSched;            !- Control Scheme 1 Schedule Name
 
-PlantEquipmentOperationSchemes,
+  PlantEquipmentOperationSchemes,
     Hot Loop Operation,      !- Name
     PlantEquipmentOperation:HeatingLoad,  !- Control Scheme 1 Object Type
     Purchased Only,          !- Control Scheme 1 Name
     ON;                      !- Control Scheme 1 Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CONDENSEREQUIPMENTOPERATIONSCHEMES ===========
 
-CondenserEquipmentOperationSchemes,
+  CondenserEquipmentOperationSchemes,
     Tower Loop Operation,    !- Name
     PlantEquipmentOperation:CoolingLoad,  !- Control Scheme 1 Object Type
     Year Round Tower Operation,  !- Control Scheme 1 Name
     ON;                      !- Control Scheme 1 Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AVAILABILITYMANAGER:SCHEDULED ===========
 
-AvailabilityManager:Scheduled,
+  AvailabilityManager:Scheduled,
     Reheat System 1 Avail,   !- Name
     FanAndCoilAvailSched;    !- Schedule Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: AVAILABILITYMANAGERASSIGNMENTLIST ===========
 
-AvailabilityManagerAssignmentList,
+  AvailabilityManagerAssignmentList,
     Reheat System 1 Avail List,  !- Name
     AvailabilityManager:Scheduled,  !- Availability Manager 1 Object Type
     Reheat System 1 Avail;   !- Availability Manager 1 Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SETPOINTMANAGER:SCHEDULED ===========
 
-SetpointManager:Scheduled,
+  SetpointManager:Scheduled,
     Steam Boiler Plant Boiler Setpoint Manager,  !- Name
     Temperature,             !- Control Variable
     Steam-Loop-Temp-Schedule,!- Schedule Name
     Steam Boiler Plant Boiler Outlet Node;  !- Setpoint Node or NodeList Name
 
-SetpointManager:Scheduled,
+  SetpointManager:Scheduled,
     Big Chiller Setpoint Manager,  !- Name
     Temperature,             !- Control Variable
     CW Loop Temp Schedule,   !- Schedule Name
     Big Chiller Outlet Node; !- Setpoint Node or NodeList Name
 
-SetpointManager:Scheduled,
+  SetpointManager:Scheduled,
     Chilled Water Loop Setpoint Manager,  !- Name
     Temperature,             !- Control Variable
     CW Loop Temp Schedule,   !- Schedule Name
     Chilled Water Loop Setpoint Node List;  !- Setpoint Node or NodeList Name
 
-SetpointManager:Scheduled,
+  SetpointManager:Scheduled,
     Steam Boiler Plant Steam Temp Manager,  !- Name
     Temperature,             !- Control Variable
     Steam-Loop-Temp-Schedule,!- Schedule Name
     Steam Boiler Plant Steam Supply Outlet Node;  !- Setpoint Node or NodeList Name
 
-SetpointManager:Scheduled,
+  SetpointManager:Scheduled,
     Hot Water Loop Setpoint Manager,  !- Name
     Temperature,             !- Control Variable
     HW Loop Temp Schedule,   !- Schedule Name
     Hot Water Loop Setpoint Node List;  !- Setpoint Node or NodeList Name
 
-SetpointManager:Scheduled,
+  SetpointManager:Scheduled,
     Supply Air Temp Manager, !- Name
     Temperature,             !- Control Variable
     Seasonal Reset Supply Air Temp Sch,  !- Schedule Name
     Supply Air Temp Nodes;   !- Setpoint Node or NodeList Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: SETPOINTMANAGER:FOLLOWOUTDOORAIRTEMPERATURE ===========
 
-SetpointManager:FollowOutdoorAirTemperature,
+  SetpointManager:FollowOutdoorAirTemperature,
     MyCondenserControl,      !- Name
     Temperature,             !- Control Variable
     OutdoorAirWetBulb,       !- Reference Temperature Type
@@ -2602,10 +2565,9 @@ SetpointManager:FollowOutdoorAirTemperature,
     10,                      !- Minimum Setpoint Temperature {C}
     Condenser Supply Outlet Node;  !- Setpoint Node or NodeList Name
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CURVE:QUADRATIC ===========
 
-Curve:Quadratic,
+  Curve:Quadratic,
     PumpUseFPLR,             !- Name
     1.0,                     !- Coefficient1 Constant
     0.0,                     !- Coefficient2 x
@@ -2613,10 +2575,9 @@ Curve:Quadratic,
     0.15,                    !- Minimum Value of x
     1.0;                     !- Maximum Value of x
 
-
 !-   ===========  ALL OBJECTS IN CLASS: CURVE:CUBIC ===========
 
-Curve:Cubic,
+  Curve:Cubic,
     SteamFCondTemp,          !- Name
     0.712019,                !- Coefficient1 Constant
     -0.00478,                !- Coefficient2 x
@@ -2629,7 +2590,7 @@ Curve:Cubic,
     Temperature,             !- Input Unit Type for X
     Dimensionless;           !- Output Unit Type
 
-Curve:Cubic,
+  Curve:Cubic,
     SteamFEvapTemp,          !- Name
     0.995571,                !- Coefficient1 Constant
     0.046821,                !- Coefficient2 x
@@ -2642,7 +2603,7 @@ Curve:Cubic,
     Temperature,             !- Input Unit Type for X
     Dimensionless;           !- Output Unit Type
 
-Curve:Cubic,
+  Curve:Cubic,
     SteamUseFPLR,            !- Name
     0.18892,                 !- Coefficient1 Constant
     0.968044,                !- Coefficient2 x
@@ -2651,7 +2612,7 @@ Curve:Cubic,
     0.15,                    !- Minimum Value of x
     1.0;                     !- Maximum Value of x
 
-Curve:Cubic,
+  Curve:Cubic,
     CAPfCOND,                !- Name
     0.245507,                !- Coefficient1 Constant
     0.023614,                !- Coefficient2 x
@@ -2660,7 +2621,7 @@ Curve:Cubic,
     7.0,                     !- Minimum Value of x
     25.0;                    !- Maximum Value of x
 
-Curve:Cubic,
+  Curve:Cubic,
     CAPfEVAP,                !- Name
     0.690571,                !- Coefficient1 Constant
     0.065571,                !- Coefficient2 x
@@ -2669,34 +2630,53 @@ Curve:Cubic,
     4.0,                     !- Minimum Value of x
     10.0;                    !- Maximum Value of x
 
-
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
 
-Output:VariableDictionary,Regular;
+  Output:VariableDictionary,Regular;
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLE ===========
 
-Output:Variable,Big Chiller,Chiller Electric Power,timestep;
-Output:Variable,Big Chiller,Chiller Source Steam Rate,timestep;
-Output:Variable,Big Chiller,Chiller Evaporator Cooling Rate,timestep;
-Output:Variable,Big Chiller,Chiller Evaporator Inlet Temperature,timestep;
-Output:Variable,Big Chiller,Chiller Evaporator Outlet Temperature,timestep;
-Output:Variable,Big Chiller,Chiller Evaporator Mass Flow Rate,timestep;
-Output:Variable,Big Chiller,Chiller Condenser Heat Transfer Rate,timestep;
-Output:Variable,Big Chiller,Chiller Condenser Inlet Temperature,timestep;
-Output:Variable,Big Chiller,Chiller Condenser Outlet Temperature,timestep;
-Output:Variable,Big Chiller,Chiller Condenser Mass Flow Rate,timestep;
-Output:Variable,Big Chiller,Chiller Steam Heat Loss Rate,timestep;
+  Output:Variable,Big Chiller,Chiller Electricity Rate,timestep;
+
+  Output:Variable,Big Chiller,Chiller Source Steam Rate,timestep;
+
+  Output:Variable,Big Chiller,Chiller Evaporator Cooling Rate,timestep;
+
+  Output:Variable,Big Chiller,Chiller Evaporator Inlet Temperature,timestep;
+
+  Output:Variable,Big Chiller,Chiller Evaporator Outlet Temperature,timestep;
+
+  Output:Variable,Big Chiller,Chiller Evaporator Mass Flow Rate,timestep;
+
+  Output:Variable,Big Chiller,Chiller Condenser Heat Transfer Rate,timestep;
+
+  Output:Variable,Big Chiller,Chiller Condenser Inlet Temperature,timestep;
+
+  Output:Variable,Big Chiller,Chiller Condenser Outlet Temperature,timestep;
+
+  Output:Variable,Big Chiller,Chiller Condenser Mass Flow Rate,timestep;
+
+  Output:Variable,Big Chiller,Chiller Steam Heat Loss Rate,timestep;
 
 !-   ===========  ALL OBJECTS IN CLASS: OUTPUT:METER:METERFILEONLY ===========
 
-Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
-Output:Meter:MeterFileOnly,Electricity:Building,monthly;
-Output:Meter:MeterFileOnly,InteriorLights:Electricity,monthly;
-Output:Meter:MeterFileOnly,Electricity:HVAC,monthly;
-Output:Meter:MeterFileOnly,Electricity:Plant,monthly;
-Output:Meter:MeterFileOnly,Electricity:Facility,runperiod;
-Output:Meter:MeterFileOnly,Electricity:Building,runperiod;
-Output:Meter:MeterFileOnly,InteriorLights:Electricity,runperiod;
-Output:Meter:MeterFileOnly,Electricity:HVAC,runperiod;
-Output:Meter:MeterFileOnly,Electricity:Plant,runperiod;
+  Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
+
+  Output:Meter:MeterFileOnly,Electricity:Building,monthly;
+
+  Output:Meter:MeterFileOnly,InteriorLights:Electricity,monthly;
+
+  Output:Meter:MeterFileOnly,Electricity:HVAC,monthly;
+
+  Output:Meter:MeterFileOnly,Electricity:Plant,monthly;
+
+  Output:Meter:MeterFileOnly,Electricity:Facility,runperiod;
+
+  Output:Meter:MeterFileOnly,Electricity:Building,runperiod;
+
+  Output:Meter:MeterFileOnly,InteriorLights:Electricity,runperiod;
+
+  Output:Meter:MeterFileOnly,Electricity:HVAC,runperiod;
+
+  Output:Meter:MeterFileOnly,Electricity:Plant,runperiod;
+

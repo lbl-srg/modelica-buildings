@@ -5,10 +5,10 @@ model PartialStratified
 
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
-  parameter Modelica.SIunits.Volume VTan "Tank volume";
-  parameter Modelica.SIunits.Length hTan "Height of tank (without insulation)";
-  parameter Modelica.SIunits.Length dIns "Thickness of insulation";
-  parameter Modelica.SIunits.ThermalConductivity kIns = 0.04
+  parameter Modelica.Units.SI.Volume VTan "Tank volume";
+  parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
     "Specific heat conductivity of insulation";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
 
@@ -16,10 +16,7 @@ model PartialStratified
   // Assumptions
   parameter Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -28,9 +25,9 @@ model PartialStratified
   parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
-  parameter Modelica.SIunits.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
     "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
-    annotation(Dialog(tab = "Initialization"));
+    annotation (Dialog(tab="Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -40,7 +37,7 @@ model PartialStratified
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   // Dynamics
-  parameter Modelica.SIunits.Time tau=1 "Time constant for mixing";
+  parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing";
 
   ////////////////////////////////////////////////////////////////////
   // Connectors
@@ -68,7 +65,7 @@ model PartialStratified
   Buildings.Fluid.MixingVolumes.MixingVolume[nSeg] vol(
     redeclare each package Medium = Medium,
     each energyDynamics=energyDynamics,
-    each massDynamics=massDynamics,
+    each massDynamics=energyDynamics,
     each p_start=p_start,
     T_start=TFlu_start,
     each X_start=X_start,
@@ -84,15 +81,15 @@ protected
     T=Medium.T_default,
     p=Medium.p_default,
     X=Medium.X_default[1:Medium.nXi]) "Medium state at default properties";
-  parameter Modelica.SIunits.Length hSeg = hTan / nSeg
-    "Height of a tank segment";
-  parameter Modelica.SIunits.Area ATan = VTan/hTan
+  parameter Modelica.Units.SI.Length hSeg=hTan/nSeg "Height of a tank segment";
+  parameter Modelica.Units.SI.Area ATan=VTan/hTan
     "Tank cross-sectional area (without insulation)";
-  parameter Modelica.SIunits.Length rTan = sqrt(ATan/Modelica.Constants.pi)
+  parameter Modelica.Units.SI.Length rTan=sqrt(ATan/Modelica.Constants.pi)
     "Tank diameter (without insulation)";
-  parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.thermalConductivity(sta_default)/hSeg
+  parameter Modelica.Units.SI.ThermalConductance conFluSeg=ATan*
+      Medium.thermalConductivity(sta_default)/hSeg
     "Thermal conductance between fluid volumes";
-  parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
+  parameter Modelica.Units.SI.ThermalConductance conTopSeg=ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
 
   BaseClasses.Buoyancy buo(
@@ -208,6 +205,12 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 November 13, 2019 by Jianjun Hu:<br/>
 Added parameter <code>TFlu_start</code> and changed the initial tank segments
 temperature to <code>TFlu_start</code> so each segment could have different
@@ -289,6 +292,7 @@ October 25, 2009 by Michael Wetter:<br/>
 Changed computation of heat transfer through top (and bottom) of tank. Now,
 the thermal resistance of the fluid is not taken into account, i.e., the
 top (and bottom) element is assumed to be mixed.
+</li>
 <li>
 October 23, 2009 by Michael Wetter:<br/>
 Fixed bug in computing heat conduction of top and bottom segment.
@@ -382,7 +386,7 @@ Icon(graphics={
           fillPattern=FillPattern.CrossDiag),
         Text(
           extent={{100,106},{134,74}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="QLoss"),
         Rectangle(
           extent={{-10,10},{10,-10}},

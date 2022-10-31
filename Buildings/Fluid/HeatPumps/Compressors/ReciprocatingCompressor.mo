@@ -3,37 +3,33 @@ model ReciprocatingCompressor
   "Model for a reciprocating compressor, based on Jin (2002)"
   extends Buildings.Fluid.HeatPumps.Compressors.BaseClasses.PartialCompressor;
 
-  parameter Modelica.SIunits.VolumeFlowRate pisDis
-    "Piston displacement";
+  parameter Modelica.Units.SI.VolumeFlowRate pisDis "Piston displacement";
 
   parameter Real cleFac(
     min = 0,
     final unit = "1")
     "Clearance factor";
 
-  parameter Modelica.SIunits.Efficiency etaEle
+  parameter Modelica.Units.SI.Efficiency etaEle
     "Electro-mechanical efficiency of the compressor";
 
-  parameter Modelica.SIunits.Power PLos(min = 0)
+  parameter Modelica.Units.SI.Power PLos(min=0)
     "Constant part of the compressor power losses";
 
-  parameter Modelica.SIunits.AbsolutePressure pDro
+  parameter Modelica.Units.SI.AbsolutePressure pDro
     "Pressure drop at suction and discharge of the compressor";
 
-  parameter Modelica.SIunits.TemperatureDifference dTSup(min = 0)
+  parameter Modelica.Units.SI.TemperatureDifference dTSup(min=0)
     "Superheating at compressor suction";
 
-  Modelica.SIunits.MassFlowRate m_flow
-    "Refrigerant mass flow rate";
+  Modelica.Units.SI.MassFlowRate m_flow "Refrigerant mass flow rate";
 
-  Modelica.SIunits.Power PThe
-    "Theoretical power consumed by the compressor";
+  Modelica.Units.SI.Power PThe "Theoretical power consumed by the compressor";
 
-  Modelica.SIunits.Efficiency COP(start=5)
-    "Heating COP of the compressor";
+  Modelica.Units.SI.Efficiency COP(start=5) "Heating COP of the compressor";
 
 protected
-  Modelica.SIunits.IsentropicExponent k(start = 1.2)
+  Modelica.Units.SI.IsentropicExponent k(start=1.2)
     "Isentropic exponent of the refrigerant";
 
   Real pisDis_norm
@@ -108,7 +104,7 @@ H. Jin.
 <i>
 Parameter estimation based models of water source heat pumps.
 </i>
-PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2012.
+PhD Thesis. Oklahoma State University. Stillwater, Oklahoma, USA. 2002.
 </p>
 </html>", revisions="<html>
 <ul>

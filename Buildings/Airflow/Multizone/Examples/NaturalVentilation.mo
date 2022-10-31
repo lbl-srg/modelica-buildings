@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model NaturalVentilation
-  "Test model for flow reversal due to density difference"
+  "Model with flow reversal due to density difference"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air;
@@ -9,50 +9,52 @@ model NaturalVentilation
     redeclare package Medium = Medium,
     V=2.5*10*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 18,
     nPorts=2,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001) "Control volume"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
     A=0.1,
     m=0.5,
-    dp_turbulent=0.1)
+    dp_turbulent=0.1) "Orifice"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Airflow.Multizone.MediumColumn colOut(
     redeclare package Medium = Medium,
     h=3,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column to compute static pressure of air"
     annotation (Placement(transformation(extent={{71,10},{91,30}})));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
     A=0.1,
     m=0.5,
-    dp_turbulent=0.1)
+    dp_turbulent=0.1) "Orifice"
     annotation (Placement(transformation(extent={{23,40},{43,60}})));
   Buildings.Airflow.Multizone.MediumColumn colRooTop(
     redeclare package Medium = Medium,
     h=3,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    "Medium column to compute static pressure of air"
     annotation (Placement(transformation(extent={{-30,10},{-9,30}})));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1E10,
     T_start=273.15 + 20,
     nPorts=2,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001) "Control volume"
     annotation (Placement(transformation(extent={{53,-20},{73,0}})));
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    "Prescribed heat flow rate boundary condition"
     annotation (Placement(transformation(extent={{-49,-20},{-29,0}})));
   Modelica.Blocks.Sources.Step q_flow(
     height=-100,
     offset=100,
-    startTime=3600) annotation (Placement(transformation(extent={{-84,-20},{-64,
+    startTime=3600) "Step function for heat flow boundary condition"
+                    annotation (Placement(transformation(extent={{-84,-20},{-64,
             0}})));
 equation
   connect(q_flow.y, preHeaFlo.Q_flow)
@@ -98,6 +100,11 @@ heat is added to the room air volume, its temperature raises above the temperatu
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 December 22, 2014 by Michael Wetter:<br/>
 Removed <code>Modelica.Fluid.System</code>

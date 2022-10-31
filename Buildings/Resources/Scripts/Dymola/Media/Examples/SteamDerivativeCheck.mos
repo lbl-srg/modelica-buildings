@@ -1,0 +1,15 @@
+simulateModel("Buildings.Media.Examples.SteamDerivativeCheck", startTime=0, stopTime=1, tolerance=1E-10, method="dassl", resultFile="MediaExamplesSteamDerivativeCheck");
+createPlot(id=1, 
+  position={34, 26, 626, 458}, 
+  y={"der(hVapSym)", "der(hVapCod)"}, 
+  range={0.0, 1.0, -100000.0, 500000.0}, 
+  grid=true, 
+  colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, 
+  position={34, 26, 626, 227}, 
+  y={"der(cpSym)", "der(cpCod)", "der(cvSym)", "der(cvCod)"}, 
+  range={0.0, 1.0, -20.0, 80.0}, 
+  grid=true, 
+  subPlot=2, 
+  colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});
+

@@ -1,6 +1,6 @@
 within Buildings.Controls;
 package OBC "Blocks and preconfigured control sequences"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
 annotation (
 Documentation(info="<html>
@@ -21,5 +21,7 @@ Control Description Language (CDL), see
 <a href=\"modelica://Buildings.Examples.Tutorial.CDL\">
 Buildings.Examples.Tutorial.CDL</a>.
 </p>
-</html>"));
+</html>"),
+Icon(graphics={Bitmap(extent={{-92,-98},{104,96}},
+fileName="modelica://Buildings/Resources/Images/Controls/OBC/OBC_logo-only_150dpi.png")}));
 end OBC;

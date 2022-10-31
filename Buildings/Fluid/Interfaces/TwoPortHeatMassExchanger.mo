@@ -10,17 +10,14 @@ model TwoPortHeatMassExchanger
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.Time tau = 30
+  parameter Modelica.Units.SI.Time tau=30
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Nominal condition"));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -47,7 +44,7 @@ model TwoPortHeatMassExchanger
     final mSenFac=1,
     final m_flow_nominal = m_flow_nominal,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final massDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -69,23 +66,18 @@ model TwoPortHeatMassExchanger
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
+  parameter Modelica.Units.SI.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
       T=T_start, p=p_start, X=X_start);
-  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
-    "Start value for outflowing enthalpy";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_outflow_start=
+      Medium.specificEnthalpy(sta_start) "Start value for outflowing enthalpy";
 
 initial algorithm
   assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
           tau > Modelica.Constants.eps,
 "The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
  You need to set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
- Received tau = " + String(tau) + "\n");
-  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
-          tau > Modelica.Constants.eps,
-"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
- You need to set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
  Received tau = " + String(tau) + "\n");
 
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -144,10 +136,16 @@ Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </html>", revisions="<html>
 <ul>
 <li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 December 1, 2016, by Michael Wetter:<br/>

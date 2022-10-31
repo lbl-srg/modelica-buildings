@@ -1,13 +1,10 @@
 within Buildings.Obsolete.Utilities;
-package IO "Input and output"
+package IO "Package with obsolete models for IO"
   extends Modelica.Icons.Package;
 
-  annotation (Icon(graphics={Text(
-          extent={{-92,72},{84,-66}},
-          lineColor={0,0,0},
-          textString="I/O")}), Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains models for input and output.
+This package contains obsolete models for IO.
 </p>
 </html>"));
 end IO;

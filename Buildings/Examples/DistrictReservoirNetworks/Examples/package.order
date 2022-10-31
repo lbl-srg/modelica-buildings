@@ -4,6 +4,7 @@ Reservoir2Constant
 Reservoir3Variable
 Reservoir3Variable_OneTube
 Reservoir3Variable_StepCompare
-Reservoir3Variable_TOUGH
+Reservoir3Variable_TOUGHCheckGround
+Reservoir3Variable_TOUGHNoCheckGround
 DesignValues
 BaseClasses

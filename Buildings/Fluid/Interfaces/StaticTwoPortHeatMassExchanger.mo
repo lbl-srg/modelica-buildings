@@ -14,8 +14,9 @@ model StaticTwoPortHeatMassExchanger
 
   // Model inputs
   // Q_flow is the sensible plus latent heat flow rate
-  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transferred into the medium";
-  input Modelica.SIunits.MassFlowRate mWat_flow
+  input Modelica.Units.SI.HeatFlowRate Q_flow
+    "Heat transferred into the medium";
+  input Modelica.Units.SI.MassFlowRate mWat_flow
     "Moisture mass flow rate added to the medium";
 
   // Models for conservation equations and pressure drop
@@ -158,7 +159,7 @@ are the results of an iterative solver.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 April 11, 2017, by Michael Wetter:<br/>

@@ -495,7 +495,8 @@ partial model RN_BaseModel_StepCompare
   Modelica.Blocks.Math.MultiSum EPumTot(nu=3, y(unit="J", displayUnit="kWh"))
     "Total electrical energy for pumps"
     annotation (Placement(transformation(extent={{284,302},{296,314}})));
-  Agents.OneUTubeWithTough borFieTough(redeclare package Medium = MediumWater)
+  Agents.OneUTubeWithToughCheckGround borFieTough(redeclare package Medium =
+        MediumWater)
     annotation (Placement(transformation(extent={{-40,-470},{-60,-490}})));
   Fluid.Sensors.TemperatureTwoPort tempToBore(
     redeclare package Medium = MediumWater,

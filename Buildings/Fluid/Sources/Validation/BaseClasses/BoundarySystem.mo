@@ -11,10 +11,11 @@ model BoundarySystem "System model for testing of boundary condition"
     m_flow=-1,
     nPorts=1) "Mass flow source"
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-  Modelica.SIunits.Temperature T = senTem.T "Temperature coming out of the source";
-  Modelica.SIunits.MassFraction Xi[Medium.nXi]=sou.ports[1].Xi_outflow
+  Modelica.Units.SI.Temperature T=senTem.T
+    "Temperature coming out of the source";
+  Modelica.Units.SI.MassFraction Xi[Medium.nXi]=sou.ports[1].Xi_outflow
     "Mass fraction coming out of the source";
-  Modelica.SIunits.Pressure p = sou.ports[1].p "Pressure in the source";
+  Modelica.Units.SI.Pressure p=sou.ports[1].p "Pressure in the source";
   Modelica.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
@@ -44,7 +45,7 @@ is used to access the mass fraction.
 September 13, 2019 by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
 </li>
 </ul>
 </html>"));

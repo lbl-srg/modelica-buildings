@@ -3,9 +3,9 @@ model Example2 "Example 2 model with series pressure components"
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.PressureDifference dp_nominal=1
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1
     "Pressure drop at nominal mass flow rate";
   Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
@@ -71,7 +71,7 @@ If <code>from_dp=true</code>, we obtain: <br/>
 Sizes of nonlinear systems of equations: {7}<br/>
 Sizes after manipulation of the nonlinear systems: {<b>5</b>}<br/>
 If <code>from_dp=false</code>, we obtain: <br/>
-Sizes of nonlinear systems of equations: {7}<br />
+Sizes of nonlinear systems of equations: {7}<br/>
 Sizes after manipulation of the nonlinear systems: {<b>1</b>}<br/>
 </p>
 <p>
@@ -124,7 +124,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example2.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example2.mos"
         "Simulate and plot"));
 end Example2;

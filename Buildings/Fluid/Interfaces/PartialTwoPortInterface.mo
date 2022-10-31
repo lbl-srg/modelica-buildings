@@ -5,40 +5,54 @@ partial model PartialTwoPortInterface
     port_a(p(start=Medium.p_default)),
     port_b(p(start=Medium.p_default)));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
   // Diagnostics
    parameter Boolean show_T = false
     "= true, if actual temperature at port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    annotation (
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
 
-  Modelica.SIunits.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
+  Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
 
-  Modelica.SIunits.PressureDifference dp(start=_dp_start, displayUnit="Pa") = port_a.p - port_b.p
+  Modelica.Units.SI.PressureDifference dp(
+    start=_dp_start,
+    displayUnit="Pa") = port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=
+    if allowFlowReversal then
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow))) if
-         show_T "Medium properties in port_a";
+                          noEvent(actualStream(port_a.Xi_outflow)))
+    else
+      Medium.setState_phX(port_a.p,
+                          noEvent(inStream(port_a.h_outflow)),
+                          noEvent(inStream(port_a.Xi_outflow)))
+      if show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
+    if allowFlowReversal then
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow))) if
-          show_T "Medium properties in port_b";
+                          noEvent(actualStream(port_b.Xi_outflow)))
+    else
+      Medium.setState_phX(port_b.p,
+                          noEvent(port_b.h_outflow),
+                          noEvent(port_b.Xi_outflow))
+       if show_T "Medium properties in port_b";
 
 protected
-  final parameter Modelica.SIunits.MassFlowRate _m_flow_start = 0
-  "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
-  final parameter Modelica.SIunits.PressureDifference _dp_start(displayUnit="Pa") = 0
-  "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+  final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
+    "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.Units.SI.PressureDifference _dp_start(displayUnit=
+        "Pa") = 0
+    "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
 
   annotation (
     preferredView="info",
@@ -64,6 +78,20 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Hongxiang Fu:<br/>
+If <code>allowFlowReversal==false</code>, replaced <code>actualStream()</code>
+with <code>inStream()</code> for <code>sta_a</code> and
+removed <code>actualStream()</code> for <code>sta_b</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1578\">IBPSA, #1578</a>.
+</li>
+<li>
+March 30, 2021, by Michael Wetter:<br/>
+Added annotation <code>HideResult=true</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\">IBPSA, #1459</a>.
+</li>
 <li>
 November 3, 2016, by Michael Wetter:<br/>
 Renamed protected parameter <code>m_flow_start</code> to avoid

@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "ove.oveDamPos",
+    "ove.uDam",
+    "ove.yDam",
+    "ove.uHeaOff",
+    "ove.uVal",
+    "ove.yVal",
+    "ove.u1Fan",
+    "ove.y1Fan",
+    "ove.oveFan"
+  };

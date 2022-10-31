@@ -5,10 +5,10 @@ model ChillerDXHeatingEconomizer
   extends
     Buildings.Air.Systems.SingleZone.VAV.Examples.BaseClasses.PartialOpenLoop(
     hvac(QCoo_flow_nominal=-10000));
-  parameter Modelica.SIunits.Temperature TSupChi_nominal=279.15
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal=279.15
     "Design value for chiller leaving water temperature";
 
-  ChillerDXHeatingEconomizerController con(
+  Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer con(
     minAirFlo=0.1,
     minOAFra=0.4,
     controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
@@ -48,39 +48,37 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{-152,-44},{-132,-24}})));
 
 equation
-  connect(TSetRooHea.y[1], con.TSetRooHea)   annotation (Line(points={{-130,50},{-110,50},{-110,8.6},{-101.4,8.6}},
-                                                   color={0,0,127}));
-  connect(TSetRooCoo.y[1], con.TSetRooCoo)    annotation (Line(points={{-130,20},{-116,20},{-116,5.8},{-101.4,5.8}},
-                                                                       color={0,0,127}));
-  connect(hvac.uFan, con.yFan) annotation (Line(points={{-42,18},{-60,18},{-60,9},
-          {-79,9}}, color={0,0,127}));
-  connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-58,12},{-58,
-          5.4},{-79,5.4}},
+  connect(TSetRooHea.y[1], con.TSetRooHea)   annotation (Line(points={{-130,50},
+          {-110,50},{-110,6},{-102,6}},            color={0,0,127}));
+  connect(TSetRooCoo.y[1], con.TSetRooCoo)    annotation (Line(points={{-130,20},
+          {-116,20},{-116,3},{-102,3}},                                color={0,0,127}));
+  connect(hvac.uFan, con.yFan) annotation (Line(points={{-42,18},{-60,18},{-60,
+          8},{-78,8}},
                     color={0,0,127}));
-  connect(con.yCooCoiVal, hvac.uCooVal) annotation (Line(points={{-79,-2},{-56,
+  connect(hvac.uHea, con.yHea) annotation (Line(points={{-42,12},{-58,12},{-58,
+          5},{-78,5}},
+                    color={0,0,127}));
+  connect(con.yCooCoiVal, hvac.uCooVal) annotation (Line(points={{-78,-2},{-56,
           -2},{-56,5},{-42,5}},
                             color={0,0,127}));
   connect(hvac.uEco, con.yOutAirFra) annotation (Line(points={{-42,-2},{-52,-2},
-          {-52,2},{-79,2}}, color={0,0,127}));
-  connect(con.chiOn, hvac.chiOn) annotation (Line(points={{-79,-5.4},{-58,-5.4},
-          {-58,-10},{-42,-10}},
+          {-52,2},{-78,2}}, color={0,0,127}));
+  connect(con.chiOn, hvac.chiOn) annotation (Line(points={{-78,-5},{-58,-5},{
+          -58,-10},{-42,-10}},
                            color={255,0,255}));
   connect(hvac.TSetChi, con.TSetSupChi) annotation (Line(points={{-42,-18},{-60,
-          -18},{-60,-9},{-79,-9}},                     color={0,0,127}));
+          -18},{-60,-8},{-78,-8}},                     color={0,0,127}));
   connect(hvac.TMix, con.TMix) annotation (Line(points={{1.2,-4},{8,-4},{8,-40},
-          {-114,-40},{-114,3},{-101.4,3}},
-                                        color={0,0,127}));
+          {-114,-40},{-114,9},{-102,9}},color={0,0,127}));
   connect(hvac.TSup, con.TSup) annotation (Line(points={{1.2,-8},{6,-8},{6,-36},
-          {-110,-36},{-110,-8.6},{-101.4,-8.6}},
-                                          color={0,0,127}));
+          {-110,-36},{-110,-9},{-102,-9}},color={0,0,127}));
   connect(zon.TRooAir, con.TRoo) annotation (Line(points={{81,0},{108,0},{108,
-          -148},{-120,-148},{-120,-5.8},{-101.4,-5.8}},
-                                                  color={0,0,127}));
+          -148},{-120,-148},{-120,-6},{-102,-6}}, color={0,0,127}));
   connect(occSch.occupied, con.uOcc) annotation (Line(points={{-131,-40},{-128,
-          -40},{-128,3.60822e-16},{-102.8,3.60822e-16}},
+          -40},{-128,3.60822e-16},{-102,3.60822e-16}},
                                            color={255,0,255}));
   connect(weaBus.TDryBul, con.TOut) annotation (Line(
-      points={{-79,80},{-79,40},{-106,40},{-106,-3},{-101.4,-3}},
+      points={{-79,80},{-79,40},{-106,40},{-106,-3},{-102,-3}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",

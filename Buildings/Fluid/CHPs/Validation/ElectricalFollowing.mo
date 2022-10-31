@@ -30,27 +30,21 @@ model ElectricalFollowing "Validate model ElectricalFollowing"
     use_T_in=true,
     nPorts=1) "Cooling water source"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dPEleNet(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dPEleNet
     "Absolute error for electric power generaton"
     annotation (Placement(transformation(extent={{140,0},{160,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dQGen(
-    final k2=-1) "Absolute error for heat generaton"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dQGen "Absolute error for heat generaton"
     annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dQWat(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dQWat
     "Absolute error for heat transfer to water control volume"
     annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dQLos(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dQLos
     "Absolute error for heat loss to the surroundings"
     annotation (Placement(transformation(extent={{140,-90},{160,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTWatOut(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTWatOut
     "Absolute error for water outlet temperature"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTEng(
-    final k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTEng
     "Absolute error for engine temperature"
     annotation (Placement(transformation(extent={{140,30},{160,50}})));
   Modelica.Blocks.Sources.RealExpression PEleNet(
@@ -224,7 +218,7 @@ First implementation.
           pattern=LinePattern.Dot),
                               Text(
           extent={{78,98},{124,84}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           pattern=LinePattern.Dash,
           lineThickness=0.5,
           textStyle={TextStyle.Bold},

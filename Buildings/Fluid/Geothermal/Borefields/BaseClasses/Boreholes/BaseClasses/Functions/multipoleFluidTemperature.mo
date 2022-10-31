@@ -4,19 +4,21 @@ function multipoleFluidTemperature "Fluid temperatures from multipole solution"
 
   input Integer nPip "Number of pipes";
   input Integer J "Number of multipoles";
-  input Modelica.SIunits.Position xPip[nPip] "x-Coordinates of pipes";
-  input Modelica.SIunits.Position yPip[nPip] "y-Coordinates of pipes";
+  input Modelica.Units.SI.Position xPip[nPip] "x-Coordinates of pipes";
+  input Modelica.Units.SI.Position yPip[nPip] "y-Coordinates of pipes";
   input Real QPip_flow[nPip](each unit="W/m") "Heat flow in pipes";
-  input Modelica.SIunits.Temperature TBor "Average borehole wall temperature";
-  input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.Radius rPip[nPip] "Outter radius of pipes";
-  input Modelica.SIunits.ThermalConductivity kFil "Thermal conductivity of grouting material";
-  input Modelica.SIunits.ThermalConductivity kSoi "Thermal conductivity of soil material";
+  input Modelica.Units.SI.Temperature TBor "Average borehole wall temperature";
+  input Modelica.Units.SI.Radius rBor "Borehole radius";
+  input Modelica.Units.SI.Radius rPip[nPip] "Outter radius of pipes";
+  input Modelica.Units.SI.ThermalConductivity kFil
+    "Thermal conductivity of grouting material";
+  input Modelica.Units.SI.ThermalConductivity kSoi
+    "Thermal conductivity of soil material";
   input Real RFluPip[nPip](each unit="(m.K)/W") "Fluid to pipe wall thermal resistances";
   input Real eps=1.0e-5 "Iteration relative accuracy";
   input Integer it_max=100 "Maximum number of iterations";
 
-  output Modelica.SIunits.Temperature TFlu[nPip] "Fluid temperature in pipes";
+  output Modelica.Units.SI.Temperature TFlu[nPip] "Fluid temperature in pipes";
 
 protected
   Real pikFil(unit="(m.K)/W")=1/(2*Modelica.Constants.pi*kFil) "Coefficient based on grout thermal conductivity";
@@ -36,7 +38,7 @@ protected
   Real R0[nPip,nPip](each unit="(m.K)/W") "Line source approximation of thermal resistances";
   Complex deltaTFlu "Fluid temperature difference with line source approximation";
   Real rbm "Intermediate coefficient";
-  Modelica.SIunits.Distance dz "Pipe to pipe distance";
+  Modelica.Units.SI.Distance dz "Pipe to pipe distance";
   Real coeff[nPip,J] "Coefficient for multiplication with matrix F_mk";
   Real diff "Difference in subsequent multipole evaluations";
   Real diff_max "Maximum difference in subsequent multipole evaluations";
@@ -49,13 +51,13 @@ algorithm
   // Thermal resistance matrix from 0th order multipole
   for i in 1:nPip loop
     zPip_i := Complex(xPip[i], yPip[i]);
-    rbm := rBor^2/(rBor^2 - Modelica.ComplexMath.'abs'(zPip_i)^2);
+    rbm :=rBor^2/(rBor^2 - Modelica.ComplexMath.abs(zPip_i)^2);
     R0[i, i] := pikFil*(log(rBor/rPip[i]) + betaPip[i] + sigma*log(rbm));
     for j in 1:nPip loop
       zPip_j := Complex(xPip[j], yPip[j]);
       if i <> j then
-        dz := Modelica.ComplexMath.'abs'(zPip_i - zPip_j);
-        rbm := rBor^2/Modelica.ComplexMath.'abs'(rBor^2 - zPip_j*
+        dz :=Modelica.ComplexMath.abs(zPip_i - zPip_j);
+        rbm :=rBor^2/Modelica.ComplexMath.abs(rBor^2 - zPip_j*
           Modelica.ComplexMath.conj(zPip_i));
         R0[i, j] := pikFil*(log(rBor/dz) + sigma*log(rbm));
       end if;
@@ -103,10 +105,8 @@ algorithm
         for k in 1:J loop
           P_nj := Complex(PRea[m, k], PIma[m, k]);
           P_nj_new := Complex(PRea_new[m, k], PIma_new[m, k]);
-          diff_max := max(diff_max,
-                           Modelica.ComplexMath.'abs'(P_nj_new - P_nj));
-          diff_min := min(diff_min,
-                           Modelica.ComplexMath.'abs'(P_nj_new - P_nj));
+          diff_max :=max(diff_max, Modelica.ComplexMath.abs(P_nj_new - P_nj));
+          diff_min :=min(diff_min, Modelica.ComplexMath.abs(P_nj_new - P_nj));
         end for;
       end for;
       diff := diff_max - diff_min;

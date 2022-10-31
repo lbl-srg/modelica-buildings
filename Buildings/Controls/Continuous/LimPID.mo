@@ -9,11 +9,11 @@ block LimPID
   parameter Modelica.Blocks.Types.SimpleController controllerType=
          Modelica.Blocks.Types.SimpleController.PI "Type of controller";
   parameter Real k(min=0) = 1 "Gain of controller";
-  parameter Modelica.SIunits.Time Ti(min=Modelica.Constants.small)=0.5
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 0.5
     "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.SIunits.Time Td(min=0)=0.1
+  parameter Modelica.Units.SI.Time Td(min=0) = 0.1
     "Time constant of Derivative block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PD or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
@@ -31,10 +31,9 @@ block LimPID
     "The higher Nd, the more ideal the derivative block"
        annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Modelica.Blocks.Types.InitPID initType= Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
+  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-                                     annotation(Evaluate=true,
-      Dialog(group="Initialization"));
+    annotation (Evaluate=true, Dialog(group="Initialization"));
       // Removed as the Limiter block no longer uses this parameter.
       // parameter Boolean limitsAtInit = true
       //  "= false, if limits are ignored during initialization"
@@ -50,7 +49,7 @@ block LimPID
                          enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == Modelica.Blocks.Types.InitPID.InitialOutput, group=
+    annotation(Dialog(enable=initType == Modelica.Blocks.Types.Init.InitialOutput,    group=
           "Initialization"));
   parameter Boolean strict=true "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
@@ -67,15 +66,15 @@ block LimPID
     annotation(Dialog(enable=reset == Buildings.Types.Reset.Parameter,
                       group="Integrator reset"));
 
-  Modelica.Blocks.Interfaces.BooleanInput trigger if
-       reset <> Buildings.Types.Reset.Disabled
+  Modelica.Blocks.Interfaces.BooleanInput trigger
+    if reset <> Buildings.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
 
-  Modelica.Blocks.Interfaces.RealInput y_reset_in if
-       reset == Buildings.Types.Reset.Input
+  Modelica.Blocks.Interfaces.RealInput y_reset_in
+    if reset == Buildings.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = Buildings.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
@@ -90,33 +89,26 @@ block LimPID
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Utilities.Math.IntegratorWithReset I(
     final reset=if reset == Buildings.Types.Reset.Disabled then reset else Buildings.Types.Reset.Input,
+
     final y_reset=y_reset,
     final k=unitTime/Ti,
     final y_start=xi_start,
-    final initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState then
-        Modelica.Blocks.Types.Init.SteadyState
-             else if initType == Modelica.Blocks.Types.InitPID.InitialState
-                  or initType == Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
-             then Modelica.Blocks.Types.Init.InitialState
-             else Modelica.Blocks.Types.Init.NoInit) if
-       with_I "Integral term"
-       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    final initType=if initType == Modelica.Blocks.Types.Init.SteadyState then
+        Modelica.Blocks.Types.Init.SteadyState else if initType == Modelica.Blocks.Types.Init.InitialState
+         or initType == Modelica.Blocks.Types.Init.InitialState then Modelica.Blocks.Types.Init.InitialState
+         else Modelica.Blocks.Types.Init.NoInit) if with_I "Integral term"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
   Modelica.Blocks.Continuous.Derivative D(
     final k=Td/unitTime,
     final T=max([Td/Nd,1.e-14]),
     final x_start=xd_start,
-    final initType=if initType == Modelica.Blocks.Types.InitPID.SteadyState or
-                initType == Modelica.Blocks.Types.InitPID.InitialOutput
-             then
-               Modelica.Blocks.Types.Init.SteadyState
-             else
-               if initType == Modelica.Blocks.Types.InitPID.InitialState then
-                 Modelica.Blocks.Types.Init.InitialState
-               else
-                 Modelica.Blocks.Types.Init.NoInit) if with_D "Derivative term"
-                                                     annotation (Placement(
-        transformation(extent={{-40,-10},{-20,10}})));
+    final initType=if initType == Modelica.Blocks.Types.Init.SteadyState or
+        initType == Modelica.Blocks.Types.Init.InitialOutput then Modelica.Blocks.Types.Init.SteadyState
+         else if initType == Modelica.Blocks.Types.Init.InitialState then
+        Modelica.Blocks.Types.Init.InitialState else Modelica.Blocks.Types.Init.NoInit)
+    if with_D "Derivative term"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
   Modelica.Blocks.Math.Add3 addPID(
     final k1=1,
@@ -125,7 +117,7 @@ block LimPID
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 protected
-  constant Modelica.SIunits.Time unitTime=1 annotation (HideResult=true);
+  constant Modelica.Units.SI.Time unitTime=1 annotation (HideResult=true);
 
   final parameter Real revAct = if reverseActing then 1 else -1
     "Switch for sign for reverse or direct acting controller";
@@ -187,8 +179,8 @@ protected
 
 
   Modelica.Blocks.Sources.RealExpression intRes(
-    final y=y_reset_internal/k - addPID.u1 - addPID.u2) if
-       reset <> Buildings.Types.Reset.Disabled
+    final y=y_reset_internal/k - addPID.u1 - addPID.u2)
+    if reset <> Buildings.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
@@ -260,32 +252,33 @@ equation
     Line(points={{-50,-40},{-30,-40},{30,40},{50,40}}),
     Text(
       extent={{46,-6},{68,-18}},
-      lineColor={128,128,128},
+      textColor={128,128,128},
       textString="u"),
     Text(
       extent={{-30,70},{-5,50}},
-      lineColor={128,128,128},
+      textColor={128,128,128},
       textString="y"),
     Text(
       extent={{-58,-54},{-28,-42}},
-      lineColor={128,128,128},
+      textColor={128,128,128},
       textString="uMin"),
     Text(
       extent={{26,40},{66,56}},
-      lineColor={128,128,128},
+      textColor={128,128,128},
       textString="uMax")}));
 end Limiter;
 
 
 initial equation
-  if initType==Modelica.Blocks.Types.InitPID.InitialOutput then
+  if initType == Modelica.Blocks.Types.Init.InitialOutput then
      gainPID.y = y_start;
   end if;
 
 equation
   assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" + String(yMax) +
                        ") < yMin (=" + String(yMin) + ")");
-  if initType == Modelica.Blocks.Types.InitPID.InitialOutput and (y_start < yMin or y_start > yMax) then
+  if initType == Modelica.Blocks.Types.Init.InitialOutput and (y_start < yMin
+       or y_start > yMax) then
       Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(y_start) +
          ") is outside of the limits of yMin (=" + String(yMin) +") and yMax (=" + String(yMax) + ")");
   end if;
@@ -459,6 +452,7 @@ This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1365\">issu
 March 9, 2020, by Michael Wetter:<br/>
 Corrected wrong unit declaration for parameter <code>k</code>.<br/>
 This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1316\">issue 1316</a>.
+</li>
 <li>
 October 19, 2019, by Filip Jorissen:<br/>
 Disabled homotopy to ensure bounded outputs

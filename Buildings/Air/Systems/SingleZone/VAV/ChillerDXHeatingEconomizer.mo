@@ -1,38 +1,36 @@
 within Buildings.Air.Systems.SingleZone.VAV;
 model ChillerDXHeatingEconomizer
-  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil, 
+  "HVAC system model with a dry cooling coil, air-cooled chiller, electric heating coil,
    variable speed fan, and mixing box with economizer control."
   replaceable package MediumA = Buildings.Media.Air "Medium model for air"
       annotation (choicesAllMatching = true);
   replaceable package MediumW = Buildings.Media.Water "Medium model for water"
       annotation (choicesAllMatching = true);
 
-  parameter Modelica.SIunits.DimensionlessRatio COP_nominal = 5.5
+  parameter Modelica.Units.SI.DimensionlessRatio COP_nominal=5.5
     "Nominal COP of the chiller";
-  parameter Modelica.SIunits.Temperature TSupChi_nominal
+  parameter Modelica.Units.SI.Temperature TSupChi_nominal
     "Design value for chiller leaving water temperature";
-  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal
-    "Design airflow rate of system"
-    annotation(Dialog(group="Air design"));
-  parameter Modelica.SIunits.Power QHea_flow_nominal(min=0)
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
+    "Design airflow rate of system" annotation (Dialog(group="Air design"));
+  parameter Modelica.Units.SI.Power QHea_flow_nominal(min=0)
     "Design capacity of heating coil"
-    annotation(Dialog(group="Heating design"));
+    annotation (Dialog(group="Heating design"));
   parameter Real etaHea_nominal(min=0, max=1, unit="1")
     "Design heating efficiency of the heating coil"
     annotation(Dialog(group="Heating design"));
-  parameter Modelica.SIunits.Power QCoo_flow_nominal(max=0)
+  parameter Modelica.Units.SI.Power QCoo_flow_nominal(max=0)
     "Design capacity of cooling coil"
-    annotation(Dialog(group="Cooling design"));
-  parameter Modelica.SIunits.PressureDifference dp_nominal(
-    displayUnit="Pa") = 500
-    "Design pressure drop of flow leg with fan"
-    annotation(Dialog(group="Air design"));
-  final parameter Modelica.SIunits.MassFlowRate mChiEva_flow_nominal=
-    -QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
+    annotation (Dialog(group="Cooling design"));
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
+       500 "Design pressure drop of flow leg with fan"
+    annotation (Dialog(group="Air design"));
+  final parameter Modelica.Units.SI.MassFlowRate mChiEva_flow_nominal=-
+      QCoo_flow_nominal/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq/4
     "Design chilled water supply flow";
-  final parameter Modelica.SIunits.MassFlowRate mChiCon_flow_nominal=
-    -QCoo_flow_nominal*(1+1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir/10
-    "Design condenser air flow";
+  final parameter Modelica.Units.SI.MassFlowRate mChiCon_flow_nominal=-
+      QCoo_flow_nominal*(1 + 1/COP_nominal)/Buildings.Utilities.Psychrometrics.Constants.cpAir
+      /10 "Design condenser air flow";
 
   Modelica.Blocks.Interfaces.BooleanInput chiOn "On signal for chiller plant"
     annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
@@ -70,32 +68,32 @@ model ChillerDXHeatingEconomizer
         iconTransformation(extent={{192,-30},{212,-10}})));
   Modelica.Blocks.Interfaces.RealOutput PFan(final unit="W")
     "Electrical power consumed by the supply fan"
-    annotation (Placement(transformation(extent={{202,150},{222,170}}),
-        iconTransformation(extent={{202,150},{222,170}})));
+    annotation (Placement(transformation(extent={{200,140},{220,160}}),
+        iconTransformation(extent={{200,140},{220,160}})));
   Modelica.Blocks.Interfaces.RealOutput QHea_flow(final unit="W")
     "Electrical power consumed by the heating equipment" annotation (Placement(
-        transformation(extent={{202,130},{222,150}}), iconTransformation(extent={{202,130},
-            {222,150}})));
+        transformation(extent={{200,120},{220,140}}), iconTransformation(extent={{200,120},
+            {220,140}})));
   Modelica.Blocks.Interfaces.RealOutput PCoo(final unit="W")
     "Electrical power consumed by the cooling equipment" annotation (Placement(
-        transformation(extent={{202,110},{222,130}}),iconTransformation(extent={{202,110},
-            {222,130}})));
+        transformation(extent={{200,100},{220,120}}),iconTransformation(extent={{200,100},
+            {220,120}})));
   Modelica.Blocks.Interfaces.RealOutput PPum(final unit="W")
     "Electrical power consumed by the pumps"
-    annotation (Placement(transformation(extent={{202,90},{222,110}}),
-        iconTransformation(extent={{202,90},{222,110}})));
+    annotation (Placement(transformation(extent={{200,80},{220,100}}),
+        iconTransformation(extent={{200,80},{220,100}})));
   Modelica.Blocks.Interfaces.RealOutput TMix(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Mixed air temperature" annotation (Placement(transformation(extent={{202,-70},
-            {222,-50}}), iconTransformation(extent={{202,-70},{222,-50}})));
+    "Mixed air temperature" annotation (Placement(transformation(extent={{200,-70},
+            {220,-50}}), iconTransformation(extent={{202,-70},{222,-50}})));
   Modelica.Blocks.Interfaces.RealOutput TSup(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Supply air temperature after coils"
-    annotation (Placement(transformation(extent={{202,-110},{222,-90}}),
+    annotation (Placement(transformation(extent={{200,-110},{220,-90}}),
         iconTransformation(extent={{202,-110},{222,-90}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
@@ -132,7 +130,7 @@ model ChillerDXHeatingEconomizer
     final use_inputFilter=false,
     redeclare package Medium = MediumA)
     "Supply fan"
-    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
+    annotation (Placement(transformation(extent={{-30,32},{-10,52}})));
   Buildings.Fluid.FixedResistances.PressureDrop totalRes(
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=dp_nominal,
@@ -142,7 +140,7 @@ model ChillerDXHeatingEconomizer
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Modelica.Blocks.Math.Gain eff(k=1/etaHea_nominal)
     "Heating efficiency"
-    annotation (Placement(transformation(extent={{120,110},{140,130}})));
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Fluid.Sources.Outside out(
     final C=fill(0.0004, 1),
     final nPorts=3,
@@ -162,7 +160,7 @@ model ChillerDXHeatingEconomizer
     final dp1_nominal=0,
     final dp2_nominal=0,
     final m2_flow_nominal=mAir_flow_nominal,
-    final Q_flow_nominal=-QCoo_flow_nominal,
+    final Q_flow_nominal=QCoo_flow_nominal,
     final configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final allowFlowReversal1=false,
     final allowFlowReversal2=false,
@@ -266,8 +264,8 @@ model ChillerDXHeatingEconomizer
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Return air temperature" annotation (Placement(transformation(extent={{202,-90},
-            {222,-70}}),       iconTransformation(extent={{202,-90},{222,-70}})));
+    "Return air temperature" annotation (Placement(transformation(extent={{200,-90},
+            {220,-70}}),       iconTransformation(extent={{202,-90},{222,-70}})));
   Fluid.Sensors.TraceSubstancesTwoPort senTraSub(
     redeclare package Medium=MediumA,
     final m_flow_nominal=mAir_flow_nominal,
@@ -275,14 +273,16 @@ model ChillerDXHeatingEconomizer
     "Sensor for trace substance"
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
 
+  Modelica.Blocks.Interfaces.RealOutput y_actual "Actual supply fan speed"
+    annotation (Placement(transformation(extent={{200,162},{220,182}})));
 protected
   model IdealValve
     extends Modelica.Blocks.Icons.Block;
     replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component"
     annotation (choicesAllMatching = true);
-    parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Design chilled water supply flow";
+    parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+      "Design chilled water supply flow";
     Modelica.Fluid.Interfaces.FluidPort_a port_1(
       redeclare package Medium = Medium) annotation (Placement(transformation(extent={{50,88},
               {70,108}}), iconTransformation(extent={{50,88},{70,108}})));
@@ -368,11 +368,13 @@ protected
   end IdealValve;
 
 equation
-  connect(fanSup.port_b, totalRes.port_a)    annotation (Line(points={{-10,40},{10,40}},  color={0,127,255}));
-  connect(fanSup.P, PFan) annotation (Line(points={{-9,49},{-6,49},{-6,160},{212,
-          160}},             color={0,0,127}));
-  connect(eff.y, QHea_flow) annotation (Line(points={{141,120},{176,120},{176,140},
-          {212,140}}, color={0,0,127}));
+  connect(fanSup.port_b, totalRes.port_a)    annotation (Line(points={{-10,42},
+          {0,42},{0,40},{10,40}},                                                         color={0,127,255}));
+  connect(fanSup.P, PFan) annotation (Line(points={{-9,51},{-6,51},{-6,150},{
+          210,150}},         color={0,0,127}));
+  connect(eff.y, QHea_flow) annotation (Line(points={{141,110},{166,110},{166,
+          130},{210,130}},
+                      color={0,0,127}));
   connect(weaBus, out.weaBus) annotation (Line(
       points={{-180,40},{-140,40},{-140,40.2}},
       color={255,204,51},
@@ -380,9 +382,10 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},{-30,40}},          color={0,127,255}));
+  connect(senTMixAir.port_b, fanSup.port_a)   annotation (Line(points={{-40,40},
+          {-36,40},{-36,42},{-30,42}},                                                              color={0,127,255}));
   connect(heaCoi.Q_flow, eff.u) annotation (Line(points={{73,46},{80,46},{80,
-          120},{118,120}},                        color={0,0,127}));
+          110},{118,110}},                        color={0,0,127}));
   connect(heaCoi.port_b, cooCoi.port_a2)    annotation (Line(points={{72,40},{90,40}}, color={0,127,255}));
   connect(cooCoi.port_b2, senTSup.port_a)    annotation (Line(points={{110,40},{128,40}},          color={0,127,255}));
   connect(cooCoi.port_b1, ideVal.port_1) annotation (Line(
@@ -395,7 +398,7 @@ equation
   connect(souChiWat.ports[1], chi.port_a1) annotation (Line(points={{128,-174},
           {128,-174},{110,-174}},       color={0,127,255}));
   connect(chi.port_b1, out.ports[1]) annotation (Line(points={{90,-174},{-116,
-          -174},{-116,42.6667},{-120,42.6667}},                  color={0,127,255}));
+          -174},{-116,38.6667},{-120,38.6667}},                  color={0,127,255}));
   connect(weaBus.TDryBul, souChiWat.T_in) annotation (Line(
       points={{-180,40},{-180,-208},{160,-208},{160,-170},{150,-170}},
       color={255,204,51},
@@ -403,10 +406,10 @@ equation
       textString="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,-52},
-          {180,100},{212,100}},    color={0,0,127}));
-  connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{98,
-          -128},{98,-50},{178,-50},{178,120},{212,120}},
+  connect(pumChiWat.P, PPum) annotation (Line(points={{111,-79},{111,-52},{180,
+          -52},{180,90},{210,90}}, color={0,0,127}));
+  connect(chi.P, PCoo) annotation (Line(points={{89,-177},{84,-177},{84,-128},{
+          98,-128},{98,-50},{178,-50},{178,110},{210,110}},
         color={0,0,127}));
   connect(ideVal.port_2, chi.port_a2)    annotation (Line(points={{86,0.2},{86,-162},{90,-162}},
                                                           color={0,127,255}));
@@ -419,7 +422,8 @@ equation
   connect(totalRes.port_b, heaCoi.port_a)    annotation (Line(points={{30,40},{52,40}}, color={0,127,255}));
   connect(senTSup.port_b, supplyAir) annotation (Line(points={{148,40},{174,40},
           {174,60},{202,60}}, color={0,127,255}));
-  connect(gaiFan.y, fanSup.m_flow_in)    annotation (Line(points={{-59,140},{-20,140},{-20,52}}, color={0,0,127}));
+  connect(gaiFan.y, fanSup.m_flow_in)    annotation (Line(points={{-59,140},{
+          -20,140},{-20,54}},                                                                    color={0,0,127}));
   connect(booToInt.y, pumChiWat.m_flow_in)   annotation (Line(points={{81,-90},{108,-90}}, color={0,0,127}));
   connect(booToInt.u, chiOn) annotation (Line(points={{58,-90},{40,-90},{40,-120},
           {-220,-120}}, color={255,0,255}));
@@ -433,10 +437,10 @@ equation
                                                  color={0,0,127}));
   connect(chi.TSet, TSetChi) annotation (Line(points={{112,-165},{124,-165},{124,
           -200},{-220,-200}}, color={0,0,127}));
-  connect(senTMixAir.T, TMix) annotation (Line(points={{-50,51},{-50,70},{188,70},
-          {188,-60},{212,-60}},     color={0,0,127}));
-  connect(senTSup.T, TSup) annotation (Line(points={{138,51},{138,64},{170,64},{
-          170,-100},{212,-100}}, color={0,0,127}));
+  connect(senTMixAir.T, TMix) annotation (Line(points={{-50,51},{-50,70},{188,
+          70},{188,-60},{210,-60}}, color={0,0,127}));
+  connect(senTSup.T, TSup) annotation (Line(points={{138,51},{138,64},{170,64},
+          {170,-100},{210,-100}},color={0,0,127}));
   connect(out.ports[2], ideEco.port_1) annotation (Line(points={{-120,40},{-120,
           40},{-99.8,40}},             color={0,127,255}));
   connect(ideEco.port_2, senTMixAir.port_a)   annotation (Line(points={{-80.2,40},{-60,40}}, color={0,127,255}));
@@ -445,13 +449,15 @@ equation
   connect(ideEco.port_3, senTRetAir.port_b) annotation (Line(points={{-90,36},{
           -90,-40},{-40,-40}}, color={0,127,255}));
   connect(senTRetAir.port_b, out.ports[3]) annotation (Line(points={{-40,-40},{
-          -112,-40},{-112,36},{-120,36},{-120,37.3333}}, color={0,127,255}));
-  connect(TRet, senTRetAir.T) annotation (Line(points={{212,-80},{174,-80},{174,
+          -112,-40},{-112,36},{-120,36},{-120,41.3333}}, color={0,127,255}));
+  connect(TRet, senTRetAir.T) annotation (Line(points={{210,-80},{174,-80},{174,
           -20},{-30,-20},{-30,-29}},     color={0,0,127}));
   connect(senTRetAir.port_a, senTraSub.port_b)    annotation (Line(points={{-20,-40},{20,-40}}, color={0,127,255}));
   connect(senTraSub.port_a, returnAir)   annotation (Line(points={{40,-40},{120,-40},{120,-20},{202,-20}},
                                                   color={0,127,255}));
 
+  connect(fanSup.y_actual, y_actual) annotation (Line(points={{-9,49},{0,49},{0,
+          172},{210,172}}, color={0,0,127}));
   annotation (defaultComponentName="chiDXHeaEco",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},
             {200,180}}), graphics={
@@ -596,7 +602,7 @@ equation
                                         Text(
         extent={{-154,260},{164,196}},
         textString="%name",
-        lineColor={0,0,255})}),                                  Diagram(
+        textColor={0,0,255})}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-220},{200,180}})),
       Documentation(info="<html>
 <p>
@@ -626,6 +632,10 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2021, by Baptiste Ravache:<br/>
+Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
+</li>
 <li>
 September 08, 2017, by Thierry S. Nouidui:<br/>
 Removed experiment annotation.

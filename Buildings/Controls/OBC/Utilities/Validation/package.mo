@@ -1,13 +1,16 @@
 within Buildings.Controls.OBC.Utilities;
 package Validation "Collection of validation models"
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains validation models for blocks in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities\">Buildings.Controls.OBC.Utilities</a>.
 </p>
 </html>"),
-  Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

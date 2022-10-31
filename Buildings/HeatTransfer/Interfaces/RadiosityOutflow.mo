@@ -14,7 +14,7 @@ connector RadiosityOutflow = output Real(min=0, final unit="W", nominal=419)
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid), Text(
         extent={{-42,122},{34,102}},
-        lineColor={0,127,0},
+        textColor={0,127,0},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid,
         textString="%name")}),

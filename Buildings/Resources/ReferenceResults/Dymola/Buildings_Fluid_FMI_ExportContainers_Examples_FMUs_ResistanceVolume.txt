@@ -1,4 +1,4 @@
-last-generated=2019-04-17
+last-generated=2022-09-10
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -10,11 +10,11 @@ statistics-fmu-dependencies=
       "outlet.backward.X_w",
       "vol.dynBal.U"
     ],
-    "der(vol.dynBal.mXi[1])": [
+    "der(vol.dynBal.medium.Xi[1])": [
       "inlet.m_flow",
       "inlet.forward.X_w",
       "outlet.backward.X_w",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]"
     ]
   },
   "InitialUnknowns": {
@@ -25,10 +25,11 @@ statistics-fmu-dependencies=
       "outlet.backward.T",
       "outlet.backward.X_w"
     ],
-    "der(vol.dynBal.mXi[1])": [
+    "der(vol.dynBal.medium.Xi[1])": [
       "inlet.m_flow",
       "inlet.forward.X_w",
-      "outlet.backward.X_w"
+      "outlet.backward.X_w",
+      "V"
     ],
     "inlet.backward.T": [],
     "inlet.backward.X_w": [],
@@ -44,24 +45,22 @@ statistics-fmu-dependencies=
     "vol.dynBal.U": [
       "V"
     ],
-    "vol.dynBal.mXi[1]": [
-      "V"
-    ]
+    "vol.dynBal.medium.Xi[1]": []
   },
   "Outputs": {
     "inlet.backward.T": [
-      "vol.dynBal.U",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]",
+      "vol.dynBal.U"
     ],
     "inlet.backward.X_w": [
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]"
     ],
     "outlet.forward.T": [
-      "vol.dynBal.U",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]",
+      "vol.dynBal.U"
     ],
     "outlet.forward.X_w": [
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]"
     ],
     "outlet.m_flow": [
       "inlet.m_flow"

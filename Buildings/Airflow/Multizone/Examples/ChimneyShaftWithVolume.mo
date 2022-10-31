@@ -1,13 +1,12 @@
 within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftWithVolume
-  "Model that demonstrates the chimney effect with a dynamic model of a shaft"
+  "Model with chimney effect and a dynamic model of a shaft"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
 
   Buildings.Fluid.MixingVolumes.MixingVolume roo(
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     redeclare package Medium = Medium,
     m_flow_nominal=0.05,
@@ -17,7 +16,8 @@ model ChimneyShaftWithVolume
   Buildings.Airflow.Multizone.Orifice oriChiTop(
     m=0.5,
     redeclare package Medium = Medium,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice at top"
+            annotation (Placement(transformation(
         origin={70,11},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -25,19 +25,21 @@ model ChimneyShaftWithVolume
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=293.15,
-    nPorts=1)
+    nPorts=1) "Mass flow rate boundary condition"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Fluid.Sources.Boundary_pT bou0(
     redeclare package Medium = Medium,
     T=273.15,
-    nPorts=2) annotation (Placement(transformation(
+    nPorts=2) "Pressure boundary condition"
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,50})));
   Buildings.Airflow.Multizone.Orifice oriBot(
     m=0.5,
     redeclare package Medium = Medium,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice"
+            annotation (Placement(transformation(
         origin={110,-20},
         extent={{10,-10},{-10,10}},
         rotation=90)));
@@ -53,7 +55,8 @@ model ChimneyShaftWithVolume
   Buildings.Airflow.Multizone.Orifice oriChiBot(
     m=0.5,
     redeclare package Medium = Medium,
-    A=0.01) annotation (Placement(transformation(
+    A=0.01) "Orifice at bottom"
+            annotation (Placement(transformation(
         origin={70,-49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
@@ -76,7 +79,7 @@ model ChimneyShaftWithVolume
     "Temperature sensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={-80,0})));
-  Modelica.Blocks.Math.Gain gain(k=3000)
+  Modelica.Blocks.Math.Gain gain(k=3000) "Gain for heat flow rate"
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
   Buildings.Airflow.Multizone.MediumColumnDynamic sha(
     redeclare package Medium = Medium,
@@ -117,8 +120,7 @@ equation
           -50}},
       color={191,0,0}));
   connect(roo.heatPort, temSen.port) annotation (Line(
-      points={{20,-50},{-40,-50},{-40,-20},{-96,-20},{-96,6.10623e-16},{-90,
-          6.10623e-16}},
+      points={{20,-50},{-94,-50},{-94,0},{-92,0},{-92,6.10623e-16},{-90,6.10623e-16}},
       color={191,0,0}));
   connect(bou0.ports[1], oriChiTop.port_b)  annotation (Line(
       points={{92,40},{88,40},{88,34},{70,34},{70,21}},
@@ -161,6 +163,11 @@ connected in series.)
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 26, 2021 by Michael Wetter:<br/>
+Updated comments for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/515\">IBPSA, #515</a>.
+</li>
 <li>
 January 8, 2019, by Michael Wetter:<br/>
 Removed parameter assignment for <code>sha.m_flow_nominal</code>.<br/>

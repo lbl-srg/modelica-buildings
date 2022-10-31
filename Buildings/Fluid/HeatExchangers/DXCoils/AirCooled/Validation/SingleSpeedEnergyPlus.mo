@@ -4,11 +4,11 @@ model SingleSpeedEnergyPlus
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
 
- parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
+  parameter Modelica.Units.SI.Power Q_flow_nominal=datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[1].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 1141
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1141
     "Pressure drop at m_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -35,7 +35,7 @@ model SingleSpeedEnergyPlus
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
        nSta=1, sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(

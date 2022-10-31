@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "senTemInlSup.T",
+    "senTemOutSup.T",
+    "senTemOutRet.T",
+    "senTemInlRet.T",
+    "conAir.T",
+    "gro.ports[1, 1].T"
+  };

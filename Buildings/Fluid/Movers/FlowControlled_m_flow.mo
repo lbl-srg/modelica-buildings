@@ -8,9 +8,10 @@ model FlowControlled_m_flow
     final constInput(final unit="kg/s")=constantMassFlowRate,
     filter(
       final y_start=m_flow_start,
-      u_nominal=m_flow_nominal,
       u(final unit="kg/s"),
-      y(final unit="kg/s")),
+      y(final unit="kg/s"),
+      x(each nominal=m_flow_nominal),
+      u_nominal=m_flow_nominal),
     eff(
       per(
         final pressure = if per.havePressureCurve then
@@ -19,33 +20,35 @@ model FlowControlled_m_flow
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false)),
+      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+      r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
   // For air, we set dp_nominal = 600 as default, for water we set 10000
-  parameter Modelica.SIunits.PressureDifference dp_nominal(min=0, displayUnit="Pa")=
-    if rho_default < 500 then 500 else 10000
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    min=0,
+    displayUnit="Pa") = if rho_default < 500 then 500 else 10000
     "Nominal pressure raise, used for default pressure curve if not specified in record per"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_start(min=0)=0
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start(min=0) = 0
     "Initial value of mass flow rate"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+    annotation (Dialog(tab="Dynamics", group="Filtered speed"));
 
-  parameter Modelica.SIunits.MassFlowRate constantMassFlowRate=m_flow_nominal
-    "Constant pump mass flow rate, used when inputType=Constant"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
+  parameter Modelica.Units.SI.MassFlowRate constantMassFlowRate=m_flow_nominal
+    "Constant pump mass flow rate, used when inputType=Constant" annotation (
+      Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Constant));
 
   // By default, set massFlowRates proportional to (speed/speed_nominal)
-  parameter Modelica.SIunits.MassFlowRate[:] massFlowRates=
-    m_flow_nominal*{per.speeds[i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
+  parameter Modelica.Units.SI.MassFlowRate[:] massFlowRates=m_flow_nominal*{per.speeds[
+      i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
     "Vector of mass flow rate set points, used when inputType=Stage"
-    annotation(Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+    annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(
     final unit="kg/s",
-    nominal=m_flow_nominal) if
-       inputType == Buildings.Fluid.Types.InputType.Continuous
+    nominal=m_flow_nominal)
+    if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed mass flow rate"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -63,29 +66,32 @@ model FlowControlled_m_flow
 equation
   if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
-      points={{34.7,88},{44,88},{44,50},{110,50}},
+      points={{41,70.5},{44,70.5},{44,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
+    connect(filter.y, preSou.m_flow_in)
+      annotation (Line(points={{41,70.5},{44,70.5},{44,8}}, color={0,0,127}));
   else
-    connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
+  connect(inputSwitch.y, m_flow_actual) annotation (Line(points={{1,50},{110,50}},
+                                             color={0,0,127}));
+  connect(inputSwitch.y, preSou.m_flow_in) annotation (Line(
       points={{1,50},{44,50},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
   end if;
-   connect(m_flow_actual, preSou.m_flow_in) annotation (Line(
-      points={{110,50},{44,50},{44,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
+
 
   connect(inputSwitch.u, m_flow_in) annotation (Line(
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
+
+
   annotation (
       Icon(graphics={
         Text(
           extent={{-40,126},{-160,76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("m_flow", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(m_flow_in, leftJustified=false, significantDigits=3) else String(stage)))}),
   defaultComponentName="fan",
@@ -107,6 +113,19 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
+June 17, 2021, by Michael Wetter:<br/>
+Changed implementation of the filter.<br/>
+Removed parameter <code>y_start</code> which is not used because <code>m_flow_start</code> is used.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1498\">#1498</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating stage.<br/>

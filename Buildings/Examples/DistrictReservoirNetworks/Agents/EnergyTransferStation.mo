@@ -124,34 +124,34 @@ model EnergyTransferStation
   Medium.ThermodynamicState sta_a=
       Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
-                          noEvent(actualStream(port_a.Xi_outflow))) if
-         show_T "Medium properties in port_a";
+                          noEvent(actualStream(port_a.Xi_outflow)))
+      if show_T "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=
       Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
-                          noEvent(actualStream(port_b.Xi_outflow))) if
-          show_T "Medium properties in port_b";
+                          noEvent(actualStream(port_b.Xi_outflow)))
+       if show_T "Medium properties in port_b";
   Medium.ThermodynamicState staHea_a2=
       Medium.setState_phX(heaPum.port_a2.p,
                           noEvent(actualStream(heaPum.port_a2.h_outflow)),
-                          noEvent(actualStream(heaPum.port_a2.Xi_outflow))) if
-       show_T "Medium properties in port_a2 of space heating heat pump intake";
+                          noEvent(actualStream(heaPum.port_a2.Xi_outflow)))
+    if show_T "Medium properties in port_a2 of space heating heat pump intake";
   Medium.ThermodynamicState staHea_b2=
       Medium.setState_phX(heaPum.port_b2.p,
                           noEvent(actualStream(heaPum.port_b2.h_outflow)),
-                          noEvent(actualStream(heaPum.port_b2.Xi_outflow))) if
-       show_T "Medium properties in port_b2 of space heating heat pump outlet";
+                          noEvent(actualStream(heaPum.port_b2.Xi_outflow)))
+    if show_T "Medium properties in port_b2 of space heating heat pump outlet";
   Medium.ThermodynamicState staHotWat_a2=
       Medium.setState_phX(heaPumHotWat.port_a2.p,
                           noEvent(actualStream(heaPumHotWat.port_a2.h_outflow)),
-                          noEvent(actualStream(heaPumHotWat.port_a2.Xi_outflow))) if
-       show_T "Medium properties in port_a2 of hot water heat pump intake";
+                          noEvent(actualStream(heaPumHotWat.port_a2.Xi_outflow)))
+    if show_T "Medium properties in port_a2 of hot water heat pump intake";
   Medium.ThermodynamicState staHotWat_b2=
       Medium.setState_phX(heaPumHotWat.port_b2.p,
                           noEvent(actualStream(heaPumHotWat.port_b2.h_outflow)),
-                          noEvent(actualStream(heaPumHotWat.port_b2.Xi_outflow))) if
-       show_T "Medium properties in port_b2 of hot water heat pump outlet";
+                          noEvent(actualStream(heaPumHotWat.port_b2.Xi_outflow)))
+    if show_T "Medium properties in port_b2 of hot water heat pump outlet";
 
   Buildings.Fluid.Delays.DelayFirstOrder volMix_a(
     redeclare final package Medium = Medium,

@@ -6,26 +6,26 @@ partial model PartialDamperExponential
     final m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_default*ReC*sqrt(A)*facRouDuc);
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-  parameter Modelica.SIunits.PressureDifference dpDamper_nominal(displayUnit="Pa")
-    "Pressure drop of fully open damper at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal(displayUnit="Pa") = 0
+  parameter Modelica.Units.SI.PressureDifference dpDamper_nominal(displayUnit=
+        "Pa") "Pressure drop of fully open damper at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(displayUnit=
+        "Pa") = 0
     "Pressure drop of duct and resistances other than the damper in series, at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
   parameter Real deltaM = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
     annotation(Dialog(enable=use_deltaM));
-  final parameter Modelica.SIunits.Velocity v_nominal=
-    (2 / rho_default / k1 * dpDamper_nominal)^0.5
-    "Nominal face velocity";
-  final parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
+  final parameter Modelica.Units.SI.Velocity v_nominal=(2/rho_default/k1*
+      dpDamper_nominal)^0.5 "Nominal face velocity";
+  final parameter Modelica.Units.SI.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area";
   parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
     annotation(Dialog(enable=not use_deltaM));
-  parameter Real ReC=4000 "Reynolds number where transition to turbulent starts"
+  parameter Real ReC=4000 "Reynolds number where transition to turbulence starts"
     annotation(Dialog(enable=not use_deltaM));
   parameter Real a(unit="1")=-1.51 "Coefficient a for damper characteristics"
     annotation(Dialog(tab="Damper coefficients"));
@@ -167,7 +167,7 @@ mass flow rate <code>m_flow_nominal</code>, the nominal velocity
 <p>
 ASHRAE 825-RP lists the following parameter values as typical (note that the
 default values in the model correspond to opposed blades).
-<br />
+<br/>
 </p>
 <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\"
 style=\"border-collapse:collapse;\">
@@ -203,6 +203,12 @@ ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 21, 2021, by Michael Wetter:<br/>
+Corrected typo in comments.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1525\">#1525</a>.
+</li>
 <li>
 December 23, 2019, by Antoine Gautier:<br/>
 Removed the equations involving <code>m_flow</code> and <code>dp</code> that now need

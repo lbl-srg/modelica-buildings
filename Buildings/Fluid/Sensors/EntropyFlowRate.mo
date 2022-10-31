@@ -1,25 +1,26 @@
 within Buildings.Fluid.Sensors;
 model EntropyFlowRate "Ideal entropy flow rate sensor"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(
+    tau=0);
+  extends Modelica.Icons.RoundSensor;
   Modelica.Blocks.Interfaces.RealOutput S_flow(final unit="W/K")
     "Entropy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.SpecificEntropy s_out_start=
-    Medium.specificEntropy_pTX(
+  parameter Modelica.Units.SI.SpecificEntropy s_out_start=
+      Medium.specificEntropy_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default) "Initial or guess value of measured specific entropy"
     annotation (Dialog(group="Initialization"));
 protected
-  Modelica.SIunits.SpecificEntropy sMed_out(start=s_out_start)
+  Modelica.Units.SI.SpecificEntropy sMed_out(start=s_out_start)
     "Medium entropy to which the sensor is exposed";
-  Modelica.SIunits.SpecificEntropy s_out(start=s_out_start)
+  Modelica.Units.SI.SpecificEntropy s_out(start=s_out_start)
     "Medium entropy that is used to compute the entropy flow rate";
-  Modelica.SIunits.SpecificEntropy port_b_s_outflow(start=s_out_start)
+  Modelica.Units.SI.SpecificEntropy port_b_s_outflow(start=s_out_start)
     "Medium entropy outflowing at port_b if mass flow were from port_a to port_b";
 initial equation
   if dynamic then
@@ -64,13 +65,13 @@ annotation (defaultComponentName="senS_flow",
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Text(
           extent={{180,151},{20,99}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="S_flow"),
         Ellipse(extent={{-70,70},{70,-70}}, lineColor={255,0,0}),
         Text(
          extent={{-20,120},{-140,70}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(S_flow, leftjustified=false, significantDigits=3)))}),
+          textColor={0,0,0},
+          textString=DynamicSelect("", String(S_flow, leftJustified=false, significantDigits=3)))}),
   Documentation(info="<html>
 <p>
 This model outputs the entropy flow rate of the medium in the flow
@@ -88,6 +89,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 19, 2020, by Antoine Gautier:<br/>
+Changed default value for <code>tau</code> from <code>1</code> to <code>0</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1406\">#1406</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>

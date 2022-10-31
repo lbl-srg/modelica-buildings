@@ -1,94 +1,115 @@
 within Buildings.Controls.OBC.CDL.Discrete;
-block Sampler "Ideal sampler of a continuous signal"
-
-  parameter Modelica.SIunits.Time samplePeriod(min=1E-3)
+block Sampler
+  "Ideal sampler of a continuous signal"
+  parameter Real samplePeriod(
+    final quantity="Time",
+    final unit="s",
+    min=1E-3)
     "Sample period of component";
-
-  Interfaces.RealInput u "Continuous input signal"
+  Interfaces.RealInput u
+    "Continuous input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
-  Interfaces.RealOutput y "Continuous output signal"
+  Interfaces.RealOutput y
+    "Continuous output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Modelica.SIunits.Time t0(fixed=false)
+  parameter Real t0(
+    final quantity="Time",
+    final unit="s",
+    fixed=false)
     "First sample time instant";
-
-  output Boolean sampleTrigger "True, if sample time instant";
-
-  output Boolean firstTrigger(start=false, fixed=true)
+  output Boolean sampleTrigger
+    "True, if sample time instant";
+  output Boolean firstTrigger(
+    start=false,
+    fixed=true)
     "Rising edge signals first sample instant";
+
 initial equation
-  t0 = Buildings.Utilities.Math.Functions.round(
-         x = integer(time/samplePeriod)*samplePeriod,
-         n = 6);
+  t0=Buildings.Utilities.Math.Functions.round(
+    x=integer(time/samplePeriod)*samplePeriod,
+    n=6);
 
 equation
   // Declarations that are used for all discrete blocks
-  sampleTrigger = sample(t0, samplePeriod);
+  sampleTrigger=sample(
+    t0,
+    samplePeriod);
   when sampleTrigger then
-    firstTrigger = time <= t0 + samplePeriod/2;
+    firstTrigger=time <= t0+samplePeriod/2;
   end when;
-
   // Declarations specific to this type of discrete block
-  when {sampleTrigger, initial()} then
-    y = u;
+  when {sampleTrigger,initial()} then
+    y=u;
   end when;
   annotation (
     defaultComponentName="sam",
     Icon(
-      coordinateSystem(preserveAspectRatio=true,
+      coordinateSystem(
+        preserveAspectRatio=true,
         extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={                     Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={223,211,169},
-        lineThickness=5.0,
-        borderPattern=BorderPattern.Raised,
-        fillPattern=FillPattern.Solid), Text(
-        extent={{-150,150},{150,110}},
-        textString="%name",
-        lineColor={0,0,255}),
-      Ellipse(lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
-        extent={{25.0,-10.0},{45.0,10.0}}),
-      Line(points={{-100.0,0.0},{-45.0,0.0}},
-        color={0,0,127}),
-      Line(points={{45.0,0.0},{100.0,0.0}},
-        color={0,0,127}),
-      Line(points={{-35.0,0.0},{30.0,35.0}},
-        color={0,0,127}),
-      Ellipse(lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid,
-        extent={{-45.0,-10.0},{-25.0,10.0}})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}), graphics={
-        Ellipse(
-          extent={{-25,-10},{-45,10}},
-          lineColor={0,0,255},
-          fillColor={255,255,255},
+      graphics={
+        Rectangle(
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={223,211,169},
+          lineThickness=5.0,
+          borderPattern=BorderPattern.Raised,
           fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-150,150},{150,110}},
+          textString="%name",
+          textColor={0,0,255}),
         Ellipse(
-          extent={{45,-10},{25,10}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-100,0},{-45,0}}, color={0,0,255}),
-        Line(points={{45,0},{100,0}}, color={0,0,255}),
-        Line(points={{-35,0},{30,35}}, color={0,0,255}),
+          fillPattern=FillPattern.Solid,
+          extent={{25.0,-10.0},{45.0,10.0}}),
+        Line(
+          points={{-100.0,0.0},{-45.0,0.0}},
+          color={0,0,127}),
+        Line(
+          points={{45.0,0.0},{100.0,0.0}},
+          color={0,0,127}),
+        Line(
+          points={{-35.0,0.0},{30.0,35.0}},
+          color={0,0,127}),
+        Ellipse(
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-45.0,-10.0},{-25.0,10.0}})}),
+    Diagram(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-    Documentation(info="<html>
+          textColor={0,0,0},
+          textString=DynamicSelect("",String(y,
+            leftJustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 Block that outputs the input signal, sampled at a sampling rate defined
 via parameter <code>samplePeriod</code>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
+<li>
+March 30, 2022, by Michael Wetter:<br/>
+Removed graphic from diagram view.
+</li>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 October 19, 2020, by Michael Wetter:<br/>
 Refactored implementation.<br/>

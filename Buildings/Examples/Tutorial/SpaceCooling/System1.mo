@@ -14,10 +14,10 @@ model System1
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30)
     "Thermal conductance with the ambient"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  parameter Modelica.SIunits.Volume V=6*10*3 "Room volume";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=V*1.2*6/3600
     "Nominal mass flow rate";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=1000
     "Internal heat gains of the room";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut(T=263.15)
     "Outside temperature"
@@ -82,10 +82,10 @@ we can use this medium model and need not be able to model the fog region.
 We also defined the system-level parameters
 </p>
 <pre>
-  parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+  parameter Modelica.Units.SI.Volume V=6*10*3 \"Room volume\";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     \"Nominal mass flow rate\";
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000
+  parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow = 1000
     \"Internal heat gains of the room\";
 </pre>
 <p>
@@ -193,6 +193,12 @@ could have been used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 21, 2021, by Michael Wetter:<br/>
+Corrected error in calculation of design mass flow rate.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2458\">#2458</a>.
+</li>
 <li>
 January 28, 2015 by Michael Wetter:<br/>
 Added thermal mass of furniture directly to air volume.

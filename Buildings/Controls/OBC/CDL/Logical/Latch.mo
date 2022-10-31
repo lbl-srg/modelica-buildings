@@ -1,40 +1,58 @@
 within Buildings.Controls.OBC.CDL.Logical;
-block Latch "Maintains a true signal until change condition"
-
-  Interfaces.BooleanInput u "Latch input"
+block Latch
+  "Maintains a true signal until change condition"
+  Interfaces.BooleanInput u
+    "Latch input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.BooleanInput clr "Clear input"
+  Interfaces.BooleanInput clr
+    "Clear input"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.BooleanOutput y "Output signal"
+  Interfaces.BooleanOutput y
+    "Output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  pre(y) = false;
-  pre(u) = false;
-  pre(clr) = false;
+  pre(y)=false;
+  pre(u)=false;
+  pre(clr)=false;
 
 equation
   when initial() then
     //scenario = 1;
-    y = if clr then false else u;
-  elsewhen (not clr) and change(u) and (pre(u) == false) then
+    y=if clr then
+        false
+      else
+        u;
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == false) then
     //scenario = 2;
-    y = not clr;
-  elsewhen (not clr) and change(u) and (pre(u) == true) then
-     //scenario = 3;
-    y = if clr then false else pre(y);
-  elsewhen change(clr) and (pre(clr) == true) and (not u) then
+    y=not clr;
+  elsewhen
+          (not clr) and change(u) and
+                                     (pre(u) == true) then
+    //scenario = 3;
+    y=if clr then
+        false
+      else
+        pre(y);
+  elsewhen change(clr) and
+                          (pre(clr) == true) and
+                                                (not u) then
     //scenario = 4;
-    y = false;
+    y=false;
   elsewhen clr then
     //scenario = 5;
-    y = false;
+    y=false;
   end when;
-
-
-annotation (defaultComponentName="lat",
-  Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics={Rectangle(
+  annotation (
+    defaultComponentName="lat",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={210,210,210},
           lineThickness=5.0,
@@ -42,44 +60,67 @@ annotation (defaultComponentName="lat",
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{-73,9},{-87,-5}},
-          lineColor=DynamicSelect({235,235,235}, if u then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if u then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if u then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{81,7},{95,-7}},
-          lineColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if y then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-73,-53},{-87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
-               else {235,235,235}),
-          fillColor=DynamicSelect({235,235,235}, if u0 then {0,255,0}
-               else {235,235,235}),
+          lineColor=DynamicSelect({235,235,235},
+            if u0 then
+              {0,255,0}
+            else
+              {235,235,235}),
+          fillColor=DynamicSelect({235,235,235},
+            if u0 then
+              {0,255,0}
+            else
+              {235,235,235}),
           fillPattern=FillPattern.Solid),
-        Line(points={{-68,-62},{4,-62},{4,-22},{74,-22}}, color={255,0,255}),
-        Line(points={{-68,24},{-48,24},{-48,56},{-16,56},{-16,24},{24,24},{24,56},
-              {54,56},{54,24},{74,24}}, color={255,0,255}),
+        Line(
+          points={{-68,-62},{4,-62},{4,-22},{74,-22}},
+          color={255,0,255}),
+        Line(
+          points={{-68,24},{-48,24},{-48,56},{-16,56},{-16,24},{24,24},{24,56},{54,56},{54,24},{74,24}},
+          color={255,0,255}),
         Text(
           extent={{-14,-8},{14,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Clear"),
         Text(
           extent={{-16,72},{24,58}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
           textString="Latch input"),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
-          textString="%name")}),Documentation(info="<html>
+          textColor={0,0,255},
+          textString="%name")}),
+    Documentation(
+      info="<html>
 <p>
 Block that generates a <code>true</code> output when the latch input <code>u</code> 
 rises from <code>false</code> to <code>true</code>, provided that the clear input 
@@ -103,7 +144,8 @@ At initial time, if <code>clr = false</code>, then the output will be
      alt=\"Latch.png\" />
 </p>
 
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 October 13, 2020, by Jianjun Hu:<br/>

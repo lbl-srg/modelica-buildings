@@ -1,7 +1,9 @@
 within Buildings.Controls.OBC.CDL.Integers.Sources;
 package Validation "Collection of models that validate the logical sources blocks of the CDL"
-
-annotation (preferredView="info", Documentation(info="<html>
+  annotation (
+    preferredView="info",
+    Documentation(
+      info="<html>
 <p>
 This package contains models that validate the blocks in
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.Sources\">
@@ -13,7 +15,8 @@ analytical solutions. These model outputs are stored as reference data to
 allow continuous validation whenever models in the library change.
 </p>
 </html>"),
-  Icon(graphics={
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

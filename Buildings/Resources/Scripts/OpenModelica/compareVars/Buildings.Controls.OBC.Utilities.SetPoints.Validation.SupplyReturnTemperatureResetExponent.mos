@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "heaCur.TSup",
+    "heaCur.TRet",
+    "heaCurM.TSup",
+    "heaCurM.TRet"
+  };

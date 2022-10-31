@@ -9,8 +9,8 @@ model Suite "Model of a suite consisting of five rooms of the MIT system model"
   annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
 
   parameter Real scaM_flow "Scaling factor for mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0Tot_flow=
-    scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
+  parameter Modelica.Units.SI.MassFlowRate m0Tot_flow=scaM_flow*(5.196 + 2.8428
+       + 1.0044 + 0.9612 + 0.3624 + 0.1584);
   parameter Real l(min=1e-10, max=1) = 0.0001
     "Damper leakage, ratio of flow coefficients k(y=0)/k(y=1)"
     annotation(Dialog(tab="Damper coefficients"));
@@ -458,21 +458,21 @@ equation
       Text(
         extent={{-140,234},{-96,192}},
         textString="PAtm"),
-      Line(points=[-136,180; 190,180; 252,180]),
-      Line(points=[192,180; 192,40; 222,20]),
+      Line(points={{-136,180},{190,180},{252,180}}),
+      Line(points={{192,180},{192,40},{222,20}}),
       Rectangle(extent={{-26,80},{-10,60}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
-      Line(points=[132,180; 132,40; 162,20]),
-      Line(points=[72,180; 72,40; 102,20]),
-      Line(points=[12,180; 12,40; 42,20]),
-      Line(points=[-48,180; -48,40; -18,20]),
+      Line(points={{132,180},{132,40},{162,20}}),
+      Line(points={{72,180},{72,40},{102,20}}),
+      Line(points={{12,180},{12,40},{42,20}}),
+      Line(points={{-48,180},{-48,40},{-18,20}}),
       Rectangle(extent={{280,120},{284,-40}},
           fillColor={0,127,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-      Line(points=[252,180; 252,40; 282,20]),
+      Line(points={{252,180},{252,40},{282,20}}),
       Text(
         extent={{296,158},{340,84}},
         textString="dPSup"),

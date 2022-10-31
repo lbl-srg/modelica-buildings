@@ -17,19 +17,19 @@ block ElectricalLoad "Block that predicts an electrical load"
   parameter Boolean use_dayOfAdj=true "if true, use the day of adjustment"
     annotation (Dialog(group="Day of adjustment"));
 
-  parameter Modelica.SIunits.Time dayOfAdj_start(
+  parameter Modelica.Units.SI.Time dayOfAdj_start(
     max=0,
     displayUnit="h") = -14400
     "Number of hours prior to current time when day of adjustment starts"
-    annotation (Evaluate=true, Dialog(enable=use_dayOfAdj,
-                group="Day of adjustment"));
+    annotation (Evaluate=true, Dialog(enable=use_dayOfAdj, group=
+          "Day of adjustment"));
 
-  parameter Modelica.SIunits.Time dayOfAdj_end(
+  parameter Modelica.Units.SI.Time dayOfAdj_end(
     max=0,
     displayUnit="h") = -3600
     "Number of hours prior to current time when day of adjustment ends"
-    annotation (Evaluate=true, Dialog(enable=use_dayOfAdj,
-                group="Day of adjustment"));
+    annotation (Evaluate=true, Dialog(enable=use_dayOfAdj, group=
+          "Day of adjustment"));
 
   parameter Real minAdjFac(min=0) = 0.8 "Minimum adjustment factor"
     annotation (Dialog(enable=use_dayOfAdj,
@@ -39,14 +39,14 @@ block ElectricalLoad "Block that predicts an electrical load"
     annotation (Dialog(enable=use_dayOfAdj,
                 group="Day of adjustment"));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(unit="K") if
-     (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOut(unit="K")
+  if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K") if
-       (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
+  Modelica.Blocks.Interfaces.RealInput TOutFut[nPre-1](each unit="K")
+    if (predictionModel == Buildings.Controls.Predictors.Types.PredictionModel.WeatherRegression)
     "Future outside air temperatures"
     annotation (Placement(
        transformation(extent={{-140,-120},{-100,-80}}),
@@ -73,9 +73,9 @@ block ElectricalLoad "Block that predicts an electrical load"
 
   discrete Real adj(unit="1") "Load adjustment factor";
 protected
-  parameter Modelica.SIunits.Time samplePeriod=86400/nSam
+  parameter Modelica.Units.SI.Time samplePeriod=86400/nSam
     "Sample period of the component";
-  parameter Modelica.SIunits.Time samStart(fixed=false)
+  parameter Modelica.Units.SI.Time samStart(fixed=false)
     "Time when the first sampling starts";
   parameter Integer iDayOf_start = integer((nSam*dayOfAdj_start/86400+1E-8))
     "Counter where day of look up begins";
@@ -84,26 +84,25 @@ protected
 
   parameter Integer nDayOf = iDayOf_end-iDayOf_start
     "Number of samples used for the day of adjustment";
-  parameter Modelica.SIunits.Time dt = 86400/nSam
+  parameter Modelica.Units.SI.Time dt=86400/nSam
     "Length of one sampling interval";
-  discrete Modelica.SIunits.Power PAve "Average power over the past interval";
+  discrete Modelica.Units.SI.Power PAve "Average power over the past interval";
   Boolean sampleTrigger "True, if sample time instant";
 
-  discrete output Modelica.SIunits.Energy ELast "Energy at the last sample";
-  discrete output Modelica.SIunits.Time tLast
+  discrete output Modelica.Units.SI.Energy ELast "Energy at the last sample";
+  discrete output Modelica.Units.SI.Time tLast
     "Time at which last sample occurred";
   output Integer[nPre] iSam "Index for power of the current sampling interval";
 
-  discrete output Modelica.SIunits.Power P[Buildings.Controls.Types.nDayTypes,nSam,nHis]
-    "Baseline power consumption";
+  discrete output Modelica.Units.SI.Power P[Buildings.Controls.Types.nDayTypes,
+    nSam,nHis] "Baseline power consumption";
   // The temperature history is set to a zero array if it is not needed.
   // This significantly reduces the size of the code that needs to be compiled.
 
-  discrete output Modelica.SIunits.Temperature T[
-   if predictionModel == Types.PredictionModel.WeatherRegression then Buildings.Controls.Types.nDayTypes else 0,
-   if predictionModel == Types.PredictionModel.WeatherRegression then nSam else 0,
-   if predictionModel == Types.PredictionModel.WeatherRegression then nHis else 0]
-    "Temperature history";
+  discrete output Modelica.Units.SI.Temperature T[if predictionModel == Types.PredictionModel.WeatherRegression
+     then Buildings.Controls.Types.nDayTypes else 0,if predictionModel == Types.PredictionModel.WeatherRegression
+     then nSam else 0,if predictionModel == Types.PredictionModel.WeatherRegression
+     then nHis else 0] "Temperature history";
 
   Integer _typeOfDay[nPre]
     "Type of day for each time interval for which prediction is to be made";
@@ -116,13 +115,13 @@ protected
   Boolean _storeHistory
     "Flag, switched to false when block gets an storeHistory=false signal, and remaining false until midnight";
 
-  discrete Modelica.SIunits.Energy EActAve
+  discrete Modelica.Units.SI.Energy EActAve
     "Actual energy over the day off period";
-  discrete Modelica.SIunits.Energy EHisAve
+  discrete Modelica.Units.SI.Energy EHisAve
     "Actual load over the day off period, summed over all time intervals";
 
-  discrete Modelica.SIunits.Power PPreHis[Buildings.Controls.Types.nDayTypes, nSam]
-    "Predicted power consumptions for all day off time intervals";
+  discrete Modelica.Units.SI.Power PPreHis[Buildings.Controls.Types.nDayTypes,
+    nSam] "Predicted power consumptions for all day off time intervals";
   Boolean PPreHisSet[Buildings.Controls.Types.nDayTypes, nSam](each start=false, each fixed=true)
     "Flag, true if a value in PPreHis has been set for that element";
 
@@ -148,17 +147,17 @@ protected
 
   // Functions
   function isMidNight
-    input Modelica.SIunits.Time t "Simulation time";
+    input Modelica.Units.SI.Time t "Simulation time";
     output Boolean r "True if time is midnight, false otherwise";
   algorithm
     r := rem(t, 86400.0) < 1;
   end isMidNight;
 
   function getTypeOfDays
-    input Modelica.SIunits.Time t "Simulation time";
+    input Modelica.Units.SI.Time t "Simulation time";
     input Buildings.Controls.Types.Day[:] typeOfDay
       "Type of day as received from input connector";
-    input Modelica.SIunits.Time dt "Length of one sampling interval";
+    input Modelica.Units.SI.Time dt "Length of one sampling interval";
     input Integer nPre "Number of predictions to be made";
     output Integer[nPre] tod "Type of day for each prediction interval";
   protected
@@ -377,7 +376,7 @@ algorithm
     extent={{-100,-100}, {100,100}}),
                    graphics={Text(
           extent={{-70,64},{74,-54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="BL")}),
     Documentation(info="<html>
 <p>

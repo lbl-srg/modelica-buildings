@@ -4,7 +4,7 @@ model Conductor "Model of a generic DC load"
      redeclare package PhaseSystem = PhaseSystems.TwoConductor,
      redeclare Interfaces.Terminal_n terminal);
 protected
-    Modelica.SIunits.Voltage absDV
+  Modelica.Units.SI.Voltage absDV
     "Absolute value of the voltage difference between the two conductors (used by the linearized model)";
 equation
 
@@ -134,7 +134,7 @@ The points are at <i>0.8 V<sub>nom</sub></i> and <i>1.2 V<sub>nom</sub></i>.
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
 to help openmodelica parsing the model. This fixes issue
-<a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.
 </li>
 <li>June 17, 2014, by Marco Bonvini:<br/>
 Adde parameter <code>initMode</code> that can be used to
@@ -168,11 +168,11 @@ Added and revised documentation.
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Text(
             extent={{-152,87},{148,47}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name"),
           Text(
             extent={{-144,-38},{142,-70}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="G=%G")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,

@@ -3,7 +3,7 @@ model Humidifier_u
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.Air;
- parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001
+  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=0.001
     "Nominal water mass flow rate";
   Humidifier hea1(redeclare package Medium =
         Medium,
@@ -11,8 +11,7 @@ model Humidifier_u
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,92},{-34,112}})));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
@@ -66,8 +65,7 @@ model Humidifier_u
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,12},{-34,32}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_2(
@@ -133,8 +131,7 @@ model Humidifier_u
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_1(
@@ -162,8 +159,7 @@ model Humidifier_u
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}})));
   Buildings.Fluid.FixedResistances.PressureDrop res_6(
@@ -345,9 +341,9 @@ equation
           102}}, color={0,127,255}));
   connect(u.y, hea1.u)
                       annotation (Line(points={{-127,184},{-64,184},{-64,108},{
-          -56,108}}, color={0,0,127}));
+          -55,108}}, color={0,0,127}));
   connect(gain.y, hea2.u) annotation (Line(points={{-29,184},{-22,184},{-22,150},
-          {-14,150}}, color={0,0,127}));
+          {-13,150}}, color={0,0,127}));
   connect(u.y, gain.u) annotation (Line(points={{-127,184},{-52,184}}, color={0,
           0,127}));
   connect(res_12.port_b, hea2.port_a) annotation (Line(points={{-80,144},{-12,
@@ -356,9 +352,9 @@ equation
         color={0,127,255}));
   connect(u.y, hea3.u)
                       annotation (Line(points={{-127,184},{-64,184},{-64,28},{
-          -56,28}}, color={0,0,127}));
+          -55,28}}, color={0,0,127}));
   connect(gain.y, hea4.u) annotation (Line(points={{-29,184},{-22,184},{-22,70},
-          {-14,70}}, color={0,0,127}));
+          {-13,70}}, color={0,0,127}));
   connect(res_3.port_b, hea4.port_a) annotation (Line(points={{-80,64},{-12,64}},
         color={0,127,255}));
   connect(hea4.port_b, res_4.port_b) annotation (Line(points={{8,64},{20,64},{
@@ -429,13 +425,13 @@ equation
                          annotation (Line(points={{145,-260},{152,-260},{152,
           -256},{158,-256}}, color={0,0,127}));
   connect(u.y, hea6.u) annotation (Line(points={{-127,184},{-70,184},{-70,-52},
-          {-14,-52}}, color={0,0,127}));
+          {-13,-52}}, color={0,0,127}));
   connect(u.y, hea8.u) annotation (Line(points={{-127,184},{-70,184},{-70,-132},
-          {-14,-132}}, color={0,0,127}));
+          {-13,-132}}, color={0,0,127}));
   connect(gain.y, hea5.u) annotation (Line(points={{-29,184},{-26,184},{-26,-80},
-          {-60,-80},{-60,-94},{-56,-94}}, color={0,0,127}));
+          {-60,-80},{-60,-94},{-55,-94}}, color={0,0,127}));
   connect(gain.y, hea7.u) annotation (Line(points={{-29,184},{-26,184},{-26,
-          -160},{-64,-160},{-64,-174},{-56,-174}}, color={0,0,127}));
+          -160},{-64,-160},{-64,-174},{-55,-174}}, color={0,0,127}));
   connect(y21.y,che11. u1)
                          annotation (Line(points={{325,160},{334,160},{334,156},
           {338,156}}, color={0,0,127}));
@@ -497,56 +493,56 @@ equation
                          annotation (Line(points={{325,-260},{332,-260},{332,
           -256},{338,-256}}, color={0,0,127}));
   connect(sin_1.ports[1], res_12.port_a) annotation (Line(
-      points={{-148,147},{-106,147},{-106,144},{-100,144}},
+      points={{-148,142.5},{-106,142.5},{-106,144},{-100,144}},
       color={0,127,255}));
   connect(sin_1.ports[2], res_3.port_a) annotation (Line(
-      points={{-148,145},{-124,145},{-124,64},{-100,64}},
+      points={{-148,143.5},{-124,143.5},{-124,64},{-100,64}},
       color={0,127,255}));
   connect(sou_1.ports[1], res_11.port_a) annotation (Line(
-      points={{-148,105},{-107,105},{-107,102},{-100,102}},
+      points={{-148,100.5},{-107,100.5},{-107,102},{-100,102}},
       color={0,127,255}));
   connect(sou_1.ports[2], res_2.port_a) annotation (Line(
-      points={{-148,103},{-126,103},{-126,22},{-100,22}},
+      points={{-148,101.5},{-126,101.5},{-126,22},{-100,22}},
       color={0,127,255}));
   connect(sin_1.ports[3], res_1.port_a) annotation (Line(
-      points={{-148,143},{-130,143},{-130,-100},{-100,-100}},
+      points={{-148,144.5},{-130,144.5},{-130,-100},{-100,-100}},
       color={0,127,255}));
   connect(sin_1.ports[4], res_6.port_a) annotation (Line(
-      points={{-148,141},{-132,141},{-132,-180},{-100,-180}},
+      points={{-148,145.5},{-132,145.5},{-132,-180},{-100,-180}},
       color={0,127,255}));
   connect(sou_1.ports[3], res_5.port_a) annotation (Line(
-      points={{-148,101},{-140,101},{-140,-58},{-100,-58}},
+      points={{-148,102.5},{-140,102.5},{-140,-58},{-100,-58}},
       color={0,127,255}));
   connect(sou_1.ports[4], res_7.port_a) annotation (Line(
-      points={{-148,99},{-142,99},{-142,-138},{-100,-138}},
+      points={{-148,103.5},{-142,103.5},{-142,-138},{-100,-138}},
       color={0,127,255}));
   connect(hea3.port_b, mix1.ports[1]) annotation (Line(
-      points={{-34,22},{-12,22}},
+      points={{-34,22},{-11,22}},
       color={0,127,255}));
   connect(mix1.ports[2], res_4.port_a) annotation (Line(
-      points={{-8,22},{20,22},{20,30}},
+      points={{-9,22},{20,22},{20,30}},
       color={0,127,255}));
   connect(hea7.port_b, mix2.ports[1]) annotation (Line(
-      points={{-34,-180},{-12,-180}},
+      points={{-34,-180},{-11,-180}},
       color={0,127,255}));
   connect(mix2.ports[2], res_8.port_a) annotation (Line(
-      points={{-8,-180},{20,-180},{20,-172}},
+      points={{-9,-180},{20,-180},{20,-172}},
       color={0,127,255}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
             -320},{360,200}}), graphics={
         Text(
           extent={{30,204},{158,162}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Temperature check"),
         Text(
           extent={{220,198},{330,168}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Humidity check"),
         Text(
           extent={{-198,-4},{-6,-38}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="Same models as above, but flow is reversed")}),
-experiment(Tolerance=1e-6, StopTime=3600),
+experiment(Tolerance=1e-7, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/Humidifier_u.mos"
         "Simulate and plot"),
 Documentation(info="<html>

@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialDistribution2Pipe
   "Partial model for two-pipe distribution network"
   extends PartialDistribution;
-  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface(
+  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
@@ -10,31 +10,34 @@ partial model PartialDistribution2Pipe
     final max=nCon)=nCon
     "Index of the connection where the pressure drop is measured"
     annotation (Dialog(tab="General"),Evaluate=true);
-  parameter Boolean show_heaFlo=false
-    "Set to true to output the heat flow rate transferred to each connected load"
+  parameter Boolean show_entFlo=false
+    "Set to true to output enthalpy flow rate difference at each connection"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line before the first connection"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mEnd_flow_nominal=mDis_flow_nominal-sum(
-    mCon_flow_nominal)
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mEnd_flow_nominal=mDis_flow_nominal
+       - sum(mCon_flow_nominal)
     "Nominal mass flow rate in the end of the distribution line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
-    1,
-    {mDis_flow_nominal},
-    {mDis_flow_nominal-sum(mCon_flow_nominal[1:i]) for i in 1:(nCon-1)})
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mDisCon_flow_nominal[nCon]=cat(
+      1,
+      {mDis_flow_nominal},
+      {mDis_flow_nominal - sum(mCon_flow_nominal[1:i]) for i in 1:(nCon - 1)})
     "Nominal mass flow rate in the distribution line before each connection"
-    annotation (Dialog(tab="General",group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=10
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
   Modelica.Fluid.Interfaces.FluidPort_b port_bDisRet(
     redeclare final package Medium=Medium,
@@ -48,7 +51,8 @@ partial model PartialDistribution2Pipe
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Distribution return outlet port"
-    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),iconTransformation(extent={{-220,-80},{-180,-40}})));
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
+      iconTransformation(extent={{-220,-80},{-180,-40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aDisRet(
     redeclare final package Medium=Medium,
     m_flow(
@@ -61,27 +65,28 @@ partial model PartialDistribution2Pipe
       start=Medium.h_default,
       nominal=Medium.h_default))
     "Distribution return inlet port"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),iconTransformation(extent={{180,-80},{220,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput dp(
-    final quantity="PressureDifference",
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
+      iconTransformation(extent={{180,-80},{220,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dp(
     final unit="Pa",
     displayUnit="Pa") if iConDpSen >= 0
     "Pressure difference at given location (measured)"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),iconTransformation(extent={{200,20},{220,40}})));
-  Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
-    each final quantity="HeatFlowRate",
-    each final unit="W") if show_heaFlo
-    "Heat flow rate transferred to the connected load (>=0 for heating)"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),iconTransformation(extent={{200,60},{220,80}})));
-  Modelica.Blocks.Interfaces.RealOutput mCon_flow[nCon](
-    each final quantity="MassFlowRate",
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+      iconTransformation(extent={{200,10},{240,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow[nCon](each final
+      unit="W")          if show_entFlo
+    "Difference in enthalpy flow rate between connection supply and return"
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+        iconTransformation(extent={{200,50},{240,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[nCon](
     each final unit="kg/s")
     "Connection supply mass flow rate (measured)"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),iconTransformation(extent={{200,40},{220,60}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{200,30},{240,70}})));
   // COMPONENTS
-  replaceable BaseClasses.PartialConnection2Pipe con[nCon](
+  replaceable Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe con[nCon](
     redeclare each final package Medium=Medium,
-    each final show_heaFlo=show_heaFlo,
+    each final show_entFlo=show_entFlo,
     final mDis_flow_nominal=mDisCon_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -103,13 +108,6 @@ initial equation
     "In "+getInstanceName()+": iConDpSen = "+String(
       iConDpSen)+" whereas it must be lower than "+String(
       nCon)+".");
-  assert(
-    mDis_flow_nominal >= sum(
-      mCon_flow_nominal),
-    "In "+getInstanceName()+": mDis_flow_nominal = "+String(
-      mDis_flow_nominal)+" whereas it must be higher than sum(mCon_flow_nominal) = "+String(
-      sum(
-        mCon_flow_nominal))+".");
 equation
   // Connecting outlets to inlets for all instances of connection component.
   if nCon >= 2 then
@@ -122,10 +120,11 @@ equation
   // undefined if iConDpSen <= 0).
   if iConDpSen > 0 then
     connect(con[iConDpSen].dp,dp)
-      annotation (Line(points={{11,4},{20,4},{20,20},{90,20},{90,40},{120,40}},color={0,0,127}));
+      annotation (Line(points={{12,5},{20,5},{20,20},{90,20},{90,40},{120,40}},color={0,0,127}));
   end if;
   connect(senRelPre.p_rel,dp)
-    annotation (Line(points={{-51,-30},{90,-30},{90,40},{120,40}},color={0,0,127}));
+    annotation (Line(points={{-51,-30},{92,-30},{92,38},{106,38},{106,40},{120,40}},
+                                                                  color={0,0,127}));
   connect(con.port_bCon,ports_bCon)
     annotation (Line(points={{0,10},{0,40},{-80,40},{-80,100}},color={0,127,255}));
   connect(ports_aCon,con.port_aCon)
@@ -140,14 +139,14 @@ equation
     annotation (Line(points={{10,0},{60,0}},color={0,127,255}));
   connect(pipEnd.port_b,port_bDisSup)
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
-  connect(con.Q_flow,Q_flow)
-    annotation (Line(points={{11,8},{16,8},{16,24},{86,24},{86,80},{120,80}},color={0,0,127}));
   connect(con.mCon_flow,mCon_flow)
-    annotation (Line(points={{11,6},{18,6},{18,22},{88,22},{88,60},{120,60}},color={0,0,127}));
+    annotation (Line(points={{12,7},{18,7},{18,22},{88,22},{88,60},{120,60}},color={0,0,127}));
   connect(port_aDisSup,senRelPre.port_a)
     annotation (Line(points={{-100,0},{-60,0},{-60,-20}},color={0,127,255}));
   connect(senRelPre.port_b,port_bDisRet)
     annotation (Line(points={{-60,-40},{-60,-60},{-100,-60}},color={0,127,255}));
+  connect(con.dH_flow, dH_flow) annotation (Line(points={{12,9},{16,9},{16,80},{
+          120,80}}, color={0,0,127}));
   annotation (
     Documentation(
       info="

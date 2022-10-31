@@ -2,20 +2,19 @@ within Buildings.Media.Antifreeze;
 package PropyleneGlycolWater
   "Package with model for propylene glycol - water with constant properties"
   extends Modelica.Media.Interfaces.PartialSimpleMedium(
-    mediumName="PropyleneGlycolWater(X_a = "
-      + String(X_a) + ", property_T = "
-      + String(property_T) + ")",
-    final cp_const=specificHeatCapacityCp_TX_a(T = property_T, X_a = X_a),
+    mediumName="PropyleneGlycolWater(X_a = " + String(X_a) + ", property_T = "
+         + String(property_T) + ")",
+    final cp_const=specificHeatCapacityCp_TX_a(T=property_T, X_a=X_a),
     final cv_const=cp_const,
-    final d_const=density_TX_a(T = property_T, X_a = X_a),
-    final eta_const=dynamicViscosity_TX_a(T = property_T, X_a = X_a),
-    final lambda_const=thermalConductivity_TX_a(T = property_T, X_a = X_a),
+    final d_const=density_TX_a(T=property_T, X_a=X_a),
+    final eta_const=dynamicViscosity_TX_a(T=property_T, X_a=X_a),
+    final lambda_const=thermalConductivity_TX_a(T=property_T, X_a=X_a),
     a_const=1484,
-    final T_min=fusionTemperature_TX_a(T = property_T, X_a = X_a),
-    T_max=Modelica.SIunits.Conversions.from_degC(100),
+    final T_min=fusionTemperature_TX_a(T=property_T, X_a=X_a),
+    T_max=Modelica.Units.Conversions.from_degC(100),
     T0=273.15,
-    MM_const=(X_a/simplePropyleneGlycolWaterConstants[1].molarMass + (1
-         - X_a)/0.018015268)^(-1),
+    MM_const=(X_a/simplePropyleneGlycolWaterConstants[1].molarMass + (1 - X_a)/
+        0.018015268)^(-1),
     fluidConstants=simplePropyleneGlycolWaterConstants,
     p_default=300000,
     reference_p=300000,
@@ -25,9 +24,9 @@ package PropyleneGlycolWater
     Temperature(start=T_default),
     Density(start=d_const));
 
-  constant Modelica.SIunits.Temperature property_T
+  constant Modelica.Units.SI.Temperature property_T
     "Temperature for evaluation of constant fluid properties";
-  constant Modelica.SIunits.MassFraction X_a
+  constant Modelica.Units.SI.MassFraction X_a
     "Mass fraction of propylene glycol in water";
 
   redeclare model BaseProperties "Base properties"
@@ -39,14 +38,14 @@ package PropyleneGlycolWater
     InputMassFraction[nXi] Xi=fill(0, 0)
       "Structurally independent mass fractions";
     InputSpecificEnthalpy h "Specific enthalpy of medium";
-    Modelica.SIunits.SpecificInternalEnergy u
+    Modelica.Units.SI.SpecificInternalEnergy u
       "Specific internal energy of medium";
-    Modelica.SIunits.Density d=d_const "Density of medium";
-    Modelica.SIunits.MassFraction[nX] X={1}
+    Modelica.Units.SI.Density d=d_const "Density of medium";
+    Modelica.Units.SI.MassFraction[nX] X={1}
       "Mass fractions (= (component mass)/total mass  m_i/m)";
-    final Modelica.SIunits.SpecificHeatCapacity R=0
+    final Modelica.Units.SI.SpecificHeatCapacity R_s=0
       "Gas constant (of mixture if applicable)";
-    final Modelica.SIunits.MolarMass MM=MM_const
+    final Modelica.Units.SI.MolarMass MM=MM_const
       "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
@@ -55,19 +54,17 @@ package PropyleneGlycolWater
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
-        Modelica.SIunits.Conversions.to_degC(T)
-      "Temperature of medium in [degC]";
-    Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
-        Modelica.SIunits.Conversions.to_bar(p)
+    Modelica.Units.NonSI.Temperature_degC T_degC=
+        Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
+    Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
 
     // Local connector definition, used for equation balancing check
-    connector InputAbsolutePressure = input Modelica.SIunits.AbsolutePressure
+    connector InputAbsolutePressure = input Modelica.Units.SI.AbsolutePressure
       "Pressure as input signal connector";
-    connector InputSpecificEnthalpy = input Modelica.SIunits.SpecificEnthalpy
+    connector InputSpecificEnthalpy = input Modelica.Units.SI.SpecificEnthalpy
       "Specific enthalpy as input signal connector";
-    connector InputMassFraction = input Modelica.SIunits.MassFraction
+    connector InputMassFraction = input Modelica.Units.SI.MassFraction
       "Mass fraction as input signal connector";
 
   equation
@@ -107,9 +104,9 @@ as required from medium model \"" + mediumName + "\".");
 </html>"));
   end BaseProperties;
 protected
-  constant Modelica.SIunits.MassFraction X_a_min=0.
+  constant Modelica.Units.SI.MassFraction X_a_min=0.
     "Minimum allowed mass fraction of propylene glycol in water";
-  constant Modelica.SIunits.MassFraction X_a_max=0.6
+  constant Modelica.Units.SI.MassFraction X_a_max=0.6
     "Maximum allowed mass fraction of propylene glycol in water";
 
   // Fluid constants based on pure Propylene Glycol
@@ -122,10 +119,9 @@ protected
     each molarMass=0.07609);
 
   // Coefficients for evaluation of physical properties
-  constant Buildings.Media.Antifreeze.BaseClasses.PropertyCoefficients
-    proCoe(
+  constant Buildings.Media.Antifreeze.BaseClasses.PropertyCoefficients proCoe(
     X_a_ref=0.307031,
-    T_ref=Modelica.SIunits.Conversions.from_degC(32.7083),
+    T_ref=Modelica.Units.Conversions.from_degC(32.7083),
     nX_a=6,
     nT={4,4,4,3,2,1},
     nTot=18,
@@ -149,9 +145,10 @@ protected
   replaceable function density_TX_a
     "Evaluate density of antifreeze-water mixture"
     extends Modelica.Icons.Function;
-    input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
-    output Modelica.SIunits.Density d "Density of antifreeze-water mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
+    output Modelica.Units.SI.Density d "Density of antifreeze-water mixture";
   algorithm
     d :=polynomialProperty(
         X_a,
@@ -187,9 +184,11 @@ protected
   replaceable function dynamicViscosity_TX_a
     "Evaluate dynamic viscosity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-    input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
-    output Modelica.SIunits.DynamicViscosity eta "Dynamic Viscosity of antifreeze-water mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
+    output Modelica.Units.SI.DynamicViscosity eta
+      "Dynamic Viscosity of antifreeze-water mixture";
   algorithm
     eta :=1e-3*exp(polynomialProperty(
         X_a,
@@ -224,11 +223,13 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
   replaceable function fusionTemperature_TX_a
     "Evaluate temperature of fusion of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-    input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
-    output Modelica.SIunits.Temperature Tf "Temperature of fusion of antifreeze-water mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
+    output Modelica.Units.SI.Temperature Tf
+      "Temperature of fusion of antifreeze-water mixture";
   algorithm
-    Tf :=Modelica.SIunits.Conversions.from_degC(polynomialProperty(
+    Tf :=Modelica.Units.Conversions.from_degC(polynomialProperty(
         X_a,
         T,
         proCoe.a_Tf));
@@ -326,9 +327,11 @@ Buildings.Media.Antifreeze</a>.
   replaceable function specificHeatCapacityCp_TX_a
     "Evaluate specific heat capacity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-    input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
-    output Modelica.SIunits.SpecificHeatCapacity cp "Specific heat capacity of antifreeze-water mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
+    output Modelica.Units.SI.SpecificHeatCapacity cp
+      "Specific heat capacity of antifreeze-water mixture";
   algorithm
     cp :=polynomialProperty(
         X_a,
@@ -363,9 +366,11 @@ Buildings.Media.Antifreeze.PropyleneGlycolWater</a>.
   replaceable function thermalConductivity_TX_a
     "Evaluate thermal conductivity of antifreeze-water mixture"
       extends Modelica.Icons.Function;
-    input Modelica.SIunits.Temperature T "Temperature of antifreeze-water mixture";
-    input Modelica.SIunits.MassFraction X_a "Mass fraction of antifreeze";
-    output Modelica.SIunits.ThermalConductivity lambda "Thermal conductivity of antifreeze-water mixture";
+    input Modelica.Units.SI.Temperature T
+      "Temperature of antifreeze-water mixture";
+    input Modelica.Units.SI.MassFraction X_a "Mass fraction of antifreeze";
+    output Modelica.Units.SI.ThermalConductivity lambda
+      "Thermal conductivity of antifreeze-water mixture";
   algorithm
     lambda :=polynomialProperty(
         X_a,
@@ -444,7 +449,8 @@ Density, specific heat capacity, thermal conductivity and viscosity are constant
 The propylene glycol/water mixture is modeled as an incompressible liquid.
 There are no phase changes. The medium is limited to temperatures below
 <i>100</i> &deg;C and mass fractions below <i>0.60</i>.
-As is the case for Buildings.Media.Water, this medium package should not be used if
+As is the case for <a href=\"modelica://Buildings.Media.Water\">Buildings.Media.Water</a>,
+this medium package should not be used if
 the simulation relies on the dynamic viscosity.
 </p>
 <h4>Typical use and important parameters</h4>

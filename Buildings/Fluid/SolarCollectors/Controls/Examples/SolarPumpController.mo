@@ -12,7 +12,7 @@ model SolarPumpController "Example for the solar pump controller"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Sine sine(
     amplitude=20,
-    freqHz=0.0001,
+    f=0.0001,
     offset=273.15 + 40) "Water inlet temperature"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation

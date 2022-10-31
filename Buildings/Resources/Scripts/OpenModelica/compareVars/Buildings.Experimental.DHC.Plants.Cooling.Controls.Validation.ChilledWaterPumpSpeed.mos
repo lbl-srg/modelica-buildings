@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "chiWatPumSpe.dpMea",
+    "chiWatPumSpe.masFloPum",
+    "chiWatPumSpe.y[1]",
+    "chiWatPumSpe.y[2]"
+  };

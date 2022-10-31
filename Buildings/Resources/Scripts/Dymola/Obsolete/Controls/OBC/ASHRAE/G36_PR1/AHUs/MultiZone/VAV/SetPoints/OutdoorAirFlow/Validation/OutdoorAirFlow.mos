@@ -1,0 +1,10 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Validation.OutdoorAirFlow", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="OutdoorAirFlow_MultiZone");
+createPlot(id=1, position={35, 35, 790, 1261}, y={"zon1.VDesPopBreZon_flow", "zon1.VDesAreBreZon_flow", "zon1.VUncOutAir_flow"}, range={0.0, 4000.0, 0.005, 0.025}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={35, 35, 790, 417}, y={"zon1.VPriAir_flow"}, range={0.0, 4000.0, -0.05, 0.15}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={35, 35, 790, 418}, y={"zon1.yDesPriOutAirFra", "zon1.yPriOutAirFra"}, range={0.0, 4000.0, -0.1, 0.3}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={839, 35, 850, 1269}, y={"zon2.VDesPopBreZon_flow", "zon2.VDesAreBreZon_flow", "zon2.VUncOutAir_flow"}, range={0.0, 4000.0, 0.008, 0.018}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={839, 35, 850, 421}, y={"zon2.VPriAir_flow"}, range={0.0, 4000.0, -0.05, 0.15}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={839, 35, 850, 420}, y={"zon2.yDesPriOutAirFra", "zon2.yPriOutAirFra"}, range={0.0, 4000.0, -0.1, 0.3}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={1705, 37, 892, 1261}, y={"ahu1.VEffOutAir_flow"}, range={0.0, 4000.0, 0.025, 0.06}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={1705, 37, 892, 417}, y={"ahu1.effOutAir_normalized"}, range={0.0, 4000.0, -0.2, 0.8}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=3, position={1705, 37, 892, 418}, y={"ahu1.VDesUncOutAir_flow"}, range={0.0, 4000.0, -0.02, 0.08}, grid=true, subPlot=3, colors={{28,108,200}});

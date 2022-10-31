@@ -7,8 +7,7 @@ model CheckEquality "Validation model for the check equality model"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Modelica.Blocks.Sources.Constant con(k=0.1) "Input"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Modelica.Blocks.Sources.Sine sin1(freqHz=1, amplitude=0.03)
-    "Input"
+  Modelica.Blocks.Sources.Sine sin1(f=1, amplitude=0.03) "Input"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Math.Add add "Adder to offset the sin input signal"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -23,7 +22,7 @@ equation
   connect(add.y, cheEqu.u2) annotation (Line(points={{1,10},{10,10},{10,14},{18,
           14}}, color={0,0,127}));
   annotation (
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEquality.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Diagnostics/Validation/CheckEquality.mos"
         "Simulate and plot"),
   Documentation(
     info="<html>

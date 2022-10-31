@@ -20,7 +20,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,
             -40},{40,60}}),    graphics={Text(
           extent={{-62,24},{-18,-4}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="See code")}),
     experiment(
       Tolerance=1e-6, StopTime=100),
@@ -47,7 +47,6 @@ See
 Buildings.Fluid.Examples.Performance.Example6</a> for the documentation.
 </p>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Examples/Performance/Example7.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Examples/Performance/Example7.mos"
         "Simulate and plot"));
 end Example7;

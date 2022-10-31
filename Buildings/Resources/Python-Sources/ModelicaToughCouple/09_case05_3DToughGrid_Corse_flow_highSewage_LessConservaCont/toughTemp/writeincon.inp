@@ -1,0 +1,74 @@
+number of grid blocks with borehole temperatures from Modelica
+31
+total number of grid blocks
+40321
+initial time for TOUGH step (sec)
+5850
+final time for TOUGH step (sec)
+6750
+initial borehole temperatures (C) from Modelica (top to bottom)
+12.399
+11.601
+10.481
+10.719
+11.195
+11.214
+11.231
+11.110
+11.125
+11.134
+11.131
+11.014
+10.905
+10.931
+10.954
+10.927
+10.952
+10.974
+10.999
+10.952
+10.976
+11.002
+11.026
+11.003
+11.028
+10.799
+10.849
+10.917
+11.017
+11.779
+11.758
+borehole heat fluxes (W) from Modelica (top to bottom)
+8.898
+8.898
+19.858
+29.787
+49.646
+49.646
+49.646
+39.313
+39.313
+39.313
+39.313
+37.519
+37.519
+37.519
+37.519
+36.763
+36.763
+36.763
+36.763
+32.803
+32.803
+32.803
+32.803
+29.662
+29.662
+29.662
+29.662
+69.919
+69.919
+126.652
+115.472
+surface temperature (C)
+5.010

@@ -14,13 +14,13 @@ package OpaqueConstructions
    final parameter Integer nSta[nLay](each min=1) = {material[i].nSta for i in 1:nLay}
       "Number of states in each layer"
       annotation (HideResult=true, Dialog(tab="Advanced"));
-   parameter Modelica.SIunits.Emissivity absIR_a=0.9
+    parameter Modelica.Units.SI.Emissivity absIR_a=0.9
       "Infrared absorptivity of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.Emissivity absIR_b=0.9
+    parameter Modelica.Units.SI.Emissivity absIR_b=0.9
       "Infrared absorptivity of surface b (usually room-facing surface)";
-   parameter Modelica.SIunits.Emissivity absSol_a=0.5
+    parameter Modelica.Units.SI.Emissivity absSol_a=0.5
       "Solar absorptivity of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.Emissivity absSol_b=0.5
+    parameter Modelica.Units.SI.Emissivity absSol_b=0.5
       "Solar absorptivity of surface b (usually room-facing surface)";
    parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness_a=
       Buildings.HeatTransfer.Types.SurfaceRoughness.Medium
@@ -46,7 +46,7 @@ package OpaqueConstructions
           Text(
             extent={{-127,113},{127,53}},
             textString="%name",
-            lineColor={0,0,255}),
+            textColor={0,0,255}),
           Rectangle(
             extent={{-36,42},{4,-92}},
             lineColor={0,0,0},

@@ -4,11 +4,11 @@ model SingleSpeed "Test model for single speed DX coil"
   package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
   extends Modelica.Icons.Example;
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dpEva_nominal = 1000
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal=1000
     "Pressure drop at m_flow_nominal";
- parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal=40000
     "Pressure drop at mCon_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumAir,
@@ -41,7 +41,7 @@ model SingleSpeed "Test model for single speed DX coil"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
                  "Single speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
       nSta=1,
       sta={Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=1800/60,

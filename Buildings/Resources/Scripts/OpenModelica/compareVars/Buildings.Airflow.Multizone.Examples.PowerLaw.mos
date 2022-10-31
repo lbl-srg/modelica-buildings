@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "pow_2dat.V_flow",
+    "pow_1dat.V_flow",
+    "pow_V_flow.V_flow",
+    "pow_m_flow.V_flow"
+  };

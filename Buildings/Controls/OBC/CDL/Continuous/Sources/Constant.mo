@@ -1,49 +1,60 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
-block Constant "Output constant signal of type Real"
-  parameter Real k "Constant output value";
-
+block Constant
+  "Output constant signal of type Real"
+  parameter Real k
+    "Constant output value";
   Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y = k;
+  y=k;
   annotation (
     defaultComponentName="con",
-    Icon(coordinateSystem(
+    Icon(
+      coordinateSystem(
         preserveAspectRatio=true,
-        extent={{-100,-100},{100,100}}), graphics={
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name"),
-        Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
+        Line(
+          points={{-80,68},{-80,-80}},
+          color={192,192,192}),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-90,-70},{82,-70}}, color={192,192,192}),
+        Line(
+          points={{-90,-70},{82,-70}},
+          color={192,192,192}),
         Polygon(
           points={{90,-70},{68,-62},{68,-78},{90,-70}},
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,0},{80,0}}),
+        Line(
+          points={{-80,0},{80,0}}),
         Text(
           extent={{-150,-150},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="k=%k"),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-    Documentation(info="<html>
+          textColor={0,0,0},
+          textString=DynamicSelect("",String(y,
+            leftJustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 Block that outputs a constant signal <code>y = k</code>,
 where <code>k</code> is a real-valued parameter.
@@ -52,7 +63,8 @@ where <code>k</code> is a real-valued parameter.
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Constant.png\"
      alt=\"Constant.png\" />
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 March 2, 2020, by Michael Wetter:<br/>

@@ -38,10 +38,11 @@ partial model PartialThreeWayValve "Partial three way valve"
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
 
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal[2](each displayUnit="Pa",
-                                                         each min=0) = {0, 0}
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal[2](
+    each displayUnit="Pa",
+    each min=0) = {0,0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv(port_3&rarr;port_2)/Kv(port_1&rarr;port_2)";
@@ -154,7 +155,7 @@ for details regarding the valve implementation.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 November 5, 2019, by Michael Wetter:<br/>

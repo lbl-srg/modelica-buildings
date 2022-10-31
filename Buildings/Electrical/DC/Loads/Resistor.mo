@@ -6,12 +6,12 @@ model Resistor "Ideal linear electrical resistor"
     final mode=Buildings.Electrical.Types.Load.FixedZ_steady_state,
     final P_nominal=V_nominal^2/max(R, Modelica.Constants.small));
   extends Modelica.Electrical.Analog.Interfaces.ConditionalHeatPort(T = T_ref);
-  parameter Modelica.SIunits.Resistance R(start=1)
+  parameter Modelica.Units.SI.Resistance R(start=1)
     "Resistance at temperature T_ref";
-  parameter Modelica.SIunits.Temperature T_ref=300.15 "Reference temperature";
-  parameter Modelica.SIunits.LinearTemperatureCoefficient alpha=0
+  parameter Modelica.Units.SI.Temperature T_ref=300.15 "Reference temperature";
+  parameter Modelica.Units.SI.LinearTemperatureCoefficient alpha=0
     "Temperature coefficient of resistance (R_actual = R*(1 + alpha*(T_heatPort - T_ref))";
-  Modelica.SIunits.Resistance R_actual
+  Modelica.Units.SI.Resistance R_actual
     "Actual resistance = R*(1 + alpha*(T_heatPort - T_ref))";
 equation
   assert((1 + alpha*(T_heatPort - T_ref)) >= Modelica.Constants.eps, "Temperature outside of scope of model");
@@ -52,7 +52,7 @@ the model in Dymola's pedantic mode.
 Changed parent class to <a href=\"modelica://Buildings.Electrical.Interfaces.ResistiveLoad\">
 Buildings.Electrical.Interfaces.ResistiveLoad</a> in order
 to help openmodelica parsing the model. This fixes issue
-<a href=https://github.com/lbl-srg/modelica-buildings/issues/415>#415</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/415\">#415</a>.
 </li>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br/>
@@ -76,7 +76,7 @@ Revised model and documentation.
           Line(points={{-90,0},{-70,0}}, color={0,0,255}),
           Text(
             extent={{-144,-40},{142,-72}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="R=%R"),
           Line(
             visible=useHeatPort,
@@ -86,7 +86,7 @@ Revised model and documentation.
             pattern=LinePattern.Dot),
           Text(
             extent={{-152,87},{148,47}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="%name")}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,

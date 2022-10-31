@@ -2,45 +2,59 @@ within Buildings.Experimental.DHC.Networks.BaseClasses;
 partial model PartialDistribution1Pipe
   "Partial model for one-pipe distribution network"
   extends PartialDistribution;
-  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface(
+  replaceable model Model_pipDis=Fluid.Interfaces.PartialTwoPortInterface (
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal)
     "Model for distribution pipe";
-  parameter Boolean show_heaFlo=false
-    "Set to true to output the heat flow rate transferred to each connected load"
+  parameter Boolean show_entFlo=false
+    "Set to true to output enthalpy flow rate difference at each connection"
     annotation (Evaluate=true);
-  parameter Modelica.SIunits.MassFlowRate mDis_flow_nominal
+  parameter Boolean show_TOut=false
+    "Set to true to output temperature at connection outlet"
+    annotation (Evaluate=true);
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal
     "Nominal mass flow rate in the distribution line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal[nCon]
+    annotation (Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal[nCon]
     "Nominal mass flow rate in each connection line"
-    annotation (Dialog(tab="General",group="Nominal condition"));
+    annotation (Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
-  parameter Modelica.SIunits.Time tau=10
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Dynamics",group="Nominal condition",enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   // IO CONNECTORS
-  Modelica.Blocks.Interfaces.RealOutput Q_flow[nCon](
-    each final quantity="HeatFlowRate",
-    each final unit="W") if show_heaFlo
-    "Heat flow rate transferred to the connected load (>=0 for heating)"
-    annotation (Placement(transformation(extent={{100,60},{140,100}}),iconTransformation(extent={{200,60},{220,80}})));
-  Modelica.Blocks.Interfaces.RealOutput mCon_flow[nCon](
-    each final quantity="MassFlowRate",
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dH_flow[nCon](
+    each final unit="W") if show_entFlo
+    "Difference in enthalpy flow rate between connection supply and return"
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+        iconTransformation(extent={{200,50},{240,90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mCon_flow[nCon](
     each final unit="kg/s")
     "Connection supply mass flow rate (measured)"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),iconTransformation(extent={{200,40},{220,60}})));
-  Modelica.Blocks.Interfaces.RealOutput mByp_flow[nCon](
-    each final quantity="MassFlowRate",
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{200,30},{240,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput mByp_flow[nCon](
     each final unit="kg/s")
     "Bypass mass flow rate"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),iconTransformation(extent={{200,20},{220,40}})));
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+      iconTransformation(extent={{200,10},{240,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TOut[nCon](
+    each final unit="K",
+    each displayUnit="degC") if show_TOut
+    "Temperature in distribution line at each connection outlet"
+    annotation (
+      Placement(transformation(extent={{100,-100},{140,-60}}),
+        iconTransformation(extent={{200,-80},{240,-40}})));
   // COMPONENTS
   replaceable PartialConnection1Pipe con[nCon](
     redeclare each final package Medium=Medium,
-    each final show_heaFlo=show_heaFlo,
+    each final show_entFlo=show_entFlo,
+    each final show_TOut=show_TOut,
     each final mDis_flow_nominal=mDis_flow_nominal,
     final mCon_flow_nominal=mCon_flow_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -69,12 +83,14 @@ equation
     annotation (Line(points={{10,0},{40,0}},color={0,127,255}));
   connect(pipEnd.port_b,port_bDisSup)
     annotation (Line(points={{60,0},{100,0}},color={0,127,255}));
-  connect(con.Q_flow,Q_flow)
-    annotation (Line(points={{11,8},{16,8},{16,24},{88,24},{88,80},{120,80}},color={0,0,127}));
   connect(con.mByp_flow,mByp_flow)
-    annotation (Line(points={{11,4},{20,4},{20,20},{92,20},{92,40},{120,40}},color={0,0,127}));
+    annotation (Line(points={{12,3},{20,3},{20,20},{92,20},{92,40},{120,40}},color={0,0,127}));
   connect(con.mCon_flow,mCon_flow)
-    annotation (Line(points={{11,6},{18,6},{18,22},{90,22},{90,60},{120,60}},color={0,0,127}));
+    annotation (Line(points={{12,5},{18,5},{18,22},{90,22},{90,80},{120,80}},color={0,0,127}));
+  connect(con.dH_flow, dH_flow) annotation (Line(points={{12,7},{24,7},{24,-40},
+          {120,-40}}, color={0,0,127}));
+  connect(con.TOut, TOut) annotation (Line(points={{12,9},{22,9},{22,-80},{120,
+          -80}}, color={0,0,127}));
   annotation (
     Documentation(
       info="

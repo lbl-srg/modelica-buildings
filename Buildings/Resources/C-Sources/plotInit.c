@@ -5,10 +5,11 @@
  * Michael Wetter, LBNL                  3/23/2018
  */
 
-#include "plotObjectStructure.h"
-#include <ModelicaUtilities.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "ModelicaUtilities.h"
+
+#include "plotObjectStructure.h"
 
 void plotWriteHeader(const char* fileName){
   FILE *f = fopen(fileName, "w");

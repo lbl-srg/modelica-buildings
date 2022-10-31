@@ -10,7 +10,7 @@ flow coefficient
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 k = m &frasl;
-&radic;<span style=\"text-decoration:overline;\">&Delta;P</span>.
+&radic;<span style=\"text-decoration:overline;\">&Delta;p</span>.
 </p>
 <p>
 For models of valves and air dampers, see

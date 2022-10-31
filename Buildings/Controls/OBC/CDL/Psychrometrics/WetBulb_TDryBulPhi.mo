@@ -1,49 +1,53 @@
 within Buildings.Controls.OBC.CDL.Psychrometrics;
 block WetBulb_TDryBulPhi
   "Block to compute the wet bulb temperature based on relative humidity"
-
   Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final min=100) "Dry bulb temperature"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
-
+    final min=100)
+    "Dry bulb temperature"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),iconTransformation(extent={{-140,40},{-100,80}})));
   Interfaces.RealInput phi(
     final min=0,
     final max=1)
     "Relative air humidity"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
-
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),iconTransformation(extent={{-140,-80},{-100,-40}})));
   Interfaces.RealOutput TWetBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    final min=100) "Wet bulb temperature"
+    final min=100)
+    "Wet bulb temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TDryBul_degC
+  Real TDryBul_degC(
+    final unit="degC",
+    displayUnit="degC")
     "Dry bulb temperature in degree Celsius";
-  Real rh_per(min=0) "Relative humidity in percentage";
+  Real rh_per(
+    min=0)
+    "Relative humidity in percentage";
 
 equation
-    TDryBul_degC = TDryBul - 273.15;
-    rh_per       = 100*phi;
-    TWetBul      = 273.15 + TDryBul_degC
-       * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
-       + Modelica.Math.atan(TDryBul_degC + rh_per)
-       - Modelica.Math.atan(rh_per-1.676331)
-       + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
-
-annotation (
+  TDryBul_degC=TDryBul-273.15;
+  rh_per=100*phi;
+  TWetBul=273.15+TDryBul_degC*Modelica.Math.atan(
+    0.151977*sqrt(
+      rh_per+8.313659))+Modelica.Math.atan(
+    TDryBul_degC+rh_per)-Modelica.Math.atan(
+    rh_per-1.676331)+0.00391838*rh_per^(1.5)*Modelica.Math.atan(
+    0.023101*rh_per)-4.686035;
+  annotation (
     defaultComponentName="wetBul",
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100,-100},{100,100}}),
+      graphics={
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -51,20 +55,21 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-92,82},{-62,38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TDryBul"),
         Text(
           extent={{-90,-44},{-70,-70}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="phi"),
         Text(
           extent={{62,22},{92,-22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TWetBul"),
-        Line(points={{78,-74},{-48,-74}}),
+        Line(
+          points={{78,-74},{-48,-74}}),
         Text(
           extent={{76,-78},{86,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="T"),
@@ -72,13 +77,15 @@ annotation (
           points={{76,-46},{26,-4}},
           color={255,0,0},
           thickness=0.5),
-        Line(points={{-48,-48},{-2,-30},{28,-4},{48,32},{52,72}},
+        Line(
+          points={{-48,-48},{-2,-30},{28,-4},{48,32},{52,72}},
           color={0,0,0},
           smooth=Smooth.Bezier),
-        Line(points={{-48,84},{-48,-74}}),
+        Line(
+          points={{-48,84},{-48,-74}}),
         Text(
           extent={{-44,82},{-22,64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="X"),
@@ -97,7 +104,8 @@ annotation (
           lineColor={255,0,0},
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(info="<html>
+    Documentation(
+      info="<html>
 <p>
 This block computes the wet bulb temperature for a given dry bulb temperature, relative air humidity
 and atmospheric pressure.
@@ -127,8 +135,14 @@ Volume 50, Issue 11, pp. 2267-2269. November 2011
 DOI: 10.1175/JAMC-D-11-0143.1
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
+<li>
+November 12, 2020, by Michael Wetter:<br/>
+Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2243\">issue 2243</a>.
+</li>
 <li>
 September 29, 2020, by Michael Wetter:<br/>
 Removed unused input <code>p</code> and renamed block.<br/>

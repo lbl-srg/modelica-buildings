@@ -8,7 +8,8 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
      final C_start = fill(0, Medium.nC),
      final C_nominal = fill(1E-2, Medium.nC),
      final mSenFac = 1 + 500*mDry/(VWat*cp_nominal*Medium.density(
-        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))));
+        Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))),
+     final massDynamics=energyDynamics);
 
   constant Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(HideResult=true);
@@ -18,29 +19,29 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
   // Assumptions
 
-  parameter Modelica.SIunits.Power Q_flow_nominal
+  parameter Modelica.Units.SI.Power Q_flow_nominal
     "Nominal heating power (positive for heating)"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_a_nominal
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature T_a_nominal
     "Water inlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature T_b_nominal
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature T_b_nominal
     "Water outlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TAir_nominal = 293.15
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TAir_nominal=293.15
     "Air temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TRad_nominal = TAir_nominal
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature TRad_nominal=TAir_nominal
     "Radiative temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Real n = 1.24 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Volume VWat = 5.8E-6*abs(Q_flow_nominal)
-    "Water volume of radiator"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal)
+  parameter Modelica.Units.SI.Volume VWat=5.8E-6*abs(Q_flow_nominal)
+    "Water volume of radiator" annotation (Dialog(tab="Dynamics", enable=not (
+          energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+  parameter Modelica.Units.SI.Mass mDry=0.0263*abs(Q_flow_nominal)
     "Dry mass of radiator that will be lumped to water heat capacity"
-    annotation(Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation (Dialog(tab="Dynamics", enable=not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true,
@@ -51,19 +52,19 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa") = 0
-    "Pressure drop at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")=
+       0 "Pressure drop at nominal mass flow rate"
+    annotation (Dialog(group="Nominal condition"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Heat flow rates
-  Modelica.SIunits.HeatFlowRate QCon_flow = heatPortCon.Q_flow
+  Modelica.Units.SI.HeatFlowRate QCon_flow=heatPortCon.Q_flow
     "Heat input into the water due to convective heat transfer with room air";
-  Modelica.SIunits.HeatFlowRate QRad_flow = heatPortRad.Q_flow
+  Modelica.Units.SI.HeatFlowRate QRad_flow=heatPortRad.Q_flow
     "Heat input into the water due to radiative heat transfer with room";
-  Modelica.SIunits.HeatFlowRate Q_flow = QCon_flow + QRad_flow
+  Modelica.Units.SI.HeatFlowRate Q_flow=QCon_flow + QRad_flow
     "Heat input into the water";
 
   // Heat ports
@@ -80,7 +81,7 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each V=VWat/nEle,
     each final m_flow_nominal = m_flow_nominal,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
+    each final massDynamics=energyDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
@@ -88,28 +89,31 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
     each final mSenFac=mSenFac) "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-9,0},{11,-20}})));
 protected
-   parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
-      Medium.specificHeatCapacityCp(
-        Medium.setState_pTX(Medium.p_default, T_a_nominal, Medium.X_default))
-    "Specific heat capacity at nominal conditions";
-   parameter Modelica.SIunits.HeatFlowRate QEle_flow_nominal[nEle](
-      each fixed=false, each start=Q_flow_nominal/nEle)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp_nominal=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(
+      Medium.p_default,
+      T_a_nominal,
+      Medium.X_default)) "Specific heat capacity at nominal conditions";
+  parameter Modelica.Units.SI.HeatFlowRate QEle_flow_nominal[nEle](each fixed=
+        false, each start=Q_flow_nominal/nEle)
     "Nominal heating power of each element";
-   parameter Modelica.SIunits.Temperature TWat_nominal[nEle](
-      each fixed=false,
-      start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) for i in 1:nEle})
+  parameter Modelica.Units.SI.Temperature TWat_nominal[nEle](each fixed=false,
+      start={T_a_nominal - i/nEle*(T_a_nominal - T_b_nominal) for i in 1:nEle})
     "Water temperature in each element at nominal conditions";
-   parameter Modelica.SIunits.TemperatureDifference[nEle] dTRad_nominal(
-    each fixed=false, start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) - TRad_nominal
-    for i in 1:nEle})
+  parameter Modelica.Units.SI.TemperatureDifference[nEle] dTRad_nominal(each
+      fixed=false, start={T_a_nominal - i/nEle*(T_a_nominal - T_b_nominal) -
+        TRad_nominal for i in 1:nEle})
     "Temperature difference for radiative heat transfer at nominal conditions";
-   parameter Modelica.SIunits.TemperatureDifference[nEle] dTCon_nominal(
-    each fixed=false, start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) - TAir_nominal
-    for i in 1:nEle})
+  parameter Modelica.Units.SI.TemperatureDifference[nEle] dTCon_nominal(each
+      fixed=false, start={T_a_nominal - i/nEle*(T_a_nominal - T_b_nominal) -
+        TAir_nominal for i in 1:nEle})
     "Temperature difference for convective heat transfer at nominal conditions";
 
-   parameter Modelica.SIunits.ThermalConductance UAEle(fixed=false, min=0,
-     start=Q_flow_nominal/((T_a_nominal+T_b_nominal)/2-((1-fraRad)*TAir_nominal+fraRad*TRad_nominal))/nEle)
+  parameter Modelica.Units.SI.ThermalConductance UAEle(
+    fixed=false,
+    min=0,
+    start=Q_flow_nominal/((T_a_nominal + T_b_nominal)/2 - ((1 - fraRad)*
+        TAir_nominal + fraRad*TRad_nominal))/nEle)
     "UA value at nominal condition for each element";
 
    final parameter Real k = if T_b_nominal > TAir_nominal then 1 else -1
@@ -124,10 +128,10 @@ protected
     "Heat input into radiator from radiative heat transfer"
      annotation (Placement(transformation(extent={{-48,-80},{-28,-60}})));
 
-   Modelica.SIunits.TemperatureDifference dTCon[nEle] = {heatPortCon.T - vol[i].T for i in 1:nEle}
-    "Temperature difference for convective heat transfer";
-   Modelica.SIunits.TemperatureDifference dTRad[nEle] = {heatPortRad.T - vol[i].T for i in 1:nEle}
-    "Temperature difference for radiative heat transfer";
+  Modelica.Units.SI.TemperatureDifference dTCon[nEle]={heatPortCon.T - vol[i].T
+      for i in 1:nEle} "Temperature difference for convective heat transfer";
+  Modelica.Units.SI.TemperatureDifference dTRad[nEle]={heatPortRad.T - vol[i].T
+      for i in 1:nEle} "Temperature difference for radiative heat transfer";
 
   Modelica.Blocks.Sources.RealExpression QCon[nEle](y={if homotopyInitialization
          then homotopy(actual=(1 - fraRad) * UAEle * (heatPortCon.T - vol[i].T) *
@@ -231,13 +235,13 @@ equation
       points={{-28,-70},{-20,-70},{-20,-10},{-9,-10}},
       color={191,0,0}));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,1.11022e-15},
-          {51.5,5.55112e-16},{100,5.55112e-16}},
+      points={{2,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
+          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255}));
   for i in 1:nEle-1 loop
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
-        points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
-            {1,5.55112e-16},{-1,5.55112e-16}},
+        points={{2,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
+            {1,5.55112e-16},{0,5.55112e-16}},
         color={0,127,255}));
   end for;
   connect(QCon.y, preCon.Q_flow)                  annotation (Line(
@@ -267,7 +271,7 @@ equation
   connect(res.port_a, port_a) annotation (Line(points={{-60,0},{-80,0},{-100,0}},
                     color={0,127,255}));
   connect(res.port_b, vol[1].ports[1])
-    annotation (Line(points={{-40,0},{-1,0}},      color={0,127,255}));
+    annotation (Line(points={{-40,0},{0,0}},       color={0,127,255}));
   annotation ( Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
@@ -369,10 +373,16 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>

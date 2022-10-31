@@ -1,0 +1,19 @@
+simulateModel("Buildings.Fluid.Geothermal.Borefields.Examples.BorefieldsWithToughNoCheckGround", startTime=0, method="Cvode", tolerance=1e-6, stopTime=72000, resultFile="BorefieldsWithTough");
+createPlot(
+  id=1,
+  position={0, 0, 1268, 900},
+  y={"borFieUTub.sta_a.T", "TUTubOut.T", "TUTubOut1.T"},
+  range={0.0, 36000.0, 5.0, 35.0},
+  grid=true,
+  subPlot=1,
+  colors={{28,108,200}, {238,46,47}, {0,140,72}});
+
+
+createPlot(
+  id=1,
+  position={0, 0, 1268, 900},
+  y={"borFieUTub.port_a.m_flow"},
+  range={0.0, 36000.0, 5.0, 30.0},
+  grid=true,
+  subPlot=2,
+  colors={{28,108,200}});

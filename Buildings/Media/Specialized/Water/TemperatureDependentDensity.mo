@@ -20,13 +20,11 @@ package TemperatureDependentDensity
     each casRegistryNumber="7732-18-5",
     each iupacName="oxidane",
     each molarMass=MM_const);
-
   redeclare record extends ThermodynamicState "Thermodynamic state variables"
     Temperature T(start=T_default) "Temperature of medium";
     AbsolutePressure p(start=p_default) "Pressure of medium";
   end ThermodynamicState;
-
-  constant Modelica.SIunits.SpecificHeatCapacity cp_const = 4184
+  constant Modelica.Units.SI.SpecificHeatCapacity cp_const=4184
     "Specific heat capacity at constant pressure";
 
   redeclare model extends BaseProperties(
@@ -37,7 +35,7 @@ package TemperatureDependentDensity
     d = density(state);
     state.T = T;
     state.p = p;
-    R=Modelica.Constants.R;
+    R_s = 0;
     MM=MM_const;
     annotation(Documentation(info="<html>
     <p>
@@ -133,8 +131,8 @@ end specificEnthalpy;
 
 function enthalpyOfLiquid "Return the specific enthalpy of liquid"
   extends Modelica.Icons.Function;
-  input Modelica.SIunits.Temperature T "Temperature";
-  output Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
+    input Modelica.Units.SI.Temperature T "Temperature";
+    output Modelica.Units.SI.SpecificEnthalpy h "Specific enthalpy";
 algorithm
   h := (T - reference_T)*cp_const;
   annotation (
@@ -662,7 +660,6 @@ First implementation.
 </ul>
 </html>"));
 end setState_psX;
-
 //////////////////////////////////////////////////////////////////////
 // Protected classes.
 // These classes are only of use within this medium model.
@@ -671,12 +668,12 @@ end setState_psX;
 // medium model with another medium model that does not provide an
 // implementation of these classes.
 protected
-  final constant Modelica.SIunits.SpecificHeatCapacity cv_const = cp_const
+  final constant Modelica.Units.SI.SpecificHeatCapacity cv_const=cp_const
     "Specific heat capacity at constant volume";
 
-  constant Modelica.SIunits.VelocityOfSound a_const=1484
+  constant Modelica.Units.SI.VelocityOfSound a_const=1484
     "Constant velocity of sound";
-  constant Modelica.SIunits.MolarMass MM_const=0.018015268 "Molar mass";
+  constant Modelica.Units.SI.MolarMass MM_const=0.018015268 "Molar mass";
 
 replaceable function der_specificHeatCapacityCp
     "Return the derivative of the specific heat capacity at constant pressure"
@@ -734,8 +731,8 @@ end der_enthalpyOfLiquid;
 function kinematicViscosity "Return the kinematic viscosity"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Temperature T "Temperature";
-  output Modelica.SIunits.KinematicViscosity kinVis "Kinematic viscosity";
+    input Modelica.Units.SI.Temperature T "Temperature";
+    output Modelica.Units.SI.KinematicViscosity kinVis "Kinematic viscosity";
 algorithm
   kinVis := smooth(1,
   if T < 278.15 then
@@ -786,7 +783,6 @@ but converted from Celsius to Kelvin.
 </ul>
 </html>"));
 end kinematicViscosity;
-
 annotation(preferredView="info", Documentation(info="<html>
 <p>
 This medium package models liquid water.
@@ -863,6 +859,12 @@ Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2022, by Michael Wetter:<br/>
+Corrected assignment of <code>R_s</code> in <code>BaseProperties</code> to avoid a unit error.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1603\">#1603</a>.
+</li>
 <li>
 July 7, 2016, by Carles Ribas Tugores:<br/>
 Correct Documentation. This is for
@@ -949,6 +951,6 @@ First implementation.
           fillColor={95,95,95}),
         Text(
           extent={{-64,88},{-42,58}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="T")}));
 end TemperatureDependentDensity;

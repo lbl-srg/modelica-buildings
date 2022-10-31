@@ -1,20 +1,16 @@
 within Buildings.Media.Refrigerants.R410A;
 function enthalpySatLiq_T
   "Function that calculates the enthalpy of saturated liquid R410A based on temperature"
-  input Modelica.SIunits.Temperature T
-    "Temperature of refrigerant";
-  output Modelica.SIunits.SpecificEnthalpy h
+  input Modelica.Units.SI.Temperature T "Temperature of refrigerant";
+  output Modelica.Units.SI.SpecificEnthalpy h
     "Specific enthalpy of saturated liquid refrigerant";
 
 protected
-  final Real a[:] = {221.1749, -514.9668, -631.625, -262.2749, 1052.0, 1596.0}
+  final constant Real a[:] = {221.1749, -514.9668, -631.625, -262.2749, 1052.0, 1596.0}
     "Coefficients for polynomial equation";
 
-  final Real x0 = 0.5541498
+  final constant Real x0 = 0.5541498
     "x0 for saturation pressure of liquid refrigerant";
-
-  final Modelica.SIunits.Temperature TCri = 345.25
-    "Critical temperature of refrigerant";
 
   Real x
     "Independent variable";

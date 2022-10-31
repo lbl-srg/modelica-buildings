@@ -13,7 +13,7 @@ annotation (
 defaultComponentName="lim",
 Documentation(info="<html>
 <p>
-Block that computes <i>y_internal=min(uMax, max(uMin, u)</i>,
+Block that computes <i>y_internal=min(uMax, max(uMin, u))</i>,
 where <code>y_internal</code> is a protected connector.
 </p>
 <p>
@@ -55,7 +55,7 @@ First implementation.
     Text(
       extent={{-150,-150},{150,-110}},
           textString="%uMin <= u <= %uMax",
-          lineColor={0,0,0})}),
+          textColor={0,0,0})}),
     Diagram(coordinateSystem(
     preserveAspectRatio=true,
     extent={{-100,-100},{100,100}})));

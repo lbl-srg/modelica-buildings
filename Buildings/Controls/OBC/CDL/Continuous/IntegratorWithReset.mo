@@ -1,74 +1,81 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block IntegratorWithReset "Output the integral of the input signal"
-
-  parameter Real k(unit="1")=1 "Integrator gain";
-  parameter Real y_start=0 "Initial or guess value of output (= state)"
+block IntegratorWithReset
+  "Output the integral of the input signal"
+  parameter Real k=1
+    "Integrator gain";
+  parameter Real y_start=0
+    "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u "Connector of Real input signal"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y_reset_in
     "Input signal for state to which integrator is reset"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
     "Resets the integrator output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120}),iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={0,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 initial equation
-  y = y_start;
+  y=y_start;
 
 equation
-  der(y) = k*u;
+  der(y)=k*u;
   when trigger then
-    reinit(y, y_reset_in);
+    reinit(
+      y,
+      y_reset_in);
   end when;
-
-annotation (
-defaultComponentName="intWitRes",
-Icon(coordinateSystem(
-          preserveAspectRatio=true,
-          extent={{-100.0,-100.0},{100.0,100.0}}),
-        graphics={
+  annotation (
+    defaultComponentName="intWitRes",
+    Icon(
+      coordinateSystem(
+        preserveAspectRatio=true,
+        extent={{-100.0,-100.0},{100.0,100.0}}),
+      graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
-          Text(
-            extent={{-88,-94},{212,-54}},
-          lineColor={0,0,0},
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-88,-94},{212,-54}},
+          textColor={0,0,0},
           textString="y_reset_in",
-          visible= (reset == Types.Reset.Input),
           horizontalAlignment=TextAlignment.Left),
-        Bitmap(extent={{-54,-50},{60,50}}, fileName=
-              "modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/int.png"),
-          Text(
-            extent={{-88,56},{206,92}},
-          lineColor={0,0,0},
+        Bitmap(
+          extent={{-54,-50},{60,50}},
+          fileName="modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/int.png"),
+        Text(
+          extent={{-88,56},{206,92}},
+          textColor={0,0,0},
           textString="k=%k",
           horizontalAlignment=TextAlignment.Left),
-          Text(
-            extent={{-92,-12},{208,28}},
-          lineColor={0,0,0},
+        Text(
+          extent={{-92,-12},{208,28}},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="u"),
-          Text(
-            extent={{70,-14},{370,26}},
-          lineColor={0,0,0},
+        Text(
+          extent={{70,-14},{370,26}},
+          textColor={0,0,0},
           horizontalAlignment=TextAlignment.Left,
           textString="y"),
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{226,60},{106,10}},
-          lineColor={0,0,0},
-          textString=DynamicSelect("", String(y, leftjustified=false, significantDigits=3)))}),
-    Documentation(info="<html>
+          textColor={0,0,0},
+          textString=DynamicSelect("",String(y,
+            leftJustified=false,
+            significantDigits=3)))}),
+    Documentation(
+      info="<html>
 <p>
 This model is similar to
 <a href=\"modelica://Modelica.Blocks.Continuous.Integrator\">
@@ -94,8 +101,19 @@ To adjust the icon layer, the code of
 Modelica.Blocks.Continuous.Integrator</a>
 has been copied into this model rather than extended.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
+<li>
+February 2, 2022, by Michael Wetter:<br/>
+Removed <code>unit=\"1\"</code> declaration for gain <code>k</code>.
+This is to avoid the warning observed in
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2872\">#2872</a>.
+</li>
+<li>
+October 21, 2021, by Michael Wetter:<br/>
+Removed errorneous <code>visible</code> attribute in icon.
+</li>
 <li>
 August 3, 2020, by Jianjun:<br/>
 Fixed the input <code>y_reset_in</code>.

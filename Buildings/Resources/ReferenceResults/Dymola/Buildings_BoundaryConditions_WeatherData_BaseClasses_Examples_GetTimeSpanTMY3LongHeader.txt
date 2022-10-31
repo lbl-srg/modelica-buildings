@@ -1,0 +1,10 @@
+last-generated=2021-01-27
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+timeSpan[2]=[1.44e+04, 1.44e+04]
+timeSpan[1]=[0e+00, 0e+00]

@@ -30,7 +30,8 @@ model EntropyFlowRate "Test model for the entropy flow rate sensors"
 
   Buildings.Fluid.Sensors.SpecificEntropyTwoPort  senS(
     redeclare package Medium = Medium,
-    m_flow_nominal=2) "Specific entropy sensor"
+    m_flow_nominal=2,
+    tau=0)            "Specific entropy sensor"
                 annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(
     redeclare package Medium = Medium) "Mass flow rate sensor"

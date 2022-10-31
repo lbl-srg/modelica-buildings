@@ -3,13 +3,13 @@ function finiteLineSource
   "Finite line source solution of Claesson and Javed"
   extends Modelica.Icons.Function;
 
-  input Modelica.SIunits.Time t "Time";
-  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity";
-  input Modelica.SIunits.Distance dis "Radial distance between borehole axes";
-  input Modelica.SIunits.Height len1 "Length of emitting borehole";
-  input Modelica.SIunits.Height burDep1 "Buried depth of emitting borehole";
-  input Modelica.SIunits.Height len2 "Length of receiving borehole";
-  input Modelica.SIunits.Height burDep2 "Buried depth of receiving borehole";
+  input Modelica.Units.SI.Time t "Time";
+  input Modelica.Units.SI.ThermalDiffusivity aSoi "Ground thermal diffusivity";
+  input Modelica.Units.SI.Distance dis "Radial distance between borehole axes";
+  input Modelica.Units.SI.Height len1 "Length of emitting borehole";
+  input Modelica.Units.SI.Height burDep1 "Buried depth of emitting borehole";
+  input Modelica.Units.SI.Height len2 "Length of receiving borehole";
+  input Modelica.Units.SI.Height burDep2 "Buried depth of receiving borehole";
   input Boolean includeRealSource = true "True if contribution of real source is included";
   input Boolean includeMirrorSource = true "True if contribution of mirror source is included";
 
@@ -19,9 +19,9 @@ protected
   Real lowBou(unit="m-1") "Lower bound of integration";
   // Upper bound is infinite
   Real uppBou(unit="m-1") = max(100.0, 10.0/dis) "Upper bound of integration";
-  Modelica.SIunits.Distance disMin
+  Modelica.Units.SI.Distance disMin
     "Minimum distance between sources and receiving line";
-  Modelica.SIunits.Time timTre "Time treshold for evaluation of the solution";
+  Modelica.Units.SI.Time timTre "Time treshold for evaluation of the solution";
 
 algorithm
 

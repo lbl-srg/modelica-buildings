@@ -53,12 +53,11 @@ for different media and with mass fraction <code>X</code> prescribed by an input
 September 13, 2019 by Michael Wetter:<br/>
 First implementation.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">Buildings, #1205</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1205\">IBPSA, #1205</a>.
 </li>
 </ul>
 </html>"),
-__Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithX_in.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Validation/BoundaryWithX_in.mos"
         "Simulate and plot"),
 experiment(
       StopTime=1,

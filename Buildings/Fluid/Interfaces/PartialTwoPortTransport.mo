@@ -6,9 +6,9 @@ partial model PartialTwoPortTransport
   // Advanced
   // Note: value of dp_start shall be refined by derived model,
   // based on local dp_nominal
-  parameter Modelica.SIunits.PressureDifference dp_start(displayUnit="Pa") = 0
+  parameter Modelica.Units.SI.PressureDifference dp_start(displayUnit="Pa") = 0
     "Guess value of dp = port_a.p - port_b.p"
-    annotation(Dialog(tab = "Advanced"));
+    annotation (Dialog(tab="Advanced"));
   parameter Medium.MassFlowRate m_flow_start = 0
     "Guess value of m_flow = port_a.m_flow"
     annotation(Dialog(tab = "Advanced"));
@@ -21,32 +21,34 @@ partial model PartialTwoPortTransport
   // Diagnostics
   parameter Boolean show_T = true
     "= true, if temperatures at port_a and port_b are computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    annotation (
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
   parameter Boolean show_V_flow = true
     "= true, if volume flow rate at inflowing port is computed"
-    annotation(Dialog(tab="Advanced",group="Diagnostics"));
+    annotation (
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
 
   // Variables
   Medium.MassFlowRate m_flow(
      min=if allowFlowReversal then -Modelica.Constants.inf else 0,
      start = m_flow_start) "Mass flow rate in design flow direction";
-  Modelica.SIunits.PressureDifference dp(start=dp_start,
-                                         displayUnit="Pa")
+  Modelica.Units.SI.PressureDifference dp(start=dp_start, displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
 
-  Modelica.SIunits.VolumeFlowRate V_flow=
-      m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
-                  Medium.density(
-                    Medium.setState_phX(
-                      p = port_a.p,
-                      h = inStream(port_a.h_outflow),
-                      X = inStream(port_a.Xi_outflow))),
-                  Medium.density(
-                       Medium.setState_phX(
-                         p = port_b.p,
-                         h = inStream(port_b.h_outflow),
-                         X = inStream(port_b.Xi_outflow))),
-                  m_flow_small) if show_V_flow
+  Modelica.Units.SI.VolumeFlowRate V_flow=m_flow/
+      Modelica.Fluid.Utilities.regStep(
+      m_flow,
+      Medium.density(Medium.setState_phX(
+        p=port_a.p,
+        h=inStream(port_a.h_outflow),
+        X=inStream(port_a.Xi_outflow))),
+      Medium.density(Medium.setState_phX(
+        p=port_b.p,
+        h=inStream(port_b.h_outflow),
+        X=inStream(port_b.Xi_outflow))),
+      m_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
 
   Medium.Temperature port_a_T=
@@ -116,11 +118,17 @@ This is similar to
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>
 except that it does not use the <code>outer system</code> declaration.
 This declaration is omitted as in building energy simulation,
-many models use multiple media, an in practice,
+many models use multiple media, and in practice,
 users have not used this global definition to assign parameters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 30, 2021, by Michael Wetter:<br/>
+Added annotation <code>HideResult=true</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1459\">IBPSA, #1459</a>.
+</li>
 <li>
 September 15, 2016, by Michael Wetter:<br/>
 Removed wrong annotation, which caused an error in the pedantic model check

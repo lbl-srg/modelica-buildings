@@ -18,9 +18,10 @@ model EquationFitReversible
             {70,92}})));
   parameter Real scaling_factor = 1
    "Scaling factor for heat pump capacity";
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_small = per.hea.Q_flow*scaling_factor*1E-9
-   "Small value for heat flow rate or power, used to avoid division by zero"
-   annotation(Dialog(tab="Advanced"));
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_small=per.hea.Q_flow*
+      scaling_factor*1E-9
+    "Small value for heat flow rate or power, used to avoid division by zero"
+    annotation (Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.IntegerInput uMod
    "Control input signal, cooling mode=-1, off=0, heating mode=+1"
@@ -56,12 +57,11 @@ model EquationFitReversible
   output Real PLR(min=0, nominal=1, unit="1") = equFit.PLR
    "Part load ratio";
 protected
-  constant Modelica.SIunits.SpecificEnergy h1_default=
-     Medium1.specificEnthalpy_pTX(
-       Medium1.p_default,
-       Medium1.T_default,
-       Medium1.X_default)
-  "Default enthalpy for Medium 1";
+  constant Modelica.Units.SI.SpecificEnergy h1_default=
+      Medium1.specificEnthalpy_pTX(
+      Medium1.p_default,
+      Medium1.T_default,
+      Medium1.X_default) "Default enthalpy for Medium 1";
 
   Modelica.Blocks.Sources.RealExpression mLoa_flow(y=port_a1.m_flow)
    "Load-side mass flow rate"
@@ -69,18 +69,14 @@ protected
   Modelica.Blocks.Sources.RealExpression mSou_flow(y=port_a2.m_flow)
    "Source-side mass flow rate"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.SIunits.SpecificEnthalpy hSet=
-    if uMod == 0
-    then
-      h1_default
-    else
+  Modelica.Units.SI.SpecificEnthalpy hSet=if uMod == 0 then h1_default else
       Medium1.specificEnthalpy_pTX(
-              p=port_b1.p,
-              T=TSet,
-              X=cat(1,
-                    port_b1.Xi_outflow,
-                    {1 - sum(port_b1.Xi_outflow)}))
-   "Enthalpy corresponding to set point";
+      p=port_b1.p,
+      T=TSet,
+      X=cat(
+        1,
+        port_b1.Xi_outflow,
+        {1 - sum(port_b1.Xi_outflow)})) "Enthalpy corresponding to set point";
   Modelica.Blocks.Sources.RealExpression TSouEnt(
     final y=Medium2.temperature(
       Medium2.setState_phX(port_a2.p,
@@ -121,8 +117,8 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert aleMes(
-    message="uMod cannot be -1 if reverseCycle is false.") if
-         not per.reverseCycle
+    message="uMod cannot be -1 if reverseCycle is false.")
+      if not per.reverseCycle
     "Generate alert message if control input is not valid"
     annotation (Placement(transformation(extent={{-52,-90},{-32,-70}})));
 
@@ -216,8 +212,7 @@ equation
           lineThickness=0.5),
         Rectangle(
           extent={{-44,50},{-40,10}},
-          lineColor={ERROR,
-                          0,0},
+          lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Rectangle(
@@ -330,7 +325,7 @@ The corresponding power consumption is
   + &beta;<sub>2</sub> T<sub>loa,ent</sub>/T<sub>RefHeaLoa</sub>
   + &beta;<sub>3</sub> T<sub>sou,ent</sub>/T<sub>RefHeaSou</sub>
   + &beta;<sub>4</sub> m&#775;<sub>loa,ent</sub>/(m&#775;<sub>loa,0</sub> &nbsp; s)
-  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/(m&#775;<sub>sou,0</sub> &nbsp; s) &nbsp; P<sub>0</sub> &nbsp; s,
+  + &beta;<sub>5</sub> m&#775;<sub>sou,ent</sub>/(m&#775;<sub>sou,0</sub> &nbsp; s) ) &nbsp; P<sub>0</sub> &nbsp; s,
 </p>
 <p>
 where <i>P<sub>0</sub></i> is the design power consumption as specified by the parameter

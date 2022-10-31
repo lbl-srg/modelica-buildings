@@ -9,9 +9,8 @@ model Haldi2008BlindsTIn
   Modelica.Blocks.Sources.Sine TIn(
     amplitude=15,
     offset=293,
-    freqHz=0.001,
-    y(unit="K",
-    displayUnit="degC")) "Indoor temperature"
+    f=0.001,
+    y(unit="K", displayUnit="degC")) "Indoor temperature"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Occupants.Office.Blinds.Haldi2008BlindsTIn bli     "Tested blinds model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

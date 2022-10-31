@@ -1,6 +1,6 @@
 within Buildings.Controls.DemandResponse.BaseClasses;
 block NormalOperation "Normal operation"
-  extends Modelica.StateGraph.StepWithSignal;
+  extends Modelica.StateGraph.StepWithSignal(nIn=1, nOut=1);
   Modelica.Blocks.Interfaces.RealInput PCon(unit="W")
     "Consumed electrical power"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
@@ -14,7 +14,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
           extent={{-70,64},{74,-54}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="N")}),    Documentation(info="<html>
 <p>
 Block that outputs the currently consumed electrical power,

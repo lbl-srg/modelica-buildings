@@ -6,13 +6,13 @@ model VariableSpeedEnergyPlus
   package MediumAir = Buildings.Media.Air;
   package MediumWater = Buildings.Media.Water;
 
- parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
+  parameter Modelica.Units.SI.Power Q_flow_nominal=datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[1].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dpEva_nominal = 1000
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal=1000
     "Pressure drop at m_flow_nominal";
- parameter Modelica.SIunits.PressureDifference dpCon_nominal = 40000
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal=40000
     "Pressure drop at mCon_flow_nominal";
 
   VariableSpeed varSpeDX(
@@ -27,7 +27,7 @@ model VariableSpeedEnergyPlus
     "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
- Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
+ parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi(
   nSta=10,minSpeRat=0.1,
     sta={Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage(
         spe=500/60,

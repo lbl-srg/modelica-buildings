@@ -30,27 +30,18 @@ partial model PartialChillerWSE
   parameter Real[2] lValChi(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real[2] kFixedValChi(each unit="",each min=0)=
-    {m1_flow_chi_nominal,m2_flow_chi_nominal} ./ sqrt({dp1_chi_nominal,dp2_chi_nominal})
-    "Flow coefficient of fixed resistance that may be in series with valves
-    in chillers, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Two-way valve"));
   parameter Real[numChi] yValChi_start=fill(0,numChi)
     "Initial value of output from on/off valves in chillers"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
   //WSE
-  parameter Modelica.SIunits.Efficiency eta(min=0,max=1)=0.8
-    "Heat exchange effectiveness"
-    annotation(Dialog(group="Waterside economizer"));
+  parameter Modelica.Units.SI.Efficiency eta(
+    min=0,
+    max=1) = 0.8 "Heat exchange effectiveness"
+    annotation (Dialog(group="Waterside economizer"));
 
   parameter Real[2] lValWSE(each min=1e-10, each max=1) = {0.0001,0.0001}
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Two-way valve"));
-  parameter Real[2] kFixedValWSE(each unit="", each min=0)=
-    {m1_flow_wse_nominal/ sqrt(dp1_wse_nominal),0}
-    "Flow coefficient of fixed resistance that may be in series with valves
-    in WSE, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Two-way valve"));
   parameter Real yValWSE_start=0
     "Initial value of output from on/off valve in WSE"
@@ -62,23 +53,24 @@ partial model PartialChillerWSE
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.SIunits.Time tauChi1 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller",
-                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauChi2 = 30
-    "Time constant at nominal flow in chillers"
-     annotation (Dialog(tab = "Dynamics", group="Chiller",
-                 enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
-  parameter Modelica.SIunits.Time tauWSE = 10
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+
+  parameter Modelica.Units.SI.Time tauChi1=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Chiller",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauChi2=30
+    "Time constant at nominal flow in chillers" annotation (Dialog(
+      tab="Dynamics",
+      group="Chiller",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauWSE=10
     "Time constant at nominal flow for dynamic energy and momentum balance of the three-way valve"
-    annotation(Dialog(tab="Dynamics", group="Waterside economizer",
-               enable= use_controller and not energyDynamics ==
-               Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Waterside economizer",
+      enable=use_controller and not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
 
   // Initialization
   parameter Medium1.AbsolutePressure p1_start = Medium1.p_default
@@ -123,11 +115,11 @@ partial model PartialChillerWSE
                enable=Medium2.nC > 0));
 
   // Temperature sensor
-  parameter Modelica.SIunits.Time tauSenT=1
-    "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
-    but see user guide for potential problems)"
-   annotation(Dialog(tab="Dynamics", group="Temperature Sensor",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+  parameter Modelica.Units.SI.Time tauSenT=1 "Time constant at nominal flow rate (use tau=0 for steady-state sensor,
+    but see user guide for potential problems)" annotation (Dialog(
+      tab="Dynamics",
+      group="Temperature Sensor",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   parameter Modelica.Blocks.Types.Init initTSenor = Modelica.Blocks.Types.Init.InitialState
     "Type of initialization of the temperature sensor (InitialState and InitialOutput are identical)"
   annotation(Evaluate=true, Dialog(tab="Dynamics", group="Temperature Sensor"));
@@ -147,7 +139,7 @@ partial model PartialChillerWSE
     "Electric power consumed by chiller compressor"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.ElectricChillerParallel chiPar(
+  Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel chiPar(
     redeclare final replaceable package Medium1 = Medium1,
     redeclare final replaceable package Medium2 = Medium2,
     final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -174,7 +166,6 @@ partial model PartialChillerWSE
     final tau1=tauChi1,
     final tau2=tauChi2,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p1_start=p1_start,
     final T1_start=T1_start,
     final X1_start=X1_start,
@@ -186,7 +177,6 @@ partial model PartialChillerWSE
     final C2_start=C2_start,
     final C2_nominal=C2_nominal,
     final l=lValChi,
-    final kFixed=kFixedValChi,
     final dp2_nominal=dp2_chi_nominal,
     final dpValve_nominal=dpValve_nominal[1:2],
     final rhoStd=rhoStd[1:2],
@@ -213,12 +203,10 @@ partial model PartialChillerWSE
     final deltaM2=deltaM2,
     final homotopyInitialization=homotopyInitialization,
     final l=lValWSE,
-    final kFixed=kFixedValWSE,
     final use_inputFilter=use_inputFilter,
     final riseTimeValve=riseTimeValve,
     final initValve=initValve,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final p_start=p2_start,
     final T_start=T2_start,
     final X_start=X2_start,
@@ -269,6 +257,20 @@ partial model PartialChillerWSE
     "Temperature sensor"
     annotation (Placement(transformation(extent={{28,14},{8,34}})));
 
+  Fluid.FixedResistances.Junction spl1(
+    redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-m1_flow_wse_nominal,-numChi*
+        m1_flow_chi_nominal},
+    dp_nominal={0,0,0}) "Splitter"
+    annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
+  Fluid.FixedResistances.Junction jun1(
+    redeclare package Medium = Medium1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    m_flow_nominal={numChi*m1_flow_chi_nominal,-numChi*m1_flow_chi_nominal,
+        m1_flow_wse_nominal},
+    dp_nominal={0,0,0}) "Junction"
+    annotation (Placement(transformation(extent={{70,50},{90,70}})));
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -286,18 +288,6 @@ equation
   connect(chiPar.TSet, TSet)
     annotation (Line(points={{-62,30},{-84,30},{-84,104},{-120,104}},
                 color={0,0,127}));
-  connect(port_a1, chiPar.port_a1)
-    annotation (Line(points={{-100,60},{-80,60},{-72,60},{-72,36},{-60,36}},
-                color={0,127,255}));
-  connect(chiPar.port_b1, port_b1)
-    annotation (Line(points={{-40,36},{-20,36},{-20,60},{100,60}},
-                color={0,127,255}));
-  connect(wse.port_b1, port_b1)
-    annotation (Line(points={{60,36},{80,36},{80,60},{100,60}},color={0,127,255}));
-  connect(port_a1, wse.port_a1)
-    annotation (Line(points={{-100,60},{-100,60},{-72,60},{-72,56},{34,56},{34,
-          36},{40,36}},
-                color={0,127,255}));
   connect(TSet, wse.TSet)
     annotation (Line(points={{-120,104},{-84,104},{-84,80},
           {26,80},{26,30},{38,30}}, color={0,0,127}));
@@ -308,12 +298,24 @@ equation
     annotation (Line(points={{-60,-100},{-60,-100},{-60,-80},{-88,-80},{-88,8},
           {44,8},{44,20}},              color={255,0,255}));
   connect(senTem.T,TCHWSupWSE)
-    annotation (Line(points={{18,35},{18,35},{18,48},{86,48},{86,40},{110,40}},
+    annotation (Line(points={{18,35},{18,46},{86,46},{86,40},{110,40}},
                            color={0,0,127}));
   connect(wse.port_b2, senTem.port_a)
     annotation (Line(points={{40,24},{34,24},{28,24}}, color={0,127,255}));
-  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,52},{
-          90,52},{90,0},{110,0}}, color={0,0,127}));
+  connect(chiPar.P, powChi) annotation (Line(points={{-39,32},{-6,32},{-6,48},{
+          90,48},{90,0},{110,0}}, color={0,0,127}));
+  connect(port_a1, spl1.port_1) annotation (Line(points={{-100,60},{-88,60},{
+          -88,56},{-80,56}}, color={0,127,255}));
+  connect(spl1.port_3, chiPar.port_a1)
+    annotation (Line(points={{-70,46},{-70,36},{-60,36}}, color={0,127,255}));
+  connect(spl1.port_2, wse.port_a1) annotation (Line(points={{-60,56},{36,56},{
+          36,36},{40,36}}, color={0,127,255}));
+  connect(port_b1, jun1.port_2)
+    annotation (Line(points={{100,60},{90,60}}, color={0,127,255}));
+  connect(jun1.port_3, wse.port_b1)
+    annotation (Line(points={{80,50},{80,36},{60,36}}, color={0,127,255}));
+  connect(chiPar.port_b1, jun1.port_1) annotation (Line(points={{-40,36},{-30,
+          36},{-30,60},{70,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{24,2},{64,0}},
@@ -454,7 +456,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{6,16},{16,8}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textStyle={TextStyle.Bold},
@@ -475,6 +477,18 @@ inclduing chillers and integrated/non-integrated water-side economizers.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab,
+added assertion and changed type from <code>record</code> to <code>block</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
+<li>
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Removed <code>kFixed</code> redundancies. See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

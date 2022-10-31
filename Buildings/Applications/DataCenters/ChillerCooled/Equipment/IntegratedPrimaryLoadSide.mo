@@ -12,10 +12,12 @@ model IntegratedPrimaryLoadSide
             Medium2.density_pTX(101325, 273.15+4, Medium2.X_default)});
 
  //Dynamics
-  parameter Modelica.SIunits.Time tauPump = 1
+  parameter Modelica.Units.SI.Time tauPump=1
     "Time constant of fluid volume for nominal flow in pumps, used if energy or mass balance is dynamic"
-     annotation (Dialog(tab = "Dynamics", group="Pump",
-     enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=not energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState));
   //Pump
   parameter Integer numPum = numChi "Number of pumps"
     annotation(Dialog(group="Pump"));
@@ -26,9 +28,12 @@ model IntegratedPrimaryLoadSide
   parameter Boolean addPowerToMedium = true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation (Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump = 30
+  parameter Modelica.Units.SI.Time riseTimePump=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
-    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered speed",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init initPum = initValve
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
@@ -40,10 +45,6 @@ model IntegratedPrimaryLoadSide
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   parameter Real lValPum = 0.0001
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
-    annotation(Dialog(group="Pump"));
-  parameter Real kFixedValPum = pum.m_flow_nominal/sqrt(pum.dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
     annotation(Dialog(group="Pump"));
   Modelica.Blocks.Interfaces.RealInput yPum[numPum](
     each final unit = "1",
@@ -58,7 +59,7 @@ model IntegratedPrimaryLoadSide
     "Electrical power consumed by the pumps"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
-  Buildings.Applications.DataCenters.ChillerCooled.Equipment.FlowMachine_y pum(
+  Buildings.Applications.BaseClasses.Equipment.FlowMachine_y pum(
     redeclare final package Medium = Medium2,
     final p_start=p2_start,
     final T_start=T2_start,
@@ -70,7 +71,6 @@ model IntegratedPrimaryLoadSide
     final per=perPum,
     addPowerToMedium=addPowerToMedium,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final use_inputFilter=use_inputFilter,
     final init=initPum,
     final tau=tauPump,
@@ -84,29 +84,35 @@ model IntegratedPrimaryLoadSide
     final riseTimeValve=riseTimeValve,
     final yValve_start=yValPum_start,
     final l=lValPum,
-    final kFixed=kFixedValPum,
     final yPump_start=yPum_start,
     final from_dp=from_dp2,
     final homotopyInitialization=homotopyInitialization,
     final linearizeFlowResistance=linearizeFlowResistance2)
     "Pumps"
-    annotation (Placement(transformation(extent={{10,-50},{-10,-30}})));
+    annotation (Placement(transformation(extent={{0,-30},{-20,-10}})));
 
 equation
-  connect(val5.port_b, pum.port_a)
-    annotation (Line(points={{40,-20},{20,-20},{20,-40},{10,-40}},
-                          color={0,127,255}));
-  connect(pum.port_b,val6.port_a)
-    annotation (Line(points={{-10,-40},{-20,-40},{-20,-20},{-40,-20}},
-                                color={0,127,255}));
   connect(yPum, pum.u)
-    annotation (Line(points={{-120,-40},{-30,-40},{-30,-28},{
-          18,-28},{18,-36},{12,-36}}, color={0,0,127}));
-  connect(pum.P, powPum) annotation (Line(points={{-11,-36},{-14,-36},{-14,-66},
-          {86,-66},{86,-40},{110,-40}},
+    annotation (Line(points={{-120,-40},{10,-40},{10,-16},{2,-16}},
                                       color={0,0,127}));
+  connect(pum.P, powPum) annotation (Line(points={{-21,-16},{-22,-16},{-22,-2},
+          {90,-2},{90,-40},{110,-40}},color={0,0,127}));
+  connect(val5.port_b, pum.port_a)
+    annotation (Line(points={{40,-20},{0,-20}}, color={0,127,255}));
+  connect(pum.port_b, val6.port_a)
+    annotation (Line(points={{-20,-20},{-30,-20}}, color={0,127,255}));
+  connect(chiPar.port_a2, val6.port_a) annotation (Line(points={{-40,24},{-26,
+          24},{-26,-20},{-30,-20}}, color={0,127,255}));
+  connect(senTem.port_b, pum.port_a) annotation (Line(points={{8,24},{6,24},{6,
+          -20},{0,-20}}, color={0,127,255}));
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+April 26, 2021, by Kathryn Hinkelman:<br/>
+Added junctions and removed <code>kFixed</code> redundancies.<br/>
+See
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1472\">IBPSA, #1472</a>.
+</li>
 <li>
 January 12, 2019, by Michael Wetter:<br/>
 Removed wrong use of <code>each</code>.

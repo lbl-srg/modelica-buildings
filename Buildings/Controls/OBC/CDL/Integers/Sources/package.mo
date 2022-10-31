@@ -1,13 +1,14 @@
 within Buildings.Controls.OBC.CDL.Integers;
 package Sources "Package with blocks that generate source signals"
-
-annotation (
-Documentation(
-info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Package with blocks that generate signals.
 </p>
-</html>"), Icon(graphics={
+</html>"),
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},
@@ -18,14 +19,15 @@ Package with blocks that generate signals.
           lineColor={128,128,128},
           extent={{-100,-100},{100,100}},
           radius=25.0),
-        Polygon(origin={23.3333,0},
+        Polygon(
+          origin={23.3333,0},
           fillColor={128,128,128},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-23.333,30.0},{46.667,0.0},{-23.333,-30.0}}),
         Rectangle(
-          fillColor = {128,128,128},
-          pattern = LinePattern.None,
-          fillPattern = FillPattern.Solid,
+          fillColor={128,128,128},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
           extent={{-70,-4.5},{0,4.5}})}));
 end Sources;

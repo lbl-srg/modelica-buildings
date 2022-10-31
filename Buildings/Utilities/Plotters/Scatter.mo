@@ -71,13 +71,13 @@ equation
     Icon(graphics={
         Text(
           extent={{48,-70},{74,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           textString="x"),
         Text(
           extent={{-102,96},{-76,72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid,
           textString="y"),

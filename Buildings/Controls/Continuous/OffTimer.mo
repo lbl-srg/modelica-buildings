@@ -9,7 +9,7 @@ model OffTimer "Records the time since the input changed to false"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.Units.SI.Time entryTime "Time instant when u became true";
 initial equation
   pre(entryTime) = time;
 equation

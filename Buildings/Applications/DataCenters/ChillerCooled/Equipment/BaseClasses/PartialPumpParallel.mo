@@ -19,15 +19,18 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   parameter Boolean addPowerToMedium=false
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
     annotation(Dialog(group="Pump"));
-  parameter Modelica.SIunits.Time tau = 1
+  parameter Modelica.Units.SI.Time tau=1
     "Time constant at nominal flow (if energyDynamics <> SteadyState)"
-     annotation (Dialog(tab = "Dynamics", group="Pump"));
+    annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Boolean use_inputFilter=true
     "= true, if speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.SIunits.Time riseTimePump= 30
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+  parameter Modelica.Units.SI.Time riseTimePump=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
@@ -37,13 +40,12 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Real kFixed=m_flow_nominal/sqrt(dpValve_nominal)
-    "Flow coefficient of fixed resistance that may be in series with valve,
-    k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)."
-    annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.SIunits.Time riseTimeValve = 120
-    "Rise time of the filter (time to reach 99.6 % of the speed)"
-    annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
+  parameter Modelica.Units.SI.Time riseTimeValve=120
+    "Rise time of the filter (time to become 99.6 % open)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Valve",
+      enable=use_inputFilter));
   parameter Real[num] yValve_start = fill(0,num)
     "Initial value of pump signals"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
@@ -51,10 +53,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   // Dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
@@ -111,9 +110,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTimePump,
     each final init=init,
-    final y_start= yPump_start,
     each final energyDynamics=energyDynamics,
-    each final massDynamics=massDynamics,
     each final p_start=p_start,
     each final T_start=T_start,
     each final X_start=X_start,
@@ -125,7 +122,6 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     redeclare each final replaceable package Medium = Medium,
     each final dpFixed_nominal=0,
     each final l=l,
-    each final kFixed=kFixed,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final allowFlowReversal=allowFlowReversal,
     each final show_T=show_T,
@@ -169,9 +165,9 @@ equation
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
   connect(booToRea.y, val.y)
-    annotation (Line(points={{41,60},{50,60},{50,12}}, color={0,0,127}));
+    annotation (Line(points={{42,60},{50,60},{50,12}}, color={0,0,127}));
   connect(hys.y, booToRea.u)
-    annotation (Line(points={{1,60},{18,60}}, color={255,0,255}));
+    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
   connect(hys.u, u) annotation (Line(points={{-22,60},{-62,60},{-62,40},{-120,40}},
         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -244,6 +240,13 @@ equation
           origin={-60,0},
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Moved <code>massDynamics</code> to <code>Advanced</code> tab and
+added assertion for correct combination of energy and mass dynamics.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

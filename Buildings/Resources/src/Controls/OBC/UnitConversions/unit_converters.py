@@ -264,10 +264,10 @@ class UnitConversionsModeler(object):
             'multiplier' : '1./0.000471947',
             'validation_input' : ['100.*0.000471947', '2000.*0.000471947'],
             'validation_output' : ['100.', '2000.']},
-            # work
+            # Energy
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'British thermal units',
             'unit_symbol' : 'Btu',
             'direction' : 'From',
@@ -276,8 +276,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.', '2.'],
             'validation_output' : ['1.*1055.056', '2.*1055.056']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'British thermal units',
             'unit_symbol' : 'Btu',
             'direction' : 'To',
@@ -286,8 +286,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.*1055.056', '2.*1055.056'],
             'validation_output' : ['1.', '2.']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'quads',
             'unit_symbol' : 'quad',
             'direction' : 'From',
@@ -296,8 +296,8 @@ class UnitConversionsModeler(object):
             'validation_input' : ['1.', '2.'],
             'validation_output' : ['1.*1055.56e15', '2.*1055.56e15']},
             {
-            'quantity' : 'work',
-            'modelica_quantity' : 'Work',
+            'quantity' : 'energy',
+            'modelica_quantity' : 'Energy',
             'unit' : 'quads',
             'unit_symbol' : 'quad',
             'direction' : 'To',
@@ -379,7 +379,7 @@ class UnitConversionsModeler(object):
             'pressure' :
                 {'unit' : 'pascal',
                  'unit_symbol' : 'Pa'},
-            'work' :
+            'energy' :
                 {'unit' : 'joule',
                  'unit_symbol' : 'J'},
             'power' :
@@ -482,25 +482,40 @@ class UnitConversionsModeler(object):
             "  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
             "  constant Real p = " + x['adder'] + " \"Adder\";\n"
             "\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(\n"\
+            "    final k = k) \"Gain factor\"\n"\
+            "    annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));\n"\
+            "\n"\
             "  Buildings.Controls.OBC.CDL.Continuous.AddParameter conv(\n"\
-            "    final p = p,\n"\
-            "    final k = k) \"Unit converter\"\n"\
+            "    final p = p) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
             else:
                 file.write(\
             "  constant Real k = " + x['multiplier'] + " \"Multiplier\";\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Gain conv(\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter conv(\n"\
             "    final k = k) \"Unit converter\"\n"\
             "    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));\n"\
             "\n")
-            file.write(\
+            if int(eval(x['adder'])) != 0:
+                file.write(\
+            "equation\n"\
+            "  connect(conv.y, y)\n"\
+            "    annotation (Line(points={{12,0},{60,0},{60,0},{120,0}},color={0,0,127}));\n"\
+            "  connect(u, gai.u)\n"\
+            "    annotation (Line(points={{-120,0},{-70,0}}, color={0,0,127}));\n"\
+            "  connect(gai.y, conv.u)\n"\
+            "    annotation (Line(points={{-46,0},{-12,0}}, color={0,0,127}));\n"\
+            "\n")
+            else:
+                file.write(\
             "equation\n"\
             "  connect(u, conv.u)\n"\
             "    annotation (Line(points={{-120,0},{-12,0}},color={0,0,127}));\n"\
             "  connect(conv.y, y)\n"\
-            "    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));\n"\
+            "    annotation (Line(points={{12,0},{120,0}},color={0,0,127}));\n")
+            file.write(\
             "  annotation (\n"\
             "      defaultComponentName = \"" + model_name[0].lower() + model_name[1:]  + "\",\n"\
             "    Icon(graphics={\n"\
@@ -511,16 +526,16 @@ class UnitConversionsModeler(object):
             "          fillPattern=FillPattern.Solid),\n"\
             "        Line(points={{20,58}}, color={28,108,200}),\n"\
             "        Text(\n"\
-            "          lineColor={0,0,255},\n"\
+            "          textColor={0,0,255},\n"\
             "          extent={{-150,110},{150,150}},\n"\
             "          textString=\"%name\"),\n"\
             "        Text(\n"\
             "          extent={{-80,50},{0,10}},\n"\
-            "          lineColor={0,0,127},\n"\
+            "          textColor={0,0,127},\n"\
             "          textString=\"" + from_unit_symbol + "\"),\n"\
             "        Text(\n"\
             "          extent={{10,-70},{90,-30}},\n"\
-            "          lineColor={0,0,127},\n"\
+            "          textColor={0,0,127},\n"\
             "          textString=\"" + to_unit_symbol + "\"),\n"\
             "        Polygon(\n"\
             "        points={{90,0},{30,20},{30,-20},{90,0}},\n"\
@@ -534,6 +549,11 @@ class UnitConversionsModeler(object):
             "</p>\n"\
             "</html>\", revisions=\"<html>\n"\
             "<ul>\n"\
+            "<li>\n"\
+            "November 29, 2021, by Michael Wetter:<br/>\n"\
+            "Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute\n"\
+            "rather than the deprecated <code>lineColor</code> attribute.\n"\
+            "</li>\n"\
             "<li>\n"\
             "July 05, 2018, by Milica Grahovac:<br/>\n"\
             "Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \
@@ -572,6 +592,11 @@ Package with blocks for unit conversions.
 revisions="<html>
 <ul>
 <li>
+November 29, 2021, by Michael Wetter:<br/>
+Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute
+rather than the deprecated <code>lineColor</code> attribute.
+</li>
+<li>
 August 1, 2018, by Milica Grahovac:<br/>
 Generated with <code>""" + self.fullpath_to_this_script + """</code>.<br/>
 First implementation.
@@ -597,7 +622,7 @@ First implementation.
             color={191,0,0}),
         Text(
           extent={{-72,78},{72,6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
         textString="SI")}));
 end """+self.package_name+""";
 """)
@@ -641,10 +666,10 @@ end """+self.package_name+""";
             "model "+model_name+" \"Validation model for unit conversion from "+from_unit+" to "+to_unit+"\"\n"\
             "  extends Modelica.Icons.Example;\n"\
             "\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Add add(k2=-1)\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.Subtract sub\n"\
             "    \"Difference between the calculated and expected conversion output\"\n"\
             "    annotation (Placement(transformation(extent={{20,40},{40,60}})));\n"\
-            "  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)\n"\
+            "  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1\n"\
             "    \"Difference between the calculated and expected conversion output\"\n"\
             "    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));\n"\
             "\n"\
@@ -679,15 +704,15 @@ end """+self.package_name+""";
             "    annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));\n"\
             "\n"\
             "equation\n"\
-            "  connect(result.y, add.u2)\n"\
+            "  connect(result.y, sub.u2)\n"\
             "    annotation (Line(points={{2,20},{10,20},{10,44},{18,44}}, color={0,0,127}));\n"\
-            "  connect(result1.y, add1.u2)\n"\
+            "  connect(result1.y, sub1.u2)\n"\
             "    annotation (Line(points={{2,-60},{10,-60},{10,-36},{18,-36}}, color={0,0,127}));\n"\
             "  connect(value1.y,"+to_lower(model_name)+"1.u)\n"\
             "    annotation (Line(points={{-38,-30},{-22,-30}}, color={0,0,127}));\n"\
-            "  connect("+to_lower(model_name)+"1.y, add1.u1)\n"\
+            "  connect("+to_lower(model_name)+"1.y, sub1.u1)\n"\
             "    annotation (Line(points={{2,-30},{8,-30},{8,-24},{18,-24}}, color={0,0,127}));\n"\
-            "  connect("+to_lower(model_name)+".y, add.u1)\n"\
+            "  connect("+to_lower(model_name)+".y, sub.u1)\n"\
             "    annotation (Line(points={{2,50},{10,50},{10,56},{18,56}}, color={0,0,127}));\n"\
             "  connect(value.y,"+to_lower(model_name)+".u)\n"\
             "    annotation (Line(points={{-38,50}, {-22,50}}, color={0,0,127}));\n"\
@@ -713,6 +738,11 @@ end """+self.package_name+""";
             "</html>\",\n"\
             "revisions=\"<html>\n"\
             "<ul>\n"\
+            "<li>\n"\
+            "November 29, 2021, by Michael Wetter:<br/>\n"\
+            "Regenerated files with <code>Text</code> annotation using now the <code>textColor</code> attribute\n"\
+            "rather than the deprecated <code>lineColor</code> attribute.\n"\
+            "</li>\n"\
             "<li>\n"\
             "July 05, 2018, Milica Grahovac<br/>\n"\
             "Generated with <code>"+ self.fullpath_to_this_script +"</code>.<br/>\n" \
@@ -800,8 +830,8 @@ end """+self.package_name+""";
             file.write(\
             "simulateModel(\"Buildings.Controls.OBC."+self.package_name+".Validation."+model_name+"\", method=\"dassl\", stopTime=10, tolerance=1e-06, resultFile=\""+model_name+"\");\n"
             "\n"
-            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"add.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
-            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"add1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
+            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=1, y={\"sub.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
+            "createPlot(id=1, position={20, 10, 900, 650}, subPlot=2, y={\"sub1.y\"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,0,0}});\n"
             )
 
         msg = 'Wrote all mos scripts to {}.'

@@ -5,11 +5,11 @@ model SingleSpeedPLREnergyPlus
 
   package Medium = Buildings.Media.Air "Medium model";
 
- parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
+  parameter Modelica.Units.SI.Power Q_flow_nominal=datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[1].nomVal.m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
- parameter Modelica.SIunits.PressureDifference dp_nominal = 1141
+  parameter Modelica.Units.SI.PressureDifference dp_nominal=1141
     "Pressure drop at m_flow_nominal";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -283,7 +283,7 @@ model SingleSpeedPLREnergyPlus
         72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0;
         82800,0; 86400,0]) "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Data.Generic.DXCoil datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
+  parameter Data.Generic.DXCoil datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-25237.66,

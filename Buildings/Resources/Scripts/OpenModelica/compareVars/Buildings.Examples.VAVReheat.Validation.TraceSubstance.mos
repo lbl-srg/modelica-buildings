@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "hvac.VOut1.V_flow",
+    "hvac.senSupFlo.V_flow",
+    "flo.cor.air.vol.C[1]",
+    "flo.sou.air.vol.C[1]",
+    "flo.eas.air.vol.C[1]",
+    "flo.nor.air.vol.C[1]",
+    "flo.wes.air.vol.C[1]"
+  };

@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "tow.TWetBul",
+    "TEnt.T",
+    "tow.TLvg",
+    "tow.cooTowSpeCon.u_s",
+    "tow.cooTowSpeCon.u_m",
+    "onOffCon.reference",
+    "onOffCon.u",
+    "tow.bypValCon.u_s",
+    "tow.bypValCon.u_m",
+    "tow.bypValCon.y"
+  };

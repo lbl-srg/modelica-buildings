@@ -1,15 +1,15 @@
 within Buildings.Electrical.DC.Storage.BaseClasses;
 model Charge "Model to compute the battery charge"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Efficiency etaCha(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaCha(max=1) = 0.9
     "Efficiency during charging";
-  parameter Modelica.SIunits.Efficiency etaDis(max=1) = 0.9
+  parameter Modelica.Units.SI.Efficiency etaDis(max=1) = 0.9
     "Efficiency during discharging";
   parameter Real SOC_start(min=0, max=1, unit="1")=0.1
     "Initial state of charge";
-  parameter Modelica.SIunits.Energy EMax(min=0, displayUnit="kWh")
+  parameter Modelica.Units.SI.Energy EMax(min=0, displayUnit="kW.h")
     "Maximum available charge";
-  Modelica.SIunits.Power PAct "Actual power";
+  Modelica.Units.SI.Power PAct "Actual power";
   Modelica.Blocks.Interfaces.RealInput P(final quantity="Power",
                                          final unit="W") annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{
@@ -17,7 +17,12 @@ model Charge "Model to compute the battery charge"
   Modelica.Blocks.Interfaces.RealOutput SOC(min=0, max=1) "State of charge" annotation (Placement(transformation(
           extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,
             10}})));
+
+  // etaDisInv avoids use of a divGuarded macro in Dymola in the dynamics section
 protected
+  final parameter Real etaDisInv = 1/etaDis "Inverse of etaDis";
+  final parameter Real invEMax = 1/EMax "Inverse of EMax";
+
   Boolean underCharged "Flag, true if battery is undercharged";
   Boolean overCharged "Flag, true if battery is overcharged";
 initial equation
@@ -27,8 +32,8 @@ initial equation
   SOC = SOC_start;
 equation
   // Charge balance of battery
-  PAct = if P > 0 then etaCha*P else (2-etaDis)*P;
-  der(SOC)=PAct/EMax;
+  PAct = if P > 0 then etaCha*P else etaDisInv*P;
+  der(SOC)=PAct*invEMax;
 
   // Equations to warn if state of charge exceeds 0 and 1
   underCharged = SOC < 0;
@@ -60,7 +65,7 @@ and compute the actual power flowing through the battery as
 <td>P &ge; 0</td>
 </tr>
 <tr>
-<td>P<sub>actual</sub> = P (2 - &eta;<sub>DIS</sub>)</td>
+<td>P<sub>actual</sub> = P / &eta;<sub>DIS</sub></td>
 <td>P &lt; 0</td>
 </tr>
 </table>
@@ -82,6 +87,18 @@ exceeding the range between 0 and 1.
 
 </html>", revisions="<html>
 <ul>
+<li>
+August 26, 2022, by Jianjun Hu:<br/>
+Corrected calculation of power taken from the battery when it is discharged.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3095\">issue 3095</a>.
+</li>
+<li>
+December 6, 2021, by Michael Wetter:<br/>
+Corrected wrong unit string.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2798\">issue 2798</a>.
+</li>
 <li>
 June 2, 2014, by Marco Bonvini:<br/>
 Revised documentation.

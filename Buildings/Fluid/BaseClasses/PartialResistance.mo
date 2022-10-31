@@ -16,26 +16,28 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.PressureDifference dp_nominal(displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_turbulent(min=0)
     "Turbulent flow if |m_flow| >= m_flow_turbulent";
 
 protected
   parameter Medium.ThermodynamicState sta_default=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
+  parameter Modelica.Units.SI.DynamicViscosity eta_default=
+      Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
 
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
-    "Absolute value of nominal flow rate";
-  final parameter Modelica.SIunits.PressureDifference dp_nominal_pos(displayUnit="Pa") = abs(dp_nominal)
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_pos=abs(
+      m_flow_nominal) "Absolute value of nominal flow rate";
+  final parameter Modelica.Units.SI.PressureDifference dp_nominal_pos(
+      displayUnit="Pa") = abs(dp_nominal)
     "Absolute value of nominal pressure difference";
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -108,7 +110,7 @@ this base class.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 February 26, 2020, by Michael Wetter:<br/>

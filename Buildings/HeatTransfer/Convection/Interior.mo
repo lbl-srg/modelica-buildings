@@ -10,22 +10,22 @@ model Interior "Model for a interior (room-side) convective heat transfer"
     "Convective heat transfer model"
   annotation(Evaluate=true);
 
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-   annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+  parameter Modelica.Units.SI.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient" annotation (Dialog(enable=(conMod ==
+          Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+  parameter Modelica.Units.SI.Angle til(displayUnit="deg") "Surface tilt"
     annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
 protected
-  constant Modelica.SIunits.Temperature dT0 = 2
+  constant Modelica.Units.SI.Temperature dT0=2
     "Initial temperature used in homotopy method";
 
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt";
   final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt";
-  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+  final parameter Boolean is_ceiling = abs(sinTil) < 10E-10 and cosTil > 0
     "Flag, true if the surface is a ceiling";
-  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+  final parameter Boolean is_floor = abs(sinTil) < 10E-10 and cosTil < 0
     "Flag, true if the surface is a floor";
 
 initial equation
@@ -41,10 +41,10 @@ equation
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if homotopyInitialization then
-      if isCeiling then
+      if is_ceiling then
          q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT),
                     simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT0));
-      elseif isFloor then
+      elseif is_floor then
          q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT),
                     simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT0));
       else
@@ -52,9 +52,9 @@ equation
                     simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT0));
       end if;
     else
-      if isCeiling then
+      if is_ceiling then
          q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
-      elseif isFloor then
+      elseif is_floor then
          q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
       else
          q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
@@ -80,7 +80,7 @@ equation
         Line(points={{100,0},{100,0}}, color={0,127,255}),
         Text(
           extent={{-35,42},{-5,20}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="Q_flow"),
         Line(points={{-60,20},{76,20}}, color={191,0,0}),
         Line(points={{-60,-20},{76,-20}}, color={191,0,0}),
@@ -139,6 +139,12 @@ Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall</a>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Change parameter <code>isFloor</code> to <code>is_floor</code>,
+and <code>isCeiling</code> to <code>is_ceiling</code>,
+for consistency with naming convention.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

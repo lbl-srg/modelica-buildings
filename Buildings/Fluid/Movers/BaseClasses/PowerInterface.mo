@@ -9,7 +9,7 @@ model PowerInterface
   parameter Boolean motorCooledByFluid
     "Flag, true if the motor is cooled by the fluid stream";
 
-  parameter Modelica.SIunits.VolumeFlowRate delta_V_flow
+  parameter Modelica.Units.SI.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
 
   Modelica.Blocks.Interfaces.RealInput etaHyd(
@@ -40,11 +40,11 @@ model PowerInterface
     final unit="W") "Heat input from fan or pump to medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.SIunits.Power WHyd
+  Modelica.Units.SI.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
 
 protected
-  Modelica.SIunits.HeatFlowRate QThe_flow
+  Modelica.Units.SI.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
 
 initial equation
@@ -125,7 +125,7 @@ Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 December 2, 2016, by Michael Wetter:<br/>

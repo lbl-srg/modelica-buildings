@@ -3,10 +3,10 @@ partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse with a controlleable tolerance"
    replaceable package Medium =
         Modelica.Media.Interfaces.PartialMedium;
-     parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
+  parameter Modelica.Units.SI.Temperature T0=273.15 + 20 "Temperature";
      parameter Real tol = 1E-8 "Numerical tolerance";
-     Modelica.SIunits.Temperature T "Temperature";
-     Modelica.SIunits.SpecificEnthalpy h "Enthalpy";
+  Modelica.Units.SI.Temperature T "Temperature";
+  Modelica.Units.SI.SpecificEnthalpy h "Enthalpy";
      Medium.MassFraction Xi[:] = Medium.reference_X "Mass fraction";
 equation
     h = Medium.specificEnthalpy_pTX(p=101325, T=T0, X=Xi);
@@ -14,7 +14,8 @@ equation
     if (time>0.1) then
     assert(abs(T-T0)<tol, "Error in implementation of functions.\n"
        + "   T0 = " + String(T0) + "\n"
-       + "   T  = " + String(T));
+       + "   T  = " + String(T) + "\n"
+       + "   Absolute error: " + String(abs(T-T0)) + " K");
     end if;
     annotation (preferredView="info", Documentation(info="<html>
 This model computes <code>h=f(T0)</code> and
@@ -23,6 +24,10 @@ Hence, it checks whether the function <code>T_phX</code> is
 implemented correctly.
 </html>", revisions="<html>
 <ul>
+<li>
+March 24, 2020 by Kathryn Hinkelman:<br/>
+Expanded the assert message to include absolute error value.
+</li>
 <li>
 September 16, 2019 by Yangyang Fu:<br/>
 Added a parameter <code>tol</code> to control numerical errors.

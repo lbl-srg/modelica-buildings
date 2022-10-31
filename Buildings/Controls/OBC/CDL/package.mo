@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC;
 package CDL "Package with blocks, examples and validation tests for control description language"
-
-annotation (
-Documentation(info="<html>
+  annotation (
+    Documentation(
+      info="<html>
 <p>
 Package that has elementary input-output blocks
 that form the Control Description Language (CDL).
@@ -16,14 +16,16 @@ For a specification of CDL, see
 http://obc.lbl.gov/specification/cdl.html</a>.
 </p>
 </html>",
-revisions="<html>
+      revisions="<html>
 <ul>
 <li>
 December 22, 2016, by Michael Wetter:<br/>
 Firt implementation, based on the blocks from the Modelica Standard Library.
 </li>
 </ul>
-</html>"), Icon(graphics={
+</html>"),
+    Icon(
+      graphics={
         Rectangle(
           lineColor={200,200,200},
           fillColor={248,248,248},

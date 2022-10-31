@@ -78,7 +78,8 @@ model BorefieldsWithToughConstant
     tau=0)
     "Inlet temperature of the borefield with UTube configuration"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Fluid.Geothermal.Borefields.OneUTubeWithTough borFieUTubWitTou(
+  Buildings.Fluid.Geothermal.Borefields.OneUTubeWithToughCheckGround
+    borFieUTubWitTou(
     redeclare package Medium = Medium,
     show_T=true,
     borFieDat=borFieUTubDat,

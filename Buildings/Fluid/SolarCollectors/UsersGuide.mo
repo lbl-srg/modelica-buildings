@@ -63,7 +63,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   Finally, the parameters of the system must be defined. Most of the parameters
   are self-explanatory. The complex parameters are used as follows:
   </p>
-  <ol>
+  <ul>
   <li><code>nSeg</code>: This parameter refers to the number of segments between
   the inlet and outlet of the system, not the number of segments in each solar
   thermal collector.</li>
@@ -71,7 +71,7 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   number of collectors in the system is defined. Options are <code>Number</code>,
   allowing the user to enter a number of panels, or <code>TotalArea</code>,
   allowing the user to enter a system area.
-  <ol>
+  <ul>
   <li><code>Number</code>: If <code>Number</code> is selected for <code>nColType</code>
   the user enters a number of panels. The simulation then identifies the area of the
   system and uses that in solar gain and heat loss computations.</li>
@@ -80,11 +80,12 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   The model then uses this specified area in solar gain and heat loss
   computations. The number of panels in the system is identified by dividing the
   specified area by the area of each panel.</li>
-  </ol>
+  </ul>
+  </li>
   <li><code>SysConfig</code>: This parameter allows the user to specify the installation
   configuration of the system. Options are <code>Series</code> and <code>Parallel</code>.
   The handling of <code>dp_nominal</code> is changed depending on the selection.
-  <ol>
+  <ul>
   <li><code>Series</code>: If <code>Series</code> is selected it is assumed that
   all panels in the system are connected in series. As a result there is a pressure
   drop corresponding to <code>dp_nominal</code> for each panel and the effective
@@ -95,8 +96,9 @@ package UsersGuide "User's Guide for Buildings.Fluid.SolarCollectors"
   flows through only a single panel and the <code>dp_nominal</code> for the system
   is <code>dp_nominal</code> specified in the collector data package if the collector
   field has a mass flow rate equal to <code>per.m_flow_nominal</code>.</li>
-  </ol>
-  </ol>
+  </ul>
+  </li>
+  </ul>
   <h4>References</h4>
   <ul>
   <li>ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance

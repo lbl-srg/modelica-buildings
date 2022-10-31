@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model Timer "Validation model for the Timer block"
-
+model Timer
+  "Validation model for the Timer block"
   Buildings.Controls.OBC.CDL.Logical.Timer noThr
     "Timer that do not compare threshold"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
@@ -12,7 +12,6 @@ model Timer "Validation model for the Timer block"
     final t=0.3)
     "Timer that compares threshold"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
     final width=0.7,
     final period=2)
@@ -21,29 +20,32 @@ model Timer "Validation model for the Timer block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.7,
     final period=2,
-    final delay=-1)
+    final shift=-1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
 
 equation
-  connect(booPul.y, noThr.u)
-    annotation (Line(points={{-18,20},{18,20}}, color={255,0,255}));
-  connect(booPul.y, thrTim.u)
-    annotation (Line(points={{-18,20},{0,20},{0,-20},{18,-20}}, color={255,0,255}));
-  connect(booPul1.y, thrTim1.u)
-    annotation (Line(points={{-18,-60},{18,-60}}, color={255,0,255}));
-
-annotation (
-  experiment(StopTime=5.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Timer.mos"
-        "Simulate and plot"),
-  Documentation(info="<html>
+  connect(booPul.y,noThr.u)
+    annotation (Line(points={{-18,20},{18,20}},color={255,0,255}));
+  connect(booPul.y,thrTim.u)
+    annotation (Line(points={{-18,20},{0,20},{0,-20},{18,-20}},color={255,0,255}));
+  connect(booPul1.y,thrTim1.u)
+    annotation (Line(points={{-18,-60},{18,-60}},color={255,0,255}));
+  annotation (
+    experiment(
+      StopTime=5.0,
+      Tolerance=1e-06),
+    __Dymola_Commands(
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Timer.mos" "Simulate and plot"),
+    Documentation(
+      info="<html>
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Timer\">
 Buildings.Controls.OBC.CDL.Logical.Timer</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+      revisions="<html>
 <ul>
 <li>
 July 23, 2018, by Jianjun Hu:<br/>
@@ -58,16 +60,18 @@ April 2, 2017, by Jianjun Hu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"),
-    Icon(graphics={
-        Ellipse(lineColor = {75,138,73},
-                fillColor={255,255,255},
-                fillPattern = FillPattern.Solid,
-                extent = {{-100,-100},{100,100}}),
-        Polygon(lineColor = {0,0,255},
-                fillColor = {75,138,73},
-                pattern = LinePattern.None,
-                fillPattern = FillPattern.Solid,
-                points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
+    Icon(
+      graphics={
+        Ellipse(
+          lineColor={75,138,73},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          extent={{-100,-100},{100,100}}),
+        Polygon(
+          lineColor={0,0,255},
+          fillColor={75,138,73},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
 end Timer;

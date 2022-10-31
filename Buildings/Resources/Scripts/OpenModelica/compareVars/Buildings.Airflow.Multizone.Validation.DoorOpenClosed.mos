@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "doo.port_a1.m_flow",
+    "doo.port_b2.m_flow",
+    "dooOpeClo.port_a1.m_flow",
+    "dooOpeClo.port_b2.m_flow",
+    "lea.port_a.m_flow",
+    "mNetClo_flow.y"
+  };

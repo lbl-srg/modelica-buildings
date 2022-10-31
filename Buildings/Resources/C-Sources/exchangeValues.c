@@ -13,10 +13,12 @@
  * Pierre Vigouroux, LBNL                  7/18/2011
  */
 
-#include "externalObjectStructure.h"
-#include "ModelicaUtilities.h"
 #include <string.h>
 #include <stdlib.h>
+
+#include "ModelicaUtilities.h"
+
+#include "externalObjectStructure.h"
 
 double exchangeValues(void* object, size_t iX, double x, size_t iY){
   ExternalObjectStructure* table = (ExternalObjectStructure*) object;

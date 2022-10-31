@@ -18,16 +18,16 @@ model FlowMachineInterface
   parameter Boolean computePowerUsingSimilarityLaws
     "= true, compute power exactly, using similarity laws. Otherwise approximate.";
 
-  final parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal=
-    per.pressure.V_flow[nOri] "Nominal volume flow rate, used for homotopy";
+  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal=per.pressure.V_flow[
+      nOri] "Nominal volume flow rate, used for homotopy";
 
-  parameter Modelica.SIunits.Density rho_default
+  parameter Modelica.Units.SI.Density rho_default
     "Fluid density at medium default state";
 
   parameter Boolean haveVMax
     "Flag, true if user specified data that contain V_flow_max";
 
-  parameter Modelica.SIunits.VolumeFlowRate V_flow_max
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_max
     "Maximum volume flow rate, used for smoothing";
 
   parameter Integer nOri(min=1) "Number of data points for pressure curve"
@@ -124,13 +124,10 @@ protected
   final parameter Real hydDer[size(per.hydraulicEfficiency.V_flow,1)](each fixed=false)
     "Coefficients for polynomial of hydraulic efficiency vs. volume flow rate";
 
-  parameter Modelica.SIunits.PressureDifference dpMax(displayUnit="Pa")=
-    if haveDPMax then
-      per.pressure.dp[1]
-    else
-      per.pressure.dp[1] - ((per.pressure.dp[2] - per.pressure.dp[1])/(
-        per.pressure.V_flow[2] - per.pressure.V_flow[1]))*per.pressure.V_flow[1]
-    "Maximum head";
+  parameter Modelica.Units.SI.PressureDifference dpMax(displayUnit="Pa") = if
+    haveDPMax then per.pressure.dp[1] else per.pressure.dp[1] - ((per.pressure.dp[
+    2] - per.pressure.dp[1])/(per.pressure.V_flow[2] - per.pressure.V_flow[1]))
+    *per.pressure.V_flow[1] "Maximum head";
 
   parameter Real delta = 0.05
     "Small value used to for regularization and to approximate an internal flow resistance of the fan";
@@ -487,7 +484,10 @@ equation
   end if;
 
   // Flow work
-  WFlo = dp_internal*V_flow;
+  WFlo = Buildings.Utilities.Math.Functions.smoothMax(
+           x1=dp_internal*V_flow,
+           x2=0,
+           deltaX=1E-4*dpMax*V_flow_max);
 
   // Power consumption
   if per.use_powerCharacteristic then
@@ -534,19 +534,19 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                     graphics={
         Text(extent={{56,66},{106,52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="dp"),
         Text(extent={{56,8},{106,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="PEle"),
         Text(extent={{52,-22},{102,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="eta"),
         Text(extent={{50,-52},{100,-66}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="etaHyd"),
         Text(extent={{50,-72},{100,-86}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="etaMot"),
         Ellipse(
           extent={{-78,34},{44,-88}},
@@ -596,10 +596,10 @@ equation
           origin={-43,-31},
           rotation=90),
         Text(extent={{56,36},{106,22}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="WFlo"),
         Text(extent={{56,94},{106,80}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="V_flow"),
         Line(
           points={{-74,92},{-74,40}},
@@ -668,14 +668,29 @@ point is added and where two additional points are added.
 The parameter <code>curve</code> causes the correct data record
 to be used during the simulation.
 </p>
+<p>
+In order to prevent the model from producing negative mover power
+when either the flow rate or pressure rise is forced to be negative,
+the flow work <i>W&#775;<sub>flo</sub></i> is constrained to be non-negative.
+The regularisation starts around 0.01% of the characteristic maximum power
+<i>W&#775;<sub>max</sub> = V&#775;<sub>max</sub> &Delta;p<sub>max</sub></i>.
+See discussions and an example of this situation in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
+June 6, 2022, by Hongxiang Fu:<br/>
+Added a constraint that <i>W<sub>flo</sub> = V&#775; &Delta;p &ge; 0</i>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</li>
+<li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, #1341</a>.
 </li>
 <li>
 December 2, 2016, by Michael Wetter:<br/>
