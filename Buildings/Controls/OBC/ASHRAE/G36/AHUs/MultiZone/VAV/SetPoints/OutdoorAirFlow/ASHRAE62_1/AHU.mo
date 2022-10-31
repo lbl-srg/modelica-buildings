@@ -122,6 +122,7 @@ block AHU "Outdoor airflow related calculations at the AHU level"
   Buildings.Controls.OBC.CDL.Continuous.Max max2
     "Avoid devide by zero"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
+
 equation
   connect(VSumAdjPopBreZon_flow, add2.u1) annotation (Line(points={{-240,90},{-200,
           90},{-200,86},{-182,86}}, color={0,0,127}));
