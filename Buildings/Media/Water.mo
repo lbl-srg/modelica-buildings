@@ -26,7 +26,7 @@ public
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.Units.SI.Density d=d_const "Density of medium";
     Temperature T(
-      stateSelect=StateSelect.avoid,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
@@ -49,7 +49,7 @@ public
 
     Modelica.Units.NonSI.Temperature_degC T_degC(
       nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      stateSelect=StateSelect.avoid)
       "Temperature of medium in [degC]";
     Modelica.Units.NonSI.Pressure_bar p_bar=
         Modelica.Units.Conversions.to_bar(p)
@@ -190,6 +190,12 @@ There are no phase changes.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2022, by Michael Wetter:<br/>
+Set temperature <code>T</code> as the preferred state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
 <li>
 September 28, 2020, by Michael Wetter:<br/>
 Reformulated <code>BaseProperties</code> to avoid event-triggering assertions.<br/>

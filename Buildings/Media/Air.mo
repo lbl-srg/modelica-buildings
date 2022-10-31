@@ -2,7 +2,7 @@ within Buildings.Media;
 package Air
   "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="Air",
+     mediumName="Buildings.Media.Air",
      final substanceNames={"water", "air"},
      final reducedX=true,
      final singleState = false,
@@ -44,9 +44,14 @@ package Air
     "Pressure for which fluid density is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
+protected
+  constant Boolean reference_T_is_0degC = abs(reference_T-273.15) < 1E-6
+    "True if reference_T = 273.15 K, used to simplify equations";
+
   // Redeclare ThermodynamicState to avoid the warning
   // "Base class ThermodynamicState is replaceable"
   // during model check
+public
   redeclare record extends ThermodynamicState
     "ThermodynamicState record for moist air"
   end ThermodynamicState;
@@ -73,20 +78,27 @@ package Air
   final parameter Boolean standardOrderComponents=true
     "If true, and reducedX = true, the last element of X will be computed from the other ones";
 
-  InputAbsolutePressure p "Absolute pressure of medium";
+  InputAbsolutePressure p(
+     stateSelect=StateSelect.avoid) "Absolute pressure of medium";
   InputMassFraction[1] Xi(
-    start=reference_X[1:1],
+    start=X_default[1:1],
     nominal={0.01},
     each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
-  Modelica.Media.Interfaces.Types.Density d "Density of medium";
-  Modelica.Media.Interfaces.Types.Temperature T(
-   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+  Modelica.Units.SI.Density d(
+     stateSelect=StateSelect.never)
+     "Density of medium";
+  Modelica.Units.SI.Temperature T(
+   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+   start=reference_T,
+   nominal=100)
    "Temperature of medium";
   Modelica.Media.Interfaces.Types.MassFraction[2] X(start=reference_X)
     "Mass fractions (= (component mass)/total mass  m_i/m)";
-  Modelica.Media.Interfaces.Types.SpecificInternalEnergy u
+  Modelica.Media.Interfaces.Types.SpecificInternalEnergy u(
+    stateSelect=StateSelect.avoid,
+   nominal=1E4)
     "Specific internal energy of medium";
   Modelica.Media.Interfaces.Types.SpecificHeatCapacity R_s
     "Gas constant (of mixture if applicable)";
@@ -95,10 +107,11 @@ package Air
   ThermodynamicState state
     "Thermodynamic state record for optional functions";
 
-    Modelica.Units.NonSI.Temperature_degC T_degC=
-        Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
-    Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
-      "Absolute pressure of medium in [bar]";
+  Modelica.Units.NonSI.Temperature_degC T_degC(
+      nominal=10) = T - 273.15
+       "Temperature of medium in [degC]";
+  Modelica.Units.NonSI.Pressure_bar p_bar=
+    Modelica.Units.Conversions.to_bar(p) "Absolute pressure of medium in [bar]";
 
   // Local connector definition, used for equation balancing check
   connector InputAbsolutePressure = input Modelica.Units.SI.AbsolutePressure
@@ -108,15 +121,24 @@ package Air
   connector InputMassFraction = input Modelica.Units.SI.MassFraction
     "Mass fraction as input signal connector";
 
-    // Declarations for Air only
   protected
-    Modelica.Units.SI.TemperatureDifference dT(start=T_default - reference_T)
+    Modelica.Units.SI.TemperatureDifference dT = if reference_T_is_0degC then T_degC else T - reference_T
       "Temperature difference used to compute enthalpy";
-
+    // For the state dp, we add 1000 Pascal. Based on numerical experiments,
+    // having the state not be at 0 for zero mass flow rate seems more robust.
+    // See for example <code> and
+    // <code>Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic which fail with CVode, 1E-6,
+    // in Dymola and Optimica if 1000 is not added.
+    // Also, adding 1000 Pa is needed for ControlledFlowMachineDynamic with dassl, 1E-6, in OpenModelica.
+    // We therefore also use T instead of T_degC as the state.
+    Modelica.Units.SI.PressureDifference dp(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100,
+      displayUnit="Pa") = p - reference_p + 1000
+      "Differential pressure, plus 1000 Pa offset (for numerical reasons)";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 
-    dT = T - reference_T;
     h = dT*dryair.cp * X[2] +
        (dT * steam.cp + h_fg) * X[1];
     R_s = dryair.R*X[2] + steam.R*X[1];
@@ -130,7 +152,7 @@ package Air
     // In this medium model, the density depends only
     // on temperature, but not on pressure.
     //  d = p/(R*T);
-    d/dStp = p/pStp;
+    p = d * pStp/dStp;
 
     state.p = p;
     state.T = T;
@@ -1057,10 +1079,29 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 </html>", revisions="<html>
 <ul>
 <li>
+October 31, 2022, by Michael Wetter:<br/>
+For the state dp, added 1000 Pascal. Based on numerical experiments,
+having the state away from 0 for zero mass flow rate seems more robust.
+See for example <code>Buildings.Airflow.Multizone.Examples.PressurizationData</code> and
+<code>Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic</code> which fail with CVode, 1E-6,
+in Dymola and Optimica if 1000 is not added.
+Also, adding 1000 Pa is needed for <code>Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic</code>
+with dassl, 1E-6, in OpenModelica. We therefore also use T instead of T_degC as the state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
+<li>
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">#1634</a>.
+</li>
+<li>
+November 6, 2020, by Michael Wetter and Filip Jorissen:<br/>
+Solved equation between pressure and density in the base properties
+for pressure, as this is what the symbolic formulation usually needs.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
 </li>
 <li>
 September 28, 2020, by Michael Wetter:<br/>

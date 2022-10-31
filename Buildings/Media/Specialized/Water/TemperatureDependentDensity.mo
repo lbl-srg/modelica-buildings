@@ -33,6 +33,9 @@ protected
 
 public
   redeclare model extends BaseProperties(
+    T(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=100),
     h(nominal=1E4))
      "Base properties"
 
@@ -871,6 +874,12 @@ Phase changes are not modeled.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 31, 2022, by Michael Wetter:<br/>
+Set temperature <code>T</code> as the preferred state.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
 <li>
 April 5, 2022, by Michael Wetter:<br/>
 Corrected assignment of <code>R_s</code> in <code>BaseProperties</code> to avoid a unit error.<br/>

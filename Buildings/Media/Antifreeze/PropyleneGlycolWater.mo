@@ -36,7 +36,7 @@ protected
 public
   redeclare model BaseProperties "Base properties"
     Temperature T(
-      stateSelect=StateSelect.avoid,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100) "Temperature of medium";
 
     InputAbsolutePressure p "Absolute pressure of medium";
@@ -60,8 +60,7 @@ public
     final parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.Units.NonSI.Temperature_degC T_degC(
-      nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      nominal=10)
       "Temperature of medium in [degC]";
     Modelica.Units.NonSI.Pressure_bar p_bar=
         Modelica.Units.Conversions.to_bar(p)
@@ -479,9 +478,15 @@ a temperature of <i>20</i> &deg;C and a mass fraction of <i>0.40</i>):
 </html>", revisions="<html>
 <ul>
 <li>
+October 31, 2022, by Michael Wetter:<br/>
+Changed state to be absolute temperature.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>.
+</li>
+<li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
 Now printing different messages if temperature or mass fraction is above or below its limit,
-and adding instance name as JModelica does not print the full instance name in the assertion.
+and adding instance name as JModelica does not print the full instance name in the assertion.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1045</a>.
 </li>
