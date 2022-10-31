@@ -184,7 +184,7 @@ partial model PartialHVAC
     m_flow_nominal=mAir_flow_nominal,
     redeclare package Medium = MediumA,
     allowFlowReversal=allowFlowReversal,
-    dp_nominal=40) "Pressure drop for return duct"
+    dp_nominal=30) "Pressure drop for return duct"
     annotation (Placement(transformation(extent={{400,130},{380,150}})));
   Buildings.Fluid.Movers.SpeedControlled_y fanSup(
     redeclare package Medium = MediumA,
@@ -404,23 +404,13 @@ partial model PartialHVAC
     each THeaAirInl_nominal=285.15,
     each THeaAirDis_nominal=301.15) "VAV boxes"
     annotation (Placement(transformation(extent={{720,20},{760,60}})));
-  Buildings.Fluid.FixedResistances.Junction splRetRoo[numZon - 1](
+  Fluid.FixedResistances.PressureDrop preDroPle[numZon](
     redeclare each package Medium = MediumA,
-    each from_dp=false,
+    m_flow_nominal=mCooVAV_flow_nominal,
     each linearized=true,
-    m_flow_nominal={{sum(mCooVAV_flow_nominal[i:numZon]),sum(
-        mCooVAV_flow_nominal[(i + 1):numZon]),mCooVAV_flow_nominal[i]} for i in
-            1:(numZon - 1)},
-    each energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    each dp_nominal(each displayUnit="Pa") = {0,0,0},
-    each portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    each portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    each portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering)
-    "Splitter for room return air"
-    annotation (Placement(transformation(extent={{830,110},{850,90}})));
+    each dp_nominal(each displayUnit="Pa") = 10)
+    "Pressure drop of return air plenum"
+    annotation (Placement(transformation(extent={{850,150},{830,130}})));
   Buildings.Fluid.FixedResistances.Junction splSupRoo[numZon - 1](
     redeclare each package Medium = MediumA,
     each from_dp=true,
@@ -446,6 +436,14 @@ partial model PartialHVAC
     dp_nominal=200 + 200 + 100 + 40) "Pressure drop for supply duct"
     annotation (Placement(transformation(extent={{250,-50},{270,-30}})));
 
+  Fluid.MixingVolumes.MixingVolume pleVol(
+    redeclare package Medium = MediumA,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=mAir_flow_nominal,
+    V=ATot*0.3,
+    nPorts=1+numZon)
+    "Volume that approximates the plenum, also used to break algebraic loops"
+    annotation (Placement(transformation(extent={{630,150},{650,170}})));
 protected
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
@@ -595,32 +593,29 @@ equation
 
   connect(splSupRoo[1].port_1, senSupFlo.port_b)
     annotation (Line(points={{730,-40},{420,-40}}, color={0,127,255}));
-  connect(splRetRoo[1].port_1, dpRetDuc.port_a)
-    annotation (Line(points={{830,100},{580,100},{580,140},{400,140}},
-    color={0,127,255}));
+
   connect(splSupRoo.port_3, VAVBox[1:(numZon-1)].port_aAir)
     annotation (Line(points={{740,-30},{740,20}}, color={0,127,255}));
-  connect(splRetRoo.port_3, port_retAir[1:(numZon-1)])
-    annotation (Line(points={{840,110},{840,128},{1384,128},{1384,120},{1420,
-          120}},
-    color={0,127,255}));
 
   for i in 1:(numZon - 2) loop
       connect(splSupRoo[i].port_2, splSupRoo[i+1].port_1)
           annotation (Line(points={{750,-40},{580,-40},{580,-40},{730,-40}},
     color={0,127,255}));
-      connect(splRetRoo[i].port_2, splRetRoo[i+1].port_1)
-          annotation (Line(points={{850,100},{854,100},{854,80},{824,80},{824,
-            100},{830,100}},
-    color={0,127,255}));
   end for;
   connect(splSupRoo[numZon-1].port_2, VAVBox[numZon].port_aAir);
-  connect(splRetRoo[numZon-1].port_2, port_retAir[numZon]);
 
   connect(cooCoi.port_b2, dpSupDuc.port_a)
     annotation (Line(points={{210,-40},{250,-40}}, color={0,127,255}));
   connect(dpSupDuc.port_b, fanSup.port_a)
     annotation (Line(points={{270,-40},{300,-40}}, color={0,127,255}));
+  connect(preDroPle.port_a, port_retAir) annotation (Line(points={{850,140},{
+          1380,140},{1380,120},{1420,120}}, color={0,127,255}));
+  connect(dpRetDuc.port_a, pleVol.ports[numZon+1]) annotation (Line(points={{400,140},
+          {636,140},{636,150},{640,150}}, color={0,127,255}));
+  for i in 1:numZon loop
+    connect(pleVol.ports[i], preDroPle[i].port_b) annotation (Line(points={{640,150},
+            {640,140},{830,140}},    color={0,127,255}));
+  end for;
   annotation (
   Diagram(
     coordinateSystem(
@@ -651,7 +646,12 @@ Buildings.Examples.VAVReheat.Guideline36</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-November 9, 2021, by Baptiste:<br/>
+October 31, 2022, by Michael Wetter:<br/>
+Added pressure drop between plenum and each room to avoid large flow rates if the fan is off.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1911\">issue #1911</a>.
+</li>
+<li>
+November 9, 2021, by Baptiste Ravache:<br/>
 Vectorized the terminal boxes to be expanded to any number of zones.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2735\">issue #2735</a>.
 </li>
