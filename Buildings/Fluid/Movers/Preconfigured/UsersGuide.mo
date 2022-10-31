@@ -15,18 +15,20 @@ The configuration is as follows:
 </p>
 <ul>
 <li>
-Based on the parameters <code>m_flow_nominal</code> and <code>dp_nominal</code>,
-a pressure curve is constructed based on regression results of pump or fan records
-in <a href=\"Modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
-Buildings.Fluid.Movers.Data.Pumps.Wilo</a>
-or <a href=\"Modelica://Buildings.Fluid.Movers.Data.Fans.Greenheck\">
-Buildings.Fluid.Movers.Data.Fans.Greenheck</a>.
-For more information, see documentation of
-<code>Buildings.Fluid.HydronicConfiguration.UsersGuide.ModelParameters</code>
-(currently under the development branch of
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.
-<b>fixme</b> This needs to be revised, users should not have to consult
-a development branch to get information.)
+The parameters <code>m_flow_nominal</code> and <code>dp_nominal</code>
+are used to construct the pressure curve <i>&Delta; p(V&#775;)</i>.
+The curve support points come from regression of the pump and fan data records
+available in the data package.
+The pump pressure curve is based on all data records in
+<a href=\"Modelica://Buildings.Fluid.Movers.Data.Pumps\">
+Buildings.Fluid.Movers.Data.Pumps</a>
+and the fan pressure curve is based on all data records in
+<a href=\"Modelica://Buildings.Fluid.Movers.Data.Fans\">
+Buildings.Fluid.Movers.Data.Fans</a>.
+(See also
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.)
+The model identifies itself as a fan or pump based on the default density of
+the medium.
 </li>
 <li>
 The hydraulic efficiency is computed based on the Euler number.
