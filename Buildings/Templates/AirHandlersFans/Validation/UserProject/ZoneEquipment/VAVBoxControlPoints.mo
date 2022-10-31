@@ -110,7 +110,7 @@ equation
 <p>
 This class generates signals typically provided by the terminal
 unit controller.
-It is aimed for validation purposes only. 
+It is aimed for validation purposes only.
 </p>
 </html>"));
 end VAVBoxControlPoints;

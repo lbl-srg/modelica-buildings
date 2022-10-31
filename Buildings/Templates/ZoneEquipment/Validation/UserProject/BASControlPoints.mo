@@ -65,7 +65,7 @@ equation
     Documentation(info="<html>
 <p>
 This class generates signals typically provided by the BAS.
-It is aimed for validation purposes only. 
+It is aimed for validation purposes only.
 </p>
 </html>"));
 end BASControlPoints;

@@ -38,7 +38,7 @@ annotation (
 <p>
 This record provides the set of sizing and operating parameters for the classes
 <a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly\">
-Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a> 
+Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly</a>
 and
 <a href=\"modelica://Buildings.Templates.ZoneEquipment.VAVBoxReheat\">
 Buildings.Templates.ZoneEquipment.VAVBoxReheat</a>.

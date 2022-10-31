@@ -138,7 +138,7 @@ Typical components in that section include
 </p>
 <ul>
 <li>
-shut off relief (or exhaust) air dampers, 
+shut off relief (or exhaust) air dampers,
 </li>
 <li>
 the relief air side of the heat recovery unit,

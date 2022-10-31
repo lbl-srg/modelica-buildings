@@ -62,7 +62,7 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
           textColor={0,0,255},
           textString="%name")}), Documentation(info="<html>
 <p>
-This class provides a standard interface for the 
+This class provides a standard interface for the
 heat recovery unit of an air handler.
 </p>
 </html>"));

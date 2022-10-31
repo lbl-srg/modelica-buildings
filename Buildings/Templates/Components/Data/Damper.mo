@@ -32,7 +32,7 @@ record Damper "Record for damper model"
       Dialog(group="Mechanical", enable=false));
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Dampers\">
 Buildings.Templates.Components.Dampers</a>.

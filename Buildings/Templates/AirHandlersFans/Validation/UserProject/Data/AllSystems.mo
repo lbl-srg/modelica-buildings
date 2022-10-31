@@ -65,7 +65,7 @@ annotation (
   defaultComponentName = "dat",
     Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the whole HVAC system.
 It is aimed for validation purposes only.
 </p>

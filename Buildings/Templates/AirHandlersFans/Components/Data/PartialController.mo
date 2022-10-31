@@ -17,8 +17,7 @@ record PartialController "Record for controller interface class"
 
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-the class
+This record provides the set of sizing and operating parameters for the class
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController\">
 Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController</a>.
 </p>
