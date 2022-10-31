@@ -250,26 +250,30 @@ block Controller
     final unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{260,220},{300,260}}),
-        iconTransformation(extent={{100,160},{140,200}})));
+        iconTransformation(extent={{100,170},{140,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaMinOut
+    "True: enable minimum outdoor air control loop"
+    annotation (Placement(transformation(extent={{260,180},{300,220}}),
+        iconTransformation(extent={{100,150},{140,190}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMinOutDam(
     final min=0,
     final max=1,
     final unit="1")
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Minimum outdoor air flow damper commanded position"
-    annotation (Placement(transformation(extent={{260,160},{300,200}}),
+    annotation (Placement(transformation(extent={{260,120},{300,160}}),
         iconTransformation(extent={{100,110},{140,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
     if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
     "Minimum outdoor air damper command on position"
-    annotation (Placement(transformation(extent={{260,120},{300,160}}),
+    annotation (Placement(transformation(extent={{260,80},{300,120}}),
         iconTransformation(extent={{100,90},{140,130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam(
     final min=0,
     final max=1,
     final unit="1")
     "Return air damper commanded position"
-    annotation (Placement(transformation(extent={{260,80},{300,120}}),
+    annotation (Placement(transformation(extent={{260,50},{300,90}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRelDam(
     final min=0,
@@ -278,7 +282,7 @@ block Controller
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
     "Relief air damper commanded position"
-    annotation (Placement(transformation(extent={{260,0},{300,40}}),
+    annotation (Placement(transformation(extent={{260,-20},{300,20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam(
     final min=0,
@@ -408,16 +412,16 @@ equation
           -190},{-196,-83},{18,-83}}, color={255,0,255}));
   connect(uFreProSta, enaDis.uFreProSta) annotation (Line(points={{-260,-250},{
           -184,-250},{-184,-85},{18,-85}},  color={255,127,0}));
-  connect(damLim.yOutDam_min, enaDis.uOutDam_min) annotation (Line(points={{-118,
-          38},{-80,38},{-80,-90},{18,-90}}, color={0,0,127}));
-  connect(damLim.yOutDam_max, enaDis.uOutDam_max) annotation (Line(points={{-118,
-          34},{-86,34},{-86,-88},{18,-88}}, color={0,0,127}));
-  connect(damLim.yRetDam_min, enaDis.uRetDam_min) annotation (Line(points={{-118,
-          30},{-92,30},{-92,-99},{18,-99}}, color={0,0,127}));
-  connect(damLim.yRetDam_max, enaDis.uRetDam_max) annotation (Line(points={{-118,
-          26},{-98,26},{-98,-97},{18,-97}}, color={0,0,127}));
-  connect(damLim.yRetDamPhy_max, enaDis.uRetDamPhy_max) annotation (Line(points=
-         {{-118,22},{-104,22},{-104,-95},{18,-95}}, color={0,0,127}));
+  connect(damLim.yOutDam_min, enaDis.uOutDam_min) annotation (Line(points={{-118,39},
+          {-80,39},{-80,-90},{18,-90}},     color={0,0,127}));
+  connect(damLim.yOutDam_max, enaDis.uOutDam_max) annotation (Line(points={{-118,36},
+          {-86,36},{-86,-88},{18,-88}},     color={0,0,127}));
+  connect(damLim.yRetDam_min, enaDis.uRetDam_min) annotation (Line(points={{-118,32},
+          {-92,32},{-92,-99},{18,-99}},     color={0,0,127}));
+  connect(damLim.yRetDam_max, enaDis.uRetDam_max) annotation (Line(points={{-118,29},
+          {-98,29},{-98,-97},{18,-97}},     color={0,0,127}));
+  connect(damLim.yRetDamPhy_max, enaDis.uRetDamPhy_max) annotation (Line(points={{-118,25},
+          {-104,25},{-104,-95},{18,-95}},           color={0,0,127}));
   connect(sepDp.yOutDam_min, enaDis.uOutDam_min) annotation (Line(points={{-118,
           85},{-40,85},{-40,-90},{18,-90}}, color={0,0,127}));
   connect(sepDp.yOutDam_max, enaDis.uOutDam_max) annotation (Line(points={{-118,
@@ -429,9 +433,9 @@ equation
   connect(sepDp.yRetDamPhy_max, enaDis.uRetDamPhy_max) annotation (Line(points={
           {-118,71},{-64,71},{-64,-95},{18,-95}}, color={0,0,127}));
   connect(sepAFMS.yOutDam_min, enaDis.uOutDam_min) annotation (Line(points={{-118,
-          145},{0,145},{0,-90},{18,-90}}, color={0,0,127}));
+          143},{0,143},{0,-90},{18,-90}}, color={0,0,127}));
   connect(sepAFMS.yOutDam_max, enaDis.uOutDam_max) annotation (Line(points={{-118,
-          143},{-6,143},{-6,-88},{18,-88}}, color={0,0,127}));
+          141},{-6,141},{-6,-88},{18,-88}}, color={0,0,127}));
   connect(sepAFMS.yRetDam_min, enaDis.uRetDam_min) annotation (Line(points={{-118,
           137},{-12,137},{-12,-99},{18,-99}}, color={0,0,127}));
   connect(sepAFMS.yRetDam_max, enaDis.uRetDam_max) annotation (Line(points={{-118,
@@ -442,12 +446,12 @@ equation
           36},{98,36}}, color={0,0,127}));
   connect(uTSup, modRel.uTSup) annotation (Line(points={{-260,-30},{98,-30}},
                      color={0,0,127}));
-  connect(damLim.yOutDam_min, modRel.uOutDam_min) annotation (Line(points={{-118,
-          38},{-80,38},{-80,-39},{98,-39}}, color={0,0,127}));
+  connect(damLim.yOutDam_min, modRel.uOutDam_min) annotation (Line(points={{-118,39},
+          {-80,39},{-80,-39},{98,-39}},     color={0,0,127}));
   connect(sepDp.yOutDam_min, modRel.uOutDam_min) annotation (Line(points={{-118,
           85},{-40,85},{-40,-39},{98,-39}}, color={0,0,127}));
   connect(sepAFMS.yOutDam_min, modRel.uOutDam_min) annotation (Line(points={{-118,
-          145},{0,145},{0,-39},{98,-39}}, color={0,0,127}));
+          143},{0,143},{0,-39},{98,-39}}, color={0,0,127}));
   connect(enaDis.yOutDam_max, modRel.uOutDam_max) annotation (Line(points={{42,
           -76},{60,-76},{60,-35},{98,-35}}, color={0,0,127}));
   connect(enaDis.yRetDam_max, modRel.uRetDam_max) annotation (Line(points={{42,
@@ -458,24 +462,24 @@ equation
           -86},{66,-86},{66,30},{98,30}}, color={0,0,127}));
   connect(enaDis.yRetDam_min, modRet.uRetDam_min) annotation (Line(points={{42,
           -96},{72,-96},{72,24},{98,24}}, color={0,0,127}));
-  connect(modRet.yRetDam, yRetDam) annotation (Line(points={{122,36},{140,36},
-          {140,100},{280,100}}, color={0,0,127}));
+  connect(modRet.yRetDam, yRetDam) annotation (Line(points={{122,36},{140,36},{140,
+          70},{280,70}},        color={0,0,127}));
   connect(modRel.yRetDam, yRetDam) annotation (Line(points={{122,-24},{140,-24},
-          {140,100},{280,100}}, color={0,0,127}));
+          {140,70},{280,70}},   color={0,0,127}));
   connect(modRet.yOutDam, yOutDam) annotation (Line(points={{122,24},{160,24},
           {160,-70},{280,-70}}, color={0,0,127}));
   connect(modRel.yOutDam, yOutDam) annotation (Line(points={{122,-36},{160,-36},
           {160,-70},{280,-70}}, color={0,0,127}));
-  connect(modRet.yRelDam, yRelDam) annotation (Line(points={{122,30},{180,30},
-          {180,20},{280,20}}, color={0,0,127}));
-  connect(sepAFMS.yMinOutDam, yMinOutDam) annotation (Line(points={{-118,148},{80,
-          148},{80,180},{280,180}}, color={0,0,127}));
-  connect(damLim.yOutDam_min, yOutDam_min) annotation (Line(points={{-118,38},{-80,
-          38},{-80,240},{280,240}}, color={0,0,127}));
+  connect(modRet.yRelDam, yRelDam) annotation (Line(points={{122,30},{180,30},{180,
+          0},{280,0}},        color={0,0,127}));
+  connect(sepAFMS.yMinOutDam, yMinOutDam) annotation (Line(points={{-118,149},{100,
+          149},{100,140},{280,140}},color={0,0,127}));
+  connect(damLim.yOutDam_min, yOutDam_min) annotation (Line(points={{-118,39},{-80,
+          39},{-80,240},{280,240}}, color={0,0,127}));
   connect(sepDp.yOutDam_min, yOutDam_min) annotation (Line(points={{-118,85},{-80,
           85},{-80,240},{280,240}}, color={0,0,127}));
-  connect(sepAFMS.yOutDam_min, yOutDam_min) annotation (Line(points={{-118,145},
-          {-80,145},{-80,240},{280,240}}, color={0,0,127}));
+  connect(sepAFMS.yOutDam_min, yOutDam_min) annotation (Line(points={{-118,143},
+          {-80,143},{-80,240},{280,240}}, color={0,0,127}));
   connect(ecoHigLim.TCut, enaDis.TOutCut) annotation (Line(points={{-118,-44},{
           -30,-44},{-30,-75},{18,-75}}, color={0,0,127}));
   connect(ecoHigLim.hCut, enaDis.hOutCut) annotation (Line(points={{-118,-56},{
@@ -502,8 +506,8 @@ equation
           {160,-36},{160,160},{-172,160},{-172,134},{-142,134}}, color={0,0,127}));
   connect(modRel.yOutDam, sepDp.uOutDam) annotation (Line(points={{122,-36},{
           160,-36},{160,160},{-172,160},{-172,73},{-142,73}}, color={0,0,127}));
-  connect(sepDp.y1MinOutDam, y1MinOutDam) annotation (Line(points={{-118,88},{-40,
-          88},{-40,100},{80,100},{80,140},{280,140}}, color={255,0,255}));
+  connect(sepDp.y1MinOutDam, y1MinOutDam) annotation (Line(points={{-118,88},{40,
+          88},{40,100},{280,100}},                    color={255,0,255}));
   connect(TOut, addPar.u) annotation (Line(points={{-260,-70},{-180,-70},{-180,-110},
           {-142,-110}}, color={0,0,127}));
   connect(addPar.y, enaDis.TOutCut) annotation (Line(points={{-118,-110},{-30,-110},
@@ -512,6 +516,12 @@ equation
         points={{-260,190},{-166,190},{-166,146},{-142,146}}, color={0,0,127}));
   connect(VOut_flow_normalized, damLim.VOut_flow_normalized) annotation (Line(
         points={{-260,190},{-166,190},{-166,34},{-142,34}}, color={0,0,127}));
+  connect(sepAFMS.yEnaMinOut, yEnaMinOut) annotation (Line(points={{-118,147},{6,
+          147},{6,200},{280,200}}, color={255,0,255}));
+  connect(sepDp.y1MinOutDam, yEnaMinOut) annotation (Line(points={{-118,88},{40,
+          88},{40,200},{280,200}}, color={255,0,255}));
+  connect(damLim.yEnaMinOut, yEnaMinOut) annotation (Line(points={{-118,21},{6,21},
+          {6,200},{280,200}}, color={255,0,255}));
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={
@@ -618,7 +628,7 @@ annotation (defaultComponentName="ecoCon",
           pattern=LinePattern.Dash,
           textString="yOutDam"),
         Text(
-          extent={{34,190},{96,174}},
+          extent={{34,200},{96,184}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_min"),
@@ -648,7 +658,12 @@ annotation (defaultComponentName="ecoCon",
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           visible=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
-          textString="y1MinOutDam")}),
+          textString="y1MinOutDam"),
+        Text(
+          extent={{42,180},{96,162}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yEnaMinOut")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-260},{260,260}}),
     graphics={
         Line(points={{156,122}}, color={28,108,200})}),

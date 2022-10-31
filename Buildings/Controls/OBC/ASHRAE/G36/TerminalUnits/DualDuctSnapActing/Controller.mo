@@ -53,7 +53,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Dampers control parameters ----------------
-  parameter Boolean have_preIndDam
+  parameter Boolean have_preIndDam=false
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation (Dialog(tab="Dampers"));
   parameter CDL.Types.SimpleController controllerTypeDam=

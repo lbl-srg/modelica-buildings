@@ -9,10 +9,14 @@ block GroupStatus "Block that outputs the zone group status"
     "Total number of zones in the group";
   parameter Boolean zonGroMsk[nBuiZon]=fill(true, nBuiZon)
     "Boolean array mask of zones included in group";
-  parameter Real uLow(unit="K")=-0.1
+  parameter Real uLow(
+    final unit="K",
+    final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
-  parameter Real uHigh(unit="K")=0.1
+  parameter Real uHigh(
+    final unit="K",
+    final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
 

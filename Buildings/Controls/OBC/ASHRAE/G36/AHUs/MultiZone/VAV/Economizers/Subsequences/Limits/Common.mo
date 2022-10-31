@@ -82,35 +82,39 @@ block Common
     final unit="1")
     "Minimum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
-        iconTransformation(extent={{100,60},{140,100}})));
+        iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yOutDam_max(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1")
     "Maximum outdoor air damper position limit"
     annotation (Placement(transformation(extent={{180,30},{220,70}}),
-        iconTransformation(extent={{100,20},{140,60}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam_min(
     final min=retDamPhy_min,
     final max=retDamPhy_max,
     final unit="1")
     "Minimum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-20},{220,20}}),
-        iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,0},{140,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDam_max(
     final min=retDamPhy_min,
     final max=retDamPhy_max,
     final unit="1")
     "Maximum return air damper position limit"
     annotation (Placement(transformation(extent={{180,-70},{220,-30}}),
-        iconTransformation(extent={{100,-60},{140,-20}})));
+        iconTransformation(extent={{100,-30},{140,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetDamPhy_max(
     final min=0,
     final max=1,
     final unit="1")
     "Physical maximum return air damper position limit. Required as an input for the economizer enable disable sequence"
     annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
-        iconTransformation(extent={{100,-100},{140,-60}})));
+        iconTransformation(extent={{100,-70},{140,-30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yEnaMinOut
+    "True: enable minimum outdoor air control loop"
+    annotation (Placement(transformation(extent={{180,-160},{220,-120}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset damLimCon(
     final controllerType=controllerType,
@@ -241,6 +245,8 @@ equation
           -80,-108},{-62,-108}}, color={255,0,255}));
   connect(u1SupFan, and3.u1)
     annotation (Line(points={{-200,-100},{-62,-100}}, color={255,0,255}));
+  connect(and3.y, yEnaMinOut) annotation (Line(points={{-38,-100},{-30,-100},{-30,
+          -140},{200,-140}}, color={255,0,255}));
 annotation (
     defaultComponentName="damLim",
     Icon(graphics={
@@ -278,30 +284,35 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uOpeMod"),
         Text(
-          extent={{46,90},{98,72}},
+          extent={{46,100},{98,82}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_min"),
         Text(
-          extent={{46,46},{98,32}},
+          extent={{46,66},{98,52}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yOutDam_max"),
         Text(
-          extent={{48,6},{96,-10}},
+          extent={{48,26},{96,10}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam_min"),
         Text(
-          extent={{48,-32},{96,-48}},
+          extent={{48,-2},{96,-18}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yRetDam_max"),
         Text(
-          extent={{38,-70},{98,-88}},
+          extent={{38,-40},{98,-58}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="yRetDamPhy_max")}),
+          textString="yRetDamPhy_max"),
+        Text(
+          extent={{54,-82},{96,-96}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yEnaMinOut")}),
     Diagram(coordinateSystem(extent={{-180,-240},{180,240}}), graphics={
         Rectangle(
           extent={{-172,-74},{16,-234}},

@@ -92,7 +92,8 @@ tuning process.
 <h4>References</h4>
 <p>
 <i>ASHRAE Guideline 36P, High Performance Sequences of Operation for HVAC
-systems</i>. First Public Review Draft (June 2016)
+systems</i>.
+Official Release, May 2020.
 </p>
 </html>"), Icon(graphics={
         Rectangle(

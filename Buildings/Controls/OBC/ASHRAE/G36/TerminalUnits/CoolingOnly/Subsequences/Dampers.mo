@@ -118,7 +118,7 @@ block Dampers
     final controllerType=damCon,
     final k=kDam,
     final Ti=TiDam,
-    final Td=TdDam) if not have_preIndDam
+    final Td=TdDam) if not have_preIndDam "Damper controller"
     annotation (Placement(transformation(extent={{150,-160},{170,-140}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
