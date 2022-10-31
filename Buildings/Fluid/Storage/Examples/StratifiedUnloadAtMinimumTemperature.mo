@@ -109,7 +109,7 @@ equation
     annotation (Line(points={{-100,80},{-110,80},{-110,-120}},
                                                              color={191,0,0}));
   connect(TBot.port, tan.heaPorVol[5])
-    annotation (Line(points={{-100,40},{-110,40},{-110,-119.76}},
+    annotation (Line(points={{-100,40},{-110,40},{-110,-120}},
                                                            color={191,0,0}));
   connect(valTop.port_b, senTem.port_a) annotation (Line(points={{132,-20},{182,
           -20},{182,-60},{190,-60}},
@@ -123,13 +123,12 @@ equation
   connect(senTem.port_b,loa. ports[1])
     annotation (Line(points={{210,-60},{222,-60}},
                                                  color={0,127,255}));
-  connect(valTop.port_a, tan.fluPorVol[1]) annotation (Line(points={{112,-20},{
-          -112.6,-20},{-112.6,-120.4}},
-                               color={0,127,255}));
+  connect(valTop.port_a, tan.fluPorVol[1]) annotation (Line(points={{112,-20},{-112.6,
+          -20},{-112.6,-120}}, color={0,127,255}));
   connect(valMid.port_a, tan.fluPorVol[3]) annotation (Line(points={{132,-60},{-112.6,
           -60},{-112.6,-120}},color={0,127,255}));
-  connect(valBot.port_a, tan.fluPorVol[5]) annotation (Line(points={{150,-100},
-          {-112.6,-100},{-112.6,-119.6}},
+  connect(valBot.port_a, tan.fluPorVol[5]) annotation (Line(points={{150,-100},{
+          -112.6,-100},{-112.6,-120}},
                               color={0,127,255}));
   connect(onOffMid.y, and2.u1)
     annotation (Line(points={{-29,80},{8,80}},     color={255,0,255}));
@@ -145,20 +144,18 @@ equation
           {48,112}},color={255,0,255}));
   connect(yTop.y, valTop.y) annotation (Line(points={{101,120},{122,120},{122,-8}},
                                color={0,0,127}));
-  connect(yMid.y,valMid. y) annotation (Line(points={{101,80},{142,80},{142,-48}},
+  connect(yMid.y, valMid.y) annotation (Line(points={{101,80},{142,80},{142,-48}},
                               color={0,0,127}));
   connect(not1.u, onOffBot.y) annotation (Line(points={{-22,60},{-26,60},{-26,40},
           {-29,40}},       color={255,0,255}));
   connect(not1.y, and2.u2) annotation (Line(points={{1,60},{4,60},{4,72},{8,72}},
         color={255,0,255}));
-  connect(hea.port, tan.heaPorVol[5]) annotation (Line(points={{-130,-124},{
-          -110,-124},{-110,-119.76}},
-                              color={191,0,0}));
-  connect(TTop.port, tan.heaPorVol[1]) annotation (Line(points={{-160,-90},{
-          -110,-90},{-110,-120.24}},
-                             color={191,0,0}));
+  connect(hea.port, tan.heaPorVol[5]) annotation (Line(points={{-130,-124},{-110,
+          -124},{-110,-120}}, color={191,0,0}));
+  connect(TTop.port, tan.heaPorVol[1]) annotation (Line(points={{-160,-90},{-110,
+          -90},{-110,-120}}, color={191,0,0}));
   connect(onOffHea.u, TTop.T) annotation (Line(points={{-212,-124},{-230,-124},
-          {-230,-90},{-181,-90}},color={0,0,127}));
+          {-230,-90},{-180,-90}},color={0,0,127}));
   connect(onOffHea.y, yHea.u)
     annotation (Line(points={{-189,-124},{-182,-124}}, color={255,0,255}));
   connect(hea.Q_flow, yHea.y)
@@ -168,9 +165,9 @@ equation
   connect(yBot.y, valBot.y)
     annotation (Line(points={{101,40},{160,40},{160,-88}}, color={0,0,127}));
   connect(TBot.T, onOffBot.u)
-    annotation (Line(points={{-79,40},{-52,40}}, color={0,0,127}));
+    annotation (Line(points={{-80,40},{-52,40}}, color={0,0,127}));
   connect(onOffMid.u, TMid.T)
-    annotation (Line(points={{-52,80},{-79,80}}, color={0,0,127}));
+    annotation (Line(points={{-52,80},{-80,80}}, color={0,0,127}));
   annotation (Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-140},{260,140}})),
        __Dymola_Commands(file=

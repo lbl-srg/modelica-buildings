@@ -40,7 +40,8 @@ model StaticTwoPortConservationEquation
 
   Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
                                                           each min=0,
-                                                          each max=1)
+                                                          each max=1,
+                                                          nominal=0.01*ones(Medium.nXi))
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -107,11 +108,12 @@ protected
     "Needed to connect to conditional connector";
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
+  if use_mWat_flow then
+    assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
       "If Medium.nXi > 1, then substance 'water' must be present for one component.'"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
-
+  end if;
 equation
   // Conditional connectors
   connect(mWat_flow, mWat_flow_internal);
@@ -335,6 +337,17 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 24, 2022, by Michael Wetter:<br/>
+Conditionally removed assertion that checks for water content as this is
+only required if water is added to the medium.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Set nominal attribute for <code>XiOut</code>.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
+</li>
 <li>
 September 18, 2020, by Michael Wetter:<br/>
 Removed start value for <code>hOut</code> as it will be set by

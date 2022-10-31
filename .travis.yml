@@ -31,9 +31,9 @@ services:
 env:
   global:
     - BUILDINGSPY_VERSION=BuildingsPy@v4.0.0
-    - OMC_VERSION=ubuntu-2004-omc:1.19.0_dev-613-gd6e04c0-1
+    - OMC_VERSION=ubuntu-2004-omc:1.20.0_dev-314-g3033f43-1
     - OPTIMICA_VERSION=travis-ubuntu-1804-optimica:2022-05-09-master-4b0cd2bf71
-    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2022x-x86_64_rev-2
+    - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2023-x86_64
     - ENERGYPLUS_VERSION=EnergyPlus-9.6.0-f420c06a69-Linux-Ubuntu20.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json

@@ -56,8 +56,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     "Internal energy of the component" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         origin={110,20})));
-  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit=
-       "kg") "Species mass of the component"
+  Modelica.Blocks.Interfaces.RealOutput mXiOut[Medium.nXi](each min=0, each unit="kg")
+    "Species mass of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         origin={110,-20})));
   Modelica.Blocks.Interfaces.RealOutput mOut(min=0, unit="kg")
@@ -76,36 +76,32 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
-    preferredMediumStates = energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
     p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi]),
+    Xi(
+      each stateSelect=if medium.preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
-  /* Set StateSelect.never so that tool chooses medium.T_degC or medium.u */
   Modelica.Units.SI.Energy U(
-    stateSelect=StateSelect.never,
     start=fluidVolume*rho_start*
-      Medium.specificInternalEnergy(Medium.setState_pTX(
+        Medium.specificInternalEnergy(Medium.setState_pTX(
         T=T_start,
         p=p_start,
-        X=X_start[1:Medium.nXi]))
-        + (T_start - Medium.reference_T)*CSen) "Internal energy of fluid";
+        X=X_start[1:Medium.nXi])) + (T_start - Medium.reference_T)*CSen,
+      nominal=1E5) "Internal energy of fluid";
 
-  Modelica.Units.SI.Mass m(
-    min=Modelica.Constants.eps,
-    start=fluidVolume*rho_start,
-    stateSelect=StateSelect.never)
-    "Mass of fluid";
+  Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
+        massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
+        StateSelect.default else StateSelect.prefer) "Mass of fluid";
 
   Modelica.Units.SI.Mass[Medium.nXi] mXi(
     each stateSelect=StateSelect.never,
     start=fluidVolume*rho_start*X_start[1:Medium.nXi])
     "Masses of independent components in the fluid";
-  Modelica.Units.SI.Mass[Medium.nC] mC(
-    start=fluidVolume*rho_start*C_start)
+  Modelica.Units.SI.Mass[Medium.nC] mC(start=fluidVolume*rho_start*C_start)
     "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
@@ -122,12 +118,15 @@ model ConservationEquation "Lumped volume with mass and energy balance"
 
   // Parameters that need to be defined by an extending class
   parameter Modelica.Units.SI.Volume fluidVolume "Volume";
-  final parameter Modelica.Units.SI.HeatCapacity CSen=
-    (mSenFac - 1)*rho_default*cp_default*fluidVolume
-    "Additional heat capacity for implementing mFactor";
+  final parameter Modelica.Units.SI.HeatCapacity CSen=(mSenFac - 1)*rho_default
+      *cp_default*fluidVolume
+    "Aditional heat capacity for implementing mFactor";
 protected
+  Medium.EnthalpyFlowRate ports_H_flow[nPorts];
+  Modelica.Units.SI.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
+  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-  Medium.specificHeatCapacityCp(state=state_default)
+      Medium.specificHeatCapacityCp(state=state_default)
     "Heat capacity, to compute additional dry mass";
   parameter Modelica.Units.SI.Density rho_start=Medium.density(
       Medium.setState_pTX(
@@ -143,10 +142,8 @@ protected
       p=Medium.p_default,
       X=Medium.X_default[1:Medium.nXi]) "Medium state at default values";
   // Density at medium default values, used to compute the size of control volumes
-  final parameter Modelica.Units.SI.Density rho_default=Medium.density(
-    state=state_default) "Density, used to compute fluid mass";
-  final parameter Real mInv(final unit="1/kg") = 1/(fluidVolume*rho_default)
-    "Inverse of mass, used to scale internal state variable";
+  final parameter Modelica.Units.SI.Density rho_default=Medium.density(state=
+      state_default) "Density, used to compute fluid mass";
   // Parameter that is used to construct the vector mXi_flow
   final parameter Real s[Medium.nXi] = {if Modelica.Utilities.Strings.isEqual(
                                             string1=Medium.substanceNames[i],
@@ -165,14 +162,6 @@ protected
   constant Boolean _simplify_mWat_flow = simplify_mWat_flow and Medium.nX > 1
    "If true, then port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero, and equations are simplified";
 
-  // Quantities exchanged through the fluid ports
-  Medium.EnthalpyFlowRate ports_H_flow[nPorts]
-    "Enthalpy flow rates at the ports";
-  Modelica.Units.SI.MassFlowRate ports_mXi_flow[nPorts, Medium.nXi]
-    "Mass fraction flow rates at the ports";
-  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts, Medium.nC]
-    "Trace substance flow rates at the ports";
-
   // Conditional connectors
   Modelica.Blocks.Interfaces.RealInput mWat_flow_internal(unit="kg/s")
     "Needed to connect to conditional connector";
@@ -181,11 +170,13 @@ protected
 
 initial equation
   // Assert that the substance with name 'water' has been found.
-  assert(Medium.nXi == 0 or abs(sum(s)-1) < 1e-5,
-      "In " + getInstanceName() + ":
+  if use_mWat_flow then
+    assert(Medium.nXi == 0 or abs(sum(s) - 1) < 1e-5, "In " + getInstanceName()
+       + ":
          If Medium.nXi > 1, then substance 'water' must be present for one component of '"
-         + Medium.mediumName + "'.
+       + Medium.mediumName + "'.
          Check medium model.");
+  end if;
 
   // Make sure that if energyDynamics is SteadyState, then
   // massDynamics is also SteadyState.
@@ -312,13 +303,13 @@ equation
   if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     0 = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   else
-    der(medium.d) = (mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal))/fluidVolume;
+    der(m) = mb_flow + (if simplify_mWat_flow then 0 else mWat_flow_internal);
   end if;
 
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(mXi) = mbXi_flow + mWat_flow_internal * s;
+    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/m;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -436,15 +427,17 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-November 12, 2020, by Michael Wetter and Filip Jorissen:<br/>
-Changed model to use density instead of mass as a prefered state.
-Using mass would require to setting <code>m(nominal=fluidVolume...</code>
-but <code>fluidVolume</code> is in some models not a literal value.
-Changed model to use either <code>medium.u</code> or a new variable <code>_u</code>
-as the state rather than <code>U</code> to avoid using <code>fluidVolume</code>
-in the expression for the nominal value.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">1412</a>.
+October 24, 2022, by Michael Wetter:<br/>
+Conditionally removed assertion that checks for water content as this is
+only required if water is added to the medium.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Changed state variable from <code>mXi</code> to <code>medium.Xi</code>
+as this allows setting a good nominal attribute without having to use the fluid volume,
+which is non-literal value that leads to a warning in Dymola.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">1634</a>.
 </li>
 <li>
 April 26, 2019, by Filip Jorissen:<br/>

@@ -432,6 +432,15 @@ the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
 <p>
 where <i>V&#775;</i> is the volume flow rate and
 <i>&Delta;p</i> is the pressure rise.
+In order to prevent the model from producing negative mover power
+when either the flow rate or pressure rise is forced to be negative,
+the flow work <i>W&#775;<sub>flo</sub></i> is constrained to be non-negative.
+The regularisation starts around 0.01% of the characteristic maximum power
+<i>W&#775;<sub>max</sub> = V&#775;<sub>max</sub> &Delta;p<sub>max</sub></i>.
+See discussions and an example of this situation in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</p>
+<p>
 The heat dissipated into the medium is as follows:
 If the motor is cooled by the fluid, as indicated by
 <code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is

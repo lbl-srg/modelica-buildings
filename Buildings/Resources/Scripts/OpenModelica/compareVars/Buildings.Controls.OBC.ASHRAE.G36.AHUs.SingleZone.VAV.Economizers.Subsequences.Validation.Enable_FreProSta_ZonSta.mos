@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "enaDis.yOutDam_max",
+    "enaDis.yRetDam_min",
+    "enaDis.yRetDam_max",
+    "enaDis.andEnaDis.y",
+    "enaDis.truFalHol.y",
+    "enaDis1.yOutDam_max",
+    "enaDis1.yRetDam_min",
+    "enaDis1.yRetDam_max",
+    "enaDis1.andEnaDis.y",
+    "enaDis1.truFalHol.y"
+  };
