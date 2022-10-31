@@ -1,0 +1,17 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.Validation.Alarms", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="Alarms_DualDuctSnapActing");
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.VActSet_flow", "ala.VColDucDis_flow", "ala.VHotDucDis_flow"}, range={0.0, 8000.0, 0.0, 1.2}, grid=true, colors={{238,46,47}, {28,108,200}, {0,140,72}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 616, 1158}, y={"ala.yLowFloAla"}, range={0.0, 8000.0, -1.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.u1CooFan", "ala.u1HeaFan"}, range={0.0, 8000.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.VCooMax_flow", "ala.VColDucDis_flow", "ala.VHeaMax_flow", "ala.VHotDucDis_flow"}, range={0.0, 8000.0, 0.0, 1.2}, grid=true, subPlot=102, colors={{238,46,47}, {28,108,200}, {0,140,72}, {217,67,180}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"});
+createPlot(id=2, position={643, 17, 592, 1158}, y={"ala.yColFloSenAla", "ala.yHotFloSenAla"}, range={0.0, 8000.0, -1.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1245, 21, 592, 1154}, y={"ala.uCooDam", "ala.uHeaDam"}, range={0.0, 8000.0, -0.1, 0.7}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=3, position={1245, 21, 592, 1154}, y={"ala.yColLeaDamAla", "ala.yHotLeaDamAla"}, range={0.0, 8000.0, -0.5, 4.5}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=4, position={20, 20, 616, 1158}, y={"ala1.VActSet_flow", "ala1.VDis_flow"}, range={0.0, 8000.0, 0.0, 1.2}, grid=true, colors={{238,46,47}, {28,108,200}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=4, position={20, 20, 616, 1158}, y={"ala1.yLowFloAla"}, range={0.0, 8000.0, -1.5, 1.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=5, position={648, 22, 592, 1158}, y={"ala1.u1CooFan", "ala1.u1HeaFan"}, range={0.0, 8000.0, -0.2, 1.2}, grid=true, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=5, position={648, 22, 592, 1158}, y={"ala1.VCooMax_flow", "ala1.VHeaMax_flow", "ala1.VDis_flow"}, range={0.0, 8000.0, 0.0, 1.2}, grid=true, subPlot=102, colors={{238,46,47}, {28,108,200}, {0,140,72}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s"});
+createPlot(id=5, position={648, 22, 592, 1158}, y={"ala1.yFloSenAla"}, range={0.0, 8000.0, -1.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=6, position={1250, 26, 592, 1154}, y={"ala1.uCooDam", "ala1.uHeaDam"}, range={0.0, 8000.0, -0.1, 0.7}, grid=true, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=6, position={1250, 26, 592, 1154}, y={"ala1.yLeaDamAla"}, range={0.0, 8000.0, -0.5, 4.5}, grid=true, subPlot=102, colors={{28,108,200}}, timeUnit="s");
+
+

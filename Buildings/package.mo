@@ -104,15 +104,15 @@ The following strings are frequently used:
 Prefix <code>use_</code> for conditionally enabled input signals, such as <code>use_T_in</code>
 for enabling an input connector for temperature in
 <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>,
-or as <code>use_TMix</code> for enabling a control input in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a> if its freeze protection
-control uses the measured mixed air temperature.
+or as <code>use_enthalpy</code> in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable</a>
+to flag if it should evaluate outdoor air enthalpy in addition to temperature.
 </li>
 <li>
 Prefix <code>have_</code> if a controller has a certain input, such as <code>have_CO2Sen</code>
-in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a> if the zone has a CO<sub>2</sub> sensor.
+in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a> if the zone has a CO<sub>2</sub> sensor.
 </li>
 <li>
 Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code>, <code>m_flow</code>
@@ -134,10 +134,11 @@ a numerically robust implementation).
 Suffix <code>Set</code> for set point.
 </li>
 <li>
-Suffix <code>Min</code> (<code>Max</code>) for minimum (maximum),
-such as in <code>TSupSetMin</code> for minimum supply temperature set point.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature</a>.
+Suffix <code>_min</code> (<code>_max</code>) for minimum (maximum),
+such as <code>TSupCoo_min</code> for the lowest cooling supply air temperature
+setpoint in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature</a>.
 </li>
 </ul>
 </li>
@@ -203,12 +204,12 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_9_1_0 "Version 9.1.0"
+  class Version_10_0_0 "Version 10.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.1.0 is ... xxx
+Version 10.0.0 is ... xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -239,6 +240,25 @@ to <b style=\"color:blue\">existing</b> libraries:
                        issue 3103</a>.
     </td>
 </tr>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.BooleanExtractor<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractor
+    </td>
+    <td valign=\"top\">Added boolean and integer extract signals.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+  </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36
+      </td>
+      <td valign=\"top\">Package with sequences implemented according to ASHRAE Guideline 36 official release, May 2020.
+      </td>
+  </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -247,22 +267,82 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
+    </td>
+    <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
     </td>
     <td valign=\"top\">Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
     </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                         Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                         Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                         Buildings.Fluid.MixingVolumes.MixingVolume.MoistAir</br>
+                         Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort
+    </td>
+    <td valign=\"top\">Improved implementation so that models also work with certain media from
+                       the Modelica Standard Library that may be used to model combustion gases.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
+                         Fluid.Movers.FlowControlled_m_flow<br/>
+                         Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Fluid.Movers.SpeedControlled_y
+    </td>
+    <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading<br/>
+                       Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added default value for output variables.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
+    </td>
+</tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
+    </td>
+    <td valign=\"top\">Corrected units of protected variables to avoid warning during model check.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
+    </td>
+  </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.spliceFunction<br/>
+                         Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
+    </td>
+    <td valign=\"top\">Improved implementation of transition limits.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1640\">IBPSA, issue #1640</a>.
     </td>
 </tr>
 </table>
@@ -273,6 +353,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+    </td>
+    <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
+                       when the index input is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
@@ -354,7 +446,7 @@ xxx
 </li>
 </ul>
 </html>"));
-  end Version_9_1_0;
+  end Version_10_0_0;
 
   class Version_9_0_0 "Version 9.0.0"
   extends Modelica.Icons.ReleaseNotes;
@@ -10796,7 +10888,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_0\">Version 9.1.0</a> (xxx, 2022)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (xxx, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
@@ -11345,14 +11437,18 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="9.1.0",
+version="10.0.0",
 versionDate="2022-05-31",
 dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
 conversion(
-  noneFromVersion="9.0.0",
-  from(version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
-       script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
+  from(
+    version={"9.0.0"},
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_9_to_10.0.0.mos"),
+  from(
+    version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
+    to="9.0.0",
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
