@@ -4,6 +4,11 @@ model ParallelJunctions "A pair of junctions in parallel"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
+  parameter Modelica.Units.SI.Temperature T1_start
+    "Start temperature of the volume";
+  parameter Modelica.Units.SI.Temperature T2_start
+    "Start temperature of the volume";
+
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium,
     p(final displayUnit="Pa")) "Fluid connector" annotation (
@@ -38,6 +43,7 @@ model ParallelJunctions "A pair of junctions in parallel"
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=30,
+    final T_start=T1_start,
     m_flow_nominal={-1,-1,1},
     final dp_nominal={0,0,0})
     "Junction"
@@ -46,6 +52,7 @@ model ParallelJunctions "A pair of junctions in parallel"
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=30,
+    final T_start=T2_start,
     m_flow_nominal={1,1,-1},
     final dp_nominal={0,0,0})
     "Junction"
