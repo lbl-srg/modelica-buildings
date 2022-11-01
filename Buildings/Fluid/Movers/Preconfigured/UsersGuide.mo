@@ -16,15 +16,15 @@ The configuration is as follows:
 <ul>
 <li>
 The parameters <code>m_flow_nominal</code> and <code>dp_nominal</code>
-are used to construct the pressure curve <i>&Delta; p(V&#775;)</i>.
-The curve support points come from regression of the pump and fan data records
-available in the data package.
-The pump pressure curve is based on all data records in
+are used to construct the pressure curve <i>&Delta; p = f(m&#775;,  y)</i>
+where <i>m&#775;</i> is the mass flow rate and <i>y</i> is the speed.
+This curve is based on a least squares polynomial fit of all pressure curves from
 <a href=\"Modelica://Buildings.Fluid.Movers.Data.Pumps\">
 Buildings.Fluid.Movers.Data.Pumps</a>
-and the fan pressure curve is based on all data records in
+for pumps and
 <a href=\"Modelica://Buildings.Fluid.Movers.Data.Fans\">
-Buildings.Fluid.Movers.Data.Fans</a>.
+Buildings.Fluid.Movers.Data.Fans</a>
+for fans.
 (See also
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/1884\">#1884</a>.)
 The model identifies itself as a fan or pump based on the default density of
