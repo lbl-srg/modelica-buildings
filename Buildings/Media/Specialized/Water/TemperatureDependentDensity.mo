@@ -34,8 +34,12 @@ protected
 public
   redeclare model extends BaseProperties(
     T(
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      stateSelect=StateSelect.avoid,
       nominal=100),
+    T_degC(
+      nominal=10,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default
+    ),
     h(nominal=1E4))
      "Base properties"
 

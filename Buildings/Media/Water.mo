@@ -26,7 +26,7 @@ public
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
     Modelica.Units.SI.Density d=d_const "Density of medium";
     Temperature T(
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      stateSelect=StateSelect.avoid,
       nominal=100)
       "Temperature of medium";
     InputAbsolutePressure p "Absolute pressure of medium";
@@ -49,7 +49,7 @@ public
 
     Modelica.Units.NonSI.Temperature_degC T_degC(
       nominal=10,
-      stateSelect=StateSelect.avoid)
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
       "Temperature of medium in [degC]";
     Modelica.Units.NonSI.Pressure_bar p_bar=
         Modelica.Units.Conversions.to_bar(p)
