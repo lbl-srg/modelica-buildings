@@ -124,7 +124,7 @@ model NetworkConnection
       startValue=false) "Remote charging status"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
-    f=5/(2*Modelica.Constants.pi*60),
+    f=20/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
     final normalized=true) "Second order filter to improve numerics"
