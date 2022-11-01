@@ -8,7 +8,7 @@ model Guideline36Spring
     experiment(
       StartTime=7344000,
       StopTime=7776000,
-      Tolerance=1e-07),
+      Tolerance=1e-06),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},

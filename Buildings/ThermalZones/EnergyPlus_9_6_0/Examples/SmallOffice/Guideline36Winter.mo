@@ -30,7 +30,7 @@ model Guideline36Winter
     experiment(
       StartTime=432000,
       StopTime=864000,
-      Tolerance=1e-07),
+      Tolerance=1e-06),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},

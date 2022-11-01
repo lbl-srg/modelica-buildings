@@ -8,7 +8,7 @@ model Guideline36Summer
     experiment(
       StartTime=16848000,
       StopTime=17280000,
-      Tolerance=1e-07),
+      Tolerance=1e-06),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}},
