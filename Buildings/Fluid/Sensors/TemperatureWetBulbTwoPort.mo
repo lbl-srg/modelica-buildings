@@ -53,7 +53,10 @@ equation
     Xi = port_b.Xi_outflow;
   end if;
   // Compute wet bulb temperature
-  wetBulMod.TDryBul = Medium.temperature_phX(p=port_a.p, h=h, X=cat(1,Xi,{1-sum(Xi)}));
+  wetBulMod.TDryBul = Medium.temperature_phX(
+    p=port_a.p,
+    h=h,
+    X=if Medium.reducedX then cat(1, Xi, {1-sum(Xi)}) else Xi);
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
   TMedWetBul = wetBulMod.TWetBul;
@@ -113,6 +116,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 24, 2022, by Michael Wetter:<br/>
+Improved conversion from <code>Xi</code> to <code>X</code> so that it also works
+with media that have <code>reducedX=true</code>.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">#1650</a>.
+</li>
 <li>
 February 21, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
