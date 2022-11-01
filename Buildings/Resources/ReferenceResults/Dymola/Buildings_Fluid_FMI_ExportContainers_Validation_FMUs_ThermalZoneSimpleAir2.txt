@@ -1,37 +1,50 @@
-last-generated=2019-04-17
+last-generated=2022-11-01
 statistics-fmu-dependencies=
 {
   "Derivatives": {
-    "der(vol.dynBal.U)": [
-      "fluPor[1].m_flow",
-      "fluPor[1].forward.T",
-      "fluPor[2].m_flow",
-      "fluPor[2].forward.T",
-      "vol.dynBal.U",
-      "vol.dynBal.m"
-    ],
-    "der(vol.dynBal.m)": [
-      "fluPor[1].m_flow",
-      "fluPor[2].m_flow"
-    ],
     "der(vol.dynBal.mC[1])": [
       "fluPor[1].m_flow",
       "fluPor[1].forward.C[1]",
       "fluPor[2].m_flow",
       "fluPor[2].forward.C[1]",
-      "vol.dynBal.m",
+      "vol.dynBal.medium.p",
+      "vol.dynBal.medium.T",
       "vol.dynBal.mC[1]"
+    ],
+    "der(vol.dynBal.medium.T)": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.T",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.T",
+      "vol.dynBal.medium.p",
+      "vol.dynBal.medium.T"
+    ],
+    "der(vol.dynBal.medium.p)": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.T",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.T",
+      "vol.dynBal.medium.p",
+      "vol.dynBal.medium.T"
     ]
   },
   "InitialUnknowns": {
     "TOut": [
       "TOutSou.k"
     ],
-    "der(vol.dynBal.U)": [
+    "der(vol.dynBal.mC[1])": [
+      "fluPor[1].m_flow",
+      "fluPor[1].forward.C[1]",
+      "fluPor[2].m_flow",
+      "fluPor[2].forward.C[1]",
+      "vol.C_start[1]"
+    ],
+    "der(vol.dynBal.medium.T)": [
       "fluPor[1].m_flow",
       "fluPor[1].forward.T",
       "fluPor[2].m_flow",
       "fluPor[2].forward.T",
+      "V",
       "theCon.G",
       "preHea.T_ref",
       "preHea.alpha",
@@ -39,39 +52,29 @@ statistics-fmu-dependencies=
       "vol.T_start",
       "TOutSou.k"
     ],
-    "der(vol.dynBal.m)": [
+    "der(vol.dynBal.medium.p)": [
       "fluPor[1].m_flow",
-      "fluPor[2].m_flow"
-    ],
-    "der(vol.dynBal.mC[1])": [
-      "fluPor[1].m_flow",
-      "fluPor[1].forward.C[1]",
+      "fluPor[1].forward.T",
       "fluPor[2].m_flow",
-      "fluPor[2].forward.C[1]",
-      "vol.C_start[1]"
+      "fluPor[2].forward.T",
+      "V",
+      "theCon.G",
+      "preHea.T_ref",
+      "preHea.alpha",
+      "vol.p_start",
+      "vol.T_start",
+      "TOutSou.k"
     ],
     "fluPor[1].backward.C[1]": [
       "vol.C_start[1]"
     ],
     "fluPor[1].backward.T": [
-      "vol.p_start",
       "vol.T_start"
     ],
     "fluPor[2].backward.C[1]": [
       "vol.C_start[1]"
     ],
     "fluPor[2].backward.T": [
-      "vol.p_start",
-      "vol.T_start"
-    ],
-    "vol.dynBal.U": [
-      "V",
-      "vol.p_start",
-      "vol.T_start"
-    ],
-    "vol.dynBal.m": [
-      "V",
-      "vol.p_start",
       "vol.T_start"
     ],
     "vol.dynBal.mC[1]": [
@@ -79,25 +82,32 @@ statistics-fmu-dependencies=
       "vol.p_start",
       "vol.T_start",
       "vol.C_start[1]"
+    ],
+    "vol.dynBal.medium.T": [
+      "vol.T_start"
+    ],
+    "vol.dynBal.medium.p": [
+      "vol.p_start",
+      "vol.T_start"
     ]
   },
   "Outputs": {
     "TOut": [],
     "fluPor[1].backward.C[1]": [
-      "vol.dynBal.m",
+      "vol.dynBal.medium.p",
+      "vol.dynBal.medium.T",
       "vol.dynBal.mC[1]"
     ],
     "fluPor[1].backward.T": [
-      "vol.dynBal.U",
-      "vol.dynBal.m"
+      "vol.dynBal.medium.T"
     ],
     "fluPor[2].backward.C[1]": [
-      "vol.dynBal.m",
+      "vol.dynBal.medium.p",
+      "vol.dynBal.medium.T",
       "vol.dynBal.mC[1]"
     ],
     "fluPor[2].backward.T": [
-      "vol.dynBal.U",
-      "vol.dynBal.m"
+      "vol.dynBal.medium.T"
     ]
   }
 }
