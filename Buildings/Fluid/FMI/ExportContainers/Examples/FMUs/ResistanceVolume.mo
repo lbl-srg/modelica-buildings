@@ -34,16 +34,16 @@ protected
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=if use_p_in then dp_nominal else 0,
     final allowFlowReversal=allowFlowReversal) "Flow resistance"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    nPorts=2,
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final V=V,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Control volume"
-    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nPorts=2)                                               "Control volume"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
 equation
   connect(inlet, bouIn.inlet) annotation (Line(
@@ -62,22 +62,16 @@ equation
       points={{29,-60},{78,-60},{78,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(res.port_b, vol.ports[1]) annotation (Line(
-      points={{-20,0},{18,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(bouIn.port_b, res.port_a) annotation (Line(
-      points={{-60,0},{-40,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(dpCom.y, pOut.u2) annotation (Line(
       points={{-19,-80},{20,-80},{20,-68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vol.ports[2], bouOut.port_a) annotation (Line(
-      points={{22,0},{68,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
+  connect(bouIn.port_b, vol.ports[1])
+    annotation (Line(points={{-60,0},{-31,0}}, color={0,127,255}));
+  connect(vol.ports[2], res.port_a)
+    annotation (Line(points={{-29,0},{20,0}}, color={0,127,255}));
+  connect(res.port_b, bouOut.port_a)
+    annotation (Line(points={{40,0},{68,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 This example demonstrates how to export an FMU with a
@@ -97,6 +91,14 @@ for the rationale.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2022, by Michael Wetter:<br/>
+Switched order of resistance and volume.<br/>
+This is
+for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1412\">#1412</a>
+ss otherwise, export fails because Dymola 2023 requires the derivatives of the inlet pressure
+and mass flow rate.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
