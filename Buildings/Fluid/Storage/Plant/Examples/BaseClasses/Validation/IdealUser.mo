@@ -35,9 +35,9 @@ model IdealUser "Test model for the dummy user"
     final T=T_CHWR_nominal,
     nPorts=1) "Sink representing CHW return line"
     annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={70,0})));
+        origin={-70,-30})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare final package Medium = Medium,
     final p=p_Pressurisation+dp_nominal,
@@ -46,20 +46,20 @@ model IdealUser "Test model for the dummy user"
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-70,0})));
+        origin={-70,30})));
   Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,0;
         0.5*3600,QCooLoa_flow_nominal; 0.75*3600,QCooLoa_flow_nominal; 0.75*3600,
         0; 1*3600,0])
     "Placeholder, prescribed cooling load"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
-  connect(sou.ports[1],ideUse. port_a) annotation (Line(points={{-60,
-          -6.66134e-16},{-35.1,-6.66134e-16},{-35.1,0},{-10,0}},
-                                                     color={0,127,255}));
+  connect(sou.ports[1],ideUse. port_a) annotation (Line(points={{-60,30},{-40,
+          30},{-40,6},{-10,6}},                      color={0,127,255}));
   connect(ideUse.port_b, sin.ports[1])
-    annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
-  connect(preQCooLoa_flow.y,ideUse. QCooLoa_flow) annotation (Line(points={{-39,50},
-          {-4,50},{-4,11}},              color={0,0,127}));
+    annotation (Line(points={{-10,-6},{-40,-6},{-40,-30},{-60,-30}},
+                                             color={0,127,255}));
+  connect(preQCooLoa_flow.y,ideUse. QCooLoa_flow) annotation (Line(points={{-39,70},
+          {-11,70},{-11,8}},             color={0,0,127}));
 annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/BaseClasses/Validation/IdealUser.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>
