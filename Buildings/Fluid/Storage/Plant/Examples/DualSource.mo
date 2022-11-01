@@ -249,71 +249,50 @@ model DualSource
         origin={130,-150})));
 
 // District pipe network
-  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla1(
-    redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=m_flow_nominal,
-    final mCon_flow_nominal=chi1.m2_flow_nominal,
-    final allowFlowReversal=true,
-    final dpDis_nominal=0.2*dp_nominal,
-    final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal))
-    "Two-pipe connection to the chiller-only plant"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={50,50})));
-  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipPla2(
-    redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=2*m_flow_nominal,
-    final mCon_flow_nominal=nomPla2.m_flow_nominal,
-    final allowFlowReversal=true,
-    final dpDis_nominal=0.2*dp_nominal,
-    final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal))
-    "Two-pipe connection to the storage plant"
-    annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={50,-90})));
-  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse1(
-    redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=m_flow_nominal,
-    final mCon_flow_nominal=ideUse2.m_flow_nominal,
-    final allowFlowReversal=true,
-    final dpDis_nominal=0,
-    final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
-    annotation (Placement(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions parJunUse1(
+    redeclare final package Medium = MediumCHW,
+    T1_start=nomPla2.T_CHWS_nominal,
+    T2_start=nomPla2.T_CHWS_nominal)
+    "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
+        extent={{-10,10},{10,-10}},
+        rotation=90,
         origin={50,90})));
-  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse2(
-    redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=2*m_flow_nominal,
-    final mCon_flow_nominal=ideUse2.m_flow_nominal,
-    final allowFlowReversal=true,
-    final dpDis_nominal=0.2*dp_nominal,
-    final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
-    annotation (Placement(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions parJunPla1(
+    redeclare final package Medium = MediumCHW,
+    T1_start=nomPla2.T_CHWS_nominal,
+    T2_start=nomPla2.T_CHWS_nominal)
+    "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={50,50})));
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions parJunUse2(
+    redeclare final package Medium = MediumCHW,
+    T1_start=nomPla2.T_CHWS_nominal,
+    T2_start=nomPla2.T_CHWS_nominal)
+    "Parallel junctions for breaking algebraic loops" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
         origin={50,-10})));
-  Buildings.Experimental.DHC.Networks.Connection2Pipe con2PipUse3(
-    redeclare package Medium = MediumCHW,
-    final mDis_flow_nominal=m_flow_nominal,
-    final mCon_flow_nominal=ideUse2.m_flow_nominal,
-    final allowFlowReversal=true,
-    final dpDis_nominal=0.2*dp_nominal,
-    final junConSup(T_start=T_CHWS_nominal),
-    final junConRet(T_start=T_CHWS_nominal)) "Two-pipe connection to the user(s)"
-    annotation (Placement(
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions parJunPla2(
+    redeclare final package Medium = MediumCHW,
+    T1_start=nomPla2.T_CHWS_nominal,
+    T2_start=nomPla2.T_CHWS_nominal)
+    "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={50,-90})));
+  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions parJunUse3(
+    redeclare final package Medium = MediumCHW,
+    T1_start=nomPla2.T_CHWS_nominal,
+    T2_start=nomPla2.T_CHWS_nominal)
+    "Parallel junctions for breaking algebraic loops" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
         origin={50,-130})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PipeEnd pipEnd1(
     redeclare final package Medium = MediumCHW)
@@ -432,14 +411,6 @@ equation
   connect(junBou.port_3, bou.ports[1])
     annotation (Line(points={{-30,-106},{-30,-120}},
                                                    color={0,127,255}));
-  connect(netCon.port_aFroNet, con2PipPla2.port_aCon)
-    annotation (Line(points={{20,-96},{40,-96}},   color={0,127,255}));
-  connect(con2PipPla2.port_bCon, netCon.port_bToNet) annotation (Line(points={{40,-90},
-          {28,-90},{28,-84},{20,-84}},             color={0,127,255}));
-  connect(con2PipPla1.port_bCon, chi1.port_b2) annotation (Line(points={{40,50},
-          {-114,50},{-114,80},{-124,80},{-124,70}},        color={0,127,255}));
-  connect(pumSup1.port_a, con2PipPla1.port_aCon) annotation (Line(points={{-60,30},
-          {32,30},{32,44},{40,44}},          color={0,127,255}));
   connect(junBou.port_1, tanBra.port_aFroNet)
     annotation (Line(points={{-40,-96},{-60,-96}},  color={0,127,255}));
   connect(junBou.port_2, netCon.port_bToChi)
@@ -450,42 +421,50 @@ equation
           -50},{-66,-50},{-66,-52},{-41,-52}},   color={0,0,127}));
   connect(mChi2Set_flow.y, chiBra2.mPumSet_flow) annotation (Line(points={{-119,
           -130},{-106,-130},{-106,-101}}, color={0,0,127}));
-  connect(con2PipUse2.port_aDisSup, con2PipPla1.port_aDisRet) annotation (Line(
-        points={{50,0},{50,8},{56,8},{56,40}}, color={0,127,255}));
-  connect(con2PipPla1.port_bDisSup, con2PipUse2.port_bDisRet) annotation (Line(
-        points={{50,40},{50,30},{44,30},{44,1.77636e-15}}, color={0,127,255}));
-  connect(con2PipPla2.port_aDisSup, con2PipUse2.port_aDisRet) annotation (Line(
-        points={{50,-80},{50,-70},{44,-70},{44,-20}}, color={0,127,255}));
-  connect(con2PipUse2.port_bDisSup, con2PipPla2.port_bDisRet) annotation (Line(
-        points={{50,-20},{50,-30},{56,-30},{56,-80}}, color={0,127,255}));
-  connect(con2PipPla1.port_aDisSup, con2PipUse1.port_aDisRet) annotation (Line(
-        points={{50,60},{50,66},{44,66},{44,80}}, color={0,127,255}));
-  connect(con2PipPla1.port_bDisRet, con2PipUse1.port_bDisSup) annotation (Line(
-        points={{56,60},{56,72},{50,72},{50,80}}, color={0,127,255}));
-  connect(con2PipUse1.port_bCon, ideUse1.port_a) annotation (Line(points={{60,90},
-          {74,90},{74,106},{90,106},{90,100}}, color={0,127,255}));
-  connect(ideUse1.port_b, con2PipUse1.port_aCon) annotation (Line(points={{90,80},
-          {90,74},{74,74},{74,84},{60,84}}, color={0,127,255}));
-  connect(con2PipUse2.port_bCon, ideUse2.port_a) annotation (Line(points={{60,-10},
-          {74,-10},{74,6},{90,6},{90,0}}, color={0,127,255}));
-  connect(ideUse2.port_b, con2PipUse2.port_aCon) annotation (Line(points={{90,-20},
-          {90,-26},{74,-26},{74,-16},{60,-16}}, color={0,127,255}));
-  connect(con2PipUse3.port_bCon, ideUse3.port_a) annotation (Line(points={{60,-130},
-          {74,-130},{74,-114},{90,-114},{90,-120}}, color={0,127,255}));
-  connect(ideUse3.port_b, con2PipUse3.port_aCon) annotation (Line(points={{90,-140},
-          {90,-146},{74,-146},{74,-136},{60,-136}}, color={0,127,255}));
-  connect(con2PipUse3.port_bDisRet, con2PipPla2.port_bDisSup) annotation (Line(
-        points={{44,-120},{44,-108},{50,-108},{50,-100}}, color={0,127,255}));
-  connect(con2PipUse3.port_aDisSup, con2PipPla2.port_aDisRet) annotation (Line(
-        points={{50,-120},{50,-114},{56,-114},{56,-100}}, color={0,127,255}));
-  connect(con2PipUse1.port_bDisRet, pipEnd1.port_a)
+  connect(parJunPla1.port_c1, chi1.port_b2) annotation (Line(points={{40,56},{-114,
+          56},{-114,80},{-124,80},{-124,70}}, color={0,127,255}));
+  connect(pumSup1.port_a,parJunPla1.port_c2)  annotation (Line(points={{-60,30},
+          {34,30},{34,44},{40,44}}, color={0,127,255}));
+  connect(parJunPla2.port_c1, netCon.port_bToNet)
+    annotation (Line(points={{40,-84},{20,-84}}, color={0,127,255}));
+  connect(netCon.port_aFroNet,parJunPla2.port_c2)
+    annotation (Line(points={{20,-96},{40,-96}}, color={0,127,255}));
+  connect(parJunUse1.port_a2, pipEnd1.port_a)
     annotation (Line(points={{44,100},{44,120}}, color={0,127,255}));
-  connect(con2PipUse1.port_aDisSup, pipEnd1.port_b) annotation (Line(points={{50,100},
-          {50,114},{56,114},{56,120}},      color={0,127,255}));
-  connect(pipEnd2.port_b, con2PipUse3.port_aDisRet)
+  connect(pipEnd1.port_b, parJunUse1.port_b1)
+    annotation (Line(points={{56,120},{56,100}}, color={0,127,255}));
+  connect(parJunUse1.port_c2, ideUse1.port_a) annotation (Line(points={{60,96},{
+          74,96},{74,106},{90,106},{90,100}}, color={0,127,255}));
+  connect(parJunUse1.port_c1, ideUse1.port_b) annotation (Line(points={{60,84},{
+          74,84},{74,74},{90,74},{90,80}}, color={0,127,255}));
+  connect(parJunUse1.port_a1, parJunPla1.port_b2)
+    annotation (Line(points={{56,80},{56,60}}, color={0,127,255}));
+  connect(parJunPla1.port_a1, parJunUse1.port_b2)
+    annotation (Line(points={{44,60},{44,80}}, color={0,127,255}));
+  connect(parJunUse2.port_c2, ideUse2.port_a) annotation (Line(points={{60,-4},{
+          74,-4},{74,6},{90,6},{90,0}}, color={0,127,255}));
+  connect(ideUse2.port_b,parJunUse2.port_c1)  annotation (Line(points={{90,-20},
+          {90,-26},{74,-26},{74,-16},{60,-16}}, color={0,127,255}));
+  connect(parJunUse2.port_b1, parJunPla1.port_a2)
+    annotation (Line(points={{56,0},{56,40}}, color={0,127,255}));
+  connect(parJunPla1.port_b1, parJunUse2.port_a2)
+    annotation (Line(points={{44,40},{44,0}}, color={0,127,255}));
+  connect(parJunUse2.port_a1, parJunPla2.port_b2)
+    annotation (Line(points={{56,-20},{56,-80}}, color={0,127,255}));
+  connect(parJunPla2.port_a1, parJunUse2.port_b2)
+    annotation (Line(points={{44,-80},{44,-20}}, color={0,127,255}));
+  connect(parJunPla2.port_b1, parJunUse3.port_a2)
+    annotation (Line(points={{44,-100},{44,-120}}, color={0,127,255}));
+  connect(parJunUse3.port_b1, parJunPla2.port_a2)
+    annotation (Line(points={{56,-120},{56,-100}}, color={0,127,255}));
+  connect(parJunUse3.port_a1, pipEnd2.port_a)
+    annotation (Line(points={{56,-140},{56,-160}}, color={0,127,255}));
+  connect(pipEnd2.port_b, parJunUse3.port_b2)
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
-  connect(con2PipUse3.port_bDisSup, pipEnd2.port_a) annotation (Line(points={{50,
-          -140},{50,-154},{56,-154},{56,-160}}, color={0,127,255}));
+  connect(parJunUse3.port_c2, ideUse3.port_a) annotation (Line(points={{60,-124},
+          {74,-124},{74,-114},{90,-114},{90,-120}}, color={0,127,255}));
+  connect(ideUse3.port_b,parJunUse3.port_c1)  annotation (Line(points={{90,-140},
+          {90,-146},{74,-146},{74,-136},{60,-136}}, color={0,127,255}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
