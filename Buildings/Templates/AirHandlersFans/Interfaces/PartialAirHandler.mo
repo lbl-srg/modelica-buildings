@@ -175,7 +175,8 @@ partial model PartialAirHandler "Interface class for air handler"
       iconTransformation(extent={{-20,182},{20,218}})));
 
   Buildings.Templates.ZoneEquipment.Interfaces.Bus busTer[nZon]
-    "Terminal unit control bus" annotation (Placement(transformation(
+    "Terminal unit control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={300,0}), iconTransformation(

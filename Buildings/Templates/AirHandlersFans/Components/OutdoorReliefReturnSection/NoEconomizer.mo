@@ -18,14 +18,14 @@ model NoEconomizer "No air economizer"
     final dat=dat)
     "Outdoor air section"
     annotation (
-    Dialog(group="Outdoor air section"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoEconomizer secRel(
     redeclare final package MediumAir = MediumAir,
     final dat=dat)
     "Relief/return air section"
     annotation (
-    Dialog(group="Exhaust/relief/return section"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-18,66},{18,94}})));
 
   // Currently only the configuration without heat recovery is supported.

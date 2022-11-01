@@ -7,10 +7,10 @@ record PartialAirTerminal "Record for air terminal unit interface class"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_souChiWat
     "Set to true if system uses CHW"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_souHeaWat
     "Set to true if system uses HHW"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.ZoneEquipment.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));

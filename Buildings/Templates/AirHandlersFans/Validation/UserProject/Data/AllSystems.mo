@@ -50,7 +50,6 @@ record AllSystems "Top-level (whole building) record for testing purposes"
       yFanSup_min=0.1,
       yFanRel_min=0.1,
       yFanRet_min=0.1,
-      pBuiSet_rel=12,
       dVFanRet_flow=0.1,
       TAirSupSet_min=12+273.15,
       TAirSupSet_max=18+273.15,

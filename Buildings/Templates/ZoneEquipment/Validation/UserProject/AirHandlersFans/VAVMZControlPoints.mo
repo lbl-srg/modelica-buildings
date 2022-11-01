@@ -15,7 +15,7 @@ block VAVMZControlPoints "Emulation of multiple-zone VAV control points"
         origin={100,0})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirSupSet[nZon](
-    each k=15 + 273.15) "AHU supply air temperature set point"
+    each k=15 + 273.15) "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant yOpeMod[nZon](each k=1)
     "Group operating mode"

@@ -34,8 +34,7 @@ model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
     final buiPreCon=VAV_1.ctl.buiPreCon,
     ctl(
       stdEne=VAV_1.ctl.stdEne,
-      stdVen=VAV_1.ctl.stdVen,
-      have_CO2Sen=VAV_1.ctl.have_CO2Sen)))
+      stdVen=VAV_1.ctl.stdVen)))
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
 
   inner replaceable UserProject.AirHandlersFans.VAVMZNoEconomizer VAV_1

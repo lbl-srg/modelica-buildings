@@ -6,8 +6,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
       Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
       dat(typSecRel=secOutRel.typSecRel,
       stdEne=stdEne,
-      stdVen=stdVen,
-      have_CO2Sen=have_CO2Sen));
+      stdVen=stdVen));
 
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";

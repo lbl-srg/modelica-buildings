@@ -70,7 +70,7 @@ model VAVMultiZone "Multiple-zone VAV"
         final fanRet=dat.fanRet))
     "Outdoor/relief/return air section"
     annotation (
-      Dialog(group="Outdoor/relief/return air section"),
+      Dialog(group="Configuration"),
       Placement(transformation(extent={{-280,-220},{-120,-60}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
@@ -97,7 +97,7 @@ model VAVMultiZone "Multiple-zone VAV"
           "Single fan - Variable speed"),
         choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupBlo
           "Fan array - Variable speed")),
-      Dialog(group="Supply air section",
+      Dialog(group="Configuration",
         enable=fanSupDra.typ==Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-50,-210},{-30,-190}})));
 
@@ -136,7 +136,7 @@ model VAVMultiZone "Multiple-zone VAV"
           "Single fan - Variable speed"),
         choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupDra
           "Fan array - Variable speed")),
-    Dialog(group="Supply air section",
+    Dialog(group="Configuration",
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
@@ -231,7 +231,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil",
+    Dialog(group="Configuration",
       enable=coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{10,-210},{30,-190}})));
 
@@ -249,7 +249,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "Chilled water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
         "Evaporator coil with variable speed compressor")),
-    Dialog(group="Cooling coil"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
@@ -266,7 +266,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil",
+    Dialog(group="Configuration",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
   Buildings.Fluid.FixedResistances.Junction junHeaWatSup(

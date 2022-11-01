@@ -36,37 +36,37 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Boolean have_locAdj=true
-    "Set to true if the zone has local set point adjustment knob"
+    "Set to true if the zone has local setpoint adjustment knob"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Boolean sepAdj=true
-    "Set to true if cooling and heating set points can be adjusted separately"
+    "Set to true if cooling and heating setpoints can be adjusted separately"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_locAdj));
 
   parameter Boolean ignDemLim = true
-    "Set to true to exempt the zone from demand limit set point adjustment"
+    "Set to true to exempt the zone from demand limit setpoint adjustment"
     annotation(Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max=
     dat.VAirCooSet_flow_max
-    "Zone maximum cooling airflow set point";
+    "Zone maximum cooling airflow setpoint";
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min=
     dat.VAirSet_flow_min
-    "Zone minimum airflow set point";
+    "Zone minimum airflow setpoint";
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_max=
     dat.VAirHeaSet_flow_max
-    "Zone maximum heating airflow set point";
+    "Zone maximum heating airflow setpoint";
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_min=
     dat.VAirHeaSet_flow_min
-    "Zone minimum heating airflow set point";
+    "Zone minimum heating airflow setpoint";
 
   final parameter Modelica.Units.SI.TemperatureDifference dTAirDisHea_max(
     displayUnit="K")=
     dat.dTAirDisHea_max
-    "Zone maximum discharge air temperature above heating set point";
+    "Zone maximum discharge air temperature above heating setpoint";
 
   final parameter Modelica.Units.SI.VolumeFlowRate VOutMinOcc_flow(
     final min=0,
@@ -107,22 +107,22 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
   final parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
     displayUnit="degC")=
     dat.TZonHeaOccSet
-    "Zone occupied heating set point";
+    "Zone occupied heating setpoint";
 
   final parameter Modelica.Units.SI.Temperature TZonHeaUnoSet(
     displayUnit="degC")=
     dat.TZonHeaUnoSet
-    "Zone unoccupied heating set point";
+    "Zone unoccupied heating setpoint";
 
   final parameter Modelica.Units.SI.Temperature TZonCooOccSet(
     displayUnit="degC")=
     dat.TZonCooOccSet
-    "Zone occupied cooling set point";
+    "Zone occupied cooling setpoint";
 
   final parameter Modelica.Units.SI.Temperature TZonCooUnoSet(
     displayUnit="degC")=
     dat.TZonCooUnoSet
-    "Zone unoccupied cooling set point";
+    "Zone unoccupied cooling setpoint";
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctlReh(
     final venStd=stdVen,
@@ -170,7 +170,7 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     final have_locAdj=have_locAdj,
     final sepAdj=sepAdj,
     final ignDemLim=ignDemLim)
-    "Compute zone temperature set points"
+    "Compute zone temperature setpoints"
     annotation (Placement(transformation(extent={{-60,-20},{-40,20}})));
 
   // FIXME #1913: occDen should not be exposed.
@@ -184,19 +184,19 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     "FIXME #1913: Optimal start using global outdoor air temperature not associated with any AHU"
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setAdj(k=0)
-    "RFE: Set point adjustment by the occupant is not implemented in the template"
+    "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetAdj(k=0)
-    "RFE: Set point adjustment by the occupant is not implemented in the template"
+    "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,130},{-140,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetAdj(k=0)
-    "RFE: Set point adjustment by the occupant is not implemented in the template"
+    "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uCooDemLimLev(k=0)
-    "RFE: Set point adjustment by demand limit is not implemented in the template"
+    "RFE: Setpoint adjustment by demand limit is not implemented in the template"
     annotation (Placement(transformation(extent={{-120,170},{-100,190}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant uHeaDemLimLev(k=0)
-    "RFE: Set point adjustment by demand limit is not implemented in the template"
+    "RFE: Setpoint adjustment by demand limit is not implemented in the template"
     annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
 
 equation
@@ -334,12 +334,12 @@ Main controller for the terminal unit
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:
-Computation of the zone temperature set points
+Computation of the zone temperature setpoints
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
 Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a>:
-Computation of the zone minimum outdoor air and minimum airflow set points
+Computation of the zone minimum outdoor air and minimum airflow setpoints
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\">

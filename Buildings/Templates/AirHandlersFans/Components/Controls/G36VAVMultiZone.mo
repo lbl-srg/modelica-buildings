@@ -89,15 +89,15 @@ block G36VAVMultiZone
 
   final parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max=
     dat.pAirSupSet_rel_max
-    "Maximum supply duct static pressure set point";
+    "Maximum supply duct static pressure setpoint";
 
   final parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_min=
     dat.pAirRetSet_rel_min
-    "Return fan minimum discharge static pressure set point";
+    "Return fan minimum discharge static pressure setpoint";
 
   final parameter Modelica.Units.SI.PressureDifference pAirRetSet_rel_max=
     dat.pAirRetSet_rel_max
-    "Return fan maximum discharge static pressure set point";
+    "Return fan maximum discharge static pressure setpoint";
 
   final parameter Real yFanSup_min=
     dat.yFanSup_min
@@ -105,11 +105,11 @@ block G36VAVMultiZone
 
   final parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     displayUnit="degC")=dat.TAirSupSet_min
-    "Lowest supply air temperature set point";
+    "Lowest supply air temperature setpoint";
 
   final parameter Modelica.Units.SI.Temperature TAirSupSet_max(
     displayUnit="degC")=dat.TAirSupSet_max
-    "Highest supply air temperature set point";
+    "Highest supply air temperature setpoint";
 
   final parameter Modelica.Units.SI.Temperature TOutRes_min(
     displayUnit="degC")=dat.TOutRes_min
@@ -118,10 +118,6 @@ block G36VAVMultiZone
   final parameter Modelica.Units.SI.Temperature TOutRes_max(
     displayUnit="degC")=dat.TOutRes_max
     "Highest value of the outdoor air temperature reset range";
-
-  final parameter Modelica.Units.SI.PressureDifference pBuiSet_rel=
-    dat.pBuiSet_rel
-    "Building static pressure set point";
 
   final parameter Real yFanRel_min=
     dat.yFanRel_min
@@ -133,7 +129,7 @@ block G36VAVMultiZone
 
   final parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow=
     dat.dVFanRet_flow
-    "Airflow differential between supply and return fans to maintain building pressure at set point";
+    "Airflow differential between supply and return fans to maintain building pressure at setpoint";
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller ctl(
     final eneStd=stdEne,
@@ -163,7 +159,6 @@ block G36VAVMultiZone
     final have_CO2Sen=have_CO2Sen,
     final dpAbsMinOutDam=dpDamOutMinAbs,
     final dpDesMinOutDam=dpDamOutMin_nominal,
-    final dpBuiSet=pBuiSet_rel,
     final difFloSet=dVFanRet_flow,
     final p_rel_RetFan_min=pAirRetSet_rel_min,
     final p_rel_RetFan_max=pAirRetSet_rel_max)
@@ -229,9 +224,9 @@ block G36VAVMultiZone
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1SofSwiRes(k=false)
     "FIXME #1913: How to deal with that?"
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uRelFanSpe(k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uRelFan(k=1)
     "FIXME #1913: The commanded speed should be used"
-    annotation (Placement(transformation(extent={{-280,-50},{-260,-30}})));
+    annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(
     final nout=nZon)
     "Pass signal to terminal unit bus"
@@ -254,9 +249,9 @@ block G36VAVMultiZone
     final nGro=nGro)
     "Compute the AHU operating mode"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1MinOutAirDam(k=true)
-    "FIXME #1913: An AHU with return fan and direct building pressure control may not have a minimum OA damper"
-    annotation (Placement(transformation(extent={{-280,-90},{-260,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uSupFan_actual(k=1)
+    "FIXME #1913: The commanded speed should be used"
+    annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
 initial equation
   if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016 then
     assert(ashCliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
@@ -284,6 +279,8 @@ equation
   connect(bus.TAirRet, ctl.TAirRet);
   connect(bus.hAirRet, ctl.hAirRet);
   connect(bus.pBui_rel, ctl.dpBui);
+
+  connect(bus.TAirMix, ctl.TAirMix);
 
   connect(bus.fanSup.y1_actual, ctl.u1SupFan);
   connect(bus.fanRel.y1_actual, ctl.u1RelFan);
@@ -356,8 +353,8 @@ equation
   // FIXME #1913: connect statements to be updated when FIXME tags above are addressed.
   connect(FIXME_u1FreSta.y, ctl.u1FreSta);
   connect(FIXME_u1SofSwiRes.y, ctl.u1SofSwiRes);
-  connect(FIXME_uRelFanSpe.y, ctl.uRelFan);
-  connect(FIXME_u1MinOutAirDam.y, ctl.u1MinOutAirDam);
+  connect(FIXME_uRelFan.y, ctl.uRelFan);
+  connect(FIXME_uSupFan_actual.y, ctl.uSupFan_actual);
 
   /* Control point connection - stop */
 
@@ -479,20 +476,13 @@ equation
           {-100,120},{-100,80},{-92,80}}, color={255,127,0}));
   connect(ahuMod.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,80},
           {-60,80},{-60,70.3636},{-44,70.3636}},color={255,127,0}));
-  connect(ctl.TAirMix, bus.TAirMix) annotation (Line(points={{-44,-45.8182},{
-          -180,-45.8182},{-180,0},{-200,0}},
-                                        color={0,0,127}), Text(
-      string="%second",
-      index=1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>
-This is an implementation of the control sequence specified in
-<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
+This is an implementation of the control sequence specified in ASHRAE (2021)
 for multiple-zone VAV air handlers.
 It contains the following components.
 </p>
@@ -522,7 +512,7 @@ hence no <code>bus.VOut_flow</code> signal is available for that configuration.
 </p>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2021\">
+<li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>

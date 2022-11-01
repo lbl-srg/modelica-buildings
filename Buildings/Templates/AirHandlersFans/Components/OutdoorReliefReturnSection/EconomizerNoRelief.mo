@@ -31,7 +31,7 @@ model EconomizerNoRelief "Air Economizer - No Relief Branch"
           Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure
           secOut
           "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
-    Dialog(group="Outdoor air section"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
   Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.NoRelief
@@ -39,7 +39,7 @@ model EconomizerNoRelief "Air Economizer - No Relief Branch"
       redeclare final package MediumAir = MediumAir,
       final dat=dat)
     "Relief/return air section"
-    annotation (Dialog(group="Exhaust/relief/return section"),
+    annotation (Dialog(group="Configuration"),
       Placement(transformation(extent={{-18,66},{18,94}})));
 
   Buildings.Templates.Components.Dampers.Modulating damRet(

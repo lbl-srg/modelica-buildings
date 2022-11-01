@@ -4,7 +4,7 @@ record Fan "Record for fan model"
 
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
   parameter Integer nFan(
     final min=0,
     start=1)

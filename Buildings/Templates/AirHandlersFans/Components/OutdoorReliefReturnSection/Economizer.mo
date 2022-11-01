@@ -19,7 +19,7 @@ model Economizer "Air Economizer"
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
       final dat=dat)
-    "Single common OA damper (modulating) with AFMS"
+    "Outdoor air section"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
@@ -28,7 +28,7 @@ model Economizer "Air Economizer"
         "Dedicated minimum OA damper (modulating) with AFMS"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure secOut
         "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
-    Dialog(group="Outdoor air section"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
   replaceable
@@ -37,7 +37,7 @@ model Economizer "Air Economizer"
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
       final dat=dat)
-    "Return fan with modulating relief damper"
+    "Relief/return air section"
     annotation (
     choices(
       choice(
@@ -51,7 +51,7 @@ model Economizer "Air Economizer"
         redeclare  Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReliefDamper
           secRel
           "Modulating relief damper without fan")),
-    Dialog(group="Exhaust/relief/return section"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{-18,66},{18,94}})));
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
@@ -71,8 +71,8 @@ model Economizer "Air Economizer"
     Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces.PartialHeatRecovery(
       redeclare final package MediumAir = MediumAir)
     "Heat recovery"
-    annotation (
-      Placement(transformation(extent={{-90,-10},{-70,10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
+
 equation
   /* Control point connection - start */
   connect(damRet.bus, bus.damRet);
