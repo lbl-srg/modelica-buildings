@@ -6,10 +6,10 @@ record NominalValues "Nominal values"
     "Type of plant setup"
     annotation(Dialog(group="Plant configuration"));
 
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
      mTan_flow_nominal+mChi_flow_nominal
     "Nominal mass flow rate"
-    annotation(Dialog(enable=false));
+    annotation(Dialog(group="Nominal values"));
   parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
     "Nominal mass flow rate for CHW tank branch"
     annotation(Dialog(group="Nominal values"));

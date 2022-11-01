@@ -123,6 +123,7 @@ model DualSource
 // Second source: chiller and tank
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nomPla2(
     allowRemoteCharging=true,
+    m_flow_nominal=2*m_flow_nominal,
     mTan_flow_nominal=m_flow_nominal,
     mChi_flow_nominal=2*m_flow_nominal,
     dp_nominal=dp_nominal,
