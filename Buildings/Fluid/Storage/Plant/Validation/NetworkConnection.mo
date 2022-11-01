@@ -19,7 +19,7 @@ model NetworkConnection
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 600,0; 600,1; 1200,
         1; 1200,0; 1800,0; 1800,-1; 3600,-1]) "Mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Modelica.Blocks.Sources.BooleanTable uAva(final table={600,2400,3000},
     final startValue=false) "Plant availability"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -119,10 +119,10 @@ model NetworkConnection
   Modelica.Blocks.Sources.TimeTable mChiSet_flow(table=[0,0; 600,0; 600,1; 1800,
         1; 1800,2; 2400,2; 2400,1; 3000,1; 3000,0; 3600,0])
     "Mass flow rate setpoint for the primary pump"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(final table={3000}, final
       startValue=false) "Remote charging status"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     f=20/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
@@ -130,15 +130,15 @@ model NetworkConnection
     final normalized=true) "Second order filter to improve numerics"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-90,-30})));
+        rotation=0,
+        origin={-110,-10})));
 equation
   connect(conRemCha.yPum, netCon.yPum)
     annotation (Line(points={{1,24},{8,24},{8,11}}, color={0,0,127}));
   connect(conRemCha.yVal, netCon.yVal)
     annotation (Line(points={{1,28},{12,28},{12,11}}, color={0,0,127}));
-  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-79,30},
-          {-74,30},{-74,28},{-21,28}},     color={0,0,127}));
+  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-99,30},
+          {-90,30},{-90,28},{-21,28}},     color={0,0,127}));
   connect(conRemCha.uAva, uAva.y) annotation (Line(points={{-22,36},{-28,36},{-28,
           70},{-39,70}},color={255,0,255}));
   connect(mTan_flow.m_flow, conRemCha.mTan_flow)
@@ -170,15 +170,16 @@ equation
     annotation (Line(points={{-40,10},{-70,10},{-70,0}}, color={0,127,255}));
   connect(ideFloSou.port_a, junRet1.port_2) annotation (Line(points={{-70,-20},{
           -70,-50},{-40,-50}}, color={0,127,255}));
-  connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-22,32},{-66,
-          32},{-66,70},{-79,70}},
-                              color={255,0,255}));
+  connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-22,32},{-80,32},
+          {-80,70},{-99,70}}, color={255,0,255}));
   connect(bou.ports[1], junRet1.port_1) annotation (Line(points={{-20,-80},{-14,
           -80},{-14,-50},{-20,-50}}, color={0,127,255}));
-  connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-79,-70},{-74,-70},{
-          -74,-48},{-90,-48},{-90,-42}}, color={0,0,127}));
+  connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-99,-70},{-94,-70},{-94,
+          -40},{-128,-40},{-128,-10},{-122,-10}},
+                                         color={0,0,127}));
   connect(fil.y, ideFloSou.m_flow_in)
-    annotation (Line(points={{-90,-19},{-90,-16},{-78,-16}}, color={0,0,127}));
+    annotation (Line(points={{-99,-10},{-86,-10},{-86,-16},{-78,-16}},
+                                                             color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
@@ -253,5 +254,7 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-140,-100},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end NetworkConnection;
