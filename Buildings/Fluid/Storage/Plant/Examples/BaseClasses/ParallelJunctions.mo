@@ -24,12 +24,12 @@ model ParallelJunctions "A pair of junctions in parallel"
     p(final displayUnit="Pa")) "Fluid connector" annotation (
     Placement(transformation(extent={{-110,50},{-90,70}}), iconTransformation(
           extent={{-110,50},{-90,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a3(
+  Modelica.Fluid.Interfaces.FluidPort_a port_c1(
     redeclare final package Medium = Medium,
     p(final displayUnit="Pa")) "Fluid connector" annotation (
     Placement(transformation(extent={{-70,90},{-50,110}}), iconTransformation(
           extent={{-70,90},{-50,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b3(
+  Modelica.Fluid.Interfaces.FluidPort_b port_c2(
     redeclare final package Medium = Medium,
     p(final displayUnit="Pa")) "Fluid connector" annotation (
     Placement(transformation(extent={{50,90},{70,110}}), iconTransformation(
@@ -53,7 +53,7 @@ model ParallelJunctions "A pair of junctions in parallel"
 equation
   connect(port_a1, jun1.port_1)
     annotation (Line(points={{-100,60},{-70,60}}, color={0,127,255}));
-  connect(jun1.port_3, port_a3)
+  connect(jun1.port_3,port_c1)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
   connect(jun1.port_2, port_b1)
     annotation (Line(points={{-50,60},{100,60}}, color={0,127,255}));
@@ -61,7 +61,7 @@ equation
     annotation (Line(points={{-100,-60},{50,-60}}, color={0,127,255}));
   connect(jun2.port_2, port_a2)
     annotation (Line(points={{70,-60},{100,-60}}, color={0,127,255}));
-  connect(jun2.port_3, port_b3)
+  connect(jun2.port_3,port_c2)
     annotation (Line(points={{60,-50},{60,100}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                Rectangle(
