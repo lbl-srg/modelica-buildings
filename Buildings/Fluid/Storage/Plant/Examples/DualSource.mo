@@ -66,7 +66,6 @@ model DualSource
     per(pressure(dp=dp_nominal*{2,0},
                  V_flow=(chi1.m2_flow_nominal)/1000*{0,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    allowFlowReversal=false,
     addPowerToMedium=false,
     y_start=0,
     T_start=T_CHWS_nominal) "CHW supply pump for chi1"
