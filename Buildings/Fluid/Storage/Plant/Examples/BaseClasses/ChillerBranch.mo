@@ -12,8 +12,8 @@ model ChillerBranch
 
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare final package Medium = Medium,
-    per(pressure(dp=preDro.dp_nominal*{2,0},
-                 V_flow=nom.mChi_flow_nominal/1000*{0,2})),
+    per(pressure(dp=preDro.dp_nominal*{1.14, 1, 0.42},
+                 V_flow=nom.mChi_flow_nominal/1000*{0, 1, 2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final m_flow_nominal=nom.mChi_flow_nominal,
     allowFlowReversal=true,

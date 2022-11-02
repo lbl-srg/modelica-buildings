@@ -32,8 +32,8 @@ model SingleSource "Simple system model with one source and one user"
     redeclare final package Medium = Medium,
     final nom=nom,
     final allowRemoteCharging=nom.allowRemoteCharging,
-    per(pressure(V_flow=nom.m_flow_nominal*{0,2},
-                 dp=nom.dp_nominal*{2,0})))
+    per(pressure(V_flow=nom.m_flow_nominal*{0, 1, 2},
+                 dp=nom.dp_nominal*{1.14, 1, 0.42})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 

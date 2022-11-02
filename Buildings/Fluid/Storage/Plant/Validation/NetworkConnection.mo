@@ -27,8 +27,8 @@ model NetworkConnection
     redeclare final package Medium = Medium,
     final nom=nom,
     final allowRemoteCharging=nom.allowRemoteCharging,
-    final per(pressure(V_flow=nom.m_flow_nominal/1000*{0,2},
-                       dp=nom.dp_nominal*{2,0})))
+    final per(pressure(V_flow=nom.m_flow_nominal/1000*{0, 1, 2},
+                       dp=nom.dp_nominal*{1.14, 1, 0.42})))
     "Pump and valves connecting the storage plant to the district network"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate mTan_flow(

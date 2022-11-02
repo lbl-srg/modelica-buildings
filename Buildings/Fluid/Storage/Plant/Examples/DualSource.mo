@@ -63,8 +63,8 @@ model DualSource
             120}})));
  Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
     redeclare package Medium = MediumCHW,
-    per(pressure(dp=dp_nominal*{2,0},
-                 V_flow=(chi1.m2_flow_nominal)/1000*{0,2})),
+    per(pressure(dp=dp_nominal*{1.14, 1, 0.42},
+                 V_flow=(chi1.m2_flow_nominal)/1000*{0, 1, 2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     addPowerToMedium=false,
     y_start=0,
@@ -147,8 +147,8 @@ model DualSource
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
     final allowRemoteCharging=nomPla2.allowRemoteCharging,
-    per(pressure(V_flow=nomPla2.m_flow_nominal/1000*{0,2},
-                 dp=nomPla2.dp_nominal*{2,0})))
+    per(pressure(V_flow=nomPla2.m_flow_nominal/1000*{0, 1, 2},
+                 dp=nomPla2.dp_nominal*{1.14, 1, 0.42})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={360*7,360*9},
