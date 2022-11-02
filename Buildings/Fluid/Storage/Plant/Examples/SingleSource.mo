@@ -100,7 +100,7 @@ equation
   connect(set_dpUsr.y, conPI_pumSec.u_s)
     annotation (Line(points={{-10,59},{-10,55.5},{-10,55.5},{-10,52}},
                                                  color={0,0,127}));
-  connect(ideUse.dpUse, gaiPumSec.u)
+  connect(ideUse.dp, gaiPumSec.u)
     annotation (Line(points={{78,-9},{78,40},{42,40}}, color={0,0,127}));
   connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{19,40},{2,40}},             color={0,0,127}));

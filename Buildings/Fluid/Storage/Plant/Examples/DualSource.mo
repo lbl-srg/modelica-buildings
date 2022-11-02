@@ -385,14 +385,12 @@ equation
           {78,10},{78,-2},{79,-2}},         color={0,0,127}));
   connect(set_QCooLoa3_flow.y, ideUse3.QCooLoa_flow) annotation (Line(points={{119,
           -150},{78,-150},{78,-162},{79,-162}},color={0,0,127}));
-  connect(ideUse1.dpUse,gaiUse1.u)
-    annotation (Line(points={{101,154},{114,154},{114,130},{118,130}},
-                                                       color={0,0,127}));
-  connect(ideUse2.dpUse,gaiUse2.u) annotation (Line(points={{101,-6},{114,-6},{
+  connect(ideUse1.dp, gaiUse1.u) annotation (Line(points={{101,154},{114,154},{
+          114,130},{118,130}}, color={0,0,127}));
+  connect(ideUse2.dp, gaiUse2.u) annotation (Line(points={{101,-6},{114,-6},{
           114,-30},{118,-30}}, color={0,0,127}));
-  connect(ideUse3.dpUse,gaiUse3.u)
-    annotation (Line(points={{101,-166},{114,-166},{114,-190},{118,-190}},
-                                                          color={0,0,127}));
+  connect(ideUse3.dp, gaiUse3.u) annotation (Line(points={{101,-166},{114,-166},
+          {114,-190},{118,-190}}, color={0,0,127}));
   connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,130},{146,
           130},{146,209.333},{-18,209.333}},
                                      color={0,0,127}));
