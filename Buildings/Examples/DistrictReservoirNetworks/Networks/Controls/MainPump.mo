@@ -60,7 +60,7 @@ block MainPump "Controller for main pump"
   Buildings.Controls.OBC.CDL.Continuous.Add dTSou[nSou](each final k1=-1)
     "Temperature differences over source"
     annotation (Placement(transformation(extent={{-70,-142},{-50,-122}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain dTSou_nor(k=1/(sum(dTSou_nominal)))
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter dTSou_nor(k=1/(sum(dTSou_nominal)))
     "Normalization of temperature difference over source"
     annotation (Placement(transformation(extent={{-10,-142},{10,-122}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conShi(

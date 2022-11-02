@@ -16,7 +16,7 @@ model Reservoir3Variable_TOUGHCheckGround
     TMax=290.15,
     use_temperatureShift=false)
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiConMaiPum(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiConMaiPum(
     final k=1.4*datDes.mDisPip_flow_nominal)
     "Gain for mass flow rate"
     annotation (Placement(transformation(extent={{18,-240},{38,-220}})));
