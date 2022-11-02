@@ -226,14 +226,11 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate<br/>
+    </td>
+    <td valign=\"top\">Validation test added for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -273,6 +270,16 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized</br>
+    </td>
+    <td valign=\"top\">Reverted the correction on latent heat from component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
     </td>
 </tr>
 </table>
