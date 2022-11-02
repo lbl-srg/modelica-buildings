@@ -11,10 +11,10 @@ model WetCoilCounterFlow
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1"
     annotation(HideResult=true);
 
-  Modelica.Units.SI.HeatFlowRate QSen2_flow=Q2_flow - QLat2_flow
+  Modelica.SIunits.HeatFlowRate QSen2_flow=Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.Units.SI.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
+  Modelica.SIunits.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
       *mWat_flow "Latent heat input into air (negative if air is dehumidified)";
 
   Real SHR(
@@ -24,7 +24,7 @@ model WetCoilCounterFlow
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
        "Sensible to total heat ratio";
 
-  Modelica.Units.SI.MassFlowRate mWat_flow=sum(ele[i].vol2.mWat_flow for i in 1
+  Modelica.SIunits.MassFlowRate mWat_flow=sum(ele[i].vol2.mWat_flow for i in 1
       :nEle) "Water flow rate";
 
  annotation (

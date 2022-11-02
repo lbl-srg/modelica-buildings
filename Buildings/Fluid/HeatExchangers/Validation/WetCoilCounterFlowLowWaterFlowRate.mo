@@ -7,9 +7,9 @@ model WetCoilCounterFlowLowWaterFlowRate
   package Medium2 = Buildings.Media.Air
    "Medium model for air";
 
-  parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal=0.44732114
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal=0.44732114
     "Nominal mass flow rate";
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=0.65844
+  parameter Modelica.SIunits.MassFlowRate mAir_flow_nominal=0.65844
     "Nominal mass flow rate";
 
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow

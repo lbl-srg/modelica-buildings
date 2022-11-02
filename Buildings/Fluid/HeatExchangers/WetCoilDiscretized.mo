@@ -11,10 +11,10 @@ model WetCoilDiscretized
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
 
-  Modelica.Units.SI.HeatFlowRate QSen2_flow=Q2_flow - QLat2_flow
+  Modelica.SIunits.HeatFlowRate QSen2_flow=Q2_flow - QLat2_flow
     "Sensible heat input into air stream (negative if air is cooled)";
 
-  Modelica.Units.SI.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
+  Modelica.SIunits.HeatFlowRate QLat2_flow=Buildings.Utilities.Psychrometrics.Constants.h_fg
       *mWat_flow "Latent heat input into air (negative if air is dehumidified)";
 
   Real SHR(
@@ -24,7 +24,7 @@ model WetCoilDiscretized
       noEvent(if (Q2_flow > 1E-6 or Q2_flow < -1E-6) then Q2_flow else 1)
        "Sensible to total heat ratio";
 
-  Modelica.Units.SI.MassFlowRate mWat_flow=sum(hexReg[:].ele[:, :].vol2.mWat_flow)
+  Modelica.SIunits.MassFlowRate mWat_flow=sum(hexReg[:].ele[:, :].vol2.mWat_flow)
     "Water flow rate";
 
  annotation (
