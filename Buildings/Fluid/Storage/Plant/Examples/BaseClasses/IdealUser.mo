@@ -76,7 +76,8 @@ model IdealUser "Ideal user model"
         origin={-70,-10})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
-    final unit="Pa")
+    final unit="Pa",
+    final displayUnit="Pa")
     "Differential pressure from the sensor" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

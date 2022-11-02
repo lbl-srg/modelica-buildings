@@ -13,11 +13,13 @@ model NetworkConnection
           extent={{-80,0},{-60,20}})),  Dialog(group="Pump Sizing"));
 
   //Valve sizing & interlock
-  parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal(
+    final displayUnit="Pa")=
     0.1*nom.dp_nominal "Nominal pressure drop of intVal.valToNet when fully open"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
-  parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal(
+    final displayUnit="Pa")=
     0.1*nom.dp_nominal "Nominal pressure drop of intVal.valFroNet when fully open"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));

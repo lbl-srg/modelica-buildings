@@ -3,9 +3,11 @@ model InterlockedValves
   "Two valves in parallel with opposite nominal flow directions that are interlocked with each other"
   extends PartialBranchPorts;
 
-  parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal(
+    final displayUnit="Pa")=
     0.1*nom.dp_nominal "Nominal pressure drop of valToNet when fully open";
-  parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal=
+  parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal(
+    final displayUnit="Pa")=
     0.1*nom.dp_nominal "Nominal pressure drop of valFroNet when fully open";
   parameter Real tValToNetClo=0.01 "Threshold that ValToNet is considered closed";
   parameter Real tValFroNetClo=0.01 "Threshold that ValFroNet is considered closed";
