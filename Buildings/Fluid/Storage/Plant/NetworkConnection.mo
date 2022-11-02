@@ -14,11 +14,11 @@ model NetworkConnection
 
   //Valve sizing & interlock
   parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of intVal.valToNet"
+    0.1*nom.dp_nominal "Nominal pressure drop of intVal.valToNet when fully open"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
   parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of intVal.valFroNet"
+    0.1*nom.dp_nominal "Nominal pressure drop of intVal.valFroNet when fully open"
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
   parameter Real tValToNetClo=0.01

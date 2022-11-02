@@ -4,9 +4,9 @@ model InterlockedValves
   extends PartialBranchPorts;
 
   parameter Modelica.Units.SI.PressureDifference dpValToNet_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of valToNet";
+    0.1*nom.dp_nominal "Nominal pressure drop of valToNet when fully open";
   parameter Modelica.Units.SI.PressureDifference dpValFroNet_nominal=
-    0.1*nom.dp_nominal "Nominal flow rate of valFroNet";
+    0.1*nom.dp_nominal "Nominal pressure drop of valFroNet when fully open";
   parameter Real tValToNetClo=0.01 "Threshold that ValToNet is considered closed";
   parameter Real tValFroNetClo=0.01 "Threshold that ValFroNet is considered closed";
 
