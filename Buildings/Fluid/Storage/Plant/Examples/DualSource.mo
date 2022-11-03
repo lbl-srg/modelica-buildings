@@ -8,7 +8,7 @@ model DualSource
   package MediumCDW1 = Buildings.Media.Water "Medium model for CDW of chi1";
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
-    "Nominal mass flow rate to satisfy nominal load of one user";
+    "Nominal mass flow rate, slightly larger than needed by one user load";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final displayUnit="Pa")=
      300000
@@ -21,7 +21,7 @@ model DualSource
     final displayUnit="degC")=
      7+273.15
     "Nominal temperature of CHW supply";
-  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.6
+  parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.8
     "Nominal cooling load of one consumer";
 
 // First source: chiller only
@@ -29,7 +29,7 @@ model DualSource
     redeclare final package Medium1 = MediumCDW1,
     redeclare final package Medium2 = MediumCHW,
     m1_flow_nominal=1.2*chi1.m2_flow_nominal,
-    m2_flow_nominal=m_flow_nominal,
+    m2_flow_nominal=2*m_flow_nominal,
     final dp1_nominal=0,
     final dp2_nominal=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -174,7 +174,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal,
+    dp_nominal=0.2*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -184,7 +184,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal,
+    dp_nominal=0.2*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -194,7 +194,7 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal,
+    dp_nominal=0.2*dp_nominal,
     T_a_nominal=T_CHWS_nominal,
     T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
@@ -297,23 +297,26 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS1U1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal) "Parallel pipes" annotation (Placement(
+    dp_nominal=0.15*dp_nominal)
+                               "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,110})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS1U2(
     redeclare package Medium = MediumCHW,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal) "Parallel pipes" annotation (Placement(
+    m_flow_nominal=2*m_flow_nominal,
+    dp_nominal=0.15*dp_nominal)
+                               "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,30})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS2U2(
     redeclare package Medium = MediumCHW,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal) "Parallel pipes" annotation (Placement(
+    m_flow_nominal=2*m_flow_nominal,
+    dp_nominal=0.15*dp_nominal)
+                               "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
@@ -321,7 +324,8 @@ model DualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS2U3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.3*dp_nominal) "Parallel pipes" annotation (Placement(
+    dp_nominal=0.15*dp_nominal)
+                               "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,

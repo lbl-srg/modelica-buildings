@@ -66,7 +66,8 @@ model NetworkConnection
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium = Medium,
     final m_flow_nominal=nom.m_flow_nominal,
-    dpValve_nominal=0.1*nom.dp_nominal) "Check valve" annotation (Placement(
+    final dpValve_nominal=0.5*dpValToNet_nominal)
+                                        "Check valve" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
@@ -74,7 +75,7 @@ model NetworkConnection
   Buildings.Fluid.Storage.Plant.BaseClasses.InterlockedValves intVal(
     redeclare final package Medium = Medium,
     final nom=nom,
-    final dpValToNet_nominal=dpValToNet_nominal,
+    final dpValToNet_nominal=0.5*dpValToNet_nominal,
     final dpValFroNet_nominal=dpValFroNet_nominal,
     final tValToNetClo=tValToNetClo,
     final tValFroNetClo=tValFroNetClo) if allowRemoteCharging

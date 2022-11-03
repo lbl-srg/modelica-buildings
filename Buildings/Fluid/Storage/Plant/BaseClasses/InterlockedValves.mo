@@ -17,7 +17,8 @@ model InterlockedValves
     final dpValve_nominal=dpValToNet_nominal,
     use_inputFilter=true,
     y_start=0,
-    m_flow_nominal=nom.m_flow_nominal)
+    final m_flow_nominal=nom.m_flow_nominal,
+    final dpFixed_nominal)
     "Valve whose nominal flow direction is to the district network"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valFroNet(
@@ -25,7 +26,8 @@ model InterlockedValves
     final dpValve_nominal=dpValFroNet_nominal,
     use_inputFilter=true,
     y_start=0,
-    m_flow_nominal=nom.mTan_flow_nominal)
+    final m_flow_nominal=nom.mTan_flow_nominal,
+    final dpFixed_nominal)
     "Valve whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
   Modelica.Blocks.Interfaces.RealInput yVal[2] "Real inputs for valve position"
