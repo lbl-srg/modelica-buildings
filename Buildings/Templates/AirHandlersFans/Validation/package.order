@@ -1,3 +1,4 @@
+VAVMZBase
 VAVMZCoilElectricHeating
 VAVMZCoilEvaporatorMultiStage
 VAVMZCoilEvaporatorVariable
@@ -8,8 +9,6 @@ VAVMZDedicatedDampersPressure
 VAVMZFanRelief
 VAVMZFanSupplyBlowThrough
 VAVMZFanSupplyArrayVariable
-VAVMZNoEconomizer
-VAVMZNoRelief
 VAVMZControlG36Airflow
 VAVMZControlG36Pressure
 UserProject

@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMZControlG36Airflow "Validation model for multiple-zone VAV"
-  extends VAVMZNoEconomizer(
+  extends VAVMZBase(
     datAll(redeclare model VAV =
       UserProject.AirHandlersFans.VAVMZControlG36Airflow),
     redeclare UserProject.AirHandlersFans.VAVMZControlG36Airflow VAV_1);

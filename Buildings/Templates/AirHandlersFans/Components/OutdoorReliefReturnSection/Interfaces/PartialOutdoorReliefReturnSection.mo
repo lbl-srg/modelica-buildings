@@ -34,11 +34,13 @@ partial model PartialOutdoorReliefReturnSection
   parameter Buildings.Templates.Components.Types.Fan typFanRet
     "Return fan type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_eco
+    "Set to true in case of economizer function"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   inner parameter Boolean have_recHea = false
     "Set to true in case of heat recovery"
     annotation (Evaluate=true,
-      Dialog(group="Configuration",
-        enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief));
+      Dialog(group="Configuration"));
   inner parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
     "Return fan control type"
@@ -52,12 +54,11 @@ partial model PartialOutdoorReliefReturnSection
     annotation (Evaluate=true,
       Dialog(
         group="Configuration",
-        enable=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+        enable=have_eco));
 
   parameter
     Buildings.Templates.AirHandlersFans.Components.Data.OutdoorReliefReturnSection
     dat(
-      final typSecRel=typSecRel,
       final typDamOut=typDamOut,
       final typDamOutMin=typDamOutMin,
       final typDamRet=typDamRet,
@@ -97,7 +98,7 @@ partial model PartialOutdoorReliefReturnSection
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief
+    if typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirNoRelief
     "Relief (exhaust) air"
     annotation (Placement(transformation(
       extent={{-190,70},{-170,90}}),iconTransformation(extent={{-810,590},{-790,
@@ -194,12 +195,12 @@ partial model PartialOutdoorReliefReturnSection
           color={0,0,0},
           thickness=1),
       Bitmap(
-        visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
+        visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir,
         extent={{-240,-40},{-160,40}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
       Bitmap(
         extent={{-40,-130},{40,130}},
-        visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
+        visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesParallel.svg",
           origin={-30,-1.42109e-14},
           rotation=-90),
@@ -229,11 +230,11 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
       Line(points={{-100,700},{800,700}}, color={0,0,0}),
       Line(
-        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,
+        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirNoRelief,
         points={{-800,500},{-100,500}},
         color={0,0,0}),
       Line(
-        visible=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief,
+        visible=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirNoRelief,
         points={{-100,700},{-100,500}},
         color={0,0,0}),
       Line(points={{96,500},{796,500}}, color={0,0,0}),
@@ -241,25 +242,25 @@ partial model PartialOutdoorReliefReturnSection
       Line(points={{-800,-500},{-100,-500}},color={0,0,0}),
       Line(points={{-800,-700},{800,-700}}, color={0,0,0}),
       Line(
-        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
+        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir,
         points={{100,500},{100,-500}},
         color={0,0,0}),
       Line(
-        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer,
+        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir,
         points={{-100,500},{-100,-300}},
         color={0,0,0}),
       Line(
         points={{-800,700},{-100,700}},
         color={0,0,0},
-        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.EconomizerNoRelief),
+        visible=typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirNoRelief),
       Line(
           points={{-100,500},{100,500}},
           color={0,0,0},
-          visible=typ == Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
+          visible=typ == Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir),
       Line(
           points={{-100,-500},{100,-500}},
           color={0,0,0},
-          visible=typ == Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
+          visible=typ == Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir),
       Line(
         points={{-800,-300},{-100,-300}},
         color={0,0,0},
@@ -268,7 +269,7 @@ partial model PartialOutdoorReliefReturnSection
         points={{-100,-300},{-100,-500}},
         color={0,0,0},
         visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None and
-          typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer),
+          typ <> Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir),
       Bitmap(
         visible=typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
         extent={{-680,-142},{-600,-62}},

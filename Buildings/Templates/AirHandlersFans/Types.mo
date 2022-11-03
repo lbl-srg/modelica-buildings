@@ -42,22 +42,24 @@ package Types "Package with type definitions"
       "Run-around coil")
     "Enumeration to configure the heat recovery";
   type OutdoorReliefReturnSection = enumeration(
-      Economizer
-      "Air economizer",
-      EconomizerNoRelief
-      "Air economizer without relief branch",
-      NoEconomizer
-      "No air economizer")
+      HundredPctOutdoorAir
+      "100 % outdoor air system",
+      MixedAirWithDamper
+      "Mixed air system with return air damper - Optional economizer function",
+      MixedAirNoDamper
+      "Mixed air system without return air damper - No economizer function",
+      MixedAirNoRelief
+      "Mixed air system without relief branch - Optional economizer function")
     "Enumeration to configure the outdoor/relief/return air section";
   /* RFE: Add support for the following configurations.
       Barometric
         "Barometric relief damper without fan",
   */
   type ReliefReturnSection = enumeration(
-      NoEconomizer
-      "No economizer",
       NoRelief
       "No relief branch",
+      NoReturn
+      "No return branch",
       ReliefDamper
       "Modulating relief damper without fan",
       ReliefFan

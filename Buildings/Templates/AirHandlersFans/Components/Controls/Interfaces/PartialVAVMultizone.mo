@@ -2,11 +2,11 @@ within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
 partial block PartialVAVMultizone "Interface class for multiple-zone VAV controller"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
-      redeclare
-      Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
-      dat(
-        stdVen=stdVen,
-        typSecRel=secOutRel.typSecRel));
+      redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
+        dat(
+          typSecOut=secOutRel.typSecOut,
+          buiPreCon=buiPreCon,
+          stdVen=stdVen));
 
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";
@@ -22,8 +22,8 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     "Economizer control type"
     annotation (Evaluate=true,
       Dialog(
-        tab="Economizer",
-        enable=secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+        group="Economizer",
+        enable=secOutRel.have_eco));
 
   parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
@@ -38,7 +38,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     annotation(Dialog(
      group="Economizer",
      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-       secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+       secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat typFreSta=
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat

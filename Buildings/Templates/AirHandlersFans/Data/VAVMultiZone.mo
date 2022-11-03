@@ -3,7 +3,6 @@ record VAVMultiZone "Record for multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler(
     redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
     ctl(
-      final typSecRel=typSecRel,
       final typSecOut=typSecOut,
       final buiPreCon=buiPreCon,
       final stdVen=stdVen),

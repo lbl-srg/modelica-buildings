@@ -39,7 +39,6 @@ class AllSystems "Top-level (whole building) system parameters"
     final typDamRet=VAV_1.secOutRel.typDamRet,
     final typDamRel=VAV_1.secOutRel.typDamRel,
     final typCtl=VAV_1.ctl.typ,
-    final typSecRel=VAV_1.secOutRel.typSecRel,
     final typSecOut=VAV_1.ctl.typSecOut,
     final buiPreCon=VAV_1.ctl.buiPreCon,
     final stdVen=VAV_1.ctl.stdVen,

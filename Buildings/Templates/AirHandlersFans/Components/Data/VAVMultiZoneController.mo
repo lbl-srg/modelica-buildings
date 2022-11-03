@@ -2,10 +2,6 @@ within Buildings.Templates.AirHandlersFans.Components.Data;
 record VAVMultiZoneController "Record for multiple-zone VAV controller"
   extends Buildings.Templates.AirHandlersFans.Components.Data.PartialController;
 
-  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
-    "Relief/return air section type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut
     "Type of outdoor air section"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));

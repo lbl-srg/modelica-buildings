@@ -1,5 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Validation;
-model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
+model VAVMZBase
+  "Validation model for multiple-zone VAV - Base model with open loop controls"
   extends Modelica.Icons.Example;
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -12,20 +13,18 @@ model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
     "Heating medium (such as HHW)";
 
   inner parameter UserProject.Data.AllSystems datAll(
-    redeclare replaceable model VAV =
-        UserProject.AirHandlersFans.VAVMZNoEconomizer,
+    redeclare replaceable model VAV = UserProject.AirHandlersFans.VAVMZBase,
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
-  inner replaceable UserProject.AirHandlersFans.VAVMZNoEconomizer VAV_1
-    constrainedby Buildings.Templates.AirHandlersFans.VAVMultiZone(
-      final dat=datAll._VAV_1,
-      redeclare final package MediumAir = MediumAir,
-      redeclare final package MediumChiWat = MediumChiWat)
-    "Air handling unit"
+  inner replaceable UserProject.AirHandlersFans.VAVMZBase VAV_1 constrainedby
+    Buildings.Templates.AirHandlersFans.VAVMultiZone(
+    final dat=datAll._VAV_1,
+    redeclare final package MediumAir = MediumAir,
+    redeclare final package MediumChiWat = MediumChiWat) "Air handling unit"
     annotation (Placement(transformation(extent={{-20,-50},{20,-10}})));
   Buildings.Fluid.Sources.Boundary_pT bouOut(
     redeclare final package Medium =MediumAir,
@@ -158,10 +157,10 @@ equation
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>
 This is a validation model for the configuration represented by
-<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZNoEconomizer\">
-Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZNoEconomizer</a>
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase\">
+Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase</a>
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
-end VAVMZNoEconomizer;
+end VAVMZBase;

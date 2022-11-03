@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
-model Economizer "Air Economizer"
+model MixedAirWithDamper "Mixed air system with return air damper"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.Economizer,
+    final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirWithDamper,
     final typSecOut=secOut.typ,
     final typSecRel=secRel.typ,
     final typDamOut=secOut.typDamOut,
@@ -11,6 +11,7 @@ model Economizer "Air Economizer"
     final typDamRet=damRet.typ,
     final typFanRel=secRel.typFanRel,
     final typFanRet=secRel.typFanRet,
+    final have_eco=true,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None);
 
   replaceable
@@ -23,11 +24,11 @@ model Economizer "Air Economizer"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
-        "Single common OA damper (modulating) with AFMS"),
+        "Single common OA damper and AFMS - Economizer function"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow secOut
-        "Dedicated minimum OA damper (modulating) with AFMS"),
+        "Separate dedicated OA dampers and AFMS - Economizer function"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure secOut
-        "Dedicated minimum OA damper (two-position) with differential pressure sensor")),
+        "Separate dedicated OA dampers and DP sensor - Economizer function")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
@@ -107,4 +108,4 @@ equation
 This model represents a configuration with an air economizer.
 </p>
 </html>"));
-end Economizer;
+end MixedAirWithDamper;
