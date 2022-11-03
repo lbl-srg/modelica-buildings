@@ -226,9 +226,12 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate<br/>
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
-    <td valign=\"top\">Validation test added for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
