@@ -27,17 +27,15 @@ block G36VAVMultiZone
     annotation(Evaluate=true,
       Dialog(group="Configuration"));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
+    datAll.ashCliZon
     "ASHRAE climate zone"
-    annotation (Dialog(group="Configuration",
-    enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(group="Configuration"));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
+    datAll.tit24CliZon
     "California Title 24 climate zone"
-    annotation (Dialog(group="Configuration",
-    enable=stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(group="Configuration"));
 
   final parameter Boolean isZonInGro[nGro, nZon]=
     {{namGro[i]==namGroZon[j]  for j in 1:nZon} for i in 1:nGro}
@@ -255,15 +253,14 @@ block G36VAVMultiZone
 initial equation
   if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016 then
     assert(ashCliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
-      "In "+ getInstanceName() + ": "+
+      "In "+ getInstanceName() + ".dat: "+
       "The ASHRAE climate zone cannot be unspecified.");
   end if;
   if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016 then
     assert(tit24CliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified,
-      "In "+ getInstanceName() + ": "+
+      "In "+ getInstanceName() + ".dat: "+
       "The Title 24 climate zone cannot be unspecified.");
   end if;
-
 equation
   /* Control point connection - start */
 

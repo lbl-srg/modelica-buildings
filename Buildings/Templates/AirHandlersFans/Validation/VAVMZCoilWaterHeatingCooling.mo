@@ -1,7 +1,10 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMZCoilWaterHeatingCooling "Validation model for multiple-zone VAV"
-  extends VAVMZNoEconomizer(redeclare
-      UserProject.AirHandlersFans.VAVMZCoilWaterHeatingCooling VAV_1);
+  extends VAVMZNoEconomizer(
+    datAll(
+      redeclare model VAV =
+        UserProject.AirHandlersFans.VAVMZCoilWaterHeatingCooling),
+    redeclare UserProject.AirHandlersFans.VAVMZCoilWaterHeatingCooling VAV_1);
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>

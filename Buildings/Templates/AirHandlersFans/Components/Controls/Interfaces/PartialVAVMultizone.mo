@@ -4,9 +4,9 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
       redeclare
       Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
-      dat(typSecRel=secOutRel.typSecRel,
-      stdEne=stdEne,
-      stdVen=stdVen));
+      dat(
+        stdVen=stdVen,
+        typSecRel=secOutRel.typSecRel));
 
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";
@@ -67,16 +67,16 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer"));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
-    "Energy standard, ASHRAE 90.1 or Title 24"
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne=
+    datAll.stdEne
+    "Energy standard"
     annotation(Dialog(enable=
     typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone),
     Evaluate=true);
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
-    "Ventilation standard, ASHRAE 62.1 or Title 24"
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
+    datAll.stdVen
+    "Ventilation standard"
     annotation(Dialog(enable=
     typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone),
     Evaluate=true);
@@ -98,10 +98,10 @@ initial equation
        "The system configuration is incompatible with available options for building pressure control.");
     end if;
     assert(stdVen<>Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
-      "In "+ getInstanceName() + ": "+
+      "In "+ getInstanceName() + ".dat: "+
       "The ventilation standard cannot be unspecified.");
     assert(stdEne<>Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified,
-      "In "+ getInstanceName() + ": "+
+      "In "+ getInstanceName() + ".dat: "+
       "The energy standard cannot be unspecified.");
   end if;
 

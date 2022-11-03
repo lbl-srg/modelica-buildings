@@ -1,6 +1,10 @@
 within Buildings.Templates.AirHandlersFans.Validation;
 model VAVMZDedicatedDampersAirflow "Validation model for multiple-zone VAV"
-  extends VAVMZNoEconomizer(redeclare
+  extends VAVMZNoEconomizer(
+    datAll(
+      redeclare model VAV =
+        UserProject.AirHandlersFans.VAVMZDedicatedDampersAirflow),
+    redeclare
       UserProject.AirHandlersFans.VAVMZDedicatedDampersAirflow VAV_1);
 
   annotation (

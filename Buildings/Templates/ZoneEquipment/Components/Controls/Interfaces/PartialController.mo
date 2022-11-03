@@ -1,15 +1,21 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
 partial block PartialController "Interface class for terminal unit controller"
 
-  parameter Buildings.Templates.ZoneEquipment.Types.Controller typ "Type of controller"
+  parameter Buildings.Templates.ZoneEquipment.Types.Controller typ
+    "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   replaceable parameter
     Buildings.Templates.ZoneEquipment.Components.Data.PartialController dat(
-      final typ=typ) "Design and operating parameters";
+      final typ=typ)
+      "Design and operating parameters";
+
+  outer parameter Buildings.Templates.Data.AllSystems datAll
+    "Top-level (whole building) system parameters";
 
   Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
-    "Terminal unit control bus" annotation (Placement(transformation(
+    "Terminal unit control bus"
+    annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-200,0}), iconTransformation(

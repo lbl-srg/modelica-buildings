@@ -14,13 +14,9 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Type of building pressure control system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne
-    "Energy standard, ASHRAE 90.1 or Title 24"
-    annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
-
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
-    "Ventilation standard, ASHRAE 62.1 or Title 24"
-    annotation(Evaluate=true, Dialog(group="Configuration", enable=false));
+    "Ventilation standard"
+    annotation(Evaluate=true, Dialog(group="Energy and ventilation standards", enable=false));
 
   parameter Modelica.Units.SI.Temperature TAirSupSet_min(
     final min=273.15,
@@ -75,7 +71,6 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
 
-
   parameter Modelica.Units.SI.PressureDifference pAirSupSet_rel_max(
     final min=0,
     displayUnit="Pa",
@@ -117,6 +112,15 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
 
+  parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow(
+    final min=0,
+    start=0.1)
+    "Airflow differential between supply and return fans to maintain building pressure at setpoint"
+    annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
+      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
+      (buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir or
+      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir)));
+
   parameter Real yFanSup_min(
     final unit="1",
     final min=0,
@@ -143,15 +147,6 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       typFanRet<>Buildings.Templates.Components.Types.Fan.None));
-
-  parameter Modelica.Units.SI.VolumeFlowRate dVFanRet_flow(
-    final min=0,
-    start=0.1)
-    "Airflow differential between supply and return fans to maintain building pressure at setpoint"
-    annotation (Dialog(group="Airflow and pressure",
-      enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      (buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir or
-      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir)));
 
   annotation (Documentation(info="<html>
 <p>

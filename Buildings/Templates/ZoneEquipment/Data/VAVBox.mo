@@ -1,7 +1,8 @@
 within Buildings.Templates.ZoneEquipment.Data;
 record VAVBox "Record for VAV terminal unit"
   extends Buildings.Templates.ZoneEquipment.Data.PartialAirTerminal(
-    redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController ctl,
+    redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController ctl(
+      stdVen=stdVen),
     final mAir_flow_nominal=max(ctl.VAirHeaSet_flow_max, ctl.VAirCooSet_flow_max) * 1.2);
 
   parameter Buildings.Templates.Components.Types.Damper typDamVAV
@@ -13,8 +14,8 @@ record VAVBox "Record for VAV terminal unit"
   parameter Buildings.Templates.Components.Types.Valve typValCoiHea
     "Type of valve for heating coil"
     annotation (Dialog(group="Configuration", enable=false));
-  parameter Boolean have_CO2Sen
-    "Set to true if the zone has CO2 sensor"
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
+    "Ventilation standard"
     annotation (Dialog(group="Configuration", enable=false));
 
   parameter Buildings.Templates.Components.Data.Damper damVAV(

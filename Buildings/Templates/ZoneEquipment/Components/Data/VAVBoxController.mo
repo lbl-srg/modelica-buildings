@@ -2,6 +2,10 @@ within Buildings.Templates.ZoneEquipment.Components.Data;
 record VAVBoxController "Record for VAV terminal unit controller"
   extends Buildings.Templates.ZoneEquipment.Components.Data.PartialController;
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
+    "Ventilation standard"
+    annotation (Dialog(group="Energy and ventilation standards", enable=false));
+
   parameter Modelica.Units.SI.VolumeFlowRate VOutMinOcc_flow(
     final min=0,
     start=1)

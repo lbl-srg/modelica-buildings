@@ -46,14 +46,10 @@ record PartialAirHandler "Record for air handler interface class"
 
   parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal
     "Supply air mass flow rate"
-    annotation (Dialog(group="Mechanical",
-      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly));
-
+    annotation (Dialog(enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.ExhaustOnly));
   parameter Modelica.Units.SI.MassFlowRate mAirRet_flow_nominal
     "Return air mass flow rate"
-    annotation (Dialog(group="Mechanical",
-      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly));
-
+    annotation (Dialog(enable=typ<>Buildings.Templates.AirHandlersFans.Types.Configuration.SupplyOnly));
 
   annotation (Documentation(info="<html>
 <p>

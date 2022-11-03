@@ -11,43 +11,31 @@ model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  UserProject.Data.AllSystems dat(VAV_1(
-    final typ=VAV_1.typ,
-    final typFanSup=VAV_1.typFanSup,
-    final typFanRet=VAV_1.typFanRet,
-    final typFanRel=VAV_1.typFanRel,
-    final have_souChiWat=VAV_1.have_souChiWat,
-    final have_souHeaWat=VAV_1.have_souHeaWat,
-    final typCoiHeaPre=VAV_1.coiHeaPre.typ,
-    final typCoiCoo=VAV_1.coiCoo.typ,
-    final typCoiHeaReh=VAV_1.coiHeaReh.typ,
-    final typValCoiHeaPre=VAV_1.coiHeaPre.typVal,
-    final typValCoiCoo=VAV_1.coiCoo.typVal,
-    final typValCoiHeaReh=VAV_1.coiHeaReh.typVal,
-    final typDamOut=VAV_1.secOutRel.typDamOut,
-    final typDamOutMin=VAV_1.secOutRel.typDamOutMin,
-    final typDamRet=VAV_1.secOutRel.typDamRet,
-    final typDamRel=VAV_1.secOutRel.typDamRel,
-    final typCtl=VAV_1.ctl.typ,
-    final typSecRel=VAV_1.secOutRel.typSecRel,
-    final typSecOut=VAV_1.ctl.typSecOut,
-    final buiPreCon=VAV_1.ctl.buiPreCon,
-    ctl(
-      stdEne=VAV_1.ctl.stdEne,
-      stdVen=VAV_1.ctl.stdVen)))
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  inner parameter UserProject.Data.AllSystems datAll(
+    redeclare replaceable model VAV =
+        UserProject.AirHandlersFans.VAVMZNoEconomizer,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B)
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
   inner replaceable UserProject.AirHandlersFans.VAVMZNoEconomizer VAV_1
     constrainedby Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    final dat=dat.VAV_1,
-    redeclare final package MediumAir = MediumAir,
-    redeclare final package MediumChiWat = MediumChiWat) "Air handling unit"
+      final dat=datAll._VAV_1,
+      redeclare final package MediumAir = MediumAir,
+      redeclare final package MediumChiWat = MediumChiWat)
+    "Air handling unit"
     annotation (Placement(transformation(extent={{-20,-50},{20,-10}})));
-  Buildings.Fluid.Sources.Boundary_pT bouOut(redeclare final package Medium =
-        MediumAir, nPorts=2) "Boundary conditions for outdoor environment"
+  Buildings.Fluid.Sources.Boundary_pT bouOut(
+    redeclare final package Medium =MediumAir,
+    nPorts=2)
+    "Boundary conditions for outdoor environment"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.Sources.Boundary_pT bouBui(redeclare final package Medium =
-        MediumAir, nPorts=3) "Boundary conditions for indoor environment"
+  Buildings.Fluid.Sources.Boundary_pT bouBui(
+    redeclare final package Medium =MediumAir,
+    nPorts=3)
+    "Boundary conditions for indoor environment"
     annotation (Placement(transformation(extent={{90,-40},{70,-20}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium=MediumAir,
@@ -80,19 +68,18 @@ model VAVMZNoEconomizer "Validation model for multiple-zone VAV"
     nPorts=2) if VAV_1.have_souHeaWat
     "Boundary conditions for HHW distribution system"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-
   Fluid.Sources.Boundary_pT bouChiWat(
     redeclare final package Medium = MediumChiWat,
     nPorts=2) if VAV_1.have_souChiWat
     "Boundary conditions for CHW distribution system"
     annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
-
   UserProject.ZoneEquipment.VAVBoxControlPoints sigVAVBox[VAV_1.nZon](
-    each final stdVen=VAV_1.ctl.stdVen)
+    each final stdVen=datAll.stdVen)
     if VAV_1.ctl.typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone
     "Control signals from VAV box"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  ZoneEquipment.Validation.UserProject.BASControlPoints sigBAS(nZon=VAV_1.nZon)
+  ZoneEquipment.Validation.UserProject.BASControlPoints sigBAS(
+    final nZon=VAV_1.nZon)
     "BAS control points"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   ZoneEquipment.Validation.UserProject.ZoneControlPoints sigZon[VAV_1.nZon]
