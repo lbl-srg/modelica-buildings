@@ -9,7 +9,7 @@ model SingleSource "Simple system model with one source and one user"
   parameter Modelica.Units.SI.Power QCooLoa_flow_nominal=5*4200*0.1
     "Nominal cooling load of one consumer";
 
-  Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     allowRemoteCharging=false,
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
