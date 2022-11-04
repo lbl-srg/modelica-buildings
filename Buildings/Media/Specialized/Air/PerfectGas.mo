@@ -30,7 +30,7 @@ package PerfectGas "Model for air as a perfect gas"
   redeclare replaceable model extends BaseProperties(
     u(nominal=1E4),
     p(stateSelect=StateSelect.avoid),
-    T(stateSelect=StateSelect.avoid,
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       start=T_default,
       nominal=100),
     d(stateSelect=StateSelect.never),
@@ -49,15 +49,14 @@ package PerfectGas "Model for air as a perfect gas"
       "Molar masses of components";
 
     Modelica.Units.SI.TemperatureDifference dT(
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=10) = T - reference_T
       "Temperature difference used to compute enthalpy";
     // Nominal value is 100/1E5=1E-3
     Modelica.Units.SI.PressureDifference dp(
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100,
-      displayUnit="Pa") = p - reference_p
-      "Differential pressure";
+      displayUnit="Pa") = p - reference_p + 1000
+      "Differential pressure, plus 1000 Pa offset (for numerical reasons)";
 
     MassFraction X_steam "Mass fraction of steam water";
     MassFraction X_air "Mass fraction of air";
