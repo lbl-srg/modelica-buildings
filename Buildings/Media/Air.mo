@@ -81,16 +81,16 @@ public
   InputAbsolutePressure p(
      stateSelect=StateSelect.avoid) "Absolute pressure of medium";
   InputMassFraction[1] Xi(
+    each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
     start=X_default[1:1],
-    nominal={0.01},
-    each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+    nominal={0.01})
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
   Modelica.Units.SI.Density d(
      stateSelect=StateSelect.never)
      "Density of medium";
   Modelica.Units.SI.Temperature T(
-   stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+   stateSelect=StateSelect.avoid,
    start=reference_T,
    nominal=100)
    "Temperature of medium";
@@ -98,7 +98,7 @@ public
     "Mass fractions (= (component mass)/total mass  m_i/m)";
   Modelica.Media.Interfaces.Types.SpecificInternalEnergy u(
     stateSelect=StateSelect.avoid,
-   nominal=1E4)
+    nominal=1E4)
     "Specific internal energy of medium";
   Modelica.Media.Interfaces.Types.SpecificHeatCapacity R_s
     "Gas constant (of mixture if applicable)";
@@ -108,6 +108,7 @@ public
     "Thermodynamic state record for optional functions";
 
   Modelica.Units.NonSI.Temperature_degC T_degC(
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=10) = T - 273.15
        "Temperature of medium in [degC]";
   Modelica.Units.NonSI.Pressure_bar p_bar=
@@ -134,8 +135,8 @@ public
     Modelica.Units.SI.PressureDifference dp(
       stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100,
-      displayUnit="Pa") = p - reference_p + 1000
-      "Differential pressure, plus 1000 Pa offset (for numerical reasons)";
+      displayUnit="Pa") = p - reference_p
+      "Differential pressure";
   equation
     MM = 1/(X[1]/steam.MM+(X[2])/dryair.MM);
 

@@ -48,8 +48,8 @@ public
 
 
     Modelica.Units.NonSI.Temperature_degC T_degC(
-      nominal=10,
-      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
+      nominal=10)
       "Temperature of medium in [degC]";
     Modelica.Units.NonSI.Pressure_bar p_bar=
         Modelica.Units.Conversions.to_bar(p)

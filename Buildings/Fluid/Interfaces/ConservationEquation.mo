@@ -80,9 +80,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=hStart),
     T(start=T_start),
-    Xi(
-      each stateSelect=if medium.preferredMediumStates then StateSelect.prefer else StateSelect.default,
-      start=X_start[1:Medium.nXi]),
+    Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
     d(start=rho_start)) "Medium properties";
 
