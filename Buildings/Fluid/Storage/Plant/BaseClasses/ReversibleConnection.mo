@@ -2,7 +2,8 @@ within Buildings.Fluid.Storage.Plant.BaseClasses;
 model ReversibleConnection
   "Configuration with pump and interlocked valves that support reverse flow"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final allowFlowReversal=true);
+    final allowFlowReversal=true,
+    final m_flow_nominal=nom.m_flow_nominal);
 
   parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
     "Nominal values";

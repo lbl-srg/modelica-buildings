@@ -65,7 +65,6 @@ model NetworkConnection
 
   Buildings.Fluid.Storage.Plant.BaseClasses.ReversibleConnection revConSup(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.m_flow_nominal,
     final nom=nom,
     final dpValToNet_nominal=dpValToNet_nominal,
     final dpValFroNet_nominal=dpValFroNet_nominal,
