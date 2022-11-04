@@ -123,6 +123,7 @@ model DualSource
 // Second source: chiller and tank
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nomPla2(
     allowRemoteCharging=true,
+    useReturnPump=false,
     m_flow_nominal=2*m_flow_nominal,
     mTan_flow_nominal=m_flow_nominal,
     mChi_flow_nominal=2*m_flow_nominal,
@@ -147,8 +148,9 @@ model DualSource
     redeclare final package Medium = MediumCHW,
     final nom=nomPla2,
     final allowRemoteCharging=nomPla2.allowRemoteCharging,
-    per(pressure(V_flow=nomPla2.m_flow_nominal/1000*{0, 1, 2},
-                 dp=nomPla2.dp_nominal*{1.14, 1, 0.42})))
+    useReturnPump=nomPla2.useReturnPump,
+    perSup(pressure(V_flow=nomPla2.m_flow_nominal/1000*{0,1,2},
+                    dp=nomPla2.dp_nominal*{1.14,1,0.42})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(table={360*7,360*9},
@@ -431,7 +433,7 @@ equation
   connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-10},{-152,
           -10},{-152,-24},{-62,-24},{-62,-48},{-42,-48}},
         color={255,0,255}));
-  connect(conRemCha.yPum, netCon.yPum)
+  connect(conRemCha.yPum, netCon.yPumSup)
     annotation (Line(points={{-19,-56},{8,-56},{8,-79}}, color={0,0,127}));
   connect(conRemCha.yVal, netCon.yVal)
     annotation (Line(points={{-19,-52},{12,-52},{12,-79}}, color={0,0,127}));

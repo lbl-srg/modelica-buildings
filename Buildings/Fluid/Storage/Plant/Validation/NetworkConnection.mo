@@ -8,6 +8,7 @@ model NetworkConnection
 
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     allowRemoteCharging=true,
+    useReturnPump=false,
     mTan_flow_nominal=1,
     mChi_flow_nominal=1,
     dp_nominal=300000,
@@ -27,8 +28,9 @@ model NetworkConnection
     redeclare final package Medium = Medium,
     final nom=nom,
     final allowRemoteCharging=nom.allowRemoteCharging,
-    final per(pressure(V_flow=nom.m_flow_nominal/1000*{0, 1, 2},
-                       dp=nom.dp_nominal*{1.14, 1, 0.42})))
+    useReturnPump=nom.useReturnPump,
+    perSup(pressure(V_flow=nom.m_flow_nominal/1000*{0,1,2},
+           dp=nom.dp_nominal*{1.14,1,0.42})))
     "Pump and valves connecting the storage plant to the district network"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate mTan_flow(
@@ -133,7 +135,7 @@ model NetworkConnection
         rotation=0,
         origin={-70,-70})));
 equation
-  connect(conRemCha.yPum, netCon.yPum)
+  connect(conRemCha.yPum, netCon.yPumSup)
     annotation (Line(points={{1,24},{8,24},{8,11}}, color={0,0,127}));
   connect(conRemCha.yVal, netCon.yVal)
     annotation (Line(points={{1,28},{12,28},{12,11}}, color={0,0,127}));

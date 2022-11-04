@@ -11,6 +11,7 @@ model SingleSource "Simple system model with one source and one user"
 
   parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     allowRemoteCharging=false,
+    useReturnPump=false,
     mTan_flow_nominal=0.5,
     mChi_flow_nominal=0.5,
     dp_nominal=300000,
@@ -32,8 +33,8 @@ model SingleSource "Simple system model with one source and one user"
     redeclare final package Medium = Medium,
     final nom=nom,
     final allowRemoteCharging=nom.allowRemoteCharging,
-    per(pressure(V_flow=nom.m_flow_nominal*{0, 1, 2},
-                 dp=nom.dp_nominal*{1.14, 1, 0.42})))
+    perSup(pressure(V_flow=nom.m_flow_nominal*{0,1,2},
+                    dp=nom.dp_nominal*{1.14,1,0.42})))
     "Supply pump and valves that connect the plant to the district network"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
@@ -92,16 +93,17 @@ model SingleSource "Simple system model with one source and one user"
 
 equation
   connect(preQCooLoa_flow.y, ideUse.QCooLoa_flow) annotation (Line(points={{61,10},
-          {66,10},{66,-9}},             color={0,0,127}));
+          {59,10},{59,-12}},            color={0,0,127}));
   connect(preDro1.port_b, ideUse.port_a)
-    annotation (Line(points={{40,-20},{60,-20}}, color={0,127,255}));
-  connect(ideUse.port_b, preDro2.port_a) annotation (Line(points={{80,-20},{84,
-          -20},{84,-40},{40,-40}}, color={0,127,255}));
+    annotation (Line(points={{40,-20},{50,-20},{50,-14},{60,-14}},
+                                                 color={0,127,255}));
+  connect(ideUse.port_b, preDro2.port_a) annotation (Line(points={{60,-26},{84,
+          -26},{84,-40},{40,-40}}, color={0,127,255}));
   connect(set_dpUsr.y, conPI_pumSec.u_s)
     annotation (Line(points={{-10,59},{-10,55.5},{-10,55.5},{-10,52}},
                                                  color={0,0,127}));
   connect(ideUse.dp, gaiPumSec.u)
-    annotation (Line(points={{78,-9},{78,40},{42,40}}, color={0,0,127}));
+    annotation (Line(points={{81,-16},{81,40},{42,40}},color={0,0,127}));
   connect(gaiPumSec.y, conPI_pumSec.u_m)
     annotation (Line(points={{19,40},{2,40}},             color={0,0,127}));
   connect(tanBra.port_bToChi, chiBra.port_a)
@@ -118,7 +120,7 @@ equation
           10,-6},{10,-40},{20,-40}},color={0,127,255}));
   connect(netCon.port_bToNet, preDro1.port_a) annotation (Line(points={{0,6},{
           14,6},{14,-20},{20,-20}},color={0,127,255}));
-  connect(conPI_pumSec.y, netCon.yPum) annotation (Line(points={{-10,29},{-10,
+  connect(conPI_pumSec.y, netCon.yPumSup) annotation (Line(points={{-10,29},{-10,
           20},{-12,20},{-12,11}}, color={0,0,127}));
   connect(sou_p.ports[1], tanBra.port_aFroNet) annotation (Line(points={{-40,-70},
           {-24,-70},{-24,-6},{-30,-6}}, color={0,127,255}));
