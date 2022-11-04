@@ -18,6 +18,11 @@ model ReversibleConnection
   parameter Real tValFroNetClo=0.01
     "Threshold that intVal.ValFroNet is considered closed";
 
+  Modelica.Units.SI.MassFlowRate mToNet_flow=intVal.valToNet.m_flow
+    "Mass flow rate on the branch from the plant to the network";
+  Modelica.Units.SI.MassFlowRate mFroNet_flow=intVal.valFroNet.m_flow
+    "Mass flow rate on the branch from the network to the plant";
+
   parameter Buildings.Fluid.Movers.Data.Generic per
     "Performance data for the supply pump"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
