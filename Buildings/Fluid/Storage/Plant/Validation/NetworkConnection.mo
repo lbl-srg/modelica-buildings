@@ -55,7 +55,7 @@ model NetworkConnection
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={90,0})));
+        origin={100,0})));
   Modelica.Blocks.Sources.Constant dp(final k=-nom.dp_nominal*0.3)
     "Constant differential pressure"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
@@ -131,7 +131,7 @@ model NetworkConnection
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-10})));
+        origin={-70,-70})));
 equation
   connect(conRemCha.yPum, netCon.yPum)
     annotation (Line(points={{1,24},{8,24},{8,11}}, color={0,0,127}));
@@ -147,9 +147,11 @@ equation
   connect(dp.y, idePreSou.dp_in) annotation (Line(points={{41,-70},{46,-70},{46,
           6},{52,6}}, color={0,0,127}));
   connect(junSup2.port_2, preDroNet.port_a)
-    annotation (Line(points={{70,30},{90,30},{90,10}}, color={0,127,255}));
+    annotation (Line(points={{70,30},{100,30},{100,10}},
+                                                       color={0,127,255}));
   connect(preDroNet.port_b, junRet2.port_1)
-    annotation (Line(points={{90,-10},{90,-30},{70,-30}}, color={0,127,255}));
+    annotation (Line(points={{100,-10},{100,-30},{70,-30}},
+                                                          color={0,127,255}));
   connect(junRet2.port_3, idePreSou.port_a)
     annotation (Line(points={{60,-20},{60,-10}}, color={0,127,255}));
   connect(idePreSou.port_b, junSup2.port_3)
@@ -172,14 +174,13 @@ equation
           -70,-50},{-40,-50}}, color={0,127,255}));
   connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-22,32},{-80,32},
           {-80,70},{-99,70}}, color={255,0,255}));
-  connect(bou.ports[1], junRet1.port_1) annotation (Line(points={{-20,-80},{-14,
-          -80},{-14,-50},{-20,-50}}, color={0,127,255}));
-  connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-99,-70},{-94,-70},{-94,
-          -40},{-128,-40},{-128,-10},{-122,-10}},
+  connect(bou.ports[1], junRet1.port_1) annotation (Line(points={{-20,-80},{-6,-80},
+          {-6,-50},{-20,-50}},       color={0,127,255}));
+  connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-99,-70},{-82,-70}},
                                          color={0,0,127}));
   connect(fil.y, ideFloSou.m_flow_in)
-    annotation (Line(points={{-99,-10},{-86,-10},{-86,-16},{-78,-16}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-59,-70},{-54,-70},{-54,-54},{-84,-54},{-84,-16},{
+          -78,-16}},                                         color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
@@ -255,6 +256,6 @@ First implementation. This is for
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-100},{100,100}})),
+    Diagram(coordinateSystem(extent={{-140,-100},{120,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end NetworkConnection;
