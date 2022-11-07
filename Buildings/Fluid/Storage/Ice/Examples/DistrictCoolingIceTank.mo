@@ -123,12 +123,6 @@ model DistrictCoolingIceTank
     annotation (Placement(transformation(extent={{10,-10},
             {-10,10}},                                                                              rotation=90,origin={60,10})));
 
-  Modelica.Blocks.Sources.Sine gaiLoa(
-    amplitude=0.5,
-    f=1/(365*24*3600),
-    offset=0.5) "Gain for load"
-    annotation (Placement(transformation(extent={{340,60},{360,80}})));
-
   HeatExchangers.HeaterCooler_u disCooCoi(
     redeclare package Medium = MediumWat,
     allowFlowReversal=false,
@@ -237,12 +231,6 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-100,-50})));
-
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    "Weather data reader"
-    annotation (Placement(transformation(extent={{-440,360},{-420,380}})));
 
   Sources.MassFlowSource_T           souWatChiCon(
     use_T_in=true,
@@ -361,8 +349,7 @@ model DistrictCoolingIceTank
   BaseClasses.ControlClosedLoop con "Controller"
     annotation (Placement(transformation(extent={{-420,218},{-404,246}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter gaiPumSec(
-    k=mDis_flow_nominal)
-    "Gain for water flow rate of water pumps"
+    k=mDis_flow_nominal) "Gain for water flow rate of water pumps"
     annotation (Placement(transformation(extent={{380,-60},{360,-40}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter gaiPumWatChi(
     k=mWatChi_flow_nominal) "Gain for water flow rate of water pumps"
@@ -394,8 +381,6 @@ model DistrictCoolingIceTank
     annotation (Placement(transformation(extent={{-400,330},{-380,350}})));
   Controls.OBC.CDL.Continuous.Max TCon "Condenser water entering temperature"
     annotation (Placement(transformation(extent={{-320,350},{-300,370}})));
-  BoundaryConditions.WeatherData.Bus weaBus "Weather data bus"
-    annotation (Placement(transformation(extent={{-410,360},{-390,380}})));
   Controls.OBC.CDL.Continuous.AddParameter TConEntNoFre(p=4)
     "Condenser entering temperature without freeze protection"
     annotation (Placement(transformation(extent={{-360,360},{-340,380}})));
@@ -409,6 +394,23 @@ model DistrictCoolingIceTank
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={160,60})));
+  Modelica.Blocks.Sources.CombiTimeTable loadBlock(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Examples/LoadBlockData.txt"),
+
+    columns=2:5,
+    timeScale=1,
+    offset={0,0,-288,0})
+    "Data columns are t = y[0], Tdb = y[1], Twb = y[2], QCoo_flow = y[3], and CO2e = y[4]"
+    annotation (Placement(transformation(extent={{480,200},{460,220}})));
+  Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin
+    "Convert Twb from Celsius to Kelvin"
+    annotation (Placement(transformation(extent={{318,378},{298,398}})));
+  Controls.OBC.CDL.Continuous.MultiplyByParameter norLoa(k=1/QDis_flow_nominal)
+    "Normalize load"
+    annotation (Placement(transformation(extent={{430,110},{410,130}})));
 equation
   connect(pumSto.port_b, iceTan.port_a)
     annotation (Line(points={{-240,-40},{-240,0}}, color={0,127,255}));
@@ -431,8 +433,6 @@ equation
   connect(chiWat.port_b1, sin1.ports[1])
     annotation (Line(points={{198,-5.32907e-15},{198,-50},{210,-50}},
                                                           color={0,127,255}));
-  connect(disCooCoi.u, gaiLoa.y) annotation (Line(points={{326,22},{324,22},{324,
-          48},{368,48},{368,70},{361,70}}, color={0,0,127}));
   connect(disCooCoi.port_b, pumLoa.port_a)
     annotation (Line(points={{320,0},{320,-40}},   color={0,127,255}));
   connect(pumHexPri.port_a, hex.port_b1) annotation (Line(points={{40,-40},{40,-12},
@@ -497,8 +497,6 @@ equation
         color={0,0,127}));
   connect(gaiPumSec.y, pumLoa.m_flow_in)
     annotation (Line(points={{358,-50},{332,-50}}, color={0,0,127}));
-  connect(gaiPumSec.u, gaiLoa.y) annotation (Line(points={{382,-50},{390,-50},{390,
-          70},{361,70}}, color={0,0,127}));
   connect(gaiPumWatChi.y, pumChiWat.m_flow_in) annotation (Line(points={{62,292},
           {140,292},{140,-50},{148,-50}}, color={0,0,127}));
   connect(gaiGlyPumSto.y, pumSto.m_flow_in)
@@ -545,22 +543,10 @@ equation
   connect(senTemSupSec.T,conDemLev. u_m) annotation (Line(points={{292,111},{292,
           124},{-484,124},{-484,284},{-482,284},{-482,285}},
                                                       color={0,0,127}));
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-420,370},{-400,370}},
-      color={255,204,51},
-      thickness=0.5));
   connect(TConMin.y, TCon.u2) annotation (Line(points={{-378,340},{-360,340},{-360,
           354},{-322,354}}, color={0,0,127}));
   connect(TCon.u1, TConEntNoFre.y) annotation (Line(points={{-322,366},{-328,366},
           {-328,370},{-338,370}}, color={0,0,127}));
-  connect(weaBus.TWetBul, TConEntNoFre.u) annotation (Line(
-      points={{-400,370},{-362,370}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}},
-      horizontalAlignment=TextAlignment.Right));
   connect(TCon.y, souWatChiCon.T_in)
     annotation (Line(points={{-298,360},{216,360},{216,62}}, color={0,0,127}));
   connect(TCon.y, souGlyChiCon.T_in)
@@ -575,9 +561,19 @@ equation
   connect(con.yDemLev1,conDemLev. yDemLev1) annotation (Line(points={{-420.667,
           241.408},{-420.667,242},{-448,242},{-448,290},{-458,290}},
         color={0,0,127}));
+  connect(loadBlock.y[2], toKelvin.Celsius) annotation (Line(points={{459,210},
+          {332,210},{332,388},{320,388}}, color={0,0,127}));
+  connect(toKelvin.Kelvin, TConEntNoFre.u) annotation (Line(points={{297,388},{
+          -380,388},{-380,370},{-362,370}}, color={0,0,127}));
+  connect(loadBlock.y[3], norLoa.u) annotation (Line(points={{459,210},{440,210},
+          {440,120},{432,120}}, color={0,0,127}));
+  connect(norLoa.y, disCooCoi.u)
+    annotation (Line(points={{408,120},{326,120},{326,22}}, color={0,0,127}));
+  connect(norLoa.y, gaiPumSec.u) annotation (Line(points={{408,120},{400,120},{
+          400,-50},{382,-50}}, color={0,0,127}));
   annotation (
     experiment(
-      StopTime=1814400,
+      StopTime=31536000,
       __Dymola_NumberOfIntervals=5000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
