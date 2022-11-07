@@ -3,11 +3,6 @@ block RemoteCharging
   "Control block for the supply pump and nearby valves that allows remote charging"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Modelica.Units.SI.Time tDelValSup=45 "Delay time for the supply valve"
-    annotation (Dialog(group="Singal Delays"));
-  parameter Modelica.Units.SI.Time tDelPumSup=120 "Delay time for the supply pump"
-    annotation (Dialog(group="Singal Delays"));
-
   Modelica.Blocks.Sources.Constant zero(k=0) "Constant 0"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uRemCha
