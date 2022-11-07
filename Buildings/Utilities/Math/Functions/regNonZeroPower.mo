@@ -4,9 +4,7 @@ function regNonZeroPower
   extends Modelica.Icons.Function;
 
  input Real x "Abscissa value";
- input Real n(
-   min=0.000001,
-   max=1.999999) "Exponent";
+ input Real n "Exponent";
  input Real delta = 0.01 "Abscissa value where transition occurs";
  output Real y "Function value";
 protected
