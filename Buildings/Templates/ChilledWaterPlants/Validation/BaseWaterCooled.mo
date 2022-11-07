@@ -44,12 +44,12 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
       Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco)
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
-    redeclare final package MediumChiWat = MediumChiWat,
-    redeclare replaceable package MediumCon = MediumConWat,
-    final nChi=nChi,
-    final energyDynamics=energyDynamics,
-    final tau=tau,
-    final dat=dat._CHI)
+      redeclare final package MediumChiWat = MediumChiWat,
+      redeclare replaceable package MediumCon = MediumConWat,
+      final nChi=nChi,
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final dat=dat._CHI)
     "CHW plant"
     annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
 

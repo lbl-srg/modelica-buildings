@@ -89,24 +89,26 @@ model ChillerGroup "Validation model for chiller group"
     final nChi=nChi,
     final typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
-    final mConChi_flow_nominal=mConWatChi_flow_nominal,
+    final mConWatChi_flow_nominal=mConWatChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final dpConChi_nominal=dpConWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
-    final TConChiEnt_nominal=fill(TConWatSup_nominal, nChi),
-    PLRChi_min=fill(0.15, nChi))
+    final TConWatChiEnt_nominal=fill(TConWatSup_nominal, nChi),
+    PLRChi_min=fill(0.15, nChi),
+    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per)
     "Parameter record for water-cooled chiller group";
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup datChiAirCoo(
     final nChi=nChi,
     final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
-    final mConChi_flow_nominal=mConAirChi_flow_nominal,
+    final mConAirChi_flow_nominal=mConAirChi_flow_nominal,
     final dpChiWatChi_nominal=dpChiWatChi_nominal,
     final capChi_nominal=capChi_nominal,
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
-    final TConChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
-    PLRChi_min=fill(0.15, nChi))
+    final TConAirChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
+    PLRChi_min=fill(0.15, nChi),
+    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
     "Parameter record for air-cooled chiller group";
 
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
@@ -765,7 +767,7 @@ equation
   connect(TChiWatSupSet.y, busPla2.TChiWatSupSet) annotation (Line(points={{
           -158,400},{165.873,400},{165.873,84.0635},{164,84.0635},{164,-58},{
           182,-58},{182,-60},{200,-60}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(extent={{-260,-640},{260,440}})),
+  annotation (Diagram(coordinateSystem(extent={{-260,-220},{260,440}})),
   experiment(
     StopTime=2000,
     Tolerance=1e-06),

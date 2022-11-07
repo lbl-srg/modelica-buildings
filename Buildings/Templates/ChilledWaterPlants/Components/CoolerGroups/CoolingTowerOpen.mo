@@ -71,8 +71,17 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
 equation
   /* Control point connection - start */
   connect(busCoo, coo.bus);
-  connect(bus.valCooInlIso, valCooInlIso.bus);
-  connect(bus.valCooOutIso, valCooOutIso.bus);
+  /* 
+  HACK: The following clauses should be removed at translation if typVal*==*.None` 
+  but Dymola fails to do so.
+  Hence, explicit `if then` statements are used.
+  */
+  if typValCooInlIso<>Buildings.Templates.Components.Types.Valve.None then
+    connect(bus.valCooInlIso, valCooInlIso.bus);
+  end if;
+  if typValCooOutIso<>Buildings.Templates.Components.Types.Valve.None then
+    connect(bus.valCooOutIso, valCooOutIso.bus);
+  end if;
   for i in 1:nCoo loop
      connect(busWea, coo[i].busWea);
   end for;

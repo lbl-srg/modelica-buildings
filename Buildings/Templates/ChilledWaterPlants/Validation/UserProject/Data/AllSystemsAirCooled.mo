@@ -79,10 +79,7 @@ class AllSystemsAirCooled
       yFanCoo_min=0,
       sta=if _CHI.typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
       [0,0,0; 0,0,1; 1,0,0; 1,0,1; 1,1,0; 1,1,1] else
-      [0,0; 1,0; 1,1],
-      staCoo=if _CHI.typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then
-      {0,1,1,2,2,2} else
-      {0,1,2}),
+      [0,0; 1,0; 1,1]),
     pumChiWatPri(
       dp_nominal=fill((if CHI.typArrChi==Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
        then max(_CHI.chi.dpChiWatChi_nominal) else sum(_CHI.chi.dpChiWatChi_nominal)) * 1.5, _CHI.nPumChiWatPri) +

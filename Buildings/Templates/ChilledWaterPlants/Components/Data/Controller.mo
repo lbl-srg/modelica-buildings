@@ -348,9 +348,9 @@ record Controller "Record for plant controller"
     "Number of plant stages"
     annotation (Evaluate=true, Dialog(group="Plant staging"));
   parameter Real staCoo[nSta](
-    each min=0,
     each max=nCoo,
-    each final unit="1")
+    start=fill(0,nSta))
     "Quantity of enabled cooler units (e.g. cooling tower cells) at each plant Stage"
-    annotation (Evaluate=true, Dialog(group="Plant staging"));
+    annotation (Evaluate=true, Dialog(group="Plant staging",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 end Controller;

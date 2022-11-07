@@ -126,7 +126,8 @@ partial model PartialCoolerGroup
         origin={-40,70})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busCoo[nCoo]
-    "Cooler control bus"  annotation (Placement(transformation(extent={{-20,20},
+    "Cooler control bus"
+    annotation (Placement(transformation(extent={{-20,20},
             {20,60}}),  iconTransformation(extent={{-350,6},{-310,46}})));
 equation
   connect(repSpe.y, busCoo.y)
@@ -173,7 +174,13 @@ equation
       horizontalAlignment=TextAlignment.Right));
   annotation (
   Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-400,-400},{400,400}})), Diagram(
+    extent={{-400,-400},{400,400}}), graphics={
+              Rectangle(
+          extent={{-402,400},{400,-400}},
+          lineColor={0,0,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid)}),
+                                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})));
 end PartialCoolerGroup;
