@@ -61,18 +61,22 @@ model ReversibleConnection
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=nom.T_CHWS_nominal,
     tau=30,
-    m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
+    m_flow_nominal={nom.mTan_flow_nominal,-nom.m_flow_nominal,nom.m_flow_nominal},
     dp_nominal={0,0,0})                        "Junction"
-    annotation (Placement(transformation(extent={{-82,-10},{-62,10}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={-72,0})));
 
   Buildings.Fluid.FixedResistances.Junction jun2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=nom.T_CHWS_nominal,
     tau=30,
-    m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.mTan_flow_nominal},
+    m_flow_nominal={nom.m_flow_nominal,-nom.mTan_flow_nominal,-nom.m_flow_nominal},
     dp_nominal={0,0,0})                        "Junction"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={70,0})));
 
   Modelica.Blocks.Interfaces.RealInput yVal[2] annotation (Placement(
         transformation(rotation=-90,
@@ -87,31 +91,27 @@ model ReversibleConnection
         rotation=-90,
         origin={-60,110})));
 equation
-  connect(jun2.port_1, intVal.port_bToNet)
-    annotation (Line(points={{60,0},{50,0},{50,12},{40,12}},
-                                               color={0,127,255}));
-  connect(jun1.port_2, pum.port_a)
-    annotation (Line(points={{-62,0},{-56,0},{-56,20},{-84,20},{-84,40},{-80,40}},
-                                                 color={0,127,255}));
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{-60,40},{-40,40}}, color={0,127,255}));
   connect(cheVal.port_b, intVal.port_aFroChi)
     annotation (Line(points={{-20,40},{-6,40},{-6,12},{0,12}},
                                                          color={0,127,255}));
-  connect(jun2.port_3,intVal. port_aFroNet)
-    annotation (Line(points={{70,-10},{70,-12},{40,-12}},
-                                                       color={0,127,255}));
-  connect(jun1.port_3,intVal. port_bToChi)
-    annotation (Line(points={{-72,-10},{-72,-12},{0,-12}},
-                                                        color={0,127,255}));
   connect(yVal, intVal.yVal) annotation (Line(points={{20,110},{20,22}},
                     color={0,0,127}));
   connect(y, pum.y) annotation (Line(points={{-70,110},{-70,52}},
         color={0,0,127}));
-  connect(jun1.port_1, port_a)
-    annotation (Line(points={{-82,0},{-100,0}}, color={0,127,255}));
-  connect(jun2.port_2, port_b)
-    annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
+  connect(jun2.port_1, intVal.port_bToNet)
+    annotation (Line(points={{70,10},{70,12},{40,12}}, color={0,127,255}));
+  connect(jun2.port_3, port_b) annotation (Line(points={{80,-5.55112e-16},{90,
+          -5.55112e-16},{90,0},{100,0}}, color={0,127,255}));
+  connect(jun2.port_2, intVal.port_aFroNet)
+    annotation (Line(points={{70,-10},{70,-12},{40,-12}}, color={0,127,255}));
+  connect(intVal.port_bToChi, jun1.port_1)
+    annotation (Line(points={{0,-12},{-72,-12},{-72,-10}}, color={0,127,255}));
+  connect(jun1.port_2, pum.port_a) annotation (Line(points={{-72,10},{-72,20},{
+          -84,20},{-84,40},{-80,40}}, color={0,127,255}));
+  connect(jun1.port_3, port_a) annotation (Line(points={{-82,5.55112e-16},{-91,
+          5.55112e-16},{-91,0},{-100,0}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
 [Documentation pending.]
