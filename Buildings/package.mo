@@ -329,6 +329,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.regNonZeroPower
+    </td>
+    <td valign=\"top\">Improved documentation and assertion.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3135\">Buildings, issue #3135</a>.
+    </td>
+  </tr>
 <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.spliceFunction<br/>
                          Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
     </td>
