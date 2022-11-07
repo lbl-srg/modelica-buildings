@@ -229,6 +229,19 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.BooleanExtractor<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractor
+    </td>
+    <td valign=\"top\">Added boolean and integer extract signals.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
       </td>
   </tr>
@@ -237,14 +250,6 @@ to <b style=\"color:blue\">existing</b> libraries:
       <td valign=\"top\">Package with sequences implemented according to ASHRAE Guideline 36 official release, May 2020.
       </td>
   </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -253,6 +258,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
+    </td>
+    <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
   </tr>
@@ -261,6 +276,21 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                         Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                         Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                         Buildings.Fluid.MixingVolumes.MixingVolume.MoistAir</br>
+                         Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort
+    </td>
+    <td valign=\"top\">Improved implementation so that models also work with certain media from
+                       the Modelica Standard Library that may be used to model combustion gases.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
     </td>
   </tr>
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
@@ -287,6 +317,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
+    </td>
+    <td valign=\"top\">Corrected units of protected variables to avoid warning during model check.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -305,6 +344,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+    </td>
+    <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
+                       when the index input is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
     </td>
 </tr>
@@ -358,6 +409,22 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized</br>
+    </td>
+    <td valign=\"top\">Reverted the correction on latent heat from component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate<br/>
+    </td>
+    <td valign=\"top\">Modify air source boundary condition so air enters coil at 99.5% relative humidity.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
     </td>
 </tr>
 </table>
@@ -11388,8 +11455,7 @@ conversion(
   from(
     version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
     to="9.0.0",
-    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")
-  ),
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>
