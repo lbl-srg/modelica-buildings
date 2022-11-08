@@ -374,7 +374,18 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
+    </td>
+    <td valign=\"top\">Corrected implementation to make comparison based on total irradiation on tilted surface
+                       rather than the direct normal irradiation.
+                       This required adding parameters for the azimuth, tilt and ground reflectance.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">#3074</a>.
     </td>
 </tr>
 </table>

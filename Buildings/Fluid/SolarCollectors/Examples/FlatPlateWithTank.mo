@@ -7,24 +7,30 @@ model FlatPlateWithTank
   replaceable package Medium_2 =
       Buildings.Media.Water "Fluid flowing through the collector";
 
+  parameter Modelica.Units.SI.Angle azi=0.3
+    "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
+  parameter Modelica.Units.SI.Angle til=0.78539816339745
+    "Surface tilt (0 for horizontally mounted collector)";
+  parameter Real rho=0.2 "Ground reflectance";
+
   Buildings.Fluid.SolarCollectors.ASHRAE93  solCol(
-    shaCoe=0,
     redeclare package Medium = Medium_2,
+    shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    rho=0.2,
     nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
     nPanels=5,
     sysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_SolahartKf(),
     nSeg=9,
-    azi=0.3,
-    til=0.78539816339745) "Flat plate solar collector model"
+    final azi=azi,
+    final til=til,
+    final rho=rho) "Flat plate solar collector model"
     annotation (Placement(transformation(extent={{-2,46},{18,66}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
     Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"),
     computeWetBulbTemperature=false) "Weather data file reader"
-    annotation (Placement(transformation(extent={{-30,80},{-10,100}})));
+    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     T_start(displayUnit="K"),
     m_flow_nominal=solCol.m_flow_nominal,
@@ -55,29 +61,32 @@ model FlatPlateWithTank
     energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Storage tank model"
     annotation (Placement(transformation(
-      extent={{-15,-15},{15,15}},
-      origin={27,-33})));
-  Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
-    pumCon(per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
+      extent={{-20,-20},{20,20}},
+      origin={100,-20})));
+  Buildings.Fluid.SolarCollectors.Controls.SolarPumpController pumCon(
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20(),
+    final azi=azi,
+    final til=til,
+    final rho=rho)
     "Pump controller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-80,50})));
+        rotation=0,
+        origin={-130,0})));
   Buildings.HeatTransfer.Sources.FixedTemperature rooT(T=293.15)
     "Room temperature"
-    annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
-  Modelica.Blocks.Math.Gain gain(k=0.04) "Flow rate of the system in kg/s"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain(k=0.04) "Flow rate of the system in kg/s"
     annotation (Placement(transformation(
-        extent={{-8,-8},{8,8}},
-        rotation=270,
-        origin={-80,12})));
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-90,0})));
   Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
     Medium, nPorts=1) "Outlet for hot water draw"
     annotation (Placement(transformation(
-      extent={{10,-10},{-10,10}},
+      extent={{-10,-10},{10,10}},
       rotation=180,
-      origin={-12,-30})));
+      origin={150,20})));
   Buildings.Fluid.Sources.MassFlowSource_T bou1(
     redeclare package Medium = Medium,
     use_m_flow_in=false,
@@ -86,7 +95,7 @@ model FlatPlateWithTank
     T=288.15) "Inlet and flow rate for hot water draw"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
-      origin={70,-32})));
+      origin={150,-20})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_2,
     m_flow_nominal=0.1,
@@ -95,15 +104,16 @@ model FlatPlateWithTank
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-50,-6})));
+        origin={-50,0})));
   Buildings.Fluid.Storage.ExpansionVessel exp(
     redeclare package Medium = Medium_2, V_start=0.1) "Expansion tank"
     annotation (Placement(transformation(
       extent={{-10,-10},{10,10}},
-      origin={-66,-36})));
+      origin={0,-20})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTan
     "Temperature in the tank water that surrounds the heat exchanger"
-    annotation (Placement(transformation(extent={{0,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-80,20},{-100,40}})));
+
 equation
   connect(solCol.port_b,TOut. port_a) annotation (Line(
       points={{18,56},{30,56}},
@@ -114,61 +124,61 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus,solCol. weaBus) annotation (Line(
-      points={{-10,90},{-2,90},{-2,65.6}},
+      points={{-160,70},{-2,70},{-2,65.6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, pumCon.weaBus) annotation (Line(
-      points={{-10,90},{-2,90},{-2,72},{-74,72},{-74,60.2}},
+      points={{-160,70},{-152,70},{-152,6},{-140.2,6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(rooT.port, tan.heaPorTop)                  annotation (Line(
-      points={{-20,-82},{48,-82},{48,-10},{30,-10},{30,-21.9}},
+      points={{40,-80},{48,-80},{48,0},{104,0},{104,-5.2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(rooT.port, tan.heaPorSid)                  annotation (Line(
-      points={{-20,-82},{35.4,-82},{35.4,-33}},
+      points={{40,-80},{111.2,-80},{111.2,-20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumCon.y, gain.u) annotation (Line(
-      points={{-80,38.2},{-80,21.6}},
+      points={{-118.2,0},{-102,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, pum.m_flow_in) annotation (Line(
-      points={{-80,3.2},{-80,-6.2},{-62,-6.2}},
+      points={{-78,0},{-78,8.88178e-16},{-62,8.88178e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pum.port_b, TIn.port_a) annotation (Line(
-      points={{-50,4},{-50,56},{-34,56}},
+      points={{-50,10},{-50,56},{-34,56}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pum.port_a, exp.port_a) annotation (Line(
-      points={{-50,-16},{-50,-46},{-66,-46}},
+      points={{-50,-10},{-50,-36},{0,-36},{0,-30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(exp.port_a, tan.portHex_b) annotation (Line(
-      points={{-66,-46},{-4,-46},{-4,-45},{12,-45}},
+      points={{0,-30},{0,-36},{80,-36}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port_b, tan.portHex_a) annotation (Line(
-      points={{50,56},{60,56},{60,-16},{8,-16},{8,-38.7},{12,-38.7}},
+      points={{50,56},{68,56},{68,-27.6},{80,-27.6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou.ports[1], tan.port_a) annotation (Line(
-      points={{-2,-30},{6,-30},{6,-33},{12,-33}},
+      points={{140,20},{80,20},{80,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou1.ports[1], tan.port_b) annotation (Line(
-      points={{60,-32},{52,-32},{52,-33},{42,-33}},
+      points={{140,-20},{120,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[3], TTan.port) annotation (Line(
-      points={{27,-32.775},{18,-32.775},{18,10},{0,10}},
+      points={{100,-19.85},{98,-19.85},{98,-20},{96,-20},{96,30},{-80,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TTan.T, pumCon.TIn) annotation (Line(
-      points={{-20,10},{-44,10},{-44,68},{-84,68},{-84,62}},
+      points={{-101,30},{-160,30},{-160,-4},{-142,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
@@ -227,6 +237,12 @@ equation
 revisions="<html>
 <ul>
 <li>
+November 7, 2022, by Michael Wetter:<br/>
+Revised example to provide values for new parameters.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">issue 3074</a>.
+</li>
+<li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed parameter assignment for <code>lat</code>.<br/>
 This is for
@@ -251,5 +267,7 @@ March 27, 2013 by Peter Grant:<br/>
 First implementation
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-200,-100},{180,100}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end FlatPlateWithTank;
