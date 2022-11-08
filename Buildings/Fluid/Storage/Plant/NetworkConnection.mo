@@ -17,7 +17,6 @@ model NetworkConnection
     "Performance data for the supply pump"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic perRet
-    if useReturnPump
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Performance data for the return pump"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
