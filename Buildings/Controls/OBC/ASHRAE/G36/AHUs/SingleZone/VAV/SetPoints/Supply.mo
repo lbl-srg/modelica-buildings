@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block Supply "Supply air set point for single zone VAV system"
 
   parameter Real TSup_max(
@@ -139,14 +139,14 @@ block Supply "Supply air set point for single zone VAV system"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Cooling setpoints for zone temperature"
-    annotation (Placement(transformation(extent={{-220,-110},{-180,-70}}),
+    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Heating setpoints for zone temperature"
-    annotation (Placement(transformation(extent={{-220,-150},{-180,-110}}),
+    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
         iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(
     final min=0,
@@ -220,20 +220,20 @@ protected
     annotation (Placement(transformation(extent={{80,210},{100,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Average aveZonSet
     "Average of the zone heating and cooling setpoint"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
     final uMax=TSupDea_max,
     final uMin=TSupDea_min)
     "Limiter that outputs the dead band value for the supply air temperature"
-    annotation (Placement(transformation(extent={{-60,-120},{-40,-100}})));
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0)
     "Constant zero"
-    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Line heaFanSpe
     "Fan speed when it is in heating state"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
@@ -256,13 +256,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant speFouPoi(
     final k=spePoiFou)
     "Speed control point four in x-axis of control map"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Line cooFanSpe1
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Line cooFanSpe2
     "Fan speed when it is in cooling mode"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Max spe
     "Fan speed"
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
@@ -303,14 +303,12 @@ protected
     final k=temPoiFou)
     "Temperature control point four in x-axis of control map"
     annotation (Placement(transformation(extent={{-120,-370},{-100,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less les(final h=looHys)
-    "Check if the cooling loop signal is less than threshold"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch cooFan
     "Fan speed when it is in cooling state"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(t=looHys, final h=
-        0.8*looHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold heaSta(
+    final t=looHys,
+    final h=0.8*looHys)
     "Check if it is in heating state"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch supTemSet
@@ -329,6 +327,10 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Supply fan status"
     annotation (Placement(transformation(extent={{40,290},{60,310}})));
+  Buildings.Controls.OBC.CDL.Continuous.Greater gre(
+    final h=spePoiFou - spePoiThr)
+    "Check setpoint section"
+    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
 equation
   connect(unoMod.y, isUnoMod.u1)
@@ -361,12 +363,12 @@ equation
           {60,212},{78,212}}, color={0,0,127}));
   connect(TOut, medFanSpe.u) annotation (Line(points={{-200,160},{-160,160},{-160,
           220},{78,220}},      color={0,0,127}));
-  connect(TCooSet, aveZonSet.u1) annotation (Line(points={{-200,-90},{-150,-90},
-          {-150,-104},{-122,-104}}, color={0,0,127}));
-  connect(THeaSet, aveZonSet.u2) annotation (Line(points={{-200,-130},{-150,-130},
-          {-150,-116},{-122,-116}}, color={0,0,127}));
+  connect(TCooSet, aveZonSet.u1) annotation (Line(points={{-200,-100},{-150,-100},
+          {-150,-114},{-122,-114}}, color={0,0,127}));
+  connect(THeaSet, aveZonSet.u2) annotation (Line(points={{-200,-140},{-150,-140},
+          {-150,-126},{-122,-126}}, color={0,0,127}));
   connect(aveZonSet.y, lim.u)
-    annotation (Line(points={{-98,-110},{-62,-110}},  color={0,0,127}));
+    annotation (Line(points={{-98,-120},{-62,-120}},  color={0,0,127}));
   connect(uHea, heaFanSpe.u) annotation (Line(points={{-200,100},{-160,100},{-160,
           90},{58,90}},        color={0,0,127}));
   connect(speTwoPoi.y, cooFanSpe1.x1) annotation (Line(points={{-98,60},{-84,60},
@@ -379,16 +381,16 @@ equation
           {120,160},{-60,160},{-60,22},{58,22}},      color={0,0,127}));
   connect(uCoo, cooFanSpe1.u)
     annotation (Line(points={{-200,30},{58,30}}, color={0,0,127}));
-  connect(speFouPoi.y, cooFanSpe2.x1) annotation (Line(points={{-18,-30},{20,-30},
-          {20,-42},{58,-42}},color={0,0,127}));
+  connect(speFouPoi.y, cooFanSpe2.x1) annotation (Line(points={{-98,-40},{-68,-40},
+          {-68,-52},{58,-52}}, color={0,0,127}));
   connect(medFanSpe.y, cooFanSpe2.f1) annotation (Line(points={{102,220},{120,220},
-          {120,160},{-60,160},{-60,-46},{58,-46}},    color={0,0,127}));
-  connect(one.y, cooFanSpe2.x2) annotation (Line(points={{-98,-70},{-76,-70},{-76,
-          -54},{58,-54}},  color={0,0,127}));
+          {120,160},{-60,160},{-60,-56},{58,-56}},    color={0,0,127}));
+  connect(one.y, cooFanSpe2.x2) annotation (Line(points={{-98,-90},{-76,-90},{-76,
+          -64},{58,-64}},  color={0,0,127}));
   connect(maxCooFanSpe.y, cooFanSpe2.f2) annotation (Line(points={{-18,130},{0,130},
-          {0,-58},{58,-58}},    color={0,0,127}));
+          {0,-68},{58,-68}},    color={0,0,127}));
   connect(uCoo, cooFanSpe2.u) annotation (Line(points={{-200,30},{-140,30},{-140,
-          -50},{58,-50}},    color={0,0,127}));
+          -60},{58,-60}},    color={0,0,127}));
   connect(heaFanSpe.y, spe.u1) annotation (Line(points={{82,90},{130,90},{130,76},
           {138,76}},       color={0,0,127}));
   connect(uHea, heaSupTem.u) annotation (Line(points={{-200,100},{-160,100},{-160,
@@ -397,21 +399,21 @@ equation
           40,98},{58,98}},          color={0,0,127}));
   connect(minFanSpe.y, heaFanSpe.f1) annotation (Line(points={{42,130},{60,130},
           {60,110},{-68,110},{-68,94},{58,94}},   color={0,0,127}));
-  connect(one.y, heaFanSpe.x2) annotation (Line(points={{-98,-70},{-76,-70},{-76,
+  connect(one.y, heaFanSpe.x2) annotation (Line(points={{-98,-90},{-76,-90},{-76,
           86},{58,86}},   color={0,0,127}));
   connect(maxHeaFanSpe.y, heaFanSpe.f2) annotation (Line(points={{-98,130},{-84,
           130},{-84,82},{58,82}},   color={0,0,127}));
-  connect(zer.y, heaSupTem.x1) annotation (Line(points={{-18,-70},{30,-70},{30,-142},
+  connect(zer.y, heaSupTem.x1) annotation (Line(points={{-18,-90},{30,-90},{30,-142},
           {58,-142}},     color={0,0,127}));
-  connect(lim.y, heaSupTem.f1) annotation (Line(points={{-38,-110},{20,-110},{20,
+  connect(lim.y, heaSupTem.f1) annotation (Line(points={{-38,-120},{20,-120},{20,
           -146},{58,-146}},                   color={0,0,127}));
   connect(temOnePoi.y, heaSupTem.x2) annotation (Line(points={{-98,-180},{-80,-180},
           {-80,-154},{58,-154}},     color={0,0,127}));
   connect(maxSupTem.y, heaSupTem.f2) annotation (Line(points={{-18,-180},{40,-180},
           {40,-158},{58,-158}},      color={0,0,127}));
-  connect(zer.y, cooSupTem.x1) annotation (Line(points={{-18,-70},{30,-70},{30,-232},
+  connect(zer.y, cooSupTem.x1) annotation (Line(points={{-18,-90},{30,-90},{30,-232},
           {58,-232}},       color={0,0,127}));
-  connect(lim.y, cooSupTem.f1) annotation (Line(points={{-38,-110},{20,-110},{20,
+  connect(lim.y, cooSupTem.f1) annotation (Line(points={{-38,-120},{20,-120},{20,
           -236},{58,-236}},                     color={0,0,127}));
   connect(temTwoPoi.y, cooSupTem.x2) annotation (Line(points={{-98,-260},{-80,-260},
           {-80,-244},{58,-244}},       color={0,0,127}));
@@ -421,21 +423,15 @@ equation
           {10,-248},{58,-248}},        color={0,0,127}));
   connect(temThrPoi.y, cooSupTem1.x1) annotation (Line(points={{-18,-310},{10,-310},
           {10,-322},{58,-322}},      color={0,0,127}));
-  connect(lim.y, cooSupTem1.f1) annotation (Line(points={{-38,-110},{20,-110},{20,
+  connect(lim.y, cooSupTem1.f1) annotation (Line(points={{-38,-120},{20,-120},{20,
           -326},{58,-326}},                     color={0,0,127}));
   connect(temFouPoi.y, cooSupTem1.x2) annotation (Line(points={{-98,-360},{20,-360},
           {20,-334},{58,-334}},        color={0,0,127}));
   connect(supCooTem.y, cooSupTem1.f2) annotation (Line(points={{-98,-300},{-80,-300},
           {-80,-338},{58,-338}},       color={0,0,127}));
-  connect(uCoo, les.u1) annotation (Line(points={{-200,30},{-140,30},{-140,-10},
-          {38,-10}}, color={0,0,127}));
-  connect(speFouPoi.y, les.u2) annotation (Line(points={{-18,-30},{20,-30},{20,-18},
-          {38,-18}}, color={0,0,127}));
-  connect(les.y, cooFan.u2)
-    annotation (Line(points={{62,-10},{98,-10}}, color={255,0,255}));
   connect(cooFanSpe1.y, cooFan.u1) annotation (Line(points={{82,30},{90,30},{90,
           -2},{98,-2}}, color={0,0,127}));
-  connect(cooFanSpe2.y, cooFan.u3) annotation (Line(points={{82,-50},{90,-50},{90,
+  connect(cooFanSpe2.y, cooFan.u3) annotation (Line(points={{82,-60},{90,-60},{90,
           -18},{98,-18}}, color={0,0,127}));
   connect(cooFan.y, spe.u2) annotation (Line(points={{122,-10},{130,-10},{130,64},
           {138,64}}, color={0,0,127}));
@@ -473,7 +469,12 @@ equation
           {38,300}}, color={255,0,255}));
   connect(not1.y, y1SupFan)
     annotation (Line(points={{62,300},{200,300}}, color={255,0,255}));
-
+  connect(speFouPoi.y, gre.u1) annotation (Line(points={{-98,-40},{-68,-40},{-68,
+          -10},{18,-10}}, color={0,0,127}));
+  connect(uCoo, gre.u2) annotation (Line(points={{-200,30},{-140,30},{-140,-18},
+          {18,-18}}, color={0,0,127}));
+  connect(gre.y, cooFan.u2)
+    annotation (Line(points={{42,-10},{98,-10}}, color={255,0,255}));
 annotation (defaultComponentName = "setPoiVAV",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

@@ -1,10 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment;
 model VAVBoxCoolingOnlyControlG36
   "Configuration of VAV terminal unit cooling only"
-  extends Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly(
-    redeclare replaceable
-      Buildings.Templates.ZoneEquipment.Components.Controls.G36VAVBoxCoolingOnly ctl(
-       stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+  extends Buildings.Templates.ZoneEquipment.VAVBoxCoolingOnly;
 
   annotation (
     defaultComponentName="ter",

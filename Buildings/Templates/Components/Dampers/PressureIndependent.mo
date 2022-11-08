@@ -33,7 +33,7 @@ This is a model for a pressure independent damper.
 </p>
 <ul>
 <li>
-The airflow set point is modulated with a fractional 
+The airflow setpoint is modulated with a fractional
 airflow signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to zero airflow.
 <code>y = 1</code> corresponds to the maximum airflow.

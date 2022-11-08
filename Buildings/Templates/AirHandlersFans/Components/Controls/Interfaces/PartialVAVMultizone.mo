@@ -2,12 +2,11 @@ within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
 partial block PartialVAVMultizone "Interface class for multiple-zone VAV controller"
   extends
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
-      redeclare
-      Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
-      dat(typSecRel=secOutRel.typSecRel,
-      stdEne=stdEne,
-      stdVen=stdVen,
-      have_CO2Sen=have_CO2Sen));
+      redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
+        dat(
+          typSecOut=secOutRel.typSecOut,
+          buiPreCon=buiPreCon,
+          stdVen=stdVen));
 
   outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";
@@ -23,8 +22,8 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     "Economizer control type"
     annotation (Evaluate=true,
       Dialog(
-        tab="Economizer",
-        enable=secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+        group="Economizer",
+        enable=secOutRel.have_eco));
 
   parameter Buildings.Templates.AirHandlersFans.Types.ControlFanReturn typCtlFanRet=
     Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured
@@ -39,7 +38,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     annotation(Dialog(
      group="Economizer",
      enable=typ<>Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-       secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.NoEconomizer));
+       secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir));
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat typFreSta=
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
@@ -68,16 +67,16 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer"));
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
-    "Energy standard, ASHRAE 90.1 or Title 24"
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard stdEne=
+    datAll.stdEne
+    "Energy standard"
     annotation(Dialog(enable=
     typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone),
     Evaluate=true);
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
-    "Ventilation standard, ASHRAE 62.1 or Title 24"
+  final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
+    datAll.stdVen
+    "Ventilation standard"
     annotation(Dialog(enable=
     typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone),
     Evaluate=true);
@@ -99,10 +98,10 @@ initial equation
        "The system configuration is incompatible with available options for building pressure control.");
     end if;
     assert(stdVen<>Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
-      "In "+ getInstanceName() + ": "+
+      "In "+ getInstanceName() + ".dat: "+
       "The ventilation standard cannot be unspecified.");
     assert(stdEne<>Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified,
-      "In "+ getInstanceName() + ": "+
+      "In "+ getInstanceName() + ".dat: "+
       "The energy standard cannot be unspecified.");
   end if;
 

@@ -3,9 +3,9 @@ record VAVMultiZone "Record for multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.Data.PartialAirHandler(
     redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
     ctl(
-      final typSecRel=typSecRel,
       final typSecOut=typSecOut,
-      final buiPreCon=buiPreCon),
+      final buiPreCon=buiPreCon,
+      final stdVen=stdVen),
     final mAirSup_flow_nominal=if typFanSup<>Buildings.Templates.Components.Types.Fan.None
     then fanSup.m_flow_nominal else 0,
     final mAirRet_flow_nominal=if typFanRet<>Buildings.Templates.Components.Types.Fan.None
@@ -39,6 +39,9 @@ record VAVMultiZone "Record for multiple-zone VAV"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
+    "Ventilation standard"
+    annotation(Evaluate=true, Dialog(group="Energy and ventilation standards", enable=false));
 
   parameter Buildings.Templates.Components.Data.Fan fanSup(
     final typ=typFanSup)
@@ -57,9 +60,7 @@ record VAVMultiZone "Record for multiple-zone VAV"
     damRel(
       m_flow_nominal=mAirRet_flow_nominal),
     damRet(
-      m_flow_nominal=mAirRet_flow_nominal))
-    annotation (
-      Dialog(group="Dampers and economizer"));
+      m_flow_nominal=mAirRet_flow_nominal));
 
   parameter Buildings.Templates.Components.Data.Coil coiHeaPre(
     final typ=typCoiHeaPre,

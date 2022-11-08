@@ -1,8 +1,8 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
-model NoEconomizer "No air economizer"
+model NoReturn "No return branch"
   extends
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
-    final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer,
+    final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoReturn,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
     final typFanRet=fanRet.typ);
@@ -54,4 +54,4 @@ for 100% outdoor air applications (such as DOAS).
           points={{-180,0},{180,0}},
           color={28,108,200},
           thickness=1)}));
-end NoEconomizer;
+end NoReturn;

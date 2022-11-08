@@ -8,6 +8,8 @@ partial block PartialController "Interface class for AHU controller"
   parameter Integer nZon
     "Number of served zones";
 
+  outer parameter Buildings.Templates.Data.AllSystems datAll
+    "Top-level (whole building) system parameters";
   outer parameter Buildings.Templates.Components.Types.Fan typFanSup
     "Type of supply fan";
   outer parameter Buildings.Templates.Components.Types.Fan typFanRet

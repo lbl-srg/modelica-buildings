@@ -32,7 +32,7 @@ This is a model for a modulating damper.
 </p>
 <ul>
 <li>
-The damper opening is modulated with a fractional opening 
+The damper opening is modulated with a fractional opening
 signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to fully closed.
 <code>y = 1</code> corresponds to fully open.

@@ -83,7 +83,7 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     redeclare final package Medium = MediumAir,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start=MediumAir.h_default, nominal=MediumAir.h_default))
-    if typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer
+    if typ <> Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoReturn
     "Optional fluid connector for return branch"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bPre(
@@ -138,7 +138,7 @@ Typical components in that section include
 </p>
 <ul>
 <li>
-shut off relief (or exhaust) air dampers, 
+shut off relief (or exhaust) air dampers,
 </li>
 <li>
 the relief air side of the heat recovery unit,

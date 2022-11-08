@@ -25,7 +25,7 @@ Main controller for the terminal unit
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:
-Computation of the zone temperature set points
+Computation of the zone temperature setpoints
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\">

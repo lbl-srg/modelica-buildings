@@ -4,7 +4,7 @@ record Valve "Record for valve model"
 
   parameter Buildings.Templates.Components.Types.Valve typ
     "Equipment type"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
@@ -36,7 +36,7 @@ record Valve "Record for valve model"
 
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Valves\">
 Buildings.Templates.Components.Valves</a>.

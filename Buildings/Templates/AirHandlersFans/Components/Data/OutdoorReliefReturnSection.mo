@@ -2,9 +2,6 @@ within Buildings.Templates.AirHandlersFans.Components.Data;
 record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection typSecRel
-    "Relief/return air section type"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Damper typDamOut
     "Outdoor air damper type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -29,7 +26,7 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
     start=0.2 * damOut.m_flow_nominal)
     "Minimum outdoor air mass flow rate at design conditions"
     annotation (Dialog(group="Dampers and economizers",
-      enable=typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer));
+      enable=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None));
 
   parameter Buildings.Templates.Components.Data.Damper damOut(
     final typ=typDamOut)
@@ -63,8 +60,8 @@ record OutdoorReliefReturnSection "Record for outdoor/relief/return air section"
     enable=typFanRet <>Buildings.Templates.Components.Types.Fan.None));
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-the classes within 
+This record provides the set of sizing and operating parameters for
+the classes within
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection\">
 Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection</a>.
 </p>

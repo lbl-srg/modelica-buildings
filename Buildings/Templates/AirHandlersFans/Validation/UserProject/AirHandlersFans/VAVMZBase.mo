@@ -1,11 +1,9 @@
 within Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans;
-model VAVMZNoRelief "Configuration of multiple-zone VAV"
+model VAVMZBase "Configuration of multiple-zone VAV"
   extends VAVMultiZone(
-    redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
-      "Open loop controller",
     redeclare replaceable
-      Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.EconomizerNoRelief
-      secOutRel "Air economizer - No relief branch",
+      Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
+      "Open loop controller",
     nZon=2);
 
   annotation (
@@ -18,8 +16,8 @@ except for the following options.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Component</th><th>Configuration</th></tr>
-<tr><td>Relief/return air section</td><td>No relief</td></tr>
-<tr><td>Return fan</td><td>No fan</td></tr>
+<tr><td>Outdoor air section</td><td>No economizer</td></tr>
+<tr><td>Relief/return air section</td><td>No economizer</td></tr>
 </table>
 </html>"));
-end VAVMZNoRelief;
+end VAVMZBase;

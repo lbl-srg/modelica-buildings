@@ -93,6 +93,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the ASHRAE 6
     offset=0.6) "Generate ramp output"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
+    "Convert real input to integer output"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
     final amplitude=0.01,

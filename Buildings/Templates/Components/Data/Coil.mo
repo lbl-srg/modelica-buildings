@@ -4,13 +4,13 @@ record Coil "Record for coil model"
 
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
   parameter Boolean have_sou
     "Set to true for fluid ports on the source side"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Configuration", enable=false));
 
   /*
 For evaporator coils this is also provided by the performance data record.
@@ -126,7 +126,7 @@ the maximum value from the performance data record.
       typ==Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed));
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
+This record provides the set of sizing and operating parameters for
 the classes within
 <a href=\"modelica://Buildings.Templates.Components.Coils\">
 Buildings.Templates.Components.Coils</a>.

@@ -15,9 +15,6 @@ model VAVMZControlG36Airflow "Configuration of multiple-zone VAV"
       "Chilled water coil",
     redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl(
       typCtlFanRet=Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowCalculated,
-      stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-      stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-      ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A,
       idZon={"Box_1","Box_1"},
       namGro={"Floor_1"},
       namGroZon={"Floor_1","Floor_1"}));

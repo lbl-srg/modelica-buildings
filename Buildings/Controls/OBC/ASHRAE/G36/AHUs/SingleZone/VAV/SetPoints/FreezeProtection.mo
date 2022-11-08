@@ -316,14 +316,14 @@ block FreezeProtection
     final t=273.15 + 1,
     final h=Thys)
     "Check if supply air temperature is less than threshold"
-    annotation (Placement(transformation(extent={{-360,120},{-340,140}})));
+    annotation (Placement(transformation(extent={{-400,120},{-380,140}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim4(
     final t=300)
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
   Buildings.Controls.OBC.CDL.Logical.Or3 or3
     "Check if it should be in stage 3 mode"
-    annotation (Placement(transformation(extent={{-220,112},{-200,132}})));
+    annotation (Placement(transformation(extent={{-240,112},{-220,132}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
     "Stay in stage 3 freeze protection mode"
     annotation (Placement(transformation(extent={{-140,112},{-120,132}})));
@@ -554,7 +554,9 @@ block FreezeProtection
     if have_hotWatCoi and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-600},{340,-580}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Pre pre
+    "Break loop"
+    annotation (Placement(transformation(extent={{-200,112},{-180,132}})));
 equation
   connect(lesThr.y, tim.u)
     annotation (Line(points={{-338,670},{-302,670}}, color={255,0,255}));
@@ -600,20 +602,14 @@ equation
           218},{118,218}}, color={255,127,0}));
   connect(lesThr1.y, tim3.u) annotation (Line(points={{-358,370},{-350,370},{-350,
           170},{-302,170}}, color={255,0,255}));
-  connect(lesThr2.y, tim4.u)
-    annotation (Line(points={{-338,130},{-302,130}},   color={255,0,255}));
-  connect(TAirSup, lesThr2.u) annotation (Line(points={{-460,250},{-420,250},{-420,
-          130},{-362,130}}, color={0,0,127}));
-  connect(tim3.passed, or3.u1) annotation (Line(points={{-278,162},{-240,162},{-240,
-          130},{-222,130}},   color={255,0,255}));
+  connect(TAirSup, lesThr2.u) annotation (Line(points={{-460,250},{-420,250},{
+          -420,130},{-402,130}}, color={0,0,127}));
+  connect(tim3.passed, or3.u1) annotation (Line(points={{-278,162},{-260,162},{-260,
+          130},{-242,130}},   color={255,0,255}));
   connect(tim4.passed, or3.u2)
-    annotation (Line(points={{-278,122},{-222,122}},   color={255,0,255}));
-  connect(or3.y, lat1.u)
-    annotation (Line(points={{-198,122},{-142,122}},   color={255,0,255}));
+    annotation (Line(points={{-278,122},{-242,122}},   color={255,0,255}));
   connect(u1SofSwiRes, lat1.clr) annotation (Line(points={{-460,-30},{-160,-30},
           {-160,116},{-142,116}}, color={255,0,255}));
-  connect(lat1.y, supFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-140},
-          {118,-140}},       color={255,0,255}));
   connect(lat1.y, retFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-260},
           {118,-260}},       color={255,0,255}));
   connect(lat1.y, relFan.u2) annotation (Line(points={{-118,122},{20,122},{20,-380},
@@ -698,8 +694,6 @@ equation
           {280,-568},{318,-568}}, color={0,0,127}));
   connect(heaCoiPos.y, yHeaCoi)
     annotation (Line(points={{342,-560},{460,-560}}, color={0,0,127}));
-  connect(holSta2.y, lat2.u)
-    annotation (Line(points={{-278,362},{-182,362}}, color={255,0,255}));
   connect(tim5.passed, endStaTwo.u)
     annotation (Line(points={{-238,322},{-222,322}}, color={255,0,255}));
   connect(endStaTwo.y, lat2.clr) annotation (Line(points={{-198,322},{-190,322},
@@ -712,8 +706,6 @@ equation
           {118,318}}, color={255,0,255}));
   connect(lat2.y, intSwi1.u2) annotation (Line(points={{-158,362},{20,362},{20,210},
           {118,210}}, color={255,0,255}));
-  connect(tim.passed, or2.u1)
-    annotation (Line(points={{-278,662},{-102,662}}, color={255,0,255}));
   connect(or2.y, lat.u)
     annotation (Line(points={{-78,662},{-62,662}}, color={255,0,255}));
   connect(falEdg.y, or2.u2) annotation (Line(points={{-118,630},{-110,630},{-110,
@@ -735,7 +727,7 @@ equation
   connect(cooCoi.y, yCooCoi)
     annotation (Line(points={{142,-460},{460,-460}}, color={0,0,127}));
   connect(conInt1.y, intSwi2.u1) annotation (Line(points={{62,238},{378,238}},
-                           color={255,127,0}));
+          color={255,127,0}));
   connect(lat1.y, intSwi2.u2) annotation (Line(points={{-118,122},{248,122},{248,
           230},{378,230}},              color={255,0,255}));
   connect(lat2.y, intSwi4.u2) annotation (Line(points={{-158,362},{20,362},{20,430},
@@ -758,14 +750,14 @@ equation
           10},{-362,10}},        color={255,0,255}));
   connect(norOpe.y, logSwi.u2)
     annotation (Line(points={{-338,50},{-302,50}},     color={255,0,255}));
-  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,50},{-240,50},{-240,114},
-          {-222,114}},      color={255,0,255}));
+  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,50},{-260,50},{-260,114},
+          {-242,114}},      color={255,0,255}));
   connect(logSwi.y, falEdg1.u)
     annotation (Line(points={{-278,50},{-222,50}},     color={255,0,255}));
-  connect(falEdg1.y, lat1.clr) annotation (Line(points={{-198,50},{-180,50},{-180,
+  connect(falEdg1.y, lat1.clr) annotation (Line(points={{-198,50},{-160,50},{-160,
           116},{-142,116}},       color={255,0,255}));
-  connect(con2.y, or3.u3) annotation (Line(points={{-278,0},{-240,0},{-240,114},
-          {-222,114}},      color={255,0,255}));
+  connect(con2.y, or3.u3) annotation (Line(points={{-278,0},{-260,0},{-260,114},
+          {-242,114}},      color={255,0,255}));
   connect(u1RelFan, and2.u1)
     annotation (Line(points={{-460,-320},{318,-320}}, color={255,0,255}));
   connect(lat1.y, norSta1.u) annotation (Line(points={{-118,122},{20,122},{20,-340},
@@ -840,6 +832,18 @@ equation
           58},{-302,58}}, color={255,0,255}));
   connect(norFal.y, logSwi.u3) annotation (Line(points={{-338,10},{-320,10},{-320,
           42},{-302,42}}, color={255,0,255}));
+  connect(lesThr2.y, tim4.u)
+    annotation (Line(points={{-378,130},{-302,130}}, color={255,0,255}));
+  connect(lat1.y, supFan.u2) annotation (Line(points={{-118,122},{20,122},{20,
+          -140},{118,-140}}, color={255,0,255}));
+  connect(or3.y, pre.u)
+    annotation (Line(points={{-218,122},{-202,122}}, color={255,0,255}));
+  connect(pre.y, lat1.u)
+    annotation (Line(points={{-178,122},{-142,122}}, color={255,0,255}));
+  connect(holSta2.y, lat2.u)
+    annotation (Line(points={{-278,362},{-182,362}}, color={255,0,255}));
+  connect(tim.passed, or2.u1)
+    annotation (Line(points={{-278,662},{-102,662}}, color={255,0,255}));
 annotation (defaultComponentName="sinAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -918,8 +922,9 @@ annotation (defaultComponentName="sinAHUFrePro",
         Text(
           extent={{52,0},{98,-16}},
           textColor={0,0,127},
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanAir or
-                   buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
+                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp),
           textString="yRetFan"),
         Text(
           extent={{50,-40},{102,-56}},

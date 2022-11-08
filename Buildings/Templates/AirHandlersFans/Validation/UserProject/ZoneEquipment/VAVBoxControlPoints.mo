@@ -3,8 +3,8 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
-    "Ventilation standard, ASHRAE 62.1 or Title 24"
+    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
+    "Ventilation standard"
     annotation(Evaluate=true);
 
   .Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
@@ -55,7 +55,7 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setMinOA_62_1(
     VAreBreZon_flow=3e-3,
     VPopBreZon_flow=2.5e-3,
-    VMin_flow=5.5e-3)  if stdVen==
+    VMin_flow=5.5e-3) if stdVen==
     Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
@@ -110,7 +110,7 @@ equation
 <p>
 This class generates signals typically provided by the terminal
 unit controller.
-It is aimed for validation purposes only. 
+It is aimed for validation purposes only.
 </p>
 </html>"));
 end VAVBoxControlPoints;

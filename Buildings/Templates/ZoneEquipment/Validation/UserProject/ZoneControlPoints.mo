@@ -44,7 +44,7 @@ equation
     Documentation(info="<html>
 <p>
 This class generates signals typically provided by the zone equipment.
-It is aimed for validation purposes only. 
+It is aimed for validation purposes only.
 </p>
 </html>"));
 end ZoneControlPoints;

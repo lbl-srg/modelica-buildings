@@ -125,7 +125,7 @@ equation
     Documentation(info="<html>
 <p>
 This is an open loop controller providing control inputs
-for the templates within 
+for the templates within
 <a href=\"modelica://Buildings.Templates.AirHandlersFans\">
 Buildings.Templates.AirHandlersFans</a>.
 It is mainly used for testing purposes.

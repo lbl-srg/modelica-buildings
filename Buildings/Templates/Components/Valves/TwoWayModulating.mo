@@ -43,7 +43,7 @@ This is a model for a two-way modulating valve.
 </p>
 <ul>
 <li>
-The valve position is modulated with a fractional position 
+The valve position is modulated with a fractional position
 signal <code>y</code> (real).<br/>
 <code>y = 0</code> corresponds to fully closed.
 <code>y = 1</code> corresponds to fully open.

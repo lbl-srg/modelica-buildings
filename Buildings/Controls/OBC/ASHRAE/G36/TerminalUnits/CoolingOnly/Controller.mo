@@ -48,7 +48,7 @@ block Controller "Controller for cooling only VAV box"
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper control parameters ----------------
-  parameter Boolean have_preIndDam
+  parameter Boolean have_preIndDam=false
     "True: the VAV damper is pressure independent (with built-in flow controller)"
     annotation(Dialog(tab="Damper control"));
   parameter CDL.Types.SimpleController damCon=

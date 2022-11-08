@@ -20,12 +20,12 @@ model VAVMultiZone "Multiple-zone VAV"
       typDamOutMin=secOutRel.typDamOutMin,
       typDamRet=secOutRel.typDamRet,
       typDamRel=secOutRel.typDamRel,
+      typSecOut=secOutRel.typSecOut,
       typCtl=ctl.typ,
-      typSecRel=secOutRel.typSecRel,
-      typSecOut=ctl.typSecOut,
-      buiPreCon=ctl.buiPreCon),
+      buiPreCon=ctl.buiPreCon,
+      stdVen=ctl.stdVen),
     final typ=Buildings.Templates.AirHandlersFans.Types.Configuration.SingleDuct,
-    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.EconomizerNoRelief,
+    final have_porRel=secOutRel.typ <> Types.OutdoorReliefReturnSection.MixedAirNoRelief,
     final have_souChiWat=coiCoo.have_sou,
     final have_souHeaWat=coiHeaPre.have_sou or coiHeaReh.have_sou,
     final typFanSup=if
@@ -54,24 +54,24 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Economizer secOutRel
-    constrainedby
+  inner replaceable
+    Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
+    secOutRel constrainedby
     Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
-      redeclare final package MediumAir = MediumAir,
-      final typCtlFanRet=ctl.typCtlFanRet,
-      final typCtlEco=ctl.typCtlEco,
-      dat(
-        final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
-        final damOut=dat.damOut,
-        final damOutMin=dat.damOutMin,
-        final damRel=dat.damRel,
-        final damRet=dat.damRet,
-        final fanRel=dat.fanRel,
-        final fanRet=dat.fanRet))
-    "Outdoor/relief/return air section"
-    annotation (
-      Dialog(group="Outdoor/relief/return air section"),
-      Placement(transformation(extent={{-280,-220},{-120,-60}})));
+    redeclare final package MediumAir = MediumAir,
+    final typCtlFanRet=ctl.typCtlFanRet,
+    final typCtlEco=ctl.typCtlEco,
+    dat(
+      final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
+      final damOut=dat.damOut,
+      final damOutMin=dat.damOutMin,
+      final damRel=dat.damRel,
+      final damRet=dat.damRet,
+      final fanRel=dat.fanRel,
+      final fanRet=dat.fanRet))
+     "Outdoor/relief/return air section" annotation (
+     Dialog(group="Configuration"), Placement(transformation(extent={{-280,-220},
+            {-120,-60}})));
 
   Buildings.Templates.Components.Sensors.Temperature TAirMix(
     redeclare final package Medium = MediumAir,
@@ -97,7 +97,7 @@ model VAVMultiZone "Multiple-zone VAV"
           "Single fan - Variable speed"),
         choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupBlo
           "Fan array - Variable speed")),
-      Dialog(group="Supply air section",
+      Dialog(group="Configuration",
         enable=fanSupDra.typ==Buildings.Templates.Components.Types.Fan.None),
       Placement(transformation(extent={{-50,-210},{-30,-190}})));
 
@@ -136,7 +136,7 @@ model VAVMultiZone "Multiple-zone VAV"
           "Single fan - Variable speed"),
         choice(redeclare replaceable Buildings.Templates.Components.Fans.ArrayVariable fanSupDra
           "Fan array - Variable speed")),
-    Dialog(group="Supply air section",
+    Dialog(group="Configuration",
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
@@ -195,7 +195,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
     final have_sen=
-      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      secOutRel.have_eco and
       (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb or
        ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulbWithDifferentialDryBulb),
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
@@ -207,7 +207,7 @@ model VAVMultiZone "Multiple-zone VAV"
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
     final have_sen=
-      secOutRel.typSecRel<>Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoEconomizer and
+      secOutRel.have_eco and
       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=mAirRet_flow_nominal)
     "Return air enthalpy sensor"
@@ -231,7 +231,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil",
+    Dialog(group="Configuration",
       enable=coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{10,-210},{30,-190}})));
 
@@ -249,7 +249,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "Chilled water coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
         "Evaporator coil with variable speed compressor")),
-    Dialog(group="Cooling coil"),
+    Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
@@ -266,7 +266,7 @@ model VAVMultiZone "Multiple-zone VAV"
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
         "Modulating electric heating coil")),
-    Dialog(group="Heating coil",
+    Dialog(group="Configuration",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{130,-210},{150,-190}})));
   Buildings.Fluid.FixedResistances.Junction junHeaWatSup(
@@ -459,18 +459,16 @@ a single duct system serving <b>at least two</b> terminal units.
 </p>
 <p>
 The possible equipment configurations are enumerated in the table below.
-The user may refer to
-<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
-for further details.
+The user may refer to ASHRAE (2021) for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
 <tr><td>Outdoor air section</td>
 <td>
-<b>Single common OA damper with AFMS</b><br/>
-Separate dedicated OA dampers with AFMS<br/>
-Separate dedicated OA dampers with differential pressure sensor
+<b>Single common OA damper and AFMS - Economizer function</b><br/>
+Separate dedicated OA dampers and AFMS - Economizer function<br/>
+Separate dedicated OA dampers and DP sensor - Economizer function
 </td>
 <td></td>
 </tr>
@@ -597,7 +595,7 @@ relative building static pressure.
 </p>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2021\">
+<li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>

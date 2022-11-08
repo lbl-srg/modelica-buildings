@@ -5,8 +5,8 @@ model VAVBox "Interface class for VAV terminal unit"
       typCoiHea=coiHea.typ,
       typValCoiHea=coiHea.typVal,
       typDamVAV=damVAV.typ,
-      have_CO2Sen=ctl.have_CO2Sen,
-      typCtl=ctl.typ),
+      typCtl=ctl.typ,
+      stdVen=ctl.stdVen),
     final have_souChiWat=false,
     final have_souHeaWat=coiHea.have_sou,
     final mAirPri_flow_nominal=mAir_flow_nominal,
@@ -54,7 +54,7 @@ model VAVBox "Interface class for VAV terminal unit"
 
   inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
     constrainedby
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController(
+    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController(
       final dat=dat.ctl)
     "Terminal unit controller"
     annotation (

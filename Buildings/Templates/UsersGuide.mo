@@ -58,6 +58,7 @@ The following abbreviations are used in that package.<br/>
 <tr><td>DI</td><td>Digital input (Boolean)</td></tr>
 <tr><td>DO</td><td>Digital output (Boolean)</td></tr>
 <tr><td>DOAS</td><td>Dedicated outdoor air system</td></tr>
+<tr><td>DP</td><td>Differential pressure</td></tr>
 <tr><td>HHW</td><td>Heating hot water</td></tr>
 <tr><td>OA</td><td>Outdoor air</td></tr>
 <tr><td>VAV</td><td>Variable air volume</td></tr>

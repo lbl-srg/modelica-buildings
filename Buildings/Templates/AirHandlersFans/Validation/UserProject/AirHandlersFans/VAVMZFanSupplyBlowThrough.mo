@@ -5,7 +5,7 @@ model VAVMZFanSupplyBlowThrough "Configuration of multiple-zone VAV"
       "Open loop controller",
     redeclare replaceable Buildings.Templates.Components.Fans.None fanSupDra,
     nZon=2,
-        redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable
+    redeclare replaceable Buildings.Templates.Components.Fans.SingleVariable
       fanSupBlo);
 
   annotation (

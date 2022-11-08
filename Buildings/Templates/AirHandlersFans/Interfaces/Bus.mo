@@ -35,8 +35,8 @@ expandable connector Bus "Control bus for air handler"
   annotation (
     defaultComponentName="bus", Documentation(info="<html>
 <p>
-This expandable connector provides a standard interface for 
-all control signals required by an air handler controller. 
+This expandable connector provides a standard interface for
+all control signals required by an air handler controller.
 </p>
 </html>"));
 end Bus;

@@ -2,6 +2,10 @@ within Buildings.Templates.ZoneEquipment.Components.Data;
 record VAVBoxController "Record for VAV terminal unit controller"
   extends Buildings.Templates.ZoneEquipment.Components.Data.PartialController;
 
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
+    "Ventilation standard"
+    annotation (Dialog(group="Energy and ventilation standards", enable=false));
+
   parameter Modelica.Units.SI.VolumeFlowRate VOutMinOcc_flow(
     final min=0,
     start=1)
@@ -56,42 +60,42 @@ record VAVBoxController "Record for VAV terminal unit controller"
   parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
     final min=273.15,
     displayUnit="degC")=21+273.15
-    "Zone occupied heating temperature set point"
+    "Zone occupied heating temperature setpoint"
     annotation(Dialog(group="Temperature",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
   parameter Modelica.Units.SI.Temperature TZonHeaUnoSet(
     final min=273.15,
     displayUnit="degC")=16+273.15
-    "Zone unoccupied heating temperature set point"
+    "Zone unoccupied heating temperature setpoint"
     annotation(Dialog(group="Temperature",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
   parameter Modelica.Units.SI.Temperature TZonCooOccSet(
     final min=273.15,
     displayUnit="degC")=24+273.15
-    "Zone occupied cooling temperature set point"
+    "Zone occupied cooling temperature setpoint"
     annotation(Dialog(group="Temperature",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
   parameter Modelica.Units.SI.Temperature TZonCooUnoSet(
     final min=273.15,
     displayUnit="degC")=32+273.15
-    "Zone unoccupied cooling temperature set point"
+    "Zone unoccupied cooling temperature setpoint"
     annotation(Dialog(group="Temperature",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
   parameter Modelica.Units.SI.TemperatureDifference dTAirDisHea_max(
     final min=0,
     displayUnit="K")=11
-    "Zone maximum discharge air temperature above heating set point"
+    "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
 
   parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max(
     final min=0,
     start=1)
-    "Zone maximum cooling airflow set point"
+    "Zone maximum cooling airflow setpoint"
     annotation (Dialog(group="Airflow"));
 
   /* FIXME #1913: This should be an optional entry. If no value is scheduled,
@@ -100,26 +104,26 @@ record VAVBoxController "Record for VAV terminal unit controller"
   parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min(
     final min=0,
     start=0.1 * VAirCooSet_flow_max)
-    "Zone minimum airflow set point"
+    "Zone minimum airflow setpoint"
     annotation (Dialog(group="Airflow"));
 
   parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_max(
     final min=0,
     start=0.3 * VAirCooSet_flow_max)
-    "Zone maximum heating airflow set point"
+    "Zone maximum heating airflow setpoint"
     annotation (Dialog(group="Airflow",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat)));
 
   parameter Modelica.Units.SI.VolumeFlowRate VAirHeaSet_flow_min(
     final min=0)=0
-    "Zone minimum heating airflow set point"
+    "Zone minimum heating airflow setpoint"
     annotation (Dialog(group="Airflow",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-VAV box controllers within 
+This record provides the set of sizing and operating parameters for
+VAV box controllers within
 <a href=\"modelica://Buildings.Templates.ZoneEquipment.Components.Controls\">
 Buildings.Templates.ZoneEquipment.Components.Controls</a>.
 </p>
