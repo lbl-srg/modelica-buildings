@@ -385,7 +385,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
-</tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
+</tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.CollectorPump
     </td>
     <td valign=\"top\">Corrected implementation to make comparison based on total irradiation on tilted surface
                        rather than the direct normal irradiation.

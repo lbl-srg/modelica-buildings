@@ -65,7 +65,7 @@ model FlatPlateWithTank
     annotation (Placement(transformation(
       extent={{-20,-20},{20,20}},
       origin={100,-20})));
-  Buildings.Fluid.SolarCollectors.Controls.SolarPumpController pumCon(
+  Buildings.Fluid.SolarCollectors.Controls.CollectorPump pumCon(
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20(),
     final azi=azi,
     final til=til,
@@ -213,8 +213,8 @@ equation
           </p>
           <p>
             The flow rate through the pump is controlled by a solar pump controller model
-            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
-            Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a
+            (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.CollectorPump\">
+            Buildings.Fluid.SolarCollectors.Controls.CollectorPump</a>, pumCon) and a
             gain model. The controller outputs a binary on (1) / off (0) signal. The on/off
             signal is passed through a boolean to real signal converter to set the pump
             mass flow rate.

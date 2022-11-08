@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.Controls.Examples;
 model SolarPumpController "Example for the solar pump controller"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.SolarCollectors.Controls.SolarPumpController pumCon(
+  Buildings.Fluid.SolarCollectors.Controls.CollectorPump pumCon(
     azi=0,
     til=0.78539816339745,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
@@ -33,8 +33,8 @@ equation
     Documentation(info="<html>
       <p>
         This model illustrates the use of the
-        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
-        Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a> model.
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.CollectorPump\">
+        Buildings.Fluid.SolarCollectors.Controls.CollectorPump</a> model.
         Based on weather data and inlet temperature, the controller switches the pump on
         and off.
       </p>

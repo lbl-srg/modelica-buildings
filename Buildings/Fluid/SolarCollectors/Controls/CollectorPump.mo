@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Controls;
-model SolarPumpController
+model CollectorPump
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
 
@@ -147,4 +147,4 @@ First implementation.
         textString=DynamicSelect("",String(y,
           leftJustified=false,
           significantDigits=3)))}));
-end SolarPumpController;
+end CollectorPump;
