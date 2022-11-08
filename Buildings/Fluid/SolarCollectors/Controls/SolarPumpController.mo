@@ -20,18 +20,24 @@ model SolarPumpController
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
-  Modelica.Blocks.Interfaces.RealInput TIn(final unit = "K",
-  final displayUnit = "degC", quantity = "ThermodynamicTemperature")
+  Modelica.Blocks.Interfaces.RealInput TIn(
+    final unit = "K",
+    final displayUnit = "degC",
+    quantity = "ThermodynamicTemperature")
     "Fluid temperature entering the collector"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput y(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealOutput y(
+    final min=0,
+    final max=1,
+    final unit="1")
     "On/off control signal for the pump"
     annotation (Placement(transformation(extent={{100,-18},{136,18}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
-  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(final
-      slope=per.slope, final y_intercept=per.y_intercept)
+  Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(
+    final slope=per.slope,
+    final ercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(visible = true, transformation(origin = {-2, 0}, extent = {{-58, -20}, {-38, 0}}, rotation = 0)));
   Modelica.Blocks.Math.Add add(
@@ -97,32 +103,32 @@ equation
     annotation (Line(points={{1,50},{10,50},{10,6},{18,6}}, color={0,0,127}));
   annotation (
   defaultComponentName = "pumCon",
-    Documentation(info="<html>
-      <p>
-        This component models a pump controller which might be used in a solar thermal system.
-        It outputs whether the pump should be active or inactive based on the incident solar radiation,
-        the collector inlet temperature,
-        and the system parameters. The pump is commanded on when the incident solar radiation is
-        greater than the critical radiation.
-      </p>
-      <p>
-        The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is
-      </p>
-      <p align=\"center\" style=\"font-style:italic;\">
-        G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
-      </p>
-      <p>
-        where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i>
-        is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature,
-        <i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i>
-        is the maximum efficiency.
-      </p>
-    <h4>References</h4>
-      <p>
-        J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
-        John Wiley &amp; Sons, Inc.<br/>
-      </p>
-  </html>",
+Documentation(info="<html>
+<p>
+This component models a pump controller which might be used in a solar thermal system.
+It outputs whether the pump should be active or inactive based on the incident solar radiation,
+the collector inlet temperature,
+and the system parameters. The pump is commanded on when the incident solar radiation is
+greater than the critical radiation.
+</p>
+<p>
+The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>In</sub>-T<sub>Env</sub>))/(F<sub>R</sub>(&tau;&alpha;))
+</p>
+<p>
+where <i>G<sub>TC</sub></i> is the critical solar radiation, <i>F<sub>R</sub>U<sub>L</sub></i>
+is the heat loss coefficient, <i>T<sub>In</sub></i> is the inlet temperature,
+<i>T<sub>Env</sub></i> is the ambient temperature, and <i>F<sub>R</sub>(&tau;&alpha;)</i>
+is the maximum efficiency.
+</p>
+<h4>References</h4>
+<p>
+J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition),
+John Wiley &amp; Sons, Inc.<br/>
+</p>
+</html>",
 revisions = "<html>
 <ul>
 <li>
