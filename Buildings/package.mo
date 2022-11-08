@@ -390,6 +390,9 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Corrected implementation to make comparison based on total irradiation on tilted surface
                        rather than the direct normal irradiation.
                        This required adding parameters for the azimuth, tilt and ground reflectance.<br/>
+                       Added hysteresis to the controller, and changed output signal to be boolean-valued on/off
+                       rather than a continuous signal.<br/>
+                       Moved the old implementation to <code>Buildings.Obsolete.Fluid.SolarCollectors.Controls</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">#3074</a>.
     </td>

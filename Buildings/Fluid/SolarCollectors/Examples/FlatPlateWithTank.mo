@@ -12,7 +12,10 @@ model FlatPlateWithTank
     "Surface tilt (0 for horizontally mounted collector)";
   parameter Real rho=0.2 "Ground reflectance";
 
-  Buildings.Fluid.SolarCollectors.ASHRAE93  solCol(
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal = solCol.m_flow_nominal
+    "Nominal mass flow rate";
+
+  Buildings.Fluid.SolarCollectors.ASHRAE93 solCol(
     redeclare package Medium = Medium_2,
     shaCoe=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -32,10 +35,10 @@ model FlatPlateWithTank
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TOut(
     T_start(displayUnit="K"),
-    m_flow_nominal=solCol.m_flow_nominal,
+    m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium_2) "Temperature sensor"
     annotation (Placement(transformation(extent={{30,46},{50,66}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TIn(m_flow_nominal=solCol.m_flow_nominal,
+  Buildings.Fluid.Sensors.TemperatureTwoPort TIn(m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium_2) "Temperature sensor"
     annotation (Placement(transformation(extent={{-34,46},{-14,66}})));
   Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
@@ -43,7 +46,7 @@ model FlatPlateWithTank
     nSeg=4,
     redeclare package Medium = Medium,
     hTan=1.8,
-    m_flow_nominal=0.1,
+    m_flow_nominal=m_flow_nominal,
     VTan=1.5,
     dIns=0.07,
     redeclare package MediumHex = Medium_2,
@@ -75,11 +78,6 @@ model FlatPlateWithTank
   Buildings.HeatTransfer.Sources.FixedTemperature rooT(T=293.15)
     "Room temperature"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain(k=0.04) "Flow rate of the system in kg/s"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,0})));
   Buildings.Fluid.Sources.Boundary_pT bou(redeclare package Medium =
     Medium, nPorts=1) "Outlet for hot water draw"
     annotation (Placement(transformation(
@@ -97,7 +95,7 @@ model FlatPlateWithTank
       origin={150,-20})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_2,
-    m_flow_nominal=0.1,
+    m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nominalValuesDefineDefaultPressureCurve=true)
     "Pump forcing circulation through the system" annotation (Placement(
@@ -114,6 +112,9 @@ model FlatPlateWithTank
     "Temperature in the tank water that surrounds the heat exchanger"
     annotation (Placement(transformation(extent={{-80,20},{-100,40}})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(realTrue=
+        m_flow_nominal)
+    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
   connect(solCol.port_b,TOut. port_a) annotation (Line(
       points={{18,56},{30,56}},
@@ -140,14 +141,6 @@ equation
   connect(rooT.port, tan.heaPorSid)                  annotation (Line(
       points={{40,-80},{111.2,-80},{111.2,-20}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(pumCon.y, gain.u) annotation (Line(
-      points={{-118.2,0},{-102,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, pum.m_flow_in) annotation (Line(
-      points={{-78,0},{-78,8.88178e-16},{-62,8.88178e-16}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(pum.port_b, TIn.port_a) annotation (Line(
       points={{-50,10},{-50,56},{-34,56}},
@@ -181,9 +174,14 @@ equation
       points={{-101,30},{-160,30},{-160,-4},{-142,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
+  connect(pumCon.on, booToRea.u)
+    annotation (Line(points={{-118,0},{-102,0}}, color={255,0,255}));
+  connect(pum.m_flow_in, booToRea.y) annotation (Line(points={{-62,7.77156e-16},
+          {-70,7.77156e-16},{-70,0},{-78,0}}, color={0,0,127}));
+  annotation (
+   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and plot"),
-        experiment(Tolerance=1e-6, StopTime=86400.0),
+   experiment(Tolerance=1e-6, StopTime=86400.0),
         Documentation(info="<html>
           <p>
             This example shows how several different models can be combined to create
@@ -218,8 +216,8 @@ equation
             (<a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
             Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a
             gain model. The controller outputs a binary on (1) / off (0) signal. The on/off
-            signal is passed through the gain model, multiplying by 0.04, to represent a
-            flow rate of 0.04 kg/s when the pump is active.
+            signal is passed through a boolean to real signal converter to set the pump
+            mass flow rate.
           </p>
           <p>
             The heat ports for the tank are connected to an ambient temperature of 20
@@ -238,7 +236,7 @@ revisions="<html>
 <ul>
 <li>
 November 7, 2022, by Michael Wetter:<br/>
-Revised example to provide values for new parameters.<br/>
+Revised example to provide values for new parameters and to integrate the revised solar pump controller.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">issue 3074</a>.
 </li>

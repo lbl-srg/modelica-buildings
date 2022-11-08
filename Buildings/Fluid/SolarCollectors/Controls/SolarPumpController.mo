@@ -3,6 +3,8 @@ model SolarPumpController
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
 
+  parameter Modelica.Units.SI.HeatFlowRate delQ_flow(min=1)=10
+    "Required estimated heat gain per unit area of collector to switch system on";
   parameter Modelica.Units.SI.Angle azi(displayUnit="deg")
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
   parameter Modelica.Units.SI.Angle til(displayUnit="deg")
@@ -26,12 +28,6 @@ model SolarPumpController
     quantity = "ThermodynamicTemperature")
     "Fluid temperature entering the collector"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealOutput y(
-    final min=0,
-    final max=1,
-    final unit="1")
-    "On/off control signal for the pump"
-    annotation (Placement(transformation(extent={{100,-18},{136,18}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
@@ -39,13 +35,7 @@ model SolarPumpController
     final slope=per.slope,
     final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
-    annotation (Placement(visible = true, transformation(origin = {-2, 0}, extent = {{-58, -20}, {-38, 0}}, rotation = 0)));
-  Buildings.Controls.OBC.CDL.Continuous.Add add(
-    u1(final unit="W/m2"),
-    u2(final unit="W/m2"),
-    y(final unit="W/m2"))
-    "Compares the current insolation to the critical insolation"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(visible = true, transformation(origin={-2,0},    extent = {{-58, -20}, {-38, 0}}, rotation = 0)));
   BoundaryConditions.SolarIrradiation.DiffusePerez HDifTilIso(
     final til=til,
     final azi=azi,
@@ -62,29 +52,24 @@ model SolarPumpController
     y(final unit="W/m2"))
     "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-protected
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=-1)
-    "Gain to invert sign"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
-  Buildings.Utilities.Math.SmoothHeaviside smoHea(final delta=delY)
-    "Creates a smooth 1/0 output"
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput on
+    "Ouputs true if collector pump should be on"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=0, final uHigh=
+        delQ_flow)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub
+    "Difference between incident solar and required incident to compensate thermal losses"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 equation
   connect(TIn, criSol.TIn)    annotation (Line(
-      points = {{-120, -40}, {-84, -40}, {-84, -16}, {-62, -16}},
+      points={{-120,-40},{-84,-40},{-84,-16},{-62,-16}},
       color={0,0,127}));
-  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points = {{-102, 60}, {-84, 60}, {-84, -4}, {-62, -4}}, color = {255, 204, 51}, thickness = 0.5));
-  connect(smoHea.y, y)          annotation (Line(
-      points={{81,0},{118,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, smoHea.u)          annotation (Line(
-      points={{42,6.66134e-16},{50,6.66134e-16},{50,0},{58,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-102,60},{-84,
+          60},{-84,-4},{-62,-4}},                                                                                  color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-84,30},{-84,60},{-102,60}},
       color={255,204,51},
@@ -97,21 +82,26 @@ equation
           -30,56},{-22,56}}, color={0,0,127}));
   connect(HDirTil.H, HTotTil.u2) annotation (Line(points={{-39,30},{-30,30},{-30,
           44},{-22,44}}, color={0,0,127}));
-  connect(HTotTil.y, add.u1)
+  connect(HTotTil.y, sub.u1)
     annotation (Line(points={{2,50},{10,50},{10,6},{18,6}}, color={0,0,127}));
-  connect(add.u2, gai.y) annotation (Line(points={{18,-6},{10,-6},{10,-10},{2,-10}},
-        color={0,0,127}));
-  connect(criSol.G_TC, gai.u)
-    annotation (Line(points={{-38.4,-10},{-22,-10}}, color={0,0,127}));
+  connect(criSol.G_TC, sub.u2) annotation (Line(points={{-38.4,-10},{10,-10},{10,
+          -6},{18,-6}}, color={0,0,127}));
+  connect(hys.u, sub.y)
+    annotation (Line(points={{58,0},{42,0}}, color={0,0,127}));
+  connect(on, hys.y) annotation (Line(points={{120,0},{102,0},{102,0},{82,0}},
+        color={255,0,255}));
   annotation (
   defaultComponentName = "pumCon",
 Documentation(info="<html>
 <p>
-This component models a pump controller which might be used in a solar thermal system.
-It outputs whether the pump should be active or inactive based on the incident solar radiation,
+Pump on/off controller for a solar thermal system.
+</p>
+<p>
+This controller outputs whether the pump should be commanded on or off based on the incident solar radiation,
 the collector inlet temperature,
 and the system parameters. The pump is commanded on when the incident solar radiation is
-greater than the critical radiation.
+greater than the critical radiation plus the offset <code>delQ_flow</code>, and it is switched
+off if the incident solar radiation is below the critical radiation.
 </p>
 <p>
 The critical radiation is defined per Equation 6.8.2 in Duffie and Beckman (2006). It is
@@ -131,13 +121,16 @@ J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd E
 John Wiley &amp; Sons, Inc.<br/>
 </p>
 </html>",
-revisions = "<html>
+revisions="<html>
 <ul>
 <li>
 November 7, 2022, by Michael Wetter:<br/>
 Corrected implementation to make comparison based on total irradiation on tilted surface
 rather than the direct normal irradiation.
 This required adding parameters for the azimuth, tilt and ground reflectance.<br/>
+Changed output from continuous signal to boolean on/off signal as the old implementation run the pump
+possibly at very small flow rates.
+Moved old model to <code>Buildings.Obsolete</code> package.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">issue 3074</a>.
 </li>
