@@ -56,5 +56,9 @@ This block implements the following control objectives:
   </tr>
 </tbody>
 </table>
-</html>"));
+</html>"),
+    Icon(graphics={Text(
+          extent={{-6,114},{42,22}},
+          textColor={28,108,200},
+          textString="S")}));
 end RemoteChargingSupply;
