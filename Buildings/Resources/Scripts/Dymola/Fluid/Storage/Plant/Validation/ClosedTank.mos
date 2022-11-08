@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Validation.NetworkConnection",
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.ClosedTank",
  stopTime=3600,
  tolerance=1e-06,
  method="dassl",
- resultFile="NetworkConnection");
+ resultFile="ClosedTank");
 // Plot commands
 createPlot(id=1,
  position={11, 15, 929, 516},

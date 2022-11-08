@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model NetworkConnection
-  "Validation model for the pump, valves, and their control"
+model ClosedTank
+  "Validation model for NetworkConnection with a closed tank"
 
   extends Modelica.Icons.Example;
 
@@ -210,7 +210,7 @@ equation
   connect(bou1.ports[1], preDroNet.port_b) annotation (Line(points={{100,-70},{130,
           -70},{130,-10}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/ClosedTank.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model validates the fulfilment of the control objectives at
@@ -286,4 +286,4 @@ First implementation. This is for
 </html>"),
     Diagram(coordinateSystem(extent={{-140,-100},{160,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end NetworkConnection;
+end ClosedTank;
