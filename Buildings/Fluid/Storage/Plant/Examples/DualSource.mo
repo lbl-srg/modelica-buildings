@@ -159,9 +159,9 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-10})));
-  Buildings.Fluid.Storage.Plant.Controls.RemoteCharging conRemCha
-    "Control block for the secondary pump and valves"
-    annotation (Placement(transformation(
+  Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply conRemCha
+    "Control block for the secondary pump and valves" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-50})));

@@ -16,7 +16,7 @@ model NetworkConnection
     T_CHWR_nominal=285.15) "Nominal values"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
-  Buildings.Fluid.Storage.Plant.Controls.RemoteCharging conRemCha
+  Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply conRemCha
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 600,0; 600,1; 1200,
         1; 1200,0; 1800,0; 1800,-1; 3600,-1]) "Mass flow rate setpoint"
@@ -191,8 +191,8 @@ This model validates the fulfilment of the control objectives at
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
 Buildings.Fluid.Storage.Plant.NetworkConnection</a>
 by
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.RemoteCharging\">
-Buildings.Fluid.Storage.Plant.Controls.RemoteCharging</a>.
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply\">
+Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply</a>.
 </p>
 <table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <thead>

@@ -205,8 +205,8 @@ If <code>allowRemoteCharging=true</code>, a pair of interlocked valves are
 enabled. One of them isolates the pump and the other allows CHW flow from
 the district supply line back to the plant to charge the storage tank.
 They are controlled by
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.RemoteCharging\">
-Buildings.Fluid.Storage.Plant.Controls.RemoteCharging</a>.
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply\">
+Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply</a>.
 The
 <a href=\"Modelica://Buildings.Fluid.FixedResistances.Junction\">
 Buildings.Fluid.FixedResistances.Junction</a>
