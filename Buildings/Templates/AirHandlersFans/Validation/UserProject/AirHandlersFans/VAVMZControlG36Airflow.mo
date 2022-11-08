@@ -14,7 +14,7 @@ model VAVMZControlG36Airflow "Configuration of multiple-zone VAV"
         Buildings.Templates.Components.Valves.TwoWayModulating val)
       "Chilled water coil",
     redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl(
-      typCtlFanRet=Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowCalculated,
+      typCtlFanRet=Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       idZon={"Box_1","Box_1"},
       namGro={"Floor_1"},
       namGroZon={"Floor_1","Floor_1"}));

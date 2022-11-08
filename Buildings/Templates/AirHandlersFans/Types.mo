@@ -23,8 +23,6 @@ package Types "Package with type definitions"
       "Calculated based on return fan speed and VAV box flow rates",
   */
   type ControlFanReturn = enumeration(
-      AirflowCalculated
-      "Airflow tracking with calculated airflow",
       AirflowMeasured
       "Airflow tracking with airflow measurement stations",
       BuildingPressure
