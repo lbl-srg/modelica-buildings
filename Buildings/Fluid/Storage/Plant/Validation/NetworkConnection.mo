@@ -6,7 +6,7 @@ model NetworkConnection
 
   package Medium = Buildings.Media.Water "Medium model";
 
-  final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     allowRemoteCharging=true,
     useReturnPump=false,
     mTan_flow_nominal=1,
@@ -47,20 +47,40 @@ model NetworkConnection
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={60,0})));
+        origin={90,0})));
   Buildings.Fluid.FixedResistances.PressureDrop preDroNet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
     final m_flow_nominal=nom.m_flow_nominal,
-    final dp_nominal=nom.dp_nominal*0.9)
+    final dp_nominal=nom.dp_nominal*0.6)
     "Flow resistance in the district network" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={100,0})));
-  Modelica.Blocks.Sources.Constant dp(final k=-nom.dp_nominal*0.3)
+        origin={130,0})));
+  Buildings.Fluid.FixedResistances.PressureDrop preDroSup(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=true,
+    final m_flow_nominal=nom.m_flow_nominal,
+    final dp_nominal=nom.dp_nominal*0.15)
+    "Flow resistance in the district network" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={50,30})));
+  Buildings.Fluid.FixedResistances.PressureDrop preDroRet(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=true,
+    final m_flow_nominal=nom.m_flow_nominal,
+    final dp_nominal=nom.dp_nominal*0.15)
+    "Flow resistance in the district network" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={50,-30})));
+  Modelica.Blocks.Sources.Constant dp(final k=-nom.dp_nominal*0.6)
     "Constant differential pressure"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Fluid.FixedResistances.Junction junSup2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -68,7 +88,7 @@ model NetworkConnection
     tau=30,
     final m_flow_nominal={-nom.m_flow_nominal,nom.m_flow_nominal,-nom.m_flow_nominal},
     final dp_nominal={0,0,0}) "Junction on the supply side"
-    annotation (Placement(transformation(extent={{50,20},{70,40}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 
   Buildings.Fluid.FixedResistances.Junction junRet2(
     redeclare final package Medium = Medium,
@@ -80,15 +100,16 @@ model NetworkConnection
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={60,-30})));
+        origin={90,-30})));
 
-  Buildings.Fluid.Sources.Boundary_pT bou(
+  Buildings.Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium = Medium,
-    p(final displayUnit="Pa") = 101325,
-    nPorts=1) "Pressure boundary"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    p(final displayUnit="Pa") = 101325 + preDroRet.dp_nominal,
+    nPorts=1)                                       "Pressure boundary"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-30,-80})));
+        origin={90,-70})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideFloSou(
     redeclare final package Medium = Medium,
     final m_flow_small=1E-5,
@@ -134,6 +155,7 @@ model NetworkConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-70})));
+
 equation
   connect(conRemCha.yPum, netCon.yPumSup)
     annotation (Line(points={{1,24},{8,24},{8,11}}, color={0,0,127}));
@@ -146,22 +168,18 @@ equation
   connect(mTan_flow.m_flow, conRemCha.mTan_flow)
     annotation (Line(points={{-41,-18},{-48,-18},{-48,24},{-21,24}},
                                                           color={0,0,127}));
-  connect(dp.y, idePreSou.dp_in) annotation (Line(points={{41,-70},{46,-70},{46,
-          6},{52,6}}, color={0,0,127}));
+  connect(dp.y, idePreSou.dp_in) annotation (Line(points={{61,-70},{68,-70},{68,
+          6},{82,6}}, color={0,0,127}));
   connect(junSup2.port_2, preDroNet.port_a)
-    annotation (Line(points={{70,30},{100,30},{100,10}},
+    annotation (Line(points={{100,30},{130,30},{130,10}},
                                                        color={0,127,255}));
   connect(preDroNet.port_b, junRet2.port_1)
-    annotation (Line(points={{100,-10},{100,-30},{70,-30}},
+    annotation (Line(points={{130,-10},{130,-30},{100,-30}},
                                                           color={0,127,255}));
   connect(junRet2.port_3, idePreSou.port_a)
-    annotation (Line(points={{60,-20},{60,-10}}, color={0,127,255}));
+    annotation (Line(points={{90,-20},{90,-10}}, color={0,127,255}));
   connect(idePreSou.port_b, junSup2.port_3)
-    annotation (Line(points={{60,10},{60,20}}, color={0,127,255}));
-  connect(netCon.port_bToNet, junSup2.port_1) annotation (Line(points={{20,6},{
-          26,6},{26,30},{50,30}}, color={0,127,255}));
-  connect(junRet2.port_2, netCon.port_aFroNet) annotation (Line(points={{50,-30},
-          {26,-30},{26,-6},{20,-6}}, color={0,127,255}));
+    annotation (Line(points={{90,10},{90,20}}, color={0,127,255}));
   connect(junSup1.port_2, netCon.port_aFroChi) annotation (Line(points={{-20,10},
           {-6,10},{-6,6},{0,6}}, color={0,127,255}));
   connect(junRet1.port_1, netCon.port_bToChi) annotation (Line(points={{-20,-50},
@@ -176,13 +194,21 @@ equation
           -70,-50},{-40,-50}}, color={0,127,255}));
   connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-22,32},{-80,32},
           {-80,70},{-99,70}}, color={255,0,255}));
-  connect(bou.ports[1], junRet1.port_1) annotation (Line(points={{-20,-80},{-6,-80},
-          {-6,-50},{-20,-50}},       color={0,127,255}));
   connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-99,-70},{-82,-70}},
                                          color={0,0,127}));
   connect(fil.y, ideFloSou.m_flow_in)
     annotation (Line(points={{-59,-70},{-54,-70},{-54,-54},{-84,-54},{-84,-16},{
           -78,-16}},                                         color={0,0,127}));
+  connect(netCon.port_bToNet, preDroSup.port_a) annotation (Line(points={{20,6},
+          {30,6},{30,30},{40,30}}, color={0,127,255}));
+  connect(preDroSup.port_b, junSup2.port_1)
+    annotation (Line(points={{60,30},{80,30}}, color={0,127,255}));
+  connect(junRet2.port_2, preDroRet.port_a)
+    annotation (Line(points={{80,-30},{60,-30}}, color={0,127,255}));
+  connect(preDroRet.port_b, netCon.port_aFroNet) annotation (Line(points={{40,-30},
+          {30,-30},{30,-6},{20,-6}}, color={0,127,255}));
+  connect(bou1.ports[1], preDroNet.port_b) annotation (Line(points={{100,-70},{130,
+          -70},{130,-10}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/NetworkConnection.mos"
         "Simulate and plot"), Documentation(info="<html>
@@ -258,6 +284,6 @@ First implementation. This is for
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-100},{120,100}})),
+    Diagram(coordinateSystem(extent={{-140,-100},{160,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end NetworkConnection;
