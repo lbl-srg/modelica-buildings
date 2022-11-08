@@ -71,7 +71,7 @@ if stage > 0 then
       xMax=sta[iSta].perCur.ffConMax);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_FFCon[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
-       x=ff[iSta],
+       x=ffCon[iSta],
        c=sta[iSta].perCur.EIRFunFFCon,
        xMin=sta[iSta].perCur.ffConMin,
        xMax=sta[iSta].perCur.ffConMax)
