@@ -30,7 +30,8 @@ model InterlockedValves
     final dpFixed_nominal)
     "Valve whose nominal flow direction is from the district network"
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
-  Modelica.Blocks.Interfaces.RealInput yVal[2] "Real inputs for valve position"
+  Modelica.Blocks.Interfaces.RealInput yVal[2](each final unit = "1")
+    "Real inputs for valve position"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

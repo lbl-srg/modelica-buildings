@@ -166,10 +166,8 @@ model ClosedTank
         origin={-70,-90})));
 
 equation
-  connect(conRemCha.yPum, netCon.yPumSup)
-    annotation (Line(points={{1,64},{8,64},{8,11}}, color={0,0,127}));
-  connect(conRemCha.yVal, netCon.yVal)
-    annotation (Line(points={{1,68},{12,68},{12,11}}, color={0,0,127}));
+  connect(conRemCha.y, netCon.ySup)
+    annotation (Line(points={{1,70},{10,70},{10,11}}, color={0,0,127}));
   connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-99,70},
           {-90,70},{-90,68},{-21,68}},     color={0,0,127}));
   connect(conRemCha.uAva, uAva.y) annotation (Line(points={{-22,76},{-28,76},{-28,

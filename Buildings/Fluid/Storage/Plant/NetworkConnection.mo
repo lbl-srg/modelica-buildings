@@ -42,15 +42,15 @@ model NetworkConnection
     annotation (Dialog(group="Valve Sizing and Interlock", enable=
     allowRemoteCharging));
 
-  // Always enabled
-  Modelica.Blocks.Interfaces.RealInput yPumSup "Speed input of the supply pump"
+  Modelica.Blocks.Interfaces.RealInput yPumSup(final unit = "1")
+    if not allowRemoteCharging "Speed input of the supply pump"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-50,110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,110})));
+        origin={-40,110})));
 
   // Enabled if not allowRemoteCharging
   Buildings.Fluid.Movers.SpeedControlled_y pumSup(
@@ -67,15 +67,17 @@ model NetworkConnection
         origin={-50,28})));
 
   // Enabled if allowRemoteCharging
-  Modelica.Blocks.Interfaces.RealInput yVal[2] if allowRemoteCharging
-    "Positions of the valves on the supply line" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealInput ySup[3](each final unit = "1")
+    if allowRemoteCharging
+    "Control signals, 1: pum, 2: valToNet, 3: valFroNet"
+                                                 annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={30,110}), iconTransformation(
+        origin={0,110}),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={20,110})));
+        origin={0,110})));
   Buildings.Fluid.Storage.Plant.BaseClasses.ReversibleConnection revConSup(
     redeclare final package Medium = Medium,
     final nom=nom,
@@ -98,17 +100,16 @@ model NetworkConnection
     final per=perRet) if useReturnPump
     "Reversible connection on return side" annotation (Placement(transformation(
           rotation=0, extent={{-20,-80},{20,-40}})));
-  Buildings.Fluid.Storage.Plant.Controls.ReturnValve conRetVal if useReturnPump
-    "Processes the valve pair signal for those on the return line"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Modelica.Blocks.Interfaces.RealInput yPumRet if useReturnPump
-    "Speed input of the return pump" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput yRet[3](each final unit = "1")
+    if useReturnPump
+    "Control signals, 1: pum, 2: valToNet, 3: valFroNet" annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={70,110}), iconTransformation(
+        origin={50,110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={60,110})));
+        origin={40,110})));
 
   // Enabled if not useReturnPump
   Buildings.Fluid.FixedResistances.LosslessPipe pip(
@@ -118,10 +119,6 @@ model NetworkConnection
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 equation
-  connect(revConSup.yVal, yVal) annotation (Line(points={{12,82},{12,94},{30,94},
-          {30,110}}, color={0,0,127}));
-  connect(revConSup.y, yPumSup) annotation (Line(points={{-12,82},{-12,90},{-50,
-          90},{-50,110}}, color={0,0,127}));
   connect(port_aFroChi, revConSup.port_a)
     annotation (Line(points={{-100,60},{-20,60}}, color={0,127,255}));
   connect(revConSup.port_b, port_bToNet)
@@ -140,12 +137,10 @@ equation
           {-80,-30},{-60,-30}}, color={0,127,255}));
   connect(pip.port_b, port_aFroNet) annotation (Line(points={{-40,-30},{80,-30},
           {80,-60},{100,-60}}, color={0,127,255}));
-  connect(conRetVal.uVal, yVal)
-    annotation (Line(points={{39,-10},{30,-10},{30,110}}, color={0,0,127}));
-  connect(revConRet.yVal, conRetVal.yVal) annotation (Line(points={{12,-38},{12,
-          -26},{68,-26},{68,-10},{61,-10}}, color={0,0,127}));
-  connect(revConRet.y, yPumRet) annotation (Line(points={{-12,-38},{-12,12},{70,
-          12},{70,110}}, color={0,0,127}));
+  connect(revConSup.y, ySup)
+    annotation (Line(points={{0,82},{0,110}}, color={0,0,127}));
+  connect(revConRet.y, yRet) annotation (Line(points={{0,-38},{0,-20},{50,-20},{
+          50,110}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Line(points={{-100,60},{100,60}}, color={28,108,200}),

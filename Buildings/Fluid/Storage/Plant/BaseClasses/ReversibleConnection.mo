@@ -78,28 +78,21 @@ model ReversibleConnection
         rotation=90,
         origin={70,0})));
 
-  Modelica.Blocks.Interfaces.RealInput yVal[2] annotation (Placement(
-        transformation(rotation=-90,
-                                   extent={{-10,-10},{10,10}},
-        origin={20,110}), iconTransformation(extent={{-10,-10},{10,10}},
+  Modelica.Blocks.Interfaces.RealInput y[3](each final unit = "1")
+    "Control signals, 1: pum, 2: valToNet, 3: valFroNet" annotation (Placement(
+        transformation(
         rotation=-90,
-        origin={60,110})));
-  Modelica.Blocks.Interfaces.RealInput y(unit="1") annotation (Placement(
-        transformation(rotation=-90,
-                                   extent={{-10,-10},{10,10}},
-        origin={-70,110}), iconTransformation(extent={{-10,-10},{10,10}},
+        extent={{-10,-10},{10,10}},
+        origin={0,110}), iconTransformation(
+        extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-60,110})));
+        origin={0,110})));
 equation
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{-60,40},{-40,40}}, color={0,127,255}));
   connect(cheVal.port_b, intVal.port_aFroChi)
     annotation (Line(points={{-20,40},{-6,40},{-6,12},{0,12}},
                                                          color={0,127,255}));
-  connect(yVal, intVal.yVal) annotation (Line(points={{20,110},{20,22}},
-                    color={0,0,127}));
-  connect(y, pum.y) annotation (Line(points={{-70,110},{-70,52}},
-        color={0,0,127}));
   connect(jun2.port_1, intVal.port_bToNet)
     annotation (Line(points={{70,10},{70,12},{40,12}}, color={0,127,255}));
   connect(jun2.port_3, port_b) annotation (Line(points={{80,-5.55112e-16},{90,
@@ -112,6 +105,11 @@ equation
           -84,20},{-84,40},{-80,40}}, color={0,127,255}));
   connect(jun1.port_3, port_a) annotation (Line(points={{-82,5.55112e-16},{-91,
           5.55112e-16},{-91,0},{-100,0}}, color={0,127,255}));
+  connect(pum.y, y[1]) annotation (Line(points={{-70,52},{-70,80},{0,80},{0,
+          106.667}},
+        color={0,0,127}));
+  connect(y[2:3], intVal.yVal[1:2]) annotation (Line(points={{0,113.333},{0,80},
+          {20,80},{20,22.5}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 [Documentation pending.]

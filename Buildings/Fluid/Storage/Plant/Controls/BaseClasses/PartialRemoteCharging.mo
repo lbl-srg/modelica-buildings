@@ -73,14 +73,6 @@ partial block PartialRemoteCharging
         iconTransformation(extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,60})));
-  Modelica.Blocks.Interfaces.RealOutput yPum "Speed input of the pump"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,-50}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,-60})));
   Modelica.Blocks.Interfaces.RealInput mTan_flow "Flow rate of the tank"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -89,22 +81,21 @@ partial block PartialRemoteCharging
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-60})));
-  Modelica.Blocks.Interfaces.RealOutput yVal[2] "Control signals for valves"
-    annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput y[3](each final unit = "1")
+    "Control signals, 1: pum, 2: valToNet, 3: valFroNet" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,30}), iconTransformation(
+        origin={110,0}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,-20})));
+        origin={110,0})));
   Buildings.Controls.OBC.CDL.Logical.Not notRemCha
     "Tank is not being charged remotely" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,50})));
 equation
-  connect(swiPumSup.y,yPum)
-    annotation (Line(points={{82,-50},{110,-50}},  color={0,0,127}));
   connect(zero.y,swiPumSup. u3) annotation (Line(points={{1,-70},{30,-70},{30,
           -58},{58,-58}},
                       color={0,0,127}));
@@ -113,8 +104,6 @@ equation
   connect(conPI_pumSup.y,swiPumSup. u1) annotation (Line(points={{-39,-50},{20,
           -50},{20,-42},{58,-42}},
                                  color={0,0,127}));
-  connect(booToReaValSupToNet.y,yVal [1]) annotation (Line(points={{82,-10},{90,
-          -10},{90,27.5},{110,27.5}},  color={0,0,127}));
   connect(andFroNet.u1, uAva) annotation (Line(points={{-22,30},{-30,30},{-30,
           90},{-110,90}}, color={255,0,255}));
   connect(conPI_pumSup.u_m,mTan_flow)  annotation (Line(points={{-50,-62},{-50,-70},
@@ -126,8 +115,6 @@ equation
   connect(conPI_valCha.u_m,mTan_flow)  annotation (Line(points={{-50,-22},{-50,
           -30},{-80,-30},{-80,-70},{-110,-70}},
                               color={0,0,127}));
-  connect(swiValFroNet.y,yVal [2]) annotation (Line(points={{82,30},{96,30},{96,
-          32.5},{110,32.5}}, color={0,0,127}));
   connect(swiValFroNet.u2, andFroNet.y)
     annotation (Line(points={{58,30},{2,30}}, color={255,0,255}));
   connect(conPI_pumSup.u_s,mTanSet_flow)  annotation (Line(points={{-62,-50},{
@@ -139,6 +126,12 @@ equation
           {40,-10},{40,70},{2,70}}, color={255,0,255}));
   connect(swiPumSup.u2, andToNet.y) annotation (Line(points={{58,-50},{40,-50},
           {40,70},{2,70}}, color={255,0,255}));
+  connect(swiPumSup.y, y[1]) annotation (Line(points={{82,-50},{96,-50},{96,-3.33333},
+          {110,-3.33333}}, color={0,0,127}));
+  connect(booToReaValSupToNet.y, y[2]) annotation (Line(points={{82,-10},{96,-10},
+          {96,0},{110,0}}, color={0,0,127}));
+  connect(swiValFroNet.y, y[3]) annotation (Line(points={{82,30},{96,30},{96,3.33333},
+          {110,3.33333}}, color={0,0,127}));
 annotation(Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Line(

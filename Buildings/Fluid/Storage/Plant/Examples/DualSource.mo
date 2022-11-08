@@ -433,10 +433,6 @@ equation
   connect(uRemCha.y,conRemCha. uRemCha) annotation (Line(points={{-159,-10},{-152,
           -10},{-152,-24},{-62,-24},{-62,-48},{-42,-48}},
         color={255,0,255}));
-  connect(conRemCha.yPum, netCon.yPumSup)
-    annotation (Line(points={{-19,-56},{8,-56},{8,-79}}, color={0,0,127}));
-  connect(conRemCha.yVal, netCon.yVal)
-    annotation (Line(points={{-19,-52},{12,-52},{12,-79}}, color={0,0,127}));
   connect(chiBra2.port_b, tanBra.port_aFroChi)
     annotation (Line(points={{-100,-84},{-80,-84}},  color={0,127,255}));
   connect(chiBra2.port_a, tanBra.port_bToChi)
@@ -516,6 +512,8 @@ equation
     annotation (Line(points={{56,-140},{56,-160}}, color={0,127,255}));
   connect(parJunUse3.port_a2, parPipS2U3.port_b2)
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
+  connect(conRemCha.y, netCon.ySup)
+    annotation (Line(points={{-19,-50},{10,-50},{10,-79}}, color={0,0,127}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
