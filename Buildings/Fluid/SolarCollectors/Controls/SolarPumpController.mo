@@ -37,12 +37,10 @@ model SolarPumpController
 
   Buildings.Fluid.SolarCollectors.Controls.BaseClasses.GCritCalc criSol(
     final slope=per.slope,
-    final ercept=per.y_intercept)
+    final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(visible = true, transformation(origin = {-2, 0}, extent = {{-58, -20}, {-38, 0}}, rotation = 0)));
-  Modelica.Blocks.Math.Add add(
-    final k1=1,
-    final k2=-1,
+  Buildings.Controls.OBC.CDL.Continuous.Add add(
     u1(final unit="W/m2"),
     u2(final unit="W/m2"),
     y(final unit="W/m2"))
@@ -59,14 +57,17 @@ model SolarPumpController
       "Direct solar irradiation on a tilted surface"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Add HTotTil(
-    final k1 = 1,
-    final k2 = 1,
     u1(final unit="W/m2"),
     u2(final unit="W/m2"),
     y(final unit="W/m2"))
     "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 protected
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=-1)
+    "Gain to invert sign"
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+
   Buildings.Utilities.Math.SmoothHeaviside smoHea(final delta=delY)
     "Creates a smooth 1/0 output"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -81,12 +82,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, smoHea.u)          annotation (Line(
-      points={{41,6.66134e-16},{50,6.66134e-16},{50,0},{58,0}},
+      points={{42,6.66134e-16},{50,6.66134e-16},{50,0},{58,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(criSol.G_TC, add.u2) annotation (Line(
-      points={{-38.4,-10},{-30,-10},{-30,-6},{18,-6}},
-      color={0,0,127}));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-84,30},{-84,60},{-102,60}},
       color={255,204,51},
@@ -100,7 +98,11 @@ equation
   connect(HDirTil.H, HTotTil.u2) annotation (Line(points={{-39,30},{-30,30},{-30,
           44},{-22,44}}, color={0,0,127}));
   connect(HTotTil.y, add.u1)
-    annotation (Line(points={{1,50},{10,50},{10,6},{18,6}}, color={0,0,127}));
+    annotation (Line(points={{2,50},{10,50},{10,6},{18,6}}, color={0,0,127}));
+  connect(add.u2, gai.y) annotation (Line(points={{18,-6},{10,-6},{10,-10},{2,-10}},
+        color={0,0,127}));
+  connect(criSol.G_TC, gai.u)
+    annotation (Line(points={{-38.4,-10},{-22,-10}}, color={0,0,127}));
   annotation (
   defaultComponentName = "pumCon",
 Documentation(info="<html>

@@ -4,8 +4,7 @@ model FlatPlateWithTank
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.Water
     "Fluid in the storage tank";
-  replaceable package Medium_2 =
-      Buildings.Media.Water "Fluid flowing through the collector";
+  replaceable package Medium_2 = Buildings.Media.Water "Fluid flowing through the collector";
 
   parameter Modelica.Units.SI.Angle azi=0.3
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
@@ -99,7 +98,8 @@ model FlatPlateWithTank
   Buildings.Fluid.Movers.FlowControlled_m_flow pum(
     redeclare package Medium = Medium_2,
     m_flow_nominal=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    nominalValuesDefineDefaultPressureCurve=true)
     "Pump forcing circulation through the system" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

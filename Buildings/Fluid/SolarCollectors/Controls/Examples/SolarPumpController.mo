@@ -1,12 +1,10 @@
 within Buildings.Fluid.SolarCollectors.Controls.Examples;
 model SolarPumpController "Example for the solar pump controller"
   extends Modelica.Icons.Example;
-  Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
-        pumCon(
+  Buildings.Fluid.SolarCollectors.Controls.SolarPumpController pumCon(
     azi=0,
     til=0.78539816339745,
-               per=
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.FP_ThermaLiteHS20())
     "Model controlling the on/off status of the pump"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
