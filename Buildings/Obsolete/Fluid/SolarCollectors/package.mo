@@ -1,5 +1,5 @@
 within Buildings.Obsolete.Fluid;
-package SolarCollectors "fixme: add brief description"
+package SolarCollectors "Package with obsolete models for solar collector controls"
   extends Modelica.Icons.Package;
 
 annotation (preferredView="info", Documentation(info="<html>
