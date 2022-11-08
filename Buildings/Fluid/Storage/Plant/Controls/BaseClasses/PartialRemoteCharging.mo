@@ -35,8 +35,7 @@ partial block PartialRemoteCharging
   Buildings.Controls.Continuous.LimPID conPI_valCha(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=5,
-    Ti=50,
-    reverseActing=false)                   "PI controller"
+    Ti=50)                                 "PI controller"
                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -44,8 +43,7 @@ partial block PartialRemoteCharging
   Buildings.Controls.Continuous.LimPID conPI_pumSup(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.2,
-    Ti=5,
-    reverseActing=true)  "PI controller" annotation (Placement(transformation(
+    Ti=5)                "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-50})));

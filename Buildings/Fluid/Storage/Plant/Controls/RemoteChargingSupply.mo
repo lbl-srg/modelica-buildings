@@ -1,10 +1,11 @@
 within Buildings.Fluid.Storage.Plant.Controls;
 block RemoteChargingSupply
   "Control block for the supply pump and valves that allows remote charging"
-  extends BaseClasses.PartialRemoteCharging;
+  extends BaseClasses.PartialRemoteCharging(
+    conPI_pumSup(reverseActing=true),
+    conPI_valCha(reverseActing=false));
 
 equation
-
   connect(andFroNet.u2, uRemCha) annotation (Line(points={{-22,22},{-40,22},{
           -40,30},{-110,30}},
                           color={255,0,255}));
