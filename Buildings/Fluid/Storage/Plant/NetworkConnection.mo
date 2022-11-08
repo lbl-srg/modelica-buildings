@@ -108,7 +108,7 @@ model NetworkConnection
         origin={70,110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,110})));
+        origin={60,110})));
 
   // Enabled if not useReturnPump
   Buildings.Fluid.FixedResistances.LosslessPipe pip(
@@ -160,39 +160,74 @@ equation
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          visible=allowRemoteCharging),
         Polygon(
           points={{40,60},{56,70},{56,50},{40,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          visible=allowRemoteCharging),
         Line(
           points={{80,60},{80,32},{-80,32},{-80,60}},
           color={28,108,200},
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          visible=allowRemoteCharging),
         Polygon(
           points={{40,32},{24,42},{24,22},{40,32}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          visible=allowRemoteCharging),
         Polygon(
           points={{40,32},{56,42},{56,22},{40,32}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          visible=allowRemoteCharging),
         Polygon(
           points={{-20,60},{-50,76},{-50,44},{-20,60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.None)}),
+          fillPattern=FillPattern.None),
+        Ellipse(
+          extent={{-60,-40},{-20,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useReturnPump),
+        Polygon(
+          points={{40,-60},{24,-50},{24,-70},{40,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useReturnPump),
+        Polygon(
+          points={{40,-60},{56,-50},{56,-70},{40,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useReturnPump),
+        Line(
+          points={{80,-60},{80,-88},{-80,-88},{-80,-60}},
+          color={28,108,200},
+          visible=useReturnPump),
+        Polygon(
+          points={{40,-88},{24,-78},{24,-98},{40,-88}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useReturnPump),
+        Polygon(
+          points={{40,-88},{56,-78},{56,-98},{40,-88}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          visible=useReturnPump),
+        Polygon(
+          points={{-20,-60},{-50,-44},{-50,-76},{-20,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None,
+          visible=useReturnPump)}),
     defaultComponentName = "netCon",
     Documentation(info="<html>
 <p>
