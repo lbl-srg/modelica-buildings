@@ -14,10 +14,6 @@ model CollectorPump
     final max=1,
     final unit = "1") = 0.2 "Ground reflectance";
 
-  parameter Real delY(final unit = "W/m2") = 0.01
-    "Width of the smoothHeaviside function"
-    annotation(Dialog(tab="Advanced"));
-
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
@@ -28,6 +24,11 @@ model CollectorPump
     quantity = "ThermodynamicTemperature")
     "Fluid temperature entering the collector"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput on
+    "Ouputs true if collector pump should be on"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
 
@@ -53,12 +54,9 @@ model CollectorPump
     "Total irradiation on tilted surface"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput on
-    "Ouputs true if collector pump should be on"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=0, final uHigh=
-        delQ_flow)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+      final uLow=0,
+      final uHigh=delQ_flow)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
@@ -69,7 +67,7 @@ equation
       points={{-120,-40},{-84,-40},{-84,-16},{-62,-16}},
       color={0,0,127}));
   connect(weaBus.TDryBul, criSol.TEnv)    annotation (Line(points={{-102,60},{-84,
-          60},{-84,-4},{-62,-4}},                                                                                  color = {255, 204, 51}, thickness = 0.5));
+          60},{-84,-4},{-62,-4}}, color = {255, 204, 51}, thickness = 0.5));
   connect(HDirTil.weaBus, weaBus) annotation (Line(
       points={{-60,30},{-84,30},{-84,60},{-102,60}},
       color={255,204,51},
