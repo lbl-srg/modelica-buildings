@@ -49,7 +49,7 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium=MediumCon,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatChiIso)
-    if typValConWatIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    if typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CW isolation valve - Modulating"
     annotation (Placement(transformation(extent={{-150,150},{-170,170}})));
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valConWatChiIsoTwo[nChi](
@@ -57,12 +57,12 @@ model Compression "Group of compression chillers"
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValConWatChiIso,
     each final text_flip=true)
-    if typValConWatIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    if typValConWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CW isolation valve - Two-position"
     annotation (Placement(transformation(extent={{-150,110},{-170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasConWatChi[nChi](
     redeclare each final package Medium=MediumCon)
-    if typValConWatIso==Buildings.Templates.Components.Types.Valve.None
+    if typValConWatChiIso==Buildings.Templates.Components.Types.Valve.None
     "No chiller CW isolation valve"
     annotation (Placement(transformation(extent={{-150,90},{-170,70}})));
 
@@ -71,19 +71,19 @@ model Compression "Group of compression chillers"
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiIso)
-    if typValChiWatIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    if typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CHW isolation valve - Two-position"
     annotation (Placement(transformation(extent={{150,110},{170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pasChiWatChi[nChi](
     redeclare each final package Medium=MediumChiWat)
-    if typValChiWatIso==Buildings.Templates.Components.Types.Valve.None
+    if typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.None
     "No chiller CHW isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,70}})));
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatChiIsoMod[nChi](
     redeclare each final package Medium = MediumChiWat,
     each final allowFlowReversal=allowFlowReversal,
     final dat=datValChiWatChiIso)
-    if typValChiWatIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
+    if typValChiWatChiIso==Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CHW isolation valve - Modulating"
     annotation (Placement(transformation(extent={{150,150},{170,170}})));
 equation
@@ -93,8 +93,8 @@ equation
   connect(bus.valConWatChiIso, valConWatChiIsoTwo.bus);
   connect(bus.valChiWatChiIso, valChiWatChiIsoTwo.bus);
   connect(bus.valChiWatChiIso, valChiWatChiIsoMod.bus);
-  /* 
-  HACK: The following clauses should be removed at translation if `not have_sen` 
+  /*
+  HACK: The following clauses should be removed at translation if `not have_sen`
   but Dymola fails to do so.
   Hence, explicit `if then` statements are used.
   */

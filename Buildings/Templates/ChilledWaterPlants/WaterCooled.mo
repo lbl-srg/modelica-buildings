@@ -55,9 +55,9 @@ model WaterCooled "Water-cooled chiller plant"
         origin={-160,-230})));
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumCon,
-    final have_sen=ctl.typCtrFanCoo
+    final have_sen=ctl.typCtlFanCoo
                       ==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature
-      or ctl.typCtrFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature
+      or ctl.typCtlFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature
       and not ctl.is_clsCpl,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
@@ -68,7 +68,7 @@ model WaterCooled "Water-cooled chiller plant"
         origin={-140,0})));
   Buildings.Templates.Components.Sensors.Temperature TConWatRet(
     redeclare final package Medium = MediumCon,
-    final have_sen=ctl.typCtrFanCoo
+    final have_sen=ctl.typCtlFanCoo
                       ==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature,
     final m_flow_nominal=mCon_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)

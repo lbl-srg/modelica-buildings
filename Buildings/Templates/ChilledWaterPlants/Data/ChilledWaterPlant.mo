@@ -32,10 +32,10 @@ record ChilledWaterPlant "Record for chilled water plant model"
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco
     "Type of WSE"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtrHea
+  parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl typCtlHea
     "Type of head pressure control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement typMeaCtrChiWatPri
+  parameter Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement typMeaCtlChiWatPri
     "Type of sensors for primary CHW pump control in variable primary-variable secondary plants"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_senDpChiWatLoc
@@ -52,6 +52,9 @@ record ChilledWaterPlant "Record for chilled water plant model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_senLevCoo
     "Set to true if cooling towers have level sensor for makeup water control"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Controller typCtl
+    "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   parameter Modelica.Units.SI.Density rhoChiWat_default=
@@ -70,6 +73,7 @@ record ChilledWaterPlant "Record for chilled water plant model"
     annotation(Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.ChilledWaterPlants.Components.Data.Controller ctl(
+    final typ=typCtl,
     final typChi=typChi,
     final nChi=nChi,
     final nPumChiWatPri=nPumChiWatPri,
@@ -79,9 +83,9 @@ record ChilledWaterPlant "Record for chilled water plant model"
     final typCoo=typCoo,
     final nCoo=nCoo,
     final have_varPumConWat=have_varPumConWat,
-    final typCtrHea=typCtrHea,
+    final typCtlHea=typCtlHea,
     final typEco=typEco,
-    final typMeaCtrChiWatPri=typMeaCtrChiWatPri,
+    final typMeaCtlChiWatPri=typMeaCtlChiWatPri,
     final have_senDpChiWatLoc=have_senDpChiWatLoc,
     final nSenDpChiWatRem=nSenDpChiWatRem,
     final nLooChiWatSec=nLooChiWatSec,

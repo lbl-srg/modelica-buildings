@@ -58,7 +58,7 @@ block G36 "Guideline 36 controller for CHW plant"
     "Minimum allowable lift at minimum load for chiller"
     annotation(Dialog(tab="General", group="Chillers configuration", enable=not have_heaPreConSig));
 
-  final parameter Boolean have_heaPreConSig=typCtrHea==
+  final parameter Boolean have_heaPreConSig=typCtlHea==
     Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn
     "True: if there is head pressure control signal from chiller controller"
     annotation(Dialog(tab="General", group="Chillers configuration"));
@@ -479,8 +479,8 @@ block G36 "Guideline 36 controller for CHW plant"
     k=Buildings.Templates.Data.Defaults.TConWatSup)
     if not
           (
-      typCtrFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature
-      or typCtrFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature
+      typCtlFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature
+      or typCtlFanCoo==Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.ReturnTemperature
       and not is_clsCpl) "#2299: Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uConWatPum[

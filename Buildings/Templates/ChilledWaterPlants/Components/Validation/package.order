@@ -1,4 +1,6 @@
-ChillerGroup
+ChillerGroupAirCooled
+ChillerGroupWaterCooled
+ChillerGroupBck
 ChillersToPrimaryPumpsParallel
 ChillersToPrimaryPumpsSeries
 CoolerGroup

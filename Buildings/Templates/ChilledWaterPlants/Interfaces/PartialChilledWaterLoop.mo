@@ -3,12 +3,13 @@ partial model PartialChilledWaterLoop
   "Partial chilled water plant with chiller group and CHW pumps"
   extends
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterPlant(
-    final typValChiWatChiIso=chi.typValChiWatIso,
-    final typValConWatChiIso=chi.typValConWatIso,
+    final typValChiWatChiIso=chi.typValChiWatChiIso,
+    final typValConWatChiIso=chi.typValConWatChiIso,
     final typEco=eco.typ,
     dat(
-      typCtrHea=ctl.typCtrHea,
-      typMeaCtrChiWatPri=ctl.typMeaCtrChiWatPri,
+      typCtl=ctl.typ,
+      typCtlHea=ctl.typCtlHea,
+      typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
       have_senDpChiWatLoc=ctl.have_senDpChiWatLoc,
       nSenDpChiWatRem=ctl.nSenDpChiWatRem,
       nLooChiWatSec=ctl.nLooChiWatSec,
@@ -25,9 +26,9 @@ partial model PartialChilledWaterLoop
     final typArrPumChiWatPri=typArrPumChiWatPri,
     final typArrPumConWat=typArrPumConWat,
     final have_varPumConWat=have_varPumConWat,
-    final typCtrHea=ctl.typCtrHea,
+    final typCtlHea=ctl.typCtlHea,
     final typDisChiWat=typDisChiWat,
-    final typMeaCtrChiWatPri=ctl.typMeaCtrChiWatPri,
+    final typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
     final typEco=typEco,
     final dat=dat.chi,
     final tau=tau,
@@ -135,7 +136,7 @@ partial model PartialChilledWaterLoop
     final have_sen=
       (typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
       or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed) and
-      ctl.typMeaCtrChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.FlowDecoupler,
+      ctl.typMeaCtlChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.FlowDecoupler,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Decoupler CHW volume flow rate" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -408,7 +409,7 @@ equation
     annotation (Line(points={{-40,230},{1,230}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-This serves as the base class to build chilled water plant 
+This serves as the base class to build chilled water plant
 templates.
 The model boundaries are the condenser inlet and oulet ports
 on the CW side, and the supply and return ports on the CHW side.
@@ -416,24 +417,24 @@ The following components are included.
 </p>
 <ul>
 <li>
-Chiller group, as modeled with any classes extending 
+Chiller group, as modeled with any classes extending
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup\">
 Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup</a>
 </li>
 <li>
-Optional WSE, as modeled with any classes extending 
+Optional WSE, as modeled with any classes extending
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer\">
 Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer</a>
 </li>
 <li>
-Primary CHW pumps, as modeled with 
+Primary CHW pumps, as modeled with
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
 Buildings.Templates.Components.Pumps.Multiple</a>
 </li>
 <li>
-Optional secondary CHW pumps, as modeled with 
+Optional secondary CHW pumps, as modeled with
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
-Buildings.Templates.Components.Pumps.Multiple</a>: note 
+Buildings.Templates.Components.Pumps.Multiple</a>: note
 that if the CHW distribution type is equal to
 <code>Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed</code>
 then the secondary CHW pumps are not included in this model

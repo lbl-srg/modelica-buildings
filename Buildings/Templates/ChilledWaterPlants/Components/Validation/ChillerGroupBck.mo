@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Validation;
-model ChillerGroup "Validation model for chiller group"
+model ChillerGroupBck "Validation model for chiller group"
   extends Modelica.Icons.Example;
 
   replaceable package MediumChiWat = Buildings.Media.Water
@@ -197,7 +197,7 @@ model ChillerGroup "Validation model for chiller group"
     final nChi=nChi,
     final energyDynamics=energyDynamics,
     typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
-    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
+    typCtlHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.None,
     typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     have_varPumConWat=false,
@@ -314,13 +314,13 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumConWat,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
-    typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiWatCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
     typChi=Buildings.Templates.Components.Types.Chiller.WaterCooled,
-    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
+    typCtlHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
     typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     have_varPumConWat=false,
@@ -464,14 +464,14 @@ model ChillerGroup "Validation model for chiller group"
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumCon = MediumAir,
     typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed,
-    typMeaCtrChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor,
-    typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typMeaCtlChiWatPri=Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.TemperatureChillerSensor,
+    typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
     final dat=datChiAirCoo,
     final nChi=nChi,
     final energyDynamics=energyDynamics,
     typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
-    typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
+    typCtlHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.External,
     typArrPumChiWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     typArrPumConWat=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     have_varPumConWat=false,
@@ -489,8 +489,7 @@ model ChillerGroup "Validation model for chiller group"
     annotation (Placement(transformation(extent={{-50,-170},{-30,-150}})));
   Fluid.Sources.Boundary_pT bouCon2(
     redeclare final package Medium = MediumAir,
-    final nPorts=nChi)
-    "Condenser cooling fluid pressure boundary condition"
+    final nPorts=nChi) "Condenser cooling fluid pressure boundary condition"
     annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -508,8 +507,7 @@ model ChillerGroup "Validation model for chiller group"
   Fluid.Sources.MassFlowSource_T souCon[nChi](
     redeclare each final package Medium = MediumAir,
     final m_flow=mConAirChi_flow_nominal,
-    each final nPorts=1)
-    "Condenser air flow source"
+    each final nPorts=1) "Condenser air flow source"
     annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -773,4 +771,4 @@ equation
     Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/ChillerGroup.mos"
     "Simulate and plot"));
-end ChillerGroup;
+end ChillerGroupBck;

@@ -7,8 +7,8 @@ model BaseAirCooled "Base model for validating CHW plant template with water-coo
       typArrChi_select=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel,
       typArrPumChiWatPri_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       typDisChiWat=Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only,
-      chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-          typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating)));
+      chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+          typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayModulating)));
 
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium

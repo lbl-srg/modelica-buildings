@@ -6,6 +6,7 @@ class AllSystems
   outer replaceable Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop CHI;
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant _CHI(
+    final typCtl=CHI.ctl.typ,
     final typChi=CHI.typChi,
     final nChi=CHI.nChi,
     final nPumChiWatPri=CHI.nPumChiWatPri,
@@ -16,8 +17,8 @@ class AllSystems
     final nCoo=CHI.nCoo,
     final have_varPumConWat=CHI.have_varPumConWat,
     final typEco=CHI.typEco,
-    final typCtrHea=CHI.ctl.typCtrHea,
-    final typMeaCtrChiWatPri=CHI.ctl.typMeaCtrChiWatPri,
+    final typCtlHea=CHI.ctl.typCtlHea,
+    final typMeaCtlChiWatPri=CHI.ctl.typMeaCtlChiWatPri,
     final have_senDpChiWatLoc=CHI.ctl.have_senDpChiWatLoc,
     final nSenDpChiWatRem=CHI.ctl.nSenDpChiWatRem,
     final nLooChiWatSec=CHI.ctl.nLooChiWatSec,

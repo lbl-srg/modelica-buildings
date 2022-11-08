@@ -32,11 +32,11 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     typArrPumConWat_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     have_varPumConWat_select=true,
     ctl(
-      typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
-      typCtrFanCoo=Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature,
+      typCtlHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn,
+      typCtlFanCoo=Buildings.Templates.ChilledWaterPlants.Types.CoolerFanSpeedControl.SupplyTemperature,
       have_senLevCoo=false),
-    chi(typValChiWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
-        typValConWatIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition),
+    chi(typValChiWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition,
+        typValConWatChiIso_select=Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition),
     redeclare replaceable
       Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen
       coo,

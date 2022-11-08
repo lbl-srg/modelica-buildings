@@ -3,7 +3,7 @@ model AirCooled "Air-cooled chiller plant"
   extends  Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
     redeclare replaceable package MediumCon=Buildings.Media.Air,
     redeclare final Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco,
-    ctl(final typCtrHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn),
+    ctl(final typCtlHea=Buildings.Templates.ChilledWaterPlants.Types.ChillerLiftControl.BuiltIn),
     final typChi=Buildings.Templates.Components.Types.Chiller.AirCooled,
     final typCoo=Buildings.Templates.Components.Types.Cooler.None,
     final nCoo=0,
