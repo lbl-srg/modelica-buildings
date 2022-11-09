@@ -14,23 +14,23 @@ model ClosedTank
     dp_nominal=300000,
     T_CHWS_nominal=280.15,
     T_CHWR_nominal=285.15) "Nominal values"
-    annotation (Placement(transformation(extent={{0,100},{20,120}})));
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
 
   Buildings.Fluid.Storage.Plant.Controls.RemoteChargingSupply conRemCha
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 600,0; 600,1; 1200,
         1; 1200,0; 1800,0; 1800,-1; 3600,-1]) "Mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Sources.BooleanTable uAva(final table={600,2400,3000},
     final startValue=false) "Plant availability"
-    annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
+    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Fluid.Storage.Plant.NetworkConnection netCon(
     redeclare final package Medium = Medium,
     final nom=nom,
     final allowRemoteCharging=nom.allowRemoteCharging,
     useReturnPump=nom.useReturnPump,
     perSup(pressure(V_flow=nom.m_flow_nominal/1000*{0,1,2},
-           dp=nom.dp_nominal*{1.14,1,0.42})))
+                    dp=nom.dp_nominal*{1.14,1,0.42})))
     "Pump and valves connecting the storage plant to the district network"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Sensors.MassFlowRate mTanSup_flow(
@@ -154,7 +154,7 @@ model ClosedTank
     annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
   Modelica.Blocks.Sources.BooleanTable uRemCha(final table={3000}, final
       startValue=false) "Remote charging status"
-    annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     f=20/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
@@ -167,14 +167,14 @@ model ClosedTank
 
 equation
   connect(conRemCha.y, netCon.ySup)
-    annotation (Line(points={{1,70},{10,70},{10,11}}, color={0,0,127}));
-  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-99,70},
-          {-90,70},{-90,68},{-21,68}},     color={0,0,127}));
-  connect(conRemCha.uAva, uAva.y) annotation (Line(points={{-22,76},{-28,76},{-28,
-          110},{-39,110}},
+    annotation (Line(points={{-19,110},{10,110},{10,11}}, color={0,0,127}));
+  connect(mTanSet_flow.y, conRemCha.mTanSet_flow) annotation (Line(points={{-79,70},
+          {-52,70},{-52,108},{-41,108}},   color={0,0,127}));
+  connect(conRemCha.uAva, uAva.y) annotation (Line(points={{-42,116},{-60,116},{
+          -60,110},{-79,110}},
                         color={255,0,255}));
-  connect(mTanSup_flow.m_flow, conRemCha.mTan_flow) annotation (Line(points={{-59,
-          20},{-40,20},{-40,64},{-21,64}}, color={0,0,127}));
+  connect(mTanSup_flow.m_flow, conRemCha.mTan_flow) annotation (Line(points={{-59,20},
+          {-48,20},{-48,104},{-41,104}},   color={0,0,127}));
   connect(dp.y, idePreSou.dp_in) annotation (Line(points={{61,-90},{68,-90},{68,
           6},{82,6}}, color={0,0,127}));
   connect(junSup2.port_2, preDroNet.port_a)
@@ -198,8 +198,8 @@ equation
                                                          color={0,127,255}));
   connect(ideFloSou.port_a, junRet1.port_2) annotation (Line(points={{-108,-4},{
           -108,-50},{-80,-50}},color={0,127,255}));
-  connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-22,72},{-80,72},
-          {-80,110},{-99,110}},
+  connect(conRemCha.uRemCha, uRemCha.y) annotation (Line(points={{-42,112},{-56,
+          112},{-56,90},{-119,90}},
                               color={255,0,255}));
   connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-99,-90},{-82,-90}},
                                          color={0,0,127}));
@@ -295,6 +295,6 @@ First implementation. This is for
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-140,-120},{160,140}})),
+    Diagram(coordinateSystem(extent={{-160,-120},{160,140}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedTank;
