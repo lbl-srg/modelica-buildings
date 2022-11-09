@@ -9,63 +9,64 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
 
   parameter Buildings.Templates.Components.Types.Chiller typChi
     "Type of chiller"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Chillers"));
   parameter Integer nChi(
     start=1,
     final min=1)
     "Number of chillers"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Chillers"));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi_select(
     start=Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel)
     "Type of chiller arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=nChi>1));
+    annotation (Evaluate=true, Dialog(group="Chillers", enable=nChi>1));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement typArrChi=
     if nChi==1 then Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel
     else typArrChi_select
     "Type of chiller arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Chillers"));
   parameter Buildings.Templates.ChilledWaterPlants.Types.Distribution typDisChiWat
     "Type of CHW distribution system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
 
   final parameter Boolean have_bypChiWatFix=
     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2 or
     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed
     "Set to true if the plant has a fixed CHW bypass"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
+    annotation(Evaluate=true, Dialog(group="Primary CHW loop"));
   final parameter Boolean have_pumChiWatSec=
     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2 or
     typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
     "Set to true if the plant includes secondary CHW pumps"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
+    annotation(Evaluate=true, Dialog(group="Secondary CHW loop"));
 
   parameter Integer nPumChiWatPri(
     start=1,
     final min=1)=nChi
     "Number of primary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop",
     enable=typArrPumChiWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumChiWatPri_select(start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
-    "Type of primary CHW pump arrangement" annotation (Evaluate=true, Dialog(
-        group="Configuration", enable=typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
-           and typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
+    "Type of primary CHW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop",
+    enable=typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
+      and typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Parallel));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumChiWatPri=if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
        or typArrChi == Buildings.Templates.ChilledWaterPlants.Types.ChillerArrangement.Series
        then Buildings.Templates.Components.Types.PumpArrangement.Headered else
       typArrPumChiWatPri_select "Type of primary CHW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
   // The following parameter stores the user selection.
   // This parameter is only needed to specify variable speed pumps operated at a constant speed.
   parameter Boolean have_varPumChiWatPri_select=false
     "Set to true for variable speed primary CHW pumps operated at one or more fixed speeds, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop", enable=
       typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only or
       typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2));
   // The following parameter stores the actual configuration setting.
@@ -75,34 +76,63 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
        not have_varPumChiWatPri_select then false
     else true
     "Set to true for variable speed primary CHW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
   final parameter Boolean have_varComPumChiWatPri=true
     "Set to true for single common speed signal for primary CHW pumps, false for dedicated signals"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Primary CHW loop"));
+
+  parameter Integer nPumChiWatSec(
+    start=1,
+    final min=0)=if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only then 0
+    else nChi
+    "Number of secondary CHW pumps"
+    annotation (Evaluate=true, Dialog(group="Secondary CHW loop",
+    enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
+     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
+  parameter Integer nLooChiWatSec=1
+    "Number of secondary CHW loops for distributed secondary distribution"
+    annotation (Evaluate=true, Dialog(group="Secondary CHW loop",
+    enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
+
+  parameter Buildings.Templates.Components.Types.Cooler typCoo(
+    start=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen)
+    "Condenser water cooling equipment"
+    annotation(Evaluate=true, Dialog(group="Coolers",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
+  parameter Integer nCoo(
+    start=1,
+    final min=0)=nChi
+    "Number of cooler units"
+    annotation (Evaluate=true, Dialog(group="Coolers",
+    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 
   parameter Integer nPumConWat(
     start=1,
     final min=0)=nChi
     "Number of CW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
+    annotation (Evaluate=true, Dialog(group="CW loop",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
            and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   // The following parameter stores the user selection.
   parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumConWat_select(start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
-    "Type of CW pump arrangement" annotation (Evaluate=true, Dialog(group="Configuration",
-        enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-           and typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
+    "Type of CW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="CW loop",
+    enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
+       and typEco == Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
   final parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumConWat=if typEco <> Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
        then Buildings.Templates.Components.Types.PumpArrangement.Headered else
-      typArrPumConWat_select "Type of CW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+      typArrPumConWat_select
+    "Type of CW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="CW loop"));
   // The following parameter stores the user selection.
   parameter Boolean have_varPumConWat_select=false
     "Set to true for variable speed CW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
+    annotation (Evaluate=true, Dialog(group="CW loop",
       enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typEco==Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
   // The following parameter stores the actual configuration setting.
@@ -111,7 +141,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
       then true
     else false
     "Set to true for variable speed CW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="CW loop"));
   final parameter Boolean have_varComPumConWat=
     if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None
       then true
@@ -119,63 +149,43 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
       then false
     else true
     "Set to true for single common speed signal for CW pumps, false for dedicated signals"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="CW loop"));
 
   parameter Buildings.Templates.ChilledWaterPlants.Types.Economizer typEco(
     start=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None)
     "Type of WSE"
-    annotation (Evaluate=true, Dialog(group="Configuration",
+    annotation (Evaluate=true, Dialog(group="Waterside economizer",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 
-  parameter Buildings.Templates.Components.Types.Cooler typCoo(
-    start=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen)
-    "Condenser water cooling equipment"
-    annotation(Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nCoo(
-    start=1,
-    final min=0)=nChi
-    "Number of cooler units"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-
-  parameter Integer nPumChiWatSec(
-    start=1,
-    final min=0)=if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Only
-     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only then 0
-    else nChi
-    "Number of secondary CHW pumps"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Constant1Variable2
-     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2
-     or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
-  parameter Integer nLooChiWatSec=1
-    "Number of secondary CHW loops for distributed secondary distribution"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed));
-
+  parameter Buildings.Templates.ChilledWaterPlants.Types.Controller typCtl
+    "Type of controller"
+    annotation (Evaluate=true, Dialog(group="Controls", enable=false));
   parameter Integer nAirHan(
     final min=0)=0
     "Number of air handling units served by the plant"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+    annotation(Evaluate=true,
+    Dialog(group="Controls",
+    enable=typCtl==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36));
   parameter Integer nEquZon(
     final min=0)=0
     "Number of terminal units (zone equipment) served by the plant"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+    annotation(Evaluate=true,
+    Dialog(group="Controls",
+    enable=typCtl==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36));
 
   // Following parameters to be assigned by derived classes.
   parameter Buildings.Templates.Components.Types.Valve typValChiWatChiIso
     "Type of chiller CHW isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Chillers"));
   parameter Buildings.Templates.Components.Types.Valve typValConWatChiIso
     "Type of chiller CW isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Chillers"));
   parameter Buildings.Templates.Components.Types.Valve typValCooInlIso
     "Cooler inlet isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Coolers"));
   parameter Buildings.Templates.Components.Types.Valve typValCooOutIso
     "Cooler outlet isolation valve"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Coolers"));
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant dat(
     typChi=typChi,
@@ -188,6 +198,7 @@ partial model PartialChilledWaterPlant "Interface class for CHW plant"
     nCoo=nCoo,
     have_varPumConWat=have_varPumConWat,
     typEco=typEco,
+    typCtl=typCtl,
     rhoChiWat_default=rhoChiWat_default,
     rhoConWat_default=rhoCon_default)
     "Design and operating parameters";

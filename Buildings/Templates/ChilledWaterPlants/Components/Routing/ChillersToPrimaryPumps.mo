@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Routing;
 model ChillersToPrimaryPumps
-  "Hydronic interface between chillers (and optional WSE) and primary pumps"
+  "Hydronic interface between chillers (and optional WSE) and primary CHW pumps"
 
   replaceable package MediumChiWat = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -344,5 +344,27 @@ annotation (
           textString="%name"),
         Rectangle(extent={{-200,-1300},{200,1300}},
             lineColor={28,108,200})}),
- Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})));
+ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}})),
+    Documentation(info="<html>
+<p>
+This model represents the hydronic interface between
+</p>
+<ul>
+<li>
+the CHW supply and return connections of the plant components
+(chillers and optional waterside economizer),
+</li>
+<li>
+the inlet manifold of the primary CHW pumps (where the pumps are
+assumed to be on the CHW supply side),
+</li>
+<li>
+the CHW return pipe, and
+</li>
+<li>
+the optional bypass (common leg for primary-secondary systems 
+and bypass with modulating valve for variable primary-only systems).
+</li>
+</ul> 
+</html>"));
 end ChillersToPrimaryPumps;

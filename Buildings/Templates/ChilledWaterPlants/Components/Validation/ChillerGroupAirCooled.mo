@@ -68,7 +68,7 @@ model ChillerGroupAirCooled
     final TChiWatChiSup_nominal=fill(TChiWatSup_nominal, nChi),
     final TConAirChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, nChi),
     PLRChi_min=fill(0.15, nChi),
-    redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
+    redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_York_YCAL0033EE_101kW_3_1COP_AirCooled per)
     "Parameter record for air-cooled chiller group";
 
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
@@ -253,5 +253,13 @@ equation
     Tolerance=1e-06),
   __Dymola_Commands(file=
   "modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/ChillerGroupAirCooled.mos"
-    "Simulate and plot"));
+    "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model validates the chiller group model
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression\">
+Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression</a>
+for air-cooled chillers.
+</p>
+</html>"));
 end ChillerGroupAirCooled;

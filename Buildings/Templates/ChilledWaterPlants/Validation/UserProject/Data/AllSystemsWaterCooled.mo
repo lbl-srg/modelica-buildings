@@ -27,11 +27,9 @@ class AllSystemsWaterCooled
     final rhoChiWat_default=CHI.rhoChiWat_default,
     final rhoConWat_default=CHI.rhoCon_default,
     chi(
-      mConAirChi_flow_nominal=_CHI.ctl.capChi_nominal * Buildings.Templates.Data.Defaults.mConAirByCapChi,
       dpChiWatChi_nominal=fill(Buildings.Templates.Data.Defaults.dpChiWatChi, _CHI.nChi),
       dpConChi_nominal=fill(Buildings.Templates.Data.Defaults.dpConWatChi, _CHI.nChi),
-      TConAirChiEnt_nominal=fill(Buildings.Templates.Data.Defaults.TConAirEnt, _CHI.nChi),
-      redeclare each Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per),
+      redeclare Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Trane_CVHE_1442kW_6_61COP_VSD per),
     ctl(
       TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup, _CHI.nChi),
       TConWatChiRet_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet, _CHI.nChi),

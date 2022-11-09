@@ -165,4 +165,12 @@ record ChilledWaterPlant "Record for chilled water plant model"
     annotation(Dialog(group="Waterside economizer",
     enable=typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None));
 
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+CHW plant models that can be found within 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants\">
+Buildings.Templates.ChilledWaterPlants</a>.
+</p>
+</html>"));
 end ChilledWaterPlant;

@@ -254,7 +254,7 @@ partial model PartialChillerGroup "Interface class for chiller group"
         origin={0,170})));
 
   Modelica.Blocks.Routing.BooleanPassThrough pasSta[nChi]
-    "Direct pass through for Start/Stop signal"
+    "Direct pass through for On/Off signal"
     annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -277,7 +277,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(busChi, bus.chi) annotation (Line(
-      points={{0,140},{40,140},{40,190},{8,190},{8,196},{0,196},{0,200}},
+      points={{0,140},{40,140},{40,196},{0,196},{0,200}},
       color={255,204,51},
       thickness=0.5));
   connect(pasSta.y, busChi.y1) annotation (Line(points={{-40,159},{-40,140},{0,
@@ -287,7 +287,7 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(bus.y1Chi, pasSta.u) annotation (Line(
-      points={{0,200},{0,194},{-40,194},{-40,182}},
+      points={{0,200},{0,190},{-40,190},{-40,182}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -302,5 +302,36 @@ equation
           textColor={0,0,255},
           textString="%name"),
     Rectangle(extent={{-200,-1000},{200,1000}},
-            lineColor={28,108,200})}));
+            lineColor={28,108,200})}),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for chiller group models.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available for all
+models inheriting from this interface.
+</p>
+<ul>
+<li>
+Chiller On/Off command <code>y1Chi</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+CHW supply temperature setpoint <code>TChiWatSupSet</code>: 
+AO signal common to all units, with a dimensionality of zero
+</li>
+<li>
+Sub-bus <code>chi</code> storing all signals dedicated 
+to each unit, with a dimensionality of one
+<ul>
+<li>
+At least the chiller status should be available as 
+<code>chi.y1_actual</code>: DI signal dedicated to each unit, 
+with a dimensionality of one
+</li>
+</ul>
+</li>
+</ul>
+</html>"));
 end PartialChillerGroup;

@@ -6,5 +6,6 @@ ChillersToPrimaryPumpsSeries
 CoolerGroup
 CoolerGroupDebug
 Economizer
+RecordChillerGroup
+RecordChillerGroupStructure
 StagingMatrixComputation
-TestRecordArray

@@ -6,8 +6,8 @@ partial model PartialChilledWaterLoop
     final typValChiWatChiIso=chi.typValChiWatChiIso,
     final typValConWatChiIso=chi.typValConWatChiIso,
     final typEco=eco.typ,
+    final typCtl=ctl.typ,
     dat(
-      typCtl=ctl.typ,
       typCtlHea=ctl.typCtlHea,
       typMeaCtlChiWatPri=ctl.typMeaCtlChiWatPri,
       have_senDpChiWatLoc=ctl.have_senDpChiWatLoc,
@@ -34,8 +34,10 @@ partial model PartialChilledWaterLoop
     final tau=tau,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
-    "Chiller group"
-    annotation (Placement(transformation(extent={{-60,-190},{-20,10}})));
+    "Chillers"
+    annotation (
+    Dialog(group="Chillers"),
+    Placement(transformation(extent={{-60,-190},{-20,10}})));
 
   // Primary CHW loop
   Components.Routing.ChillersToPrimaryPumps intChi(
@@ -54,7 +56,8 @@ partial model PartialChilledWaterLoop
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Hydronic interface between chillers (and optional WSE) and primary CHW pumps"
-    annotation (Placement(transformation(extent={{0,-250},{40,10}})));
+    annotation (
+    Placement(transformation(extent={{0,-250},{40,10}})));
   Buildings.Templates.Components.Pumps.Multiple pumChiWatPri(
     redeclare final package Medium=MediumChiWat,
     final nPum=nPumChiWatPri,
@@ -64,7 +67,8 @@ partial model PartialChilledWaterLoop
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Primary CHW pumps"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (
+    Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumChiWatPri(
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatPri,
@@ -73,14 +77,16 @@ partial model PartialChilledWaterLoop
     final tau=tau,
     final allowFlowReversal=allowFlowReversal)
     "Primary CHW pumps outlet manifold"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (
+    Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Templates.Components.Valves.TwoWayModulating valChiWatMinByp(
     redeclare final package Medium=MediumChiWat,
     final dat=dat.valChiWatMinByp,
     final allowFlowReversal=allowFlowReversal)
     if typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1Only
     "CHW minimum flow bypass valve"
-    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+    annotation (
+    Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=90,
         origin={130,-100})));
   Buildings.Templates.Components.Routing.PassThroughFluid bypChiWatFix(
@@ -88,7 +94,8 @@ partial model PartialChilledWaterLoop
     final allowFlowReversal=allowFlowReversal)
     if have_bypChiWatFix
     "Fixed CHW bypass (common leg)"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (
+    Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={150,-100})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatPri_flow(
@@ -100,7 +107,8 @@ partial model PartialChilledWaterLoop
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Primary CHW volume flow rate"
-    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+    annotation (
+    Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Fluid.FixedResistances.Junction junByp(
     redeclare final package Medium=MediumChiWat,
     final tau=tau,
@@ -114,7 +122,8 @@ partial model PartialChilledWaterLoop
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Fluid junction at minimum flow bypass or common leg"
-    annotation (Placement(
+    annotation (
+    Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -125,7 +134,8 @@ partial model PartialChilledWaterLoop
     final m_flow_nominal=mChiWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Primary CHW supply temperature"
-    annotation (Placement(transformation(
+    annotation (
+    Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,0})));
@@ -138,7 +148,8 @@ partial model PartialChilledWaterLoop
       or typDisChiWat==Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed) and
       ctl.typMeaCtlChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.FlowDecoupler,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
-    "Decoupler CHW volume flow rate" annotation (Placement(transformation(
+    "Decoupler CHW volume flow rate"
+    annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={140,-150})));
@@ -260,7 +271,17 @@ partial model PartialChilledWaterLoop
       final energyDynamics=energyDynamics)
     "Waterside economizer"
     annotation (
-    choicesAllMatching=true,
+    Dialog(group="Waterside economizer"),
+    choices(
+      choice(redeclare replaceable
+        Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco
+        "No waterside economizer"),
+      choice(redeclare replaceable
+        Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump eco
+        "Heat exchanger with pump for CHW flow control"),
+      choice(redeclare replaceable
+        Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve eco
+        "Heat exchanger with bypass valve for CHW flow control")),
     Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -434,14 +455,24 @@ Buildings.Templates.Components.Pumps.Multiple</a>
 <li>
 Optional secondary CHW pumps, as modeled with
 <a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
-Buildings.Templates.Components.Pumps.Multiple</a>: note
-that if the CHW distribution type is equal to
+Buildings.Templates.Components.Pumps.Multiple</a><br/>
+Note that if the CHW distribution type is equal to
 <code>Buildings.Templates.ChilledWaterPlants.Types.Distribution.Variable1And2Distributed</code>
 then the secondary CHW pumps are not included in this model
 and must be modeled separately from the plant.
 </li>
 <li>
-Optional CHW bypass pipe with optional modulating valve
+Optional CHW bypass pipe with optional modulating valve<br/>
+Those options are automatically selected based on the CHW distribution
+type, as specified by an instance of
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Types.Distribution\">
+Buildings.Templates.ChilledWaterPlants.Types.Distribution</a>.
+A bypass pipe is modeled for any configuration other than 
+constant primary-only.
+A modulating valve is modeled only for variable primary-only systems.
+All other configurations are modeled with a fixed bypass, or
+so-called common leg.
+</li>
 </ul>
 </html>"));
 end PartialChilledWaterLoop;

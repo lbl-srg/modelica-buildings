@@ -37,7 +37,7 @@ partial block PartialController "Interface class for plant controller"
     "Number of CW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-           and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
+      and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
   parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumConWat
     "Type of CW pump arrangement"
@@ -51,6 +51,7 @@ partial block PartialController "Interface class for plant controller"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_varPumConWat(
     start=false)
+    "Set to true for variable speed CW pumps, false for constant speed pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Boolean have_varComPumConWat(
@@ -368,6 +369,9 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-260,-300},{260,300}})),
     Documentation(info="<html>
 <p>
+This partial class provides a standard interface for plant controllers.
+</p>
+<p>
 <code>nSenDpChiWatRem</code> may be zero if CHW pump speed
 is only controlled based on a local differential pressure
 sensor.
@@ -380,7 +384,8 @@ A typical connect clause such as
 <code>connect(bus.nestedBus[:].y, sensor[:].y)</code>
 raises issues when <code>nestedBus</code> is not explicitly declared
 as Modelica compilers cannot decide to which variable the dimensionality
-should be assigned between <code>nestedBus</code> and <code>nestedBus.y</code>.
+should be assigned between <code>nestedBus</code> and <code>y</code>
+inside <code>nestedBus</code>.
 </p>
 </html>"));
 end PartialController;

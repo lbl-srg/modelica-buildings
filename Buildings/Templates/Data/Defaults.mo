@@ -5,7 +5,7 @@ package Defaults "Package with default sizing parameters"
   constant Modelica.Units.SI.Temperature TChiWatSup=7+273.15
     "CHW supply temperature";
   constant Modelica.Units.SI.Temperature TChiWatSup_max=16+273.15
-    "Maximum CHW supply temperature";
+    "Maximum CHW supply temperature (typical)";
   constant Modelica.Units.SI.Temperature TChiWatRet=12+273.15
     "CHW return temperature";
   constant Modelica.Units.SI.Temperature TConWatSup=29.4+273.15
@@ -75,4 +75,23 @@ package Defaults "Package with default sizing parameters"
     "CHW circuit minimum pressure";
   constant Modelica.Units.SI.PressureDifference pHeaWat_rel_min=1.5E5
     "HHW circuit minimum pressure";
+  annotation (Documentation(info="<html>
+<p>
+This package defines some constants that are either
+</p>
+<ul>
+<li>
+typical values that are used as default parameter values
+for models inside the package
+<a href=\"modelica://Buildings.Templates\">
+Buildings.Templates</a>, or
+</li>
+<li>
+arbitrary values that are used for validation purposes only.
+Those are typically project-specific characteristics (e.g., 
+chiller COP at design conditions) and should not 
+be considered as generic default values.
+</li>
+</ul>
+</html>"));
 end Defaults;

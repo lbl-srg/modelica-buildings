@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants;
-package Types
+package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
   type ChillerArrangement = enumeration(
       Parallel
@@ -47,4 +47,9 @@ package Types
       Return "Sensor in the return line",
       Supply "Sensor in the supply line")
       "Enumeration to specify the sensor location";
+  annotation (Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

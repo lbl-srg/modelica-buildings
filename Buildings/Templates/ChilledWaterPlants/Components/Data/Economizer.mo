@@ -77,4 +77,12 @@ record Economizer "Record for waterside economizer model"
     "Performance data"
     annotation(Dialog(group="Heat exchanger CHW pump",
     enable=typ==Buildings.Templates.ChilledWaterPlants.Types.Economizer.HeatExchangerWithPump));
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+waterside economizer models that can be found within 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Economizers\">
+Buildings.Templates.ChilledWaterPlants.Components.Economizers</a>.
+</p>
+</html>"));
 end Economizer;

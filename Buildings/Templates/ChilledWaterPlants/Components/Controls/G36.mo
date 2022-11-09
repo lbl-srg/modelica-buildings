@@ -685,6 +685,24 @@ equation
   connect(reqChiWatPla.y, ctl.chiPlaReq) annotation (Line(points={{-118,-220},{
           -18,-220},{-18,-22},{-2,-22}}, color={255,127,0}));
   annotation (Documentation(info="<html>
-
+<h4>Description</h4>
+<p>
+This is an implementation of the control sequence specified in ASHRAE (2021)
+for chilled water plants.
+It is based on
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>.
+</p>
+<h4>Details</h4>
+<p>
+To be updated.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end G36;

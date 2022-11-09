@@ -9,6 +9,9 @@ expandable connector Bus "Control bus for chilled water plant"
                   extent={{-20,2},{22,-2}},
                   lineColor={255,204,51},
                   lineThickness=0.5)}), Documentation(info="<html>
-
+<p>
+This expandable connector provides a standard interface for 
+all control signals required by a chiller plant controller. 
+</p>
 </html>"));
 end Bus;

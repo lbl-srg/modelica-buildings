@@ -229,5 +229,15 @@ equation
     Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/Economizer.mos"
     "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-140,-140},{120,140}})));
+    Diagram(coordinateSystem(extent={{-140,-140},{120,140}})),
+    Documentation(info="<html>
+<p>
+This model validates the waterside economizer models
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump\">
+Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump</a>
+and
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve\">
+Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve</a>.
+</p>
+</html>"));
 end Economizer;

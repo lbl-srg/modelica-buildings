@@ -191,7 +191,7 @@ equation
     connect(yPumChiWatSec.y, busPumChiWatSec.y)
       annotation (Line(points={{-108,0},{140,0},{140,20}},  color={0,0,127}));
     connect(busPumChiWatSec, bus.pumChiWatSec) annotation (Line(
-        points={{140,20},{200,20},{200,0},{260,0}},
+        points={{140,20},{200,20},{200,0},{-260,0}},
         color={255,204,51},
         thickness=0.5));
     connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1)
@@ -200,14 +200,14 @@ equation
   connect(yPumChiWatPri.y, busPumChiWatPri.y)
     annotation (Line(points={{-108,60},{140,60}}, color={0,0,127}));
   connect(busPumChiWatPri, bus.pumChiWatPri) annotation (Line(
-      points={{140,60},{170,60},{170,0},{260,0}},
+      points={{140,60},{170,60},{170,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
 
   connect(yPumConWat.y, busPumConWat.y)
     annotation (Line(points={{-108,-60},{140,-60},{140,-40}},color={0,0,127}));
   connect(busPumConWat, bus.pumConWat) annotation (Line(
-      points={{140,-40},{160,-40},{160,0},{260,0}},
+      points={{140,-40},{160,-40},{160,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(y1PumChiWatPri.y[1], busPumChiWatPri.y1) annotation (Line(points={{-138,80},
@@ -217,16 +217,16 @@ equation
   connect(yValChiWatMinByp.y, busValChiWatMinByp.y)
     annotation (Line(points={{-138,120},{140,120}}, color={0,0,127}));
   connect(y1ValChiWatChiBypSer.y[1], busValChiWatChiByp.y1) annotation (Line(
-        points={{-98,140},{160,140},{160,80},{220,80}}, color={255,0,255}));
+        points={{-98,140},{160,140},{160,80},{-240,80}},color={255,0,255}));
   connect(busValChiWatChiBypPar, bus.valChiWatChiByp) annotation (Line(
-      points={{140,160},{186,160},{186,0},{260,0}},
+      points={{140,160},{186,160},{186,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(y1ValChiWatChiBypPar.y[1], busValChiWatChiBypPar.y1)
     annotation (Line(points={{-138,160},{140,160}},
                                                   color={255,0,255}));
   connect(busValChiWatMinByp, bus.valChiWatMinByp) annotation (Line(
-      points={{140,120},{180,120},{180,0},{260,0}},
+      points={{140,120},{180,120},{180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(yPumChiWatEco.y, busPumChiWatEco.y) annotation (Line(points={{-108,
@@ -237,15 +237,15 @@ equation
   connect(yValChiWatEcoByp.y, busValChiWatEcoByp.y)
     annotation (Line(points={{-138,-100},{140,-100}}, color={0,0,127}));
   connect(busPumChiWatEco, bus.pumChiWatEco) annotation (Line(
-      points={{140,-160},{190,-160},{190,0},{260,0}},
+      points={{140,-160},{190,-160},{190,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValChiWatEcoByp, bus.valChiWatEcoByp) annotation (Line(
-      points={{140,-100},{170,-100},{170,0},{260,0}},
+      points={{140,-100},{170,-100},{170,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValConWatEcoIso, bus.valConWatEcoIso) annotation (Line(
-      points={{140,-120},{180,-120},{180,0},{260,0}},
+      points={{140,-120},{180,-120},{180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(y1ValConWatEcoIso.y[1], busValConWatEcoIso.y1) annotation (Line(
@@ -263,49 +263,59 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(y1Chi.y[1], bus.y1Chi) annotation (Line(points={{-138,280},{256,280},
-          {256,0},{260,0}}, color={255,0,255}), Text(
+          {256,0},{-260,0}},color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(TChiWatSupSet.y, bus.TChiWatSupSet) annotation (Line(points={{-78,260},
-          {254,260},{254,0},{260,0}}, color={0,0,127}), Text(
+          {254,260},{254,0},{-260,0}},color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(y1Coo.y[1], bus.y1Coo) annotation (Line(points={{22,-260},{254,-260},
-          {254,0},{260,0}},color={255,0,255}), Text(
+          {254,0},{-260,0}},
+                           color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(yCoo.y, bus.yCoo) annotation (Line(points={{62,-280},{256,-280},{256,
-          0},{260,0}},
+          0},{-260,0}},
                     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(y1ValCooInlIso.y[1], busValCooInlIso.y1) annotation (Line(points={{
-          -138,-180},{200,-180},{200,-140},{220,-140}}, color={255,0,255}));
-  connect(y1ValCooOutIso.y[1], busValCooOutIso.y1) annotation (Line(points={{
-          -58,-220},{220,-220},{220,-180}}, color={255,0,255}));
-  connect(yValCooInlIso.y, busValCooInlIso.y) annotation (Line(points={{-108,
-          -200},{204,-200},{204,-144},{212,-144},{212,-140},{220,-140}}, color=
+  connect(y1ValCooInlIso.y[1], busValCooInlIso.y1) annotation (Line(points={{-138,
+          -180},{200,-180},{200,-140},{-240,-140}},     color={255,0,255}));
+  connect(y1ValCooOutIso.y[1], busValCooOutIso.y1) annotation (Line(points={{-58,
+          -220},{-240,-220},{-240,-180}},   color={255,0,255}));
+  connect(yValCooInlIso.y, busValCooInlIso.y) annotation (Line(points={{-108,-200},
+          {204,-200},{204,-144},{212,-144},{212,-140},{-240,-140}},      color=
           {0,0,127}));
-  connect(yValCooOutIso.y, busValCooOutIso.y) annotation (Line(points={{-28,
-          -240},{224,-240},{224,-180},{220,-180}}, color={0,0,127}));
+  connect(yValCooOutIso.y, busValCooOutIso.y) annotation (Line(points={{-28,-240},
+          {224,-240},{224,-180},{-240,-180}},      color={0,0,127}));
   connect(y1ValChiWatChiIso.y[1], busValChiWatChiIso.y1) annotation (Line(
-        points={{-138,240},{200,240},{200,160},{220,160}}, color={255,0,255}));
-  connect(yValChiWatChiIso.y, busValChiWatChiIso.y) annotation (Line(points={{
-          -108,220},{196,220},{196,160},{220,160}}, color={0,0,127}));
+        points={{-138,240},{200,240},{200,160},{-240,160}},color={255,0,255}));
+  connect(yValChiWatChiIso.y, busValChiWatChiIso.y) annotation (Line(points={{-108,
+          220},{196,220},{196,160},{-240,160}},     color={0,0,127}));
   connect(y1ValConWatChiIso.y[1], busValConWatChiIso.y1) annotation (Line(
-        points={{-68,200},{194,200},{194,120},{220,120}}, color={255,0,255}));
-  connect(yValConWatChiIso.y, busValConWatChiIso.y) annotation (Line(points={{
-          -38,180},{192,180},{192,120},{220,120}}, color={0,0,127}));
+        points={{-68,200},{194,200},{194,120},{-240,120}},color={255,0,255}));
+  connect(yValConWatChiIso.y, busValConWatChiIso.y) annotation (Line(points={{-38,180},
+          {192,180},{192,120},{-240,120}},         color={0,0,127}));
   annotation (
   defaultComponentName="ctr",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is an open loop controller providing control inputs
+for the templates within 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants\">
+Buildings.Templates.ChilledWaterPlants</a>.
+It is mainly used for testing purposes.
+</p>
+</html>"));
 end OpenLoop;

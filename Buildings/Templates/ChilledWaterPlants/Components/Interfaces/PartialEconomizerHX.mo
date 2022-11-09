@@ -42,4 +42,11 @@ equation
           80}},                   color={0,127,255}));
   connect(valConWatIso.port_b, port_bConWat)
     annotation (Line(points={{-70,80},{-100,80}}, color={0,127,255}));
+  annotation (Documentation(info="<html>
+<p>
+This model serves as the base class to construct the WSE models.
+It includes an &epsilon;-NTU heat exchanger model and a 
+two-way modulating valve to modulate the CW flow rate.
+</p>
+</html>"));
 end PartialEconomizerHX;

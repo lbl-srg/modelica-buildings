@@ -150,24 +150,43 @@ equation
           {180,160},{180,120},{200,120}},      color={0,127,255}));
   annotation(defaultComponentName="chi", Documentation(info="<html>
 <p>
-RFE: Implement chiller demand limit
+This model represents a group of compression chillers.
 </p>
 <p>
-Current limitations:
+Modeling features and limitations:
 </p>
 <ul>
 <li>
+The chillers have the same type (compression chiller).
+However, the chiller parameters such as the design capacity 
+and CHW flow rate may be different from one unit to another.
+Modeling different performance curves is also possible, 
+see the documentation of 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup\">
+Buildings.Templates.ChilledWaterPlants.Components.Data.ChillerGroup</a>
+for further details.
+</li>
+<li>
 Same type of cooling fluid (air or water) for all chillers.
-This is final considering the use of multiple-ports connectors
-that require a unique medium model.
+This is a hard and final limitation considering the use of multiple-ports 
+connectors that require a unique medium model.
 </li>
 <li>
 Same type of CW (and CHW) isolation valve for all chillers.
 This is a technical debt that will be purged when actuator models are
-refactored as container classes.
-</li>
-Hence, only the same type of head pressure control for all chillers is supported.
+refactored as container classes.<br/>
+Hence, only the same type of head pressure control for all chillers is supported
 (as the latter conditions the former).
+</li>
+<li>
+The option for limiting the chiller demand is currently not modeled.
+</li>
 </ul>
+<h4>Control points</h4>
+<p>
+See the documentation of
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup\">
+Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup</a>.
+</p>
 </html>"));
 end Compression;

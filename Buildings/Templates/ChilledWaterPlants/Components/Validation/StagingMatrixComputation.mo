@@ -1,6 +1,6 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Validation;
 model StagingMatrixComputation
-  "Validate the algorithm to compute the chiller staging matrix"
+  "Validation of the algorithm used to compute the chiller staging matrix"
   extends Modelica.Icons.Example;
 
   parameter Integer nChi=2;
@@ -66,4 +66,12 @@ algorithm
   when sample(0, 3E7) then
     idx := 0;
   end when;
+  annotation (Documentation(info="<html>
+<p>
+This model validates the algorithm used to compute the so-called
+staging matrix within the plant controller
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Controls.G36\">
+Buildings.Templates.ChilledWaterPlants.Components.Controls.G36</a>.
+</p>
+</html>"));
 end StagingMatrixComputation;

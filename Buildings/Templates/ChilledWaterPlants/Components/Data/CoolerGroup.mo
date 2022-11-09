@@ -63,6 +63,12 @@ record CoolerGroup "Record for cooler group model"
     annotation (Dialog(group="Nominal condition"));
   annotation (Documentation(info="<html>
 <p>
+This record provides the set of sizing and operating parameters for 
+chiller group models that can be found within 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups\">
+Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups</a>.
+</p>
+<p>
 Design temperature conditions are common to all units.
 Mass flow rates, pressure drops and fan power are specific to each unit.
 </p>

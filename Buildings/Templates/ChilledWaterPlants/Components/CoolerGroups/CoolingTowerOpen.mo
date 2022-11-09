@@ -30,7 +30,7 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
       choices(
       choice(redeclare each replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooInlIso
         "Two-way two-position valve"),
-      choice(redeclare replaceable Buildings.Templates.Components.Valves.None valCooInlIso
+      choice(redeclare each replaceable Buildings.Templates.Components.Valves.None valCooInlIso
         "No Valve")),
     Placement(transformation(extent={{-50,-10},{-30,10}})));
   replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooOutIso[nCoo]
@@ -45,7 +45,7 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
       choices(
       choice(redeclare each replaceable Buildings.Templates.Components.Valves.TwoWayTwoPosition valCooOutIso
         "Two-way two-position valve"),
-      choice(redeclare replaceable Buildings.Templates.Components.Valves.None valCooOutIso
+      choice(redeclare each replaceable Buildings.Templates.Components.Valves.None valCooOutIso
         "No Valve")),
     Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlCoo(
@@ -71,8 +71,8 @@ model CoolingTowerOpen "Open-circuit cooling towers in parallel"
 equation
   /* Control point connection - start */
   connect(busCoo, coo.bus);
-  /* 
-  HACK: The following clauses should be removed at translation if typVal*==*.None` 
+  /*
+  HACK: The following clauses should be removed at translation if typVal*==*.None`
   but Dymola fails to do so.
   Hence, explicit `if then` statements are used.
   */
@@ -101,5 +101,13 @@ equation
     annotation (
     defaultComponentName="coo",
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-400,-400},{400,400}})));
+    Icon(coordinateSystem(extent={{-400,-400},{400,400}})),
+    Documentation(info="<html>
+<h4>Control points</h4>
+<p>
+See the documentation of
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolerGroup\">
+Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolerGroup</a>.
+</p>
+</html>"));
 end CoolingTowerOpen;

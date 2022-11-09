@@ -5,7 +5,7 @@ partial model PartialCoolerGroup
     redeclare final package Medium=MediumConWat,
     final m_flow_nominal=mConWat_flow_nominal)
   annotation (
-    IconMap(extent = {{-400, -400}, {400,400}}));
+    IconMap(extent={{-400,-400},{400,400}}));
 
   replaceable package MediumConWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -143,7 +143,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(bus.yCoo, pasSpe.u) annotation (Line(
-      points={{0,100},{0,88},{40,88},{40,82}},
+      points={{0,100},{0,90},{40,90},{40,82}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -151,7 +151,7 @@ equation
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
   connect(busCoo, bus.coo) annotation (Line(
-      points={{0,40},{80,40},{80,94},{6,94},{6,100},{0,100}},
+      points={{0,40},{80,40},{80,96},{6,96},{6,100},{0,100}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%second",
@@ -159,7 +159,7 @@ equation
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
   connect(bus.y1Coo, pasSta.u) annotation (Line(
-      points={{0,100},{0,94},{-40,94},{-40,82}},
+      points={{0,100},{0,90},{-40,90},{-40,82}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -182,5 +182,43 @@ equation
           fillPattern=FillPattern.Solid)}),
                                       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+            100}})),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for cooler group models.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available for all
+models inheriting from this interface.
+</p>
+<ul>
+<li>
+Cooler Start/Stop command (VFD Run) <code>y1Coo</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Cooler speed command (VFD Speed) <code>yCoo</code>: 
+<ul>
+<li>
+If <code>have_varCom</code>: AO signal common to all units , with a dimensionality of zero
+</li>
+<li>
+If <code>not have_varCom</code>: AO signal dedicated to each unit, with a dimensionality of one
+</li>
+</ul>
+</li>
+<li>
+Sub-bus <code>coo</code> storing all signals dedicated 
+to each unit, with a dimensionality of one
+<ul>
+<li>
+At least the cooler status (through VFD interface, VFD status contact, 
+or current switch) should be available as <code>coo.y1_actual</code>: 
+DI signal dedicated to each unit, with a dimensionality of one
+</li>
+</ul>
+</li>
+</ul>
+</html>"));
 end PartialCoolerGroup;

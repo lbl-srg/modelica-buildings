@@ -326,5 +326,10 @@ equation
     StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/CoolerGroup.mos"
-    "Simulate and plot"));
+    "Simulate and plot"),
+    Documentation(info="<html>
+This model validates
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen\">
+Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen</a>.
+</html>"));
 end CoolerGroup;

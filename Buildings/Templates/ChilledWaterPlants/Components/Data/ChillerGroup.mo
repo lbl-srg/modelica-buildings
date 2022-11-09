@@ -114,4 +114,47 @@ record ChillerGroup "Record for chiller group model"
       else fill(0, nChi))
     "Chiller performance data"
     annotation(choicesAllMatching=true);
+  annotation (Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+chiller group models that can be found within 
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups\">
+Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups</a>.
+</p>
+<p>
+Within this class, the design values declared at the top-level 
+are propagated by default to the performance data record <code>per</code> 
+under the assumption that the nominal conditions used for assessing the 
+performance data match the design conditions.
+However, the nominal, minimum and maximum value of the
+condenser cooling fluid temperature are overwritten if the performance data
+record is redeclared. 
+(This is a limitation that comes from the constraint to make this record class
+(type-)compatible with chiller group models using
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.ElectricReformulatedEIRs</a> 
+instead of 
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
+Buildings.Fluid.Chillers.ElectricEIR</a>).
+</p>
+<p>
+Note that, among those propagated parameters, the only meaningful parameter 
+is the chiller capacity that should be consistent with the value 
+used for performance assessment.
+Regarding the nominal value of the condenser cooling fluid, it may 
+only yield a warning if an inconsistent value is used.
+All other propagated parameters have no impact on the 
+computation of the chiller performance and are informative 
+only inside the performance data record. 
+</p>
+<p>
+The validation model
+<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Validation.RecordChillerGroup\">
+Buildings.Templates.ChilledWaterPlants.Components.Validation.RecordChillerGroup</a> 
+illustrates how the default bindings from this class may be 
+overwritten when redeclaring the performance data record,
+and how different performance curves may be assigned to each chiller
+inside the same group.
+</p>
+</html>"));
 end ChillerGroup;

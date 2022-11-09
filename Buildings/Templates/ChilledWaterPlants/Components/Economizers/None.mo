@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Economizers;
-model None "No economizer"
+model None "No waterside economizer"
   extends Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer(
     final typ=Buildings.Templates.ChilledWaterPlants.Types.Economizer.None);
 
