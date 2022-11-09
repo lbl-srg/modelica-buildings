@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block RealExtractSignal
-  "Extract signals from an input signal vector"
+  "Extract signals from a real input signal vector"
   parameter Integer nin=1
     "Number of inputs";
   parameter Integer nout=1
@@ -8,18 +8,24 @@ block RealExtractSignal
   parameter Integer extract[nout]=1:nout
     "Extracting vector";
   Interfaces.RealInput u[nin]
-    "Connector of Real input signal"
+    "Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y[nout]
-    "Connector of Real output signal"
+    "Real signals extracted from the input vector with the extraction scheme specified by the integer vector"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
+initial equation
+  assert(
+    Modelica.Math.BooleanVectors.andTrue({(extract[i] > 0 and extract[i] <= nin) for i in 1:nout}),
+    "In " + getInstanceName() + ": The element of the extracting vector has out of range value.",
+    AssertionLevel.error);
 
 equation
   for i in 1:nout loop
     y[i]=u[extract[i]];
   end for;
   annotation (
-    defaultComponentName="extSig",
+    defaultComponentName="extReaSig",
     Icon(
       graphics={
         Rectangle(
@@ -129,19 +135,20 @@ equation
           textString="extract=%extract"),
         Text(
           textColor={0,0,255},
-          extent={{-150,110},{150,150}},
+          extent={{-100,100},{100,140}},
           textString="%name")}),
     Documentation(
       info="<html>
 <p>
-Extract signals from the input connector and transfer them
-to the output connector.
+Extract signals from the vector-valued real input signal and transfer them
+to the vector-valued real output signal.
 </p>
 <p>
-The extracting scheme is given by the integer vector <code>extract</code>.
+The extraction scheme is specified by the integer vector <code>extract</code>.
 This vector specifies which input signals are taken and in which
 order they are transferred to the output vector. Note that the
-dimension of <code>extract</code> has to match the number of outputs.
+dimension of <code>extract</code> has to match the number of outputs and the elements
+of <code>extract</code> has to be in the range of <code>[1, nin]</code>.
 Additionally, the dimensions of the input connector signals and
 the output connector signals have to be explicitly defined via the
 parameters <code>nin</code> and <code>nout</code>.
@@ -157,14 +164,15 @@ The specification
 <p>extracts four output signals (<code>nout=4</code>)
 from the seven elements of the
 input vector (<code>nin=7</code>):</p>
-<pre>   output no. 1 is set equal to input no. 6
-   output no. 2 is set equal to input no. 3
-   output no. 3 is set equal to input no. 3
-   output no. 4 is set equal to input no. 2
+<pre>   y[1, 2, 3, 4] = u[6, 3, 3, 2];
 </pre>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+October 14, 2022, by Jianjun Hu:<br/>
+Added assertion to check if there is any element in extracting vector is out of range.
+</li>
 <li>
 July 19, 2018, by Jianjun Hu:<br/>
 Changed block name.

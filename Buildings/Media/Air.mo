@@ -1060,7 +1060,7 @@ if <i>T=0</i> &deg;C and no water vapor is present.
 September 9, 2022, by Michael Wetter:<br/>
 Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1045\">#1634</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">#1634</a>.
 </li>
 <li>
 September 28, 2020, by Michael Wetter:<br/>
