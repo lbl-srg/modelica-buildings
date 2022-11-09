@@ -122,9 +122,9 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
       final unit="K",
       displayUnit="degC") = 277.15) "Minimum waterl leaving temperature"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
+  Controls.OBC.CDL.Continuous.AddParameter addPar(p=0.5)
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=-2)
+  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=2.75)
     annotation (Placement(transformation(extent={{-168,200},{-148,220}})));
   Controls.OBC.CDL.Continuous.Switch swi2
     annotation (Placement(transformation(extent={{160,190},{180,210}})));

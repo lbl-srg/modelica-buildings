@@ -9,7 +9,8 @@ block ControlDemandLevel "Controller that outputs the demand level"
   Controls.OBC.CDL.Interfaces.RealInput u_s(
       final unit="K",
       displayUnit="degC") "Set point" annotation (Placement(
-        transformation(extent={{-240,60},{-200,100}}),iconTransformation(extent=
+        transformation(extent={{-240,-60},{-200,-20}}),
+                                                      iconTransformation(extent=
            {{-140,30},{-100,70}})));
   Controls.OBC.CDL.Interfaces.RealInput u_m(
       final unit="K",
@@ -29,22 +30,6 @@ block ControlDemandLevel "Controller that outputs the demand level"
     "Control signal for demand level 2"
     annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
-
-  Controls.OBC.CDL.Continuous.PID conPID(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=k,
-    final Ti=Ti,
-    final yMax=1,
-    final yMin=0,
-    reverseActing=false,
-    u_s(
-      final unit="K",
-      displayUnit="degC"),
-    u_m(
-      final unit="K",
-      displayUnit="degC"))
-                   annotation (Placement(transformation(extent={{-180,-10},{
-            -160,10}})));
 
   Controls.OBC.CDL.Continuous.Limiter limDemLev1(uMax=1, uMin=0)
     "Limiter for continuous control signal for demand level 1"
@@ -83,7 +68,7 @@ block ControlDemandLevel "Controller that outputs the demand level"
     annotation (Placement(transformation(extent={{70,160},{90,180}})));
   Modelica.StateGraph.StepWithSignal lev2(nIn=1, nOut=1) "Demand level 2"
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(t=0.98, h=0.95)
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(t=0.98, h=0.5)
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=0.2, h=0.15)
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
@@ -113,18 +98,29 @@ block ControlDemandLevel "Controller that outputs the demand level"
   Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1/(1 - y1Min))
     "Gain to ensure control range will be up to 1"
     annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
+  Controls.OBC.Utilities.PIDWithInputGains conPID(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    yMax=1,
+    yMin=0,
+    reverseActing=false)
+    annotation (Placement(transformation(extent={{-114,-10},{-94,10}})));
+  Controls.OBC.CDL.Continuous.Switch swi3
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
+  Controls.OBC.CDL.Continuous.Switch swi4
+    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+  Modelica.Blocks.Sources.Constant proGaiDemLev1(k=k*0.5)
+    annotation (Placement(transformation(extent={{-200,62},{-180,82}})));
+  Modelica.Blocks.Sources.Constant proGaiDemLev2(k=k*1.25)
+    annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
+  Modelica.Blocks.Sources.Constant intGaiDemLev2(k=Ti)
+    annotation (Placement(transformation(extent={{-200,-32},{-180,-12}})));
+  Modelica.Blocks.Sources.Constant intGaiDemLev1(k=Ti)
+    annotation (Placement(transformation(extent={{-200,-2},{-180,18}})));
+  Modelica.Blocks.Sources.BooleanConstant PIDres(k=false)
+    annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
 equation
-  connect(conPID.u_s, u_s) annotation (Line(points={{-182,0},{-194,0},{-194,80},
-          {-220,80}},color={0,0,127}));
-  connect(conPID.u_m, u_m) annotation (Line(points={{-170,-12},{-170,-100},{
-          -220,-100}},
-                 color={0,0,127}));
   connect(isDemLev2.y, swi1.u2) annotation (Line(points={{-38,-80},{100,-80},{
           100,-90},{118,-90}}, color={255,0,255}));
-  connect(conPID.y, swi1.u3) annotation (Line(points={{-158,0},{-140,0},{-140,
-          -98},{118,-98}},                     color={0,0,127}));
-  connect(redLoa.u1, conPID.y) annotation (Line(points={{18,-54},{-140,-54},{
-          -140,0},{-158,0}}, color={0,0,127}));
   connect(con.y, redLoa.u2) annotation (Line(points={{-58,-120},{12,-120},{12,
           -66},{18,-66}},
                      color={0,0,127}));
@@ -133,8 +129,6 @@ equation
   connect(con.y, redLoa1.u2) annotation (Line(points={{-58,-120},{-28,-120},{
           -28,-156},{-22,-156}},
                       color={0,0,127}));
-  connect(redLoa1.u1, conPID.y) annotation (Line(points={{-22,-144},{-144,-144},
-          {-144,0},{-158,0}}, color={0,0,127}));
   connect(limDemLev2.y, swi2.u1) annotation (Line(points={{82,-150},{110,-150},
           {110,-142},{118,-142}}, color={0,0,127}));
   connect(con1.y, swi2.u3) annotation (Line(points={{2,-180},{112,-180},{112,
@@ -153,9 +147,6 @@ equation
     annotation (Line(points={{-9.5,170},{8,170}}, color={0,0,0}));
   connect(lev1.inPort[1], to1.outPort) annotation (Line(points={{29,169.75},{22,
           169.75},{22,170},{13.5,170}}, color={0,0,0}));
-  connect(conPID.y, greThr.u) annotation (Line(points={{-158,0},{-140,0},{-140,
-          150},{-82,150}},
-                      color={0,0,127}));
   connect(greThr.y, to1.condition) annotation (Line(points={{-58,150},{12,150},
           {12,158}},                    color={255,0,255}));
   connect(lev1.outPort[1], to2.inPort) annotation (Line(points={{50.5,169.875},{
@@ -193,20 +184,49 @@ equation
   connect(intSwi1.y, isDemLev2.u) annotation (Line(points={{140,0},{150,0},{150,
           -42},{-68,-42},{-68,-80},{-62,-80}},
                                            color={255,127,0}));
-  connect(greThr1.u, conPID.y) annotation (Line(points={{-82,110},{-140,110},{
-          -140,0},{-158,0}},
-                        color={0,0,127}));
-  connect(lesThr.u, conPID.y) annotation (Line(points={{-82,80},{-140,80},{-140,
-          0},{-158,0}}, color={0,0,127}));
-  connect(lesThr1.u, conPID.y) annotation (Line(points={{-82,50},{-140,50},{
-          -140,0},{-158,0}},
-                        color={0,0,127}));
   connect(from2To1.condition, lesThr1.y)
     annotation (Line(points={{20,118},{20,50},{-58,50}}, color={255,0,255}));
   connect(redLoa1.y, gai.u)
     annotation (Line(points={{2,-150},{18,-150}}, color={0,0,127}));
   connect(gai.y, limDemLev2.u)
     annotation (Line(points={{42,-150},{58,-150}}, color={0,0,127}));
+  connect(conPID.y, redLoa1.u1) annotation (Line(points={{-92,0},{-88,0},{-88,
+          -138},{-30,-138},{-30,-144},{-22,-144}}, color={0,0,127}));
+  connect(conPID.y, swi1.u3) annotation (Line(points={{-92,0},{-88,0},{-88,-138},
+          {-26,-138},{-26,-122},{110,-122},{110,-98},{118,-98}}, color={0,0,127}));
+  connect(conPID.y, lesThr1.u) annotation (Line(points={{-92,0},{-88,0},{-88,50},
+          {-82,50}}, color={0,0,127}));
+  connect(conPID.y, lesThr.u) annotation (Line(points={{-92,0},{-88,0},{-88,80},
+          {-82,80}}, color={0,0,127}));
+  connect(conPID.y, greThr1.u) annotation (Line(points={{-92,0},{-88,0},{-88,
+          110},{-82,110}}, color={0,0,127}));
+  connect(conPID.y, greThr.u) annotation (Line(points={{-92,0},{-88,0},{-88,150},
+          {-82,150}}, color={0,0,127}));
+  connect(u_m, conPID.u_m) annotation (Line(points={{-220,-100},{-104,-100},{
+          -104,-12}}, color={0,0,127}));
+  connect(u_s, conPID.u_s) annotation (Line(points={{-220,-40},{-122,-40},{-122,
+          0},{-116,0}}, color={0,0,127}));
+  connect(swi3.y, conPID.k) annotation (Line(points={{-138,50},{-122,50},{-122,
+          8},{-116,8}}, color={0,0,127}));
+  connect(swi4.y, conPID.Ti) annotation (Line(points={{-138,10},{-126,10},{-126,
+          4},{-116,4}}, color={0,0,127}));
+  connect(isDemLev2.y, swi3.u2) annotation (Line(points={{-38,-80},{-32,-80},{
+          -32,64},{-134,64},{-134,66},{-168,66},{-168,50},{-162,50}}, color={
+          255,0,255}));
+  connect(swi4.u2, swi3.u2) annotation (Line(points={{-162,10},{-168,10},{-168,
+          50},{-162,50}}, color={255,0,255}));
+  connect(conPID.y, redLoa.u1) annotation (Line(points={{-92,0},{-60,0},{-60,
+          -54},{18,-54}}, color={0,0,127}));
+  connect(proGaiDemLev2.y, swi3.u3)
+    annotation (Line(points={{-179,40},{-179,42},{-162,42}}, color={0,0,127}));
+  connect(proGaiDemLev1.y, swi3.u1) annotation (Line(points={{-179,72},{-172,72},
+          {-172,58},{-162,58}}, color={0,0,127}));
+  connect(intGaiDemLev1.y, swi4.u1) annotation (Line(points={{-179,8},{-172,8},
+          {-172,18},{-162,18}}, color={0,0,127}));
+  connect(intGaiDemLev2.y, swi4.u3) annotation (Line(points={{-179,-22},{-172,
+          -22},{-172,2},{-162,2}}, color={0,0,127}));
+  connect(PIDres.y, conPID.trigger) annotation (Line(points={{-119,-50},{-110,
+          -50},{-110,-12}}, color={255,0,255}));
   annotation (
   defaultComponentName="conDemLev",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
