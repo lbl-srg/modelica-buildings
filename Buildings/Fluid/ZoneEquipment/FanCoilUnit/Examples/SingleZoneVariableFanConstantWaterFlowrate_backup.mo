@@ -29,6 +29,7 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix,
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -167,7 +168,7 @@ equation
           {78,-60},{40,-60},{40,-90}},  color={0,127,255}));
 
   connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-28,20},{-20,20},{-20,
-          12},{68,12}},
+          18},{68,18}},
                       color={0,0,127}));
 
   connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
@@ -182,9 +183,11 @@ equation
   connect(TZonSet.TZonSetCoo, conVarFanConWat.TCooSet) annotation (Line(points={
           {-88,16},{-84,16},{-84,-10},{-52,-10}}, color={0,0,127}));
   connect(conVarFanConWat.yCoo, fanCoiUni.uCoo)
-    annotation (Line(points={{-28,-4},{68,-4}}, color={0,0,127}));
+    annotation (Line(points={{-28,-4},{20,-4},{20,-9.8},{68,-9.8}},
+                                                color={0,0,127}));
   connect(conVarFanConWat.yHea, fanCoiUni.uHea) annotation (Line(points={{-28,-8},
-          {-10,-8},{-10,-12},{68,-12}}, color={0,0,127}));
+          {-10,-8},{-10,-17.8},{68,-17.8}},
+                                        color={0,0,127}));
   connect(conVarFanConWat.yFan, booToReaFan.u) annotation (Line(points={{-28,-16},
           {-20,-16},{-20,-40},{-12,-40}}, color={255,0,255}));
   connect(booToReaFan.y, mulFanSig.u2) annotation (Line(points={{12,-40},{20,-40},
@@ -192,18 +195,19 @@ equation
   connect(conVarFanConWat.yFanSpe, mulFanSig.u1) annotation (Line(points={{-28,-12},
           {-14,-12},{-14,-20},{20,-20},{20,-24},{28,-24}}, color={0,0,127}));
   connect(mulFanSig.y, fanCoiUni.uFan) annotation (Line(points={{52,-30},{60,-30},
-          {60,4},{68,4}}, color={0,0,127}));
+          {60,10},{68,10}},
+                          color={0,0,127}));
   connect(fanCoiUni.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,16},
           {120,16},{120,-66},{-140,-66},{-140,-50},{-132,-50}},     color={0,0,127}));
   connect(greThrFanProOn.y, truDel.u)
     annotation (Line(points={{-108,-50},{-102,-50}},
                                                    color={255,0,255}));
-  connect(fanCoiUni.port_Air_a, zon.ports[1]) annotation (Line(points={{110,4},{
-          130,4},{130,80},{86,80},{86,100.9}}, color={0,127,255}));
-  connect(fanCoiUni.port_Air_b, zon.ports[2]) annotation (Line(points={{110,-4},
+  connect(fanCoiUni.port_Air_a2, zon.ports[1]) annotation (Line(points={{110,4},
+          {130,4},{130,80},{86,80},{86,100.9}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_b2, zon.ports[2]) annotation (Line(points={{110,-4},
           {140,-4},{140,90},{90,90},{90,100.9}}, color={0,127,255}));
   connect(building.weaBus, fanCoiUni.weaBus) annotation (Line(
-      points={{-30,50},{0,50},{0,17.6},{72.8,17.6}},
+      points={{-30,50},{74,50},{74,18},{74.2,18}},
       color={255,204,51},
       thickness=0.5));
   connect(zon.TAir, conVarFanConWat.TZon) annotation (Line(points={{109,138},{120,

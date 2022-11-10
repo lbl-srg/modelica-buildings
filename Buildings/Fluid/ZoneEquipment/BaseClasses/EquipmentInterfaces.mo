@@ -29,41 +29,44 @@ partial model EquipmentInterfaces
     "Type of cooling coil used"
     annotation (Dialog(group="System parameters"));
 
+  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaPorts
+    "Type of OA port"
+    annotation (Dialog(group="System parameters"));
+
   Modelica.Blocks.Interfaces.RealInput uHea(
     final unit="1")
     "Heating loop signal"
     annotation(Placement(transformation(extent={{-400,-140},{-360,-100}}),
-      iconTransformation(extent={{-240,-140},{-200,-100}})));
+      iconTransformation(extent={{-240,-198},{-200,-158}})));
 
   Modelica.Blocks.Interfaces.RealInput uCoo(
     final unit="1")
     "Cooling loop signal"
     annotation(Placement(transformation(extent={{-400,-100},{-360,-60}}),
-      iconTransformation(extent={{-240,-60},{-200,-20}})));
+      iconTransformation(extent={{-240,-118},{-200,-78}})));
 
   Modelica.Blocks.Interfaces.RealInput uFan(
     final unit="1")
     "Fan signal"
     annotation(Placement(transformation(extent={{-400,60},{-360,100}}),
-      iconTransformation(extent={{-240,20},{-200,60}})));
+      iconTransformation(extent={{-240,80},{-200,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uEco(
     final unit="1")
     "Control signal for economizer"
     annotation (Placement(transformation(extent={{-400,100},{-360,140}}),
-      iconTransformation(extent={{-240,100},{-200,140}})));
+      iconTransformation(extent={{-240,160},{-200,200}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_Air_a(
-    redeclare final package Medium=MediumA)
-    "Return air port from zone"
-    annotation (Placement(transformation(extent={{350,30},{370,50}}),
-      iconTransformation(extent={{190,30},{210,50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_Air_a2(redeclare final package
+      Medium = MediumA) "Return air port from zone" annotation (Placement(
+        transformation(extent={{350,30},{370,50}}), iconTransformation(extent={{
+            190,30},{210,50}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_Air_b(
-    redeclare final package Medium = MediumA)
-    "Supply air port to the zone"
-    annotation (Placement(transformation(extent={{350,-50},{370,-30}}),
-      iconTransformation(extent={{190,-50},{210,-30}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_Air_b2(redeclare final package
+      Medium = MediumA) "Supply air port to the zone" annotation (Placement(
+        transformation(extent={{350,-50},{370,-30}}), iconTransformation(extent=
+           {{190,-50},{210,-30}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_CHW_b(
     redeclare final package Medium = MediumCHW) if has_CHW
@@ -88,11 +91,6 @@ partial model EquipmentInterfaces
     "Hot water supply port"
     annotation (Placement(transformation(extent={{-6,-190},{14,-170}}),
       iconTransformation(extent={{-70,-210},{-50,-190}})));
-
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    "Weather bus"
-    annotation (Placement(transformation(extent={{-340,-40},{-300,0}}),
-      iconTransformation(extent={{-182,166},{-162,186}})));
 
   Modelica.Blocks.Interfaces.RealOutput yFan_actual(
     final unit="1",
@@ -164,14 +162,81 @@ partial model EquipmentInterfaces
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={144,-120})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_Air_a1(redeclare final package
+      Medium = MediumA) if has_extOAPor
+                        "Ventilation inlet air port from the outdoor air"
+    annotation (Placement(transformation(extent={{-370,-50},{-350,-30}}),
+      iconTransformation(extent={{-210,-48},{-190,-28}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_Air_b1(redeclare final package
+      Medium = MediumA) if has_extOAPor
+                        "Exhaust air port to the outdoor air"
+    annotation (Placement(transformation(extent={{-370,30},{-350,50}}),
+      iconTransformation(extent={{-210,30},{-190,50}})));
+  BoundaryConditions.WeatherData.Bus weaBus if not has_extOAPor and has_ven
+                                                                annotation (
+      Placement(transformation(extent={{-310,-30},{-270,10}}),
+        iconTransformation(extent={{-168,170},{-148,190}})));
+  Sources.Outside                 out(redeclare final package Medium = MediumA,
+      final nPorts=2) if not has_extOAPor and has_ven
+    "Boundary conditions for outside air"
+    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
+  Sensors.VolumeFlowRate                 vAirOut(redeclare final package Medium =
+        MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not has_extOAPor
+     and has_ven
+    "Outdoor air volume flowrate"
+    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
+  Sensors.VolumeFlowRate                 VAirExh_flow(redeclare final package
+      Medium = MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not
+    has_extOAPor and has_ven
+    "Exhaust air volume flowrate"
+    annotation (Placement(transformation(extent={{-200,-40},{-220,-20}})));
+  Sensors.TemperatureTwoPort                 TAirOut(redeclare final package
+      Medium = MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not
+    has_extOAPor and has_ven
+    "Outdoor air temperature sensor"
+    annotation (Placement(transformation(extent={{-190,0},{-170,20}})));
+  Sensors.TemperatureTwoPort                 TAirExh(redeclare final package
+      Medium = MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not
+    has_extOAPor and has_ven
+    "Return air temperature sensor"
+    annotation (Placement(transformation(extent={{-170,-40},{-190,-20}})));
+  Actuators.Dampers.MixingBox                 eco(
+    redeclare final package Medium = MediumA,
+    final mOut_flow_nominal=mAirOut_flow_nominal,
+    final dpDamOut_nominal=50,
+    final mRec_flow_nominal=mAir_flow_nominal,
+    final dpDamRec_nominal=50,
+    final mExh_flow_nominal=mAirOut_flow_nominal,
+    final dpDamExh_nominal=50) if not has_extOAPor and has_ven
+    "Outdoor air economizer"
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Sensors.TemperatureTwoPort                 TAirRet(redeclare final package
+      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
+    "Return air temperature sensor"
+    annotation (Placement(transformation(extent={{-140,34},{-120,54}})));
+  Sensors.VolumeFlowRate                 vAirRet(redeclare final package Medium =
+        MediumA, m_flow_nominal=mAir_flow_nominal) "Return air volume flowrate"
+    annotation (Placement(transformation(extent={{-110,34},{-90,54}})));
+  Sensors.VolumeFlowRate                 vAirMix(redeclare final package Medium =
+        MediumA, final m_flow_nominal=mAir_flow_nominal) if has_ven
+    "Mixed air volume flowrate"
+    annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
+  Sensors.TemperatureTwoPort                 TAirMix(redeclare final package
+      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal) if has_ven
+    "Mixed air temperature sensor"
+    annotation (Placement(transformation(extent={{-130,-16},{-110,4}})));
 protected
   final parameter Boolean has_HW=(heaCoiTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
-    "Does the zone equipment have a hot water heating coil?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
+    "Does the zone equipment have a hot water heating coil?";
 
   final parameter Boolean has_CHW=(cooCoiTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou.chiWat)
-    "Does the zone equipment have a chilled water cooling coil?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
+    "Does the zone equipment have a chilled water cooling coil?";
+
+  final parameter Boolean has_extOAPor=(oaPorTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaPorts)
+    "Does the zone equipment have ports for receiving outdoor air?";
+
+  final parameter Boolean has_ven=((oaPorTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix) or (oaPorTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaPorts))
+    "Does the zone equipment provide outdoor air for ventilation?";
 
 equation
   connect(THWRet.port_a,valHW. port_a)
@@ -191,6 +256,42 @@ equation
     annotation (Line(points={{104,-120},{104,-180}}, color={0,127,255}));
   connect(TCHWEnt.port_a, port_CHW_a)
     annotation (Line(points={{144,-130},{144,-180}}, color={0,127,255}));
+  connect(weaBus, out.weaBus) annotation (Line(
+      points={{-290,-10},{-276,-10},{-276,-9.8},{-260,-9.8}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-240,-8},{-230,
+          -8},{-230,10},{-220,10}}, color={0,127,255}));
+  connect(out.ports[2], VAirExh_flow.port_b) annotation (Line(points={{-240,-12},
+          {-230,-12},{-230,-30},{-220,-30}}, color={0,127,255}));
+  connect(vAirOut.port_b, TAirOut.port_a)
+    annotation (Line(points={{-200,10},{-190,10}}, color={0,127,255}));
+  connect(TAirOut.port_b, eco.port_Out) annotation (Line(points={{-170,10},{-166,
+          10},{-166,6},{-160,6}}, color={0,127,255}));
+  connect(TAirExh.port_a, eco.port_Exh) annotation (Line(points={{-170,-30},{-166,
+          -30},{-166,-6},{-160,-6}}, color={0,127,255}));
+  connect(VAirExh_flow.port_a, TAirExh.port_b)
+    annotation (Line(points={{-200,-30},{-190,-30}}, color={0,127,255}));
+  connect(uEco, eco.y) annotation (Line(points={{-380,120},{-150,120},{-150,12}},
+        color={0,0,127}));
+  connect(eco.port_Ret, TAirMix.port_a)
+    annotation (Line(points={{-140,-6},{-130,-6}}, color={0,127,255}));
+  connect(TAirRet.port_b, vAirRet.port_a)
+    annotation (Line(points={{-120,44},{-110,44}}, color={0,127,255}));
+  connect(vAirRet.port_b, eco.port_Sup) annotation (Line(points={{-90,44},{-80,44},
+          {-80,20},{-140,20},{-140,6}}, color={0,127,255}));
+  connect(TAirMix.port_b, vAirMix.port_a) annotation (Line(points={{-110,-6},{-104,
+          -6},{-104,-6},{-100,-6}}, color={0,127,255}));
+  connect(port_Air_a1, TAirMix.port_a) annotation (Line(points={{-360,-40},{-230,
+          -40},{-230,-60},{-130,-60},{-130,-6}}, color={0,127,255}));
+  connect(port_Air_b1, vAirRet.port_b) annotation (Line(points={{-360,40},{-140,
+          40},{-140,20},{-80,20},{-80,44},{-90,44}}, color={0,127,255}));
+  connect(TAirRet.port_a, port_Air_a2) annotation (Line(points={{-140,44},{-140,
+          60},{340,60},{340,40},{360,40}}, color={0,127,255}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(
