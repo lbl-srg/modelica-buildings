@@ -1,4 +1,4 @@
-within Buildings.Fluid.SolarCollectors.Controls;
+within Buildings.Obsolete.Fluid.SolarCollectors.Controls;
 model SolarPumpController
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   extends Modelica.Blocks.Icons.Block;
@@ -65,6 +65,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (    defaultComponentName = "pumCon",
+   obsolete = "Obsolete model - use Buildings.Fluid.SolarCollectors.Controls.CollectorPump instead",
     Documentation(info = "<html>
       <p>
         This component models a pump controller which might be used in a solar thermal system.
@@ -90,8 +91,14 @@ equation
         John Wiley &amp; Sons, Inc.<br/>
       </p>
   </html>",
-  revisions = "<html>
+  revisions="<html>
     <ul>
+<li>
+November 8, 2022, by Michael Wetter:<br/>
+Moved to <code>Buildings.Obsolete</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">issue 3074</a>.
+</li>
       <li>
         January 15, 2013 by Peter Grant <br/>
         First implementation
