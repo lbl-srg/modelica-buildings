@@ -1,24 +1,23 @@
 within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model DomesticWaterMixer "A model for a domestic water mixer"
   replaceable package Medium = Buildings.Media.Water "Water media model";
+  final parameter Modelica.Blocks.Types.SimpleController controllerType = Modelica.Blocks.Types.SimpleController.PI "Type of controller";
   parameter Modelica.Units.SI.Temperature TSet = 273.15+40 "Temperature setpoint of tempered hot water outlet";
   parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal "Nominal doemstic hot water flow rate";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") "Pressure difference";
   parameter Real k(min=0) = 2 "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
-          conPID.controllerType == Modelica.Blocks.Types.SimpleController.PI or
-          conPID.controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block";
   Modelica.Fluid.Interfaces.FluidPort_b port_tw(redeclare package Medium =
         Medium) "Port for tempered water outlet"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Controls.Continuous.LimPID conPID(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    controllerType = controllerType,
     k=k,
     Ti=Ti,
     reset=Buildings.Types.Reset.Parameter)
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package Medium
-      = Medium, m_flow_nominal=mDhw_flow_nominal) "Tempered water temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemTw(redeclare package Medium =
+        Medium, m_flow_nominal=mDhw_flow_nominal) "Tempered water temperature sensor"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.Constant conTSetCon(k=TSet) "Temperature setpoint for domestic tempered water supply to consumer"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
