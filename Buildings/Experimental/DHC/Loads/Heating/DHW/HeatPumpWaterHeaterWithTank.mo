@@ -54,15 +54,29 @@ model HeatPumpWaterHeaterWithTank
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,6})));
+  Modelica.Blocks.Interfaces.RealInput uPum
+    "Control signal for pump serving source [0-1]"
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}}),
+        iconTransformation(extent={{-120,10},{-100,30}})));
+  Modelica.Blocks.Math.Gain gai(k=mHw_flow_nominal)
+    "Gain for control signal controlling source pump"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Fluid.Movers.FlowControlled_m_flow pumHw(
+    redeclare package Medium = Medium,
+    m_flow_nominal=mHw_flow_nominal,
+    addPowerToMedium=false,
+    nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal=0) "Pump to move water through the heat exchanger to the tank"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={50,40})));
 equation
   connect(tan.port_a, senTemTankOut.port_a)
     annotation (Line(points={{-40,60},{-10,60}},
                                              color={0,127,255}));
   connect(tan.portHex_b, heaPum.port_a1) annotation (Line(points={{-40,52},
           {-40,6},{-10,6}},                           color={0,127,255}));
-  connect(tan.portHex_a, senTemHPOut.port_b) annotation (Line(points={{-40,56.2},
-          {-20,56.2},{-20,40},{80,40},{80,6},{60,6}},
-                                color={0,127,255}));
   connect(heaPum.port_b1, senTemHPOut.port_a)
     annotation (Line(points={{10,6},{40,6}},              color={0,127,255}));
   connect(tan.port_b, port_a1)
@@ -77,6 +91,14 @@ equation
           -20},{70,0},{110,0}},     color={0,0,127}));
   connect(TSetHw, heaPum.TSet) annotation (Line(points={{-110,0},{-60,0},{-60,20},
           {-20,20},{-20,8},{-12,8},{-12,9}}, color={0,0,127}));
+  connect(senTemHPOut.port_b, pumHw.port_a) annotation (Line(points={{60,6},{80,
+          6},{80,40},{60,40}}, color={0,127,255}));
+  connect(pumHw.port_b, tan.portHex_a) annotation (Line(points={{40,40},{-20,40},
+          {-20,56.2},{-40,56.2}}, color={0,127,255}));
+  connect(gai.y, pumHw.m_flow_in) annotation (Line(points={{-59,30},{0,30},{0,
+          20},{50,20},{50,28}}, color={0,0,127}));
+  connect(gai.u, uPum) annotation (Line(points={{-82,30},{-90,30},{-90,20},{
+          -110,20}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},

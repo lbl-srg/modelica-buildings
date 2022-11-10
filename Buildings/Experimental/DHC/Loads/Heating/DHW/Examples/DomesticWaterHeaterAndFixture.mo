@@ -69,6 +69,9 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
+  Modelica.Blocks.Sources.Constant conuPumHw(k=0.5)
+    "Flow setpoint for circulation pump between heat pump and tank"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
   connect(tmv.TTw, TTw)
     annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},color={0,0,127}));
@@ -93,5 +96,7 @@ equation
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
   connect(loaDHW.mDhw, mDhw) annotation (Line(points={{61,-5},{80,-5},{80,-60},
           {110,-60}}, color={0,0,127}));
+  connect(conuPumHw.y, genDHW.uPum) annotation (Line(points={{-79,30},{-60,30},
+          {-60,2},{-41,2}}, color={0,0,127}));
   annotation (experiment(StopTime=3600, Interval=1));
 end DomesticWaterHeaterAndFixture;
