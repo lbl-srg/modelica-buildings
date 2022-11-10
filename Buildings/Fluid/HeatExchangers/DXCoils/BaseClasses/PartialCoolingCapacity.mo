@@ -66,7 +66,7 @@ partial block PartialCoolingCapacity
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
 
 protected
-  final parameter Modelica.SIUnits.MassFlowRate m_flow_small=1E-4*sta[nSta].nomVal.m_flow_nominal
+  final parameter Modelica.SIunits.MassFlowRate m_flow_small=1E-4*sta[nSta].nomVal.m_flow_nominal
     "Small mass flow rate for regularization";
 
   Boolean checkBoundsTEva[nSta]
@@ -80,8 +80,8 @@ initial algorithm
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
       Buildings.Utilities.Math.Functions.biquadratic(
         a=sta[iSta].perCur.capFunT,
-        x1=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
-        x2=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
+        x1=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
+        x2=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
       msg="Capacity as a function of temperature ",
       curveName="sta[" + String(iSta) + "].perCur.capFunT");
 
@@ -97,8 +97,8 @@ initial algorithm
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
       Buildings.Utilities.Math.Functions.biquadratic(
         a=sta[iSta].perCur.EIRFunT,
-        x1=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
-        x2=Modelica.Units.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
+        x1=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TEvaIn_nominal),
+        x2=Modelica.SIunits.Conversions.to_degC(sta[iSta].nomVal.TConIn_nominal)),
       msg="EIR as a function of temperature ",
       curveName="sta[" + String(iSta) + "].perCur.EIRFunT");
 
@@ -129,11 +129,11 @@ equation
            + String(time) + ".
     stage     = " + String(iSta) + "
     TEvaInMin = " + String(sta[iSta].perCur.TEvaInMin) + " Kelvin (" + String(
-          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
+          Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
     TEvaIn    = " + String(TEvaIn) + " Kelvin (" + String(
-          Modelica.Units.Conversions.to_degC(TEvaIn)) + " degC)
+          Modelica.SIunits.Conversions.to_degC(TEvaIn)) + " degC)
     TEvaInMax = " + String(sta[iSta].perCur.TEvaInMax) + " Kelvin (" + String(
-          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
+          Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
     Extrapolation can introduce large errors.
     This warning will only be reported once for each stage.",
         level=AssertionLevel.warning);
@@ -146,11 +146,11 @@ equation
            + String(time) + ".
     stage     = " + String(iSta) + "
     TConInMin = " + String(sta[iSta].perCur.TConInMin) + " Kelvin (" + String(
-          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
+          Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
     TConIn    = " + String(TConIn) + " Kelvin (" + String(
-          Modelica.Units.Conversions.to_degC(TConIn)) + " degC)
+          Modelica.SIunits.Conversions.to_degC(TConIn)) + " degC)
     TConInMax = " + String(sta[iSta].perCur.TConInMax) + " Kelvin (" + String(
-          Modelica.Units.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
+          Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
     Extrapolation can introduce large errors.
     This warning will only be reported once for each stage.",
         level=AssertionLevel.warning);
@@ -174,8 +174,8 @@ if stage > 0 then
     cap_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
         x1=Buildings.Utilities.Math.Functions.biquadratic(
           a=sta[iSta].perCur.capFunT,
-          x1=Modelica.Units.Conversions.to_degC(TEvaIn),
-          x2=Modelica.Units.Conversions.to_degC(TConIn)),
+          x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
+          x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
         x2=0.001,
         deltaX=0.0001)
         "Cooling capacity modification factor as function of temperature";
@@ -188,8 +188,8 @@ if stage > 0 then
     EIR_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
         x1=Buildings.Utilities.Math.Functions.biquadratic(
           a=sta[iSta].perCur.EIRFunT,
-          x1=Modelica.Units.Conversions.to_degC(TEvaIn),
-          x2=Modelica.Units.Conversions.to_degC(TConIn)),
+          x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
+          x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
         x2=0.001,
         deltaX=0.0001);
     EIR_FF[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
