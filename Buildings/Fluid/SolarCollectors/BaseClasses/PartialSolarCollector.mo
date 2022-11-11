@@ -15,7 +15,10 @@ model PartialSolarCollector "Partial model for solar collectors"
     "Surface azimuth (0 for south-facing; -90 degree for east-facing; +90 degree for west facing";
   parameter Modelica.Units.SI.Angle til(displayUnit="deg")
     "Surface tilt (0 for horizontally mounted collector)";
-  parameter Real rho "Ground reflectance";
+  parameter Real rho(
+    final min=0,
+    final max=1,
+    final unit = "1") "Ground reflectance";
   parameter Modelica.Units.SI.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (default: cp_copper*mDry*nPanels)";
 
@@ -180,11 +183,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
       connect(vol[nSeg].ports[2], port_b) annotation (Line(
-      points={{50,-6},{50,0},{94,0},{94,4.44089e-16},{100,4.44089e-16}},
+      points={{49,-6},{49,0},{94,0},{94,4.44089e-16},{100,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[1].ports[1], res.port_b) annotation (Line(
-      points={{46,-6},{46,0},{-40,0}},
+      points={{47,-6},{47,0},{-40,0}},
       color={0,127,255},
       smooth=Smooth.None));
       for i in 1:(nSeg - 1) loop
