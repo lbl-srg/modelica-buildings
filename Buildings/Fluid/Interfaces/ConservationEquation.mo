@@ -91,7 +91,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
         T=T_start,
         p=p_start,
         X=X_start[1:Medium.nXi])) + (T_start - Medium.reference_T)*CSen,
-      nominal=1E5) "Internal energy of fluid";
+      nominal=fluidVolume*rho_default*cp_default) "Internal energy of fluid";
 
   Modelica.Units.SI.Mass m(start=fluidVolume*rho_start, stateSelect=if
         massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then

@@ -15,7 +15,8 @@ model Unconditioned
     computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  parameter Modelica.Units.SI.Volume VRoo=453.1 "Room volume";
+  //parameter Modelica.Units.SI.Volume VRoo=453.1 "Room volume";
+  parameter Modelica.Units.SI.Volume VRoo=zon.V "Room volume";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=VRoo*1.2*0.3/3600
     "Nominal mass flow rate";
   Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
