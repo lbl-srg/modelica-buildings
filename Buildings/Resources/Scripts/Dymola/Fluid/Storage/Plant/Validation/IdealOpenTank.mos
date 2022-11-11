@@ -1,0 +1,34 @@
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.IdealOpenTank",
+ stopTime=3600,
+ tolerance=1e-06,
+ method="dassl",
+ resultFile="IdealOpenTank");
+// Plot commands
+createPlot(id=1,
+ position={38, 21, 929, 557},
+ y={"ideFloSou.m_flow", "mTanSup_flow.m_flow", "ideCon.senMasFloSup.m_flow", "ideCon.senMasFloRet.m_flow"},
+ range={0.0, 3600.0, -5.0, 5.0},
+ grid=true,
+ subPlot=101,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
+ timeUnit="s",
+ displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
+createPlot(id=1,
+ position={38, 21, 929, 557},
+ y={"ideCon.senRelPreSup.p_rel", "ideCon.senRelPreRet.p_rel"},
+ range={0.0, 3600.0, -500000.0, 500000.0},
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}, {238,46,47}},
+ timeUnit="s",
+ displayUnits={"Pa", "Pa"});
+createPlot(id=1,
+ position={38, 21, 929, 557},
+ y={"ideCon.PEleSup", "ideCon.PEleRet"},
+ range={0.0, 3600.0, -1000.0, 1000.0},
+ grid=true,
+ subPlot=103,
+ colors={{28,108,200}, {238,46,47}},
+ timeUnit="s",
+ displayUnits={"W", "W"});
+

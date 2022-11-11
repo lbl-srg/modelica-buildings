@@ -41,11 +41,11 @@ model IdealConnection
   Buildings.Fluid.Sensors.RelativePressure senRelPreSup(
     redeclare final package Medium = Medium)
     "Pressure rise on the supply line"
-    annotation (Placement(transformation(extent={{-10,20},{10,0}})));
+    annotation (Placement(transformation(extent={{10,20},{-10,0}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPreRet(
     redeclare final package Medium = Medium)
     "Pressure rise on the return line"
-    annotation (Placement(transformation(extent={{-10,-20},{10,-40}})));
+    annotation (Placement(transformation(extent={{10,-20},{-10,-40}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFloSup(
     redeclare final package Medium = Medium)
     "Mass flow rate on the supply line"
@@ -88,14 +88,6 @@ equation
           10},{-30,74},{-6,74},{-6,68}}, color={0,0,127}));
   connect(ideSouRet.m_flow_in, add2.y) annotation (Line(points={{6,-52},{6,-46},
           {-30,-46},{-30,10},{-38,10}}, color={0,0,127}));
-  connect(senRelPreSup.port_b, ideSouSup.port_b) annotation (Line(points={{10,
-          10},{14,10},{14,60},{10,60}}, color={0,127,255}));
-  connect(senRelPreSup.port_a, ideSouSup.port_a) annotation (Line(points={{-10,
-          10},{-14,10},{-14,60},{-10,60}}, color={0,127,255}));
-  connect(senRelPreRet.port_b, ideSouRet.port_a) annotation (Line(points={{10,
-          -30},{16,-30},{16,-60},{10,-60}}, color={0,127,255}));
-  connect(senRelPreRet.port_a, ideSouRet.port_b) annotation (Line(points={{-10,
-          -30},{-16,-30},{-16,-60},{-10,-60}}, color={0,127,255}));
   connect(port_aFroChi, senMasFloSup.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
   connect(senMasFloSup.port_b, ideSouSup.port_a)
@@ -120,4 +112,12 @@ equation
                                color={0,0,127}));
   connect(idePumPowSup.PEle, PEleSup) annotation (Line(points={{61,30},{110,30}},
                              color={0,0,127}));
+  connect(senRelPreSup.port_a, ideSouSup.port_b) annotation (Line(points={{10,
+          10},{14,10},{14,60},{10,60}}, color={0,127,255}));
+  connect(senRelPreSup.port_b, ideSouSup.port_a) annotation (Line(points={{-10,
+          10},{-14,10},{-14,60},{-10,60}}, color={0,127,255}));
+  connect(senRelPreRet.port_a, ideSouRet.port_a) annotation (Line(points={{10,
+          -30},{14,-30},{14,-60},{10,-60}}, color={0,127,255}));
+  connect(senRelPreRet.port_b, ideSouRet.port_b) annotation (Line(points={{-10,
+          -30},{-14,-30},{-14,-60},{-10,-60}}, color={0,127,255}));
 end IdealConnection;
