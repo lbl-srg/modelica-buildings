@@ -265,7 +265,7 @@ that can lead to wrong simulation results):
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
     </td>
     <td valign=\"top\">Corrected wrong temperature in assignment of <code>sta2_default</code>.
-                       For <code>Buildings.Media.Air</code> and <code>Buildings.Media.Water<code>
+                       For <code>Buildings.Media.Air</code> and <code>Buildings.Media.Water</code>
                        this error does not affect the results.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>
