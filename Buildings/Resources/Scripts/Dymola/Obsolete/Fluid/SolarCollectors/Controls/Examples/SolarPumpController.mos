@@ -1,8 +1,8 @@
 removePlots();
-simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
+simulateModel("Buildings.Obsolete.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
- y = {"pumCon.on"},
+ y = {"pumCon.y"},
  range = {0.0, 88000.0, -0.1, 1.2000000000000002},
  autoscale = true,
  autoerase = true,
