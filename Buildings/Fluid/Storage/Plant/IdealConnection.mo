@@ -37,7 +37,7 @@ model IdealConnection
         rotation=-90,
         origin={-60,110})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Fluid.Sensors.RelativePressure senRelPreSup(
     redeclare final package Medium = Medium)
     "Pressure rise on the supply line"
@@ -79,15 +79,21 @@ model IdealConnection
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,-20})));
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
+    f=20/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-40,10})));
 equation
   connect(add2.u2, mTanSet_flow)
-    annotation (Line(points={{-62,4},{-90,4},{-90,110}}, color={0,0,127}));
+    annotation (Line(points={{-82,4},{-90,4},{-90,110}}, color={0,0,127}));
   connect(add2.u1, mChiSet_flow)
-    annotation (Line(points={{-62,16},{-70,16},{-70,110}}, color={0,0,127}));
-  connect(add2.y, ideSouSup.m_flow_in) annotation (Line(points={{-38,10},{-30,
-          10},{-30,74},{-6,74},{-6,68}}, color={0,0,127}));
-  connect(ideSouRet.m_flow_in, add2.y) annotation (Line(points={{6,-52},{6,-46},
-          {-30,-46},{-30,10},{-38,10}}, color={0,0,127}));
+    annotation (Line(points={{-82,16},{-84,16},{-84,28},{-70,28},{-70,110}},
+                                                           color={0,0,127}));
   connect(port_aFroChi, senMasFloSup.port_a)
     annotation (Line(points={{-100,60},{-60,60}}, color={0,127,255}));
   connect(senMasFloSup.port_b, ideSouSup.port_a)
@@ -120,4 +126,10 @@ equation
           -30},{14,-30},{14,-60},{10,-60}}, color={0,127,255}));
   connect(senRelPreRet.port_b, ideSouRet.port_b) annotation (Line(points={{-10,
           -30},{-14,-30},{-14,-60},{-10,-60}}, color={0,127,255}));
+  connect(add2.y, fil.u)
+    annotation (Line(points={{-58,10},{-52,10}}, color={0,0,127}));
+  connect(fil.y, ideSouSup.m_flow_in) annotation (Line(points={{-29,10},{-20,10},
+          {-20,74},{-6,74},{-6,68}}, color={0,0,127}));
+  connect(fil.y, ideSouRet.m_flow_in) annotation (Line(points={{-29,10},{-20,10},
+          {-20,-44},{6,-44},{6,-52}}, color={0,0,127}));
 end IdealConnection;
