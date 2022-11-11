@@ -440,8 +440,8 @@ that can lead to wrong simulation results):
                        Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
                        Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleStage<br/>
                        Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed<br/>
-   	                   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled<br/>
-	                   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity
 
     </td>
     <td valign=\"top\">Corrected performance calculation as a function of mass flow rates.<br/>
@@ -461,7 +461,16 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
     </td>
 </tr>
-</table>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Corrected wrong temperature in assignment of <code>sta2_default</code>.
+                       For <code>Buildings.Media.Air</code> and <code>Buildings.Media.Water<code>
+                       this error does not affect the results.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>
+    </td>
+  </tr>
+  </table>
 <!-- Uncritical errors -->
 <p>
 The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
