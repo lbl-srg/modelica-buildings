@@ -71,5 +71,12 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-80,78},{78,-80}},
           textColor={28,108,200},
-          textString="P")}));
+          textString="P")}), Documentation(info="<html>
+<p>
+This block estimates the pump power consumption as
+<i>P = V&#775;&nbsp;&Delta;p &frasl; &eta;</i>.
+Both <i>V&#775;</i> and <i>&Delta;p</i> are individually bounded to be
+non-negative.
+</p>
+</html>"));
 end IdealPumpPower;

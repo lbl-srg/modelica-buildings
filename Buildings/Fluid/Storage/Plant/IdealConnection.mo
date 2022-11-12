@@ -132,4 +132,29 @@ equation
           {-20,74},{-6,74},{-6,68}}, color={0,0,127}));
   connect(fil.y, ideSouRet.m_flow_in) annotation (Line(points={{-29,10},{-20,10},
           {-20,-44},{6,-44},{6,-52}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This ideal model is a simplified version of
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.NetworkConnection\">
+Buildings.Fluid.Storage.Plant.NetworkConnection</a>.
+In this model, both sides of the connection has an ideal flow source
+(<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.IdealSource\">
+Buildings.Fluid.Movers.BaseClasses.IdealSource</a>)
+to force a flow rate to maintain the flow rate setpoint of at the tank.
+</p>
+<p>
+Because the open tank forces the storage plant to be at atmospheric temperature,
+on both supply and return sides:
+</p>
+<ul>
+<li>
+A pump is needed to generate a flow from the tank to the pressurised network,
+both when the plant is outputting CHW or being charged by a remote plant.
+</li>
+<li>
+A valve is needed to throttle the flow from the pressurised network to the tank
+at atmospheric pressure.
+</li>
+</ul>
+</html>"));
 end IdealConnection;
