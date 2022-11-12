@@ -137,17 +137,13 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final m_flow_nominal=mBui_flow_nominal)
     "Building return temperature sensor"
     annotation (Placement(transformation(extent={{-220,210},{-200,190}})));
-  Modelica.Fluid.Valves.ValveIncompressible cheVal(
+  Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
-    final dp_nominal=dpCheVal_nominal,
     final m_flow_nominal=mByp_flow_nominal,
-    final filteredOpening=true,
-    riseTime(
-      displayUnit="s")=60,
-    final checkValve=true)
+    final dpValve_nominal=dpCheVal_nominal)
     "Check valve (backflow preventer)"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-10})));
   Modelica.Blocks.Math.Add dTdis(
@@ -165,10 +161,6 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final k=1)
     "Integration"
     annotation (Placement(transformation(extent={{260,-170},{280,-150}})));
-  Modelica.Blocks.Sources.Constant ope(
-    final k=1)
-    "Check valve is always open in the positive flow direction"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Controls.Continuous.LimPID con(
     final controllerType=controllerType,
     final k=k,
@@ -243,8 +235,6 @@ equation
     annotation (Line(points={{40,189},{40,-98},{58,-98}}, color={0,0,127}));
   connect(senTDisSup.T, dTdis.u2)
     annotation (Line(points={{-170,-269},{-170,-110},{58,-110}}, color={0,0,127}));
-  connect(ope.y, cheVal.opening)
-    annotation (Line(points={{-79,-10},{-58,-10}}, color={0,0,127}));
   connect(TSetDisRet, con.u_s)
     annotation (Line(points={{-318,0},{-222,0}},                     color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)
@@ -253,10 +243,6 @@ equation
     annotation (Line(points={{-40,-280},{220,-280},{220,200},{230,200}}, color={0,127,255}));
   connect(senTBuiSup.port_b, ports_bChiWat[1])
     annotation (Line(points={{250,200},{300,200}}, color={0,127,255}));
-  connect(spl.port_3, cheVal.port_a)
-    annotation (Line(points={{-50,190},{-50,0},{-50,0}}, color={0,127,255}));
-  connect(cheVal.port_b, jun.port_3)
-    annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
   connect(const.y, swi.u1)
     annotation (Line(points={{-139,130},{-110,130},{
           -110,80},{-82,80},{-82,78}}, color={0,0,127}));
@@ -275,6 +261,10 @@ equation
           -260,0},{-260,76},{-182,76}}, color={0,0,127}));
   connect(onOffCon.y, notCon.u)
     annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
+  connect(jun.port_3, cheVal.port_a)
+    annotation (Line(points={{-50,-270},{-50,-20}}, color={0,127,255}));
+  connect(cheVal.port_b, spl.port_3)
+    annotation (Line(points={{-50,0},{-50,190}}, color={0,127,255}));
  annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
@@ -299,7 +289,11 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </p>
 </html>",
       revisions="<html>
-<ul>
+      <ul>
+<li>
+November 11, 2022, by Michael Wetter:<br/>
+Changed check valve to use version of <code>Buildings</code> library, and hence no outer <code>system</code> is needed.
+</li>      
 <li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model and standard PI control.</li>
 <li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
