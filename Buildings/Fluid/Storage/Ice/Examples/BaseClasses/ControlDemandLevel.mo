@@ -110,7 +110,7 @@ block ControlDemandLevel "Controller that outputs the demand level"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Modelica.Blocks.Sources.Constant proGaiDemLev1(k=k*0.5)
     annotation (Placement(transformation(extent={{-200,62},{-180,82}})));
-  Modelica.Blocks.Sources.Constant proGaiDemLev2(k=k*1.25)
+  Modelica.Blocks.Sources.Constant proGaiDemLev2(k=k*0.75)
     annotation (Placement(transformation(extent={{-200,30},{-180,50}})));
   Modelica.Blocks.Sources.Constant intGaiDemLev2(k=Ti)
     annotation (Placement(transformation(extent={{-200,-32},{-180,-12}})));

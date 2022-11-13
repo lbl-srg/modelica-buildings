@@ -40,20 +40,6 @@ partial block PartialControlMode
         transformation(extent={{240,-220},{280,-180}}), iconTransformation(
           extent={{240,-220},{280,-180}})));
 
-  Controls.OBC.CDL.Integers.LessThreshold allOff(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
-    "Outputs true if all should be off"
-    annotation (Placement(transformation(extent={{-198,170},{-178,190}})));
-  Controls.OBC.CDL.Logical.Not not1
-    annotation (Placement(transformation(extent={{-158,170},{-138,190}})));
-equation
-  connect(demLev, allOff.u)
-    annotation (Line(points={{-260,180},{-200,180}}, color={255,127,0}));
-  connect(allOff.y, not1.u)
-    annotation (Line(points={{-176,180},{-160,180}}, color={255,0,255}));
-  connect(not1.y, yWatChi) annotation (Line(points={{-136,180},{42,180},{42,20},
-          {260,20}}, color={255,0,255}));
-  connect(not1.y, yPumWatChi) annotation (Line(points={{-136,180},{42,180},{42,
-          20},{40,20},{40,-240},{260,-240}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
             240}}),                                                                          graphics={  Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent={{-240,
@@ -75,7 +61,7 @@ The ice tank will not be charged in this mode.
 </html>", revisions="<html>
 <ul>
 <li>
-September 21, 2022, by Michael Wetter:<br/>
+November 10, 2022, by Ettore Zanetti:<br/>
 First implementation.
 </li>
 </ul>

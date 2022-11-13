@@ -1,10 +1,6 @@
 within Buildings.Fluid.Storage.Ice.Examples.BaseClasses;
 block ControlHighPowerMode "Closed loop controller"
   extends PartialControlMode;
-  Controls.OBC.CDL.Interfaces.RealInput SOC(final unit="K", displayUnit="degC")
-                          "Measurement signal" annotation (
-      Placement(transformation(extent={{-280,-128},{-240,-88}}),
-        iconTransformation(extent={{-278,-78},{-238,-38}})));
   Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=0.88, h=0.1)
     annotation (Placement(transformation(extent={{-196,-118},{-176,-98}})));
   Controls.OBC.CDL.Logical.And andPumSto "Output true to enable storage pump"
@@ -17,11 +13,16 @@ block ControlHighPowerMode "Closed loop controller"
     annotation (Placement(transformation(extent={{-102,-20},{-82,0}})));
   Controls.OBC.CDL.Logical.Not not2
     annotation (Placement(transformation(extent={{58,-210},{78,-190}})));
+  Controls.OBC.CDL.Interfaces.RealInput SOC(final unit="1")
+                    "State of charge of ice tank"
+    annotation (Placement(transformation(extent={{-286,-130},{-246,-90}}),
+        iconTransformation(extent={{-280,-200},{-240,-160}})));
+  Controls.OBC.CDL.Integers.LessThreshold allOff(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
+    "Outputs true if all should be off"
+    annotation (Placement(transformation(extent={{-190,170},{-170,190}})));
+  Controls.OBC.CDL.Logical.Not not1
+    annotation (Placement(transformation(extent={{-134,168},{-114,188}})));
 equation
-  connect(SOC, lesThr.u)
-    annotation (Line(points={{-260,-108},{-198,-108}}, color={0,0,127}));
-  connect(allOff.y, not1.u)
-    annotation (Line(points={{-176,180},{-160,180}}, color={255,0,255}));
   connect(lesThr.y, andPumSto.u2)
     annotation (Line(points={{-174,-108},{-108,-108}}, color={255,0,255}));
   connect(demLev, intLesEquThr.u) annotation (Line(points={{-260,180},{-206,180},
@@ -48,7 +49,24 @@ equation
     annotation (Line(points={{80,-200},{260,-200}}, color={255,0,255}));
   connect(intLesEquThr.y, not2.u) annotation (Line(points={{-176,-40},{-142,-40},
           {-142,-202},{56,-202},{56,-200}}, color={255,0,255}));
+  connect(SOC, lesThr.u) annotation (Line(points={{-266,-110},{-264,-110},{-264,
+          -108},{-198,-108}}, color={0,0,127}));
+  connect(allOff.y, not1.u) annotation (Line(points={{-168,180},{-166,180},{
+          -166,178},{-136,178}}, color={255,0,255}));
+  connect(allOff.u, intLesEquThr.u) annotation (Line(points={{-192,180},{-192,
+          178},{-206,178},{-206,-40},{-200,-40}}, color={255,127,0}));
+  connect(not1.y, yWatChi) annotation (Line(points={{-112,178},{52,178},{52,20},
+          {260,20}}, color={255,0,255}));
+  connect(yPumWatChi, yWatChi) annotation (Line(points={{260,-240},{52,-240},{
+          52,20},{260,20}}, color={255,0,255}));
   annotation (Icon(graphics={                                                                                                                                                                           Text(lineColor={0,0,127},     extent={{-228,
               -94},{-6,-292}},
-          textString="High power mode")}));
+          textString="High power mode")}), Documentation(revisions="<html>
+<ul>
+<li>
+November 10, 2022, by Ettore Zanetti:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ControlHighPowerMode;
