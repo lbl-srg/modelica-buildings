@@ -165,6 +165,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mGly_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -177,6 +178,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mWatHex_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -189,6 +191,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mWatChiCon_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -201,6 +204,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mDis_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -213,8 +217,9 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mGly_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    final use_inputFilter=false)      "Pump" annotation (Placement(
+    final use_inputFilter=true)       "Pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -225,6 +230,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mGly_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -366,7 +372,7 @@ model DistrictCoolingIceTank
   Controls.OBC.CDL.Integers.Sources.Constant powMod(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency))
     "Power mode of plant (fixme, to be set dynamically)"
     annotation (Placement(transformation(extent={{-520,226},{-500,246}})));
-  BaseClasses.ControlDemandLevel conDemLev(k=0.1, Ti=120)
+  BaseClasses.ControlDemandLevel conDemLev(k=0.07,Ti=120)
     "Controller that outputs the demand level"
     annotation (Placement(transformation(extent={{-480,280},{-460,300}})));
   Sensors.TemperatureTwoPort senTemSupSec(
@@ -399,12 +405,12 @@ model DistrictCoolingIceTank
     tableName="tab1",
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Examples/LoadBlockData.txt"),
-
     columns=2:5,
     timeScale=1,
     offset={0,0,-288,0})
     "Data columns are t = y[0], Tdb = y[1], Twb = y[2], QCoo_flow = y[3], and CO2e = y[4]"
     annotation (Placement(transformation(extent={{480,200},{460,220}})));
+
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin
     "Convert Twb from Celsius to Kelvin"
     annotation (Placement(transformation(extent={{318,378},{298,398}})));
