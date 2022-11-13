@@ -165,6 +165,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mGly_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -177,6 +178,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mWatHex_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -189,6 +191,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mWatChiCon_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -201,6 +204,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mDis_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -213,8 +217,9 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mGly_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    final use_inputFilter=false)      "Pump" annotation (Placement(
+    final use_inputFilter=true)       "Pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -225,6 +230,7 @@ model DistrictCoolingIceTank
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     allowFlowReversal=false,
     m_flow_nominal=mGly_flow_nominal,
+    addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true)
                                       "Pump" annotation (Placement(
         transformation(
@@ -363,10 +369,10 @@ model DistrictCoolingIceTank
   Controls.OBC.CDL.Continuous.Sources.Constant chiWatTSet(k=TChiWatSet_nominal)
     "Set point for secondary chilled water temperature"
     annotation (Placement(transformation(extent={{-520,284},{-500,304}})));
-  Controls.OBC.CDL.Integers.Sources.Constant powMod(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency))
-    "Power mode of plant (fixme, to be set dynamically)"
-    annotation (Placement(transformation(extent={{-520,226},{-500,246}})));
-  BaseClasses.ControlDemandLevel conDemLev(k=0.1, Ti=120)
+  Controls.OBC.CDL.Integers.Sources.Constant powMod1(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.LowPower))
+    "Power mode of plant low mode"
+    annotation (Placement(transformation(extent={{-582,150},{-562,170}})));
+  BaseClasses.ControlDemandLevel conDemLev(k=0.07,Ti=120)
     "Controller that outputs the demand level"
     annotation (Placement(transformation(extent={{-480,280},{-460,300}})));
   Sensors.TemperatureTwoPort senTemSupSec(
@@ -399,18 +405,32 @@ model DistrictCoolingIceTank
     tableName="tab1",
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://Buildings/Resources/Data/Fluid/Storage/Ice/Examples/LoadBlockData.txt"),
-
     columns=2:5,
     timeScale=1,
     offset={0,0,-288,0})
     "Data columns are t = y[0], Tdb = y[1], Twb = y[2], QCoo_flow = y[3], and CO2e = y[4]"
     annotation (Placement(transformation(extent={{480,200},{460,220}})));
+
   Modelica.Thermal.HeatTransfer.Celsius.ToKelvin toKelvin
     "Convert Twb from Celsius to Kelvin"
     annotation (Placement(transformation(extent={{318,378},{298,398}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter norLoa(k=1/QDis_flow_nominal)
     "Normalize load"
     annotation (Placement(transformation(extent={{430,110},{410,130}})));
+  Controls.OBC.CDL.Integers.Switch intSwi
+    annotation (Placement(transformation(extent={{-514,170},{-494,190}})));
+  Controls.OBC.CDL.Integers.Switch intSwi1
+    annotation (Placement(transformation(extent={{-456,178},{-436,198}})));
+  Controls.OBC.CDL.Integers.Sources.Constant powMod2(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.Efficiency))
+    "Power mode of plant efficiency mode"
+    annotation (Placement(transformation(extent={{-580,190},{-560,210}})));
+  Controls.OBC.CDL.Integers.Sources.Constant powMod3(k=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.OperationModes.HighPower))
+    "Power mode of plant High mode"
+    annotation (Placement(transformation(extent={{-580,230},{-560,250}})));
+  Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=400, h=50)
+    annotation (Placement(transformation(extent={{-550,168},{-530,188}})));
+  Controls.OBC.CDL.Continuous.LessThreshold lesThr1(t=350, h=50)
+    annotation (Placement(transformation(extent={{-482,178},{-462,198}})));
 equation
   connect(pumSto.port_b, iceTan.port_a)
     annotation (Line(points={{-240,-40},{-240,0}}, color={0,127,255}));
@@ -528,9 +548,6 @@ equation
   connect(con.TSetLoa, chiWatTSet.y) annotation (Line(points={{-420.667,232.56},
           {-420.667,232},{-486,232},{-486,294},{-498,294}},
                                                 color={0,0,127}));
-  connect(con.powMod, powMod.y) annotation (Line(points={{-420.667,235.92},{
-          -459.333,235.92},{-459.333,236},{-498,236}},
-                                                color={255,127,0}));
   connect(conDemLev.y, con.demLev) annotation (Line(points={{-458,296},{-452,
           296},{-452,243.76},{-420.667,243.76}},                       color={
           255,127,0}));
@@ -571,6 +588,24 @@ equation
     annotation (Line(points={{408,120},{326,120},{326,22}}, color={0,0,127}));
   connect(norLoa.y, gaiPumSec.u) annotation (Line(points={{408,120},{400,120},{
           400,-50},{382,-50}}, color={0,0,127}));
+  connect(powMod1.y, intSwi.u3) annotation (Line(points={{-560,160},{-516,160},
+          {-516,172}}, color={255,127,0}));
+  connect(powMod2.y, intSwi.u1) annotation (Line(points={{-558,200},{-524,200},
+          {-524,188},{-516,188}}, color={255,127,0}));
+  connect(powMod3.y, intSwi1.u1) annotation (Line(points={{-558,240},{-480,240},
+          {-480,196},{-458,196}}, color={255,127,0}));
+  connect(intSwi.y, intSwi1.u3)
+    annotation (Line(points={{-492,180},{-458,180}}, color={255,127,0}));
+  connect(lesThr.y, intSwi.u2) annotation (Line(points={{-528,178},{-522,178},{
+          -522,180},{-516,180}}, color={255,0,255}));
+  connect(intSwi1.y, con.powMod) annotation (Line(points={{-434,188},{-436,188},
+          {-436,235.92},{-420.667,235.92}}, color={255,127,0}));
+  connect(intSwi1.u2, lesThr1.y)
+    annotation (Line(points={{-458,188},{-460,188}}, color={255,0,255}));
+  connect(loadBlock.y[4], lesThr.u) annotation (Line(points={{459,210},{459,322},
+          {-552,322},{-552,178}}, color={0,0,127}));
+  connect(lesThr1.u, lesThr.u) annotation (Line(points={{-484,188},{-512,188},{
+          -512,266},{-552,266},{-552,178}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=31536000,
@@ -588,6 +623,10 @@ System model for a district cooling that is served by a water chiller, a glycol 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 10, 2022, by Ettore Zanetti:<br/>
+Refactored implementation and added new control modes.
+</li>
 <li>
 September 8, 2022, by Michael Wetter:<br/>
 Refactored implementation.

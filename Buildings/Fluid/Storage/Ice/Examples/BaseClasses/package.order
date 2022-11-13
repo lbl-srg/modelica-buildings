@@ -2,6 +2,10 @@ ControlClosedLoop
 ControlDemandLevel
 ControlEfficiencyMode
 ControlLowPowerMode
+ControlHighPowerMode
+ModeWrapper
+PartialControlMode
 DemandLevels
 OperationModes
+Switch
 Validation

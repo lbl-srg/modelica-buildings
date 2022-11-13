@@ -71,8 +71,9 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
         transformation(extent={{240,-220},{280,-180}}), iconTransformation(
           extent={{240,-220},{280,-180}})));
 
-  ControlEfficiencyMode effMod "Controller used during efficiency mode"
-    annotation (Placement(transformation(extent={{0,80},{48,130}})));
+  Buildings.Fluid.Storage.Ice.Examples.BaseClasses.ModeWrapper ConMod
+    "Control wrapper for different modes"
+    annotation (Placement(transformation(extent={{-12,80},{36,130}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
   Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
@@ -122,56 +123,61 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
       final unit="K",
       displayUnit="degC") = 277.15) "Minimum waterl leaving temperature"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
+  Controls.OBC.CDL.Continuous.AddParameter addPar(p=0.5)
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=-2)
+  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=2.75)
     annotation (Placement(transformation(extent={{-168,200},{-148,220}})));
   Controls.OBC.CDL.Continuous.Switch swi2
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=273.15 + 5, h=3)
+    annotation (Placement(transformation(extent={{-202,-106},{-182,-86}})));
+  Controls.OBC.CDL.Logical.And andPumSto "Output true to enable storage pump"
+    annotation (Placement(transformation(extent={{140,118},{160,138}})));
+  Controls.OBC.CDL.Logical.And andPumSto1
+                                         "Output true to enable storage pump"
+    annotation (Placement(transformation(extent={{4,-136},{24,-116}})));
+  Controls.OBC.CDL.Logical.And andPumSto2
+                                         "Output true to enable storage pump"
+    annotation (Placement(transformation(extent={{150,-124},{170,-104}})));
 equation
-  connect(effMod.yWatChi, yWatChi) annotation (Line(points={{50,108},{160,108},
-          {160,20},{260,20}}, color={255,0,255}));
-  connect(effMod.yGlyChi, yGlyChi) annotation (Line(points={{50,104},{152,104},
-          {152,-20},{260,-20}}, color={255,0,255}));
+  connect(ConMod.yWatChi, yWatChi) annotation (Line(points={{38,108},{178,108},
+          {178,20},{260,20}}, color={255,0,255}));
+  connect(ConMod.yGlyChi, yGlyChi) annotation (Line(points={{38,104},{52,104},{
+          52,-20},{260,-20}},   color={255,0,255}));
   connect(booToRea1.y, yPumGlyChi)
     annotation (Line(points={{202,-120},{260,-120}}, color={0,0,127}));
-  connect(booToRea1.u, effMod.yPumGlyChi) annotation (Line(points={{178,-120},{140,
-          -120},{140,93.8},{50,93.8}}, color={255,0,255}));
   connect(booToRea2.y, yPumWatHex)
     annotation (Line(points={{202,-200},{260,-200}}, color={0,0,127}));
-  connect(booToRea2.u, effMod.yPumWatHex) annotation (Line(points={{178,-200},{
-          134,-200},{134,86},{50,86}}, color={255,0,255}));
-  connect(effMod.demLev, demLev) annotation (Line(points={{-2,126},{-220,126},{-220,
-          182},{-240,182},{-240,180},{-260,180}},
+  connect(booToRea2.u,ConMod. yPumWatHex) annotation (Line(points={{178,-200},{
+          134,-200},{134,86},{38,86}}, color={255,0,255}));
+  connect(ConMod.demLev, demLev) annotation (Line(points={{-14,126},{-174,126},
+          {-174,144},{-234,144},{-234,180},{-260,180}},
                                  color={255,127,0}));
   connect(yStoOn, booToRea3.y)
     annotation (Line(points={{260,120},{222,120}}, color={0,0,127}));
-  connect(effMod.yStoOn, booToRea3.u) annotation (Line(points={{50,118},{52,118},
-          {52,120},{198,120}}, color={255,0,255}));
   connect(yStoByp, booToRea4.y)
     annotation (Line(points={{260,80},{222,80}}, color={0,0,127}));
-  connect(booToRea4.u, effMod.yStoByp) annotation (Line(points={{198,80},{180,
-          80},{180,114},{50,114}}, color={255,0,255}));
+  connect(booToRea4.u,ConMod. yStoByp) annotation (Line(points={{198,80},{50,80},
+          {50,114},{38,114}},      color={255,0,255}));
   connect(swi.y, TChiGlySet) annotation (Line(points={{182,168},{222,168},{222,
           160},{260,160}}, color={0,0,127}));
-  connect(swi1.u2, effMod.yPumWatHex) annotation (Line(points={{178,-160},{134,
-          -160},{134,86},{50,86}}, color={255,0,255}));
+  connect(swi1.u2,ConMod. yPumWatHex) annotation (Line(points={{178,-160},{134,
+          -160},{134,86},{38,86}}, color={255,0,255}));
   connect(zer.y, swi1.u3) annotation (Line(points={{-178,-210},{160,-210},{160,
           -168},{178,-168}}, color={0,0,127}));
   connect(swi1.y, yPumGlyHex)
     annotation (Line(points={{202,-160},{260,-160}}, color={0,0,127}));
   connect(booToRea5.y, yPumWatChi)
     annotation (Line(points={{202,-240},{260,-240}}, color={0,0,127}));
-  connect(booToRea5.u, effMod.yPumWatChi) annotation (Line(points={{178,-240},{
-          128,-240},{128,82},{50,82}}, color={255,0,255}));
-  connect(swiPumSto.u2, effMod.yPumSto) annotation (Line(points={{178,-80},{148,
-          -80},{148,98},{50,98}}, color={255,0,255}));
+  connect(booToRea5.u,ConMod. yPumWatChi) annotation (Line(points={{178,-240},{
+          156,-240},{156,-150},{130,-150},{130,82},{38,82}},
+                                       color={255,0,255}));
+  connect(swiPumSto.u2,ConMod. yPumSto) annotation (Line(points={{178,-80},{128,
+          -80},{128,98},{38,98}}, color={255,0,255}));
   connect(swiPumSto.y, yPumSto)
     annotation (Line(points={{202,-80},{260,-80}}, color={0,0,127}));
   connect(swiPumSto.u3, zer.y) annotation (Line(points={{178,-88},{160,-88},{
           160,-210},{-178,-210}},         color={0,0,127}));
-  connect(effMod.yGlyChi, stoPumGlyHex.u2) annotation (Line(points={{50,104},{60,
-          104},{60,-20},{-20,-20},{-20,-152},{98,-152}}, color={255,0,255}));
   connect(stoPumGlyHex.u1, one.y) annotation (Line(points={{98,-144},{-178,-144}},
                                color={0,0,127}));
   connect(swi1.u1, stoPumGlyHex.y)
@@ -201,14 +207,15 @@ equation
           {-106,0},{-178,0}}, color={0,0,127}));
   connect(addPar.u, TSetLoa)
     annotation (Line(points={{-202,0},{-260,0}}, color={0,0,127}));
-  connect(effMod.yGlyChi, swi.u2) annotation (Line(points={{50,104},{106,104},{
-          106,168},{158,168}}, color={255,0,255}));
+  connect(ConMod.yGlyChi, swi.u2) annotation (Line(points={{38,104},{114,104},{
+          114,168},{158,168}}, color={255,0,255}));
   connect(addPar1.y, chiGlyTSet.f1) annotation (Line(points={{-146,210},{-138,
           210},{-138,180},{-102,180}}, color={0,0,127}));
   connect(addPar1.u, TSetLoa) annotation (Line(points={{-170,210},{-172,210},{
           -172,60},{-232,60},{-232,0},{-260,0}}, color={0,0,127}));
-  connect(effMod.yWatChi, swi2.u2) annotation (Line(points={{50,108},{112,108},
-          {112,200},{158,200}}, color={255,0,255}));
+  connect(ConMod.yWatChi, swi2.u2) annotation (Line(points={{38,108},{168,108},
+          {168,152},{152,152},{152,200},{158,200}},
+                                color={255,0,255}));
   connect(swi2.y, TChiWatSet)
     annotation (Line(points={{182,200},{260,200}}, color={0,0,127}));
   connect(swi.u1, chiGlyTSet.y)
@@ -219,6 +226,33 @@ equation
           90,150},{82,150}}, color={0,0,127}));
   connect(swi.u3, TSetChiOff.y) annotation (Line(points={{158,160},{90,160},{90,
           150},{82,150}}, color={0,0,127}));
+  connect(SOC,ConMod. SOC) annotation (Line(points={{-260,-180},{-116,-180},{
+          -116,-70},{-26,-70},{-26,88},{-14,88}},
+                                            color={0,0,127}));
+  connect(THexWatLea, greThr.u) annotation (Line(points={{-260,-100},{-212,-100},
+          {-212,-96},{-204,-96}}, color={0,0,127}));
+  connect(ConMod.yStoOn, andPumSto.u1) annotation (Line(points={{38,118},{126,
+          118},{126,128},{138,128}},
+                                color={255,0,255}));
+  connect(andPumSto.y, booToRea3.u) annotation (Line(points={{162,128},{190,128},
+          {190,120},{198,120}}, color={255,0,255}));
+  connect(greThr.y, andPumSto.u2) annotation (Line(points={{-180,-96},{-40,-96},
+          {-40,132},{54,132},{54,120},{138,120}}, color={255,0,255}));
+  connect(greThr.y, andPumSto1.u1) annotation (Line(points={{-180,-96},{-4,-96},
+          {-4,-126},{2,-126}}, color={255,0,255}));
+  connect(ConMod.yGlyChi, andPumSto1.u2) annotation (Line(points={{38,104},{52,
+          104},{52,-134},{30,-134},{30,-142},{-4,-142},{-4,-134},{2,-134}},
+                                                   color={255,0,255}));
+  connect(andPumSto1.y, stoPumGlyHex.u2) annotation (Line(points={{26,-126},{32,
+          -126},{32,-152},{98,-152}}, color={255,0,255}));
+  connect(ConMod.yPumGlyChi, andPumSto2.u1) annotation (Line(points={{38,93.8},
+          {38,92},{138,92},{138,-114},{148,-114}},          color={255,0,255}));
+  connect(andPumSto2.y, booToRea1.u) annotation (Line(points={{172,-114},{172,-120},
+          {178,-120}}, color={255,0,255}));
+  connect(andPumSto2.u2, andPumSto1.u1) annotation (Line(points={{148,-122},{68,
+          -122},{68,-96},{-4,-96},{-4,-126},{2,-126}}, color={255,0,255}));
+  connect(powMod, ConMod.powMod) annotation (Line(points={{-260,60},{-234,60},{
+          -234,104},{-22,104},{-22,112},{-14,112}}, color={255,127,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
             240}}),
@@ -238,6 +272,10 @@ and the load that should be served for each demand level.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 10, 2022, by Ettore Zanetti:<br/>
+Added control modes.
+</li>
 <li>
 October 5, 2022, by Michael Wetter:<br/>
 First implementation.
