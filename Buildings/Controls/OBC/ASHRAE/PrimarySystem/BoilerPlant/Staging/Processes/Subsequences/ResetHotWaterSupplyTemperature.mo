@@ -226,11 +226,11 @@ annotation (
            fillPattern=FillPattern.Solid),
          Text(
            extent={{-120,146},{100,108}},
-           lineColor={0,0,255},
+           textColor={0,0,255},
            textString="%name"),
          Text(
            extent={{-100,100},{100,-100}},
-           lineColor={0,0,0},
+           textColor={0,0,0},
            textString="S")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-100},{160,100}})),

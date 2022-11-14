@@ -588,7 +588,7 @@ annotation (
         borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,260},{120,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-10,120},{10,-140}},

@@ -137,7 +137,7 @@ equation
   connect(not3.y, and3.u2) annotation (Line(points={{28,-40},{90,-40},{90,20},{98,
           20}}, color={255,0,255}));
   connect(uDevStaSet, mulOr1.u[1:2]) annotation (Line(points={{-180,40},{-130,40},
-          {-130,-20},{-102,-20}},     color={255,0,255}));
+          {-130,-23.5},{-102,-23.5}}, color={255,0,255}));
   connect(mulOr1.y, edg1.u)
     annotation (Line(points={{-78,-20},{-72,-20}}, color={255,0,255}));
   connect(edg1.y, booRep.u)
@@ -155,7 +155,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
       Line(points={{-66,-70},{82,-70}},
         color={192,192,192}),

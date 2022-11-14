@@ -1628,7 +1628,7 @@ equation
   connect(dowProCon.yStaChaPro, or2.u2) annotation (Line(points={{142,48},{158,48},
           {158,62},{178,62}},                  color={255,0,255}));
   connect(pre1.y, triSam.trigger) annotation (Line(points={{322,-10},{372,-10},{
-          372,-64},{-150,-64},{-150,-51.8}}, color={255,0,255}));
+          372,-64},{-150,-64},{-150,-52}},   color={255,0,255}));
   connect(pre1.y, staSetCon.uStaChaProEnd) annotation (Line(points={{322,-10},{372,
           -10},{372,-64},{-209,-64},{-209,-20}}, color={255,0,255}));
   connect(pre1.y, minBoiFloSet.uStaChaPro) annotation (Line(points={{322,-10},{372,
@@ -1785,7 +1785,7 @@ equation
   connect(uSecPum, secPumCon.uHotWatPum) annotation (Line(points={{-420,-440},{-20,
           -440},{-20,-346},{118,-346}}, color={255,0,255}));
   connect(uPriPumSpe, mulMax.u[1:2]) annotation (Line(points={{-420,-560},{-402,
-          -560},{-402,-560},{-382,-560}}, color={0,0,127}));
+          -560},{-402,-561},{-382,-561}}, color={0,0,127}));
   connect(mulMax.y, staSetCon.uPumSpe) annotation (Line(points={{-358,-560},{-262,
           -560},{-262,-7},{-212,-7}}, color={0,0,127}));
   connect(uHotWatIsoVal, upProCon.uHotWatIsoVal) annotation (Line(points={{-420,
@@ -1812,7 +1812,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,378},{100,338}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-80,60},{82,-60}},

@@ -247,7 +247,7 @@ equation
         borderPattern=BorderPattern.Raised),
       Text(
         extent={{-120,146},{100,108}},
-        lineColor={0,0,255},
+        textColor={0,0,255},
         textString="%name"),
       Ellipse(
         extent={{-80,80},{80,-80}},
@@ -264,11 +264,11 @@ equation
         fillPattern=FillPattern.Solid),
       Text(
         extent={{-66,46},{76,10}},
-        lineColor={28,108,200},
+        textColor={28,108,200},
         textString="START"),
       Text(
         extent={{-66,-8},{76,-44}},
-        lineColor={28,108,200},
+        textColor={28,108,200},
         textString="STOP")},
       coordinateSystem(
         preserveAspectRatio=false,

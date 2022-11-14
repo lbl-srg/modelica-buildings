@@ -945,7 +945,7 @@ equation
       graphics={
         Text(
           extent={{-100,160},{100,120}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-100,100},{100,-100}},

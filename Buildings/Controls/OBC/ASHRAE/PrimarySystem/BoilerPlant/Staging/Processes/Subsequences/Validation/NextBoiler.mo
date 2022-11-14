@@ -427,7 +427,7 @@ equation
           {-80,187},{-62,187}}, color={255,127,0}));
 
   connect(boiSet.y, nexBoi.uBoiSet) annotation (Line(points={{-118,100},{-100,100},
-          {-100,177},{-62,177}}, color={255,0,255}));
+          {-100,180},{-62,180}}, color={255,0,255}));
 
   connect(inPro.y, nexBoi.chaPro) annotation (Line(points={{-118,40},{-80,40},{-80,
           173},{-62,173}}, color={255,0,255}));
@@ -436,7 +436,7 @@ equation
           {220,187},{238,187}}, color={255,127,0}));
 
   connect(boiSet1.y, nexBoi1.uBoiSet) annotation (Line(points={{182,100},{200,100},
-          {200,177},{238,177}}, color={255,0,255}));
+          {200,180},{238,180}}, color={255,0,255}));
 
   connect(inPro1.y, nexBoi1.chaPro) annotation (Line(points={{182,40},{220,40},{
           220,173},{238,173}}, color={255,0,255}));
@@ -445,7 +445,7 @@ equation
           -100},{-80,-133},{-62,-133}}, color={255,127,0}));
 
   connect(boiSet2.y, nexBoi2.uBoiSet) annotation (Line(points={{-118,-220},{-100,
-          -220},{-100,-143},{-62,-143}}, color={255,0,255}));
+          -220},{-100,-140},{-62,-140}}, color={255,0,255}));
 
   connect(inPro2.y, nexBoi2.chaPro) annotation (Line(points={{-118,-280},{-80,-280},
           {-80,-147},{-62,-147}}, color={255,0,255}));
@@ -457,7 +457,7 @@ equation
           {220,-147},{238,-147}}, color={255,0,255}));
 
   connect(boiSet3.y, nexBoi3.uBoiSet) annotation (Line(points={{182,-220},{200,-220},
-          {200,-143},{238,-143}}, color={255,0,255}));
+          {200,-140},{238,-140}}, color={255,0,255}));
 
 annotation (
  experiment(StopTime=120, Tolerance=1e-06),
@@ -492,34 +492,34 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-258,292},{-146,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage up process (stage 1 to 2),"),
         Text(
           extent={{-254,278},{-94,266}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="requires small boiler (1) off and large boiler (2) on."),
         Text(
           extent={{64,278},{228,268}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="add one more boiler (1) on top of current boiler (2)."),
         Text(
           extent={{62,292},{174,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage up process (stage 2 to 3),"),
         Text(
           extent={{-256,-40},{-96,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="requires large boiler (2) off and small boiler (1) on."),
         Text(
           extent={{-260,-26},{-140,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage down process (stage 2 to 1),"),
         Text(
           extent={{58,-42},{130,-52}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="disable boiler (2)."),
         Text(
           extent={{62,-28},{182,-38}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="In stage down process (stage 2 to 1),")}));
 end NextBoiler;
