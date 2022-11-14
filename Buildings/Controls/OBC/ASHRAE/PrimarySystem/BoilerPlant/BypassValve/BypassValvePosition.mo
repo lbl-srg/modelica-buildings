@@ -190,11 +190,5 @@ annotation (defaultComponentName="bypValPos",
     First implementation.
     </li>
     </ul>
-    </html>"),
-    experiment(
-      StartTime=-1814400,
-      StopTime=1814400,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+    </html>"));
 end BypassValvePosition;
