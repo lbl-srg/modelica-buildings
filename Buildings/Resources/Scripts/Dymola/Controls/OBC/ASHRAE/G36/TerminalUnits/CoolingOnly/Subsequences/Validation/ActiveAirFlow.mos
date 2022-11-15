@@ -1,0 +1,4 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Validation.ActiveAirFlow", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="ActiveAirFlow_coolingOnly");
+createPlot(id=1, position={15, 15, 1218, 1250}, y={"actAirSet.uOpeMod"}, range={0.0, 3600.0, 0.0, 7.0}, grid=true, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1218, 1250}, y={"actAirSet.VCooMax_flow", "actAirSet.VOccMin_flow"}, range={0.0, 3600.0, -0.2, 0.6}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m3/s", "m3/s"});
+createPlot(id=1, position={15, 15, 1218, 1250}, y={"actAirSet.VActCooMax_flow", "actAirSet.VActMin_flow", "actAirSet.VActHeaMax_flow"}, range={0.0, 3600.0, -0.1, 0.6}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s"});

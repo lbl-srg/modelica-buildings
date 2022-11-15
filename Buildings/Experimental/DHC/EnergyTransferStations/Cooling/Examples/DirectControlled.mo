@@ -16,9 +16,6 @@ model DirectControlled "Example model for direct cooling energy transfer station
       Medium.T_default,
       Medium.X_default))
     "Default specific heat capacity of medium";
-  inner Modelica.Fluid.System system
-    "System properties and default values"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled
     cooETS(
     mDis_flow_nominal=0.5,

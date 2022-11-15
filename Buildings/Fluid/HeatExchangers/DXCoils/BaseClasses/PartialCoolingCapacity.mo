@@ -90,7 +90,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.capFunFF,
          xMin=sta[iSta].perCur.ffMin,
-         xMax=sta[iSta].perCur.ffMin),
+         xMax=sta[iSta].perCur.ffMax),
          msg="Capacity as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.capFunFF");
 
@@ -107,7 +107,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.EIRFunFF,
          xMin=sta[iSta].perCur.ffMin,
-         xMax=sta[iSta].perCur.ffMin),
+         xMax=sta[iSta].perCur.ffMax),
          msg="EIR as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.EIRFunFF");
    end for;
@@ -183,7 +183,7 @@ if stage > 0 then
       x=ff[iSta],
       c=sta[iSta].perCur.capFunFF,
       xMin=sta[iSta].perCur.ffMin,
-      xMax=sta[iSta].perCur.ffMin);
+      xMax=sta[iSta].perCur.ffMax);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
         x1=Buildings.Utilities.Math.Functions.biquadratic(
@@ -196,12 +196,12 @@ if stage > 0 then
        x=ff[iSta],
        c=sta[iSta].perCur.EIRFunFF,
        xMin=sta[iSta].perCur.ffMin,
-       xMax=sta[iSta].perCur.ffMin)
+       xMax=sta[iSta].perCur.ffMax)
         "Cooling capacity modification factor as function of flow fraction";
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFac[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ff[iSta] - sta[iSta].perCur.ffMin/4,
-       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffMin/4));
+       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffMin/8));
 
     end for;
   else //cooling coil off
@@ -399,6 +399,12 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2022, by Michael Wetter:<br/>
+Corrected calculation of performance which used the wrong upper bound.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\">issue 3146</a>.
+</li>
 <li>
 October 21, 2019, by Michael Wetter:<br/>
 Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>

@@ -14,8 +14,8 @@ There are two sets of example models: one set uses a conventional controller
 <a href=\"modelica://Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer\">
 Buildings.Air.Systems.SingleZone.VAV.BaseClasses.ControllerChillerDXHeatingEconomizer</a>;
 the other set uses a controller based on Guideline36
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller</a>.
 </p>
 <p>
 Both sets of examples use the same single-zone building model

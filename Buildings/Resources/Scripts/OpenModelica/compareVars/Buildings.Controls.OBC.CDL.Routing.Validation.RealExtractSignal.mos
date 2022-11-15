@@ -7,5 +7,11 @@ compareVars :=
     "extSig.u[5]",
     "extSig.y[1]",
     "extSig.y[2]",
-    "extSig.y[3]"
+    "extSig.y[3]",
+    "extSig1.y[1]",
+    "extSig1.y[2]",
+    "extSig1.y[3]",
+    "extSig1.y[4]",
+    "extSig1.y[5]",
+    "extSig1.y[6]"
   };

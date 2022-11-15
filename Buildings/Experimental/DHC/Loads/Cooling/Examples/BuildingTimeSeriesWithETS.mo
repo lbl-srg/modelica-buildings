@@ -26,13 +26,13 @@ model BuildingTimeSeriesWithETS
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-50})));
   Modelica.Blocks.Sources.RealExpression TDisSup(y=273.15 + 7)
     "District supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-88,4},{-68,24}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 equation
-  connect(TDisSup.y, supChiWat.T_in) annotation (Line(points={{-79,0},{-70,0},{
-          -70,14},{-62,14}}, color={0,0,127}));
+  connect(TDisSup.y, supChiWat.T_in) annotation (Line(points={{-67,14},{-62,14}},
+                             color={0,0,127}));
   connect(supChiWat.ports[1], senMasFlo.port_a)
     annotation (Line(points={{-40,10},{-20,10}}, color={0,127,255}));
   connect(senMasFlo.port_b, buiWitETS.port_aSerCoo) annotation (Line(points={{0,
