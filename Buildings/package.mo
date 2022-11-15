@@ -229,7 +229,18 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.Examples.GlobalPerezTiltedSurface
+    </td>
+    <td valign=\"top\">Added model that outputs the global solar irradiation on a tilted surface.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1654\">IBPSA, #1654</a>.
+    </td>
+  </tr>
+  
+  <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal<br/>
