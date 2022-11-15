@@ -75,7 +75,7 @@ def getRelativeMoPath(absoluteFileName):
 
 #########################################################
 def report_empty_statements(fileName, start_line, next_line):
-    filObj=open(fileName, 'r',encoding="utf8")
+    filObj=open(fileName, 'r')
     filTex=filObj.readlines()
     found_loop = False
     iLin = 1
@@ -95,7 +95,7 @@ def report_empty_statements(fileName, start_line, next_line):
 
 #########################################################
 def reportErrorIfContains(fileName, listOfStrings):
-    filObj=open(fileName, 'r',encoding="utf8")
+    filObj=open(fileName, 'r')
     filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
@@ -108,7 +108,7 @@ def reportErrorIfContains(fileName, listOfStrings):
 #########################################################
 def reportErrorIfContainsRegExp(fileName, listOfStrings):
     import re
-    filObj=open(fileName, 'r',encoding="utf8")
+    filObj=open(fileName, 'r')
     filTex=filObj.read()
     for string in listOfStrings:
         match = re.search(string, filTex, re.I)
@@ -121,7 +121,7 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
 
 #########################################################
 def reportErrorIfMissing(fileName, listOfStrings):
-    filObj=open(fileName, 'r',encoding="utf8")
+    filObj=open(fileName, 'r')
     filTex=filObj.read()
     filTex=filTex.lower()
     for string in listOfStrings:
