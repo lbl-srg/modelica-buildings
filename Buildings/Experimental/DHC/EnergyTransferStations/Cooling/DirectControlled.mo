@@ -143,7 +143,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final m_flow_nominal=mByp_flow_nominal,
     final dpValve_nominal=dpCheVal_nominal)
     "Check valve (backflow preventer)"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-10})));
   Modelica.Blocks.Math.Add dTdis(
@@ -261,10 +261,10 @@ equation
           -260,0},{-260,76},{-182,76}}, color={0,0,127}));
   connect(onOffCon.y, notCon.u)
     annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
-  connect(jun.port_3, cheVal.port_a)
-    annotation (Line(points={{-50,-270},{-50,-20}}, color={0,127,255}));
-  connect(cheVal.port_b, spl.port_3)
-    annotation (Line(points={{-50,0},{-50,190}}, color={0,127,255}));
+  connect(spl.port_3, cheVal.port_a)
+    annotation (Line(points={{-50,190},{-50,0}}, color={0,127,255}));
+  connect(cheVal.port_b, jun.port_3)
+    annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
  annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
