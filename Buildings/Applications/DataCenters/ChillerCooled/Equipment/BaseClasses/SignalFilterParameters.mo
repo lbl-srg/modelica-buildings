@@ -5,7 +5,7 @@ record SignalFilterParameters
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
@@ -19,6 +19,11 @@ record SignalFilterParameters
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Change <code>riseTimeValve</code> to 30 seconds so that it is the same as for pumps.
+Otherwise, pumps may work against almost closed valves.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
