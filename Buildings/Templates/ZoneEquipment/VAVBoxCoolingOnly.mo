@@ -16,13 +16,11 @@ This template represents a cooling-only VAV terminal unit
 </p>
 <p>
 The possible equipment configurations are enumerated in the table below.
-The user may refer to
-<a href=\"#ASHRAE2021\">ASHRAE (2021)</a>
-for further details.
+The user may refer to ASHRAE (2021) for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>VAV damper</td>
 <td>
 <b>Pressure independent damper</b><br/>
@@ -32,14 +30,15 @@ Modulating damper
 </tr>
 <tr><td>Controller</td>
 <td>
-<b>Open loop controller</b><br/>
-ASHRAE Guideline 36 controller
+<b>ASHRAE Guideline 36 controller</b>
 </td>
-<td></td>
+<td>
+An open loop controller is also available for validation purposes only.
+</td>
 </table>
 <h4>References</h4>
 <ul>
-<li id=\"ASHRAE2021\">
+<li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
 </li>

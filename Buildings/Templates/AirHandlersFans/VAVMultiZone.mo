@@ -463,7 +463,7 @@ The user may refer to ASHRAE (2021) for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
 <table summary=\"summary\" border=\"1\">
-<tr><th>Component</th><th>Supported configuration</th><th>Note</th></tr>
+<tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>Outdoor air section</td>
 <td>
 <b>Single common OA damper and AFMS - Economizer function</b><br/>
@@ -476,7 +476,6 @@ Separate dedicated OA dampers and DP sensor - Economizer function
 <td>
 <b>Return fan with modulating relief damper</b><br/>
 Modulating relief damper without fan<br/>
-No relief branch<br/>
 Relief fan with two-position relief damper
 </td>
 <td>Nonactuated barometric relief is currently not supported.</td>
@@ -551,10 +550,11 @@ they are exclusive from one another.</td>
 </tr>
 <tr><td>Controller</td>
 <td>
-<b>Open loop controller</b><br/>
-ASHRAE Guideline 36 controller
+<b>ASHRAE Guideline 36 controller</b>
 </td>
-<td></td>
+<td>
+An open loop controller is also available for validation purposes only.
+</td>
 </tr>
 <tr><td>Exhaust fan</td>
 <td>
