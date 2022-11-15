@@ -18,10 +18,13 @@ model DirectControlled "Example model for direct cooling energy transfer station
     "Default specific heat capacity of medium";
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled
     cooETS(
-    mDis_flow_nominal=0.5,
+    mDis_flow_nominal=mBui_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
-    mByp_flow_nominal=0.01,
+    mByp_flow_nominal=mBui_flow_nominal,
     QChiWat_flow_nominal=Q_flow_nominal,
+    dpConVal_nominal=50,
+    dpCheVal_nominal=500,
+    dp_nominal={0,0,0},
     k=0.1,
     Ti=60,
     yMax=1,
@@ -35,9 +38,8 @@ model DirectControlled "Example model for direct cooling energy transfer station
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Fluid.Sources.Boundary_pT sinDis(
     redeclare package Medium = Medium,
-    p=300000,
-    nPorts=1)
-    "District-side sink"
+    p=340000,
+    nPorts=1) "District-side sink"
     annotation (Placement(transformation(extent={{80,-80},{60,-60}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
@@ -57,6 +59,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     m_flow_nominal=mBui_flow_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
+    dp_nominal(displayUnit="Pa"),
     constantMassFlowRate=mBui_flow_nominal)
     "Building primary pump"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
@@ -66,7 +69,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     m_flow_nominal=mBui_flow_nominal,
     show_T=true,
     from_dp=false,
-    dp_nominal=100,
+    dp_nominal(displayUnit="Pa") = 100,
     linearizeFlowResistance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=-1)
@@ -114,8 +117,8 @@ equation
     annotation (Line(points={{60,30},{80,30},{80,50},
           {20,50}}, color={0,127,255}));
   connect(loa.port_b, cooETS.ports_aChiWat[1])
-    annotation (Line(points={{0,50},{
-          -40,50},{-40,-4.66667},{0,-4.66667}}, color={0,127,255}));
+    annotation (Line(points={{0,50},{-40,50},{-40,-4.66667},{0,-4.66667}},
+                                                color={0,127,255}));
   connect(ram.y, pro.u1)
     annotation (Line(points={{-99,90},{-92,90},{-92,76},{-82,76}}, color={0,0,127}));
   connect(QCoo.y[1], pro.u2)
@@ -152,6 +155,11 @@ supply temperature is modeled as a sinusoidal signal to test the response of sys
 </p>
 </html>",
       revisions="<html>
+<ul>
+<li>November 15, 2022, by Kathryn Hinkelman:<br/>
+Corrected pressure balance across bypass leg.
+</li>
+</ul>
 <ul>
 <li>March 20, 2022, by Chengnan Shi:<br/>First implementation.</li>
 </ul>
