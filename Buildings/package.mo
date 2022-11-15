@@ -394,6 +394,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+  </tr><tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_m_flow
+    </td>
+    <td valign=\"top\">Added assertion to avoid using the model with a head that is
+                       significantly higher than the head specified by its performance curve.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, #1659</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.CollectorPump
