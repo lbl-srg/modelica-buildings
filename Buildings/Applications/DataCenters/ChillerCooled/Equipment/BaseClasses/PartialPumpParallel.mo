@@ -46,8 +46,8 @@ partial model PartialPumpParallel "Partial model for pump parallel"
       tab="Dynamics",
       group="Valve",
       enable=use_inputFilter));
-  parameter Real[num] yValve_start = fill(0,num)
-    "Initial value of pump signals"
+  parameter Real[num] yValve_start = fill(1,num)
+    "Initial value of valve signals"
     annotation(Dialog(tab="Dynamics", group="Valve",enable=use_inputFilter));
 
   // Dynamics
@@ -241,17 +241,23 @@ equation
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
 <li>
+November 15, 2022, by Michael Wetter:<br/>
+Set initial state of valve to be open.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, issue 1659</a>.
+</li>
+<li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and
 added assertion for correct combination of energy and mass dynamics.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">IBPSA, issue 1542</a>.
 </li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">Buildings, #1341</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1341\">IBPSA, Buildings, #1341</a>.
 </li>
 <li>
 September 2, 2017, by Michael Wetter:<br/>
