@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers;
 block Controller "Cooling tower controller"
 
   parameter Integer nChi=2 "Total number of chillers";

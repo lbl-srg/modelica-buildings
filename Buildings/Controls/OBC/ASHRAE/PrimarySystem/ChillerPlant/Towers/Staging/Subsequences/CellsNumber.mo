@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences;
 block CellsNumber
   "Sequence for identifying total number of enabling cells"
 
@@ -123,8 +123,7 @@ protected
     final nin=nConWatPum)
     "Check if any condenser water pump is running"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
-    "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
     annotation (Placement(transformation(extent={{200,-100},{220,-80}})));
 
 equation

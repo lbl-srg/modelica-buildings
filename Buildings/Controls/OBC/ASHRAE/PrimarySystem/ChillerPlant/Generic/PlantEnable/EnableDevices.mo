@@ -53,7 +53,7 @@ block EnableDevices
     "Lead condenser water pump  commanded on"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaTwoCel
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaTowCel
     "Lead cooling tower cell  commanded on"
     annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -122,7 +122,7 @@ equation
           -30},{180,-30}}, color={255,0,255}));
   connect(ecoMod.y, yLeaConPum) annotation (Line(points={{62,100},{80,100},{80,-60},
           {180,-60}}, color={255,0,255}));
-  connect(ecoMod.y, yLeaTwoCel) annotation (Line(points={{62,100},{80,100},{80,-90},
+  connect(ecoMod.y,yLeaTowCel)  annotation (Line(points={{62,100},{80,100},{80,-90},
           {180,-90}},  color={255,0,255}));
   connect(conInt.y, intEqu.u2) annotation (Line(points={{-98,0},{-60,0},{-60,22},
           {-42,22}},   color={255,127,0}));
