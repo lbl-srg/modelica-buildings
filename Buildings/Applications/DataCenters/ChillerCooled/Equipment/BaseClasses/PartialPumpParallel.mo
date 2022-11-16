@@ -40,7 +40,7 @@ partial model PartialPumpParallel "Partial model for pump parallel"
    // Valve parameters
   parameter Real l=0.0001 "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Two-way valve"));
-  parameter Modelica.Units.SI.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=riseTimePump
     "Rise time of the filter (time to become 99.6 % open)" annotation (
       Dialog(
       tab="Dynamics",
@@ -242,7 +242,7 @@ equation
 <ul>
 <li>
 November 15, 2022, by Michael Wetter:<br/>
-Set initial state of valve to be open.<br/>
+Set initial state of valve to be open, and changed rise time of valve to be the same as pump.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, issue 1659</a>.
 </li>

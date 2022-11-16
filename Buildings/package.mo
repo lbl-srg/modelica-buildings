@@ -452,6 +452,15 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel
+    </td>
+    <td valign=\"top\">Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
+                     to condenser water parameters and vice versa.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>

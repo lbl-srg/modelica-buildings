@@ -101,10 +101,10 @@ model ElectricChillerParallel
     final per=fill(
       perChi,
       numChi),
-    final m1_flow_nominal=mCHW_flow_nominal,
-    final m2_flow_nominal=mCW_flow_nominal,
-    final dp1_nominal=dpCHW_nominal,
-    final dp2_nominal=dpCW_nominal,
+    final m1_flow_nominal=mCW_flow_nominal,
+    final m2_flow_nominal=mCHW_flow_nominal,
+    final dp1_nominal=dpCW_nominal,
+    final dp2_nominal=dpCHW_nominal,
     final num=numChi,
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium)
@@ -154,7 +154,8 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=mCHW_flow_nominal*0.05,
-    final dpValve_nominal=dpCHW_nominal)
+    final dpValve_nominal=dpCHW_nominal,
+    riseTime=30)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=0,origin={-30,-70})));
@@ -386,6 +387,12 @@ the detailed control logic. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
+to condenser water parameters and vice versa.<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and
