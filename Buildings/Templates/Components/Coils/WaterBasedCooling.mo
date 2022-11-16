@@ -19,14 +19,9 @@ model WaterBasedCooling "Chilled water coil"
     dat.dpValve_nominal
     "Nominal pressure drop across fully open valve";
 
-  parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
-    Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow
-    "Heat exchanger configuration"
-    annotation (Evaluate=true);
-
   replaceable Buildings.Templates.Components.Valves.None val constrainedby
-    Buildings.Templates.Components.Interfaces.PartialValve(       redeclare
-      final package Medium = MediumChiWat,
+    Buildings.Templates.Components.Interfaces.PartialValve(
+      redeclare final package Medium = MediumChiWat,
       final dat=datVal)
     "Valve"
     annotation (
