@@ -1,0 +1,5 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Subsequences.Validation.Modulation_TSup", method="Cvode", stopTime=900, tolerance=1e-06, resultFile="Modulation_TSup_MultiZone");
+createPlot(id=1, position={53, 36, 1029, 824}, y={"mod.uMin", "mod.uMax", "mod.uTSup"}, range={0.0, 0.011, -0.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={53, 36, 1029, 409}, y={"mod.yOutDamPos", "mod.yRetDamPos"}, range={0.0, 0.012, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={53, 36, 1029, 824}, y={"modFre.uMin", "modFre.uMax", "modFre.uTSup"}, range={0.0, 0.011, -0.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={53, 36, 1029, 409}, y={"modFre.yOutDamPos", "modFre.yRetDamPos"}, range={0.0, 0.012, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
