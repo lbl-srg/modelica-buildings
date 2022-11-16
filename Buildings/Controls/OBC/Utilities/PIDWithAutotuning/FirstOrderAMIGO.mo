@@ -61,7 +61,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(y_start=k_start)
     "Recording the control gain"
     annotation (Placement(transformation(extent={{-40,-10},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(y_start=Ti_start) if with_I
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTi(y_start=Ti_start)
     "Recording the integral time"
     annotation (Placement(transformation(extent={{-80,-38},{-60,-58}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samTd(y_start=Td_start) if with_D
@@ -89,10 +89,7 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
 
 protected
-  final parameter Boolean with_I=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
-    "Boolean flag to enable integral action"
-    annotation (Evaluate=true,HideResult=true);
-  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID
+  final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);
 
@@ -100,6 +97,9 @@ initial equation
   assert(
     yHig-yRef>1E-6,
     "Higher value for the relay output should be larger than the reference output. Check parameters.");
+  assert(
+    controllerType <> Buildings.Controls.OBC.CDL.Types.SimpleController.PD and controllerType <> Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    "Only PI and PID are supported");
 
 equation
    connect(PID.u_s, u_s) annotation (Line(points={{20,-30},{8,-30},{8,0},{-120,0}},

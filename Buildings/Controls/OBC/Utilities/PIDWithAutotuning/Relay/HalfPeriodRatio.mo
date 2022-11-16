@@ -106,8 +106,6 @@ equation
           32,-34},{24,-34},{24,-70},{2,-70}}, color={0,0,127}));
   connect(halPerRat.y, rho) annotation (Line(points={{82,70},{94,70},{94,60},{120,
           60}}, color={0,0,127}));
-  connect(triEnd, tOffSample.trigger) annotation (Line(points={{120,-60},{26,-60},
-          {26,-52},{-70,-52},{-70,-58}}, color={255,0,255}));
   connect(AddtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-94,-36},{-94,
           -60},{-120,-60}}, color={0,0,127}));
   connect(AddtOntOff.u1, tOn) annotation (Line(points={{-82,-24},{-94,-24},{-94,
@@ -124,8 +122,6 @@ equation
           {76,-6},{30,-6},{30,-88},{38,-88}}, color={0,0,127}));
   connect(gretmaxtOntOff.u1, AddtOntOff.y) annotation (Line(points={{-2,0},{-44,
           0},{-44,-30},{-58,-30}}, color={0,0,127}));
-  connect(tOnSample.trigger, triEnd) annotation (Line(points={{-70,58},{-70,46},
-          {-84,46},{-84,-52},{86,-52},{86,-60},{120,-60}}, color={255,0,255}));
   connect(gretmaxtOntOff.u2, minLen.y) annotation (Line(points={{-2,8},{-14,8},{
           -14,30},{-18,30}}, color={0,0,127}));
   connect(gretOntOff.u1, tmin.y) annotation (Line(points={{-2,30},{-6,30},{-6,12},
@@ -140,6 +136,10 @@ equation
           -30},{-12,-30}}, color={0,0,127}));
   connect(samAddtOntOff.u, mul.y) annotation (Line(points={{38,30},{36,30},{36,
           -24},{-4,-24},{-4,-30},{-12,-30}}, color={0,0,127}));
+  connect(tOnSample.trigger, tChanges.y) annotation (Line(points={{-70,58},{-70,
+          50},{-56,50},{-56,-96},{94,-96},{94,-30},{92,-30}}, color={255,0,255}));
+  connect(triEnd, tChanges.y) annotation (Line(points={{120,-60},{96,-60},{96,
+          -30},{92,-30}}, color={255,0,255}));
   annotation (
         Diagram(
            coordinateSystem(
@@ -178,17 +178,17 @@ First implementation<br/>
 The algorithm for calculating <i>&rho;</i> is as follows:
 </p>
 <h5>Step 1: detects when the tuning period begins.</h5>
-<p>The tuning period is considered to begin when either <i>t<sub>on</sub></i> or <i>t<sub>off</sub></i> are larger than 0.
+<p>The  tuning period is triggered to begin when either <i>t<sub>on</sub></i> or <i>t<sub>off</sub></i> are larger than 0.
 In this implementation, we detect the beginning time by monitoring the sum of <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i>.</p>
 
 <h5>Step 2: detects when both <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are larger than 0.</h5>
 <p>
-We then record the value of the minimum value between <i>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</i> when both <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are larger than 0.
+We then record the value of the minimum value between <i>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</i> at the momement when both <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> become postive.
 </p>
 
 <h5>Step 3: detects when the tuning period ends.</h5>
 <p>
-The tuning period is considered to end when either <i>t<sub>on</sub></i> or <i>t<sub>off</sub></i> changes after they become positive.
+The tuning period is triggered to end when either <i>t<sub>on</sub></i> or <i>t<sub>off</sub></i> changes after they become positive.
 In this implementation, we detect the end time by checking if the value of <i>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</i> is different from the output of step2.
 </p>
 
