@@ -136,7 +136,7 @@ protected
     "Constant unoccupied mode signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Not isOcc
+  Buildings.Controls.OBC.CDL.Logical.Not notUno
     "Enable only if zone is not in unoccupied mode"
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
@@ -242,16 +242,16 @@ equation
   connect(opeMod, isUnOcc.u1)
     annotation (Line(points={{-120,80},{-42,80}}, color={255,127,0}));
 
-  connect(isUnOcc.y, isOcc.u)
+  connect(isUnOcc.y, notUno.u)
     annotation (Line(points={{-18,80},{-12,80}}, color={255,0,255}));
 
-  connect(isOcc.y, yFan) annotation (Line(points={{12,80},{40,80},{40,40},{140,40}},
+  connect(notUno.y, yFan) annotation (Line(points={{12,80},{40,80},{40,40},{140,40}},
         color={255,0,255}));
 
   connect(uFanPro, swiFanPro.u2) annotation (Line(points={{-120,40},{30,40},{30,
           0},{78,0}}, color={255,0,255}));
 
-  connect(isOcc.y, booToRea.u) annotation (Line(points={{12,80},{40,80},{40,-20},
+  connect(notUno.y, booToRea.u) annotation (Line(points={{12,80},{40,80},{40,-20},
           {48,-20}}, color={255,0,255}));
 
   connect(booToRea.y, swiFanPro.u3) annotation (Line(points={{72,-20},{74,-20},{
