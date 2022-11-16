@@ -380,7 +380,21 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.CollectorPump
+    </td>
+    <td valign=\"top\">Corrected implementation to make comparison based on total irradiation on tilted surface
+                       rather than the direct normal irradiation.
+                       This required adding parameters for the azimuth, tilt and ground reflectance.<br/>
+                       Added hysteresis to the controller, and changed output signal to be boolean-valued on/off
+                       rather than a continuous signal.<br/>
+                       Moved the old implementation to <code>Buildings.Obsolete.Fluid.SolarCollectors.Controls</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">#3074</a>.
     </td>
 </tr>
 </table>
@@ -420,8 +434,31 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
-                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized</br>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Corrected wrong temperature in assignment of <code>sta2_default</code>.
+                       For <code>Buildings.Media.Air</code> and <code>Buildings.Media.Water</code>
+                       this error does not affect the results.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity
+
+    </td>
+    <td valign=\"top\">Corrected performance calculation as a function of mass flow rates.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3146\">#3146</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                       Buildings.Fluid.HeatExchangers.WetCoilDiscretized
     </td>
     <td valign=\"top\">Reverted the correction on latent heat from component.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.

@@ -133,23 +133,17 @@ First implementation.
 </ul>
 </html>"),
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={
-        Polygon(
-          points={{20,-75},{50,-85},{20,-95},{20,-75}},
-          lineColor={255,255,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal),
+            100}}),
+         graphics={
         Rectangle(
           extent={{-84,100},{84,-100}},
           lineColor={27,0,55},
           fillColor={26,0,55},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,-30},
-              {66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{-64,86},
-              {78,86},{78,0},{98,0},{100,0}},
+          points={{-100,0},{-76,0},{-76,-90},{66,-90},{66,-60},{-64,-60},{-64,
+              -30},{66,-30},{66,0},{-64,0},{-64,28},{66,28},{66,60},{-64,60},{
+              -64,86},{78,86},{78,0},{98,0},{100,0}},
           color={0,128,255},
           thickness=1,
           smooth=Smooth.None),
