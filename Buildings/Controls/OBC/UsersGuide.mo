@@ -136,7 +136,7 @@ The package contains control sequences for
 <ul>
 <li>
 HVAC airside system control
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1\">Buildings.Controls.OBC.ASHRAE.G36_PR1</a>,
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36\">Buildings.Controls.OBC.ASHRAE.G36</a>,
 </li>
 <li>
 radiant heating and cooling systems

@@ -4,7 +4,7 @@ function glassTRInteriorIrradiationNoShading
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation;
   input Real layer[3, N, HEM, NSta] "Angular data of glass pane";
-  output Real traRef[3, N, N, HEM, NSta](each min=0, each max=1)
+  output Real traRef[3, N, N, HEM, NSta](each min=0, each max=1)=fill(0,3, N, N, HEM, NSta)
     "Glass transmittance, front and back reflectance";
 
 protected
@@ -54,6 +54,12 @@ Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 23, 2022, by Jianjun Hu:<br/>
+Added default value to the output variable.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">issue 3111</a>.
+</li>
 <li>
 August 7, 2015, by Michael Wetter:<br/>
 Revised model to allow modeling of electrochromic windows.

@@ -1,0 +1,13 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Validation.Dampers", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="Dampers_coolingOnly");
+createPlot(id=1, position={13, 9, 992, 1346}, y={"dam.VActMin_flow", "dam.VActCooMax_flow", "dam.VSet_flow"}, range={0.0, 3600.0, 0.0, 0.08}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s"});
+createPlot(id=1, position={13, 9, 992, 1346}, y={"dam.TSup", "dam.TZon"}, range={0.0, 3600.0, 10.0, 25.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=1, position={13, 9, 992, 1346}, y={"dam.uCoo"}, range={0.0, 3600.0, -0.5, 1.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={13, 9, 992, 1346}, y={"dam.uZonSta"}, range={0.0, 3600.0, 0.0, 4.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={13, 9, 992, 1346}, y={"dam.yDam"}, range={0.0, 3600.0, -0.2, 0.4}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={13, 9, 992, 1346}, y={"dam.oveFloSet"}, range={0.0, 3600.0, 0, 4}, grid=true, subPlot=106, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1015, 9, 992, 1346}, y={"dam1.VActMin_flow", "dam1.VActCooMax_flow", "dam1.VSet_flow", "dam1.VDis_flow"}, range={0.0, 3600.0, 0.0, 0.08}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {0,0,0}}, timeUnit="s", displayUnits={"m3/s", "m3/s", "m3/s", "m3/s"});
+createPlot(id=2, position={1015, 9, 992, 1346}, y={"dam1.TSup", "dam1.TZon"}, range={0.0, 3600.0, 10.0, 25.0}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"degC", "degC"});
+createPlot(id=2, position={1015, 9, 992, 1346}, y={"dam1.uCoo"}, range={0.0, 3600.0, -0.5, 1.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={1015, 9, 992, 1346}, y={"dam1.uZonSta"}, range={0.0, 3600.0, 0.0, 4.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1015, 9, 992, 1346}, y={"dam1.yDam"}, range={0.0, 3600.0, -0.2, 0.4}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={1015, 9, 992, 1346}, y={"dam1.oveDamPos"}, range={0.0, 3600.0, 0.0, 4.0}, grid=true, subPlot=106, colors={{28,108,200}}, timeUnit="s");
