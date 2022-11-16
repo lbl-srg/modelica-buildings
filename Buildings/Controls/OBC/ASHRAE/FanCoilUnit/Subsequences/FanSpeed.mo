@@ -14,7 +14,7 @@ block FanSpeed
     "Deadband mode fan speed"
     annotation(Dialog(group="Deadband parameters"));
 
-  parameter Real heaSpeMin(
+  parameter Real heaSpe_Min(
     final unit="1",
     displayUnit="1") = 0.1
     "Minimum heating mode fan speed"
@@ -28,7 +28,7 @@ block FanSpeed
     annotation(Dialog(group="Heating loop parameters",
       enable = have_heaCoi));
 
-  parameter Real heaSpeMax(
+  parameter Real heaSpe_Max(
     final unit="1",
     displayUnit="1") = 0.6
     "Maximum heating mode fan speed"
@@ -157,8 +157,8 @@ protected
     "Minimum heating loop signal support point"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaSpeMin(
-    final k=heaSpeMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conheaSpe_Min(
+    final k=heaSpe_Min)
     "Minimum heating fan speed limit signal"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
 
@@ -215,8 +215,8 @@ protected
     "Constant zero signal for cooling mode"
     annotation (Placement(transformation(extent={{-30,-160},{-10,-140}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaSpeMax(
-    final k=heaSpeMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conheaSpe_Max(
+    final k=heaSpe_Max)
     "Maximum heating fan speed limit signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
@@ -311,7 +311,7 @@ equation
   connect(conZerCooMod.y, hysDeaCoo.u) annotation (Line(points={{-8,-150},{-6,-150},
           {-6,-100},{-2,-100}}, color={0,0,127}));
 
-  connect(conHeaSpeMax.y, linHeaFanSpe.f2) annotation (Line(points={{-38,20},{-34,
+  connect(conheaSpe_Max.y, linHeaFanSpe.f2) annotation (Line(points={{-38,20},{-34,
           20},{-34,-28},{-32,-28}}, color={0,0,127}));
   connect(conHeaPerMax.y, linHeaFanSpe.x2)
     annotation (Line(points={{-38,-40},{-38,-24},{-32,-24}}, color={0,0,127}));
@@ -319,7 +319,7 @@ equation
           -90},{-36,-128},{-32,-128}}, color={0,0,127}));
   connect(conCooPerMax.y, linCooFanSpe.x2) annotation (Line(points={{-38,-150},{
           -34,-150},{-34,-124},{-32,-124}}, color={0,0,127}));
-  connect(conHeaSpeMin.y, linHeaFanSpe.f1) annotation (Line(points={{-68,20},{-66,
+  connect(conheaSpe_Min.y, linHeaFanSpe.f1) annotation (Line(points={{-68,20},{-66,
           20},{-66,-16},{-32,-16}}, color={0,0,127}));
   connect(conHeaPerMin.y, linHeaFanSpe.x1) annotation (Line(points={{-68,-40},{-64,
           -40},{-64,-12},{-32,-12}}, color={0,0,127}));
@@ -396,7 +396,7 @@ equation
       when the cooling loop signal <code>uCoo</code> varies from the minimum limit
       <code>cooPerMin</code> to the maximum limit <code>cooPerMax</code>.
       Similarly, <code>yFanSpe</code> is varied from the minimum heating mode fan speed
-      <code>heaSpeMin</code> to the maximum heating mode fan speed <code>heaSpeMax</code>,
+      <code>heaSpe_Min</code> to the maximum heating mode fan speed <code>heaSpe_Max</code>,
       when the heating loop signal <code>uHea</code> varies from the minimum limit
       <code>heaPerMin</code> to the maximum limit <code>heaPerMax</code>.
       The setpoint in deadband mode is equal to the deadband fan speed <code>deaSpe</code>. 
