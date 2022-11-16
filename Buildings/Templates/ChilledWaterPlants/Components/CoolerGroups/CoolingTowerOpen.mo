@@ -109,5 +109,12 @@ See the documentation of
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolerGroup\">
 Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialCoolerGroup</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end CoolingTowerOpen;

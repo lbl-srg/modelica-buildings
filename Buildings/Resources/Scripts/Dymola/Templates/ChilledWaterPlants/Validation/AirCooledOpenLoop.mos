@@ -1,0 +1,29 @@
+
+simulateModel("Buildings.Templates.ChilledWaterPlants.Validation.AirCooledOpenLoop",
+  method="cvode",
+  tolerance=1e-6,
+  startTime=19612800,
+  stopTime=19615000,
+  resultFile="AirCooledOpenLoop");
+createPlot(id=1,
+  position={21, 14, 865, 898},
+  y={"TChiWatRet.T", "CHI.bus.TChiWatPlaRet", "CHI.bus.TChiWatPriSup", "CHI.bus.TChiWatSupSet", "CHI.bus.TChiWatChiRet[1]", "CHI.bus.TChiWatChiSup[1]"},
+  subPlot=101,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"CHI.bus.y1Chi[1]"},
+  subPlot=102,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"CHI.chi.chi[1].chi.PLR1"},
+  subPlot=103,
+  autoscale=true,
+  grid=true);
+createPlot(id=2,
+  position={939, 56, 865, 898},
+  y={"CHI.bus.VChiWatPri_flow", "VChiWat_flow.V_flow"},
+  subPlot=101,
+  autoscale=true,
+  grid=true);

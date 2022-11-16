@@ -71,5 +71,12 @@ or dedicated pumps (yielded by the chiller built-in controller)
 are assumed to be equal the to signal <code>y1_actual</code>
 corresponding to the chiller status.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Compression;

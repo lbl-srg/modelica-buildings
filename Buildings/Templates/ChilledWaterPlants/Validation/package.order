@@ -1,4 +1,4 @@
-BaseAirCooled
-BaseWaterCooled
-BaseWaterCooledG36
+AirCooledOpenLoop
+WaterCooledOpenLoop
+WaterCooledG36
 UserProject

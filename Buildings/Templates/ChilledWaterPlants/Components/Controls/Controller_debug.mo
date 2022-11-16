@@ -211,7 +211,7 @@ block Controller_debug
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
   parameter Real VHeaExcDes_flow(unit="m3/s")=0.015
-    "Desing heat exchanger chilled water volume flow rate"
+    "Design heat exchanger chilled water volume flow rate"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters", enable=have_WSE));
 
   parameter Real step=0.02 "Tuning step"
@@ -2387,7 +2387,7 @@ and
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.SetPoints.ChilledWaterSupply</a>
 are for resetting chilled water temperature setpoint and differential pressure setpoint.
 They are applicable for the primary-only plants or for the primary-secondary systems
-serving differential pressure controlled pumps.  
+serving differential pressure controlled pumps.
 </p>
 <table summary=\"summary\" border=\"1\">
 <tr><th bgcolor=\"silver\">Applicable</th> </tr>

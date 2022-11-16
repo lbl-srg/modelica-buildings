@@ -188,5 +188,12 @@ See the documentation of
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup\">
 Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialChillerGroup</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Compression;

@@ -35,7 +35,7 @@ class AllSystemsWaterCooled
       TChiWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TChiWatSup, _CHI.nChi),
       TConWatChiRet_nominal=fill(Buildings.Templates.Data.Defaults.TConWatRet, _CHI.nChi),
       TConWatChiSup_nominal=fill(Buildings.Templates.Data.Defaults.TConWatSup, _CHI.nChi),
-      TOutLoc=Buildings.Templates.Data.Defaults.TOutChiLoc,
+      TOutLoc=250,
       dpChiWatLocSet_min=Buildings.Templates.Data.Defaults.dpChiWatSet_min,
       dpChiWatRemSet_min=fill(Buildings.Templates.Data.Defaults.dpChiWatSet_min, _CHI.nSenDpChiWatRem),
       VChiWatChi_flow_nominal=
@@ -110,4 +110,10 @@ class AllSystemsWaterCooled
       dpConWat_nominal=Buildings.Templates.Data.Defaults.dpConWatEco,
       dpPumChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatEco))
     "CHW plant parameters";
+  annotation (Documentation(info="<html>
+<p>
+This class provides system parameters for the validation
+of water-cooled chiller plant models.
+</p>
+</html>"));
 end AllSystemsWaterCooled;

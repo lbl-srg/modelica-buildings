@@ -40,10 +40,10 @@ partial model PartialCoolerGroup
     "Total CW mass flow rate (all units)";
   final parameter Modelica.Units.SI.PressureDifference dpConWatFriCoo_nominal[nCoo]=
     dat.dpConWatFriCoo_nominal
-    "CW flow-friction losses through equipment and piping only - Each cooler unit (without static head or valve)";
+    "CW flow-friction losses through equipment and piping only - Each cooler unit (without elevation head or valve)";
   final parameter Modelica.Units.SI.PressureDifference dpConWatStaCoo_nominal[nCoo]=
     dat.dpConWatStaCoo_nominal
-    "CW static pressure drop - Each cooler unit";
+    "CW elevation head - Each cooler unit";
   final parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo]=
     dat.mAirCoo_flow_nominal
     "Air mass flow rate - Each cooler unit";
@@ -220,6 +220,13 @@ or current switch) should be available as <code>coo.y1_actual</code>:
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

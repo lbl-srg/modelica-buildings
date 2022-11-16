@@ -4,7 +4,7 @@ package Economizers "Models for waterside economizer"
 
 annotation (Documentation(info="<html>
 <p>
-This package contains models of waterside economizer.
+This package contains waterside economizer models.
 </p>
 </html>"));
 end Economizers;

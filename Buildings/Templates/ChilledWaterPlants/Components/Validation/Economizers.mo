@@ -237,7 +237,8 @@ This model validates the waterside economizer models
 Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump</a>
 and
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve\">
-Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve</a>.
+Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve</a>
+using open-loop controls.
 </p>
 </html>"));
 end Economizers;

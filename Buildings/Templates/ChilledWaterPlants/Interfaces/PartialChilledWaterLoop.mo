@@ -229,7 +229,7 @@ partial model PartialChilledWaterLoop
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={280,-100})));
+        origin={280,-120})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VChiWatSecSup_flow(
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWat_flow_nominal,
@@ -288,11 +288,11 @@ partial model PartialChilledWaterLoop
         origin={-40,-220})));
 
   // Controls
-  replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl(
-    nAirHan=1,
-    nEquZon=1)
+  replaceable Buildings.Templates.ChilledWaterPlants.Components.Controls.OpenLoop ctl
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialController(
+    final nAirHan=nAirHan,
+    final nEquZon=nEquZon,
     final dat=dat.ctl,
     final typChi=typChi,
     final nChi=nChi,
@@ -341,9 +341,6 @@ equation
   /* Control point connection - start */
   connect(TOut.T, bus.TOut);
   connect(phiOut.phi, bus.phiOut);
-  connect(bus, ctl.bus);
-  connect(busAirHan, ctl.busAirHan);
-  connect(busEquZon, ctl.busEquZon);
   connect(bus, intChi.bus);
   connect(bus, chi.bus);
   connect(bus, eco.bus);
@@ -383,9 +380,10 @@ equation
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
         points={{-49,-230},{-74,-230},{-74,0},{-80,0}}, color={0,127,255}));
   connect(dpChiWatLoc.port_a, port_b)
-    annotation (Line(points={{280,-90},{280,0},{300,0}}, color={0,127,255}));
-  connect(dpChiWatLoc.port_b, port_a) annotation (Line(points={{280,-110},{280,-240},
-          {300,-240}}, color={0,127,255}));
+    annotation (Line(points={{280,-110},{280,0},{300,0}},color={0,127,255}));
+  connect(dpChiWatLoc.port_b, port_a) annotation (Line(points={{280,-130},{280,
+          -240},{300,-240}},
+                       color={0,127,255}));
   connect(outPumChiWatPri.port_b, VChiWatPri_flow.port_a)
     annotation (Line(points={{80,0},{80,0}}, color={0,127,255}));
   connect(junByp.port_2, inlPumChiWatSec.port_a)
@@ -428,11 +426,23 @@ equation
     annotation (Line(points={{-1,230},{40,230}}, color={0,127,255}));
   connect(phiOut.port, out.ports[2])
     annotation (Line(points={{-40,230},{1,230}}, color={0,127,255}));
+  connect(bus, ctl.bus) annotation (Line(
+      points={{-300,140},{-10,140}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctl.busAirHan, busAirHan) annotation (Line(
+      points={{10,146},{20,146},{20,180},{300,180}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ctl.busEquZon, busEquZon) annotation (Line(
+      points={{10,134},{20,134},{20,100},{300,100}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (Documentation(info="<html>
 <p>
 This serves as the base class to build chilled water plant
 templates.
-The model boundaries are the condenser inlet and oulet ports
+The model boundaries are the condenser inlet and outlet ports
 on the CW side, and the supply and return ports on the CHW side.
 The following components are included.
 </p>
@@ -467,11 +477,18 @@ Those options are automatically selected based on the CHW distribution
 type, as specified by an instance of
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Types.Distribution\">
 Buildings.Templates.ChilledWaterPlants.Types.Distribution</a>.
-A bypass pipe is modeled for any configuration other than 
+A bypass pipe is modeled for any configuration other than
 constant primary-only.
 A modulating valve is modeled only for variable primary-only systems.
 All other configurations are modeled with a fixed bypass, or
 so-called common leg.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

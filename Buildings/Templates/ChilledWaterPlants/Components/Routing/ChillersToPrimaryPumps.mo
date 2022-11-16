@@ -366,5 +366,12 @@ the optional bypass (common leg for primary-secondary systems
 and bypass with modulating valve for variable primary-only systems).
 </li>
 </ul> 
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillersToPrimaryPumps;

@@ -30,7 +30,6 @@ package Defaults "Package with default sizing parameters"
     "Outdoor air lockout temperature below which the CHW plant is prevented from operating";
   constant Modelica.Units.SI.TemperatureDifference dTLifChi_min=5
     "Minimum chiller lift at minimum load";
-
   constant Modelica.Units.SI.Temperature TAirDryCooEnt=TConAirEnt
     "Dry cooler entering air drybulb temperature";
   constant Modelica.Units.SI.Temperature TWetBulTowEnt=23.9+273.15
@@ -40,9 +39,9 @@ package Defaults "Package with default sizing parameters"
   constant Real ratFloWatByAirTow(unit="1")=1.45
     "CT CW mass flow rate divided by air mass flow rate";
   constant Modelica.Units.SI.PressureDifference dpConWatFriTow=1E4
-    "CW flow-friction losses through open-circuit tower and piping only (without static head or valve)";
+    "CW flow-friction losses through open-circuit tower and piping only (without elevation head or valve)";
   constant Modelica.Units.SI.PressureDifference dpConWatStaTow=3E4
-    "CW static pressure drop (for open cooling towers only)";
+    "CW elevation head (for open cooling towers only)";
   constant Modelica.Units.SI.PressureDifference dpConWatTowClo=5E4
     "CW flow-friction losses through closed-circuit tower and piping only (without valve)";
   constant Real mConAirByCapChi(unit="(kg/s)/W")=1E-4
@@ -81,16 +80,23 @@ This package defines some constants that are either
 </p>
 <ul>
 <li>
-typical values that are used as default parameter values
+typical values used as default parameter values
 for models inside the package
 <a href=\"modelica://Buildings.Templates\">
 Buildings.Templates</a>, or
 </li>
 <li>
-arbitrary values that are used for validation purposes only.
+arbitrary values used for validation purposes only.
 Those are typically project-specific characteristics (e.g., 
 chiller COP at nominal conditions) and should not 
 be considered as generic default values.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

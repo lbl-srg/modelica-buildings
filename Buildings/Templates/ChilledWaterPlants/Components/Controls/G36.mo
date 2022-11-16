@@ -207,7 +207,7 @@ block G36 "Guideline 36 controller for CHW plant"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters"));
 
   final parameter Real VHeaExcDes_flow(unit="m3/s")=dat.VChiWatEco_flow_nominal
-    "Desing heat exchanger chilled water volume flow rate"
+    "Design heat exchanger chilled water volume flow rate"
     annotation(Evaluate=true, Dialog(tab="Waterside economizer", group="Design parameters"));
 
   final parameter Real dpDes=dat.dpChiWatEco_nominal
@@ -429,10 +429,10 @@ block G36 "Guideline 36 controller for CHW plant"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uChiCooLoa[nChi](
     each k=1)
     "#2299: The chiller load (𝑄𝑟𝑒𝑞𝑢𝑖𝑟𝑒𝑑) shall be internally calculated by the controller"
-    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uFanSpe(k=1)
     "#2299: This should be the commanded speed `ySpeSet` computed internally"
-    annotation (Placement(transformation(extent={{-60,-150},{-40,-130}})));
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uIsoVal[nCoo](
     each k=1)
     "#2299 Should be Boolean + missing dependency to plant configuration"
@@ -537,18 +537,32 @@ block G36 "Guideline 36 controller for CHW plant"
     final nin=nCoo)
     "#2299 Should be scalar and conditional"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum FIXME_TChiWatSupResReq(
-    final nin=nAirHan+nEquZon)
-    "#2299: Missing dependency to plant configuration"
-    annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum reqChiWatPla(
-    final nin=nAirHan+nEquZon)
-    "Sum of CHW plant requests from served units"
-    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
   Modelica.Blocks.Routing.RealPassThrough FIXME_TChiWatPlaRet
     if have_senTChiWatPlaRet
     "#2299: Missing dependency to plant configuration"
     annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqChiWatPlaAirHan(
+    final nin=nAirHan)
+    "Sum of CHW plant requests from AHU"
+    annotation (Placement(transformation(extent={{-140,-200},{-120,-180}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum reqChiWatPlaEquZon(
+    final nin=nEquZon)
+    "Sum of CHW plant requests from zone equipment"
+    annotation (Placement(transformation(extent={{-140,-230},{-120,-210}})));
+  Buildings.Controls.OBC.CDL.Integers.Add reqChiWatPla
+    "Sum of CHW plant requests from all served units"
+    annotation (Placement(transformation(extent={{-100,-210},{-80,-190}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum FIXME_TChiWatSupResReqAirHan(
+    final nin=nAirHan)
+    "#2299: Missing dependency to plant configuration"
+    annotation (Placement(transformation(extent={{-140,-140},{-120,-120}})));
+  Buildings.Controls.OBC.CDL.Integers.MultiSum FIXME_TChiWatSupResReqZonEqu(
+    final nin=nEquZon)
+    "#2299: Missing dependency to plant configuration"
+    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
+  Buildings.Controls.OBC.CDL.Integers.Add reqChiWatRes
+    "Sum of CHW plant requests from all served units"
+    annotation (Placement(transformation(extent={{-100,-170},{-80,-150}})));
 protected
   Integer idx
     "Iteration variable for algorithm section";
@@ -607,10 +621,10 @@ equation
   connect(bus.TOut,ctl. TOut);
   connect(busCoo.y1_actual, ctl.uTowSta);
 
-  connect(busAirHan.reqChiWatRes, FIXME_TChiWatSupResReq.u);
-  connect(busEquZon.reqChiWatRes, FIXME_TChiWatSupResReq.u);
-  connect(busAirHan.reqChiWatPla, reqChiWatPla.u);
-  connect(busEquZon.reqChiWatPla, reqChiWatPla.u);
+  connect(busAirHan.reqChiWatRes, FIXME_TChiWatSupResReqAirHan.u);
+  connect(busEquZon.reqChiWatRes, FIXME_TChiWatSupResReqZonEqu.u);
+  connect(busAirHan.reqChiWatPla, reqChiWatPlaAirHan.u);
+  connect(busEquZon.reqChiWatPla, reqChiWatPlaEquZon.u);
 
   connect(FIXME_uChiConIsoVal.y,ctl. uChiConIsoVal);
   connect(FIXME_uChiWatIsoVal.y,ctl. uChiWatIsoVal);
@@ -679,11 +693,20 @@ equation
           -17.5},{34,-17.5},{34,-140},{118,-140}}, color={0,0,127}));
   connect(ctl.yTowFanSpe, FIXME_yTowFanSpe.u) annotation (Line(points={{22,
           -28},{30,-28},{30,-260},{118,-260}}, color={0,0,127}));
-  connect(FIXME_TChiWatSupResReq.y, ctl.TChiWatSupResReq) annotation (Line(
-        points={{-118,-180},{-20,-180},{-20,-20.5},{-2,-20.5}}, color={255,127,
-          0}));
-  connect(reqChiWatPla.y, ctl.chiPlaReq) annotation (Line(points={{-118,-220},{
-          -18,-220},{-18,-22},{-2,-22}}, color={255,127,0}));
+  connect(reqChiWatPlaAirHan.y, reqChiWatPla.u1) annotation (Line(points={{-118,
+          -190},{-110,-190},{-110,-194},{-102,-194}}, color={255,127,0}));
+  connect(reqChiWatPlaEquZon.y, reqChiWatPla.u2) annotation (Line(points={{-118,
+          -220},{-110,-220},{-110,-206},{-102,-206}}, color={255,127,0}));
+  connect(reqChiWatPla.y, ctl.chiPlaReq) annotation (Line(points={{-78,-200},{-18,
+          -200},{-18,-22},{-2,-22}}, color={255,127,0}));
+  connect(FIXME_TChiWatSupResReqAirHan.y, reqChiWatRes.u1) annotation (Line(
+        points={{-118,-130},{-110,-130},{-110,-154},{-102,-154}}, color={255,
+          127,0}));
+  connect(FIXME_TChiWatSupResReqZonEqu.y, reqChiWatRes.u2) annotation (Line(
+        points={{-118,-160},{-110,-160},{-110,-166},{-102,-166}}, color={255,
+          127,0}));
+  connect(reqChiWatRes.y, ctl.TChiWatSupResReq) annotation (Line(points={{-78,-160},
+          {-20,-160},{-20,-20.5},{-2,-20.5}}, color={255,127,0}));
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>
@@ -702,6 +725,13 @@ To be updated.
 <li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

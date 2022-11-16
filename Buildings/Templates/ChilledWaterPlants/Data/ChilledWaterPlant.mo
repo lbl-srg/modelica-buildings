@@ -104,7 +104,8 @@ record ChilledWaterPlant "Record for chilled water plant model"
     TChiWatChiSup_max=fill(ctl.TChiWatSup_max, nChi),
     TConWatChiEnt_nominal=ctl.TConWatChiSup_nominal,
     PLRUnlChi_min=ctl.capUnlChi_min ./ ctl.capChi_nominal)
-    "Chiller group";
+    "Chiller group"
+    annotation(Dialog(group="Chillers"));
 
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=nPumChiWatPri,
@@ -171,6 +172,17 @@ This record provides the set of sizing and operating parameters for
 CHW plant models that can be found within 
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants\">
 Buildings.Templates.ChilledWaterPlants</a>.
+</p>
+<p>
+Most of the parameters should be assigned through the sub-record
+dedicated to the controller.
+All parameters that are also needed to parameterize other plant
+components are propagated from the controller sub-record
+to the corresponding equipment sub-records.
+Note that those parameter bindings are not final so they may be 
+overwritten in case a component is parameterized at nominal 
+conditions that differ from the design conditions specified 
+in the controller sub-record.  
 </p>
 </html>"));
 end ChilledWaterPlant;

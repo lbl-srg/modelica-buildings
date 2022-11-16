@@ -36,5 +36,22 @@ equation
   connect(hex.port_b2, dpChiWatEco.port_b) annotation (Line(points={{10,68},{20,
           68},{20,40},{10,40}}, color={0,127,255}));
 annotation (
- defaultComponentName="eco");
+ defaultComponentName="eco", Documentation(info="<html>
+<p>
+This is a model of a waterside economizer where a modulating
+heat exchanger bypass valve is used to control the CHW flow rate 
+through the heat exchanger.
+The CW flow rate is modulated by means of a two-way valve.
+As per standard practice, the model includes a differential pressure
+sensor on the CHW side that measures the pressure drop 
+across the heat exchanger.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end HeatExchangerWithValve;

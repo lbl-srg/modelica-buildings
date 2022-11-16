@@ -20,11 +20,11 @@ model CoolerGroupCoolingTowerOpen
     "Total CW mass flow rate (all units)";
   parameter Modelica.Units.SI.PressureDifference dpConWatFriCoo_nominal[nCoo]=
     fill(Buildings.Templates.Data.Defaults.dpConWatFriTow, nCoo)
-    "CW flow-friction losses through tower and piping only (without static head or valve)"
+    "CW flow-friction losses through tower and piping only (without elevation head or valve)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpConWatStaCoo_nominal[nCoo]=
     fill(Buildings.Templates.Data.Defaults.dpConWatStaTow, nCoo)
-    "CW static pressure drop"
+    "CW elevation head"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo]=
     mConWatCoo_flow_nominal / Buildings.Templates.Data.Defaults.ratFloWatByAirTow
@@ -81,14 +81,16 @@ model CoolerGroupCoolingTowerOpen
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1[nCoo](
     each table=[0,0; 1.2,0; 1.2,1; 2,1],
     each timeScale=1000,
-    each period=2000) "CW pump and cooler Start/Stop signal"
+    each period=2000)
+    "CW pump and cooler Start/Stop signal"
     annotation (Placement(transformation(extent={{-250,190},{-230,210}})));
   Fluid.HeatExchangers.HeaterCooler_u loaCon(
     redeclare final package Medium = MediumConWat,
     final m_flow_nominal=mConWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=sum(capCoo_nominal),
-    dp_nominal=0) "Load from condenser"
+    dp_nominal=0)
+    "Load from condenser"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,20})));
@@ -98,7 +100,6 @@ model CoolerGroupCoolingTowerOpen
     each period=2000)
     "CW isolation valve opening signal"
     annotation (Placement(transformation(extent={{-250,150},{-230,170}})));
-
   Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla
     "Plant control bus"
     annotation (Placement(transformation(extent={{180,80},{220,120}}),
@@ -139,14 +140,16 @@ model CoolerGroupCoolingTowerOpen
     annotation (Placement(transformation(extent={{180,40},{220,80}}),
                          iconTransformation(extent={{-316,184},{-276,224}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nCoo]
-    "Convert start signal to real"       annotation (Placement(transformation(
+    "Convert start signal to real"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={240,60})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum comSigLoa(
     final k=fill(1/nCoo, nCoo),
     final nin=nCoo)
-    "Compute load modulating signal" annotation (Placement(
+    "Compute load modulating signal"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -155,12 +158,15 @@ model CoolerGroupCoolingTowerOpen
     show_T=true,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datCoo,
-    final nCoo=nCoo) "Cooler group" annotation (Placement(transformation(
+    final nCoo=nCoo)
+    "Cooler group"
+    annotation (Placement(transformation(
         extent={{40,-40},{-40,40}},
         rotation=0,
         origin={-140,60})));
   Buildings.Templates.Components.Interfaces.Bus valCooOutIso[nCoo]
-    "Cooler outlet isolation valve control bus" annotation (Placement(
+    "Cooler outlet isolation valve control bus"
+    annotation (Placement(
         transformation(extent={{120,100},{160,140}}), iconTransformation(extent=
            {{-422,198},{-382,238}})));
   Buildings.Templates.Components.Interfaces.Bus valCooInlIso[nCoo]
@@ -181,7 +187,8 @@ model CoolerGroupCoolingTowerOpen
     final m_flow_nominal=mConWat_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=sum(capCoo_nominal),
-    dp_nominal=0) "Load from condenser"
+    dp_nominal=0)
+    "Load from condenser"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,-160})));
@@ -208,8 +215,9 @@ model CoolerGroupCoolingTowerOpen
     final tau=tau)
     "Chiller group CW outlet manifold"
     annotation (Placement(transformation(extent={{0,-210},{-20,-190}})));
-  Fluid.Sources.Boundary_pT bouCon1(redeclare final package Medium =
-        MediumConWat, nPorts=1)
+  Fluid.Sources.Boundary_pT bouCon1(
+    redeclare final package Medium =MediumConWat,
+    nPorts=1)
     "CW pressure boundary condition" annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -328,11 +336,19 @@ equation
   experiment(
     StopTime=2000,
     Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/CoolerGroup.mos"
-    "Simulate and plot"),
-    Documentation(info="<html>
+  __Dymola_Commands(file=
+  "modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Components/Validation/CoolerGroupCoolingTowerOpen.mos"
+  "Simulate and plot"),
+  Documentation(info="<html>
+<p>
 This model validates the cooler group model
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen\">
-Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen</a>.
+Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups.CoolingTowerOpen</a>
+with open-loop controls.
+</p>
+<p>
+Two model configurations are tested: one with inlet and outlet 
+isolation valves, the other without any isolation valves. 
+</p>
 </html>"));
 end CoolerGroupCoolingTowerOpen;

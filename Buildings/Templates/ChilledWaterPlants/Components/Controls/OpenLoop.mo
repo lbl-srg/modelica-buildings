@@ -5,9 +5,10 @@ block OpenLoop "Open loop controller (output signals only)"
      final typ=Buildings.Templates.ChilledWaterPlants.Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(
+    y(final unit="K", displayUnit="degC"),
     k=Buildings.Templates.Data.Defaults.TChiWatSup)
     "CHW supply temperature set point"
-    annotation (Placement(transformation(extent={{-100,250},{-80,270}})));
+    annotation (Placement(transformation(extent={{-80,250},{-100,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatPri(
     k=1)
     if have_varPumChiWatPri and have_varComPumChiWatPri
@@ -21,7 +22,7 @@ block OpenLoop "Open loop controller (output signals only)"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumChiWatSec(
     k=1) if have_pumChiWatSec
     "Secondary CHW pump speed signal"
-    annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
+    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumConWat(
     k=1) if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
     and have_varPumConWat and have_varComPumConWat
@@ -36,48 +37,48 @@ block OpenLoop "Open loop controller (output signals only)"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatChiIso[nChi](
     each k=1) if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CHW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-130,210},{-110,230}})));
+    annotation (Placement(transformation(extent={{-110,210},{-130,230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValConWatChiIso[nChi](
     each k=1) if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Chiller CW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-60,170},{-40,190}})));
+    annotation (Placement(transformation(extent={{-40,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValCooInlIso[nCoo](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
     each period=2000) if typValCooInlIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Cooler inlet isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-160,-190},{-140,-170}})));
+    annotation (Placement(transformation(extent={{-140,-190},{-160,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCooInlIso[nCoo](
     each k=1) if typValCooInlIso== Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Cooler inlet isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-130,-210},{-110,-190}})));
+    annotation (Placement(transformation(extent={{-110,-210},{-130,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValCooOutIso[nCoo](
     each k=1) if typValCooOutIso== Buildings.Templates.Components.Types.Valve.TwoWayModulating
     "Cooler outlet isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-50,-250},{-30,-230}})));
+    annotation (Placement(transformation(extent={{-30,-250},{-50,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yCoo(
     k=1)
     if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
     "Cooler fan speed signal"
-    annotation (Placement(transformation(extent={{40,-290},{60,-270}})));
+    annotation (Placement(transformation(extent={{60,-290},{40,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Chi[nChi](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
     each period=2000) "Chiller Start/Stop signal"
-    annotation (Placement(transformation(extent={{-160,270},{-140,290}})));
+    annotation (Placement(transformation(extent={{-140,270},{-160,290}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Coo[nCoo](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
     each period=2000)
     if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
     "Cooler Start/Stop signal"
-    annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
+    annotation (Placement(transformation(extent={{20,-270},{0,-250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValCooOutIso[nCoo](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
     each period=2000) if typValCooOutIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Cooler outlet isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-80,-230},{-60,-210}})));
+    annotation (Placement(transformation(extent={{-60,-230},{-80,-210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatSec[nPumChiWatSec](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
@@ -89,14 +90,14 @@ block OpenLoop "Open loop controller (output signals only)"
     each period=2000)
     if typValChiWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CHW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-160,230},{-140,250}})));
+    annotation (Placement(transformation(extent={{-140,230},{-160,250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValConWatChiIso[nChi](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
     each period=2000)
     if typValConWatChiIso == Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Chiller CW isolation valve opening signal"
-    annotation (Placement(transformation(extent={{-90,190},{-70,210}})));
+    annotation (Placement(transformation(extent={{-70,190},{-90,210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumChiWatPri[nChi](
     each table=[0,0; 1,0; 1,1; 2,1],
     each timeScale=1000,
@@ -109,8 +110,7 @@ block OpenLoop "Open loop controller (output signals only)"
     if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
     "CW pump Start/Stop signal"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatMinByp(
-    k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValChiWatMinByp(k=0)
     "CHW minimum flow bypass valve opening signal"
     annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatChiBypSer[nChi](
@@ -118,7 +118,7 @@ block OpenLoop "Open loop controller (output signals only)"
     each timeScale=1000,
     each period=2000)
     "Chiller CHW bypass valve opening signal - Series chillers"
-    annotation (Placement(transformation(extent={{-120,130},{-100,150}})));
+    annotation (Placement(transformation(extent={{-100,130},{-120,150}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValChiWatChiBypPar(
     table=[0,0; 1,0; 1,1; 2,1],
     timeScale=1000,
@@ -189,9 +189,10 @@ equation
   */
   if have_pumChiWatSec then
     connect(yPumChiWatSec.y, busPumChiWatSec.y)
-      annotation (Line(points={{-108,0},{140,0},{140,20}},  color={0,0,127}));
+      annotation (Line(points={{-98,-10},{140,-10},{140,20}},
+                                                            color={0,0,127}));
     connect(busPumChiWatSec, bus.pumChiWatSec) annotation (Line(
-        points={{140,20},{200,20},{200,0},{-260,0}},
+        points={{140,20},{160,20},{160,0},{-260,0}},
         color={255,204,51},
         thickness=0.5));
     connect(y1PumChiWatSec.y[1], busPumChiWatSec.y1)
@@ -217,9 +218,10 @@ equation
   connect(yValChiWatMinByp.y, busValChiWatMinByp.y)
     annotation (Line(points={{-138,120},{140,120}}, color={0,0,127}));
   connect(y1ValChiWatChiBypSer.y[1], busValChiWatChiByp.y1) annotation (Line(
-        points={{-98,140},{160,140},{160,80},{-240,80}},color={255,0,255}));
+        points={{-122,140},{-180,140},{-180,80},{-240,80}},
+                                                        color={255,0,255}));
   connect(busValChiWatChiBypPar, bus.valChiWatChiByp) annotation (Line(
-      points={{140,160},{186,160},{186,0},{-260,0}},
+      points={{140,160},{190,160},{190,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(y1ValChiWatChiBypPar.y[1], busValChiWatChiBypPar.y1)
@@ -262,49 +264,54 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(y1Chi.y[1], bus.y1Chi) annotation (Line(points={{-138,280},{256,280},
-          {256,0},{-260,0}},color={255,0,255}), Text(
+  connect(y1Chi.y[1], bus.y1Chi) annotation (Line(points={{-162,280},{-258,280},
+          {-258,0},{-260,0}},
+                            color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(TChiWatSupSet.y, bus.TChiWatSupSet) annotation (Line(points={{-78,260},
-          {254,260},{254,0},{-260,0}},color={0,0,127}), Text(
+  connect(TChiWatSupSet.y, bus.TChiWatSupSet) annotation (Line(points={{-102,
+          260},{-254,260},{-254,0},{-260,0}},
+                                      color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(y1Coo.y[1], bus.y1Coo) annotation (Line(points={{22,-260},{254,-260},
-          {254,0},{-260,0}},
+  connect(y1Coo.y[1], bus.y1Coo) annotation (Line(points={{-2,-260},{-254,-260},
+          {-254,0},{-260,0}},
                            color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(yCoo.y, bus.yCoo) annotation (Line(points={{62,-280},{256,-280},{256,
-          0},{-260,0}},
+  connect(yCoo.y, bus.yCoo) annotation (Line(points={{38,-280},{-256,-280},{
+          -256,0},{-260,0}},
                     color={0,0,127}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(y1ValCooInlIso.y[1], busValCooInlIso.y1) annotation (Line(points={{-138,
-          -180},{200,-180},{200,-140},{-240,-140}},     color={255,0,255}));
-  connect(y1ValCooOutIso.y[1], busValCooOutIso.y1) annotation (Line(points={{-58,
+  connect(y1ValCooInlIso.y[1], busValCooInlIso.y1) annotation (Line(points={{-162,
+          -180},{-200,-180},{-200,-140},{-240,-140}},   color={255,0,255}));
+  connect(y1ValCooOutIso.y[1], busValCooOutIso.y1) annotation (Line(points={{-82,
           -220},{-240,-220},{-240,-180}},   color={255,0,255}));
-  connect(yValCooInlIso.y, busValCooInlIso.y) annotation (Line(points={{-108,-200},
-          {204,-200},{204,-144},{212,-144},{212,-140},{-240,-140}},      color=
+  connect(yValCooInlIso.y, busValCooInlIso.y) annotation (Line(points={{-132,
+          -200},{-202,-200},{-202,-146},{-240,-146},{-240,-140}},        color=
           {0,0,127}));
-  connect(yValCooOutIso.y, busValCooOutIso.y) annotation (Line(points={{-28,-240},
-          {224,-240},{224,-180},{-240,-180}},      color={0,0,127}));
+  connect(yValCooOutIso.y, busValCooOutIso.y) annotation (Line(points={{-52,
+          -240},{-244,-240},{-244,-180},{-240,-180}},
+                                                   color={0,0,127}));
   connect(y1ValChiWatChiIso.y[1], busValChiWatChiIso.y1) annotation (Line(
-        points={{-138,240},{200,240},{200,160},{-240,160}},color={255,0,255}));
-  connect(yValChiWatChiIso.y, busValChiWatChiIso.y) annotation (Line(points={{-108,
-          220},{196,220},{196,160},{-240,160}},     color={0,0,127}));
+        points={{-162,240},{-230,240},{-230,160},{-240,160}},
+                                                           color={255,0,255}));
+  connect(yValChiWatChiIso.y, busValChiWatChiIso.y) annotation (Line(points={{-132,
+          220},{-226,220},{-226,160},{-240,160}},   color={0,0,127}));
   connect(y1ValConWatChiIso.y[1], busValConWatChiIso.y1) annotation (Line(
-        points={{-68,200},{194,200},{194,120},{-240,120}},color={255,0,255}));
-  connect(yValConWatChiIso.y, busValConWatChiIso.y) annotation (Line(points={{-38,180},
-          {192,180},{192,120},{-240,120}},         color={0,0,127}));
+        points={{-92,200},{-204,200},{-204,120},{-240,120}},
+                                                          color={255,0,255}));
+  connect(yValConWatChiIso.y, busValConWatChiIso.y) annotation (Line(points={{-62,180},
+          {-200,180},{-200,120},{-240,120}},       color={0,0,127}));
   annotation (
   defaultComponentName="ctr",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -317,5 +324,12 @@ for the templates within
 Buildings.Templates.ChilledWaterPlants</a>.
 It is mainly used for testing purposes.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end OpenLoop;

@@ -115,7 +115,7 @@ model ChillerGroupWaterCooled
     final Q_flow_nominal=sum(capChi_nominal),
     dp_nominal=0)
     "Cooling load"
-    annotation (Placement(transformation(extent={{28,-90},{8,-70}})));
+    annotation (Placement(transformation(extent={{88,-90},{68,-70}})));
   Fluid.Sensors.TemperatureTwoPort TChiWatPriSup(
     redeclare final package Medium=MediumChiWat,
     final m_flow_nominal=sum(mChiWatChi_flow_nominal))
@@ -135,7 +135,7 @@ model ChillerGroupWaterCooled
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-20,-100})));
+        origin={40,-100})));
   Fluid.Sources.PropertySource_T tow(
     redeclare final package Medium=MediumConWat,
     final use_T_in=true)
@@ -248,6 +248,12 @@ model ChillerGroupWaterCooled
     "Plant control bus"
     annotation (Placement(transformation(extent={{-100,120},{-60,160}}),
                          iconTransformation(extent={{-432,12},{-412,32}})));
+  Fluid.Sensors.TemperatureTwoPort TChiWatPriRet(redeclare final package Medium =
+        MediumChiWat, final m_flow_nominal=sum(mChiWatChi_flow_nominal))
+    "Primary CHW return temperature" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={0,-80})));
 equation
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{-20,100},{-20,100}},color={0,127,255}));
@@ -255,10 +261,10 @@ equation
     annotation (Line(points={{0,100},{20,100}},  color={0,127,255}));
   connect(TChiWatPriSup.port_b, mChiWatPri_flow.port_a)
     annotation (Line(points={{40,100},{50,100}}, color={0,127,255}));
-  connect(loa.port_a, mChiWatPri_flow.port_b) annotation (Line(points={{28,-80},
+  connect(loa.port_a, mChiWatPri_flow.port_b) annotation (Line(points={{88,-80},
           {100,-80},{100,100},{70,100}},color={0,127,255}));
   connect(bouChiWat.ports[1], loa.port_b)
-    annotation (Line(points={{-20,-90},{-20,-80},{8,-80}},
+    annotation (Line(points={{40,-90},{40,-80},{68,-80}},
                                                      color={0,127,255}));
   connect(TConWat.y, tow.T_in) annotation (Line(points={{-218,140},{-200,140},{-200,
           -68}}, color={0,0,127}));
@@ -270,8 +276,6 @@ equation
     annotation (Line(points={{-100,100},{-130,100}}, color={0,127,255}));
   connect(outConWatChi.port_a, tow.port_a) annotation (Line(points={{-150,100},{
           -220,100},{-220,-80},{-206,-80}},  color={0,127,255}));
-  connect(loa.port_b,inlChiWatChi. port_b)
-    annotation (Line(points={{8,-80},{-32,-80}},   color={0,127,255}));
   connect(inlChiWatChi.ports_a, chi.ports_aChiWat)
     annotation (Line(points={{-52,-80},{-60,-80}}, color={0,127,255}));
   connect(chi.ports_bChiWat, inlPumChiWatPri.ports_a)
@@ -287,7 +291,7 @@ equation
   connect(booToRea.y,comSigLoa. u)
     annotation (Line(points={{240,68},{240,62}},     color={0,0,127}));
   connect(comSigLoa.y, loa.u)
-    annotation (Line(points={{240,38},{240,-74},{30,-74}},  color={0,0,127}));
+    annotation (Line(points={{240,38},{240,-74},{90,-74}},  color={0,0,127}));
   connect(busChi.y1_actual, booToRea.u) annotation (Line(
       points={{200,140},{240,140},{240,92}},
       color={255,204,51},
@@ -320,6 +324,10 @@ equation
       index=-1,
       extent={{-3,6},{-3,6}},
       horizontalAlignment=TextAlignment.Right));
+  connect(loa.port_b, TChiWatPriRet.port_a)
+    annotation (Line(points={{68,-80},{10,-80}}, color={0,127,255}));
+  connect(TChiWatPriRet.port_b, inlChiWatChi.port_b)
+    annotation (Line(points={{-10,-80},{-32,-80}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-260,-140},{260,220}})),
   experiment(
     StopTime=2000,
@@ -333,6 +341,15 @@ This model validates the chiller group model
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression\">
 Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression</a>
 for water-cooled chillers.
+</p>
+<p>
+The validation uses open-loop controls and tests a single
+system configuration.
+The controller is automatically configured (by means 
+of parameters bindings with the chiller group component parameters)  
+to provide the necessary signals for any system configuration.
+To test a different system configuration, one needs only to modify the
+chiller group component.
 </p>
 </html>"));
 end ChillerGroupWaterCooled;
