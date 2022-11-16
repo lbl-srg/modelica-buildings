@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Interfaces;
-model PartialPump "Base class for all pump models"
+partial model PartialPump "Interface class for pump models"
   parameter Buildings.Templates.Components.Types.Pump typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -53,4 +53,9 @@ model PartialPump "Base class for all pump models"
         rotation=0,
         origin={0,100})));
 
+  annotation (Documentation(info="<html>
+<p>
+This partial class provides a standard interface for pump models.
+</p>
+</html>"));
 end PartialPump;

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Interfaces;
 partial model PartialCooler
-  "Interface class for condenser water cooling equipment"
+  "Interface class for models of condenser water cooling equipment"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumConWat,
     final m_flow_nominal=mConWat_flow_nominal);
@@ -55,5 +55,10 @@ partial model PartialCooler
     annotation (Placement(transformation(extent={{-80,80},{-40,120}}),
       iconTransformation(extent={{-70,90},{-50,110}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for cooler models.
+</p>
+</html>"));
 end PartialCooler;

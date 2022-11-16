@@ -107,24 +107,34 @@ equation
   annotation (
   defaultComponentName="pum",
   Documentation(info="<html>
-  TODO: update doc.
 <p>
-This is a model for a single pump.
+This is a model for a single pump
+with an optional check valve (depending on the value of the parameter 
+<code>have_valChe</code>).
+</p>
+<p>
+By default, a variable speed pump is modeled.
+A constant speed pump can be modeled by setting the parameter 
+<code>have_var</code> to <code>false</code>.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
 </p>
 <ul>
 <li>
-The pump is commanded On with a dedicated Boolean signal <code>y1</code>
-(VFD Run or starter contact).
+Pump Start/Stop command (VFD Run or motor starter contact) 
+<code>y1</code>: 
+DO signal
 </li>
 <li>
-For a variable speed pump, the speed is modulated with the fractional speed signal
-<code>y</code> (real).<br/>
-<code>y = 0</code> corresponds to 0 Hz.
-<code>y = 1</code> corresponds to the maximum speed set in the VFD.
+Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only: 
+AO signal
 </li>
 <li>
-The pump returns a status signal <code>y1_actual</code> (Boolean).<br/>
-<code>y1_actual = true</code> means that the pump is proven On.
+Pump status (through VFD interface, VFD status contact, 
+or current switch) <code>y1_actual</code>: 
+DI signal
 </li>
 </ul>
 </html>"));

@@ -114,7 +114,9 @@ record ChillerGroup "Record for chiller group model"
       else fill(0, nChi))
     "Chiller performance data"
     annotation(choicesAllMatching=true);
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="datChi",
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 
 chiller group models that can be found within 

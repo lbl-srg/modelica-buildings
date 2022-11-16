@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Interfaces;
-partial model PartialChiller "Partial chiller model"
+partial model PartialChiller "Interface class for chiller models"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1=MediumCon,
     redeclare final package Medium2=MediumChiWat,
@@ -59,4 +59,9 @@ partial model PartialChiller "Partial chiller model"
     "Control bus"
     annotation (Placement(transformation(extent={{-20,80},{20,120}}),
      iconTransformation(extent={{-20,80},{20, 120}})));
+  annotation (Documentation(info="<html>
+<p>
+This partial class provides a standard interface for chiller models.
+</p>
+</html>"));
 end PartialChiller;

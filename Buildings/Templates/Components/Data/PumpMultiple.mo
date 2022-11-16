@@ -40,5 +40,26 @@ record PumpMultiple "Record for multiple pumps models"
     "Performance data"
     annotation(Dialog(group="Pump",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-
+  annotation (
+  defaultComponentName="datPum", Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+the multiple pump model
+<a href=\"modelica://Buildings.Templates.Components.Pumps.Multiple\">
+Buildings.Templates.Components.Pumps.Multiple</a>.
+</p>
+<p>
+A default pump characteristic is provided, which goes through
+the design operating point and spans over
+<i>0</i> and twice the design flow rate at maximum speed.
+This default characteristic is based on a least squares
+polynomial fit of the characteristics from
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
+Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
+Note that a default medium density is used to parameterize 
+the pump characteristic. So models that use this record should
+overwrite this default value with the density of the medium
+in use, especially in the case of a water/glycol mix. 
+</p>
+</html>"));
 end PumpMultiple;

@@ -61,16 +61,20 @@ record CoolerGroup "Record for cooler group model"
     start=Buildings.Templates.Data.Defaults.PFanByFloConWatTow * mConWatCoo_flow_nominal)
     "Fan power"
     annotation (Dialog(group="Nominal condition"));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="datCoo",
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 
-chiller group models that can be found within 
+cooler group models that can be found within 
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups\">
 Buildings.Templates.ChilledWaterPlants.Components.CoolerGroups</a>.
 </p>
 <p>
-Design temperature conditions are common to all units.
+Design temperature conditions are common to all units and have a 
+dimensionality of zero.
 Mass flow rates, pressure drops and fan power are specific to each unit.
+and have a dimensionality of one.
 </p>
 </html>"));
 end CoolerGroup;

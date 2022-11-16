@@ -4,7 +4,9 @@ package Coolers "Condenser water cooling equipment models"
 
 
 annotation (Documentation(info="<html>
-
-fixme: Move to Buildings.Templates.Components
+<p>
+This package contains models for cooler units such as
+cooling towers and dry coolers.
+</p>
 </html>"));
 end Coolers;

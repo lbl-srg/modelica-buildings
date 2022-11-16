@@ -398,7 +398,9 @@ record Controller "Record for plant controller"
     annotation (Evaluate=true, Dialog(group="Plant staging", enable=
     typ==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36 and
     typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="datCtl",
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for 
 CHW plant controllers that can be found within 

@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Interfaces;
-partial model PartialEconomizerHX "Partial model of WSE with plate heat exchanger"
+partial model PartialEconomizerHX "Partial model of WSE with plate and frame heat exchanger"
   extends
     Buildings.Templates.ChilledWaterPlants.Components.Interfaces.PartialEconomizer;
 

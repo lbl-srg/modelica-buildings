@@ -123,24 +123,43 @@ equation
   annotation (
   defaultComponentName="pum",
   Documentation(info="<html>
-  TODO: update doc.
 <p>
-This is a model for a parallel arrangement of identical variable
-speed pumps (with dedicated VFDs).
+This is a model for a parallel arrangement of <code>nPum</code> pumps 
+with optional check valves (depending on the value of the parameter 
+<code>have_valChe</code>).
+</p>
+<p>
+By default, variable speed pumps are modeled.
+Constant speed pumps can be modeled by setting the parameter 
+<code>have_var</code> to <code>false</code>.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
 </p>
 <ul>
 <li>
-Each pump is commanded On with a dedicated Boolean signal <code>y1</code> (VFD Run).
+Pump Start/Stop command (VFD Run or motor starter contact) 
+<code>y1</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-The speed of all pumps is modulated with the same
-fractional speed signal <code>y</code> (real).<br/>
-<code>y = 0</code> corresponds to 0 Hz.
-<code>y = 1</code> corresponds to the maximum speed set in the VFD.
+Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only: 
+<ul>
+<li>
+If <code>have_varCom</code>: AO signal common to all units, 
+with a dimensionality of zero
 </li>
 <li>
-Each pump returns a dedicated status signal <code>y1_actual</code> (Boolean).<br/>
-<code>y1_actual = true</code> means that the pump is proven On.
+If <code>not have_varCom</code>: AO signal dedicated to each unit, 
+with a dimensionality of one
+</li>
+</ul>
+</li>
+<li>
+Pump status (through VFD interface, VFD status contact, 
+or current switch) <code>y1_actual</code>: 
+DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
 </html>"));

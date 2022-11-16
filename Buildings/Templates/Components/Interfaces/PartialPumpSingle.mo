@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Interfaces;
-partial model PartialPumpSingle "Interface class for single pump"
+partial model PartialPumpSingle "Interface class for models of single pump"
   extends Buildings.Templates.Components.Interfaces.PartialPump;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water,
@@ -17,4 +17,9 @@ partial model PartialPumpSingle "Interface class for single pump"
     annotation (Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
+  annotation (Documentation(info="<html>
+<p>
+This partial class provides a standard interface for single pump models.
+</p>
+</html>"));
 end PartialPumpSingle;

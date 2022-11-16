@@ -201,10 +201,12 @@ DO signal dedicated to each unit, with a dimensionality of one
 Cooler speed command (VFD Speed) <code>yCoo</code>: 
 <ul>
 <li>
-If <code>have_varCom</code>: AO signal common to all units , with a dimensionality of zero
+If <code>have_varCom</code>: AO signal common to all units, 
+with a dimensionality of zero
 </li>
 <li>
-If <code>not have_varCom</code>: AO signal dedicated to each unit, with a dimensionality of one
+If <code>not have_varCom</code>: AO signal dedicated to each unit, 
+with a dimensionality of one
 </li>
 </ul>
 </li>

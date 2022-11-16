@@ -82,4 +82,13 @@ record Chiller "Data for chillers"
     "Chiller performance data"
     annotation (
     choicesAllMatching=true);
+  annotation (
+  defaultComponentName="datChi", Documentation(info="<html>
+<p>
+This record provides the set of sizing and operating parameters for 
+the classes within
+<a href=\"modelica://Buildings.Templates.Components.Chillers\">
+Buildings.Templates.Components.Chillers</a>.
+</p>
+</html>"));
 end Chiller;

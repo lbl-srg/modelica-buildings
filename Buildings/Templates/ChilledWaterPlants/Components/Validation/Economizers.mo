@@ -1,5 +1,5 @@
 within Buildings.Templates.ChilledWaterPlants.Components.Validation;
-model Economizer "Validation model for WSE components"
+model Economizers "Validation model for waterside economizers"
   extends Modelica.Icons.Example;
 
   replaceable package MediumChiWat = Buildings.Media.Water
@@ -80,14 +80,14 @@ model Economizer "Validation model for WSE components"
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={80,-90})));
-  Economizers.HeatExchangerWithValve ecoVal(
+  .Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve
+    ecoVal(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datEcoVal,
     hex(show_T=true),
     final energyDynamics=energyDynamics,
-    final tau=tau)
-    "WSE with CHW bypass valve"
+    final tau=tau) "WSE with CHW bypass valve"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Fluid.Sources.Boundary_pT bouConWatRet(
     redeclare final package Medium=MediumConWat,
@@ -114,14 +114,14 @@ model Economizer "Validation model for WSE components"
   .Buildings.Templates.ChilledWaterPlants.Interfaces.Bus busPla
     "Plant control bus" annotation (Placement(transformation(extent={{-20,40},{
             20,80}}), iconTransformation(extent={{-432,12},{-412,32}})));
-  Economizers.HeatExchangerWithPump  ecoPum(
+  .Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithPump
+    ecoPum(
     redeclare final package MediumChiWat = MediumChiWat,
     redeclare final package MediumConWat = MediumConWat,
     final dat=datEcoPum,
     hex(show_T=true),
     final energyDynamics=energyDynamics,
-    final tau=tau)
-    "WSE with HX pump"
+    final tau=tau) "WSE with HX pump"
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Buildings.Templates.Components.Interfaces.Bus busPumChiWatEco
     "WSE CHW pump control bus" annotation (Placement(transformation(extent={{-20,-40},
@@ -240,4 +240,4 @@ and
 Buildings.Templates.ChilledWaterPlants.Components.Economizers.HeatExchangerWithValve</a>.
 </p>
 </html>"));
-end Economizer;
+end Economizers;

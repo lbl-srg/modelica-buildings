@@ -371,12 +371,7 @@ equation
 <p>
 This partial class provides a standard interface for plant controllers.
 </p>
-<p>
-<code>nSenDpChiWatRem</code> may be zero if CHW pump speed
-is only controlled based on a local differential pressure
-sensor.
-However, that option is not supported by G36.
-</p>
+<h4>Details</h4>
 <p>
 Array instances of nested expandable connectors are systematically
 declared here to enhance support across various Modelica tools.

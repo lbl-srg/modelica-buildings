@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Interfaces;
 partial model PartialPumpMultiple
-  "Interface class for multiple pumps in parallel arrangement"
+  "Interface class for models of multiple pumps in parallel"
   extends Buildings.Templates.Components.Interfaces.PartialPump;
 
   replaceable package Medium=Buildings.Media.Water
@@ -54,5 +54,9 @@ partial model PartialPumpMultiple
         Text(
           extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+This partial class provides a standard interface for multiple pump models.
+</p>
+</html>"));
 end PartialPumpMultiple;
