@@ -3,11 +3,15 @@ model DirectHeatExchangerWaterHeaterWithAuxHeat
   "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
   extends
     Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
+  parameter Modelica.Units.SI.Efficiency eps(max=1) = eps "Heat exchanger effectiveness";
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = QMax_flow "Maximum heat flow rate for heating (positive)";
 
   Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
     redeclare package Medium = Medium,
     m_flow_nominal=mHw_flow_nominal,
-    dp_nominal=0) if havePEle == true "Supplemental electric resistance domestic hot water heater"
+    dp_nominal=0,
+    QMax_flow=QMax_flow)
+                  if havePEle == true "Supplemental electric resistance domestic hot water heater"
     annotation (Placement(transformation(extent={{10,16},{30,-4}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare package
       Medium = Medium, m_flow_nominal=mHw_flow_nominal)
@@ -19,7 +23,7 @@ model DirectHeatExchangerWaterHeaterWithAuxHeat
     m2_flow_nominal=mDH_flow_nominal,
     dp1_nominal=0,
     dp2_nominal=0,
-    eps=0.85) "Domestic hot water heater"
+    eps=eps)  "Domestic hot water heater"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
         Medium, m_flow_nominal=mHw_flow_nominal)

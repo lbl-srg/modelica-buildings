@@ -9,6 +9,8 @@ model DomesticWaterHeater
   parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal = 0.1 "Nominal mass flow rate of hot water supply";
   parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal = 1 "Nominal mass flow rate of district heating water";
   parameter Boolean havePEle=true "Flag that specifies whether electric power is required for water heating";
+  parameter Modelica.Units.SI.Efficiency eps(max=1) = 0.8 "Heat exchanger effectiveness";
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf "Maximum heat flow rate for heating (positive)";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
@@ -21,7 +23,9 @@ model DomesticWaterHeater
     redeclare package Medium = Medium,
     havePEle=havePEle,
     mHw_flow_nominal=mHw_flow_nominal,
-    mDH_flow_nominal=mDH_flow_nominal) "Generation of DHW"
+    mDH_flow_nominal=mDH_flow_nominal,
+    eps=eps,
+    QMax_flow=QMax_flow)               "Generation of DHW"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sinDhw(
     redeclare package Medium = Medium,
