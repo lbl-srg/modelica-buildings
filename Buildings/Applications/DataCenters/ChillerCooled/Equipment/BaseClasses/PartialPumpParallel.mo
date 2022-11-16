@@ -142,11 +142,19 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[num](
     each final uLow=threshold,
     each final uHigh=2*threshold) "Hysteresis for isolation valves"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
     "Boolean to real conversion for isolation valves"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[num]
+    "Switch to enable pump only once the valve is commanded open"
+    annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[num](
+    each final k=0)
+    "Outputs 0 as the control signal"
+    annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -167,9 +175,16 @@ equation
   connect(booToRea.y, val.y)
     annotation (Line(points={{42,60},{50,60},{50,12}}, color={0,0,127}));
   connect(hys.y, booToRea.u)
-    annotation (Line(points={{2,60},{18,60}}, color={255,0,255}));
-  connect(hys.u, u) annotation (Line(points={{-22,60},{-62,60},{-62,40},{-120,40}},
+    annotation (Line(points={{-58,60},{18,60}},
+                                              color={255,0,255}));
+  connect(hys.u, u) annotation (Line(points={{-82,60},{-96,60},{-96,40},{-120,40}},
         color={0,0,127}));
+  connect(hys.y, swi.u2) annotation (Line(points={{-58,60},{-50,60},{-50,44},{-56,
+          44},{-56,32},{-52,32}}, color={255,0,255}));
+  connect(con.y, swi.u3)
+    annotation (Line(points={{-58,24},{-52,24}}, color={0,0,127}));
+  connect(swi.u1, u)
+    annotation (Line(points={{-52,40},{-120,40}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-60,60},{60,40}},
@@ -240,6 +255,10 @@ equation
           origin={-60,0},
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Improved sequence to avoid switching pump on when the valve is commanded off.
+</li>
 <li>
 November 15, 2022, by Michael Wetter:<br/>
 Set initial state of valve to be open, and changed rise time of valve to be the same as pump.<br/>

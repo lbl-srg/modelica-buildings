@@ -14,13 +14,13 @@ model FlowMachine_m "Identical m_flow controlled pumps"
 
   Modelica.Blocks.Math.Gain gaiM_flow[num](each final k=m_flow_nominal)
     "Gain for mass flow rate"
-    annotation (Placement(transformation(extent={{-48,30},{-28,50}})));
+    annotation (Placement(transformation(extent={{-20,22},{0,42}})));
 
 equation
-  connect(gaiM_flow.y, pum.m_flow_in)
-    annotation (Line(points={{-27,40},{0,40},{0,12}}, color={0,0,127}));
-  connect(gaiM_flow.u, u)
-    annotation (Line(points={{-50,40},{-120,40},{-120,40}}, color={0,0,127}));
+  connect(swi.y, gaiM_flow.u)
+    annotation (Line(points={{-28,32},{-22,32}}, color={0,0,127}));
+  connect(gaiM_flow.y, pum.m_flow_in) annotation (Line(points={{1,32},{6,32},{6,
+          20},{0,20},{0,12}}, color={0,0,127}));
   annotation (    Documentation(info="<html>
 <p>This model implements a parallel of identical pumps with <code>m_flow</code> being controlled.
 The number can be specified by setting a value of <code>num</code>.
@@ -28,6 +28,10 @@ The shutoff valves are used to avoid circulating flow among pumps.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Improved sequence to avoid switching pump on when the valve is commanded off.
+</li>
 <li>
 July 27, 2017, by Yangyang Fu:<br/>
 First implementation.
