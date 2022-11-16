@@ -54,7 +54,26 @@ equation
           -60}}, color={0,127,255}));
   connect(port_a2, hex.port_a2) annotation (Line(points={{100,-60},{-60,-60},{-60,
           -6}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This model is an example of a domestic hot water (DHW) substation for a  
+low-temperature district heating (LTDH) network. It includes preheating by the
+district and optional electric resistance to bring the temperature to setpoint.
+</p>
+<p>
+For more info, please see Fig. 5 in <i>Evaluations of different domestic hot water 
+preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
+H. Li, and S. Svendsen at <a href=https:/doi.org/10.1016/j.energy.2016.04.109> 
+doi.org/10.1016/j.energy.2016.04.109</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 16, 2022 by Dre Helmns:<br/>
+Created substation model.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

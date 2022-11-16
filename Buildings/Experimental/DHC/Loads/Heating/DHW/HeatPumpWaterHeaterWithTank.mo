@@ -95,11 +95,30 @@ equation
           6},{80,40},{60,40}}, color={0,127,255}));
   connect(pumHw.port_b, tan.portHex_a) annotation (Line(points={{40,40},{-20,40},
           {-20,56.2},{-40,56.2}}, color={0,127,255}));
-  connect(gai.y, pumHw.m_flow_in) annotation (Line(points={{-59,30},{0,30},{0,
-          20},{50,20},{50,28}}, color={0,0,127}));
-  connect(gai.u, uPum) annotation (Line(points={{-82,30},{-90,30},{-90,20},{
-          -110,20}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  connect(gai.y, pumHw.m_flow_in) annotation (Line(points={{-59,30},{0,30},{0,20},
+          {50,20},{50,28}}, color={0,0,127}));
+  connect(gai.u, uPum) annotation (Line(points={{-82,30},{-90,30},{-90,20},{-110,
+          20}}, color={0,0,127}));
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This model is an example of a domestic hot water (DHW) substation for an  
+ultra-low-temperature district heating (ULTDH) network. It includes a micro heat 
+pump and storage tank with direct thermostatic mixing rather than heat exchange.
+</p>
+<p>
+For more info, please see Fig. 3 in <i>Evaluations of different domestic hot water 
+preparing methods with ultra-low-temperature district heating</i> by X. Yang, 
+H. Li, and S. Svendsen at <a href=https:/doi.org/10.1016/j.energy.2016.04.109> 
+doi.org/10.1016/j.energy.2016.04.109</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 16, 2022 by Dre Helmns:<br/>
+Created substation model.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
