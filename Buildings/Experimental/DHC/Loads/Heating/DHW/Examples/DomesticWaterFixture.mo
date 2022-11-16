@@ -12,6 +12,8 @@ model DomesticWaterFixture
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
+  parameter Real uLow = 0.1 "low hysteresis threshold";
+  parameter Real uHigh = 0.9 "high hysteresis threshold";
 
   DomesticWaterMixer tmv(
     redeclare package Medium = Medium,
@@ -19,6 +21,8 @@ model DomesticWaterFixture
     mDhw_flow_nominal=mDhw_flow_nominal,
     dpValve_nominal=dpValve_nominal,
     k=kCon,
+    uLow=uLow,
+    uHigh=uHigh,
     Ti=Ti) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw "Temperature of the outlet tempered water"
@@ -27,7 +31,8 @@ model DomesticWaterFixture
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-  DailyPeriodicDHWLoad loaDHW(mDhw_flow_nominal=mDhw_flow_nominal)
+  DailyPeriodicDHWLoad loaDHW(redeclare package Medium = Medium,
+                              mDhw_flow_nominal=mDhw_flow_nominal)
     "load for DHW"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Sources.Boundary_pT           souDcw(
