@@ -73,7 +73,7 @@ block FanSpeed
   parameter Real heaDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Heating loop signal limit at which deadband mode transitions to heating mode"
+    "Heating loop signal limit above which it changes from deadband mode to heating mode"
     annotation(Dialog(group="Deadband",
       enable = have_heaCoi));
 
