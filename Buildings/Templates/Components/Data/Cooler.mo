@@ -15,14 +15,14 @@ record Cooler "Record for condenser water cooling equipment"
     start=if typ==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
     Buildings.Templates.Data.Defaults.dpConWatFriTow else
     Buildings.Templates.Data.Defaults.dpConWatTowClo)
-    "CW flow-friction losses through tower and piping only (without static head or valve)"
+    "CW flow-friction losses through tower and piping only (without elevation head or valve)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpConWatSta_nominal(
     final min=0,
     start=if typ==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
     Buildings.Templates.Data.Defaults.dpConWatStaTow else
     0)
-    "CW static pressure drop"
+    "CW elevation head"
     annotation (Dialog(group="Nominal condition",
     enable=typ==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen));
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(

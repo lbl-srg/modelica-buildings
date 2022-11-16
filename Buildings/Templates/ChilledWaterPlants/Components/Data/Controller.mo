@@ -88,7 +88,7 @@ record Controller "Record for plant controller"
     typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
   parameter Modelica.Units.SI.Temperature TOutLoc(
     displayUnit="degC",
-    final min=273.15)=Buildings.Templates.Data.Defaults.TOutChiLoc
+    final min=250)=Buildings.Templates.Data.Defaults.TOutChiLoc
     "Outdoor air lockout temperature below which the plant is prevented from operating"
     annotation(Dialog(group="Temperature setpoints", enable=
     typ==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36));

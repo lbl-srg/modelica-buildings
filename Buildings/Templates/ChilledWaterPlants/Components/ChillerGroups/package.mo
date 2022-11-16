@@ -12,7 +12,7 @@ modeled outside of those components, for instance using
 <a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.Routing.ChillersToPrimaryPumps\">
 Buildings.Templates.ChilledWaterPlants.Components.Routing.ChillersToPrimaryPumps</a>.
 This way, the components inside this package can be used to model
-either paralell or series arrangements.
+either parallel or series arrangements.
 </p>
 </html>"));
 end ChillerGroups;

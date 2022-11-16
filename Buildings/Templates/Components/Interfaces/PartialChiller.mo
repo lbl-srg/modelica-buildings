@@ -63,5 +63,12 @@ partial model PartialChiller "Interface class for chiller models"
 <p>
 This partial class provides a standard interface for chiller models.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialChiller;

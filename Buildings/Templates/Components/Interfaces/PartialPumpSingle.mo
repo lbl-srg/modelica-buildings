@@ -21,5 +21,12 @@ partial model PartialPumpSingle "Interface class for models of single pump"
 <p>
 This partial class provides a standard interface for single pump models.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialPumpSingle;

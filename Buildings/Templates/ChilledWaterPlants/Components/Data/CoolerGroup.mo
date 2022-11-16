@@ -18,14 +18,14 @@ record CoolerGroup "Record for cooler group model"
     each start=if typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
     Buildings.Templates.Data.Defaults.dpConWatFriTow else
     Buildings.Templates.Data.Defaults.dpConWatTowClo)
-    "CW flow-friction losses through tower and piping only (without static head or valve)"
+    "CW flow-friction losses through tower and piping only (without elevation head or valve)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpConWatStaCoo_nominal[nCoo](
     each final min=0,
     each start=if typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen then
     Buildings.Templates.Data.Defaults.dpConWatStaTow else
     0)
-    "CW static pressure drop"
+    "CW elevation head"
     annotation (Dialog(group="Nominal condition",
     enable=typCoo==Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen));
   parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal[nCoo](

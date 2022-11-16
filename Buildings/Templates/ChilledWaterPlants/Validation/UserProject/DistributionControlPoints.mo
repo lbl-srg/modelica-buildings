@@ -25,4 +25,11 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  annotation (Documentation(info="<html>
+<p>
+This class generates signals typically yielded by
+sensors from the CHW distribution system. 
+It is aimed for validation purposes only.
+</p>
+</html>"));
 end DistributionControlPoints;

@@ -48,5 +48,12 @@ This model serves as the base class to construct the WSE models.
 It includes an &epsilon;-NTU heat exchanger model and a 
 two-way modulating valve to modulate the CW flow rate.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialEconomizerHX;

@@ -1,9 +1,9 @@
 
-simulateModel("Buildings.Templates.ChilledWaterPlants.Components.Validation.CoolerGroup",
+simulateModel("Buildings.Templates.ChilledWaterPlants.Components.Validation.CoolerGroupCoolingTowerOpen",
   method="cvode",
   tolerance=1e-6,
   stopTime=2000.0,
-  resultFile="CoolerGroup");
+  resultFile="CoolerGroupCoolingTowerOpen");
 createPlot(id=1,
   position={15, 15, 1184, 744},
   y={"coo.coo[2].sta_a.T", "coo.coo[2].sta_b.T", "coo.coo[1].sta_a.T", "coo.coo[1].sta_b.T"},

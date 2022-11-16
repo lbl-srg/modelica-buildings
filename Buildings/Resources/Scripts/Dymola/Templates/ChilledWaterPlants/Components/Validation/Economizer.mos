@@ -1,9 +1,9 @@
 
-simulateModel("Buildings.Templates.ChilledWaterPlants.Components.Validation.Economizer",
+simulateModel("Buildings.Templates.ChilledWaterPlants.Components.Validation.Economizers",
   method="cvode",
   tolerance=1e-6,
   stopTime=2000.0,
-  resultFile="Economizer");
+  resultFile="Economizers");
 createPlot(id=1,
   position={15, 15, 1184, 744},
   y={"ecoVal.hex.sta_a1.T", "ecoVal.hex.sta_b1.T", "ecoVal.hex.sta_a2.T", "ecoVal.hex.sta_b2.T"},

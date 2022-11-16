@@ -382,5 +382,12 @@ as Modelica compilers cannot decide to which variable the dimensionality
 should be assigned between <code>nestedBus</code> and <code>y</code>
 inside <code>nestedBus</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialController;

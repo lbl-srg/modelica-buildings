@@ -384,23 +384,22 @@ initial equation
       extent={{-300,-280},{300,280}})),
     Documentation(info="<html>
 <p>
-Current assumptions and limitations:
+This partial class provides a standard interface for chilled water plant templates.
+</p>
+<p>
+The following modeling assumptions and limitations are considered.
 </p>
 <ul>
 <li>
 The chillers are assumed to be of the same type as defined
 by the enumeration
 <a href=\\\"modelica://Buildings.Templates.Components.Types.Chiller\\\">
-Buildings.Templates.Components.Types.Chiller</a> (this is a limitation).
+Buildings.Templates.Components.Types.Chiller</a>.
 </li>
 <li>
 The number of installed chillers is supposed to be equal
-to the number of chillers operating at design conditions (this is a limitation).
+to the number of chillers operating at design conditions.
 The same holds true for CW and CHW pump groups.
-</li>
-<li>
-Inside the CW and CHW pump groups, the pumps are assumed to
-be equally sized.
 </li>
 <li>
 Variable speed primary CHW pumps are controlled to the same speed,
@@ -417,6 +416,13 @@ in a headered arrangement.
 </li>
 <li>
 To allow for a WSE, the plant must have water-cooled chillers.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

@@ -24,11 +24,12 @@ partial model PartialCooler
   final parameter Modelica.Units.SI.PressureDifference dpConWatFri_nominal(
     final min=0)=
     dat.dpConWatFri_nominal
-    "CW flow-friction losses through equipment and piping only (without static head or valve)";
+    "CW flow-friction losses through equipment and piping only (without elevation head or valve)";
+  // RFE: Elevation head currently not modeled in Buildings.Fluid.HeatExchangers.CoolingTowers
   final parameter Modelica.Units.SI.PressureDifference dpConWatSta_nominal(
     final min=0)=
     dat.dpConWatSta_nominal
-    "CW static pressure drop";
+    "CW elevation head";
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal=
     dat.mAir_flow_nominal
     "Air mass flow rate";
@@ -60,5 +61,12 @@ partial model PartialCooler
 <p>
 This partial class provides a standard interface for cooler models.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialCooler;

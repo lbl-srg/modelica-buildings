@@ -112,6 +112,13 @@ partial model PartialEconomizer "Partial waterside economizer model"
 This partial class provides a standard interface for waterside
 economizer models.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 
 end PartialEconomizer;

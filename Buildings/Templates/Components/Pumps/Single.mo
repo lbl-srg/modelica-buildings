@@ -137,5 +137,12 @@ or current switch) <code>y1_actual</code>:
 DI signal
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Single;

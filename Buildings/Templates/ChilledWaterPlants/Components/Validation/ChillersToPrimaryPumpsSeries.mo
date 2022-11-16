@@ -756,6 +756,20 @@ This model validates the hydronic interface model
 Buildings.Templates.ChilledWaterPlants.Components.Routing.ChillersToPrimaryPumps</a>
 for various plant configurations where the chillers are connected
 in series.
+The validation uses open-loop controls.
 </p>
+<ul>
+<li>
+The first configuration has no waterside economizer.
+</li>
+<li>
+The second configuration has a waterside economizer with a heat exchanger
+bypass valve to control the CHW flow rate.
+</li>
+<li>
+The third configuration has a waterside economizer with a heat exchanger
+pump to control the CHW flow rate.
+</li>
+</ul>
 </html>"));
 end ChillersToPrimaryPumpsSeries;
