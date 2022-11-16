@@ -12,8 +12,9 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
     "Number of chillers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  replaceable parameter Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystemsWaterCooled dat
-    constrainedby Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
+  replaceable parameter
+    Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystemsWaterCooled
+    datAll constrainedby Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data.AllSystems
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
@@ -44,13 +45,12 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
       Buildings.Templates.ChilledWaterPlants.Components.Economizers.None eco)
     constrainedby
     Buildings.Templates.ChilledWaterPlants.Interfaces.PartialChilledWaterLoop(
-      redeclare final package MediumChiWat = MediumChiWat,
-      redeclare replaceable package MediumCon = MediumConWat,
-      final nChi=nChi,
-      final energyDynamics=energyDynamics,
-      final tau=tau,
-      final dat=dat._CHI)
-    "CHW plant"
+    redeclare final package MediumChiWat = MediumChiWat,
+    redeclare replaceable package MediumCon = MediumConWat,
+    final nChi=nChi,
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final dat=datAll._CHI) "CHW plant"
     annotation (Placement(transformation(extent={{-40,-30},{0,10}})));
 
   Fluid.Sources.Boundary_pT bou(
@@ -63,7 +63,7 @@ model BaseWaterCooled "Base model for validating CHW plant template with water-c
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumChiWat,
     m_flow_nominal=CHI.mChiWat_flow_nominal,
-    dp_nominal=dat._CHI.ctl.dpChiWatLocSet_nominal)
+    dp_nominal=datAll._CHI.ctl.dpChiWatLocSet_nominal)
     "Flow resistance of CHW distribution system"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(

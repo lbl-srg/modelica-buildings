@@ -1,9 +1,10 @@
 within Buildings.Templates.ChilledWaterPlants.Validation.UserProject.Data;
 class AllSystemsWaterCooled
   "Design and operating parameters for testing purposes"
+  extends Buildings.Templates.Data.AllSystems;
 
   // The following instance name matches the system tag.
-  outer replaceable Buildings.Templates.ChilledWaterPlants.WaterCooled CHI;
+  outer Buildings.Templates.ChilledWaterPlants.WaterCooled CHI;
 
   parameter Buildings.Templates.ChilledWaterPlants.Data.ChilledWaterPlant _CHI(
     final typCtl=CHI.ctl.typ,
@@ -108,5 +109,5 @@ class AllSystemsWaterCooled
       dpChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatEco,
       dpConWat_nominal=Buildings.Templates.Data.Defaults.dpConWatEco,
       dpPumChiWat_nominal=Buildings.Templates.Data.Defaults.dpChiWatEco))
-    "CHW plant parameters - SERIES arrangement";
+    "CHW plant parameters";
 end AllSystemsWaterCooled;

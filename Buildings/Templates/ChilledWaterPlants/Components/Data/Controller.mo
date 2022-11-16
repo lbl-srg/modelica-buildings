@@ -385,12 +385,10 @@ record Controller "Record for plant controller"
     if typEco<>Buildings.Templates.ChilledWaterPlants.Types.Economizer.None then nChi+1
     else nChi
     "Number of units to be staged, including chillers and optional WSE"
-    annotation (Evaluate=true, Dialog(group="Plant staging", enable=
-    typ==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36));
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
   final parameter Integer nSta=size(sta, 1)
     "Number of plant stages"
-    annotation (Evaluate=true, Dialog(group="Plant staging", enable=
-    typ==Buildings.Templates.ChilledWaterPlants.Types.Controller.Guideline36));
+    annotation (Evaluate=true, Dialog(group="Plant staging"));
   parameter Real staCoo[nSta](
     each max=nCoo,
     start=fill(0, nSta))

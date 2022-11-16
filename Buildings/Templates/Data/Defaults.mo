@@ -89,7 +89,7 @@ Buildings.Templates</a>, or
 <li>
 arbitrary values that are used for validation purposes only.
 Those are typically project-specific characteristics (e.g., 
-chiller COP at design conditions) and should not 
+chiller COP at nominal conditions) and should not 
 be considered as generic default values.
 </li>
 </ul>
