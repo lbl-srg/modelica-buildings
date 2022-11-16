@@ -1,16 +1,21 @@
 within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model HeatPumpWaterHeaterWithTank
   "A model for domestic water heating served by heat pump water heater and local storage tank"
-  extends
-    Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
+  extends Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
 
-  parameter Modelica.Units.SI.Volume VTan = 0.1703 "Tank volume";
-  parameter Modelica.Units.SI.Length hTan = 1.009 "Height of tank (without insulation)";
-  parameter Modelica.Units.SI.Length dIns = 0.1016 "Thickness of insulation";
-  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04 "Specific heat conductivity of insulation";
-  parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500 "Pressure drop across the heat exchanger at nominal conditions";
-  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278 "Mass flow rate of heat exchanger";
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
+  parameter Modelica.Units.SI.Volume VTan = VTan "Tank volume";
+  parameter Modelica.Units.SI.Length hTan = hTan "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns = dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns = kIns "Specific heat conductivity of insulation";
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal = dpHex_nominal "Pressure drop across the heat exchanger at nominal conditions";
+  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal = mHex_flow_nominal "Mass flow rate of heat exchanger";
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_max(min=0) = QCon_flow_max "Maximum heating flow rate";
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = QCon_flow_nominal "Nominal heating flow rate";
+  parameter Modelica.Units.SI.HeatFlowRate QTan_flow_nominal = QTan_flow_nominal "Nominal heating flow rate";
+  parameter Modelica.Units.SI.Height hHex_a = hHex_a "Height of portHex_a of the heat exchanger, measured from tank bottom";
+  parameter Modelica.Units.SI.Height hHex_b = hHex_b "Height of portHex_b of the heat exchanger, measured from tank bottom";
+  parameter Modelica.Units.SI.Temperature TTan_nominal = TTan_nominal "Temperature of fluid inside the tank at nominal heat transfer conditions";
+  parameter Modelica.Units.SI.Temperature THex_nominal = THex_nominal "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare package
       Medium = Medium, m_flow_nominal=mHw_flow_nominal)
@@ -20,6 +25,7 @@ model HeatPumpWaterHeaterWithTank
     redeclare package Medium2 = Medium,
     m1_flow_nominal=mHw_flow_nominal,
     m2_flow_nominal=mDH_flow_nominal,
+    QCon_flow_max = QCon_flow_max,
     QCon_flow_nominal=QCon_flow_nominal,
     dp1_nominal=0,
     dp2_nominal=0)
@@ -34,19 +40,18 @@ model HeatPumpWaterHeaterWithTank
     kIns=kIns,
     nSeg=5,
     redeclare package MediumHex = Medium,
-    CHex=40,
-    Q_flow_nominal=0.278*4200*20,
-    hHex_a=0.995,
-    hHex_b=0.1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
-    allowFlowReversal=true,
-    allowFlowReversalHex=false,
-    mHex_flow_nominal=mHex_flow_nominal,
-    TTan_nominal=293.15,
-    THex_nominal=323.15,
-    dpHex_nominal=dpHex_nominal)
-                                "Hot water tank with heat exchanger configured as steady state"
+    Q_flow_nominal = QTan_flow_nominal,
+    hHex_a = hHex_a,
+    hHex_b = hHex_b,
+    energyDynamics = Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamicsHex = Modelica.Fluid.Types.Dynamics.SteadyState,
+    allowFlowReversal = true,
+    allowFlowReversalHex = false,
+    mHex_flow_nominal = mHex_flow_nominal,
+    TTan_nominal = TTan_nominal,
+    THex_nominal = THex_nominal,
+    dpHex_nominal = dpHex_nominal)
+                                  "Hot water tank with heat exchanger configured as steady state, deleted CHex = 40"
     annotation (Placement(transformation(extent={{-40,50},{-60,70}})));
   Fluid.Sensors.TemperatureTwoPort senTemHPOut(redeclare package Medium =
         Medium, m_flow_nominal=mHw_flow_nominal) annotation (Placement(

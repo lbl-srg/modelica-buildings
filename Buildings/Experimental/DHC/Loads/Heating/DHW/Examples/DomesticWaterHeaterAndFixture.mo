@@ -14,6 +14,21 @@ model DomesticWaterHeaterAndFixture
   parameter Real kCon(min=0) = 2 "Gain of controller";
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block";
   parameter Boolean havePEle=true "Flag that specifies whether electric power is required for water heating";
+  parameter Modelica.Units.SI.Volume VTan = 0.1703 "Tank volume";
+  parameter Modelica.Units.SI.Length hTan = 1.009 "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns = 0.1016 "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04 "Specific heat conductivity of insulation";
+  parameter Modelica.Units.SI.PressureDifference dpHex_nominal=2500 "Pressure drop across the heat exchanger at nominal conditions";
+  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal=0.278 "Mass flow rate of heat exchanger";
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_max(min=0) = 1500 "Maximum heating flow rate";
+  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
+  parameter Modelica.Units.SI.HeatFlowRate QTan_flow_nominal=mHex_flow_nominal*4200*20 "Nominal heating flow rate";
+  parameter Modelica.Units.SI.Height hHex_a = 0.995 "Height of portHex_a of the heat exchanger, measured from tank bottom";
+  parameter Modelica.Units.SI.Height hHex_b = 0.1 "Height of portHex_b of the heat exchanger, measured from tank bottom";
+  parameter Modelica.Units.SI.Temperature TTan_nominal = 293.15 "Temperature of fluid inside the tank at nominal heat transfer conditions";
+  parameter Modelica.Units.SI.Temperature THex_nominal = 323.15 "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
+  parameter Real uLow = 0.1 "low hysteresis threshold";
+  parameter Real uHigh = 0.9 "high hysteresis threshold";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
@@ -26,7 +41,20 @@ model DomesticWaterHeaterAndFixture
     redeclare package Medium = Medium,
     havePEle=havePEle,
     mHw_flow_nominal=mHw_flow_nominal,
-    mDH_flow_nominal=mDH_flow_nominal) "Generation of DHW"
+    mDH_flow_nominal=mDH_flow_nominal,
+    QCon_flow_max = QCon_flow_max,
+    QCon_flow_nominal=QCon_flow_nominal,
+    VTan=VTan,
+    hTan=hTan,
+    dIns=dIns,
+    kIns=kIns,
+    QTan_flow_nominal = QTan_flow_nominal,
+    hHex_a = hHex_a,
+    hHex_b = hHex_b,
+    mHex_flow_nominal = mHex_flow_nominal,
+    TTan_nominal = TTan_nominal,
+    THex_nominal = THex_nominal,
+    dpHex_nominal = dpHex_nominal) "Generation of DHW"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   DomesticWaterMixer tmv(
     redeclare package Medium = Medium,
@@ -34,6 +62,8 @@ model DomesticWaterHeaterAndFixture
     mDhw_flow_nominal=mDhw_flow_nominal,
     dpValve_nominal=dpValve_nominal,
     k=kCon,
+    uLow=uLow,
+    uHigh=uHigh,
     Ti=Ti) "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
@@ -63,7 +93,8 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  AnnualScheduleDHWLoad loaDHW(mDhw_flow_nominal=mDhw_flow_nominal)
+  AnnualScheduleDHWLoad loaDHW(redeclare package Medium = Medium,
+                               mDhw_flow_nominal=mDhw_flow_nominal)
     "load for DHW"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
@@ -96,7 +127,7 @@ equation
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
   connect(loaDHW.mDhw, mDhw) annotation (Line(points={{61,-5},{80,-5},{80,-60},
           {110,-60}}, color={0,0,127}));
-  connect(conuPumHw.y, genDHW.uPum) annotation (Line(points={{-79,30},{-60,30},
-          {-60,2},{-41,2}}, color={0,0,127}));
+  connect(conuPumHw.y, genDHW.uPum) annotation (Line(points={{-79,30},{-60,30},{
+          -60,2},{-41,2}}, color={0,0,127}));
   annotation (experiment(StopTime=3600, Interval=1));
 end DomesticWaterHeaterAndFixture;
