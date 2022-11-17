@@ -70,8 +70,8 @@ model FlowControlled_m_flow
         iconTransformation(extent={{100,40},{120,60}})));
 
 equation
-  assert(senRelPre.p_rel <= dpMax,
-    "In " + getInstanceName() + ": Model operates with head dp_actual = " + String(senRelPre.p_rel) + " Pascals,
+  assert(-dp <= dpMax,
+    "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pascals,
     which exceeds the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
     This typically happens if the pump or fan forces a high mass flow rate through a closed valve or damper,
     or if the performance record is entered unreasonable. Please verify your model.");
