@@ -3,21 +3,8 @@ model FlowMachine_m "Identical m_flow controlled pumps"
   extends Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel(
     redeclare final Buildings.Fluid.Movers.FlowControlled_m_flow pum(
       each final m_flow_nominal = m_flow_nominal,
-      final m_flow_start=yPump_start*m_flow_nominal,
-      each final dpMax=dpMax),
+      final m_flow_start=yPump_start*m_flow_nominal),
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
-
-  // Note: Below we set a huge value for dpMax. This is needed for Dymola 2023
-  // to run
-  // simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer", stopTime=86400, method="Cvode", tolerance=1e-07, resultFile="IntegratedPrimarySecondaryEconomizer");
-  // on commit 3362be949be55b3c1e320faec8c8bac999f98ba4.
-  // It seems to be an issue of Dymola evaluating the assertion before convergence,
-  // because the result file does not show such large a pressure, and the model
-  // works fine with Optimica.
-  parameter Modelica.Units.SI.Pressure dpMax(
-    displayUnit="Pa")=2*max(pum.per.pressure.dp)+6E11
-    "Maximum pressure allowed to operate the model, if exceeded, the simulation stops with an error"
-    annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Math.Gain gaiM_flow[num](each final k=m_flow_nominal)
     "Gain for mass flow rate"
