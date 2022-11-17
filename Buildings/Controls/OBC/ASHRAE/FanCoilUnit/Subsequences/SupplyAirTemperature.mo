@@ -8,7 +8,7 @@ block SupplyAirTemperature
   parameter Boolean have_heaCoi
     "Does the fan coil unit have a heating coil? True: Yes, False: No";
 
-  parameter Real heaPerMin(
+  parameter Real uHea_min(
     final unit="1",
     displayUnit="1") = heaDea
     "Minimum heating loop signal at which supply air temperature is modified"
@@ -183,7 +183,7 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TAirSupSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
     displayUnit="K",
     quantity="ThermodynamicTemperature")
@@ -217,8 +217,8 @@ protected
     "Maximum heating supply air temperature setpoint limit signal"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaPerMin(
-    final k=heaPerMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuHea_min(
+    final k=uHea_min)
     "Minimum heating loop signal support point"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
@@ -373,7 +373,7 @@ equation
   connect(conZerCooMod.y, linTCooSupAir.f1) annotation (Line(points={{-78,-140},
           {-66,-140},{-66,-56},{-62,-56}}, color={0,0,127}));
 
-  connect(swiDeaCoo.y, TAirSupSet) annotation (Line(points={{22,-20},{36,-20},{36,
+  connect(swiDeaCoo.y, TSupSet) annotation (Line(points={{22,-20},{36,-20},{36,
           0},{140,0}}, color={0,0,127}));
 
   connect(uFan, booToRea2.u)
@@ -388,7 +388,7 @@ equation
           {88,-54}},      color={0,0,127}));
   connect(conHeaPerMax.y, linTHeaSupAir.x2) annotation (Line(points={{-58,20},{-52,
           20},{-52,40},{-68,40},{-68,56},{-62,56}}, color={0,0,127}));
-  connect(conHeaPerMin.y, linTHeaSupAir.x1) annotation (Line(points={{-88,20},{-84,
+  connect(conuHea_min.y, linTHeaSupAir.x1) annotation (Line(points={{-88,20},{-84,
           20},{-84,68},{-62,68}}, color={0,0,127}));
   connect(conCooPerMin.y, linTCooSupAir.x1) annotation (Line(points={{-88,-60},{
           -86,-60},{-86,-52},{-62,-52}}, color={0,0,127}));
@@ -474,7 +474,7 @@ equation
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TAirSupSet"),
+          textString="TSupSet"),
         Text(
           extent={{38,-50},{96,-70}},
           textColor={0,0,127},
@@ -490,14 +490,14 @@ equation
     sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4.
     </p>
     <p>
-    The supply air temperature <code>TAirSupSet</code> is varied from the zone cooling setpoint temperature
-    <code>TZonSetCoo</code> to the minimum supply air temperature for cooling<code>TCooSupAirHi</code>,
+    The supply air temperature <code>TSupSet</code> is varied from the zone cooling setpoint temperature
+    <code>TZonSetCoo</code> to the minimum supply air temperature for cooling<code>THeaSup_min</code>,
     when the cooling loop signal <code>uCoo</code> varies from the minimum limit
     <code>cooPerMin</code> to the maximum limit <code>cooPerMax</code>.
-    Similarly,<code>TAirSupSet</code> is varied from the zone heating setpoint temperature
-    <code>TZonSetHea</code> to the maximum supply air temperature for heating<code>THeaSupAirHi</code>,
+    Similarly,<code>TSupSet</code> is varied from the zone heating setpoint temperature
+    <code>TZonSetHea</code> to the maximum supply air temperature for heating<code>THeaSup_max</code>,
     when the heating loop signal <code>uHea</code> varies from the minimum limit
-    <code>heaPerMin</code> to the maximum limit <code>heaPerMax</code>.
+    <code>uHea_min</code> to the maximum limit <code>heaPerMax</code>.
     The setpoint in deadband mode is equal to the current measured supply air
     temperature <code>TAirSup</code>. <code>uCoo</code> and <code>uHea</code> are
     set to zero when the fan proven on signal <code>uFan</code> is <code>false</code>.
