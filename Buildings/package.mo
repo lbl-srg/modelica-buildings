@@ -269,7 +269,27 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenter</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Applications.BaseClasses.Equipment.FlowMachine_m<br/>
+                         Buildings.Applications.BaseClasses.Equipment.FlowMachine_y<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialHeatExchanger<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.IntegratedPrimarySecondary<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+    </td>
+    <td valign=\"top\">Improved implementation to avoid high pressures due to pump with forced mass flow rate.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, #1659</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
@@ -289,7 +309,34 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
     </td>
   </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Validation.CollectorDistributor<br/>
+                         Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump<br/>
+                         Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.CoolingTowersParallel
+    </td>
+    <td valign=\"top\">Improved implementation to avoid high pressures due to pump with forced mass flow rate.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, #1659</a>.
+    </td>
+  </tr>
   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve
+    </td>
+    <td valign=\"top\">Propagated parameter <code>riseTime</code> to valves. The value is not used as the filter is disabled,
+                       but it will show in the result file. Having a consistent value for all these parameters in the result filter
+                       helps during debugging.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1663\">IBPSA, #1663</a>.
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
@@ -302,6 +349,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        the Modelica Standard Library that may be used to model combustion gases.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Initialized variable which otherwise lead to the simulation to fail in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1664\">IBPSA, #1664</a>.
     </td>
   </tr>
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
