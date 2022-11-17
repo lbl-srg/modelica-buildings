@@ -216,11 +216,14 @@ Version 9.0.1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+      </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36
+      </td>
+      <td valign=\"top\">Package with sequences implemented according to ASHRAE Guideline 36 official release, May 2020.
+      </td>
+  </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -228,14 +231,19 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
-</tr>
-<tr><td valign=\"top\">xxx
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.BooleanExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.BooleanExtractor<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractSignal<br/>
+                         Buildings.Controls.OBC.CDL.Routing.IntegerExtractor
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added boolean and integer extract signals.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
     </td>
-    </tr>
+  </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
