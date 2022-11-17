@@ -153,7 +153,7 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetHea(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final unit="K",
     displayUnit="K",
     quantity="ThermodynamicTemperature") if have_heaCoi
@@ -358,7 +358,7 @@ equation
   connect(conTCooSupAirMin.y, linTCooSupAir.f2) annotation (Line(points={{-88,-20},
           {-70,-20},{-70,-68},{-62,-68}}, color={0,0,127}));
 
-  connect(TZonSetHea, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
+  connect(TZonHeaSet, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
           80},{-74,64},{-62,64}}, color={0,0,127}));
 
   connect(TZonSetCoo, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
@@ -433,7 +433,7 @@ equation
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TZonSetHea",
+          textString="TZonHeaSet",
           visible=have_heaCoi),
         Text(
           extent={{-100,30},{-52,10}},
@@ -485,7 +485,7 @@ equation
           preserveAspectRatio=false, extent={{-120,-160},{120,160}})),
   Documentation(info="<html>
 <p>Block that outputs the supply air temperature setpoint, as well as the control signals for the cooling and heating coils in a fan coil unit system. The implemented sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4. </p>
-<p>The supply air temperature <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone cooling setpoint temperature <span style=\"font-family: Courier New;\">TZonSetCoo</span> to the minimum supply air temperature for cooling <span style=\"font-family: Courier New;\">THeaSup_min</span>, when the cooling loop signal <span style=\"font-family: Courier New;\">uCoo</span> varies from the minimum limit <span style=\"font-family: Courier New;\">cooPerMin</span> to the maximum limit <span style=\"font-family: Courier New;\">cooPerMax</span>. Similarly, <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone heating setpoint temperature <span style=\"font-family: Courier New;\">TZonSetHea</span> to the maximum supply air temperature for heating <span style=\"font-family: Courier New;\">THeaSup_max</span>, when the heating loop signal <span style=\"font-family: Courier New;\">uHea</span> varies from the minimum limit <span style=\"font-family: Courier New;\">uHea_min</span> to the maximum limit <span style=\"font-family: Courier New;\">heaPerMax</span>. The setpoint in deadband mode is equal to the current measured supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span>. <span style=\"font-family: Courier New;\">uCoo</span> and <span style=\"font-family: Courier New;\">uHea</span> are set to zero when the fan proven on signal <span style=\"font-family: Courier New;\">uFan</span> is <span style=\"font-family: Courier New;\">false</span>. </p>
+<p>The supply air temperature <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone cooling setpoint temperature <span style=\"font-family: Courier New;\">TZonSetCoo</span> to the minimum supply air temperature for cooling <span style=\"font-family: Courier New;\">THeaSup_min</span>, when the cooling loop signal <span style=\"font-family: Courier New;\">uCoo</span> varies from the minimum limit <span style=\"font-family: Courier New;\">cooPerMin</span> to the maximum limit <span style=\"font-family: Courier New;\">cooPerMax</span>. Similarly, <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone heating setpoint temperature <span style=\"font-family: Courier New;\">TZonHeaSet</span> to the maximum supply air temperature for heating <span style=\"font-family: Courier New;\">THeaSup_max</span>, when the heating loop signal <span style=\"font-family: Courier New;\">uHea</span> varies from the minimum limit <span style=\"font-family: Courier New;\">uHea_min</span> to the maximum limit <span style=\"font-family: Courier New;\">heaPerMax</span>. The setpoint in deadband mode is equal to the current measured supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span>. <span style=\"font-family: Courier New;\">uCoo</span> and <span style=\"font-family: Courier New;\">uHea</span> are set to zero when the fan proven on signal <span style=\"font-family: Courier New;\">uFan</span> is <span style=\"font-family: Courier New;\">false</span>. </p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/SupplyAirTemperature.png\" alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 </html>",     revisions="<html>
     <ul>
