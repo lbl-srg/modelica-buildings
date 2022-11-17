@@ -132,7 +132,7 @@ protected
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOccMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
     "Constant unoccupied mode signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
