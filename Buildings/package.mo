@@ -407,6 +407,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">#3074</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Obsolete.DistrictHeatingCooling
+    </td>
+    <td valign=\"top\">Removed package which is no longer supported.
+    </td>
+</tr>
 </table>
 <!-- Errors that have been fixed -->
 <p>
