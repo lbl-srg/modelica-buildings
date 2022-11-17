@@ -142,19 +142,19 @@ partial model PartialPumpParallel "Partial model for pump parallel"
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[num](
     each final uLow=threshold,
     each final uHigh=2*threshold) "Hysteresis for isolation valves"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[num]
-    "Boolean to real conversion for isolation valves"
-    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi[num]
     "Switch to enable pump only once the valve is commanded open"
-    annotation (Placement(transformation(extent={{-50,22},{-30,42}})));
+    annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[num](
-    each final k=0)
-    "Outputs 0 as the control signal"
-    annotation (Placement(transformation(extent={{-80,14},{-60,34}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[num](
+    each final k=0) "Outputs 0 as the control signal"
+    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[num](each final k=
+        1) "Outputs 1 as the control signal"
+    annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
     ": The constant homotopyInitialization has been modified from its default value. This constant will be removed in future releases.",
@@ -172,19 +172,17 @@ equation
   connect(pum.P, P)
     annotation (Line(points={{11,9},{20,9},{20,40},{110,40}},
       color={0,0,127}));
-  connect(booToRea.y, val.y)
-    annotation (Line(points={{42,60},{50,60},{50,12}}, color={0,0,127}));
-  connect(hys.y, booToRea.u)
-    annotation (Line(points={{-58,60},{18,60}},
-                                              color={255,0,255}));
-  connect(hys.u, u) annotation (Line(points={{-82,60},{-96,60},{-96,40},{-120,40}},
+  connect(hys.u, u) annotation (Line(points={{-82,40},{-120,40}},
         color={0,0,127}));
-  connect(hys.y, swi.u2) annotation (Line(points={{-58,60},{-50,60},{-50,44},{-56,
-          44},{-56,32},{-52,32}}, color={255,0,255}));
-  connect(con.y, swi.u3)
-    annotation (Line(points={{-58,24},{-52,24}}, color={0,0,127}));
-  connect(swi.u1, u)
-    annotation (Line(points={{-52,40},{-120,40}}, color={0,0,127}));
+  connect(hys.y, swi.u2) annotation (Line(points={{-58,40},{-52,40},{-52,-30},{
+          -50,-30}},              color={255,0,255}));
+  connect(zer.y, swi.u3)
+    annotation (Line(points={{-68,-60},{-60,-60},{-60,-38},{-50,-38}},
+                                                 color={0,0,127}));
+  connect(one.y, swi.u1)
+    annotation (Line(points={{-68,-22},{-50,-22}}, color={0,0,127}));
+  connect(swi.y, val.y) annotation (Line(points={{-26,-30},{28,-30},{28,20},{50,
+          20},{50,12}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-60,60},{60,40}},

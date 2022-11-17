@@ -6,7 +6,8 @@ model FlowMachine_y "Identical speed controlled flow machines"
 
 equation
   connect(swi.y, pum.y)
-    annotation (Line(points={{-28,32},{0,32},{0,12}}, color={0,0,127}));
+    annotation (Line(points={{-26,-30},{-20,-30},{-20,20},{0,20},{0,12}},
+                                                      color={0,0,127}));
   annotation (    Documentation(revisions="<html>
 <ul>
 <li>

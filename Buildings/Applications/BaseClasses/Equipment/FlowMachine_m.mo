@@ -14,13 +14,14 @@ model FlowMachine_m "Identical m_flow controlled pumps"
 
   Modelica.Blocks.Math.Gain gaiM_flow[num](each final k=m_flow_nominal)
     "Gain for mass flow rate"
-    annotation (Placement(transformation(extent={{-20,22},{0,42}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
 
 equation
   connect(swi.y, gaiM_flow.u)
-    annotation (Line(points={{-28,32},{-22,32}}, color={0,0,127}));
-  connect(gaiM_flow.y, pum.m_flow_in) annotation (Line(points={{1,32},{6,32},{6,
-          20},{0,20},{0,12}}, color={0,0,127}));
+    annotation (Line(points={{-26,-30},{28,-30},{28,54},{-38,54},{-38,40},{-32,
+          40}},                                  color={0,0,127}));
+  connect(gaiM_flow.y, pum.m_flow_in) annotation (Line(points={{-9,40},{0,40},{
+          0,12}},             color={0,0,127}));
   annotation (    Documentation(info="<html>
 <p>This model implements a parallel of identical pumps with <code>m_flow</code> being controlled.
 The number can be specified by setting a value of <code>num</code>.
