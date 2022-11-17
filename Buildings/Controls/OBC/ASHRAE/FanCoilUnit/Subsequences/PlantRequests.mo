@@ -8,12 +8,12 @@ block PlantRequests
   parameter Boolean have_chiWatCoi = true
     "Does the fan coil unit have a chilled-water cooling coil? True: Yes, False: No";
 
-  parameter Real cooSpeMax(
+  parameter Real cooSpe_max(
     final unit="1",
     displayUnit="1") = 1
     "Maximum cooling mode fan speed";
 
-  parameter Real heaSpeMax(
+  parameter Real heaSpe_max(
     final unit="1",
     displayUnit="1") = 0.6
     "Maximum heating mode fan speed";
@@ -186,8 +186,8 @@ block PlantRequests
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysFanCoo(
-    final uLow=cooSpeMax - 2*dFanSpe,
-    final uHigh=cooSpeMax - dFanSpe) if have_chiWatCoi
+    final uLow=cooSpe_max - 2*dFanSpe,
+    final uHigh=cooSpe_max - dFanSpe) if have_chiWatCoi
     "Check if fan is at max cooling mode speed"
     annotation (Placement(transformation(extent={{-130,230},{-110,250}})));
 
@@ -200,8 +200,8 @@ protected
     annotation (Placement(transformation(extent={{100,230},{120,250}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysFanHea(
-    final uLow=heaSpeMax - 2*dFanSpe,
-    final uHigh=heaSpeMax - dFanSpe) if have_hotWatCoi
+    final uLow=heaSpe_max - 2*dFanSpe,
+    final uHigh=heaSpe_max - dFanSpe) if have_hotWatCoi
     "Check if fan is at max heating mode speed"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 
