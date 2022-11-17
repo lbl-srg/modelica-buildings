@@ -3,35 +3,42 @@ function gFunction "Evaluate the g-function of a bore field"
   extends Modelica.Icons.Function;
 
   input Integer nBor "Number of boreholes";
-  input Modelica.SIunits.Position cooBor[nBor, 2] "Coordinates of boreholes";
+  input Modelica.SIunits.Position cooBor[nBor,2] "Coordinates of boreholes";
   input Modelica.SIunits.Height hBor "Borehole length";
   input Modelica.SIunits.Height dBor "Borehole buried depth";
   input Modelica.SIunits.Radius rBor "Borehole radius";
-  input Modelica.SIunits.ThermalDiffusivity aSoi "Ground thermal diffusivity used in g-function evaluation";
+  input Modelica.SIunits.ThermalDiffusivity aSoi
+    "Ground thermal diffusivity used in g-function evaluation";
   input Integer nSeg "Number of line source segments per borehole";
   input Integer nTimSho "Number of time steps in short time region";
   input Integer nTimLon "Number of time steps in long time region";
   input Real ttsMax "Maximum adimensional time for gfunc calculation";
   input Real relTol = 0.02 "Relative tolerance on distance between boreholes";
 
-  output Modelica.SIunits.Time tGFun[nTimSho+nTimLon] "Time of g-function evaluation";
+  output Modelica.SIunits.Time tGFun[nTimSho + nTimLon]
+    "Time of g-function evaluation";
   output Real g[nTimSho+nTimLon] "g-function";
 
 protected
-  Modelica.SIunits.Time ts = hBor^2/(9*aSoi) "Characteristic time";
-  Modelica.SIunits.Time tSho_min = 1 "Minimum time for short time calculations";
-  Modelica.SIunits.Time tSho_max = 3600 "Maximum time for short time calculations";
-  Modelica.SIunits.Time tLon_min = tSho_max "Minimum time for long time calculations";
-  Modelica.SIunits.Time tLon_max = ts*ttsMax "Maximum time for long time calculations";
-  Modelica.SIunits.Time tSho[nTimSho] "Time vector for short time calculations";
+  Modelica.SIunits.Time ts=hBor^2/(9*aSoi) "Characteristic time";
+  Modelica.SIunits.Time tSho_min=1 "Minimum time for short time calculations";
+  Modelica.SIunits.Time tSho_max=3600
+    "Maximum time for short time calculations";
+  Modelica.SIunits.Time tLon_min=tSho_max
+    "Minimum time for long time calculations";
+  Modelica.SIunits.Time tLon_max=ts*ttsMax
+    "Maximum time for long time calculations";
+  Modelica.SIunits.Time tSho[nTimSho]
+    "Time vector for short time calculations";
   Modelica.SIunits.Time tLon[nTimLon] "Time vector for long time calculations";
   Modelica.SIunits.Distance dis "Separation distance between boreholes";
   Modelica.SIunits.Distance dis_mn "Separation distance for comparison";
-  Modelica.SIunits.Radius rLin=0.0005*hBor "Radius for evaluation of same-borehole line source solutions";
+  Modelica.SIunits.Radius rLin=0.0005*hBor
+    "Radius for evaluation of same-borehole line source solutions";
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.SIunits.Height dSeg "Buried depth of borehole segment";
-  Integer Done[nBor, nBor] "Matrix for tracking of FLS evaluations";
+  Integer Done[nBor, nBor] = fill(0,nBor,nBor) "Matrix for tracking of FLS evaluations";
   Real A[nSeg*nBor+1, nSeg*nBor+1] "Coefficient matrix for system of equations";
   Real B[nSeg*nBor+1] "Coefficient vector for system of equations";
   Real X[nSeg*nBor+1] "Solution vector for system of equations";
@@ -272,6 +279,13 @@ response function (G-function) for heat transfer by borehole heat exchangers
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Initialized variable <code>Done</code>.<br/>
+See
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/9707#issuecomment-1317631281\">
+OpenModelica, #9707</a>.
+</li>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.
