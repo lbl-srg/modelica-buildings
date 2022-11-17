@@ -3,7 +3,7 @@ model RampUpDown
     "Validation model for the RampUpDown block"
 
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramUp(
-    final upDuration=5)
+    final upDuration=5, y_start=0.5)
     "Ramp up when the activate input becomes true later than ramping input"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramUp1(
@@ -19,13 +19,11 @@ model RampUpDown
     "Ramp up from initial moment"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramDow(
-    final upDuration=5,
-    final y_start=0.5)
+    final upDuration=5, final y_start=0.5)
     "Ramp down from initial moment"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramDowUp(
-    final upDuration=5,
-    final y_start=1)
+    final upDuration=5, final y_start=0.9)
     "Ramp down from initial moment and then ram up"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 

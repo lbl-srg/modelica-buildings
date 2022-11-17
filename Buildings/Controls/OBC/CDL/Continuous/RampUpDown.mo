@@ -69,9 +69,12 @@ equation
     beginValue = y_end;
     endValue = min;
   end when;
-  when {initial(), ramp and activate, not ramp and activate, not activate} then
+  when initial() then
+    y_end = y_start;
+  elsewhen {ramp and activate, not ramp and activate, not activate} then
     y_end = pre(y);
   end when;
+
   if activate then
      if (time<endTime) then
        y = time*(endValue - beginValue)/(endTime - entryTime) + (endValue*entryTime - beginValue*endTime)/(entryTime-endTime);
