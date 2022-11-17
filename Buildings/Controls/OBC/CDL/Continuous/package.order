@@ -35,6 +35,7 @@ Multiply
 MultiplyByParameter
 PID
 PIDWithReset
+RampUpDown
 Round
 Sin
 Sort
@@ -42,6 +43,5 @@ Sqrt
 Subtract
 Switch
 Tan
-RampUpDown
 Sources
 Validation

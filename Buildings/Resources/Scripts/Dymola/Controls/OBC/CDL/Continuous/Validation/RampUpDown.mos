@@ -1,0 +1,13 @@
+simulateModel("Buildings.Controls.OBC.CDL.Continuous.Validation.RampUpDown", method="Cvode", tolerance=1e-06, stopTime=10.0, resultFile="rampUpDown");
+createPlot(id=1, position={7, 5, 662, 1328}, y={"ramUp.ramp", "ramUp.activate"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={7, 5, 662, 1328}, y={"ramUp.y"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={7, 5, 662, 1328}, y={"ramUp1.ramp", "ramUp1.activate"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={7, 5, 662, 1328}, y={"ramUp1.y"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={677, 5, 644, 1330}, y={"ramUpDow.ramp", "ramUpDow.activate"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={677, 5, 644, 1330}, y={"ramUpDow.y"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={677, 5, 644, 1330}, y={"ramUp2.ramp", "ramUp2.activate"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={677, 5, 644, 1330}, y={"ramUp2.y"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1331, 9, 668, 1326}, y={"ramDow.ramp", "ramDow.activate"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1331, 9, 668, 1326}, y={"ramDow.y"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1331, 9, 668, 1326}, y={"ramDowUp.ramp", "ramDowUp.activate"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={1331, 9, 668, 1326}, y={"ramDowUp.y"}, range={0.0, 10.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");

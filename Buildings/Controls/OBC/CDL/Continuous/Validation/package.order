@@ -40,6 +40,7 @@ PIDInitialState
 PIDScale
 PIDWithReset
 PIDWithResetScale
+RampUpDown
 Round
 Sin
 Sort
@@ -47,4 +48,3 @@ Sqrt
 Subtract
 Switch
 Tan
-RampUpDown
