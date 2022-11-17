@@ -70,8 +70,8 @@ model CoolingTowersWithBypass
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel cooTowSys(
-    final use_inputFilter=false,
     redeclare final package Medium=Medium,
+    final use_inputFilter=false,
     final num=num,
     final show_T=show_T,
     final m_flow_small=m_flow_nominal,

@@ -12,7 +12,6 @@ partial model PartialCoolingTowersSubsystem
     constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium = Medium_W,
     m_flow_nominal=m_flow_nominal,
-    use_inputFilter=false,
     show_T=true) "Cooling tower"
     annotation (Placement(transformation(extent={{22,-60},{42,-40}})));
 
