@@ -296,7 +296,6 @@ First implementation.
 </html>"),
 experiment(
       StopTime=86400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IntegratedPrimarySecondaryEconomizer;
