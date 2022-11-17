@@ -484,29 +484,10 @@ equation
           visible=have_cooCoi)}),        Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-120,-160},{120,160}})),
   Documentation(info="<html>
-    <p>
-    Block that outputs the supply air temperature setpoint, as well as the control
-    signals for the cooling and heating coils in a fan coil unit system. The implemented 
-    sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4.
-    </p>
-    <p>
-    The supply air temperature <code>TSupSet</code> is varied from the zone cooling setpoint temperature
-    <code>TZonSetCoo</code> to the minimum supply air temperature for cooling<code>THeaSup_min</code>,
-    when the cooling loop signal <code>uCoo</code> varies from the minimum limit
-    <code>cooPerMin</code> to the maximum limit <code>cooPerMax</code>.
-    Similarly,<code>TSupSet</code> is varied from the zone heating setpoint temperature
-    <code>TZonSetHea</code> to the maximum supply air temperature for heating<code>THeaSup_max</code>,
-    when the heating loop signal <code>uHea</code> varies from the minimum limit
-    <code>uHea_min</code> to the maximum limit <code>heaPerMax</code>.
-    The setpoint in deadband mode is equal to the current measured supply air
-    temperature <code>TAirSup</code>. <code>uCoo</code> and <code>uHea</code> are
-    set to zero when the fan proven on signal <code>uFan</code> is <code>false</code>.
-    </p>
-    <p align=\"center\">
-    <img alt=\"Supply air temperature setpoint control logic diagram\"
-    src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/SupplyAirTemperature.png\"/>
-    </p>
-    </html>", revisions="<html>
+<p>Block that outputs the supply air temperature setpoint, as well as the control signals for the cooling and heating coils in a fan coil unit system. The implemented sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4. </p>
+<p>The supply air temperature <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone cooling setpoint temperature <span style=\"font-family: Courier New;\">TZonSetCoo</span> to the minimum supply air temperature for cooling <span style=\"font-family: Courier New;\">THeaSup_min</span>, when the cooling loop signal <span style=\"font-family: Courier New;\">uCoo</span> varies from the minimum limit <span style=\"font-family: Courier New;\">cooPerMin</span> to the maximum limit <span style=\"font-family: Courier New;\">cooPerMax</span>. Similarly, <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone heating setpoint temperature <span style=\"font-family: Courier New;\">TZonSetHea</span> to the maximum supply air temperature for heating <span style=\"font-family: Courier New;\">THeaSup_max</span>, when the heating loop signal <span style=\"font-family: Courier New;\">uHea</span> varies from the minimum limit <span style=\"font-family: Courier New;\">uHea_min</span> to the maximum limit <span style=\"font-family: Courier New;\">heaPerMax</span>. The setpoint in deadband mode is equal to the current measured supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span>. <span style=\"font-family: Courier New;\">uCoo</span> and <span style=\"font-family: Courier New;\">uHea</span> are set to zero when the fan proven on signal <span style=\"font-family: Courier New;\">uFan</span> is <span style=\"font-family: Courier New;\">false</span>. </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/SupplyAirTemperature.png\" alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
+</html>",     revisions="<html>
     <ul>
     <li>
     March 17, 2022, by Karthik Devaprasad:<br/>
