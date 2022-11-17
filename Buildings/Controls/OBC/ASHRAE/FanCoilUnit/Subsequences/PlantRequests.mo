@@ -625,86 +625,32 @@ annotation (
           visible=have_hotWatCoi)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}})),
   Documentation(info="<html>
-<p>
-This sequence outputs the system reset requests for fan coil unit. The
-implementation is according to the Section 5.22.8 of ASHRAE Guideline 36, 2021. 
-</p>
-<h4>If there is a chilled-water coil (<code>have_chiWatCoi=true</code>), chilled
-water reset requests <code>yChiWatResReq</code></h4>
+<p>This sequence outputs the system reset requests for fan coil unit. The implementation is according to the Section 5.22.8 of ASHRAE Guideline 36, 2021. </p>
+<p><b>If there is a chilled-water coil (<span style=\"font-family: Courier New;\">have_chiWatCoi=true</span>), chilled water reset requests <span style=\"font-family: Courier New;\">yChiWatResReq</span></b></p>
 <ol>
-<li>
-If the supply air temperature <code>TAirSup</code> exceeds the supply air temperature
-set point <code>TSupSet</code> by <code>chiWatResReqLim3</code> for time period <code>chiWatResReqTimLim3</code>,
-send 3 requests.
-</li>
-<li>
-If the supply air temperature <code>TAirSup</code> exceeds <code>TSupSet</code> 
-by <code>chiWatResReqLim2</code> for time period <code>chiWatResReqTimLim2</code>, 
-send 2 requests.
-</li>
-<li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is greater than
-<code>chiWatPlaReqLim1</code>, send 1 request until <code>uCooCoi_actual</code>
-is less than <code>chiWatResReqLim0</code>.
-</li>
-<li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is less than
-<code>chiWatPlaReqLim1</code>, send 0 requests.
-</li>
+<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> exceeds the supply air temperature set point <span style=\"font-family: Courier New;\">TSupSet</span> by 5.56 &deg;C (10 &deg;F)) for 5 minutes, send 3 requests. </li>
+<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> exceeds <span style=\"font-family: Courier New;\">TSupSet</span> by by 2.78 &deg;C (5 &deg;F)) for 5 minutes, send 2 requests. </li>
+<li>Else if the chilled water valve position <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is greater than 0.95, send 1 request until <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is less than 0.85. </li>
+<li>Else if the chilled water valve position <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is less than 0.85, send 0 requests. </li>
 </ol>
-<h4>If there is a chilled-water coil and chilled water plant, chiller plant request <code>yChiPlaReq</code></h4>
-<p>
-Send the chiller plant that serves the system a chiller plant request as follows:
-</p>
+<p><b>If there is a chilled-water coil and chilled water plant, chiller plant request <span style=\"font-family: Courier New;\">yChiPlaReq</span></b></p>
+<p>Send the chiller plant that serves the system a chiller plant request as follows: </p>
 <ol>
-<li>
-If the chilled water valve position <code>uCooCoi_actual</code> is greater than
-<code>chiWatPlaReqLim1</code>, send 1 request until the <code>uCooCoi_actual</code>
-is less than <code>chiWatPlaReqLim0</code>.
-</li>
-<li>
-Else if the chilled water valve position <code>uCooCoi_actual</code> is less than
-<code>chiWatPlaReqLim1</code>, send 0 request.
-</li>
+<li>If the chilled water valve position <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is greater than 0.95, send 1 request until the <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is less than 0.1. </li>
+<li>Else if the chilled water valve position <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is less than 0.1, send 0 request. </li>
 </ol>
-<h4>If there is a hot-water coil (<code>have_hotWatCoi=true</code>), hot-water
-reset requests <code>yHotWatResReq</code></h4>
+<p><b>If there is a hot-water coil (<span style=\"font-family: Courier New;\">have_hotWatCoi=true</span>), hot-water reset requests <span style=\"font-family: Courier New;\">yHotWatResReq</span></b></p>
 <ol>
-<li>
-If the supply air temperature <code>TAirSup</code> is <code>hotWatResReqLim3</code> less than
-the supply air temperature set point <code>TSupSet</code> for time period <code>hotWatResReqTimLim3</code>,
-send 3 requests.
-</li>
-<li>
-Else if the supply air temperature <code>TAirSup</code> is <code>hotWatResReqLim2</code>
-less than <code>TSupSet</code> for time period <code>hotWatResReqTimLim2</code>, 
-send 2 requests.
-</li>
-<li>
-Else if the hot water valve position <code>uHeaCoi_actual</code> is greater than
-<code>hotWatPlaReqLim1</code>, send 1 request until the <code>uHeaCoi_actual</code> 
-is less than <code>hotWatResReqLim0</code>.
-</li>
-<li>
-Else if the hot water valve position <code>uHeaCoi_actual</code> is less than <code>hotWatPlaReqLim1</code>,
-send 0 request.
-</li>
+<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> is 17 &deg;C less than the supply air temperature set point <span style=\"font-family: Courier New;\">TSupSet</span> for 5 minutes, send 3 requests. </li>
+<li>Else if the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> is 8 &deg;C less than <span style=\"font-family: Courier New;\">TSupSet</span> for 5 minutes, send 2 requests. </li>
+<li>Else if the hot water valve position <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is greater than 0.95, send 1 request until the <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is less than 0.85. </li>
+<li>Else if the hot water valve position <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is less than 0.85, send 0 request. </li>
 </ol>
-<h4>If there is a hot-water coil and heating hot-water plant, heating hot-water
-plant requests <code>yHotWatPlaReq</code></h4>
-<p>
-Send the heating hot-water plant that serves the air handling unit a heating hot-water
-plant request as follows:
-</p>
+<p><b>If there is a hot-water coil and heating hot-water plant, heating hot-water plant requests <span style=\"font-family: Courier New;\">yHotWatPlaReq</span></b></p>
+<p>Send the heating hot-water plant that serves the air handling unit a heating hot-water plant request as follows: </p>
 <ol>
-<li>
-If the hot water valve position <code>uHeaCoi_actual</code> is greater than <code>hotWatPlaReqLim1</code>, 
-send 1 request until the hot water valve position is less than <code>hotWatPlaReqLim0</code>.
-</li>
-<li>
-If the hot water valve position <code>uHeaCoi_actual</code> is less than <code>hotWatPlaReqLim1</code>, 
-send 0 requests.
-</li>
+<li>If the hot water valve position <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is greater than 0.95, send 1 request until the hot water valve position is less than 0.1. </li>
+<li>If the hot water valve position <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is less than 0.1, send 0 requests. </li>
 </ol>
 </html>", revisions="<html>
 <ul>
