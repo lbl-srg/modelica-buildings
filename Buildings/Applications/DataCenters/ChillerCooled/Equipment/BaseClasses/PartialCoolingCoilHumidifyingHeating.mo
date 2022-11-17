@@ -38,7 +38,7 @@ partial model PartialCoolingCoilHumidifyingHeating "Partial AHU model "
     "Valve leakage, l=Kv(y=0)/Kv(y=1)"
     annotation(Dialog(group="Valve"));
 
-  parameter Boolean use_inputFilterValve=true
+  parameter Boolean use_inputFilterValve=false
     "= true, if opening is filtered with a 2nd order CriticalDamping filter for the water-side valve"
     annotation(Dialog(tab="Dynamics", group="Valve"));
   parameter Modelica.Units.SI.Time riseTimeValve=120
