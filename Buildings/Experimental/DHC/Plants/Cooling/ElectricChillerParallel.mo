@@ -341,12 +341,7 @@ equation
     annotation (Line(points={{81,174},{240,174},{240,159.75},{258,159.75}},
                                                                          color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-<<<<<<< HEAD
     annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,160.75}},
-=======
-    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,
-          160.75}},
->>>>>>> IBPSASync_pumpAssertion
       color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
@@ -425,15 +420,14 @@ the detailed control logic. </p>
       revisions="<html>
 <ul>
 <li>
-<<<<<<< HEAD
-September 15, 2022, by Kathryn Hinkelman:<br/>
-Propagated dynamics and initialization parameters for pumps.
-=======
 November 16, 2022, by Michael Wetter:<br/>
 Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
 to condenser water parameters and vice versa.<br/>
 Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
->>>>>>> IBPSASync_pumpAssertion
+</li>
+<li>
+September 15, 2022, by Kathryn Hinkelman:<br/>
+Propagated dynamics and initialization parameters for pumps.
 </li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
