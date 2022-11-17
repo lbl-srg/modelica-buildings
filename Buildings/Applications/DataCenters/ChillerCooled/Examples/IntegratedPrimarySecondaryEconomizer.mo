@@ -295,8 +295,8 @@ First implementation.
 </ul>
 </html>"),
 experiment(
-      StartTime=0,
       StopTime=86400,
-      Tolerance=1e-06),
+      Tolerance=1e-07,
+      __Dymola_Algorithm="Radau"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end IntegratedPrimarySecondaryEconomizer;

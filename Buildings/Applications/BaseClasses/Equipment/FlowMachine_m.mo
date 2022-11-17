@@ -7,8 +7,15 @@ model FlowMachine_m "Identical m_flow controlled pumps"
       each final dpMax=dpMax),
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
+  // Note: Below we set a huge value for dpMax. This is needed for Dymola 2023
+  // to run
+  // simulateModel("Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer", stopTime=86400, method="Cvode", tolerance=1e-07, resultFile="IntegratedPrimarySecondaryEconomizer");
+  // on commit 3362be949be55b3c1e320faec8c8bac999f98ba4.
+  // It seems to be an issue of Dymola evaluating the assertion before convergence,
+  // because the result file does not show such large a pressure, and the model
+  // works fine with Optimica.
   parameter Modelica.Units.SI.Pressure dpMax(
-    displayUnit="Pa")=2*max(pum.per.pressure.dp)
+    displayUnit="Pa")=2*max(pum.per.pressure.dp)+6E11
     "Maximum pressure allowed to operate the model, if exceeded, the simulation stops with an error"
     annotation(Dialog(tab="Advanced"));
 
@@ -18,10 +25,10 @@ model FlowMachine_m "Identical m_flow controlled pumps"
 
 equation
   connect(swi.y, gaiM_flow.u)
-    annotation (Line(points={{-26,-30},{28,-30},{28,54},{-38,54},{-38,40},{-32,
-          40}},                                  color={0,0,127}));
-  connect(gaiM_flow.y, pum.m_flow_in) annotation (Line(points={{-9,40},{0,40},{
-          0,12}},             color={0,0,127}));
+    annotation (Line(points={{-26,-30},{28,-30},{28,54},{-38,54},{-38,40},{-32,40}},
+                                                 color={0,0,127}));
+  connect(gaiM_flow.y, pum.m_flow_in) annotation (Line(points={{-9,40},{0,40},{0,
+          12}},               color={0,0,127}));
   annotation (    Documentation(info="<html>
 <p>This model implements a parallel of identical pumps with <code>m_flow</code> being controlled.
 The number can be specified by setting a value of <code>num</code>.
