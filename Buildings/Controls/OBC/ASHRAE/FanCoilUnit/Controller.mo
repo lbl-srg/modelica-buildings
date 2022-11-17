@@ -639,7 +639,7 @@ block Controller
     annotation (Placement(transformation(extent={{200,0},{240,40}}),
       iconTransformation(extent={{200,20},{240,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
+  Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints
     modSetPoi(
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
@@ -716,7 +716,7 @@ protected
     annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant unOccMod(
-    final k=Buildings.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.unoccupied)
+    final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.unoccupied)
     "Unoccupied mode"
     annotation (Placement(transformation(extent={{-160,-180},{-140,-160}})));
 
@@ -810,17 +810,19 @@ equation
   connect(modSetPoi.TZonCooSet, TZonCooSet) annotation (Line(points={{-118,160},
           {-50,160},{-50,80},{220,80}}, color={0,0,127}));
 
-  connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,-50},{-168,-50},{
-          -168,164},{-142,164}}, color={0,0,127}));
+  connect(TZon, modSetPoi.TZon) annotation (Line(points={{-220,-50},{-168,-50},
+          {-168,165},{-142,165}},color={0,0,127}));
 
-  connect(tNexOcc, modSetPoi.tNexOcc) annotation (Line(points={{-220,160},{-142,
-          160}}, color={0,0,127}));
+  connect(tNexOcc, modSetPoi.tNexOcc) annotation (Line(points={{-220,160},{-182,
+          160},{-182,158},{-142,158}},
+                 color={0,0,127}));
 
   connect(uOcc, modSetPoi.uOcc) annotation (Line(points={{-220,70},{-174,70},{-174,
           162},{-142,162}},      color={255,0,255}));
 
-  connect(modSetPoi.yOpeMod, isUnOcc.u1) annotation (Line(points={{-118,168},{-110,
-          168},{-110,-170},{-102,-170}}, color={255,127,0}));
+  connect(modSetPoi.yOpeMod, isUnOcc.u1) annotation (Line(points={{-118,164},{
+          -110,164},{-110,-170},{-102,-170}},
+                                         color={255,127,0}));
 
   connect(win.y, modSetPoi.uWin) annotation (Line(points={{-158,-70},{-150,-70},
           {-150,166},{-142,166}}, color={255,0,255}));
@@ -834,14 +836,15 @@ equation
   connect(modSetPoi.warUpTim, warUpTim) annotation (Line(points={{-142,168},{-180,
           168},{-180,190},{-220,190}}, color={0,0,127}));
 
-  connect(modSetPoi.cooDowTim, cooDowTim) annotation (Line(points={{-142,170},{-174,
-          170},{-174,220},{-220,220}}, color={0,0,127}));
+  connect(modSetPoi.cooDowTim, cooDowTim) annotation (Line(points={{-142,169},{
+          -174,169},{-174,220},{-220,220}},
+                                       color={0,0,127}));
 
   connect(modSetPoi.uCooDemLimLev, uCooDemLimLev) annotation (Line(points={{-142,
           152},{-162,152},{-162,40},{-220,40}}, color={255,127,0}));
 
   connect(modSetPoi.uHeaDemLimLev, uHeaDemLimLev) annotation (Line(points={{-142,
-          150},{-156,150},{-156,10},{-220,10}}, color={255,127,0}));
+          151},{-156,151},{-156,10},{-220,10}}, color={255,127,0}));
 
   connect(TSupAir.yCooCoi, yCooCoi) annotation (Line(points={{122,4},{160,4},{160,
           -60},{220,-60}},        color={0,0,127}));
@@ -858,8 +861,8 @@ equation
   connect(fanSpe.yFan, yFan) annotation (Line(points={{142,182},{160,182},{160,200},
           {220,200}}, color={255,0,255}));
 
-  connect(modSetPoi.yOpeMod, fanSpe.opeMod) annotation (Line(points={{-118,168},
-          {-60,168},{-60,180},{20,180},{20,186},{118,186}}, color={255,127,0}));
+  connect(modSetPoi.yOpeMod, fanSpe.opeMod) annotation (Line(points={{-118,164},
+          {-60,164},{-60,180},{20,180},{20,186},{118,186}}, color={255,127,0}));
 
   connect(TSup, TSupAir.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},{
           -60,8},{98,8}},  color={0,0,127}));
@@ -894,11 +897,13 @@ equation
   connect(nOcc, havOcc.u) annotation (Line(points={{-220,-90},{-120,-90},{-120,60},
           {-102,60}}, color={255,127,0}));
 
-  connect(setAdj, modSetPoi.setAdj) annotation (Line(points={{-220,130},{-184,130},
-          {-184,158},{-142,158}}, color={0,0,127}));
+  connect(setAdj, modSetPoi.setAdj) annotation (Line(points={{-220,130},{-184,
+          130},{-184,156.5},{-142,156.5}},
+                                  color={0,0,127}));
 
-  connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-220,100},{-152,
-          100},{-152,156},{-142,156}}, color={0,0,127}));
+  connect(heaSetAdj, modSetPoi.heaSetAdj) annotation (Line(points={{-220,100},{
+          -152,100},{-152,154.5},{-142,154.5}},
+                                       color={0,0,127}));
 
   connect(TSup, fcuPlaReq.TAirSup) annotation (Line(points={{-220,-20},{-60,-20},
           {-60,-86},{98,-86}},           color={0,0,127}));
@@ -1145,8 +1150,8 @@ for more detailed description.
 <p>
 The zone air heating setpoint <code>TZonHeaSet</code>and cooling setpoint <code>TZonHeaSet</code>
 as well as system operation mode signal <code>modSetPoi.yOpeMod</code> are detailed at
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ModeAndSetPoints</a>.
 </p>
 </html>",
 revisions="<html>

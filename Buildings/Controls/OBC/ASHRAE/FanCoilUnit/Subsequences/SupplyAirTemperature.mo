@@ -22,14 +22,14 @@ block SupplyAirTemperature
     annotation(Dialog(group="Heating loop parameters",
       enable = have_heaCoi));
 
-  parameter Real heaPerMax(
+  parameter Real uHea_max(
     final unit="1",
     displayUnit="1") = 0.5
     "Maximum heating loop signal at which supply air temperature is modified"
     annotation(Dialog(group="Heating loop parameters",
       enable = have_heaCoi));
 
-  parameter Real cooPerMin(
+  parameter Real uCoo_min(
     final unit="1",
     displayUnit="1") = cooDea
     "Minimum cooling loop signal at which supply air temperature is modified"
@@ -43,7 +43,7 @@ block SupplyAirTemperature
     annotation(Dialog(group="Cooling loop parameters",
       enable = have_cooCoi));
 
-  parameter Real cooPerMax(
+  parameter Real uCoo_max(
     final unit="1",
     displayUnit="1") = 0.5
     "Maximum cooling loop signal at which supply air temperature is modified"
@@ -161,7 +161,7 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetCoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
     displayUnit="K",
     quantity="ThermodynamicTemperature") if have_cooCoi
@@ -227,8 +227,8 @@ protected
     "Minimum cooling supply air temperature setpoint limit signal"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooPerMin(
-    final k=cooPerMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuCoo_min(
+    final k=uCoo_min)
     "Minimum cooling loop signal support point"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
 
@@ -285,13 +285,13 @@ protected
     "Output cooling coil signal only when fan is proven on"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaPerMax(
-    final k=heaPerMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuHea_max(
+    final k=uHea_max)
     "Maximum heating loop signal support point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conCooPerMax(
-    final k=cooPerMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuCoo_max(
+    final k=uCoo_max)
     "Maximum cooling loop signal support point"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
 
@@ -361,7 +361,7 @@ equation
   connect(TZonHeaSet, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
           80},{-74,64},{-62,64}}, color={0,0,127}));
 
-  connect(TZonSetCoo, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
+  connect(TZonCooSet, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
           -120},{-64,-56},{-62,-56}}, color={0,0,127}));
 
   connect(TAirSup, swiDeaHea.u3) annotation (Line(points={{-140,0},{-30,0},{-30,
@@ -386,13 +386,13 @@ equation
           {140,-60}}, color={0,0,127}));
   connect(booToRea2.y, mul3.u1) annotation (Line(points={{82,140},{86,140},{86,-54},
           {88,-54}},      color={0,0,127}));
-  connect(conHeaPerMax.y, linTHeaSupAir.x2) annotation (Line(points={{-58,20},{-52,
+  connect(conuHea_max.y, linTHeaSupAir.x2) annotation (Line(points={{-58,20},{-52,
           20},{-52,40},{-68,40},{-68,56},{-62,56}}, color={0,0,127}));
   connect(conuHea_min.y, linTHeaSupAir.x1) annotation (Line(points={{-88,20},{-84,
           20},{-84,68},{-62,68}}, color={0,0,127}));
-  connect(conCooPerMin.y, linTCooSupAir.x1) annotation (Line(points={{-88,-60},{
+  connect(conuCoo_min.y, linTCooSupAir.x1) annotation (Line(points={{-88,-60},{
           -86,-60},{-86,-52},{-62,-52}}, color={0,0,127}));
-  connect(conCooPerMax.y, linTCooSupAir.x2) annotation (Line(points={{-88,-100},
+  connect(conuCoo_max.y, linTCooSupAir.x2) annotation (Line(points={{-88,-100},
           {-80,-100},{-80,-64},{-62,-64}}, color={0,0,127}));
   connect(conPIDCoo.y, swiCooCoi.u1) annotation (Line(points={{62,-60},{66,-60},
           {66,-92},{68,-92}}, color={0,0,127}));
@@ -467,7 +467,7 @@ equation
           textColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="TZonSetCoo",
+          textString="TZonCooSet",
           visible=have_cooCoi),
         Text(
           extent={{20,12},{96,-10}},
@@ -485,7 +485,7 @@ equation
           preserveAspectRatio=false, extent={{-120,-160},{120,160}})),
   Documentation(info="<html>
 <p>Block that outputs the supply air temperature setpoint, as well as the control signals for the cooling and heating coils in a fan coil unit system. The implemented sequence is based on ASHRAE Guideline 36, 2021, Part 5.22.4. </p>
-<p>The supply air temperature <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone cooling setpoint temperature <span style=\"font-family: Courier New;\">TZonSetCoo</span> to the minimum supply air temperature for cooling <span style=\"font-family: Courier New;\">THeaSup_min</span>, when the cooling loop signal <span style=\"font-family: Courier New;\">uCoo</span> varies from the minimum limit <span style=\"font-family: Courier New;\">cooPerMin</span> to the maximum limit <span style=\"font-family: Courier New;\">cooPerMax</span>. Similarly, <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone heating setpoint temperature <span style=\"font-family: Courier New;\">TZonHeaSet</span> to the maximum supply air temperature for heating <span style=\"font-family: Courier New;\">THeaSup_max</span>, when the heating loop signal <span style=\"font-family: Courier New;\">uHea</span> varies from the minimum limit <span style=\"font-family: Courier New;\">uHea_min</span> to the maximum limit <span style=\"font-family: Courier New;\">heaPerMax</span>. The setpoint in deadband mode is equal to the current measured supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span>. <span style=\"font-family: Courier New;\">uCoo</span> and <span style=\"font-family: Courier New;\">uHea</span> are set to zero when the fan proven on signal <span style=\"font-family: Courier New;\">uFan</span> is <span style=\"font-family: Courier New;\">false</span>. </p>
+<p>The supply air temperature <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone cooling setpoint temperature <span style=\"font-family: Courier New;\">TZonCooSet</span> to the minimum supply air temperature for cooling <span style=\"font-family: Courier New;\">THeaSup_min</span>, when the cooling loop signal <span style=\"font-family: Courier New;\">uCoo</span> varies from the minimum limit <span style=\"font-family: Courier New;\">uCoo_min</span> to the maximum limit <span style=\"font-family: Courier New;\">uCoo_max</span>. Similarly, <span style=\"font-family: Courier New;\">TSupSet</span> is varied from the zone heating setpoint temperature <span style=\"font-family: Courier New;\">TZonHeaSet</span> to the maximum supply air temperature for heating <span style=\"font-family: Courier New;\">THeaSup_max</span>, when the heating loop signal <span style=\"font-family: Courier New;\">uHea</span> varies from the minimum limit <span style=\"font-family: Courier New;\">uHea_min</span> to the maximum limit <span style=\"font-family: Courier New;\">uHea_max</span>. The setpoint in deadband mode is equal to the current measured supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span>. <span style=\"font-family: Courier New;\">uCoo</span> and <span style=\"font-family: Courier New;\">uHea</span> are set to zero when the fan proven on signal <span style=\"font-family: Courier New;\">uFan</span> is <span style=\"font-family: Courier New;\">false</span>. </p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/FanCoilUnit/Subsequences/SupplyAirTemperature.png\" alt=\"Supply air temperature setpoint control logic diagram\"/> </p>
 </html>",     revisions="<html>
     <ul>
