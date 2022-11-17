@@ -130,8 +130,10 @@ Buildings/BoundaryConditions/SolarIrradiation/DirectTiltedSurface.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/DiffusePerez.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mo
+Buildings/BoundaryConditions/SolarIrradiation/Examples/GlobalPerezTiltedSurface.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/package.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/package.order
+Buildings/BoundaryConditions/SolarIrradiation/GlobalPerezTiltedSurface.mo
 Buildings/BoundaryConditions/SolarIrradiation/package.mo
 Buildings/BoundaryConditions/SolarIrradiation/package.order
 Buildings/BoundaryConditions/Types.mo
@@ -1546,6 +1548,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClass
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffusePerez.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/GlobalPerezTiltedSurface.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD100.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD200.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD300.mos

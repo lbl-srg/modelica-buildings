@@ -242,22 +242,6 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
-- model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3Clusters
-  openmodelica:
-    comment: returned non-zero exit status 255.
-    simulate: false
-- model_name: Buildings.Obsolete.DistrictHeatingCooling.Examples.HeatingCoolingHotWater3ClustersBaseCase
-  openmodelica:
-    comment: returned non-zero exit status 255
-    simulate: false
-- model_name: Buildings.Obsolete.DistrictHeatingCooling.SubStations.VaporCompression.Validation.HeatingCoolingHotwaterTimeSeries_dT
-  openmodelica:
-    comment: returned non-zero exit status 255.
-    simulate: false
-- model_name: Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall
-  openmodelica:
-    comment: returned non-zero exit status 255.
-    simulate: false
 - model_name: Buildings.Obsolete.Examples.VAVReheat.Guideline36
   openmodelica:
     comment: timed out after 300 seconds

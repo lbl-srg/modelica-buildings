@@ -2,10 +2,10 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 record SignalFilterParameters
   "Record that contains the parameters of the filtered opening for multiple valves and dampers"
   parameter Integer numFil(min=1)=4 "Number of filters";
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_inputFilter=false
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
-  parameter Modelica.Units.SI.Time riseTimeValve=120
+  parameter Modelica.Units.SI.Time riseTimeValve=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
@@ -19,6 +19,13 @@ record SignalFilterParameters
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Change <code>riseTimeValve</code> to 30 seconds so that it is the same as for pumps.
+Otherwise, pumps may work against almost closed valves.
+Also, set the default for <code>use_inputFilter</code> to <code>false</code>
+to avoid high pressure when pumps start operating.
+</li>
 <li>
 June 30, 2017, by Yangyang Fu:<br/>
 First implementation.
