@@ -2,26 +2,25 @@ within Buildings.Controls.OBC.CDL.Integers.Validation;
 model SequenceBinary
   "Validation model for the block to find the total number of fired stages"
 
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new seqBin(
     final nSta=4,
     final minStaOn=4,
     final h=0.05) "Total number of fired stages"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new lesHolTim(
     final nSta=4,
     final minStaOn=1,
     final h=0.05)
     "Total number of fired stages, with smaller stage ON-OFF holding time"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new seqBin1(
     final nSta=4,
     final minStaOn=2,
     final h=0.05) "Total number of fired stages"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary noOffHol(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new noOffHol(
     final nSta=4,
     final minStaOn=2,
-    final minStaOff=0,
     final h=0.05) "Total number of fired stages, without holding staging off"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
