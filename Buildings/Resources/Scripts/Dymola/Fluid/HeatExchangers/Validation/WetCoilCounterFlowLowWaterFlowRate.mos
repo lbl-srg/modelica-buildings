@@ -1,0 +1,7 @@
+oldStoreProtVar=Advanced.StoreProtectedVariables;
+Advanced.StoreProtectedVariables:=true;
+simulateModel("Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate", stopTime=5000, method="Cvode", tolerance=1e-6, resultFile="WetCoilCounterFlowLowWaterFlowRate");
+createPlot(id=1, position={15, 14, 1170, 1253}, y={"hex.Q1_flow", "hex.QSen2_flow", "hex.QLat2_flow"}, autoscale=true, autoerase=true, autoreplot=true, grid=true, color=true);
+createPlot(id=1, y={"hex.m1_flow", "hex.m2_flow"}, autoscale=true, autoerase=true, autoreplot=true, grid=true, color=true, subPlot=2);
+createPlot(id=1, y={"hex.ele[1].mas.T", "senTemAirIn.T", "senTemWatIn.T"}, autoscale=true, autoerase=true, autoreplot=true, grid=true, color=true, subPlot=3);
+Advanced.StoreProtectedVariables=oldStoreProtVar;

@@ -10,7 +10,7 @@ model CFDAirHeatMassBalance
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics massDynamics
     "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
   // Initialization
   parameter Medium.AbsolutePressure p_start "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));

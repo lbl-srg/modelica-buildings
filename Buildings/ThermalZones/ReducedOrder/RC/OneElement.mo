@@ -1,6 +1,7 @@
 within Buildings.ThermalZones.ReducedOrder.RC;
 model OneElement "Thermal Zone with one element for exterior walls"
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+    final massDynamics=energyDynamics);
 
   parameter Modelica.Units.SI.Volume VAir "Air volume of the zone"
     annotation (Dialog(group="Thermal zone"));
@@ -131,7 +132,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
     m_flow_nominal=VAir*6/3600*1.2,
     final V=VAir,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final massDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -147,7 +148,7 @@ model OneElement "Thermal Zone with one element for exterior walls"
     m_flow_nominal=VAir*6/3600*1.2,
     final V=VAir,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
+    final massDynamics=energyDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -235,12 +236,15 @@ protected
     rotation=-90,
     origin={-106,68})));
   Modelica.Blocks.Math.Gain eRadSol[nOrientations](
-    final k=gWin*(1 - ratioWinConRad)*ATransparent) if sum(ATransparent) > 0
+    final k(each unit="m2")=gWin*(1 - ratioWinConRad)*ATransparent,
+    u(each final unit="W/m2"),
+    y(each final unit="W")) if sum(ATransparent) > 0
     "Emission coefficient of solar radiation considered as radiation"
     annotation (Placement(transformation(extent={{-206,141},{-196,151}})));
   Modelica.Blocks.Math.Gain eConvSol[nOrientations](
-    final k=gWin*ratioWinConRad*ATransparent)
- if ratioWinConRad > 0 and sum(ATransparent) > 0
+    final k(each unit="m2")=gWin*ratioWinConRad*ATransparent,
+    u(each final unit="W/m2"),
+    y(each final unit="W")) if ratioWinConRad > 0 and sum(ATransparent) > 0
     "Emission coefficient of solar radiation considered as convection"
     annotation (Placement(transformation(extent={{-206,119},{-196,129}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor resExtWallWin(
@@ -539,6 +543,12 @@ The image below shows the RC-network of this model.
   </html>",
 revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 October 9, 2019, by Michael Wetter:<br/>
 Refactored addition of moisture to also account for the energy content of the

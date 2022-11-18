@@ -30,8 +30,8 @@ The Modelica Standard Library (MSL) version 3.2.1 has different connectors depen
 type of electric system being modeled. For example, DC and AC continuous time systems have
 a connector (<a href=\"modelica://Modelica.Electrical.Analog.Interfaces.Pin\">Modelica.Electrical.Analog.Interfaces.Pin</a>)
 that differs from the one used by AC models, which use the
-quasi-stationary assumption (<a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin\">
-Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.Pin</a>).
+quasi-static assumption
+(<a href=\"modelica://Modelica.Electrical.QuasiStatic.SinglePhase.Interfaces.Pin\">Modelica.Electrical.QuasiStatic.SinglePhase.Interfaces.Pin</a>).
 </p>
 <p>
 The generalized electrical connector overcomes this limitation. It uses a paradigm

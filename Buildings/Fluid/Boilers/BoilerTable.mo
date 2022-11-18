@@ -52,6 +52,12 @@ Buildings.Fluid.Boilers.Data</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
+<li>
 October 13, 2021 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2651\">#2651</a>.

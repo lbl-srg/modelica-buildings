@@ -389,7 +389,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{380,270},{400,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTThr(k=1) "Threshold to switch boiler off"
     annotation (Placement(transformation(extent={{310,-210},{330,-190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(k2=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
     annotation (Placement(transformation(extent={{350,-186},{370,-166}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TRooOff(k=273.15 - 5)
     "Low room temperature set point to switch heating off"
@@ -398,13 +398,17 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{540,380},{560,400}})));
   Modelica.Blocks.Logical.OnOffController onOff(bandwidth=2) "On/off switch"
     annotation (Placement(transformation(extent={{580,334},{600,354}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k=16 + 293.15)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOutSwi(k(
+      final unit="K",
+      displayUnit="degC") = 289.15,
+    y(final unit="K",
+      displayUnit="degC"))
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
   Buildings.Fluid.Sources.Boundary_pT bou(nPorts=1, redeclare package Medium = MediumW)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-180},{-62,-160}})));
-  Controls.OBC.CDL.Continuous.Gain gain(k=1/dp_nominal)
+  Controls.OBC.CDL.Continuous.MultiplyByParameter gain(k=1/dp_nominal)
     "Gain used to normalize pressure measurement signal"
     annotation (Placement(transformation(extent={{160,0},{140,20}})));
   Buildings.Fluid.FixedResistances.Junction splVal(
@@ -594,7 +598,7 @@ Changed controller to output setpoint for supply air temperature for cooling coi
   Controls.OBC.CDL.Continuous.Sources.Constant           occ2(k=1/6/4)
     "Heat gain if occupied in room 2"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
-  Controls.OBC.CDL.Continuous.MovingMean aveTOut(delta=24*3600)
+  Controls.OBC.CDL.Continuous.MovingAverage aveTOut(delta=24*3600)
     "Time averaged outdoor air temperature"
     annotation (Placement(transformation(extent={{540,300},{560,320}})));
 equation
@@ -859,20 +863,20 @@ equation
       points={{-20,-140},{190,-140},{190,-184.8},{232,-184.8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(add1.y, lesThr.u2) annotation (Line(
+  connect(sub1.y, lesThr.u2) annotation (Line(
       points={{372,-176},{398,-176}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(tanTemTop.T, add1.u1) annotation (Line(
-      points={{304,-170},{348,-170}},
+  connect(tanTemTop.T, sub1.u1) annotation (Line(
+      points={{305,-170},{348,-170}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dTThr.y, add1.u2) annotation (Line(
+  connect(dTThr.y, sub1.u2) annotation (Line(
       points={{332,-200},{340,-200},{340,-182},{348,-182}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tanTemBot.T, greThr.u) annotation (Line(
-      points={{300,-230},{398,-230}},
+      points={{301,-230},{398,-230}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooSet.y, swi1.u1) annotation (Line(
@@ -913,11 +917,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo1.T, conRoo1.u_m) annotation (Line(
-      points={{500,484},{550,484},{550,498}},
+      points={{501,484},{550,484},{550,498}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo2.T, conRoo2.u_m) annotation (Line(
-      points={{500,226},{550,226},{550,238}},
+      points={{501,226},{550,226},{550,238}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], boi.port_a) annotation (Line(
@@ -985,8 +989,8 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(TRoo1.T, cooCon.TRoo) annotation (Line(
-      points={{500,484},{508,484},{508,530},{250,530},{250,580},{90,580},{90,
-          546},{98,546}},
+      points={{501,484},{508,484},{508,530},{250,530},{250,580},{90,580},{90,546},
+          {98,546}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fanSup.port_b, damSupByp.port_a)
@@ -1029,7 +1033,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(TRoo1.T, lesThrTRoo.u) annotation (Line(
-      points={{500,484},{690,484},{690,40},{340,40},{340,-50},{398,-50}},
+      points={{501,484},{690,484},{690,40},{340,40},{340,-50},{398,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(damHex.port_b, hex.port_a1) annotation (Line(
@@ -1189,6 +1193,11 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Michael Wetter:<br/>
+Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
+</li>
 <li>
 September 21, 2021, by Michael Wetter:<br/>
 Updated controls to use blocks from the CDL package. Replaced PID controller with CDL version.<br/>

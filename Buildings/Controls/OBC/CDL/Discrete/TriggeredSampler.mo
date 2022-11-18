@@ -6,12 +6,12 @@ block TriggeredSampler
   Interfaces.RealInput u
     "Connector with a Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Interfaces.BooleanInput trigger
+    "Signal that triggers the sampler"
+    annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
   Interfaces.RealOutput y
     "Connector with a Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Interfaces.BooleanInput trigger
-    "Signal that triggers the sampler"
-    annotation (Placement(transformation(origin={0,-118},extent={{-20,-20},{20,20}},rotation=90)));
 
 initial equation
   y=y_start;

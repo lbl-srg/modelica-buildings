@@ -1,0 +1,2 @@
+simulateModel("Buildings.Fluid.Sources.Examples.Outside_CpData_Specification", stopTime=86400, tolerance=1e-06, resultFile="Outside_CpData_Specification");
+createPlot(id=1, position={15, 15, 989, 663}, x="winDir.y", y={"winDir.y", "nor.pWin", "weaDat.winSpe"}, range={0.0, 360.0, -0.5, 6.5}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="deg", displayUnits={"rad", "Pa", "m/s"});

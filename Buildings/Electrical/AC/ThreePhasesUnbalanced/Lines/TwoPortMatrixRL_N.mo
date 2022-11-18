@@ -1,7 +1,10 @@
 within Buildings.Electrical.AC.ThreePhasesUnbalanced.Lines;
 model TwoPortMatrixRL_N
   "Model of an RL line parameterized with impedance matrices and neutral line"
-  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N;
+  extends Buildings.Electrical.AC.ThreePhasesUnbalanced.Interfaces.TwoPort_N(
+    terminal_p(phase(v(each nominal = V_nominal))),
+    terminal_n(phase(v(each nominal = V_nominal))));
+
   parameter Modelica.Units.SI.Voltage V_nominal(min=0, start=480)
     "Nominal voltage (V_nominal >= 0)"
     annotation (Evaluate=true, Dialog(group="Nominal conditions"));
@@ -38,13 +41,13 @@ model TwoPortMatrixRL_N
   final parameter Modelica.Units.SI.Impedance[2] Z43=Z34
     "Element [4,3] of impedance matrix";
 
-  Modelica.Units.SI.Current i1[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i1[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[1].i "Current in line 1";
-  Modelica.Units.SI.Current i2[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i2[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[2].i "Current in line 2";
-  Modelica.Units.SI.Current i3[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i3[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[3].i "Current in line 3";
-  Modelica.Units.SI.Current i4[2](each stateSelect=StateSelect.prefer) =
+  Modelica.Units.SI.Current i4[2](each stateSelect=StateSelect.prefer)=
     terminal_n.phase[4].i "Current in line 4 (neutral)";
   Modelica.Units.SI.Voltage v1_n[2](
     start=Buildings.Electrical.PhaseSystems.OnePhase.phaseVoltages(V_nominal/
@@ -132,6 +135,10 @@ equation
           textString="R+jX 4x4")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Michael Wetter:<br/>
+Set nominal attribute for voltage at terminal.
+</li>
 <li>
 November 28, 2016, by Michael Wetter:<br/>
 Made current and voltage public to allow setting start values.<br/>

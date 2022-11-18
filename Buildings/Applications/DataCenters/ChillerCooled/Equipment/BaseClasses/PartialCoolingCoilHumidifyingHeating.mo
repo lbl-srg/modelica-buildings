@@ -132,7 +132,6 @@ if not inputType == Buildings.Fluid.Types.InputType.Stages
       final allowFlowReversal=allowFlowReversal2,
       final show_T=show_T,
       final energyDynamics=energyDynamics,
-      final massDynamics=massDynamics,
       final inputType=inputType,
       final tau=tauFan,
       final addPowerToMedium=addPowerToMedium,

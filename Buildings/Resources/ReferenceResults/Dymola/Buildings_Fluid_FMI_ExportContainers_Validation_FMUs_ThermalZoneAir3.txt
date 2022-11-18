@@ -1,4 +1,4 @@
-last-generated=2019-04-17
+last-generated=2022-09-10
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -9,9 +9,9 @@ statistics-fmu-dependencies=
       "fluPor[2].m_flow",
       "fluPor[2].forward.T",
       "fluPor[2].forward.X_w",
+      "vol.dynBal.medium.Xi[1]",
       "vol.dynBal.U",
-      "vol.dynBal.m",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.m"
     ],
     "der(vol.dynBal.m)": [
       "fluPor[1].m_flow",
@@ -41,13 +41,13 @@ statistics-fmu-dependencies=
       "vol.dynBal.m",
       "vol.dynBal.mC[3]"
     ],
-    "der(vol.dynBal.mXi[1])": [
+    "der(vol.dynBal.medium.Xi[1])": [
       "fluPor[1].m_flow",
       "fluPor[1].forward.X_w",
       "fluPor[2].m_flow",
       "fluPor[2].forward.X_w",
-      "vol.dynBal.m",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]",
+      "vol.dynBal.m"
     ]
   },
   "InitialUnknowns": {
@@ -94,11 +94,13 @@ statistics-fmu-dependencies=
       "fluPor[2].forward.C[3]",
       "vol.C_start[3]"
     ],
-    "der(vol.dynBal.mXi[1])": [
+    "der(vol.dynBal.medium.Xi[1])": [
       "fluPor[1].m_flow",
       "fluPor[1].forward.X_w",
       "fluPor[2].m_flow",
       "fluPor[2].forward.X_w",
+      "V",
+      "vol.p_start",
       "vol.X_start[1]"
     ],
     "fluPor[1].backward.C[1]": [
@@ -160,9 +162,7 @@ statistics-fmu-dependencies=
       "vol.p_start",
       "vol.C_start[3]"
     ],
-    "vol.dynBal.mXi[1]": [
-      "V",
-      "vol.p_start",
+    "vol.dynBal.medium.Xi[1]": [
       "vol.X_start[1]"
     ]
   },
@@ -181,13 +181,12 @@ statistics-fmu-dependencies=
       "vol.dynBal.mC[3]"
     ],
     "fluPor[1].backward.T": [
+      "vol.dynBal.medium.Xi[1]",
       "vol.dynBal.U",
-      "vol.dynBal.m",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.m"
     ],
     "fluPor[1].backward.X_w": [
-      "vol.dynBal.m",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]"
     ],
     "fluPor[2].backward.C[1]": [
       "vol.dynBal.m",
@@ -202,13 +201,12 @@ statistics-fmu-dependencies=
       "vol.dynBal.mC[3]"
     ],
     "fluPor[2].backward.T": [
+      "vol.dynBal.medium.Xi[1]",
       "vol.dynBal.U",
-      "vol.dynBal.m",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.m"
     ],
     "fluPor[2].backward.X_w": [
-      "vol.dynBal.m",
-      "vol.dynBal.mXi[1]"
+      "vol.dynBal.medium.Xi[1]"
     ]
   }
 }

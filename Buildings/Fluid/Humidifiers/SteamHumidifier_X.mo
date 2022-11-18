@@ -10,9 +10,7 @@ model SteamHumidifier_X
       final QMax_flow = Modelica.Constants.inf,
       final QMin_flow = -Modelica.Constants.inf,
       final mWatMax_flow = mWatMax_flow,
-      final mWatMin_flow = 0,
-      final energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
-      final massDynamics = massDynamics));
+      final mWatMin_flow = 0));
 
   parameter Modelica.Units.SI.MassFlowRate mWatMax_flow(min=0) = Modelica.Constants.inf
     "Maximum water mass flow rate addition (positive)"
@@ -21,11 +19,6 @@ model SteamHumidifier_X
   parameter Modelica.Units.SI.MassFraction X_start[Medium.nX]=Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization"));
-
-  // Dynamics
-  parameter Modelica.Fluid.Types.Dynamics massDynamics = Modelica.Fluid.Types.Dynamics.SteadyState
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Set maximum to a high value to avoid users mistakenly entering relative humidity.
   Modelica.Blocks.Interfaces.RealInput X_w(
@@ -262,6 +255,10 @@ The water vapor of the reverse flow is not affected by this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 8, 2022, by Michael Wetter:<br/>
+Renamed parameter <code>massDynamics</code> to <code>energyDynamics</code> for consistency with other models.
+</li>
 <li>
 May 10, 2017, by Michael Wetter:<br/>
 First implementation.

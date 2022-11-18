@@ -54,7 +54,7 @@ protected
      p=Medium1.p_default,
      X=Medium1.X_default[1:Medium1.nXi]) "Default state for medium 1";
   final parameter Medium2.ThermodynamicState sta2_default = Medium2.setState_pTX(
-     T=Medium1.T_default,
+     T=Medium2.T_default,
      p=Medium2.p_default,
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
@@ -219,6 +219,12 @@ for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 11, 2023, by Michael Wetter:<br/>
+Corrected wrong temperature in assignment of <code>sta2_default</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>.
+</li>
 <li>
 February 25, 2021 by Baptiste Ravache:<br/>
 Added a warning for when Q_flow_nominal is specified with the wrong sign.

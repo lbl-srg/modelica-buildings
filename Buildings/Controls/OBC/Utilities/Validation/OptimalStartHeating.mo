@@ -20,19 +20,16 @@ model OptimalStartHeating
     period=24*3600)
     "Daily schedule"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain UA(
-    k=10)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter UA(k=10)
     "Overall heat loss coefficient"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dT(
-    k1=-1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dT
     "Temperature difference between zone and outdoor"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add dTdt
     "Temperature derivative"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain QHea(
-    k=500)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter QHea(k=500)
     "Heat injection in the zone"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
@@ -47,7 +44,7 @@ model OptimalStartHeating
     startTime(
       displayUnit="d")=-172800)
     "Outdoor dry bulb temperature to test heating system"
-    annotation (Placement(transformation(extent={{-192,-20},{-172,0}})));
+    annotation (Placement(transformation(extent={{-194,40},{-174,60}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     Ti=1.5)
@@ -72,13 +69,11 @@ equation
   connect(QHea.y,dTdt.u2)
     annotation (Line(points={{-98,-50},{-88,-50},{-88,4},{-82,4}},color={0,0,127}));
   connect(TRoo.y,optStaHea.TZon)
-    annotation (Line(points={{-19,10},{-12,10},{-12,7},{18,7}},color={0,0,127}));
+    annotation (Line(points={{-19,10},{-12,10},{-12,6},{18,6}},color={0,0,127}));
   connect(occSch.tNexOcc,optStaHea.tNexOcc)
     annotation (Line(points={{-19,-44},{0,-44},{0,2},{18,2}},color={0,0,127}));
   connect(TSetHeaOcc.y,optStaHea.TSetZonHea)
     annotation (Line(points={{-18,80},{0,80},{0,18},{18,18}},color={0,0,127}));
-  connect(TRoo.y,dT.u1)
-    annotation (Line(points={{-19,10},{-12,10},{-12,32},{-166,32},{-166,16},{-162,16}},color={0,0,127}));
   connect(UA.y,dTdt.u1)
     annotation (Line(points={{-98,10},{-90,10},{-90,16},{-82,16}},color={0,0,127}));
   connect(add.y,conPID.u_s)
@@ -89,14 +84,16 @@ equation
     annotation (Line(points={{-19,10},{-12,10},{-12,-16},{170,-16},{170,-2}},color={0,0,127}));
   connect(optStaHea.optOn,booToRea.u)
     annotation (Line(points={{42,6},{50,6},{50,10},{58,10}},color={255,0,255}));
-  connect(TOut.y,dT.u2)
-    annotation (Line(points={{-170,-10},{-166,-10},{-166,4},{-162,4}},color={0,0,127}));
   connect(TSetHea.u,occSch.occupied)
     annotation (Line(points={{58,-50},{10,-50},{10,-56},{-19,-56}},color={255,0,255}));
   connect(TSetHea.y,add.u2)
     annotation (Line(points={{82,-50},{104,-50},{104,4},{118,4}},color={0,0,127}));
   connect(booToRea.y,add.u1)
     annotation (Line(points={{82,10},{104,10},{104,16},{118,16}},color={0,0,127}));
+  connect(TOut.y, dT.u1) annotation (Line(points={{-172,50},{-166,50},{-166,16},
+          {-162,16}}, color={0,0,127}));
+  connect(TRoo.y, dT.u2) annotation (Line(points={{-19,10},{-12,10},{-12,-16},{-166,
+          -16},{-166,4},{-162,4}}, color={0,0,127}));
   annotation (
     experiment(
       StartTime=-172800,

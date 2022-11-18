@@ -45,7 +45,7 @@ model DryCoilDiscretized
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   parameter Modelica.Units.SI.Length dh1=0.025
     "Hydraulic diameter for a single pipe" annotation (Dialog(group="Geometry",

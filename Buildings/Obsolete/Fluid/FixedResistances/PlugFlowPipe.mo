@@ -55,11 +55,11 @@ model PlugFlowPipe "Pipe model using spatialDistribution for temperature delay"
   parameter Modelica.Units.SI.Length thickness=0.0035 "Pipe wall thickness"
     annotation (Dialog(group="Material"));
 
-  parameter Modelica.Units.SI.Temperature T_start_in(start=Medium.T_default) =
+  parameter Modelica.Units.SI.Temperature T_start_in(start=Medium.T_default)=
     Medium.T_default "Initialization temperature at pipe inlet"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.Temperature T_start_out(start=Medium.T_default)
-     = T_start_in "Initialization temperature at pipe outlet"
+  parameter Modelica.Units.SI.Temperature T_start_out(start=Medium.T_default)=
+       T_start_in "Initialization temperature at pipe outlet"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean initDelay = false
     "Initialize delay for a constant mass flow rate if true, otherwise start from 0"
