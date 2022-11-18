@@ -77,6 +77,21 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
+July 5, 2022, by Antoine Gautier:<br/>
+Restored the addition of heat to <code>mas.T</code> in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+</li>
+<li>
+May 26, 2022, by Michael Wetter:<br/>
+Removed addition of heat to <code>mas.T</code> in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent\">
+Buildings.Fluid.HeatExchangers.BaseClasses.HexElementLatent</a>
+to correct latent heat exchange calculation.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+</li>
+<li>
 March 12, 2021, by Michael Wetter:<br/>
 Removed <code>final</code> declaration in redeclaration.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2392\">#2392</a>.
@@ -183,11 +198,5 @@ First implementation.
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={Text(
-          extent={{60,72},{84,58}},
-          textColor={0,0,255},
-          textString="water-side"), Text(
-          extent={{50,-32},{90,-38}},
-          textColor={0,0,255},
-          textString="air-side")}));
+        initialScale=0.5)));
 end WetCoilCounterFlow;

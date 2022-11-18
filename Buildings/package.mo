@@ -104,15 +104,15 @@ The following strings are frequently used:
 Prefix <code>use_</code> for conditionally enabled input signals, such as <code>use_T_in</code>
 for enabling an input connector for temperature in
 <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>,
-or as <code>use_TMix</code> for enabling a control input in
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Controller</a> if its freeze protection
-control uses the measured mixed air temperature.
+or as <code>use_enthalpy</code> in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Enable</a>
+to flag if it should evaluate outdoor air enthalpy in addition to temperature.
 </li>
 <li>
 Prefix <code>have_</code> if a controller has a certain input, such as <code>have_CO2Sen</code>
-in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a> if the zone has a CO<sub>2</sub> sensor.
+in <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a> if the zone has a CO<sub>2</sub> sensor.
 </li>
 <li>
 Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code>, <code>m_flow</code>
@@ -134,10 +134,11 @@ a numerically robust implementation).
 Suffix <code>Set</code> for set point.
 </li>
 <li>
-Suffix <code>Min</code> (<code>Max</code>) for minimum (maximum),
-such as in <code>TSupSetMin</code> for minimum supply temperature set point.
-See <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature</a>.
+Suffix <code>_min</code> (<code>_max</code>) for minimum (maximum),
+such as <code>TSupCoo_min</code> for the lowest cooling supply air temperature
+setpoint in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature</a>.
 </li>
 </ul>
 </li>
@@ -203,21 +204,349 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+  class Version_10_0_0 "Version 10.0.0"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 10.0.0 is ... xxx
+</p>
+</div>
+<!-- New libraries -->
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+    </tr>
+</table>
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
+    </td>
+    <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
+    </td>
+    <td valign=\"top\">Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                         Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                         Buildings.Fluid.MixingVolumes.MixingVolume<br/>
+                         Buildings.Fluid.MixingVolumes.MixingVolume.MoistAir</br>
+                         Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort
+    </td>
+    <td valign=\"top\">Improved implementation so that models also work with certain media from
+                       the Modelica Standard Library that may be used to model combustion gases.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
+                         Fluid.Movers.FlowControlled_m_flow<br/>
+                         Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Fluid.Movers.SpeedControlled_y
+    </td>
+    <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading<br/>
+                       Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading
+    </td>
+    <td valign=\"top\">Added default value for output variables.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
+    </td>
+</tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
+    </td>
+    <td valign=\"top\">Corrected units of protected variables to avoid warning during model check.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
+    </td>
+  </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
+    </td>
+</tr>
+  <tr><td valign=\"top\">Buildings.Utilities.Math.Functions.regNonZeroPower
+    </td>
+    <td valign=\"top\">Improved documentation and assertion.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3135\">Buildings, issue #3135</a>.
+    </td>
+  </tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.spliceFunction<br/>
+                         Buildings.Utilities.Math.Functions.BaseClasses.der_spliceFunction
+    </td>
+    <td valign=\"top\">Improved implementation of transition limits.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1640\">IBPSA, issue #1640</a>.
+    </td>
+</tr>
+</table>
+<!-- Non-backward compatible changes to existing components -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">non-backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
+    </td>
+    <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
+                       when the index input is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Examples.SimpleHouse
+    </td>
+    <td valign=\"top\">Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1624\">
+                       IBPSA, #1624</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+    </td>
+    <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.CollectorPump
+    </td>
+    <td valign=\"top\">Corrected implementation to make comparison based on total irradiation on tilted surface
+                       rather than the direct normal irradiation.
+                       This required adding parameters for the azimuth, tilt and ground reflectance.<br/>
+                       Added hysteresis to the controller, and changed output signal to be boolean-valued on/off
+                       rather than a continuous signal.<br/>
+                       Moved the old implementation to <code>Buildings.Obsolete.Fluid.SolarCollectors.Controls</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">#3074</a>.
+    </td>
+</tr>
+</table>
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Electrical.DC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.DC.Storage.BaseClasses.Charge
+    </td>
+    <td valign=\"top\">Corrected calculation of power taken from the battery when it is discharged.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3095\">issue 3095</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    </td>
+    <td valign=\"top\">Corrected input for enabling freeze protection setback mode.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3084\">issue 3084</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+    </td>
+    <td valign=\"top\">Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Corrected wrong temperature in assignment of <code>sta2_default</code>.
+                       For <code>Buildings.Media.Air</code> and <code>Buildings.Media.Water</code>
+                       this error does not affect the results.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity
+
+    </td>
+    <td valign=\"top\">Corrected performance calculation as a function of mass flow rates.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3146\">#3146</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                       Buildings.Fluid.HeatExchangers.WetCoilDiscretized
+    </td>
+    <td valign=\"top\">Reverted the correction on latent heat from component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.Validation.WetCoilCounterFlowLowWaterFlowRate<br/>
+    </td>
+    <td valign=\"top\">Modify air source boundary condition so air enters coil at 99.5% relative humidity.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
+    </td>
+</tr>
+</table>
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+<p>
+Note:
+</p>
+<ul>
+<li>
+xxx
+</li>
+</ul>
+</html>"));
+  end Version_10_0_0;
+
   class Version_9_0_0 "Version 9.0.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.0.0 is ... xxx
+Version 9.0.0 is a major release that updates the Modelica version from 3.2.3 to 4.0.0.
 </p>
 <p>
-This release updates the Modelica version from 3.2.3 to 4.0.0.
+The library has been tested with Dymola 2022x,
+OpenModelica 1.19.0-dev (613-gd6e04c0-1),
+OPTIMICA (revision 2022-05-09-master-4b0cd2bf71) and recent versions of Impact.
 </p>
 <p>
-This release also updates almost all fluid component models to remove the parameter <code>massDynamics</code>,
-which is now set to the same value as the parameter <code>energyDynamics</code>. This simplifies use of the models.
-A conversion script will update this setting when updating from Buildings 8 to 9.
+The following major changes have been done:
 </p>
+<ul>
+<li>
+The Modelica version has been updated from version 3.2.3 to 4.0.0.
+</li>
+<li>
+Most fluid component models have been updated to remove the parameter <code>massDynamics</code>,
+which is now set to the same value as the parameter <code>energyDynamics</code>.
+</li>
+<li>
+The models for coupling with EnergyPlus have been moved to the package
+<code>Buildings.ThermalZones.EnergyPlus_9_6_0</code> to allow
+support for more than one EnergyPlus version
+in future releases.
+</li>
+<li>
+The BESTEST validation in the package
+<code>Buildings.ThermalZones.Detailed.Validation.BESTEST</code>
+has been updated to the latest BESTEST version, and new tests have been added.
+</li>
+<li>
+The package <code>Buildings.Fluid.Geothermal.BuriedPipes</code>
+has been added to model heat transfer between buried pipes and the ground,
+such as for district energy systems.
+</li>
+<li>
+The package <code>Buildings.Media.Steam</code> for modeling steam has been added.
+</li>
+<li>
+Various new models have been added to the package <code>Buildings.Airflow.Multizone</code>
+for modeling multizone air exchange.
+</li>
+<li>
+Models for ice tanks have been added to the package
+<code>Buildings.Fluid.Storage.Ice</code>.
+</li>
+<li>
+Various models, such as for PV, solar collectors and thermal zones have been
+improved to obtain the latitude of the building from the weather data bus,
+rather than requiring the user to specify it.
+</li>
+<li>
+The run-time coupling with Python has been updated to Python version 3.8,
+and it has been renamed to <code>Buildings.Utilities.IO.Python_3_8</code>.
+</li>
+<li>
+Various other models have been improved or added, in particular for modeling of
+control sequences using the Control Description Language that has been developed
+in the OpenBuildingControl project at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
@@ -312,7 +641,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
                      Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
                      Buildings.Controls.OBC.CDL.Continuous.Subtract<br/>
-                     Buildings.Controls.OBC.CDL.Integers.Subtact
+                     Buildings.Controls.OBC.CDL.Integers.Subtract
     </td>
     <td valign=\"top\">Created new blocks based on the discussion from ASHRAE Standard 231P Committee.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2865\">#2865</a>.
@@ -1085,6 +1414,16 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">#2770</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized</br>
+    </td>
+    <td valign=\"top\">Corrected removal of latent heat from component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Occupants</b>
     </td>
 </tr>
@@ -1217,17 +1556,124 @@ units are wrong or errors in documentation):
    </td>
 </tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
   end Version_9_0_0;
 
+
+  class Version_8_1_3 "Version 8.1.3"
+    extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 8.1.3 is a patch that has backward compatible bug fixes.
+It is backwards compatible with versions 8.0.0, 8.1.0, 8.1.1 and 8.1.2.
+</p>
+<p>
+The library has been tested with Dymola 2022,
+JModelica (revision 14023),
+OpenModelica 1.19.0-dev (449+g4f16e6af22),
+OPTIMICA (revision OCT-dev-r26446_JM-r14295) and recent versions of Impact.
+</p>
+</div>
+<!-- New libraries -->
+<!-- New components for existing libraries -->
+<!-- Backward compatible changes -->
+<!-- Non-backward compatible changes to existing components -->
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
+                        Buildings.Fluid.HeatExchangers.WetCoilDiscretized</br>
+    </td>
+    <td valign=\"top\">Corrected removal of latent heat from component.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3027\">#3027</a>.
+    </td>
+</tr>
+</table>
+<!-- Uncritical errors -->
+</html>"));
+  end Version_8_1_3;
+
+
+  class Version_8_1_2 "Version 8.1.2"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<div class=\"release-summary\">
+<p>
+Version 8.1.2 is a patch that has backward compatible bug fixes.
+It is backwards compatible with versions 8.0.0, 8.1.0 and 8.1.1.
+</p>
+<p>
+The library has been tested with Dymola 2022,
+JModelica (revision 14023),
+OpenModelica 1.19.0-dev (449+g4f16e6af22),
+OPTIMICA (revision OCT-dev-r26446_JM-r14295) and recent versions of Impact.
+</p>
+</div>
+<!-- New libraries -->
+<!-- New components for existing libraries -->
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass
+    </td>
+    <td valign=\"top\">Changed the gas layer to be conditional.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3026\">#3026</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.Data.Lochinvar
+  </td>
+  <td valign=\"top\">Added annotation <code>defaultComponentPrefixes = \"parameter\"</code>.
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic
+  </td>
+  <td valign=\"top\">Removed <code>protected</code> declaration inside the record as the Modelica Language Specification
+                     only allows public sections in a record.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3009\">#3009</a>.
+  </td>
+</tr>
+</table>
+<!-- Non-backward compatible changes to existing components -->
+<!-- Errors that have been fixed -->
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger<br/>
+                       Buildings.Controls.OBC.CDL.Conversions.BooleanToReal<br/>
+    </td>
+    <td valign=\"top\">Corrected documentation texts where the variables were described with wrong types.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3016\">#3016</a>.
+    </td>
+</tr>
+</table>
+</html>"));
+  end Version_8_1_2;
 
   class Version_8_1_1 "Version 8.1.1"
     extends Modelica.Icons.ReleaseNotes;
@@ -10476,7 +10922,16 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (xxx, 2021)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_10_0_0\">Version 10.0.0</a> (xxx, 2022)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_3\">Version 8.1.3</a> (May 31, 2022)
+</li>
+<li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_2\">Version 8.1.2</a> (May 26, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_8_1_1\">Version 8.1.1</a> (May 12, 2022)
@@ -11016,13 +11471,18 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="9.0.0",
-versionDate="2021-06-08",
-dateModified="2021-06-08",
+version="10.0.0",
+versionDate="2022-05-31",
+dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
 conversion(
-  from(version={"8.0.0", "8.1.0", "8.1.1"},
-      script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
+  from(
+    version={"9.0.0"},
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_9_to_10.0.0.mos"),
+  from(
+    version={"8.0.0", "8.1.0", "8.1.1", "8.1.2", "8.1.3"},
+    to="9.0.0",
+    script="modelica://Buildings/Resources/Scripts/Conversion/ConvertBuildings_from_8_to_9.0.0.mos")),
 preferredView="info",
 Documentation(info="<html>
 <p>

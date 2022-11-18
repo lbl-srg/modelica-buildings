@@ -80,8 +80,8 @@ equation
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Continuous.Derivative\">
-Buildings.Controls.OBC.Continuous.Derivative</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Derivative\">
+Buildings.Controls.OBC.CDL.Continuous.Derivative</a>.
 The model integrates a time varying signal, and the differentiates this integrated signal.
 Hence, the output <code>der1.y</code> matches the non-integrated signal <code>intWitRes.u</code>,
 within a small approximation tolerance.

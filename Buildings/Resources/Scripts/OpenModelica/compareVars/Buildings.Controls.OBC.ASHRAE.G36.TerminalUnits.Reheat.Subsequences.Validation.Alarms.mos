@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "ala.VDis_flow",
+    "ala.VActSet_flow",
+    "ala.yLowFloAla",
+    "ala.u1Fan",
+    "ala.uDam",
+    "ala.uVal",
+    "ala.TSup",
+    "ala.TDis",
+    "ala.TDisSet",
+    "ala.yFloSenAla",
+    "ala.yLowTemAla",
+    "ala.yLeaValAla"
+  };
