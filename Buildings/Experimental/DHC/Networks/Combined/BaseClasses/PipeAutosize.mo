@@ -4,9 +4,9 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=dp_length_nominal*length);
 
-  parameter Modelica.Units.SI.Length dh(
+  final parameter Modelica.Units.SI.Length dh(
     fixed=false,
-    start=0.05,
+    start=0.01,
     min=0.01) "Hydraulic diameter (assuming a round cross section area)";
 
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
@@ -99,6 +99,11 @@ depends on <code>dp_nominal</code> and must be evaluated at compile time.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 18, 2022, by David Blum:<br/>
+Start attribute for parameter dh changed to 0.01 and parameter made final.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue 2510</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.
