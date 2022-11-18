@@ -34,6 +34,10 @@
   optimica:
     comment: 'High solver tolerance required to avoid time out.'
     rtol: 1.0E-8
+- model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
+  optimica:
+    comment: 'Time out, but simulates fast with Dymola and CVOde'
+    simulate: false
 - model_name: Buildings.Controls.DemandResponse.Examples.ClientLBNL90
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
