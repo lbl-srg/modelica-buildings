@@ -23,7 +23,7 @@ model RampUpDown
     "Ramp down from initial moment"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramDowUp(
-    final upDuration=5, final y_start=0.9)
+    final upDuration=5, final y_start=0)
     "Ramp down from initial moment and then ram up"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 

@@ -48,13 +48,16 @@ protected
     start=max,
     fixed=true)
     "Output value at the ramping ending";
-  discrete Real y_end(
-    start=y_start,
-    fixed=true)
+//   discrete Real y_end(
+//     start=y_start,
+//     fixed=true)
+//     "Output value at the moment when ramping changes";
+  discrete Real y_end
     "Output value at the moment when ramping changes";
 
 initial equation
   y = y_start;
+  y_end = y_start;
   pre(activate)=false;
 
 equation
@@ -69,9 +72,11 @@ equation
     beginValue = y_end;
     endValue = min;
   end when;
-  when initial() then
-    y_end = y_start;
-  elsewhen {ramp and activate, not ramp and activate, not activate} then
+
+
+//   when initial() then
+//     y_end = y_start;
+  when {ramp and activate, not ramp and activate, not activate} then
     y_end = pre(y);
   end when;
 
