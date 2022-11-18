@@ -14,7 +14,7 @@ model PIDWithFirstOrderAMIGO "Test model for FirstOrderAMIGO"
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID,
     k=1,
     Ti=0.5,
-    Td=0.1) "PI controller with constant gains"
+    Td=0.1) "PID controller with constant gains"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant resSig(k=false)
     "Reset signal"
@@ -99,9 +99,9 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 This example is to compare the output of a PID controller (<code>PIDWitTun</code>) with an autotuning feature to that of another PID controller (<code>PID</code>) with arbitary gains
 </p>
 <p>
-Both PI controllers are connected with a first order control process.
-<code>PID</code> is considered to be untuned and is supposed to have a poor control performance, i.e., the oscillations in the control output.
-<code>PIDWitTun</code> have a better performance, i.e., the setpoint is close to the setpoint, after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
+Both PID controllers are connected with a first-order control process.
+Under the control of <code>PIDWitTun</code>, the value of the controlled variable is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
+On the contrary, <code>PID</code> has a poor control performance, i.e., the value of the controlled variable oscillates, without an autotuning setup.
 </p>
 </html>",
       revisions="<html>

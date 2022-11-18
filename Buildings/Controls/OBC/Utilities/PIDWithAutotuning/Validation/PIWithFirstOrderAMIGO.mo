@@ -99,9 +99,9 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 This example is to compare the output of a PI controller (<code>PIWitTun</code>) with an autotuning feature to that of another PI controller (<code>PI</code>) with arbitary gains
 </p>
 <p>
-Both PI controllers are connected with a first order control process.
-<code>PI</code> is considered to be untuned and is supposed to have a poor control performance, i.e., the oscillations in the control output.
-<code>PIWitTun</code> have a better performance, i.e., the setpoint is close to the setpoint, after the tuning period ends (<code>PIWitTun.resPro.triEnd = true</code>). 
+Both PI controllers are connected with a first-order control process.
+Under the control of <code>PIWitTun</code>, the value of the controlled variable is close to the setpoint after the tuning period ends (<code>PIWitTun.resPro.triEnd = true</code>). 
+On the contrary, <code>PI</code> has a poor control performance, i.e., the value of the controlled variable oscillates, without an autotuning setup.
 </p>
 </html>",
       revisions="<html>
