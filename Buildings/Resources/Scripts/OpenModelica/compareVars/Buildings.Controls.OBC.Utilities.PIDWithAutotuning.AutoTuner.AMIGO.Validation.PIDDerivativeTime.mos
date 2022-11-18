@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "PIDDerTim.T",
+    "PIDDerTim.L",
+    "RefDat.y[6]",
+    "PIDDerTim.Td"
+  };

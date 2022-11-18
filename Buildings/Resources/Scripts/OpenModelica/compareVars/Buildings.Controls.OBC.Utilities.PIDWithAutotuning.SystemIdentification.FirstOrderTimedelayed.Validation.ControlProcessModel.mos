@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "conProMod.T",
+    "RefDat.y[5]",
+    "conProMod.L",
+    "RefDat.y[6]"
+  };

@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "PID.u_s",
+    "PID.u_m",
+    "PIDWitTun.u_s",
+    "PIDWitTun.u_m",
+    "resSig.y",
+    "PIDWitTun.resPro.triEnd"
+  };

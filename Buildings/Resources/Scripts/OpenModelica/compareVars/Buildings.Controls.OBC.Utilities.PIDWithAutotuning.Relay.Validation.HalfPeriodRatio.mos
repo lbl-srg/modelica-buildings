@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "halPerRat.tOn",
+    "halPerRat.tOff",
+    "halPerRat.rho"
+  };

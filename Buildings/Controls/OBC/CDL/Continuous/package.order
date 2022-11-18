@@ -35,7 +35,6 @@ Multiply
 MultiplyByParameter
 PID
 PIDWithReset
-PIDWithAutoTuning
 Round
 Sin
 Sort
@@ -43,7 +42,5 @@ Sqrt
 Subtract
 Switch
 Tan
-NormalizedDelay
-AMIGOWithFOTD
 Sources
 Validation
