@@ -4,6 +4,5 @@ compareVars :=
     "PI.u_m",
     "PIWitTun.u_s",
     "PIWitTun.u_m",
-    "resSig.y",
-    "PIWitTun.resPro.triEnd"
+    "resSig.y"
   };
