@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "ecoMod.uTSup",
+    "ecoMod.yRetDam",
+    "ecoMod.yOutDam",
+    "ecoMod1.uTSup",
+    "ecoMod1.yRetDam",
+    "ecoMod1.yOutDam",
+    "ecoMod1.yRelDam"
+  };

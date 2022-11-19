@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "ala.VDis_flow",
+    "ala.VActSet_flow",
+    "ala.yLowFloAla",
+    "ala.u1Fan",
+    "ala.VDis_flow",
+    "ala.VCooMax_flow",
+    "ala.yFloSenAla",
+    "ala.uDam",
+    "ala.yLeaDamAla"
+  };
