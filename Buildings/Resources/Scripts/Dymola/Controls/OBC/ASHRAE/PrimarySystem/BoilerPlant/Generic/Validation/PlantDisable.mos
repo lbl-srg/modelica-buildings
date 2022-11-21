@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.PlantDisable", startTime=0,tolerance=1e-6, stopTime=900, outputInterval=1, method="dassl", resultFile="PlantDisable");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.PlantDisable", startTime=0,tolerance=1e-6, stopTime=900, outputInterval=1, method="dassl", resultFile="PlantDisable");
 removePlots(false);
 createPlot(id=1, position={849, 0, 831, 939}, y={"plaDis.uPla"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={849, 0, 831, 184}, y={"plaDis.uBoi[1]", "plaDis.uBoi[2]"}, range={0.0, 900.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});

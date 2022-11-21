@@ -34,7 +34,7 @@ block Coupled
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Condenser water return temperature"
+    "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-160,30},{-120,70}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
@@ -107,9 +107,9 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMin maxSpe(final nin=nChi)
     "Lowest value of the maximum cooling tower speed from each chiller head pressure control loop"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi  "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi  "Logical switch"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[nChi] "Logical switch"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one1[nChi](
     final k=fill(1, nChi)) "Constant one"
@@ -151,12 +151,12 @@ equation
     annotation (Line(points={{-38,-60},{-30,-60},{-30,-60},{-22,-60}},
       color={0,0,127}));
   connect(CWRTSpd.y, fanSpe.u[1])
-    annotation (Line(points={{102,80},{110,80},{110,40},{10,40},{10,-58.6667},{
-          18,-58.6667}},color={0,0,127}));
+    annotation (Line(points={{102,80},{110,80},{110,40},{10,40},{10,-60.6667},{
+          18,-60.6667}},color={0,0,127}));
   connect(maxSpe.y, fanSpe.u[2])
     annotation (Line(points={{2,-60},{18,-60}}, color={0,0,127}));
   connect(plrTowMaxSpe, fanSpe.u[3])
-    annotation (Line(points={{-140,-100},{10,-100},{10,-61.3333},{18,-61.3333}},
+    annotation (Line(points={{-140,-100},{10,-100},{10,-59.3333},{18,-59.3333}},
       color={0,0,127}));
   connect(anyProOn.y, swi.u2)
     annotation (Line(points={{-38,20},{0,20},{0,-40},{78,-40}}, color={255,0,255}));
@@ -180,7 +180,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Polygon(
           points={{-20,80},{20,80},{0,10},{-20,80}},

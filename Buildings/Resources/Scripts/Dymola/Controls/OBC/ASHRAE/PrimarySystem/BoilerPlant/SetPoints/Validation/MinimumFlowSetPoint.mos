@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.MinimumFlowSetPoint", startTime=0,tolerance=1e-6, stopTime=60, method="cvode", resultFile="MinimumFlowSetPoint");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.SetPoints.Validation.MinimumFlowSetPoint", startTime=0,tolerance=1e-6, stopTime=60, method="cvode", resultFile="MinimumFlowSetPoint");
 createPlot(id=1, position={0, 0, 757, 959}, y={"minBoiFloSet.uStaSet"}, range={0.0, 60.0, 0.0, 4.0}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 757, 188}, y={"minBoiFloSet.uOnOff", "truFalHol.y"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}});
 createPlot(id=1, position={0, 0, 757, 187}, y={"minBoiFloSet.uLasDisBoi"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});

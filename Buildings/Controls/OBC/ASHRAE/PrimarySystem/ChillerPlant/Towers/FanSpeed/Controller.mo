@@ -10,13 +10,13 @@ block Controller "Tower fan speed control"
     "Flag to indicate if the plant has waterside economizer";
   parameter Real desCap(
     final unit="W",
-    final quantity="Power")=1e6 "Plant design capacity";
+    final quantity="HeatFlowRate")=1e6 "Plant design capacity";
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real fanSpeMax=1 "Maximum tower fan speed"
     annotation (Dialog(enable=have_WSE));
   parameter Real chiMinCap[nChi](
     each final unit="W",
-    final quantity=fill("Power", nChi))={1e4,1e4}
+    final quantity=fill("HeatFlowRate", nChi))={1e4,1e4}
     "Minimum cyclining load below which chiller will begin cycling"
     annotation (Dialog(tab="WSE Enabled", group="Integrated", enable=have_WSE));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
@@ -198,7 +198,8 @@ block Controller "Tower fan speed control"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatRet(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Condenser water return temperature"
+    final quantity="ThermodynamicTemperature")
+    "Condenser water return temperature (condenser leaving)"
     annotation (Placement(transformation(extent={{-140,-140},{-100,-100}}),
       iconTransformation(extent={{-140,-160},{-100,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
@@ -211,7 +212,7 @@ block Controller "Tower fan speed control"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature") if not closeCoupledPlant
-    "Condenser water supply temperature"
+    "Condenser water supply temperature (condenser entering)"
     annotation (Placement(transformation(extent={{-140,-180},{-100,-140}}),
       iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySpeSet(
@@ -338,67 +339,67 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,248},{100,210}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-100,170},{-64,154}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uChi"),
         Text(
           extent={{-100,200},{-50,182}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="chiLoa",
           visible=have_WSE),
         Text(
           extent={{-98,110},{-48,92}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uFanSpe"),
         Text(
           extent={{-100,80},{-26,64}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSup",
           visible=have_WSE),
         Text(
           extent={{-98,52},{-14,34}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TChiWatSupSet"),
         Text(
           extent={{-96,20},{-40,2}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="reqPlaCap"),
         Text(
           extent={{-100,-10},{-8,-24}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uMaxTowSpeSet"),
         Text(
           extent={{-96,-130},{-28,-148}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatRet"),
         Text(
           extent={{-94,-158},{10,-176}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-98,-180},{-16,-200}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="TConWatSup",
           visible=not closeCoupledPlant),
         Text(
           extent={{48,10},{98,-8}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="ySpeSet"),
         Text(
           extent={{-96,140},{-60,124}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uWse",
           visible=have_WSE),
         Text(
           extent={{-100,-40},{-64,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTow"),
         Text(
           extent={{-100,-100},{-64,-116}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uPla")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-180},{100,160}})),
 Documentation(info="<html>

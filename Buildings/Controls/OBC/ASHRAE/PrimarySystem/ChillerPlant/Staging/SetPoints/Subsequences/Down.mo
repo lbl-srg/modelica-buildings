@@ -150,7 +150,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and0 "And for staging down"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi "Logical switch"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
@@ -176,10 +176,8 @@ protected
     "Logical not"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add0(
-    final k1=1,
-    final k2=-1) if have_WSE
-    "Adder for temperatures"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
+    "Temperature difference"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
@@ -200,9 +198,7 @@ protected
     "Checks if the operating PLR of the next available stage down exceeds the staging down PLR for that stage"
     annotation (Placement(transformation(extent={{-80,180},{-60,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add(
-    final k1=-1,
-    final k2=+1)
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Subtracts part load ratios"
     annotation (Placement(transformation(extent={{-120,180},{-100,200}})));
 
@@ -220,7 +216,7 @@ equation
         points={{-200,70},{-140,70},{-140,48},{-82,48}}, color={0,0,127}));
   connect(u, intGreThr.u)
     annotation (Line(points={{-200,-160},{-122,-160}}, color={255,127,0}));
-  connect(add0.y,hysTSup. u)
+  connect(sub1.y,hysTSup. u)
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
   connect(TChiWatSup, faiSafCon.TChiWatSup) annotation (Line(points={{-200,130},
           {-120,130},{-120,56},{-82,56}},  color={0,0,127}));
@@ -233,21 +229,17 @@ equation
                      color={255,0,255}));
   connect(hysTSup.y, and1.u1) annotation (Line(points={{-18,-60},{-10,-60},{-10,
           -52},{18,-52}}, color={255,0,255}));
-  connect(uStaDow, add.u2) annotation (Line(points={{-200,170},{-172,170},{-172,
-          184},{-122,184}},color={0,0,127}));
-  connect(uOpeDow, add.u1) annotation (Line(points={{-200,210},{-172,210},{-172,
-          196},{-122,196}},color={0,0,127}));
   connect(not1.y, and0.u2) annotation (Line(points={{-18,50},{0,50},{0,82},{18,82}},
                 color={255,0,255}));
   connect(intGreThr.y, logSwi.u2) annotation (Line(points={{-98,-160},{90,-160},
           {90,0},{98,0}}, color={255,0,255}));
   connect(not0.y, and1.u2) annotation (Line(points={{-58,-100},{0,-100},{0,-60},
           {18,-60}}, color={255,0,255}));
-  connect(add.y, hysDow.u)
+  connect(sub2.y, hysDow.u)
     annotation (Line(points={{-98,190},{-82,190}}, color={0,0,127}));
-  connect(TChiWatSupSet, add0.u1) annotation (Line(points={{-200,-40},{-160,-40},
+  connect(TChiWatSupSet, sub1.u1) annotation (Line(points={{-200,-40},{-160,-40},
           {-160,-54},{-82,-54}}, color={0,0,127}));
-  connect(TWsePre, add0.u2) annotation (Line(points={{-200,-70},{-140,-70},{-140,
+  connect(TWsePre, sub1.u2) annotation (Line(points={{-200,-70},{-140,-70},{-140,
           -66},{-82,-66}}, color={0,0,127}));
   connect(noWSEcoSig.y, logSwi.u3) annotation (Line(points={{42,-10},{70,-10},{70,
           -8},{98,-8}}, color={255,0,255}));
@@ -267,6 +259,10 @@ equation
       Line(points={{-200,30},{-130,30},{-130,44},{-82,44}}, color={0,0,127}));
   connect(dpChiWatPum_remote, faiSafCon.dpChiWatPum_remote) annotation (Line(
         points={{-200,0},{-120,0},{-120,41},{-82,41}}, color={0,0,127}));
+  connect(uOpeDow, sub2.u2) annotation (Line(points={{-200,210},{-160,210},{-160,
+          184},{-122,184}}, color={0,0,127}));
+  connect(uStaDow, sub2.u1) annotation (Line(points={{-200,170},{-140,170},{-140,
+          196},{-122,196}}, color={0,0,127}));
   annotation (defaultComponentName = "staDow",
         Icon(graphics={
         Rectangle(
@@ -275,8 +271,8 @@ equation
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,154},{100,116}},
-          lineColor={0,0,255},
+          extent={{-100,140},{100,100}},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(extent={{-80,-10},{-20,-22}}, lineColor={0,0,127}),
         Rectangle(extent={{-80,-28},{-20,-40}}, lineColor={0,0,127}),

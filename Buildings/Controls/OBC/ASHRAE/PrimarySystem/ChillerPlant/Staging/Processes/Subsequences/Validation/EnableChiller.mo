@@ -38,7 +38,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet[2]
     "Chiller status return value"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiTwo "Chiller two status"
+  Buildings.Controls.OBC.CDL.Logical.Switch chiTwo "Chiller two status"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiStaRet1
     "Chiller status return value"

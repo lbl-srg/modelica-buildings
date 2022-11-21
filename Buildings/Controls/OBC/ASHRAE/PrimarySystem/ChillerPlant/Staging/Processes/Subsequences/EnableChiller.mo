@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block EnableChiller "Sequence for enabling chiller"
 
-  parameter Integer nChi "Total number of chillers";
+  parameter Integer nChi=2 "Total number of chillers";
   parameter Real proOnTim(
     final unit="s",
     final quantity="Time",
@@ -43,7 +43,7 @@ block EnableChiller "Sequence for enabling chiller"
 protected
   final parameter Integer chiInd[nChi]={i for i in 1:nChi}
     "Chiller index, {1,2,...,n}";
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -63,7 +63,7 @@ protected
     final t=fill(0.5, nChi))
     "Convert real input to boolean output"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{100,-120},{120,-100}})));
   Buildings.Controls.OBC.CDL.Logical.And and3[nChi] "Logical and"
@@ -71,7 +71,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[nChi](
     final k=fill(false, nChi)) "False constant"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi2[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi2[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Logical or"
@@ -113,13 +113,13 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu1[nChi]
     "Check next enabling isolation valve"
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi3[nChi]
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi3[nChi]
     "Logical switch"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator  booRep4(final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi4 "Logical switch"
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi4 "Logical switch"
     annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
 
 equation
@@ -150,7 +150,7 @@ equation
   connect(edg.y,booRep1. u)
     annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
   connect(booRep1.y,triSam. trigger)
-    annotation (Line(points={{-38,-20},{-10,-20},{-10,-11.8}}, color={255,0,255}));
+    annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}},   color={255,0,255}));
   connect(triSam.y,greEquThr. u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(and2.y,tim. u)
@@ -241,7 +241,7 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,60},{60,20}},
@@ -265,42 +265,42 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,96},{-50,84}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="nexEnaChi"),
         Text(
           extent={{-98,-84},{-50,-96}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="nexDisChi"),
         Text(
           extent={{-100,66},{-68,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{-98,26},{-34,14}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uEnaChiWatIsoVal"),
         Text(
           extent={{-100,-14},{-78,-24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,-54},{-72,-66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{74,86},{100,76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yChi"),
         Text(
           extent={{60,-72},{98,-84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yNewChiEna")}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,180}}),
@@ -320,7 +320,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
@@ -328,7 +328,7 @@ annotation (
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable 
 small chiller"),
@@ -337,7 +337,7 @@ small chiller"),
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString=
               "1. When the stage change does not require one chiller off and another chiller on."),
@@ -346,7 +346,7 @@ small chiller"),
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="2. When the stage change does require one chiller off and another chiller on, 
 but the enabled chiller has not yet finished starting."),
@@ -355,7 +355,7 @@ but the enabled chiller has not yet finished starting."),
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Output new chiller status array:"),
           Text(
@@ -363,7 +363,7 @@ but the enabled chiller has not yet finished starting."),
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="When the stage change does require one chiller off and another chiller on, 
           and the enabled chiller has finished starting.")}),

@@ -20,7 +20,7 @@ model Controller
     final k=273.15 + 7)
     "Chilled water supply water setpoint"
     annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.1)
     "Minimum fan speed"
@@ -38,7 +38,7 @@ model Controller
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2 "Add real inputs"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
     "Zero constant"
@@ -93,9 +93,9 @@ equation
   connect(chiSta1.y, wseOpe.uChi[1])
     annotation (Line(points={{-38,40},{50,40},{50,6},{98,6}}, color={255,0,255}));
   connect(swi1.y, wseOpe.chiLoa[1])
-    annotation (Line(points={{22,110},{60,110},{60,10},{98,10}}, color={0,0,127}));
+    annotation (Line(points={{22,110},{60,110},{60,9},{98,9}},   color={0,0,127}));
   connect(con1.y, wseOpe.chiLoa[2])
-    annotation (Line(points={{-78,90},{60,90},{60,10},{98,10}}, color={0,0,127}));
+    annotation (Line(points={{-78,90},{60,90},{60,9},{98,9}},   color={0,0,127}));
   connect(wseSta.y, wseOpe.uWse)
     annotation (Line(points={{22,10},{40,10},{40,2},{98,2}}, color={255,0,255}));
   connect(swi.y,wseOpe.uFanSpe)
@@ -103,7 +103,7 @@ equation
   connect(add2.y, wseOpe.TChiWatSup)
     annotation (Line(points={{-18,-120},{70,-120},{70,-6},{98,-6}}, color={0,0,127}));
   connect(chiSupSet.y, wseOpe.TChiWatSupSet)
-    annotation (Line(points={{22,-140},{80,-140},{80,-10},{98,-10}}, color={0,0,127}));
+    annotation (Line(points={{22,-140},{80,-140},{80,-9},{98,-9}},   color={0,0,127}));
 
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Towers/FanSpeed/EnabledWSE/Validation/Controller.mos"

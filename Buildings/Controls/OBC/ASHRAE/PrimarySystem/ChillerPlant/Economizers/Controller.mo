@@ -1,6 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers;
 block Controller "Waterside economizer (WSE) enable/disable status"
 
+  parameter Boolean have_byPasValCon=true
+    "True: chilled water flow through economizer is controlled using heat exchanger bypass valve";
+
+  parameter Integer nSta = 3
+    "Number of chiller stages";
+
   parameter Real holdPeriod(
     final unit="s",
     final quantity="Time")=1200
@@ -76,73 +82,172 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Economizer enable time needed to allow increase of the tuning parameter"
     annotation (Evaluate=true,Dialog(tab="Advanced", group="Tuning"));
 
+  parameter Real dpDes(
+    final unit="Pa",
+    final quantity="PresureDifference")=6000
+    "Design pressure difference across the chilled water side economizer"
+    annotation (Dialog(group="Valve or pump control", enable=have_byPasValCon));
+  parameter CDL.Types.SimpleController valCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
+    annotation (Dialog(group="Valve or pump control", enable=have_byPasValCon));
+  parameter Real k=0.1
+    "Gain of controller"
+    annotation (Dialog(group="Valve or pump control", enable=have_byPasValCon));
+  parameter Real Ti(unit="s")=0.5
+    "Time constant of integrator block"
+    annotation (Dialog(group="Valve or pump control",
+                       enable=(valCon == CDL.Types.SimpleController.PI or valCon == CDL.Types.SimpleController.PID)
+                               and have_byPasValCon));
+  parameter Real Td(unit="s")=0.1
+    "Time constant of derivative block"
+    annotation (Dialog(group="Valve or pump control",
+                       enable=(valCon == CDL.Types.SimpleController.PD or valCon == CDL.Types.SimpleController.PID)
+                               and have_byPasValCon));
+  parameter Real minSpe(
+    final min=0,
+    final max=1)=0.1
+    "Minimum pump speed"
+    annotation (Dialog(group="Valve or pump control", enable=not have_byPasValCon));
+  parameter Real desSpe(
+    final min=0,
+    final max=1)=0.9
+    "Design pump speed"
+    annotation (Dialog(group="Valve or pump control", enable=not have_byPasValCon));
+
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOutWet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Outdoor air wet bulb temperature"
-    annotation (Placement(transformation(extent={{-220,80},{-180,120}}),
-        iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-220,190},{-180,230}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature upstream of the WSE"
-    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatRetDow(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Chilled water return temperature downstream of the WSE"
-    annotation (Placement(transformation(extent={{-220,0},{-180,40}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-220,110},{-180,150}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTowFanSpeMax(
     final min=0,
     final max=1,
     final unit="1")
     "Maximum cooling tower fan speed"
-    annotation (Placement(transformation(extent={{-220,-120},{-180,-80}}),
-    iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-220,-10},{-180,30}}),
+    iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VChiWat_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Measured chilled water volume flow rate"
-    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
-    iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-220,50},{-180,90}}),
+    iconTransformation(extent={{-140,20},{-100,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
-    "WSE enable/disable status"
-    annotation (Placement(transformation(extent={{180,60},{220,100}}),
-    iconTransformation(extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPla
+    "Plant enable signal"
+    annotation (Placement(transformation(extent={{-220,-40},{-180,0}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uIni(
+    final min=0,
+    final max=nSta) "Initial chiller stage (at plant enable)"
+    annotation (Placement(transformation(extent={{-220,-70},{-180,-30}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta(
+    final min=0,
+    final max=nSta)
+    "Current chiller stage"
+    annotation (Placement(transformation(extent={{-220,-128},{-180,-88}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(
+    final unit="Pa",
+    final quantity="PressureDifference") if have_byPasValCon
+    "Differential static pressure across economizer in the chilled water side"
+    annotation (Placement(transformation(extent={{-220,-160},{-180,-120}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPum
+    if not have_byPasValCon "True: heat exchanger pump is proven on"
+    annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TEntHex(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature") if not have_byPasValCon
+    "Chilled water temperature entering heat exchanger"
+    annotation (Placement(transformation(extent={{-220,-230},{-180,-190}}),
+        iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TWsePre(
     final quantity="ThermodynamicTemperature",
     displayUnit="degC",
     final unit="K")
     "Predicted waterside economizer outlet temperature"
-    annotation (Placement(transformation(extent={{180,-20},{220,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{180,110},{220,150}}),
+      iconTransformation(extent={{100,70},{140,110}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yTunPar
     "Tuning parameter"
-    annotation (Placement(transformation(extent={{180,-110},{220,-70}}),
-      iconTransformation(extent={{100,-100},{140,-60}})));
+    annotation (Placement(transformation(extent={{180,10},{220,50}}),
+      iconTransformation(extent={{100,40},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
+    "WSE enable/disable status"
+    annotation (Placement(transformation(extent={{180,-40},{220,0}}),
+    iconTransformation(extent={{100,10},{140,50}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatIsoVal(
+    final min=0,
+    final max=1,
+    final unit="1") "Economizer condensing water isolation valve position"
+    annotation (Placement(transformation(extent={{180,-120},{220,-80}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yRetVal(
+    final min=0,
+    final max=1,
+    final unit="1") if have_byPasValCon
+    "WSE in-line CHW return line valve position"
+    annotation (Placement(transformation(extent={{180,-166},{220,-126}}),
+      iconTransformation(extent={{100,-52},{140,-12}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPumOn
+    if not have_byPasValCon "Heat exchanger pump command on"
+    annotation (Placement(transformation(extent={{180,-200},{220,-160}}),
+        iconTransformation(extent={{100,-80},{140,-40}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumSpe(
+    final min=0,
+    final max=1,
+    final unit="1") if not have_byPasValCon
+    "Heat exchanger pump speed setpoint"
+    annotation (Placement(transformation(extent={{180,-230},{220,-190}}),
+        iconTransformation(extent={{100,-110},{140,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold enaTChiWatRet(
     final t=delDis)
     "Enable condition based on chilled water return temperature upstream and downstream WSE"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis enaTWet(
     final uLow = TOffsetEna - hysDt/2,
     final uHigh = TOffsetEna + hysDt/2)
     "Enable condition based on the outdoor wet bulb temperature"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,156},{40,176}})));
 
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning wseTun(
@@ -150,7 +255,7 @@ protected
     final wseOnTimDec=wseOnTimDec,
     final wseOnTimInc=wseOnTimInc)
     "Tuning parameter for the WSE outlet temperature calculation"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
+    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature wseTOut(
     final heaExcAppDes=heaExcAppDes,
@@ -158,119 +263,220 @@ protected
     final TOutWetDes=TOutWetDes,
     final VHeaExcDes_flow=VHeaExcDes_flow)
     "Calculates the predicted WSE outlet temperature"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(
-    final k2=-1) "Adder"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 "Subtract"
+    annotation (Placement(transformation(extent={{-20,156},{0,176}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical pre"
-    annotation (Placement(transformation(extent={{140,-60},{160,-40}})));
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(
-    final k1=1,
-    final k2=-1) "Adder"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 "Subtract"
+    annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=holdPeriod,
     final falseHoldDuration=holdPeriod)
     "Keeps a signal constant for a given time period"
-    annotation (Placement(transformation(extent={{140,20},{160,40}})));
+    annotation (Placement(transformation(extent={{140,156},{160,176}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2 "And"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,156},{120,176}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow = TOffsetDis - hysDt/2,
     final uHigh = TOffsetDis + hysDt/2)
     "Hysteresis comparing CHW temperatures upstream and downstream WSE"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer timer
     "Measures the disable condition satisfied time "
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Falling edge to indicate the moment of disable"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueHoldWithReset truHol(
     final duration=holdPeriod)
     "Holds a true signal for a period of time right after disable"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Nor nor
     "Not either of the inputs"
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.BypassValve wseVal(
+    final dpDes=dpDes,
+    final controllerType=valCon,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td) if have_byPasValCon
+    "Chilled water flow through economizer is controlled using bypass valve"
+    annotation (Placement(transformation(extent={{120,-150},{140,-130}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.HeatExchangerPump wsePum(
+    final minSpe=minSpe,
+    final desSpe=desSpe)
+    if not have_byPasValCon
+    "Pump control for economizer when the chilled water flow is controlled by a variable speed heat exchanger pump"
+    annotation (Placement(transformation(extent={{120,-190},{140,-170}})));
+
+  Buildings.Controls.OBC.CDL.Logical.And and1
+    "Plant enabled with 0 initial stage, it means enabled with economizer-only operation"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=0) "Stage 0"
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
+    "Check if initial stage is 0"
+    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg
+    "Plant enable edge"
+    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
+    "Plant enabled with economizer-only operation"
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Equal intEqu1
+    "Check if current stage is initial stage"
+    annotation (Placement(transformation(extent={{-100,-110},{-80,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Not in initial stage"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "Becoming not initial stage"
+    annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Or enaEco "Economizer enabled"
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
 equation
-  connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,-100},
-          {-150,-100},{-150,-95},{-142,-95}}, color={0,0,127}));
+  connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,10},
+          {-150,10},{-150,25},{-142,25}},     color={0,0,127}));
   connect(TOutWet, wseTOut.TOutWet)
-    annotation (Line(points={{-200,100},{-120,100},{-120,58},{-102,58}},
+    annotation (Line(points={{-200,210},{-120,210},{-120,168},{-102,168}},
     color={0,0,127}));
   connect(VChiWat_flow, wseTOut.VChiWat_flow)
-    annotation (Line(points={{-200,-40},{-120,-40},{-120,50},{-102,50}},
+    annotation (Line(points={{-200,70},{-120,70},{-120,160},{-102,160}},
     color={0,0,127}));
   connect(pre.y,wseTun.uWseSta)
-    annotation (Line(points={{162,-50},{170,-50},{170,-70},{-150,-70},{-150,-85},
-          {-142,-85}},color={255,0,255}));
-  connect(TChiWatRet, add1.u1)
-    annotation (Line(points={{-200,60},{-140,60},{-140,-4},{-102,-4}},
+    annotation (Line(points={{142,-60},{150,-60},{150,-120},{-160,-120},{-160,35},
+          {-142,35}}, color={255,0,255}));
+  connect(TChiWatRet, sub1.u1)
+    annotation (Line(points={{-200,170},{-170,170},{-170,106},{-102,106}},
           color={0,0,127}));
-  connect(truFalHol.y, pre.u)
-    annotation (Line(points={{162,30},{170,30},{170,-30},{130,-30},{130,-50},{138,-50}},
-          color={255,0,255}));
-  connect(truFalHol.y, y) annotation (
-    Line(points={{162,30},{170,30},{170,80},{200,80}}, color={255,0,255}));
   connect(enaTWet.y, and2.u1)
-    annotation (Line(points={{42,50},{98,50}}, color={255,0,255}));
+    annotation (Line(points={{42,166},{98,166}}, color={255,0,255}));
   connect(truFalHol.u, and2.y)
-    annotation (Line(points={{138,30},{130,30},{130,50},{122,50}},
+    annotation (Line(points={{138,166},{122,166}},
     color={255,0,255}));
   connect(timer.y, enaTChiWatRet.u)
-    annotation (Line(points={{42,-10},{58,-10}}, color={0,0,127}));
-  connect(TChiWatRetDow, add1.u2)
-    annotation (Line(points={{-200,20},{-160,20},{-160,-16},{-102,-16}},
+    annotation (Line(points={{42,100},{58,100}}, color={0,0,127}));
+  connect(TChiWatRetDow, sub1.u2)
+    annotation (Line(points={{-200,130},{-160,130},{-160,94},{-102,94}},
     color={0,0,127}));
-  connect(add1.y, hys.u)
-    annotation (Line(points={{-78,-10},{-62,-10}},color={0,0,127}));
-  connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,-10},{90,-10},{
-          90,42},{98,42}}, color={255,0,255}));
-  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,-90},{-110,-90},
-          {-110,42},{-102,42}},color={0,0,127}));
-  connect(wseTOut.y, add2.u2) annotation (Line(points={{-78,50},{-50,50},{-50,44},
-          {-22,44}}, color={0,0,127}));
-  connect(TChiWatRet, add2.u1) annotation (Line(points={{-200,60},{-140,60},{-140,
-          70},{-50,70},{-50,56},{-22,56}}, color={0,0,127}));
-  connect(add2.y, enaTWet.u)
-    annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
+  connect(sub1.y, hys.u)
+    annotation (Line(points={{-78,100},{-62,100}},color={0,0,127}));
+  connect(enaTChiWatRet.y, and2.u2) annotation (Line(points={{82,100},{90,100},{
+          90,158},{98,158}}, color={255,0,255}));
+  connect(wseTun.y, wseTOut.uTunPar) annotation (Line(points={{-119,30},{-110,30},
+          {-110,152},{-102,152}}, color={0,0,127}));
+  connect(wseTOut.y, sub2.u2) annotation (Line(points={{-78,160},{-22,160}},
+                     color={0,0,127}));
+  connect(TChiWatRet, sub2.u1) annotation (Line(points={{-200,170},{-170,170},{-170,
+          180},{-60,180},{-60,172},{-22,172}}, color={0,0,127}));
+  connect(sub2.y, enaTWet.u)
+    annotation (Line(points={{2,166},{18,166}}, color={0,0,127}));
   connect(wseTun.y, yTunPar)
-    annotation (Line(points={{-119,-90},{200,-90}}, color={0,0,127}));
+    annotation (Line(points={{-119,30},{200,30}},   color={0,0,127}));
   connect(nor.y, timer.u)
-    annotation (Line(points={{2,-10},{18,-10}}, color={255,0,255}));
+    annotation (Line(points={{2,100},{18,100}}, color={255,0,255}));
   connect(hys.y, nor.u1)
-    annotation (Line(points={{-38,-10},{-22,-10}}, color={255,0,255}));
-  connect(truHol.y, nor.u2) annotation (Line(points={{-38,-50},{-30,-50},{-30,
-          -18},{-22,-18}}, color={255,0,255}));
+    annotation (Line(points={{-38,100},{-22,100}}, color={255,0,255}));
+  connect(truHol.y, nor.u2) annotation (Line(points={{-38,60},{-30,60},{-30,92},
+          {-22,92}},       color={255,0,255}));
   connect(falEdg.y, truHol.u)
-    annotation (Line(points={{-78,-50},{-62,-50}}, color={255,0,255}));
-  connect(pre.y, falEdg.u) annotation (Line(points={{162,-50},{170,-50},{170,
-          -70},{-120,-70},{-120,-50},{-102,-50}}, color={255,0,255}));
-  connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,50},{-50,50},{-50,34},
-          {116,34},{116,0},{200,0}}, color={0,0,127}));
-
+    annotation (Line(points={{-78,60},{-62,60}},   color={255,0,255}));
+  connect(pre.y, falEdg.u) annotation (Line(points={{142,-60},{150,-60},{150,-120},
+          {-160,-120},{-160,60},{-102,60}},       color={255,0,255}));
+  connect(wseTOut.y, TWsePre) annotation (Line(points={{-78,160},{-60,160},{-60,
+          130},{200,130}},           color={0,0,127}));
+  connect(uIni, intEqu.u1)
+    annotation (Line(points={{-200,-50},{-102,-50}}, color={255,127,0}));
+  connect(conInt.y, intEqu.u2) annotation (Line(points={{-118,-80},{-110,-80},{-110,
+          -58},{-102,-58}}, color={255,127,0}));
+  connect(intEqu.y, and1.u2) annotation (Line(points={{-78,-50},{-70,-50},{-70,-28},
+          {-62,-28}}, color={255,0,255}));
+  connect(uPla, edg.u)
+    annotation (Line(points={{-200,-20},{-142,-20}}, color={255,0,255}));
+  connect(edg.y, and1.u1)
+    annotation (Line(points={{-118,-20},{-62,-20}}, color={255,0,255}));
+  connect(uIni, intEqu1.u1) annotation (Line(points={{-200,-50},{-150,-50},{-150,
+          -100},{-102,-100}}, color={255,127,0}));
+  connect(uChiSta, intEqu1.u2)
+    annotation (Line(points={{-200,-108},{-102,-108}}, color={255,127,0}));
+  connect(intEqu1.y, not1.u)
+    annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
+  connect(not1.y, edg1.u)
+    annotation (Line(points={{-38,-100},{-22,-100}}, color={255,0,255}));
+  connect(and1.y, lat.u)
+    annotation (Line(points={{-38,-20},{18,-20}}, color={255,0,255}));
+  connect(edg1.y, lat.clr) annotation (Line(points={{2,-100},{10,-100},{10,-26},
+          {18,-26}}, color={255,0,255}));
+  connect(lat.y, enaEco.u2) annotation (Line(points={{42,-20},{60,-20},{60,-28},
+          {78,-28}}, color={255,0,255}));
+  connect(truFalHol.y, enaEco.u1) annotation (Line(points={{162,166},{170,166},{
+          170,70},{70,70},{70,-20},{78,-20}}, color={255,0,255}));
+  connect(enaEco.y, y)
+    annotation (Line(points={{102,-20},{200,-20}}, color={255,0,255}));
+  connect(enaEco.y, pre.u) annotation (Line(points={{102,-20},{110,-20},{110,-60},
+          {118,-60}}, color={255,0,255}));
+  connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{102,-20},{110,-20},{
+          110,-140},{118,-140}},
+                             color={255,0,255}));
+  connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{102,-20},{110,-20},{
+          110,-176},{118,-176}},
+                             color={255,0,255}));
+  connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-140},{-60,-140},
+          {-60,-146},{118,-146}}, color={0,0,127}));
+  connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-180},{118,-180}},
+                             color={255,0,255}));
+  connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-210},{100,
+          -210},{100,-188},{118,-188}},
+                                  color={0,0,127}));
+  connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-134},
+          {160,-134},{160,-100},{200,-100}}, color={0,0,127}));
+  connect(wseVal.yRetVal, yRetVal)
+    annotation (Line(points={{142,-146},{200,-146}}, color={0,0,127}));
+  connect(wsePum.yPumOn, yPumOn)
+    annotation (Line(points={{142,-180},{200,-180}}, color={255,0,255}));
+  connect(wsePum.yPumSpe, yPumSpe) annotation (Line(points={{142,-186},{160,-186},
+          {160,-210},{200,-210}}, color={0,0,127}));
+  connect(wsePum.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-174},
+          {160,-174},{160,-100},{200,-100}}, color={0,0,127}));
+  connect(TChiWatRet, wsePum.TEntWSE) annotation (Line(points={{-200,170},{-170,
+          170},{-170,-184},{118,-184}}, color={0,0,127}));
+  connect(uPla, wseVal.uPla) annotation (Line(points={{-200,-20},{-154,-20},{
+          -154,-134},{118,-134}}, color={255,0,255}));
+  connect(uPla, wsePum.uPla) annotation (Line(points={{-200,-20},{-154,-20},{
+          -154,-172},{118,-172}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
-        Icon(graphics={
+        Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
+             graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          extent={{-100,140},{100,100}},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-82,64},{80,-56}},
@@ -292,7 +498,15 @@ equation
           color={28,108,200},
           thickness=0.5)}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
-          extent={{-180,-120},{180,120}})),
+          extent={{-180,-220},{180,220}}), graphics={
+          Rectangle(
+          extent={{-178,-2},{58,-118}},
+          fillColor={210,210,210},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None), Text(
+          extent={{-92,-64},{52,-78}},
+          textColor={0,0,127},
+          textString="Plant enabled in water side economizer mode")}),
 Documentation(info="<html>
 <p>
 Waterside economizer (WSE) control sequence per ASHRAE RP-1711, March 2020, section 5.2.3.

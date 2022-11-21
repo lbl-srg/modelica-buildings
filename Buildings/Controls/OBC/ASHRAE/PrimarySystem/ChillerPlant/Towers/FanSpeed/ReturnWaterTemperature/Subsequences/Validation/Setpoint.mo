@@ -30,7 +30,7 @@ protected
     final k=273.15 + 6.5)
     "Chilled water supply setpoint"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
 
 equation

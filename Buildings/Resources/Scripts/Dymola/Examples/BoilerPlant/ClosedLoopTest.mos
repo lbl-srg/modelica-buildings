@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Examples.BoilerPlant.ClosedLoopTest", startTime=518400,tolerance=1e-4, stopTime=691200, outputInterval=60, method="cvode", resultFile="ClosedLoopTest");
+simulateModel("Buildings.Examples.BoilerPlant.ClosedLoopTest", startTime=518400,tolerance=1e-4, stopTime=691200, outputInterval=60, method="cvode", resultFile="ClosedLoopTest");
 removePlots(false);
 
 createPlot(id=1, position={0, 0, 1500, 978}, y={"boilerPlant.TOutAir"}, range={255000.0, 435000.0, -20.0, 0.0}, grid=true, colors={{28,108,200}}, displayUnits={"degC"});

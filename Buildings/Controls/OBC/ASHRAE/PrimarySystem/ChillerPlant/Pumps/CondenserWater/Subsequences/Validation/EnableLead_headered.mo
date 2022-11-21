@@ -19,11 +19,18 @@ protected
     final shift=800) "Water side economizer condenser water isolation valve status"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false)
+    "Constant false"
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+
 equation
   connect(WSEConWatIsoVal.y, enaLeaConPum.uWseConIsoVal)
-    annotation (Line(points={{2,-30},{20,-30},{20,-4},{38,-4}}, color={255,0,255}));
-  connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal)
-    annotation (Line(points={{2,30},{20,30},{20,4},{38,4}}, color={255,0,255}));
+    annotation (Line(points={{2,-30},{20,-30},{20,0},{38,0}},   color={255,0,255}));
+  connect(chiConWatIsoVal.y, enaLeaConPum.uChiConIsoVal) annotation (Line(
+        points={{2,30},{20,30},{20,6},{38,6}}, color={255,0,255}));
+  connect(con1.y, enaLeaConPum.uEnaPla) annotation (Line(points={{2,-70},{30,-70},
+          {30,-6},{38,-6}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

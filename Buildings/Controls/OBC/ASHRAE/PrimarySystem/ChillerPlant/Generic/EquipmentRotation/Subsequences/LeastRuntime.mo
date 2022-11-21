@@ -126,7 +126,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
       Line(points={{-66,-70},{82,-70}},
         color={192,192,192}),

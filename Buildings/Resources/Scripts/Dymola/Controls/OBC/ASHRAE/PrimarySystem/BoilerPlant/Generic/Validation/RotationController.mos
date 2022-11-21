@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.RotationController", startTime=0,tolerance=1e-6, stopTime=600, outputInterval=1, method="dassl", resultFile="RotationController");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation.RotationController", startTime=0,tolerance=1e-6, stopTime=600, outputInterval=1, method="dassl", resultFile="RotationController");
 removePlots(false);
 
 createPlot(id=1, position={849, 0, 831, 939}, y={"rotCon.uDevStaSet[1]", "rotCon.uDevStaSet[2]"}, range={0.0, 300.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {28,108,200}});

@@ -27,24 +27,24 @@ block Controller "Sequence of staging cooling tower cells"
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowStaCha
     "Cooling tower stage change command from plant staging process"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uWse if have_WSE
     "Water side economizer status: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
       iconTransformation(extent={{-140,10},{-100,50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPla
+    "True: plant is just enabled"
+    annotation(Placement(transformation(extent={{-140,-10},{-100,30}}),
+        iconTransformation(extent={{-140,-10},{-100,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatPum
     "Enabling status of lead condenser water pump"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+      iconTransformation(extent={{-140,-30},{-100,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
       final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChaCel[nTowCel]
-    "Vector of boolean flags to show if a cell should change its status: true = the cell should change status (be enabled or disabled)"
-    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final max=fill(1, nTowCel))
     "Vector of tower cells isolation valve position"
@@ -52,22 +52,18 @@ block Controller "Sequence of staging cooling tower cells"
       iconTransformation(extent={{-140,-90},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uTowSta[nTowCel]
     "Vector of tower cells proven on status: true=proven on"
-    annotation (Placement(transformation(extent={{-142,-150},{-102,-110}}),
+    annotation (Placement(transformation(extent={{-140,-150},{-100,-110}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yNumCel
-    "Total number of enabled cells"
-    annotation (Placement(transformation(extent={{100,100},{140,140}}),
-      iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaCel
     "Lead tower cell status"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    annotation (Placement(transformation(extent={{100,64},{140,104}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yIsoVal[nTowCel](
     final unit=fill("1", nTowCel),
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel))
     "Vector of tower cells isolation valve position"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+    annotation (Placement(transformation(extent={{100,-14},{140,26}}),
       iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yTowSta[nTowCel]
     "Vector of tower cells status setpoint"
@@ -94,6 +90,10 @@ block Controller "Sequence of staging cooling tower cells"
     final chaTowCelIsoTim=chaTowCelIsoTim)
     "Tower staging process"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.ChangeCells ideChaCel(
+    final nTowCel=nTowCel)
+    "Identify which cell should change status"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
 equation
   connect(uChiSta, enaCel.uChiSta) annotation (Line(points={{-120,130},{-74,130},
@@ -101,30 +101,33 @@ equation
   connect(uChiStaSet, enaCel.uChiStaSet) annotation (Line(points={{-120,100},{-80,
           100},{-80,96},{-42,96}}, color={255,127,0}));
   connect(enaCel.uTowStaCha, uTowStaCha) annotation (Line(points={{-42,92},{-80,
-          92},{-80,60},{-120,60}}, color={255,0,255}));
-  connect(uWse, enaCel.uWse) annotation (Line(points={{-120,30},{-74,30},{-74,88},
-          {-42,88}}, color={255,0,255}));
+          92},{-80,70},{-120,70}}, color={255,0,255}));
+  connect(uWse, enaCel.uWse) annotation (Line(points={{-120,40},{-74,40},{-74,89},
+          {-42,89}}, color={255,0,255}));
   connect(enaCel.uLeaConWatPum, uLeaConWatPum) annotation (Line(points={{-42,84},
-          {-68,84},{-68,0},{-120,0}}, color={255,0,255}));
+          {-62,84},{-62,-20},{-120,-20}}, color={255,0,255}));
   connect(enaCel.uConWatPumSpe, uConWatPumSpe) annotation (Line(points={{-42,81},
-          {-62,81},{-62,-40},{-120,-40}}, color={0,0,127}));
-  connect(enaCel.yNumCel, yNumCel) annotation (Line(points={{-18,90},{40,90},{40,
-          120},{120,120}}, color={255,127,0}));
-  connect(enaCel.yLeaCel, yLeaCel) annotation (Line(points={{-18,84},{40,84},{40,
-          60},{120,60}}, color={255,0,255}));
+          {-56,81},{-56,-50},{-120,-50}}, color={0,0,127}));
+  connect(enaCel.yLeaCel, yLeaCel) annotation (Line(points={{-18,84},{120,84}},
+          color={255,0,255}));
   connect(staPro.yIsoVal, yIsoVal)
-    annotation (Line(points={{22,6},{72,6},{72,0},{120,0}}, color={0,0,127}));
+    annotation (Line(points={{22,6},{120,6}}, color={0,0,127}));
   connect(staPro.yTowSta, yTowSta) annotation (Line(points={{22,0},{60,0},{60,-60},
           {120,-60}}, color={255,0,255}));
-  connect(uTowSta, staPro.uTowSta) annotation (Line(points={{-122,-130},{-20,-130},
+  connect(uTowSta, staPro.uTowSta) annotation (Line(points={{-120,-130},{-20,-130},
           {-20,-8},{-2,-8}}, color={255,0,255}));
   connect(uIsoVal, staPro.uIsoVal) annotation (Line(points={{-120,-100},{-26,-100},
           {-26,0},{-2,0}}, color={0,0,127}));
-  connect(staPro.uChaCel, uChaCel) annotation (Line(points={{-2,8},{-40,8},{-40,
-          -70},{-120,-70}}, color={255,0,255}));
   connect(staPro.yEndSta, yEndSta) annotation (Line(points={{22,-6},{50,-6},{50,
           -100},{120,-100}}, color={255,0,255}));
-
+  connect(uEnaPla, enaCel.uEnaPla) annotation (Line(points={{-120,10},{-68,10},
+          {-68,87},{-42,87}},color={255,0,255}));
+  connect(enaCel.yNumCel, ideChaCel.uCelNum) annotation (Line(points={{-18,90},{
+          0,90},{0,64},{18,64}}, color={255,127,0}));
+  connect(uTowSta, ideChaCel.uTowSta) annotation (Line(points={{-120,-130},{-50,
+          -130},{-50,56},{18,56}}, color={255,0,255}));
+  connect(ideChaCel.yChaCel, staPro.uChaCel) annotation (Line(points={{42,56},{
+          60,56},{60,20},{-20,20},{-20,8},{-2,8}}, color={255,0,255}));
 annotation (
   defaultComponentName="towSta",
   Diagram(coordinateSystem(preserveAspectRatio=false,
@@ -137,64 +140,61 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{-100,-44},{-56,-56}},
-          lineColor={255,0,255},
-          textString="uChaCel"),
-        Text(
           extent={{-98,-64},{-62,-76}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uIsoVal"),
         Text(
           extent={{-98,76},{-44,64}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiStaSet"),
         Text(
           extent={{-98,96},{-60,84}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="uChiSta"),
         Text(
           extent={{-98,56},{-38,44}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowStaCha"),
         Text(
           extent={{-100,36},{-70,24}},
-          lineColor={255,0,255},
-          textString="uWse"),
+          textColor={255,0,255},
+          textString="uWse",
+          visible=have_WSE),
         Text(
-          extent={{-98,6},{-20,-6}},
-          lineColor={255,0,255},
+          extent={{-98,-4},{-20,-16}},
+          textColor={255,0,255},
           textString="uLeaConWatPum"),
         Text(
           extent={{-98,-24},{-20,-36}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="uConWatPumSpe"),
         Text(
           extent={{-98,-82},{-58,-96}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uTowSta"),
         Text(
           extent={{56,-32},{98,-44}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yTowSta"),
         Text(
           extent={{62,6},{100,-6}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="yIsoVal"),
         Text(
           extent={{60,48},{98,36}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yLeaCel"),
         Text(
-          extent={{56,88},{98,76}},
-          lineColor={255,127,0},
-          textString="yNumCel"),
-        Text(
           extent={{58,-82},{100,-94}},
-          lineColor={255,0,255},
-          textString="yEndSta")}),
+          textColor={255,0,255},
+          textString="yEndSta"),
+        Text(
+          extent={{-96,16},{-58,2}},
+          textColor={255,0,255},
+          textString="uEnaPla")}),
 Documentation(info="<html>
 <p>
 Block controls cooling tower fan staging. This is implemented accoding to 
@@ -210,6 +210,12 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subseque
 for a description.
 </li>
 <li>
+Sequence of identifying cells that should change status. See
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.ChangeCells\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.ChangeCells</a>
+for a description.
+</li>
+<li>
 Sequence of process for enabling cells. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.StageProcesses\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.Staging.Subsequences.StageProcesses</a>
@@ -221,6 +227,10 @@ Note that in this implementation, input <code>uTowStaCha</code>
 is from chiller staging process sequence. The input is also used for the 
 condenser water pump staging. Thus, the tower stage changes are initiated concurrentlyl
 with condenser water pump stage.
+</p>
+<p>
+The sequence also assumes the cells are enabled in order as it is labelled, meaning
+that it enabled the cells as cell 1, 2, 3, etc.
 </p>
 </html>", revisions="<html>
 <ul>

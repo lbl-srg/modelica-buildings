@@ -51,18 +51,15 @@ block EnableLag_primary_dP
     final uHigh=relFloHys)
     "Check if condition for disabling last lag pump is satisfied"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain chiWatFloRat(
-    final k=1/VChiWat_flow_nominal)
-    "Chiller water flow ratio"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter chiWatFloRat(
+    final k=1/VChiWat_flow_nominal) "Chiller water flow ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=staCon,
-    final k=1/nPum_nominal) "Add parameter"
+    final p=staCon) "Add parameter"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
-    final p=staCon,
-    final k=1/nPum_nominal) "Add parameter"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    final p=staCon) "Add parameter"
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
     final t=timPer)
     "Check if the time is greater than delay time period"
@@ -75,31 +72,34 @@ block EnableLag_primary_dP
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nPum]
     "Convert boolean input to integer number"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum numOpePum(final nin=nPum)
     "Total number of operating pumps"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
     "Convert integer to real"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
-    final p=-1,
-    final k=1) "Add real inputs"
+    final p=-1) "Add real inputs"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2(final k2=-1) "Add real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
+    "Find inputs difference"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1(final k2=-1) "Add real inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
+    "Find inputs difference"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch enaNexLag
+  Buildings.Controls.OBC.CDL.Logical.Switch enaNexLag
     "Enabling next lag pump"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch shuLasLag
+  Buildings.Controls.OBC.CDL.Logical.Switch shuLasLag
     "Shut off last lag pump"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=true)
     "Logical true"
     annotation (Placement(transformation(extent={{40,110},{60,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false)
     "Logical false"
     annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg "Rising edge"
@@ -118,37 +118,42 @@ protected
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter nomPum(
+    final k=1/nPum_nominal)
+    "Pump number ratio"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter nomPum1(
+    final k=1/nPum_nominal)
+    "Pump number ratio"
+    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 equation
   connect(VChiWat_flow,chiWatFloRat. u)
     annotation (Line(points={{-160,80},{-122,80}}, color={0,0,127}));
   connect(uChiWatPum,booToInt. u)
-    annotation (Line(points={{-160,0},{-82,0}},  color={255,0,255}));
+    annotation (Line(points={{-160,0},{-132,0}}, color={255,0,255}));
   connect(booToInt.y,numOpePum. u)
-    annotation (Line(points={{-58,0},{-42,0}},
+    annotation (Line(points={{-108,0},{-92,0}},
       color={255,127,0}));
   connect(numOpePum.y,intToRea. u)
-    annotation (Line(points={{-18,0},{-2,0}}, color={255,127,0}));
-  connect(intToRea.y,addPar. u)
-    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
-  connect(add2.y,hys. u)
+    annotation (Line(points={{-68,0},{-52,0}},color={255,127,0}));
+  connect(sub2.y,hys. u)
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
-  connect(add1.y,hys1. u)
+  connect(sub1.y,hys1. u)
     annotation (Line(points={{-58,-80},{-42,-80}}, color={0,0,127}));
-  connect(addPar1.y, addPar2.u)
-    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
-  connect(addPar.y, add2.u2)
+  connect(addPar.y, sub2.u2)
     annotation (Line(points={{62,0},{70,0},{70,20},{-90,20},{-90,34},{-82,34}},
       color={0,0,127}));
   connect(intToRea.y, addPar1.u)
-    annotation (Line(points={{22,0},{30,0},{30,-20},{-90,-20},{-90,-40},{-82,-40}},
+    annotation (Line(points={{-28,0},{-10,0},{-10,-20},{-90,-20},{-90,-40},{-82,
+          -40}},
       color={0,0,127}));
-  connect(addPar2.y, add1.u1)
-    annotation (Line(points={{-18,-40},{-10,-40},{-10,-60},{-90,-60},{-90,-74},
-      {-82,-74}}, color={0,0,127}));
-  connect(chiWatFloRat.y, add2.u1)
+  connect(addPar2.y, sub1.u1)
+    annotation (Line(points={{22,-40},{30,-40},{30,-60},{-90,-60},{-90,-74},{-82,
+          -74}},  color={0,0,127}));
+  connect(chiWatFloRat.y, sub2.u1)
     annotation (Line(points={{-98,80},{-90,80},{-90,46},{-82,46}}, color={0,0,127}));
-  connect(chiWatFloRat.y, add1.u2)
+  connect(chiWatFloRat.y, sub1.u2)
     annotation (Line(points={{-98,80},{-90,80},{-90,60},{-100,60},{-100,-86},
       {-82,-86}}, color={0,0,127}));
   connect(con.y, enaNexLag.u1)
@@ -197,6 +202,14 @@ equation
           {60,-80},{98,-80}}, color={255,0,255}));
   connect(tim1.passed, pre.u) annotation (Line(points={{22,-88},{60,-88},{60,-100},
           {-100,-100},{-100,-140},{-82,-140}}, color={255,0,255}));
+  connect(intToRea.y, nomPum.u)
+    annotation (Line(points={{-28,0},{-2,0}}, color={0,0,127}));
+  connect(nomPum.y, addPar.u)
+    annotation (Line(points={{22,0},{38,0}}, color={0,0,127}));
+  connect(addPar1.y, nomPum1.u)
+    annotation (Line(points={{-58,-40},{-42,-40}}, color={0,0,127}));
+  connect(nomPum1.y, addPar2.u)
+    annotation (Line(points={{-18,-40},{-2,-40}}, color={0,0,127}));
 
 annotation (
   defaultComponentName="enaLagChiPum",
@@ -209,26 +222,26 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,150},{100,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Text(
           extent={{-98,52},{-38,30}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VChiWat_flow"),
         Text(
           extent={{-98,-24},{-34,-48}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChiWatPum"),
         Text(
           extent={{64,48},{98,34}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yUp"),
         Text(
           extent={{62,-26},{96,-50}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yDown")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),

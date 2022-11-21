@@ -5,6 +5,7 @@ model DownStartWithOn
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences.DownStart
     staStaDow1(
     final nChi=2,
+    need_reduceChillerDemand=true,
     final byPasSetTim=300,
     final minFloSet={1,1},
     final maxFloSet={1.5,1.5},
@@ -22,7 +23,7 @@ protected
     annotation (Placement(transformation(extent={{-180,210},{-160,230}})));
   Buildings.Controls.OBC.CDL.Logical.Not staDow1 "Stage down command"
     annotation (Placement(transformation(extent={{-140,210},{-120,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi3 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Logical switch"
     annotation (Placement(transformation(extent={{-100,-250},{-80,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerLoa(
     final k=0) "Zero load"
@@ -48,12 +49,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre chiOneSta(
     final pre_u_start=false) "Break algebraic loop"
     annotation (Placement(transformation(extent={{80,50},{100,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiOneLoa "Chiller one"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiOneLoa "Chiller one"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiLoa2(
     final k=1000) "Chiller load"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiTwoLoa "Chiller two load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiTwoLoa "Chiller two load"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Logical.Pre chiTwoSta(
     final pre_u_start=true) "Break algebraic loop"
@@ -64,7 +65,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer4(final k=0)
     "Constant zero"
     annotation (Placement(transformation(extent={{-180,-110},{-160,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4 "Logical switch"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt2
     "Convert real input to integer output"
@@ -75,10 +76,10 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerOpe(
     final k=0) "Zero open"
     annotation (Placement(transformation(extent={{-180,-150},{-160,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal2
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal2
     "Chilled water isolation valve one"
     annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiIsoVal1
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiIsoVal1
     "Chilled water isolation valve one"
     annotation (Placement(transformation(extent={{-100,-150},{-80,-130}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
@@ -88,7 +89,7 @@ protected
     final samplePeriod=fill(10,2))
     "Output the input signal with a zero order hold"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiLoa1[2] "Chiller load"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiLoa1[2] "Chiller load"
     annotation (Placement(transformation(extent={{120,150},{140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer3[2](
     final k=fill(0,2)) "Constant zero"
@@ -143,10 +144,10 @@ equation
     annotation (Line(points={{-158,70},{-140,70},{-140,62},{-102,62}},
       color={0,0,127}));
   connect(staStaDow1.yChi[1], chiOneSta.u)
-    annotation (Line(points={{22,133},{52,133},{52,60},{78,60}},
+    annotation (Line(points={{22,133.5},{52,133.5},{52,60},{78,60}},
       color={255,0,255}));
   connect(staStaDow1.yChi[2], chiTwoSta.u)
-    annotation (Line(points={{22,135},{48,135},{48,30},{78,30}},
+    annotation (Line(points={{22,134.5},{48,134.5},{48,30},{78,30}},
       color={255,0,255}));
   connect(staDow1.y, staStaDow1.uStaDow)
     annotation (Line(points={{-118,220},{-110,220},{-110,150},{-2,150}},
@@ -155,16 +156,16 @@ equation
     annotation (Line(points={{-158,180},{-100,180},{-100,148},{-2,148}},
       color={0,0,127}));
   connect(chiOneLoa.y, staStaDow1.uChiLoa[1])
-    annotation (Line(points={{-78,110},{-56,110},{-56,145},{-2,145}},
+    annotation (Line(points={{-78,110},{-56,110},{-56,145.5},{-2,145.5}},
       color={0,0,127}));
   connect(chiTwoLoa.y, staStaDow1.uChiLoa[2])
-    annotation (Line(points={{-78,70},{-60,70},{-60,147},{-2,147}},
+    annotation (Line(points={{-78,70},{-60,70},{-60,146.5},{-2,146.5}},
       color={0,0,127}));
   connect(chiOneSta.y, staStaDow1.uChi[1])
-    annotation (Line(points={{102,60},{180,60},{180,0},{-52,0},{-52,143},{-2,143}},
+    annotation (Line(points={{102,60},{180,60},{180,0},{-52,0},{-52,143.5},{-2,143.5}},
       color={255,0,255}));
   connect(chiTwoSta.y, staStaDow1.uChi[2])
-    annotation (Line(points={{102,30},{110,30},{110,4},{-48,4},{-48,145},{-2,145}},
+    annotation (Line(points={{102,30},{110,30},{110,4},{-48,4},{-48,144.5},{-2,144.5}},
       color={255,0,255}));
   connect(chiFlo1.y, staStaDow1.VChiWat_flow)
     annotation (Line(points={{-158,20},{-44,20},{-44,142},{-2,142}},
@@ -208,10 +209,10 @@ equation
     annotation (Line(points={{142,-110},{160,-110},{160,-200},{-120,-200},
       {-120,-172},{-102,-172}}, color={0,0,127}));
   connect(chiIsoVal1.y, staStaDow1.uChiWatIsoVal[1])
-    annotation (Line(points={{-78,-140},{-24,-140},{-24,131},{-2,131}},
+    annotation (Line(points={{-78,-140},{-24,-140},{-24,131.5},{-2,131.5}},
       color={0,0,127}));
   connect(chiIsoVal2.y, staStaDow1.uChiWatIsoVal[2])
-    annotation (Line(points={{-78,-180},{-20,-180},{-20,133},{-2,133}},
+    annotation (Line(points={{-78,-180},{-20,-180},{-20,132.5},{-2,132.5}},
       color={0,0,127}));
   connect(reaToInt1.y, staStaDow1.nexDisChi)
     annotation (Line(points={{-38,-240},{-16,-240},{-16,130},{-2,130}},
@@ -226,7 +227,7 @@ equation
     annotation (Line(points={{82,110},{100,110},{100,152},{118,152}},
       color={0,0,127}));
   connect(staStaDow1.yChiDem[2], zerOrdHol.u)
-    annotation (Line(points={{22,150},{52,150},{52,160},{58,160}},
+    annotation (Line(points={{22,149.5},{52,149.5},{52,160},{58,160}},
       color={0,0,127}));
   connect(zerOrdHol.y, chiLoa1[2].u1)
     annotation (Line(points={{82,160},{100,160},{100,168},{118,168}},
@@ -244,21 +245,22 @@ equation
     annotation (Line(points={{182,200},{190,200},{190,90},{-120,90},{-120,118},
       {-102,118}}, color={0,0,127}));
   connect(staStaDow1.yChiHeaCon[1], chiOneHea.u)
-    annotation (Line(points={{22,141},{36,141},{36,-20},{58,-20}},
+    annotation (Line(points={{22,141.5},{36,141.5},{36,-20},{58,-20}},
       color={255,0,255}));
   connect(staStaDow1.yChiHeaCon[2], chiTwoHea.u)
-    annotation (Line(points={{22,143},{40,143},{40,-50},{58,-50}},
+    annotation (Line(points={{22,142.5},{40,142.5},{40,-50},{58,-50}},
       color={255,0,255}));
   connect(chiOneHea.y, staStaDow1.uChiHeaCon[1])
-    annotation (Line(points={{82,-20},{90,-20},{90,-36},{-32,-36},{-32,133},
-      {-2,133}}, color={255,0,255}));
+    annotation (Line(points={{82,-20},{90,-20},{90,-36},{-32,-36},{-32,133.5},{-2,
+          133.5}},
+                 color={255,0,255}));
   connect(chiTwoHea.y, staStaDow1.uChiHeaCon[2])
-    annotation (Line(points={{82,-50},{90,-50},{90,-70},{-28,-70},{-28,135},
-      {-2,135}},  color={255,0,255}));
+    annotation (Line(points={{82,-50},{90,-50},{90,-70},{-28,-70},{-28,134.5},{-2,
+          134.5}},color={255,0,255}));
   connect(one.y, demLimRel.u)
     annotation (Line(points={{2,200},{18,200}}, color={0,0,127}));
   connect(staStaDow1.yReaDemLim, demLimRel.trigger)
-    annotation (Line(points={{22,131},{30,131},{30,188.2}}, color={255,0,255}));
+    annotation (Line(points={{22,131},{30,131},{30,188}},   color={255,0,255}));
   connect(booPul2.y, staDow2.u)
     annotation (Line(points={{-158,140},{-142,140}}, color={255,0,255}));
   connect(staDow2.y, staStaDow1.clr)
@@ -298,14 +300,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-176,264},{14,248}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 1 which only has small chiller enabled (chiller 1)."),
         Text(
           extent={{-174,276},{14,266}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 2 which only has large chiller enabled (chiller 2), "),
         Text(
           extent={{-184,288},{-136,280}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage down:")}));
 end DownStartWithOn;

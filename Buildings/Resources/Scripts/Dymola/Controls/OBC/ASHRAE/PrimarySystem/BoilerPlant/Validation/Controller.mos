@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Validation.Controller", startTime=0,tolerance=1e-6, stopTime=7500, outputInterval=1, method="cvode", resultFile="BoilerPlantController");
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Validation.Controller", startTime=0,tolerance=1e-6, stopTime=7500, outputInterval=1, method="cvode", resultFile="BoilerPlantController");
 removePlots(false);
 createPlot(id=1, position={160, 947, 485, 285}, y={"controller.supResReq"}, range={0.0, 7500.0, -5.0, 5.0}, grid=true, colors={{28,108,200}});
 createPlot(id=1, position={160, 947, 485, 32}, y={"controller.staSetCon.ySta"}, range={0.0, 7500.0, -10.0, 10.0}, grid=true, subPlot=2, colors={{28,108,200}});

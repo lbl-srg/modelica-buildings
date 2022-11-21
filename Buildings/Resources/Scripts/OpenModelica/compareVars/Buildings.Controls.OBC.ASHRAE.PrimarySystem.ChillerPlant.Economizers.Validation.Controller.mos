@@ -8,6 +8,8 @@ compareVars :=
     "wseSta.y",
     "wseSta.enaTWet.y",
     "wseSta.enaTChiWatRet.y",
+    "wseSta.yConWatIsoVal",
+    "wseSta.yRetVal",
     "wseSta1.TOutWet",
     "wseSta1.TChiWatRet",
     "wseSta1.TChiWatRetDow",
@@ -16,6 +18,8 @@ compareVars :=
     "wseSta1.y",
     "wseSta1.enaTWet.y",
     "wseSta1.enaTChiWatRet.y",
+    "wseSta1.yConWatIsoVal",
+    "wseSta1.yRetVal",
     "wseSta2.TOutWet",
     "wseSta2.TChiWatRet",
     "wseSta2.TChiWatRetDow",
@@ -23,5 +27,13 @@ compareVars :=
     "wseSta2.uTowFanSpeMax",
     "wseSta2.y",
     "wseSta2.enaTWet.y",
-    "wseSta2.enaTChiWatRet.y"
+    "wseSta2.enaTChiWatRet.y",
+    "wseSta2.yConWatIsoVal",
+    "wseSta2.yRetVal",
+    "wseSta3.y",
+    "wseSta3.yPumOn",
+    "wseSta3.uIni",
+    "wseSta3.uChiSta",
+    "wseSta3.yConWatIsoVal",
+    "wseSta3.yPumSpe"
   };

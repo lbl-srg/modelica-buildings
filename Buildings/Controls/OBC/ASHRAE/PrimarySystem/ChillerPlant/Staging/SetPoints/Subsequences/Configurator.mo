@@ -69,9 +69,7 @@ protected
     final nin=nChi) "Ascending sort"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[nChi](
-    final k1=fill(1, nChi),
-    final k2=fill(-1,nChi))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[nChi]
     "Subtracts signals"
     annotation (Placement(transformation(extent={{-100,160},{-80,180}})));
 
@@ -120,8 +118,7 @@ protected
     "Type converter"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add2[nSta](
-    final k2=fill(-1, nSta))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2[nSta]
     "Subtracts count of available chillers from the design count, at each stage"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
@@ -138,7 +135,7 @@ protected
     final k=chiTypMat) "Chiller stage type matrix"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nSta,nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nSta,nChi]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 
@@ -188,11 +185,11 @@ equation
     annotation (Line(points={{-240,-40},{-202,-40}}, color={255,0,255}));
   connect(booToRea.y, sumNumAvaChi.u)
     annotation (Line(points={{-178,-40},{-142,-40}}, color={0,0,127}));
-  connect(sumNumChi.y, add2.u1) annotation (Line(points={{-118,20},{-100,20},{-100,
+  connect(sumNumChi.y, sub2.u1) annotation (Line(points={{-118,20},{-100,20},{-100,
           -4},{-82,-4}}, color={0,0,127}));
-  connect(sumNumAvaChi.y, add2.u2) annotation (Line(points={{-118,-40},{-100.5,-40},
+  connect(sumNumAvaChi.y, sub2.u2) annotation (Line(points={{-118,-40},{-100.5,-40},
           {-100.5,-16},{-82,-16}}, color={0,0,127}));
-  connect(add2.y,lesThr. u)
+  connect(sub2.y,lesThr. u)
     annotation (Line(points={{-58,-10},{-42,-10}},  color={0,0,127}));
   connect(lesThr.y, yAva) annotation (Line(points={{-18,-10},{60,-10},{60,-80},{
           240,-80}}, color={255,0,255}));
@@ -228,11 +225,11 @@ equation
     annotation (Line(points={{-178,20},{-142,20}}, color={0,0,127}));
   connect(sort1.u, chiDesCaps.y) annotation (Line(points={{-142,170},{-160,
           170},{-160,110},{-178,110}}, color={0,0,127}));
-  connect(sort1.y, add1.u1) annotation (Line(points={{-118,170},{-110,170},{-110,
+  connect(sort1.y, sub1.u1) annotation (Line(points={{-118,170},{-110,170},{-110,
           176},{-102,176}}, color={0,0,127}));
-  connect(chiDesCaps.y, add1.u2) annotation (Line(points={{-178,110},{-160,110},
+  connect(chiDesCaps.y, sub1.u2) annotation (Line(points={{-178,110},{-160,110},
           {-160,150},{-110,150},{-110,164},{-102,164}}, color={0,0,127}));
-  connect(add1.y, multiMax.u)
+  connect(sub1.y, multiMax.u)
     annotation (Line(points={{-78,170},{-62,170}}, color={0,0,127}));
   connect(multiMax.y, abs.u)
     annotation (Line(points={{-38,170},{-22,170}}, color={0,0,127}));
@@ -249,7 +246,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-220,-200},{220,200}})),

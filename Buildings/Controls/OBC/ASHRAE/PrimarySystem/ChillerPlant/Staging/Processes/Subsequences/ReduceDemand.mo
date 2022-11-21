@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block ReduceDemand "Sequence for reducing operating chiller demand"
 
-  parameter Integer nChi "Total number of chillers in the plant";
+  parameter Integer nChi=2 "Total number of chillers in the plant";
   parameter Real chiDemRedFac = 0.75
     "Demand reducing factor of current operating chillers";
   parameter Real holChiDemTim(
@@ -14,9 +14,10 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Demand limit: true=limit chiller demand"
     annotation (Placement(transformation(extent={{-200,140},{-160,180}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](final quantity=
-        fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
-                                "Current chiller load"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiLoa[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
+    "Current chiller load"
     annotation (Placement(transformation(extent={{-200,110},{-160,150}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yOpeParLoaRatMin(
@@ -37,9 +38,10 @@ block ReduceDemand "Sequence for reducing operating chiller demand"
     "Chiller status: true=ON"
     annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
       iconTransformation(extent={{-140,-110},{-100,-70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](final quantity=
-       fill("ElectricCurrent", nChi), final unit=fill("A", nChi))
-                                "Chiller demand setpoint"
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiDem[nChi](
+    final quantity=fill("ElectricCurrent", nChi),
+    final unit=fill("A", nChi))
+    "Chiller demand setpoint"
     annotation (Placement(transformation(extent={{160,70},{200,110}}),
       iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiDemRed
@@ -56,13 +58,13 @@ protected
     final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi4[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi4[nChi]
     "Current setpoint to chillers"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[nChi](
     final k=fill(0.2, nChi)) "Constant value to avoid zero as the denominator"
     annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
     "Change zero input to a given constant if the chiller is not enabled"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys[nChi](
@@ -70,7 +72,7 @@ protected
     final uHigh=fill(chiDemRedFac + 0.05 + 0.01, nChi))
     "Check if actual demand has already reduced at instant when receiving stage change signal"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Division div[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Divide div[nChi]
     "Output result of first input divided by second input"
     annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1[nChi] "Logical not"
@@ -81,14 +83,15 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Rising edge, output true at the moment when input turns from false to true"
     annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nChi)
     "Replicate boolean input "
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
   Buildings.Controls.OBC.CDL.Logical.And and2 "Logical and"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Minimum cycling operative partial load ratio"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
@@ -103,12 +106,11 @@ protected
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(final nout=nChi)
     "Replicate real input"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[nChi]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[nChi]
     "Percentage of the current load"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar[nChi](
-    final p=fill(1e-6, nChi),
-    final k=fill(1, nChi))
+    final p=fill(1e-6, nChi))
     "Add a small value to avoid potentially zero denominator"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
@@ -120,7 +122,7 @@ protected
 
 equation
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{-38,160},{-20,160},{-20,110},{10,110},{10,118.2}},
+    annotation (Line(points={{-38,160},{-20,160},{-20,110},{10,110},{10,118}},
       color={255,0,255}));
   connect(uChiLoa, triSam.u)
     annotation (Line(points={{-180,130},{-2,130}}, color={0,0,127}));
@@ -219,7 +221,7 @@ annotation (
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,60},{60,20}},
@@ -243,46 +245,46 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-15,9.5},{15,-9.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={-83,49.5},
           rotation=0,
           textString="uChiLoa"),
         Text(
           extent={{-98,98},{-66,86}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uDemLim"),
         Text(
           extent={{-18,6.5},{18,-6.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={78,42.5},
           rotation=0,
           textString="yChiDem"),
         Text(
           extent={{46,-34},{96,-46}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yChiDemRed"),
         Text(
           extent={{-100,-84},{-76,-94}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uChi"),
         Text(
           extent={{-98,-42},{-74,-56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{-98,-12},{-64,-28}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaDow"),
         Text(
           extent={{-17,9.5},{17,-9.5}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           pattern=LinePattern.Dash,
           origin={-81,11.5},
           rotation=0,

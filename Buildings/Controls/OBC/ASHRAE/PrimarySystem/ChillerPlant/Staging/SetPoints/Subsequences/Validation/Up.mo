@@ -3,52 +3,59 @@ model Up "Validate change stage up condition sequence"
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up
     staUp(have_locSen=true, effConTruDelay=900)
           "Generates stage up signal"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.Up
     staUp1(final have_WSE=true, have_locSen=true)
     "Generates stage up signal"
-    annotation (Placement(transformation(extent={{140,20},{160,40}})));
+    annotation (Placement(transformation(extent={{140,50},{160,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant avaCur(
     final k=true)
     "Current stage availability"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant avaCur1(
     final k=true)
     "Current stage availability"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
+  CDL.Logical.Sources.Pulse                        booPul(final width=0.1,
+      final period=3600)
+    "Enabled plant"
+    annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
+  CDL.Logical.Not                        not1
+    "Logical not"
+    annotation (Placement(transformation(extent={{-120,-100},{-100,-80}})));
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(
     final k=0) "0th stage"
-    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
+    annotation (Placement(transformation(extent={{-160,110},{-140,130}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage1(
     final k=1) "1st stage"
-    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet(
     final k=273.15 + 14) "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet(
     final k=65*6895) "Chilled water differential pressure setpoint"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup(
     final amplitude=3,
     final freqHz=1/3600,
     final offset=273.15 + 16) "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-160,-80},{-140,-60}})));
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpChiWat(
     final amplitude=6895,
     final startTime=300,
     final freqHz=1/1200,
     final offset=63*6895) "Chilled water differential pressure"
-    annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine Ope(
     final phase(displayUnit="rad"),
@@ -56,28 +63,28 @@ protected
     final offset=0.85,
     final freqHz=1/2100,
     final amplitude=0.05) "Operating part load ratio of the current stage"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant StaUp(
     final k=0.8)
     "Staging part load ratio of the next stage up"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCWSupSet1(
     final k=273.15 + 14) "Chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet1(
     final k=65*6895)
    "Chilled water differential pressure setpoint"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+    annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup1(
     final amplitude=3,
     final offset=273.15 + 15.5,
     final freqHz=1/3600)
                         "Chilled water supply temperature"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpChiWat1(
     final amplitude=6895,
@@ -85,7 +92,7 @@ protected
     final startTime=300,
     final freqHz=1/1200,
     final offset=63*6895) "Chilled water differential pressure"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine Ope1(
     final amplitude=0.1,
@@ -93,47 +100,55 @@ protected
     final startTime=0,
     final offset=0.85,
     final freqHz=1/2100) "Operating part load ratio of the current stage"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant StaUp1(
     final k=0.8)
     "Staging part load ratio of the next stage up"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
 equation
 
-  connect(StaUp.y, staUp.uStaUp) annotation (Line(points={{-98,30},{-88,30},{
-          -88,38},{-42,38}}, color={0,0,127}));
-  connect(Ope.y, staUp.uOpe) annotation (Line(points={{-98,70},{-60,70},{-60,40},
-          {-42,40}}, color={0,0,127}));
-  connect(TCWSupSet.y, staUp.TChiWatSupSet) annotation (Line(points={{-138,-30},
-          {-70,-30},{-70,36},{-42,36}}, color={0,0,127}));
-  connect(TCWSup.y, staUp.TChiWatSup) annotation (Line(points={{-138,-70},{-60,
-          -70},{-60,34},{-42,34}},color={0,0,127}));
-  connect(dpChiWatSet.y, staUp.dpChiWatPumSet_local) annotation (Line(points={{
-          -98,-10},{-56,-10},{-56,31},{-42,31}}, color={0,0,127}));
-  connect(dpChiWat.y, staUp.dpChiWatPum_local) annotation (Line(points={{-98,
-          -50},{-52,-50},{-52,29},{-42,29}}, color={0,0,127}));
-  connect(stage0.y, staUp.u) annotation (Line(points={{-138,90},{-50,90},{-50,
-          22},{-42,22}}, color={255,127,0}));
-  connect(StaUp1.y, staUp1.uStaUp) annotation (Line(points={{82,30},{92,30},{92,
-          38},{138,38}}, color={0,0,127}));
-  connect(Ope1.y, staUp1.uOpe) annotation (Line(points={{82,70},{120,70},{120,
-          40},{138,40}}, color={0,0,127}));
-  connect(TCWSupSet1.y, staUp1.TChiWatSupSet) annotation (Line(points={{42,-30},
-          {110,-30},{110,36},{138,36}}, color={0,0,127}));
-  connect(TCWSup1.y, staUp1.TChiWatSup) annotation (Line(points={{42,-70},{120,
-          -70},{120,34},{138,34}}, color={0,0,127}));
-  connect(dpChiWatSet1.y, staUp1.dpChiWatPumSet_local) annotation (Line(points=
-          {{82,-10},{124,-10},{124,31},{138,31}}, color={0,0,127}));
-  connect(dpChiWat1.y, staUp1.dpChiWatPum_local) annotation (Line(points={{82,
-          -50},{128,-50},{128,29},{138,29}}, color={0,0,127}));
-  connect(stage1.y, staUp1.u) annotation (Line(points={{42,90},{130,90},{130,22},
-          {138,22}},color={255,127,0}));
-  connect(avaCur.y, staUp.uAvaCur) annotation (Line(points={{-58,-90},{-46,-90},
-          {-46,20},{-42,20}}, color={255,0,255}));
-  connect(avaCur1.y, staUp1.uAvaCur) annotation (Line(points={{122,-90},{132,
-          -90},{132,20},{138,20}}, color={255,0,255}));
+  connect(StaUp.y, staUp.uStaUp) annotation (Line(points={{-98,60},{-88,60},{
+          -88,69},{-42,69}}, color={0,0,127}));
+  connect(Ope.y, staUp.uOpe) annotation (Line(points={{-98,100},{-80,100},{-80,
+          71},{-42,71}},
+                     color={0,0,127}));
+  connect(TCWSupSet.y, staUp.TChiWatSupSet) annotation (Line(points={{-138,0},{
+          -80,0},{-80,67},{-42,67}},    color={0,0,127}));
+  connect(TCWSup.y, staUp.TChiWatSup) annotation (Line(points={{-138,-40},{-74,
+          -40},{-74,65},{-42,65}},color={0,0,127}));
+  connect(dpChiWatSet.y, staUp.dpChiWatPumSet_local) annotation (Line(points={{-98,20},
+          {-68,20},{-68,63},{-42,63}},           color={0,0,127}));
+  connect(dpChiWat.y, staUp.dpChiWatPum_local) annotation (Line(points={{-98,-20},
+          {-62,-20},{-62,61},{-42,61}},      color={0,0,127}));
+  connect(stage0.y, staUp.u) annotation (Line(points={{-138,120},{-56,120},{-56,
+          55},{-42,55}}, color={255,127,0}));
+  connect(StaUp1.y, staUp1.uStaUp) annotation (Line(points={{82,60},{92,60},{92,
+          69},{138,69}}, color={0,0,127}));
+  connect(Ope1.y, staUp1.uOpe) annotation (Line(points={{82,100},{100,100},{100,
+          71},{138,71}}, color={0,0,127}));
+  connect(TCWSupSet1.y, staUp1.TChiWatSupSet) annotation (Line(points={{42,0},{
+          100,0},{100,67},{138,67}},    color={0,0,127}));
+  connect(TCWSup1.y, staUp1.TChiWatSup) annotation (Line(points={{42,-40},{106,
+          -40},{106,65},{138,65}}, color={0,0,127}));
+  connect(dpChiWatSet1.y, staUp1.dpChiWatPumSet_local) annotation (Line(points={{82,20},
+          {112,20},{112,63},{138,63}},            color={0,0,127}));
+  connect(dpChiWat1.y, staUp1.dpChiWatPum_local) annotation (Line(points={{82,-20},
+          {118,-20},{118,61},{138,61}},      color={0,0,127}));
+  connect(stage1.y, staUp1.u) annotation (Line(points={{42,120},{124,120},{124,
+          55},{138,55}},
+                    color={255,127,0}));
+  connect(avaCur.y, staUp.uAvaCur) annotation (Line(points={{-78,-60},{-56,-60},
+          {-56,53},{-42,53}}, color={255,0,255}));
+  connect(avaCur1.y, staUp1.uAvaCur) annotation (Line(points={{102,-60},{124,
+          -60},{124,53},{138,53}}, color={255,0,255}));
+  connect(booPul.y, not1.u)
+    annotation (Line(points={{-138,-90},{-122,-90}}, color={255,0,255}));
+  connect(not1.y, staUp.uPla) annotation (Line(points={{-98,-90},{-50,-90},{-50,
+          51},{-42,51}}, color={255,0,255}));
+  connect(avaCur1.y, staUp1.uPla) annotation (Line(points={{102,-60},{124,-60},
+          {124,51},{138,51}}, color={255,0,255}));
 annotation (
  experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Staging/SetPoints/Subsequences/Validation/Up.mos"
@@ -166,8 +181,8 @@ Icon(graphics={
             140}}),
         graphics={
         Text(
-          extent={{-138,-108},{-76,-132}},
-          lineColor={0,0,127},
+          extent={{-138,-110},{-76,-134}},
+          textColor={0,0,127},
           textString="Tests stage 0 to stage 1 enable
 based on chilled water supply
 temperature.
@@ -175,8 +190,8 @@ temperature.
 Other inputs are kept the same 
 as in the example on the right."),
         Text(
-          extent={{46,-106},{106,-128}},
-          lineColor={0,0,127},
+          extent={{46,-108},{106,-130}},
+          textColor={0,0,127},
           textString="Tests stage up enable for any stage above 
 and including stage 1. In this test the plant has a WSE. 
 The same applies for any stage in case the plant does not have a WSE.")}));

@@ -6,6 +6,7 @@ model DownWithoutOnOff
     dowProCon(
     final nChi=2,
     final totSta=4,
+    final need_reduceChillerDemand=true,
     final chaChiWatIsoTim=300,
     final staVec={0,0.5,1,2},
     final desConWatPumSpe={0,0.5,0.75,0.6},
@@ -48,9 +49,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Pre pre2[2](
     final pre_u_start=fill(true,2)) "Break algebraic loop"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1[2] "Logical switch"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch IsoVal[2] "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch IsoVal[2] "Logical switch"
     annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(10, 2))
@@ -78,13 +79,13 @@ protected
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep2(final nout=2)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{-60,120},{-40,140}})));
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch chiSet2[2]
+  Buildings.Controls.OBC.CDL.Logical.Switch chiSet2[2]
     "Chiller status setpoint"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger staSet2
     "Stage setpoint index"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi2 "Logical switch"
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Logical switch"
     annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant upSta2(final k=2)
     "Stage two"
@@ -97,7 +98,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant staTwo(final k=2)
     "Stage two"
     annotation (Placement(transformation(extent={{-140,-190},{-120,-170}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch chiSta "Current chiller stage"
+  Buildings.Controls.OBC.CDL.Continuous.Switch chiSta "Current chiller stage"
     annotation (Placement(transformation(extent={{-60,-170},{-40,-150}})));
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger sta "Current chiller stage"
     annotation (Placement(transformation(extent={{-20,-170},{0,-150}})));
@@ -254,14 +255,14 @@ Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{-144,294},{-96,286}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="Stage down:"),
         Text(
           extent={{-134,282},{26,272}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="from stage 2 which has chiller one and two enabled, "),
         Text(
           extent={{-138,270},{-36,256}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="to stage 1 which only has chiller 1.")}));
 end DownWithoutOnOff;

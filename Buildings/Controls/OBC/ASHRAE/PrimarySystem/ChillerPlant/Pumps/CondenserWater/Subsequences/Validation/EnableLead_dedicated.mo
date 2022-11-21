@@ -22,16 +22,20 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=false) "Constant false"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
+    final k=false)
+    "Constant false"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 equation
   connect(booPul.y,enaLeaConPum. uLeaChiEna)
-    annotation (Line(points={{2,50},{20,50},{20,28},{38,28}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,24},{38,24}}, color={255,0,255}));
   connect(booPul.y, enaLeaConPum.uLeaChiSta)
-    annotation (Line(points={{2,50},{20,50},{20,20},{38,20}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,16},{38,16}}, color={255,0,255}));
   connect(booPul.y,disLeaConPum. uLeaChiEna)
-    annotation (Line(points={{2,50},{20,50},{20,-12},{38,-12}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,-16},{38,-16}}, color={255,0,255}));
   connect(booPul.y, disLeaConPum.uLeaChiSta)
-    annotation (Line(points={{2,50},{20,50},{20,-20},{38,-20}}, color={255,0,255}));
+    annotation (Line(points={{2,50},{20,50},{20,-24},{38,-24}}, color={255,0,255}));
   connect(booPul.y, lat.u)
     annotation (Line(points={{2,50},{20,50},{20,-20},{-40,-20},{-40,-40},{-22,-40}},
       color={255,0,255}));
@@ -42,6 +46,10 @@ equation
   connect(con.y, lat.clr)
     annotation (Line(points={{-38,-60},{-30,-60},{-30,-46},{-22,-46}},
       color={255,0,255}));
+  connect(con1.y, enaLeaConPum.uEnaPla) annotation (Line(points={{-38,20},{10,20},
+          {10,28},{38,28}}, color={255,0,255}));
+  connect(con1.y, disLeaConPum.uEnaPla) annotation (Line(points={{-38,20},{10,20},
+          {10,-12},{38,-12}}, color={255,0,255}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

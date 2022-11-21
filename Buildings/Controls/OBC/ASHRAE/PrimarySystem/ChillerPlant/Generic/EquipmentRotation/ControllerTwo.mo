@@ -152,7 +152,7 @@ protected
     final nout=nDev) if lag "Replicates lag signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.LogicalSwitch logSwi1[nDev] if not continuous
+  Buildings.Controls.OBC.CDL.Logical.Switch logSwi1[nDev] if not continuous
     "Switch"
     annotation (Placement(transformation(extent={{-60,-42},{-40,-22}})));
 
@@ -230,7 +230,7 @@ annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           origin={-26.6667,38.6207},
