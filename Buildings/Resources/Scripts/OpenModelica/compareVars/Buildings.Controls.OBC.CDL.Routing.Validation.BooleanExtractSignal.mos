@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "extBooSig.u[1]",
+    "extBooSig.u[2]",
+    "extBooSig.u[3]",
+    "extBooSig.u[4]",
+    "extBooSig.y[1]",
+    "extBooSig.y[2]",
+    "extBooSig.y[3]",
+    "extBooSig1.y[1]",
+    "extBooSig1.y[2]",
+    "extBooSig1.y[3]",
+    "extBooSig1.y[4]",
+    "extBooSig1.y[5]"
+  };

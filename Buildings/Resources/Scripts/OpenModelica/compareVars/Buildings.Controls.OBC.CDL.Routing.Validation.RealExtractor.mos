@@ -4,7 +4,14 @@ compareVars :=
     "extIndSig.u[2]",
     "extIndSig.u[3]",
     "extIndSig.u[4]",
-    "extIndSig.u[5]",
+    "extIndSig.index",
     "extIndSig.y",
-    "extIndSig1.y"
+    "extIndSig1.index",
+    "extIndSig1.y",
+    "extIndSig2.index",
+    "extIndSig2.y",
+    "extIndSig3.index",
+    "extIndSig3.y",
+    "extIndSig4.index",
+    "extIndSig4.y"
   };
