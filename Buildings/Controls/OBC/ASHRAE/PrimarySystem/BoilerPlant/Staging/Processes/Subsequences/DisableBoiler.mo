@@ -266,7 +266,7 @@ equation
     annotation (Line(points={{-78,70},{-62,70}}, color={255,0,255}));
 
   connect(booRep1.y,triSam. trigger)
-    annotation (Line(points={{-38,70},{-10,70},{-10,88.2}}, color={255,0,255}));
+    annotation (Line(points={{-38,70},{-10,70},{-10,88}},   color={255,0,255}));
 
   connect(triSam.y,greEquThr. u)
     annotation (Line(points={{2,100},{18,100}}, color={0,0,127}));
@@ -388,7 +388,7 @@ equation
       color={255,0,255}));
 
   connect(booRep5.y, triSam1.trigger)
-    annotation (Line(points={{-98,-240},{-70,-240},{-70,-221.8}}, color={255,0,255}));
+    annotation (Line(points={{-98,-240},{-70,-240},{-70,-222}},   color={255,0,255}));
 
   connect(booRep4.y, logSwi6.u2)
     annotation (Line(points={{-58,-160},{0,-160},{0,-240},{98,-240}},  color={255,0,255}));
@@ -434,7 +434,7 @@ annotation (
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,0},{60,-80}},
@@ -458,35 +458,35 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,98},{-44,82}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexEnaBoi"),
         Text(
           extent={{-98,70},{-52,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uStaDow"),
         Text(
           extent={{-96,30},{-24,10}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uUpsDevSta"),
         Text(
           extent={{-100,-14},{-78,-24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uBoi"),
         Text(
           extent={{-98,-82},{-70,-94}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="uOnOff"),
         Text(
           extent={{-98,-40},{-44,-56}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           textString="nexDisBoi"),
         Text(
           extent={{74,6},{98,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yBoi"),
         Text(
           extent={{44,-72},{96,-84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           textString="yBoiDis")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-260},{200,260}}),
         graphics={

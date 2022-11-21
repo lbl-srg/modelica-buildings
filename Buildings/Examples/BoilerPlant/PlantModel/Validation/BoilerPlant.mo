@@ -169,7 +169,6 @@ equation
     experiment(
       StopTime=60000,
       Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end BoilerPlant;

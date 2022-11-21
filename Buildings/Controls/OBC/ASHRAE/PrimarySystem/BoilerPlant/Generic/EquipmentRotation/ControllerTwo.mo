@@ -240,7 +240,7 @@ annotation(Diagram(coordinateSystem(extent={{-160,-100},{160,100}})),
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           origin={-26.6667,38.6207},

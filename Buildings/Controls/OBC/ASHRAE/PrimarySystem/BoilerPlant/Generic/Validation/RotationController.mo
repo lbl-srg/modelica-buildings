@@ -97,8 +97,7 @@ equation
     experiment(
       StopTime=600,
       Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
       __Dymola_Commands(file="./Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Generic/Validation/RotationController.mos"
         "Simulate and plot"),
     Documentation(info="<html>

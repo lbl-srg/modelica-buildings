@@ -173,7 +173,7 @@ equation
   connect(equRot.yDevStaSet, yDevStaSet) annotation (Line(points={{-48,46},{-30,
           46},{-30,50},{120,50}}, color={255,0,255}));
   connect(booToInt.y, mulSumInt.u[1:2])
-    annotation (Line(points={{2,0},{8,0},{8,0}},    color={255,127,0}));
+    annotation (Line(points={{2,0},{8,0},{8,-3.5}}, color={255,127,0}));
   connect(mulSumInt.y, intGreThr.u) annotation (Line(points={{32,0},{40,0},{40,30},
           {48,30}}, color={255,127,0}));
   connect(mulSumInt.y, intGreThr1.u)
@@ -204,7 +204,7 @@ equation
     Icon(graphics={
       Text(
         extent={{-120,146},{100,108}},
-        lineColor={0,0,255},
+        textColor={0,0,255},
         textString="%name"),
         Rectangle(
         extent={{-100,-100},{100,100}},

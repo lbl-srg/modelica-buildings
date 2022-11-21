@@ -291,7 +291,6 @@ First implementation.
       StartTime=518400,
       StopTime=691200,
       Interval=60,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end ClosedLoopTest;

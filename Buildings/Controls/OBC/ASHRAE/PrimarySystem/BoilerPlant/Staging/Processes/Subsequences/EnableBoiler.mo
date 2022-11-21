@@ -238,7 +238,7 @@ equation
     annotation (Line(points={{-78,-20},{-62,-20}}, color={255,0,255}));
 
   connect(booRep1.y,triSam. trigger)
-    annotation (Line(points={{-38,-20},{-10,-20},{-10,-11.8}}, color={255,0,255}));
+    annotation (Line(points={{-38,-20},{-10,-20},{-10,-12}},   color={255,0,255}));
 
   connect(triSam.y,greEquThr. u)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
@@ -368,7 +368,7 @@ annotation (
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-60,60},{60,20}},
@@ -392,42 +392,42 @@ annotation (
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,96},{-50,84}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="nexEnaBoi"),
         Text(
           extent={{-98,-84},{-50,-96}},
-          lineColor={255,127,0},
+          textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="nexDisBoi"),
         Text(
           extent={{-100,66},{-68,56}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uStaUp"),
         Text(
           extent={{-98,26},{-34,14}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uUpsDevSta"),
         Text(
           extent={{-100,-14},{-78,-24}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uBoi"),
         Text(
           extent={{-98,-54},{-72,-66}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uOnOff"),
         Text(
           extent={{74,86},{100,76}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yBoi"),
         Text(
           extent={{60,-72},{98,-84}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="yNewBoiEna")}),
         Diagram(

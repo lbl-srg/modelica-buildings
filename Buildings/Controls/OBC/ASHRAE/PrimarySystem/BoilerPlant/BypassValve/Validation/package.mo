@@ -21,5 +21,12 @@ package Validation "Validation models for BypassValve sequences"
           fillColor={78,138,73},
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
-          points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}));
+          points={{-58.0,46.0},{42.0,-14.0},{-58.0,-74.0},{-58.0,46.0}})}),
+    Documentation(info="<html>
+<p>
+This package contains validation models for the classes in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.BypassValve</a>.
+</p>
+</html>"));
 end Validation;

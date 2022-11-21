@@ -236,7 +236,7 @@ Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,100}}),
         fillPattern=FillPattern.Solid),
       Text(
         extent={{-100,150},{100,110}},
-        lineColor={0,0,255},
+        textColor={0,0,255},
         textString="%name")}),
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
 Documentation(info="<html>

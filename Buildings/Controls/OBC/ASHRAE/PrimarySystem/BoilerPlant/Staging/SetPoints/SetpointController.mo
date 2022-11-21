@@ -526,7 +526,7 @@ equation
         fillPattern=FillPattern.Solid),
         Text(
           extent={{-110,210},{110,172}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name")}), Diagram(
         coordinateSystem(preserveAspectRatio=false,
         extent={{-400,-300},{120,320}})),
