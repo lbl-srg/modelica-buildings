@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Validation.Controller", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="coolingOnly");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"cooBoxCon.TZon", "cooBoxCon.TCooSet", "cooBoxCon.THeaSet", "cooBoxCon.TDis", "cooBoxCon.TSup"}, range={0.0, 90000.0, 10.0, 40.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}}, timeUnit="s", displayUnits={"degC", "degC", "degC", "degC", "degC"});
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"cooBoxCon.u1Win", "cooBoxCon.u1Occ"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"cooBoxCon.uOpeMod"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=103, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"cooBoxCon.ppmCO2"}, range={0.0, 90000.0, -1000.0, 2000.0}, grid=true, subPlot=104, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"cooBoxCon.VDis_flow"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=105, colors={{28,108,200}}, timeUnit="s", displayUnits={"m3/s"});
+createPlot(id=1, position={15, 15, 1320, 1406}, y={"cooBoxCon.oveFloSet", "cooBoxCon.oveDamPos"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=106, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"cooBoxCon.u1Fan"}, range={0.0, 90000.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"cooBoxCon.VSet_flow"}, range={0.0, 90000.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s", displayUnits={"m3/s"});
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"cooBoxCon.yDam"}, range={0.0, 90000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=2, position={1343, 17, 1302, 1406}, y={"cooBoxCon.yZonTemResReq", "cooBoxCon.yZonPreResReq", "cooBoxCon.yLowFloAla", "cooBoxCon.yFloSenAla", "cooBoxCon.yLeaDamAla"}, range={0.0, 90000.0, -2.0, 4.0}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}, {28,108,200}}, timeUnit="s");
+

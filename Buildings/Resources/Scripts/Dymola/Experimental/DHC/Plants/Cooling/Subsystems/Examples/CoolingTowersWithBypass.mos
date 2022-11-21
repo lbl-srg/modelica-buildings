@@ -9,7 +9,7 @@ simulateModel("Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.Coo
 removePlots(false);
 createPlot(id=1, 
 	position={21, 7, 620, 603}, 
-	y={"tow.TWetBul", "tow.sta_a.T", "tow.sta_b.T"}, 
+	y={"tow.TWetBul", "TEnt.T", "tow.TLvg"}, 
 	range={4320.0, 4370.0, 5.0, 30.0}, 
 	grid=true, 
 	filename="CoolingTowersWithBypass.mat",

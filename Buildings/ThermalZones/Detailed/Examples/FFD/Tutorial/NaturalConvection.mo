@@ -80,12 +80,12 @@ equation
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
     annotation (Line(
-      points={{120,-70},{76.2,-70},{76.2,-52.8333}},
+      points={{120,-70},{76.2,-70},{76.2,-52.4167}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TWesWal.port, roo.surf_surBou[2])
     annotation (Line(
-      points={{120,-110},{76.2,-110},{76.2,-52.5}},
+      points={{120,-110},{76.2,-110},{76.2,-52.25}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
@@ -95,7 +95,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
-          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
+          __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/FFD/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=7200),
        Documentation(info="<html>
@@ -319,7 +319,7 @@ Store <code>NaturalConvection.ffd</code>, <code>NaturalConvection.dat</code>, an
 at <code>Buildings/Resources/Data/ThermalZones/Detailed/Examples/FFD/Tutorial</code>.
 </li>
 <li>
-Set simulation the stop time of the Modelica model <code>7200</code> seconds and choose for example the CVode solver.
+Set simulation the stop time of the Modelica model <code>3600</code> seconds and choose for example the CVode solver.
 </li>
 <li>
 Translate the model and start the simulation.
@@ -364,7 +364,7 @@ First implementation.
 <p>
 <a name=\"ZuoEtAl2012\"/>
 Wangda Zuo, Mingang Jin, Qingyan Chen, 2012.<br/>
-<a href=\"http://doi.org/10.1080/19942060.2012.11015418\">
+<a href=\"https://doi.org/10.1080/19942060.2012.11015418\">
 Reduction of numerical viscosity in FFD model.</a><br/>
 Journal of Engineering Applications of Computational Fluid Mechanics, 6(2), p. 234-247.
 </p>

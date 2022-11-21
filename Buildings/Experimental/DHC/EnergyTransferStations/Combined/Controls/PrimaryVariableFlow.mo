@@ -15,7 +15,7 @@ block PrimaryVariableFlow
     "Minimum mass flow rate (ratio to nominal)";
   constant Modelica.Units.SI.SpecificHeatCapacity cp=Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity";
-  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)=
     Q_flow_nominal/cp/dT_nominal "Mass flow rate at nominal conditions";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput loa(final unit="W")
     "Signal approximating the load on condenser or evaporator"
@@ -30,9 +30,8 @@ block PrimaryVariableFlow
     final k=ratFloMin*m_flow_nominal)
     "Minimum mass flow rate"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain masFlo_dT(
-    final k=1/cp/dT_nominal)
-    "Mass flow rate for constant DeltaT"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter masFlo_dT(final k=1
+        /cp/dT_nominal) "Mass flow rate for constant DeltaT"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Max masFlo "Mass flow rate"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));

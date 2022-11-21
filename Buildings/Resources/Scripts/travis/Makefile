@@ -45,14 +45,15 @@ test-optimica-spawn-fmu:
 	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py )
 	@echo "    Success."
 
-test-omc-spawn-spaces: test-omc-spawn-spaces-success test-omc-spawn-spaces-failure
+test-openmodelica-spawn-spaces: test-openmodelica-spawn-spaces-success test-openmodelica-spawn-spaces-failure
 
-test-omc-spawn-spaces-success:
+test-openmodelica-spawn-spaces-success:
 	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings."
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
+	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
-	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
@@ -65,22 +66,24 @@ test-omc-spawn-spaces-success:
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
 	"loadModel(Modelica, {\"4.0.0\"});\n" \
-	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
+	"loadFile(\"Buildings 9.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
-	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
-	@rm -rf $(TMP)
+	@(cd $(TMP) && omc openmod.mos > /dev/null )
+	@cd $(TMP) && sudo grep -q "The simulation finished successfully." SpawnTest.log
+	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
-test-omc-spawn-spaces-failure:
+test-openmodelica-spawn-spaces-failure:
 	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
-	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
-	$(eval TMP := $(TMP)/dir\ with\ spaces)
+	$(eval TMP1 := $(shell mktemp --suffix=-LBL-Buildings -d))
+	@chmod a+rwx $(TMP1)
+	$(eval TMP := $(TMP1)/dir\ with\ spaces)
 	@mkdir -p $(TMP)
+	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
-	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "clearCommandLineOptions();\n" \
@@ -93,13 +96,13 @@ test-omc-spawn-spaces-failure:
 	"setMatchingAlgorithm(\"PFPlusExt\");\n" \
 	"setIndexReductionMethod(\"dynamicStateSelection\");\n" \
 	"loadModel(Modelica, {\"4.0.0\"});\n" \
-	"loadFile(\"Buildings 8.0.0/package.mo\");\n" \
+	"loadFile(\"Buildings 9.0.0/package.mo\");\n" \
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
-	@cd $(TMP) && grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
-	@rm -rf $(TMP)
+	@(cd $(TMP) && omc openmod.mos > /dev/null )
+	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
 test-dymola-spawn-spaces:
@@ -107,7 +110,7 @@ test-dymola-spawn-spaces:
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
-	@mv $(TMP)/Buildings $(TMP)/Buildings\ 8.0.0
+	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
 	@(cd  $(TMP) && \
 	  echo "simulateModel(\"SpawnTest\", stopTime=432000, method=\"Cvode\", tolerance=1e-06);" > run.mos && \
@@ -117,10 +120,6 @@ test-dymola-spawn-spaces:
 	@cd $(TMP) && grep -q "Integration terminated successfully" dslog.txt
 	@rm -rf $(TMP)
 	@echo "    Success."
-
-test-omc:
-	(cd $(ROOT) && \
-	  $(TRAVIS_BUILD_DIR)/Buildings/Resources/Scripts/travis/omc/testOpenModelica.sh)
 
 # Skip verification of translation statistics of certain models, see
 # https://github.com/lbl-srg/BuildingsPy/issues/441
@@ -144,6 +143,11 @@ test-dymola:
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  export BUILDINGSPY_SKIP_STATISTICS_VERIFICATION='$(BUILDINGSPY_SKIP_STATISTICS_VERIFICATION)' && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool dymola)
+
+test-openmodelica:
+	(cd $(ROOT)/Buildings && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification)
 
 test-optimica:
 	(cd $(ROOT)/Buildings && \

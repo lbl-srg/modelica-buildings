@@ -59,11 +59,11 @@ model SwitchBox "Validation of flow switch box"
     columns={2},
     timeScale=1000) "Set point for mass flow rate (normalized)"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai2(final k=m_flow_nominal)
-    "Scale with nominal mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=
+        m_flow_nominal) "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-46,70},{-26,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai1(final k=m_flow_nominal)
-    "Scale with nominal mass flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=
+        m_flow_nominal) "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
 equation
   connect(pum1.port_b, volSup.ports[1]) annotation (Line(points={{-10,0},{-60,0},

@@ -85,7 +85,7 @@ protected
     pre(y)=pre_y_start;
 
   equation
-    y=(not pre(y) and u > t or pre(y) and u >= t-h);
+    y=(not pre(y) and u > t or pre(y) and u > t-h);
     annotation (
       Icon(
         graphics={
@@ -194,22 +194,34 @@ is greater than a threshold <code>t</code>, optionally within a hysteresis <code
 </p>
 <p>
 The parameter <code>h &ge; 0</code> is used to specify a hysteresis.
-If <i>h &ne; 0</i>, then the output switches to <code>true</code> if <i>u &gt; t</i>,
+For any <i>h &ge; 0</i>, the output switches to <code>true</code> if <i>u &gt; t</i>,
 where <i>t</i> is the threshold,
-and it switches to <code>false</code> if <i>u &lt; t - h</i>.
-If <i>h = 0</i>, the output is <i>y = u &gt; t</i>.
+and it switches to <code>false</code> if <i>u &le; t - h</i>.
+Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u &gt; t</i>.
 </p>
 <p>
-Enabling hysteresis can avoid frequent switching.
-Adding hysteresis is recommended in real controllers to guard against sensor noise, and
-in simulation to guard against numerical noise. Numerical noise can be present if
-an input depends on a state variable or a quantity that requires an iterative solution, such as
-a temperature or a mass flow rate of an HVAC system.
 To disable hysteresis, set <code>h=0</code>.
 </p>
+<h4>Usage</h4>
+<p>
+Enabling hysteresis can avoid frequent switching.<br/>
+In simulation, adding hysteresis is recommended to guard against numerical noise.
+Otherwise, numerical noise from a nonlinear solver or from an
+implicit time integration algorithm may cause the simulation to stall.
+Numerical noise can be present if an input depends
+on a state variable or a quantity that requires an iterative solution,
+such as a temperature or a mass flow rate of an HVAC system.<br/>
+In real controllers, adding hysteresis is recommended to guard against measurement noise.
+Otherwise, measurement noise may cause the output to change frequently.
+</p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+April 29, 2022, by Jianjun Hu:<br/>
+Corrected the condition of swiching true back to false.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2981\">issue 2981</a>.
+</li>
 <li>
 February 3, 2021, by Antoine Gautier:<br/>
 Corrected documentation.<br/>

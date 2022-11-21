@@ -40,38 +40,42 @@ block OptimalStart
     displayUnit="degC",
     min=200) if computeHeating
     "Zone heating setpoint temperature during occupancy"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),iconTransformation(extent={{-140,60},{-100,100}})));
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200)
     "Zone temperature"
-    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),iconTransformation(extent={{-140,
-            -60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetZonCoo(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=200) if computeCooling
     "Zone cooling setpoint temperature during occupancy"
-    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),iconTransformation(extent={{-140,20},
-            {-100,60}})));
+    annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tNexOcc(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Time until next occupancy"
-    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),iconTransformation(extent={{-140,-100},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOpt(
     final quantity="Time",
     final unit="s",
     displayUnit="h")
     "Optimal start time duration of HVAC system"
-    annotation (Placement(transformation(extent={{140,20},{180,60}}),iconTransformation(extent={{100,20},{140,60}})));
+    annotation (Placement(transformation(extent={{140,20},{180,60}}),
+      iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput optOn
     "Outputs true if the HVAC system remains in the optimal start period"
-    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),iconTransformation(extent={{100,-60},{140,-20}})));
+    annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.Utilities.BaseClasses.OptimalStartCalculation optHea(
     final tOptMax=tOptMax,
     final thrOptOn=thrOptOn,
@@ -88,7 +92,7 @@ block OptimalStart
     final uHigh=uHigh) if computeCooling
     "Optimal start time for cooling system"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  CDL.Continuous.GreaterThreshold hysSta(
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold hysSta(
     t=60,
     h=60)
     "Hysteresis to activate the optimal start boolean output"
@@ -99,21 +103,16 @@ protected
     "Get the maximum optimal start time "
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=-tOptMax,
-    k=1)
+    p=-tOptMax)
     "Maximum optimal start time"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Get the optimal start boolean output"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTHea(
-    final k1=+1,
-    final k2=-1) if computeHeating
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHea if computeHeating
     "Temperature difference between heating setpoint and zone temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add dTCoo(
-    final k1=+1,
-    final k2=-1) if computeCooling
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTCoo if computeCooling
     "Temperature difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg

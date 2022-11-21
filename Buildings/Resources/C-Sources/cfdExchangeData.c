@@ -18,6 +18,10 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+
+#include "ModelicaUtilities.h"
+
 /*
  * Exchange the data between Modelica and CFD
  *
@@ -30,7 +34,7 @@
  *
  * @return 0 if no error occurred
  */
-int cfdExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
+int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
   size_t i, j, k;
 

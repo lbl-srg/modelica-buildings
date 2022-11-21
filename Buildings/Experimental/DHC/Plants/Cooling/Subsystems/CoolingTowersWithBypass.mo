@@ -8,7 +8,7 @@ model CoolingTowersWithBypass
     "Number of cooling towers";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
@@ -144,8 +144,7 @@ model CoolingTowersWithBypass
     "Compare if (TWetBul+dTApp) is greater than TMin"
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    p=dTApp,
-    k=1)
+    p=dTApp)
     "Add approach temperature on top of wetbulb temperature"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Fluid.FixedResistances.Junction jun(
@@ -172,19 +171,19 @@ equation
   connect(senTCWSup.port_b,port_b)
     annotation (Line(points={{80,0},{100,0}},color={0,127,255}));
   connect(TSetByp.y,bypValCon.u_s)
-    annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
+    annotation (Line(points={{-68,-50},{-62,-50}},color={0,0,127}));
   connect(senTCWSup.T,bypValCon.u_m)
     annotation (Line(points={{70,11},{70,30},{54,30},{54,-80},{-50,-80},{-50,-62}},
                                                                     color={0,0,127}));
   connect(valByp.port_b,senTCWSup.port_a)
     annotation (Line(points={{10,-40},{30,-40},{30,0},{60,0}},color={0,127,255}));
   connect(cooTowSpeCon.y,cooTowSys.uFanSpe)
-    annotation (Line(points={{11,50},{16,50},{16,14},{-18,14},{-18,2},{-12,2}},
+    annotation (Line(points={{12,50},{16,50},{16,14},{-18,14},{-18,2},{-12,2}},
       color={0,0,127}));
   connect(cooTowSys.PFan,PFan)
     annotation (Line(points={{11,6},{40,6},{40,60},{110,60}},color={0,0,127}));
   connect(bypValCon.y,valByp.y)
-    annotation (Line(points={{-39,-50},{-20,-50},{-20,-20},{0,-20},{0,-28}},
+    annotation (Line(points={{-38,-50},{-20,-50},{-20,-20},{0,-20},{0,-28}},
       color={0,0,127}));
   connect(senTCWSup.T,cooTowSpeCon.u_m)
     annotation (Line(points={{70,11},{70,30},{0,30},{0,38}},
@@ -194,7 +193,7 @@ equation
   connect(cooTowSpeCon.u_s,swi.y)
     annotation (Line(points={{-12,50},{-18,50}},color={0,0,127}));
   connect(TSetByp.y,swi.u3)
-    annotation (Line(points={{-69,-50},{-66,-50},{-66,34},{-46,34},{-46,42},{-42,
+    annotation (Line(points={{-68,-50},{-66,-50},{-66,34},{-46,34},{-46,42},{-42,
           42}},          color={0,0,127}));
   connect(TWetBul,addPar.u)
     annotation (Line(points={{-120,-20},{-86,-20},{-86,80},{-82,80}},
@@ -206,7 +205,7 @@ equation
     annotation (Line(points={{-120,40},{-80,40},{-80,6},{-12,6}},
       color={255,0,255}));
   connect(on[1],bypValCon.trigger)
-    annotation (Line(points={{-120,40},{-80,40},{-80,-28},{-94,-28},{-94,-80},{-56,
+    annotation (Line(points={{-120,30},{-80,30},{-80,-28},{-94,-28},{-94,-80},{-56,
           -80},{-56,-62}},
       color={255,0,255}));
   connect(port_a, jun.port_1)
@@ -391,13 +390,13 @@ equation
 </ul>
 </html>",
       info="<html>
-<p>This model simulates parallel connected cooling tower subsystem with a bypass 
+<p>This model simulates parallel connected cooling tower subsystem with a bypass
 valve. </p>
-<p>The bypass valve is controlled to enforce that the leaving condenser water 
+<p>The bypass valve is controlled to enforce that the leaving condenser water
 temperature does not drop below the minimum temperature <code>TMin</code>.</p>
-<p>By default, the condenser water setpoint is the ambient wet bulb temperature 
+<p>By default, the condenser water setpoint is the ambient wet bulb temperature
 <code>TWetBul</code> plus the approach temperature <code>dTApp</code>. </p>
-<p>Inside the model, a cooling tower fan speed controller is also implemented to 
+<p>Inside the model, a cooling tower fan speed controller is also implemented to
 maintain the condenser water at its setpoint.</p>
 </html>"));
 end CoolingTowersWithBypass;

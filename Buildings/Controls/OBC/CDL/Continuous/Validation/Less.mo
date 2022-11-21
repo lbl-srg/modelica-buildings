@@ -3,38 +3,39 @@ model Less
   "Validation model for the Less block"
   Buildings.Controls.OBC.CDL.Continuous.Less les
     "Less block, without hysteresis"
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Less lesHys(
-    h=0.2)
+    h=1)
     "Less block, with hysteresis"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Sources.TimeTable ram(
+    annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    table=[0,-1; 3,1; 5,0; 7,2; 10,0])
+    "Time table with smoothness method of constant segments"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
+    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     table=[
       0,0;
-      1,0;
-      2,1;
-      3,1;
-      4,0;
-      5,0])
-    "Ramp signal"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Sources.Constant con(
-    k=0.5)
-    "Constant signal"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+      4,1;
+      6,0;
+      7,-1;
+      10,-2])
+    "Time table with smoothness method of constant segments"
+    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
-  connect(con.y,lesHys.u2)
-    annotation (Line(points={{-38,-10},{-26,-10},{-26,-28},{-12,-28}},color={0,0,127}));
-  connect(con.y,les.u2)
-    annotation (Line(points={{-38,-10},{-26,-10},{-26,22},{-12,22}},color={0,0,127}));
-  connect(ram.y[1],les.u1)
-    annotation (Line(points={{-38,30},{-12,30}},color={0,0,127}));
-  connect(ram.y[1],lesHys.u1)
-    annotation (Line(points={{-38,30},{-20,30},{-20,-20},{-12,-20}},color={0,0,127}));
+  connect(timTabLin.y[1], les.u1)
+    annotation (Line(points={{-18,20},{18,20}}, color={0,0,127}));
+  connect(timTabLin.y[1], lesHys.u1) annotation (Line(points={{-18,20},{0,20},{0,
+          -20},{18,-20}}, color={0,0,127}));
+  connect(timTabLin1.y[1], les.u2) annotation (Line(points={{-18,-20},{-10,-20},
+          {-10,12},{18,12}}, color={0,0,127}));
+  connect(timTabLin1.y[1], lesHys.u2) annotation (Line(points={{-18,-20},{-10,-20},
+          {-10,-28},{18,-28}}, color={0,0,127}));
   annotation (
     experiment(
-      StopTime=5.0,
+      StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Less.mos" "Simulate and plot"),
