@@ -4,7 +4,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
     final deltaM =  eta_default*dh/4*Modelica.Constants.pi*ReC/m_flow_nominal_pos,
     final dp_nominal=dp_length_nominal*length);
 
-  final parameter Modelica.Units.SI.Length dh(
+  parameter Modelica.Units.SI.Length dh(
     fixed=false,
     start=0.01,
     min=0.01) "Hydraulic diameter (assuming a round cross section area)";
@@ -29,7 +29,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
     "Factor to take into account resistance of bends etc., fac=dp_nominal/dpStraightPipe_nominal";
 
   final parameter Modelica.Units.SI.PressureDifference dpStraightPipe_nominal(
-      displayUnit="Pa") =
+      displayUnit="Pa")=
     Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow(
     m_flow=m_flow_nominal,
     rho_a=rho_default,
@@ -101,7 +101,7 @@ depends on <code>dp_nominal</code> and must be evaluated at compile time.
 <ul>
 <li>
 November 18, 2022, by David Blum:<br/>
-Start attribute for parameter dh changed to 0.01 and parameter made final.<br/>
+Start attribute for parameter dh changed to 0.01.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue 2510</a>.
 </li>
 <li>
