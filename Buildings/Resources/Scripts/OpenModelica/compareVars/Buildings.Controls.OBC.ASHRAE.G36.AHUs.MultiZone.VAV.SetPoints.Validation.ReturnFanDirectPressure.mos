@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "retFanPre.dpBui",
+    "retFanPre.dpBuiSet",
+    "retFanPre.yRelDam",
+    "retFanPre.conP.y",
+    "retFanPre.u1SupFan",
+    "retFanPre1.dpDisSet",
+    "retFanPre1.yRelDam",
+    "retFanPre1.conP.y",
+    "retFanPre2.dpDisSet",
+    "retFanPre2.yRelDam",
+    "retFanPre2.conP.y"
+  };
