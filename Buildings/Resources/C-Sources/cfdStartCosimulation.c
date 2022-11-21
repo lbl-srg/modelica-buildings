@@ -86,7 +86,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     for(i=0; i<nSou; i++) {
       cosim->para->souName[i] = (char *)malloc(sizeof(char)*(strlen(sourceName[i])+1));
 	  if (cosim->para->souName[i] == NULL){
-        ModelicaError("Failed to allocate memory for cosim->para->souName[%d] in cfdStartCosimulation.c", i);
+        ModelicaError("Failed to allocate memory for cosim->para->souName[%d] in cfdStartCosimulation.c");
 		return -1;
 	  }
       strcpy(cosim->para->souName[i], sourceName[i]);
