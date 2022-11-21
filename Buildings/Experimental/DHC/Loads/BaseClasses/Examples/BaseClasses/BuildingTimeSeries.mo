@@ -9,7 +9,8 @@ model BuildingTimeSeries
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
-    final have_weaBus=false);
+    final have_weaBus=false,
+    final facMul=1);
   replaceable package Medium2=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Load side medium";
@@ -18,10 +19,10 @@ model BuildingTimeSeries
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String filNam
     "File name with thermal loads as time series";
-  parameter Real facMulHea=1
+  parameter Real facMulHea=10*QHea_flow_nominal/(1.7E5)
     "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat, group="Scaling"));
-  parameter Real facMulCoo=1
+  parameter Real facMulCoo=40*QCoo_flow_nominal/(-1.5E5)
     "Cooling terminal unit scaling factor"
     annotation(Dialog(enable=have_chiWat, group="Scaling"));
   parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=313.15
@@ -131,7 +132,7 @@ model BuildingTimeSeries
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
     final facMul=facMulHea,
-    final facMulZon=1,
+    final facMulZon=facMul,
     final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
@@ -174,7 +175,7 @@ model BuildingTimeSeries
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
     final facMul=facMulCoo,
-    final facMulZon=1,
+    final facMulZon=facMul,
     final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,
@@ -282,6 +283,14 @@ are provided as time series.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 21, 2022, by David Blum:<br/>
+Make <code>facMul=1</code> and <code>final</code>. <br/>
+Scale <code>facMulHea</code> and <code>facMulCoo</code> with peak load.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">
+issue 2302</a>.
+</li>
 <li>
 December 21, 2020, by Antoine Gautier:<br/>
 Refactored for optional hot water and multiplier factor.<br/>
