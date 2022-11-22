@@ -8,9 +8,7 @@ model DomesticWaterHeater
   parameter Modelica.Units.SI.Temperature TDcw = 273.15+10 "Temperature setpoint of domestic cold water supply";
   parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal = 0.1 "Nominal mass flow rate of hot water supply";
   parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal = 1 "Nominal mass flow rate of district heating water";
-  parameter Boolean havePEle=true "Flag that specifies whether electric power is required for water heating";
-  parameter Modelica.Units.SI.Efficiency eps(max=1) = 0.8 "Heat exchanger effectiveness";
-  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf "Maximum heat flow rate for heating (positive)";
+  parameter Boolean havePEle = datGenDHW.havePEle "Flag that specifies whether electric power is required for water heating";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
@@ -21,11 +19,11 @@ model DomesticWaterHeater
         origin={-30,30})));
   DirectHeatExchangerWaterHeaterWithAuxHeat genDHW(
     redeclare package Medium = Medium,
-    havePEle=havePEle,
-    mHw_flow_nominal=mHw_flow_nominal,
-    mDH_flow_nominal=mDH_flow_nominal,
-    eps=eps,
-    QMax_flow=QMax_flow)               "Generation of DHW"
+    havePEle = havePEle,
+    mHw_flow_nominal = mHw_flow_nominal,
+    mDH_flow_nominal = mDH_flow_nominal,
+    eps=datGenDHW.eps,
+    QMax_flow = datGenDHW.QMax_flow) "Generation of DHW"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sinDhw(
     redeclare package Medium = Medium,
@@ -59,6 +57,8 @@ model DomesticWaterHeater
   Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  replaceable Data.DirectHeatExchangerWaterHeater datGenDHW
+    annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
 equation
   connect(conTSetHw.y, genDHW.TSetHw)
     annotation (Line(points={{-79,0},{-11,0}}, color={0,0,127}));
