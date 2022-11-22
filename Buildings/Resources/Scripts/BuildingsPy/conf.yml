@@ -430,3 +430,7 @@
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
     simulate: false
+- model_name: Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
+  optimica:
+    comment: 'Could not solve initialization. Could not bracket the root. Iteration variable <value name="variable">"pipAut1.dh"</value>'
+    simulate: false
