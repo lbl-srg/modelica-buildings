@@ -4,21 +4,33 @@ block PID "Identifies the parameters of a PID controller"
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(final min=0)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(final min=1E-6)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain signal"
     annotation (Placement(transformation(extent={{100,50},{140,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Connector for time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Connector for time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gai

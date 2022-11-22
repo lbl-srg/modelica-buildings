@@ -4,18 +4,27 @@ block PI "Identify the parameters of a PI controller"
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(final min=0)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(final min=1E-6)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain signal"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain gain

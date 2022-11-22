@@ -11,25 +11,43 @@ block ControlProcessModel
     "Output of a relay controller"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps
+    )
     "Length for the On period"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
     iconTransformation(extent={{-140,20},{-100,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps
+    )
     "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tau(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps
+    )
     "Normalized time delay" annotation (Placement(
         transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
     annotation (Placement(transformation(extent={{100,36},{140,86}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput T
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput T(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput L
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput L(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain gain(
