@@ -16,14 +16,15 @@ model HeatPumpWaterHeaterWithTank
   parameter Modelica.Units.SI.Height hHex_b = hHex_b "Height of portHex_b of the heat exchanger, measured from tank bottom";
   parameter Modelica.Units.SI.Temperature TTan_nominal = TTan_nominal "Temperature of fluid inside the tank at nominal heat transfer conditions";
   parameter Modelica.Units.SI.Temperature THex_nominal = THex_nominal "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
+  parameter Integer nSeg(min=2) = nSeg "Number of volume segments";
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare package
       Medium = Medium, m_flow_nominal=mHw_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,50},{10,70}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    m1_flow_nominal=mHw_flow_nominal,
+    m1_flow_nominal=mHex_flow_nominal,
     m2_flow_nominal=mDH_flow_nominal,
     QCon_flow_max = QCon_flow_max,
     QCon_flow_nominal=QCon_flow_nominal,
@@ -38,7 +39,7 @@ model HeatPumpWaterHeaterWithTank
     hTan=hTan,
     dIns=dIns,
     kIns=kIns,
-    nSeg=5,
+    nSeg=nSeg,
     redeclare package MediumHex = Medium,
     Q_flow_nominal = QTan_flow_nominal,
     hHex_a = hHex_a,
