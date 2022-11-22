@@ -49,7 +49,7 @@ model DomesticWaterMixer "A model for a domestic water mixer"
         Medium) "Mass flow rate of domestic hot water"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=uLow, uHigh=uHigh)
-    annotation (Placement(transformation(extent={{54,22},{44,32}})));
+    annotation (Placement(transformation(extent={{56,24},{44,36}})));
 equation
   connect(conTSetCon.y, conPID.u_s)
     annotation (Line(points={{59,70},{42,70}}, color={0,0,127}));
@@ -59,13 +59,13 @@ equation
           {20,-6.66134e-16},{20,0}}, color={0,127,255}));
   connect(conPID.y, ValHea.y) annotation (Line(points={{19,70},{0,70},{0,12},{
           9.99201e-16,12}}, color={0,0,127}));
-  connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,30},{34,30},{34,
-          40},{96,40},{96,60},{110,60}},
-                         color={0,0,127}));
+  connect(senTemTw.T, TTw) annotation (Line(points={{30,11},{30,40},{90,40},{90,
+          60},{110,60}}, color={0,0,127}));
   connect(ValHea.port_1, senTemHw.port_b) annotation (Line(points={{-10,
           1.77636e-15},{-10,0},{-20,0}}, color={0,127,255}));
-  connect(senTemHw.port_a, port_hw) annotation (Line(points={{-40,0},{-54,0},{-54,
-          60},{-100,60}}, color={0,127,255}));
+  connect(senTemHw.port_a, port_hw) annotation (Line(points={{-40,0},{-60,0},{
+          -60,60},{-100,60}},
+                          color={0,127,255}));
   connect(ValHea.port_3, senTemCw.port_b) annotation (Line(points={{-1.77636e-15,
           -10},{-1.77636e-15,-60},{-20,-60}}, color={0,127,255}));
   connect(senTemCw.port_a, port_cw)
@@ -75,9 +75,10 @@ equation
   connect(senFloDhw.port_b, port_tw)
     annotation (Line(points={{70,0},{100,0}}, color={0,127,255}));
   connect(hysteresis.u, senFloDhw.m_flow)
-    annotation (Line(points={{55,27},{60,27},{60,11}}, color={0,0,127}));
+    annotation (Line(points={{57.2,30},{60,30},{60,11}},
+                                                       color={0,0,127}));
   connect(hysteresis.y, conPID.trigger)
-    annotation (Line(points={{43.5,27},{38,27},{38,58}}, color={255,0,255}));
+    annotation (Line(points={{43.4,30},{38,30},{38,58}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
