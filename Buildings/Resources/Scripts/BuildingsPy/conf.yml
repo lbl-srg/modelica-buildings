@@ -432,5 +432,5 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
   optimica:
-    comment: 'Could not solve initialization. Could not bracket the root. Iteration variable <value name="variable">"pipAut1.dh"</value>'
+    comment: Could not solve initialization. Could not bracket the root. Iteration variable pipAut1.dh
     simulate: false
