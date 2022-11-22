@@ -19,6 +19,14 @@ partial model EquipmentInterfaces
     "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
 
+  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
+    "Nominal mass flow rate of outdoor air"
+    annotation(Dialog(group="System parameters"));
+
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
+    "Nominal mass flow rate of supply air"
+    annotation(Dialog(group="System parameters"));
+
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
     "Type of heating coil used"

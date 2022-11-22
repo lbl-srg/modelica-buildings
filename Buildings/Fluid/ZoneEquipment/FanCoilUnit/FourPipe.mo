@@ -20,12 +20,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
   parameter Modelica.Units.SI.ThermalConductance UACooCoi_nominal
     "Thermal conductance at nominal flow, used to compute heat capacity"
     annotation(Dialog(group="Cooling coil parameters"));
-  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
-    "Nominal mass flow rate of outdoor air"
-    annotation(Dialog(group="System parameters"));
-  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
-    "Nominal mass flow rate of supply air"
-    annotation(Dialog(group="System parameters"));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirHea(redeclare final package
       Medium =
