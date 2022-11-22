@@ -2,14 +2,14 @@
 # coding: utf-8
 
 # This script shall be run from the top level directory within `modelica-buildings`,
-# i.e., where `./Buildings/package.mo` can be found.
+# i.e., where `./Buildings` can be found.
 # The script takes as an optional positional argument the Modelica tool to use
 # (Dymola or Optimica, defaulting to Dymola).
-# The script
-# - generates all possible combinations of class modifications based on a set of
-#   parameter bindings and redeclare statements provided in `MODIF_GRID`,
-# - exclude the combinations based on a match with the patterns provided in `EXCLUDE`,
-# - for the remaining combinations: run the corresponding simulations for the models in `MODELS`.
+# The script performs the following tasks.
+# - Generate all possible combinations of class modifications based on a set of
+#   parameter bindings and redeclare statements provided in `MODIF_GRID`.
+# - Exclude the combinations based on a match with the patterns provided in `EXCLUDE`.
+# - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
 # The script returns
 # - 0 if all simulations succeed,
 # - 1 otherwise.
@@ -30,7 +30,7 @@ except IndexError:
     SIMULATOR = 'Dymola'
 
 MODELS = [
-    'Buildings.Templates.ChilledWaterPlants.Validation.AirCooledOpenLoop',
+    # 'Buildings.Templates.ChilledWaterPlants.Validation.AirCooledOpenLoop',
     'Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledOpenLoop',
     # 'Buildings.Templates.ChilledWaterPlants.Validation.WaterCooledG36',
 ]
@@ -194,26 +194,26 @@ def simulateCase(arg, simulator):
     finally:
         os.chdir(cwd)
     # Test if simulation succeeded.
-    if simulator == 'Dymola':
-        with open(os.path.join(output_dir_path, 'simulator.log')) as fh:
-            log = fh.read()
-        if re.search('\n = false', log):
-            toreturn = 1
-        else:
-            toreturn = 0
-    elif simulator == 'Optimica':
-        try:
+    try:
+        if simulator == 'Dymola':
+            with open(os.path.join(output_dir_path, 'simulator.log')) as fh:
+                log = fh.read()
+            if re.search('\n = false', log):
+                toreturn = 1
+            else:
+                toreturn = 0
+        elif simulator == 'Optimica':
             with open(glob.glob(os.path.join(fr'{output_dir_path}', '*buildingspy.json'))[0], 'r') as f:
                 log = json.load(f)
             if log['simulation']['success']:
                 toreturn = 0
             else:
                 toreturn = 1
-        except Exception as e:
-            toreturn = 3
-            print(e)
-
-    shutil.rmtree(output_dir_path, ignore_errors=True)
+    except FileNotFoundError as e:
+        toreturn = 3
+        print(e)
+    finally:
+        shutil.rmtree(output_dir_path, ignore_errors=True)
 
     return toreturn
 
@@ -290,7 +290,7 @@ if __name__ == '__main__':
 
     try:
         os.unlink('tmp_func.py')
-        os.unlink('templates_error.log')
+        os.unlink('unitTestsTemplates.log')
     except FileNotFoundError:
         pass
 
@@ -303,14 +303,14 @@ if __name__ == '__main__':
         ))
 
     for idx in df[df.result != 0].index:
-        with open('templates_error.log', 'w') as FH:
+        with open('unitTestsTemplates.log', 'w') as FH:
             FH.writelines([
                 f'*** Simulation failed for {df.iloc[idx].model} with the following class modifications:\n',
                 ', \n'.join(df.iloc[idx].modif), '\n'
             ])
 
     if df.result.abs().sum() != 0:
-        print(CRED + 'Some simulations failed: ' + CEND + 'see the file `templates_error.log`.\n')
+        print(CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n')
         sys.exit(1)
     else:
         print(CGREEN + 'All simulations succeeded.\n' + CEND)
