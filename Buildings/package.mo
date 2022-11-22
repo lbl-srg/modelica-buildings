@@ -203,12 +203,12 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_9_0_1 "Version 9.0.1"
+  class Version_9_1_0 "Version 9.1.0"
   extends Modelica.Icons.ReleaseNotes;
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.0.1 is ... xxx
+Version 9.1.0 is backward compatible with 9.0.0 xxx
 </p>
 </div>
 <!-- New libraries -->
@@ -231,6 +231,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.Examples.GlobalPerezTiltedSurface
+    </td>
+    <td valign=\"top\">Added model that outputs the global solar irradiation on a tilted surface.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1654\">IBPSA, #1654</a>.
+    </td>
+ </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
   </tr>
@@ -252,6 +262,26 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Applications.DataCenter</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Applications.BaseClasses.Equipment.FlowMachine_m<br/>
+                         Buildings.Applications.BaseClasses.Equipment.FlowMachine_y<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialCoolingCoilHumidifyingHeating<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialHeatExchanger<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.PartialPumpParallel<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses.SignalFilterParameters<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Equipment.Validation.IntegratedPrimarySecondary<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PartialDataCenter<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimaryLoadSideEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.IntegratedPrimarySecondaryEconomizer<br/>
+                         Buildings.Applications.DataCenters.ChillerCooled.Examples.NonIntegratedPrimarySecondaryEconomizer
+    </td>
+    <td valign=\"top\">Improved implementation to avoid high pressures due to pump with forced mass flow rate.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, #1659</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
   </tr>
@@ -262,7 +292,41 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
     </td>
   </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental.DHC</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Validation.CollectorDistributor<br/>
+                         Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump<br/>
+                         Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.BaseClasses.PartialCoolingTowersSubsystem<br/>
+                         Buildings.Experimental.DHC.Plants.Cooling.Subsystems.Examples.CoolingTowersParallel
+    </td>
+    <td valign=\"top\">Improved implementation to avoid high pressures due to pump with forced mass flow rate.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, #1659</a>.
+    </td>
+  </tr>
   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve
+    </td>
+    <td valign=\"top\">Propagated parameter <code>riseTime</code> to valves. The value is not used as the filter is disabled,
+                       but it will show in the result file. Having a consistent value for all these parameters in the result filter
+                       helps during debugging.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1663\">IBPSA, #1663</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction
+    </td>
+    <td valign=\"top\">Initialized variable which otherwise lead to the simulation to fail in OpenModelica.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1664\">IBPSA, #1664</a>.
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
@@ -369,6 +433,15 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3095\">issue 3095</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel
+    </td>
+    <td valign=\"top\">Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
+                     to condenser water parameters and vice versa.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
     </td>
 </tr>
@@ -452,7 +525,7 @@ xxx
 </li>
 </ul>
 </html>"));
-  end Version_9_0_1;
+  end Version_9_1_0;
 
   class Version_9_0_0 "Version 9.0.0"
   extends Modelica.Icons.ReleaseNotes;
@@ -10894,7 +10967,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_1\">Version 9.0.1</a> (xxx, 2022)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_0\">Version 9.1.0</a> (xxx, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
@@ -11443,7 +11516,7 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="9.0.1",
+version="9.1.0",
 versionDate="2022-05-31",
 dateModified="2022-05-31",
 uses(Modelica(version="4.0.0")),
