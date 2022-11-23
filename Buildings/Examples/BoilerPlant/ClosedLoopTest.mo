@@ -8,7 +8,7 @@ model ClosedLoopTest "Closed loop testing model"
     "Medium model";
 
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=113.45
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=113.45
     "Radiator nominal mass flow rate";
 
   parameter Real boiDesCap(
@@ -133,14 +133,13 @@ protected
     "Boolean to Integer conversion"
     annotation (Placement(transformation(extent={{150,20},{170,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Gain gai(
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=-1)
     "Convert to heating load"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=273.15,
-    final k=1)
+    final p=273.15)
     "Convert temperature to Kelvin"
     annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
 

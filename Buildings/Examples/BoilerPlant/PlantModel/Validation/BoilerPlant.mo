@@ -8,7 +8,7 @@ model BoilerPlant
   replaceable package MediumW =
       Buildings.Media.Water "Medium model";
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = 20000
     "Nominal heat flow rate of radiator";
 
   Buildings.Examples.BoilerPlant.PlantModel.BoilerPlant boilerPlant(

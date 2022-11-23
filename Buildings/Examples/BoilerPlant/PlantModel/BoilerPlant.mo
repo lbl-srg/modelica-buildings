@@ -9,19 +9,19 @@ model BoilerPlant
       Buildings.Media.Water
     "Medium model";
 
-  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*1.2*6/3600
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal = V*1.2*6/3600
     "Nominal mass flow rate"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = boiEff1[1]*boiCap1 + boiEff2[1]*boiCap2
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal = boiEff1[1]*boiCap1 + boiEff2[1]*boiCap2
     "Nominal heat flow rate of radiator"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.HeatFlowRate boiCap1= 15000
+  parameter Modelica.Units.SI.HeatFlowRate boiCap1= 15000
     "Boiler capacity for boiler-1"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.HeatFlowRate boiCap2= 15000
+  parameter Modelica.Units.SI.HeatFlowRate boiCap2= 15000
     "Boiler capacity for boiler-2"
     annotation(dialog(group="Boiler parameters"));
 
@@ -37,39 +37,39 @@ model BoilerPlant
     "Efficiency for boiler-2"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+70
+  parameter Modelica.Units.SI.Temperature TRadSup_nominal = 273.15+70
     "Radiator nominal supply water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TRadRet_nominal = 273.15+50
+  parameter Modelica.Units.SI.Temperature TRadRet_nominal = 273.15+50
     "Radiator nominal return water temperature"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=0.000604*1000
+  parameter Modelica.Units.SI.MassFlowRate mRad_flow_nominal=0.000604*1000
     "Radiator nominal mass flow rate"
     annotation(dialog(group="Radiator parameters"));
 
-  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+70
+  parameter Modelica.Units.SI.Temperature TBoiSup_nominal = 273.15+70
     "Boiler nominal supply water temperature"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
+  parameter Modelica.Units.SI.Temperature TBoiRet_min = 273.15+60
     "Boiler minimum return water temperature"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal1=mRad_flow_nominal
     "Boiler-1 nominal mass flow rate"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mBoi_flow_nominal2=mRad_flow_nominal
     "Boiler-2 nominal mass flow rate"
     annotation(dialog(group="Boiler parameters"));
 
-  parameter Modelica.SIunits.Volume V=1200
+  parameter Modelica.Units.SI.Volume V=1200
     "Room volume"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.Temperature TAir_nominal=273.15 + 23.9
+  parameter Modelica.Units.SI.Temperature TAir_nominal=273.15 + 23.9
     "Air temperature at nominal condition"
     annotation(dialog(group="Zone parameters"));
 
@@ -80,10 +80,10 @@ model BoilerPlant
     "Zone thermal capacitance"
     annotation(dialog(group="Zone parameters"));
 
-  parameter Modelica.SIunits.PressureDifference dpValve_nominal_value=6000
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal_value=6000
     "Nominal pressure drop of fully open valve, used if CvData=Buildings.Fluid.Types.CvTypes.OpPoint";
 
-  parameter Modelica.SIunits.PressureDifference dpFixed_nominal_value=1000
+  parameter Modelica.Units.SI.PressureDifference dpFixed_nominal_value=1000
     "Pressure drop of pipe and other resistances that are in series";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uBoiSta[2]
@@ -354,7 +354,7 @@ model BoilerPlant
     "Boolean to Real conversion"
     annotation (Placement(transformation(extent={{-220,30},{-200,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro[1]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro[1]
     "Element-wise product"
     annotation (Placement(transformation(extent={{-210,-20},{-190,0}})));
 
@@ -470,7 +470,7 @@ model BoilerPlant
     "PI controller for regulating hot water supply temperature from boiler"
     annotation (Placement(transformation(extent={{-230,-120},{-210,-100}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro1[2]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[2]
     "Product of required boiler part load ratio and current status"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
@@ -507,8 +507,7 @@ model BoilerPlant
     "End boiler part load hold when supply temperature setpoint is achieved or if supply temperature exceeds safe operation limit"
     annotation (Placement(transformation(extent={{-140,-218},{-120,-198}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add1[2](
-    final k1=fill(-1, 2))
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub1[2]
     "Find difference between setpoint and measured temperature"
     annotation (Placement(transformation(extent={{-290,-170},{-270,-150}})));
 
@@ -535,7 +534,7 @@ model BoilerPlant
     "Multi-Or"
     annotation (Placement(transformation(extent={{-250,74},{-230,94}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Product pro2[2]
+  Buildings.Controls.OBC.CDL.Continuous.Multiply pro2[2]
     "Product of required boiler part load ratio and current status"
     annotation (Placement(transformation(extent={{-270,-120},{-250,-100}})));
 
@@ -821,14 +820,16 @@ equation
   connect(greThr.y, mulAnd.u[1:2]) annotation (Line(points={{-238,-160},{-236,-160},
           {-236,-163.5},{-232,-163.5}}, color={255,0,255}));
 
-  connect(add1.y, greThr.u)
+  connect(sub1.y, greThr.u)
     annotation (Line(points={{-268,-160},{-262,-160}}, color={0,0,127}));
 
-  connect(senTem3.T, add1[1].u2) annotation (Line(points={{70,-199},{70,-188},{-300,
-          -188},{-300,-166},{-292,-166}}, color={0,0,127}));
+  connect(senTem3.T,sub1 [1].u1) annotation (Line(points={{70,-199},{70,-188},{
+          -300,-188},{-300,-154},{-292,-154}},
+                                          color={0,0,127}));
 
-  connect(senTem2.T, add1[2].u2) annotation (Line(points={{70,-139},{70,-126},{-300,
-          -126},{-300,-166},{-292,-166}}, color={0,0,127}));
+  connect(senTem2.T,sub1 [2].u1) annotation (Line(points={{70,-139},{70,-126},{
+          -300,-126},{-300,-154},{-292,-154}},
+                                          color={0,0,127}));
 
   connect(mulAnd.y, or2.u2) annotation (Line(points={{-208,-160},{-200,-160},{-200,
           -180},{-150,-180},{-150,-216},{-142,-216}}, color={255,0,255}));
@@ -857,8 +858,9 @@ equation
   connect(booToRea1.y, pro2.u1) annotation (Line(points={{-138,120},{-130,120},{
           -130,-94},{-280,-94},{-280,-104},{-272,-104}}, color={0,0,127}));
 
-  connect(pro2.y, add1.u1) annotation (Line(points={{-248,-110},{-240,-110},{-240,
-          -134},{-296,-134},{-296,-154},{-292,-154}}, color={0,0,127}));
+  connect(pro2.y,sub1. u2) annotation (Line(points={{-248,-110},{-240,-110},{
+          -240,-134},{-296,-134},{-296,-166},{-292,-166}},
+                                                      color={0,0,127}));
 
   connect(lat2.y, yBoiSta)
     annotation (Line(points={{282,-70},{340,-70}}, color={255,0,255}));
