@@ -346,6 +346,19 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleStage<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled<br/>
+                       Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity
+
+    </td>
+    <td valign=\"top\">Corrected performance calculation as a function of mass flow rates.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3146\">#3146</a>.
+</td>
 <tr><td valign=\"top\"> Buildings.Fluid.HeatExchangers.WetCoilCounterFlow<br/>
                         Buildings.Fluid.HeatExchangers.WetCoilDiscretized</br>
     </td>
