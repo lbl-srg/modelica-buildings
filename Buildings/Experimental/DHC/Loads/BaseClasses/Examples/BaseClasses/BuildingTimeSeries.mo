@@ -9,8 +9,7 @@ model BuildingTimeSeries
     final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
-    final have_weaBus=false,
-    final facMul=1);
+    final have_weaBus=false);
   replaceable package Medium2=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Load side medium";
@@ -19,10 +18,14 @@ model BuildingTimeSeries
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String filNam
     "File name with thermal loads as time series";
-  parameter Real facMulHea=10*QHea_flow_nominal/(1.7E5)
+  parameter Real facMulTerHea=QHea_flow_nominal /
+    (5e3 * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) / 20 *
+     mLoaHea_flow_nominal / 1)
     "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat, group="Scaling"));
-  parameter Real facMulCoo=40*QCoo_flow_nominal/(-1.5E5)
+  parameter Real facMulTerCoo=QCoo_flow_nominal /
+    (-3e3 * abs(T_aLoaCoo_nominal - T_aChiWat_nominal) / 15 *
+     mLoaCoo_flow_nominal / 1)
     "Cooling terminal unit scaling factor"
     annotation(Dialog(enable=have_chiWat, group="Scaling"));
   parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=313.15
@@ -54,18 +57,20 @@ model BuildingTimeSeries
     "Load side mass flow rate at nominal conditions in heating mode (single unit)"
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal=
-      mLoaHea_flow_nominal
+    mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
-       Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
-    "#Peak space cooling load", filNam=Modelica.Utilities.Files.loadResource(
-    filNam)) "Design cooling heat flow rate (<=0)"
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+    "#Peak space cooling load",
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
+    "Design cooling heat flow rate (<=0)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=Modelica.Constants.eps)=
-       Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
-    "#Peak space heating load", filNam=Modelica.Utilities.Files.loadResource(
-    filNam)) "Design heating heat flow rate (>=0)"
+    Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
+    "#Peak space heating load",
+    filNam=Modelica.Utilities.Files.loadResource(filNam))
+    "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=abs(
       QCoo_flow_nominal/cp_default/(T_aChiWat_nominal - T_bChiWat_nominal))
@@ -131,9 +136,9 @@ model BuildingTimeSeries
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulHea,
-    final facMulZon=facMul,
-    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
+    final facMul=facMulTerHea,
+    final facMulZon=1,
+    final QHea_flow_nominal=QHea_flow_nominal/facMulTerHea,
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
@@ -164,19 +169,17 @@ model BuildingTimeSeries
     "Chilled water distribution system"
     annotation (Placement(transformation(extent={{120,-270},{140,-250}})));
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
-    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
-    final T_aLoaHea_nominal=T_aLoaHea_nominal,
     final k=k,
     final Ti=Ti,
     final TRooHea_nominal=T_aLoaHea_nominal,
-    final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
+    final QRooHea_flow_nominal=QHea_flow_nominal/facMulTerCoo) if have_chiWat
   constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulCoo,
-    final facMulZon=facMul,
-    final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
+    final facMul=facMulTerCoo,
+    final facMulZon=1,
+    final QCoo_flow_nominal=QCoo_flow_nominal/facMulTerCoo,
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
@@ -272,16 +275,35 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
+annotation (
     Documentation(
-      info="
-<html>
+      info="<html>
 <p>
 This is a simplified building model where the space heating and cooling loads
 are provided as time series.
 </p>
+<h4>Scaling</h4>
+<p>
+The total space heating (resp. cooling) load is split between
+<code>facMulTerHea</code> (resp. <code>facMulTerCoo</code>)
+identical terminal units.
+By default the parameter <code>facMulTerHea</code>
+(resp. <code>facMulTerCoo</code>)
+is computed based on manufacturer data for fan coil units
+</p>
+<ul>
+<li>
+with a design air flow rate of <i>1</i>&nbsp;kg/s and a temperature difference
+between the entering hot water (resp. chilled water) and the entering air
+of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C), and
+</li>
+<li>
+under the assumption that the design capacity scales linearly
+with the air mass flow rate, and with the temperature difference
+between the entering hot water (resp. chilled water) and the entering air.
+</p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
 <li>
 November 21, 2022, by David Blum:<br/>

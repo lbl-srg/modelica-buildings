@@ -19,6 +19,8 @@ model FanCoil2PipeCooling
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
+    final QHea_flow_nominal=0,
+    final T_aLoaHea_nominal=293.15,
     mChiWat_flow_nominal=abs(
       QCoo_flow_nominal/cpChiWat_nominal/(T_aChiWat_nominal-T_bChiWat_nominal)));
   import hexConfiguration=Buildings.Fluid.Types.HeatExchangerConfiguration;
@@ -186,7 +188,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This is a sensible only simplified model of a two-pipe fan coil unit for cooling.
+This is a simplified model of a two-pipe fan coil unit for cooling.
 It is intended to be used
 </p>
 <ul>
@@ -201,9 +203,6 @@ Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
-<p>
-For the sake of simplicity, a sensible only heat exchanger model is considered.
-</p>
 <p>
 For the sake of computational performance, a PI controller is used instead of an inverse
 model of the heat exchanger to assess the required water mass flow rate.
