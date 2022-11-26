@@ -853,7 +853,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,-140},{100,-180}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-40,-18},{40,-98}},
