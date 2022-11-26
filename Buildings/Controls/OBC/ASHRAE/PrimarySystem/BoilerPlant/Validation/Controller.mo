@@ -369,9 +369,6 @@ equation
   connect(sin.y, reaToInt.u)
     annotation (Line(points={{-318,130},{-302,130}}, color={0,0,127}));
 
-  connect(reaToInt.y, controller.supResReq) annotation (Line(points={{-278,130},
-          {-270,130},{-270,103},{-262,103}}, color={255,127,0}));
-
   connect(TOut1.y, controller1.TOut) annotation (Line(points={{-58,100},{-2,100}},
                                color={0,0,127}));
 
@@ -389,10 +386,6 @@ equation
 
   connect(sin1.y, reaToInt1.u)
     annotation (Line(points={{-58,130},{-42,130}}, color={0,0,127}));
-
-  connect(reaToInt1.y, controller1.supResReq) annotation (Line(points={{-18,130},
-          {-10,130},{-10,103},{-2,103}},
-                                      color={255,127,0}));
 
   connect(VHotWatSec_flow.y, controller1.VHotWatSec_flow) annotation (Line(
         points={{-58,-90},{-30,-90},{-30,79},{-2,79}},
@@ -422,10 +415,6 @@ equation
   connect(sin2.y,reaToInt2. u)
     annotation (Line(points={{162,130},{178,130}}, color={0,0,127}));
 
-  connect(reaToInt2.y,controller2. supResReq) annotation (Line(points={{202,130},
-          {210,130},{210,103},{218,103}},
-                                      color={255,127,0}));
-
   connect(VHotWatSec_flow1.y, controller2.VHotWatSec_flow) annotation (Line(
         points={{162,-90},{196,-90},{196,79},{218,79}},   color={0,0,127}));
 
@@ -435,46 +424,55 @@ equation
   connect(TRet2.y,controller2. TRetSec) annotation (Line(points={{162,40},{180,40},
           {180,88},{218,88}},       color={0,0,127}));
 
-  connect(controller.yBoi, truDel.u) annotation (Line(points={{-238,88},{-230,88},
-          {-230,140},{-222,140}}, color={255,0,255}));
-  connect(controller.yPriPum, truDel1.u) annotation (Line(points={{-238,72},{-230,
-          72},{-230,50},{-222,50}}, color={255,0,255}));
-  connect(controller.yBypValPos, uniDel.u) annotation (Line(points={{-238,76},{-224,
-          76},{-224,80},{-222,80}}, color={0,0,127}));
+  connect(controller.yBoi, truDel.u) annotation (Line(points={{-238,84},{-230,
+          84},{-230,140},{-222,140}},
+                                  color={255,0,255}));
+  connect(controller.yPriPum, truDel1.u) annotation (Line(points={{-238,68},{
+          -230,68},{-230,50},{-222,50}},
+                                    color={255,0,255}));
+  connect(controller.yBypValPos, uniDel.u) annotation (Line(points={{-238,72},{
+          -224,72},{-224,80},{-222,80}},
+                                    color={0,0,127}));
   connect(uniDel.y, controller.uBypValPos) annotation (Line(points={{-198,80},{-150,
           80},{-150,20},{-272,20},{-272,45},{-262,45}}, color={0,0,127}));
-  connect(controller.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{-238,80},
-          {-226,80},{-226,110},{-222,110}}, color={0,0,127}));
+  connect(controller.yHotWatIsoVal, uniDel1.u) annotation (Line(points={{-238,76},
+          {-226,76},{-226,110},{-222,110}}, color={0,0,127}));
   connect(uniDel1.y, controller.uHotWatIsoVal) annotation (Line(points={{-198,110},
           {-144,110},{-144,-16},{-278,-16},{-278,48},{-262,48}}, color={0,0,127}));
-  connect(controller1.yBoi, truDel2.u) annotation (Line(points={{22,88},{26,88},
+  connect(controller1.yBoi, truDel2.u) annotation (Line(points={{22,84},{26,84},
           {26,140},{38,140}}, color={255,0,255}));
-  connect(controller1.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{22,80},
-          {28,80},{28,110},{38,110}}, color={0,0,127}));
-  connect(controller1.yPriPum, truDel3.u) annotation (Line(points={{22,72},{34,72},
-          {34,70},{38,70}}, color={255,0,255}));
+  connect(controller1.yHotWatIsoVal, uniDel2.u) annotation (Line(points={{22,76},
+          {28,76},{28,110},{38,110}}, color={0,0,127}));
+  connect(controller1.yPriPum, truDel3.u) annotation (Line(points={{22,68},{34,
+          68},{34,70},{38,70}},
+                            color={255,0,255}));
   connect(uniDel2.y, controller1.uHotWatIsoVal) annotation (Line(points={{62,110},
           {106,110},{106,-16},{-18,-16},{-18,48},{-2,48}}, color={0,0,127}));
-  connect(controller1.ySecPum, truDel4.u) annotation (Line(points={{22,64},{30,64},
-          {30,10},{38,10}}, color={255,0,255}));
+  connect(controller1.ySecPum, truDel4.u) annotation (Line(points={{22,60},{30,
+          60},{30,10},{38,10}},
+                            color={255,0,255}));
   connect(reaRep.y, uniDel4.u)
     annotation (Line(points={{62,40},{68,40}}, color={0,0,127}));
-  connect(controller1.yPriPumSpe, reaRep.u) annotation (Line(points={{22,68},{32,
-          68},{32,40},{38,40}}, color={0,0,127}));
+  connect(controller1.yPriPumSpe, reaRep.u) annotation (Line(points={{22,64},{
+          32,64},{32,40},{38,40}},
+                                color={0,0,127}));
   connect(uniDel4.y, controller1.uPriPumSpe) annotation (Line(points={{92,40},{96,
           40},{96,-10},{-6,-10},{-6,42},{-2,42}}, color={0,0,127}));
-  connect(controller2.yBoi, truDel5.u) annotation (Line(points={{242,88},{250,88},
-          {250,130},{258,130}}, color={255,0,255}));
-  connect(truDel6.u, controller2.yPriPum) annotation (Line(points={{258,100},{254,
-          100},{254,72},{242,72}}, color={255,0,255}));
+  connect(controller2.yBoi, truDel5.u) annotation (Line(points={{242,84},{250,
+          84},{250,130},{258,130}},
+                                color={255,0,255}));
+  connect(truDel6.u, controller2.yPriPum) annotation (Line(points={{258,100},{
+          254,100},{254,68},{242,68}},
+                                   color={255,0,255}));
   connect(reaRep1.y, uniDel3.u)
     annotation (Line(points={{282,70},{288,70}}, color={0,0,127}));
-  connect(controller2.yPriPumSpe, reaRep1.u) annotation (Line(points={{242,68},{
-          254,68},{254,70},{258,70}}, color={0,0,127}));
+  connect(controller2.yPriPumSpe, reaRep1.u) annotation (Line(points={{242,64},
+          {254,64},{254,70},{258,70}},color={0,0,127}));
   connect(uniDel3.y, controller2.uPriPumSpe) annotation (Line(points={{312,70},{
           320,70},{320,10},{216,10},{216,42},{218,42}}, color={0,0,127}));
-  connect(controller2.ySecPum, truDel7.u) annotation (Line(points={{242,64},{252,
-          64},{252,40},{258,40}}, color={255,0,255}));
+  connect(controller2.ySecPum, truDel7.u) annotation (Line(points={{242,60},{
+          252,60},{252,40},{258,40}},
+                                  color={255,0,255}));
   connect(conInt.y, controller.TSupResReq) annotation (Line(points={{-318,160},{
           -266,160},{-266,106},{-262,106}}, color={255,127,0}));
   connect(conInt.y, controller1.TSupResReq) annotation (Line(points={{-318,160},
@@ -513,6 +511,12 @@ equation
     annotation (Line(points={{282,40},{288,40}}, color={255,0,255}));
   connect(pre8.y, controller2.uSecPum) annotation (Line(points={{312,40},{336,40},
           {336,4},{206,4},{206,51},{218,51}}, color={255,0,255}));
+  connect(reaToInt.y, controller.plaReq) annotation (Line(points={{-278,130},{
+          -272,130},{-272,103},{-262,103}}, color={255,127,0}));
+  connect(reaToInt1.y, controller1.plaReq) annotation (Line(points={{-18,130},{
+          -12,130},{-12,103},{-2,103}}, color={255,127,0}));
+  connect(reaToInt2.y, controller2.plaReq) annotation (Line(points={{202,130},{
+          208,130},{208,103},{218,103}}, color={255,127,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(
