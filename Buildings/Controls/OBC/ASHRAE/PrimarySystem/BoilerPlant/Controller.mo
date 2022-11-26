@@ -1698,8 +1698,8 @@ equation
   connect(plaEna.yPla, priPumCon.uPlaEna) annotation (Line(points={{-318,330},{
           -230,330},{-230,-78},{90,-78},{90,-158.533},{118,-158.533}},
                                                                   color={255,0,255}));
-  connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSupSet) annotation (
-      Line(points={{-118,184},{-100,184},{-100,107},{118,107}},  color={0,0,127}));
+  connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSupSet) annotation
+    (Line(points={{-118,184},{-100,184},{-100,107},{118,107}}, color={0,0,127}));
   connect(TRetPri, staSetCon.THotWatRetPri) annotation (Line(points={{-420,230},
           {-260,230},{-260,-1},{-212,-1}},   color={0,0,127}));
   connect(TRetSec, staSetCon.THotWatRetSec) annotation (Line(points={{-420,150},

@@ -403,8 +403,8 @@ equation
   connect(VMinHotWatSet_flow, minBypRes.VMinHotWatSet_flow) annotation (Line(
         points={{-260,200},{-180,200},{-180,12},{-172,12}}, color={0,0,127}));
 
-  connect(THotWatSupSet, hotWatSupTemRes.THotWatSup) annotation (Line(points={{
-          -260,160},{-186,160},{-186,-17},{-172,-17}}, color={0,0,127}));
+  connect(THotWatSupSet, hotWatSupTemRes.THotWatSup) annotation (Line(points={{-260,
+          160},{-186,160},{-186,-17},{-172,-17}}, color={0,0,127}));
 
   connect(uHotWatIsoVal, enaHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-260,
           120},{-80,120},{-80,5},{-72,5}},       color={0,0,127}));
