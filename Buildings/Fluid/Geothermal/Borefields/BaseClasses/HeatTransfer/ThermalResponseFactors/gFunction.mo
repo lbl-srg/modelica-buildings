@@ -38,7 +38,7 @@ protected
   Real hSegRea[nSeg] "Real part of the FLS solution";
   Real hSegMir[2*nSeg-1] "Mirror part of the FLS solution";
   Modelica.Units.SI.Height dSeg "Buried depth of borehole segment";
-  Integer Done[nBor, nBor] "Matrix for tracking of FLS evaluations";
+  Integer Done[nBor, nBor] = fill(0,nBor,nBor) "Matrix for tracking of FLS evaluations";
   Real A[nSeg*nBor+1, nSeg*nBor+1] "Coefficient matrix for system of equations";
   Real B[nSeg*nBor+1] "Coefficient vector for system of equations";
   Real X[nSeg*nBor+1] "Solution vector for system of equations";
@@ -279,6 +279,13 @@ response function (G-function) for heat transfer by borehole heat exchangers
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Initialized variable <code>Done</code>.<br/>
+See
+<a href=\"https://github.com/OpenModelica/OpenModelica/issues/9707#issuecomment-1317631281\">
+OpenModelica, #9707</a>.
+</li>
 <li>
 March 22, 2018 by Massimo Cimmino:<br/>
 First implementation.

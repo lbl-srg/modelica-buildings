@@ -5,10 +5,15 @@ model FlowMachine_y "Identical speed controlled flow machines"
     rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
 
 equation
-  connect(u, pum.y)
-    annotation (Line(points={{-120,40},{0,40},{0,12}}, color={0,0,127}));
+  connect(swi.y, pum.y)
+    annotation (Line(points={{-26,-30},{-20,-30},{-20,20},{0,20},{0,12}},
+                                                      color={0,0,127}));
   annotation (    Documentation(revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Improved sequence to avoid switching pump on when the valve is commanded off.
+</li>
 <li>
 July 27, 2017, by Yangyang Fu:<br/>
 First implementation.
