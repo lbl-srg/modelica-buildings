@@ -1,14 +1,23 @@
 ﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDIntegralTime "Identifies the integral time of a PID controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(final min=0)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(final min=1E-6)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput L(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1

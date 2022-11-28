@@ -9,14 +9,22 @@ block ResponseProcess
     "Relay switch signal" annotation (Placement(transformation(
           extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
             {-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tim
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(
+    final quantity="Time",
+    final unit="s")
     "Simulation time"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the On period"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "length for the Off period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta

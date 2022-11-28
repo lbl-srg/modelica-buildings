@@ -7,7 +7,10 @@ block TimeConstantDelay
     "Lower value for the output (assuming the reference output is 0)";
   parameter Real deaBan(min=0) = 0.5
     "Deadband for holding the output value";
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the On period"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
@@ -19,10 +22,16 @@ block TimeConstantDelay
     "Ratio between the time constant and the time delay"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput T
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput T(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput L
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput L(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs absk

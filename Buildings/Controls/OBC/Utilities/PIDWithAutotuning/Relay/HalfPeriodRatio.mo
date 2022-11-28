@@ -1,11 +1,17 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block HalfPeriodRatio
   "Calculate the half period ratio of a response from a relay controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the On period"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));

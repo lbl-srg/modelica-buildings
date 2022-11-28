@@ -8,11 +8,17 @@ block Gain "Identifies the gain of a first order time delayed model"
     "Relay controller output"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the On period"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
