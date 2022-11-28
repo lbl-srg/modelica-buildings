@@ -142,7 +142,7 @@
     simulate: false
 - model_name: Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
   optimica:
-    comment: Could not solve initialization. Could not bracket the root. Iteration variable pipAut1.dh
+    comment: Could not solve initialization. Could not bracket the root. Iteration variable pipAut1.dh. Filed Modelon#2022112839000242
     simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
   openmodelica:
