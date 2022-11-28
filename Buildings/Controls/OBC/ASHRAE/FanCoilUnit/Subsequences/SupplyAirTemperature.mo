@@ -15,7 +15,7 @@ block SupplyAirTemperature
     annotation(Dialog(group="Heating loop parameters",
       enable = have_heaCoi));
 
-  parameter Real THeaSupAirMax(
+  parameter Real TSupSet_max(
     final unit="K",
     displayUnit="degC") = 273.15 + 32
     "Supply air temperature setpoint at maximum heating loop signal"
@@ -36,7 +36,7 @@ block SupplyAirTemperature
     annotation(Dialog(group="Cooling loop parameters",
       enable = have_cooCoi));
 
-  parameter Real TCooSupAirMin(
+  parameter Real TSupSet_min(
     final unit="K",
     displayUnit="degC") = 273.15+12.8
     "Supply air temperature setpoint at maximum cooling loop signal"
@@ -148,23 +148,23 @@ block SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
     displayUnit="K",
-    quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetHea(
     final unit="K",
     displayUnit="K",
-    quantity="ThermodynamicTemperature") if have_heaCoi
+    final quantity="ThermodynamicTemperature") if have_heaCoi
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetCoo(
     final unit="K",
     displayUnit="K",
-    quantity="ThermodynamicTemperature") if have_cooCoi
+    final quantity="ThermodynamicTemperature") if have_cooCoi
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-160,-140},{-120,-100}}),
       iconTransformation(extent={{-140,-120},{-100,-80}})));
@@ -186,10 +186,10 @@ block SupplyAirTemperature
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TSupSet(
     final unit="K",
     displayUnit="K",
-    quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature")
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swiDeaCoo
@@ -212,22 +212,22 @@ protected
     "Convert cooling loop signal to supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTHeaSupAirMax(
-    final k=THeaSupAirMax)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTSupSet_max(
+    final k=TSupSet_max)
     "Maximum heating supply air temperature setpoint limit signal"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuHea_min(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conUHea_min(
     final k=uHea_min)
     "Minimum heating loop signal support point"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTCooSupAirMin(
-    final k=TCooSupAirMin)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTSupSet_min(
+    final k=TSupSet_min)
     "Minimum cooling supply air temperature setpoint limit signal"
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuCoo_min(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conUCoo_min(
     final k=uCoo_min)
     "Minimum cooling loop signal support point"
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
@@ -285,12 +285,12 @@ protected
     "Output cooling coil signal only when fan is proven on"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuHea_max(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conUHea_max(
     final k=uHea_max)
     "Maximum heating loop signal support point"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conuCoo_max(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conUCoo_max(
     final k=uCoo_max)
     "Maximum cooling loop signal support point"
     annotation (Placement(transformation(extent={{-110,-110},{-90,-90}})));
@@ -352,16 +352,16 @@ equation
   connect(swiDeaCoo.y, conPIDCoo.u_s) annotation (Line(points={{22,-20},{36,-20},
           {36,-60},{38,-60}}, color={0,0,127}));
 
-  connect(conTHeaSupAirMax.y, linTHeaSupAir.f2) annotation (Line(points={{-88,100},
+  connect(conTSupSet_max.y, linTHeaSupAir.f2) annotation (Line(points={{-88,100},
           {-80,100},{-80,52},{-62,52}}, color={0,0,127}));
 
-  connect(conTCooSupAirMin.y, linTCooSupAir.f2) annotation (Line(points={{-88,-20},
+  connect(conTSupSet_min.y, linTCooSupAir.f2) annotation (Line(points={{-88,-20},
           {-70,-20},{-70,-68},{-62,-68}}, color={0,0,127}));
 
-  connect(TZonHeaSet, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
+  connect(TZonSetHea, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
           80},{-74,64},{-62,64}}, color={0,0,127}));
 
-  connect(TZonCooSet, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
+  connect(TZonSetCoo, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
           -120},{-64,-56},{-62,-56}}, color={0,0,127}));
 
   connect(TAirSup, swiDeaHea.u3) annotation (Line(points={{-140,0},{-30,0},{-30,
@@ -373,8 +373,8 @@ equation
   connect(conZerCooMod.y, linTCooSupAir.f1) annotation (Line(points={{-78,-140},
           {-66,-140},{-66,-56},{-62,-56}}, color={0,0,127}));
 
-  connect(swiDeaCoo.y, TSupSet) annotation (Line(points={{22,-20},{36,-20},{36,
-          0},{140,0}}, color={0,0,127}));
+  connect(swiDeaCoo.y, TSupSet) annotation (Line(points={{22,-20},{36,-20},{36,0},
+          {140,0}}, color={0,0,127}));
 
   connect(uFan, booToRea2.u)
     annotation (Line(points={{-140,140},{58,140}},   color={255,0,255}));
@@ -386,13 +386,13 @@ equation
           {140,-60}}, color={0,0,127}));
   connect(booToRea2.y, mul3.u1) annotation (Line(points={{82,140},{86,140},{86,-54},
           {88,-54}},      color={0,0,127}));
-  connect(conuHea_max.y, linTHeaSupAir.x2) annotation (Line(points={{-58,20},{-52,
+  connect(conUHea_max.y, linTHeaSupAir.x2) annotation (Line(points={{-58,20},{-52,
           20},{-52,40},{-68,40},{-68,56},{-62,56}}, color={0,0,127}));
-  connect(conuHea_min.y, linTHeaSupAir.x1) annotation (Line(points={{-88,20},{-84,
+  connect(conUHea_min.y, linTHeaSupAir.x1) annotation (Line(points={{-88,20},{-84,
           20},{-84,68},{-62,68}}, color={0,0,127}));
-  connect(conuCoo_min.y, linTCooSupAir.x1) annotation (Line(points={{-88,-60},{
+  connect(conUCoo_min.y, linTCooSupAir.x1) annotation (Line(points={{-88,-60},{
           -86,-60},{-86,-52},{-62,-52}}, color={0,0,127}));
-  connect(conuCoo_max.y, linTCooSupAir.x2) annotation (Line(points={{-88,-100},
+  connect(conUCoo_max.y, linTCooSupAir.x2) annotation (Line(points={{-88,-100},
           {-80,-100},{-80,-64},{-62,-64}}, color={0,0,127}));
   connect(conPIDCoo.y, swiCooCoi.u1) annotation (Line(points={{62,-60},{66,-60},
           {66,-92},{68,-92}}, color={0,0,127}));
