@@ -500,19 +500,6 @@ the internal wall temperatures.
       Documentation(
         info="<html>
 <h4>Known issues</h4>
-<h5>EnergyPlus warnings</h5>
-<p>
-EnergyPlus may issue a warning such as
-</p>
-<pre>
-Calculated Relative Humidity out of range (PsyRhFnTdbWPb)
-</pre>
-<p>
-Such warnings can be ignored. The humidity balance of EnergyPlus is not used
-because Modelica computes the humidity balance.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2220\">issue 2220</a>.
-</p>
 <h5>Signals to time schedules and actuators</h5>
 <p>
 If Modelica overrides a time schedule or an actuator at a time instant that does not
