@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.Detailed.BaseClasses;
-function cfdStartCosimulation "Start the coupled simulation with CFD"
+pure function cfdStartCosimulation "Start the coupled simulation with CFD"
   extends Modelica.Icons.Function;
   input String cfdFilNam "CFD input file name";
   input String[nSur] name "Surface names";

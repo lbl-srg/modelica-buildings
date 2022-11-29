@@ -53,13 +53,13 @@ void *cfdcosim() {
 
   cosim->modelica = NULL;
   cosim->modelica = (ModelicaSharedData *) malloc(sizeof(ModelicaSharedData));
-  if (cosim->para == NULL){
+  if (cosim->modelica == NULL){
     ModelicaError("Failed to allocate memory for cosim->modelica in cfdcosim.c");
   }
 
   cosim->ffd = NULL;
   cosim->ffd = (ffdSharedData *) malloc(sizeof(ffdSharedData));
-    if (cosim->para == NULL){
+  if (cosim->ffd == NULL){
     ModelicaError("Failed to allocate memory for cosim->ffd in cfdcosim.c");
   }
 

@@ -20,7 +20,7 @@
  *
  * @return No return needed
  */
-void cfdSendStopCommand(void *thread) {
+void *cfdSendStopCommand(void *thread) {
 
   size_t i = 0;
   size_t imax = 10000;
@@ -135,6 +135,35 @@ void cfdSendStopCommand(void *thread) {
   if (cosim->ffd->temHea != NULL){
     free(cosim->ffd->temHea);
   }
+
+
+  /*
+  if (cosim->para->nXi>0){
+    free(cosim->para->nXi);
+  }
+  if (cosim->para->nC>0){
+    free(cosim->para->nC);
+  }
+  if (cosim->para->nConExtWin>0){
+    free(cosim->para->nConExtWin);
+  }
+  if (cosim->para->rho_start != NULL){
+    free(cosim->para->rho_start);
+  }
+  if (cosim->para->sensorName != NULL){
+    free(cosim->para->sensorName);
+  }
+  if (cosim->modelica->t != NULL){
+    free(cosim->modelica->t);
+  }
+  if (cosim->modelica->lt != NULL){
+    free(cosim->modelica->lt);
+  }
+  */
+
+
+
+
   if (cosim->para != NULL){
     free(cosim->para);
   }
