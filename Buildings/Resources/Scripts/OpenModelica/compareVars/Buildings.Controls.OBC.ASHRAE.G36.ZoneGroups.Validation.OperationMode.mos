@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "opeModSel.yOpeMod",
+    "opeModSel.u1Occ",
+    "opeModSel.u1HigOccCoo",
+    "opeModSel.u1OccHeaHig",
+    "opeModSel.tNexOcc",
+    "opeModSel.maxCooDowTim",
+    "opeModSel.maxWarUpTim",
+    "TZonHeaSetUno.y",
+    "TZonCooSetUno.y",
+    "TZonHeaSetOcc.y",
+    "TZonCooSetOcc.y",
+    "opeModSel.TZonMin"
+  };

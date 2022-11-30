@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.Validation.Common_LoopDisable", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="common_LoopDisable_MultiZone");
+createPlot(id=1, position={20, 10, 600, 950}, subPlot=1, y={"fanSta.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72}});
+createPlot(id=1, position={20, 10, 600, 950}, subPlot=2, y={"VOutMinSet_flow.y","VOut_flow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 600, 950}, subPlot=3, y={"damLim.yOutDam_min","damLim.yOutDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 600, 950}, subPlot=4, y={"damLim.yRetDam_min","damLim.yRetDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={20, 10, 600, 950}, subPlot=5, y={"damLim.damLimCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={630, 10, 600, 950}, subPlot=1, y={"opeMod1.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72}});
+createPlot(id=2, position={630, 10, 600, 950}, subPlot=2, y={"VOutMinSet1_flow.y","VOut1_flow.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={630, 10, 600, 950}, subPlot=3, y={"damLim1.yOutDam_min","damLim1.yOutDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={630, 10, 600, 950}, subPlot=4, y={"damLim1.yRetDam_min","damLim1.yRetDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={630, 10, 600, 950}, subPlot=5, y={"damLim1.damLimCon.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
