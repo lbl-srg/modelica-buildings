@@ -150,7 +150,7 @@ This heat flow rate consists of
 convective heat flow rate,
 </li>
 <li>
-absorbed solar radiation,
+absorbed solar radiation, and
 </li>
 <li>
 absorbed infrared radiation minus emitted infrared radiation.
