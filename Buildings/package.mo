@@ -254,6 +254,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
     </td>
   </tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Combined.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
+    </td>
+    <td valign=\"top\">Test for comparing <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize</code> <br/>
+                       initialization of <code>dh</code> to <code>Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeStandard</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue #2510</a>.
+    </td>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -386,6 +396,15 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Improved implementation of transition limits.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1640\">IBPSA, issue #1640</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Networks.Combined.BaseClasses</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
+    </td>
+    <td valign=\"top\">Start attribute for parameter <code>dh</code> changed to 0.01.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue #2510</a>.
     </td>
 </tr>
 </table>
