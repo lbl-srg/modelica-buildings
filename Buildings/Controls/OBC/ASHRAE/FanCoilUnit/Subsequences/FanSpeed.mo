@@ -46,41 +46,41 @@ block FanSpeed
     final unit="1",
     displayUnit="1") = 0.2
     "Minimum cooling mode fan speed"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real uCoo_min(
     final unit="1",
     displayUnit="1") = 0.5
     "Minimum cooling loop signal at which fan speed is modified"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real cooSpe_max(
     final unit="1",
     displayUnit="1") = 1
     "Maximum cooling mode fan speed"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real uCoo_max(
     final unit="1",
     displayUnit="1") = 1
     "Maximum cooling loop signal at which fan speed is modified"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real heaDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Heating loop signal limit above which it changes from deadband mode to heating mode"
+    "Heating loop signal limit above which fan operation changes from deadband mode to heating mode"
     annotation(Dialog(group="Deadband",
       enable = have_heaCoi));
 
   parameter Real cooDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Cooling loop signal limit at which deadband mode transitions to cooling mode"
+    "Cooling loop signal limit above which fan operation changes from deadband mode to cooling mode"
     annotation(Dialog(group="Deadband",
       enable = have_cooCoi));
 

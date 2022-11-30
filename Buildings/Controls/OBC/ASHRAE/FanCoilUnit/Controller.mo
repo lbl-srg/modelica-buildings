@@ -20,12 +20,12 @@ block Controller
   parameter Real heaDea(
     final unit="1",
     displayUnit="1")=0.05
-    "Heating loop signal limit at which deadband mode transitions to heating mode";
+    "Heating loop signal limit above which controller operation changes from deadband mode to heating mode";
 
   parameter Real cooDea(
     final unit="1",
     displayUnit="1")=0.05
-    "Cooling loop signal limit at which deadband mode transitions to cooling mode";
+    "Cooling loop signal limit above which controller operation changes from deadband mode to cooling mode";
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI

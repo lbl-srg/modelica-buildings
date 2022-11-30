@@ -12,56 +12,56 @@ block SupplyAirTemperature
     final unit="1",
     displayUnit="1") = heaDea
     "Minimum heating loop signal at which supply air temperature is modified"
-    annotation(Dialog(group="Heating loop parameters",
+    annotation(Dialog(group="Heating loop",
       enable = have_heaCoi));
 
   parameter Real TSupSet_max(
     final unit="K",
     displayUnit="degC") = 273.15 + 32
     "Supply air temperature setpoint at maximum heating loop signal"
-    annotation(Dialog(group="Heating loop parameters",
+    annotation(Dialog(group="Heating loop",
       enable = have_heaCoi));
 
   parameter Real uHea_max(
     final unit="1",
     displayUnit="1") = 0.5
     "Maximum heating loop signal at which supply air temperature is modified"
-    annotation(Dialog(group="Heating loop parameters",
+    annotation(Dialog(group="Heating loop",
       enable = have_heaCoi));
 
   parameter Real uCoo_min(
     final unit="1",
     displayUnit="1") = cooDea
     "Minimum cooling loop signal at which supply air temperature is modified"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real TSupSet_min(
     final unit="K",
     displayUnit="degC") = 273.15+12.8
     "Supply air temperature setpoint at maximum cooling loop signal"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real uCoo_max(
     final unit="1",
     displayUnit="1") = 0.5
     "Maximum cooling loop signal at which supply air temperature is modified"
-    annotation(Dialog(group="Cooling loop parameters",
+    annotation(Dialog(group="Cooling loop",
       enable = have_cooCoi));
 
   parameter Real heaDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Heating loop signal limit at which deadband mode transitions to heating mode"
-    annotation(Dialog(group="Transition parameters",
+    "Heating loop signal limit above which setpoint operation changes from deadband mode to heating mode"
+    annotation(Dialog(group="Deadband",
       enable = have_heaCoi));
 
   parameter Real cooDea(
     final unit="1",
     displayUnit="1") = 0.05
-    "Cooling loop signal limit at which deadband mode transitions to cooling mode"
-    annotation(Dialog(group="Transition parameters",
+    "Cooling loop signal limit above which setpoint operation changes from deadband mode to cooling mode"
+    annotation(Dialog(group="Deadband",
       enable = have_cooCoi));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
