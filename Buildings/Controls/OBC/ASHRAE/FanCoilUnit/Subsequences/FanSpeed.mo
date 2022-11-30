@@ -116,7 +116,7 @@ block FanSpeed
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
     "Fan enable signal"
-    annotation (Placement(transformation(extent={{120,20},{160,60}}),
+    annotation (Placement(transformation(extent={{120,40},{160,80}}),
         iconTransformation(extent={{100,0},{140,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
@@ -141,12 +141,12 @@ protected
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFanPro
-    "Switch fan speed to maximum until the fan is proven ON"
+    "Switch fan speed to deadband speed until the fan is proven ON"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert fan enable signal to Real"
-    annotation (Placement(transformation(extent={{50,-30},{70,-10}})));
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Line linHeaFanSpe
     "Heating fan speed signal"
@@ -201,9 +201,9 @@ protected
     "Switch for turning on cooling mode from deadband mode"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulFanSpe
     "Multiply fan speed signal by fan enable signal"
-    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
+    annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZerHeaMod(
     final k=0) if not have_heaCoi
@@ -235,6 +235,10 @@ protected
     "Maximum cooling loop signal support point"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulDeaSpe
+    "Multiply deadband speed signal by fan enable signal"
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
+
 equation
   connect(unOccMod.y, isUnOcc.u2) annotation (Line(points={{-58,60},{-50,60},{-50,
           72},{-42,72}}, color={255,127,0}));
@@ -245,17 +249,15 @@ equation
   connect(isUnOcc.y, notUno.u)
     annotation (Line(points={{-18,80},{-12,80}}, color={255,0,255}));
 
-  connect(notUno.y, yFan) annotation (Line(points={{12,80},{40,80},{40,40},{140,40}},
+  connect(notUno.y, yFan) annotation (Line(points={{12,80},{20,80},{20,60},{140,
+          60}},
         color={255,0,255}));
 
   connect(uFanPro, swiFanPro.u2) annotation (Line(points={{-120,40},{30,40},{30,
           0},{78,0}}, color={255,0,255}));
 
-  connect(notUno.y, booToRea.u) annotation (Line(points={{12,80},{40,80},{40,-20},
-          {48,-20}}, color={255,0,255}));
-
-  connect(booToRea.y, swiFanPro.u3) annotation (Line(points={{72,-20},{74,-20},{
-          74,-8},{78,-8}}, color={0,0,127}));
+  connect(notUno.y, booToRea.u) annotation (Line(points={{12,80},{20,80},{20,-20},
+          {28,-20}}, color={255,0,255}));
 
   connect(uHea, linHeaFanSpe.u)
     annotation (Line(points={{-120,-20},{-32,-20}}, color={0,0,127}));
@@ -287,14 +289,14 @@ equation
   connect(swiDeaHea.y, swiDeaCoo.u3) annotation (Line(points={{52,-60},{54,-60},
           {54,-108},{58,-108}}, color={0,0,127}));
 
-  connect(booToRea.y, mul.u1) annotation (Line(points={{72,-20},{74,-20},{74,
-          -34},{88,-34}}, color={0,0,127}));
+  connect(booToRea.y, mulFanSpe.u1) annotation (Line(points={{52,-20},{74,-20},{
+          74,-74},{88,-74}}, color={0,0,127}));
 
-  connect(swiDeaCoo.y, mul.u2) annotation (Line(points={{82,-100},{84,-100},{84,
-          -46},{88,-46}}, color={0,0,127}));
+  connect(swiDeaCoo.y, mulFanSpe.u2) annotation (Line(points={{82,-100},{84,-100},
+          {84,-86},{88,-86}}, color={0,0,127}));
 
-  connect(mul.y, swiFanPro.u1) annotation (Line(points={{112,-40},{114,-40},{114,
-          20},{74,20},{74,8},{78,8}}, color={0,0,127}));
+  connect(mulFanSpe.y, swiFanPro.u1) annotation (Line(points={{112,-80},{114,-80},
+          {114,20},{74,20},{74,8},{78,8}}, color={0,0,127}));
 
   connect(swiFanPro.y, yFanSpe)
     annotation (Line(points={{102,0},{140,0}}, color={0,0,127}));
@@ -327,6 +329,12 @@ equation
           -66,-140},{-66,-112},{-32,-112}}, color={0,0,127}));
   connect(concooSpe_min.y, linCooFanSpe.f1) annotation (Line(points={{-68,-100},{
           -64,-100},{-64,-116},{-32,-116}}, color={0,0,127}));
+  connect(mulDeaSpe.y, swiFanPro.u3) annotation (Line(points={{102,-30},{108,-30},
+          {108,-14},{74,-14},{74,-8},{78,-8}}, color={0,0,127}));
+  connect(booToRea.y, mulDeaSpe.u1) annotation (Line(points={{52,-20},{74,-20},{
+          74,-24},{78,-24}}, color={0,0,127}));
+  connect(conDeaFanSpe.y, mulDeaSpe.u2) annotation (Line(points={{-8,-60},{20,-60},
+          {20,-74},{60,-74},{60,-36},{78,-36}}, color={0,0,127}));
   annotation (defaultComponentName="fanSpe",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                graphics={
