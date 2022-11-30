@@ -883,10 +883,10 @@ equation
   connect(cooPI.y, fanSpe.uCoo) annotation (Line(points={{-18,166},{20,166},{20,
           174},{118,174}}, color={0,0,127}));
 
-  connect(modSetPoi.TCooSet, TSupAir.TZonSetCoo) annotation (Line(points={{-118,
+  connect(modSetPoi.TCooSet,TSupAir.TZonCooSet)  annotation (Line(points={{-118,
           170},{-50,170},{-50,2},{100,2}},     color={0,0,127}));
 
-  connect(modSetPoi.THeaSet, TSupAir.TZonSetHea) annotation (Line(points={{-118,
+  connect(modSetPoi.THeaSet,TSupAir.TZonHeaSet)  annotation (Line(points={{-118,
           162},{-54,162},{-54,18},{100,18}},   color={0,0,127}));
 
   connect(cooPI.y, TSupAir.uCoo) annotation (Line(points={{-18,166},{20,166},{20,

@@ -140,22 +140,22 @@ equation
     annotation (Line(points={{62,70},{70,70},{70,70},{78,70}},
                                                color={0,0,127}));
 
-  connect(con.y,TSupAir.TZonSetHea)  annotation (Line(points={{-68,130},{-56,
+  connect(con.y,TSupAir.TZonHeaSet)  annotation (Line(points={{-68,130},{-56,
           130},{-56,78},{-52,78}}, color={0,0,127}));
 
-  connect(con1.y,TSupAir.TZonSetCoo)  annotation (Line(points={{-68,10},{-56,10},
+  connect(con1.y,TSupAir.TZonCooSet)  annotation (Line(points={{-68,10},{-56,10},
           {-56,62},{-52,62}}, color={0,0,127}));
 
-  connect(con2.y,TSupAir1.TZonSetHea)  annotation (Line(points={{62,130},{72,
+  connect(con2.y,TSupAir1.TZonHeaSet)  annotation (Line(points={{62,130},{72,
           130},{72,78},{78,78}}, color={0,0,127}));
 
-  connect(con3.y,TSupAir1.TZonSetCoo)  annotation (Line(points={{62,10},{72,10},
+  connect(con3.y,TSupAir1.TZonCooSet)  annotation (Line(points={{62,10},{72,10},
           {72,62},{78,62}}, color={0,0,127}));
 
-  connect(con4.y,TSupAir2.TZonSetHea)  annotation (Line(points={{-68,-30},{-56,
+  connect(con4.y,TSupAir2.TZonHeaSet)  annotation (Line(points={{-68,-30},{-56,
           -30},{-56,-82},{-52,-82}}, color={0,0,127}));
 
-  connect(con6.y,TSupAir3.TZonSetCoo)  annotation (Line(points={{42,-120},{54,
+  connect(con6.y,TSupAir3.TZonCooSet)  annotation (Line(points={{42,-120},{54,
           -120},{54,-78},{58,-78}}, color={0,0,127}));
 
   connect(con5.y, TSupAir.uHea) annotation (Line(points={{-68,100},{-60,100},{

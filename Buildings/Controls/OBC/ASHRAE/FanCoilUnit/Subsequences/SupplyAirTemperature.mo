@@ -153,7 +153,7 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetHea(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") if have_heaCoi
@@ -161,7 +161,7 @@ block SupplyAirTemperature
     annotation (Placement(transformation(extent={{-160,60},{-120,100}}),
       iconTransformation(extent={{-140,40},{-100,80}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonSetCoo(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") if have_cooCoi
@@ -358,10 +358,10 @@ equation
   connect(conTSupSet_min.y, linTCooSupAir.f2) annotation (Line(points={{-88,-20},
           {-70,-20},{-70,-68},{-62,-68}}, color={0,0,127}));
 
-  connect(TZonSetHea, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
+  connect(TZonHeaSet, linTHeaSupAir.f1) annotation (Line(points={{-140,80},{-74,
           80},{-74,64},{-62,64}}, color={0,0,127}));
 
-  connect(TZonSetCoo, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
+  connect(TZonCooSet, linTCooSupAir.f1) annotation (Line(points={{-140,-120},{-64,
           -120},{-64,-56},{-62,-56}}, color={0,0,127}));
 
   connect(TAirSup, swiDeaHea.u3) annotation (Line(points={{-140,0},{-30,0},{-30,
