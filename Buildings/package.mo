@@ -403,7 +403,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Combined.BaseClasses.PipeAutosize
     </td>
-    <td valign=\"top\">Start attribute for parameter dh changed to 0.01.<br/>
+    <td valign=\"top\">Start attribute for parameter <code>dh</code> changed to 0.01.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue #2510</a>.
     </td>
 </tr>
