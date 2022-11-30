@@ -1189,7 +1189,7 @@ description.
 <h4>Supply air temperature setpoint</h4>
 <p>
 The supply air temperature setpoint control sequences are implemented based on Part 5.22.4.
-The block outputs a supply air temperature setpoint signal <code>TAirSupSet</code>,
+The block outputs a supply air temperature setpoint signal <code>TSupSet</code>,
 and control signals for the heating coil <code>yHeaCoi</code> and the cooling coil 
 <code>yCooCoi</code>. See
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.FanCoilUnit.Subsequences.SupplyAirTemperature\">

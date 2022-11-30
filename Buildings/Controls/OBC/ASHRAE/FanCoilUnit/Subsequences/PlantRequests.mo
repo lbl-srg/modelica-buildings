@@ -628,8 +628,8 @@ annotation (
 <p>This sequence outputs the system reset requests for fan coil unit. The implementation is according to the Section 5.22.8 of ASHRAE Guideline 36, 2021. </p>
 <p><b>If there is a chilled-water coil (<span style=\"font-family: Courier New;\">have_chiWatCoi=true</span>), chilled water reset requests <span style=\"font-family: Courier New;\">yChiWatResReq</span></b></p>
 <ol>
-<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> exceeds the supply air temperature set point <span style=\"font-family: Courier New;\">TSupSet</span> by 5.56 &deg;C (10 &deg;F)) for 5 minutes, send 3 requests. </li>
-<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> exceeds <span style=\"font-family: Courier New;\">TSupSet</span> by by 2.78 &deg;C (5 &deg;F)) for 5 minutes, send 2 requests. </li>
+<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> exceeds the supply air temperature set point <span style=\"font-family: Courier New;\">TSupSet</span> by 5.56 &deg;C (10 &deg;F) for 5 minutes, send 3 requests. </li>
+<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> exceeds <span style=\"font-family: Courier New;\">TSupSet</span> by by 2.78 &deg;C (5 &deg;F) for 5 minutes, send 2 requests. </li>
 <li>Else if the chilled water valve position <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is greater than 0.95, send 1 request until <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is less than 0.85. </li>
 <li>Else if the chilled water valve position <span style=\"font-family: Courier New;\">uCooCoi_actual</span> is less than 0.85, send 0 requests. </li>
 </ol>
@@ -641,8 +641,8 @@ annotation (
 </ol>
 <p><b>If there is a hot-water coil (<span style=\"font-family: Courier New;\">have_hotWatCoi=true</span>), hot-water reset requests <span style=\"font-family: Courier New;\">yHotWatResReq</span></b></p>
 <ol>
-<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> is 17 &deg;C less than the supply air temperature set point <span style=\"font-family: Courier New;\">TSupSet</span> for 5 minutes, send 3 requests. </li>
-<li>Else if the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> is 8 &deg;C less than <span style=\"font-family: Courier New;\">TSupSet</span> for 5 minutes, send 2 requests. </li>
+<li>If the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> is 17 &deg;C (30 &deg;F) less than the supply air temperature set point <span style=\"font-family: Courier New;\">TSupSet</span> for 5 minutes, send 3 requests. </li>
+<li>Else if the supply air temperature <span style=\"font-family: Courier New;\">TAirSup</span> is 8 &deg;C (15 &deg;F) less than <span style=\"font-family: Courier New;\">TSupSet</span> for 5 minutes, send 2 requests. </li>
 <li>Else if the hot water valve position <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is greater than 0.95, send 1 request until the <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is less than 0.85. </li>
 <li>Else if the hot water valve position <span style=\"font-family: Courier New;\">uHeaCoi_actual</span> is less than 0.85, send 0 request. </li>
 </ol>
