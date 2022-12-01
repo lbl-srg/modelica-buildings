@@ -18,9 +18,9 @@ model RadiantHeatingWithGroundHeatTransfer
     nLay=3,
     material={
       Buildings.HeatTransfer.Data.Solids.Concrete(x=0.08),
-      Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),
+      Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.20),
       Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2)})
-    "Material layers from surface a to b (8cm concrete, 10 cm insulation, 20 cm concrete)"
+    "Material layers from surface a to b (8cm concrete, 20 cm insulation, 20 cm concrete)"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   parameter HeatTransfer.Data.Solids.Generic soil(
     x=2,
@@ -40,7 +40,7 @@ model RadiantHeatingWithGroundHeatTransfer
     iLayPip=1,
     pipe=Fluid.Data.Pipes.PEX_DN_15(),
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.Types.SystemType.Floor,
-    disPip=0.2,
+    disPip=0.15,
     nCir=3,
     A=AFlo,
     m_flow_nominal=mHea_flow_nominal,
@@ -110,15 +110,14 @@ model RadiantHeatingWithGroundHeatTransfer
     tau=0,
     transferHeat=true) "Leaving water temperature sensor"
     annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
-  Controls.OBC.CDL.Continuous.PIDWithReset
-                                  conSup(
+  Controls.OBC.CDL.Continuous.PIDWithReset conSup(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     k=0.1,
     Ti(displayUnit="min") = 7200,
     final yMax=1,
     final yMin=0.2,
     final reverseActing=true,
-    y_reset=0.2)              "Controller for heater"
+    y_reset=0.2) "Controller for heat pump"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
   Controls.OBC.CDL.Continuous.Switch swi
     annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
@@ -141,7 +140,7 @@ model RadiantHeatingWithGroundHeatTransfer
     TEvaMin=268.15,
     datHeaPum=
         Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating.ClimateMaster_TMW036_12kW_4_90COP_R410A())
-            "Heat pump"
+      "Heat pump"
     annotation (Placement(transformation(extent={{-50,-256},{-30,-236}})));
   Fluid.Movers.SpeedControlled_y pumBor(
     redeclare package Medium = MediumG,
@@ -251,10 +250,13 @@ Model that uses EnergyPlus for the simulation of a building with one thermal zon
 that has a radiant floor, used for heating.
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
-Heating is provided with a geothermal heat pump. The heat pump is controlled to track
+Heating is provided with a geothermal heat pump and a radiant floor.
+The heat pump is controlled to track
 a set point of the water temperature that leaves the radiant slab.
-Hence, the control is cascading, with first the set point temperature for the water that leaves the slab
-being calculated based on the room temperature control error, and then the heat pump speed is controlled to track the
+Hence, the control is cascading:
+First, the set point temperature for the water that leaves the radiant slab
+is calculated based on the room temperature control error, and
+this set point is used to regulate the heat pump speed to track the
 water temperature that leaves the radiant slab.
 </p>
 <p>
@@ -287,19 +289,20 @@ to the surface <code>slaFlo.surf_a</code>.
 The underside of the slab is connected to the heat conduction model <code>soi</code>
 which computes the heat transfer to the soil because this building has no basement.
 </p>
-</html>",
-      revisions="<html>
+</html>", revisions = "<html>
 <ul>
+<li>
+December 1, 2022, by Michael Wetter:<br/>
+Replaced idealized heating with geothermal heat pump,
+increased thickness of insulation of radiant slab, and
+changed pipe spacing.
+</li>
 <li>
 March 16, 2021, by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(
-      coordinateSystem(
-        extent={{-320,-340},{160,60}})),
-    Icon(
-      coordinateSystem(
-        extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(extent = {{-320, -340}, {160, 60}})),
+    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
 end RadiantHeatingWithGroundHeatTransfer;
