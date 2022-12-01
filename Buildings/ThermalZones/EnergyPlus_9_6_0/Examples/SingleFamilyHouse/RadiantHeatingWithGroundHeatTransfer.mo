@@ -147,7 +147,7 @@ model RadiantHeatingWithGroundHeatTransfer
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     per(
       pressure(V_flow=2*{0,mBor_flow_nominal}/1000,
-      dp=2*{10000,0}),
+      dp=2*{60000+10000,0}),
       speed_nominal,
       constantSpeed,
       speeds),
@@ -156,7 +156,7 @@ model RadiantHeatingWithGroundHeatTransfer
  Fluid.Geothermal.Boreholes.UTube borHol(
     redeclare package Medium = MediumG,
     hBor=200,
-    dp_nominal=10000,
+    dp_nominal=60000,
     dT_dz=0.0015,
     samplePeriod=604800,
     m_flow_nominal=mBor_flow_nominal,
@@ -171,6 +171,40 @@ model RadiantHeatingWithGroundHeatTransfer
     nPorts=1)
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-212,-310},{-192,-290}})));
+  Modelica.Blocks.Math.Add TOpe(
+    k1=0.5,
+    k2=0.5,
+    u1(final unit="K", displayUnit="degC"),
+    u2(final unit="K", displayUnit="degC"),
+    y(final unit="K", displayUnit="degC"))
+      "Operative temperature"
+    annotation (Placement(transformation(extent={{60,2},{80,22}})));
+  Modelica.Blocks.Sources.RealExpression QCon(y=heaPum.QCon_flow)
+    "Condenser heat flow rate"
+    annotation (Placement(transformation(extent={{140,-280},{160,-260}})));
+  Modelica.Blocks.Sources.RealExpression PEle1(y=heaPum.P + pum.P + pumBor.P)
+    "Electricity use"
+    annotation (Placement(transformation(extent={{140,-318},{160,-298}})));
+  Modelica.Blocks.Continuous.Integrator EHea(
+    k(final unit="1/m2")=1/AFlo,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(final unit="W"),
+    y(final unit="J/m2",
+      displayUnit="kWh/m2"))
+    "Produced heat per unit area of floor"
+    annotation (Placement(transformation(extent={{180,-280},{200,-260}})));
+  Modelica.Blocks.Continuous.Integrator EEle(
+    k(final unit="1/m2")=1/AFlo,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=1E-10,
+    u(final unit="W"),
+    y(final unit="J/m2",
+      displayUnit="kWh/m2"))
+    "Electricity use per floor area"
+    annotation (Placement(transformation(extent={{180,-318},{200,-298}})));
+  Controls.OBC.CDL.Continuous.Divide COP "Coefficient of performance"
+    annotation (Placement(transformation(extent={{220,-300},{240,-280}})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
   // size the system and therefore we hard-code it here.
@@ -193,8 +227,6 @@ equation
     annotation (Line(points={{40,-310},{14,-310},{14,-292}}, color={191,0,0}));
   connect(soi.port_b,slaFlo.surf_b)
     annotation (Line(points={{14,-272},{14,-250}},color={191,0,0}));
-  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-216,-156},{-270,-156},
-          {-270,30},{50,30},{50,18},{41,18}},       color={0,0,127}));
   connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-238,-140},{-230,
           -140},{-230,-150},{-216,-150}},      color={0,0,127}));
   connect(conHea.yPum, pum.y) annotation (Line(points={{-192,-162},{-180,-162},{
@@ -236,6 +268,20 @@ equation
     annotation (Line(points={{20,-240},{60,-240}}, color={0,127,255}));
   connect(conHea.on, conSup.trigger) annotation (Line(points={{-192,-158},{-176,
           -158},{-176,-170},{-156,-170},{-156,-162}}, color={255,0,255}));
+  connect(zon.TAir, TOpe.u1)
+    annotation (Line(points={{41,18},{58,18}}, color={0,0,127}));
+  connect(zon.TRad, TOpe.u2)
+    annotation (Line(points={{41,14},{48,14},{48,6},{58,6}}, color={0,0,127}));
+  connect(TOpe.y, conHea.TRoo) annotation (Line(points={{81,12},{100,12},{100,40},
+          {-280,40},{-280,-156},{-216,-156}}, color={0,0,127}));
+  connect(EHea.u, QCon.y)
+    annotation (Line(points={{178,-270},{161,-270}}, color={0,0,127}));
+  connect(EEle.u, PEle1.y)
+    annotation (Line(points={{178,-308},{161,-308}}, color={0,0,127}));
+  connect(EEle.y, COP.u2) annotation (Line(points={{201,-308},{208,-308},{208,-296},
+          {218,-296}}, color={0,0,127}));
+  connect(EHea.y, COP.u1) annotation (Line(points={{201,-270},{210,-270},{210,-284},
+          {218,-284}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/RadiantHeatingWithGroundHeatTransfer.mos" "Simulate and plot"),
@@ -303,6 +349,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent = {{-320, -340}, {160, 60}})),
-    Icon(coordinateSystem(extent = {{-100, -100}, {100, 100}})));
+    Diagram(coordinateSystem(extent={{-320,-340},{260,60}})),
+    Icon(coordinateSystem(extent={{-320,-340},{260,60}})));
 end RadiantHeatingWithGroundHeatTransfer;
