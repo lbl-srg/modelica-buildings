@@ -310,6 +310,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
     </td>
   </tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
+                          Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface<br/>
+                          Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer
+    </td>
+    <td valign=\"top\">Changed pipe spacing and insulation of radiant slab.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -389,6 +398,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        Moved the old implementation to <code>Buildings.Obsolete.Fluid.SolarCollectors.Controls</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3074\">#3074</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse</b>
+    </td>
+</tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer
+    </td>
+    <td valign=\"top\">Replaced ideal heater with a geothermal heat pump.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete</b>
