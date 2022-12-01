@@ -209,12 +209,14 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Allocate memory for sensor data if there is at least one sensor
   ****************************************************************************/
   if(para->sens->nb_sensor>0) {
+    para->sens->senVal = NULL;
     para->sens->senVal = (REAL *) malloc(para->sens->nb_sensor*sizeof(REAL));
     if(para->sens->senVal==NULL) {
       ffd_log("set_initial_data(): Could not allocate memory for "
         "para->sens->senVal", FFD_ERROR);
       return -1;
     }
+    para->sens->senValMean = NULL;
     para->sens->senValMean = (REAL *) malloc(para->sens->nb_sensor*sizeof(REAL));
     if(para->sens->senValMean==NULL) {
       ffd_log("set_initial_data(): Could not allocate memory for "
@@ -227,6 +229,9 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Allocate memory for Species
   ****************************************************************************/
   if(para->bc->nb_port>0&&para->bc->nb_Xi>0) {
+    para->bc->XiPort = NULL;
+    para->bc->XiPortAve = NULL;
+    para->bc->XiPortMean = NULL;
     para->bc->XiPort = (REAL **) malloc(sizeof(REAL*)*para->bc->nb_port);
     para->bc->XiPortAve = (REAL **) malloc(sizeof(REAL*)*para->bc->nb_port);
     para->bc->XiPortMean = (REAL **) malloc(sizeof(REAL*)*para->bc->nb_port);
@@ -239,6 +244,9 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     }
 
     for(i=0; i<para->bc->nb_port; i++) {
+      para->bc->XiPort[i] = NULL;
+      para->bc->XiPortAve[i] = NULL;
+      para->bc->XiPortMean[i] = NULL;
       para->bc->XiPort[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_Xi);
       para->bc->XiPortAve[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_Xi);
       para->bc->XiPortMean[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_Xi);
@@ -269,6 +277,9 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Allocate memory for Substances
   ****************************************************************************/
   if(para->bc->nb_port>0&&para->bc->nb_C>0) {
+    para->bc->CPort = NULL;
+    para->bc->CPortAve = NULL;
+    para->bc->CPortMean = NULL;
     para->bc->CPort = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
     para->bc->CPortAve = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
     para->bc->CPortMean = (REAL **) malloc(sizeof(REAL *)*para->bc->nb_port);
@@ -280,6 +291,9 @@ int set_initial_data(PARA_DATA *para, REAL **var, int **BINDEX) {
     }
 
     for(i=0; i<para->bc->nb_port; i++) {
+      para->bc->CPort[i] = NULL;
+      para->bc->CPortAve[i] = NULL;
+      para->bc->CPortMean[i] = NULL;
       para->bc->CPort[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
       para->bc->CPortAve[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);
       para->bc->CPortMean[i] = (REAL *) malloc(sizeof(REAL)*para->bc->nb_C);

@@ -648,6 +648,7 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
   if(para->bc->nb_wall>0) {
     ffd_log("assign_thermal_bc(): Thermal conditions for solid surfaces:",
           FFD_NORMAL);
+    temHea = NULL;
     temHea = (REAL *) malloc(para->bc->nb_wall*sizeof(REAL));
     if(temHea==NULL) {
       ffd_log("assign_thermal_bc(): Could not allocate memory for temHea.",
@@ -711,7 +712,7 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
       } /* End of switch(BINDEX[3][it])*/
     }
 
-    free(temHea);
+    /* free(temHea); */
   } /* End of if(para->bc->nb_wall>0)*/
   /****************************************************************************
   | No action since there is not a solid surface

@@ -406,6 +406,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
         return 1;
       } /* End of if(para->sens->nb_sensor==0)*/
       else {
+        para->sens->sensorName = NULL;
         para->sens->sensorName = (char **) malloc(para->sens->nb_sensor*sizeof(char *));
         if(para->sens->sensorName==NULL) {
           ffd_log("assign_parameter(): Could not allocate memory for "
@@ -421,6 +422,7 @@ int assign_parameter(PARA_DATA *para, char *string) {
     ------------------------------------------------------------------------*/
     sscanf(string, "%s%s", tmp, tmp2);
     senId++;
+    para->sens->sensorName[senId] = NULL;
     para->sens->sensorName[senId] = (char *) malloc(sizeof(tmp2)*sizeof(char));
     if(para->sens->sensorName[senId]==NULL) {
       sprintf(msg, "assign_parameter(): Could not allocate memory for %s",
@@ -479,6 +481,7 @@ int read_parameter(PARA_DATA *para) {
       char *lastSlash = strrchr(para->cosim->para->fileName, '/');
       int nPath = strlen(para->cosim->para->fileName) - (strlen(lastSlash) - 1);
 
+      para->cosim->para->filePath==NULL;
       para->cosim->para->filePath = (char*) calloc(nPath+1, sizeof(char));
       if(para->cosim->para->filePath==NULL) {
         ffd_log("read_parameter(): Could not allocate memory for the path to the FFD files", FFD_ERROR);

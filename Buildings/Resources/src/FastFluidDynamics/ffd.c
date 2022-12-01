@@ -50,6 +50,7 @@ int allocate_memory (PARA_DATA *para) {
   | Allocate memory for variables
   ****************************************************************************/
   nb_var = C2BC+1;
+  var = NULL;
   var       = (REAL **) malloc ( nb_var*sizeof(REAL*) );
   if(var==NULL) {
     ffd_log("allocate_memory(): Could not allocate memory for var.",
@@ -58,6 +59,7 @@ int allocate_memory (PARA_DATA *para) {
   }
 
   for(i=0; i<nb_var; i++) {
+    var[i] = NULL;
     var[i] = (REAL *) calloc(size, sizeof(REAL));
     if(var[i]==NULL) {
       sprintf(msg,
@@ -75,6 +77,7 @@ int allocate_memory (PARA_DATA *para) {
   | BINDEX[3]: Fixed temperature or fixed heat flux
   | BINDEX[4]: Boundary ID to identify which boundary it belongs to
   ****************************************************************************/
+  BINDEX = NULL;
   BINDEX = (int **)malloc(5*sizeof(int*));
   if(BINDEX==NULL) {
     ffd_log("allocate_memory(): Could not allocate memory for BINDEX.",
@@ -83,6 +86,7 @@ int allocate_memory (PARA_DATA *para) {
   }
 
   for(i=0; i<5; i++) {
+    BINDEX[i] = NULL;
     BINDEX[i] = (int *) malloc(size*sizeof(int));
     if(BINDEX[i]==NULL) {
       sprintf(msg,
@@ -103,6 +107,7 @@ int allocate_memory (PARA_DATA *para) {
 		* @return 0 if no error occurred
 		*/
 int ffd_cosimulation(CosimulationData *cosim) {
+  para.cosim = NULL;
   para.cosim = (CosimulationData *) malloc(sizeof(CosimulationData));
   para.cosim = cosim;
 
@@ -209,8 +214,10 @@ int ffd(int cosimulation) {
   write_SCI(&para, var, "output");
 
   /* Free the memory*/
+  /*
   free_data(var);
   free_index(BINDEX);
+  */
 
   /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {
@@ -230,7 +237,9 @@ int ffd(int cosimulation) {
 		*/
 void modelicaError(char *msg) {
 	/*Allocate memory for cosim->ffd->msg*/
-	para.cosim->ffd->msg = (char *) malloc(400*sizeof(char));
+  para.cosim->ffd->msg = NULL;
+	/* para.cosim->ffd->msg = (char *) malloc(400*sizeof(char)); */
+  para.cosim->ffd->msg = (char *) malloc((strlen(msg)+1)*sizeof(char));
   if (para.cosim->ffd->msg == NULL){
 		ffd_log("ffd(): Failed to allocate memory for cosim->ffd->msg", FFD_ERROR);
   }
@@ -242,6 +251,6 @@ void modelicaError(char *msg) {
   para.cosim->para->ffdError = 1;
 
 	/*Free memory for cosim->ffd->msg*/	
-	free(para.cosim->ffd->msg);
+	/* free(para.cosim->ffd->msg); */
 	
 } /* End of modelicaError*/

@@ -96,30 +96,35 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
   REAL *ae = var[AE], *aw =var[AW], *an = var[AN], *as = var[AS];
   REAL *temp_ap, *temp_aw, *temp_ae, *temp_b, *temp_psi;
 
+  temp_ap = NULL;
   temp_ap = (REAL *) malloc((jmax+1)*sizeof(REAL));
   if(temp_ap==NULL) {
     ffd_log("TDMA_XY(): Could not allocate memory for temp_ap.",
             FFD_ERROR);
     return 1;
   }
+  temp_ae = NULL;
   temp_ae = (REAL *) malloc((jmax+1)*sizeof(REAL));
   if(temp_ae==NULL) {
     ffd_log("TDMA_XY(): Could not allocate memory for temp_ae.",
             FFD_ERROR);
     return 1;
   }
+  temp_aw = NULL;
   temp_aw = (REAL *) malloc((jmax+1)*sizeof(REAL));
   if(temp_aw==NULL) {
     ffd_log("TDMA_XY(): Could not allocate memory for temp_aw.",
             FFD_ERROR);
     return 1;
   }
+  temp_b = NULL;
   temp_b = (REAL *) malloc((jmax+1)*sizeof(REAL));
   if(temp_b==NULL) {
     ffd_log("TDMA_XY(): Could not allocate memory for temp_b.",
             FFD_ERROR);
     return 1;
   }
+  temp_psi = NULL;
   temp_psi = (REAL *) malloc((jmax+1)*sizeof(REAL));
   if(temp_psi==NULL) {
     ffd_log("TDMA_XY(): Could not allocate memory for temp_psi.",
@@ -147,11 +152,13 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
       psi[IX(i,j,k)] = temp_psi[j];
   }
 
+/*
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
   free(temp_b);
   free(temp_psi);
+*/
   return 0;
 } /* End of TDMA_XY()*/
 
@@ -176,30 +183,35 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
   REAL *ae = var[AE], *aw =var[AW], *an = var[AN], *as = var[AS];
   REAL *temp_ap, *temp_aw, *temp_ae, *temp_b, *temp_psi;
 
+  temp_ap = NULL;
   temp_ap = (REAL *) malloc((kmax+1)*sizeof(REAL));
   if(temp_ap==NULL) {
     ffd_log("TDMA_YZ(): Could not allocate memory for temp_ap.",
             FFD_ERROR);
     return 1;
   }
+  temp_ae = NULL;
   temp_ae = (REAL *) malloc((kmax+1)*sizeof(REAL));
   if(temp_ae==NULL) {
     ffd_log("TDMA_YZ(): Could not allocate memory for temp_ae.",
             FFD_ERROR);
     return 1;
   }
+  temp_aw = NULL;
   temp_aw = (REAL *) malloc((kmax+1)*sizeof(REAL));
   if(temp_aw==NULL) {
     ffd_log("TDMA_YZ(): Could not allocate memory for temp_aw.",
             FFD_ERROR);
     return 1;
   }
+  temp_b = NULL;
   temp_b = (REAL *) malloc((kmax+1)*sizeof(REAL));
   if(temp_b==NULL) {
     ffd_log("TDMA_YZ(): Could not allocate memory for temp_b.",
             FFD_ERROR);
     return 1;
   }
+  temp_psi = NULL;
   temp_psi = (REAL *) malloc((kmax+1)*sizeof(REAL));
   if(temp_psi==NULL) {
     ffd_log("TDMA_YZ(): Could not allocate memory for temp_psi.",
@@ -226,12 +238,13 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
     for(k=1; k<=kmax; k++)  psi[IX(i,j,k)] = temp_psi[k];
 
   }
-
+/*
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
   free(temp_b);
   free(temp_psi);
+*/
   return 0;
 } /* End of TDMA_YZ()*/
 
@@ -256,30 +269,35 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
   REAL *ae = var[AE], *aw =var[AW], *an = var[AN], *as = var[AS];
   REAL *temp_ap, *temp_aw, *temp_ae, *temp_b, *temp_psi;
 
+  temp_ap = NULL;
   temp_ap = (REAL *) malloc((imax+1)*sizeof(REAL));
   if(temp_ap==NULL) {
     ffd_log("TDMA_ZX(): Could not allocate memory for temp_ap.",
             FFD_ERROR);
     return 1;
   }
+  temp_ae = NULL;
   temp_ae = (REAL *) malloc((imax+1)*sizeof(REAL));
   if(temp_ae==NULL) {
     ffd_log("TDMA_ZX(): Could not allocate memory for temp_ae.",
             FFD_ERROR);
     return 1;
   }
+  temp_aw = NULL;
   temp_aw = (REAL *) malloc((imax+1)*sizeof(REAL));
   if(temp_aw==NULL) {
     ffd_log("TDMA_ZX(): Could not allocate memory for temp_aw.",
             FFD_ERROR);
     return 1;
   }
+  temp_b = NULL;
   temp_b = (REAL *) malloc((imax+1)*sizeof(REAL));
   if(temp_b==NULL) {
     ffd_log("TDMA_ZX(): Could not allocate memory for temp_b.",
             FFD_ERROR);
     return 1;
   }
+  temp_psi = NULL;
   temp_psi = (REAL *) malloc((imax+1)*sizeof(REAL));
   if(temp_psi==NULL) {
     ffd_log("TDMA_ZX(): Could not allocate memory for temp_psi.",
@@ -307,11 +325,13 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
     for(i=1; i<=imax; i++)  psi[IX(i,j,k)] = temp_psi[i];
   }
 
+/*
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
   free(temp_b);
   free(temp_psi);
+*/
   return 0;
 } /* End of TDMA_ZX()*/
 
@@ -332,11 +352,13 @@ int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
   REAL *P, *Q;
   int i;
 
+  P = NULL;
   P = (REAL *)malloc(LENGTH * sizeof(REAL));
   if(P==NULL) {
     ffd_log("TDMA_1D(): Could not allocate memory for P.", FFD_ERROR);
     return 1;
   }
+  Q = NULL;
   Q = (REAL *)malloc(LENGTH * sizeof(REAL));
   if(Q==NULL) {
     ffd_log("TDMA_1D(): Could not allocate memory for Q.", FFD_ERROR);
@@ -350,7 +372,9 @@ int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
   for(i=LENGTH-1; i>=1; i--)
     psi[i] = P[i]*psi[i+1] + Q[i];
 
+/*
   free(P);
   free(Q);
+*/
   return 0;
 } /* end of TDMA_1D() */

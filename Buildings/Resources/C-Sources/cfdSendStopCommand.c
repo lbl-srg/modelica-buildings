@@ -52,6 +52,7 @@ void *cfdSendStopCommand(void *thread) {
   }
 
   /*free memory for variables*/
+/*
   if (cosim->para->fileName != NULL){
     free(cosim->para->fileName);
   }
@@ -86,6 +87,9 @@ void *cfdSendStopCommand(void *thread) {
   if (cosim->modelica->temHea != NULL){
     free(cosim->modelica->temHea);
   }
+  if (cosim->ffd->temHea != NULL){
+    free(cosim->ffd->temHea);
+  }
   if (cosim->para->sha==1){
     if (cosim->modelica->shaConSig != NULL){
       free(cosim->modelica->shaConSig);
@@ -97,18 +101,16 @@ void *cfdSendStopCommand(void *thread) {
       free(cosim->ffd->TSha);
     }
   }
+*/
+
+/*
   if (cosim->para->nPorts>0){
     for(i=0; i<cosim->para->nPorts; i++) {
       free(cosim->modelica->XiPor[i]);
       free(cosim->ffd->XiPor[i]);
       free(cosim->modelica->CPor[i]);
       free(cosim->ffd->CPor[i]);
-    }
-    if (cosim->modelica->CPor != NULL){
-      free(cosim->modelica->CPor);
-    }
-    if (cosim->ffd->CPor != NULL){
-      free(cosim->ffd->CPor);
+      free(cosim->para->portName[i]);
     }
     if (cosim->modelica->XiPor != NULL){
       free(cosim->modelica->XiPor);
@@ -116,54 +118,29 @@ void *cfdSendStopCommand(void *thread) {
     if (cosim->ffd->XiPor != NULL){
       free(cosim->ffd->XiPor);
     }
+    if (cosim->modelica->CPor != NULL){
+      free(cosim->modelica->CPor);
+    }
+    if (cosim->ffd->CPor != NULL){
+      free(cosim->ffd->CPor);
+    }
+    if (cosim->para->portName != NULL){
+      free(cosim->para->portName);
+    }
     if (cosim->modelica->TPor != NULL){
       free(cosim->modelica->TPor);
     }
     if (cosim->ffd->TPor != NULL){
       free(cosim->ffd->TPor);
     }
-    for(i=0; i<cosim->para->nPorts; i++) {
-      free(cosim->para->portName[i]);
-    }
-    if (cosim->para->portName != NULL){
-      free(cosim->para->portName);
-    }
     if (cosim->modelica->mFloRatPor != NULL){
       free(cosim->modelica->mFloRatPor);
     }
   }
-  if (cosim->ffd->temHea != NULL){
-    free(cosim->ffd->temHea);
-  }
-
-
-  /*
-  if (cosim->para->nXi>0){
-    free(cosim->para->nXi);
-  }
-  if (cosim->para->nC>0){
-    free(cosim->para->nC);
-  }
-  if (cosim->para->nConExtWin>0){
-    free(cosim->para->nConExtWin);
-  }
-  if (cosim->para->rho_start != NULL){
-    free(cosim->para->rho_start);
-  }
-  if (cosim->para->sensorName != NULL){
-    free(cosim->para->sensorName);
-  }
-  if (cosim->modelica->t != NULL){
-    free(cosim->modelica->t);
-  }
-  if (cosim->modelica->lt != NULL){
-    free(cosim->modelica->lt);
-  }
   */
 
 
-
-
+/*
   if (cosim->para != NULL){
     free(cosim->para);
   }
@@ -176,5 +153,8 @@ void *cfdSendStopCommand(void *thread) {
   if (cosim != NULL){
     free(cosim);
   }
+*/
+  printf("Successfully free memory.\n");
+
 
 } /* End of cfdSendStopCommand*/

@@ -105,6 +105,9 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Convert the cell dimensions defined by SCI to coordinates in FFD
   *****************************************************************************/
   /* Allocate temporary memory for dimension of each cell*/
+  delx = NULL;
+  dely = NULL;
+  delz = NULL;
   delx = (REAL *) malloc ((imax+2)*sizeof(REAL));
   dely = (REAL *) malloc ((jmax+2)*sizeof(REAL));
   delz = (REAL *) malloc ((kmax+2)*sizeof(REAL));
@@ -205,6 +208,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Allocate the memory for bc name
     -------------------------------------------------------------------------*/
+    para->bc->inletName = NULL;
     para->bc->inletName = (char**) malloc(para->bc->nb_inlet*sizeof(char*));
     if(para->bc->inletName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -224,7 +228,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       for(j=0; string[j] != '\n'; j++) {
         continue;
       }
-
+      para->bc->inletName[i] = NULL;
       para->bc->inletName[i] = (char*)malloc((j+1)*sizeof(char));
       if(para->bc->inletName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory for "
@@ -306,6 +310,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   ffd_log(msg, FFD_NORMAL);
 
   if(para->bc->nb_outlet!=0) {
+    para->bc->outletName = NULL;
     para->bc->outletName = (char**) malloc(para->bc->nb_outlet*sizeof(char*));
     if(para->bc->outletName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -322,7 +327,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       for(j=0; string[j] != '\n'; j++) {
         continue;
       }
-
+      para->bc->outletName[i] = NULL;
       para->bc->outletName[i] = (char*)malloc((j+1)*sizeof(char));
       if(para->bc->outletName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory "
@@ -404,6 +409,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
 
   if(para->bc->nb_port>0) {
     /* Allocate memory for the array of ports' names*/
+    para->bc->portName = NULL;
     para->bc->portName = (char**) malloc(para->bc->nb_port*sizeof(char*));
     if(para->bc->portName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for para->bc->portName.",
@@ -415,6 +421,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     --------------------------------------------------------------------------*/
     for(i=0; i<para->bc->nb_inlet; i++) {
       /* Allocate memory for inlet name*/
+      para->bc->portName[i] = NULL;
       para->bc->portName[i] =
         (char*) malloc(sizeof(char)*(sizeof(para->bc->inletName[i])+1));
 
@@ -438,6 +445,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     j = para->bc->nb_inlet;
     for(i=0; i<para->bc->nb_outlet; i++) {
       /* Allocate memory for outlet name*/
+      para->bc->portName[i+j] = NULL;
       para->bc->portName[i+j] =
         (char*) malloc(sizeof(char)*(sizeof(para->bc->outletName[i])+1));
       if(para->bc->portName[i+j]==NULL) {
@@ -456,6 +464,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for the surface area
     --------------------------------------------------------------------------*/
+    para->bc->APort = NULL;
     para->bc->APort = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->APort==NULL) {
       ffd_log("read_sci_input(): "
@@ -466,6 +475,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for the velocity (used for inlet only)
     --------------------------------------------------------------------------*/
+    para->bc->velPort = NULL;
     para->bc->velPort = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->velPort==NULL) {
       ffd_log("read_sci_input(): "
@@ -476,6 +486,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for the averaged velocity
     --------------------------------------------------------------------------*/
+    para->bc->velPortAve = NULL;
     para->bc->velPortAve = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->velPortAve==NULL) {
       ffd_log("read_sci_input(): "
@@ -486,6 +497,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for mean velocity
     --------------------------------------------------------------------------*/
+    para->bc->velPortMean = NULL;
     para->bc->velPortMean = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->velPortMean==NULL) {
       ffd_log("read_sci_input(): "
@@ -496,6 +508,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for the temperature (used for inlet only)
     --------------------------------------------------------------------------*/
+    para->bc->TPort = NULL;
     para->bc->TPort = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->TPort==NULL) {
       ffd_log("read_sci_input(): "
@@ -506,6 +519,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for the averaged temperature
     --------------------------------------------------------------------------*/
+    para->bc->TPortAve = NULL;
     para->bc->TPortAve = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->TPortAve==NULL) {
       ffd_log("read_sci_input(): "
@@ -516,6 +530,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for the mean velocity
     --------------------------------------------------------------------------*/
+    para->bc->TPortMean = NULL;
     para->bc->TPortMean = (REAL*) malloc(para->bc->nb_port*sizeof(REAL));
     if(para->bc->TPortMean==NULL) {
       ffd_log("read_sci_input(): "
@@ -526,6 +541,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*--------------------------------------------------------------------------
     | Allocate memory for port ID
     --------------------------------------------------------------------------*/
+    para->bc->portId = NULL;
     para->bc->portId = (int*) malloc(para->bc->nb_port*sizeof(int));
     if(para->bc->portId==NULL) {
       ffd_log("read_sci_input(): "
@@ -549,6 +565,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   ffd_log(msg, FFD_NORMAL);
 
   if(para->bc->nb_block!=0) {
+    para->bc->blockName = NULL;
     para->bc->blockName = (char**) malloc(para->bc->nb_block*sizeof(char*));
     if(para->bc->blockName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for para->bc->blockName.",
@@ -565,7 +582,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       for(j=0; string[j] != '\n'; j++) {
         continue;
       }
-
+      para->bc->blockName[i] = NULL;
       para->bc->blockName[i] = (char*)malloc((j+1)*sizeof(char));
       if(para->bc->blockName[i]==NULL) {
         sprintf(msg,"read_sci_input(): Could not allocate memory for "
@@ -660,13 +677,14 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     /*-------------------------------------------------------------------------
     | Allocate the memory for bc name and id
     -------------------------------------------------------------------------*/
+    para->bc->wallName = NULL;
     para->bc->wallName = (char**)malloc(para->bc->nb_wall*sizeof(char*));
     if(para->bc->wallName==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
       "para->bc->wallName.", FFD_ERROR);
       return 1;
     }
-
+    para->bc->wallId = NULL;
     para->bc->wallId = (int *)malloc(sizeof(int)*para->bc->nb_wall);
     if(para->bc->wallId==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -677,6 +695,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     for(i=0; i<para->bc->nb_wall; i++)
       para->bc->wallId[i] = -1;
 
+    para->bc->AWall = NULL;
     para->bc->AWall = (REAL*) malloc(para->bc->nb_wall*sizeof(REAL));
     if(para->bc->AWall==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -684,6 +703,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       return 1;
     }
 
+    para->bc->temHea = NULL;
     para->bc->temHea = (REAL*) malloc(para->bc->nb_wall*sizeof(REAL));
     if(para->bc->temHea==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -691,6 +711,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       return 1;
     }
 
+    para->bc->temHeaAve = NULL;
     para->bc->temHeaAve = (REAL*) malloc(para->bc->nb_wall*sizeof(REAL));
     if(para->bc->temHeaAve==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -698,6 +719,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
     return 1;
     }
 
+    para->bc->temHeaMean = NULL;
     para->bc->temHeaMean = (REAL*) malloc(para->bc->nb_wall*sizeof(REAL));
     if(para->bc->temHeaMean==NULL) {
       ffd_log("read_sci_input(): Could not allocate memory for "
@@ -718,6 +740,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
         continue;
       }
 
+      para->bc->wallName[i] = NULL;
       para->bc->wallName[i] = (char*)malloc((j+1)*sizeof(char));
       if(para->bc->wallName[i]==NULL) {
         sprintf(msg, "read_sci_input(): Could not allocate memory for "
@@ -905,18 +928,21 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Conclude the reading process
   *****************************************************************************/
   fclose(file_params);
-
+/*
   free(delx);
   free(dely);
   free(delz);
+*/
 
   sprintf(msg, "read_sci_input(): Read sci input file %s",
           para->inpu->parameter_file_name);
   ffd_log(msg, FFD_NORMAL);
   /* Free the filePath allocated in parameter_reader.c*/
+/*
   if (para->cosim->para->filePath != NULL){
     free(para->cosim->para->filePath);
   }
+*/
   return 0;
 } /* End of read_sci_input()*/
 
