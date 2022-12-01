@@ -7,7 +7,7 @@ model PipeAutosize "Pipe model parameterized with pressure drop per pipe length"
   parameter Modelica.Units.SI.Length dh(
     fixed=false,
     start=0.01,
-    min=0.01) "Hydraulic diameter (assuming a round cross section area)";
+    min=0.001) "Hydraulic diameter (assuming a round cross section area)";
 
   parameter Real dp_length_nominal(final unit="Pa/m") = 250
     "Pressure drop per pipe length at nominal flow rate";
@@ -101,7 +101,8 @@ depends on <code>dp_nominal</code> and must be evaluated at compile time.
 <ul>
 <li>
 November 18, 2022, by David Blum:<br/>
-Start attribute for parameter dh changed to 0.01.<br/>
+<code>start</code> attribute for parameter <code>dh</code> changed to 0.01.<br/>
+<code>min</code> attribute for parameter <code>dh</code> changed to 0.001.<br/>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2510\">issue 2510</a>.
 </li>
 <li>
