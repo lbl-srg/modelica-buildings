@@ -5,11 +5,15 @@ model RadiantHeatingWithGroundHeatTransfer
     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned;
   package MediumW=Buildings.Media.Water
     "Water medium";
+  package MediumG=Buildings.Media.Antifreeze.EthyleneGlycolWater(property_T=293.15, X_a=0.40)
+    "Water glycol";
   constant Modelica.Units.SI.Area AFlo=185.8 "Floor area";
   parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal=12000
     "Nominal heat flow rate for heating";
   parameter Modelica.Units.SI.MassFlowRate mHea_flow_nominal=QHea_flow_nominal/
-      4200/10 "Design water mass flow rate for heating";
+      4200/5 "Design water mass flow rate for heating";
+  parameter Modelica.Units.SI.MassFlowRate mBor_flow_nominal=mHea_flow_nominal*(1-1/4)*4200/3500
+   "Design water mass flow rate for heating";
   parameter HeatTransfer.Data.OpaqueConstructions.Generic layFlo(
     nLay=3,
     material={
@@ -17,18 +21,18 @@ model RadiantHeatingWithGroundHeatTransfer
       Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.10),
       Buildings.HeatTransfer.Data.Solids.Concrete(x=0.2)})
     "Material layers from surface a to b (8cm concrete, 10 cm insulation, 20 cm concrete)"
-    annotation (Placement(transformation(extent={{-20,-240},{0,-220}})));
+    annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
   parameter HeatTransfer.Data.Solids.Generic soil(
     x=2,
     k=1.3,
     c=800,
     d=1500)
     "Soil properties"
-    annotation (Placement(transformation(extent={{40,-308},{60,-288}})));
+    annotation (Placement(transformation(extent={{40,-288},{60,-268}})));
   Buildings.ThermalZones.EnergyPlus_9_6_0.ZoneSurface livFlo(
     surfaceName="Living:Floor")
     "Surface of living room floor"
-    annotation (Placement(transformation(extent={{60,-160},{80,-140}})));
+    annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
   Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab slaFlo(
     redeclare package Medium=MediumW,
     allowFlowReversal=false,
@@ -44,26 +48,25 @@ model RadiantHeatingWithGroundHeatTransfer
     from_dp=true,
     show_T=true)
     "Slab for floor with embedded pipes, connected to soil"
-    annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
+    annotation (Placement(transformation(extent={{0,-250},{20,-230}})));
   Fluid.Sources.Boundary_ph pre(
     redeclare package Medium=MediumW,
-    nPorts=1,
-    p(displayUnit="Pa")=300000)
+    p(displayUnit="Pa")=300000,
+    nPorts=1)
     "Pressure boundary condition"
-    annotation (Placement(transformation(extent={{72,-270},{52,-250}})));
+    annotation (Placement(transformation(extent={{80,-250},{60,-230}})));
   HeatTransfer.Sources.PrescribedHeatFlow preHeaLivFlo
     "Surface heat flow rate"
-    annotation (Placement(transformation(extent={{98,-154},{118,-134}})));
+    annotation (Placement(transformation(extent={{98,-134},{118,-114}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
     "Surface temperature for floor of living room"
-    annotation (Placement(transformation(extent={{20,-160},{40,-140}})));
+    annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
     k(final unit="K",
       displayUnit="degC")=293.15,
     y(final unit="K",
-      displayUnit="degC"))
-    "Room temperture set point for heating"
-    annotation (Placement(transformation(extent={{-180,-200},{-160,-180}})));
+      displayUnit="degC")) "Room temperture set point for heating"
+    annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
   Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -76,16 +79,7 @@ model RadiantHeatingWithGroundHeatTransfer
       speeds),
     inputType=Buildings.Fluid.Types.InputType.Continuous)
     "Pump"
-    annotation (Placement(transformation(extent={{-80,-270},{-60,-250}})));
-  Fluid.HeatExchangers.Heater_T       hea(
-    redeclare final package Medium=MediumW,
-    allowFlowReversal=false,
-    m_flow_nominal=mHea_flow_nominal,
-    dp_nominal=10000,
-    show_T=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Ideal heater"
-    annotation (Placement(transformation(extent={{-40,-270},{-20,-250}})));
+    annotation (Placement(transformation(extent={{-120,-250},{-100,-230}})));
   HeatTransfer.Conduction.SingleLayer soi(
     A=AFlo,
     material=soil,
@@ -95,16 +89,89 @@ model RadiantHeatingWithGroundHeatTransfer
     T_a_start=283.15,
     T_b_start=283.75)
     "2m deep soil (per definition on p.4 of ASHRAE 140-2007)"
-    annotation (Placement(transformation(extent={{12.5,-12.5},{-7.5,7.5}},rotation=-90,origin={16.5,-299.5})));
+    annotation (Placement(transformation(extent={{12.5,-12.5},{-7.5,7.5}},rotation=-90,origin={16.5,
+            -279.5})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi(
     T=293.15)
     "Boundary condition for construction"
-    annotation (Placement(transformation(extent={{0,0},{20,20}},origin={-32,-330})));
+    annotation (Placement(transformation(extent={{0,0},{-20,20}},
+                                                                origin={60,-320})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-      TSupSet_max=318.15)
+    TSupSet_max=303.15,
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+    k=2)
     "Controller for radiant heating system"
-    annotation (Placement(transformation(extent={{-120,-220},{-100,-200}})));
+    annotation (Placement(transformation(extent={{-214,-166},{-194,-146}})));
+  Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare package Medium = MediumW,
+    allowFlowReversal=false,
+    m_flow_nominal=mHea_flow_nominal,
+    tau=0,
+    transferHeat=true) "Leaving water temperature sensor"
+    annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
+  Controls.OBC.CDL.Continuous.PIDWithReset
+                                  conSup(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=0.1,
+    Ti(displayUnit="min") = 7200,
+    final yMax=1,
+    final yMin=0.2,
+    final reverseActing=true,
+    y_reset=0.2)              "Controller for heater"
+    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
+  Controls.OBC.CDL.Continuous.Switch swi
+    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant off(
+    final k = 0)
+    "Output 0 to switch heater off"
+    annotation (Placement(transformation(extent={{-260,-188},{-240,-168}})));
+  Fluid.HeatPumps.ScrollWaterToWater heaPum(
+    redeclare package Medium1 = MediumW,
+    redeclare package Medium2 = MediumG,
+    allowFlowReversal1=false,
+    allowFlowReversal2=false,
+    m1_flow_nominal=mHea_flow_nominal,
+    m2_flow_nominal=mBor_flow_nominal,
+    show_T=true,
+    dp1_nominal=10000,
+    dp2_nominal=10000,
+    scaling_factor=1.3*QHea_flow_nominal/12000,
+    enable_temperature_protection=true,
+    TEvaMin=268.15,
+    datHeaPum=
+        Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating.ClimateMaster_TMW036_12kW_4_90COP_R410A())
+            "Heat pump"
+    annotation (Placement(transformation(extent={{-50,-256},{-30,-236}})));
+  Fluid.Movers.SpeedControlled_y pumBor(
+    redeclare package Medium = MediumG,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    per(
+      pressure(V_flow=2*{0,mBor_flow_nominal}/1000,
+      dp=2*{10000,0}),
+      speed_nominal,
+      constantSpeed,
+      speeds),
+    inputType=Buildings.Fluid.Types.InputType.Continuous) "Pump"
+    annotation (Placement(transformation(extent={{-120,-310},{-100,-290}})));
+ Fluid.Geothermal.Boreholes.UTube borHol(
+    redeclare package Medium = MediumG,
+    hBor=200,
+    dp_nominal=10000,
+    dT_dz=0.0015,
+    samplePeriod=604800,
+    m_flow_nominal=mBor_flow_nominal,
+    redeclare parameter HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
+    redeclare parameter HeatTransfer.Data.Soil.Sandstone matSoi,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Borehole heat exchanger"
+    annotation (Placement(transformation(extent={{-168,-316},{-136,-284}})));
+  Fluid.Sources.Boundary_ph pre1(
+    redeclare package Medium = MediumG,
+    p(displayUnit="Pa") = 300000,
+    nPorts=1)
+    "Pressure boundary condition"
+    annotation (Placement(transformation(extent={{-212,-310},{-192,-290}})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
   // size the system and therefore we hard-code it here.
@@ -114,41 +181,69 @@ initial equation
     "Floor area AFlo differs from EnergyPlus floor area.");
 
 equation
-  connect(slaFlo.port_b,pre.ports[1])
-    annotation (Line(points={{20,-260},{52,-260}},color={0,127,255}));
   connect(livFlo.Q_flow,preHeaLivFlo.Q_flow)
-    annotation (Line(points={{82,-144},{98,-144}},color={0,0,127}));
+    annotation (Line(points={{82,-124},{98,-124}},color={0,0,127}));
   connect(preHeaLivFlo.port,slaFlo.surf_a)
-    annotation (Line(points={{118,-144},{124,-144},{124,-170},{14,-170},{14,
-          -250}},                                                                  color={191,0,0}));
+    annotation (Line(points={{118,-124},{124,-124},{124,-150},{14,-150},{14,
+          -230}},                                                                  color={191,0,0}));
   connect(TSurLivFlo.port,slaFlo.surf_a)
-    annotation (Line(points={{20,-150},{14,-150},{14,-250}},color={191,0,0}));
-  connect(hea.port_b,slaFlo.port_a)
-    annotation (Line(points={{-20,-260},{0,-260}},color={0,127,255}));
-  connect(pum.port_b,hea.port_a)
-    annotation (Line(points={{-60,-260},{-40,-260}},color={0,127,255}));
-  connect(pum.port_a,slaFlo.port_b)
-    annotation (Line(points={{-80,-260},{-90,-260},{-90,-280},{40,-280},{40,-260},{20,-260}},color={0,127,255}));
+    annotation (Line(points={{20,-130},{14,-130},{14,-230}},color={191,0,0}));
   connect(TSurLivFlo.T,livFlo.T)
-    annotation (Line(points={{40,-150},{58,-150}},color={0,0,127}));
+    annotation (Line(points={{41,-130},{58,-130}},color={0,0,127}));
   connect(TSoi.port,soi.port_a)
-    annotation (Line(points={{-12,-320},{14,-320},{14,-312}},color={191,0,0}));
+    annotation (Line(points={{40,-310},{14,-310},{14,-292}}, color={191,0,0}));
   connect(soi.port_b,slaFlo.surf_b)
-    annotation (Line(points={{14,-292},{14,-270}},color={191,0,0}));
-  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-122,-210},{-192,
-          -210},{-192,40},{48,40},{48,18},{41,18}}, color={0,0,127}));
-  connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-158,-190},{
-          -140,-190},{-140,-204},{-122,-204}}, color={0,0,127}));
-  connect(conHea.yPum, pum.y) annotation (Line(points={{-98,-216},{-70,-216},{
-          -70,-248}}, color={0,0,127}));
-  connect(conHea.TSupSet, hea.TSet) annotation (Line(points={{-98,-204},{-52,
-          -204},{-52,-252},{-42,-252}}, color={0,0,127}));
+    annotation (Line(points={{14,-272},{14,-250}},color={191,0,0}));
+  connect(conHea.TRoo, zon.TAir) annotation (Line(points={{-216,-156},{-270,-156},
+          {-270,30},{50,30},{50,18},{41,18}},       color={0,0,127}));
+  connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-238,-140},{-230,
+          -140},{-230,-150},{-216,-150}},      color={0,0,127}));
+  connect(conHea.yPum, pum.y) annotation (Line(points={{-192,-162},{-180,-162},{
+          -180,-218},{-110,-218},{-110,-228}},
+                      color={0,0,127}));
+  connect(conHea.TSupSet, conSup.u_s) annotation (Line(points={{-192,-150},{
+          -162,-150}},                    color={0,0,127}));
+  connect(senTem.T, conSup.u_m) annotation (Line(points={{-150,-229},{-150,-162}},
+                             color={0,0,127}));
+  connect(conHea.on, swi.u2) annotation (Line(points={{-192,-158},{-176,-158},{-176,
+          -170},{-102,-170}},color={255,0,255}));
+  connect(conSup.y, swi.u1) annotation (Line(points={{-138,-150},{-120,-150},{
+          -120,-162},{-102,-162}},
+                             color={0,0,127}));
+  connect(off.y, swi.u3)
+    annotation (Line(points={{-238,-178},{-102,-178}},color={0,0,127}));
+  connect(pum.port_b, heaPum.port_a1)
+    annotation (Line(points={{-100,-240},{-50,-240}}, color={0,127,255}));
+  connect(slaFlo.port_a, heaPum.port_b1)
+    annotation (Line(points={{0,-240},{-30,-240}}, color={0,127,255}));
+  connect(swi.y, heaPum.y) annotation (Line(points={{-78,-170},{-70,-170},{-70,-243},
+          {-52,-243}},                       color={0,0,127}));
+  connect(borHol.port_b, pumBor.port_a)
+    annotation (Line(points={{-136,-300},{-120,-300}}, color={0,127,255}));
+  connect(pumBor.port_b, heaPum.port_a2) annotation (Line(points={{-100,-300},{-20,
+          -300},{-20,-252},{-30,-252}}, color={0,127,255}));
+  connect(heaPum.port_b2, borHol.port_a) annotation (Line(points={{-50,-252},{-80,
+          -252},{-80,-280},{-180,-280},{-180,-300},{-168,-300}}, color={0,127,255}));
+  connect(pre1.ports[1], borHol.port_a)
+    annotation (Line(points={{-192,-300},{-168,-300}}, color={0,127,255}));
+  connect(pumBor.y, conHea.yPum) annotation (Line(points={{-110,-288},{-110,-270},
+          {-180,-270},{-180,-162},{-192,-162}},                         color={0,
+          0,127}));
+  connect(senTem.port_b, pum.port_a)
+    annotation (Line(points={{-140,-240},{-120,-240}}, color={0,127,255}));
+  connect(senTem.port_a, slaFlo.port_b) annotation (Line(points={{-160,-240},{-168,
+          -240},{-168,-260},{30,-260},{30,-240},{20,-240}}, color={0,127,255}));
+  connect(slaFlo.port_b, pre.ports[1])
+    annotation (Line(points={{20,-240},{60,-240}}, color={0,127,255}));
+  connect(conHea.on, conSup.trigger) annotation (Line(points={{-192,-158},{-176,
+          -158},{-176,-170},{-156,-170},{-156,-162}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/RadiantHeatingWithGroundHeatTransfer.mos" "Simulate and plot"),
     experiment(
-      StopTime=432000,
-      Tolerance=1e-06),
+      StopTime=1728000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(
       info="<html>
 <p>
@@ -156,10 +251,17 @@ Model that uses EnergyPlus for the simulation of a building with one thermal zon
 that has a radiant floor, used for heating.
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
+Heating is provided with a geothermal heat pump. The heat pump is controlled to track
+a set point of the water temperature that leaves the radiant slab.
+Hence, the control is cascading, with first the set point temperature for the water that leaves the slab
+being calculated based on the room temperature control error, and then the heat pump speed is controlled to track the
+water temperature that leaves the radiant slab.
+</p>
+<p>
 This model has no cooling and hence will overheat in summer. See
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
-for a similar model that also has cooling.
+for a model that also has cooling.
 </p>
 <p>
 The next section explains how the radiant floor is configured.
@@ -196,7 +298,7 @@ First implementation.
 </html>"),
     Diagram(
       coordinateSystem(
-        extent={{-220,-340},{160,60}})),
+        extent={{-320,-340},{160,60}})),
     Icon(
       coordinateSystem(
         extent={{-100,-100},{100,100}})));
