@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDIntegralTime "Identifies the integral time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
@@ -22,51 +22,52 @@ block PIDIntegralTime "Identifies the integral time of a PID controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculate the sum of the time delay and the product of 0.1 and the input time constant"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Calculate the sum of the output of gai1 and the product of 0.8 and the input time constant"
-    annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
+    annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of add3 divided by the output of add1"
-    annotation (Placement(transformation(extent={{0,10},{20,-10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.4)
     "Calculate the product of 0.4 and the time delay"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=0.8)
     "Calculate the product of 0.8 and the input time constant"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
     "Calculate the product of 0.1 and the input time constant"
-    annotation (Placement(transformation(extent={{-80,68},{-60,88}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Calculate the product of the output of div and the time delay"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
-  connect(gai1.u, L) annotation (Line(points={{-82,-40},{-90,-40},{-90,-60},{
+  connect(gai1.u, L) annotation (Line(points={{-82,-10},{-90,-10},{-90,-60},{
           -120,-60}}, color={0,0,127}));
-  connect(gai3.u, T) annotation (Line(points={{-82,78},{-90,78},{-90,60},{-120,
+  connect(gai3.u, T) annotation (Line(points={{-82,20},{-90,20},{-90,60},{-120,
           60}}, color={0,0,127}));
-  connect(gai2.u, T) annotation (Line(points={{-82,40},{-90,40},{-90,60},{-120,
-          60}}, color={0,0,127}));
-  connect(gai1.y, add2.u2) annotation (Line(points={{-58,-40},{-48,-40},{-48,
-          -26},{-42,-26}}, color={0,0,127}));
-  connect(add2.u1, gai2.y) annotation (Line(points={{-42,-14},{-48,-14},{-48,40},
-          {-58,40}}, color={0,0,127}));
-  connect(add1.u2, L) annotation (Line(points={{-42,14},{-54,14},{-54,-60},{
+  connect(gai2.u, T) annotation (Line(points={{-82,60},{-120,60}},
+                color={0,0,127}));
+  connect(gai1.y, add2.u2) annotation (Line(points={{-58,-10},{-30,-10},{-30,14},
+          {-22,14}},       color={0,0,127}));
+  connect(add2.u1, gai2.y) annotation (Line(points={{-22,26},{-30,26},{-30,60},
+          {-58,60}}, color={0,0,127}));
+  connect(add1.u2, L) annotation (Line(points={{-22,-36},{-90,-36},{-90,-60},{
           -120,-60}}, color={0,0,127}));
-  connect(add1.u1, gai3.y) annotation (Line(points={{-42,26},{-54,26},{-54,78},
-          {-58,78}}, color={0,0,127}));
+  connect(add1.u1, gai3.y) annotation (Line(points={{-22,-24},{-40,-24},{-40,20},
+          {-58,20}}, color={0,0,127}));
   connect(div.y, mul.u1)
-    annotation (Line(points={{22,0},{30,0},{30,6},{38,6}}, color={0,0,127}));
-  connect(mul.u2, L) annotation (Line(points={{38,-6},{24,-6},{24,-60},{-120,-60}},
+    annotation (Line(points={{42,0},{48,0},{48,6},{58,6}}, color={0,0,127}));
+  connect(mul.u2, L) annotation (Line(points={{58,-6},{50,-6},{50,-60},{-120,
+          -60}},
         color={0,0,127}));
   connect(mul.y, Ti)
-    annotation (Line(points={{62,0},{120,0}}, color={0,0,127}));
-  connect(div.u2, add1.y) annotation (Line(points={{-2,6},{-10,6},{-10,20},{-18,
-          20}}, color={0,0,127}));
-  connect(div.u1, add2.y) annotation (Line(points={{-2,-6},{-10,-6},{-10,-20},{-18,
-          -20}}, color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+  connect(div.u2, add1.y) annotation (Line(points={{18,-6},{10,-6},{10,-30},{2,
+          -30}},color={0,0,127}));
+  connect(div.u1, add2.y) annotation (Line(points={{18,6},{10,6},{10,20},{2,20}},
+                 color={0,0,127}));
   annotation (defaultComponentName = "PIDIntTim",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

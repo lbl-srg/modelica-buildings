@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIGain "Identifies the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(final min=1E-6)
     "Gain of a first order time-delayed model"
@@ -16,7 +16,7 @@ block PIGain "Identifies the control gain of a PI controller"
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time delay of a first order time-delayed model"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    annotation (Placement(transformation(extent={{-140,-96},{-100,-56}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain of a PI controller"
@@ -29,19 +29,19 @@ block PIGain "Identifies the control gain of a PI controller"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=0.35)
     "Constant parameter 1 (value 0.35)"
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(final k=0.15)
     "Constant parameter 2 (value 0.15)"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Calculate 0.15 divided by the control gain"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Calculate the output of mul2 divided by the output of mul1"
-    annotation (Placement(transformation(extent={{20,-40},{40,-60}})));
+    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div3
     "Calculate the time constant divided by the output of mul2"
-    annotation (Placement(transformation(extent={{-20,20},{0,0}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
     "Calculate the square value of the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
@@ -59,44 +59,46 @@ block PIGain "Identifies the control gain of a PI controller"
     annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
 
 equation
-  connect(div1.u2, kp) annotation (Line(points={{-62,44},{-80,44},{-80,60},{
+  connect(div1.u2, kp) annotation (Line(points={{-42,44},{-80,44},{-80,60},{
           -120,60}}, color={0,0,127}));
-  connect(add2.u1, div1.y) annotation (Line(points={{18,36},{-20,36},{-20,50},{
-          -38,50}}, color={0,0,127}));
-  connect(add1.u1, T) annotation (Line(points={{-62,-24},{-80,-24},{-80,0},{
+  connect(add2.u1, div1.y) annotation (Line(points={{18,36},{0,36},{0,50},{-18,
+          50}},     color={0,0,127}));
+  connect(add1.u1, T) annotation (Line(points={{-62,-24},{-90,-24},{-90,0},{
           -120,0}}, color={0,0,127}));
-  connect(add1.u2, L) annotation (Line(points={{-62,-36},{-80,-36},{-80,-60},{
-          -120,-60}}, color={0,0,127}));
+  connect(add1.u2, L) annotation (Line(points={{-62,-36},{-80,-36},{-80,-76},{
+          -120,-76}}, color={0,0,127}));
   connect(mul4.u1, T) annotation (Line(points={{-62,-64},{-90,-64},{-90,0},{-120,
           0}}, color={0,0,127}));
-  connect(mul4.u2, L) annotation (Line(points={{-62,-76},{-94,-76},{-94,-60},{-120,
-          -60}}, color={0,0,127}));
+  connect(mul4.u2, L) annotation (Line(points={{-62,-76},{-120,-76}},
+                 color={0,0,127}));
   connect(mul1.u1, add1.y) annotation (Line(points={{-22,-24},{-32,-24},{-32,
           -30},{-38,-30}}, color={0,0,127}));
   connect(mul1.u2, add1.y) annotation (Line(points={{-22,-36},{-32,-36},{-32,
           -30},{-38,-30}}, color={0,0,127}));
-  connect(div2.u2, mul1.y) annotation (Line(points={{18,-44},{8,-44},{8,-30},{2,
-          -30}}, color={0,0,127}));
-  connect(div2.u1, mul4.y) annotation (Line(points={{18,-56},{-20,-56},{-20,-70},
+  connect(div2.u2, mul1.y) annotation (Line(points={{18,-56},{10,-56},{10,-30},
+          {2,-30}},
+                 color={0,0,127}));
+  connect(div2.u1, mul4.y) annotation (Line(points={{18,-44},{-20,-44},{-20,-70},
           {-38,-70}}, color={0,0,127}));
-  connect(mul2.u1, kp) annotation (Line(points={{-62,26},{-72,26},{-72,44},{-80,
-          44},{-80,60},{-120,60}}, color={0,0,127}));
-  connect(mul2.u2, L) annotation (Line(points={{-62,14},{-72,14},{-72,-36},{-80,
-          -36},{-80,-60},{-120,-60}}, color={0,0,127}));
-  connect(div3.u2, mul2.y) annotation (Line(points={{-22,16},{-30,16},{-30,20},
-          {-38,20}}, color={0,0,127}));
-  connect(div3.u1, T) annotation (Line(points={{-22,4},{-52,4},{-52,0},{-120,0}},
+  connect(mul2.u1, kp) annotation (Line(points={{-62,26},{-80,26},{-80,60},{
+          -120,60}},               color={0,0,127}));
+  connect(mul2.u2, L) annotation (Line(points={{-62,14},{-80,14},{-80,-76},{
+          -120,-76}},                 color={0,0,127}));
+  connect(div3.u2, mul2.y) annotation (Line(points={{-22,4},{-30,4},{-30,20},{
+          -38,20}},  color={0,0,127}));
+  connect(div3.u1, T) annotation (Line(points={{-22,16},{-34,16},{-34,0},{-120,
+          0}},
         color={0,0,127}));
   connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}}, color={0,0,127}));
-  connect(const2.y, div1.u1) annotation (Line(points={{-78,80},{-68,80},{-68,56},
-          {-62,56}},                   color={0,0,127}));
+  connect(const2.y, div1.u1) annotation (Line(points={{-58,80},{-50,80},{-50,56},
+          {-42,56}},                   color={0,0,127}));
   connect(add2.u2, mul3.y) annotation (Line(points={{18,24},{10,24},{10,16},{48,
           16},{48,0},{42,0}}, color={0,0,127}));
   connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
         color={0,0,127}));
   connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{44,-50},{44,-56},{
           48,-56}}, color={0,0,127}));
-  connect(const1.y, sub.u1) annotation (Line(points={{12,-80},{46,-80},{46,-44},
+  connect(const1.y, sub.u1) annotation (Line(points={{22,-80},{46,-80},{46,-44},
           {48,-44}}, color={0,0,127}));
   connect(sub.y, mul3.u2) annotation (Line(points={{72,-50},{80,-50},{80,-22},{
           10,-22},{10,-6},{18,-6}}, color={0,0,127}));

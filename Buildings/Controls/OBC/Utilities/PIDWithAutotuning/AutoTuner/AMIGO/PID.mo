@@ -20,7 +20,8 @@ block PID "Identifies the parameters of a PID controller"
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain signal"
-    annotation (Placement(transformation(extent={{100,50},{140,90}})));
+    annotation (Placement(transformation(extent={{100,30},{140,70}}),
+        iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Ti(
     final quantity="Time",
     final unit="s",
@@ -32,7 +33,8 @@ block PID "Identifies the parameters of a PID controller"
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Connector for time constant signal for the derivative term"
-    annotation (Placement(transformation(extent={{100,-90},{140,-50}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+        iconTransformation(extent={{100,-90},{140,-50}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gai
     "Calculate the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
@@ -44,11 +46,11 @@ block PID "Identifies the parameters of a PID controller"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation
-  connect(derTim.Td, Td) annotation (Line(points={{12,-60},{60,-60},{60,-70},{
-          120,-70}}, color={0,0,127}));
+  connect(derTim.Td, Td) annotation (Line(points={{12,-60},{120,-60}},
+                     color={0,0,127}));
   connect(intTim.Ti, Ti)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
-  connect(gai.k, k) annotation (Line(points={{12,50},{94,50},{94,70},{120,70}},
+  connect(gai.k, k) annotation (Line(points={{12,50},{120,50}},
         color={0,0,127}));
   connect(intTim.T, gai.T) annotation (Line(points={{-12,6},{-40,6},{-40,50},{-12,
           50}}, color={0,0,127}));

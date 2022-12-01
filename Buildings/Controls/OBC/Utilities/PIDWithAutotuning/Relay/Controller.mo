@@ -23,7 +23,8 @@ block Controller
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
     "Control error"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,10},{140,50}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(
     final bandwidth=deaBan*2,
     final pre_y_start=true)
@@ -35,14 +36,14 @@ block Controller
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHigSig(
     final k=yHig)
     "Higher value for the output"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(
     final k=-yLow)
     "Lower value for the output"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract conErr
     "Control error (set point - measurement)"
-    annotation (Placement(transformation(extent={{-76,10},{-56,30}})));
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 
 initial equation
   assert(
@@ -57,24 +58,26 @@ equation
     annotation (Line(points={{-22,6},{-40,6},{-40,0},{-120,0}},
                                                color={0,0,127}));
   connect(greMeaSet.u, u_m)
-    annotation (Line(points={{-22,-6},{-64,-6},{-64,-94},
-          {0,-94},{0,-120}}, color={0,0,127}));
+    annotation (Line(points={{-22,-6},{-70,-6},{-70,-94},{0,-94},{0,-120}},
+                             color={0,0,127}));
   connect(yHigSig.y, swi.u1)
-    annotation (Line(points={{-18,50},{50,50},{50,8},{58,
-          8}}, color={0,0,127}));
+    annotation (Line(points={{2,60},{20,60},{20,8},{58,8}},
+               color={0,0,127}));
   connect(yLowSig.y, swi.u3)
-    annotation (Line(points={{-18,-40},{50,-40},{50,-8},
-          {58,-8}}, color={0,0,127}));
-  connect(yOn, swi.u2) annotation (Line(points={{120,-60},{52,-60},{52,0},{58,0}},
+    annotation (Line(points={{2,-40},{20,-40},{20,-8},{58,-8}},
+                    color={0,0,127}));
+  connect(yOn, swi.u2) annotation (Line(points={{120,-60},{40,-60},{40,0},{58,0}},
         color={255,0,255}));
-  connect(conErr.y, yErr) annotation (Line(points={{-54,20},{94,20},{94,0},{120,
-          0}}, color={0,0,127}));
+  connect(conErr.y, yErr) annotation (Line(points={{-38,20},{40,20},{40,30},{
+          120,30}},
+               color={0,0,127}));
   connect(greMeaSet.y, swi.u2)
     annotation (Line(points={{2,0},{58,0}}, color={255,0,255}));
-  connect(conErr.u1, u_m) annotation (Line(points={{-78,26},{-90,26},{-90,-6},{
-          -64,-6},{-64,-94},{0,-94},{0,-120}}, color={0,0,127}));
-  connect(conErr.u2, u_s) annotation (Line(points={{-78,14},{-80,14},{-80,0},{-120,
-          0}}, color={0,0,127}));
+  connect(conErr.u1, u_m) annotation (Line(points={{-62,26},{-70,26},{-70,-94},
+          {0,-94},{0,-120}},                   color={0,0,127}));
+  connect(conErr.u2, u_s) annotation (Line(points={{-62,14},{-80,14},{-80,0},{
+          -120,0}},
+               color={0,0,127}));
   annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

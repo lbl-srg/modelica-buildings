@@ -26,7 +26,7 @@ block NormalizedTimeDelay
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract subGammaRho
     "Calculate the difference between the asymmetry level of the relay controller and the half period ratio"
-    annotation (Placement(transformation(extent={{0,12},{20,32}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.35)
     "Gain for the half period ratio"
@@ -39,14 +39,15 @@ equation
   assert(
     gamma-rho>1E-6,
     "The asymmetry level should be larger than the half period ratio. Check parameters.");
-  connect(subGammaRho.u1, asymmetryLevel.y) annotation (Line(points={{-2,28},{-20,
-          28},{-20,50},{-58,50}}, color={0,0,127}));
-  connect(subGammaRho.u2, rho) annotation (Line(points={{-2,16},{-42,16},{-42,
+  connect(subGammaRho.u1, asymmetryLevel.y) annotation (Line(points={{-2,26},{
+          -52,26},{-52,50},{-58,50}},
+                                  color={0,0,127}));
+  connect(subGammaRho.u2, rho) annotation (Line(points={{-2,14},{-42,14},{-42,
           20},{-94,20},{-94,0},{-120,0}}, color={0,0,127}));
   connect(gai.u, rho) annotation (Line(points={{-82,-60},{-94,-60},{-94,0},{-120,
           0}}, color={0,0,127}));
   connect(div.u1, subGammaRho.y)
-    annotation (Line(points={{38,6},{30,6},{30,22},{22,22}}, color={0,0,127}));
+    annotation (Line(points={{38,6},{30,6},{30,20},{22,20}}, color={0,0,127}));
   connect(div.u2, mul.y) annotation (Line(points={{38,-6},{30,-6},{30,-38},{22,-38}},
         color={0,0,127}));
   connect(div.y, tau)
