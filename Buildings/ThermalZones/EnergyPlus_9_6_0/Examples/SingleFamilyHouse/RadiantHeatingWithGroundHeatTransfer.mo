@@ -61,12 +61,11 @@ model RadiantHeatingWithGroundHeatTransfer
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSurLivFlo
     "Surface temperature for floor of living room"
     annotation (Placement(transformation(extent={{20,-140},{40,-120}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(
-    k(final unit="K",
-      displayUnit="degC")=293.15,
-    y(final unit="K",
-      displayUnit="degC")) "Room temperture set point for heating"
-    annotation (Placement(transformation(extent={{-260,-150},{-240,-130}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TSetRooHea(k(
+      final unit="K",
+      displayUnit="degC") = 293.15, y(final unit="K", displayUnit="degC"))
+    "Room temperture set point for heating"
+    annotation (Placement(transformation(extent={{-320,-160},{-300,-140}})));
   Fluid.Movers.SpeedControlled_y pum(
     redeclare package Medium=MediumW,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -98,11 +97,12 @@ model RadiantHeatingWithGroundHeatTransfer
                                                                 origin={60,-320})));
 
   Controls.OBC.RadiantSystems.Heating.HighMassSupplyTemperature_TRoom conHea(
-    TSupSet_max=303.15,
+    TSupSet_max=328.15,
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-    k=2)
+    k=2,
+    Ti=7200)
     "Controller for radiant heating system"
-    annotation (Placement(transformation(extent={{-214,-166},{-194,-146}})));
+    annotation (Placement(transformation(extent={{-280,-166},{-260,-146}})));
   Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare package Medium = MediumW,
     allowFlowReversal=false,
@@ -112,19 +112,20 @@ model RadiantHeatingWithGroundHeatTransfer
     annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
   Controls.OBC.CDL.Continuous.PIDWithReset conSup(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    k=0.1,
-    Ti(displayUnit="min") = 7200,
+    k=4,
+    Ti(displayUnit="min") = 60,
+    r=10,
     final yMax=1,
     final yMin=0.2,
     final reverseActing=true,
     y_reset=0.2) "Controller for heat pump"
     annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-  Controls.OBC.CDL.Continuous.Switch swi
-    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+  Controls.OBC.CDL.Continuous.Switch swiHeaPum "Switch for heat pump signal"
+    annotation (Placement(transformation(extent={{-120,-168},{-100,-148}})));
   Controls.OBC.CDL.Continuous.Sources.Constant off(
     final k = 0)
     "Output 0 to switch heater off"
-    annotation (Placement(transformation(extent={{-260,-188},{-240,-168}})));
+    annotation (Placement(transformation(extent={{-300,-280},{-280,-260}})));
   Fluid.HeatPumps.ScrollWaterToWater heaPum(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumG,
@@ -141,7 +142,7 @@ model RadiantHeatingWithGroundHeatTransfer
     datHeaPum=
         Buildings.Fluid.HeatPumps.Data.ScrollWaterToWater.Heating.ClimateMaster_TMW036_12kW_4_90COP_R410A())
       "Heat pump"
-    annotation (Placement(transformation(extent={{-50,-256},{-30,-236}})));
+    annotation (Placement(transformation(extent={{-70,-256},{-50,-236}})));
   Fluid.Movers.SpeedControlled_y pumBor(
     redeclare package Medium = MediumG,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
@@ -205,6 +206,32 @@ model RadiantHeatingWithGroundHeatTransfer
     annotation (Placement(transformation(extent={{180,-318},{200,-298}})));
   Controls.OBC.CDL.Continuous.Divide COP "Coefficient of performance"
     annotation (Placement(transformation(extent={{220,-300},{240,-280}})));
+  Controls.OBC.CDL.Logical.Sources.Pulse ava(
+    width=22/24,
+    period=24*3600,
+    shift=7*3600)
+    "Availability schedule to block heat pump operation in early morning (assuming grid is at capacity)"
+    annotation (Placement(transformation(extent={{-300,-240},{-280,-220}})));
+  Controls.OBC.CDL.Continuous.Switch swiPum "Switch for circulation pumps"
+    annotation (Placement(transformation(extent={{-240,-230},{-220,-210}})));
+  Controls.OBC.CDL.Logical.And onHeaPum "On/off signal for heat pump"
+    annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
+  Fluid.Sensors.TemperatureTwoPort senTemSup(
+    redeclare package Medium = MediumW,
+    allowFlowReversal=false,
+    m_flow_nominal=mHea_flow_nominal,
+    tau=0,
+    transferHeat=true) "Water supply temperature"
+    annotation (Placement(transformation(extent={{-34,-250},{-14,-230}})));
+  Modelica.Blocks.Continuous.FirstOrder firOrd(
+    T(displayUnit="min") = 600,
+      y_start(
+      unit="K",
+      displayUnit="degC") = 293.15,
+    u(final unit="K", displayUnit="degC"),
+    y(final unit="K", displayUnit="degC"))
+    "First order filter to avoid step change in operative temperature after EnergyPlus sampling"
+    annotation (Placement(transformation(extent={{100,2},{120,22}})));
 initial equation
   // The floor area can be obtained from EnergyPlus, but it is a structural parameter used to
   // size the system and therefore we hard-code it here.
@@ -227,53 +254,34 @@ equation
     annotation (Line(points={{40,-310},{14,-310},{14,-292}}, color={191,0,0}));
   connect(soi.port_b,slaFlo.surf_b)
     annotation (Line(points={{14,-272},{14,-250}},color={191,0,0}));
-  connect(TSetRooHea.y, conHea.TRooSet) annotation (Line(points={{-238,-140},{-230,
-          -140},{-230,-150},{-216,-150}},      color={0,0,127}));
-  connect(conHea.yPum, pum.y) annotation (Line(points={{-192,-162},{-180,-162},{
-          -180,-218},{-110,-218},{-110,-228}},
-                      color={0,0,127}));
-  connect(conHea.TSupSet, conSup.u_s) annotation (Line(points={{-192,-150},{
-          -162,-150}},                    color={0,0,127}));
-  connect(senTem.T, conSup.u_m) annotation (Line(points={{-150,-229},{-150,-162}},
-                             color={0,0,127}));
-  connect(conHea.on, swi.u2) annotation (Line(points={{-192,-158},{-176,-158},{-176,
-          -170},{-102,-170}},color={255,0,255}));
-  connect(conSup.y, swi.u1) annotation (Line(points={{-138,-150},{-120,-150},{
-          -120,-162},{-102,-162}},
-                             color={0,0,127}));
-  connect(off.y, swi.u3)
-    annotation (Line(points={{-238,-178},{-102,-178}},color={0,0,127}));
+  connect(conHea.TSupSet, conSup.u_s) annotation (Line(points={{-258,-150},{-162,
+          -150}},                         color={0,0,127}));
+  connect(conSup.y, swiHeaPum.u1)
+    annotation (Line(points={{-138,-150},{-122,-150}}, color={0,0,127}));
+  connect(off.y, swiHeaPum.u3) annotation (Line(points={{-278,-270},{-250,-270},
+          {-250,-166},{-122,-166}}, color={0,0,127}));
   connect(pum.port_b, heaPum.port_a1)
-    annotation (Line(points={{-100,-240},{-50,-240}}, color={0,127,255}));
-  connect(slaFlo.port_a, heaPum.port_b1)
-    annotation (Line(points={{0,-240},{-30,-240}}, color={0,127,255}));
-  connect(swi.y, heaPum.y) annotation (Line(points={{-78,-170},{-70,-170},{-70,-243},
-          {-52,-243}},                       color={0,0,127}));
+    annotation (Line(points={{-100,-240},{-70,-240}}, color={0,127,255}));
+  connect(swiHeaPum.y, heaPum.y) annotation (Line(points={{-98,-158},{-80,-158},
+          {-80,-243},{-72,-243}}, color={0,0,127}));
   connect(borHol.port_b, pumBor.port_a)
     annotation (Line(points={{-136,-300},{-120,-300}}, color={0,127,255}));
-  connect(pumBor.port_b, heaPum.port_a2) annotation (Line(points={{-100,-300},{-20,
-          -300},{-20,-252},{-30,-252}}, color={0,127,255}));
-  connect(heaPum.port_b2, borHol.port_a) annotation (Line(points={{-50,-252},{-80,
+  connect(pumBor.port_b, heaPum.port_a2) annotation (Line(points={{-100,-300},{-40,
+          -300},{-40,-252},{-50,-252}}, color={0,127,255}));
+  connect(heaPum.port_b2, borHol.port_a) annotation (Line(points={{-70,-252},{-80,
           -252},{-80,-280},{-180,-280},{-180,-300},{-168,-300}}, color={0,127,255}));
   connect(pre1.ports[1], borHol.port_a)
     annotation (Line(points={{-192,-300},{-168,-300}}, color={0,127,255}));
-  connect(pumBor.y, conHea.yPum) annotation (Line(points={{-110,-288},{-110,-270},
-          {-180,-270},{-180,-162},{-192,-162}},                         color={0,
-          0,127}));
   connect(senTem.port_b, pum.port_a)
     annotation (Line(points={{-140,-240},{-120,-240}}, color={0,127,255}));
   connect(senTem.port_a, slaFlo.port_b) annotation (Line(points={{-160,-240},{-168,
           -240},{-168,-260},{30,-260},{30,-240},{20,-240}}, color={0,127,255}));
   connect(slaFlo.port_b, pre.ports[1])
     annotation (Line(points={{20,-240},{60,-240}}, color={0,127,255}));
-  connect(conHea.on, conSup.trigger) annotation (Line(points={{-192,-158},{-176,
-          -158},{-176,-170},{-156,-170},{-156,-162}}, color={255,0,255}));
   connect(zon.TAir, TOpe.u1)
     annotation (Line(points={{41,18},{58,18}}, color={0,0,127}));
   connect(zon.TRad, TOpe.u2)
     annotation (Line(points={{41,14},{48,14},{48,6},{58,6}}, color={0,0,127}));
-  connect(TOpe.y, conHea.TRoo) annotation (Line(points={{81,12},{100,12},{100,40},
-          {-280,40},{-280,-156},{-216,-156}}, color={0,0,127}));
   connect(EHea.u, QCon.y)
     annotation (Line(points={{178,-270},{161,-270}}, color={0,0,127}));
   connect(EEle.u, PEle1.y)
@@ -282,6 +290,37 @@ equation
           {218,-296}}, color={0,0,127}));
   connect(EHea.y, COP.u1) annotation (Line(points={{201,-270},{210,-270},{210,-284},
           {218,-284}}, color={0,0,127}));
+  connect(conHea.yPum, swiPum.u1) annotation (Line(points={{-258,-162},{-246,-162},
+          {-246,-212},{-242,-212}}, color={0,0,127}));
+  connect(ava.y, swiPum.u2) annotation (Line(points={{-278,-230},{-260,-230},{-260,
+          -220},{-242,-220}}, color={255,0,255}));
+  connect(swiPum.y, pum.y) annotation (Line(points={{-218,-220},{-110,-220},{-110,
+          -228}}, color={0,0,127}));
+  connect(swiPum.y, pumBor.y) annotation (Line(points={{-218,-220},{-190,-220},{
+          -190,-276},{-110,-276},{-110,-288}}, color={0,0,127}));
+  connect(conHea.on, onHeaPum.u1) annotation (Line(points={{-258,-158},{-212,-158},
+          {-212,-190},{-202,-190}}, color={255,0,255}));
+  connect(onHeaPum.y, swiHeaPum.u2) annotation (Line(points={{-178,-190},{-132,-190},
+          {-132,-158},{-122,-158}}, color={255,0,255}));
+  connect(ava.y, onHeaPum.u2) annotation (Line(points={{-278,-230},{-260,-230},{
+          -260,-198},{-202,-198}}, color={255,0,255}));
+  connect(swiPum.u3, off.y) annotation (Line(points={{-242,-228},{-250,-228},{-250,
+          -270},{-278,-270}}, color={0,0,127}));
+  connect(onHeaPum.y, conSup.trigger) annotation (Line(points={{-178,-190},{-156,
+          -190},{-156,-162}}, color={255,0,255}));
+  connect(slaFlo.port_a, senTemSup.port_b)
+    annotation (Line(points={{0,-240},{-14,-240}}, color={0,127,255}));
+  connect(senTemSup.port_a, heaPum.port_b1)
+    annotation (Line(points={{-34,-240},{-50,-240}}, color={0,127,255}));
+  connect(senTemSup.T, conSup.u_m) annotation (Line(points={{-24,-229},{-24,-200},
+          {-150,-200},{-150,-162}}, color={0,0,127}));
+  connect(TOpe.y, firOrd.u)
+    annotation (Line(points={{81,12},{98,12}}, color={0,0,127}));
+  connect(firOrd.y, conHea.TRoo) annotation (Line(points={{121,12},{132,12},{132,
+          32},{-330,32},{-330,-172},{-290,-172},{-290,-156},{-282,-156}}, color
+        ={0,0,127}));
+  connect(TSetRooHea.y, conHea.TRooSet)
+    annotation (Line(points={{-298,-150},{-282,-150}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/RadiantHeatingWithGroundHeatTransfer.mos" "Simulate and plot"),
@@ -349,6 +388,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-320,-340},{260,60}})),
-    Icon(coordinateSystem(extent={{-320,-340},{260,60}})));
+    Diagram(coordinateSystem(extent={{-340,-340},{260,60}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end RadiantHeatingWithGroundHeatTransfer;
