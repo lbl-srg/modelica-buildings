@@ -3,6 +3,34 @@ block FirstOrderAMIGO
   "A autotuning PID controller with an AMIGO tuner and a first order time delayed system model"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
+  parameter Real r(
+    min=100*CDL.Constants.eps)=1
+    "Typical range of control error, used for scaling the control error";
+  parameter Real yMax=1
+    "Upper limit of output"
+    annotation (Dialog(group="Limits"));
+  parameter Real yMin=0
+    "Lower limit of output"
+    annotation (Dialog(group="Limits"));
+  parameter Real Ni(
+    min=100*CDL.Constants.eps)=0.9
+    "Ni*Ti is time constant of anti-windup compensation"
+    annotation (Dialog(tab="Advanced",group="Integrator anti-windup",enable=controllerType == CDL.Types.SimpleController.PI or controllerType ==CDL.Types.SimpleController.PID));
+  parameter Real Nd(
+    min=100*CDL.Constants.eps)=10
+    "The higher Nd, the more ideal the derivative block"
+    annotation (Dialog(tab="Advanced",group="Derivative block",enable=controllerType == CDL.Types.SimpleController.PD or controllerType ==CDL.Types.SimpleController.PID));
+  parameter Real xi_start=0
+    "Initial value of integrator state"
+    annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+  parameter Real yd_start=0
+    "Initial value of derivative output"
+    annotation (Dialog(tab="Advanced",group="Initialization",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+  parameter Boolean reverseActing=true
+    "Set to true for reverse acting, or false for direct acting control action";
+  parameter Real y_reset=xi_start
+    "Value to which the controller output is reset if the boolean trigger has a rising edge"
+    annotation (Dialog(enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID,group="Integrator reset"));
   parameter Real k_start(
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
     "Start value of the gain of controller"
@@ -48,7 +76,16 @@ block FirstOrderAMIGO
     "A relay controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
-     controllerType=controllerType)
+    final controllerType=controllerType,
+    final r=r,
+    final yMax=yMax,
+    final yMin=yMin,
+    final Ni=Ni,
+    final Nd= Nd,
+    final xi_start=xi_start,
+    final yd_start=yd_start,
+    final reverseActing=reverseActing,
+    final y_reset=xi_start)
      "A PID controller"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
@@ -169,10 +206,58 @@ equation
           -52}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This blocks implements a AMIGO PID tuning method and the control process is approximated with a first order delay process.
+This block implements an AMIGO PID tuning method and the control process is approximated with a first-order delay (FOD) process.
+</p>
+<p>
+Specifically, this AMIGO PID tuning method is based on asymmetric relay feedback tests, providing process excitation 
+at the frequency intervals relevant for PID control;
+</p>
+<p>
+Based on the response of the control process to the excitation, the parameters of a FODs, time delay and time constant, are calculated;
+</p>
+<p>
+Finally, the parameters of a PID controller are determined according to the parameters of the FOD.
+</p>
+<p>
+This block consists of a relay controller and a PID controller with input gains.
 </p>
 <p>
 Noted that this block can only support a PI controller or a PID controller.
+</p>
+<h4>Breif guidance</h4>
+<p>
+This block is built upon PIDWithInputGains<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
+Buildings.Controls.OBC.Utilities.PIDWithInputGains</a> and its connections are the same as those of the latter.
+</p>
+<p>
+All the parameters of PIDWithInputGains are also used by this block, except the controller gains
+<i>k</i>, <i>T<sub>i</sub></i>, and <i>T<sub>d</sub></i>, which are replaced with the initial values of those gains.
+</p>
+<p>
+This block provides four additional parameters, <i>yHig</i>, <i>yLow</i>, <i>deaBan</i>, and <i>yRef</i>.
+</p>
+<p>
+Note that the default values of those four parameters assume the control output is normalized.
+</p>
+<p>
+More information regarding how to select the values of those four parameters can be found in the reference.
+</p>
+<p>
+To use this block, connect it to the control loop. 
+It will start the auto-tuning process once the simulation starts and detects when the auto-tuning process ends.
+</p>
+<p>
+During the tuning process, the output of this block is from the embedded relay controller.
+</p>
+<p>
+Once the auto-tuning process ends, this block changes the parameters of the embedded PID controller based on the tuning results.
+and switch its output to that of the embedded PID controller.
+</p>
+<h4>References</h4>
+<p>
+J. Berner (2017).
+\"Automatic Controller Tuning using Relay-based Model Identification.\"
+Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>
 <ul>
