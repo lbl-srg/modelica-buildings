@@ -238,7 +238,6 @@ for compatibility with the <code>Modelica.Media</code> library,
 and to correct errors.
 </li>
 </ul>
-</p>
 </div>
 <!-- New libraries -->
 <p>
