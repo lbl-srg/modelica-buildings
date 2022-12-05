@@ -560,7 +560,6 @@ REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX) {
 		*
 		* @return 0 if no error occurred
 		*/
-/*
 void free_index(int **BINDEX) {
   if(BINDEX[0]) free(BINDEX[0]);
   if(BINDEX[1]) free(BINDEX[1]);
@@ -574,7 +573,6 @@ void free_index(int **BINDEX) {
 		*
 		* @return 0 if no error occurred
 		*/
-/*
 void free_data(REAL **var) {
   if(var[X]) free(var[X]);
   if(var[Y]) free(var[Y]);

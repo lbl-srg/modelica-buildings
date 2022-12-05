@@ -88,16 +88,18 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   }
 
   i = i + 2*cosim->para->nPorts;
-  for(j=0; j<cosim->para->nPorts; j++)
+  for(j=0; j<cosim->para->nPorts; j++) {
     for(k=0; k<cosim->para->nXi; k++) {
       cosim->modelica->XiPor[j][k] = u[i+j*cosim->para->nXi+k];
     }
+  }
 
   i = i + cosim->para->nPorts*cosim->para->nXi;
-  for(j=0; j<cosim->para->nPorts; j++)
+  for(j=0; j<cosim->para->nPorts; j++) {
     for(k=0; k<cosim->para->nC; k++) {
       cosim->modelica->CPor[j][k] = u[i+j*cosim->para->nC+k];
     }
+  }
 
   /* Set the flag to new data*/
   cosim->modelica->flag = 1;
@@ -135,16 +137,18 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   }
 
   /* Get the mass fraction at fluid ports*/
-  for(j=0; j<cosim->para->nPorts; j++)
+  for(j=0; j<cosim->para->nPorts; j++) {
     for(k=0; k<cosim->para->nXi; k++, i++) {
        y[i] = cosim->ffd->XiPor[j][k];
     }
+  }
 
   /* Get the trace substance at fluid ports*/
-  for(j=0; j<cosim->para->nPorts; j++)
+  for(j=0; j<cosim->para->nPorts; j++) {
     for(k=0; k<cosim->para->nC; k++, i++) {
        y[i] = cosim->ffd->CPor[j][k];
     }
+  }
 
   /* Get the sensor data*/
   for(j=0; j<cosim->para->nSen; j++, i++) {

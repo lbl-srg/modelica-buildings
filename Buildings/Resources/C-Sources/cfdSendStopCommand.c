@@ -52,7 +52,6 @@ void *cfdSendStopCommand(void *thread) {
   }
 
   /*free memory for variables*/
-/*
   if (cosim->para->fileName != NULL){
     free(cosim->para->fileName);
   }
@@ -101,9 +100,7 @@ void *cfdSendStopCommand(void *thread) {
       free(cosim->ffd->TSha);
     }
   }
-*/
 
-/*
   if (cosim->para->nPorts>0){
     for(i=0; i<cosim->para->nPorts; i++) {
       free(cosim->modelica->XiPor[i]);
@@ -137,10 +134,7 @@ void *cfdSendStopCommand(void *thread) {
       free(cosim->modelica->mFloRatPor);
     }
   }
-  */
 
-
-/*
   if (cosim->para != NULL){
     free(cosim->para);
   }
@@ -153,8 +147,5 @@ void *cfdSendStopCommand(void *thread) {
   if (cosim != NULL){
     free(cosim);
   }
-*/
-  printf("Successfully free memory.\n");
-
 
 } /* End of cfdSendStopCommand*/

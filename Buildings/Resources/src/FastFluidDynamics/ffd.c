@@ -214,10 +214,8 @@ int ffd(int cosimulation) {
   write_SCI(&para, var, "output");
 
   /* Free the memory*/
-  /*
   free_data(var);
   free_index(BINDEX);
-  */
 
   /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {
@@ -238,8 +236,8 @@ int ffd(int cosimulation) {
 void modelicaError(char *msg) {
 	/*Allocate memory for cosim->ffd->msg*/
   para.cosim->ffd->msg = NULL;
-	/* para.cosim->ffd->msg = (char *) malloc(400*sizeof(char)); */
-  para.cosim->ffd->msg = (char *) malloc((strlen(msg)+1)*sizeof(char));
+	para.cosim->ffd->msg = (char *) malloc(400*sizeof(char));
+  /* para.cosim->ffd->msg = (char *) malloc((strlen(msg)+1)*sizeof(char)); */
   if (para.cosim->ffd->msg == NULL){
 		ffd_log("ffd(): Failed to allocate memory for cosim->ffd->msg", FFD_ERROR);
   }
@@ -251,6 +249,6 @@ void modelicaError(char *msg) {
   para.cosim->para->ffdError = 1;
 
 	/*Free memory for cosim->ffd->msg*/	
-	/* free(para.cosim->ffd->msg); */
+	free(para.cosim->ffd->msg);
 	
 } /* End of modelicaError*/

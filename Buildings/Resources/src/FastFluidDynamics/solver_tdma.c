@@ -152,13 +152,11 @@ int TDMA_XY(PARA_DATA *para, REAL **var, REAL *psi, int k) {
       psi[IX(i,j,k)] = temp_psi[j];
   }
 
-/*
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
   free(temp_b);
   free(temp_psi);
-*/
   return 0;
 } /* End of TDMA_XY()*/
 
@@ -238,13 +236,11 @@ int TDMA_YZ(PARA_DATA *para, REAL **var, REAL *psi, int i)
     for(k=1; k<=kmax; k++)  psi[IX(i,j,k)] = temp_psi[k];
 
   }
-/*
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
   free(temp_b);
   free(temp_psi);
-*/
   return 0;
 } /* End of TDMA_YZ()*/
 
@@ -325,13 +321,11 @@ int TDMA_ZX(PARA_DATA *para, REAL **var, REAL *psi, int j)
     for(i=1; i<=imax; i++)  psi[IX(i,j,k)] = temp_psi[i];
   }
 
-/*
   free(temp_ap);
   free(temp_ae);
   free(temp_aw);
   free(temp_b);
   free(temp_psi);
-*/
   return 0;
 } /* End of TDMA_ZX()*/
 
@@ -372,9 +366,7 @@ int TDMA_1D(REAL *ap, REAL *ae, REAL *aw, REAL *b, REAL *psi,
   for(i=LENGTH-1; i>=1; i--)
     psi[i] = P[i]*psi[i+1] + Q[i];
 
-/*
   free(P);
   free(Q);
-*/
   return 0;
 } /* end of TDMA_1D() */

@@ -51,14 +51,14 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
 int cfdStartCosimulation(const char *cfdFilNam, char **name, const double *A, const double *til,
                 const int *bouCon, int nPorts, char **portName, int haveSensor,
                 char **sensorName, int haveShade, size_t nSur, size_t nSen,
-                size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {*/
+                size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
+*/
   size_t i;
-  size_t nBou;
+  /* size_t nBou; */
 
   /****************************************************************************
   | allocate the memory and assign the data
   ****************************************************************************/
-  printf("allocate memory for ffd.\n");
   cosim->para->fileName = NULL;
   cosim->para->fileName = (char *) malloc(sizeof(char)*(strlen(cfdFilNam)+1));
   if (cosim->para->fileName == NULL){
@@ -75,7 +75,7 @@ int cfdStartCosimulation(const char *cfdFilNam, char **name, const double *A, co
   cosim->para->nXi = nXi;
   cosim->para->rho_start = rho_start;
 
-  nBou = nSur + nPorts;
+  /* nBou = nSur + nPorts; */
 
   cosim->para->name = NULL;
   cosim->para->name = (char**) malloc(nSur*sizeof(char *));
@@ -123,7 +123,6 @@ int cfdStartCosimulation(const char *cfdFilNam, char **name, const double *A, co
         ModelicaError("Failed to allocate memory for cosim->para->portName[i] in cfdStartCosimulation.c");
       }
       strcpy(cosim->para->portName[i], portName[i]);
-      printf("Port name: %s.\n", cosim->para->portName[i]);
     }
   }
 

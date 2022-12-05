@@ -184,7 +184,6 @@ REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX);
 	*
 	* @return 0 if no error occurred
 	*/
-/*
 void free_index(int **BINDEX);
 
 /*
@@ -194,7 +193,6 @@ void free_index(int **BINDEX);
 	*
 	* @return 0 if no error occurred
 	*/
-/*
 void free_data(REAL **var);
 
 /*
