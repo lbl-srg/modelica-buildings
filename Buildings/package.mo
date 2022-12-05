@@ -208,8 +208,36 @@ Each class (i.e., model, block and function) must be used in an example or valid
     annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
-Version 9.1.0 is backward compatible with 9.0.0 xxx
+Version 9.1.0 is backward compatible with 9.0.0.
 </p>
+<p>
+The library has been tested with Dymola 2023x,
+OpenModelica 1.20.0-dev (314-g3033f43-1),
+OPTIMICA (revision 2022-05-09-master-4b0cd2bf71) and recent versions of Impact.
+</p>
+<p>
+The following major changes have been done:
+</p>
+<ul>
+<li>
+The ASHRAE Guideline 36 air-side sequences have been updated to the official release.
+They are in the package <code>Buildings.Controls.OBC.ASHRAE.G36</code>.
+The previous public release draft is still distributed with this version.
+</li>
+<li>
+Various new blocks for the Control Description Language have been added to the package
+<code>Buildings.Controls.OBC.CDL</code>.
+</li>
+<li>
+The flow rate control in various examples has been improved to avoid large pump or fan heads
+if the mass flow rate is prescribed rather than computed based on the pump or fan curve.
+</li>
+<li>
+Various models have been improved for robustness,
+for compatibility with the <code>Modelica.Media</code> library,
+and to correct errors.
+</li>
+</ul>
 </div>
 <!-- New libraries -->
 <p>
@@ -521,29 +549,6 @@ that can lead to wrong simulation results):
 </tr>
 </table>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
-Note:
-</p>
-<ul>
-<li>
-xxx
-</li>
-</ul>
 </html>"));
   end Version_9_1_0;
 
@@ -10987,7 +10992,7 @@ on the Buildings library.
 </p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_0\">Version 9.1.0</a> (xxx, 2022)
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_1_0\">Version 9.1.0</a> (December 6, 2022)
 </li>
 <li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_9_0_0\">Version 9.0.0</a> (May 31, 2022)
@@ -11537,8 +11542,8 @@ end UsersGuide;
 annotation (
 preferredView="info",
 version="9.1.0",
-versionDate="2022-05-31",
-dateModified="2022-05-31",
+versionDate="2022-12-06",
+dateModified="2022-12-06",
 uses(Modelica(version="4.0.0")),
 conversion(
   noneFromVersion="9.0.0",
