@@ -73,8 +73,8 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses.ZoneTemperatureSetpoint
-    TZonSet "Zone temperature setpoint controller"
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ZoneTemperatureSetpoint TZonSet
+    "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
@@ -110,10 +110,8 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
     final idfName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
-
     final epwName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-
     final weaName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     final usePrecompiledFMU=false,

@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses;
+within Buildings.Fluid.ZoneEquipment.BaseClasses;
 model ExampleTestbed
   "Example testbed for a zone HVAC system and controller with a single thermal zone"
 
@@ -47,8 +47,8 @@ model ExampleTestbed
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses.ZoneTemperatureSetpoint
-    TZonSet "Zone temperature setpoint controller"
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ZoneTemperatureSetpoint TZonSet
+    "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
