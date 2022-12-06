@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-sys.path.append('../../../Scripts/EnergyPlus')
+sys.path.append('../../../../Scripts/EnergyPlus')
 import energyplus_csv_to_mos as e
 
 def check():

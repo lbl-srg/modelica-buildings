@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import sys
-sys.path.append('../../../Scripts/EnergyPlus')
+sys.path.append('../../../../Scripts/EnergyPlus')
 import energyplus_csv_to_mos as e
 
 def check():
@@ -12,24 +12,23 @@ def main():
     args = sys.argv[1:]
     dat_fil = args[0].replace(".idf", ".dat")
     output_list =[
-    "ZONE1FANCOIL:Fan Coil Heating Rate [W](TimeStep)",
-    "ZONE1FANCOIL:Fan Coil Total Cooling Rate [W](TimeStep)",
-    "ZONE1FANCOIL:Fan Coil Fan Electricity Rate [W](TimeStep)",
-    "ZONE1FANCOILAIROUTLETNODE:System Node Temperature [C](TimeStep)",
-    "ZONE1FANCOILAIRINLETNODE:System Node Temperature [C](TimeStep)",
-    "ZONE1FANCOILAIRINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
-    "ZONE1FANCOILCHWINLETNODE:System Node Temperature [C](TimeStep)",
-    "ZONE1FANCOILCHWINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
-    "ZONE1FANCOILHWINLETNODE:System Node Temperature [C](TimeStep)",
-    "ZONE1FANCOILHWINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
-    "ZONE1FANCOILAIROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
+    "ZONE1UNITHEAT:Zone Unit Heater Heating Rate [W](TimeStep)",
+    "ZONE1UNITHEAT:Zone Unit Heater Fan Electricity Rate [W](TimeStep)",
+    "ZONE1UNITHEAT:Zone Unit Heater Fan Availability Status [](TimeStep)",
+    "ZONE1UNITHEATHEATINGCOIL:Heating Coil Heating Rate [W](TimeStep)",
+    "ZONE1UNITHEATAIRINLETNODE:System Node Temperature [C](TimeStep)",
+    "ZONE1UNITHEATAIROUTLETNODE:System Node Temperature [C](TimeStep)",
+    "ZONE1UNITHEATAIRINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
+    "ZONE1UNITHEATAIROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
+    "ZONE1UNITHEATAIRINLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)",
+    "ZONE1UNITHEATAIROUTLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)",
     "WEST ZONE:Zone Thermostat Heating Setpoint Temperature [C](TimeStep)",
     "WEST ZONE:Zone Thermostat Cooling Setpoint Temperature [C](TimeStep)",
     "WEST ZONE:Zone Air Temperature [C](TimeStep)",
-    "ZONE1FANCOIL:Fan Coil Sensible Cooling Rate [W](TimeStep)",
-    "ZONE1FANCOILAIRINLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)",
-    "ZONE1FANCOILOAMIXEROUTLETNODE:System Node Pressure [Pa](TimeStep)",
-    "ZONE1FANCOILFANOUTLETNODE:System Node Pressure [Pa](TimeStep)"
+    "ZONE1UNITHEATFAN:Fan Electricity Rate [W](TimeStep)",
+    "ZONE1UNITHEATFAN:Fan Air Mass Flow Rate [kg/s](TimeStep)",
+    "ZONE1UNITHEATFAN:Fan Heat Gain to Air [W](TimeStep)",
+    "ZONE1UNITHEATFAN:Fan Runtime Fraction [](TimeStep)"
     ]
 
     e.energyplus_csv_to_mos(

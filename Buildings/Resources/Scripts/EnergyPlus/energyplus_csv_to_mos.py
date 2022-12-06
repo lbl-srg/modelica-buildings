@@ -28,7 +28,7 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     # write the results of the first time step twice to the data file.
     df = pd.concat([df.head(1), df])
     tot_steps = int (final_time / step_size ) + 1
-
+    print ("tot_steps",tot_steps)
     # Step-1.0 read data into dictionary with lists
     di = []
 
@@ -54,6 +54,7 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
     # Insert time in the front
     di.insert(0, {"name": "Time in seconds", 'x': time_seconds})
 
+    
     #step-3.0 organizing data together
     data=[]
     for i in range(tot_steps):
@@ -61,6 +62,8 @@ def energyplus_csv_to_mos(output_list, dat_file_name, step_size, final_time):
         for ele in di:
             if len(rowdata) > 0:
                 rowdata.append(",")
+            #print("len",len(ele['x']))
+            #print("ele['x']",[i],ele['x'][i])
             rowdata.append(ele['x'][i])
         data.append(rowdata)
 
