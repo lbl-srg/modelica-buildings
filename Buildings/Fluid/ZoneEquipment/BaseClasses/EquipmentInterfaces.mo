@@ -19,6 +19,14 @@ partial model EquipmentInterfaces
     "Nominal mass flow rate of chilled water"
     annotation(Dialog(group="Cooling coil parameters"));
 
+  parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
+    "Nominal mass flow rate of outdoor air"
+    annotation(Dialog(group="System parameters"));
+
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
+    "Nominal mass flow rate of supply air"
+    annotation(Dialog(group="System parameters"));
+
   parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
     heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
     "Type of heating coil used"
@@ -174,32 +182,32 @@ partial model EquipmentInterfaces
       iconTransformation(extent={{-210,30},{-190,50}})));
   BoundaryConditions.WeatherData.Bus weaBus if not has_extOAPor and has_ven
                                                                 annotation (
-      Placement(transformation(extent={{-310,-30},{-270,10}}),
+      Placement(transformation(extent={{-350,-30},{-310,10}}),
         iconTransformation(extent={{-168,170},{-148,190}})));
   Sources.Outside                 out(redeclare final package Medium = MediumA,
       final nPorts=2) if not has_extOAPor and has_ven
     "Boundary conditions for outside air"
-    annotation (Placement(transformation(extent={{-260,-20},{-240,0}})));
+    annotation (Placement(transformation(extent={{-300,-20},{-280,0}})));
   Sensors.VolumeFlowRate                 vAirOut(redeclare final package Medium =
         MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not has_extOAPor
      and has_ven
     "Outdoor air volume flowrate"
-    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
+    annotation (Placement(transformation(extent={{-260,0},{-240,20}})));
   Sensors.VolumeFlowRate                 VAirExh_flow(redeclare final package
       Medium = MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not
     has_extOAPor and has_ven
     "Exhaust air volume flowrate"
-    annotation (Placement(transformation(extent={{-200,-40},{-220,-20}})));
+    annotation (Placement(transformation(extent={{-240,-40},{-260,-20}})));
   Sensors.TemperatureTwoPort                 TAirOut(redeclare final package
       Medium = MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not
     has_extOAPor and has_ven
     "Outdoor air temperature sensor"
-    annotation (Placement(transformation(extent={{-190,0},{-170,20}})));
+    annotation (Placement(transformation(extent={{-230,0},{-210,20}})));
   Sensors.TemperatureTwoPort                 TAirExh(redeclare final package
       Medium = MediumA, final m_flow_nominal=mAirOut_flow_nominal) if not
     has_extOAPor and has_ven
     "Return air temperature sensor"
-    annotation (Placement(transformation(extent={{-170,-40},{-190,-20}})));
+    annotation (Placement(transformation(extent={{-210,-40},{-230,-20}})));
   Actuators.Dampers.MixingBox                 eco(
     redeclare final package Medium = MediumA,
     final mOut_flow_nominal=mAirOut_flow_nominal,
@@ -209,20 +217,21 @@ partial model EquipmentInterfaces
     final mExh_flow_nominal=mAirOut_flow_nominal,
     final dpDamExh_nominal=50) if not has_extOAPor and has_ven
     "Outdoor air economizer"
-    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+    annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
   Sensors.TemperatureTwoPort                 TAirRet(redeclare final package
-      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
+      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal) if has_ven
     "Return air temperature sensor"
     annotation (Placement(transformation(extent={{-140,34},{-120,54}})));
   Sensors.VolumeFlowRate                 vAirRet(redeclare final package Medium =
-        MediumA, m_flow_nominal=mAir_flow_nominal) "Return air volume flowrate"
+        MediumA, m_flow_nominal=mAir_flow_nominal) if has_ven
+                                                   "Return air volume flowrate"
     annotation (Placement(transformation(extent={{-110,34},{-90,54}})));
   Sensors.VolumeFlowRate                 vAirMix(redeclare final package Medium =
-        MediumA, final m_flow_nominal=mAir_flow_nominal) if has_ven
+        MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Mixed air volume flowrate"
     annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
   Sensors.TemperatureTwoPort                 TAirMix(redeclare final package
-      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal) if has_ven
+      Medium = MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-130,-16},{-110,4}})));
 protected
@@ -257,41 +266,47 @@ equation
   connect(TCHWEnt.port_a, port_CHW_a)
     annotation (Line(points={{144,-130},{144,-180}}, color={0,127,255}));
   connect(weaBus, out.weaBus) annotation (Line(
-      points={{-290,-10},{-276,-10},{-276,-9.8},{-260,-9.8}},
+      points={{-330,-10},{-316,-10},{-316,-9.8},{-300,-9.8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-240,-8},{-230,
-          -8},{-230,10},{-220,10}}, color={0,127,255}));
-  connect(out.ports[2], VAirExh_flow.port_b) annotation (Line(points={{-240,-12},
-          {-230,-12},{-230,-30},{-220,-30}}, color={0,127,255}));
+  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-280,-8},{-270,
+          -8},{-270,10},{-260,10}}, color={0,127,255}));
+  connect(out.ports[2], VAirExh_flow.port_b) annotation (Line(points={{-280,-12},
+          {-270,-12},{-270,-30},{-260,-30}}, color={0,127,255}));
   connect(vAirOut.port_b, TAirOut.port_a)
-    annotation (Line(points={{-200,10},{-190,10}}, color={0,127,255}));
-  connect(TAirOut.port_b, eco.port_Out) annotation (Line(points={{-170,10},{-166,
-          10},{-166,6},{-160,6}}, color={0,127,255}));
-  connect(TAirExh.port_a, eco.port_Exh) annotation (Line(points={{-170,-30},{-166,
-          -30},{-166,-6},{-160,-6}}, color={0,127,255}));
+    annotation (Line(points={{-240,10},{-230,10}}, color={0,127,255}));
+  connect(TAirOut.port_b, eco.port_Out) annotation (Line(points={{-210,10},{-206,
+          10},{-206,6},{-200,6}}, color={0,127,255}));
+  connect(TAirExh.port_a, eco.port_Exh) annotation (Line(points={{-210,-30},{-206,
+          -30},{-206,-6},{-200,-6}}, color={0,127,255}));
   connect(VAirExh_flow.port_a, TAirExh.port_b)
-    annotation (Line(points={{-200,-30},{-190,-30}}, color={0,127,255}));
-  connect(uEco, eco.y) annotation (Line(points={{-380,120},{-150,120},{-150,12}},
+    annotation (Line(points={{-240,-30},{-230,-30}}, color={0,127,255}));
+  connect(uEco, eco.y) annotation (Line(points={{-380,120},{-190,120},{-190,12}},
         color={0,0,127}));
   connect(eco.port_Ret, TAirMix.port_a)
-    annotation (Line(points={{-140,-6},{-130,-6}}, color={0,127,255}));
+    annotation (Line(points={{-180,-6},{-130,-6}}, color={0,127,255}));
   connect(TAirRet.port_b, vAirRet.port_a)
     annotation (Line(points={{-120,44},{-110,44}}, color={0,127,255}));
   connect(vAirRet.port_b, eco.port_Sup) annotation (Line(points={{-90,44},{-80,44},
-          {-80,20},{-140,20},{-140,6}}, color={0,127,255}));
+          {-80,20},{-180,20},{-180,6}}, color={0,127,255}));
   connect(TAirMix.port_b, vAirMix.port_a) annotation (Line(points={{-110,-6},{-104,
           -6},{-104,-6},{-100,-6}}, color={0,127,255}));
-  connect(port_Air_a1, TAirMix.port_a) annotation (Line(points={{-360,-40},{-230,
-          -40},{-230,-60},{-130,-60},{-130,-6}}, color={0,127,255}));
-  connect(port_Air_b1, vAirRet.port_b) annotation (Line(points={{-360,40},{-140,
-          40},{-140,20},{-80,20},{-80,44},{-90,44}}, color={0,127,255}));
+  connect(port_Air_a1, TAirMix.port_a) annotation (Line(points={{-360,-40},{-330,
+          -40},{-330,-50},{-160,-50},{-160,-6},{-130,-6}},
+                                                 color={0,127,255}));
+  connect(port_Air_b1, vAirRet.port_b) annotation (Line(points={{-360,40},{-160,
+          40},{-160,20},{-80,20},{-80,44},{-90,44}}, color={0,127,255}));
   connect(TAirRet.port_a, port_Air_a2) annotation (Line(points={{-140,44},{-140,
           60},{340,60},{340,40},{360,40}}, color={0,127,255}));
+  if not has_ven then
+    connect(port_Air_a2, TAirMix.port_a)
+    annotation (Line(points={{360,40},{340,40},
+       {340,60},{-140,60},{-140,-6},{-130,-6}}, color={0,127,255}));
+  end if;
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

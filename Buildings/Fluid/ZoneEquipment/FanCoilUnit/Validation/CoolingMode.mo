@@ -144,8 +144,9 @@ equation
   connect(sinAir.ports[1], fanCoiUni.port_Air_b) annotation (Line(points={{80,-30},
           {90,-30},{90,-4},{50,-4}}, color={0,127,255}));
 
-  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{-20,
-          12},{8,12}},color={0,0,127}));
+  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{
+          -20,18},{8,18}},
+                      color={0,0,127}));
 
   connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},{
           -16,54},{58,54}},  color={0,0,127}));
@@ -158,7 +159,7 @@ equation
           -16,-120},{66,-120},{66,-102}}, color={0,0,127}));
 
   connect(weaDat.weaBus, fanCoiUni.weaBus) annotation (Line(
-      points={{-60,110},{-10,110},{-10,17.6},{12.8,17.6}},
+      points={{-60,110},{14,110},{14,18},{14.2,18}},
       color={255,204,51},
       thickness=0.5));
 
@@ -176,10 +177,12 @@ equation
           -126},{-62,-126}}, color={0,0,127}));
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
           {-26,46},{58,46}}, color={0,0,127}));
-  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},{
-          -30,-4},{8,-4}},    color={0,0,127}));
-  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},{
-          -30,-12},{8,-12}},  color={0,0,127}));
+  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},
+          {-30,-9.8},{8,-9.8}},
+                              color={0,0,127}));
+  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},
+          {-30,-17.8},{8,-17.8}},
+                              color={0,0,127}));
   connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{-110,
           0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}},      color={
           0,0,127}));
@@ -188,8 +191,9 @@ equation
           {0,0,127}));
   connect(datRea.y[6], gai.u)
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
-  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,4},
-          {8,4}},  color={0,0,127}));
+  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,
+          10},{8,10}},
+                   color={0,0,127}));
   connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
     annotation (Line(points={{36,-80},{36,-20}}, color={0,127,255}));
   connect(souCoo.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{70,-80},

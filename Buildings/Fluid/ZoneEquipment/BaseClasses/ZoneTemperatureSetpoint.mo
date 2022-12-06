@@ -1,6 +1,5 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.BaseClasses;
-block ZoneTemperatureSetpoint
-  "Set point scheduler for zone temperature"
+within Buildings.Fluid.ZoneEquipment.BaseClasses;
+block ZoneTemperatureSetpoint "Set point scheduler for zone temperature"
 
   parameter Modelica.Units.SI.Temperature THeaOn=293.15
     "Heating setpoint during on";
