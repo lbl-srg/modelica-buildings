@@ -319,8 +319,9 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/RadiantHeatingWithGroundHeatTransfer.mos" "Simulate and plot"),
     experiment(
-      StopTime=432000,
-      Tolerance=1e-06),
+      StopTime=172800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(
       info="<html>
 <p>
