@@ -18,12 +18,12 @@ model BuildingTimeSeries
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter String filNam
     "File name with thermal loads as time series";
-  parameter Real facMulTerHea=QHea_flow_nominal /
+  parameter Real facMulHea=QHea_flow_nominal /
     (5e3 * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) / 20 *
      mLoaHea_flow_nominal / 1)
     "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat, group="Scaling"));
-  parameter Real facMulTerCoo=QCoo_flow_nominal /
+  parameter Real facMulCoo=QCoo_flow_nominal /
     (-3e3 * abs(T_aLoaCoo_nominal - T_aChiWat_nominal) / 15 *
      mLoaCoo_flow_nominal / 1)
     "Cooling terminal unit scaling factor"
@@ -136,9 +136,9 @@ model BuildingTimeSeries
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulTerHea,
+    final facMul=facMulHea,
     final facMulZon=1,
-    final QHea_flow_nominal=QHea_flow_nominal/facMulTerHea,
+    final QHea_flow_nominal=QHea_flow_nominal/facMulHea,
     final mLoaHea_flow_nominal=mLoaHea_flow_nominal,
     final T_aHeaWat_nominal=T_aHeaWat_nominal,
     final T_bHeaWat_nominal=T_bHeaWat_nominal,
@@ -172,14 +172,14 @@ model BuildingTimeSeries
     final k=k,
     final Ti=Ti,
     final TRooHea_nominal=T_aLoaHea_nominal,
-    final QRooHea_flow_nominal=QHea_flow_nominal/facMulTerCoo) if have_chiWat
+    final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
   constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
     final allowFlowReversal=allowFlowReversal,
-    final facMul=facMulTerCoo,
+    final facMul=facMulCoo,
     final facMulZon=1,
-    final QCoo_flow_nominal=QCoo_flow_nominal/facMulTerCoo,
+    final QCoo_flow_nominal=QCoo_flow_nominal/facMulCoo,
     final mLoaCoo_flow_nominal=mLoaCoo_flow_nominal,
     final T_aChiWat_nominal=T_aChiWat_nominal,
     final T_bChiWat_nominal=T_bChiWat_nominal,
@@ -281,26 +281,33 @@ annotation (
 <p>
 This is a simplified building model where the space heating and cooling loads
 are provided as time series.
+In order to approximate the emission characteristic of the building 
+HVAC system, this model uses idealized fan coil models that are
+parameterized with the peak load and the design values of the 
+hot water and chilled water supply and return temperature.
 </p>
 <h4>Scaling</h4>
 <p>
 The total space heating (resp. cooling) load is split between
-<code>facMulTerHea</code> (resp. <code>facMulTerCoo</code>)
+<code>facMulHea</code> (resp. <code>facMulCoo</code>)
 identical terminal units.
-By default the parameter <code>facMulTerHea</code>
-(resp. <code>facMulTerCoo</code>)
-is computed based on manufacturer data for fan coil units
-</p>
-<ul>
-<li>
-with a design air flow rate of <i>1</i>&nbsp;kg/s and a temperature difference
-between the entering hot water (resp. chilled water) and the entering air
-of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C), and
-</li>
-<li>
-under the assumption that the design capacity scales linearly
-with the air mass flow rate, and with the temperature difference
-between the entering hot water (resp. chilled water) and the entering air.
+It is not expected that the user modifies the default values 
+that are proposed for <code>facMulHea</code> and <code>facMulCoo</code>
+unless detailed design data are available for the building 
+HVAC system.
+For reference, the default values for <code>facMulHea</code> and 
+<code>facMulCoo</code> are computed based on 
+manufacturer data (Carrier fan coil model 42NL/NH) with an
+air flow rate of <i>1</i>&nbsp;kg/s and a temperature difference 
+between the entering hot water (resp. chilled water) and the entering air 
+of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C).
+The computation includes some adjustments to account for the 
+design values of the temperature difference between the entering 
+hot water <code>T_aHeaWat_nominal</code>
+(resp. chilled water <code>T_aChiWat_nominal</code>)
+and the entering air <code>T_aLoaHea_nominal</code> (resp. <code>T_aLoaCoo_nominal</code>), 
+and of the air mass flow rate <code>mLoaHea_flow_nominal</code>
+(resp. <code>mLoaCoo_flow_nominal</code>).
 </p>
 </html>",
 revisions="<html>
