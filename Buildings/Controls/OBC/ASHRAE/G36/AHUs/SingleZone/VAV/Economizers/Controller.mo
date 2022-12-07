@@ -7,10 +7,10 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Boolean have_heaCoi=true
     "True if the air handling unit has heating coil";
   parameter Real uMin(
@@ -157,7 +157,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
     final quantity="SpecificEnergy")
-    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy"
     annotation (Placement(transformation(extent={{-180,90},{-140,130}}),

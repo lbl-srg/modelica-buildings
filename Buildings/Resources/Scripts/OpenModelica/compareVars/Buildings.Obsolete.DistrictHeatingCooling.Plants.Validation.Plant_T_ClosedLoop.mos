@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "vol.T",
-    "pum.m_flow",
-    "ECoo.y",
-    "EHea.y"
-  };

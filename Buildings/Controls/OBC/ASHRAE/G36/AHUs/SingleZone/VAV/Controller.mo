@@ -2,19 +2,19 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
     "Energy standard, ASHRAE 90.1 or Title 24";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.
       FixedDryBulb
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016));
+    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat";
 
@@ -37,11 +37,11 @@ block Controller
   parameter Real VAreBreZon_flow(unit="m3/s")=0
     "Design area component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions",
-                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VPopBreZon_flow(unit="m3/s")=0
     "Design population component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions",
-                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   // ----------- parameters for setpoint adjustment -----------
   parameter Boolean have_locAdj=true
@@ -227,28 +227,28 @@ block Controller
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
     annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
                               and have_occSen));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
     annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real zonDisEff_heat=0.8
     "Zone heating air distribution effectiveness"
     annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VOccMin_flow=0
     "Zone minimum outdoor airflow for occupants"
     annotation (Dialog(tab="Outdoor airflow", group="Title 24",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VAreMin_flow=0
     "Zone minimum outdoor airflow for building area"
     annotation (Dialog(tab="Outdoor airflow", group="Title 24",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VZonMin_flow=0
     "Design zone minimum airflow setpoint"
     annotation (Dialog(tab="Outdoor airflow", group="Title 24",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
 
   // ----------- parameters for economizer control -----------
   parameter Real uMin(unit="1")=0.1
@@ -531,7 +531,7 @@ block Controller
   Buildings.Controls.OBC.CDL.Interfaces.RealInput hAirRet(
     final unit="J/kg",
     final quantity="SpecificEnergy")
-    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
+    if (eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
      and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb)
     "Return air enthalpy"
     annotation (Placement(transformation(extent={{-300,-130},{-260,-90}}),
@@ -827,7 +827,7 @@ block Controller
     final VMin_flow=0,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
-    final dTHys=Thys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final dTHys=Thys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-20,240},{0,260}})));
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.ZoneStates zonSta "Zone state"
@@ -918,7 +918,7 @@ block Controller
     final have_SZVAV=true,
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
-    final VMin_flow=VZonMin_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VMin_flow=VZonMin_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneStd(

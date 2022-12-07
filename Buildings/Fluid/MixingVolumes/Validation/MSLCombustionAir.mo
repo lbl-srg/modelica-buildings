@@ -57,7 +57,7 @@ work with a medium model from the Modelica Standard Library
 for combustion air.
 </p>
 <p>
-This medim differs from media in the Buildings library in that it has no substance <code>water</code>
+This medium differs from media in the Buildings library in that it has no substance <code>water</code>
 and it sets <code>reducedX=false</code>.
 </p>
 </html>",
