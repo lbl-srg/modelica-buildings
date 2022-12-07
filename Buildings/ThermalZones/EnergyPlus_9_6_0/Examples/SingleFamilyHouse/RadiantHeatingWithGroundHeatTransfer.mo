@@ -131,6 +131,7 @@ model RadiantHeatingWithGroundHeatTransfer
     dp1_nominal=10000,
     dp2_nominal=10000,
     scaling_factor=1.3*QHea_flow_nominal/12000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     enable_temperature_protection=true,
     TEvaMin=268.15,
     datHeaPum=
@@ -219,6 +220,7 @@ model RadiantHeatingWithGroundHeatTransfer
     annotation (Placement(transformation(extent={{-34,-310},{-14,-290}})));
   Modelica.Blocks.Continuous.FirstOrder firOrdTRad(
     T(displayUnit="min") = 600,
+    initType=Modelica.Blocks.Types.Init.SteadyState,
     y_start(
       unit="K",
       displayUnit="degC") = 293.15,
