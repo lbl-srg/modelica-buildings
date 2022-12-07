@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
+﻿within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
@@ -283,8 +283,10 @@ This is a simplified building model where the space heating and cooling loads
 are provided as time series.
 In order to approximate the emission characteristic of the building 
 HVAC system, this model uses idealized fan coil models that are
-parameterized with the peak load and the design values of the 
-hot water and chilled water supply and return temperature.
+parameterized with the peak load, determined from the provided time series,
+and design values of the terminal unit air mass flowrate and hot water and 
+chilled water supply and return temperature.  Default values are provided and
+suggested to be used, however, user-adjustment is possible as described below.
 </p>
 <h4>Scaling</h4>
 <p>
@@ -301,13 +303,17 @@ manufacturer data (Carrier fan coil model 42NL/NH) with an
 air flow rate of <i>1</i>&nbsp;kg/s and a temperature difference 
 between the entering hot water (resp. chilled water) and the entering air 
 of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C).
-The computation includes some adjustments to account for the 
-design values of the temperature difference between the entering 
-hot water <code>T_aHeaWat_nominal</code>
-(resp. chilled water <code>T_aChiWat_nominal</code>)
-and the entering air <code>T_aLoaHea_nominal</code> (resp. <code>T_aLoaCoo_nominal</code>), 
+The computation includes possible adjustments to account for user-provided adjustments to
+the default design values of the entering 
+hot water temperature <code>T_aHeaWat_nominal</code>
+(resp. chilled water temperature <code>T_aChiWat_nominal</code>),
+the entering air temperature <code>T_aLoaHea_nominal</code> (resp. <code>T_aLoaCoo_nominal</code>),
 and of the air mass flow rate <code>mLoaHea_flow_nominal</code>
-(resp. <code>mLoaCoo_flow_nominal</code>).
+(resp. <code>mLoaCoo_flow_nominal</code>).  The computation adjustment assumes
+that the heating (resp. cooling) capacity of the terminal unit scales linearly
+with the design temperature difference between entering hot water temperature (resp. 
+chilled water temperature) and entering air temperature, and linearly with the design 
+air mass flow rate. 
 </p>
 </html>",
 revisions="<html>
