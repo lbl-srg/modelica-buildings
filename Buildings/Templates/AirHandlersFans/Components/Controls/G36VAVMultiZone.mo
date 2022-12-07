@@ -169,7 +169,7 @@ block G36VAVMultiZone
     final nGro=nGro,
     final zonGroMat=isZonInGroInt,
     final zonGroMatTra=isZonInGroIntTra)
-    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Aggregate zone level ventilation signals - ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 
@@ -179,7 +179,7 @@ block G36VAVMultiZone
     final nGro=nGro,
     final zonGroMat=isZonInGroInt,
     final have_CO2Sen=have_CO2Sen)
-    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    if stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Aggregate zone level ventilation signals - California Title 24"
     annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
 
@@ -251,12 +251,12 @@ block G36VAVMultiZone
     "FIXME #1913: The commanded speed should be used"
     annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
 initial equation
-  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016 then
+  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1 then
     assert(ashCliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
       "In "+ getInstanceName() + ".dat: "+
       "The ASHRAE climate zone cannot be unspecified.");
   end if;
-  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016 then
+  if stdEne==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24 then
     assert(tit24CliZon<>Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified,
       "In "+ getInstanceName() + ".dat: "+
       "The Title 24 climate zone cannot be unspecified.");

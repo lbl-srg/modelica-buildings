@@ -14,8 +14,8 @@ model VAVMZBase
 
   inner parameter UserProject.Data.AllSystems datAll(
     redeclare replaceable model VAV = UserProject.AirHandlersFans.VAVMZBase,
-    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{90,92},{110,112}})));

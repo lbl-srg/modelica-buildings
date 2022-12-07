@@ -49,14 +49,14 @@ block VAVBoxControlPoints "Emulation of VAV box control points"
     VOccMin_flow=2.5e-3,
     VAreMin_flow=3e-3,
     VMin_flow=5e-3) if stdVen==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
   Buildings.Controls.OBC.ASHRAE.G36.VentilationZones.ASHRAE62_1.Setpoints setMinOA_62_1(
     VAreBreZon_flow=3e-3,
     VPopBreZon_flow=2.5e-3,
     VMin_flow=5.5e-3) if stdVen==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Zone level calculation of the minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
 equation

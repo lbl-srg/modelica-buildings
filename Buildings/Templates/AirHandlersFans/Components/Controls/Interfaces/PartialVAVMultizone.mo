@@ -85,7 +85,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
       enable=
       typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
       typSecOut==Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
 
 initial equation
   if typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone then

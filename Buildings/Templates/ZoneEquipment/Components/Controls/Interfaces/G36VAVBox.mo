@@ -73,27 +73,27 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     start=1)=dat.VOutMinOcc_flow
     "Zone minimum outdoor airflow for occupants"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   final parameter Modelica.Units.SI.VolumeFlowRate VOutMinAre_flow(
     final min=0,
     start=1)=dat.VOutMinAre_flow
     "Zone minimum outdoor airflow for building area"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
 
   final parameter Real VOutAre_flow(
     final unit = "m3/s")=
     dat.VOutAre_flow
     "Outdoor air flow rate per unit area"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   final parameter Real VOutOcc_flow(
     final unit = "m3/s")=
     dat.VOutOcc_flow
     "Outdoor air flow rate per occupant"
     annotation (Dialog(enable=
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   final parameter Real effAirDisHea=
     dat.effAirDisHea

@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Validation.UserProject.Data;
 class AllSystems "Top-level (whole building) system parameters"
-  extends Buildings.Templates.Data.AllSystems(stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
-      stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016);
+  extends Buildings.Templates.Data.AllSystems(stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+      stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1);
 
   /*
   The construct below where a replaceable model is used inside the `outer`

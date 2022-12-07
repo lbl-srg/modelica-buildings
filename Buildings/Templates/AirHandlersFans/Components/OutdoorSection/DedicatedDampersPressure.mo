@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersPressure
-  "Separate dedicated OA dampers and DP sensor - Economizer function"
+  "Seperate dampers for ventilation and econmomizer, with differential pressure sensor - Economizer function"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,

@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersAirflow
-  "Separate dedicated OA dampers and AFMS - Economizer function"
+  "Seperate dampers for ventilation and econmomizer, with airflow messurement station - Economizer function"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,

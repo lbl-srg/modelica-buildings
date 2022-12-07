@@ -13,7 +13,7 @@ record VAVBoxController "Record for VAV terminal unit controller"
     annotation (Dialog(group="Ventilation", enable=
       (typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
       typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Modelica.Units.SI.VolumeFlowRate VOutMinAre_flow(
     final min=0,
     start=1)
@@ -21,7 +21,7 @@ record VAVBoxController "Record for VAV terminal unit controller"
     annotation (Dialog(group="Ventilation", enable=
       (typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
       typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+      stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VOutAre_flow(
     final unit = "m3/s",
     final min=0)
@@ -29,7 +29,7 @@ record VAVBoxController "Record for VAV terminal unit controller"
     annotation(Dialog(group="Ventilation",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VOutOcc_flow(
     final unit = "m3/s",
     final min=0)
@@ -37,7 +37,7 @@ record VAVBoxController "Record for VAV terminal unit controller"
     annotation(Dialog(group="Ventilation",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real effAirDisHea(
     final unit="1",
     final min=0,
@@ -46,7 +46,7 @@ record VAVBoxController "Record for VAV terminal unit controller"
     annotation(Dialog(group="Ventilation",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real effAirDisCoo(
     final unit="1",
     final min=0,
@@ -55,7 +55,7 @@ record VAVBoxController "Record for VAV terminal unit controller"
     annotation(Dialog(group="Ventilation",
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
-    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
     final min=273.15,
