@@ -210,9 +210,9 @@ that has a radiant ceiling, used for cooling, and a radiant floor, used for heat
 The EnergyPlus model has one conditioned zone that is above ground. This conditioned zone
 has an unconditioned attic.
 The model is constructed by extending
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
-and adding the radiant ceiling.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+and adding the radiant ceiling. For simplicity, this model provide heating with an idealized heater.
 </p>
 <p>
 The next section explains how the radiant ceiling is configured.

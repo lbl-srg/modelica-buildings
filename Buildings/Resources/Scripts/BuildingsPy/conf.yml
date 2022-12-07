@@ -352,7 +352,7 @@
   optimica:
     comment: Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868
     rtol: 1.0e-08
-- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
   openmodelica:
     comment: "division by zero at time 0, (a=-0) / (b=-0), where divisor b expression is: -0.0"
     simulate: false

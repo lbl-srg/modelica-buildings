@@ -1,5 +1,5 @@
 within Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse;
-model RadiantHeatingWithGroundHeatTransfer
+model HeatPumpRadiantHeatingGroundHeatTransfer
   "Example model with one thermal zone with a radiant floor and ground heat transfer modeled in Modelica"
   extends
     Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.Unconditioned;
@@ -319,7 +319,7 @@ equation
           {30,-320},{-130,-320},{-130,-300},{-120,-300}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/RadiantHeatingWithGroundHeatTransfer.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/EnergyPlus_9_6_0/Examples/SingleFamilyHouse/HeatPumpRadiantHeatingGroundHeatTransfer.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-06),
@@ -397,4 +397,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(extent={{-340,-400},{260,60}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
-end RadiantHeatingWithGroundHeatTransfer;
+end HeatPumpRadiantHeatingGroundHeatTransfer;

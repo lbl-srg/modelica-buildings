@@ -314,7 +314,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
                           Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface<br/>
-                          Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer
+                          Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
     </td>
     <td valign=\"top\">Changed pipe spacing and insulation of radiant slab.
     </td>
@@ -402,7 +402,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse</b>
     </td>
-</tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer
+</tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
     </td>
     <td valign=\"top\">Replaced ideal heater with a geothermal heat pump.
     </td>
