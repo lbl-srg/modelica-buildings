@@ -2,8 +2,8 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FourPipe_corrected "System model for a four-pipe fan coil unit"
 
   extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
-    final cooCoiTyp = Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou.chiWat,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix);
+    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat,
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix);
 
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)
@@ -66,8 +66,8 @@ model FourPipe_corrected "System model for a four-pipe fan coil unit"
     final dp_nominal=dpAir_nominal)
     "Supply fan"
     annotation (Placement(transformation(extent={{-70,-16},{-50,4}})));
-  Buildings.Fluid.Sensors.VolumeFlowRate vAirSup(redeclare final package Medium
-      = MediumA, final m_flow_nominal=mAir_flow_nominal)
+  Buildings.Fluid.Sensors.VolumeFlowRate vAirSup(redeclare final package Medium =
+        MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Supply air volume flow rate"
     annotation (Placement(transformation(extent={{280,-20},{300,0}})));
   replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer

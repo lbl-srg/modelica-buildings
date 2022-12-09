@@ -27,18 +27,18 @@ partial model EquipmentInterfaces
     "Nominal mass flow rate of supply air"
     annotation(Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou
+    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
     "Type of heating coil used"
     annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou
-    cooCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou.chiWat
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou
+    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
     "Type of cooling coil used"
     annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaPorts
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts
     "Type of OA port"
     annotation (Dialog(group="System parameters"));
 
@@ -235,16 +235,17 @@ partial model EquipmentInterfaces
     "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{-130,-16},{-110,4}})));
 protected
-  final parameter Boolean has_HW=(heaCoiTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
+  final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat)
     "Does the zone equipment have a hot water heating coil?";
 
-  final parameter Boolean has_CHW=(cooCoiTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou.chiWat)
+  final parameter Boolean has_CHW=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
     "Does the zone equipment have a chilled water cooling coil?";
 
-  final parameter Boolean has_extOAPor=(oaPorTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaPorts)
+  final parameter Boolean has_extOAPor=(oaPorTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts)
     "Does the zone equipment have ports for receiving outdoor air?";
 
-  final parameter Boolean has_ven=((oaPorTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix) or (oaPorTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaPorts))
+  final parameter Boolean has_ven=((oaPorTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix)  or (oaPorTyp ==Buildings.Fluid.
+      ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts))
     "Does the zone equipment provide outdoor air for ventilation?";
 
 equation

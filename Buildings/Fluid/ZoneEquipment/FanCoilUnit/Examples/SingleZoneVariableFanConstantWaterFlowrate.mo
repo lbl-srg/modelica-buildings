@@ -17,9 +17,8 @@ model SingleZoneVariableFanConstantWaterFlowrate
       final tFanEna=600,
       final dTHys=0.5),
     redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe_corrected zonHVACSys(
-      final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
-
-      oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix,
+      final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
+      oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
       final dpAir_nominal(displayUnit="Pa") = 100,
       final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
       redeclare package MediumA = MediumA,

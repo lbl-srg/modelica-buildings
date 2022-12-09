@@ -29,7 +29,7 @@ model ExampleTestbed
     redeclare package MediumA = MediumA,
     redeclare package MediumCHW = MediumW,
     redeclare package MediumHW = MediumW,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix)
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix)
     "Zone HVAC system model interfaces"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
 
