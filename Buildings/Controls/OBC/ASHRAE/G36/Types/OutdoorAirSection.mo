@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type OutdoorAirSection = enumeration(
-    DedicatedDampersAirflow   "Seperate dampers for ventilation and econmomizer, with airflow messurement station",
-    DedicatedDampersPressure   "Seperate dampers for ventilation and econmomizer, with differential pressure sensor",
-    NoEconomizer   "No economizer",
+    DedicatedDampersAirflow   "Separate dampers for ventilation and economizer, with airflow measurement station",
+    DedicatedDampersPressure   "Separate dampers for ventilation and economizer, with differential pressure sensor",
     SingleDamper   "Single damper for ventilation and economizer, with airflow messurement station")
   "Enumeration to configure the outdoor air section"
 annotation (
@@ -17,19 +16,15 @@ designed in multizone AHU. Possible values are:
 <th>Description</th></tr>
 <tr><td><code>DedicatedDampersAirflow</code></td>
 <td>
-Seperate dampers for ventilation and econmomizer, with airflow messurement station.
+Separate dampers for ventilation and economizer, with airflow measurement station.
 </td></tr>
 <tr><td><code>DedicatedDampersPressure</code></td>
 <td>
-Seperate dampers for ventilation and econmomizer, with differential pressure sensor.
-</td></tr>
-<tr><td><code>NoEconomizer</code></td>
-<td>
-No economizer.
+Separate dampers for ventilation and economizer, with differential pressure sensor.
 </td></tr>
 <tr><td><code>SingleDamper</code></td>
 <td>
-Single damper for ventilation and economizer, with airflow messurement station.
+Single damper for ventilation and economizer, with airflow measurement station.
 </td></tr>
 </table>
 </html>", revisions="<html>

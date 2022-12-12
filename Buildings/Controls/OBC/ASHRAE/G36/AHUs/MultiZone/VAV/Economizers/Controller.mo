@@ -6,16 +6,17 @@ block Controller
     "Design of minimum outdoor air and economizer function";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
     "Type of building pressure control system";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1)
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A)
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3)
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Real aveTimRan(unit="s")=5
@@ -52,7 +53,7 @@ block Controller
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
-  parameter Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
+  parameter Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Ventilation standard, ASHRAE 62.1 or Title 24"
     annotation (Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
@@ -374,11 +375,6 @@ block Controller
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=-1)
-    if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
-    "Dummy block"
-    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 equation
   connect(sepAFMS.VOutMinSet_flow_normalized, VOutMinSet_flow_normalized)
@@ -508,10 +504,6 @@ equation
           160,-36},{160,160},{-172,160},{-172,73},{-142,73}}, color={0,0,127}));
   connect(sepDp.y1MinOutDam, y1MinOutDam) annotation (Line(points={{-118,88},{40,
           88},{40,100},{280,100}},                    color={255,0,255}));
-  connect(TOut, addPar.u) annotation (Line(points={{-260,-70},{-180,-70},{-180,-110},
-          {-142,-110}}, color={0,0,127}));
-  connect(addPar.y, enaDis.TOutCut) annotation (Line(points={{-118,-110},{-30,-110},
-          {-30,-75},{18,-75}}, color={0,0,127}));
   connect(VOut_flow_normalized, sepAFMS.VOut_flow_normalized) annotation (Line(
         points={{-260,190},{-166,190},{-166,146},{-142,146}}, color={0,0,127}));
   connect(VOut_flow_normalized, damLim.VOut_flow_normalized) annotation (Line(

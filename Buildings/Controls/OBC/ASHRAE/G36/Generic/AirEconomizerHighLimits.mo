@@ -1,14 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic;
 block AirEconomizerHighLimits "Specify the economizer high liimits"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1)
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A)
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3)
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
 
@@ -33,7 +36,6 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC")
-    if not eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
     "Outdoor air temperature high limit cutoff"
     annotation (Placement(transformation(extent={{540,790},{580,830}}),
         iconTransformation(extent={{100,40},{140,80}})));
@@ -1004,8 +1006,7 @@ annotation (defaultComponentName="ecoHigLim",
           extent={{70,70},{98,54}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TCut",
-          visible=not eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)}),
+          textString="TCut")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-540,-1260},{540,
             1260}})),
 Documentation(info="<html>

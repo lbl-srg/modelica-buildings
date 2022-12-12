@@ -5,10 +5,12 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A)
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3)
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Boolean have_heaCoi=true
@@ -276,10 +278,6 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=-1)
-   if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified
-    "Dummy block"
-    annotation (Placement(transformation(extent={{-40,-120},{-20,-100}})));
 equation
   connect(u1SupFan, enaDis.u1SupFan) annotation (Line(points={{-160,-90},{-120,-90},
           {-120,-70},{18,-70}}, color={255,0,255}));
@@ -337,10 +335,6 @@ equation
           {-52,-24},{-42,-24}}, color={0,0,127}));
   connect(hAirRet, ecoHigLim.hRet) annotation (Line(points={{-160,110},{-56,110},
           {-56,-36},{-42,-36}}, color={0,0,127}));
-  connect(TOut, addPar.u) annotation (Line(points={{-160,220},{-68,220},{-68,-110},
-          {-42,-110}}, color={0,0,127}));
-  connect(addPar.y, enaDis.TCut) annotation (Line(points={{-18,-110},{0,-110},{0,
-          -63},{18,-63}}, color={0,0,127}));
 annotation (defaultComponentName = "conEco",
         Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
              graphics={Rectangle(

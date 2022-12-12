@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type EnergyStandard = enumeration(
-    Not_Specified "Not specified",
     ASHRAE90_1
       "ASHRAE 90.1",
     California_Title_24
@@ -15,10 +14,6 @@ Enumeration to define the energy standard. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>Not_specified</code></td>
-<td>
-Not specified.
-</td></tr>
 <tr><td><code>ASHRAE90_1</code></td>
 <td>
 ASHRAE 90.1.
