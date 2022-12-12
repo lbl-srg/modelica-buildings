@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
@@ -22,12 +22,12 @@ model BuildingTimeSeries
     (5e3 * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) / 20 *
      mLoaHea_flow_nominal / 1)
     "Heating terminal unit multiplier factor"
-    annotation(Dialog(enable=have_heaWat, group="Scaling"));
+    annotation(Dialog(enable=have_heaWat, group="Scaling", tab="Advanced"));
   parameter Real facMulCoo=QCoo_flow_nominal /
     (-3e3 * abs(T_aLoaCoo_nominal - T_aChiWat_nominal) / 15 *
      mLoaCoo_flow_nominal / 1)
     "Cooling terminal unit scaling factor"
-    annotation(Dialog(enable=have_chiWat, group="Scaling"));
+    annotation(Dialog(enable=have_chiWat, group="Scaling", tab="Advanced"));
   parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=313.15
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
@@ -46,20 +46,20 @@ model BuildingTimeSeries
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=293.15
     "Load side inlet temperature at nominal conditions in heating mode"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", tab="Advanced"));
   parameter Modelica.Units.SI.Temperature T_aLoaCoo_nominal=297.15
     "Load side inlet temperature at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
   parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal=0.0095
     "Load side inlet humidity ratio at nominal conditions in cooling mode"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
   parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=1
     "Load side mass flow rate at nominal conditions in heating mode (single unit)"
-    annotation (Dialog(group="Nominal condition", enable=have_heaWat));
+    annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_heaWat));
   parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal=
     mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
-    annotation (Dialog(group="Nominal condition", enable=have_chiWat));
+    annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space cooling load",
@@ -279,16 +279,14 @@ annotation (
     Documentation(
       info="<html>
 <p>
-This is a simplified building model where the space heating and cooling loads
-are provided as time series.
-In order to approximate the emission characteristic of the building 
-HVAC system, this model uses idealized fan coil models that are
-parameterized with the peak load, determined from the provided time series,
-and design values of the terminal unit air mass flowrate and hot water and 
-chilled water supply and return temperature.  Default values are provided and
-suggested to be used, however, user-adjustment is possible as described below.
+This is a simplified building model where the space heating and cooling 
+loads are provided as time series. In order to approximate the emission 
+characteristic of the building HVAC system,
+this model uses idealized fan coil models that are parameterized with 
+the peak load, determined from the provided time series, and design 
+values of the hot water and chilled water supply and return temperatures. 
 </p>
-<h4>Scaling</h4>
+<h4>Implementation details</h4>
 <p>
 The total space heating (resp. cooling) load is split between
 <code>facMulHea</code> (resp. <code>facMulCoo</code>)
@@ -297,23 +295,32 @@ It is not expected that the user modifies the default values
 that are proposed for <code>facMulHea</code> and <code>facMulCoo</code>
 unless detailed design data are available for the building 
 HVAC system.
+In that latter case, the following set of parameters should be 
+modified consistently to match the design data.
+</p>
+<ul>
+<li>Hot water (resp. chilled water) supply and return temperature
+<code>T_aHeaWat_nominal</code> and <code>T_bHeaWat_nominal</code>
+(resp. <code>T_aChiWat_nominal</code> and <code>T_bChiWat_nominal</code>)
+</li>
+<li>Terminal unit entering air temperature <code>T_aLoaHea_nominal</code>
+(resp. <code>T_aLoaCoo_nominal</code>) and humidity ratio
+<code>w_aLoaCoo_nominal</code>
+</li>
+<li>Terminal unit air mass flow rate <code>mLoaHea_flow_nominal</code>
+(resp. <code>mLoaCoo_flow_nominal</code>)
+</li>
+<li>Terminal unit scaling factor <code>facMulHea</code>
+(resp. <code>facMulCoo</code>)
+</li>
+</ul>
+<p>
 For reference, the default values for <code>facMulHea</code> and 
 <code>facMulCoo</code> are computed based on 
 manufacturer data (Carrier fan coil model 42NL/NH) with an
 air flow rate of <i>1</i>&nbsp;kg/s and a temperature difference 
 between the entering hot water (resp. chilled water) and the entering air 
 of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C).
-The computation includes possible adjustments to account for user-provided adjustments to
-the default design values of the entering 
-hot water temperature <code>T_aHeaWat_nominal</code>
-(resp. chilled water temperature <code>T_aChiWat_nominal</code>),
-the entering air temperature <code>T_aLoaHea_nominal</code> (resp. <code>T_aLoaCoo_nominal</code>),
-and of the air mass flow rate <code>mLoaHea_flow_nominal</code>
-(resp. <code>mLoaCoo_flow_nominal</code>).  The computation adjustment assumes
-that the heating (resp. cooling) capacity of the terminal unit scales linearly
-with the design temperature difference between entering hot water temperature (resp. 
-chilled water temperature) and entering air temperature, and linearly with the design 
-air mass flow rate. 
 </p>
 </html>",
 revisions="<html>
