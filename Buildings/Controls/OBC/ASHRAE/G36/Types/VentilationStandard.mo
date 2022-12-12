@@ -1,6 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type VentilationStandard = enumeration(
-    Not_Specified "Not specified",
     ASHRAE62_1
       "ASHRAE 62.1",
     California_Title_24
@@ -15,10 +14,6 @@ Enumeration to define the ventilation standard. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
-<tr><td><code>Not_Specified</code></td>
-<td>
-Not specified.
-</td></tr>
 <tr><td><code>ASHRAE62_1</code></td>
 <td>
 ASHRAE 62.1.

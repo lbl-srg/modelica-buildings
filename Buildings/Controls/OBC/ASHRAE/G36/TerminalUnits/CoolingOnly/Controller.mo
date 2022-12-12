@@ -355,22 +355,6 @@ block Controller "Controller for cooling only VAV box"
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
-    final k=venStd ==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
-    "No ventilation standard"
-    annotation (Placement(transformation(extent={{80,240},{100,260}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
-    annotation (Placement(transformation(extent={{120,240},{140,260}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Warning: Ventilation standard is not specified!")
-    "Warning when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{160,240},{180,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(
-    final k=0)
-    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
-    "Zero flow when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,250},{-144,250},{
           -144,216},{-102,216}}, color={0,0,127}));
@@ -478,12 +462,6 @@ equation
           76},{86,76},{86,60},{220,60}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,64},{80,64},{80,30},{
           220,30}}, color={0,0,127}));
-  connect(noVenStd.y, not1.u)
-    annotation (Line(points={{102,250},{118,250}}, color={255,0,255}));
-  connect(not1.y, assMes1.u)
-    annotation (Line(points={{142,250},{158,250}}, color={255,0,255}));
-  connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-78,0},{-60,
-          0},{-60,14},{-22,14}}, color={0,0,127}));
   connect(dam.yDam, sysReq.uDam) annotation (Line(points={{82,-49},{106,-49},{
           106,-159},{118,-159}}, color={0,0,127}));
   connect(dam.yDam, ala.uDam) annotation (Line(points={{82,-49},{106,-49},{106,

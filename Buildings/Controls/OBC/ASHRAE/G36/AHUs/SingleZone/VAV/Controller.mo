@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
+﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
@@ -12,7 +12,7 @@ block Controller
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
@@ -921,50 +921,6 @@ block Controller
     final VMin_flow=VZonMin_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-20,200},{0,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneStd(
-    final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
-    "No energy standard"
-    annotation (Placement(transformation(extent={{140,470},{160,490}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not3
-    "Logical not"
-    annotation (Placement(transformation(extent={{180,470},{200,490}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="Warning: Energy standard is not specified!")
-    "Warning when the energy standard is not specified"
-    annotation (Placement(transformation(extent={{220,470},{240,490}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
-    final k=venStd ==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
-    "No ventilation standard"
-    annotation (Placement(transformation(extent={{140,440},{160,460}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
-    annotation (Placement(transformation(extent={{180,440},{200,460}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Warning: Ventilation standard is not specified!")
-    "Warning when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{220,440},{240,460}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noAshCli(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified)
-    "No ASHRAE climate zone"
-    annotation (Placement(transformation(extent={{100,410},{120,430}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTit24Cli(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified)
-    "No Title 24 climate zone"
-    annotation (Placement(transformation(extent={{100,370},{120,390}})));
-  Buildings.Controls.OBC.CDL.Logical.And noCli
-    "Climate zone is not specified"
-    annotation (Placement(transformation(extent={{140,410},{160,430}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Logical not"
-    annotation (Placement(transformation(extent={{180,410},{200,430}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: Climate zone is not specified!")
-    "Warning when the climate zone is not specified"
-    annotation (Placement(transformation(extent={{220,410},{240,430}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(final k=0)
-    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
-    "Zero flow when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{-40,110},{-20,130}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.ReliefFan relFanCon(
     final relFanSpe_min=relFanSpe_min,
     final dpBuiSet=dpBuiSet,
@@ -1202,24 +1158,6 @@ equation
           -133},{232,-70},{280,-70}}, color={255,0,255}));
   connect(frePro.y1SupFan, y1SupFan) annotation (Line(points={{162,-123.2},{200,
           -123.2},{200,70},{280,70}}, color={255,0,255}));
-  connect(noEneStd.y,not3. u)
-    annotation (Line(points={{162,480},{178,480}}, color={255,0,255}));
-  connect(not3.y,assMes. u)
-    annotation (Line(points={{202,480},{218,480}}, color={255,0,255}));
-  connect(noVenStd.y,not1. u)
-    annotation (Line(points={{162,450},{178,450}}, color={255,0,255}));
-  connect(not1.y,assMes1. u)
-    annotation (Line(points={{202,450},{218,450}}, color={255,0,255}));
-  connect(noAshCli.y,noCli. u1)
-    annotation (Line(points={{122,420},{138,420}}, color={255,0,255}));
-  connect(noTit24Cli.y,noCli. u2) annotation (Line(points={{122,380},{130,380},{
-          130,412},{138,412}}, color={255,0,255}));
-  connect(noCli.y,not2. u)
-    annotation (Line(points={{162,420},{178,420}}, color={255,0,255}));
-  connect(not2.y,assMes2. u)
-    annotation (Line(points={{202,420},{218,420}}, color={255,0,255}));
-  connect(zerFlo.y, conEco.VOutMinSet_flow) annotation (Line(points={{-18,120},{
-          -10,120},{-10,158},{58,158}}, color={0,0,127}));
   connect(relFanCon.y1RelFan, frePro.u1RelFan) annotation (Line(points={{82,-218},
           {118,-218},{118,-141},{138,-141}}, color={255,0,255}));
   connect(relFanCon.yRelFan, frePro.uRelFan) annotation (Line(points={{82,-213},

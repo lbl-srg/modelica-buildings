@@ -490,22 +490,6 @@ block Controller
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
-    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
-    "No ventilation standard"
-    annotation (Placement(transformation(extent={{-60,310},{-40,330}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
-    annotation (Placement(transformation(extent={{-20,310},{0,330}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Warning: Ventilation standard is not specified!")
-    "Warning when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{20,310},{40,330}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(
-    final k=0)
-    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
-    "Zero flow when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-260,320},{-222,320},{-222,
           296},{-202,296}}, color={0,0,127}));
@@ -691,12 +675,6 @@ equation
           -98,139},{82,139},{82,80},{260,80}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-98,124},{70,124},{70,20},
           {260,20}}, color={0,0,127}));
-  connect(noVenStd.y,not1. u)
-    annotation (Line(points={{-38,320},{-22,320}}, color={255,0,255}));
-  connect(not1.y,assMes1. u)
-    annotation (Line(points={{2,320},{18,320}},    color={255,0,255}));
-  connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-98,70},{-56,
-          70},{-56,94},{-42,94}}, color={0,0,127}));
   connect(setOve.yDam, damVal.uDam) annotation (Line(points={{102,-63},{126,-63},
           {126,-20},{6,-20},{6,1},{18,1}}, color={0,0,127}));
   connect(setOve.yDam, sysReq.uDam) annotation (Line(points={{102,-63},{126,-63},
