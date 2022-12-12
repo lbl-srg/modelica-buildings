@@ -327,8 +327,7 @@ revisions="<html>
 <ul>
 <li>
 November 21, 2022, by David Blum:<br/>
-Make <code>facMul=1</code> and <code>final</code>. <br/>
-Scale <code>facMulHea</code> and <code>facMulCoo</code> with peak load.
+Scale <code>facMulHea</code> and <code>facMulCoo</code> with peak load.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">
 issue 2302</a>.
