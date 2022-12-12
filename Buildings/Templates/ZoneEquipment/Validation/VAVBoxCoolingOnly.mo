@@ -9,7 +9,7 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  inner parameter UserProject.Data.AllSystems datAll(
+  inner parameter UserProject.Data.AllSystems datAll(ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
     redeclare replaceable model VAVBox =
         UserProject.ZoneEquipment.VAVBoxCoolingOnly)
     "System parameters"

@@ -1,6 +1,6 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model SingleDamper
-  "Single damper for ventilation and economizer, with airflow messurement station - Economizer function"
+  "Single damper for ventilation and economizer, with airflow measurement station"
   extends
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,

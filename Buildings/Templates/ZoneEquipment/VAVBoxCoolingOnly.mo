@@ -15,7 +15,7 @@ This template represents a cooling-only VAV terminal unit
 (or shut off box).
 </p>
 <p>
-The possible equipment configurations are enumerated in the table below.
+The possible configuration options are enumerated in the table below.
 The user may refer to ASHRAE (2021) for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
@@ -23,8 +23,7 @@ The first option displayed in bold characters corresponds to the default configu
 <tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>VAV damper</td>
 <td>
-<b>Pressure independent damper</b><br/>
-Modulating damper
+<b>Modulating damper<br/>
 </td>
 <td></td>
 </tr>

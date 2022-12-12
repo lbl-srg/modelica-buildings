@@ -140,16 +140,6 @@ model VAVMultiZone "Multiple-zone VAV"
       enable=fanSupBlo.typ==Buildings.Templates.Components.Types.Fan.None),
     Placement(transformation(extent={{172,-210},{192,-190}})));
 
-  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
-    constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
-      final dat=dat.ctl,
-      final nZon=nZon)
-    "AHU controller"
-    annotation (
-      Dialog(group="Controls"),
-      Placement(transformation(extent={{-220,-10},{-200,10}})));
-
   Buildings.Templates.Components.Sensors.Temperature TAirSup(
     redeclare final package Medium = MediumAir,
     final have_sen=true,
@@ -214,7 +204,9 @@ model VAVMultiZone "Multiple-zone VAV"
     annotation (
       Placement(transformation(extent={{250,-90},{230,-70}})));
 
-  inner replaceable Buildings.Templates.Components.Coils.None coiHeaPre
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
+    redeclare final package MediumHeaWat=MediumHeaWat,
+    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir)
@@ -226,8 +218,9 @@ model VAVMultiZone "Multiple-zone VAV"
         "No coil"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
-          redeclare final package MediumHeaWat=MediumHeaWat)
-        "Hot water coil"),
+          redeclare final package MediumHeaWat=MediumHeaWat,
+          redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        "Hot water coil with two-way valve"),
       choice(
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaPre
         "Modulating electric heating coil")),
@@ -235,20 +228,21 @@ model VAVMultiZone "Multiple-zone VAV"
       enable=coiHeaReh.typ==Buildings.Templates.Components.Types.Coil.None),
     Placement(transformation(extent={{10,-210},{30,-190}})));
 
-  inner replaceable Buildings.Templates.Components.Coils.None coiCoo
+  inner replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
+    redeclare final package MediumChiWat=MediumChiWat,
+    redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir)
     "Cooling coil"
     annotation (
-    choices(
+      choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.None coiCoo
         "No coil"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedCooling coiCoo(
-        redeclare final package MediumChiWat=MediumChiWat)
-        "Chilled water coil"),
-      choice(redeclare replaceable Buildings.Templates.Components.Coils.EvaporatorVariableSpeed coiCoo
-        "Evaporator coil with variable speed compressor")),
+        redeclare final package MediumChiWat=MediumChiWat,
+        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        "Chilled water coil with two-way valve")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{70,-210},{90,-190}})));
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
@@ -267,7 +261,8 @@ model VAVMultiZone "Multiple-zone VAV"
         redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHeaReh
         "Modulating electric heating coil")),
     Dialog(group="Configuration",
-      enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None),
+      enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None and
+      ctl.typ<>Buildings.Templates.AirHandlersFans.Types.Controller.Guideline36),
     Placement(transformation(extent={{130,-210},{150,-190}})));
   Buildings.Fluid.FixedResistances.Junction junHeaWatSup(
     redeclare final package Medium = MediumHeaWat,
@@ -289,6 +284,16 @@ model VAVMultiZone "Multiple-zone VAV"
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-240})));
+  inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
+    constrainedby
+    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+      final dat=dat.ctl,
+      final nZon=nZon)
+    "AHU controller"
+    annotation (
+      Dialog(group="Controls"),
+      Placement(transformation(extent={{-220,-10},{-200,10}})));
+
 initial equation
   assert(typFanSup<>Buildings.Templates.Components.Types.Fan.None,
     "In "+ getInstanceName() + ": "+
@@ -458,7 +463,7 @@ This template represents a multiple-zone VAV air handler for
 a single duct system serving <b>at least two</b> terminal units.
 </p>
 <p>
-The possible equipment configurations are enumerated in the table below.
+The possible configuration options are enumerated in the table below.
 The user may refer to ASHRAE (2021) for further details.
 The first option displayed in bold characters corresponds to the default configuration.<br/>
 </p>
@@ -466,9 +471,9 @@ The first option displayed in bold characters corresponds to the default configu
 <tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>Outdoor air section</td>
 <td>
-<b>Single common OA damper and AFMS - Economizer function</b><br/>
-Separate dedicated OA dampers and AFMS - Economizer function<br/>
-Separate dedicated OA dampers and DP sensor - Economizer function
+<b>Single damper for ventilation and economizer, with airflow measurement station</b><br/>
+Separate dampers for ventilation and economizer, with airflow measurement station<br/>
+Separate dampers for ventilation and economizer, with differential pressure sensor
 </td>
 <td></td>
 </tr>
@@ -488,37 +493,35 @@ Fan array - Variable speed
 </td>
 <td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
-one another.</td>
+one another.<br/>
+ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays. 
+If a fan array is selected, all of the fans are currently controlled together at 
+the same speed, regardless of the number of VFDs.
+</td>
 </tr>
 <tr><td>Heating coil - Preheat position</td>
 <td>
-<b>No coil</b><br/>
+<b>Hot water coil with two-way valve</b><br/>
 Modulating electric heating coil<br/>
-Hot water coil
+No coil
 </td>
-<td>By default a two-way modulating valve is considered for
-a hot water coil.
-Alternative options for the control valve are available.</td>
+<td></td>
 </tr>
 <tr><td>Cooling coil</td>
 <td>
-<b>No coil</b><br/>
-Chilled water coil<br/>
-Evaporator coil with variable speed compressor
+<b>Chilled water coil with two-way valve</b><br/>
+No coil
 </td>
-<td>By default a two-way modulating valve is considered for
-a chilled water coil.
-Alternative options for the control valve are available.</td>
+<td></td>
 </tr>
 <tr><td>Heating coil - Reheat position</td>
 <td>
-<b>No coil</b><br/>
-Modulating electric heating coil<br/>
-Hot water coil
+<b>No coil</b>
 </td>
-<td>By default a two-way modulating valve is considered for
-a hot water coil.
-Alternative options for the control valve are available.</td>
+<td>
+ASHRAE Guideline 36 does not support heating coils in reheat position
+yet.
+</td>
 </tr>
 <tr><td>Supply fan - Draw-through position</td>
 <td>
@@ -528,7 +531,11 @@ No fan
 </td>
 <td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
-one another.</td>
+one another.<br/>
+ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays. 
+If a fan array is selected, all of the fans are currently controlled together at 
+the same speed, regardless of the number of VFDs.
+</td>
 </tr>
 <tr><td>Return fan</td>
 <td>

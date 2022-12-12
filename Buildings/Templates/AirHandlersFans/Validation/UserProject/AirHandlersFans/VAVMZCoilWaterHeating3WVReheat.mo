@@ -3,6 +3,7 @@ model VAVMZCoilWaterHeating3WVReheat "Configuration of multiple-zone VAV"
   extends Buildings.Templates.AirHandlersFans.VAVMultiZone(
     redeclare replaceable Buildings.Templates.AirHandlersFans.Components.Controls.OpenLoop ctl
       "Open loop controller",
+    redeclare replaceable Buildings.Templates.Components.Coils.None coiHeaPre,
     redeclare replaceable
       Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaReh(
         redeclare final package MediumHeaWat = MediumHeaWat,

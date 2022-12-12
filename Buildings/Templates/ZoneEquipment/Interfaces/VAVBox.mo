@@ -16,8 +16,8 @@ model VAVBox "Interface class for VAV terminal unit"
     final QHeaWat_flow_nominal=if coiHea.have_sou then dat.coiHea.Q_flow_nominal else 0);
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
-      redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
-      "Two-way modulating valve")
+      redeclare final package MediumHeaWat = MediumHeaWat,
+      redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
       final dat=datCoiHea)
@@ -26,26 +26,20 @@ model VAVBox "Interface class for VAV terminal unit"
     choices(
       choice(redeclare replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHea(
         redeclare final package MediumHeaWat = MediumHeaWat,
-        redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
-        "Two-way modulating valve")
-        "Hot water coil"),
+        redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
+        "Hot water coil with two-way valve"),
       choice(redeclare replaceable Buildings.Templates.Components.Coils.ElectricHeating coiHea
         "Modulating electric heating coil")),
     Dialog(group="Heating coil"),
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
-  inner replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
+  inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
     constrainedby
     Buildings.Templates.Components.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
       final dat=datDamVAV)
     "VAV damper"
     annotation (Dialog(group="VAV damper"),
-      choices(
-      choice(redeclare replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
-        "Modulating damper"),
-      choice(redeclare replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
-        "Pressure independent damper")),
       Placement(
         transformation(
         extent={{-10,-10},{10,10}},
