@@ -32,7 +32,8 @@ First implementation.
   type CooSou = enumeration(
       eleDX "Electric direct expansion cooling coil",
       heaPum "Electric heat pump cooling coil",
-      chiWat "Chilled-water cooling coil")
+      chiWat "Chilled-water cooling coil",
+      noCoo "No cooling coil")
       "Enumeration for the cooling coil types"
       annotation (Documentation(info="<html>
 <p>

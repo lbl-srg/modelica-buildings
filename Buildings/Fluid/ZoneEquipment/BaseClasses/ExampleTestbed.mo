@@ -28,8 +28,7 @@ model ExampleTestbed
   replaceable Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces zonHVACSys(
     redeclare package MediumA = MediumA,
     redeclare package MediumCHW = MediumW,
-    redeclare package MediumHW = MediumW,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix)
+    redeclare package MediumHW = MediumW)
     "Zone HVAC system model interfaces"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
 

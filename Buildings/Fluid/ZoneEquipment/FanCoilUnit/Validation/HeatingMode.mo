@@ -42,8 +42,7 @@ model HeatingMode
     final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-    redeclare Data.FanData fanPer)
-    "Fan coil system model"
+    redeclare Data.FanData fanPer) "Fan coil system model"
     annotation (Placement(transformation(extent={{16,-20},{56,20}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souCoo(

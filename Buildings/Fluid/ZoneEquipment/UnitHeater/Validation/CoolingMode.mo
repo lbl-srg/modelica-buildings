@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
+within Buildings.Fluid.ZoneEquipment.UnitHeater.Validation;
 model CoolingMode
   "Validation model for cooling mode operation of fan coil unit system"
 
@@ -27,8 +27,9 @@ model CoolingMode
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={-40,-80})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
+  Buildings.Fluid.ZoneEquipment.UnitHeater.UnitHeater fanCoiUni(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
+
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -63,7 +64,7 @@ model CoolingMode
       rotation=90,
       origin={10,-90})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData FCUSizing
+  Buildings.Fluid.ZoneEquipment.UnitHeater.Validation.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 

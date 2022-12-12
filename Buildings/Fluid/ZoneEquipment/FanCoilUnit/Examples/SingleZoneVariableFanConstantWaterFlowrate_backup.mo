@@ -64,8 +64,7 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     final minFanSpe=0.15,
     final tFanEnaDel=60,
     final tFanEna=600,
-    final dTHys=0.5)
-    "FCU controller"
+    final dTHys=0.5) "FCU controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(

@@ -1,6 +1,6 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation;
-model CoolingMode
-  "Validation model for cooling mode operation of fan coil unit system"
+within Buildings.Fluid.ZoneEquipment.UnitHeater.Validation;
+model HeatingMode
+  "Validation model for heating mode operation of fan coil unit system"
 
   extends Modelica.Icons.Example;
 
@@ -17,7 +17,8 @@ model CoolingMode
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,origin={36,-90})));
+      rotation=90,
+      origin={60,-90})));
 
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
@@ -25,10 +26,12 @@ model CoolingMode
     final nPorts=1)
     "Sink for heating hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-      rotation=90,origin={-40,-80})));
+      rotation=90,
+      origin={0,-92})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
+  Buildings.Fluid.ZoneEquipment.UnitHeater.UnitHeater fanCoiUni(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
+
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -41,7 +44,7 @@ model CoolingMode
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
     redeclare Data.FanData fanPer) "Fan coil system model"
-    annotation (Placement(transformation(extent={{10,-20},{50,20}})));
+    annotation (Placement(transformation(extent={{16,-20},{56,20}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souCoo(
     redeclare package Medium = MediumW,
@@ -51,7 +54,7 @@ model CoolingMode
     "Source for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={70,-90})));
+      origin={90,-90})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souHea(
     redeclare package Medium = MediumW,
@@ -61,9 +64,9 @@ model CoolingMode
     "Source for heating hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
-      origin={10,-90})));
+      origin={30,-90})));
 
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Validation.Data.SizingData FCUSizing
+  Buildings.Fluid.ZoneEquipment.UnitHeater.Validation.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
@@ -78,21 +81,19 @@ model CoolingMode
 
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
-    final use_Xi_in=true,
-    final p(displayUnit="Pa") = 101325 + 100,
-    final use_T_in=true,
-    final T=279.15,
-    final nPorts=1)
+    use_Xi_in=true,
+    use_T_in=true,
+    T=279.15,
+    nPorts=1)
     "Source for zone air"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
-    final p=101325 + 100,
     final T=279.15,
     final nPorts=1)
     "Sink for zone air"
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
+    annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.2)
@@ -130,35 +131,36 @@ model CoolingMode
 
 equation
 
-  connect(fanCoiUni.port_HW_b, sinHea.ports[1]) annotation (Line(points={{18,-20},
-          {18,-60},{-40,-60},{-40,-70}},color={0,127,255}));
+  connect(fanCoiUni.port_HW_b, sinHea.ports[1]) annotation (Line(points={{24,-20},
+          {24,-60},{8.88178e-16,-60},{8.88178e-16,-82}},
+                                        color={0,127,255}));
 
   connect(souHea.ports[1], fanCoiUni.port_HW_a)
-    annotation (Line(points={{10,-80},{10,-68},{24,-68},{24,-20}},
-                                                         color={0,127,255}));
+    annotation (Line(points={{30,-80},{30,-20}},         color={0,127,255}));
 
-  connect(souAir.ports[1], fanCoiUni.port_Air_a) annotation (Line(points={{80,50},
-          {90,50},{90,4},{50,4}},     color={0,127,255}));
+  connect(souAir.ports[1], fanCoiUni.port_Air_a) annotation (Line(points={{100,50},
+          {110,50},{110,4},{56,4}},   color={0,127,255}));
 
-  connect(sinAir.ports[1], fanCoiUni.port_Air_b) annotation (Line(points={{80,-30},
-          {90,-30},{90,-4},{50,-4}}, color={0,127,255}));
+  connect(sinAir.ports[1], fanCoiUni.port_Air_b) annotation (Line(points={{100,-30},
+          {110,-30},{110,-4},{56,-4}},
+                                     color={0,127,255}));
 
-  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{
-          -20,18},{8,18}},
+  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{-20,
+          12},{14,12}},
                       color={0,0,127}));
 
   connect(addPar[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},{
-          -16,54},{58,54}},  color={0,0,127}));
+          -16,54},{78,54}},  color={0,0,127}));
 
   connect(addPar[2].y, souHea.T_in) annotation (Line(points={{-58,70},{-16,70},{
-          -16,-120},{6,-120},{6,-102}},
+          -16,-120},{26,-120},{26,-102}},
                                color={0,0,127}));
 
   connect(addPar[3].y, souCoo.T_in) annotation (Line(points={{-58,70},{-16,70},{
-          -16,-120},{66,-120},{66,-102}}, color={0,0,127}));
+          -16,-120},{86,-120},{86,-102}}, color={0,0,127}));
 
   connect(weaDat.weaBus, fanCoiUni.weaBus) annotation (Line(
-      points={{-60,110},{14,110},{14,18},{14.2,18}},
+      points={{-60,110},{-10,110},{-10,17.6},{18.8,17.6}},
       color={255,204,51},
       thickness=0.5));
 
@@ -175,37 +177,33 @@ equation
   connect(addPar1.y, div.u2) annotation (Line(points={{-98,-140},{-70,-140},{-70,
           -126},{-62,-126}}, color={0,0,127}));
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
-          {-26,46},{58,46}}, color={0,0,127}));
-  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},
-          {-30,-9.8},{8,-9.8}},
-                              color={0,0,127}));
-  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},
-          {-30,-17.8},{8,-17.8}},
-                              color={0,0,127}));
+          {-26,46},{78,46}}, color={0,0,127}));
+  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},{
+          -30,-4},{14,-4}},   color={0,0,127}));
+  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},{
+          -30,-12},{14,-12}}, color={0,0,127}));
   connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{-110,
-          0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}},      color={
+          0},{-110,-100},{-20,-100},{-20,-112},{22,-112},{22,-102}},    color={
           0,0,127}));
   connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{-110,
-          0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}},     color=
+          0},{-110,-100},{-20,-100},{-20,-112},{82,-112},{82,-102}},     color=
           {0,0,127}));
   connect(datRea.y[6], gai.u)
     annotation (Line(points={{-119,0},{-102,0}}, color={0,0,127}));
-  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,
-          10},{8,10}},
-                   color={0,0,127}));
-  connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
-    annotation (Line(points={{36,-80},{36,-20}}, color={0,127,255}));
-  connect(souCoo.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{70,-80},
-          {70,-60},{42,-60},{42,-20}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false,
-      extent={{-100,-100},{100,100}})),
-    Diagram(coordinateSystem(preserveAspectRatio=false,
-      extent={{-160,-160},{160,160}})),
+  connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,4},
+          {14,4}}, color={0,0,127}));
+  connect(sinCoo.ports[1], fanCoiUni.port_CHW_b) annotation (Line(points={{60,-80},
+          {60,-74},{42,-74},{42,-20}}, color={0,127,255}));
+  connect(souCoo.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{90,-80},
+          {90,-60},{48,-60},{48,-20}}, color={0,127,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     experiment(
       StopTime=86400,
       Interval=60,
       Tolerance=1e-06),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/CoolingMode.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Validation/HeatingMode.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>
@@ -243,8 +241,8 @@ equation
       of the various components are compared against their counterparts from the 
       EnergyPlus model.
       <br>
-      This model validates the cooling mode operation by running the simulation from 07/01
-      through 07/10 with the weather file <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>.
+      This model validates the heating mode operation by running the simulation from 01/01
+      through 01/10 with the weather file <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>.
       It then makes plots for the supply air temperature and flowrate, as well as 
       the energy consumption of the cooling coil, including sensible and latent components,
       and the energy consumption of the supply fan.
@@ -257,4 +255,4 @@ equation
       </li>
       </ul>
       </html>"));
-end CoolingMode;
+end HeatingMode;
