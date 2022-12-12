@@ -271,8 +271,7 @@ have been <b style=\"color:blue\">improved</b> in a
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">#2302</a>.
     </td>
 </tr>
-</tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
