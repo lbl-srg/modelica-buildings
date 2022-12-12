@@ -54,11 +54,11 @@ partial model ControllerInterfaces
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 protected
-  final parameter Boolean has_HW=(heaCoiTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat)
+  final parameter Boolean has_HW=(heaCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat)
     "Does the zone equipment have a hot water heating coil?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean has_CHW=(cooCoiTyp == Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.CooSou.chiWat)
+  final parameter Boolean has_CHW=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
     "Does the zone equipment have a chilled water cooling coil?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 

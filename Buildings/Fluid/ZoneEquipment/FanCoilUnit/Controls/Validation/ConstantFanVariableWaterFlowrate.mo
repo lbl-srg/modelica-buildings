@@ -10,14 +10,15 @@ model ConstantFanVariableWaterFlowrate
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final tFanEnaDel=2,
     final tFanEna=5)
-    "Instance of controller with variable fan speed and constant water flowrate"
+    "Controller for the fan coil unit"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=6,
     final duration=3600,
-    final offset=273.15 + 21) "Measured zone temperature"
+    final offset=273.15 + 21)
+    "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(
@@ -56,17 +57,8 @@ equation
       <p>
       This simulation model is used to validate <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFan_VariableWaterFlowrate\">
       Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFan_VariableWaterFlowrate</a>.
-      
-      The instance <code>conVarWatConFan</code> is set-up with parameters and a
-      time-varying input signal for measured zone temperature <code>conVarWatConFan.TZon</code> to 
-      replicate the output values for fan enable status <code>yFan</code>, fan speed
-      <code>yFanSpe</code>, cooling coil signal signal <code>yCoo</code> and heating
-      coil signal <code>yHea</code> as seen in the logic chart below.
       </p>
-      <p align=\"center\">
-      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFanVariableFlowrate.png\"/>
-      </p>
-      </html>
+</html>
       ", revisions="<html>
       <ul>
       <li>

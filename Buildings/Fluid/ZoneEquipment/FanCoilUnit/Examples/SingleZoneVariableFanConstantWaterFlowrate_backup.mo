@@ -1,15 +1,12 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples;
 model SingleZoneVariableFanConstantWaterFlowrate_backup
   "Example model for a system with single-zone serviced by FCU with variable fan, constant flow pump control"
-
   extends Modelica.Icons.Example;
-
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
-    "Medium model for air";
-
+    "Medium of air";
   replaceable package MediumW = Buildings.Media.Water
-    "Medium model for water";
+    "Medium of water";
 
   Buildings.Fluid.Sources.Boundary_pT sinCoo(
     redeclare package Medium = MediumW,
@@ -18,7 +15,6 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={110,-100})));
-
   Buildings.Fluid.Sources.Boundary_pT sinHea(
     redeclare package Medium = MediumW,
     final T=318.15,
@@ -26,10 +22,9 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     "Sink for heating hot water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={40,-100})));
-
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
-    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.OAPorts.oaMix,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -48,12 +43,10 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.2)
     "Constant real signal of 0.2 for the outdoor air economizer"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
-
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate conVarFanConWat(
     final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final kCoo=0.5,
@@ -64,10 +57,8 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     final minFanSpe=0.15,
     final tFanEnaDel=60,
     final tFanEna=600,
-    final dTHys=0.5)
-    "FCU controller"
+    final dTHys=0.5) "FCU controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
-
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     final occupancy=3600*{6,19})
     "Occupancy schedule"
@@ -76,37 +67,30 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
   Buildings.Fluid.ZoneEquipment.BaseClasses.ZoneTemperatureSetpoint TZonSet
     "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
     "Convert fan enable signal to Real value"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulFanSig
     "Find input fan signal by multiplying fan enable signal and fan speed signal"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrFanProOn(
     final t=0.05)
     "Check if fan is running with speed greater than 10%"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
-
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=60)
     "Ensure fan is running for minimum time period before generating proven on signal"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-
   Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
     redeclare package Medium = MediumA,
     final zoneName="West Zone",
     final nPorts=2)
     "Thermal zone"
     annotation (Placement(transformation(extent={{68,100},{108,140}})));
-
   Modelica.Blocks.Sources.Constant qIntGai(
     final k=0)
     "Internal heat gain"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
-
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
     final idfName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
@@ -118,7 +102,6 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     final computeWetBulbTemperature=false)
     "Building model"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
-
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
     final p=105000,
@@ -128,7 +111,6 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={70,-100})));
-
   Buildings.Fluid.Sources.Boundary_pT souCoo(
     redeclare package Medium = MediumW,
     final p=105000,
@@ -138,7 +120,6 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,
       origin={140,-100})));
-
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Check if fan is not operating"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -147,26 +128,21 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     final delayTime=60)
     "Ensure fan is running for minimum time period before generating proven on signal"
     annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
-
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Hold fan proven on signal until fan speed falls below 15% for 60 seconds"
     annotation (Placement(transformation(extent={{-30,-100},{-10,-80}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaOcc
     "Convert occupancy signal to Real value"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulQIntGai
     "Find internal heat gain for zone only when it is occupied"
     annotation (Placement(transformation(extent={{-60,100},{-40,120}})));
-
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
     final nout=3)
     "Convert internal heat gain value to vector"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
 
 equation
-
   connect(fanCoiUni.port_HW_b, sinHea.ports[1]) annotation (Line(points={{78,-20},
           {78,-60},{40,-60},{40,-90}},  color={0,127,255}));
 
@@ -251,10 +227,11 @@ equation
     __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Example/SingleZoneVariableFanConstantWaterFlowrate_backup.mos"
       "Simulate and plot"),
     Documentation(info="<html>
-      <p>
+          <p>
       This is an example model for the fan coil unit system model 
       demonstrating use-case with a variable fan, constant pump flowrate controller. 
       It consists of:
+          </p>
       <ul>
       <li>
       an instance of the fan coil unit system model <code>fanCoiUni</code>.
@@ -278,7 +255,6 @@ equation
       zone temperature setpoint controller <code>TZonSet</code>.
       </li>
       </ul>
-      </p>
       <p>
       The simulation model provides a closed-loop example of <code>fanCoiUni</code> that
       is operated by <code>conVarFanConWat</code> and regulates the zone temperature 
@@ -290,7 +266,7 @@ equation
       </html>", revisions="<html>
       <ul>
       <li>
-      August 03, 2022 by Karthik Devaprasad:<br/>
+      August 03, 2022 by Karthik Devaprasad:<br>
       First implementation.
       </li>
       </ul>

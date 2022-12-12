@@ -1,7 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
 block MultispeedFanConstantWaterFlowrate
   "Controller for fan coil system with constant water flow rates and variable speed fan"
-
   parameter Integer nSpe(
     final min=2) = 2
     "Number of fan speeds"
@@ -66,7 +65,7 @@ block MultispeedFanConstantWaterFlowrate
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.Time tFanEna = 300
-    "Minimum duration for which fan is enabled"
+    "Minimum running time of the fan"
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.Time tValEna = 600
@@ -203,8 +202,9 @@ protected
     "Add 1 to calculated stage to switch to next speed signal"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(final uLow=-dTHys,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable cooling when zone temperature is higher than cooling setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
@@ -220,8 +220,9 @@ protected
     "Find difference between zone temperature and heating setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(final uLow=-dTHys,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable heating when zone temperature is lower than heating setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 
@@ -238,7 +239,8 @@ protected
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final reverseActing=false) "PI controller for fan speed in cooling mode"
+    final reverseActing=false)
+    "PI controller for fan speed in cooling mode"
     annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPIDHea(
@@ -246,7 +248,8 @@ protected
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea,
-    final reverseActing=false) "PI controller for fan speed in heating mode"
+    final reverseActing=false)
+    "PI controller for fan speed in heating mode"
     annotation (Placement(transformation(extent={{-66,-110},{-46,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -276,16 +279,18 @@ protected
     "Keep fan enabled for minimum duration"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(final
-      trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(
+    final trueHoldDuration=tValEna,
+    final falseHoldDuration=tValDis)
     "Ensure cooling is enabled and disabled for minimum time duration"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-protected
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(final
-      trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
+
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(
+    final trueHoldDuration=tValEna,
+    final falseHoldDuration=tValDis)
     "Ensure heating is enabled and disabled for minimum time duration"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
+
 equation
   connect(TZon, subCoo.u1) annotation (Line(points={{-160,40},{-130,40},{-130,46},
           {-102,46}}, color={0,0,127}));
@@ -437,7 +442,6 @@ equation
       to <code>zero</code>.
       </li>
       </ul>
-      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateMultispeedFan.png\"/>
       </p>
