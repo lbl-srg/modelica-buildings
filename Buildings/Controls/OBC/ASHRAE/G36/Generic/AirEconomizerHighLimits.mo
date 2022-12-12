@@ -1,14 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic;
 block AirEconomizerHighLimits "Specify the economizer high liimits"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1)
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A)
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon(
+    start=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3)
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
 
