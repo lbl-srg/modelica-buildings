@@ -1,5 +1,5 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example;
-model SingleZoneVariableFanConstantWaterFlowrate
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples;
+model SingleZoneVariableFanConstantWaterFlowrate_backup
   "Example model for a system with single-zone serviced by FCU with variable fan, constant flow pump control"
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
@@ -23,7 +23,8 @@ model SingleZoneVariableFanConstantWaterFlowrate
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={40,-100})));
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
-    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -35,10 +36,11 @@ model SingleZoneVariableFanConstantWaterFlowrate
     final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.FanData fanPer)
-    "Fan coil"
+    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData fanPer)
+    "Fan coil system model"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data.SizingData FCUSizing
+
+  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.SizingData FCUSizing
     "Sizing parameters for fan coil unit"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -55,14 +57,14 @@ model SingleZoneVariableFanConstantWaterFlowrate
     final minFanSpe=0.15,
     final tFanEnaDel=60,
     final tFanEna=600,
-    final dTHys=0.5)
-    "FCU controller"
+    final dTHys=0.5) "FCU controller"
     annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     final occupancy=3600*{6,19})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
-  Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.BaseClasses.ZoneTemperatureSetpoint TZonSet
+
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ZoneTemperatureSetpoint TZonSet
     "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
@@ -90,9 +92,12 @@ model SingleZoneVariableFanConstantWaterFlowrate
     "Internal heat gain"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
-    final epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    final weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    final idfName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
+    final epwName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    final weaName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     final usePrecompiledFMU=false,
     final computeWetBulbTemperature=false)
     "Building model"
@@ -142,7 +147,7 @@ equation
           {78,-60},{40,-60},{40,-90}},  color={0,127,255}));
 
   connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-28,20},{-20,20},{-20,
-          12},{68,12}},
+          18},{68,18}},
                       color={0,0,127}));
 
   connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
@@ -157,9 +162,11 @@ equation
   connect(TZonSet.TZonSetCoo, conVarFanConWat.TCooSet) annotation (Line(points={
           {-88,16},{-84,16},{-84,-10},{-52,-10}}, color={0,0,127}));
   connect(conVarFanConWat.yCoo, fanCoiUni.uCoo)
-    annotation (Line(points={{-28,-4},{68,-4}}, color={0,0,127}));
+    annotation (Line(points={{-28,-4},{20,-4},{20,-9.8},{68,-9.8}},
+                                                color={0,0,127}));
   connect(conVarFanConWat.yHea, fanCoiUni.uHea) annotation (Line(points={{-28,-8},
-          {-10,-8},{-10,-12},{68,-12}}, color={0,0,127}));
+          {-10,-8},{-10,-17.8},{68,-17.8}},
+                                        color={0,0,127}));
   connect(conVarFanConWat.yFan, booToReaFan.u) annotation (Line(points={{-28,-16},
           {-20,-16},{-20,-40},{-12,-40}}, color={255,0,255}));
   connect(booToReaFan.y, mulFanSig.u2) annotation (Line(points={{12,-40},{20,-40},
@@ -167,18 +174,19 @@ equation
   connect(conVarFanConWat.yFanSpe, mulFanSig.u1) annotation (Line(points={{-28,-12},
           {-14,-12},{-14,-20},{20,-20},{20,-24},{28,-24}}, color={0,0,127}));
   connect(mulFanSig.y, fanCoiUni.uFan) annotation (Line(points={{52,-30},{60,-30},
-          {60,4},{68,4}}, color={0,0,127}));
+          {60,10},{68,10}},
+                          color={0,0,127}));
   connect(fanCoiUni.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,16},
           {120,16},{120,-66},{-140,-66},{-140,-50},{-132,-50}},     color={0,0,127}));
   connect(greThrFanProOn.y, truDel.u)
     annotation (Line(points={{-108,-50},{-102,-50}},
                                                    color={255,0,255}));
-  connect(fanCoiUni.port_Air_a, zon.ports[1]) annotation (Line(points={{110,4},
-          {130,4},{130,80},{87,80},{87,100.9}},color={0,127,255}));
-  connect(fanCoiUni.port_Air_b, zon.ports[2]) annotation (Line(points={{110,-4},
-          {140,-4},{140,90},{89,90},{89,100.9}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_a2, zon.ports[1]) annotation (Line(points={{110,4},
+          {130,4},{130,80},{86,80},{86,100.9}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_b2, zon.ports[2]) annotation (Line(points={{110,-4},
+          {140,-4},{140,90},{90,90},{90,100.9}}, color={0,127,255}));
   connect(building.weaBus, fanCoiUni.weaBus) annotation (Line(
-      points={{-30,50},{0,50},{0,17.6},{72.8,17.6}},
+      points={{-30,50},{74,50},{74,18},{74.2,18}},
       color={255,204,51},
       thickness=0.5));
   connect(zon.TAir, conVarFanConWat.TZon) annotation (Line(points={{109,138},{120,
@@ -216,7 +224,7 @@ equation
       StopTime=86400,
       Interval=60,
       Tolerance=1e-06),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Example/SingleZoneVariableFanConstantWaterFlowrate.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Example/SingleZoneVariableFanConstantWaterFlowrate_backup.mos"
       "Simulate and plot"),
     Documentation(info="<html>
           <p>
@@ -263,4 +271,4 @@ equation
       </li>
       </ul>
       </html>"));
-end SingleZoneVariableFanConstantWaterFlowrate;
+end SingleZoneVariableFanConstantWaterFlowrate_backup;

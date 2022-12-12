@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example.Data;
+within Buildings.Fluid.ZoneEquipment.UnitHeater.Examples.Data;
 record FanData "Fan data for the validation model"
   extends Buildings.Fluid.Movers.Data.Generic(
     speed_rpm_nominal=2900,

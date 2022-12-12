@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.SingleZoneVariableFanConstantWaterFlowrate", method="Cvode", tolerance=1e-6,startTime=15724800, stopTime=16588800, resultFile="FanCoilExample", outputInterval = 60);
+simulateModel("Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.SingleZoneVariableFanConstantWaterFlowrate_backup", method="Cvode", tolerance=1e-6,startTime=0, stopTime=8640000, resultFile="FanCoilExample", outputInterval = 60);
 
 createPlot(id=1, position={0, 0, 1666, 976}, y={"occSch.occupied"}, range={262000.0, 276500.0, -0.5, 1.5}, autoscale=false, grid=true, colors={{28,108,200}}, timeUnit="min");
 createPlot(id=1, position={0, 0, 1666, 158}, y={"conZonHVACSys.TZon", "conZonHVACSys.TCooSet", "conZonHVACSys.THeaSet", "building.weaBus.TDryBul"}, range={262000.0, 276500.0, 10.0, 40.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="min", displayUnits={"degC", "degC", "degC", "degC"});

@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Example;
+within Buildings.Fluid.ZoneEquipment.UnitHeater.Validation;
 package Data "Sizing data used for validation models"
 
   extends Modelica.Icons.MaterialPropertiesPackage;

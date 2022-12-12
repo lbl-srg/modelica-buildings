@@ -29,7 +29,7 @@ model HeatingMode
       origin={0,-92})));
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
-    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.FanCoilUnit.Types.HeaSou.hotWat,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -41,8 +41,7 @@ model HeatingMode
     final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-    redeclare Data.FanData fanPer)
-    "Fan coil"
+    redeclare Data.FanData fanPer) "Fan coil system model"
     annotation (Placement(transformation(extent={{16,-20},{56,20}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souCooWat(
