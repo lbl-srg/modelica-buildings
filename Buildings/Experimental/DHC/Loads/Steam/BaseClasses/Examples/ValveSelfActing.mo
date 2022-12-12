@@ -2,7 +2,10 @@ within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
 model ValveSelfActing
   "Example model for self-acting steam valve with a noisy inlet pressure input"
   extends Modelica.Icons.Example;
-  package MediumSte = Buildings.Media.Steam "Medium model";
+  package MediumSte = Buildings.Media.Steam(p_default=400000,
+    T_default=273.15+143.61,
+    h_default=2738100)
+                      "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
