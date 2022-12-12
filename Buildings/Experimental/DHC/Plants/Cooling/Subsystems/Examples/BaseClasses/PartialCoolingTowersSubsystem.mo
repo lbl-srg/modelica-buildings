@@ -8,7 +8,8 @@ partial model PartialCoolingTowersSubsystem
     "Design water flow rate" annotation (Dialog(group="Nominal condition"));
 
   replaceable
-    Buildings.Fluid.Interfaces.PartialTwoPortInterface tow(
+    Buildings.Fluid.Interfaces.PartialTwoPortInterface tow
+    constrainedby Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare package Medium = Medium_W,
     m_flow_nominal=m_flow_nominal,
     show_T=true) "Cooling tower"
@@ -18,7 +19,8 @@ partial model PartialCoolingTowersSubsystem
     redeclare package Medium = Medium_W,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nominalValuesDefineDefaultPressureCurve=true)
+    nominalValuesDefineDefaultPressureCurve=true,
+    use_inputFilter=false)
     "Pump for condenser water loop"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
 
@@ -76,7 +78,7 @@ partial model PartialCoolingTowersSubsystem
 
   Buildings.Fluid.Sensors.TemperatureTwoPort TEnt(
     redeclare package Medium = Medium_W,
-    m_flow_nominal=m_flow_nominal) 
+    m_flow_nominal=m_flow_nominal)
     "Water entering temperature"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 equation
@@ -91,7 +93,7 @@ equation
    annotation (Line(points={{2,-158},{8,-158},{8,-182},{18,-182}},
      color={0,0,127}));
   connect(vol.ports[1], pum.port_a)
-   annotation (Line(points={{28.6667,-120},{-70,-120},{-70,-50}},
+   annotation (Line(points={{28.6667,-120},{-76,-120},{-76,-50},{-70,-50}},
       color={0,127,255}));
   connect(fixHeaFlo.port, vol.heatPort)
    annotation (Line(points={{-20,-90},{10,-90},{10,-110},{20,-110}},
@@ -128,6 +130,10 @@ on the temperature of the control volume to which the heat is added.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Set <code>use_inputFilter=false</code>.
+</li>
 <li>
 January 28, 2022, by Hongxiang Fu:<br/>
 Added a temperature sensor for better measurement of the entering water
