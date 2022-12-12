@@ -24,11 +24,11 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     annotation (
     choices(
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
-        "Single damper for ventilation and economizer, with airflow messurement station - Economizer function"),
+        "Single damper for ventilation and economizer, with airflow measurement station"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow secOut
-        "Seperate dampers for ventilation and econmomizer, with airflow messurement station - Economizer function"),
+        "Separate dampers for ventilation and economizer, with airflow measurement station"),
       choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure secOut
-        "Seperate dampers for ventilation and econmomizer, with differential pressure sensor - Economizer function")),
+        "Separate dampers for ventilation and economizer, with differential pressure sensor")),
     Dialog(group="Configuration"),
     Placement(transformation(extent={{-58,-94},{-22,-66}})));
 

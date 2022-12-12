@@ -17,8 +17,8 @@ package Types "Package with type definitions"
       Service "Buildings in which some types of services is provided.",
       WarehouseStorage "Buildings used to store goods, manufactured products, merchandise, raw materials, or personal belongings.",
       Other "All other miscellaneous buildings that do not fit into any other category",
-      Vacant "Buildings in which more floorspace was vacant than was used for any single commercial activity.")
-    "Enumeration to building types";
+      Vacant "Buildings in which more floor space was vacant than was used for any single commercial activity.")
+    "Enumeration to specify the building type";
   annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.

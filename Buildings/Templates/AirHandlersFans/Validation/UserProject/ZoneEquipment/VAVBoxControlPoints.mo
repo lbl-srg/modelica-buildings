@@ -2,13 +2,13 @@ within Buildings.Templates.AirHandlersFans.Validation.UserProject.ZoneEquipment;
 block VAVBoxControlPoints "Emulation of VAV box control points"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard stdVen
     "Ventilation standard"
     annotation(Evaluate=true);
 
-  .Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
-    "Terminal unit control bus" annotation (Placement(transformation(
+  Buildings.Templates.ZoneEquipment.Interfaces.Bus bus
+    "Terminal unit control bus"
+    annotation (Placement(transformation(
         extent={{-20,20},{20,-20}},
         rotation=90,
         origin={200,0}), iconTransformation(

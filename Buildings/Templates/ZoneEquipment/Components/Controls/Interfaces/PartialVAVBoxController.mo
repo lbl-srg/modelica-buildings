@@ -13,19 +13,11 @@ partial block PartialVAVBoxController "Interface class for VAV terminal unit"
     datAll.stdVen
     "Ventilation standard";
 
-  outer replaceable Buildings.Templates.Components.Dampers.PressureIndependent damVAV
+  outer replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
     "VAV damper";
 
   outer replaceable Buildings.Templates.Components.Coils.None coiHea
     "Heating coil";
-
-initial equation
-  if typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly or
-     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat then
-    assert(stdVen<>Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
-      "In "+ getInstanceName() + ": "+
-      "The ventilation standard cannot be unspecified.");
-  end if;
 
   annotation (Documentation(info="<html>
 <p>

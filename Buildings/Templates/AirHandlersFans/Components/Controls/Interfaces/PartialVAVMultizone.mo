@@ -95,12 +95,6 @@ initial equation
        "In "+ getInstanceName() + ": "+
        "The system configuration is incompatible with available options for building pressure control.");
     end if;
-    assert(stdVen<>Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified,
-      "In "+ getInstanceName() + ".dat: "+
-      "The ventilation standard cannot be unspecified.");
-    assert(stdEne<>Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified,
-      "In "+ getInstanceName() + ".dat: "+
-      "The energy standard cannot be unspecified.");
   end if;
 
   annotation (Documentation(info="<html>

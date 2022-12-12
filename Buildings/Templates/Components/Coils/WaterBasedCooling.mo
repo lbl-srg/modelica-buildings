@@ -19,15 +19,13 @@ model WaterBasedCooling "Chilled water coil"
     dat.dpValve_nominal
     "Nominal pressure drop across fully open valve";
 
-  replaceable Buildings.Templates.Components.Valves.None val constrainedby
+  replaceable Buildings.Templates.Components.Valves.TwoWayModulating val constrainedby
     Buildings.Templates.Components.Interfaces.PartialValve(
       redeclare final package Medium = MediumChiWat,
       final dat=datVal)
     "Valve"
     annotation (
       choices(
-        choice(redeclare replaceable Buildings.Templates.Components.Valves.None val
-          "No valve"),
         choice(redeclare replaceable Buildings.Templates.Components.Valves.ThreeWayModulating val
           "Three-way modulating valve"),
         choice(redeclare replaceable Buildings.Templates.Components.Valves.TwoWayModulating val
