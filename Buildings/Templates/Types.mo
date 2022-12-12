@@ -2,7 +2,7 @@ within Buildings.Templates;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
-  type BuildingTypes = enumeration(
+  type Buildings = enumeration(
       Education "Buildings used for academic or technical classroom instruction.",
       FoodSales "Buildings used for retail or wholesale of food.",
       FoodServices "Buildings used for preparation and sale of food and beverages for consumption.",
@@ -19,6 +19,12 @@ package Types "Package with type definitions"
       Other "All other miscellaneous buildings that do not fit into any other category",
       Vacant "Buildings in which more floor space was vacant than was used for any single commercial activity.")
     "Enumeration to specify the building type";
+  type Units = enumeration(
+      SI
+      "International System of Units",
+      IP
+      "Imperial system of units")
+    "Enumeration to unit types";
   annotation (Documentation(info="<html>
 <p>
 This package contains type definitions.
