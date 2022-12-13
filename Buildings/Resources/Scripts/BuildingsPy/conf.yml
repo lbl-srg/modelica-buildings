@@ -141,6 +141,8 @@
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
+  dymola:
+    time_out: 600
   openmodelica:
     comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: 0.0'
     simulate: false
@@ -313,6 +315,8 @@
     comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
+  dymola:
+    time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
