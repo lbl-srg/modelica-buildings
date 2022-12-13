@@ -173,6 +173,9 @@
   openmodelica:
     comment: timed out after 300 seconds
     simulate: false
+- model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
+  dymola:
+    time_out: 600
 - model_name: Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.LoadAggregation.Validation.TemperatureResponseMatrix
   openmodelica:
     comment: 'simulation terminated by an assertion at initialization. (But works outside of docker, likely related with access to .mat file.)'
