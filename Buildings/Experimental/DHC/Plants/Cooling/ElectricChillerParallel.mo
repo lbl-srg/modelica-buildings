@@ -122,10 +122,10 @@ model ElectricChillerParallel
     final per=fill(
       perChi,
       numChi),
-    final m1_flow_nominal=mCHW_flow_nominal,
-    final m2_flow_nominal=mCW_flow_nominal,
-    final dp1_nominal=dpCHW_nominal,
-    final dp2_nominal=dpCW_nominal,
+    final m1_flow_nominal=mCW_flow_nominal,
+    final m2_flow_nominal=mCHW_flow_nominal,
+    final dp1_nominal=dpCW_nominal,
+    final dp2_nominal=dpCHW_nominal,
     final num=numChi,
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium)
@@ -150,14 +150,14 @@ model ElectricChillerParallel
     final per=fill(
       perCHWPum,
       numChi),
+    yValve_start=fill(
+      1,
+      numChi),
     final tau=tau,
     final use_inputFilter=use_inputFilter,
     final riseTimePump=riseTimePump,
     final init=init,
     final yPump_start=yCHWP_start,
-    yValve_start=fill(
-      1,
-      numChi),
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPumVal_nominal,
@@ -184,7 +184,8 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=mCHW_flow_nominal*0.05,
-    final dpValve_nominal=dpCHW_nominal)
+    final dpValve_nominal=dpCHW_nominal,
+    riseTime=30)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=0,origin={-30,-70})));
@@ -198,9 +199,10 @@ model ElectricChillerParallel
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{140,-30},{160,-50}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterPumpSpeed chiWatPumCon(
-    tWai=0,
+    tWai=60,
     final m_flow_nominal=mCHW_flow_nominal,
-    final dpSetPoi=dpSetPoi)
+    final dpSetPoi=dpSetPoi,
+    Ti=30)
     "Chilled water pump controller"
     annotation (Placement(transformation(extent={{-120,58},{-100,38}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage chiStaCon(
@@ -417,6 +419,12 @@ the detailed control logic. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
+to condenser water parameters and vice versa.<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
+</li>
 <li>
 September 15, 2022, by Kathryn Hinkelman:<br/>
 Propagated dynamics and initialization parameters for pumps.
