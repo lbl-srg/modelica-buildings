@@ -61,6 +61,7 @@ model ElectricChillerParallel
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=PFan_nominal,
+    use_inputFilter=true,
     dpCooTowVal_nominal=dpCooTowVal_nominal,
     dpCHWPumVal_nominal=dpCHWPumVal_nominal,
     dpCWPumVal_nominal=dpCWPumVal_nominal,
@@ -119,7 +120,7 @@ equation
   connect(fixHeaFlo.port,vol.heatPort)
     annotation (Line(points={{20,70},{32,70},{32,30},{40,30}},color={191,0,0}));
   connect(pla.port_bSerCoo,vol.ports[1])
-    annotation (Line(points={{10,-11.3333},{16,-11.3333},{16,20},{48.6667,20}},
+    annotation (Line(points={{10,-11.3333},{16,-11.3333},{16,20},{47.3333,20}},
       color={0,127,255}));
   connect(vol.ports[2],res.port_a)
     annotation (Line(points={{50,20},{80,20},{80,-40},{60,-40}},
@@ -138,7 +139,7 @@ equation
   connect(res.port_b, senRelPre.port_b)
     annotation (Line(points={{40,-40},{30,-40},{30,-20}}, color={0,127,255}));
   connect(vol.ports[3], senRelPre.port_a)
-    annotation (Line(points={{51.3333,20},{30,20},{30,0}}, color={0,127,255}));
+    annotation (Line(points={{52.6667,20},{30,20},{30,0}}, color={0,127,255}));
   connect(senRelPre.p_rel, pla.dpMea) annotation (Line(points={{21,-10},{20,-10},
           {20,-60},{-20,-60},{-20,-6.73333},{-10.6667,-6.73333}}, color={0,0,
           127}));
@@ -161,6 +162,10 @@ Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 14, 2022, by Kathryn Hinkelman:<br/>
+Enabled filters for CHW pumps and valves. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue #2912</a>.
+</li>
 <li>
 October 20, 2021, by Chengnan Shi:<br/>
 Revised the model for extensibility. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">issue #2749</a>.
