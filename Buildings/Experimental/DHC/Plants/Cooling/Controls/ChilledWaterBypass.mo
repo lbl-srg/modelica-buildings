@@ -31,7 +31,6 @@ model ChilledWaterBypass
     controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    yMin=0.01,
     y_reset=0)
     "Chilled water bypass valve controller"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));

@@ -198,6 +198,8 @@ model ElectricChillerParallel
     tWai=60,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpSetPoi=dpSetPoi,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=1,
     Ti=30)
     "Chilled water pump controller"
     annotation (Placement(transformation(extent={{-120,58},{-100,38}})));
@@ -264,9 +266,9 @@ model ElectricChillerParallel
   Fluid.Sensors.MassFlowRate senMasFloCHW(redeclare final package Medium =
         Medium) "Total chilled water pump mass flow rate" annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-80,10})));
+        origin={120,20})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -347,8 +349,6 @@ equation
   connect(mulChiSys.P,totPCoo.u[1:2])
     annotation (Line(points={{39,52},{20,52},{20,239},{258,239}},
       color={0,0,127}));
-  connect(mulChiSys.port_b2,splCHWSup.port_1)
-    annotation (Line(points={{60,44},{120,44},{120,-32}},color={0,127,255}));
   connect(splCHWSup.port_3,senTCHWSup.port_a)
     annotation (Line(points={{130,-42},{130,-40},{140,-40}},color={0,127,255}));
   connect(senTCHWRet.T,chiStaCon.TChiWatRet)
@@ -369,18 +369,20 @@ equation
     annotation (Line(points={{-210,-40},{-90,-40}}, color={0,127,255}));
   connect(valByp.port_b, joiCHWRet.port_1)
     annotation (Line(points={{-40,-70},{-80,-70},{-80,-50}}, color={0,127,255}));
-  connect(joiCHWRet.port_2, senMasFloCHW.port_a)
-    annotation (Line(points={{-80,-30},{-80,0}}, color={0,127,255}));
-  connect(senMasFloCHW.port_b, pumCHW.port_a)
-    annotation (Line(points={{-80,20},{-80,44},{-52,44}}, color={0,127,255}));
-  connect(expTanCHW.ports[1], senMasFloCHW.port_a)
-    annotation (Line(points={{-88,-16},{-80,-16},{-80,0}}, color={0,127,255}));
-  connect(senMasFloCHW.m_flow, chiWatPumCon.masFloPum) annotation (Line(points={{-91,10},
-          {-140,10},{-140,44},{-122,44}},color={0,0,127}));
-  connect(senMasFloCHW.m_flow, chiBypCon.mFloChi) annotation (Line(points={{-91,
-          10},{-140,10},{-140,-155},{-122,-155}}, color={0,0,127}));
+  connect(senMasFloCHW.m_flow, chiWatPumCon.masFloPum) annotation (Line(points={{109,20},
+          {-140,20},{-140,44},{-122,44}},color={0,0,127}));
+  connect(senMasFloCHW.m_flow, chiBypCon.mFloChi) annotation (Line(points={{109,
+          20},{-140,20},{-140,-155},{-122,-155}}, color={0,0,127}));
   connect(valByp.port_a, splCHWSup.port_2) annotation (Line(points={{-20,-70},{
           120,-70},{120,-52}}, color={0,127,255}));
+  connect(joiCHWRet.port_2, pumCHW.port_a)
+    annotation (Line(points={{-80,-30},{-80,44},{-52,44}}, color={0,127,255}));
+  connect(expTanCHW.ports[1], pumCHW.port_a) annotation (Line(points={{-88,-16},
+          {-80,-16},{-80,44},{-52,44}}, color={0,127,255}));
+  connect(mulChiSys.port_b2, senMasFloCHW.port_a)
+    annotation (Line(points={{60,44},{120,44},{120,30}}, color={0,127,255}));
+  connect(senMasFloCHW.port_b, splCHWSup.port_1)
+    annotation (Line(points={{120,10},{120,-32}}, color={0,127,255}));
   annotation (
     defaultComponentName="pla",
     Documentation(

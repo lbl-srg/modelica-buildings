@@ -117,13 +117,6 @@ model DirectUncontrolledETS
     each bui(w_aLoaCoo_nominal=0.015))
     "Vectorized time series building load model connected with ETS for cooling"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
-  Buildings.Fluid.Sensors.RelativePressure senRelPre(
-    redeclare package Medium = Medium)
-    "Relative pressure drop sensor"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-8,-36})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
@@ -140,24 +133,19 @@ equation
           {-40.7333,-2.6}}, color={255,0,255}));
   connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{-59,-50},{-48,
           -50},{-48,-4.73333},{-40.6667,-4.73333}}, color={0,0,127}));
-  connect(senRelPre.p_rel, pla.dpMea) annotation (Line(points={{-17,-36},{-46,
-          -36},{-46,-6.73333},{-40.6667,-6.73333}},
-                                               color={0,0,127}));
   connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{60,-10},
-          {80,-10},{80,-16},{60,-16}}, color={0,127,255}));
+          {68,-10},{68,-16},{60,-16}}, color={0,127,255}));
   connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,
           -11.3333},{-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}}, color={
           0,127,255}));
   connect(dis.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-10},
           {20,-11.3333},{-20,-11.3333}},        color={0,127,255}));
-  connect(senRelPre.port_b, dis.port_bDisRet) annotation (Line(points={{-8,-46},
-          {-8,-60},{8,-60},{8,-16},{20,-16}}, color={0,127,255}));
-  connect(senRelPre.port_a, pla.port_bSerCoo) annotation (Line(points={{-8,-26},
-          {-8,-11.3333},{-20,-11.3333}}, color={0,127,255}));
   connect(dis.ports_bCon, buiETS.port_aSerCoo)
     annotation (Line(points={{28,0},{0,0},{0,42},{30,42}}, color={0,127,255}));
   connect(buiETS.port_bSerCoo, dis.ports_aCon) annotation (Line(points={{50,42},
           {80,42},{80,0},{52,0}}, color={0,127,255}));
+  connect(dis.dp, pla.dpMea) annotation (Line(points={{62,-7},{70,-7},{70,-32},
+          {-46,-32},{-46,-6.73333},{-40.6667,-6.73333}}, color={0,0,127}));
     annotation (Dialog(group="Network"),
     Icon(
       coordinateSystem(
@@ -184,6 +172,10 @@ Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>, as illus
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.png\" alt=\"System schematics\"/></p>
 </html>", revisions="<html>
 <ul>
+<li>
+Relocated dp sensor for CHW pump control to most distal building.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue #2912</a>.
+</li>
 <li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
