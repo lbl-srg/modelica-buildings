@@ -214,8 +214,10 @@ int ffd(int cosimulation) {
   write_SCI(&para, var, "output");
 
   /* Free the memory*/
+  /*
   free_data(var);
   free_index(BINDEX);
+  */
 
   /* Inform Modelica the stopping command has been received*/
   if(para.solv->cosimulation==1) {
@@ -248,7 +250,9 @@ void modelicaError(char *msg) {
   /* Indicate there is an error*/
   para.cosim->para->ffdError = 1;
 
-	/*Free memory for cosim->ffd->msg*/	
+	/*Free memory for cosim->ffd->msg*/
+/*
 	free(para.cosim->ffd->msg);
+*/
 	
 } /* End of modelicaError*/

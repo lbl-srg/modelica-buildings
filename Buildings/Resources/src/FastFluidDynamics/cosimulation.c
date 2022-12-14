@@ -711,8 +711,9 @@ int assign_thermal_bc(PARA_DATA *para, REAL **var, int **BINDEX) {
             return 1;
       } /* End of switch(BINDEX[3][it])*/
     }
-
+/*
     free(temHea);
+*/
   } /* End of if(para->bc->nb_wall>0)*/
   /****************************************************************************
   | No action since there is not a solid surface

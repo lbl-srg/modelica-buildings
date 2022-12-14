@@ -47,14 +47,8 @@ int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double 
                 const int *bouCon, int nPorts, const char **portName, int haveSensor,
                 const char **sensorName, int haveShade, size_t nSur, size_t nSen,
                 size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
-/*
-int cfdStartCosimulation(const char *cfdFilNam, char **name, const double *A, const double *til,
-                const int *bouCon, int nPorts, char **portName, int haveSensor,
-                char **sensorName, int haveShade, size_t nSur, size_t nSen,
-                size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
-*/
   size_t i;
-  /* size_t nBou; */
+  size_t nBou;
 
   /****************************************************************************
   | allocate the memory and assign the data
@@ -75,7 +69,7 @@ int cfdStartCosimulation(const char *cfdFilNam, char **name, const double *A, co
   cosim->para->nXi = nXi;
   cosim->para->rho_start = rho_start;
 
-  /* nBou = nSur + nPorts; */
+  nBou = nSur + nPorts;
 
   cosim->para->name = NULL;
   cosim->para->name = (char**) malloc(nSur*sizeof(char *));
@@ -236,61 +230,6 @@ int cfdStartCosimulation(const char *cfdFilNam, char **name, const double *A, co
       }
     }
   }
-
-  /*
-  cosim->modelica->mFloRatPor = (double *) malloc(nPorts*sizeof(double));
-  if (cosim->modelica->mFloRatPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->modelica->mFloRatPor in cfdStartCosimulation.c");
-  }
-  cosim->modelica->TPor = (double *) malloc(nPorts*sizeof(double));
-  if (cosim->modelica->TPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->modelica->TPor in cfdStartCosimulation.c");
-  }
-  cosim->ffd->TPor = (double *) malloc(nPorts*sizeof(double));
-  if (cosim->ffd->TPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->ffd->TPor in cfdStartCosimulation.c");
-  }
-  cosim->modelica->XiPor = (double **) malloc(nPorts*sizeof(double *));
-  if (cosim->modelica->XiPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->modelica->XiPor in cfdStartCosimulation.c");
-  }
-  cosim->ffd->XiPor = (double **) malloc(nPorts*sizeof(double *));
-  if (cosim->ffd->XiPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->ffd->XiPor in cfdStartCosimulation.c");
-  }
-  for(i=0; i<nPorts; i++) {
-    cosim->modelica->XiPor[i] = NULL;
-    cosim->modelica->XiPor[i] = (double *) malloc(cosim->para->nXi*sizeof(double));
-    if (  cosim->modelica->XiPor[i] == NULL){
-      ModelicaError("Failed to allocate memory for cosim->modelica->XiPor[i] in cfdStartCosimulation.c");
-    }
-    cosim->ffd->XiPor[i] = NULL;
-    cosim->ffd->XiPor[i] = (double *) malloc(cosim->para->nXi*sizeof(double));
-    if (  cosim->ffd->XiPor[i] == NULL){
-      ModelicaError("Failed to allocate memory for cosim->ffd->XiPor[i] in cfdStartCosimulation.c");
-    }
-  }
-  cosim->modelica->CPor = (double **) malloc(nPorts*sizeof(double *));
-  if (cosim->modelica->CPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->modelica->CPor in cfdStartCosimulation.c");
-  }
-  cosim->ffd->CPor = (double **) malloc(nPorts*sizeof(double *));
-  if (cosim->ffd->CPor == NULL){
-    ModelicaError("Failed to allocate memory for cosim->ffd->CPor in cfdStartCosimulation.c");
-  }
-  for(i=0; i<nPorts; i++) {
-    cosim->modelica->CPor[i] = NULL;
-    cosim->modelica->CPor[i] = (double *) malloc(cosim->para->nC*sizeof(double));
-    if (  cosim->modelica->CPor[i] == NULL){
-      ModelicaError("Failed to allocate memory for cosim->modelica->CPor[i] in cfdStartCosimulation.c");
-    }
-    cosim->ffd->CPor[i] = NULL;
-    cosim->ffd->CPor[i] = (double *) malloc(cosim->para->nC*sizeof(double));
-    if (  cosim->ffd->CPor[i] == NULL){
-      ModelicaError("Failed to allocate memory for cosim->ffd->CPor[i] in cfdStartCosimulation.c");
-    }
-  }
-  */
 
   cosim->ffd->temHea = NULL;
   cosim->ffd->temHea = (double *) malloc(nSur*sizeof(double));

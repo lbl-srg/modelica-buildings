@@ -184,7 +184,7 @@ REAL qwall(PARA_DATA *para, REAL **var,int **BINDEX);
 	*
 	* @return 0 if no error occurred
 	*/
-void free_index(int **BINDEX);
+/* void free_index(int **BINDEX); */
 
 /*
 	* Free memory for FFD simulation variables
@@ -193,7 +193,7 @@ void free_index(int **BINDEX);
 	*
 	* @return 0 if no error occurred
 	*/
-void free_data(REAL **var);
+/* void free_data(REAL **var); */
 
 /*
 	* Determine the maximum value of given scalar variable

@@ -20,7 +20,7 @@
  *
  * @return No return needed
  */
-void *cfdSendStopCommand(void *thread) {
+void cfdSendStopCommand(void *thread) {
 
   size_t i = 0;
   size_t imax = 10000;
@@ -52,6 +52,7 @@ void *cfdSendStopCommand(void *thread) {
   }
 
   /*free memory for variables*/
+  /*
   if (cosim->para->fileName != NULL){
     free(cosim->para->fileName);
   }
@@ -147,5 +148,6 @@ void *cfdSendStopCommand(void *thread) {
   if (cosim != NULL){
     free(cosim);
   }
+*/
 
 } /* End of cfdSendStopCommand*/

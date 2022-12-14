@@ -85,8 +85,9 @@ int write_tecplot_data(PARA_DATA *para, REAL **var, char *name) {
 
   sprintf(msg, "write_tecplot_data(): Wrote file %s.", filename);
   ffd_log(msg, FFD_NORMAL);
-
+/*
   free(filename);
+*/
   fclose(datafile);
   return 0;
 } /*write_tecplot_data()*/
@@ -200,7 +201,9 @@ int write_tecplot_all_data(PARA_DATA *para, REAL **var, char *name) {
   fclose(dataFile);
   sprintf(msg, "write_tecplot_all_data(): Wrote file %s.", filename);
   ffd_log(msg, FFD_NORMAL);
+/*
   free(filename);
+*/
 
   return 0;
 } /*write_tecplot_all_data()*/
@@ -361,8 +364,9 @@ int write_unsteady(PARA_DATA *para, REAL **var, char *name){
 
   sprintf(msg, "write_unsteady(): Wrote the unsteady data file %s.", filename);
   ffd_log(msg, FFD_NORMAL);
-
+/*
   free(filename);
+*/
   fclose(datafile);
   return 0;
 } /*write_unsteady()*/
@@ -568,7 +572,9 @@ int write_SCI(PARA_DATA *para, REAL **var, char *name) {
   fclose(dataFile);
   sprintf(msg, "wrtie_SCI(): Wrote the SCI data file %s.", filename);
   ffd_log(msg, FFD_NORMAL);
+/*
   free(filename);
+*/
   return 0;
 
 } /* End of write_SCI()*/
