@@ -57,7 +57,13 @@ REAL check_residual(PARA_DATA *para, REAL **var, REAL *x) {
 		* @return 0 if no error occurred
 		*/
 void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
-  char mymsg[400];
+  /* char mymsg[400]; */
+  char *mymsg = NULL;
+  mymsg = (char *) malloc((strlen(message)+1)*sizeof(char));
+  if (mymsg == NULL){
+    printf("ffd_log(): Failed to allocate memory for mymsg.\n");
+  }
+
   if(msg_type==FFD_NEW) {
     if((file_log=fopen("ffd.log","w+"))==NULL) {
         fprintf(stderr, "Error: Cannot open log file.\n");
@@ -80,7 +86,16 @@ void ffd_log(char *message, FFD_MSG_TYPE msg_type) {
     default:
       fprintf(file_log, "%s\n", message);
   }
-  fclose(file_log);
+  if (mymsg != NULL) {
+    free(mymsg);
+  }
+  /* if (fclose(file_log)) { printf("error closing file."); exit(-1); } */
+  if (file_log != NULL) {
+    fflush(file_log);
+    fclose(file_log);
+  }
+  /* fclose(file_log); */
+
 } /* End of ffd_log()*/
 
 	/*

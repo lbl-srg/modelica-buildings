@@ -263,7 +263,7 @@ int read_cosim_data(PARA_DATA *para, REAL **var, int **BINDEX) {
   | Read and assign the thermal boundary conditions
   ****************************************************************************/
   if(assign_thermal_bc(para,var,BINDEX)!=0) {
-     ffd_log("read_cosim_data(): Could not assign the Modelica thermal data to FFD",
+    ffd_log("read_cosim_data(): Could not assign the Modelica thermal data to FFD",
             FFD_ERROR);
     return 1;
   }
