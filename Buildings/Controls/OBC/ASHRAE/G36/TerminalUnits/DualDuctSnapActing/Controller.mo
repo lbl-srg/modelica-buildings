@@ -1,8 +1,8 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing;
 block Controller "Controller for snap-acting controlled dual-duct terminal unit"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd(
-    start=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1)
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
     "True: the zone has window sensor";
