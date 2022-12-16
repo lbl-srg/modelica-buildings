@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type OutdoorAirSection = enumeration(
     DedicatedDampersAirflow   "Separate dampers for ventilation and economizer, with airflow measurement station",
     DedicatedDampersPressure   "Separate dampers for ventilation and economizer, with differential pressure sensor",
-    SingleDamper   "Single damper for ventilation and economizer, with airflow messurement station")
+    SingleDamper   "Single damper for ventilation and economizer, with airflow measurement station")
   "Enumeration to configure the outdoor air section"
 annotation (
  Evaluate=true, Documentation(info="<html>
