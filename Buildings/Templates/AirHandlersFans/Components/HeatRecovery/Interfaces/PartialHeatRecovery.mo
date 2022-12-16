@@ -12,7 +12,7 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __Linkage(enable=false));
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None

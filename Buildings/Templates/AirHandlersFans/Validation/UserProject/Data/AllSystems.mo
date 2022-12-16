@@ -94,7 +94,7 @@ class AllSystems "Top-level (whole building) system parameters"
       TAirSupSet_max=18+273.15,
       TOutRes_min=16+273.15,
       TOutRes_max=21+273.15))
-    "Paramerers for system VAV_1"
+    "Parameters for system VAV_1"
     annotation (Dialog(group="Air handlers and fans"));
 
 annotation (

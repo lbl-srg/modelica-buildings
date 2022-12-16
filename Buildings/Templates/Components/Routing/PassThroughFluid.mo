@@ -17,5 +17,12 @@ equation
 This is a model of a direct fluid pass-through used for
 templating purposes.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 11, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PassThroughFluid;

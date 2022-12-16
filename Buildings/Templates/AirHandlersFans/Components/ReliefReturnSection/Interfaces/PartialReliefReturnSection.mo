@@ -52,7 +52,7 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __Linkage(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = MediumAir,

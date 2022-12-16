@@ -12,8 +12,7 @@ model Multiple "Multiple pumps in parallel"
     each final tau=tau,
     each final allowFlowReversal=allowFlowReversal)
     "Pumps"
-    annotation (
-      Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.FixedResistances.CheckValve valChe[nPum](
     redeclare each final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -45,16 +44,14 @@ model Multiple "Multiple pumps in parallel"
         rotation=-90,
         origin={20,-50})));
   Controls.OBC.CDL.Routing.RealScalarReplicator reaSpe(
-    final nout=nPum)
-    if typCtrSpe==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableCommon
+    final nout=nPum) if have_var and have_varCom
     "Replicate signal in case of common unique commanded speed" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,70})));
   Controls.OBC.CDL.Continuous.Sources.Constant speCst[nPum](
-    final k=fill(1, nPum))
-    if typCtrSpe == Buildings.Templates.Components.Types.PumpMultipleSpeedControl.Constant
+    final k=fill(1, nPum)) if not have_var
     "Constant signal in case of constant speed pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -62,8 +59,7 @@ model Multiple "Multiple pumps in parallel"
         origin={60,70})));
   Controls.OBC.CDL.Routing.RealExtractSignal pasSpe(
     final nin=nPum,
-    final nout=nPum)
-    if typCtrSpe==Buildings.Templates.Components.Types.PumpMultipleSpeedControl.VariableDedicated
+    final nout=nPum) if have_var and not have_varCom
     "Direct pass through for dedicated speed signals" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -127,24 +123,50 @@ equation
   annotation (
   defaultComponentName="pum",
   Documentation(info="<html>
-  TODO: update doc.
 <p>
-This is a model for a parallel arrangement of identical variable
-speed pumps (with dedicated VFDs).
+This is a model for a parallel arrangement of <code>nPum</code> pumps 
+with optional check valves (depending on the value of the parameter 
+<code>have_valChe</code>).
+</p>
+<p>
+By default, variable speed pumps are modeled.
+Constant speed pumps can be modeled by setting the parameter 
+<code>have_var</code> to <code>false</code>.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
 </p>
 <ul>
 <li>
-Each pump is commanded On with a dedicated Boolean signal <code>y1</code> (VFD Run).
+Pump Start/Stop command (VFD Run or motor starter contact) 
+<code>y1</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-The speed of all pumps is modulated with the same
-fractional speed signal <code>y</code> (real).<br/>
-<code>y = 0</code> corresponds to 0 Hz.
-<code>y = 1</code> corresponds to the maximum speed set in the VFD.
+Pump speed command (VFD Speed) <code>y</code> for variable speed pumps only: 
+<ul>
+<li>
+If <code>have_varCom</code>: AO signal common to all units, 
+with a dimensionality of zero
 </li>
 <li>
-Each pump returns a dedicated status signal <code>y1_actual</code> (Boolean).<br/>
-<code>y1_actual = true</code> means that the pump is proven On.
+If <code>not have_varCom</code>: AO signal dedicated to each unit, 
+with a dimensionality of one
+</li>
+</ul>
+</li>
+<li>
+Pump status (through VFD interface, VFD status contact, 
+or current switch) <code>y1_actual</code>: 
+DI signal dedicated to each unit, with a dimensionality of one
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));
