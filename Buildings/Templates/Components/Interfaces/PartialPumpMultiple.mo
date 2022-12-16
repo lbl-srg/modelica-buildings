@@ -54,4 +54,13 @@ partial model PartialPumpMultiple
      annotation (Placement(
         transformation(extent={{90,-40},{110,40}}), iconTransformation(extent={{90,-40},
             {110,40}})));
+  annotation (Documentation(info="<html>
+<p>
+This partial class provides a standard interface for models
+of multiple pumps in parallel arrangement.
+Note that the inlet and outlet manifolds are not included
+in this model. This way, the same interface can be used to model
+both headered pumps and dedicated pumps.
+</p>
+</html>"));
 end PartialPumpMultiple;

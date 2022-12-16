@@ -48,5 +48,9 @@ model PartialPump "Base class for all pump models"
         Text(
           extent={{-149,-112},{151,-152}},
           textColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}), Documentation(info="<html>
+<p>
+This partial class provides a standard interface for pump models.
+</p>
+</html>"));
 end PartialPump;

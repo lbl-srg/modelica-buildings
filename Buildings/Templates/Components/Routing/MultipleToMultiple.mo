@@ -19,7 +19,7 @@ model MultipleToMultiple
     "Number of outlet ports"
     annotation(Evaluate=true, Dialog(group="Configuration"));
   parameter Boolean have_comLeg=false
-    "Set to true for commong leg between inlet and outlet ports (headered connection)"
+    "Set to true for common leg between inlet and outlet ports (headered connection)"
     annotation(Evaluate=true, Dialog(group="Configuration"));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
@@ -183,5 +183,14 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a model of a many-to-many fluid connector with an
+optional control volume, and an optional mixing port (common leg).
+It is typically used to connect parallel pumps with parallel
+chillers or boilers. 
+Selecting a mixing port allows modeling a headered pumping arrangement.
+Without any mixing port, a dedicated pumping arrangement is modeled.
+</p>
 </html>"));
 end MultipleToMultiple;

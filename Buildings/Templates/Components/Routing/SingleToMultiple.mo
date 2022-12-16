@@ -123,5 +123,12 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a model of a one-to-many fluid connector with an
+optional control volume.
+It is typically used to represent an inlet manifold or
+a single pipe diverging into multiple junctions.
+</p>
 </html>"));
 end SingleToMultiple;
