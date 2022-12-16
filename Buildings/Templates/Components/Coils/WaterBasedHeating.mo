@@ -34,7 +34,6 @@ model WaterBasedHeating "Hot water coil"
         rotation=-90,
         origin={-40,-60})));
 
-  // We allow for redeclaration but not through the parameter dialog box.
   replaceable Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hex(
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
@@ -50,10 +49,11 @@ model WaterBasedHeating "Hot water coil"
     final m1_flow_nominal=mWat_flow_nominal,
     final m2_flow_nominal=mAir_flow_nominal)
     "Heat exchanger"
-    annotation (Placement(transformation(extent={{10,4},{-10,-16}})));
+    annotation (__Linkage(enable=false),
+      Placement(transformation(extent={{10,4},{-10,-16}})));
 
-  Buildings.Templates.Components.Routing.PassThroughFluid pas(redeclare final
-      package Medium = MediumHeaWat)
+  Buildings.Templates.Components.Routing.PassThroughFluid pas(
+    redeclare final package Medium = MediumHeaWat)
     if typVal <> Buildings.Templates.Components.Types.Valve.ThreeWayModulating
     "Direct pass through" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

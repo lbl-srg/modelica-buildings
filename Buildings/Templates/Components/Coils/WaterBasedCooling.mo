@@ -34,7 +34,6 @@ model WaterBasedCooling "Chilled water coil"
         rotation=-90,
         origin={-40,-60})));
 
-  // We allow for declaration but not through the parameter dialog box.
   replaceable Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU hex(
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     final use_Q_flow_nominal=true,
@@ -52,6 +51,7 @@ model WaterBasedCooling "Chilled water coil"
     final m2_flow_nominal=mAir_flow_nominal)
     "Heat exchanger"
     annotation (
+      __Linkage(enable=false),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(
