@@ -241,17 +241,6 @@ waterside economizer.
 </td>
 </tr>
 <tr>
-<td>CW pump arrangement</td>
-<td>
-<b>Headered</b><br/>
-Dedicated
-</td>
-<td>
-Headered pumps are required (and automatically selected) for configurations with
-waterside economizer.
-</td>
-</tr>
-<tr>
 <td>Type of CW pumps</td>
 <td>
 <b>Constant speed pumps</b><br/>

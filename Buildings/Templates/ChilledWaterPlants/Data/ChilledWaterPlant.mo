@@ -104,7 +104,8 @@ record ChilledWaterPlant "Record for chilled water plant model"
     TChiWatChiSup_max=fill(ctl.TChiWatSup_max, nChi),
     TConWatChiEnt_nominal=ctl.TConWatChiSup_nominal,
     PLRUnlChi_min=ctl.capUnlChi_min ./ ctl.capChi_nominal)
-    "Chiller group";
+    "Chiller group"
+    annotation(Dialog(group="Chillers"));
 
   parameter Buildings.Templates.Components.Data.PumpMultiple pumChiWatPri(
     final nPum=nPumChiWatPri,
