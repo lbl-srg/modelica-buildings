@@ -538,15 +538,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Measured outdoor air volumetric flow rate"
     annotation (Placement(transformation(extent={{-400,76},{-360,116}}),
         iconTransformation(extent={{-240,50},{-200,90}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
-    final min=0,
-    final max=1,
-    final unit="1")
-    if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-     or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
-    "Actual supply fan speed"
-    annotation (Placement(transformation(extent={{-400,0},{-360,40}}),
-        iconTransformation(extent={{-240,-10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCO2Loo_max(
     final unit="1")
     if (have_CO2Sen and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)
@@ -599,8 +590,7 @@ block Controller "Multizone VAV air handling unit controller"
         iconTransformation(extent={{-240,-220},{-200,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RelFan if buiPreCon ==
     Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and not have_ahuRelFan
-    "Relief fan commanded on"
+     and not have_ahuRelFan "Relief fan status"
     annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
         iconTransformation(extent={{-240,-250},{-200,-210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
@@ -1035,8 +1025,6 @@ equation
           -560},{-320,-560},{-320,-538},{-22,-538}}, color={0,0,127}));
   connect(ashOutAirSet.effOutAir_normalized, ecoCon.VOutMinSet_flow_normalized)
     annotation (Line(points={{-58,187},{40,187},{40,-21},{60,-21}}, color={0,0,127}));
-  connect(ecoCon.uSupFan_actual, uSupFan_actual) annotation (Line(points={{60,-28},
-          {16,-28},{16,20},{-380,20}}, color={0,0,127}));
   connect(ecoCon.dpMinOutDam, dpMinOutDam) annotation (Line(points={{60,-38},{
           22,-38},{22,-50},{-380,-50}}, color={0,0,127}));
   connect(supSig.uTSup, ecoCon.uTSup) annotation (Line(points={{-58,416},{-32,
@@ -1236,6 +1224,8 @@ equation
           -268},{112,-268},{112,-212},{178,-212}}, color={255,0,255}));
   connect(relFanCon.yDam, yRelDam) annotation (Line(points={{22,-257},{210,-257},
           {210,60},{380,60}}, color={0,0,127}));
+  connect(conSupFan.ySupFan, ecoCon.uSupFan) annotation (Line(points={{-198,510},
+          {-114,510},{-114,-28},{60,-28}}, color={0,0,127}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
@@ -1287,12 +1277,6 @@ annotation (
           textString="VAirOut_flow",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)),
-       Text(
-          extent={{-194,18},{-82,0}},
-          textColor={0,0,0},
-          visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
-          textString="uSupFan_actual"),
        Text(
           extent={{-198,-40},{-116,-58}},
           textColor={0,0,0},

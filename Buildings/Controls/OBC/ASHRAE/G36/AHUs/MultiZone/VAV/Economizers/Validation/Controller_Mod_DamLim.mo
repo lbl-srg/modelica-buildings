@@ -114,10 +114,10 @@ equation
   connect(uTSup.y, eco1.uTSup) annotation (Line(points={{-98,-40},{0,-40},{0,
           -41},{98,-41}},
                      color={0,0,127}));
-  connect(supFanSpe.y, eco.uSupFan_actual) annotation (Line(points={{-98,0},{-12,
-          0},{-12,12},{18,12}}, color={0,0,127}));
-  connect(supFanSpe.y, eco1.uSupFan_actual) annotation (Line(points={{-98,0},{-12,
-          0},{-12,-28},{98,-28}}, color={0,0,127}));
+  connect(supFanSpe.y, eco.uSupFan) annotation (Line(points={{-98,0},{-12,0},{-12,
+          12},{18,12}}, color={0,0,127}));
+  connect(supFanSpe.y, eco1.uSupFan) annotation (Line(points={{-98,0},{-12,0},{
+          -12,-28},{98,-28}}, color={0,0,127}));
   connect(dpDam2.y, eco1.dpMinOutDam) annotation (Line(points={{-58,-60},{-32,
           -60},{-32,-38},{98,-38}},
                                color={0,0,127}));
