@@ -11,13 +11,13 @@ partial model EquipmentInterfaces
   replaceable package MediumCHW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for chilled water";
 
-  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mHotWat_flow_nominal = 0.1
     "Nominal mass flow rate of heating hot water"
-    annotation(Dialog(enable=has_HW, group="Heating coil parameters"));
+    annotation(Dialog(enable=heaCoiTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat, group="Heating coil parameters"));
 
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal = 0.1
     "Nominal mass flow rate of chilled water"
-    annotation(Dialog(group="Cooling coil parameters"));
+    annotation(Dialog(enable=cooCoiTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat, group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
     "Nominal mass flow rate of outdoor air"
@@ -43,7 +43,7 @@ partial model EquipmentInterfaces
     annotation (Dialog(group="System parameters"));
 
   Modelica.Blocks.Interfaces.RealInput uHea(
-    final unit="1")
+    final unit="1") if has_HW
     "Heating loop signal"
     annotation(Placement(transformation(extent={{-400,-140},{-360,-100}}),
       iconTransformation(extent={{-240,-198},{-200,-158}})));

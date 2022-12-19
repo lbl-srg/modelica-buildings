@@ -5,7 +5,8 @@ package Types "Package with type definitions"
   type HeaSou = enumeration(
       ele
          "Electric resistance heating coil",
-      hotWat "Hot-water heating coil")
+      hotWat "Hot-water heating coil",
+      noHea "No heating coil")
       "Enumeration for the heating coil types"
       annotation (Documentation(info="<html>
 <p>
