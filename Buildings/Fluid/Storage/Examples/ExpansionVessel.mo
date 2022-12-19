@@ -45,6 +45,14 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 This model tests a pressure expansion vessel.
+</html>", revisions="<html>
+<ul>
+<li>
+December 19, 2022 by Hongxiang Fu:<br/>
+Deleted outdated comment in documentation regarding compressible fluid.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3198\">#3198</a>.
+</li>
+</ul>
 </html>"),
     experiment(Tolerance=1e-6, StopTime=7200));
 end ExpansionVessel;
