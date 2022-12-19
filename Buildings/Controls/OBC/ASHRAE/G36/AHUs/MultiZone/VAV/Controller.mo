@@ -18,8 +18,8 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Type of outdoor air section"
     annotation (Dialog(group="Economizer design"));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
-       BarometricRelief
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer design"));
   parameter Boolean have_ahuRelFan=true
@@ -362,56 +362,41 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real difFloSet(unit="m3/s")=0.1
     "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController retFanCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for return fan"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRetFan(unit="1")=1
     "Gain, normalized using dpBuiSet"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real TiRetFan(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
          and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
               or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdRetFan(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
          and (retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   final parameter Real retFanSpe_max=1
     "Maximum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
   parameter Real retFanSpe_min=0.1
     "Minimum return fan speed"
     annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+      enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
-  parameter Real retFacA = 0.5
-    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calculated"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
-  parameter Real retFacB = 0
-    "Factor for mapping the commanded return fan speed to return airflow when the return flow is calculated"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
-      enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir));
 
   parameter Real p_rel_RetFan_min(
     unit="Pa",
@@ -704,8 +689,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{360,-90},{400,-50}}),
         iconTransformation(extent={{200,-42},{240,-2}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{360,-120},{400,-80}}),
@@ -714,8 +698,7 @@ block Controller "Multizone VAV air handling unit controller"
     final min=0,
     final max=1,
     final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{360,-152},{400,-112}}),
@@ -920,7 +903,6 @@ block Controller "Multizone VAV air handling unit controller"
     final maxSpe=retFanSpe_max,
     final minSpe=retFanSpe_min)
     if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
     "Return fan control for AHUs using return fan with airflow tracking"
     annotation (Placement(transformation(extent={{-160,-410},{-140,-390}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Title24.AHU tit24OutAirSet(
@@ -931,21 +913,6 @@ block Controller "Multizone VAV air handling unit controller"
     if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
     "Minimum outdoor airflow setpoint, when complying with Title 24 requirements"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=retFacB)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-    "Mapping commanded fan speed to return flow"
-    annotation (Placement(transformation(extent={{-20,-440},{0,-420}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=retFacA)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-    "Mapping commanded fan speed to return flow"
-    annotation (Placement(transformation(extent={{-60,-440},{-40,-420}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
-    final k=1)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-    "Gain factor"
-    annotation (Placement(transformation(extent={{-240,-380},{-220,-360}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant noEneStd(
     final k=eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.Not_Specified)
     "No energy standard"
@@ -1167,16 +1134,6 @@ equation
           240,-192},{240,130},{380,130}}, color={255,0,255}));
   connect(retFanDpCon.yRelDam, yRelDam) annotation (Line(points={{-138,-468},{168,
           -468},{168,60},{380,60}},     color={0,0,127}));
-  connect(VSumZonPri_flow, gai1.u) annotation (Line(points={{-380,216},{-260,
-          216},{-260,-370},{-242,-370}}, color={0,0,127}));
-  connect(retFanAirTra.yRetFan, gai.u) annotation (Line(points={{-138,-400},{-100,
-          -400},{-100,-430},{-62,-430}}, color={0,0,127}));
-  connect(gai.y, addPar.u)
-    annotation (Line(points={{-38,-430},{-22,-430}}, color={0,0,127}));
-  connect(addPar.y, retFanAirTra.VAirRet_flow) annotation (Line(points={{2,-430},
-          {20,-430},{20,-452},{-200,-452},{-200,-400},{-162,-400}}, color={0,0,127}));
-  connect(gai1.y, retFanAirTra.VAirSup_flow) annotation (Line(points={{-218,
-          -370},{-200,-370},{-200,-394},{-162,-394}}, color={0,0,127}));
   connect(u1RelFan, frePro.u1RelFan) annotation (Line(points={{-380,-240},{112,
           -240},{112,-212},{178,-212}}, color={255,0,255}));
   connect(retFanAirTra.y1RetFan, frePro.u1RetFan) annotation (Line(points={{-138,
@@ -1326,9 +1283,8 @@ annotation (
           extent={{144,-58},{200,-78}},
           textColor={0,0,0},
           textString="yRetFan",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
        Text(extent={{140,-6},{198,-28}},
           textColor={0,0,0},
           textString="ySupFan"),
@@ -1448,9 +1404,8 @@ annotation (
           extent={{134,-36},{202,-56}},
           textColor={255,0,255},
           textString="y1RetFan",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
        Text(
           extent={{134,-86},{202,-106}},
           textColor={255,0,255},
@@ -1558,9 +1513,7 @@ serving one common space, which may include multiple air handling units.
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking</a>.
-When the return airflow is not measured but calculated, it assumes that the return
-airflow equals to (<code>retFacB</code> plus the product of <code>retFacA</code> and the commanded return fan speed).
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanAirflowTracking</a>
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.ReturnFanDirectPressure\">

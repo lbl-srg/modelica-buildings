@@ -280,8 +280,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
     "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -354,8 +353,7 @@ block Controller
     final have_dirCon=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
     final uMin=uHeaMax,
     final uMax=uCooMin)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
@@ -620,8 +618,7 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
           textString="yRelDam"),
         Text(
           extent={{42,-110},{98,-126}},

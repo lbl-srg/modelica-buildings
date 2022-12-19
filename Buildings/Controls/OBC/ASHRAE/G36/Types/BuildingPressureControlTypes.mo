@@ -4,7 +4,6 @@ type BuildingPressureControlTypes = enumeration(
     ReliefDamper "Actuated relief damper, without fan",
     ReliefFan "Actuated relief damper, with relief fan(s)",
     ReturnFanMeasuredAir "Return fan, tracking measured supply and return airflow",
-    ReturnFanCalculatedAir "Return fan, tracking calculated supply and return airflow",
     ReturnFanDp "Return fan, with direct building pressure control")
   "Enumeration defining types of building pressure control system"
 annotation (
@@ -32,10 +31,6 @@ Actuated relief damper, with relief fan(s).
 <tr><td><code>ReturnFanMeasuredAir</code></td>
 <td>
 Return fan control, tracking measured supply and return airflow.
-</td></tr>
-<tr><td><code>ReturnFanCalculatedAir</code></td>
-<td>
-Return fan control, tracking calculated supply and return airflow.
 </td></tr>
 <tr><td><code>ReturnFanDp</code></td>
 <td>
