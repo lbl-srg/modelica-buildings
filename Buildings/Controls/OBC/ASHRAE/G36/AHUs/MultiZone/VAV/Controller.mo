@@ -18,8 +18,8 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Type of outdoor air section"
     annotation (Dialog(group="Economizer design"));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
-      .BarometricRelief
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
+       BarometricRelief
     "Type of building pressure control system"
     annotation (Dialog(group="Economizer design"));
   parameter Boolean have_ahuRelFan=true
@@ -603,14 +603,6 @@ block Controller "Multizone VAV air handling unit controller"
     "Relief fan commanded on"
     annotation (Placement(transformation(extent={{-400,-260},{-360,-220}}),
         iconTransformation(extent={{-240,-250},{-200,-210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uRelFan(
-    final min=0,
-    final max=1,
-    final unit="1") if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and not have_ahuRelFan
-    "Relief fan commanded speed"
-    annotation (Placement(transformation(extent={{-400,-300},{-360,-260}}),
-        iconTransformation(extent={{-240,-270},{-200,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
     displayUnit="degC",
@@ -1067,8 +1059,6 @@ equation
           -198},{92,-170},{-380,-170}}, color={255,0,255}));
   connect(frePro.u1SofSwiRes, u1SofSwiRes) annotation (Line(points={{178,-200},
           {92,-200},{92,-210},{-380,-210}},  color={255,0,255}));
-  connect(frePro.uRelFan, uRelFan) annotation (Line(points={{178,-214},{136,-214},
-          {136,-280},{-380,-280}}, color={0,0,127}));
   connect(frePro.TAirMix, TAirMix) annotation (Line(points={{178,-219},{144,-219},
           {144,-310},{-380,-310}}, color={0,0,127}));
   connect(ashOutAirSet.VEffAirOut_flow_min, VEffAirOut_flow_min) annotation (
@@ -1325,12 +1315,6 @@ annotation (
           visible=(eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016
                and ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
           textString="hAirRet"),
-       Text(
-          extent={{-196,-238},{-144,-264}},
-          textColor={0,0,0},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-               and not have_ahuRelFan,
-          textString="uRelFan"),
        Text(
           extent={{-198,-270},{-158,-288}},
           textColor={0,0,0},
