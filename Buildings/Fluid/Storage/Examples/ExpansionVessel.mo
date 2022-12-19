@@ -44,7 +44,9 @@ equation
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos"
         "Simulate and plot"),
     Documentation(info="<html>
+<p>
 This model tests a pressure expansion vessel.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
