@@ -442,13 +442,13 @@ initial algorithm
          level = AssertionLevel.warning);
 
 equation
-  //assign values of dp and r_N, depending on which variable exists and is prescribed
+  // Assign values of dp and r_N, depending on which variable exists and is prescribed
   connect(dp_internal,dp);
   connect(dp_internal,dp_in);
   connect(r_N, y_in);
   y_out=r_N;
 
-  //density conversion
+  // Flow rate conversion
   V_flow = m_flow / rho;
 
   // Hydraulic equations
