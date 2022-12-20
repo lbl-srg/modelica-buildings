@@ -3,9 +3,10 @@ package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
 
   type HeaSou = enumeration(
-      ele
-         "Electric resistance heating coil",
-      hotWat "Hot-water heating coil")
+      ele "Electric resistance heating coil",
+      hotWat "Hot-water heating coil",
+      heaPum "Electric heat pump heating coil",
+      noHea "No heating coil")
       "Enumeration for the heating coil types"
       annotation (Documentation(info="<html>
 <p>
@@ -62,6 +63,37 @@ First implementation.
       oaPorts "Has exposed ports for connecting to outdoor air",
       noOA "Has no OA")
       "Enumeration for the OA port types"
+      annotation (Documentation(info="<html>
+<p>
+Enumeration for the type of heating coil used in the zone equipment.
+The possible values are
+</p>
+<ol>
+<li>
+ele - Electric resistance heating coil
+</li>
+<li>
+hotWat - Hot-water heating coil
+</li>
+</ol>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+April 20, 2022 by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  type SystemTypes = enumeration(
+      fcu,
+      ptac,
+      pthp,
+      windowAC,
+      unitHeater,
+      zoneOAUnit,
+      unitVentilator)
+      "Enumeration for the zonal HVAC system types"
       annotation (Documentation(info="<html>
 <p>
 Enumeration for the type of heating coil used in the zone equipment.

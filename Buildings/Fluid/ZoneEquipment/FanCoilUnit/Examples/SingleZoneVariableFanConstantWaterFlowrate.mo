@@ -25,14 +25,14 @@ model SingleZoneVariableFanConstantWaterFlowrate
       redeclare package MediumCHW = MediumW,
       redeclare package MediumHW = MediumW,
       final mAir_flow_nominal=FCUSizing.mAir_flow_nominal,
-      final QHeaCoi_flow_nominal=13866,
       final mHotWat_flow_nominal=FCUSizing.mHotWat_flow_nominal,
+      final QHeaCoi_flow_nominal=13866,
       final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
       final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
       final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
       redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData fanPer),
     building(
-      final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
+      final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
       final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
       final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
     zon(

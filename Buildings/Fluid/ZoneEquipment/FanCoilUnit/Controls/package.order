@@ -2,3 +2,4 @@ ConstantFanVariableWaterFlowrate
 MultispeedFanConstantWaterFlowrate
 VariableFanConstantWaterFlowrate
 Validation
+ConstantFanVariableWaterFlowrate_submodules

@@ -4,3 +4,6 @@ ExampleTestbed
 ZoneTemperatureSetpoint
 Validation
 Types
+HeatingCooling
+Cooling
+CyclingFan

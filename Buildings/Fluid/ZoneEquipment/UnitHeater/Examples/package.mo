@@ -1,9 +1,9 @@
 within Buildings.Fluid.ZoneEquipment.UnitHeater;
-package Examples "Examples package for fan coil unit"
+package Examples "Examples package for unit heater"
 
   extends Modelica.Icons.ExamplesPackage;
 
   annotation(Documentation(info="<html>
-  This package contains validation models for the fan coil unit.
+  This package contains example models for the unit heater system and controls.
       </html>"));
 end Examples;
