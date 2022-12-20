@@ -404,6 +404,15 @@ the hydraulic power input <i>W&#775;<sub>hyd</sub></i>, the flow work
 <p>
 where <i>V&#775;</i> is the volume flow rate and
 <i>&Delta;p</i> is the pressure rise.
+In order to prevent the model from producing negative mover power
+when either the flow rate or pressure rise is forced to be negative,
+the flow work <i>W&#775;<sub>flo</sub></i> is constrained to be non-negative.
+The regularisation starts around 0.01% of the characteristic maximum power
+<i>W&#775;<sub>max</sub> = V&#775;<sub>max</sub> &Delta;p<sub>max</sub></i>.
+See discussions and an example of this situation in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+</p>
+<p>
 The heat dissipated into the medium is as follows:
 If the motor is cooled by the fluid, as indicated by
 <code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
@@ -468,7 +477,7 @@ Buildings.Fluid.Movers.Validation.PowerExact</a>
 as an example.
 </li>
 <li>
-<b><code>EulerNumber</code> (default)</b> -
+<b><code>EulerNumber</code> (default 1)</b> -
 The model uses a triple <i>(&eta;<sub>hyd</sub>, V&#775;, &Delta;p)</i>
 corresponding to the operating point at which the peak efficiency is attained.
 It computes <i>&eta;<sub>hyd</sub></i> and <i>W&#775;<sub>hyd</sub></i>
@@ -526,16 +535,35 @@ is instantiated.
 </li>
 </ul>
 <p>
-For more information on the Euler number method, see
+For simplicity, the implementation does not directly use this method to estimate
+<i>&eta;<sub>hyd</sub></i> at any operation point.
+Rather, it only computes a power curve at nominal speed and then uses similarity
+laws to estimate power at reduced speeds.
+Because the Euler number method does not account for the efficiency
+degradation along any curve <i>&Delta;p=kV&#775;<sup>2</sup></i>,
+these two methods are equivalent.
+See the documentation of
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.power\">
+Buildings.Fluid.Movers.BaseClasses.Euler.power</a>
+for more details.
+Also see
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed\">
+Buildings.Fluid.Movers.BaseClasses.Validation.EulerReducedSpeed</a>
+for demonstration.
+</p>
+<p>
+For more information on the Euler number method, see the documentation of
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
-Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>
-and <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
+Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>,
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
-chapter 16.4 equations 16.209 through 16.218.<br/>
+chapter 16.4 equations 16.209 through 16.218, and
+<a href=\"https://2022.american.conference.modelica.org/documents/NA_Modelica_2022_Proceedings.pdf\">
+Fu et al. (2022)</a>
 </p>
 </li>
 <li>
-<code>NotProvided</code> - The information of this efficiency item is not provided.
+<code>NotProvided</code> (default 2) - The information of this efficiency item is not provided.
 The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 </li>
 </ul>
@@ -544,6 +572,11 @@ The model uses a constant value <i>&eta;<sub>hyd</sub>=0.7</i>.
 These options are tested in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>.
+</p>
+<p>
+The model uses <code>EulerNumber</code> as the default option
+unless a pressure curve is not provided.
+In this case, the model overrides it and uses <code>NotProvided</code> instead.
 </p>
 <p>
 The user can use the same options to specify the total efficiency <i>&eta;</i>
@@ -638,7 +671,7 @@ The model then computes the efficiency the same way as in the option of
 <code>Efficiency_MotorPartLoadRatio</code>.
 </li>
 <li>
-<b><code>NotProvided</code> (default 2)</b> -
+<code>NotProvided</code> (default 2) -
 The information of this efficiency item is not provided.
 The model uses a constant value <i>&eta;<sub>mot</sub>=0.7</i>.
 </li>
@@ -650,10 +683,19 @@ Buildings.Fluid.Movers.BaseClasses.Validation.MotorEfficiencyMethods</a>.
 </p>
 <p>
 By default, the model uses the <code>GenericCurve</code> to obtain more accurate
-results with variable <i>&eta;<sub>mot</sub></i>,
-unless <code>per.powerOrEfficiencyIsHydraulic=false</code>.
-There are two reasons for this setup:
+results with variable <i>&eta;<sub>mot</sub></i>. There are two exceptions:
 </p>
+<ul>
+<li>
+When neither pressure curve nor nominal motor power is provided,
+the model overrides it and uses <code>NotProvided</code> instead.
+</li>
+<li>
+When the user specifies that the provided power is total power instead of
+hydraulic power, i.e. <code>per.powerOrEfficiencyIsHydraulic==false</code>,
+the model uses <code>NotProvided</code> as default.
+The user can still mannually set it to <code>GenericCurve</code>, but this is
+not recommended. There are two reasons:
 <ol>
 <li>
 Consider the following two equations:
@@ -667,7 +709,7 @@ When <i>W&#775;<sub>hyd</sub></i> is known
 the unknowns are <i>&eta;<sub>mot</sub></i> and <i>P<sub>ele</sub></i>
 which can be solved explicitly. Otherwise, the unknowns are
 <i>&eta;<sub>mot</sub></i> and <i>W&#775;<sub>hyd</sub></i>,
-and an interative solution would be required which may not converge
+and an iterative solution would be required which may not converge
 for some values.
 </li>
 <li>
@@ -683,6 +725,8 @@ amount of heat dissipates into the ambient, the separation of
 <i>&eta;<sub>hyd</sub></i> and <i>&eta;<sub>mot</sub></i> is then not important.
 </li>
 </ol>
+</li>
+</ul>
 
 <h5>Start-up and shut-down transients</h5>
 <p>
@@ -750,91 +794,6 @@ These values may need to be changed for different applications as they are also 
 of the loop gain.
 If the control loop shows oscillatory behavior, then reduce <code>k</code> and/or increase <code>Ti</code>.
 If the control loop reacts too slow, do the opposite.
-</p>
-
-<h5>Efficiency and electrical power consumption</h5>
-<p>
-All models compute the motor power draw <i>P<sub>ele</sub></i>,
-the hydraulic power input <i>W<sub>hyd</sub></i>, the flow work
-<i>W<sub>flo</sub></i> and the heat dissipated into the medium
-<i>Q</i>. Based on the first law, the flow work is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  W<sub>flo</sub> = | V&#775; &Delta;p |,
-</p>
-<p>
-where <i>V&#775;</i> is the volume flow rate and
-<i>&Delta;p</i> is the pressure rise.
-In order to prevent the model from producing negative mover power
-when either the flow rate or pressure rise is forced to be negative,
-the flow work <i>W&#775;<sub>flo</sub></i> is constrained to be non-negative.
-The regularisation starts around 0.01% of the characteristic maximum power
-<i>W&#775;<sub>max</sub> = V&#775;<sub>max</sub> &Delta;p<sub>max</sub></i>.
-See discussions and an example of this situation in
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
-</p>
-<p>
-The heat dissipated into the medium is as follows:
-If the motor is cooled by the fluid, as indicated by
-<code>per.motorCooledByFluid=true</code>, then the heat dissipated into the medium is
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  Q = P<sub>ele</sub> - W<sub>flo</sub>.
-</p>
-
-<p>
-If <code>per.motorCooledByFluid=false</code>, then the motor is outside the fluid stream,
-and only the shaft, or hydraulic, work <i>W<sub>hyd</sub></i> enters the thermodynamic
-control volume. Hence,
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  Q = W<sub>hyd</sub> - W<sub>flo</sub>.
-</p>
-<p>The efficiencies are computed as</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub> = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub> <br/>
-  &eta;<sub>hyd</sub> = W<sub>flo</sub> &frasl; W<sub>hyd</sub> <br/>
-  &eta;<sub>mot</sub> = W<sub>hyd</sub> &frasl; P<sub>ele</sub> <br/>
-</p>
-<p>where
-<i>&eta;<sub>hyd</sub></i> is the hydraulic efficiency,
-<i>&eta;<sub>mot</sub></i> is the motor efficiency and
-<i>Q</i> is the heat released by the motor.
-</p>
-<p>
-If <code>per.use_powerCharacteristic=true</code>,
-then a set of data points for the power <i>P<sub>ele</sub></i> for different
-volume flow rates at full speed needs to be provided by the user.
-Using the flow work <i>W<sub>flo</sub></i> and the electrical power input
-<i>P<sub>ele</sub></i>, the total efficiency is computed as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &eta; = W<sub>flo</sub> &frasl; P<sub>ele</sub>, <br/>
-</p>
-<p>
-and the two efficiencies
-<i>&eta;<sub>hyd</sub></i>
-and <i>&eta;<sub>mot</sub></i> are computed as
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>hyd</sub> = 1,<br/>
-  &eta;<sub>mot</sub> = &eta;.
-</p>
-<p>
-However, if <code>per.use_powerCharacteristic=false</code>, then
-performance data for
-<i>&eta;<sub>hyd</sub></i> and
- <i>&eta;<sub>mot</sub></i> need to be provided by the user, and hence
-the model computes
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  &eta; = &eta;<sub>hyd</sub> &nbsp; &eta;<sub>mot</sub><br/>
-  P<sub>ele</sub> = W<sub>flo</sub> &frasl; &eta;.
-</p>
-
-<p>
-The efficiency data for the motor are a list of points
-<i>V&#775;</i> and <i>&eta;<sub>mot</sub></i>.
 </p>
 
 <h5>Fluid volume of the component</h5>
@@ -905,6 +864,17 @@ Fan and pump model that has a unique solution for any pressure
 boundary condition and control signal.</a>
 <i>Proc. of the 13th Conference of the International Building Performance
 Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
+</p>
+<p>
+Hongxiang Fu, David Blum, Michael Wetter.
+Fan and Pump Efficiency in Modelica based on the Euler Number.
+<a href=\"https://2022.american.conference.modelica.org/documents/NA_Modelica_2022_Proceedings.pdf\">
+<i>Proc. of the American Modelica Conference 2022</i></a>, p. 19-25.
+Dallas, TX, USA. October 2022.
+</p>
+<p>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
+EnergyPlus 9.6.0 Engineering Reference</a>
 </p>
 </html>"));
 

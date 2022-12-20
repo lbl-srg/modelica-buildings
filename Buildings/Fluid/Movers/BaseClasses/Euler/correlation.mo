@@ -6,20 +6,18 @@ function correlation
   output Real y "eta/eta_peak";
 
 protected
-  constant Real a=-2.732094, b=2.273014, c=0.196344, d=5.267518;
-  Real Z1, Z2, Z3;
-
+  constant Real pLef[4]={0.056873227,0.493231336746,1.433531254001,1.407887300933};
+  constant Real pMid[4]={0.378246,-0.759885,-0.0606145,1.01427};
+  constant Real pRig[4]={-0.0085494313567,0.12957001502,-0.65997315029,1.1399300301};
+  constant Real p[4] = if x<-0.5 then pLef else if x>0.5 then pRig else pMid;
 algorithm
-  Z1:=(x-a)/b;
-  Z2:=((exp(c*x)*d*x)-a)/b;
-  Z3:=-a/b;
+  y:=max(0,p[1]*x^3+p[2]*x^2+p[3]*x+p[4])/pMid[end];
 
-  y:=(exp(-0.5*Z1^2)*(1+sign(Z2)*Modelica.Math.Special.erf(u=abs(Z2)/sqrt(2))))
-    /(exp(-0.5*Z3^2)*(1+Modelica.Math.Special.erf(u=Z3/sqrt(2))));
-
-  annotation(Documentation(info="<html>
+  annotation(smoothOrder = 1,
+  Documentation(info="<html>
 <p>
-This function computes the following correlation:
+This function approximates the following correlation with two simple polynomials
+stitched together by a third one of the same order:
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
@@ -82,36 +80,36 @@ the Euler number ratio can be simplified to
 <i>Eu &frasl; Eu<sub>p</sub>=(&Delta;p&sdot;V&#775;<sub>p</sub><sup>2</sup>)
 &frasl; (&Delta;p<sub>p</sub>&sdot;V&#775;<sup>2</sup>)</i>
 </p>
+<h4>References</h4>
 <p>
-Although it may appear that this ratio could be further simplified
-by applying affinity laws, since the affinity laws assume constant efficiency,
-this would contradict the definition of <i>y</i> where the efficiency varies.
-</p>
-<p>
-For more information refer to
+For more information regarding the correlation curve refer to
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
 EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
 Note that the formula is simplified here from the source document.
 </p>
+<p>
+Regarding the approximation polynominals, see the discussions in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646#issuecomment-1320920539\">
+pull request #1646</a>.
+</p>
 <h4>Resources</h4>
 <p>
 The svg file for the correlation equation was generated on
 <a href=\"https://viereck.ch/latex-to-svg/\">
-https://viereck.ch/latex-to-svg
-</a>
+https://viereck.ch/latex-to-svg</a>
 using
 <a href=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.txt\">
-the linked script
-</a>.
+this script</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-October 13, 2021, by Hongxiang Fu:<br/>
+December 12, 2022, by Hongxiang Fu and Filip Jorissen:<br/>
 First implementation. This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a> and
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1645\">#1645</a>.
 </li>
 </ul>
 </html>"));

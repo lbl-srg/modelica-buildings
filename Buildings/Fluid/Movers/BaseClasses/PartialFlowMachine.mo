@@ -379,16 +379,16 @@ initial algorithm
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
-  assert(per.havePressureCurve or per.peak.V_flow > Modelica.Constants.eps or
-          not per.etaHydMet==
-      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber,
+  assert(per.havePressureCurve or
+          not (per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
 "*** Warning in "+ getInstanceName()+
-             ": per.etaHydMet is set to .EulerNumber.
-             This requires that per.peak be provided
-             or at least per.pressure be provided so that per.peak can
-             be estimated. Because neither is provided,
-             the model will use the nominal flow and pressure for the peak values.
-             This may lead to inaccurate computation.",
+             ": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
+             This requires that per.pressure be provided.
+             Because it is not,
+             the model will override this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
@@ -401,7 +401,7 @@ initial algorithm
              or .GenericCurve. This requires that per.WMot_nominal be provided
              or at least per.pressure be provided so that per.WMot_nominal can
              be estimated. Because neither is provided,
-             the model will overwrite this setting and use .NotProvided instead.",
+             the model will override this setting and use .NotProvided instead.",
          level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or

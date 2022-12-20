@@ -270,6 +270,21 @@ protected
      zeros(size(per.power.V_flow,1))
     "Coefficients for polynomial of power vs. flow rate";
 
+  final parameter Buildings.Fluid.Movers.BaseClasses.Euler.powerWithDerivative powEu_internal=
+    if (curve == 1) then
+      Buildings.Fluid.Movers.BaseClasses.Euler.power(peak=per.peak,pressure=pCur1)
+    elseif (curve == 2) then
+      Buildings.Fluid.Movers.BaseClasses.Euler.power(peak=per.peak,pressure=pCur2)
+    else
+      Buildings.Fluid.Movers.BaseClasses.Euler.power(peak=per.peak,pressure=pCur3)
+    "Intermediate parameter";
+  final parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters powEu(
+    V_flow = powEu_internal.V_flow,
+    P = powEu_internal.P)
+    "Power vs. volumetric flow rate computed from Euler number";
+  final parameter Real powEuDer[:] = powEu_internal.d
+    "Power derivative wrt volumetric flow rate computed from Euler number";
+
   parameter Boolean haveMinimumDecrease=
     if nOri<2 then false
     else
@@ -288,59 +303,6 @@ protected
 
   Modelica.Units.SI.Power P_internal
     "Either PEle or WHyd";
-
-  Modelica.Blocks.Math.Division V_flow_internal
-    "Converts mass flow rate to volumetric flow rate";
-  // This block replaces an algebraic equation with connections to allow
-  //   the conditional declarations of CombiTable2D blocks used in the Euler number
-  //   computations. This avoids the need to provide them with initial table values
-  //   to meet their format requirements even when they are not used.
-
-  parameter Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables curEu=
-    Buildings.Fluid.Movers.BaseClasses.Euler.computeTables(
-      peak=per.peak,
-      dpMax=dpMax,
-      V_flow_max=V_flow_max,
-      use=per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
-    "Efficiency and power curves vs. flow rate & pressure rise calculated with Euler number";
-
-  Modelica.Blocks.Tables.CombiTable2Ds effTab(
-    final table=curEu.eta,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-    "Look-up table for mover efficiency";
-  Modelica.Blocks.Tables.CombiTable2Ds powTab(
-    final table=curEu.P,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-    "Look-up table for mover power";
-
-  Modelica.Blocks.Routing.RealPassThrough WHydEu
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
-  Modelica.Blocks.Routing.RealPassThrough etaHydEu
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
-  Modelica.Blocks.Routing.RealPassThrough PEleEu
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and not per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
-
-  Modelica.Blocks.Routing.RealPassThrough etaEu
-    if per.etaHydMet==
-        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
-      and not per.powerOrEfficiencyIsHydraulic
-    "Intermediate block for routing when using the Euler number";
 
   Real yMot(final min=0, final start=0.833)=
     if per.haveWMot_nominal
@@ -487,9 +449,7 @@ equation
   y_out=r_N;
 
   //density conversion
-  connect(V_flow_internal.u1,m_flow);
-  connect(V_flow_internal.u2,rho);
-  connect(V_flow_internal.y,V_flow);
+  V_flow = m_flow / rho;
 
   // Hydraulic equations
   r_V = V_flow/V_flow_max;
@@ -639,13 +599,6 @@ equation
                x1=eta/etaMot, x2=1, deltaX=1E-3);
   end if;
 
-  // for power computation via EulerNumber
-  //   effTab and powTab are conditionally-enabled blocks.
-  connect(effTab.u1, dp_internal);
-  connect(effTab.u2, V_flow_internal.y);
-  connect(powTab.u1, dp_internal);
-  connect(powTab.u2, V_flow);
-
   // Hydraulic efficiency etaHyd and hydraulic work WHyd
   //   or total efficiency eta and total electric power PEle
   //   depending on the information provided
@@ -673,18 +626,15 @@ equation
                      x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
-    // etaHydEu and WHydEu are routing blocks
-    //   conditionally enabled if per.powerOrEfficiencyIsHydraulic=true
-      connect(effTab.y,etaHydEu.u);
-      connect(etaHydEu.y,etaHyd);
-      connect(powTab.y,WHydEu.u);
-      connect(WHydEu.y,WHyd);
-    // etaEu and PEleEu are routing blocks
-    //   conditionally enabled if per.powerOrEfficiencyIsHydraulic=false
-      connect(effTab.y,etaEu.u);
-      connect(etaEu.y,eta);
-      connect(powTab.y,PEleEu.u);
-      connect(PEleEu.y,PEle);
+    if homotopyInitialization then
+      P_internal = homotopy(actual=cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta),
+                      simplified=V_flow/V_flow_nominal*
+                            cha.power(per=powEu, V_flow=V_flow_nominal, r_N=1, d=powEuDer, delta=delta));
+    else
+      P_internal = (rho/rho_default)*cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
+    end if;
+    eta_internal = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                            x1=P_internal, x2=1E-5, deltaX=1E-6);
   elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),

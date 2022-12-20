@@ -21,8 +21,10 @@ model FlowControlled_m_flow
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
         final etaHydMet=
-          if per.etaHydMet ==
+          if (per.etaHydMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
             and not per.havePressureCurve then
               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
           else per.etaHydMet,
@@ -87,10 +89,9 @@ equation
     "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pa,
     exceeding the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
     This can happen if the model forces a high mass flow rate through a closed actuator,
-    or if the performance record is unreasonable. Please verify your model, and
+    or if the performance record is unreasonable. Please verify your model, and 
     consider using one of the other pump or fan models.");
 
-equation
   if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{41,70.5},{44,70.5},{44,50},{110,50}},
@@ -141,12 +142,6 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
-November 15, 2022, by Michael Wetter:<br/>
-Added assertion if model operates with a pressure higher than <code>dpMax</code>.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">#1659</a>.
-</li>
-<li>
 April 27, 2022, by Hongxiang Fu:<br/>
 Replaced <code>not use_powerCharacteristic</code> with the enumerations
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
@@ -156,6 +151,12 @@ and
 Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Added assertion if model operates with a pressure higher than <code>dpMax</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">#1659</a>.
 </li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>

@@ -1,5 +1,8 @@
 computeTables
 correlation
+efficiency
 getPeak
+power
 lookupTables
 peak
+powerWithDerivative

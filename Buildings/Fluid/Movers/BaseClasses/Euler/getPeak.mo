@@ -10,24 +10,30 @@ function getPeak
     peak "Operation point at maximum efficiency";
 
 protected
-  parameter Integer n = size(pressure.V_flow, 1) "Number of data points";
+  parameter Integer nPre = size(pressure.V_flow, 1) "Size of the pressure array";
+  parameter Integer nPow = size(power.V_flow, 1) "Size of the power array";
+  parameter Integer n = max(nPre, nPow) "Bigger of the two arrays";
   parameter Modelica.Units.SI.VolumeFlowRate V_flow_hal=
     if max(pressure.V_flow) < 1E-6
       then 0
-    else (pressure.V_flow[n]
-                -(pressure.V_flow[n] - pressure.V_flow[n - 1])
-                /(pressure.dp[n] - pressure.dp[n - 1])
-                * pressure.dp[n])/2
+    else (pressure.V_flow[nPre]
+                -(pressure.V_flow[nPre] - pressure.V_flow[nPre - 1])
+                /(pressure.dp[nPre] - pressure.dp[nPre - 1])
+                * pressure.dp[nPre])/2
     "Half of max flow, max flow is where dp=0";
   parameter Modelica.Units.SI.PressureDifference dpHalFlo=
     if max(pressure.V_flow) < 1E-6
       then 0
     else Buildings.Utilities.Math.Functions.smoothInterpolation(
-               x=peak.V_flow,
+               x=V_flow_hal,
                xSup=pressure.V_flow,
                ySup=pressure.dp,
                ensureMonotonicity=true)
     "Pressure rise at half flow";
+
+  Modelica.Units.SI.VolumeFlowRate V_flow[n] "Flow rate";
+  Modelica.Units.SI.PressureDifference dp[n] "Pressure rise";
+  Modelica.Units.SI.Power P[n] "Power";
 
   Real eta[n] "Efficiency series";
   Boolean etaLes "Efficiency series has less than four points";
@@ -56,7 +62,38 @@ algorithm
 
   else
     // Both a pressure curve and a power curve are available.
-    eta:=pressure.V_flow.*pressure.dp./power.P;
+
+    // Create arrays of the equal size
+    if nPre == nPow then
+      V_flow:= pressure.V_flow;
+      dp:= pressure.dp;
+      P:= power.P;
+    else
+      if nPre > nPow then
+        V_flow:= pressure.V_flow;
+        dp:= pressure.dp;
+        for i in 1:n loop
+          P[i]:= Buildings.Utilities.Math.Functions.smoothInterpolation(
+                   x=V_flow[i],
+                   xSup=power.V_flow,
+                   ySup=power.P,
+                   ensureMonotonicity=false);
+        end for;
+      else
+        V_flow:= power.V_flow;
+        P:= power.P;
+        for i in 1:n loop
+          dp[i]:= Buildings.Utilities.Math.Functions.smoothInterpolation(
+                    x=V_flow[i],
+                    xSup=pressure.V_flow,
+                    ySup=pressure.dp,
+                    ensureMonotonicity=true);
+        end for;
+      end if;
+    end if;
+
+    // Compute efficiency array
+    eta:=V_flow.*dp./P;
     etaLes:=n<4;
     etaMon:=Buildings.Utilities.Math.Functions.isMonotonic(
       x=eta,
@@ -69,7 +106,7 @@ algorithm
     //   2. the available point with the highest efficiency.
       peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
                x=V_flow_hal,
-               xSup=pressure.V_flow,
+               xSup=V_flow,
                ySup=eta,
                ensureMonotonicity=
                  Buildings.Utilities.Math.Functions.isMonotonic(eta, strict=false));
@@ -80,8 +117,8 @@ algorithm
         peak.eta:=max(eta);
         for i in 1:n loop
           if abs(eta[i]-peak.eta)<1E-6 then
-            peak.V_flow:=pressure.V_flow[i];
-            peak.dp:=pressure.dp[i];
+            peak.V_flow:=V_flow[i];
+            peak.dp:=dp[i];
           end if;
         end for;
       end if;
@@ -93,7 +130,7 @@ algorithm
       //   and y = eta is the response vector with length n.
       A[:,1]:=ones(n); // Avoids 0^0
       for i in 2:5 loop
-        A[:,i]:=pressure.V_flow[:].^(i-1);
+        A[:,i]:=V_flow[:].^(i-1);
       end for;
       b:=Modelica.Math.Matrices.leastSquares(A,eta);
 
@@ -103,19 +140,19 @@ algorithm
       r:=Modelica.Math.Polynomials.roots({b[5]*4,b[4]*3,b[3]*2,b[2]});
       for i in 1:3 loop
         if abs(r[i,2])<=1E-6 and
-          r[i,1]>pressure.V_flow[1] and r[i,1]<pressure.V_flow[n] then
+          r[i,1]>V_flow[1] and r[i,1]<V_flow[n] then
           peak.V_flow:=r[i,1];
         end if;
       end for;
       peak.eta:=Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=peak.V_flow,
-        xSup=pressure.V_flow,
+        xSup=V_flow,
         ySup=eta,
         ensureMonotonicity=false);
       peak.dp:=Buildings.Utilities.Math.Functions.smoothInterpolation(
         x=peak.V_flow,
-        xSup=pressure.V_flow,
-        ySup=pressure.dp,
+        xSup=V_flow,
+        ySup=dp,
         ensureMonotonicity=false);
     end if;
   end if;
