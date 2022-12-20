@@ -13,6 +13,10 @@ partial model PartialElectric
     vol1(
       final prescribedHeatFlowRate=true));
 
+  parameter Boolean have_switchOver=false
+    "Set to true for heat recovery chiller with built-in switchover"
+    annotation(Evaluate=true);
+
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
@@ -45,12 +49,33 @@ partial model PartialElectric
   Real PLR2(min=0, unit="1") "Part load ratio";
   Real CR(min=0, unit="1") "Cycling ratio";
 
+  Controls.OBC.CDL.Interfaces.BooleanInput u1Coo if have_switchOver
+    "Switchover signal: true for cooling, false for heating"
+    annotation (
+      Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-40,-40},{40,40}},
+        rotation=-90,
+        origin={-80,140})));
+  Controls.OBC.CDL.Logical.Sources.Constant tru(
+    final k=true) if not have_switchOver
+    "Constant true signal"
+    annotation (Placement(transformation(extent={{-30,-10},{-50,10}})));
 protected
+  Controls.OBC.CDL.Interfaces.BooleanInput u1Coo_internal
+    "Internal switchover signal: true for cooling, false for heating"
+    annotation (
+      Placement(transformation(extent={{-100,-20},{-60,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.Units.SI.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal, start
       =QEva_flow_nominal) "Cooling capacity available at evaporator";
   Modelica.Units.SI.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal, start
       =QEva_flow_nominal)
     "Cooling capacity required to cool to set point temperature";
+  Modelica.Units.SI.HeatFlowRate QCon_flow_set(
+    nominal=-QEva_flow_nominal * (1 + 1 / COP_nominal * etaMotor),
+    start=-QEva_flow_nominal * (1 + 1 / COP_nominal * etaMotor))
+    "Heating capacity required to heat up condenser water to setpoint";
   Modelica.Units.SI.SpecificEnthalpy hSet
     "Enthalpy setpoint for leaving chilled water";
   // Performance data
@@ -106,19 +131,28 @@ equation
   TEvaLvg_degC=Modelica.Units.Conversions.to_degC(TEvaLvg);
 
   // Enthalpy of temperature setpoint
-  hSet = Medium2.specificEnthalpy_pTX(
-           p=port_b2.p,
+  hSet = if u1Coo_internal then
+    Medium2.specificEnthalpy_pTX(
+             p=port_b2.p,
+             T=TSet,
+             X=cat(1, port_b2.Xi_outflow, {1-sum(port_b2.Xi_outflow)}))
+    else Medium1.specificEnthalpy_pTX(
+           p=port_b1.p,
            T=TSet,
-           X=cat(1, port_b2.Xi_outflow, {1-sum(port_b2.Xi_outflow)}));
+           X=cat(1, port_b1.Xi_outflow, {1-sum(port_b1.Xi_outflow)}));
 
   if on then
     // Available cooling capacity
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
     QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-      x1 = m2_flow*(hSet-inStream(port_a2.h_outflow)),
-      x2= Q_flow_small,
+      x1=if u1Coo_internal then m2_flow*(hSet-inStream(port_a2.h_outflow)) else
+         P * etaMotor - QCon_flow_set,
+      x2=Q_flow_small,
       deltaX=-Q_flow_small/100);
+    // Heating capacity required to heat up condenser water to setpoint
+    QCon_flow_set = if u1Coo_internal then QCon_flow
+      else m1_flow * (hSet - inStream(port_a1.h_outflow));
 
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
@@ -157,6 +191,7 @@ equation
   else
     QEva_flow_ava = 0;
     QEva_flow_set = 0;
+    QCon_flow_set = 0;
     PLR1 = 0;
     PLR2 = 0;
     CR   = 0;
@@ -182,6 +217,10 @@ equation
       points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(u1Coo, u1Coo_internal)
+    annotation (Line(points={{-120,0},{-80,0}}, color={255,0,255}));
+  connect(tru.y, u1Coo_internal) annotation (Line(points={{-52,0},{-80,0}},
+                           color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={
@@ -263,7 +302,10 @@ equation
           fillPattern=FillPattern.Solid),
         Text(extent={{-108,36},{-62,24}},
           textColor={0,0,127},
-          textString="on")}),
+          textString="on"),
+        Text(extent={{-102,96},{-56,84}},
+          textColor={0,0,127},
+          textString="cooling")}),
 Documentation(info="<html>
 <p>
 Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the
