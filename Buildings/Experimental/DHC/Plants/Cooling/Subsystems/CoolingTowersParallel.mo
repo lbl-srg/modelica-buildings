@@ -77,6 +77,7 @@ model CoolingTowersParallel
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final use_inputFilter=use_inputFilter,
+    each riseTime=30,
     each final dpFixed_nominal=dp_nominal)
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -254,6 +255,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
+</li>
 <li>
 May 19, 2020 by Jing Wang:<br/>
 First implementation.

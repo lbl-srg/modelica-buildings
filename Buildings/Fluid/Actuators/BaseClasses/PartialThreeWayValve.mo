@@ -15,7 +15,8 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal,
           final dpFixed_nominal=dpFixed_nominal[1],
-          final use_inputFilter=false),
+          final use_inputFilter=false,
+          final riseTime=riseTime),
       redeclare FixedResistances.LosslessPipe res2(
         m_flow_nominal=m_flow_nominal),
       redeclare replaceable
@@ -30,7 +31,8 @@ partial model PartialThreeWayValve "Partial three way valve"
           final m_flow_nominal=m_flow_nominal,
           final dpValve_nominal=dpValve_nominal/fraK^2,
           final dpFixed_nominal=dpFixed_nominal[2],
-          final use_inputFilter=false));
+          final use_inputFilter=false,
+          final riseTime=riseTime));
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
@@ -151,6 +153,12 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Propagated parameter <code>riseTime</code> to valves. The value is not used as the filter is disabled,
+but it will show in the result file. Having a consistent value for all these parameters in the result filter
+helps during debugging.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

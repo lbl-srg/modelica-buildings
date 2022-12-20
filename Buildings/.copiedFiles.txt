@@ -130,8 +130,10 @@ Buildings/BoundaryConditions/SolarIrradiation/DirectTiltedSurface.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/DiffusePerez.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mo
+Buildings/BoundaryConditions/SolarIrradiation/Examples/GlobalPerezTiltedSurface.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/package.mo
 Buildings/BoundaryConditions/SolarIrradiation/Examples/package.order
+Buildings/BoundaryConditions/SolarIrradiation/GlobalPerezTiltedSurface.mo
 Buildings/BoundaryConditions/SolarIrradiation/package.mo
 Buildings/BoundaryConditions/SolarIrradiation/package.order
 Buildings/BoundaryConditions/Types.mo
@@ -988,6 +990,8 @@ Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedAirPerfectGas.
 Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterConstantProperties_pT.mo
 Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatureDependentDensity.mo
 Buildings/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mo
+Buildings/Fluid/MixingVolumes/Validation/MSLCombustionAir.mo
+Buildings/Fluid/MixingVolumes/Validation/MSLFlueGasSixComponents.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolume.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mo
 Buildings/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mo
@@ -1544,6 +1548,7 @@ Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClass
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffusePerez.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mos
+Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/GlobalPerezTiltedSurface.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD100.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD200.mos
 Buildings/Resources/Scripts/Dymola/BoundaryConditions/Validation/BESTEST/WD300.mos
@@ -1831,6 +1836,8 @@ Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumes
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterConstantProperties_pT.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesSpecializedWaterTemperatureDependentDensity.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/CoupledVolumesWater.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MSLCombustionAir.mos
+Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MSLFlueGasSixComponents.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolume.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeAdiabaticCooling.mos
 Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Validation/MixingVolumeHeatReverseFlow.mos

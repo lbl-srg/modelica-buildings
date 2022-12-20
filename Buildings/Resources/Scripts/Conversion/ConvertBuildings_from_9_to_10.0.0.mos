@@ -5,6 +5,11 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3074
+convertClass("Buildings.Fluid.SolarCollectors.Controls.SolarPumpController",
+             "Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController");
+
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3125
 // remove parameter allowOutOfRange, outOfRangeValue
 convertModifiers("Buildings.Controls.OBC.CDL.Routing.RealExtractor",
