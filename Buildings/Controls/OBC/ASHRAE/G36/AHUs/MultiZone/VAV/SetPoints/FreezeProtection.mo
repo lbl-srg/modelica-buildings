@@ -499,9 +499,7 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
     "The output is normally false"
     annotation (Placement(transformation(extent={{-360,120},{-340,140}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
