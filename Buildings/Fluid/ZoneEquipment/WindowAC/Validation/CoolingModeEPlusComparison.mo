@@ -138,5 +138,8 @@ equation
     experiment(
       StartTime=18144000,
       StopTime=18230400,
-      __Dymola_Algorithm="Cvode"));
+      __Dymola_Algorithm="Cvode"),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeEPlusComparison.mos"
+        "Simulate and Plot"));
 end CoolingModeEPlusComparison;
