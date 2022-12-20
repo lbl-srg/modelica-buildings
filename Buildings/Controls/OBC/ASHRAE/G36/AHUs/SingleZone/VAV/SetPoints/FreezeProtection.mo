@@ -72,11 +72,10 @@ block FreezeProtection
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-480,230},{-440,270}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Freeze protection stat signal. If the stat is normally open (the input is normally true), when enabling freeze protection, the input becomes false. If the stat is normally close, vice versa."
-    annotation (Placement(transformation(extent={{-480,70},{-440,110}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
+    annotation (Placement(transformation(extent={{-480,30},{-440,70}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
     if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
@@ -450,26 +449,11 @@ block FreezeProtection
      or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Freeze protection enabled by the freeze stat"
-    annotation (Placement(transformation(extent={{-300,40},{-280,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant norOpe(
-    final k=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO)
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Check if the freeze stat is normally open"
+  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    "The output is normally false"
     annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norFal
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "The output is normally false when the freeze stat is normally open (true)"
-    annotation (Placement(transformation(extent={{-360,0},{-340,20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false)
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
     "Constant false"
     annotation (Placement(transformation(extent={{-300,-10},{-280,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not norSta1
@@ -737,14 +721,8 @@ equation
     annotation (Line(points={{402,230},{460,230}}, color={255,127,0}));
   connect(conInt8.y, intSwi5.u3) annotation (Line(points={{162,590},{200,590},{200,
           612},{258,612}}, color={255,127,0}));
-  connect(u1FreSta, norFal.u) annotation (Line(points={{-460,90},{-380,90},{-380,
-          10},{-362,10}},        color={255,0,255}));
-  connect(norOpe.y, logSwi.u2)
-    annotation (Line(points={{-338,50},{-302,50}},     color={255,0,255}));
-  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,50},{-260,50},{-260,114},
-          {-242,114}},      color={255,0,255}));
-  connect(logSwi.y, falEdg1.u)
-    annotation (Line(points={{-278,50},{-222,50}},     color={255,0,255}));
+  connect(u1FreSta, norFal.u) annotation (Line(points={{-460,50},{-362,50}},
+                                 color={255,0,255}));
   connect(falEdg1.y, lat1.clr) annotation (Line(points={{-198,50},{-160,50},{-160,
           116},{-142,116}},       color={255,0,255}));
   connect(con2.y, or3.u3) annotation (Line(points={{-278,0},{-260,0},{-260,114},
@@ -819,10 +797,6 @@ equation
           {318,-590}}, color={0,0,127}));
   connect(gai7.y, yHeaCoi) annotation (Line(points={{342,-590},{360,-590},{360,-560},
           {460,-560}}, color={0,0,127}));
-  connect(u1FreSta, logSwi.u1) annotation (Line(points={{-460,90},{-320,90},{-320,
-          58},{-302,58}}, color={255,0,255}));
-  connect(norFal.y, logSwi.u3) annotation (Line(points={{-338,10},{-320,10},{-320,
-          42},{-302,42}}, color={255,0,255}));
   connect(lesThr2.y, tim4.u)
     annotation (Line(points={{-378,130},{-302,130}}, color={255,0,255}));
   connect(lat1.y, supFan.u2) annotation (Line(points={{-118,122},{20,122},{20,
@@ -835,6 +809,10 @@ equation
     annotation (Line(points={{-278,362},{-182,362}}, color={255,0,255}));
   connect(tim.passed, or2.u1)
     annotation (Line(points={{-278,662},{-102,662}}, color={255,0,255}));
+  connect(norFal.y, falEdg1.u)
+    annotation (Line(points={{-338,50},{-222,50}}, color={255,0,255}));
+  connect(norFal.y, or3.u3) annotation (Line(points={{-338,50},{-260,50},{-260,
+          114},{-242,114}}, color={255,0,255}));
 annotation (defaultComponentName="sinAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -854,8 +832,7 @@ annotation (defaultComponentName="sinAHUFrePro",
           extent={{-96,62},{-54,42}},
           textColor={255,0,255},
           textString="u1FreSta",
-          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)),
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC),
         Text(
           extent={{-102,178},{-46,162}},
           textColor={0,0,127},

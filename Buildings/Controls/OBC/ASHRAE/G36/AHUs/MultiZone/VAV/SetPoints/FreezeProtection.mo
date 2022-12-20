@@ -6,7 +6,7 @@ block FreezeProtection
     "Type of building pressure control system";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
     "Design of minimum outdoor air and economizer function";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
     "Type of freeze stat";
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has heating coil";
@@ -86,11 +86,10 @@ block FreezeProtection
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-480,310},{-440,350}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Freeze protection stat signal. If the stat is normally open (the input is normally false), when enabling freeze protection, the input becomes true. If the stat is normally close, vice versa."
-    annotation (Placement(transformation(extent={{-480,140},{-440,180}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
+    annotation (Placement(transformation(extent={{-480,110},{-440,150}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
     if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
@@ -351,9 +350,7 @@ block FreezeProtection
     "Check if it should be in stage 3 mode"
     annotation (Placement(transformation(extent={{-220,192},{-200,212}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false)
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
     "Constant false"
     annotation (Placement(transformation(extent={{-300,50},{-280,70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat1
@@ -499,21 +496,8 @@ block FreezeProtection
      and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{320,-80},{340,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norTru
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "The output is normally true when the freeze stat is normally open (false)"
-    annotation (Placement(transformation(extent={{-360,70},{-340,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Freeze protection enabled by the freeze stat"
-    annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant norOpe(
-    final k=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO)
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Check if the freeze stat is normally open"
+  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    "The output is normally false"
     annotation (Placement(transformation(extent={{-360,120},{-340,140}})));
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
@@ -836,16 +820,10 @@ equation
           {200,-78},{318,-78}},        color={255,0,255}));
   connect(con5.y, minOutDam1.u1) annotation (Line(points={{-18,540},{0,540},{0,-62},
           {318,-62}}, color={255,0,255}));
-  connect(norOpe.y, logSwi.u2)
-    annotation (Line(points={{-338,130},{-302,130}}, color={255,0,255}));
-  connect(u1FreSta,norTru. u) annotation (Line(points={{-460,160},{-380,160},{
-          -380,80},{-362,80}},   color={255,0,255}));
-  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,130},{-260,130},{
-          -260,194},{-222,194}}, color={255,0,255}));
+  connect(u1FreSta,norFal. u) annotation (Line(points={{-460,130},{-362,130}},
+                                 color={255,0,255}));
   connect(or3.y, lat1.u) annotation (Line(points={{-198,202},{-160,202},{-160,
           160},{-142,160}}, color={255,0,255}));
-  connect(logSwi.y, falEdg.u)
-    annotation (Line(points={{-278,130},{-222,130}}, color={255,0,255}));
   connect(falEdg.y, lat1.clr) annotation (Line(points={{-198,130},{-180,130},{
           -180,154},{-142,154}}, color={255,0,255}));
   connect(u1RetFan, and1.u1) annotation (Line(points={{-460,-320},{-80,-320},{-80,
@@ -872,10 +850,6 @@ equation
           -428},{318,-428}}, color={255,0,255}));
   connect(lat1.y, norSta2.u) annotation (Line(points={{-118,160},{20,160},{20,-440},
           {158,-440}}, color={255,0,255}));
-  connect(norTru.y, logSwi.u3) annotation (Line(points={{-338,80},{-320,80},{
-          -320,122},{-302,122}},  color={255,0,255}));
-  connect(u1FreSta, logSwi.u1) annotation (Line(points={{-460,160},{-320,160},{
-          -320,138},{-302,138}}, color={255,0,255}));
   connect(uHeaCoi, gai.u) annotation (Line(points={{-460,640},{-100,640},{-100,-640},
           {318,-640}}, color={0,0,127}));
   connect(gai.y, yHeaCoi) annotation (Line(points={{342,-640},{360,-640},{360,-700},
@@ -932,6 +906,10 @@ equation
           -250},{118,-250}}, color={0,0,127}));
   connect(gai7.y, ySupFan) annotation (Line(points={{142,-250},{160,-250},{160,-220},
           {460,-220}}, color={0,0,127}));
+  connect(norFal.y, falEdg.u)
+    annotation (Line(points={{-338,130},{-222,130}}, color={255,0,255}));
+  connect(norFal.y, or3.u3) annotation (Line(points={{-338,130},{-260,130},{-260,
+          194},{-222,194}}, color={255,0,255}));
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -950,8 +928,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,32},{-48,10}},
           textColor={255,0,255},
-          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC),
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC,
           textString="u1FreSta"),
         Text(
           extent={{-98,178},{-46,162}},

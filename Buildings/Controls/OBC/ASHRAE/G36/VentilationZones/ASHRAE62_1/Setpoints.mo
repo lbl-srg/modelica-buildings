@@ -54,7 +54,7 @@ block Setpoints
     annotation (Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if open, false if closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-340,210},{-300,250}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -200,8 +200,7 @@ protected
     have_SZVAV
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{80,220},{100,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notOcc if have_occSen
-    "Not occupied"
+  Buildings.Controls.OBC.CDL.Logical.Not notOcc if have_occSen "Not occupied"
     annotation (Placement(transformation(extent={{-280,160},{-260,180}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch unpPopBreAir
     "Population component of the required breathing zone outdoor airflow when it is unpopulated"
@@ -274,6 +273,8 @@ protected
     final k=VPopBreZon_flow)
     "Design population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
+  CDL.Logical.Not winOpe if have_winSen "Window is open"
+    annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
 equation
   connect(addPar.y, lin.x1) annotation (Line(points={{-198,-40},{-180,-40},{-180,
           -52},{-162,-52}}, color={0,0,127}));
@@ -323,8 +324,6 @@ equation
           -46},{-82,-46}}, color={0,0,127}));
   connect(booToRea.y, co2Con.u1) annotation (Line(points={{-138,30},{-120,30},{-120,
           -34},{-82,-34}}, color={0,0,127}));
-  connect(u1Win, or2.u1)
-    annotation (Line(points={{-320,230},{-22,230}}, color={255,0,255}));
   connect(inOccMod.y, notOccMod.u) annotation (Line(points={{-198,30},{-180,30},
           {-180,210},{-82,210}}, color={255,0,255}));
   connect(notOccMod.y, or2.u2) annotation (Line(points={{-58,210},{-40,210},{-40,
@@ -431,6 +430,10 @@ equation
           90},{78,90}}, color={0,0,127}));
   connect(desPopAir.y, popBreOutAir.f2) annotation (Line(points={{-158,300},{-100,
           300},{-100,-188},{-22,-188}}, color={0,0,127}));
+  connect(u1Win, winOpe.u)
+    annotation (Line(points={{-320,230},{-242,230}}, color={255,0,255}));
+  connect(winOpe.y, or2.u1)
+    annotation (Line(points={{-218,230},{-22,230}}, color={255,0,255}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
