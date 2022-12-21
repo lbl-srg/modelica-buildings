@@ -544,7 +544,7 @@ annotation (defaultComponentName="minFlo",
   Documentation(info="<html>
 <p>
 This sequence sets the zone minimum outdoor air and minimum airflow setpoints, for
-compliance with the ventilation rate procedure of ASHRAE Standard 62.1-2016. The
+compliance with the ventilation rate procedure of ASHRAE Standard 62.1. The
 implementation is according to ASHRAE Guideline36, Section 5.2.1.3. The calculation
 is done following the steps below.
 </p>
