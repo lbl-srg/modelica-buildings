@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.Heating.DHW;
+within Buildings.Experimental.DHC.Loads.Heating.DHW.DELETE;
 model AnnualScheduleDHWLoad
   "A model with an annual schedule of domestic water draws"
   replaceable package Medium = Buildings.Media.Water "Water media model";
@@ -36,7 +36,18 @@ equation
     annotation (Line(points={{-66,0},{-100,0}}, color={0,127,255}));
   connect(schDhw.y[1], gaiDhw.u)
     annotation (Line(points={{79,20},{62,20}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This model is for connecting domestic hot water load schedules.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 20, 2022 by Dre Helmns:<br/>
+Created load model.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

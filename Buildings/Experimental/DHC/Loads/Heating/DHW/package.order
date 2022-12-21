@@ -1,8 +1,8 @@
 DomesticWaterMixer
 DirectHeatExchangerWaterHeaterWithAuxHeat
 HeatPumpWaterHeaterWithTank
-DailyPeriodicDHWLoad
-AnnualScheduleDHWLoad
+DHWLoad
+DELETE
 BaseClasses
 Examples
 Data
