@@ -1,17 +1,14 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Generic;
 block AirEconomizerHighLimits "Specify the economizer high liimits"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd=
-    Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard eneStd
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon
     "Economizer high limit control device";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon(
-    start=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3A)
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon(
-    start=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_3)
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
 
@@ -1015,7 +1012,7 @@ This block outputs the air economizer high limits according to the energy standa
 device type and climate zone. The implementation is according to the Section 5.1.17 of ASHRAE
 Guideline 36, May 2020.
 </p>
-<p>When ASHRAE 90.1 is used.</p>
+<p>When ASHRAE 90.1-2016 is used.</p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Device type</th> <th>Allowed only in these ASHRAE Climate Zones</th><th>Required High Limit (Economizer OFF when)</th></tr>
 <tr>
@@ -1050,7 +1047,7 @@ Guideline 36, May 2020.
 <td>outdoor air temperature is higher than 21 &deg;C or the return air temperature (<code>TCut=min(21&deg;C, TRet)</code>)</td>
 </tr>
 </table>
-<p>When California Title 24 is used.</p>
+<p>When California Title 24-2016 is used.</p>
 <table summary=\"summary\" border=\"1\">
 <tr><th>Device type</th> <th>California Climate Zones</th><th>Required High Limit (Economizer OFF when)</th></tr>
 <tr>
