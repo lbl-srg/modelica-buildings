@@ -2,6 +2,7 @@ within Buildings.Experimental.DHC.Examples.Cooling;
 model DirectUncontrolledETS
   "Example model for district cooling system with direct uncontrolled ETS"
   extends Modelica.Icons.Example;
+  extends Modelica.Icons.UnderConstruction;
   package Medium=Buildings.Media.Water
     "Medium model for water";
   // Chiller and cooling tower
@@ -133,8 +134,6 @@ equation
           {-40.7333,-2.6}}, color={255,0,255}));
   connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{-59,-50},{-48,
           -50},{-48,-4.73333},{-40.6667,-4.73333}}, color={0,0,127}));
-  connect(dis.port_bDisSup, dis.port_aDisRet) annotation (Line(points={{60,-10},
-          {68,-10},{68,-16},{60,-16}}, color={0,127,255}));
   connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,
           -11.3333},{-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}}, color={
           0,127,255}));
@@ -173,8 +172,14 @@ Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>, as illus
 </html>", revisions="<html>
 <ul>
 <li>
+December 21, 2022, by Kathryn Hinkelman:<br/>
+Corrected <code>dpMea</code> location to be at the terminal building.
+Removed in-building pumping for direct uncontrolled ETS example.<br> 
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+</li>
+<li>
 Relocated dp sensor for CHW pump control to most distal building.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue #2912</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>

@@ -3,6 +3,7 @@ model BuildingTimeSeriesWithETS
   "Example model of a building with loads provided as time series and 
   connected to an ETS for cooling"
   extends Modelica.Icons.Example;
+  extends Modelica.Icons.UnderConstruction;
   package Medium=Buildings.Media.Water
     "Medium model";
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiWitETS(
