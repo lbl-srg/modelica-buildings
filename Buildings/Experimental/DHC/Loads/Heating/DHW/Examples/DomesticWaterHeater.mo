@@ -97,5 +97,7 @@ June 21, 2022 by Dre Helmns:<br/>
 Created example.
 </li>
 </ul>
-</html>"),experiment(StopTime=3600, Interval=1));
+</html>"),__Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Heating/DHW/Examples/DomesticWaterHeater.mos"
+  "Simulate and plot"),experiment(StopTime=3600, Interval=1));
 end DomesticWaterHeater;
