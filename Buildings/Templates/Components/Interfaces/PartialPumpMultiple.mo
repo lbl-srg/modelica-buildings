@@ -22,7 +22,8 @@ partial model PartialPumpMultiple
   parameter Buildings.Templates.Components.Data.PumpMultiple dat(
     final nPum=nPum,
     final typ=typ)
-    "Design and operating parameters";
+    "Design and operating parameters"
+    annotation(__Linkage(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal[nPum](
     each final min=0)=dat.m_flow_nominal

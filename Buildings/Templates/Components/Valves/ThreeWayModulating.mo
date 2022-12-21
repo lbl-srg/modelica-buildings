@@ -11,6 +11,7 @@ model ThreeWayModulating "Three-way modulating valve"
       final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal})
     "Valve"
     annotation (
+      __Linkage(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(

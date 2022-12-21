@@ -50,7 +50,7 @@ model VAVBox "Interface class for VAV terminal unit"
     constrainedby
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController(
       final dat=dat.ctl)
-    "Terminal unit controller"
+    "Control selections"
     annotation (
     Dialog(group="Controller"),
     Placement(transformation(extent={{-10,-10},{10,10}})));
