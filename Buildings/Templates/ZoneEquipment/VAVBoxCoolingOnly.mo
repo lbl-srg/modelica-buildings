@@ -23,7 +23,7 @@ The first option displayed in bold characters corresponds to the default configu
 <tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>VAV damper</td>
 <td>
-<b>Modulating damper<br/>
+<b>Modulating damper</b><br/>
 </td>
 <td></td>
 </tr>
