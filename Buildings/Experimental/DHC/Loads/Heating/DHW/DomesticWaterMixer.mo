@@ -79,7 +79,18 @@ equation
                                                        color={0,0,127}));
   connect(hysteresis.y, conPID.trigger)
     annotation (Line(points={{43.4,30},{38,30},{38,58}}, color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This model is for a domestic water mixer, mixing hot and cold fluid to achieve a specified tempered outlet temperature.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 16, 2022 by Dre Helmns:<br/>
+Created valve model.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},

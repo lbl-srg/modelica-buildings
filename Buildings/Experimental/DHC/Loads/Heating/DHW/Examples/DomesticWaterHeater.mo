@@ -76,5 +76,16 @@ equation
           {2.05391e-15,-60},{60,-60},{60,60},{38,60},{38,42}}, color={0,0,127}));
   connect(genDHW.port_b1, sinDhw.ports[1])
     annotation (Line(points={{10,6},{30,6},{30,20}}, color={0,127,255}));
-  annotation (experiment(StopTime=3600, Interval=1));
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This is an example of a domestic water heater.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 21, 2022 by Dre Helmns:<br/>
+Created example.
+</li>
+</ul>
+</html>"),experiment(StopTime=3600, Interval=1));
 end DomesticWaterHeater;

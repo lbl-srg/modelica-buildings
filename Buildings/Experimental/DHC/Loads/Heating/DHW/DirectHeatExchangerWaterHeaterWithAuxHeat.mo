@@ -73,8 +73,8 @@ doi.org/10.1016/j.energy.2016.04.109</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-November 16, 2022 by Dre Helmns:<br/>
-Created substation model.
+June 16, 2022 by Dre Helmns:<br/>
+Created generation model.
 </li>
 </ul>
 </html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={

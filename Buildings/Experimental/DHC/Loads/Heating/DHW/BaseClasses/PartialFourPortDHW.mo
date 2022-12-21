@@ -15,6 +15,17 @@ partial model PartialFourPortDHW
   Modelica.Blocks.Interfaces.RealInput TSetHw
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This partial model can be used for different domestic hot water generation methods.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 29, 2022 by Dre Helmns:<br/>
+Created partial model.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialFourPortDHW;
