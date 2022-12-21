@@ -34,6 +34,7 @@ model DomesticWaterHeater
         origin={30,30})));
   Fluid.Sources.Boundary_pT souDHw(
     redeclare package Medium = Medium,
+    use_T_in=true,
     T(displayUnit = "degC") = TDHw,
     nPorts=1) "Source of district hot water" annotation (Placement(
         transformation(
@@ -54,11 +55,18 @@ model DomesticWaterHeater
   Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
+  Modelica.Blocks.Interfaces.RealOutput PEle(unit="W") if havePEle == true
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   replaceable Data.GenericDirectHeatExchangerWaterHeater datGenDHW
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
+  Modelica.Blocks.Sources.Sine     TDis(
+    amplitude=5,
+    f=0.001,
+    offset=TDHw) "Signal to represent fluctuating district water temperature"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=-90,
+        origin={50,-90})));
 equation
   connect(conTSetHw.y, genDHW.TSetHw)
     annotation (Line(points={{-79,0},{-11,0}}, color={0,0,127}));
@@ -76,6 +84,8 @@ equation
           {2.05391e-15,-60},{60,-60},{60,60},{38,60},{38,42}}, color={0,0,127}));
   connect(genDHW.port_b1, sinDhw.ports[1])
     annotation (Line(points={{10,6},{30,6},{30,20}}, color={0,127,255}));
+  connect(TDis.y, souDHw.T_in) annotation (Line(points={{50,-79},{50,-48},{26,-48},
+          {26,-42}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water heater.

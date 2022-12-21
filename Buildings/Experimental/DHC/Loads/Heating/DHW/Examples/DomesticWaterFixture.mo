@@ -62,14 +62,15 @@ equation
         color={0,0,127}));
   connect(tmv.port_tw, loaDHW.port_tw)
     annotation (Line(points={{-20,0},{20,0}}, color={0,127,255}));
-  connect(loaDHW.mDhw, mDhw) annotation (Line(points={{41,-8},{60,-8},{60,-60},
-          {110,-60}}, color={0,0,127}));
+  connect(loaDHW.mDhw, mDhw) annotation (Line(points={{41,-7.2},{60,-7.2},{60,
+          -60},{110,-60}},
+                      color={0,0,127}));
   connect(souDcw.ports[1], tmv.port_cw) annotation (Line(points={{-80,-50},{-60,
           -50},{-60,-6},{-40,-6}}, color={0,127,255}));
   connect(souHw.ports[1], tmv.port_hw) annotation (Line(points={{-80,50},{-46,50},
           {-46,6},{-40,6}}, color={0,127,255}));
   connect(schDhw.y[1], loaDHW.schDhw)
-    annotation (Line(points={{79,30},{60,30},{60,2},{41,2}}, color={0,0,127}));
+    annotation (Line(points={{79,30},{60,30},{60,3},{41,3}}, color={0,0,127}));
 annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water fixture.

@@ -122,10 +122,11 @@ equation
           -31,-30},{-50,-30},{-50,6},{-40,6}}, color={0,127,255}));
   connect(tmv.port_tw, loaDHW.port_tw)
     annotation (Line(points={{20,0},{40,0}}, color={0,127,255}));
-  connect(loaDHW.mDhw, mDhw) annotation (Line(points={{61,-8},{80,-8},{80,-60},
-          {110,-60}}, color={0,0,127}));
+  connect(loaDHW.mDhw, mDhw) annotation (Line(points={{61,-7.2},{80,-7.2},{80,
+          -60},{110,-60}},
+                      color={0,0,127}));
   connect(loaDHW.schDhw, schDhw.y[1])
-    annotation (Line(points={{61,2},{74,2},{74,30},{79,30}}, color={0,0,127}));
+    annotation (Line(points={{61,3},{74,3},{74,30},{79,30}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water heater and fixture.
