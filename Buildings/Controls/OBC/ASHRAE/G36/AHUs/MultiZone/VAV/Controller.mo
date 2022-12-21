@@ -970,6 +970,24 @@ block Controller "Multizone VAV air handling unit controller"
     if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Control of relief fan when it is part of AHU"
     annotation (Placement(transformation(extent={{0,-270},{20,-250}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noAshCli(
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified)
+    "No ASHRAE climate zone"
+    annotation (Placement(transformation(extent={{180,330},{200,350}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTit24Cli(
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified)
+    "No Title 24 climate zone"
+    annotation (Placement(transformation(extent={{180,290},{200,310}})));
+  Buildings.Controls.OBC.CDL.Logical.And noCli
+    "Climate zone is not specified"
+    annotation (Placement(transformation(extent={{220,330},{240,350}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Logical not"
+    annotation (Placement(transformation(extent={{260,330},{280,350}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
+    final message="Warning: Climate zone is not specified!")
+    "Warning when the climate zone is not specified"
+    annotation (Placement(transformation(extent={{300,330},{320,350}})));
 equation
   connect(conSupFan.uZonPreResReq, uZonPreResReq) annotation (Line(points={{-222,
           507},{-300,507},{-300,520},{-380,520}},      color={255,127,0}));
@@ -1188,6 +1206,14 @@ equation
           -268},{112,-268},{112,-212},{178,-212}}, color={255,0,255}));
   connect(relFanCon.yDam, yRelDam) annotation (Line(points={{22,-257},{210,-257},
           {210,60},{380,60}}, color={0,0,127}));
+  connect(noAshCli.y, noCli.u1)
+    annotation (Line(points={{202,340},{218,340}}, color={255,0,255}));
+  connect(noTit24Cli.y, noCli.u2) annotation (Line(points={{202,300},{210,300},
+          {210,332},{218,332}}, color={255,0,255}));
+  connect(noCli.y, not2.u)
+    annotation (Line(points={{242,340},{258,340}}, color={255,0,255}));
+  connect(not2.y, assMes2.u)
+    annotation (Line(points={{282,340},{298,340}}, color={255,0,255}));
 annotation (
   defaultComponentName="mulAHUCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-440},{200,440}}),
