@@ -10,14 +10,27 @@ record HeatPumpWaterHeater
   parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal = 0.278 "Mass flow rate of heat exchanger";
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_max(min=0) = 1500 "Maximum heating flow rate";
   parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal(min=0) = 1230.9 "Nominal heating flow rate";
-  parameter Modelica.Units.SI.HeatFlowRate QTan_flow_nominal = mHex_flow_nominal*4200*20 "Nominal heating flow rate";
+  parameter Modelica.Units.SI.HeatFlowRate QTan_flow_nominal = mHex_flow_nominal*4200*(THex_nominal-TTan_nominal) "Nominal heating flow rate";
   parameter Modelica.Units.SI.Height hHex_a = 0.995 "Height of portHex_a of the heat exchanger, measured from tank bottom";
   parameter Modelica.Units.SI.Height hHex_b = 0.1 "Height of portHex_b of the heat exchanger, measured from tank bottom";
   parameter Modelica.Units.SI.Temperature TTan_nominal = 293.15 "Temperature of fluid inside the tank at nominal heat transfer conditions";
   parameter Modelica.Units.SI.Temperature THex_nominal = 323.15 "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
-  parameter Integer nSeg(min=2) = 5 "Number of volume segments";
+  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal = -5 "Temperature difference evaporator inlet-outlet";
+  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal = 10 "Temperature difference condenser outlet-inlet";
+  parameter Integer nSeg(min=4) = 5 "Number of volume segments";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This record corresponds to a 50-gallon Rheem or A.O. Smith heat pump water heater that would commonly be used in a single apartment unit of a multifamily residential building.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 22, 2022 by Dre Helmns:<br/>
+Created record.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           origin={0,-25},
           lineColor={64,64,64},
