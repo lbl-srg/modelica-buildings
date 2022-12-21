@@ -1,11 +1,22 @@
 within Buildings.Experimental.DHC.Loads.Heating.DHW.Data;
-record DirectHeatExchangerWaterHeater
-  "Equipment specifications for a typical direct heat exchanger water heater"
+record GenericDirectHeatExchangerWaterHeater
+  "Equipment specifications for a generic direct heat exchanger water heater"
   parameter Boolean havePEle = true "Flag that specifies whether electric power is required for water heating";
   parameter Modelica.Units.SI.Efficiency eps(max=1) = 0.8 "Heat exchanger effectiveness";
   parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf "Maximum heat flow rate for heating (positive)";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (preferredView="info",Documentation(info="<html>
+<p>
+This record corresponds to a generic direct heat exchanger water heater.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 22, 2022 by Dre Helmns:<br/>
+Created record.
+</li>
+</ul>
+</html>"),Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           origin={0,-25},
           lineColor={64,64,64},
@@ -28,4 +39,4 @@ record DirectHeatExchangerWaterHeater
           lineColor={0,0,255},
           extent={{-150,60},{150,100}},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
-end DirectHeatExchangerWaterHeater;
+end GenericDirectHeatExchangerWaterHeater;

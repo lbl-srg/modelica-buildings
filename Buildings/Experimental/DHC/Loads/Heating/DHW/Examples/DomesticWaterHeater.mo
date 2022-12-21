@@ -57,7 +57,7 @@ model DomesticWaterHeater
   Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  replaceable Data.DirectHeatExchangerWaterHeater datGenDHW
+  replaceable Data.GenericDirectHeatExchangerWaterHeater datGenDHW
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
 equation
   connect(conTSetHw.y, genDHW.TSetHw)

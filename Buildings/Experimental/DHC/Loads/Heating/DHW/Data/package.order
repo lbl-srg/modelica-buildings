@@ -1,2 +1,3 @@
 HeatPumpWaterHeater
-DirectHeatExchangerWaterHeater
+GenericDirectHeatExchangerWaterHeater
+GenericHeatPumpWaterHeater
