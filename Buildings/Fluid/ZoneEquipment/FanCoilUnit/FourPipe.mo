@@ -55,11 +55,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={130,-10})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TAirLvg(
-    redeclare final package Medium = MediumA,
-    final m_flow_nominal=mAir_flow_nominal)
-    "Supply air temperature sensor"
-    annotation (Placement(transformation(extent={{240,-20},{260,0}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium = MediumA,
@@ -69,12 +64,6 @@ model FourPipe "System model for a four-pipe fan coil unit"
     final dp_nominal=dpAir_nominal)
     "Supply fan"
     annotation (Placement(transformation(extent={{200,-20},{220,0}})));
-
-  Buildings.Fluid.Sensors.VolumeFlowRate vAirSup(
-    redeclare final package Medium = MediumA,
-    final m_flow_nominal=mAir_flow_nominal)
-    "Supply air volume flow rate"
-    annotation (Placement(transformation(extent={{280,-20},{300,0}})));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -114,10 +103,6 @@ equation
           20,-24},{20,-10},{30,-10}},  color={0,127,255}));
   connect(TAirHea.port_b, cooCoi.port_a2) annotation (Line(points={{50,-10},{80,
           -10},{80,-4},{120,-4}}, color={0,127,255}));
-  connect(fan.port_b, TAirLvg.port_a)
-    annotation (Line(points={{220,-10},{240,-10}}, color={0,127,255}));
-  connect(TAirLvg.port_b, vAirSup.port_a)
-    annotation (Line(points={{260,-10},{280,-10}}, color={0,127,255}));
   connect(cooCoi.port_b2, totRes.port_a)
     annotation (Line(points={{140,-4},{156,-4}}, color={0,127,255}));
   connect(totRes.port_b, fan.port_a) annotation (Line(points={{176,-4},{180,-4},
@@ -128,17 +113,16 @@ equation
     annotation (Line(points={{1,80},{210,80},{210,2}}, color={0,0,127}));
   connect(fan.m_flow_actual, gaiFanNor.u) annotation (Line(points={{221,-5},{
           240,-5},{240,110},{298,110}}, color={0,0,127}));
-  connect(vAirSup.port_b, port_Air_b2) annotation (Line(points={{300,-10},{340,-10},
-          {340,-40},{360,-40}}, color={0,127,255}));
   connect(uFan, gai.u)
-    annotation (Line(points={{-380,80},{-22,80}}, color={0,0,127}));
-  connect(uHea, valHW.y) annotation (Line(points={{-380,-120},{-60,-120},{-60,-80},
+    annotation (Line(points={{-380,120},{-202,120},{-202,80},{-22,80}},
+                                                  color={0,0,127}));
+  connect(uHea, valHW.y) annotation (Line(points={{-380,-80},{-60,-80},{-60,-80},
           {-48,-80}}, color={0,0,127}));
-  connect(uHea, heaCoiEle.u) annotation (Line(points={{-380,-120},{-60,-120},{
-          -60,36},{-22,36}},
-                         color={0,0,127}));
-  connect(uCoo, valCHW.y) annotation (Line(points={{-380,-80},{-80,-80},{-80,-148},
-          {80,-148},{80,-80},{92,-80}}, color={0,0,127}));
+  connect(uHea, heaCoiEle.u) annotation (Line(points={{-380,-80},{-60,-80},{-60,
+          36},{-22,36}}, color={0,0,127}));
+  connect(uCoo, valCHW.y) annotation (Line(points={{-380,-40},{-80,-40},{-80,
+          -148},{80,-148},{80,-80},{92,-80}},
+                                        color={0,0,127}));
   connect(valHW.port_b, heaCoiHW.port_b1) annotation (Line(points={{-36,-70},{
           -36,-36},{-20,-36}},
                            color={0,127,255}));
@@ -150,14 +134,14 @@ equation
           144,-16},{144,-80}}, color={0,127,255}));
   connect(gaiFanNor.y, yFan_actual)
     annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
-  connect(TAirLvg.T, TAirSup)
-    annotation (Line(points={{250,1},{250,80},{370,80}}, color={0,0,127}));
   if not has_ven then
   end if;
-  connect(vAirMix.port_b, heaCoiEle.port_a) annotation (Line(points={{-80,-6},{
-          -40,-6},{-40,30},{-20,30}}, color={0,127,255}));
-  connect(vAirMix.port_b, heaCoiHW.port_a2) annotation (Line(points={{-80,-6},{
-          -40,-6},{-40,-24},{-20,-24}}, color={0,127,255}));
+  connect(vAirMix.port_b, heaCoiEle.port_a) annotation (Line(points={{-80,0},{
+          -40,0},{-40,30},{-20,30}},  color={0,127,255}));
+  connect(vAirMix.port_b, heaCoiHW.port_a2) annotation (Line(points={{-80,0},{
+          -40,0},{-40,-24},{-20,-24}},  color={0,127,255}));
+  connect(fan.port_b, TAirLvg.port_a)
+    annotation (Line(points={{220,-10},{240,-10},{240,0}}, color={0,127,255}));
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.UnitHeater;
-package Controls "Package with FCU control modules"
+package Controls "Package with unit heater control modules"
 
   annotation (Icon(graphics={
         Rectangle(

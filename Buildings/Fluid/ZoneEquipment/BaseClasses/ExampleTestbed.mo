@@ -35,11 +35,11 @@ model ExampleTestbed
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0.2)
     "Constant real signal of 0.2 for the outdoor air economizer"
-    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 
   replaceable Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces conZonHVACSys
     "Controller interfaces"
-    annotation (Placement(transformation(extent={{-50,-20},{-30,0}})));
+    annotation (Placement(transformation(extent={{-54,-12},{-18,24}})));
 
   Buildings.Controls.SetPoints.OccupancySchedule occSch(
     final occupancy=3600*{6,19})
@@ -52,11 +52,11 @@ model ExampleTestbed
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan
     "Convert fan enable signal to Real value"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulFanSig
     "Find input fan signal by multiplying fan enable signal and fan speed signal"
-    annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrFanProOn(
     final t=0.05)
@@ -82,7 +82,7 @@ model ExampleTestbed
     final usePrecompiledFMU=false,
     final computeWetBulbTemperature=false)
     "Building model"
-    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+    annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
 
   Buildings.Fluid.Sources.Boundary_pT souHea(
     redeclare package Medium = MediumW,
@@ -133,8 +133,9 @@ model ExampleTestbed
 equation
   connect(occSch.occupied, TZonSet.uOcc) annotation (Line(points={{-129,-16},{-120,
           -16},{-120,20},{-112,20}}, color={255,0,255}));
-  connect(booToReaFan.y, mulFanSig.u2) annotation (Line(points={{12,-40},{20,-40},
-          {20,-36},{28,-36}}, color={0,0,127}));
+  connect(booToReaFan.y, mulFanSig.u2) annotation (Line(points={{22,-40},{30,
+          -40},{30,-36},{38,-36}},
+                              color={0,0,127}));
   connect(greThrFanProOn.y, truDel.u)
     annotation (Line(points={{-108,-50},{-102,-50}},
                                                    color={255,0,255}));
@@ -161,45 +162,45 @@ equation
   connect(zonHVACSys.port_Air_b2, zon.ports[2]) annotation (Line(points={{110,-4},
           {140,-4},{140,90},{90,90},{90,100.9}}, color={0,127,255}));
   connect(sinHea.ports[1], zonHVACSys.port_HW_b) annotation (Line(points={{40,-90},
-          {40,-50},{78,-50},{78,-20}}, color={0,127,255}));
-  connect(zonHVACSys.port_HW_a, souHea.ports[1]) annotation (Line(points={{84,-20},
-          {84,-60},{70,-60},{70,-90}}, color={0,127,255}));
-  connect(zonHVACSys.port_CHW_b, sinCoo.ports[1]) annotation (Line(points={{96,-20},
-          {96,-60},{110,-60},{110,-90}}, color={0,127,255}));
+          {40,-50},{78,-50},{78,-19.8}},
+                                       color={0,127,255}));
+  connect(zonHVACSys.port_HW_a, souHea.ports[1]) annotation (Line(points={{84,
+          -19.8},{84,-60},{70,-60},{70,-90}},
+                                       color={0,127,255}));
+  connect(zonHVACSys.port_CHW_b, sinCoo.ports[1]) annotation (Line(points={{96,
+          -19.8},{96,-60},{110,-60},{110,-90}},
+                                         color={0,127,255}));
   connect(zonHVACSys.port_CHW_a, souCoo.ports[1]) annotation (Line(points={{102,
-          -20},{102,-50},{140,-50},{140,-90}}, color={0,127,255}));
-  connect(zonHVACSys.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,
-          16},{120,16},{120,-70},{-140,-70},{-140,-50},{-132,-50}}, color={0,0,127}));
-  connect(lat.y, conZonHVACSys.uFan) annotation (Line(points={{-8,-90},{0,-90},{
-          0,-60},{-30,-60},{-30,-40},{-60,-40},{-60,-2},{-52,-2}}, color={255,0,
+          -19.8},{102,-50},{140,-50},{140,-90}},
+                                               color={0,127,255}));
+  connect(zonHVACSys.yFan_actual, greThrFanProOn.u) annotation (Line(points={{111,16},
+          {120,16},{120,-70},{-140,-70},{-140,-50},{-132,-50}},     color={0,0,127}));
+  connect(lat.y, conZonHVACSys.uFan) annotation (Line(points={{-8,-90},{0,-90},
+          {0,-120},{-150,-120},{-150,-30},{-66,-30},{-66,22},{-56,22}},
+                                                                   color={255,0,
           255}));
-  connect(con.y, zonHVACSys.uEco) annotation (Line(points={{-28,20},{-20,20},{-20,
-          18},{68,18}}, color={0,0,127}));
-  connect(mulFanSig.y, zonHVACSys.uFan) annotation (Line(points={{52,-30},{60,-30},
-          {60,10},{68,10}},
+  connect(mulFanSig.y, zonHVACSys.uFan) annotation (Line(points={{62,-30},{64,
+          -30},{64,10},{68,10}},
                           color={0,0,127}));
-  connect(conZonHVACSys.yCoo, zonHVACSys.uCoo)
-    annotation (Line(points={{-28,-4},{20,-4},{20,-9.8},{68,-9.8}},
-                                                color={0,0,127}));
-  connect(conZonHVACSys.yHea, zonHVACSys.uHea) annotation (Line(points={{-28,-8},
-          {-10,-8},{-10,-17.8},{68,-17.8}},
-                                        color={0,0,127}));
-  connect(conZonHVACSys.yFanSpe, mulFanSig.u1) annotation (Line(points={{-28,-12},
-          {-14,-12},{-14,-24},{28,-24}}, color={0,0,127}));
-  connect(conZonHVACSys.yFan, booToReaFan.u) annotation (Line(points={{-28,-16},
-          {-20,-16},{-20,-40},{-12,-40}}, color={255,0,255}));
-  connect(occSch.occupied, conZonHVACSys.uOcc) annotation (Line(points={{-129,-16},
-          {-120,-16},{-120,-18},{-52,-18}}, color={255,0,255}));
-  connect(TZonSet.TZonSetHea, conZonHVACSys.THeaSet) annotation (Line(points={{-88,
-          24},{-80,24},{-80,-14},{-52,-14}}, color={0,0,127}));
-  connect(TZonSet.TZonSetCoo, conZonHVACSys.TCooSet) annotation (Line(points={{-88,
-          16},{-84,16},{-84,-10},{-52,-10}}, color={0,0,127}));
+  connect(conZonHVACSys.yFanSpe, mulFanSig.u1) annotation (Line(points={{-16,2},
+          {30,2},{30,-24},{38,-24}},     color={0,0,127}));
+  connect(conZonHVACSys.yFan, booToReaFan.u) annotation (Line(points={{-16,-6},
+          {-8,-6},{-8,-40},{-2,-40}},     color={255,0,255}));
+  connect(occSch.occupied,conZonHVACSys.uAva)  annotation (Line(points={{-129,
+          -16},{-120,-16},{-120,-4},{-56,-4}},
+                                            color={255,0,255}));
+  connect(TZonSet.TZonSetHea, conZonHVACSys.THeaSet) annotation (Line(points={{-88,24},
+          {-80,24},{-80,2},{-56,2}},         color={0,0,127}));
+  connect(TZonSet.TZonSetCoo, conZonHVACSys.TCooSet) annotation (Line(points={{-88,16},
+          {-84,16},{-84,10},{-56,10}},       color={0,0,127}));
   connect(zon.TAir, conZonHVACSys.TZon) annotation (Line(points={{109,138},{120,
-          138},{120,152},{-74,152},{-74,-6},{-52,-6}}, color={0,0,127}));
+          138},{120,152},{-74,152},{-74,16},{-56,16}}, color={0,0,127}));
   connect(building.weaBus, zonHVACSys.weaBus) annotation (Line(
-      points={{-30,50},{74,50},{74,18},{74.2,18}},
+      points={{-30,80},{74,80},{74,18},{74.2,18}},
       color={255,204,51},
       thickness=0.5));
+  connect(occSch.occupied, conZonHVACSys.fanOpeMod) annotation (Line(points={{
+          -129,-16},{-120,-16},{-120,-10},{-56,-10}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,

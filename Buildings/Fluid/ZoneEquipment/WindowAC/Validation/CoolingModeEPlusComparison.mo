@@ -52,8 +52,9 @@ model CoolingModeEPlusComparison
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(final filNam=
+        ModelicaServices.ExternalReferences.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.SizingData winACSizing
@@ -78,7 +79,8 @@ model CoolingModeEPlusComparison
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource(
+        "./Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.dat"),
     final columns=2:20,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -95,10 +97,8 @@ model CoolingModeEPlusComparison
     "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{-52,-48},{-32,-28}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThr
-    annotation (Placement(transformation(extent={{-80,-48},{-60,-28}})));
+  .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 equation
   connect(weaDat.weaBus, winAC.weaBus) annotation (Line(
       points={{-60,120},{-15.8,120},{-15.8,18}},
@@ -123,14 +123,13 @@ equation
           {48,40}}, color={0,0,127}));
   connect(datRea.y[7], K2C.u) annotation (Line(points={{-99,40},{-90,40},{-90,80},
           {-82,80}}, color={0,0,127}));
-  connect(greThr.y, booToRea.u)
-    annotation (Line(points={{-58,-38},{-54,-38}}, color={255,0,255}));
-  connect(datRea.y[4], greThr.u) annotation (Line(points={{-99,40},{-92,40},{-92,
-          -38},{-82,-38}}, color={0,0,127}));
-  connect(booToRea.y, winAC.uFan) annotation (Line(points={{-30,-38},{-26,-38},{
-          -26,10},{-22,10}}, color={0,0,127}));
-  connect(booToRea.y, winAC.uCoo) annotation (Line(points={{-30,-38},{-28,-38},{
-          -28,-9.8},{-22,-9.8}}, color={0,0,127}));
+  connect(datRea.y[4], greThr.u) annotation (Line(points={{-99,40},{-92,40},{
+          -92,-40},{-82,-40}},
+                           color={0,0,127}));
+  connect(greThr.y, winAC.uCooEna) annotation (Line(points={{-58,-40},{-30,-40},
+          {-30,-9.8},{-22,-9.8}}, color={255,0,255}));
+  connect(datRea.y[4], winAC.uFan) annotation (Line(points={{-99,40},{-92,40},{
+          -92,-18},{-34,-18},{-34,10},{-22,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
             {120,140}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,

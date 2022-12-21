@@ -71,7 +71,7 @@ model CoolingMode
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.dat"),
     final columns=2:19,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -84,7 +84,7 @@ model CoolingMode
     final p(displayUnit="Pa") = 101325 + 100,
     final use_T_in=true,
     final T=279.15,
-    final nPorts=1)
+    nPorts=1)
     "Source for zone air"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
@@ -92,12 +92,11 @@ model CoolingMode
     redeclare package Medium = MediumA,
     final p=101325 + 100,
     final T=279.15,
-    final nPorts=1)
+    nPorts=1)
     "Sink for zone air"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(
-    final k=0.2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0.2)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
@@ -107,7 +106,7 @@ model CoolingMode
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    final filNam=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
 
@@ -120,8 +119,7 @@ model CoolingMode
     "Add 1 to humidity ratio value to find total mass of moist air"
     annotation (Placement(transformation(extent={{-120,-150},{-100,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(
-    final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valPos(final k=1)
     "Valve position of hot water coil and chilled water coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 
@@ -132,20 +130,14 @@ model CoolingMode
 
 equation
   connect(fanCoiUni.port_HW_b, sinHeaWat.ports[1]) annotation (Line(points={{18,
-          -20},{18,-60},{-40,-60},{-40,-70}}, color={0,127,255}));
+          -19.8},{18,-60},{-40,-60},{-40,-70}},
+                                              color={0,127,255}));
 
-  connect(souHeaWat.ports[1], fanCoiUni.port_HW_a) annotation (Line(points={{10,
-          -80},{10,-68},{24,-68},{24,-20}}, color={0,127,255}));
+  connect(souHeaWat.ports[1], fanCoiUni.port_HW_a) annotation (Line(points={{10,-80},
+          {10,-68},{24,-68},{24,-19.8}},    color={0,127,255}));
 
-  connect(souAir.ports[1], fanCoiUni.port_Air_a) annotation (Line(points={{80,50},
-          {90,50},{90,4},{50,4}},     color={0,127,255}));
-
-  connect(sinAir.ports[1], fanCoiUni.port_Air_b) annotation (Line(points={{80,-30},
-          {90,-30},{90,-4},{50,-4}}, color={0,127,255}));
-
-  connect(con.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{
-          -20,18},{8,18}},
-                      color={0,0,127}));
+  connect(damPos.y, fanCoiUni.uEco) annotation (Line(points={{-58,30},{-20,30},{
+          -20,18},{8,18}}, color={0,0,127}));
 
   connect(K2C[1].y, souAir.T_in) annotation (Line(points={{-58,70},{-16,70},{-16,
           54},{58,54}}, color={0,0,127}));
@@ -175,18 +167,13 @@ equation
           -70,-126},{-62,-126}}, color={0,0,127}));
   connect(div.y, souAir.Xi_in[1]) annotation (Line(points={{-38,-120},{-26,-120},
           {-26,46},{58,46}}, color={0,0,127}));
-  connect(con1.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},
-          {-30,-9.8},{8,-9.8}},
-                              color={0,0,127}));
-  connect(con1.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},
-          {-30,-17.8},{8,-17.8}},
-                              color={0,0,127}));
-  connect(datRea.y[10], souHea.m_flow_in) annotation (Line(points={{-119,0},{-110,
+  connect(valPos.y, fanCoiUni.uCoo) annotation (Line(points={{-58,-30},{-30,-30},
+          {-30,-9.8},{8,-9.8}}, color={0,0,127}));
+  connect(valPos.y, fanCoiUni.uHea) annotation (Line(points={{-58,-30},{-30,-30},
+          {-30,-17.8},{8,-17.8}}, color={0,0,127}));
+  connect(datRea.y[10], souHeaWat.m_flow_in) annotation (Line(points={{-119,0},{-110,
           0},{-110,-100},{-20,-100},{-20,-112},{2,-112},{2,-102}},      color={
           0,0,127}));
-  connect(datRea.y[8], souCoo.m_flow_in) annotation (Line(points={{-119,0},{-110,
-          0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}},     color=
-          {0,0,127}));
   connect(datRea.y[8], souCooWat.m_flow_in) annotation (Line(points={{-119,0},{
           -110,0},{-110,-100},{-20,-100},{-20,-112},{62,-112},{62,-102}}, color=
          {0,0,127}));
@@ -195,10 +182,14 @@ equation
   connect(gai.y, fanCoiUni.uFan) annotation (Line(points={{-78,0},{-20,0},{-20,
           10},{8,10}},
                    color={0,0,127}));
-  connect(sinCoo.ports[1], fanCoiUni.port_CHW_b)
-    annotation (Line(points={{36,-80},{36,-20}}, color={0,127,255}));
-  connect(souCooWat.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{
-          70,-80},{70,-60},{42,-60},{42,-20}}, color={0,127,255}));
+  connect(souCooWat.ports[1], fanCoiUni.port_CHW_a) annotation (Line(points={{70,-80},
+          {70,-60},{42,-60},{42,-19.8}},       color={0,127,255}));
+  connect(fanCoiUni.port_Air_a2, souAir.ports[1]) annotation (Line(points={{50,4},
+          {100,4},{100,50},{80,50}}, color={0,127,255}));
+  connect(fanCoiUni.port_Air_b2, sinAir.ports[1]) annotation (Line(points={{50,-4},
+          {100,-4},{100,-30},{80,-30}}, color={0,127,255}));
+  connect(sinCooWat.ports[1], fanCoiUni.port_CHW_b)
+    annotation (Line(points={{36,-80},{36,-19.8}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false,

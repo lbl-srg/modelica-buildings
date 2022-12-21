@@ -61,14 +61,7 @@ model WindowAC
       final unit="K",
       displayUnit="degC",
       min=0))
-    annotation (Placement(transformation(extent={{-260,52},{-240,72}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=looHys,
-      h=0.5*looHys) "Check if it is cooling state" annotation (
-      Placement(transformation(extent={{-300,-90},{-280,-70}})));
-Controls.OBC.CDL.Logical.TrueFalseHold           truFalHol1(final
-      trueHoldDuration=600, final falseHoldDuration=0)
-  "Hold true input for certain time"
-  annotation (Placement(transformation(extent={{-260,-88},{-240,-68}})));
+    annotation (Placement(transformation(extent={{-260,-50},{-240,-30}})));
 equation
   connect(gai.y, fan.m_flow_in)
     annotation (Line(points={{-1,80},{2,80},{2,12}},   color={0,0,127}));
@@ -76,34 +69,29 @@ equation
           {28,80},{100,80},{100,110},{298,110}},
                                         color={0,0,127}));
   connect(uFan, gai.u)
-    annotation (Line(points={{-380,80},{-24,80}}, color={0,0,127}));
-  connect(vAirMix.port_b, fan.port_a) annotation (Line(points={{-80,-6},{-40,-6},
+    annotation (Line(points={{-380,120},{-202,120},{-202,80},{-24,80}},
+                                                  color={0,0,127}));
+  connect(vAirMix.port_b, fan.port_a) annotation (Line(points={{-80,0},{-40,0},
           {-40,0},{-8,0}}, color={0,127,255}));
   connect(gaiFanNor.y, yFan_actual)
     annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
   connect(fan.port_b, sinSpeDX.port_a) annotation (Line(points={{12,0},{90,0}},
                          color={0,127,255}));
   connect(sinSpeDX.port_b, TAirLvg.port_a) annotation (Line(
-        points={{110,0},{176,0},{176,-10},{240,-10}}, color={0,127,
+        points={{110,0},{176,0},{176,0},{240,0}},     color={0,127,
           255}));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
-      points={{-330,-10},{-310,-10},{-310,62},{-262,62}},
+      points={{-330,30},{-310,30},{-310,-40},{-262,-40}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TOut.y, sinSpeDX.TConIn) annotation (Line(points={{-239,62},{60,62},{60,
-          3},{89,3}},                 color={0,0,127}));
-  connect(uCoo, greThr.u) annotation (Line(points={{-380,-80},{-302,
-          -80}}, color={0,0,127}));
-  connect(greThr.y, truFalHol1.u) annotation (Line(points={{-278,-80},{-270,-80},
-          {-270,-78},{-262,-78}},
-                            color={255,0,255}));
-  connect(truFalHol1.y, sinSpeDX.on) annotation (Line(points={{-238,-78},{-154,
-          -78},{-154,-38},{64,-38},{64,8},{89,8}},
-        color={255,0,255}));
+  connect(TOut.y, sinSpeDX.TConIn) annotation (Line(points={{-239,-40},{60,-40},
+          {60,3},{89,3}},             color={0,0,127}));
+  connect(uCooEna, sinSpeDX.on) annotation (Line(points={{-380,-120},{-80,-120},
+          {-80,-60},{40,-60},{40,8},{89,8}}, color={255,0,255}));
   annotation (defaultComponentName = "winAC",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(
