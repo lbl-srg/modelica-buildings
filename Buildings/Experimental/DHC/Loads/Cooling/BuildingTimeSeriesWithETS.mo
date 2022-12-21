@@ -3,6 +3,7 @@ model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS for cooling"
   extends BaseClasses.PartialBuildingWithETS(
     redeclare BaseClasses.BuildingTimeSeries bui(
+      final have_pum=false,
       final filNam=filNam,
       facMulCoo=40*QCoo_flow_nominal/(-1.5E5),
       T_aChiWat_nominal=TChiWatSup_nominal,
@@ -51,6 +52,13 @@ Buildings.Experimental.DHC.Loads.Cooling.BaseClasses.BuildingTimeSeries</a>
 where the space cooling loads are provided as time series. 
 </p>
 </html>", revisions="<html>
+<ul>
+<li>
+December 21, 2022 by Kathryn Hinkelman:<br>
+Removed in-building pumping because of coupling with the direct/uncontrolled ETS.<br> 
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+</li>
+</ul>
 <ul>
 <li>March 20, 2022 by Chengnan Shi:<br>First implementation. </li>
 </ul>

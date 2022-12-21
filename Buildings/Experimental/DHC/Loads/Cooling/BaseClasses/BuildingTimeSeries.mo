@@ -6,7 +6,6 @@ model BuildingTimeSeries
     final have_heaWat=false,
     final have_chiWat=true,
     final have_fan=false,
-    final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
@@ -145,7 +144,7 @@ model BuildingTimeSeries
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mHeaWat_flow_nominal,
-    final have_pum=true,
+    final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
     final dp_nominal=100000,
     final nPorts_a1=1,
@@ -157,7 +156,7 @@ model BuildingTimeSeries
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mChiWat_flow_nominal,
     final typDis=Buildings.Experimental.DHC.Loads.BaseClasses.Types.DistributionType.ChilledWater,
-    final have_pum=true,
+    final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
     final dp_nominal=100000,
     final nPorts_b1=1,
@@ -185,7 +184,7 @@ model BuildingTimeSeries
       final w_aLoaCoo_nominal=w_aLoaCoo_nominal)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,36},{90,56}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPPum
+  Buildings.Controls.OBC.CDL.Continuous.Add addPPum if have_pum
     "Sum pump power"
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(
@@ -282,6 +281,12 @@ equation
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 21, 2022, by Kathryn Hinkelman:<br>
+Removed final declaration for <code>have_pum</code> to optionally allow
+in-building pumping to be included/excluded.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue 2912</a>.
+</li>
 <li>March 20, 2022, by Chengnan Shi:<br>
 Disable heating port to specify for cooling loads model.</li>
 <li>December 21, 2020, by Antoine Gautier:<br>
