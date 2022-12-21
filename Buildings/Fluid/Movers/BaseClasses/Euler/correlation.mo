@@ -6,12 +6,12 @@ function correlation
   output Real y "eta/eta_peak";
 
 protected
-  constant Real pLef[4]={0.056873227,0.493231336746,1.433531254001,1.407887300933};
-  constant Real pMid[4]={0.378246,-0.759885,-0.0606145,1.01427};
-  constant Real pRig[4]={-0.0085494313567,0.12957001502,-0.65997315029,1.1399300301};
-  constant Real p[4] = if x<-0.5 then pLef else if x>0.5 then pRig else pMid;
+  Real a = if x <-0.5 then 0.056873227 else if x>0.5 then -0.0085494313567 else 0.378246;
+  Real b = if x<-0.5 then 0.493231336746 else if x>0.5 then 0.12957001502 else -0.759885;
+  Real c = if x<-0.5 then 1.433531254001 else if x>0.5 then -0.65997315029 else -0.0606145;
+  Real d = if x<-0.5 then 1.407887300933 else if x>0.5 then 1.1399300301 else 1.01427;
 algorithm
-  y:=max(0,p[1]*x^3+p[2]*x^2+p[3]*x+p[4])/pMid[end];
+  y:=max(0,a*x^3+b*x^2+c*x+d)/1.01545;
 
   annotation(smoothOrder = 1,
   Documentation(info="<html>
