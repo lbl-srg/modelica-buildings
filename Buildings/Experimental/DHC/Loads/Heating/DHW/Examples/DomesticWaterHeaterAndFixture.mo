@@ -42,7 +42,9 @@ model DomesticWaterHeaterAndFixture
     TTan_nominal = datGenDHW.TTan_nominal,
     THex_nominal = datGenDHW.THex_nominal,
     dpHex_nominal = datGenDHW.dpHex_nominal,
-    nSeg=datGenDHW.nSeg)                     "Generation of DHW"
+    nSeg=datGenDHW.nSeg,
+    dTEva_nominal=datGenDHW.dTEva_nominal,
+    dTCon_nominal=datGenDHW.dTCon_nominal)   "Generation of DHW"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   DomesticWaterMixer tmv(
     redeclare package Medium = Medium,
@@ -81,15 +83,23 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
     "Electric power required for generation equipment"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  AnnualScheduleDHWLoad loaDHW(redeclare package Medium = Medium,
-                               mDhw_flow_nominal=mDhw_flow_nominal)
-    "load for DHW"
+  DHWLoad loaDHW(redeclare package Medium = Medium, mDhw_flow_nominal=
+        mDhw_flow_nominal) "load for DHW"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
   replaceable Data.HeatPumpWaterHeater datGenDHW
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
+  Modelica.Blocks.Sources.CombiTimeTable schDhw(
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=Modelica.Utilities.Files.loadResource(
+        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Heating/DHW/DHW_SingleApartment.mos"),
+
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Domestic hot water fraction schedule"
+    annotation (Placement(transformation(extent={{100,20},{80,40}})));
 equation
   connect(tmv.TTw, TTw)
     annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},color={0,0,127}));

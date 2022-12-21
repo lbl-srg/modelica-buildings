@@ -31,9 +31,8 @@ model DomesticWaterFixture
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-  DailyPeriodicDHWLoad loaDHW(redeclare package Medium = Medium,
-                              mDhw_flow_nominal=mDhw_flow_nominal)
-    "load for DHW"
+  DHWLoad loaDHW(redeclare package Medium = Medium, mDhw_flow_nominal=
+        mDhw_flow_nominal) "load for DHW"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Fluid.Sources.Boundary_pT           souDcw(
     redeclare package Medium = Medium,
@@ -48,38 +47,38 @@ model DomesticWaterFixture
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,50})));
+  Modelica.Blocks.Sources.CombiTimeTable schDhw(
+    tableOnFile=false,
+    table=[0,0.1; 3600*1,1e-5; 3600*2,1e-5; 3600*3,1e-5; 3600*4,1e-5; 3600*5,
+        0.3; 3600*6,0.9; 3600*7,1; 3600*8,1; 3600*9,0.8; 3600*10,0.8; 3600*11,
+        0.6; 3600*12,0.5; 3600*13,0.5; 3600*14,0.4; 3600*15,0.5; 3600*16,0.6;
+        3600*17,0.7; 3600*18,0.9; 3600*19,0.8; 3600*20,0.8; 3600*21,0.6; 3600*
+        22,0.5; 3600*23,0.3; 3600*24,0.1],
+    smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Domestic hot water fraction schedule"
+    annotation (Placement(transformation(extent={{100,20},{80,40}})));
 equation
   connect(tmv.TTw, TTw) annotation (Line(points={{-19,6},{14,6},{14,60},{110,60}},
         color={0,0,127}));
   connect(tmv.port_tw, loaDHW.port_tw)
     annotation (Line(points={{-20,0},{20,0}}, color={0,127,255}));
-  connect(loaDHW.mDhw, mDhw) annotation (Line(points={{41,-5},{60,-5},{60,-60},
+  connect(loaDHW.mDhw, mDhw) annotation (Line(points={{41,-8},{60,-8},{60,-60},
           {110,-60}}, color={0,0,127}));
   connect(souDcw.ports[1], tmv.port_cw) annotation (Line(points={{-80,-50},{-60,
           -50},{-60,-6},{-40,-6}}, color={0,127,255}));
   connect(souHw.ports[1], tmv.port_hw) annotation (Line(points={{-80,50},{-46,50},
           {-46,6},{-40,6}}, color={0,127,255}));
-annotation (Documentation(info="<html>
+  connect(schDhw.y[1], loaDHW.schDhw)
+    annotation (Line(points={{79,30},{60,30},{60,2},{41,2}}, color={0,0,127}));
+annotation (preferredView="info",Documentation(info="<html>
 <p>
-This is a single zone model based on the envelope of the BESTEST Case 600
-building, though it has some modifications.  Supply and return air ports are
-included for simulation with air-based HVAC systems.  Heating and cooling
-setpoints and internal loads are time-varying according to an assumed
-occupancy schedule.
-</p>
-<p>
-This zone model utilizes schedules and constructions from
-the <code>Schedules</code> and <code>Constructions</code> packages.
+This is an example of a domestic water fixture.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 21, 2017, by Michael Wetter:<br/>
-Refactored implementation.
-</li>
-<li>
-June 1, 2017, by David Blum:<br/>
-First implementation.
+October 20, 2022 by Dre Helmns:<br/>
+Created example.
 </li>
 </ul>
 </html>"),
