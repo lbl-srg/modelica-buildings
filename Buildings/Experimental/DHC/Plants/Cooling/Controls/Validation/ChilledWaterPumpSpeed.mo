@@ -46,8 +46,8 @@ equation
       revisions="<html>
 <ul>
 <li>
-December 14, 2022 by Kathryn Hinkelman:<br/>
-Revised <code>dpMea<code/> input from constant to step function.
+December 14, 2022 by Kathryn Hinkelman:<br>
+Revised <code>dpMea</code> input from constant to step function.
 </li>
 <li>
 August 6, 2020 by Jing Wang:<br/>

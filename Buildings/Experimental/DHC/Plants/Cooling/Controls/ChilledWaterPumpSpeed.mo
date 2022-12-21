@@ -131,8 +131,9 @@ equation
 <ul>
 <li>
 December 14, 2022 by Kathryn Hinkelman:<br/>
-Normalized <code>u_s</code> and <code>u_m</code> by <code>dpSetPoi</code>.<br/>
-Added reset for PID controller based on the number of pumps that are on.
+Normalized <code>u_s</code> and <code>u_m</code> by <code>dpSetPoi</code>.
+Added reset for PID controller based on the number of pumps that are on.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>
 August 6, 2020 by Jing Wang:<br/>

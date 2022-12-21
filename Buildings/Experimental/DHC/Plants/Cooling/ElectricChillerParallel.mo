@@ -416,7 +416,8 @@ the detailed control logic. </p>
 <ul>
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
-Corrected <code>chiBypCon</code> to control mass flow rate through the chillers.
+Corrected <code>chiBypCon</code> to control mass flow rate through the chillers.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
@@ -433,7 +434,7 @@ March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and
 added assertion for correct combination of energy and mass dynamics.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
 </li>
 <li>
 August 6, 2020 by Jing Wang:<br/>

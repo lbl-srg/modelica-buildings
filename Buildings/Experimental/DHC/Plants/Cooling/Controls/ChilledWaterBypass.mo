@@ -94,7 +94,8 @@ equation
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
 Corrected measured mass flow rate to be on the chiller 
-leg in order to control minimum flow rate through the chillers.
+leg in order to control minimum flow rate through the chillers.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>
 May 3, 2021 by Jing Wang:<br/>
