@@ -2,17 +2,54 @@ within Buildings.Fluid.BaseClasses;
 model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Real k "Gain for mass flow rate";
+  parameter Boolean use_input = false
+    "Set to true for multiplier factor provided as an input instead of a parameter"
+    annotation(Evaluate=true);
+  parameter Real k=1
+    "Gain for mass flow rate"
+    annotation(Dialog(enable=not use_input));
 
+  Controls.OBC.CDL.Interfaces.RealInput u(
+    final min=Modelica.Constants.small) if use_input
+    "Multiplier factor"
+    annotation (Placement(transformation(
+          extent={{-140,40},{-100,80}}), iconTransformation(extent={{-140,40},{-100,
+            80}})));
+  Controls.OBC.CDL.Interfaces.RealOutput uInv(
+    final min=Modelica.Constants.small) if use_input
+    "Inverse of the multiplier factor"
+    annotation (Placement(
+        transformation(extent={{100,40},{140,80}}),iconTransformation(extent={{100,40},
+            {140,80}})));
+
+  Controls.OBC.CDL.Continuous.Sources.Constant cst(
+    final k=k) if not use_input
+    "Constant gain value"
+    annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
+  Controls.OBC.CDL.Continuous.Divide div1 if use_input
+    "Compute the inverse"
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1) if use_input
+    "Constant 1"
+    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+protected
+  Controls.OBC.CDL.Interfaces.RealInput u_internal
+    "Connector for multiplier factor for internal use only"
+        annotation (Placement(
+        transformation(extent={{-60,20},{-20,60}}),iconTransformation(extent={{100,40},
+            {140,80}})));
 initial equation
   assert(k > Modelica.Constants.small or -k < -Modelica.Constants.small,
     "Gain must not be zero. Received k = " + String(k));
 equation
-    // Pressure drop in design flow direction
+  assert(abs(u_internal) > Modelica.Constants.small,
+    "Gain must not be zero. Received u = " + String(u_internal));
+
+  // Pressure drop in design flow direction
   port_a.p = port_b.p;
 
   // Mass balance (mass is not conserved by this model!)
-  port_b.m_flow = -k*port_a.m_flow;
+  port_b.m_flow = -u_internal * port_a.m_flow;
 
   // Specific enthalpy flow rate
   port_a.h_outflow = inStream(port_b.h_outflow);
@@ -24,7 +61,18 @@ equation
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
 
-  annotation (Documentation(info="<html>
+  connect(cst.y, u_internal) annotation (Line(points={{-68,40},{-40,40}},
+                     color={0,0,127}));
+  connect(u_internal, div1.u2) annotation (Line(points={{-40,40},{0,40},{0,54},{
+          18,54}}, color={0,0,127}));
+  connect(one.y, div1.u1) annotation (Line(points={{-18,80},{0,80},{0,66},{18,66}},
+        color={0,0,127}));
+  connect(div1.y, uInv)
+    annotation (Line(points={{42,60},{120,60}}, color={0,0,127}));
+  connect(u, u_internal) annotation (Line(points={{-120,60},{-60,60},{-60,40},{-40,
+          40}}, color={0,0,127}));
+    annotation (
+Documentation(info="<html>
 <p>
 This model multiplies the mass flow rate so that
 <code>0 = port_b.m_flow + k * port_a.m_flow</code>.
