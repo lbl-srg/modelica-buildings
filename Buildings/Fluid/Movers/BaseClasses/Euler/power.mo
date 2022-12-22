@@ -33,10 +33,18 @@ algorithm
                     dp=dp[i],
                     V_flow=V_flow[i]);
   end for;
-  power.d[2:10]:=Buildings.Utilities.Math.Functions.splineDerivatives(
-                  x=V_flow[2:10],
-                  y=power.P[2:10],
-                  ensureMonotonicity=false);
+
+  // The function splineDerivatives() is by passed when V[2:10] cannot be
+  //   guaranteed to be strictly increasing.
+  //   This is only for avoiding an error with optimica.
+  if V_flow[10] - V_flow[2] > 1E-5 then
+    power.d[2:10]:=Buildings.Utilities.Math.Functions.splineDerivatives(
+                    x=V_flow[2:10],
+                    y=power.P[2:10],
+                    ensureMonotonicity=false);
+  else
+    power.d[2:10]:=zeros(9);
+  end if;
 
   // Use linear extrapolation to find the boundary points
   power.d[1]:=power.d[2];
