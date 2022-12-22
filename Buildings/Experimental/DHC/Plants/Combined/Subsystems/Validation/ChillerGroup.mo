@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
-model ChillerGroup "Validation model for chiller group"
+model ChillerGroup "Validation of the chiller group model"
   extends Modelica.Icons.Example;
 
   replaceable package MediumChiWat=Buildings.Media.Water
@@ -87,9 +87,9 @@ equation
     annotation (Line(points={{-40,-50},{-40,-6},{-10,-6}}, color={0,127,255}));
   connect(TChiWatSupSet.y, chi.TChiWatSupSet) annotation (Line(points={{-68,-40},
           {-60,-40},{-60,-2},{-12,-2}}, color={0,0,127}));
-  connect(u1.y[1], chi.u1On[1]) annotation (Line(points={{-68,40},{-60,40},{-60,
-          1.5},{-12,1.5}}, color={255,0,255}));
-  connect(u2.y[1], chi.u1On[2]) annotation (Line(points={{-68,0},{-60,0},{-60,2.5},
+  connect(u1.y[1], chi.u1[1]) annotation (Line(points={{-68,40},{-60,40},{-60,1.5},
+          {-12,1.5}}, color={255,0,255}));
+  connect(u2.y[1], chi.u1[2]) annotation (Line(points={{-68,0},{-60,0},{-60,2.5},
           {-12,2.5}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(

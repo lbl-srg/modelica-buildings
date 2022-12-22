@@ -94,14 +94,13 @@ model ChillerGroup "Group of multiple identical chillers in parallel"
     "Multiplier for CHW flow"
     annotation (Placement(transformation(extent={{-72,-70},{-92,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1On[nChi]
-    "Chiller On/Off signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1[nChi] "On/Off signal"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet
     "CHW supply temperature setpoint"
     annotation (Placement(
         transformation(extent={{-140,-40},{-100,0}})));
-  Controls.BaseClasses.ChillerGroupCommand com(final nChi=nChi)
+  BaseClasses.MultipleUnitsCommand com(final nChi=nChi)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P "Power drawn" annotation (
@@ -116,9 +115,9 @@ model ChillerGroup "Group of multiple identical chillers in parallel"
     final control_dp=true)
     annotation (Placement(transformation(extent={{86,-70},{66,-50}})));
 
-  Real RChiWat=Buildings.Utilities.Math.Functions.regNonZeroPower(
-    com.nChiOn / RChiWat_nominal^2, 0.5);
-  Real RChiWat1=(com.nChiOn / RChiWat_nominal^2)^0.5;
+  Real RChiWat=Buildings.Utilities.Math.Functions.regNonZeroPower(com.nUniOn/
+      RChiWat_nominal^2, 0.5);
+  Real RChiWat1=(com.nUniOn/RChiWat_nominal^2)^0.5;
   Modelica.Blocks.Sources.RealExpression exp(
     y=RChiWat * port_a2.m_flow^2)
     annotation (Placement(transformation(extent={{98,-46},{78,-26}})));
@@ -137,15 +136,15 @@ equation
   connect(TChiWatSupSet, chi.TSet) annotation (Line(points={{-120,-20},{-30,-20},
           {-30,-3},{-12,-3}},
                             color={0,0,127}));
-  connect(u1On, com.u1On)
+  connect(u1, com.u1On)
     annotation (Line(points={{-120,20},{-82,20}}, color={255,0,255}));
   connect(com.y1On, chi.on) annotation (Line(points={{-58,20},{-30,20},{-30,3},{
           -12,3}},           color={255,0,255}));
-  connect(com.nChiOnBou, mulConWatOut.u) annotation (Line(points={{-58,26},{40,26},
-          {40,66},{68,66}}, color={0,0,127}));
+  connect(com.nUniOnBou, mulConWatOut.u) annotation (Line(points={{-58,26},{40,
+          26},{40,66},{68,66}}, color={0,0,127}));
   connect(mulConWatOut.uInv, mulConWatInl.u) annotation (Line(points={{92,66},{94,
           66},{94,40},{-60,40},{-60,66},{-52,66}}, color={0,0,127}));
-  connect(com.nChiOnBou, mulChiWatOut.u) annotation (Line(points={{-58,26},{-40,
+  connect(com.nUniOnBou, mulChiWatOut.u) annotation (Line(points={{-58,26},{-40,
           26},{-40,-54},{-70,-54}}, color={0,0,127}));
   connect(mulChiWatOut.uInv, mulChiWatInl.u) annotation (Line(points={{-94,-54},
           {-96,-54},{-96,-40},{60,-40},{60,-54},{52,-54}}, color={0,0,127}));
@@ -153,7 +152,7 @@ equation
           -6},{-20,-60},{-72,-60}},                color={0,0,127}));
   connect(port_a1, mulConWatInl.port_a)
     annotation (Line(points={{-100,60},{-50,60}}, color={0,127,255}));
-  connect(com.nChiOnBou, mulP.u1) annotation (Line(points={{-58,26},{64,26},{64,
+  connect(com.nUniOnBou, mulP.u1) annotation (Line(points={{-58,26},{64,26},{64,
           6},{68,6}}, color={0,0,127}));
   connect(mulP.y, P)
     annotation (Line(points={{92,0},{120,0}}, color={0,0,127}));
