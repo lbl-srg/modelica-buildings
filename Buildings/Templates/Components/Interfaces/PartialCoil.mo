@@ -38,7 +38,9 @@ partial model PartialCoil "Interface class for coil"
   parameter Buildings.Templates.Components.Data.Coil dat(
     final have_sou=have_sou,
     final typ=typ,
-    final typVal=typVal) "Design and operating parameters";
+    final typVal=typVal)
+    "Design and operating parameters"
+    annotation(__Linkage(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0) = dat.mAir_flow_nominal

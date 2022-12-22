@@ -11,6 +11,7 @@ model TwoWayModulating "Two-way modulating valve"
       final dpFixed_nominal=dpFixed_nominal)
     "Valve"
     annotation (
+      __Linkage(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(

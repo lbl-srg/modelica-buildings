@@ -7,24 +7,28 @@ model PartialPump "Base class for all pump models"
   parameter Boolean have_valChe=true
     "Set to true to include a check valve in pump line"
     annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
+    enable=typ<>Buildings.Templates.Components.Types.Pump.None),
+    __Linkage(enable=false));
 
   parameter Boolean addPowerToMedium=false
-    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
+    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)"
+    annotation(__Linkage(enable=false));
 
   parameter Modelica.Units.SI.Time tau=1
     "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
     annotation (Dialog(
       tab="Dynamics",
       group="Nominal condition",
-      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState));
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
+      __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
+      __Linkage(enable=false));
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __Linkage(enable=false));
 
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"

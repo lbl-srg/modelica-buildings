@@ -289,7 +289,7 @@ model VAVMultiZone "Multiple-zone VAV"
     Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
       final dat=dat.ctl,
       final nZon=nZon)
-    "AHU controller"
+    "Control selections"
     annotation (
       Dialog(group="Controls"),
       Placement(transformation(extent={{-220,-10},{-200,10}})));
@@ -494,8 +494,8 @@ Fan array - Variable speed
 <td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
 one another.<br/>
-ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays. 
-If a fan array is selected, all of the fans are currently controlled together at 
+ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays.
+If a fan array is selected, all of the fans are currently controlled together at
 the same speed, regardless of the number of VFDs.
 </td>
 </tr>
@@ -532,8 +532,8 @@ No fan
 <td>At least one supply fan must be specified, either in blow-through
 or draw-through position. Those two configurations are exclusive from
 one another.<br/>
-ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays. 
-If a fan array is selected, all of the fans are currently controlled together at 
+ASHRAE Guideline 36 does not have any particular logic yet for handling fan arrays.
+If a fan array is selected, all of the fans are currently controlled together at
 the same speed, regardless of the number of VFDs.
 </td>
 </tr>

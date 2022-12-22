@@ -42,7 +42,7 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat typFreSta=
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-    "Type of freeze stat"
+    "Low limit (freeze) protection"
     annotation(Evaluate=true);
 
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut=

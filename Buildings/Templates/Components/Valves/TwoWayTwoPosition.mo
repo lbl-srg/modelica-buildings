@@ -13,6 +13,7 @@ model TwoWayTwoPosition "Two-way two-position valve"
       final dpFixed_nominal=dpFixed_nominal)
     "Valve (butterfly valve characteristic)"
     annotation (
+      __Linkage(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(
