@@ -118,7 +118,7 @@ model Guideline36
     "All zones in same operation mode"
     annotation (Placement(transformation(extent={{20,300},{40,320}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller conVAV[numZon](
-    final venStd=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,numZon),
+    final venStd=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1, numZon),
     final have_winSen=fill(false, numZon),
     final have_occSen=fill(false, numZon),
     final have_CO2Sen=fill(false, numZon),
