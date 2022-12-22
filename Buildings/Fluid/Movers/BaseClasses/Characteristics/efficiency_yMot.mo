@@ -16,8 +16,6 @@ algorithm
   if n == 1 then
     eta := per.eta[1];
   else
-    // The use of the max function avoids problems with low speeds
-    // and turned-off pumps
     i :=1;
     for j in 1:n-1 loop
        if y > per.y[j] then
