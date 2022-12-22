@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.ASHRAE.G36.Types;
 type ASHRAEClimateZone = enumeration(
+    Not_Specified "Not specified",
     Zone_1A "Zone 1A, Very Hot and Humid",
     Zone_1B "Zone 1B, Very Hot and Dry",
     Zone_2A "Zone 2A, Hot and Humid",
@@ -27,6 +28,10 @@ Enumeration of different ASHRAE climate zones. Possible values are:
 <tr>
 <th>Enumeration</th>
 <th>Description</th></tr>
+<tr><td><code>Not_Specified</code></td>
+<td>
+Not specified.
+</td></tr>
 <tr><td><code>Zone_1A</code></td>
 <td>
 Zone 1A, Very Hot and Humid.
