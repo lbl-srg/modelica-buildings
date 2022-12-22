@@ -62,8 +62,7 @@ block VariableFan
     "Temperature difference used for enabling coooling and heating mode"
     annotation(Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.BooleanInput uOcc
-    "Occupancy signal"
+  Modelica.Blocks.Interfaces.BooleanInput uAva "Availability signal"
     annotation (Placement(transformation(extent={{-180,-100},{-140,-60}}),
       iconTransformation(extent={{-180,-140},{-140,-100}})));
 
@@ -174,8 +173,8 @@ protected
     "Pass sum of fan speed from heating and cooling controllers, one of which is always zero"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or orHeaCooOcc
-    "Enable fan when zone is occupied or when setpoint is violated"
+  Buildings.Controls.OBC.CDL.Logical.And andHeaCooOcc
+    "Enable fan only when system is available"
     annotation (Placement(transformation(extent={{80,-110},{100,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conMinFanSpe(
@@ -220,18 +219,18 @@ equation
           {30,-24},{38,-24}}, color={0,0,127}));
   connect(orHeaCoo.y, timFan.u)
     annotation (Line(points={{22,-100},{28,-100}}, color={255,0,255}));
-  connect(timFan.passed, orHeaCooOcc.u2)
+  connect(timFan.passed, andHeaCooOcc.u2)
     annotation (Line(points={{52,-108},{78,-108}}, color={255,0,255}));
   connect(hysCoo.y, orHeaCoo.u1) annotation (Line(points={{-18,70},{-6,70},{-6,-100},
           {-2,-100}}, color={255,0,255}));
   connect(hysHea.y, orHeaCoo.u2) annotation (Line(points={{-18,20},{-14,20},{-14,
           -108},{-2,-108}}, color={255,0,255}));
-  connect(orHeaCooOcc.y, truFalHolFanEna.u)
+  connect(andHeaCooOcc.y, truFalHolFanEna.u)
     annotation (Line(points={{102,-100},{106,-100}}, color={255,0,255}));
   connect(truFalHolFanEna.y, yFan) annotation (Line(points={{130,-100},{134,-100},
           {134,-80},{160,-80}}, color={255,0,255}));
 
-  connect(uOcc, orHeaCooOcc.u1) annotation (Line(points={{-160,-80},{72,-80},{
+  connect(uAva, andHeaCooOcc.u1) annotation (Line(points={{-160,-80},{72,-80},{
           72,-100},{78,-100}}, color={255,0,255}));
   connect(max.y, yFanSpe)
     annotation (Line(points={{122,-30},{160,-30}}, color={0,0,127}));

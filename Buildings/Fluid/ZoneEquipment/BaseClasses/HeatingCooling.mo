@@ -61,8 +61,8 @@ model HeatingCooling
             {140,-20},{180,20}})));
   Controls.OBC.CDL.Logical.And andHeaCooEna
     "Enable heating/cooling component only when fan is proven on"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-protected
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+// protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert fan proven on signal to real value"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
@@ -78,7 +78,7 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysModCoo(final uLow=-dTHys,
       final uHigh=0) if not conMod
     "Enable cooling mode when zone temperature is not at setpoint"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPID(
     final controllerType=controllerType,
@@ -100,10 +100,25 @@ protected
   Controls.OBC.CDL.Logical.Not notHea if conMod
     "Pass tru for heating mode signal when hysteresis becomes false"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
+  Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=180,
+      falseHoldDuration=0)
+    annotation (Placement(transformation(extent={{70,-10},{90,10}})));
+  Modelica.Blocks.Interfaces.RealInput TSup(
+    final unit="K",
+    displayUnit="K",
+    final quantity="ThermodynamicTemperature") "Measured supply temperature"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-180,-160},{-140,-120}})));
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=273.15 + 15)
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Controls.OBC.CDL.Logical.And andTSupLow
+    "Enable heating/cooling component only when measured supply temperature is above dew point at thermal comfort level"
+    annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
 equation
 
-  connect(TSub.y, hysModCoo.u) annotation (Line(points={{-38,-20},{-10,-20},{-10,
-          -40},{18,-40}}, color={0,0,127}));
+  connect(TSub.y, hysModCoo.u) annotation (Line(points={{-38,-20},{-10,-20},{
+          -10,-40},{-2,-40}},
+                          color={0,0,127}));
 
   connect(TSub.y, conPID.u_m)
     annotation (Line(points={{-38,-20},{-10,-20},{-10,18}},
@@ -126,7 +141,7 @@ equation
                color={0,0,127}));
   connect(TZonSet, TSub.u2) annotation (Line(points={{-120,-40},{-90,-40},{-90,-26},
           {-62,-26}},color={0,0,127}));
-  connect(hysModCoo.y, yMod) annotation (Line(points={{42,-40},{92,-40},{92,-60},
+  connect(hysModCoo.y, yMod) annotation (Line(points={{22,-40},{92,-40},{92,-60},
           {120,-60}}, color={255,0,255}));
   connect(TSub.y, hysModHea.u) annotation (Line(points={{-38,-20},{-10,-20},{-10,
           -80},{18,-80}}, color={0,0,127}));
@@ -134,14 +149,24 @@ equation
     annotation (Line(points={{42,-80},{48,-80}}, color={255,0,255}));
   connect(notHea.y, yMod) annotation (Line(points={{72,-80},{92,-80},{92,-60},{120,
           -60}}, color={255,0,255}));
-  connect(andHeaCooEna.y, yEna)
-    annotation (Line(points={{82,0},{120,0}}, color={255,0,255}));
-  connect(hysModCoo.y, andHeaCooEna.u2) annotation (Line(points={{42,-40},{52,-40},
-          {52,-8},{58,-8}}, color={255,0,255}));
+  connect(hysModCoo.y, andHeaCooEna.u2) annotation (Line(points={{22,-40},{30,
+          -40},{30,-8},{38,-8}},
+                            color={255,0,255}));
   connect(notHea.y, andHeaCooEna.u2) annotation (Line(points={{72,-80},{92,-80},
-          {92,-40},{52,-40},{52,-8},{58,-8}}, color={255,0,255}));
-  connect(uFan, andHeaCooEna.u1) annotation (Line(points={{-120,40},{-80,40},{-80,
-          0},{58,0}}, color={255,0,255}));
+          {92,-40},{30,-40},{30,-8},{38,-8}}, color={255,0,255}));
+  connect(uFan, andHeaCooEna.u1) annotation (Line(points={{-120,40},{-80,40},{
+          -80,0},{38,0}},
+                      color={255,0,255}));
+  connect(truFalHol.y, yEna) annotation (Line(points={{92,0},{100,0},{100,0},{
+          120,0}}, color={255,0,255}));
+  connect(TSup, greThr.u) annotation (Line(points={{-120,-80},{-90,-80},{-90,
+          -70},{-82,-70}}, color={0,0,127}));
+  connect(greThr.y, andTSupLow.u2) annotation (Line(points={{-58,-70},{10,-70},
+          {10,-60},{40,-60},{40,-36},{52,-36}}, color={255,0,255}));
+  connect(andHeaCooEna.y, andTSupLow.u1) annotation (Line(points={{62,0},{64,0},
+          {64,-12},{40,-12},{40,-28},{52,-28}}, color={255,0,255}));
+  connect(andTSupLow.y, truFalHol.u) annotation (Line(points={{76,-28},{80,-28},
+          {80,-12},{66,-12},{66,0},{68,0}}, color={255,0,255}));
   annotation (defaultComponentName="conOpeMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}}),
         graphics={Rectangle(

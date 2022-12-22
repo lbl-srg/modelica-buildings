@@ -3,35 +3,21 @@ partial model ControllerInterfaces
   "Baseclass for zone HVAC controller interfaces"
 
   parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes sysTyp
-    "Select zonal HVAC system type";
+    "Select zonal HVAC system type"
+    annotation (Dialog(group="System parameters"));
+
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou
+    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
+    "Type of heating coil used"
+    annotation (Dialog(group="System parameters"));
+
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou
+    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
+    "Type of cooling coil used"
+    annotation (Dialog(group="System parameters"));
 
   parameter Boolean has_fanOpeMod = true
     "Does the controller need a fan operating mode signal interface?";
-
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of cooling loop controller"
-    annotation (Dialog(group="Cooling mode control"));
-
-  parameter Real kCoo(
-    final unit="1",
-    displayUnit="1",
-    final min=0)=1
-    "Gain of cooling loop controller"
-    annotation(Dialog(group="Cooling mode control"));
-
-  parameter Modelica.Units.SI.Time TiCoo=0.5
-    "Time constant of cooling loop integrator block"
-    annotation(Dialog(group="Cooling mode control",
-      enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-  parameter Modelica.Units.SI.Time TdCoo=0.1
-    "Time constant of cooling loop derivative block"
-    annotation(Dialog(group="Cooling mode control",
-      enable = controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerTypeCoo == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-
 
   Modelica.Blocks.Interfaces.BooleanOutput yFan "Fan enable signal"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
@@ -111,6 +97,7 @@ protected
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitHeater)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
+    and not (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
     "Does the zone equipment have heating equipment?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
@@ -120,6 +107,7 @@ protected
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.windowAC)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
+    and not (cooCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.noCoo)
     "Does the zone equipment have cooling equipment?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 

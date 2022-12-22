@@ -1,0 +1,5 @@
+﻿simulateModel("Buildings.Fluid.ZoneEquipment.WindowAC.Validation.CoolingModeEPlusComparison_withControl", startTime=18144000, stopTime=18230400, method="Cvode", resultFile="CoolingModeEPlusComparison");
+createPlot(id=1, position={0, 0, 682, 631}, y={"winAC.fan.P", "datRea.y[16]"}, range={18140000.0, 18240000.0, -50.0, 100.0}, grid=true, colors={{28,108,200}, {238,46,47}}, displayUnits={"W", ""});
+createPlot(id=1, position={0, 0, 682, 631}, y={"winAC.sinSpeDX.P", "datRea.y[3]"}, range={18140000.0, 18240000.0, -2000.0, 4000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"W", ""});
+createPlot(id=1, position={0, 0, 682, 631}, y={"winAC.TAirMix.T", "winAC.TAirLvg.T", "datRea.y[7]", "datRea.y[8]"}, range={18140000.0, 18240000.0, 0.0, 60.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, displayUnits={"degC", "degC", "", ""});
+
