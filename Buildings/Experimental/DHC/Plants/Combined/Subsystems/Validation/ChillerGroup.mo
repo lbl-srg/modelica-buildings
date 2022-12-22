@@ -19,6 +19,8 @@ model ChillerGroup "Validation of the chiller group model"
     redeclare final package Medium2 = MediumChiWat,
     show_T=true,
     nChi=2,
+    typValChiWat=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
+    typValConWat=Buildings.Experimental.DHC.Types.Valve.None,
     dpChiWatChi_nominal=3E5,
     dpConWatChi_nominal=3E5,
     final dat=dat,
@@ -65,16 +67,15 @@ model ChillerGroup "Validation of the chiller group model"
     duration=1000,
     offset=dat.TEvaLvg_nominal) "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u2(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Chi2(
     table=[0,1; 0.5,1; 0.5,0; 1,0],
     timeScale=1000,
-    period=1000)
-    "Chiller #2 On/Off command"
+    period=1000) "Chiller #2 On/Off command"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Chi1(
     table=[0,1; 0.8,1; 0.8,0; 1,0],
     timeScale=1000,
-    period=1000) "Chiller #2 On/Off command"
+    period=1000) "Chiller #1 On/Off command"
     annotation (Placement(transformation(extent={{-90,30},{-70,50}})));
 equation
   connect(chi.port_b1, retConWat.ports[1])
@@ -86,11 +87,15 @@ equation
   connect(supChiWat.ports[1], chi.port_b2)
     annotation (Line(points={{-40,-50},{-40,-6},{-10,-6}}, color={0,127,255}));
   connect(TChiWatSupSet.y, chi.TChiWatSupSet) annotation (Line(points={{-68,-40},
-          {-60,-40},{-60,-2},{-12,-2}}, color={0,0,127}));
-  connect(u1.y[1], chi.u1[1]) annotation (Line(points={{-68,40},{-60,40},{-60,1.5},
-          {-12,1.5}}, color={255,0,255}));
-  connect(u2.y[1], chi.u1[2]) annotation (Line(points={{-68,0},{-60,0},{-60,2.5},
-          {-12,2.5}}, color={255,0,255}));
+          {-58,-40},{-58,-9},{-12,-9}}, color={0,0,127}));
+  connect(y1Chi1.y[1], chi.y1Chi[1]) annotation (Line(points={{-68,40},{-60,40},
+          {-60,8.5},{-12,8.5}}, color={255,0,255}));
+  connect(y1Chi2.y[1], chi.y1Chi[2]) annotation (Line(points={{-68,0},{-62,0},{
+          -62,9.5},{-12,9.5}}, color={255,0,255}));
+  connect(y1Chi1.y[1], chi.y1ValChiWat[1]) annotation (Line(points={{-68,40},{
+          -60,40},{-60,-16},{-9,-16},{-9,-12.5}}, color={255,0,255}));
+  connect(y1Chi2.y[1], chi.y1ValChiWat[2]) annotation (Line(points={{-68,0},{
+          -62,0},{-62,-18},{-9,-18},{-9,-11.5}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Subsystems/Validation/ChillerGroup.mos"

@@ -6,14 +6,13 @@ block MultipleUnitsCommand
     "Number of units"
     annotation(Evaluate=true);
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1On[nUni]
-    "On/Off signal"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni] "Command signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1On
-    "On/Off signal: true if at least one unit is commanded On"
-    annotation (Placement(transformation(extent={{100,-20},
-    {140,20}}), iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1One
+    "On/Off signal: true if at least one unit is commanded On" annotation (
+      Placement(transformation(extent={{100,-20},{140,20}}), iconTransformation(
+          extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nUni]
     "Convert to real"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -39,11 +38,11 @@ block MultipleUnitsCommand
         transformation(extent={{100,-80},{140,-40}}), iconTransformation(extent
           ={{100,-80},{140,-40}})));
 equation
-  connect(u1On, booToRea.u)
+  connect(y1, booToRea.u)
     annotation (Line(points={{-120,0},{-82,0}}, color={255,0,255}));
   connect(booToRea.y, mulSum.u)
     annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
-  connect(greThr.y, y1On)
+  connect(greThr.y, y1One)
     annotation (Line(points={{42,0},{120,0}}, color={255,0,255}));
   connect(mulSum.y, greThr.u)
     annotation (Line(points={{-18,0},{18,0}}, color={0,0,127}));

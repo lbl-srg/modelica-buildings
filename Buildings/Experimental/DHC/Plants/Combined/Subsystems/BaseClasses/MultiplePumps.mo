@@ -63,7 +63,7 @@ model MultiplePumps "Model of multiple identical pumps in parallel"
     "Type of initialization (no init/steady state/initial state/initial output)"
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1[nPum]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nPum]
     "Start signal (VFD Run or motor starter contact)"
     annotation (Placement(
         transformation(extent={{-140,80},{-100,120}}), iconTransformation(
@@ -72,11 +72,9 @@ model MultiplePumps "Model of multiple identical pumps in parallel"
     "Total power (all pumps)"
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nPum]
-    "Pump status"
-    annotation (Placement(
-        transformation(extent={{100,80},{140,120}}), iconTransformation(
-          extent={{100,60},{140,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual[nPum]
+    "Pump status" annotation (Placement(transformation(extent={{100,80},{140,
+            120}}), iconTransformation(extent={{100,60},{140,100}})));
 
   Fluid.BaseClasses.MassFlowRateMultiplier mulOut(
     redeclare final package Medium=Medium,
@@ -158,14 +156,13 @@ equation
           {-90,-20},{-90,6},{-82,6}},color={0,0,127}));
   connect(mulInl.port_b, pum.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
-  connect(u1, com.u1On)
-    annotation (Line(points={{-120,100},{-92,100}},
-                                                  color={255,0,255}));
+  connect(y1, com.y1)
+    annotation (Line(points={{-120,100},{-92,100}}, color={255,0,255}));
   connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,106},{-64,106},
           {-64,80},{50,80},{50,6},{58,6}},
                       color={0,0,127}));
-  connect(com.y1On, booToRea.u) annotation (Line(points={{-68,100},{-62,100}},
-                         color={255,0,255}));
+  connect(com.y1One, booToRea.u)
+    annotation (Line(points={{-68,100},{-62,100}}, color={255,0,255}));
   connect(mul.y, P)
     annotation (Line(points={{82,60},{120,60}}, color={0,0,127}));
   connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,94},{-66,94},{-66,
@@ -177,9 +174,8 @@ equation
           28,-60}},           color={0,0,127}));
   connect(sta.y, rep.u)
     annotation (Line(points={{52,-60},{58,-60}}, color={255,0,255}));
-  connect(rep.y, y1) annotation (Line(points={{82,-60},{94,-60},{94,100},{120,
-          100}},
-        color={255,0,255}));
+  connect(rep.y, y1_actual) annotation (Line(points={{82,-60},{94,-60},{94,100},
+          {120,100}}, color={255,0,255}));
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   connect(cheVal.port_b, mulOut.port_a)

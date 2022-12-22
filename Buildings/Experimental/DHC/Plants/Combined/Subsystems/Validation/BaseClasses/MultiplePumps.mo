@@ -66,15 +66,15 @@ model MultiplePumps
     "Modulating valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Pum1(
     table=[0,0; 1,0; 1,1; 10,1],
     timeScale=100,
     period=1000) "Pump #1 Start signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u2(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Pum2(
     table=[0,0; 4,0; 4,1; 10,1],
     timeScale=100,
-    period=1000) "Pump #1 Start signal"
+    period=1000) "Pump #2 Start signal"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   replaceable Fluid.Movers.SpeedControlled_y pum1
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
@@ -148,10 +148,10 @@ equation
     annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
   connect(ope.y, val.y) annotation (Line(points={{-98,0},{-40,0},{-40,20},{0,20},
           {0,12}}, color={0,0,127}));
-  connect(u1.y[1], pum.u1[1]) annotation (Line(points={{-98,120},{-14,120},{-14,
-          67.5},{-12,67.5}}, color={255,0,255}));
-  connect(u2.y[1], pum.u1[2]) annotation (Line(points={{-98,80},{-28,80},{-28,68.5},
-          {-12,68.5}}, color={255,0,255}));
+  connect(y1Pum1.y[1], pum.y1[1]) annotation (Line(points={{-98,120},{-14,120},
+          {-14,67.5},{-12,67.5}}, color={255,0,255}));
+  connect(y1Pum2.y[1], pum.y1[2]) annotation (Line(points={{-98,80},{-28,80},{-28,
+          68.5},{-12,68.5}}, color={255,0,255}));
   connect(pum.port_b, senMasFlo.port_a)
     annotation (Line(points={{10,60},{20,60},{20,40}}, color={0,127,255}));
   connect(senMasFlo.port_b, val.port_a)
@@ -168,9 +168,9 @@ equation
           {-40,-40},{-10,-40}}, color={0,127,255}));
   connect(val1.port_b, bou.ports[2]) annotation (Line(points={{-10,-120},{-60,-120},
           {-60,61}}, color={0,127,255}));
-  connect(u1.y[1], booToRea1.u)
+  connect(y1Pum1.y[1], booToRea1.u)
     annotation (Line(points={{-98,120},{78,120}}, color={255,0,255}));
-  connect(u2.y[1], booToRea2.u)
+  connect(y1Pum2.y[1], booToRea2.u)
     annotation (Line(points={{-98,80},{78,80}}, color={255,0,255}));
   connect(cheVal2.port_b, senMasFlo1.port_a)
     annotation (Line(points={{50,-80},{60,-80},{60,-90}}, color={0,127,255}));
