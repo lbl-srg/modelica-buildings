@@ -1,58 +1,57 @@
 within Buildings.Fluid.ZoneEquipment.UnitHeater.Controls.Validation;
-model ConstantFanVariableWaterFlowrate
-  "Validation model for controller with variable water flow rates and constant speed fan"
+model ConstantFanVariableHeating
+  "Validation model for controller with variable heating and constant speed fan"
 
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.UnitHeater.Controls.ConstantFanVariableWaterFlowrate
+  Buildings.Fluid.ZoneEquipment.UnitHeater.Controls.ConstantFanVariableHeating
     conVarWatConFan(
-    final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
-
     final tFanEnaDel=2,
     final tFanEna=5)
     "Instance of controller with variable fan speed and constant water flowrate"
-    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{46,38}})));
 
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=300)
+    annotation (Placement(transformation(extent={{62,-16},{82,4}})));
 protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFanOpeMod(
+    final period=900) "Supply fan operating mode signal"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=6,
     final duration=3600,
     final offset=273.15 + 21) "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooSetPoi(
-    final k=273.15 + 25)
-    "Cooling setpoint temperature"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(
     final k=273.15 + 23)
     "Heating setpoint temperature"
+    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+
+protected
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uAva(final period=2700)
+    "System availability signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant occ(
-    final k=true)
-    "Occupancy signal"
-    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-
 equation
-  connect(cooSetPoi.y, conVarWatConFan.TCooSet)
-    annotation (Line(points={{-18,20},{-10,20},{-10,0},{8,0}},
-                                                             color={0,0,127}));
-  connect(heaSetPoi.y, conVarWatConFan.THeaSet) annotation (Line(points={{-18,-20},
-          {-10,-20},{-10,-4},{8,-4}},
+  connect(heaSetPoi.y, conVarWatConFan.THeaSet) annotation (Line(points={{-18,20},
+          {-10,20},{-10,10},{8,10}},
                                   color={0,0,127}));
-  connect(conVarWatConFan.yFan, conVarWatConFan.uFan) annotation (Line(points={{32,-6},
-          {40,-6},{40,20},{4,20},{4,8},{8,8}},        color={255,0,255}));
   connect(TZon.y, conVarWatConFan.TZon)
-    annotation (Line(points={{-18,60},{0,60},{0,4},{8,4}}, color={0,0,127}));
-  connect(occ.y, conVarWatConFan.uOcc) annotation (Line(points={{-18,-60},{0,-60},
-          {0,-8},{8,-8}}, color={255,0,255}));
+    annotation (Line(points={{-18,60},{0,60},{0,26},{8,26}},
+                                                           color={0,0,127}));
+  connect(supFanOpeMod.y, conVarWatConFan.fanOpeMod) annotation (Line(points={{-18,-60},
+          {0,-60},{0,-6},{8,-6}},                        color={255,0,255}));
+  connect(uAva.y, conVarWatConFan.uAva) annotation (Line(points={{-18,-20},{-10,
+          -20},{-10,2},{8,2}},                     color={255,0,255}));
+  connect(conVarWatConFan.yFan, truDel.u) annotation (Line(points={{48,-6},{60,
+          -6}},                                             color={255,0,255}));
+  connect(truDel.y, conVarWatConFan.uFan) annotation (Line(points={{84,-6},{90,
+          -6},{90,20},{4,20},{4,34},{8,34}},             color={255,0,255}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/FanCoilUnit/Controls/Validation/ConstantFanVariableWaterFlowrate.mos"
+    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/UnitHeater/Controls/Validation/ConstantFanVariableHeating.mos"
       "Simulate and plot"),
     Documentation(info="<html>
       <p>
@@ -78,4 +77,4 @@ equation
       </ul>
       </html>"),
     experiment(Tolerance=1e-06));
-end ConstantFanVariableWaterFlowrate;
+end ConstantFanVariableHeating;

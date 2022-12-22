@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.UnitHeater;
+within Buildings.Fluid.ZoneEquipment.WindowAC;
 package Controls "Package with unit heater control modules"
 
   annotation (Icon(graphics={

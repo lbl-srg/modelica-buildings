@@ -1,7 +1,5 @@
-within Buildings.Fluid.ZoneEquipment.UnitHeater.Controls;
-block MultispeedFanConstantWaterFlowrate
-  "Controller for fan coil system with constant water flow rates and variable speed fan"
-
+within Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls;
+block MultispeedFan "Controller for multi-speed fan"
   parameter Integer nSpe(
     final min=2) = 2
     "Number of fan speeds"
@@ -66,15 +64,7 @@ block MultispeedFanConstantWaterFlowrate
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.Time tFanEna = 300
-    "Minimum duration for which fan is enabled"
-    annotation(Dialog(group="System parameters"));
-
-  parameter Modelica.Units.SI.Time tValEna = 600
-    "Minimum duration for which heating/cooling valve action is enabled"
-    annotation(Dialog(group="System parameters"));
-
-  parameter Modelica.Units.SI.Time tValDis = 300
-    "Minimum duration for which heating/cooling valve action is disabled"
+    "Minimum running time of the fan"
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
@@ -87,78 +77,51 @@ block MultispeedFanConstantWaterFlowrate
     "Fan speed difference used for cycling fan speed"
     annotation(Dialog(tab="Advanced"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
-    "Fan proven on signal"
-    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOcc
+  Modelica.Blocks.Interfaces.BooleanInput uOcc
     "Occupancy signal"
     annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
-      iconTransformation(extent={{-140,-100},{-100,-60}})));
+      iconTransformation(extent={{-180,-138},{-140,-98}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
+  Modelica.Blocks.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+        iconTransformation(extent={{-178,94},{-138,134}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
+  Modelica.Blocks.Interfaces.RealInput TCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-20},{-140,20}}),
-        iconTransformation(extent={{-140,-20},{-100,20}})));
+        iconTransformation(extent={{-180,20},{-140,60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Modelica.Blocks.Interfaces.RealInput THeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-60},{-140,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-180,-60},{-140,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yFan
+  Modelica.Blocks.Interfaces.BooleanOutput yFan
     "Fan enable signal"
     annotation (Placement(transformation(extent={{140,-140},{180,-100}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
+      iconTransformation(extent={{140,-60},{180,-20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yFanSpe(
+  Modelica.Blocks.Interfaces.RealOutput yFanSpe(
     final unit="1",
     displayUnit="1")
     "Fan speed signal"
     annotation (Placement(transformation(extent={{140,-100},{180,-60}}),
-      iconTransformation(extent={{100,-40},{140,0}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
-    final unit="1",
-    displayUnit="1")
-    "Cooling signal"
-    annotation (Placement(transformation(extent={{140,60},{180,100}}),
-      iconTransformation(extent={{100,40},{140,80}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
-    final unit="1",
-    displayUnit="1")
-    "Heating signal"
-    annotation (Placement(transformation(extent={{140,30},{180,70}}),
-      iconTransformation(extent={{100,0},{140,40}})));
+      iconTransformation(extent={{140,20},{180,60}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Max max
     "Ensure minimum fan speed signal is passed"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And andCoo
-    "Enable cooling coil valve only when fan is proven on"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
-
-  Buildings.Controls.OBC.CDL.Logical.And andHea
-    "Enable heating coil valve only when fan is proven on"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer timFan(
     final t=tFanEnaDel)
@@ -203,8 +166,9 @@ protected
     "Add 1 to calculated stage to switch to next speed signal"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(final uLow=-dTHys,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysCoo(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable cooling when zone temperature is higher than cooling setpoint"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 
@@ -212,22 +176,15 @@ protected
     "Find difference between zone temperature and cooling setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaCoo
-    "Boolean to Real conversion"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Subtract subHea
     "Find difference between zone temperature and heating setpoint"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(final uLow=-dTHys,
-      final uHigh=0)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysHea(
+    final uLow=-dTHys,
+    final uHigh=0)
     "Enable heating when zone temperature is lower than heating setpoint"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaHea
-    "Boolean to Real conversion"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or orHeaCoo
     "Enable fan in heating mode and cooling mode"
@@ -238,7 +195,8 @@ protected
     final k=kCoo,
     final Ti=TiCoo,
     final Td=TdCoo,
-    final reverseActing=false) "PI controller for fan speed in cooling mode"
+    final reverseActing=false)
+    "PI controller for fan speed in cooling mode"
     annotation (Placement(transformation(extent={{-66,-70},{-46,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.PID conPIDHea(
@@ -246,7 +204,8 @@ protected
     final k=kHea,
     final Ti=TiHea,
     final Td=TdHea,
-    final reverseActing=false) "PI controller for fan speed in heating mode"
+    final reverseActing=false)
+    "PI controller for fan speed in heating mode"
     annotation (Placement(transformation(extent={{-66,-110},{-46,-90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -276,16 +235,6 @@ protected
     "Keep fan enabled for minimum duration"
     annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
 
-protected
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolCoo(final
-      trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
-    "Ensure cooling is enabled and disabled for minimum time duration"
-    annotation (Placement(transformation(extent={{60,70},{80,90}})));
-protected
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHolHea(final
-      trueHoldDuration=tValEna, final falseHoldDuration=tValDis)
-    "Ensure heating is enabled and disabled for minimum time duration"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 equation
   connect(TZon, subCoo.u1) annotation (Line(points={{-160,40},{-130,40},{-130,46},
           {-102,46}}, color={0,0,127}));
@@ -296,9 +245,6 @@ equation
   connect(subCoo.y, hysCoo.u)
     annotation (Line(points={{-78,40},{-42,40}}, color={0,0,127}));
 
-  connect(booToReaCoo.y, yCoo)
-    annotation (Line(points={{122,80},{160,80}}, color={0,0,127}));
-
   connect(subHea.y, hysHea.u) annotation (Line(points={{-78,-30},{-74,-30},{-74,
           10},{-42,10}}, color={0,0,127}));
 
@@ -307,9 +253,6 @@ equation
 
   connect(THeaSet, subHea.u1) annotation (Line(points={{-160,-40},{-110,-40},{-110,
           -24},{-102,-24}}, color={0,0,127}));
-
-  connect(booToReaHea.y, yHea)
-    annotation (Line(points={{122,50},{160,50}}, color={0,0,127}));
 
   connect(hysCoo.y, orHeaCoo.u1) annotation (Line(points={{-18,40},{-10,40},{-10,
           -160},{-6,-160}}, color={255,0,255}));
@@ -367,14 +310,6 @@ equation
                              color={255,0,255}));
   connect(truFalHol.y, booToReaFan.u) annotation (Line(points={{132,-120},{136,-120},
           {136,30},{60,30},{60,10},{68,10}}, color={255,0,255}));
-  connect(uFan, andCoo.u1)
-    annotation (Line(points={{-160,80},{18,80}}, color={255,0,255}));
-  connect(uFan, andHea.u1) annotation (Line(points={{-160,80},{10,80},{10,50},{18,
-          50}}, color={255,0,255}));
-  connect(hysCoo.y, andCoo.u2) annotation (Line(points={{-18,40},{0,40},{0,72},{
-          18,72}}, color={255,0,255}));
-  connect(hysHea.y, andHea.u2) annotation (Line(points={{-18,10},{10,10},{10,42},
-          {18,42}}, color={255,0,255}));
   connect(uOcc, orHeaCooOcc.u1) annotation (Line(points={{-160,-140},{30,-140},{
           30,-120},{78,-120}}, color={255,0,255}));
   connect(yFanSpe, max.y)
@@ -383,26 +318,13 @@ equation
           -86},{108,-86}}, color={0,0,127}));
   connect(fanSpeVal[1].y, max.u1) annotation (Line(points={{42,-60},{54,-60},{54,
           -74},{108,-74}}, color={0,0,127}));
-  connect(andCoo.y, truFalHolCoo.u)
-    annotation (Line(points={{42,80},{58,80}}, color={255,0,255}));
-  connect(truFalHolCoo.y, booToReaCoo.u)
-    annotation (Line(points={{82,80},{98,80}}, color={255,0,255}));
-  connect(andHea.y, truFalHolHea.u)
-    annotation (Line(points={{42,50},{58,50}}, color={255,0,255}));
-  connect(truFalHolHea.y, booToReaHea.u)
-    annotation (Line(points={{82,50},{98,50}}, color={255,0,255}));
   annotation (defaultComponentName="conMulSpeFanConWat",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                      graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
+        graphics={Rectangle(
+          extent={{-140,140},{140,-140}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-100,100},{100,140}},
-          textString="%name",
-          textColor={0,0,255})}),
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-200},{140,100}})),
     Documentation(info="<html>
@@ -437,7 +359,6 @@ equation
       to <code>zero</code>.
       </li>
       </ul>
-      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateMultispeedFan.png\"/>
       </p>
@@ -450,4 +371,4 @@ equation
       </li>
       </ul>
       </html>"));
-end MultispeedFanConstantWaterFlowrate;
+end MultispeedFan;

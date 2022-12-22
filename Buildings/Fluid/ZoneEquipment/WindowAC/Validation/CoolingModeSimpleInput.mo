@@ -63,6 +63,7 @@ model CoolingModeSimpleInput
     redeclare package MediumA = MediumA,
     mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
     mAir_flow_nominal=winACSizing.mAir_flow_nominal,
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
     dpAir_nominal(displayUnit="Pa") = dpAir_nominal,
     dpDX_nominal(displayUnit="Pa") = dpDX_nominal,
     redeclare Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.FanData fanPer,
@@ -97,9 +98,9 @@ model CoolingModeSimpleInput
     "Reader for \"FanCoilAutoSize_ConstantFlowVariableFan.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+  .Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     annotation (Placement(transformation(extent={{-10,-80},{10,-60}})));
 equation
   connect(weaDat.weaBus, winAC.weaBus) annotation (Line(

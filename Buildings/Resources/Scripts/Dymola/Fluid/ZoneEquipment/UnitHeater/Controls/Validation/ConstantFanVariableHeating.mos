@@ -1,0 +1,8 @@
+simulateModel("Buildings.Fluid.ZoneEquipment.UnitHeater.Controls.Validation.ConstantFanVariableHeating", method="Cvode", tolerance=1e-6,startTime=0, stopTime=3600, resultFile="ConstantFanVariableWaterFlowrate", outputInterval = 1);
+
+createPlot(id=1, position={0, 0, 1511, 978}, y={"conVarWatConFan.TZon", "conVarWatConFan.TCooSet", "conVarWatConFan.THeaSet"}, range={0.0, 60.0, 20.0, 28.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1511, 159}, y={"conVarWatConFan.uAva"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1511, 159}, y={"conVarWatConFan.fanOpeMod"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1511, 158}, y={"conVarWatConFan.yHea"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1511, 159}, y={"conVarWatConFan.yFan"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1511, 159}, y={"conVarWatConFan.yFanSpe"}, range={0.0, 60.0, -0.5, 1.5}, grid=true, subPlot=6, colors={{28,108,200}});
