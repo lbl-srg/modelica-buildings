@@ -68,6 +68,8 @@ model Guideline36
       displayUnit="degC") = 297.15) "Occupied cooling setpoint for zone air"
     annotation (Placement(transformation(extent={{-340,430},{-320,450}})));
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A,
     final freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat,
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
@@ -116,6 +118,7 @@ model Guideline36
     "All zones in same operation mode"
     annotation (Placement(transformation(extent={{20,300},{40,320}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller conVAV[numZon](
+    final venStd=fill(Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,numZon),
     final have_winSen=fill(false, numZon),
     final have_occSen=fill(false, numZon),
     final have_CO2Sen=fill(false, numZon),
