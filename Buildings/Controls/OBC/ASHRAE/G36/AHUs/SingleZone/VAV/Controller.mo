@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
+within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
