@@ -15,21 +15,11 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final have_fan=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1);
-  // Mass flow rates
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal(
-    final min=0,
-    final start=0.5)
-    "Nominal mass flow rate of district cooling side"
-    annotation(Dialog(group="Nominal condition"));
+  // Mass flow rate
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
     final min=0,
     final start=0.5)
     "Nominal mass flow rate of building cooling side"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mByp_flow_nominal(
-    final min=0,
-    final start=0.5)
-    "Nominal mass flow rate through the bypass segment"
     annotation(Dialog(group="Nominal condition"));
   // Pressure drops
   parameter Modelica.Units.SI.PressureDifference dpConVal_nominal(
@@ -98,7 +88,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
             {340,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
-    final m_flow_nominal=mDis_flow_nominal)
+    final m_flow_nominal=mBui_flow_nominal)
     "District supply temperature sensor"
     annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
@@ -108,25 +98,25 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
-    final m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
+    final m_flow_nominal=mBui_flow_nominal*{1,-1,1},
     final dp_nominal=dp_nominal)
     "Bypass junction"
     annotation (Placement(transformation(extent={{-60,-270},{-40,-290}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
     redeclare final package Medium=MediumSer,
-    final m_flow_nominal=mDis_flow_nominal)
+    final m_flow_nominal=mBui_flow_nominal)
     "District return temperature sensor"
     annotation (Placement(transformation(extent={{30,210},{50,190}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
-    final m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
+    final m_flow_nominal=mBui_flow_nominal*{1,-1,-1},
     final dp_nominal=dp_nominal)
     "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage conVal(
     redeclare final package Medium=MediumSer,
-    final m_flow_nominal=mDis_flow_nominal,
+    final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpConVal_nominal,
     use_inputFilter=true,
     riseTime(displayUnit="s") = 60)
@@ -140,7 +130,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
-    final m_flow_nominal=mByp_flow_nominal,
+    final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpCheVal_nominal)
     "Check valve (backflow preventer)"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -289,7 +279,13 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </p>
 </html>",
       revisions="<html>
-      <ul>
+<ul>
+<li>
+December 23, 2022, by Kathryn Hinkelman:<br/>
+Removed extraneous <code>m*_flow_nominal</code> parameters because 
+<code>mBui_flow_nominal</code> can be used across all components.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
+</li> 
 <li>
 November 11, 2022, by Michael Wetter:<br/>
 Changed check valve to use version of <code>Buildings</code> library, and hence no outer <code>system</code> is needed.

@@ -18,9 +18,7 @@ model DirectControlled "Example model for direct cooling energy transfer station
     "Default specific heat capacity of medium";
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled
     cooETS(
-    mDis_flow_nominal=mBui_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
-    mByp_flow_nominal=mBui_flow_nominal,
     QChiWat_flow_nominal=Q_flow_nominal,
     dpConVal_nominal=50,
     dpCheVal_nominal=6000,
@@ -157,6 +155,12 @@ supply temperature is modeled as a sinusoidal signal to test the response of sys
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 23, 2022, by Kathryn Hinkelman:<br/>
+Removed extraneous <code>m*_flow_nominal</code> parameters because 
+<code>mBui_flow_nominal</code> can be used across all components.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
+</li> 
 <li>November 15, 2022, by Kathryn Hinkelman:<br/>
 Corrected pressure balance across bypass leg and system.
 </li>

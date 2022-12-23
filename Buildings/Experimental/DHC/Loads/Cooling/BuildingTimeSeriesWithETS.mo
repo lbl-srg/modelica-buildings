@@ -8,13 +8,9 @@ model BuildingTimeSeriesWithETS
       facMulCoo=40*QCoo_flow_nominal/(-1.5E5),
       T_aChiWat_nominal=TChiWatSup_nominal,
       T_bChiWat_nominal=TChiWatRet_nominal),
-    ets(
-      QChiWat_flow_nominal=QCoo_flow_nominal),
-      m_flow_nominal=mBui_flow_nominal);
-  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(
-    max=-Modelica.Constants.eps)=Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(
-    string="#Peak space cooling load",
-    filNam=Modelica.Utilities.Files.loadResource(filNam))
+      mBui_flow_nominal=-QCoo_flow_nominal/(cp*dT_nominal),
+      ets(QChiWat_flow_nominal=QCoo_flow_nominal));
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=bui.QCoo_flow_nominal
     "Space cooling design load (<=0)";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0)=9
     "Water temperature drop/increase accross load and source-side HX (always positive)"
@@ -25,11 +21,6 @@ model BuildingTimeSeriesWithETS
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=
     TChiWatSup_nominal + dT_nominal
     "Chilled water return temperature"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
-    final min=0,
-    final start=0.5)=-QCoo_flow_nominal/(cp*dT_nominal)
-    "Nominal mass flow rate of building cooling side"
     annotation (Dialog(group="Nominal condition"));
   parameter String filNam
     "Library path of the file with thermal loads as time series";
@@ -54,9 +45,14 @@ where the space cooling loads are provided as time series.
 </html>", revisions="<html>
 <ul>
 <li>
+December 23, 2022, by Kathryn Hinkelman:<br>
+Revised ETS from direct uncontrolled to direct controlled. 
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
+</li>
+<li>
 December 21, 2022 by Kathryn Hinkelman:<br>
 Removed in-building pumping because of coupling with the direct/uncontrolled ETS.<br> 
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
 </li>
 </ul>
 <ul>
