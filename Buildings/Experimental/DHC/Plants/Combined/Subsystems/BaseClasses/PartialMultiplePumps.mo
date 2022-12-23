@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses;
-model MultiplePumps "Model of multiple identical pumps in parallel"
+partial model PartialMultiplePumps
+  "Base class for modeling multiple identical pumps in parallel"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final massDynamics=energyDynamics,
     final mSenFac=1);
@@ -99,7 +100,7 @@ model MultiplePumps "Model of multiple identical pumps in parallel"
     final per=per,
     addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  MultipleUnitsCommand com(final nUni=nPum) "Convert command signal"
+  MultipleCommands com(final nUni=nPum) "Convert command signal"
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
@@ -201,4 +202,4 @@ equation
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})));
-end MultiplePumps;
+end PartialMultiplePumps;

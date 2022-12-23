@@ -49,11 +49,11 @@ partial model PartialElectric
   Real PLR2(min=0, unit="1") "Part load ratio";
   Real CR(min=0, unit="1") "Cycling ratio";
 
-  Controls.OBC.CDL.Interfaces.BooleanInput u1Coo if have_switchOver
-    "Switchover signal: true for cooling, false for heating"
-    annotation (
+  Controls.OBC.CDL.Interfaces.BooleanInput coo if have_switchOver
+    "Switchover signal: true for cooling, false for heating" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-40,-40},{40,40}},
+        iconTransformation(
+        extent={{-40,-40},{40,40}},
         rotation=-90,
         origin={-80,140})));
   Controls.OBC.CDL.Logical.Sources.Constant tru(
@@ -61,10 +61,9 @@ partial model PartialElectric
     "Constant true signal"
     annotation (Placement(transformation(extent={{-30,-10},{-50,10}})));
 protected
-  Controls.OBC.CDL.Interfaces.BooleanInput u1Coo_internal
+  Controls.OBC.CDL.Interfaces.BooleanInput coo_internal
     "Internal switchover signal: true for cooling, false for heating"
-    annotation (
-      Placement(transformation(extent={{-100,-20},{-60,20}}),
+    annotation (Placement(transformation(extent={{-100,-20},{-60,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Modelica.Units.SI.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal, start
@@ -131,29 +130,32 @@ equation
   TEvaLvg_degC=Modelica.Units.Conversions.to_degC(TEvaLvg);
 
   // Enthalpy of temperature setpoint
-  hSet = if u1Coo_internal then
-    Medium2.specificEnthalpy_pTX(
-             p=port_b2.p,
-             T=TSet,
-             X=cat(1, port_b2.Xi_outflow, {1-sum(port_b2.Xi_outflow)}))
-    else Medium1.specificEnthalpy_pTX(
-           p=port_b1.p,
-           T=TSet,
-           X=cat(1, port_b1.Xi_outflow, {1-sum(port_b1.Xi_outflow)}));
+  hSet =if coo_internal then Medium2.specificEnthalpy_pTX(
+    p=port_b2.p,
+    T=TSet,
+    X=cat(
+      1,
+      port_b2.Xi_outflow,
+      {1 - sum(port_b2.Xi_outflow)})) else Medium1.specificEnthalpy_pTX(
+    p=port_b1.p,
+    T=TSet,
+    X=cat(
+      1,
+      port_b1.Xi_outflow,
+      {1 - sum(port_b1.Xi_outflow)}));
 
   if on then
     // Available cooling capacity
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
     QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=if u1Coo_internal then m2_flow*(hSet-inStream(port_a2.h_outflow)) else
-         P * etaMotor - QCon_flow_set,
+      x1=if coo_internal then m2_flow * (hSet - inStream(port_a2.h_outflow))
+         else P * etaMotor - QCon_flow_set,
       x2=Q_flow_small,
       deltaX=-Q_flow_small/100);
     // Heating capacity required to heat up condenser water to setpoint
-    QCon_flow_set = if u1Coo_internal then QCon_flow
-      else m1_flow * (hSet - inStream(port_a1.h_outflow));
-
+    QCon_flow_set = if coo_internal then QCon_flow
+                    else m1_flow * (hSet - inStream(port_a1.h_outflow));
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
       x1 = QEva_flow_set/(QEva_flow_ava+Q_flow_small),
@@ -217,10 +219,10 @@ equation
       points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(u1Coo, u1Coo_internal)
+  connect(coo, coo_internal)
     annotation (Line(points={{-120,0},{-80,0}}, color={255,0,255}));
-  connect(tru.y, u1Coo_internal) annotation (Line(points={{-52,0},{-80,0}},
-                           color={255,0,255}));
+  connect(tru.y, coo_internal)
+    annotation (Line(points={{-52,0},{-80,0}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={
@@ -305,7 +307,7 @@ equation
           textString="on"),
         Text(extent={{-102,96},{-56,84}},
           textColor={0,0,127},
-          textString="cooling")}),
+          textString="coo")}),
 Documentation(info="<html>
 <p>
 Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the

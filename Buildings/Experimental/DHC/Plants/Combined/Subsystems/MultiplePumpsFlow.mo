@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems;
 model MultiplePumpsFlow
   "Model of multiple identical pumps in parallel with flow-controlled pump model"
-  extends BaseClasses.MultiplePumps(
+  extends BaseClasses.PartialMultiplePumps(
     redeclare final Buildings.Fluid.Movers.FlowControlled_m_flow pum(
       final m_flow_nominal=mPum_flow_nominal,
       final dp_nominal=dpPum_nominal),

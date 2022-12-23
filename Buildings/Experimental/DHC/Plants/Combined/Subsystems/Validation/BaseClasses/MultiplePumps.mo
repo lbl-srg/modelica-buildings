@@ -31,7 +31,7 @@ model MultiplePumps
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   replaceable Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed pum
-    constrainedby Subsystems.BaseClasses.MultiplePumps(
+    constrainedby Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps(
     redeclare final package Medium = Medium,
     final nPum=nPum,
     final mPum_flow_nominal=mPum_flow_nominal,
@@ -66,16 +66,11 @@ model MultiplePumps
     "Modulating valve"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Pum1(
-    table=[0,0; 1,0; 1,1; 10,1],
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Pum(
+    table=[0,0,0; 1,0,0; 1,1,0; 4,1,1; 4,1,1; 10,1,1],
     timeScale=100,
-    period=1000) "Pump #1 Start signal"
+    period=1000) "Pump Start signal"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Pum2(
-    table=[0,0; 4,0; 4,1; 10,1],
-    timeScale=100,
-    period=1000) "Pump #2 Start signal"
-    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
   replaceable Fluid.Movers.SpeedControlled_y pum1
     constrainedby Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
     redeclare final package Medium = Medium,
@@ -113,12 +108,9 @@ model MultiplePumps
     dpFixed_nominal=dp_nominal - val.dpValve_nominal)
     "Modulating valve"
     annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     "Convert to real"
     annotation (Placement(transformation(extent={{80,110},{100,130}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2
-    "Convert to real"
-    annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Fluid.Sensors.RelativePressure senRelPre1(redeclare package Medium = Medium)
     "Differential pressure sensor" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -148,10 +140,8 @@ equation
     annotation (Line(points={{10,60},{30,60}}, color={0,127,255}));
   connect(ope.y, val.y) annotation (Line(points={{-98,0},{-40,0},{-40,20},{0,20},
           {0,12}}, color={0,0,127}));
-  connect(y1Pum1.y[1], pum.y1[1]) annotation (Line(points={{-98,120},{-14,120},
-          {-14,67.5},{-12,67.5}}, color={255,0,255}));
-  connect(y1Pum2.y[1], pum.y1[2]) annotation (Line(points={{-98,80},{-28,80},{-28,
-          68.5},{-12,68.5}}, color={255,0,255}));
+  connect(y1Pum.y, pum.y1) annotation (Line(points={{-98,120},{-14,120},{-14,68},
+          {-12,68}},         color={255,0,255}));
   connect(pum.port_b, senMasFlo.port_a)
     annotation (Line(points={{10,60},{20,60},{20,40}}, color={0,127,255}));
   connect(senMasFlo.port_b, val.port_a)
@@ -168,10 +158,8 @@ equation
           {-40,-40},{-10,-40}}, color={0,127,255}));
   connect(val1.port_b, bou.ports[2]) annotation (Line(points={{-10,-120},{-60,-120},
           {-60,61}}, color={0,127,255}));
-  connect(y1Pum1.y[1], booToRea1.u)
+  connect(y1Pum.y, booToRea.u)
     annotation (Line(points={{-98,120},{78,120}}, color={255,0,255}));
-  connect(y1Pum2.y[1], booToRea2.u)
-    annotation (Line(points={{-98,80},{78,80}}, color={255,0,255}));
   connect(cheVal2.port_b, senMasFlo1.port_a)
     annotation (Line(points={{50,-80},{60,-80},{60,-90}}, color={0,127,255}));
   connect(senMasFlo1.port_b, val1.port_a) annotation (Line(points={{60,-110},{60,
@@ -182,12 +170,12 @@ equation
     annotation (Line(points={{80,-80},{60,-80},{60,-90}}, color={0,127,255}));
   connect(senRelPre1.port_b, pum2.port_a) annotation (Line(points={{100,-80},{120,
           -80},{120,-130},{-40,-130},{-40,-80},{-10,-80}}, color={0,127,255}));
-  connect(booToRea1.y, inp1.u2)
+  connect(booToRea[1].y, inp1.u2)
     annotation (Line(points={{102,120},{126,120},{126,14}}, color={0,0,127}));
-  connect(booToRea2.y, inp2.u2) annotation (Line(points={{102,80},{134,80},{134,
-          -26},{126,-26},{126,-30}}, color={0,0,127}));
   connect(ope.y, val1.y) annotation (Line(points={{-98,0},{-80,0},{-80,-100},{0,
           -100},{0,-108}}, color={0,0,127}));
+  connect(booToRea[2].y, inp2.u2) annotation (Line(points={{102,120},{134,120},{
+          134,-20},{126,-20},{126,-30}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Subsystems/Validation/MultiplePumpsSpeed.mos"

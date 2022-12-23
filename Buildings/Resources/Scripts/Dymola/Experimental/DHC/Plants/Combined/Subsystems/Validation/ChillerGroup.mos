@@ -7,7 +7,7 @@ simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.
 createPlot(
     id=1,
     position={42, 30, 624, 552},
-    y={"y1Chi1.y[1]", "y1Chi2.y[1]"},
+    y={"y1Chi.y[1]", "y1Chi.y[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

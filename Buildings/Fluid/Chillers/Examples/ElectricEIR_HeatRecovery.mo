@@ -52,7 +52,7 @@ equation
       points={{-2,7},{-30,7},{-30,60},{-59,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fal.y, chi.u1Coo)
+  connect(fal.y, chi.coo)
     annotation (Line(points={{8,60},{2,60},{2,24}}, color={255,0,255}));
   annotation (
 experiment(Tolerance=1e-6, StopTime=14400),

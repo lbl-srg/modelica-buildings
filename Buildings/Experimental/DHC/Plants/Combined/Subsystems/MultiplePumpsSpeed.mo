@@ -2,7 +2,7 @@ within Buildings.Experimental.DHC.Plants.Combined.Subsystems;
 model MultiplePumpsSpeed
   "Model of multiple identical pumps in parallel with speed-controlled pump model"
   extends
-    Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultiplePumps(
+    Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps(
     cst(final k=1));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
