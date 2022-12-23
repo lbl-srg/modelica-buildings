@@ -8,8 +8,8 @@ model DomesticWaterFixture
   parameter Modelica.Units.SI.Temperature TDcw = 273.15+10 "Temperature setpoint of domestic cold water supply";
   parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal = 0.1 "Design domestic hot water supply flow rate of system";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") = 85000 "Pressure difference for thermostatic mixing valve with nominal flow of 6.5gpm";
-  parameter Real kCon(min=0) = 2 "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 15 "Time constant of Integrator block" annotation (Dialog(enable=
+  parameter Real kCon(min=0) = 0.1 "Gain of controller";
+  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 120 "Time constant of Integrator block" annotation (Dialog(enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PI or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
   parameter Real uLow = 0.1 "low hysteresis threshold";
