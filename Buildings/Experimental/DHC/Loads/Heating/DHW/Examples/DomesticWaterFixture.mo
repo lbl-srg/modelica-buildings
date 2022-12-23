@@ -84,5 +84,11 @@ Created example.
 </ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Heating/DHW/Examples/DomesticWaterFixture.mos"
+  "Simulate and plot"),experiment(
+      StopTime=86400,
+      Interval=60,
+      __Dymola_Algorithm="Dassl"));
 end DomesticWaterFixture;
