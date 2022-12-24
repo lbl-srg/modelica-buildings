@@ -1,13 +1,13 @@
-simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.MultiplePumpsSpeed",
+simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.MultiplePumpsDp",
     method="Cvode",
     tolerance=1e-6,
     startTime=0,
     stopTime=1000,
-    resultFile="MultiplePumpsSpeed");
+    resultFile="MultiplePumpsDp");
 createPlot(
     id=1,
     position={42, 30, 624, 552},
-    y={"spe.y", "y1Pum.y[1]", "y1Pum.y[2]", "ope.y"},
+    y={"y1Pum.y[1]", "y1Pum.y[2]", "ope.y"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -16,7 +16,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=102,
-    y={"senRelPre.p_rel", "senRelPre1.p_rel"},
+    y={"dpSet.y", "senRelPre.p_rel", "senRelPre1.p_rel"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -40,4 +40,4 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-plotExpression(apply(MultiplePumpsSpeed.pum1.P + MultiplePumpsSpeed.pum2.P), false, "pum1.P+pum2.P");
+plotExpression(apply(MultiplePumpsDp.pum1.P + MultiplePumpsDp.pum2.P), false, "pum1.P+pum2.P");

@@ -12,20 +12,19 @@ model ChillerGroup "Validation of the chiller group model"
   parameter
     Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_1403kW_7_09COP_VSD
     dat "Chiller parameters"
-    annotation (Placement(transformation(extent={{70,72},{90,92}})));
+    annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
-  replaceable Plants.Combined.Subsystems.ChillerGroup chi(
+  Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup chi(
     redeclare final package Medium1 = MediumConWat,
-    redeclare final package Medium2 = MediumChiWat)
-    constrainedby Plants.Combined.Subsystems.BaseClasses.PartialChillerGroup(
-      show_T=true,
-      nChi=2,
-      typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
-      typValCon=Buildings.Experimental.DHC.Types.Valve.None,
-      dpEva_nominal=3E5,
-      dpCon_nominal=3E5,
-      final dat=dat,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    redeclare final package Medium2 = MediumChiWat,
+    show_T=true,
+    nChi=2,
+    typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
+    typValCon=Buildings.Experimental.DHC.Types.Valve.None,
+    dpEva_nominal=3E5,
+    dpCon_nominal=3E5,
+    final dat=dat,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Chiller group"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -39,27 +38,23 @@ model ChillerGroup "Validation of the chiller group model"
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={40,-102})));
+        origin={20,-102})));
 
-  Fluid.Sources.Boundary_pT sup(
+  Fluid.Sources.Boundary_pT supConWat(
     redeclare final package Medium = MediumConWat,
-    p=ret.p + chi.dpCon_nominal + chi.dpBalCon_nominal + chi.dpValveCon_nominal,
-    nPorts=1)
-    "Boundary conditions for CW (HW if heat recovery)"
-    annotation (
-      Placement(transformation(
+    p=retConWat.p + chi.dpCon_nominal + chi.dpBalCon_nominal + chi.dpValveCon_nominal,
+    nPorts=1) "Boundary conditions for CW" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-40,100})));
+        origin={-20,100})));
 
-  Fluid.Sources.Boundary_pT ret(
+  Fluid.Sources.Boundary_pT retConWat(
     redeclare final package Medium = MediumConWat,
     p=200000,
-    nPorts=1) "Boundary conditions for CW (HW if heat recovery)" annotation (
-      Placement(transformation(
+    nPorts=1) "Boundary conditions for CW" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={40,100})));
+        origin={20,100})));
   Fluid.Sources.Boundary_pT supChiWat(
     redeclare final package Medium = MediumChiWat,
     p=200000,
@@ -68,30 +63,30 @@ model ChillerGroup "Validation of the chiller group model"
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-40,-102})));
+        origin={-20,-102})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatSupSet(
     y(displayUnit="degC", unit="K"),
     height=+5,
     duration=1000,
-    offset=dat.TEvaLvg_nominal)
-    "CHW supply temperature setpoint"
+    offset=dat.TEvaLvg_nominal) "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Chi(
     table=[0,1,1; 0.5,1,1; 0.5,1,0; 0.8,1,0; 0.8,0,0; 1,0,0],
     timeScale=1000,
-    period=1000) "Chiller On/Off command"
+    period=1000)
+    "Chiller On/Off command"
     annotation (Placement(transformation(extent={{-110,70},{-90,90}})));
 equation
-  connect(chi.port_b1, ret.ports[1])
-    annotation (Line(points={{10,6},{40,6},{40,90}}, color={0,127,255}));
-  connect(sup.ports[1], chi.port_a1)
-    annotation (Line(points={{-40,90},{-40,6},{-10,6}}, color={0,127,255}));
+  connect(chi.port_b1, retConWat.ports[1])
+    annotation (Line(points={{10,6},{20,6},{20,90}}, color={0,127,255}));
+  connect(supConWat.ports[1], chi.port_a1)
+    annotation (Line(points={{-20,90},{-20,6},{-10,6}}, color={0,127,255}));
   connect(retChiWat.ports[1], chi.port_a2)
-    annotation (Line(points={{40,-92},{40,-6},{10,-6}}, color={0,127,255}));
+    annotation (Line(points={{20,-92},{20,-6},{10,-6}}, color={0,127,255}));
   connect(supChiWat.ports[1], chi.port_b2)
-    annotation (Line(points={{-40,-92},{-40,-6},{-10,-6}}, color={0,127,255}));
-  connect(TChiWatSupSet.y, chi.TChiWatSupSet) annotation (Line(points={{-88,-40},
-          {-20,-40},{-20,-9},{-12,-9}}, color={0,0,127}));
+    annotation (Line(points={{-20,-92},{-20,-6},{-10,-6}}, color={0,127,255}));
+  connect(TChiWatSupSet.y, chi.TSet) annotation (Line(points={{-88,-40},{-16,
+          -40},{-16,-9},{-12,-9}}, color={0,0,127}));
   connect(y1Chi.y, chi.y1Chi) annotation (Line(points={{-88,80},{-60,80},{-60,9},
           {-12,9}},        color={255,0,255}));
   connect(y1Chi.y, chi.y1ValEva) annotation (Line(points={{-88,80},{-60,80},{-60,

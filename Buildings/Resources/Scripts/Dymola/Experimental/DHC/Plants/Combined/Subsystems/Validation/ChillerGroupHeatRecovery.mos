@@ -52,7 +52,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"chi.m1_flow", "chi.port_aConWat.m_flow", "chi.m2_flow", "chi.chiHea.m1_flow", "chi.chiHea.m2_flow"},
+    y={"chiHea.m1_flow", "chiHea.port_aConWat.m_flow", "chiHea.m2_flow", "chiHea.chi.m1_flow", "chiHea.chi.m2_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -61,7 +61,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"THeaWatSupSet.y", "chi.sta_a1.T", "chi.sta_b1.T"},
+    y={"THeaWatSupSet.y", "chiHea.sta_a1.T", "chiHea.sta_b1.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -70,7 +70,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=4,
-    y={"chi.chiHea.PLR1", "chi.chiHea.PLR2"},
+    y={"chiHea.chi.PLR1", "chiHea.chi.PLR2"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

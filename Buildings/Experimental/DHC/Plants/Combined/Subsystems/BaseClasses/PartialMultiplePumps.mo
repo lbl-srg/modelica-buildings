@@ -158,15 +158,17 @@ equation
   connect(mulInl.port_b, pum.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
   connect(y1, com.y1)
-    annotation (Line(points={{-120,100},{-92,100}}, color={255,0,255}));
+    annotation (Line(points={{-120,100},{-94,100},{-94,105},{-92,105}},
+                                                    color={255,0,255}));
   connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,106},{-64,106},
           {-64,80},{50,80},{50,6},{58,6}},
                       color={0,0,127}));
   connect(com.y1One, booToRea.u)
-    annotation (Line(points={{-68,100},{-62,100}}, color={255,0,255}));
+    annotation (Line(points={{-68,109},{-66,109},{-66,100},{-62,100}},
+                                                   color={255,0,255}));
   connect(mul.y, P)
     annotation (Line(points={{82,60},{120,60}}, color={0,0,127}));
-  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,94},{-66,94},{-66,
+  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,103},{-66,103},{-66,
           78},{40,78},{40,66},{58,66}},
                     color={0,0,127}));
   connect(pum.P, mul.u2) annotation (Line(points={{11,9},{40,9},{40,54},{58,54}},

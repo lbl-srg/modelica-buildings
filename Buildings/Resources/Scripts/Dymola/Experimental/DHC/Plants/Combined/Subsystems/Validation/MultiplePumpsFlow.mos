@@ -25,7 +25,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=103,
-    y={"senMasFlo.m_flow", "senMasFlo1.m_flow"},
+    y={"floSet.y", "senMasFlo.m_flow", "senMasFlo1.m_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
