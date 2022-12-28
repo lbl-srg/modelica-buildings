@@ -24,7 +24,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   // Pressure drops
   parameter Modelica.Units.SI.PressureDifference dpConVal_nominal(
     final min=0,
-    displayUnit="Pa")=6000
+    displayUnit="Pa")=50
     "Nominal pressure drop in the control valve"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCheVal_nominal(
@@ -161,25 +161,12 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     reverseActing=false,
     y_reset=0)
     "District return temperature controller"
-    annotation (Placement(transformation(extent={{-220,10},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-220,100},{-200,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{230,190},{250,210}})));
-  Modelica.Blocks.Logical.OnOffController onOffCon(
-    final bandwidth=bandwidth)
-    "On/off control for the control valve"
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Modelica.Blocks.Logical.Switch swi
-    "Switch between full opening and PI control signal"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Constant const(k=1)
-    "Full opening of the control valve"
-    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
-  Modelica.Blocks.Logical.Not notCon
-    "Reverse the on/off signal"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 protected
   final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
     T=MediumSer.T_default,
@@ -226,35 +213,19 @@ equation
   connect(senTDisSup.T, dTdis.u2)
     annotation (Line(points={{-170,-269},{-170,-110},{58,-110}}, color={0,0,127}));
   connect(TSetDisRet, con.u_s)
-    annotation (Line(points={{-318,0},{-222,0}},                     color={0,0,127}));
+    annotation (Line(points={{-318,0},{-270,0},{-270,90},{-222,90}}, color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)
-    annotation (Line(points={{-210,189},{-210,12}}, color={0,0,127}));
+    annotation (Line(points={{-210,189},{-210,102}},color={0,0,127}));
   connect(jun.port_2, senTBuiSup.port_a)
     annotation (Line(points={{-40,-280},{220,-280},{220,200},{230,200}}, color={0,127,255}));
   connect(senTBuiSup.port_b, ports_bChiWat[1])
     annotation (Line(points={{250,200},{300,200}}, color={0,127,255}));
-  connect(const.y, swi.u1)
-    annotation (Line(points={{-139,130},{-110,130},{
-          -110,80},{-82,80},{-82,78}}, color={0,0,127}));
-  connect(notCon.y, swi.u2)
-    annotation (Line(points={{-119,70},{-82,70}}, color={255,0,255}));
-  connect(con.y, swi.u3)
-    annotation (Line(points={{-199,0},{-110,0},{-110,62},
-          {-82,62}}, color={0,0,127}));
-  connect(swi.y, conVal.y)
-    annotation (Line(points={{-59,70},{0,70},{0,188}}, color={0,0,127}));
-  connect(senTBuiRet.T, onOffCon.u)
-    annotation (Line(points={{-210,189},{-210,
-          64},{-182,64}}, color={0,0,127}));
-  connect(TSetDisRet, onOffCon.reference)
-    annotation (Line(points={{-318,0},{
-          -260,0},{-260,76},{-182,76}}, color={0,0,127}));
-  connect(onOffCon.y, notCon.u)
-    annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
   connect(spl.port_3, cheVal.port_a)
     annotation (Line(points={{-50,190},{-50,0}}, color={0,127,255}));
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
+  connect(con.y, conVal.y)
+    annotation (Line(points={{-199,90},{0,90},{0,188}}, color={0,0,127}));
  annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
@@ -280,6 +251,10 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 28, 2022, by Kathryn Hinkelman:<br/>
+Simplified the control implementation for the district return stream.
+</li>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br/>
 Removed extraneous <code>m*_flow_nominal</code> parameters because 
