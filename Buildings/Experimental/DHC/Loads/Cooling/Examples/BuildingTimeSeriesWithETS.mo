@@ -3,17 +3,17 @@ model BuildingTimeSeriesWithETS
   "Example model of a building with loads provided as time series and 
   connected to an ETS for cooling"
   extends Modelica.Icons.Example;
-  extends Modelica.Icons.UnderConstruction;
   package Medium=Buildings.Media.Water
     "Medium model";
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiWitETS(
+    yMin=0.001,
     filNam=
       "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
   "Building Time Series load coupled with ETS"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.Sources.Boundary_pT supChiWat(
     redeclare package Medium = Medium,
-    p(displayUnit="bar") = 420000,
+    p(displayUnit="bar") = 350000,
     use_T_in=true,
     T=280.15,
     nPorts=1)
@@ -21,7 +21,7 @@ model BuildingTimeSeriesWithETS
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,10})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium = Medium,
-    p(displayUnit="bar") = 300000,
+    p(displayUnit="bar") = 340000,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-50})));

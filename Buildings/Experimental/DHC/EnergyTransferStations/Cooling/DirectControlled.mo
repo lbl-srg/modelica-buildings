@@ -41,11 +41,11 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     annotation (Dialog(group="PID controller"));
   parameter Real k(
     final min=0,
-    final unit="1")=1
+    final unit="1")=0.1
     "Gain of controller"
     annotation (Dialog(group="PID controller"));
   parameter Modelica.Units.SI.Time Ti(
-    final min=Modelica.Constants.small)=120
+    final min=Modelica.Constants.small)=60
     "Time constant of integrator block"
     annotation (Dialog(group="PID controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(
@@ -56,7 +56,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final start=1)=1
     "Upper limit of output"
     annotation (Dialog(group="PID controller"));
-  parameter Real yMin=0.01
+  parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="PID controller"));
   // Advanced parameters
@@ -253,7 +253,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 <ul>
 <li>
 December 28, 2022, by Kathryn Hinkelman:<br/>
-Simplified the control implementation for the district return stream.
+Simplified the control implementation for the district return stream. Improved default control parameters.
 </li>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br/>
