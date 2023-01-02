@@ -18,7 +18,7 @@ model ChillerGroup "Validation of the chiller group model"
     redeclare final package Medium1 = MediumConWat,
     redeclare final package Medium2 = MediumChiWat,
     show_T=true,
-    nChi=2,
+    nUni=2,
     typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
     typValCon=Buildings.Experimental.DHC.Types.Valve.None,
     dpEva_nominal=3E5,

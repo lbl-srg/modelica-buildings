@@ -39,8 +39,7 @@ partial model PartialMultiplePumps
       pressure(
         V_flow={0, 1, 2} * mPum_flow_nominal / rho_default,
         dp={1.14, 1, 0.42} * dpPum_nominal),
-      motorCooledByFluid=false)
-    "Pump parameters"
+      motorCooledByFluid=false) "Pump parameters"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
 
   parameter Modelica.Units.SI.Time tau=1
@@ -160,7 +159,7 @@ equation
   connect(y1, com.y1)
     annotation (Line(points={{-120,100},{-94,100},{-94,105},{-92,105}},
                                                     color={255,0,255}));
-  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,106},{-64,106},
+  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,107},{-64,107},
           {-64,80},{50,80},{50,6},{58,6}},
                       color={0,0,127}));
   connect(com.y1One, booToRea.u)
@@ -168,7 +167,7 @@ equation
                                                    color={255,0,255}));
   connect(mul.y, P)
     annotation (Line(points={{82,60},{120,60}}, color={0,0,127}));
-  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,103},{-66,103},{-66,
+  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,105},{-66,105},{-66,
           78},{40,78},{40,66},{58,66}},
                     color={0,0,127}));
   connect(pum.P, mul.u2) annotation (Line(points={{11,9},{40,9},{40,54},{58,54}},
@@ -203,5 +202,13 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})),
+    Documentation(info="<html>
+<p>
+This base class is used to construct the various multiple-pump 
+models within 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
+Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
+</p>
+</html>"));
 end PartialMultiplePumps;

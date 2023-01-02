@@ -3,10 +3,10 @@ model ChillerGroupHeatRecovery
   extends ChillerGroup(
     y1Chi(table=[0,1,1; 0.5,1,1; 0.5,1,0; 0.8,1,0; 0.8,0,0; 1,0,0]),
     dat(
-      EIRFunT={0.0105936007, 0.0632651955, 0.0003359956, 0.0028698034, 0.0002436167, -0.0014549332},
-      capFunT={0.0463279647, 0.2784813552, 0.0004642659, -0.0060584188, 0.0002917265, -0.0039957821},
-      EIRFunPLR={-0.4602582371, 0.0461202111, -0.0013106116, -0.2349353291,
-      0.412708312, 0.0146221764, 1.28144e-05, -0.2610973291, -0.0001498946, 0.0048264626},
+      EIRFunT={0.0102183573, 0.0609952315, 0.000378345, 0.0030687392, 0.0002409478, -0.0014270486},
+      capFunT={0.0463224798, 0.2784471296, 0.0004621597, -0.0060446448, 0.000291609, -0.0039960856},
+      EIRFunPLR={-0.466382549, 0.0461035091, -0.0013098646, -0.2357674875, 0.4153191238,
+        0.0146733483, 1.28175e-05, -0.2627343101, -0.0001503581, 0.0048562928},
       QEva_flow_nominal=-1E6,
       COP_nominal=2.5,
       mEva_flow_nominal=20,
@@ -35,7 +35,7 @@ model ChillerGroupHeatRecovery
     redeclare final package Medium1 = MediumConWat,
     redeclare final package Medium2 = MediumChiWat,
     show_T=true,
-    nChi=2,
+    nUni=2,
     typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
     dpEva_nominal=3E5,
     dpCon_nominal=3E5,

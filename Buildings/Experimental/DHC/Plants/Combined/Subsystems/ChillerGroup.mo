@@ -2,11 +2,11 @@ within Buildings.Experimental.DHC.Plants.Combined.Subsystems;
 model ChillerGroup
   "Model of multiple identical chillers in parallel"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final m1_flow_nominal = mConWatChi_flow_nominal,
-    final m2_flow_nominal = mChiWatChi_flow_nominal);
+    final m1_flow_nominal = mConWatUni_flow_nominal,
+    final m2_flow_nominal = mChiWatUni_flow_nominal);
 
-  parameter Integer nChi(final min=1, start=1)
-    "Number of chillers operating at design conditions"
+  parameter Integer nUni(final min=1, start=1)
+    "Number of units operating at design conditions"
     annotation(Evaluate=true);
   parameter Boolean have_switchOver=false
     "Set to true for heat recovery chiller with built-in switchover"
@@ -22,35 +22,35 @@ model ChillerGroup
     Buildings.Experimental.DHC.Types.Valve.None
     "Type of chiller condenser isolation valve"
     annotation(Evaluate=true);
-  final parameter Modelica.Units.SI.HeatFlowRate capChi_nominal(
+  final parameter Modelica.Units.SI.HeatFlowRate capUni_nominal(
     final min=0)=abs(dat.QEva_flow_nominal)
-    "Chiller design capacity (each chiller, >0)"
+    "Chiller design capacity (each unit, >0)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal(
+  final parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal(
     final min=0)=dat.mEva_flow_nominal
-    "Chiller CHW design mass flow rate (each chiller)"
+    "Chiller CHW design mass flow rate (each unit)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal(
+  final parameter Modelica.Units.SI.MassFlowRate mConWatUni_flow_nominal(
     final min=0)=dat.mCon_flow_nominal
-    "Chiller CW design mass flow rate (each chiller)"
+    "Chiller CW design mass flow rate (each unit)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
-    final min=0)=nChi * mChiWatChi_flow_nominal
-    "CHW design mass flow rate (all chillers)"
+    final min=0)=nUni * mChiWatUni_flow_nominal
+    "CHW design mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal(
-    final min=0)=nChi * mConWatChi_flow_nominal
-    "CW design mass flow rate (all chillers)"
+    final min=0)=nUni * mConWatUni_flow_nominal
+    "CW design mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(
     final min=0,
     displayUnit="Pa")
-    "Chiller evaporator design pressure drop (each chiller)"
+    "Chiller evaporator design pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
     final min=0,
     displayUnit="Pa")
-    "Chiller condenser design pressure drop (each chiller)"
+    "Chiller condenser design pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpBalEva_nominal(
     final min=0,
@@ -77,7 +77,7 @@ model ChillerGroup
 
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic dat
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
-    "Chiller parameters"
+    "Chiller parameters (each unit)"
     annotation (Placement(transformation(extent={{-10,-134},{10,-114}})));
 
   // Assumptions
@@ -123,11 +123,11 @@ model ChillerGroup
       final show_T=show_T)
     "Chiller"
     annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Chi[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Chi[nUni]
     "Chiller On/Off signal"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Coo[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Coo[nUni]
     if have_switchOver
     "Chiller switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
@@ -140,7 +140,7 @@ model ChillerGroup
     "Power drawn"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
       iconTransformation(extent={{100,70},{140,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1ValCon[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1ValCon[nUni]
     if typValCon == Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition
     "Chiller condenser isolation valve opening command"
     annotation (Placement(
@@ -151,7 +151,7 @@ model ChillerGroup
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-90,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValCon[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValCon[nUni]
     if typValCon == Buildings.Experimental.DHC.Types.Valve.TwoWayModulating
     "Chiller condenser isolation valve commanded position"
     annotation (
@@ -162,7 +162,7 @@ model ChillerGroup
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-60,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1ValEva[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1ValEva[nUni]
     if typValEva == Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition
     "Chiller evaporator isolation valve opening command" annotation (Placement(
         transformation(
@@ -172,7 +172,7 @@ model ChillerGroup
         extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={-90,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValEva[nChi]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValEva[nUni]
     if typValEva == Buildings.Experimental.DHC.Types.Valve.TwoWayModulating
     "Chiller evaporator isolation valve commanded position"
     annotation (
@@ -207,13 +207,13 @@ model ChillerGroup
     final use_input=true)
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{-30,-70},{-50,-50}})));
-  BaseClasses.MultipleCommands com(final nUni=nChi, final have_mode=
+  BaseClasses.MultipleCommands com(final nUni=nUni, final have_mode=
         have_switchOver) "Convert command signals"
     annotation (Placement(transformation(extent={{-94,100},{-74,120}})));
   BaseClasses.MultipleFlowResistances valEva(
     redeclare final package Medium = Medium2,
-    final nUni=nChi,
-    final m_flow_nominal=mChiWatChi_flow_nominal,
+    final nUni=nUni,
+    final m_flow_nominal=mChiWatUni_flow_nominal,
     final have_mode=have_switchOver,
     final dpFixed_nominal=dpEva_nominal + dpBalEva_nominal,
     final dpValve_nominal=dpValveEva_nominal,
@@ -229,8 +229,8 @@ model ChillerGroup
     annotation (Placement(transformation(extent={{-70,-50},{-90,-70}})));
   BaseClasses.MultipleFlowResistances valCon(
     redeclare final package Medium = Medium1,
-    final nUni=nChi,
-    final m_flow_nominal=mConWatChi_flow_nominal,
+    final nUni=nUni,
+    final m_flow_nominal=mConWatUni_flow_nominal,
     final have_mode=have_switchOver,
     final dpFixed_nominal=dpCon_nominal + dpBalCon_nominal,
     final dpValve_nominal=dpValveCon_nominal,
@@ -244,8 +244,7 @@ model ChillerGroup
     final show_T=show_T)
     "Chiller condenser isolation valves"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP
-    "Scale chiller power"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,30},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant modOpe(
     final k=is_cooling) if have_switchOver "Operating mode (fixed)"
@@ -255,38 +254,40 @@ model ChillerGroup
         origin={-80,140})));
   Buildings.Controls.OBC.CDL.Logical.Switch swi if have_switchOver
     "In cooling mode: use y1ModOne, in heating mode: use y1NotModOne"
-                                                                 annotation (
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-40,136})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(nout=nChi)
-    if have_switchOver "Replicate operating mode signal (fixed)" annotation (
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(final nout=nUni)
+    if have_switchOver "Replicate operating mode signal (fixed)"
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={24,130})));
-  Buildings.Controls.OBC.CDL.Logical.Not modHea[nChi] if have_switchOver
+  Buildings.Controls.OBC.CDL.Logical.Not modHea[nUni] if have_switchOver
     "Returns true if heating mode" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,90})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nChi] if have_switchOver
-    "In cooling mode: use y1Coo, in heating mode: use NOT y1Coo" annotation (
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nUni] if have_switchOver
+    "In cooling mode: use y1Coo, in heating mode: use NOT y1Coo"
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={40,100})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiNumUniBou if have_switchOver
     "In cooling mode: use nUniOnModBou, in heating mode: use nUniOnNotModBou"
-                                                                 annotation (
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-40,20})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiNumUni if have_switchOver
     "In cooling mode: use nUniOnMod, in heating mode: use nUniOnNotMod"
-                                                                 annotation (
+    annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -317,9 +318,9 @@ equation
     annotation (Line(points={{-30,-60},{-20,-60},{-20,-6},{-2,-6}},
                                                    color={0,127,255}));
   connect(y1Chi, com.y1)
-    annotation (Line(points={{-120,120},{-94,120},{-94,115},{-96,115}},
+    annotation (Line(points={{-120,120},{-98,120},{-98,115},{-96,115}},
                                                   color={255,0,255}));
-  connect(chi.P, mulP.u1) annotation (Line(points={{19,9},{16,9},{16,14},{68,14}},
+  connect(chi.P, mulP.u1) annotation (Line(points={{19,9},{24,9},{24,14},{68,14}},
                  color={0,0,127}));
   connect(com.nUniOn, mulP.u2) annotation (Line(points={{-72,115},{16,115},{16,26},
           {68,26}},         color={0,0,127}));

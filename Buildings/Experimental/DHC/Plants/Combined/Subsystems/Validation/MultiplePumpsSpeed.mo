@@ -25,5 +25,19 @@ equation
       StopTime=1000,
       Tolerance=1e-06),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
+    Documentation(info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed\">
+Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed</a>
+by comparing an instance of that model with two instances of
+<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>
+connected in parallel.
+The two pumps are commanded <i>On</i> one after the other, and receive
+an increasing speed signal while working
+against a two-way modulating valve that gets progressively opened.
+</p>
+</html>"));
 end MultiplePumpsSpeed;

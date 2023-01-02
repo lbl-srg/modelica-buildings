@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.BaseClasses;
-model MultiplePumps
+partial model MultiplePumps
   "Base class for validating the multiple pumps model"
   extends Modelica.Icons.Example;
 
@@ -31,7 +31,8 @@ model MultiplePumps
     "Pressure boundary condition"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   replaceable Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed pum
-    constrainedby Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps(
+    constrainedby
+    Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps(
     redeclare final package Medium = Medium,
     final nPum=nPum,
     final mPum_flow_nominal=mPum_flow_nominal,
@@ -184,5 +185,13 @@ equation
       StopTime=1000,
       Tolerance=1e-06),
   Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
+    Documentation(info="<html>
+<p>
+This base class is used to construct validation models 
+for the various multiple-pump models within 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
+Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
+</p>
+</html>"));
 end MultiplePumps;
