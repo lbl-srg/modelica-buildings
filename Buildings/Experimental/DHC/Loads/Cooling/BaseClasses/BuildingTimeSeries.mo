@@ -80,7 +80,18 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance"
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHotWat_flow(
     final unit="W") if have_hotWat
     "SHW load" annotation (Placement(
@@ -146,7 +157,10 @@ model BuildingTimeSeries
     final m_flow_nominal=mHeaWat_flow_nominal,
     final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
     final dp_nominal=100000,
+    final energyDynamics=energyDynamics,
     final nPorts_a1=1,
     final nPorts_b1=1) if have_heaWat
     "Heating water distribution system"
@@ -158,7 +172,10 @@ model BuildingTimeSeries
     final typDis=Buildings.Experimental.DHC.Loads.BaseClasses.Types.DistributionType.ChilledWater,
     final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
     final dp_nominal=100000,
+    final energyDynamics=energyDynamics,
     final nPorts_b1=1,
     final nPorts_a1=1) if have_chiWat
     "Chilled water distribution system"
@@ -281,6 +298,10 @@ equation
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Propagated energy dynamics and a filter for the (variable) secondary pumps.
+</li>
 <li>
 December 21, 2022, by Kathryn Hinkelman:<br>
 Removed final declaration for <code>have_pum</code> to optionally allow

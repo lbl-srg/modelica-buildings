@@ -44,6 +44,15 @@ model FlowDistribution
     final max=1)=1
     "Pump speed at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(final min=0,
       displayUnit="Pa") "Pressure drop at nominal conditions"
     annotation (Dialog(group="Nominal condition"));
@@ -70,8 +79,8 @@ model FlowDistribution
         0) = fill(m_flow_nominal/nUni, nUni)
     "Mass flow rate of each connected unit at nominal conditions" annotation (
       Dialog(group="Nominal condition", enable=typCtr == Type_ctr.ConstantDp));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
-    "Type of energy balance (except for the pump always modeled in steady state)"
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance"
     annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance (except for the pump always modeled in steady state)"
@@ -299,11 +308,13 @@ model FlowDistribution
       final power=per.power),
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
+    final riseTime=riseTime,
     final dp_nominal=dp_nominal,
     addPowerToMedium=false,
     nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr <> Type_ctr.ConstantSpeed
+    final use_inputFilter=use_inputFilter,
+    final energyDynamics=energyDynamics)
+    if have_pum and typCtr <> Type_ctr.ConstantSpeed
     "Distribution pump with prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumSpe(
@@ -322,7 +333,8 @@ model FlowDistribution
     final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
     use_inputFilter=false,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr == Type_ctr.ConstantSpeed
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    if have_pum and typCtr == Type_ctr.ConstantSpeed
     "Distribution pump with prescribed speed (fractional)"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Fluid.Sensors.TemperatureTwoPort senTSup(
@@ -673,6 +685,10 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribut
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Added optional energy dynamics and a filter for the variable pump to improve controllability for some complete district system models.
+</li>
 <li>
 December 12, 2021, by Michael Wetter:<br/>
 Added parameter assignment for <code>pumFlo.per.V_flow</code> and <code>pumFlo.per.pressure</code>.

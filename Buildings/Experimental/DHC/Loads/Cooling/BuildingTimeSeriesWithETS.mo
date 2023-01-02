@@ -9,9 +9,12 @@ model BuildingTimeSeriesWithETS
       final filNam=filNam,
       facMulCoo=40*QCoo_flow_nominal/(-1.5E5),
       T_aChiWat_nominal=TChiWatSup_nominal,
-      T_bChiWat_nominal=TChiWatRet_nominal),
+      T_bChiWat_nominal=TChiWatRet_nominal,
+      final energyDynamics=energyDynamics,
+      final use_inputFilter=use_inputFilter,
+      final riseTime=riseTime),
       mBui_flow_nominal=-QCoo_flow_nominal/(cp*dT_nominal),
-      ets(QChiWat_flow_nominal=QCoo_flow_nominal, dp_nominal={0,0,0}));
+      ets(QChiWat_flow_nominal=QCoo_flow_nominal));
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=bui.QCoo_flow_nominal
     "Space cooling design load (<=0)";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0)=9
@@ -24,6 +27,18 @@ model BuildingTimeSeriesWithETS
     TChiWatSup_nominal + dT_nominal
     "Chilled water return temperature"
     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance"
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   parameter String filNam
     "Library path of the file with thermal loads as time series";
 protected
@@ -46,6 +61,10 @@ where the space cooling loads are provided as time series.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Propagated energy dynamics and a filter for the (variable) secondary pumps.
+</li>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br>
 Revised ETS from direct uncontrolled to direct controlled. 
