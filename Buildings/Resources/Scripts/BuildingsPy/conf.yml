@@ -140,11 +140,9 @@
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
-- model_name: Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe
-  optimica:
-    comment: Could not solve initialization. Could not bracket the root. Iteration variable pipAut1.dh. Filed Modelon#2022112839000242
-    simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
+  dymola:
+    time_out: 600
   openmodelica:
     comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: 0.0'
     simulate: false
@@ -173,6 +171,9 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
+  dymola:
+    time_out: 600
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
     comment: timed out after 300 seconds
@@ -314,6 +315,8 @@
     comment: Failed to copy array. Dimension sizes are not equal and destination array is not flexible.
     simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.Tutorial.MixedConvection
+  dymola:
+    time_out: 600
   openmodelica:
     comment: 'TimeoutExpired: omc timed out after 300 seconds'
     simulate: false
@@ -356,6 +359,10 @@
   optimica:
     comment: Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868
     rtol: 1.0e-08
+- model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
+  openmodelica:
+    comment: "division by zero at time 0, (a=-0) / (b=-0), where divisor b expression is: -0.0"
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
   openmodelica:
     comment: timed out after 300 seconds
