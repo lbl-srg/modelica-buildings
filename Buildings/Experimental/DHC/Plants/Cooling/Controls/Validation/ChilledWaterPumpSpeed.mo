@@ -23,12 +23,16 @@ model ChilledWaterPumpSpeed
     offset=0.8*chiWatPumSpe.dpSetPoi,
     startTime=150) "Measured pressure drop"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+  Modelica.Blocks.Sources.BooleanConstant on "Plant on signal"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(mFloTot.y,chiWatPumSpe.masFloPum)
-    annotation (Line(points={{-39,30},{-30,30},{-30,4},{-12,4}},
+    annotation (Line(points={{-39,30},{-30,30},{-30,2},{-12,2}},
       color={0,0,127}));
   connect(dpMea.y, chiWatPumSpe.dpMea) annotation (Line(points={{-39,-30},{-30,
           -30},{-30,-4},{-12,-4}}, color={0,0,127}));
+  connect(on.y, chiWatPumSpe.on) annotation (Line(points={{-39,70},{-20,70},{
+          -20,8},{-12,8}}, color={255,0,255}));
   annotation (
     Icon(
       coordinateSystem(
