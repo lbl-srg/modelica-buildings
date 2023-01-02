@@ -2,7 +2,6 @@ within Buildings.Experimental.DHC.Examples.Cooling;
 model DirectUncontrolledETS
   "Example model for district cooling system with direct uncontrolled ETS"
   extends Modelica.Icons.Example;
-  extends Modelica.Icons.UnderConstruction;
   package Medium=Buildings.Media.Water
     "Medium model for water";
   // Chiller and cooling tower
@@ -26,21 +25,17 @@ model DirectUncontrolledETS
   parameter Modelica.Units.SI.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
     "Nominal cooling capaciaty (Negative means cooling)"
     annotation (Dialog(group="Chiller and cooling tower"));
-  // Control settings
-  parameter Modelica.Units.SI.Pressure dpSetPoi=24500
-    "Differential pressure setpoint"
-    annotation (Dialog(group="Control settings"));
   // Pumps
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCHW_flow_nominal/1000*{0.2,0.6,0.8,1.0},
-      dp=(dpCHW_nominal+dpSetPoi+dpDis+6000*3)*{1.5,1.3,1.0,0.6}))
+      dp=(dpCHW_nominal+dpDis+20000+6000*3)*{1,0.8,0.6,0.2}))
     "Performance data for chilled water pumps"
     annotation (Dialog(group="Pumps"));
   parameter Buildings.Fluid.Movers.Data.Generic perCWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-      dp=(dpCW_nominal+6000*2)*{1.2,1.1,1.0,0.6}))
+      dp=(dpCW_nominal+6000*2)*{1,0.8,0.6,0.2}))
     "Performance data for condenser water pumps"
     annotation (Dialog(group="Pumps"));
   // Network
@@ -81,19 +76,14 @@ model DirectUncontrolledETS
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=5000,
-    tau=10,
-    use_inputFilter=true,
+    tau=60,
     yCHWP_start=fill(0, 2),
     yCWP_start=fill(0, 2),
     dpCooTowVal_nominal=6000,
     dpCHWPumVal_nominal=6000,
     dpCWPumVal_nominal=6000,
     tWai=30,
-    dpSetPoi=dpSetPoi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k(displayUnit="1") = 0.1,
-    Ti(displayUnit="s") = 60)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -104,19 +94,20 @@ model DirectUncontrolledETS
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=273.15+7)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Experimental.DHC.Networks.Distribution2Pipe dis(
+  Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow dis(
     redeclare final package Medium=Medium,
     nCon=nLoa,
     allowFlowReversal=false,
     mDis_flow_nominal=sum(dis.mCon_flow_nominal),
     mCon_flow_nominal=mBui_flow_nominal,
     mEnd_flow_nominal=mBui_flow_nominal[nLoa],
-    dpDis_nominal=fill(5000, nLoa))
+    length=fill(30, nLoa))
     "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     each yMin=0.05,
     each use_inputFilter=true,
+    riseTime=120,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal,
     each bui(w_aLoaCoo_nominal=0.015))
@@ -137,6 +128,8 @@ model DirectUncontrolledETS
   Modelica.Blocks.Math.Gain norQFlo(k=1/sum(QCoo_flow_nominal))
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{30,10},{10,30}})));
+  HeatTransfer.Sources.FixedTemperature gnd(T=285.15) "Ground"
+    annotation (Placement(transformation(extent={{60,-60},{40,-40}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
@@ -160,8 +153,6 @@ equation
     annotation (Line(points={{28,0},{0,0},{0,42},{40,42}}, color={0,127,255}));
   connect(buiETS.port_bSerCoo, dis.ports_aCon) annotation (Line(points={{60,42},
           {80,42},{80,0},{52,0}}, color={0,127,255}));
-  connect(dis.dp, pla.dpMea) annotation (Line(points={{62,-7},{70,-7},{70,-32},
-          {-46,-32},{-46,-6.73333},{-30.6667,-6.73333}}, color={0,0,127}));
   for i in 1:nLoa loop
     connect(TDisRetSet.y, buiETS[i].TSetDisRet)
      annotation (Line(points={{11,70},{20,70},{20,57},{39,57}},color={0,0,127}));
@@ -176,7 +167,10 @@ equation
     annotation (Line(points={{39,20},{32,20}}, color={0,0,127}));
   connect(norQFlo.y, onCoo.u)
     annotation (Line(points={{9,20},{-28,20}}, color={0,0,127}));
-    annotation (Dialog(group="Network"),
+  connect(gnd.port, dis.heatPort)
+    annotation (Line(points={{40,-50},{27,-50},{27,-20}}, color={191,0,0}));
+    annotation (Dialog(group="Control settings"),
+                Dialog(group="Network"),
     Icon(
       coordinateSystem(
         preserveAspectRatio=false)),
@@ -194,14 +188,20 @@ equation
 consisted by a cooling plant of parallel electric chillers 
 <a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
 Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>, 
-a two-pipe distribution network <a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2Pipe.mo\">
-Buildings.Experimental.DHC.Networks.Distribution2Pipe</a>, 
-and a time series building load connected to a direct uncontrolled ETS for cooling 
+a two-pipe distribution network with plug flow pipes <a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2PipePlugFlow.mo\">
+Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>, 
+and a time series building load connected to a direct controlled ETS for cooling 
 <a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
 Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>, as illustrated in the schematic below.</p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.png\" alt=\"System schematics\"/></p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Revised chilled water pump controls to be constant speed and running 1-and-1 with the chillers.<br>
+Changed building-side ets from direct uncontrolled to controlled.<br>
+Revised distribution network from fixed resistance pipes to plug flow pipes. 
+</li>
 <li>
 December 21, 2022, by Kathryn Hinkelman:<br/>
 Corrected <code>dpMea</code> location to be at the terminal building.
@@ -209,6 +209,7 @@ Removed in-building pumping for direct uncontrolled ETS example.<br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>
+December 18, 2022, by Kathryn Hinkelman:<br/>
 Relocated dp sensor for CHW pump control to most distal building.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>

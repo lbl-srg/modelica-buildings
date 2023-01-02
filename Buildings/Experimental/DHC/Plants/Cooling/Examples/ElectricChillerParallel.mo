@@ -17,14 +17,12 @@ model ElectricChillerParallel
     "Nominal condenser water side pressure";
   parameter Modelica.Units.SI.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67
        - 18.56) "Nominal cooling capaciaty (Negative means cooling)";
-  parameter Modelica.Units.SI.MassFlowRate mMin_flow=0.03
+  parameter Modelica.Units.SI.MassFlowRate mMin_flow=mCHW_flow_nominal*0.1
     "Minimum mass flow rate of single chiller";
   parameter Modelica.Units.SI.TemperatureDifference dTApp=3
     "Approach temperature";
   parameter Modelica.Units.SI.Power PFan_nominal=5000 "Fan power";
   // control settings
-  parameter Modelica.Units.SI.Pressure dpSetPoi=68900
-    "Differential pressure setpoint";
   parameter Modelica.Units.SI.Temperature TCHWSet=273.15 + 8
     "Chilled water temperature setpoint";
   parameter Modelica.Units.SI.Time tWai=30 "Waiting time";
@@ -32,12 +30,12 @@ model ElectricChillerParallel
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCHW_flow_nominal/1000*{0.2,0.6,0.8,1.0},
-      dp=(dpCHW_nominal+dpSetPoi+18000+30000)*{1.5,1.3,1.0,0.6}))
+      dp=(dpCHW_nominal+18000+30000)*{1,0.8,0.6,0.2}))
     "Performance data for chilled water pumps";
   parameter Buildings.Fluid.Movers.Data.Generic perCWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-      dp=(2*dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
+      dp=(2*dpCW_nominal+60000+6000)*{1,0.8,0.6,0.2}))
     "Performance data for condenser water pumps";
   parameter Modelica.Units.SI.Pressure dpCHWPumVal_nominal=6000
     "Nominal pressure drop of chilled water pump valve";
@@ -61,12 +59,10 @@ model ElectricChillerParallel
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=PFan_nominal,
-    use_inputFilter=true,
     dpCooTowVal_nominal=dpCooTowVal_nominal,
     dpCHWPumVal_nominal=dpCHWPumVal_nominal,
     dpCWPumVal_nominal=dpCWPumVal_nominal,
     tWai=tWai,
-    dpSetPoi=dpSetPoi,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "District cooling plant"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
@@ -84,7 +80,7 @@ model ElectricChillerParallel
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Fluid.MixingVolumes.MixingVolume vol(
-    nPorts=3,
+    nPorts=2,
     redeclare package Medium=Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
     V=0.5,
@@ -99,7 +95,7 @@ model ElectricChillerParallel
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
-    dp_nominal(displayUnit="kPa") = dpSetPoi*1.1) "Flow resistance"
+    dp_nominal(displayUnit="kPa") = 60000)        "Flow resistance"
     annotation (Placement(transformation(extent={{70,-50},{50,-30}})));
   Modelica.Blocks.Sources.Sine loaVar(
     amplitude=913865,
@@ -107,19 +103,11 @@ model ElectricChillerParallel
     offset=913865,
     startTime(displayUnit="h") = 21600) "Variable demand load"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={40,-10})));
 equation
-  connect(TCHWSupSet.y,pla.TCHWSupSet)
-    annotation (Line(points={{-39,-50},{-32,-50},{-32,-4.73333},{-10.6667,
-          -4.73333}},color={0,0,127}));
   connect(fixHeaFlo.port,vol.heatPort)
     annotation (Line(points={{20,70},{32,70},{32,30},{50,30}},color={191,0,0}));
-  connect(vol.ports[1], res.port_a) annotation (Line(points={{57.3333,20},{80,
-          20},{80,-40},{70,-40}}, color={0,127,255}));
+  connect(vol.ports[1], res.port_a) annotation (Line(points={{58,20},{80,20},{
+          80,-40},{70,-40}},      color={0,127,255}));
   connect(res.port_b, pla.port_aSerCoo) annotation (Line(points={{50,-40},{-14,
           -40},{-14,-11.3333},{-10,-11.3333}}, color={0,127,255}));
   connect(on.y,pla.on)
@@ -130,15 +118,11 @@ equation
       color={255,204,51}));
   connect(fixHeaFlo.Q_flow,loaVar. y)
     annotation (Line(points={{0,70},{-39,70}}, color={0,0,127}));
-  connect(senRelPre.p_rel, pla.dpMea) annotation (Line(points={{31,-10},{14,-10},
-          {14,4},{-14,4},{-14,-6.73333},{-10.6667,-6.73333}},     color={0,0,
-          127}));
-  connect(senRelPre.port_b, pla.port_aSerCoo) annotation (Line(points={{40,-20},
-          {40,-40},{-14,-40},{-14,-11.3333},{-10,-11.3333}}, color={0,127,255}));
   connect(pla.port_bSerCoo, vol.ports[2]) annotation (Line(points={{10,-11.3333},
-          {20,-11.3333},{20,20},{60,20}}, color={0,127,255}));
-  connect(senRelPre.port_a, vol.ports[3])
-    annotation (Line(points={{40,0},{40,20},{62.6667,20}}, color={0,127,255}));
+          {20,-11.3333},{20,20},{62,20}}, color={0,127,255}));
+  connect(pla.TCHWSupSet, TCHWSupSet.y) annotation (Line(points={{-10.6667,
+          -4.73333},{-30,-4.73333},{-30,-50},{-39,-50}},
+                                               color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -147,9 +131,8 @@ equation
       coordinateSystem(
         preserveAspectRatio=false)),
     experiment(
-      StopTime=600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=604800,
+      Tolerance=1e-06),
     Documentation(
       info="<html>
 <p>This model validates the district central cooling plant implemented in
