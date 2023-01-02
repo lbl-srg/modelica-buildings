@@ -22,7 +22,6 @@ model DirectControlled "Example model for direct cooling energy transfer station
     QChiWat_flow_nominal=Q_flow_nominal,
     dpConVal_nominal=50,
     dpCheVal_nominal=6000,
-    dp_nominal={0,0,0},
     nPorts_bChiWat=1,
     nPorts_aChiWat=1)
     "Energy transfer station"

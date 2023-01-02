@@ -32,9 +32,6 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     displayUnit="Pa")=6000
     "Nominal pressure drop in the check valve"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
-    "Nominal pressure drop in pipe junctions"
-    annotation(Dialog(group="Nominal condition"));
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
@@ -99,7 +96,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mBui_flow_nominal*{1,-1,1},
-    final dp_nominal=dp_nominal)
+    final dp_nominal={0,0,0})
     "Bypass junction"
     annotation (Placement(transformation(extent={{-60,-270},{-40,-290}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
@@ -111,7 +108,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mBui_flow_nominal*{1,-1,-1},
-    final dp_nominal=dp_nominal)
+    final dp_nominal={0,0,0})
     "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage conVal(
@@ -251,6 +248,10 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Set pressure drops at junctions to 0 and removed parameter <code>dp_nominal</code>
+</li>
 <li>
 December 28, 2022, by Kathryn Hinkelman:<br/>
 Simplified the control implementation for the district return stream. Improved default control parameters.
