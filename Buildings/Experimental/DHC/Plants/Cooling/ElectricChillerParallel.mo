@@ -71,11 +71,10 @@ model ElectricChillerParallel
   parameter Boolean use_inputFilter=false
     "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.Units.SI.Time riseTimePump=30
+  parameter Modelica.Units.SI.Time riseTime=30
     "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
       Dialog(
       tab="Dynamics",
-      group="Pump",
       enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization for pumps (no init/steady state/initial state/initial output)"
@@ -102,6 +101,26 @@ model ElectricChillerParallel
   parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance: dynamic (3 initialization options) or steady state, must be steady state if energyDynamics is steady state"
     annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
+  // CHW pump control
+  parameter Modelica.Blocks.Types.SimpleController controllerType=
+    Modelica.Blocks.Types.SimpleController.PI
+    "Type of CHW pump speed controller"
+    annotation (Dialog(group="Speed Controller"));
+  parameter Real k(
+    final unit="1",
+    final min=0)=1
+    "Gain of CHW pump controller"
+    annotation (Dialog(group="Speed Controller"));
+  parameter Modelica.Units.SI.Time Ti(final min=Modelica.Constants.small) = 30
+    "Time constant of Integrator block, CHW pump" annotation (Dialog(enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PI or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID, group=
+          "Speed Controller"));
+  parameter Modelica.Units.SI.Time Td(final min=0) = 0.1
+    "Time constant of Derivative block, CHW pump" annotation (Dialog(enable=
+          controllerType == Modelica.Blocks.Types.SimpleController.PD or
+          controllerType == Modelica.Blocks.Types.SimpleController.PID, group=
+          "Speed Controller"));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-340,220},{-300,260}}),
@@ -118,13 +137,14 @@ model ElectricChillerParallel
     annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
    iconTransformation(extent={{-340,78},{-300,118}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
-    final use_inputFilter=use_inputFilter,
+    final use_inputFilter=false,
+    final riseTimeValve=riseTime,
     final per=fill(
       perChi,
       numChi),
     final m1_flow_nominal=mCW_flow_nominal,
     final m2_flow_nominal=mCHW_flow_nominal,
-    final dp1_nominal=dpCW_nominal,
+    final dp1_nominal=dpCW_nominal/2,
     final dp2_nominal=dpCHW_nominal,
     final num=numChi,
     redeclare final package Medium1=Medium,
@@ -135,7 +155,8 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
-    final dp_nominal=dpCW_nominal,
+    use_inputFilter=false,
+    final dp_nominal=dpCW_nominal/2,
     final dpValve_nominal = dpCooTowVal_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
     final TWatIn_nominal=TCW_nominal,
@@ -155,7 +176,7 @@ model ElectricChillerParallel
       numChi),
     final tau=tau,
     final use_inputFilter=use_inputFilter,
-    final riseTimePump=riseTimePump,
+    final riseTimePump=riseTime,
     final init=init,
     final yPump_start=yCHWP_start,
     final energyDynamics=energyDynamics,
@@ -171,9 +192,10 @@ model ElectricChillerParallel
       numChi),
     final tau=tau,
     final use_inputFilter=use_inputFilter,
-    final riseTimePump=riseTimePump,
+    final riseTimePump=riseTime,
     final init=init,
     final yPump_start=yCWP_start,
+    final riseTimeValve=riseTime,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCW_flow_nominal,
     final dpValve_nominal=dpCWPumVal_nominal,
@@ -183,9 +205,9 @@ model ElectricChillerParallel
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium=Medium,
     final allowFlowReversal=false,
-    final m_flow_nominal=mCHW_flow_nominal*0.05,
-    final dpValve_nominal=dpCHW_nominal,
-    riseTime=30)
+    final m_flow_nominal=mCHW_flow_nominal,
+    final dpValve_nominal=dpCHWPumVal_nominal,
+    use_inputFilter=false)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=0,origin={-30,-70})));
@@ -198,9 +220,10 @@ model ElectricChillerParallel
     tWai=60,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpSetPoi=dpSetPoi,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
-    Ti=30)
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td)
     "Chilled water pump controller"
     annotation (Placement(transformation(extent={{-120,58},{-100,38}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage chiStaCon(
@@ -221,11 +244,14 @@ model ElectricChillerParallel
         rotation=270,
         origin={0,142})));
   Buildings.Fluid.Sources.Boundary_pT expTanCHW(
-    redeclare final package Medium=Medium, nPorts=1)
+    redeclare final package Medium=Medium,
+    p=570000,
+    nPorts=1)
     "Chilled water expansion tank"
     annotation (Placement(transformation(extent={{-108,-26},{-88,-6}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium=Medium) "Chilled water return mass flow"
+    redeclare final package Medium=Medium)
+    "Chilled water return mass flow"
     annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal chiOn[numChi]
     "Convert chiller on signal from boolean to real"
@@ -260,11 +286,15 @@ model ElectricChillerParallel
       rotation=90,origin={120,-42})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterBypass chiBypCon(
     final numChi=numChi,
-    final mMin_flow=mMin_flow)
+    final mMin_flow=mMin_flow,
+    k=1,
+    Ti=120)
     "Chilled water bypass control"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Fluid.Sensors.MassFlowRate senMasFloCHW(redeclare final package Medium =
-        Medium) "Total chilled water pump mass flow rate" annotation (Placement(
+  Fluid.Sensors.MassFlowRate senMasFloCHW(
+    redeclare final package Medium = Medium)
+    "Total chilled water pump mass flow rate"
+    annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -294,8 +324,6 @@ equation
   connect(chiWatPumCon.dpMea,dpMea)
     annotation (Line(points={{-122,52},{-140,52},{-140,80},{-320,80}},
       color={0,0,127}));
-  connect(chiWatPumCon.y,pumCHW.u)
-    annotation (Line(points={{-99,48},{-54,48}}, color={0,0,127}));
   connect(pumCHW.port_b,mulChiSys.port_a2)
     annotation (Line(points={{-32,44},{40,44}}, color={0,127,255}));
   connect(pumCW.port_b,mulChiSys.port_a1)
@@ -370,7 +398,7 @@ equation
   connect(valByp.port_b, joiCHWRet.port_1)
     annotation (Line(points={{-40,-70},{-80,-70},{-80,-50}}, color={0,127,255}));
   connect(senMasFloCHW.m_flow, chiWatPumCon.masFloPum) annotation (Line(points={{109,20},
-          {-140,20},{-140,44},{-122,44}},color={0,0,127}));
+          {-140,20},{-140,46},{-122,46}},color={0,0,127}));
   connect(senMasFloCHW.m_flow, chiBypCon.mFloChi) annotation (Line(points={{109,
           20},{-140,20},{-140,-155},{-122,-155}}, color={0,0,127}));
   connect(valByp.port_a, splCHWSup.port_2) annotation (Line(points={{-20,-70},{
@@ -383,6 +411,10 @@ equation
     annotation (Line(points={{60,44},{120,44},{120,30}}, color={0,127,255}));
   connect(senMasFloCHW.port_b, splCHWSup.port_1)
     annotation (Line(points={{120,10},{120,-32}}, color={0,127,255}));
+  connect(on, chiWatPumCon.on) annotation (Line(points={{-320,240},{-280,240},{
+          -280,40},{-122,40}}, color={255,0,255}));
+  connect(chiWatPumCon.y, pumCHW.u)
+    annotation (Line(points={{-99,48},{-54,48}}, color={0,0,127}));
   annotation (
     defaultComponentName="pla",
     Documentation(
@@ -414,6 +446,10 @@ the detailed control logic. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 30, 2022, by Kathryn Hinkelman:<br/>
+Passed the <code>on</code> input for the plant status to chilled water pump control.
+</li>
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
 Corrected <code>chiBypCon</code> to control mass flow rate through the chillers.<br>

@@ -21,6 +21,8 @@ model DirectUncontrolledETS
   parameter Modelica.Units.SI.PressureDifference dpCW_nominal=46.2*1000
     "Nominal condenser water side pressure"
     annotation (Dialog(group="Chiller and cooling tower"));
+  parameter Modelica.Units.SI.Pressure dpDis=30000
+    "Total pressure drop in the district pipes";
   parameter Modelica.Units.SI.Power QChi_nominal=mCHW_flow_nominal*4200*(6.67-18.56)
     "Nominal cooling capaciaty (Negative means cooling)"
     annotation (Dialog(group="Chiller and cooling tower"));
@@ -32,13 +34,13 @@ model DirectUncontrolledETS
   parameter Buildings.Fluid.Movers.Data.Generic perCHWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCHW_flow_nominal/1000*{0.2,0.6,0.8,1.0},
-      dp=(dpCHW_nominal+dpSetPoi+18000+30000)*{1.5,1.3,1.0,0.6}))
+      dp=(dpCHW_nominal+dpSetPoi+dpDis+6000*3)*{1.5,1.3,1.0,0.6}))
     "Performance data for chilled water pumps"
     annotation (Dialog(group="Pumps"));
   parameter Buildings.Fluid.Movers.Data.Generic perCWPum(
     pressure=Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
       V_flow=mCW_flow_nominal/1000*{0.2,0.6,1.0,1.2},
-      dp=(dpCW_nominal+60000+6000)*{1.2,1.1,1.0,0.6}))
+      dp=(dpCW_nominal+6000*2)*{1.2,1.1,1.0,0.6}))
     "Performance data for condenser water pumps"
     annotation (Dialog(group="Pumps"));
   // Network
@@ -71,7 +73,7 @@ model DirectUncontrolledETS
     mCHW_flow_nominal=mCHW_flow_nominal,
     dpCHW_nominal=dpCHW_nominal,
     QChi_nominal=QChi_nominal,
-    mMin_flow=0.03,
+    mMin_flow=mCHW_flow_nominal*0.25,
     mCW_flow_nominal=mCW_flow_nominal,
     dpCW_nominal=dpCW_nominal,
     TAirInWB_nominal=298.7,
@@ -79,26 +81,26 @@ model DirectUncontrolledETS
     dT_nominal=5.56,
     TMin=288.15,
     PFan_nominal=5000,
+    tau=10,
     use_inputFilter=true,
-    riseTimePump=120,
-    yCHWP_start=fill(0.5, 2),
+    yCHWP_start=fill(0, 2),
     yCWP_start=fill(0, 2),
     dpCooTowVal_nominal=6000,
     dpCHWPumVal_nominal=6000,
     dpCWPumVal_nominal=6000,
     tWai=30,
     dpSetPoi=dpSetPoi,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k(displayUnit="1") = 0.1,
+    Ti(displayUnit="s") = 60)
     "District cooling plant"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final computeWetBulbTemperature=true,
     filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Weather data"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.BooleanConstant on
-    "On signal of the plant"
-    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Constant TCHWSupSet(k=273.15+7)
     "Chilled water supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
@@ -109,15 +111,32 @@ model DirectUncontrolledETS
     mDis_flow_nominal=sum(dis.mCon_flow_nominal),
     mCon_flow_nominal=mBui_flow_nominal,
     mEnd_flow_nominal=mBui_flow_nominal[nLoa],
-    dpDis_nominal=fill(1500,nLoa))
+    dpDis_nominal=fill(5000, nLoa))
     "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-20},{60,0}})));
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
+    each yMin=0.05,
+    each use_inputFilter=true,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal,
     each bui(w_aLoaCoo_nominal=0.015))
     "Vectorized time series building load model connected with ETS for cooling"
-    annotation (Placement(transformation(extent={{30,40},{50,60}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  Modelica.Blocks.Sources.Constant TDisRetSet(k=273.15 + 16)
+    "Setpoint for district return temperature"
+    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+  Modelica.Blocks.Math.Sum QTotCoo_flow(nin=nLoa)
+    "Total cooling flow rate for all buildings "
+    annotation (Placement(transformation(extent={{60,10},{40,30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaPla(trueHoldDuration=30*60)
+    "Enable the plant"
+    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold onCoo(t=1e-4)
+    "Threshold comparison to enable the plant"
+    annotation (Placement(transformation(extent={{-30,10},{-50,30}})));
+  Modelica.Blocks.Math.Gain norQFlo(k=1/sum(QCoo_flow_nominal))
+    "Normalized Q_flow"
+    annotation (Placement(transformation(extent={{30,10},{10,30}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
@@ -127,24 +146,36 @@ protected
     "Default specific heat capacity of medium";
 equation
   connect(weaDat.weaBus, pla.weaBus) annotation (Line(
-      points={{-60,30},{-30,30},{-30,-1.13333},{-29.9667,-1.13333}},
+      points={{-60,70},{-20,70},{-20,-1.13333},{-19.9667,-1.13333}},
       color={255,204,51},
       thickness=0.5));
-  connect(on.y, pla.on) annotation (Line(points={{-59,-10},{-50,-10},{-50,-2.6},
-          {-40.7333,-2.6}}, color={255,0,255}));
   connect(TCHWSupSet.y, pla.TCHWSupSet) annotation (Line(points={{-59,-50},{-48,
-          -50},{-48,-4.73333},{-40.6667,-4.73333}}, color={0,0,127}));
-  connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-40,
+          -50},{-48,-4.73333},{-30.6667,-4.73333}}, color={0,0,127}));
+  connect(pla.port_aSerCoo, dis.port_bDisRet) annotation (Line(points={{-30,
           -11.3333},{-44,-11.3333},{-44,-60},{8,-60},{8,-16},{20,-16}}, color={
           0,127,255}));
   connect(dis.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-10},
-          {20,-11.3333},{-20,-11.3333}},        color={0,127,255}));
+          {20,-11.3333},{-10,-11.3333}},        color={0,127,255}));
   connect(dis.ports_bCon, buiETS.port_aSerCoo)
-    annotation (Line(points={{28,0},{0,0},{0,42},{30,42}}, color={0,127,255}));
-  connect(buiETS.port_bSerCoo, dis.ports_aCon) annotation (Line(points={{50,42},
+    annotation (Line(points={{28,0},{0,0},{0,42},{40,42}}, color={0,127,255}));
+  connect(buiETS.port_bSerCoo, dis.ports_aCon) annotation (Line(points={{60,42},
           {80,42},{80,0},{52,0}}, color={0,127,255}));
   connect(dis.dp, pla.dpMea) annotation (Line(points={{62,-7},{70,-7},{70,-32},
-          {-46,-32},{-46,-6.73333},{-40.6667,-6.73333}}, color={0,0,127}));
+          {-46,-32},{-46,-6.73333},{-30.6667,-6.73333}}, color={0,0,127}));
+  for i in 1:nLoa loop
+    connect(TDisRetSet.y, buiETS[i].TSetDisRet)
+     annotation (Line(points={{11,70},{20,70},{20,57},{39,57}},color={0,0,127}));
+  end for;
+  connect(buiETS.QCoo_flow, QTotCoo_flow.u) annotation (Line(points={{57,38},{
+          68,38},{68,20},{62,20}}, color={0,0,127}));
+  connect(enaPla.u, onCoo.y)
+    annotation (Line(points={{-58,20},{-52,20}}, color={255,0,255}));
+  connect(enaPla.y, pla.on) annotation (Line(points={{-82,20},{-90,20},{-90,
+          -2.6},{-30.7333,-2.6}}, color={255,0,255}));
+  connect(QTotCoo_flow.y, norQFlo.u)
+    annotation (Line(points={{39,20},{32,20}}, color={0,0,127}));
+  connect(norQFlo.y, onCoo.u)
+    annotation (Line(points={{9,20},{-28,20}}, color={0,0,127}));
     annotation (Dialog(group="Network"),
     Icon(
       coordinateSystem(
