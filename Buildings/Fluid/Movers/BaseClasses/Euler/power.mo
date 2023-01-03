@@ -28,10 +28,13 @@ algorithm
   power.V_flow:=V_flow;
   for i in 2:10 loop
     power.P[i]:=V_flow[i] * dp[i]
-                / Buildings.Fluid.Movers.BaseClasses.Euler.efficiency(
+                / Buildings.Utilities.Math.Functions.smoothMax(
+                    x1 = 1E-5,
+                    x2 = Buildings.Fluid.Movers.BaseClasses.Euler.efficiency(
                     peak=peak,
                     dp=dp[i],
-                    V_flow=V_flow[i]);
+                    V_flow=V_flow[i]),
+                    deltaX = 1E-6);
   end for;
 
   // The function splineDerivatives() is by passed when V[2:10] cannot be
