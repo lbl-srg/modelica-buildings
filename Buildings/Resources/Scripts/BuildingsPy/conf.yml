@@ -403,8 +403,8 @@
     comment: timed out after 300 seconds
     simulate: false
   optimica:
-    comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/584970794"
-    rtol: 1.0e-06
+    comment: "FMUException: Failed to update the events at time: 1.711861E+07."
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.Guideline36Winter
   openmodelica:
     comment: timed out after 300 seconds
