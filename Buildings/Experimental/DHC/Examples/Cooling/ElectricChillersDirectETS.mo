@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Examples.Cooling;
-model DirectUncontrolledETS
-  "Example model for district cooling system with direct uncontrolled ETS"
+model ElectricChillersDirectETS "Example model for district cooling system with 
+  an electric chiller plant and a direct controlled ETS at each building"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Medium model for water";
@@ -178,22 +178,25 @@ equation
       coordinateSystem(
       preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Cooling/ElectricChillersDirectETS.mos" "Simulate and plot"),
     experiment(
       StartTime=15724800,
       StopTime=16329600,
       Tolerance=1e-06),
     Documentation(info="<html>
-<p>This model illustrates an example of integral district cooling system, 
-consisted by a cooling plant of parallel electric chillers 
-<a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
-Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>, 
-a two-pipe distribution network with plug flow pipes <a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2PipePlugFlow.mo\">
-Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>, 
-and a time series building load connected to a direct controlled ETS for cooling 
-<a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
-Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>, as illustrated in the schematic below.</p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/DirectUncontrolledETS.png\" alt=\"System schematics\"/></p>
+<p>This model illustrates an example of district cooling system, 
+consisting of a cooling plant with parallel electric chillers 
+(<a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
+Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>), 
+a two-pipe distribution network with plug flow pipes (<a href=\"modelica://Buildings/Experimental/DHC/Networks/Distribution2PipePlugFlow.mo\">
+Buildings.Experimental.DHC.Networks.Distribution2PipePlugFlow</a>), 
+and time series building load that have directly connected ETS 
+with the chilled water return temperatures controlled above a minimum 
+threshold
+(<a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
+Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>).
+This configuration is illustrated in the schematic below.</p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/ElectricChillersDirectETS.png\" alt=\"DC Schematic\"/></p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -216,4 +219,4 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#
 <li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
 </ul>
 </html>"));
-end DirectUncontrolledETS;
+end ElectricChillersDirectETS;
