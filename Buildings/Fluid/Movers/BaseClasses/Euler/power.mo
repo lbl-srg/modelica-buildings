@@ -25,6 +25,8 @@ algorithm
 
   // Compute the power and derivative on non-boundary points
   //   using efficiency estimated by Euler number method
+  // The efficiency is bounded away from zero.
+  //   This is only for supressing an error with optimica.
   power.V_flow:=V_flow;
   for i in 2:10 loop
     power.P[i]:=V_flow[i] * dp[i]
@@ -37,9 +39,9 @@ algorithm
                     deltaX = 1E-6);
   end for;
 
-  // The function splineDerivatives() is by passed when V[2:10] cannot be
+  // The function splineDerivatives() is bypassed when V[2:10] cannot be
   //   guaranteed to be strictly increasing.
-  //   This is only for avoiding an error with optimica.
+  //   This is only for supressing an error with optimica.
   if V_flow[10] - V_flow[2] > 1E-5 then
     power.d[2:10]:=Buildings.Utilities.Math.Functions.splineDerivatives(
                     x=V_flow[2:10],
