@@ -107,7 +107,7 @@ model ElectricChillersDirectETS "Example model for district cooling system with
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     each yMin=0.05,
     each use_inputFilter=true,
-    riseTime=120,
+    each riseTime=120,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal,
     each bui(w_aLoaCoo_nominal=0.015))
@@ -169,11 +169,7 @@ equation
     annotation (Line(points={{9,20},{-28,20}}, color={0,0,127}));
   connect(gnd.port, dis.heatPort)
     annotation (Line(points={{40,-50},{27,-50},{27,-20}}, color={191,0,0}));
-    annotation (Dialog(group="Control settings"),
-                Dialog(group="Network"),
-    Icon(
-      coordinateSystem(
-        preserveAspectRatio=false)),
+    annotation (
     Diagram(
       coordinateSystem(
       preserveAspectRatio=false)),

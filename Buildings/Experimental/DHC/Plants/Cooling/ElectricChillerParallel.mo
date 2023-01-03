@@ -70,13 +70,13 @@ model ElectricChillerParallel
     annotation (Dialog(tab="Dynamics", group="Pump"));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization for pumps (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump"));
   parameter Real[numChi] yCHWP_start=fill(0,numChi)
     "Initial value of CHW pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump"));
   parameter Real[numChi] yCWP_start=fill(0,numChi)
     "Initial value of CW pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+    annotation(Dialog(tab="Dynamics", group="Pump"));
   parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal
     "Nominal pressure difference of the cooling tower valve";
   // control settings
@@ -253,8 +253,6 @@ model ElectricChillerParallel
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={120,20})));
-  Modelica.Blocks.Sources.Constant const(k=0)
-    annotation (Placement(transformation(extent={{-84,-116},{-64,-96}})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
