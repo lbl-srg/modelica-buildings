@@ -98,5 +98,15 @@ equation
     experiment(
       StopTime=1000,
       Tolerance=1e-06),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
+    Documentation(info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup\">
+Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup</a>
+in a configuration with two \"cooling-only\" chillers.
+The chillers are switched <i>Off</i> one after the other, and 
+receive an increasing CHW supply temperature setpoint.
+</p>
+</html>"));
 end ChillerGroup;

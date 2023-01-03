@@ -1,5 +1,6 @@
 ChillerGroup
 ChillerGroupHeatRecovery
+HeatPumpGroup
 MultiplePumpsDp
 MultiplePumpsFlow
 MultiplePumpsSpeed

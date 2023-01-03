@@ -81,9 +81,9 @@ model HeatPumpGroup
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P
-    "Power drawn"
-    annotation (Placement(transformation(extent={{100,0},{140,40}}),
-      iconTransformation(extent={{100,40},{140,80}})));
+    "Power drawn by heat pumps"
+    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+      iconTransformation(extent={{100,60},{140,100}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulConInl(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -100,13 +100,12 @@ model HeatPumpGroup
     "Convert command signals"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
-    annotation (Placement(transformation(extent={{70,30},{90,10}})));
+    annotation (Placement(transformation(extent={{70,110},{90,90}})));
   Fluid.HeatPumps.EquationFitReversible heaPum(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=MediumAir,
     final per=dat,
     final tau1=tau,
-    tau2=0,
     final show_T=show_T,
     final energyDynamics=energyDynamics,
     final allowFlowReversal1=allowFlowReversal,
@@ -147,16 +146,21 @@ model HeatPumpGroup
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=mHeaWatUni_flow_nominal)
-    "Convert pump Start command to flow rate setpoint"
+    "Convert On/Off command to HW flow setpoint"
     annotation (Placement(transformation(extent={{-60,50},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=mAirUni_flow_nominal)
-    "Compute air mass flow rate"
-    annotation (Placement(transformation(extent={{30,70},{50,50}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal      booToRea1(realTrue=
+        mAirUni_flow_nominal) "Convert On/Off command to air flow setpoint"
+    annotation (Placement(transformation(extent={{30,80},{50,60}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Bus with weather data"
     annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
         iconTransformation(extent={{-20,80},{20,120}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulP1
+                                                      "Scale power"
+    annotation (Placement(transformation(extent={{70,50},{90,30}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum
+    "Power drawn by HW pumps" annotation (Placement(transformation(extent={{100,
+            20},{140,60}}), iconTransformation(extent={{100,20},{140,60}})));
 protected
   parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
     T=dat.hea.TRefLoa,
@@ -170,11 +174,12 @@ equation
           -20},{-86,-20},{-86,6},{-82,6}},     color={0,0,127}));
   connect(y1, com.y1) annotation (Line(points={{-120,60},{-94,60},{-94,65},{-92,
           65}},  color={255,0,255}));
-  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-68,65},{20,65},{20,26},
-          {68,26}},         color={0,0,127}));
+  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-68,65},{20,65},{20,106},
+          {68,106}},        color={0,0,127}));
 
   connect(mulP.y, P)
-    annotation (Line(points={{92,20},{120,20}}, color={0,0,127}));
+    annotation (Line(points={{92,100},{120,100}},
+                                                color={0,0,127}));
   connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-68,67},{16,67},
           {16,6},{28,6}},        color={0,0,127}));
   connect(pum.port_b, heaPum.port_a1)
@@ -185,9 +190,8 @@ equation
                             color={0,127,255}));
   connect(mulConOut.port_b, port_b)
     annotation (Line(points={{50,0},{100,0}}, color={0,127,255}));
-  connect(heaPum.P, mulP.u1) annotation (Line(points={{11,-6.2},{20,-6.2},{20,
-          14},{68,14}},
-                    color={0,0,127}));
+  connect(heaPum.P, mulP.u1) annotation (Line(points={{11,-6.2},{22,-6.2},{22,94},
+          {68,94}}, color={0,0,127}));
   connect(port_a, mulConInl.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   connect(airSou.ports[1], heaPum.port_a2) annotation (Line(points={{30,-40},{20,
@@ -208,10 +212,8 @@ equation
           40},{-62,40}}, color={255,0,255}));
   connect(booToRea.y, pum.m_flow_in) annotation (Line(points={{-38,40},{-30,40},
           {-30,20},{-40,20},{-40,12}}, color={0,0,127}));
-  connect(com.nUniOn, gai.u) annotation (Line(points={{-68,65},{24,65},{24,60},{
-          28,60}}, color={0,0,127}));
-  connect(gai.y, airSou.m_flow_in) annotation (Line(points={{52,60},{60,60},{60,
-          -32},{50,-32}}, color={0,0,127}));
+  connect(booToRea1.y, airSou.m_flow_in) annotation (Line(points={{52,70},{60,70},
+          {60,-32},{50,-32}}, color={0,0,127}));
   connect(weaBus, airSou.weaBus) annotation (Line(
       points={{100,-40},{50,-40},{50,-39.8}},
       color={255,204,51},
@@ -220,6 +222,14 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(com.y1One, booToRea1.u)
+    annotation (Line(points={{-68,69},{28,69},{28,70}}, color={255,0,255}));
+  connect(mulP1.y, PPum)
+    annotation (Line(points={{92,40},{120,40}}, color={0,0,127}));
+  connect(pum.P, mulP1.u1) annotation (Line(points={{-29,9},{-20,9},{-20,34},{68,
+          34}}, color={0,0,127}));
+  connect(com.nUniOn, mulP1.u2) annotation (Line(points={{-68,65},{20,65},{20,46},
+          {68,46}}, color={0,0,127}));
   annotation (
     defaultComponentName="heaPum",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

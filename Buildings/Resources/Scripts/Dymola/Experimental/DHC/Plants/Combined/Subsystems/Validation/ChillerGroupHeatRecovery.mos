@@ -34,7 +34,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=104,
-    y={"chi.chi.PLR1", "chi.chi.PLR2"},
+    y={"chi.chi.PLR1", "chi.chi.PLR2", "dat.PLRMax", "chi.chi.COP"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -70,7 +70,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=4,
-    y={"chiHea.chi.PLR1", "chiHea.chi.PLR2"},
+    y={"chiHea.chi.PLR1", "chiHea.chi.PLR2", "dat.PLRMax", "chiHea.chi.COP"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

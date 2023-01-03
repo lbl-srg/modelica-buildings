@@ -89,5 +89,30 @@ file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Comb
 "Simulate and plot"),
 experiment(
   StopTime=2000,
-  Tolerance=1e-06));
+  Tolerance=1e-06),
+    Documentation(info="<html>
+<p>
+This model validates 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup\">
+Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup</a>
+in a configuration with two heat recovery chillers.
+</p>
+<ul>
+<li>
+The chillers are first operated in cooling mode 
+(tracking a CHW supply temperature setpoint), and are
+switched <i>Off</i> one after the other.
+</li>
+<li>
+The chillers are then commanded <i>On</i> again, one chiller
+being operated in heating mode (tracking a HW supply temperature setpoint),
+the other chiller being first operated in cooling mode,
+then in heating mode as well.
+</li>
+<li>
+The chillers also receive a varying CHW and HW supply temperature
+setpoint.
+</li>
+</ul>
+</html>"));
 end ChillerGroupHeatRecovery;
