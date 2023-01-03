@@ -61,7 +61,8 @@ equation
     Documentation(info="<html>
 <p>
 This model provides an example for a building with loads provided 
-as time series and connected to a direct uncontrolled ETS for cooling. 
+as time series and connected to a direct ETS for cooling with the
+return chilled water temperature controlled above a minimum threshold. 
 </p>
 </html>", revisions="<html>
 <ul>

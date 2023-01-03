@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
-model DirectControlled "Example model for direct cooling energy transfer station 
+model Direct "Example model for direct cooling energy transfer station 
   with in-building pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -16,15 +16,13 @@ model DirectControlled "Example model for direct cooling energy transfer station
       Medium.T_default,
       Medium.X_default))
     "Default specific heat capacity of medium";
-  Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled
-    cooETS(
+  Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct cooETS(
     mBui_flow_nominal=mBui_flow_nominal,
     QChiWat_flow_nominal=Q_flow_nominal,
     dpConVal_nominal=50,
     dpCheVal_nominal=6000,
     nPorts_bChiWat=1,
-    nPorts_aChiWat=1)
-    "Energy transfer station"
+    nPorts_aChiWat=1) "Energy transfer station"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Sources.Constant TSetDisRet_min(k=273.15 + 16)
     "Minimum setpoint temperature for district return"
@@ -135,7 +133,7 @@ equation
         preserveAspectRatio=false,
         extent={{-160,-120},{160,120}})),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Cooling/Examples/DirectControlled.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/EnergyTransferStations/Cooling/Examples/Direct.mos" "Simulate and plot"),
     experiment(
       StartTime=0,
       StopTime=86400,
@@ -164,4 +162,4 @@ Corrected pressure balance across bypass leg and system.
 <li>March 20, 2022, by Chengnan Shi:<br/>First implementation.</li>
 </ul>
 </html>"));
-end DirectControlled;
+end Direct;

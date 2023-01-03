@@ -3,9 +3,8 @@ model PartialBuildingWithETS
   "Partial model with ETS model for cooling and partial building model"
   extends
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
-      nPorts_chiWat=1,
-     redeclare
-      Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectControlled ets(
+      nPorts_chiWat=1, redeclare
+      Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct ets(
       final mBui_flow_nominal=mBui_flow_nominal,
       final controllerType=controllerType,
       final k=k,
@@ -59,9 +58,9 @@ equation
           {-64,-56},{-31.8,-56}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This model is composed of a direct uncontrolled energy transfer station model for cooling 
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectUncontrolled\">
-Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectUncontrolled</a>
+This model is composed of a direct controlled energy transfer station model for cooling 
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct\">
+Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct</a>
 connected to a repleacable building load model. 
 </p>
 </html>", revisions="<html>

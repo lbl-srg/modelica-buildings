@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-model DirectControlled "Direct cooling ETS model for district energy systems with in-building 
+model Direct "Direct cooling ETS model for district energy systems with in-building 
   pumping and deltaT control"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
@@ -236,7 +236,7 @@ cooling network is at or above the minimum specified value. This configuration
 naturally results in a fluctuating building supply tempearture. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/DirectControlled.PNG\" alt=\"DHC.ETS.DirectControlled\"/> 
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Direct.PNG\" alt=\"DC ETS Direct\"/> 
 </p>
 <h4>
 Reference
@@ -270,4 +270,4 @@ Changed check valve to use version of <code>Buildings</code> library, and hence 
 <li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
-end DirectControlled;
+end Direct;

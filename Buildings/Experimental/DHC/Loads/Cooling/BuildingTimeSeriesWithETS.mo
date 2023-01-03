@@ -52,9 +52,9 @@ protected
   defaultComponentName="loa",
   Documentation(info="<html>
 <p>
-This model is composed of a direct uncontrolled energy transfer station model for cooling
-<a href=\"modelica://Buildings/Experimental/DHC/EnergyTransferStations/Cooling/DirectUncontrolled.mo\">
-Buildings.Experimental.DHC.EnergyTransferStations.Cooling.DirectUncontrolled</a> 
+This model is composed of a direct controlled energy transfer station model for cooling
+<a href=\"modelica://Buildings/Experimental/DHC/EnergyTransferStations/Cooling/Direct.mo\">
+Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct</a> 
 connected to a simplified building model <a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BaseClasses/BuildingTimeSeries.mo\">
 Buildings.Experimental.DHC.Loads.Cooling.BaseClasses.BuildingTimeSeries</a> 
 where the space cooling loads are provided as time series. 
