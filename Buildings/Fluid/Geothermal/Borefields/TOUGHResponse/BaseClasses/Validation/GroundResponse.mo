@@ -3,15 +3,16 @@ model GroundResponse
   "Validation ground response function with python as interface with TOUGH"
 
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse
-    toughRes
+    toughRes "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[10](
     final k={273.15+10,273.15+10.2,273.15+10.4,273.15+10.6,273.15+10.8,
              273.15+11.0,273.15+11.2,273.15+11.4,273.15+11.6,273.15+11.8})
+    "Initial borehole wall temperature"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin [10](
     each amplitude=1000,
-    each freqHz=1/3600)
+    each freqHz=1/3600) "Heat flow to ground"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant outTem(
     final k=273.15 + 20)
@@ -25,7 +26,9 @@ equation
                            color={0,0,127}));
   connect(outTem.y, toughRes.TOut) annotation (Line(points={{-38,-50},{0,-50},{0,
           -6},{39,-6}}, color={0,0,127}));
-annotation (
+annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGHResponse/BaseClasses/Validation/GroundResponse.mos"
+        "Simulate and plot"),
+  experiment(StopTime=3600,Tolerance=1e-6),
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

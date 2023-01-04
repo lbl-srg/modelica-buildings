@@ -100,6 +100,7 @@ partial model PartialBorefieldWithTough
 
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.BaseClasses.GroundResponse toughRes(
     final nSeg=nSeg)
+    "Ground response calculated by TOUGH simulator"
     annotation (Placement(transformation(extent={{8,40},{28,60}})));
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",

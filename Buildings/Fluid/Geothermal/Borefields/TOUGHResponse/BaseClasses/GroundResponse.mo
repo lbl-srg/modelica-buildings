@@ -59,12 +59,12 @@ model GroundResponse
     samplePeriod=samplePeriod,
     flag=flag,
     passPythonObject=true)
+    "Python interface model to call TOUGH simulator"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Routing.Multiplex mul(final n=2*nSeg+2)       "Multiplex"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.ContinuousClock clock
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-
 
 equation
   connect(pyt.yR[1:nSeg], TBorWal)
@@ -72,19 +72,17 @@ equation
   connect(mul.y, pyt.uR)
     annotation (Line(points={{1,0},{18,0}}, color={0,0,127}));
   connect(QBor_flow, mul.u[1:nSeg])
-    annotation (Line(points={{-120,80},{-40,80},{-40,0},{-20,0}},
-      color={0,0,127}));
+    annotation (Line(points={{-120,80},{-40,80},{-40,0},{-20,0}}, color={0,0,127}));
   connect(TBorWal_start, mul.u[nSeg+1:2*nSeg]) annotation (Line(points={{-120,40},{-60,40},
           {-60,0},{-20,0}}, color={0,0,127}));
-  connect(TOut, mul.u[2*nSeg+1]) annotation (Line(points={{-120,0},{-70,0},{-70,0},{-20,
-          0}}, color={0,0,127}));
+  connect(TOut, mul.u[2*nSeg+1]) annotation (Line(points={{-120,0},{-20,0}},
+               color={0,0,127}));
   connect(clock.y, mul.u[2*nSeg+2]) annotation (Line(points={{-59,-50},{-40,-50},{-40,
           0},{-20,0}}, color={0,0,127}));
   connect(pyt.yR[nSeg + 1:nSeg + nInt], pInt) annotation (Line(points={{41,0},{60,
           0},{60,20},{120,20}}, color={0,0,127}));
   connect(pyt.yR[nSeg+nInt+1:nSeg+2*nInt], xInt)
-    annotation (Line(points={{41,0},{60,0},{60,-20},{120,-20}},
-                                              color={0,0,127}));
+    annotation (Line(points={{41,0},{60,0},{60,-20},{120,-20}}, color={0,0,127}));
   connect(pyt.yR[nSeg+2*nInt+1:nSeg+3*nInt], TInt)
     annotation (Line(points={{41,0},{60,0},{60,-60},{120,-60}}, color={0,0,127}));
 

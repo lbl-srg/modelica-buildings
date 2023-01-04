@@ -1,10 +1,11 @@
 ''' Python module that is used for the example
-    Buildings.Fluid.Geothermal.Borefields.BaseClasses.GroundResponse.Validation.ResponsePython
+    Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields
 '''
 import os
 import shutil
 
 def doStep(dblInp, state):
+
     modelicaWorkingPath = os.getcwd()
     py_dir = os.path.join(modelicaWorkingPath,'Resources/Python-Sources')
 
@@ -160,22 +161,37 @@ def tough_avatar(heatFlux, T_out):
                 fout.write(line)
             else:
                 # update the temperature
-
+                fout.write(imitateTemperature(line))
         elif (count == 68):
             fout.write(line)
         elif (count == 69):
             # update the temperature. It is outdoor air temperature here
-
+            fout.write(imitateTemperature(line))
         elif (count > 69 and count < 90):
             if (count % 2 == 0):
                 fout.write(line)
             else:
                 # update the interested points temperature
-        fout.write(line)
+                fout.write(imitateTemperature(line))
+        else:
+            fout.write(line)
     # remove the old SAVE file
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 
+def imitateTemperature(line):
+    lastE = line.rindex('E')
+    trail = line[lastE+1:]
+    lastSpace = line.rindex(' ')
+    oldTem = line[lastSpace+1:lastE]
+    if (trail == '+01'):
+        temTem = float(oldTem) + 0.05
+    else:
+        temTem = float(oldTem) + 0.005
+    newTem = str(temTem)
+    if (len(newTem) > len(oldTem)):
+        newTem = newTem[0:len(oldTem)]
+    return line.replace(oldTem, newTem)
 
 ''' Create set of size num with identical value
 '''
@@ -402,15 +418,14 @@ def extract_data(outFile):
     fin = open(outFile)
     count = 0
     for line in fin:
-        print (line)
         count += 1
         if count <= 33:
             T_Bor.append(float(line.strip())+273.15)
         if (count > 34 and count <= 44):
             temp = line.split()
-            p_Int.append(float(temp[2].strip()))
-            x_Int.append(float(temp[3].strip()))
-            T_Int.append(float(temp[4].strip())+273.15)
+            p_Int.append(float(temp[2].replace('D', 'E').strip()))
+            x_Int.append(float(temp[3].replace('D', 'E').strip()))
+            T_Int.append(float(temp[4].replace('D', 'E').strip())+273.15)
     data = {
         'T_Bor': T_Bor,
         'p_Int': p_Int,
