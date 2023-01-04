@@ -105,12 +105,13 @@ def doStep(dblInp, state):
                 os.rename('newINFILE', 'INFILE')
 
             # Conduct one step TOUGH simulation.
-            # The TOUGH simulation requires the INCON as the initial condition, the
-            # INFILE for specifying the ground properties and the initial and end simulation time,
-            # the GENER file for the heat flux bounday condition.
-            # It will generate a SAVE file.
-            os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
-            # dummy code to imitatetimidate the TOUGH simulation. It is to demonstrate the
+            # The TOUGH simulation requires:
+            #   -- the INCON as the initial condition,
+            #   -- the INFILE for specifying the ground properties and the initial and end simulation time,
+            #   -- the GENER file for the heat flux bounday condition.
+            # The simulation will generate a SAVE file.
+            # os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
+            # Dummy code to imitate the TOUGH simulation. It is to demonstrate the
             # Modelica-TOUGH coupling process
             tough_avatar(Q_toTough, T_out)
 
