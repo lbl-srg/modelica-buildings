@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "conLoo.TCooSet",
+    "conLoo.TZon",
+    "conLoo.THeaSet",
+    "conLoo.yCoo",
+    "conLoo.yHea"
+  };

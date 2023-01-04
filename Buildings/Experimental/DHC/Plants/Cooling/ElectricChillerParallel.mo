@@ -101,10 +101,10 @@ model ElectricChillerParallel
     final per=fill(
       perChi,
       numChi),
-    final m1_flow_nominal=mCHW_flow_nominal,
-    final m2_flow_nominal=mCW_flow_nominal,
-    final dp1_nominal=dpCHW_nominal,
-    final dp2_nominal=dpCW_nominal,
+    final m1_flow_nominal=mCW_flow_nominal,
+    final m2_flow_nominal=mCHW_flow_nominal,
+    final dp1_nominal=dpCW_nominal,
+    final dp2_nominal=dpCHW_nominal,
     final num=numChi,
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium)
@@ -129,7 +129,6 @@ model ElectricChillerParallel
     final per=fill(
       perCHWPum,
       numChi),
-    use_inputFilter=false,
     yValve_start=fill(
       1,
       numChi),
@@ -154,7 +153,8 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=mCHW_flow_nominal*0.05,
-    final dpValve_nominal=dpCHW_nominal)
+    final dpValve_nominal=dpCHW_nominal,
+    riseTime=30)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=0,origin={-30,-70})));
@@ -168,9 +168,10 @@ model ElectricChillerParallel
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{140,-30},{160,-50}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterPumpSpeed chiWatPumCon(
-    tWai=0,
+    tWai=60,
     final m_flow_nominal=mCHW_flow_nominal,
-    final dpSetPoi=dpSetPoi)
+    final dpSetPoi=dpSetPoi,
+    Ti=30)
     "Chilled water pump controller"
     annotation (Placement(transformation(extent={{-120,58},{-100,38}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage chiStaCon(
@@ -306,19 +307,21 @@ equation
   connect(totPPum.y,PPum)
     annotation (Line(points={{282,160},{320,160}},color={0,0,127}));
   connect(pumCW.P,totPPum.u[1:2])
-    annotation (Line(points={{81,174},{240,174},{240,160.5},{258,160.5}},color={0,0,127}));
+    annotation (Line(points={{81,174},{240,174},{240,159.75},{258,159.75}},
+                                                                         color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,158.5},{258,158.5}},
+    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,
+          160.75}},
       color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
-    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,199}},
+    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,200.5}},
       color={0,0,127}));
   connect(totPCoo.y,PCoo)
     annotation (Line(points={{282,240},{320,240}},color={0,0,127}));
   connect(mulChiSys.P,totPCoo.u[1:2])
-    annotation (Line(points={{39,52},{20,52},{20,239},{258,239}},
+    annotation (Line(points={{39,52},{20,52},{20,240.5},{258,240.5}},
       color={0,0,127}));
   connect(mulChiSys.port_b2,splCHWSup.port_1)
     annotation (Line(points={{60,44},{120,44},{120,-32}},color={0,127,255}));
@@ -386,6 +389,12 @@ the detailed control logic. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
+to condenser water parameters and vice versa.<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and
