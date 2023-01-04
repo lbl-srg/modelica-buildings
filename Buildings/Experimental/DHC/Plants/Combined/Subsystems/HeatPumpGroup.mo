@@ -32,7 +32,7 @@ model HeatPumpGroup
     "HW pump design head (each unit)"
     annotation(Dialog(group="Nominal condition"));
 
-  parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic dat
+  replaceable parameter Buildings.Fluid.HeatPumps.Data.EquationFitReversible.Generic dat
     "Heat pump parameters (each unit)"
     annotation (Placement(transformation(extent={{-10,-88},{10,-68}})));
   replaceable parameter Fluid.Movers.Data.Generic datPum
@@ -40,7 +40,7 @@ model HeatPumpGroup
       pressure(V_flow={0,1,2}*mHeaWatUni_flow_nominal/rho_nominal,
       dp={1.14,1,0.42}*dpPumHeaWatUni_nominal),
       motorCooledByFluid=false)
-    "HW pump parameters"
+    "Condenser pump parameters (each unit)"
     annotation (Placement(transformation(extent={{20,-88},{40,-68}})));
 
   // Assumptions
@@ -73,7 +73,7 @@ model HeatPumpGroup
     annotation(Dialog(tab="Dynamics", group="Filtered pump speed",enable=use_inputFilter));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni]
-    "Heat pump On/Off signal"
+    "Heat pump On/Off command"
     annotation (Placement(transformation(extent={{-140,40},
             {-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet
@@ -243,5 +243,20 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})));
+    Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
+    Documentation(info="<html>
+<p>
+The model
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
+Buildings.Fluid.HeatPumps.EquationFitReversible</a>
+does not capture the sensitivity of the HP performance
+to the HW supply temperature setpoint.
+This means that a varying HW supply temperature setpoint
+has no impact on the heat pump <i>COP</i> (all other variables
+such as the HW return temperature being kept invariant).
+This limitation is not an issue for the CW storage plant
+where the heat pump supply temperature setpoint is not
+to be reset.
+</p>
+</html>"));
 end HeatPumpGroup;

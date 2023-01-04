@@ -8,8 +8,9 @@ model MultiplePumpsDp
     cst(final k=dpPum_nominal));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dp_in(
-    final unit="kg/s",
-    final min=0) if have_var
+    final unit="Pa",
+    final min=0)
+    if have_var
     "Differential pressure setpoint"
     annotation (
     Placement(transformation(extent={{-140,40},{-100,80}}),

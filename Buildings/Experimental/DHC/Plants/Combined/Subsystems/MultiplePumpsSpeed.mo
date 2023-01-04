@@ -6,7 +6,10 @@ model MultiplePumpsSpeed
     cst(final k=1));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
-    final unit="1", final min=0) if have_var "Pump speed (common to all pumps)"
+    final unit="1",
+    final min=0)
+    if have_var
+    "Pump speed (common to all pumps)"
     annotation (
      Placement(transformation(extent={{-140,40},{-100,80}}), iconTransformation(
           extent={{-140,20},{-100,60}})));

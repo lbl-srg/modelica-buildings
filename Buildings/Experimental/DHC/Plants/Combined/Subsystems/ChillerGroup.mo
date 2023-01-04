@@ -22,10 +22,50 @@ model ChillerGroup
     Buildings.Experimental.DHC.Types.Valve.None
     "Type of chiller condenser isolation valve"
     annotation(Evaluate=true);
-  final parameter Modelica.Units.SI.HeatFlowRate capUni_nominal(
-    final min=0)=abs(dat.QEva_flow_nominal)
-    "Chiller design capacity (each unit, >0)"
+  parameter Modelica.Units.SI.Temperature TCasEnt_nominal=20 + 273.15
+    "Design value of chiller entering temperature in cascade configuration";
+  final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
+    dat.TEvaLvg_nominal
+    "Design (minimum) CHW supply temperature";
+  final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
+    dat.TConLvg_nominal
+    "Design (maximum) HW supply temperature";
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWatUni_flow_nominal=
+    dat.QEva_flow_nominal
+    "Cooling design heat flow rate (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.HeatFlowRate QHeaWatUni_flow_nominal=
+    -dat.QEva_flow_nominal * (1 + 1 / dat.COP_nominal * dat.etaMotor)
+    "Heating design heat flow rate in direct heat recovery mode (each unit, >0)"
+    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+  final parameter Modelica.Units.SI.Efficiency COPCas_nominal( fixed=false)
+    "Coefficient of performance in cascading mode";
+  final parameter Modelica.Units.SI.Temperature TCasLvg_nominal(fixed=false)
+    "Design value of chiller leaving temperature in cascade configuration";
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasUni_flow_nominal(
+    fixed=false)
+    "Cooling design heat flow rate in cascading mode (each unit, <0)"
+    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+  final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasUni_flow_nominal=
+    -QChiWatCasUni_flow_nominal * (1 + 1 / COPCas_nominal * dat.etaMotor)
+    "Heating design heat flow rate in cascading mode (each unit, >0)"
+    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
+    nUni * QChiWatUni_flow_nominal
+    "Cooling design heat flow rate (all units, <0)"
+    annotation(Dialog(group="Nominal condition"));
+  final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
+    nUni * QHeaWatUni_flow_nominal
+    "Heating design heat flow rate (all units, >0)"
+    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWatCas_flow_nominal=
+    nUni * QChiWatCasUni_flow_nominal
+    "Cooling design heat flow rate in cascading mode (all units, <0)"
+    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+  final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCas_flow_nominal=
+    nUni * QHeaWatCasUni_flow_nominal
+    "Heating design heat flow rate in cascading mode (all units, >0)"
+    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal(
     final min=0)=dat.mEva_flow_nominal
     "Chiller CHW design mass flow rate (each unit)"
@@ -76,7 +116,6 @@ model ChillerGroup
     enable=typValCon<>Buildings.Experimental.DHC.Types.Valve.None));
 
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic dat
-    constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     "Chiller parameters (each unit)"
     annotation (Placement(transformation(extent={{-10,-134},{10,-114}})));
 
@@ -108,28 +147,13 @@ model ChillerGroup
       and (typValEva<>Buildings.Experimental.DHC.Types.Valve.None or
       typValCon<>Buildings.Experimental.DHC.Types.Valve.None)));
 
-  replaceable Fluid.Chillers.ElectricReformulatedEIR chi(
-    final per=dat)
-    constrainedby Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
-      PLR1(start=0),
-      redeclare final package Medium1=Medium1,
-      redeclare final package Medium2=Medium2,
-      final have_switchOver=have_switchOver,
-      final dp1_nominal=0,
-      final dp2_nominal=0,
-      final allowFlowReversal1=allowFlowReversal1,
-      final allowFlowReversal2=allowFlowReversal2,
-      final energyDynamics=energyDynamics,
-      final show_T=show_T)
-    "Chiller"
-    annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Chi[nUni]
-    "Chiller On/Off signal"
+    "Chiller On/Off command"
     annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
       iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Coo[nUni]
     if have_switchOver
-    "Chiller switchover signal: true for cooling, false for heating"
+    "Chiller switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet
@@ -183,6 +207,21 @@ model ChillerGroup
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-58,-120})));
+
+  Fluid.Chillers.ElectricReformulatedEIR chi(
+    PLR1(start=0),
+    final per=dat,
+    redeclare final package Medium1=Medium1,
+    redeclare final package Medium2=Medium2,
+    final have_switchOver=have_switchOver,
+    final dp1_nominal=0,
+    final dp2_nominal=0,
+    final allowFlowReversal1=allowFlowReversal1,
+    final allowFlowReversal2=allowFlowReversal2,
+    final energyDynamics=energyDynamics,
+    final show_T=show_T)
+    "Chiller"
+    annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulConInl(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
@@ -292,6 +331,41 @@ model ChillerGroup
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-40,-20})));
+protected
+  parameter Medium1.ThermodynamicState staCas1=Medium1.setState_pTX(
+    T=TCasEnt_nominal,
+    p=Medium1.p_default,
+    X=Medium1.X_default)
+    "State of source medium in cascade configuration";
+  parameter Medium2.ThermodynamicState staCas2=Medium2.setState_pTX(
+    T=TCasEnt_nominal,
+    p=Medium2.p_default,
+    X=Medium2.X_default)
+    "State of source medium in cascade configuration";
+  parameter Modelica.Units.SI.SpecificHeatCapacity cpCas=
+    if is_cooling then Medium1.specificHeatCapacityCp(state=staCas1)
+    else Medium2.specificHeatCapacityCp(state=staCas2)
+    "Heat capacity of source medium in cascade configuration";
+initial equation
+  TCasLvg_nominal = TCasEnt_nominal +
+    (if is_cooling then QHeaWatCasUni_flow_nominal
+    else QChiWatCasUni_flow_nominal) / cpCas /
+    (if is_cooling then mConWatUni_flow_nominal
+    else mChiWatUni_flow_nominal);
+  QChiWatCasUni_flow_nominal = dat.QEva_flow_nominal *
+    Buildings.Utilities.Math.Functions.biquadratic(
+      a=dat.capFunT,
+      x1=Modelica.Units.Conversions.to_degC(
+        if is_cooling then TChiWatSup_nominal else TCasLvg_nominal),
+      x2=Modelica.Units.Conversions.to_degC(
+        if is_cooling then TCasLvg_nominal else THeaWatSup_nominal));
+  COPCas_nominal = dat.COP_nominal /
+    Buildings.Utilities.Math.Functions.biquadratic(
+      a=dat.EIRFunT,
+      x1=Modelica.Units.Conversions.to_degC(
+        if is_cooling then TChiWatSup_nominal else TCasLvg_nominal),
+      x2=Modelica.Units.Conversions.to_degC(
+        if is_cooling then TCasLvg_nominal else THeaWatSup_nominal));
 equation
   connect(mulEvaInl.port_b, chi.port_a2)
     annotation (Line(points={{30,-60},{26,-60},{26,-6},{18,-6}},
@@ -392,7 +466,7 @@ equation
   connect(modOpe.y, rep.u) annotation (Line(points={{-68,140},{-60,140},{-60,152},
           {24,152},{24,142}}, color={255,0,255}));
   annotation (
-    defaultComponentName="chiHea",
+    defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -404,5 +478,74 @@ equation
           lineColor={27,0,55},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid)}),                      Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}})),
+    Documentation(info="<html>
+<p>
+This model represents a set of identical chillers in parallel.
+If the parameter <code>have_switchOver</code> is <code>true</code>
+then an additional operating mode signal <code>y1Coo</code> is used
+to switch <i>On/Off</i> the chillers and actuate the chiller isolation 
+valves based on the following logic.
+</p>
+<ul>
+<li>
+If the parameter <code>is_cooling</code> is <code>true</code>
+then the chiller <code>#i</code> is commanded <i>On</i> if 
+both <code>y1Chi[i]</code> and <code>y1Coo[i]</code> are
+<code>true</code>. 
+When the chiller <code>#i</code> is commanded <i>On</i>
+the isolation valve input signal <code>y*Val*[i]</code> is used to 
+control the valve opening. Otherwise the valve is closed.
+Configured this way, the model represents the set of heat 
+recovery chillers operating in cooling mode, i.e., tracking
+the CHW supply temperature setpoint.
+</li>
+<li>
+If the parameter <code>is_cooling</code> is <code>false</code>
+then the chiller <code>#i</code> is commanded <i>On</i> if 
+<code>y1Chi[i]</code> is <code>true</code> and <code>y1Coo[i]</code> is
+<code>false</code>.
+When the chiller <code>#i</code> is commanded <i>On</i>
+the isolation valve input signal <code>y*Val*[i]</code> is used to 
+control the valve opening. Otherwise the valve is closed.
+Configured this way, the model represents the set of heat 
+recovery chillers operating in heating mode, i.e., tracking
+the HW supply temperature setpoint.
+</li>
+</ul>
+<p>
+Note that the input signal <code>y1Coo</code> is different 
+from the input signal <code>coo</code> that is used in the model
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
+where it allows switching the chiller operating mode from cooling
+to heating.
+The current chiller group model rather represents a set of chillers
+that are <i>all</i> operated in the same mode, either cooling or heating.
+The mode is fixed as specified by the parameter <code>is_cooling</code>
+and each chiller which is commanded to operate in a different mode
+is considered <i>Off</i>.
+</p>
+<h4>
+Chiller performance data
+</h4>
+<p>
+When modeling heat recovery chillers (by setting the parameter
+<code>have_switchOver</code> to <code>true</code>) the chiller performance
+data should cover the maximum chiller lift when the chiller is
+operating in direct heat recovery mode, i.e., producing CHW and HW
+at their setpoint value at full load.
+In this case, an additional parameter <code>TCasEnt_nominal</code> 
+is exposed to specify the chiller entering temperature of the third fluid 
+circuit that is used to generate a cascade of thermodynamic cycles.
+This fluid circuit is connected either to the chiller evaporator barrel 
+when the chiller is operating in heating mode, or to the chiller condenser
+barrel when the chiller is operating in cooling mode.
+The parameter <code>TCasEnt_nominal</code> is then used to assess the 
+design chiller capacity in heating and cooling mode, respectively.
+The value of that parameter should typically differ when configuring 
+this model for heating (<code>is_cooling=false</code>) or 
+cooling (<code>is_cooling=true</code>).
+</p>
+</html>"));
 end ChillerGroup;
