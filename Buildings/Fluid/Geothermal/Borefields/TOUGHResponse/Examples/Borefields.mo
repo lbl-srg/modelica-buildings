@@ -5,7 +5,7 @@ model Borefields
 
   package Medium = Buildings.Media.Water;
 
-  parameter Modelica.SIunits.Temperature TGro = 283.15
+  parameter Modelica.Units.SI.Temperature TGro = 283.15
     "Ground temperature";
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine floRat(freqHz=1/21600,

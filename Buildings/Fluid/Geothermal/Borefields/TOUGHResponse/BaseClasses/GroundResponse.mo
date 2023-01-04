@@ -3,7 +3,7 @@ model GroundResponse
 
   parameter Integer nSeg=10 "Total number of segments";
   parameter Integer nInt=10 "Number of points in the ground to be investigated";
-  parameter Modelica.SIunits.Time samplePeriod=60 "Sample period of component"
+  parameter Modelica.Units.SI.Time samplePeriod=60 "Sample period of component"
     annotation(Dialog(group="Sampling"));
   parameter Integer flag=0
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)"
