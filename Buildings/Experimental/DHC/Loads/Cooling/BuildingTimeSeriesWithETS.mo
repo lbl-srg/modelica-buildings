@@ -2,8 +2,6 @@ within Buildings.Experimental.DHC.Loads.Cooling;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS for cooling"
   extends BaseClasses.PartialBuildingWithETS(
-    final dpRet=0,
-    final dpSup=0,
     redeclare BaseClasses.BuildingTimeSeries bui(
       final have_pum=true,
       final filNam=filNam,

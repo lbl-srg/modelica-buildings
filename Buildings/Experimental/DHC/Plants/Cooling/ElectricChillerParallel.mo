@@ -68,15 +68,24 @@ model ElectricChillerParallel
   parameter Modelica.Units.SI.Time tau=1
     "Pump time constant at nominal flow (if energyDynamics <> SteadyState)"
     annotation (Dialog(tab="Dynamics", group="Pump"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTimePump=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
     "Type of initialization for pumps (no init/steady state/initial state/initial output)"
-    annotation(Dialog(tab="Dynamics", group="Pump"));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
   parameter Real[numChi] yCHWP_start=fill(0,numChi)
     "Initial value of CHW pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump"));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
   parameter Real[numChi] yCWP_start=fill(0,numChi)
     "Initial value of CW pump signals"
-    annotation(Dialog(tab="Dynamics", group="Pump"));
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
   parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal
     "Nominal pressure difference of the cooling tower valve";
   // control settings
@@ -101,7 +110,7 @@ model ElectricChillerParallel
     annotation (Placement(transformation(extent={{-340,100},{-300,140}}),
    iconTransformation(extent={{-340,138},{-300,178}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
-    final use_inputFilter=false,
+    final use_inputFilter=use_inputFilter,
     final per=fill(
       perChi,
       numChi),
@@ -118,7 +127,7 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
-    final use_inputFilter=false,
+    final use_inputFilter=use_inputFilter,
     final dp_nominal=dpCW_nominal/2,
     final dpValve_nominal = dpCooTowVal_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
@@ -134,12 +143,12 @@ model ElectricChillerParallel
     final per=fill(
       perCHWPum,
       numChi),
-    riseTimePump=120,
     yValve_start=fill(
       1,
       numChi),
     final tau=tau,
-    final use_inputFilter=true,
+    final use_inputFilter=use_inputFilter,
+    final riseTimePump=riseTimePump,
     final init=init,
     final yPump_start=yCHWP_start,
     final energyDynamics=energyDynamics,
@@ -154,8 +163,8 @@ model ElectricChillerParallel
       perCWPum,
       numChi),
     final tau=tau,
-    final use_inputFilter=true,
-    riseTimePump=120,
+    final use_inputFilter=use_inputFilter,
+    final riseTimePump=riseTimePump,
     final init=init,
     final yPump_start=yCWP_start,
     final energyDynamics=energyDynamics,
@@ -225,7 +234,7 @@ model ElectricChillerParallel
   Buildings.Fluid.FixedResistances.Junction joiCHWRet(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,1},
-    energyDynamics=energyDynamics,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow joint for the chilled water return side"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
@@ -233,7 +242,7 @@ model ElectricChillerParallel
   Buildings.Fluid.FixedResistances.Junction splCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,-1},
-    energyDynamics=energyDynamics,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal={0,0,0})
     "Flow splitter for the chilled water supply side"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
