@@ -138,7 +138,8 @@ model BuildingTimeSeries
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
     final Ti=Ti) if have_heaWat
-    constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+    constrainedby
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
       redeclare final package Medium1=Medium,
       redeclare final package Medium2=Medium2,
       final allowFlowReversal=allowFlowReversal,
@@ -157,8 +158,6 @@ model BuildingTimeSeries
     final m_flow_nominal=mHeaWat_flow_nominal,
     final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
     final dp_nominal=100000,
     final energyDynamics=energyDynamics,
     final nPorts_a1=1,
@@ -172,8 +171,6 @@ model BuildingTimeSeries
     final typDis=Buildings.Experimental.DHC.Loads.BaseClasses.Types.DistributionType.ChilledWater,
     final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
     final dp_nominal=100000,
     final energyDynamics=energyDynamics,
     final nPorts_b1=1,
@@ -187,7 +184,8 @@ model BuildingTimeSeries
     final Ti=Ti,
     final TRooHea_nominal=T_aLoaHea_nominal,
     final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
-    constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+    constrainedby
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
       redeclare final package Medium1=Medium,
       redeclare final package Medium2=Medium2,
       final allowFlowReversal=allowFlowReversal,
@@ -291,17 +289,13 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
+    annotation (
     Documentation(
       info="<html>
 <p>This is a simplified building model where the space cooling load is provided as time series. </p>
 </html>",
       revisions="<html>
 <ul>
-<li>
-January 2, 2023, by Kathryn Hinkelman:<br/>
-Propagated energy dynamics and a filter for the (variable) secondary pumps.
-</li>
 <li>
 December 21, 2022, by Kathryn Hinkelman:<br>
 Removed final declaration for <code>have_pum</code> to optionally allow
