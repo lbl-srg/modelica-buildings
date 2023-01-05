@@ -20,7 +20,7 @@ model BuildingTimeSeriesWithETS
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0)=9
     "Water temperature drop/increase accross load and source-side HX (always positive)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=280.15
+  parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=7 + 273.15
     "Chilled water supply temperature"
     annotation (Dialog(group="Nominal conditions"));
   final parameter Modelica.Units.SI.Temperature TChiWatRet_nominal=

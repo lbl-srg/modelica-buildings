@@ -87,15 +87,15 @@ model ElectricChillerParallel
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Mixing volume"
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow
-                                                      fixHeaFlo(
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow fixHeaFlo(
     T_ref=293.15)
     "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Fluid.FixedResistances.PressureDrop res(
     redeclare package Medium = Medium,
     m_flow_nominal=pla.numChi*mCHW_flow_nominal,
-    dp_nominal(displayUnit="kPa") = 60000)        "Flow resistance"
+    dp_nominal(displayUnit="kPa") = 60000)
+    "Flow resistance"
     annotation (Placement(transformation(extent={{70,-50},{50,-30}})));
   Modelica.Blocks.Sources.Sine loaVar(
     amplitude=913865,
@@ -131,7 +131,7 @@ equation
       coordinateSystem(
         preserveAspectRatio=false)),
     experiment(
-      StopTime=604800,
+      StopTime=86400,
       Tolerance=1e-06),
     Documentation(
       info="<html>
@@ -145,11 +145,11 @@ Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>.
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
 Enabled filters for CHW pumps and valves. Corrected pressure drop in loop. 
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue 2912</a>.
 </li>
 <li>
 October 20, 2021, by Chengnan Shi:<br/>
-Revised the model for extensibility. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">#2749</a>.
+Revised the model for extensibility. This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2749\">issue 2749</a>.
 </li>
 <li>
 August 6, 2020 by Jing Wang:<br/>

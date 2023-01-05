@@ -55,9 +55,8 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Cooling/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
     experiment(
-      StopTime=8640000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=31536000,
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 This model provides an example for a building with loads provided 
