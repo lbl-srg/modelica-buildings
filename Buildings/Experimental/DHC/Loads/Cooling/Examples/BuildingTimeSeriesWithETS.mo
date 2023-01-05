@@ -6,7 +6,6 @@ model BuildingTimeSeriesWithETS
   package Medium=Buildings.Media.Water
     "Medium model";
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiWitETS(
-    yMin=0.001,
     filNam=
       "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos")
   "Building Time Series load coupled with ETS"
