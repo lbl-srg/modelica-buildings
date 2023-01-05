@@ -119,17 +119,18 @@ model ElectricChillersDirectETS "Example model for district cooling system with
   Modelica.Blocks.Math.Sum QTotCoo_flow(nin=nLoa)
     "Total cooling flow rate for all buildings "
     annotation (Placement(transformation(extent={{60,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaPla(trueHoldDuration=30*60)
-    "Enable the plant"
-    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold onCoo(t=1e-4)
-    "Threshold comparison to enable the plant"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold offCoo(t=1e-4)
+    "Threshold comparison to disable the plant"
     annotation (Placement(transformation(extent={{-30,10},{-50,30}})));
   Modelica.Blocks.Math.Gain norQFlo(k=1/sum(QCoo_flow_nominal))
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{30,10},{10,30}})));
   HeatTransfer.Sources.FixedTemperature gnd(T=285.15) "Ground"
     annotation (Placement(transformation(extent={{60,-60},{40,-40}})));
+  Controls.OBC.CDL.Logical.Timer tim(t=3600)
+    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
+  Controls.OBC.CDL.Logical.Not onPla "On signal for the plant"
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 protected
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
@@ -159,16 +160,18 @@ equation
   end for;
   connect(buiETS.QCoo_flow, QTotCoo_flow.u) annotation (Line(points={{57,38},{
           68,38},{68,20},{62,20}}, color={0,0,127}));
-  connect(enaPla.u, onCoo.y)
-    annotation (Line(points={{-58,20},{-52,20}}, color={255,0,255}));
-  connect(enaPla.y, pla.on) annotation (Line(points={{-82,20},{-90,20},{-90,
-          -2.6},{-30.7333,-2.6}}, color={255,0,255}));
   connect(QTotCoo_flow.y, norQFlo.u)
     annotation (Line(points={{39,20},{32,20}}, color={0,0,127}));
-  connect(norQFlo.y, onCoo.u)
+  connect(norQFlo.y, offCoo.u)
     annotation (Line(points={{9,20},{-28,20}}, color={0,0,127}));
   connect(gnd.port, dis.heatPort)
     annotation (Line(points={{40,-50},{27,-50},{27,-20}}, color={191,0,0}));
+  connect(offCoo.y, tim.u)
+    annotation (Line(points={{-52,20},{-58,20}}, color={255,0,255}));
+  connect(tim.passed, onPla.u) annotation (Line(points={{-82,12},{-90,12},{-90,
+          -10},{-82,-10}}, color={255,0,255}));
+  connect(onPla.y, pla.on) annotation (Line(points={{-58,-10},{-54,-10},{-54,
+          -2.6},{-30.7333,-2.6}}, color={255,0,255}));
     annotation (
     Diagram(
       coordinateSystem(
