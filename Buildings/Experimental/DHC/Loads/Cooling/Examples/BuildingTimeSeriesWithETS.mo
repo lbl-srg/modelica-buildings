@@ -20,25 +20,30 @@ model BuildingTimeSeriesWithETS
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,10})));
   Buildings.Fluid.Sources.Boundary_pT sinChiWat(
     redeclare package Medium = Medium,
-    p(displayUnit="bar") = 300000,
+    p(displayUnit="bar") = 340000,
     nPorts=1)
     "Sink for chilled water"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=0,origin={-50,-50})));
-  Modelica.Blocks.Sources.RealExpression TDisSup(y=273.15 + 7)
-    "District supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-88,4},{-68,24}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Modelica.Blocks.Sources.Constant TDisRetSet(k=273.15 + 16)
+    "Setpoint for district return temperature"
+    annotation (Placement(transformation(extent={{0,40},{20,60}})));
+  Modelica.Blocks.Sources.Constant TDisSup(k=273.15 + 7)
+    "District supply temperature"
+    annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
 equation
-  connect(TDisSup.y, supChiWat.T_in) annotation (Line(points={{-67,14},{-62,14}},
-                             color={0,0,127}));
   connect(supChiWat.ports[1], senMasFlo.port_a)
     annotation (Line(points={{-40,10},{-20,10}}, color={0,127,255}));
   connect(senMasFlo.port_b, buiWitETS.port_aSerCoo) annotation (Line(points={{0,
           10},{20,10},{20,-18},{40,-18}}, color={0,127,255}));
   connect(buiWitETS.port_bSerCoo, sinChiWat.ports[1]) annotation (Line(points={
           {60,-18},{80,-18},{80,-50},{-40,-50}}, color={0,127,255}));
+  connect(TDisSup.y, supChiWat.T_in)
+    annotation (Line(points={{-69,14},{-62,14}}, color={0,0,127}));
+  connect(TDisRetSet.y, buiWitETS.TSetDisRet) annotation (Line(points={{21,50},
+          {30,50},{30,-3},{39,-3}}, color={0,0,127}));
   annotation (
     Icon(
       coordinateSystem(
@@ -54,7 +59,8 @@ equation
     Documentation(info="<html>
 <p>
 This model provides an example for a building with loads provided 
-as time series and connected to a direct uncontrolled ETS for cooling. 
+as time series and connected to a direct ETS for cooling with the
+return chilled water temperature controlled above a minimum threshold. 
 </p>
 </html>", revisions="<html>
 <ul>

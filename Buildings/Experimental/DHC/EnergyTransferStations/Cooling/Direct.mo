@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
-model DirectControlled "Direct cooling ETS model for district energy systems with in-building 
+model Direct "Direct cooling ETS model for district energy systems with in-building 
   pumping and deltaT control"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
@@ -15,26 +15,16 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final have_fan=false,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1);
-  // Mass flow rates
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal(
-    final min=0,
-    final start=0.5)
-    "Nominal mass flow rate of district cooling side"
-    annotation(Dialog(group="Nominal condition"));
+  // Mass flow rate
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
     final min=0,
     final start=0.5)
     "Nominal mass flow rate of building cooling side"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mByp_flow_nominal(
-    final min=0,
-    final start=0.5)
-    "Nominal mass flow rate through the bypass segment"
-    annotation(Dialog(group="Nominal condition"));
   // Pressure drops
   parameter Modelica.Units.SI.PressureDifference dpConVal_nominal(
     final min=0,
-    displayUnit="Pa")=6000
+    displayUnit="Pa")=50
     "Nominal pressure drop in the control valve"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCheVal_nominal(
@@ -42,20 +32,17 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     displayUnit="Pa")=6000
     "Nominal pressure drop in the check valve"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference[3] dp_nominal=500*{1,-1,1}
-    "Nominal pressure drop in pipe junctions"
-    annotation(Dialog(group="Nominal condition"));
   // Controller parameters
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="PID controller"));
   parameter Real k(
     final min=0,
-    final unit="1")=1
+    final unit="1")=0.1
     "Gain of controller"
     annotation (Dialog(group="PID controller"));
   parameter Modelica.Units.SI.Time Ti(
-    final min=Modelica.Constants.small)=120
+    final min=Modelica.Constants.small)=60
     "Time constant of integrator block"
     annotation (Dialog(group="PID controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Modelica.Units.SI.Time Td(
@@ -66,7 +53,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     final start=1)=1
     "Upper limit of output"
     annotation (Dialog(group="PID controller"));
-  parameter Real yMin=0.01
+  parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="PID controller"));
   // Advanced parameters
@@ -98,7 +85,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
             {340,-90}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisSup(
     redeclare final package Medium=MediumSer,
-    final m_flow_nominal=mDis_flow_nominal)
+    final m_flow_nominal=mBui_flow_nominal)
     "District supply temperature sensor"
     annotation (Placement(transformation(extent={{-180,-290},{-160,-270}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
@@ -108,25 +95,25 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   Buildings.Fluid.FixedResistances.Junction jun(
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
-    final m_flow_nominal={mDis_flow_nominal,-mBui_flow_nominal,mByp_flow_nominal},
-    final dp_nominal=dp_nominal)
+    final m_flow_nominal=mBui_flow_nominal*{1,-1,1},
+    final dp_nominal={0,0,0})
     "Bypass junction"
     annotation (Placement(transformation(extent={{-60,-270},{-40,-290}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTDisRet(
     redeclare final package Medium=MediumSer,
-    final m_flow_nominal=mDis_flow_nominal)
+    final m_flow_nominal=mBui_flow_nominal)
     "District return temperature sensor"
     annotation (Placement(transformation(extent={{30,210},{50,190}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
-    final m_flow_nominal={mBui_flow_nominal,-mDis_flow_nominal,-mByp_flow_nominal},
-    final dp_nominal=dp_nominal)
+    final m_flow_nominal=mBui_flow_nominal*{1,-1,-1},
+    final dp_nominal={0,0,0})
     "Bypass junction, splitter"
     annotation (Placement(transformation(extent={{-60,190},{-40,210}})));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage conVal(
     redeclare final package Medium=MediumSer,
-    final m_flow_nominal=mDis_flow_nominal,
+    final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpConVal_nominal,
     use_inputFilter=true,
     riseTime(displayUnit="s") = 60)
@@ -140,7 +127,7 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
-    final m_flow_nominal=mByp_flow_nominal,
+    final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpCheVal_nominal)
     "Check valve (backflow preventer)"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -171,25 +158,12 @@ model DirectControlled "Direct cooling ETS model for district energy systems wit
     reverseActing=false,
     y_reset=0)
     "District return temperature controller"
-    annotation (Placement(transformation(extent={{-220,10},{-200,-10}})));
+    annotation (Placement(transformation(extent={{-220,100},{-200,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
     annotation (Placement(transformation(extent={{230,190},{250,210}})));
-  Modelica.Blocks.Logical.OnOffController onOffCon(
-    final bandwidth=bandwidth)
-    "On/off control for the control valve"
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
-  Modelica.Blocks.Logical.Switch swi
-    "Switch between full opening and PI control signal"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Sources.Constant const(k=1)
-    "Full opening of the control valve"
-    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
-  Modelica.Blocks.Logical.Not notCon
-    "Reverse the on/off signal"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 protected
   final parameter MediumSer.ThermodynamicState sta_default=MediumSer.setState_pTX(
     T=MediumSer.T_default,
@@ -236,35 +210,19 @@ equation
   connect(senTDisSup.T, dTdis.u2)
     annotation (Line(points={{-170,-269},{-170,-110},{58,-110}}, color={0,0,127}));
   connect(TSetDisRet, con.u_s)
-    annotation (Line(points={{-318,0},{-222,0}},                     color={0,0,127}));
+    annotation (Line(points={{-318,0},{-270,0},{-270,90},{-222,90}}, color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)
-    annotation (Line(points={{-210,189},{-210,12}}, color={0,0,127}));
+    annotation (Line(points={{-210,189},{-210,102}},color={0,0,127}));
   connect(jun.port_2, senTBuiSup.port_a)
     annotation (Line(points={{-40,-280},{220,-280},{220,200},{230,200}}, color={0,127,255}));
   connect(senTBuiSup.port_b, ports_bChiWat[1])
     annotation (Line(points={{250,200},{300,200}}, color={0,127,255}));
-  connect(const.y, swi.u1)
-    annotation (Line(points={{-139,130},{-110,130},{
-          -110,80},{-82,80},{-82,78}}, color={0,0,127}));
-  connect(notCon.y, swi.u2)
-    annotation (Line(points={{-119,70},{-82,70}}, color={255,0,255}));
-  connect(con.y, swi.u3)
-    annotation (Line(points={{-199,0},{-110,0},{-110,62},
-          {-82,62}}, color={0,0,127}));
-  connect(swi.y, conVal.y)
-    annotation (Line(points={{-59,70},{0,70},{0,188}}, color={0,0,127}));
-  connect(senTBuiRet.T, onOffCon.u)
-    annotation (Line(points={{-210,189},{-210,
-          64},{-182,64}}, color={0,0,127}));
-  connect(TSetDisRet, onOffCon.reference)
-    annotation (Line(points={{-318,0},{
-          -260,0},{-260,76},{-182,76}}, color={0,0,127}));
-  connect(onOffCon.y, notCon.u)
-    annotation (Line(points={{-159,70},{-142,70}}, color={255,0,255}));
   connect(spl.port_3, cheVal.port_a)
     annotation (Line(points={{-50,190},{-50,0}}, color={0,127,255}));
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
+  connect(con.y, conVal.y)
+    annotation (Line(points={{-199,90},{0,90},{0,188}}, color={0,0,127}));
  annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
@@ -278,7 +236,7 @@ cooling network is at or above the minimum specified value. This configuration
 naturally results in a fluctuating building supply tempearture. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/DirectControlled.PNG\" alt=\"DHC.ETS.DirectControlled\"/> 
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Direct.PNG\" alt=\"DC ETS Direct\"/> 
 </p>
 <h4>
 Reference
@@ -289,7 +247,21 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </p>
 </html>",
       revisions="<html>
-      <ul>
+<ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Set pressure drops at junctions to 0 and removed parameter <code>dp_nominal</code>
+</li>
+<li>
+December 28, 2022, by Kathryn Hinkelman:<br/>
+Simplified the control implementation for the district return stream. Improved default control parameters.
+</li>
+<li>
+December 23, 2022, by Kathryn Hinkelman:<br/>
+Removed extraneous <code>m*_flow_nominal</code> parameters because 
+<code>mBui_flow_nominal</code> can be used across all components.
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
+</li> 
 <li>
 November 11, 2022, by Michael Wetter:<br/>
 Changed check valve to use version of <code>Buildings</code> library, and hence no outer <code>system</code> is needed.
@@ -298,4 +270,4 @@ Changed check valve to use version of <code>Buildings</code> library, and hence 
 <li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
-end DirectControlled;
+end Direct;

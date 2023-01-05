@@ -6,7 +6,6 @@ model BuildingTimeSeries
     final have_heaWat=false,
     final have_chiWat=true,
     final have_fan=false,
-    final have_pum=true,
     final have_eleHea=false,
     final have_eleCoo=false,
     final have_weaBus=false);
@@ -81,7 +80,18 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.Time Ti(
     min=Modelica.Constants.small)=10
     "Time constant of integrator block";
-
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Type of energy balance"
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHotWat_flow(
     final unit="W") if have_hotWat
     "SHW load" annotation (Placement(
@@ -128,7 +138,8 @@ model BuildingTimeSeries
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeHeating terUniHea(
     final k=k,
     final Ti=Ti) if have_heaWat
-    constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+    constrainedby
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
       redeclare final package Medium1=Medium,
       redeclare final package Medium2=Medium2,
       final allowFlowReversal=allowFlowReversal,
@@ -145,9 +156,10 @@ model BuildingTimeSeries
     redeclare final package Medium=Medium,
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mHeaWat_flow_nominal,
-    final have_pum=true,
+    final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
     final dp_nominal=100000,
+    final energyDynamics=energyDynamics,
     final nPorts_a1=1,
     final nPorts_b1=1) if have_heaWat
     "Heating water distribution system"
@@ -157,9 +169,10 @@ model BuildingTimeSeries
     final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=mChiWat_flow_nominal,
     final typDis=Buildings.Experimental.DHC.Loads.BaseClasses.Types.DistributionType.ChilledWater,
-    final have_pum=true,
+    final have_pum=have_pum,
     final typCtr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType.ConstantHead,
     final dp_nominal=100000,
+    final energyDynamics=energyDynamics,
     final nPorts_b1=1,
     final nPorts_a1=1) if have_chiWat
     "Chilled water distribution system"
@@ -171,7 +184,8 @@ model BuildingTimeSeries
     final Ti=Ti,
     final TRooHea_nominal=T_aLoaHea_nominal,
     final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
-    constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
+    constrainedby
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
       redeclare final package Medium1=Medium,
       redeclare final package Medium2=Medium2,
       final allowFlowReversal=allowFlowReversal,
@@ -185,7 +199,7 @@ model BuildingTimeSeries
       final w_aLoaCoo_nominal=w_aLoaCoo_nominal)
     "Cooling terminal unit"
     annotation (Placement(transformation(extent={{70,36},{90,56}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addPPum
+  Buildings.Controls.OBC.CDL.Continuous.Add addPPum if have_pum
     "Sum pump power"
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant noCoo(
@@ -275,13 +289,19 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
-    annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}),
+    annotation (
     Documentation(
       info="<html>
 <p>This is a simplified building model where the space cooling load is provided as time series. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 21, 2022, by Kathryn Hinkelman:<br>
+Removed final declaration for <code>have_pum</code> to optionally allow
+in-building pumping to be included/excluded.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue 2912</a>.
+</li>
 <li>March 20, 2022, by Chengnan Shi:<br>
 Disable heating port to specify for cooling loads model.</li>
 <li>December 21, 2020, by Antoine Gautier:<br>
