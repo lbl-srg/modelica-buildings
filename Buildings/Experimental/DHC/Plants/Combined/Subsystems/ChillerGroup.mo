@@ -286,7 +286,8 @@ model ChillerGroup
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,30},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant modOpe(
-    final k=is_cooling) if have_switchOver "Operating mode (fixed)"
+    final k=is_cooling) if have_switchOver
+    "Operating mode (fixed)"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -490,27 +491,19 @@ valves based on the following logic.
 <ul>
 <li>
 If the parameter <code>is_cooling</code> is <code>true</code>
+(resp. <code>false</code>)
 then the chiller <code>#i</code> is commanded <i>On</i> if 
-both <code>y1Chi[i]</code> and <code>y1Coo[i]</code> are
-<code>true</code>. 
+<code>y1Chi[i]</code> is <code>true</code> and <code>y1Coo[i]</code> 
+is <code>true</code> (resp. <code>false</code>). 
 When the chiller <code>#i</code> is commanded <i>On</i>
 the isolation valve input signal <code>y*Val*[i]</code> is used to 
-control the valve opening. Otherwise the valve is closed.
+control the valve opening. 
+Otherwise the valve is closed whatever the value of 
+<code>y*Val*[i]</code>.
 Configured this way, the model represents the set of heat 
-recovery chillers operating in cooling mode, i.e., tracking
-the CHW supply temperature setpoint.
-</li>
-<li>
-If the parameter <code>is_cooling</code> is <code>false</code>
-then the chiller <code>#i</code> is commanded <i>On</i> if 
-<code>y1Chi[i]</code> is <code>true</code> and <code>y1Coo[i]</code> is
-<code>false</code>.
-When the chiller <code>#i</code> is commanded <i>On</i>
-the isolation valve input signal <code>y*Val*[i]</code> is used to 
-control the valve opening. Otherwise the valve is closed.
-Configured this way, the model represents the set of heat 
-recovery chillers operating in heating mode, i.e., tracking
-the HW supply temperature setpoint.
+recovery chillers operating in cooling mode
+(resp. heating mode), i.e., tracking the CHW (resp. HW) supply 
+temperature setpoint.
 </li>
 </ul>
 <p>
@@ -532,11 +525,11 @@ Chiller performance data
 <p>
 When modeling heat recovery chillers (by setting the parameter
 <code>have_switchOver</code> to <code>true</code>) the chiller performance
-data should cover the maximum chiller lift when the chiller is
-operating in direct heat recovery mode, i.e., producing CHW and HW
-at their setpoint value at full load.
+data should cover the chiller lift envelope.
+That is when the chiller is operating in \"direct\" heat recovery mode, 
+i.e., producing CHW and HW at their setpoint value at full load.
 In this case, an additional parameter <code>TCasEnt_nominal</code> 
-is exposed to specify the chiller entering temperature of the third fluid 
+is exposed to specify the chiller <i>entering</i> temperature of the third fluid 
 circuit that is used to generate a cascade of thermodynamic cycles.
 This fluid circuit is connected either to the chiller evaporator barrel 
 when the chiller is operating in heating mode, or to the chiller condenser

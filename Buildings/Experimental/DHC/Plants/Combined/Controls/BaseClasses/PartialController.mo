@@ -13,10 +13,6 @@ block PartialController "Interface class for plant controller"
     "Number of units operating at design conditions"
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
-  parameter Integer nChiCoo(final min=1, start=1)
-    "Number of units that can be dispatched to cooling"
-    annotation (Dialog(group="HW loop and heat recovery chillers"),
-      Evaluate=true);
   parameter Integer nPumHeaWat(final min=1, start=1)
     "Number of HW pumps operating at design conditions"
     annotation (Dialog(group="HW loop and heat recovery chillers"),
@@ -110,20 +106,33 @@ block PartialController "Interface class for plant controller"
         rotation=0,
         origin={220,60})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp
-    "CHW minimum flow bypass valve control signal (AO)" annotation (Placement(
+    "CHW minimum flow bypass valve control signal"      annotation (Placement(
         transformation(extent={{220,120},{260,160}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={220,178})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp
-    "HW minimum flow bypass valve control signal (AO)" annotation (Placement(
+    "HW minimum flow bypass valve control signal"      annotation (Placement(
         transformation(extent={{220,-120},{260,-80}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={220,12})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiCooHea
+    "Control signal for directional valve for direct heat recovery from CHW to HW"
+    annotation (Placement(transformation(extent={{220,-160},{260,-120}},
+          rotation=0), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={220,-20})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cvtValChiCooHea
+    "Convert DO to AO"
+    annotation (Placement(transformation(extent={{190,-150},{210,-130}})));
+equation
+  connect(cvtValChiCooHea.y, yValChiCooHea) annotation (Line(points={{212,-140},
+          {218,-140},{218,-140},{240,-140}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-220,-260},{220,260}})), Icon(
         coordinateSystem(extent={{-200,-280},{200,320}}),
         graphics={                      Text(

@@ -59,7 +59,7 @@ partial model PartialElectric
   Controls.OBC.CDL.Logical.Sources.Constant tru(
     final k=true) if not have_switchOver
     "Constant true signal"
-    annotation (Placement(transformation(extent={{-30,-10},{-50,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
 protected
   Controls.OBC.CDL.Interfaces.BooleanInput coo_internal
     "Internal switchover signal: true for cooling, false for heating"
@@ -222,7 +222,7 @@ equation
   connect(coo, coo_internal)
     annotation (Line(points={{-120,0},{-80,0}}, color={255,0,255}));
   connect(tru.y, coo_internal)
-    annotation (Line(points={{-52,0},{-80,0}}, color={255,0,255}));
+    annotation (Line(points={{-42,0},{-80,0}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={

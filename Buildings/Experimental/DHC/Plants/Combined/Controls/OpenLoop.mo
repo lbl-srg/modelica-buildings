@@ -82,8 +82,8 @@ equation
           -160,220},{78,220}}, color={255,0,255}));
   connect(repChi1.y, y1ValEvaChi)
     annotation (Line(points={{102,220},{240,220}}, color={255,0,255}));
-  connect(yValCon.y, repChi2.u)
-    annotation (Line(points={{-6,200},{98,200}}, color={0,0,127}));
+  connect(cvtValChiCooHea.y, repChi2.u) annotation (Line(points={{212,-140},{
+          156,-140},{156,200},{98,200}}, color={0,0,127}));
   connect(repChi2.y, yValConChi)
     annotation (Line(points={{122,200},{240,200}}, color={0,0,127}));
   connect(delVal.y, repPumChiWat.u)
@@ -100,14 +100,14 @@ equation
           100},{58,100}}, color={255,0,255}));
   connect(y1Coo.y[1], repChi5.u)
     annotation (Line(points={{-178,80},{78,80}}, color={255,0,255}));
-  connect(y1.y[1], yValCon.u) annotation (Line(points={{-178,180},{-160,180},{
-          -160,220},{-40,220},{-40,200},{-30,200}}, color={255,0,255}));
+  connect(y1.y[1], cvtValChiCooHea.u) annotation (Line(points={{-178,180},{-160,
+          180},{-160,220},{-40,220},{-40,-140},{188,-140}}, color={255,0,255}));
   connect(y1.y[1], repChi8.u) annotation (Line(points={{-178,180},{-160,180},{
           -160,220},{-40,220},{-40,60},{98,60}}, color={255,0,255}));
   connect(repChi8.y, y1ValEvaChiHea)
     annotation (Line(points={{122,60},{240,60}}, color={255,0,255}));
-  connect(yValCon.y, repChi6.u) annotation (Line(points={{-6,200},{0,200},{0,40},
-          {118,40}}, color={0,0,127}));
+  connect(cvtValChiCooHea.y, repChi6.u) annotation (Line(points={{212,-140},{0,
+          -140},{0,40},{118,40}}, color={0,0,127}));
   connect(repChi6.y, yValConChiHea)
     annotation (Line(points={{142,40},{240,40}}, color={0,0,127}));
   connect(repPumHeaWat.y, y1PumHeaWat) annotation (Line(points={{82,-60},{158,
