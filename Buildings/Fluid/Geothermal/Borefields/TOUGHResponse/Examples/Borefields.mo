@@ -69,17 +69,11 @@ model Borefields
   Buildings.Fluid.Sources.MassFlowSource_T sou1(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1,
-    use_T_in=true)
+    use_T_in=true,
+    nPorts=1)
     "Source"
     annotation (Placement(transformation(extent={{-92,-70},{-72,-50}},
         rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TUTubIn1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=borFieUTubDat.conDat.mBorFie_flow_nominal,
-    tau=0)
-    "Inlet temperature of the borefield with UTube configuration"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.OneUTubeWithTough borFieUTubWitTou(
     redeclare package Medium = Medium,
     show_T=true,
@@ -110,17 +104,11 @@ model Borefields
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
-    nPorts=1,
-    use_T_in=true)
+    use_T_in=true,
+    nPorts=1)
     "Source"
     annotation (Placement(transformation(extent={{-92,-10},{-72,10}},
         rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TUTubIn2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=borFieUTubDat.conDat.mBorFie_flow_nominal,
-    tau=0)
-    "Inlet temperature of the borefield with UTube configuration"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Fluid.Geothermal.Borefields.OneUTube borFieUTub1(
     redeclare package Medium = Medium,
     show_T=true,
@@ -153,15 +141,10 @@ equation
     annotation (Line(points={{0,60},{20,60}},  color={0,127,255}));
   connect(TUTubOut.port_b, sin.ports[1])
     annotation (Line(points={{40,60},{50,60}}, color={0,127,255}));
-  connect(sou1.ports[1],TUTubIn1. port_a)
-    annotation (Line(points={{-72,-60},{-60,-60}}, color={0,127,255}));
-  connect(TUTubIn1.port_b, borFieUTubWitTou.port_a)
-    annotation (Line(points={{-40,-60},{-20,-60}}, color={0,127,255}));
   connect(borFieUTubWitTou.port_b,TUTubOut1. port_a)
     annotation (Line(points={{0,-60},{20,-60}},  color={0,127,255}));
   connect(TUTubOut1.port_b,sin1. ports[1])
     annotation (Line(points={{40,-60},{50,-60}}, color={0,127,255}));
-
   connect(floRat.y, sou.m_flow_in) annotation (Line(points={{-128,20},{-120,20},
           {-120,68},{-94,68}}, color={0,0,127}));
   connect(floRat.y,sou1. m_flow_in) annotation (Line(points={{-128,20},{-120,20},
@@ -172,10 +155,6 @@ equation
           -56},{-94,-56}}, color={0,0,127}));
   connect(ambTem.y, borFieUTubWitTou.TOut) annotation (Line(points={{-128,-90},{
           -30,-90},{-30,-55},{-21,-55}},  color={0,0,127}));
-  connect(sou2.ports[1], TUTubIn2.port_a)
-    annotation (Line(points={{-72,0},{-60,0}}, color={0,127,255}));
-  connect(TUTubIn2.port_b, borFieUTub1.port_a)
-    annotation (Line(points={{-40,0},{-20,0}}, color={0,127,255}));
   connect(borFieUTub1.port_b, TUTubOut2.port_a)
     annotation (Line(points={{0,0},{20,0}}, color={0,127,255}));
   connect(TUTubOut2.port_b, sin2.ports[1])
@@ -184,6 +163,10 @@ equation
           {-120,8},{-94,8}}, color={0,0,127}));
   connect(watTem.y, sou2.T_in) annotation (Line(points={{-128,-20},{-110,-20},{-110,
           4},{-94,4}}, color={0,0,127}));
+  connect(sou2.ports[1], borFieUTub1.port_a)
+    annotation (Line(points={{-72,0},{-20,0}}, color={0,127,255}));
+  connect(sou1.ports[1], borFieUTubWitTou.port_a)
+    annotation (Line(points={{-72,-60},{-20,-60}}, color={0,127,255}));
 annotation (__Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/Geothermal/Borefields/TOUGHResponse/Examples/Borefields.mos"
         "Simulate and plot"),
   experiment(StopTime=72000, Tolerance=1e-06),

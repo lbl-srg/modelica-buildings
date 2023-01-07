@@ -7,6 +7,7 @@ package UsersGuide "User's Guide"
 <p>
 This package contains models demonstrating the coupling between Modelica simulation
 and <a href=\"https://tough.lbl.gov/software/tough3\">TOUGH</a> simulation.
+Note that to run the coupled simulation, the TOUGH simulator should be installed.
 </p>
 <h4>Python interface</h4>
 <p>
@@ -42,18 +43,36 @@ interval) written to the Python function.
 </p>
 <pre>
 def doStep(dblInp, state):
-    # retrieve state of last invoke
+    # retrieve state of last invoke, including
+    #   -- the end time of the TOUGH simulation,
+    #   -- the heat flow on the borehole wall that was measured by in Modelica at last invoke,
+    #   -- the borehole wall temperature at the end of last TOUGH simulation.
     {tLast, Q, T} = {state['tLast'], state['Q'], state['T']}
-    # update TOUGH input files for each TOUGH call
+    
+    # Map the heat flow in the Modelica domain grid points to the TOUGH boundary
+    # grid point
+    Q_toTough = mesh_to_mesh(toughLayers, modelicaLayers, state['Q'], 'Q_Mo2To')
+
+    # update TOUGH input files for each TOUGH call:
+    #   -- update the INFILE to specify begining and ending TOUGH simulation time
+    #   -- update the GENER for specifying the heat flow boundary condition
     os.system(\"./writeincon < writeincon.inp\")
+
     # conduct one step TOUGH simulation
     os.system(\"/.../tough3-install/bin/tough3-eos1\")
+
     # extract borehole wall temperature for Modelica simulation
     os.system(\"./readsave < readsave.inp > out.txt\")
-    T = borehole_temperature('out.txt')
+    data = extract_data('out.txt')
+    T_tough = data['T_Bor']
+    
+    # Map the temperature of the borehole wall in the TOUGH grid points to
+    # the Modelica domain grid point
+    T_toModelica = mesh_to_mesh(toughLayers, modelicaLayers, T_tough, 'To2Mo')
+
     # update state
-    state = {'tLast': tim, 'Q': Q, 'T': T}
-return [T, state]
+    state = {'tLast': tim, 'Q': Q, 'T': T_tough}
+return [T_toModelica, state]
 </pre>
 
 <p>
@@ -77,13 +96,12 @@ the TOUGH simulation.
 </li>
 </ul>
 
-
 <h4>Coupling workflow</h4>
 <p>
 The flow chart below shows the overall workflow of the coupling.
 </p>
 <p align=\"center\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png\" width=\"1200\"/>
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Geothermal/Borefields/TOUGHResponse/workFlow.png\" width=\"2000\"/>
 </p>
 <p>
 When the Modelica variable <code>sampleTirgger</code> is true, Modelica calls the
@@ -125,20 +143,26 @@ Then it invokes TOUGH simulator.
 </li>
 <li>
 With the utility program <code>readsave</code>, it extracts the borehole wall temperature and
-the temperature of ground on the interested points.
+the temperature of ground on the interested points, from TOUGH simulation result file SAVE.
 </li>
 <li>
-Update the state
+Update the state to store the TOUGH simulation stop time, the heat flow
+from the borehole wall to ground which is measured by Modelica, and the
+new borehole wall temperatures at each section.
 </li>
 </ol>
 
 <p>
-The utility program are written in Fortran and
-the source code are in <code>\"Path_To_Buildings_Library\"/Resources/src/Fluid/Geothermal</code>.
+The utility program are written in Fortran and the source code are in
+<code>\"Path_To_Buildings_Library\"/Resources/src/Fluid/Geothermal</code>.
+The programs should be updated if there is change in the TOUGH inputs
+files <code>MESH</code> and <code>INFILE</code>.
+Also, when there is change on the assumed number (<code>nSeg</code>) of borehole section and when
+there is new TOUGH mesh file, the data mapping between Modelica grid and TOUGH
+grid will be different. The Python interface function should be updated.
 </p>
 
-<h4>Simulation domain</h4>
-<p>Assumptions</p>
+<h4>Assumptions</h4>
 <ul>
 <li>
 Boreholes are connected in parallel.
@@ -159,30 +183,41 @@ The conductivity, capacitance and density of the grout and pipe material are con
 Inside the borehole, the non-advective heat transfer is only in the radial direction.
 </li>
 <li>
-The borehole length can be divided into multiple segments.
-</li>
-<li>
-Each borehole has multiple segments and each segment has a uniform temperature.
+Each borehole assumes to have multiple segments and each segment has a uniform temperature.
 </li>
 </ul>
-<p>TOUGH setup</p>
-<ul>
-<li>
-Mesh generation
-</li>
 
-<li>
-Initial condition
-</li>
+<h4>TOUGH setup</h4>
+<p>
+A mesh file for the simulation domain should be prepared for the TOUGH simulation.
+and the simulation domain should be initialized. It also requires the <code>INFILE</code> to specificy the ground
+properties and to set the start and end simulation time. Please see TOUGH manual of how
+to setup the inputs files.
+</p>
 
-<li>
-Pressure boundary
-</li>
-</ul>
-  
-<h4>Example setup</h4>
-  
-  
-  
+<h4>Example</h4>
+<p>
+The class <a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields\">
+Buildings.Fluid.Geothermal.Borefields.TOUGHResponse.Examples.Borefields</a> shows the comparisons
+between the g-function based ground response model and the TOUGH ground response model.
+In the case when the TOUGH simulator is not installed, the Python interface model includes
+a dummy code to imitate the TOUGH response, for updating the ground temperatures.
+<code>def tough_avatar(heatFlux, T_out)</code>.
+</p>
+<pre>
+def tough_avatar(heatFlux, T_out):
+    totEle = len(heatFlux)
+    # Generate temperature of the ground elements and the interested points
+    fin = open('SAVE')
+    fout = open('temp_SAVE', 'wt')
+    
+    # based on the old results \"SAVE\", created new results file \"temp_SAVE\"
+    ......
+
+    # remove the old SAVE file
+    os.remove('SAVE')
+    os.rename('temp_SAVE', 'SAVE')
+</pre>
+
 </html>"));
 end UsersGuide;

@@ -150,7 +150,6 @@ def doStep(dblInp, state):
 def tough_avatar(heatFlux, T_out):
     totEle = len(heatFlux)
     # Generate temperature of the ground elements and the interested points
-    
     fin = open('SAVE')
     fout = open('temp_SAVE', 'wt')
     count = 0
@@ -161,33 +160,33 @@ def tough_avatar(heatFlux, T_out):
                 fout.write(line)
             else:
                 # update the temperature
-                fout.write(imitateTemperature(line))
+                fout.write(imitateTemperature(line, T_out))
         elif (count == 68):
             fout.write(line)
         elif (count == 69):
             # update the temperature. It is outdoor air temperature here
-            fout.write(imitateTemperature(line))
+            fout.write(imitateTemperature(line, T_out))
         elif (count > 69 and count < 90):
             if (count % 2 == 0):
                 fout.write(line)
             else:
                 # update the interested points temperature
-                fout.write(imitateTemperature(line))
+                fout.write(imitateTemperature(line, T_out))
         else:
             fout.write(line)
     # remove the old SAVE file
     os.remove('SAVE')
     os.rename('temp_SAVE', 'SAVE')
 
-def imitateTemperature(line):
+def imitateTemperature(line, T_out):
     lastE = line.rindex('E')
     trail = line[lastE+1:]
     lastSpace = line.rindex(' ')
     oldTem = line[lastSpace+1:lastE]
     if (trail == '+01'):
-        temTem = float(oldTem) + 0.05
+        temTem = float(oldTem) + 0.01
     else:
-        temTem = float(oldTem) + 0.005
+        temTem = float(oldTem) + 0.001
     newTem = str(temTem)
     if (len(newTem) > len(oldTem)):
         newTem = newTem[0:len(oldTem)]
