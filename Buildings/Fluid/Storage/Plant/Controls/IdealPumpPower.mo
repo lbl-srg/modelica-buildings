@@ -74,7 +74,17 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-80,78},{78,-80}},
           textColor={28,108,200},
-          textString="P")}), Documentation(info="<html>
+          textString="P"),
+        Text(
+          extent={{-94,-28},{-38,-48}},
+          textColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
+          textString="dp"),
+        Text(
+          extent={{-94,52},{-38,32}},
+          textColor={28,108,200},
+          horizontalAlignment=TextAlignment.Left,
+          textString="m")}), Documentation(info="<html>
 <p>
 This block estimates the pump power consumption as
 <i>P = V&#775;&nbsp;&Delta;p &frasl; &eta;</i>.
