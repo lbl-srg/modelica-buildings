@@ -36,7 +36,7 @@ model IdealReversibleConnection
         origin={110,50}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,20})));
+        origin={110,50})));
   Modelica.Blocks.Interfaces.RealInput mSet_flow(
     final quantity="MassFlowRate",
     final unit="kg/s") "Mass flow rate setpoint" annotation (Placement(
@@ -45,8 +45,8 @@ model IdealReversibleConnection
         rotation=0,
         origin={-110,50}), iconTransformation(
         extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-20,110})));
+        rotation=0,
+        origin={-110,50})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     f=20/(2*Modelica.Constants.pi*60),
@@ -102,24 +102,10 @@ First implementation. This is for
         Rectangle(extent={{-80,40},{80,-40}}, lineColor={28,108,200}),
         Line(points={{-100,0},{-80,0}},   color={28,108,200}),
         Ellipse(
-          extent={{-62,60},{-22,20}},
+          extent={{20,60},{60,20}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{40,40},{24,50},{24,30},{40,40}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
-        Polygon(
-          points={{40,40},{56,50},{56,30},{40,40}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
           points={{40,-40},{24,-30},{24,-50},{40,-40}},
           lineColor={0,0,0},
@@ -135,9 +121,27 @@ First implementation. This is for
           visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
                or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
-          points={{-24,40},{-54,56},{-54,24},{-24,40}},
+          points={{60,40},{30,56},{30,24},{60,40}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.None),
-        Line(points={{80,0},{100,0}},     color={28,108,200})}));
+        Line(points={{80,0},{100,0}},     color={28,108,200}),
+        Polygon(
+          points={{-6,2},{2.74617e-16,-16},{-12,-16},{-6,2}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={2,44},
+          rotation=-90),
+        Line(points={{-14,50},{-54,50}}, color={0,127,255}),
+        Line(points={{4,-30},{-36,-30}}, color={0,127,255}),
+        Polygon(
+          points={{-2,6},{16,0},{16,12},{-2,6}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-52,-36},
+          rotation=360)}));
 end IdealReversibleConnection;
