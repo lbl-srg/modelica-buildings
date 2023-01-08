@@ -2,6 +2,9 @@ within Buildings.Fluid.Storage.Plant.Controls;
 block IdealPumpPower
   "Estimates the pump power consumption in IdealConnection"
   extends Modelica.Blocks.Icons.Block;
+
+  parameter Modelica.Units.SI.Efficiency eta=0.49 "Constant efficiency";
+
   Modelica.Blocks.Interfaces.RealInput m_flow "Mass flow rate" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -29,7 +32,7 @@ block IdealPumpPower
   Buildings.Controls.OBC.CDL.Continuous.Divide divByEff
     "Divide flow work by efficiency"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Modelica.Blocks.Sources.Constant eta(final k=0.49) "Constant efficiency"
+  Modelica.Blocks.Sources.Constant conEff(final k=eta) "Constant efficiency"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
@@ -54,8 +57,8 @@ equation
           24},{-42,24}}, color={0,0,127}));
   connect(volFloRat.y, mul.u1) annotation (Line(points={{-18,30},{-8,30},{-8,-4},
           {-2,-4}}, color={0,0,127}));
-  connect(eta.y, divByEff.u2) annotation (Line(points={{21,-50},{32,-50},{32,-16},
-          {38,-16}}, color={0,0,127}));
+  connect(conEff.y, divByEff.u2) annotation (Line(points={{21,-50},{32,-50},{32,
+          -16},{38,-16}}, color={0,0,127}));
   connect(divByEff.y, PEle) annotation (Line(points={{62,-10},{94,-10},{94,0},{
           110,0}}, color={0,0,127}));
   connect(m_flow, limFlo.u)
