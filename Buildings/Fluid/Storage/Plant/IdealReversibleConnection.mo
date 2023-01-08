@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Fluid.Storage.Plant;
 model IdealReversibleConnection
   "Connecting one side of the storage plant to the district network with an ideal flow source"
   // fixme: change icon.
