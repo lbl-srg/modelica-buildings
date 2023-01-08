@@ -94,7 +94,7 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
 </ul>
-</html>"), defaultComponentName = "intVal", Icon(graphics={     Rectangle(
+</html>"), defaultComponentName = "ideRevCon", Icon(graphics={     Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
