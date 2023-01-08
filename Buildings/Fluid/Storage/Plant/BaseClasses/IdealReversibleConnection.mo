@@ -47,6 +47,16 @@ model IdealReversibleConnection
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-20,110})));
+protected
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
+    f=20/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,50})));
 equation
   connect(senRelPre.p_rel, idePumPow.dpMachine)
     annotation (Line(points={{0,39},{0,46},{39,46}}, color={0,0,127}));
@@ -68,8 +78,10 @@ equation
     annotation (Line(points={{61,50},{110,50}}, color={0,0,127}));
   connect(senMasFlo.port_b, ideSou.port_a)
     annotation (Line(points={{-38,0},{-10,0}}, color={0,127,255}));
-  connect(ideSou.m_flow_in, mSet_flow) annotation (Line(points={{-6,8},{-6,20},{
-          -80,20},{-80,50},{-110,50}}, color={0,0,127}));
+  connect(ideSou.m_flow_in, fil.y) annotation (Line(points={{-6,8},{-28,8},{-28,
+          50},{-59,50}}, color={0,0,127}));
+  connect(fil.u, mSet_flow)
+    annotation (Line(points={{-82,50},{-110,50}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
 [fixme: Documentation pending.]
