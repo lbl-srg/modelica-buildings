@@ -2,8 +2,8 @@ within Buildings.Experimental.DHC.Plants.Combined.Subsystems;
 model ChillerGroup
   "Model of multiple identical chillers in parallel"
   extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
-    final m1_flow_nominal = mConWatUni_flow_nominal,
-    final m2_flow_nominal = mChiWatUni_flow_nominal);
+    final m1_flow_nominal = mConWat_flow_nominal,
+    final m2_flow_nominal = mChiWat_flow_nominal);
 
   parameter Integer nUni(final min=1, start=1)
     "Number of units operating at design conditions"
@@ -43,7 +43,12 @@ model ChillerGroup
   final parameter Modelica.Units.SI.Temperature TCasLvg_nominal(fixed=false)
     "Design value of chiller leaving temperature in cascade configuration";
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasUni_flow_nominal(
-    fixed=false)
+    fixed=false,
+    start=QChiWatUni_flow_nominal * (1 + 2E-2 * (
+      if is_cooling then -(TCasEnt_nominal -
+        (dat.TConLvg_nominal - QHeaWatUni_flow_nominal / mConWatUni_flow_nominal / cpCas))
+      else TCasEnt_nominal -
+        (dat.TEvaLvg_nominal - QChiWatUni_flow_nominal / mChiWatUni_flow_nominal / cpCas))))
     "Cooling design heat flow rate in cascading mode (each unit, <0)"
     annotation(Dialog(group="Nominal condition", enable=have_switchOver));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasUni_flow_nominal=
@@ -104,13 +109,15 @@ model ChillerGroup
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpValveEva_nominal(
     final min=0,
-    displayUnit="Pa")=1E3
+    displayUnit="Pa")=if typValEva==Buildings.Experimental.DHC.Types.Valve.None
+    then 0 else 1E3
     "Chiller evaporator isolation valve design pressure drop (each valve)"
     annotation(Dialog(group="Nominal condition",
     enable=typValEva<>Buildings.Experimental.DHC.Types.Valve.None));
   parameter Modelica.Units.SI.PressureDifference dpValveCon_nominal(
     final min=0,
-    displayUnit="Pa")=1E3
+    displayUnit="Pa")=if typValCon==Buildings.Experimental.DHC.Types.Valve.None
+    then 0 else 1E3
     "Chiller condenser isolation valve design pressure drop (each valve)"
     annotation(Dialog(group="Nominal condition",
     enable=typValCon<>Buildings.Experimental.DHC.Types.Valve.None));
@@ -156,11 +163,13 @@ model ChillerGroup
     "Chiller switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
+    final unit="K", displayUnit="degC")
     "Supply temperature setpoint"
     annotation (Placement(transformation(extent={{-140,-110},{-100,-70}}),
       iconTransformation(extent={{-140,-110},{-100, -70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
+    final unit="W")
     "Power drawn"
     annotation (Placement(transformation(extent={{100,0},{140,40}}),
       iconTransformation(extent={{100,70},{140,110}})));
@@ -175,7 +184,8 @@ model ChillerGroup
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={-90,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValCon[nUni]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValCon[nUni](
+    each final unit="1", each final min=0, each final max=1)
     if typValCon == Buildings.Experimental.DHC.Types.Valve.TwoWayModulating
     "Chiller condenser isolation valve commanded position"
     annotation (
@@ -196,7 +206,8 @@ model ChillerGroup
         extent={{20,-20},{-20,20}},
         rotation=-90,
         origin={-90,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValEva[nUni]
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput yValEva[nUni](
+    each final unit="1", each final min=0, each final max=1)
     if typValEva == Buildings.Experimental.DHC.Types.Valve.TwoWayModulating
     "Chiller evaporator isolation valve commanded position"
     annotation (
@@ -252,7 +263,7 @@ model ChillerGroup
   BaseClasses.MultipleFlowResistances valEva(
     redeclare final package Medium = Medium2,
     final nUni=nUni,
-    final m_flow_nominal=mChiWatUni_flow_nominal,
+    final mUni_flow_nominal=mChiWatUni_flow_nominal,
     final have_mode=have_switchOver,
     final dpFixed_nominal=dpEva_nominal + dpBalEva_nominal,
     final dpValve_nominal=dpValveEva_nominal,
@@ -269,7 +280,7 @@ model ChillerGroup
   BaseClasses.MultipleFlowResistances valCon(
     redeclare final package Medium = Medium1,
     final nUni=nUni,
-    final m_flow_nominal=mConWatUni_flow_nominal,
+    final mUni_flow_nominal=mConWatUni_flow_nominal,
     final have_mode=have_switchOver,
     final dpFixed_nominal=dpCon_nominal + dpBalCon_nominal,
     final dpValve_nominal=dpValveCon_nominal,
@@ -381,10 +392,6 @@ equation
     annotation (Line(points={{-100,60},{-50,60}}, color={0,127,255}));
   connect(port_a2, mulEvaInl.port_a)
     annotation (Line(points={{100,-60},{50,-60}}, color={0,127,255}));
-  connect(mulConOut.port_b, valCon.port_a)
-    annotation (Line(points={{50,60},{70,60}}, color={0,127,255}));
-  connect(valCon.port_b, port_b1)
-    annotation (Line(points={{90,60},{100,60}}, color={0,127,255}));
   connect(port_b2, valEva.port_b)
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
   connect(mulEvaOut.port_b, valEva.port_a)
@@ -466,6 +473,10 @@ equation
           {-4,3}},                  color={255,0,255}));
   connect(modOpe.y, rep.u) annotation (Line(points={{-68,140},{-60,140},{-60,152},
           {24,152},{24,142}}, color={255,0,255}));
+  connect(valCon.port_b, port_b1)
+    annotation (Line(points={{90,60},{100,60}}, color={0,127,255}));
+  connect(mulConOut.port_b, valCon.port_a)
+    annotation (Line(points={{50,60},{70,60}}, color={0,127,255}));
   annotation (
     defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -495,11 +506,15 @@ If the parameter <code>is_cooling</code> is <code>true</code>
 then the chiller <code>#i</code> is commanded <i>On</i> if 
 <code>y1Chi[i]</code> is <code>true</code> and <code>y1Coo[i]</code> 
 is <code>true</code> (resp. <code>false</code>). 
+</li>
+<li>
 When the chiller <code>#i</code> is commanded <i>On</i>
 the isolation valve input signal <code>y*Val*[i]</code> is used to 
 control the valve opening. 
 Otherwise the valve is closed whatever the value of 
 <code>y*Val*[i]</code>.
+</li>
+<li>
 Configured this way, the model represents the set of heat 
 recovery chillers operating in cooling mode
 (resp. heating mode), i.e., tracking the CHW (resp. HW) supply 
@@ -514,7 +529,7 @@ Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
 where it allows switching the chiller operating mode from cooling
 to heating.
 The current chiller group model rather represents a set of chillers
-that are <i>all</i> operated in the same mode, either cooling or heating.
+that are <i>all</i> operating in the same mode, either cooling or heating.
 The mode is fixed as specified by the parameter <code>is_cooling</code>
 and each chiller which is commanded to operate in a different mode
 is considered <i>Off</i>.
@@ -528,9 +543,11 @@ When modeling heat recovery chillers (by setting the parameter
 data should cover the chiller lift envelope.
 That is when the chiller is operating in \"direct\" heat recovery mode, 
 i.e., producing CHW and HW at their setpoint value at full load.
-In this case, an additional parameter <code>TCasEnt_nominal</code> 
+In this case, and to allow for \"cascading\" heat recovery where
+a third fluid circuit is used to generate a cascade of thermodynamic cycles,
+an additional parameter <code>TCasEnt_nominal</code> 
 is exposed to specify the chiller <i>entering</i> temperature of the third fluid 
-circuit that is used to generate a cascade of thermodynamic cycles.
+circuit.
 This fluid circuit is connected either to the chiller evaporator barrel 
 when the chiller is operating in heating mode, or to the chiller condenser
 barrel when the chiller is operating in cooling mode.

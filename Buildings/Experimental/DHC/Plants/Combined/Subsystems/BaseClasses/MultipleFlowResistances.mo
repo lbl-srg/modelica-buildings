@@ -6,7 +6,7 @@ model MultipleFlowResistances
     final massDynamics=energyDynamics,
     final mSenFac=1);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal(final min=Modelica.Constants.small),
+    final m_flow_nominal(final min=Modelica.Constants.small)=nUni*mUni_flow_nominal,
     show_T=false,
     port_a(
       h_outflow(start=h_outflow_start)),
@@ -27,19 +27,19 @@ model MultipleFlowResistances
     Buildings.Experimental.DHC.Types.Valve.None
     "Type of valve"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+  parameter Modelica.Units.SI.MassFlowRate mUni_flow_nominal(
     final min=Modelica.Constants.small)
-    "Nominal mass flow rate (each branch)"
+    "Nominal mass flow rate (each unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
     displayUnit="Pa",
     min=0)
-    "Nominal pressure drop of fully open valve"
+    "Nominal pressure drop of fully open valve (each unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpFixed_nominal(
     displayUnit="Pa",
     min=0) = 0
-    "Pressure drop of pipe and other resistances that are in series"
+    "Pressure drop of pipe and other resistances that are in series (each unit)"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
@@ -88,8 +88,7 @@ model MultipleFlowResistances
 
   Fluid.FixedResistances.Junction junInl[nUni](
     redeclare each final package Medium=Medium,
-    each final m_flow_nominal=
-      {nUni*m_flow_nominal,-nUni*m_flow_nominal,-m_flow_nominal},
+    each final m_flow_nominal=m_flow_nominal * {1,-1,-1},
     each final dp_nominal=fill(0,3),
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal then
@@ -107,8 +106,7 @@ model MultipleFlowResistances
         origin={-60,-20})));
   Fluid.FixedResistances.Junction junOut[nUni](
     redeclare each final package Medium=Medium,
-    each final m_flow_nominal=
-      {nUni*m_flow_nominal,-nUni*m_flow_nominal,m_flow_nominal},
+    each final m_flow_nominal=m_flow_nominal * {1,-1,1},
     each final dp_nominal=fill(0,3),
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal then
@@ -126,7 +124,7 @@ model MultipleFlowResistances
         origin={60,-20})));
   Fluid.FixedResistances.PressureDrop res[nUni](
     redeclare each final package Medium=Medium,
-    each final  m_flow_nominal=m_flow_nominal,
+    each final  m_flow_nominal=mUni_flow_nominal,
     each from_dp=true,
     each final dp_nominal=dpFixed_nominal,
     each final allowFlowReversal=allowFlowReversal)
@@ -137,7 +135,7 @@ model MultipleFlowResistances
     redeclare each final package Medium=Medium,
     each from_dp=true,
     each final CvData = Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final m_flow_nominal=m_flow_nominal,
+    each final m_flow_nominal=mUni_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final dpFixed_nominal=dpFixed_nominal,
     each final allowFlowReversal=allowFlowReversal,
@@ -153,7 +151,7 @@ model MultipleFlowResistances
     each from_dp=true,
     each c={0,1.101898284705380E-01, 2.217227395456580, -7.483401207660790, 1.277617623360130E+01, -6.618045307070130},
     each final CvData = Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final m_flow_nominal=m_flow_nominal,
+    each final m_flow_nominal=mUni_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final dpFixed_nominal=dpFixed_nominal,
     each final allowFlowReversal=allowFlowReversal,

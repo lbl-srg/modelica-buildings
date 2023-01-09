@@ -73,7 +73,8 @@ partial model PartialMultiplePumps
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual[nPum]
-    "Pump status" annotation (Placement(transformation(extent={{100,80},{140,
+    "Pump status"
+    annotation (Placement(transformation(extent={{100,80},{140,
             120}}), iconTransformation(extent={{100,60},{140,100}})));
 
   Fluid.BaseClasses.MassFlowRateMultiplier mulOut(
@@ -128,9 +129,14 @@ partial model PartialMultiplePumps
     final m_flow_nominal=mPum_flow_nominal,
     final dpValve_nominal=dpValve_nominal,
     final show_T=show_T,
-    final allowFlowReversal=allowFlowReversal) if have_valve "Check valve"
+    final allowFlowReversal=allowFlowReversal) if have_valve
+    "Check valve (optional)"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-
+  PassThroughFluid pas(
+    redeclare final package Medium=Medium,
+    final allowFlowReversal=allowFlowReversal) if not have_valve
+    "Direct fluid pass-through (case without check valve)"
+    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
@@ -152,8 +158,8 @@ equation
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(port_a, mulInl.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(mulOut.uInv, mulInl.u) annotation (Line(points={{82,6},{90,6},{90,-20},
-          {-90,-20},{-90,6},{-82,6}},color={0,0,127}));
+  connect(mulOut.uInv, mulInl.u) annotation (Line(points={{82,6},{90,6},{90,-40},
+          {-90,-40},{-90,6},{-82,6}},color={0,0,127}));
   connect(mulInl.port_b, pum.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
   connect(y1, com.y1)
@@ -188,6 +194,10 @@ equation
   connect(booToRea.y, inp.u2) annotation (Line(points={{-38,100},{-36,100},{-36,
           56},{-32,56}},
                      color={0,0,127}));
+  connect(pum.port_b, pas.port_a)
+    annotation (Line(points={{10,0},{30,0},{30,-20}}, color={0,127,255}));
+  connect(pas.port_b, mulOut.port_a)
+    annotation (Line(points={{50,-20},{50,0},{60,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

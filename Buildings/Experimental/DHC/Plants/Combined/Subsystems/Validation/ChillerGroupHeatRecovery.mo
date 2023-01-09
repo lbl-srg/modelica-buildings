@@ -55,7 +55,9 @@ model ChillerGroupHeatRecovery
     redeclare final package Medium = MediumConWat,
     p=retConWat.p + chi.dpCon_nominal + chi.dpBalCon_nominal + chi.dpValveCon_nominal,
     T=dat.TConLvg_nominal - 12,
-    nPorts=1) "Boundary conditions for HW" annotation (Placement(transformation(
+    nPorts=1)
+    "Boundary conditions for HW"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,6})));

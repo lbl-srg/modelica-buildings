@@ -86,14 +86,14 @@ model HeatPumpGroup "Validation of the heat pump group model"
     "HW supply temperature" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={20,-30})));
+        origin={20,-40})));
   Fluid.Sensors.TemperatureTwoPort THeaWatRet(
     redeclare package Medium = MediumHeaWat,
     final m_flow_nominal=heaPum.mHeaWat_flow_nominal)
     "HW return temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-20,-30})));
+        origin={-20,-40})));
 equation
   connect(THeaWatSupSet.y,heaPum. TSet) annotation (Line(points={{-88,60},{-60,60},
           {-60,-6},{-12,-6}},      color={0,0,127}));
@@ -107,13 +107,13 @@ equation
   connect(THeaWatRetBou.y, bouHeaWat.T_in)
     annotation (Line(points={{-88,-60},{6,-60},{6,-78}}, color={0,0,127}));
   connect(heaPum.port_b, THeaWatSup.port_a)
-    annotation (Line(points={{10,0},{20,0},{20,-20}}, color={0,127,255}));
+    annotation (Line(points={{10,0},{20,0},{20,-30}}, color={0,127,255}));
   connect(THeaWatSup.port_b, bouHeaWat.ports[1])
-    annotation (Line(points={{20,-40},{20,-100},{1,-100}}, color={0,127,255}));
+    annotation (Line(points={{20,-50},{20,-100},{1,-100}}, color={0,127,255}));
   connect(bouHeaWat.ports[2], THeaWatRet.port_a) annotation (Line(points={{3,-100},
-          {-20,-100},{-20,-40}}, color={0,127,255}));
+          {-20,-100},{-20,-50}}, color={0,127,255}));
   connect(THeaWatRet.port_b, heaPum.port_a)
-    annotation (Line(points={{-20,-20},{-20,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-20,-30},{-20,0},{-10,0}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Subsystems/Validation/HeatPumpGroup.mos"
