@@ -87,8 +87,8 @@ equation
     annotation (Line(points={{-20,-92},{-20,-6},{-10,-6}}, color={0,127,255}));
   connect(TChiWatSupSet.y, chi.TSet) annotation (Line(points={{-88,-40},{-16,
           -40},{-16,-9},{-12,-9}}, color={0,0,127}));
-  connect(y1Chi.y, chi.y1Chi) annotation (Line(points={{-88,80},{-60,80},{-60,9},
-          {-12,9}},        color={255,0,255}));
+  connect(y1Chi.y, chi.y1) annotation (Line(points={{-88,80},{-60,80},{-60,9},{
+          -12,9}}, color={255,0,255}));
   connect(y1Chi.y, chi.y1ValEva) annotation (Line(points={{-88,80},{-60,80},{-60,
           -16},{-9,-16},{-9,-12}},      color={255,0,255}));
   annotation (

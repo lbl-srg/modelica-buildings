@@ -38,7 +38,7 @@ model ChillerGroup
     -dat.QEva_flow_nominal * (1 + 1 / dat.COP_nominal * dat.etaMotor)
     "Heating design heat flow rate in direct heat recovery mode (each unit, >0)"
     annotation(Dialog(group="Nominal condition", enable=have_switchOver));
-  final parameter Modelica.Units.SI.Efficiency COPCas_nominal( fixed=false)
+  final parameter Modelica.Units.SI.Efficiency COPCas_nominal(fixed=false)
     "Coefficient of performance in cascading mode";
   final parameter Modelica.Units.SI.Temperature TCasLvg_nominal(fixed=false)
     "Design value of chiller leaving temperature in cascade configuration";
@@ -154,10 +154,9 @@ model ChillerGroup
       and (typValEva<>Buildings.Experimental.DHC.Types.Valve.None or
       typValCon<>Buildings.Experimental.DHC.Types.Valve.None)));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Chi[nUni]
-    "Chiller On/Off command"
-    annotation (Placement(transformation(extent={{-140,100},{-100,140}}),
-      iconTransformation(extent={{-140,70},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni]
+    "Chiller On/Off command" annotation (Placement(transformation(extent={{-140,
+            100},{-100,140}}), iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Coo[nUni]
     if have_switchOver
     "Chiller switchover command: true for cooling, false for heating"
@@ -399,9 +398,8 @@ equation
   connect(mulEvaOut.port_a, chi.port_b2)
     annotation (Line(points={{-30,-60},{-20,-60},{-20,-6},{-2,-6}},
                                                    color={0,127,255}));
-  connect(y1Chi, com.y1)
-    annotation (Line(points={{-120,120},{-98,120},{-98,115},{-96,115}},
-                                                  color={255,0,255}));
+  connect(y1, com.y1) annotation (Line(points={{-120,120},{-98,120},{-98,115},{
+          -96,115}}, color={255,0,255}));
   connect(chi.P, mulP.u1) annotation (Line(points={{19,9},{24,9},{24,14},{68,14}},
                  color={0,0,127}));
   connect(com.nUniOn, mulP.u2) annotation (Line(points={{-72,115},{16,115},{16,26},
@@ -504,7 +502,7 @@ valves based on the following logic.
 If the parameter <code>is_cooling</code> is <code>true</code>
 (resp. <code>false</code>)
 then the chiller <code>#i</code> is commanded <i>On</i> if 
-<code>y1Chi[i]</code> is <code>true</code> and <code>y1Coo[i]</code> 
+<code>y1[i]</code> is <code>true</code> and <code>y1Coo[i]</code> 
 is <code>true</code> (resp. <code>false</code>). 
 </li>
 <li>

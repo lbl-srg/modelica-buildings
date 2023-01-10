@@ -73,8 +73,8 @@ equation
           0},{68,0}}, color={255,0,255}));
   connect(y1Chi.y, chiHea.y1ValCon)
     annotation (Line(points={{-88,80},{71,80},{71,12}}, color={255,0,255}));
-  connect(y1Chi.y, chiHea.y1Chi) annotation (Line(points={{-88,80},{60,80},{60,
-          9},{68,9}}, color={255,0,255}));
+  connect(y1Chi.y, chiHea.y1) annotation (Line(points={{-88,80},{60,80},{60,9},
+          {68,9}}, color={255,0,255}));
   connect(y1Chi.y, chiHea.y1ValEva) annotation (Line(points={{-88,80},{60,80},{
           60,-16},{71,-16},{71,-12}}, color={255,0,255}));
   connect(chiHea.port_b1, retConWat.ports[2]) annotation (Line(points={{90,6},{

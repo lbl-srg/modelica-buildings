@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Combined.Validation;
-model AllElectricCWStorage "Validation of the all-electric plant with CW storage model"
+model AllElectricCWStorageDebug
+  "Validation of the all-electric plant with CW storage model"
   extends Modelica.Icons.Example;
 
   replaceable package Medium=Buildings.Media.Water
@@ -67,15 +68,10 @@ model AllElectricCWStorage "Validation of the all-electric plant with CW storage
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage pla(
+  Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorageDebug pla(
     allowFlowReversal=true,
-    dpConWatCooFri_nominal=1E4,
-    mAirCoo_flow_nominal=pla.mConWatCoo_flow_nominal/1.45,
-    TWetBulCooEnt_nominal=297.05,
-    PFanCoo_nominal=340*pla.mConWatCoo_flow_nominal,
     chi(show_T=true),
     chiHea(show_T=true),
-    chiCoo(show_T=true),
     heaPum(show_T=true),
     redeclare final package Medium = Medium,
     final datChi=datChi,
@@ -182,4 +178,4 @@ equation
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
   Diagram(coordinateSystem(extent={{-180,-180},{180,180}})));
-end AllElectricCWStorage;
+end AllElectricCWStorageDebug;

@@ -1,6 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined;
-model AllElectricCWStorage
-  "All-electric CHW and HW plant with CW storage"
+model AllElectricCWStorageDebug "All-electric CHW and HW plant with CW storage"
   extends BaseClasses.PartialPlant(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration2to4,
     final have_weaBus=true,
@@ -11,15 +10,6 @@ model AllElectricCWStorage
 
   replaceable package MediumAir=Buildings.Media.Air
     "Air medium";
-  replaceable package MediumConWatCoo=Buildings.Media.Water
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Medium model for cooling tower circuit"
-    annotation (choices(
-      choice(redeclare package Medium=Buildings.Media.Water "Water"),
-      choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-        property_T=293.15,X_a=0.40)
-        "Propylene glycol water, 40% mass fraction")));
 
   // CHW loop and cooling-only chillers
   parameter Integer nChi(final min=1, start=1)
@@ -80,7 +70,7 @@ model AllElectricCWStorage
     "Chiller parameters (each unit)"
     annotation (
       Dialog(group="CHW loop and cooling-only chillers"),
-      Placement(transformation(extent={{80,260},{100,280}})));
+      Placement(transformation(extent={{60,260},{80,280}})));
 
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     min(chi.TChiWatSup_nominal, chiHea.TChiWatSup_nominal)
@@ -168,7 +158,7 @@ model AllElectricCWStorage
     "Chiller parameters (each unit)"
     annotation (
       Dialog(group="HW loop and heat recovery chillers"),
-      Placement(transformation(extent={{120,260},{140,280}})));
+      Placement(transformation(extent={{100,260},{120,280}})));
 
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
     chiHea.THeaWatSup_nominal
@@ -241,66 +231,13 @@ model AllElectricCWStorage
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   replaceable parameter Fluid.HeatPumps.Data.EquationFitReversible.Generic datHeaPum
     "Heat pump parameters (each unit)"
-    annotation (Placement(transformation(extent={{160,260},{180,280}})));
+    annotation (Placement(transformation(extent={{140,260},{160,280}})));
 
   // Cooling tower loop
   parameter Integer nCoo(final min=1, start=1)
     "Number of cooling tower cells operating at design conditions"
     annotation (Dialog(group="Cooling tower loop"),
       Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal(
-    final min=0)=mConWat_flow_nominal / nCoo
-    "CT CW design mass flow rate (each unit)"
-    annotation(Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.PressureDifference dpConWatCooFri_nominal(
-    displayUnit="Pa",
-    start=1E4,
-    final min=0)
-    "CW flow-friction losses through tower and piping only (without elevation head or valve)"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.MassFlowRate mAirCoo_flow_nominal(
-    final min=0,
-    start=mConWatCoo_flow_nominal / 1.45)
-    "CT design air mass flow rate (each unit)"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.Temperature TWetBulCooEnt_nominal(
-    final min=273.15)
-    "CT design entering air wetbulb temperature"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.Temperature TConWatCooRet_nominal(
-    final min=273.15)=TConWatCooSup_nominal +
-    abs(QHexCoo_flow_nominal) / mConWat_flow_nominal / cpConWatCoo_default
-    "CT CW design return temperature (tower entering)"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.Temperature TConWatCooSup_nominal(
-    final min=273.15)=TWetBulCooEnt_nominal+3
-    "CT CW design supply temperature (tower leaving)"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.Power PFanCoo_nominal(
-    each final min=0,
-    start=340 * mConWatCoo_flow_nominal)
-    "CT fan power (each unit)"
-    annotation (Dialog(group="Cooling tower loop"));
-
-  parameter Integer nPumConWatCoo(final min=1, start=1)=nCoo
-    "Number of CW pumps serving cooling towers at design conditions"
-    annotation (Dialog(group="Cooling tower loop"),
-      Evaluate=true);
-  parameter Modelica.Units.SI.PressureDifference dpPumConWatCoo_nominal=
-    1.1 * (dpHexCoo_nominal + dpConWatCooFri_nominal)
-    "Design head of CW pump serving cooling towers (each unit)"
-    annotation (Dialog(group="Cooling tower loop"));
-
-  parameter Modelica.Units.SI.TemperatureDifference dTHexCoo_nominal=2
-    "Design approach of heat exchanger"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.PressureDifference dpHexCoo_nominal=3E4
-    "Design pressure drop through heat exchanger (same on both sides)"
-    annotation (Dialog(group="Cooling tower loop"));
-  parameter Modelica.Units.SI.HeatFlowRate QHexCoo_flow_nominal=
-    -(chi.QHeaWatCas_flow_nominal + chiHea.QHeaWatCas_flow_nominal)
-    "Design cooling heat flow rate of heat exchanger (<0)"
-    annotation (Dialog(group="Cooling tower loop"));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -352,7 +289,7 @@ model AllElectricCWStorage
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal)
     "Cooling-only chillers"
-    annotation (Placement(transformation(extent={{0,130},{20,150}})));
+    annotation (Placement(transformation(extent={{-10,130},{10,150}})));
   Subsystems.MultiplePumpsSpeed pumChiWat(
     redeclare final package Medium=Medium,
     final nPum=nPumChiWat,
@@ -378,7 +315,7 @@ model AllElectricCWStorage
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={80,200})));
+        origin={40,200})));
   Fluid.FixedResistances.Junction junChiWatSup(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mChiWat_flow_nominal * {1, -1, -1},
@@ -432,7 +369,7 @@ model AllElectricCWStorage
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={100,110})));
+        origin={60,110})));
   // PICV model sized at design flow (instead of minimum flow) for convenience.
   Fluid.Actuators.Valves.TwoWayPressureIndependent valChiWatMinByp(
     redeclare final package Medium=Medium,
@@ -441,7 +378,7 @@ model AllElectricCWStorage
     final allowFlowReversal=allowFlowReversal)
     "CHW minimum flow bypass valve"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={180,140})));
   Fluid.Sensors.RelativePressure dpChiWat(
@@ -496,7 +433,7 @@ model AllElectricCWStorage
     final allowFlowReversal1=allowFlowReversal,
     final allowFlowReversal2=allowFlowReversal)
     "Heat recovery chillers operating in heating mode"
-    annotation (Placement(transformation(extent={{0,-96},{20,-76}})));
+    annotation (Placement(transformation(extent={{-10,-96},{10,-76}})));
   Subsystems.ChillerGroup chiCoo(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
@@ -513,7 +450,7 @@ model AllElectricCWStorage
     final dpBalCon_nominal=dpBalConChiHea_nominal,
     final energyDynamics=energyDynamics)
     "Heat recovery chillers operating in cooling mode"
-    annotation (Placement(transformation(extent={{10,-176},{30,-156}})));
+    annotation (Placement(transformation(extent={{-10,-156},{10,-136}})));
   Subsystems.MultiplePumpsSpeed pumHeaWat(
     redeclare final package Medium=Medium,
     final nPum=nPumHeaWat,
@@ -562,7 +499,7 @@ model AllElectricCWStorage
     final allowFlowReversal=allowFlowReversal)
     "HW minimum flow bypass valve"
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={180,-140})));
   Fluid.Sensors.RelativePressure dpHeaWat(
@@ -609,7 +546,7 @@ model AllElectricCWStorage
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps serving condenser barrels"
-    annotation (Placement(transformation(extent={{-140,-170},{-120,-150}})));
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
   Subsystems.MultiplePumpsSpeed pumConWatEva(
     redeclare final package Medium = Medium,
     final nPum=nPumConWatEva,
@@ -620,7 +557,7 @@ model AllElectricCWStorage
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps serving evaporator barrels"
-    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
   Fluid.FixedResistances.Junction junConWatEnt(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWatCon_flow_nominal*{1,-1,-1},
@@ -635,7 +572,7 @@ model AllElectricCWStorage
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={-100,-160})));
+        origin={-100,-140})));
   Fluid.Storage.Stratified tan(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWat_flow_nominal,
@@ -651,7 +588,7 @@ model AllElectricCWStorage
     final p=hTan * rho_default * Modelica.Constants.g_n,
     final nPorts=1)
     "CW boundary pressure condition prescribed by tank operating level"
-    annotation (Placement(transformation(extent={{-110,-110},{-130,-90}})));
+    annotation (Placement(transformation(extent={{-120,-110},{-140,-90}})));
   Fluid.FixedResistances.Junction junConWatTanEnt(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWat_flow_nominal*{1,-1,-1},
@@ -666,7 +603,7 @@ model AllElectricCWStorage
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-200,0})));
+        origin={-200,-20})));
   Fluid.FixedResistances.Junction junConWatLvg(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWatCon_flow_nominal*{1,-1,1},
@@ -681,16 +618,14 @@ model AllElectricCWStorage
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={40,40})));
+        origin={60,60})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TTan[nSegTan]
     "TES tank temperature sensor gateway" annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-140,-60})));
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={-250,-80})));
   HeatTransfer.Sources.PrescribedTemperature out "Outdoor temperature"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-166,-60})));
+    annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
   Fluid.FixedResistances.Junction junConWatHeaPumEnt(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWat_flow_nominal*{1,-1,-1},
@@ -705,7 +640,7 @@ model AllElectricCWStorage
     "Fluid junction" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={-120,40})));
+        origin={-120,60})));
   Fluid.FixedResistances.Junction junConWatHeaPumLvg(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWat_flow_nominal*{1,-1,1},
@@ -720,7 +655,7 @@ model AllElectricCWStorage
     "Fluid junction" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={-180,40})));
+        origin={-180,60})));
   Subsystems.HeatPumpGroup heaPum(
     redeclare final package Medium = Medium,
     redeclare final package MediumAir = MediumAir,
@@ -730,89 +665,6 @@ model AllElectricCWStorage
     final allowFlowReversal=allowFlowReversal)
     "Heat pumps"
     annotation (Placement(transformation(extent={{-140,110},{-160,130}})));
-  Fluid.FixedResistances.Junction junConWatTanLvg(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mConWatCon_flow_nominal*{1,-1,1},
-    final dp_nominal=fill(0, 3),
-    final energyDynamics=energyDynamics,
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering) "Fluid junction"
-    annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=-90,
-        origin={-160,-140})));
-  Fluid.HeatExchangers.PlateHeatExchangerEffectivenessNTU hexCoo(
-    redeclare final package Medium1=MediumConWatCoo,
-    redeclare final package Medium2=Medium,
-    final m1_flow_nominal=mConWat_flow_nominal,
-    final m2_flow_nominal=mConWat_flow_nominal,
-    final dp1_nominal=dpHexCoo_nominal,
-    final dp2_nominal=dpHexCoo_nominal,
-    final Q_flow_nominal=QHexCoo_flow_nominal,
-    final T_a1_nominal=TConWatCooSup_nominal,
-    final T_a2_nominal=TConWatCooRet_nominal + dTHexCoo_nominal +
-      TConWatCooRet_nominal - TConWatCooSup_nominal,
-    final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal,
-    final configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
-    "Heat exchanger with cooling tower circuit"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-220,-100})));
-  Subsystems.CoolingTowerGroup coo(
-    redeclare final package Medium=Medium,
-    final nUni=nCoo,
-    final mConWatUni_flow_nominal=mConWatCoo_flow_nominal,
-    final dpConWatFriUni_nominal=dpConWatCooFri_nominal,
-    final mAirUni_flow_nominal=mAirCoo_flow_nominal,
-    final TWetBulEnt_nominal=TWetBulCooEnt_nominal,
-    final TConWatRet_nominal=TConWatCooRet_nominal,
-    final TConWatSup_nominal=TConWatCooSup_nominal,
-    final PFanUni_nominal=PFanCoo_nominal,
-    final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
-    "Cooling towers"
-    annotation (Placement(transformation(extent={{-240,-10},{-260,10}})));
-  Fluid.Actuators.Valves.ThreeWayLinear valBypTan(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=mConWat_flow_nominal,
-    final energyDynamics=energyDynamics,
-    dpValve_nominal=1E3)
-    "FIXME (TES tank bypass valve"
-    annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-200,-70})));
-  Fluid.Sources.Boundary_pT bouConWatCoo(
-    redeclare final package Medium = Medium,
-    final p=130000,
-    nPorts=1)
-    "CW boundary pressure condition prescribed by CT elevation head"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={-260,-180})));
-  Subsystems.MultiplePumpsSpeed pumConWatCoo(
-    redeclare final package Medium = Medium,
-    final nPum=nPumConWatCoo,
-    final have_var=false,
-    final have_valve=true,
-    final mPum_flow_nominal=mConWatCoo_flow_nominal  * nCoo / nPumConWatCoo,
-    final dpPum_nominal=dpPumConWatCoo_nominal,
-    final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
-    "CW pumps serving cooling towers"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-250,-140})));
 
   // Controls
   replaceable Controls.OpenLoop ctl
@@ -825,8 +677,7 @@ model AllElectricCWStorage
       final nPumConWatCon=nPumConWatCon,
       final nPumConWatEva=nPumConWatEva,
       final TTanSet=TTanSet,
-      final nCoo=nCoo,
-      final nPumConWatCoo=nPumConWatCoo)
+      final nCoo=nCoo)
     "Controller"
     annotation (Placement(transformation(extent={{-280,160},{-240,220}})));
 
@@ -862,15 +713,41 @@ model AllElectricCWStorage
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={100,40})));
+  Fluid.FixedResistances.Junction junConWatTanLvg(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mConWatCon_flow_nominal*{1,-1,1},
+    final dp_nominal=fill(0, 3),
+    final energyDynamics=energyDynamics,
+    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering) "Fluid junction"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=-90,
+        origin={-160,-120})));
 
-  Modelica.Blocks.Sources.RealExpression ctlYPumConWatCon(
-    final y=ctl.yPumConWatCon)
-    "Equation block avoiding graphical connection"
-    annotation (Placement(transformation(extent={{-200,-190},{-180,-170}})));
-  Modelica.Blocks.Sources.BooleanExpression ctlY1PumConWatCon[nPumConWatCon](
-    final y=ctl.y1PumConWatCon)
-    "Equation block avoiding graphical connection"
-    annotation (Placement(transformation(extent={{-200,-162},{-180,-142}})));
+  Fluid.Actuators.Valves.ThreeWayLinear val(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    dpValve_nominal=1E3)
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={-60,-180})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant valByp(k=0, y(start=0))
+                "Source signal for minimum flow bypass valve"
+    annotation (Placement(transformation(extent={{100,-190},{80,-170}})));
+  Fluid.Actuators.Valves.ThreeWayLinear val1(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    dpValve_nominal=1E3)
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={60,-140})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -883,15 +760,7 @@ protected
   final parameter Modelica.Units.SI.Density rho_default=
     Medium.density(sta_default)
     "Density of the fluid";
-  final parameter MediumConWatCoo.ThermodynamicState staConWatCoo_default=
-    MediumConWatCoo.setState_pTX(
-    T=MediumConWatCoo.T_default,
-    p=MediumConWatCoo.p_default,
-    X=MediumConWatCoo.X_default)
-    "Medium state at default properties";
-  final parameter Modelica.Units.SI.SpecificHeatCapacity cpConWatCoo_default=
-    MediumConWatCoo.specificHeatCapacityCp(staConWatCoo_default)
-    "Specific heat capacity of the fluid";
+
 equation
   connect(junChiWatSup.port_2, port_bSerCoo)
     annotation (Line(points={{190,200},{260,200},{260,-40},{300,-40}},
@@ -905,8 +774,7 @@ equation
   connect(TChiWatPriRet.port_a, junChiWatRet.port_2)
     annotation (Line(points={{160,80},{170,80}}, color={0,127,255}));
   connect(port_aSerCoo, junChiWatRet.port_1) annotation (Line(points={{-300,-40},
-          {-280,-40},{-280,60},{240,60},{240,80},{190,80}},
-                                        color={0,127,255}));
+          {240,-40},{240,80},{190,80}}, color={0,127,255}));
   connect(dpChiWat.port_b, junChiWatRet.port_1)
     annotation (Line(points={{240,130},{240,80},{190,80}}, color={0,127,255}));
   connect(junHeaWatSup.port_3, valHeaWatMinByp.port_a)
@@ -920,64 +788,73 @@ equation
   connect(junHeaWatSup.port_2, port_bSerHea) annotation (Line(points={{190,-80},
           {280,-80},{280,0},{300,0}}, color={0,127,255}));
   connect(ctl.y1Chi, chi.y1) annotation (Line(points={{-238.182,219},{-32,219},
-          {-32,149},{-2,149}}, color={255,0,255}));
+          {-32,149},{-12,149}},color={255,0,255}));
   connect(ctl.yValConChi, chi.yValCon) annotation (Line(points={{-238.182,215},
-          {-238.182,214},{4,214},{4,152}},           color={0,0,127}));
+          {-238.182,214},{-6,214},{-6,152}},         color={0,0,127}));
   connect(ctl.y1ValEvaChi, chi.y1ValEva) annotation (Line(points={{-238.182,217},
-          {-34,217},{-34,124},{1,124},{1,128}},                 color={255,0,255}));
-  connect(TChiWatSupSet, chi.TSet) annotation (Line(points={{-320,280},{-20,280},
-          {-20,131},{-2,131}},  color={0,0,127}));
+          {-34,217},{-34,128},{-9,128}},                        color={255,0,255}));
+  connect(TChiWatSupSet, chi.TSet) annotation (Line(points={{-320,280},{-24,280},
+          {-24,131},{-12,131}}, color={0,0,127}));
   connect(ctl.y1PumChiWat, pumChiWat.y1) annotation (Line(points={{-238.182,211},
           {100,211},{100,208},{108,208}},
                                     color={255,0,255}));
   connect(ctl.y1PumHeaWat, pumHeaWat.y1) annotation (Line(points={{-238.182,192},
-          {68,192},{68,-72},{108,-72}},
+          {90,192},{90,-72},{108,-72}},
                                     color={255,0,255}));
   connect(THeaWatSupSet, chiHea.TSet) annotation (Line(points={{-320,-240},{-40,
-          -240},{-40,-95},{-2,-95}},  color={0,0,127}));
+          -240},{-40,-95},{-12,-95}}, color={0,0,127}));
   connect(ctl.y1ChiHea, chiHea.y1) annotation (Line(points={{-238.182,202},{-50,
-          202},{-50,-77},{-2,-77}},  color={255,0,255}));
+          202},{-50,-77},{-12,-77}}, color={255,0,255}));
   connect(ctl.y1CooChiHea, chiHea.y1Coo) annotation (Line(points={{-238.182,200},
-          {-52,200},{-52,-86},{-2,-86}},
+          {-52,200},{-52,-86},{-12,-86}},
                                       color={255,0,255}));
   connect(ctl.y1ValEvaChiHea, chiHea.y1ValEva) annotation (Line(points={{
-          -238.182,198},{-56,198},{-56,-98},{1,-98}},color={255,0,255}));
+          -238.182,198},{-56,198},{-56,-98},{-9,-98}},
+                                                     color={255,0,255}));
   connect(ctl.yValConChiHea, chiHea.yValCon)
-    annotation (Line(points={{-238.182,196},{-60,196},{-60,-60},{4,-60},{4,-74}},
-                                                             color={0,0,127}));
+    annotation (Line(points={{-238.182,196},{-60,196},{-60,-60},{-6,-60},{-6,
+          -74}},                                             color={0,0,127}));
   connect(ctl.yValChiWatMinByp, valChiWatMinByp.y) annotation (Line(points={{
-          -238.182,206},{-216,206},{-216,180},{200,180},{200,140},{192,140}},
+          -238.182,206},{-222,206},{-222,160},{160,160},{160,140},{168,140}},
                                                  color={0,0,127}));
   connect(ctl.yValHeaWatMinByp, valHeaWatMinByp.y) annotation (Line(points={{
-          -238.182,186},{-220,186},{-220,-40},{200,-40},{200,-140},{192,-140}},
+          -238.182,186},{-220,186},{-220,-160},{160,-160},{160,-140},{168,-140}},
                                                    color={0,0,127}));
   connect(THeaWatPriRet.port_b, mHeaWatPri_flow.port_a)
     annotation (Line(points={{140,-200},{130,-200}}, color={0,127,255}));
   connect(TChiWatPriRet.port_b, mChiWatPri_flow.port_a)
     annotation (Line(points={{140,80},{130,80}}, color={0,127,255}));
-  connect(chi.port_b2, junChiWatChiCooSup.port_1) annotation (Line(points={{0,134},
-          {-40,134},{-40,200},{70,200}},      color={0,127,255}));
+  connect(chi.port_b2, junChiWatChiCooSup.port_1) annotation (Line(points={{-10,134},
+          {-40,134},{-40,200},{30,200}},      color={0,127,255}));
   connect(junChiWatChiCooSup.port_2, pumChiWat.port_a)
-    annotation (Line(points={{90,200},{110,200}},color={0,127,255}));
+    annotation (Line(points={{50,200},{110,200}},color={0,127,255}));
   connect(ctl.y1ChiHea, chiCoo.y1) annotation (Line(points={{-238.182,202},{-50,
-          202},{-50,-156},{-38,-156},{-38,-157},{8,-157}},   color={255,0,255}));
+          202},{-50,-136},{-38,-136},{-38,-137},{-12,-137}}, color={255,0,255}));
   connect(ctl.y1CooChiHea, chiCoo.y1Coo) annotation (Line(points={{-238.182,200},
-          {-52,200},{-52,-166},{8,-166}},            color={255,0,255}));
+          {-52,200},{-52,-146},{-12,-146}},          color={255,0,255}));
   connect(ctl.y1ValEvaChiHea, chiCoo.y1ValEva) annotation (Line(points={{
-          -238.182,198},{-56,198},{-56,-180},{11,-180},{11,-178}}, color={255,0,
+          -238.182,198},{-56,198},{-56,-160},{-9,-160},{-9,-158}}, color={255,0,
           255}));
   connect(ctl.yValConChiHea, chiCoo.yValCon) annotation (Line(points={{-238.182,
-          196},{-60,196},{-60,-150},{14,-150},{14,-154}},
+          196},{-60,196},{-60,-120},{-6,-120},{-6,-134}},
                                 color={0,0,127}));
-  connect(TChiWatSupSet, chiCoo.TSet) annotation (Line(points={{-320,280},{-64,
-          280},{-64,-175},{8,-175}},    color={0,0,127}));
-  connect(chiCoo.port_b2, junChiWatChiCooSup.port_3) annotation (Line(points={{10,-172},
-          {-10,-172},{-10,-148},{80,-148},{80,190}},           color={0,127,255}));
+  connect(TChiWatSupSet, chiCoo.TSet) annotation (Line(points={{-320,280},{-290,
+          280},{-290,-158},{-16,-158},{-16,-155},{-12,-155}},
+                                        color={0,0,127}));
+  connect(chiCoo.port_b2, junChiWatChiCooSup.port_3) annotation (Line(points={{-10,
+          -152},{-60,-152},{-60,-128},{40,-128},{40,190}},     color={0,127,255}));
+  connect(ctl.y1PumConWatCon, pumConWatCon.y1) annotation (Line(points={{
+          -238.182,182},{-230,182},{-230,-132},{-142,-132}},
+                                                        color={255,0,255}));
   connect(ctl.y1PumConWatEva, pumConWatEva.y1) annotation (Line(points={{
-          -238.182,178},{-164,178},{-164,8},{-22,8}},
+          -238.182,178},{-164,178},{-164,-12},{-162,-12}},
                                                color={255,0,255}));
+  connect(ctl.yPumConWatCon, pumConWatCon.y) annotation (Line(points={{-238.182,
+          180},{-232,180},{-232,-136},{-142,-136}},
+                                             color={0,0,127}));
   connect(ctl.yPumConWatEva, pumConWatEva.y) annotation (Line(points={{-238.182,
-          176},{-168,176},{-168,4},{-22,4}},   color={0,0,127}));
+          176},{-168,176},{-168,-16},{-162,-16}},
+                                               color={0,0,127}));
   connect(sumPHea.y, PHea)
     annotation (Line(points={{291,280},{320,280}}, color={0,0,127}));
   connect(sumPCoo.y, PCoo) annotation (Line(points={{291,240},{298.5,240},{
@@ -989,58 +866,56 @@ equation
   connect(junHeaWatSup.port_2, dpHeaWat.port_a) annotation (Line(points={{190,-80},
           {240,-80},{240,-130}}, color={0,127,255}));
   connect(mHeaWatPri_flow.port_b, chiHea.port_a1) annotation (Line(points={{110,
-          -200},{-20,-200},{-20,-80},{0,-80}},
+          -200},{-20,-200},{-20,-80},{-10,-80}},
                                            color={0,127,255}));
-  connect(pumConWatEva.port_b, chiHea.port_a2) annotation (Line(points={{0,0},{
-          30,0},{30,-92},{20,-92}},    color={0,127,255}));
+  connect(pumConWatEva.port_b, chiHea.port_a2) annotation (Line(points={{-140,-20},
+          {20,-20},{20,-92},{10,-92}}, color={0,127,255}));
   connect(pumConWatCon.port_b, junConWatEnt.port_1)
-    annotation (Line(points={{-120,-160},{-110,-160}}, color={0,127,255}));
-  connect(junConWatEnt.port_2, chiCoo.port_a1)
-    annotation (Line(points={{-90,-160},{10,-160}},  color={0,127,255}));
+    annotation (Line(points={{-120,-140},{-110,-140}}, color={0,127,255}));
   connect(chiHea.port_b1, pumHeaWat.port_a)
-    annotation (Line(points={{20,-80},{110,-80}}, color={0,127,255}));
-  connect(junConWatEnt.port_3, chi.port_a1) annotation (Line(points={{-100,-150},
-          {-100,146},{0,146}},   color={0,127,255}));
+    annotation (Line(points={{10,-80},{110,-80}}, color={0,127,255}));
+  connect(junConWatEnt.port_3, chi.port_a1) annotation (Line(points={{-100,-130},
+          {-100,146},{-10,146}}, color={0,127,255}));
   connect(pumChiWat.port_b, TChiWatSup.port_a)
     annotation (Line(points={{130,200},{140,200}}, color={0,127,255}));
   connect(TChiWatSup.port_b, junChiWatSup.port_1)
     annotation (Line(points={{160,200},{170,200}}, color={0,127,255}));
+  connect(junConWatTanEnt.port_2, tan.port_a)
+    annotation (Line(points={{-200,-30},{-200,-100},{-190,-100}},
+                                                           color={0,127,255}));
   connect(junConWatTanEnt.port_3, pumConWatEva.port_a)
-    annotation (Line(points={{-190,-1.77636e-15},{-176,-1.77636e-15},{-176,0},{
-          -20,0}},                                 color={0,127,255}));
-  connect(chi.port_b1, junConWatLvg.port_1) annotation (Line(points={{20,146},{
-          54,146},{54,40},{50,40}},
-                                  color={0,127,255}));
-  connect(chiCoo.port_b1, junConWatLvg.port_3)
-    annotation (Line(points={{30,-160},{40,-160},{40,30}}, color={0,127,255}));
+    annotation (Line(points={{-190,-20},{-160,-20}},
+                                                   color={0,127,255}));
+  connect(chi.port_b1, junConWatLvg.port_1) annotation (Line(points={{10,146},{80,
+          146},{80,60},{70,60}},  color={0,127,255}));
   connect(tan.heaPorVol, TTan.port)
-    annotation (Line(points={{-180,-100},{-180,-76},{-140,-76},{-140,-70}},
+    annotation (Line(points={{-180,-100},{-180,-80},{-240,-80}},
                                                       color={191,0,0}));
-  connect(out.port, tan.heaPorTop) annotation (Line(points={{-166,-70},{-166,
-          -80},{-178,-80},{-178,-92.6}},
+  connect(out.port, tan.heaPorTop) annotation (Line(points={{-170,-60},{-166,-60},
+          {-166,-80},{-178,-80},{-178,-92.6}},
                          color={191,0,0}));
-  connect(out.port, tan.heaPorSid) annotation (Line(points={{-166,-70},{-166,
-          -80},{-174.4,-80},{-174.4,-100}},
+  connect(out.port, tan.heaPorSid) annotation (Line(points={{-170,-60},{-166,-60},
+          {-166,-80},{-174.4,-80},{-174.4,-100}},
                           color={191,0,0}));
-  connect(out.port, tan.heaPorBot) annotation (Line(points={{-166,-70},{-166,
-          -107.4},{-178,-107.4}},       color={191,0,0}));
+  connect(out.port, tan.heaPorBot) annotation (Line(points={{-170,-60},{-166,-60},
+          {-166,-107.4},{-178,-107.4}}, color={191,0,0}));
   connect(pumHeaWat.port_b, THeaWatSup.port_a)
     annotation (Line(points={{130,-80},{140,-80}}, color={0,127,255}));
   connect(THeaWatSup.port_b, junHeaWatSup.port_1)
     annotation (Line(points={{160,-80},{170,-80}}, color={0,127,255}));
   connect(junConWatLvg.port_2, junConWatHeaPumEnt.port_1)
-    annotation (Line(points={{30,40},{-110,40}},color={0,127,255}));
+    annotation (Line(points={{50,60},{-110,60}},color={0,127,255}));
   connect(junConWatHeaPumEnt.port_2, junConWatHeaPumLvg.port_1)
-    annotation (Line(points={{-130,40},{-170,40}}, color={0,127,255}));
+    annotation (Line(points={{-130,60},{-170,60}}, color={0,127,255}));
   connect(junConWatHeaPumLvg.port_2, junConWatTanEnt.port_1) annotation (Line(
-        points={{-190,40},{-200,40},{-200,10}},  color={0,127,255}));
-  connect(junConWatHeaPumEnt.port_3, heaPum.port_a) annotation (Line(points={{-120,50},
+        points={{-190,60},{-200,60},{-200,-10}}, color={0,127,255}));
+  connect(junConWatHeaPumEnt.port_3, heaPum.port_a) annotation (Line(points={{-120,70},
           {-120,120},{-140,120}},     color={0,127,255}));
   connect(heaPum.port_b, junConWatHeaPumLvg.port_3) annotation (Line(points={{-160,
-          120},{-180,120},{-180,50}}, color={0,127,255}));
+          120},{-180,120},{-180,70}}, color={0,127,255}));
   connect(weaBus.TDryBul, out.T) annotation (Line(
-      points={{1,266},{1,259.545},{-150,259.545},{-150,140},{-166,140},{-166,
-          -48}},
+      points={{1,266},{1,259.545},{-150,259.545},{-150,140},{-216,140},{-216,-60},
+          {-192,-60}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -1051,13 +926,13 @@ equation
       points={{1,266},{1,260},{-150,260},{-150,130}},
       color={255,204,51},
       thickness=0.5));
-  connect(ctl.y1HeaPum, heaPum.y1) annotation (Line(points={{-238.182,173},{
-          -122,173},{-122,126},{-138,126}},
+  connect(ctl.y1HeaPum, heaPum.y1) annotation (Line(points={{-238.182,172},{
+          -122,172},{-122,126},{-138,126}},
                                        color={255,0,255}));
-  connect(ctl.THeaPumSet, heaPum.TSet) annotation (Line(points={{-238.182,171},
-          {-124,171},{-124,114},{-138,114}},color={0,0,127}));
+  connect(ctl.THeaPumSet, heaPum.TSet) annotation (Line(points={{-238.182,170},
+          {-124,170},{-124,114},{-138,114}},color={0,0,127}));
   connect(bouConWat.ports[1], tan.port_b)
-    annotation (Line(points={{-130,-100},{-170,-100}}, color={0,127,255}));
+    annotation (Line(points={{-140,-100},{-170,-100}}, color={0,127,255}));
   connect(bouHeaWat.ports[1], mHeaWatPri_flow.port_b) annotation (Line(points={{100,
           -230},{100,-200},{110,-200}},     color={0,127,255}));
   connect(bouChiWat.ports[1], mChiWatPri_flow.port_b)
@@ -1065,61 +940,37 @@ equation
   connect(ctl.yPumChiWat, pumChiWat.y) annotation (Line(points={{-238.182,209},
           {98,209},{98,204},{108,204}},color={0,0,127}));
   connect(ctl.yPumHeaWat, pumHeaWat.y) annotation (Line(points={{-238.182,190},
-          {64,190},{64,-76},{108,-76}},color={0,0,127}));
-  connect(tan.port_b, junConWatTanLvg.port_1) annotation (Line(points={{-170,
-          -100},{-160,-100},{-160,-130}},
-                                    color={0,127,255}));
+          {88,190},{88,-76},{108,-76}},color={0,0,127}));
+  connect(tan.port_b, junConWatTanLvg.port_1) annotation (Line(points={{-170,-100},
+          {-160,-100},{-160,-110}}, color={0,127,255}));
   connect(junConWatTanLvg.port_2, pumConWatCon.port_a) annotation (Line(points={{-160,
-          -150},{-160,-160},{-140,-160}},       color={0,127,255}));
-  connect(chiHea.port_b2, junConWatTanLvg.port_3) annotation (Line(points={{0,-92},
-          {-10,-92},{-10,-140},{-150,-140}},        color={0,127,255}));
+          -130},{-160,-140},{-140,-140}},       color={0,127,255}));
+  connect(chiHea.port_b2, junConWatTanLvg.port_3) annotation (Line(points={{-10,-92},
+          {-80,-92},{-80,-120},{-150,-120}},        color={0,127,255}));
   connect(mChiWatPri_flow.port_b, junChiWatChiCooRet.port_1)
-    annotation (Line(points={{110,80},{100,80},{100,100}},
-                                                         color={0,127,255}));
+    annotation (Line(points={{110,80},{60,80},{60,100}}, color={0,127,255}));
   connect(junChiWatChiCooRet.port_2, chi.port_a2)
-    annotation (Line(points={{100,120},{100,134},{20,134}},
-                                                          color={0,127,255}));
-  connect(junChiWatChiCooRet.port_3, chiCoo.port_a2) annotation (Line(points={{90,110},
-          {60,110},{60,-172},{30,-172}},      color={0,127,255}));
-  connect(port_aSerHea, junHeaWatRet.port_1) annotation (Line(points={{-300,0},
-          {-290,0},{-290,-220},{240,-220},{240,-200},{190,-200}},color={0,127,255}));
-  connect(junConWatTanEnt.port_2, valBypTan.port_2)
-    annotation (Line(points={{-200,-10},{-200,-60}}, color={0,127,255}));
-  connect(valBypTan.port_1, tan.port_a) annotation (Line(points={{-200,-80},{-200,
-          -100},{-190,-100}}, color={0,127,255}));
-  connect(valBypTan.port_3, hexCoo.port_a2) annotation (Line(points={{-210,-70},
-          {-214,-70},{-214,-90}}, color={0,127,255}));
-  connect(hexCoo.port_b2, junConWatTanLvg.port_1) annotation (Line(points={{
-          -214,-110},{-214,-120},{-160,-120},{-160,-130}}, color={0,127,255}));
-  connect(ctl.yValBypTan, valBypTan.y) annotation (Line(points={{-238.182,168},
-          {-184,168},{-184,-70},{-188,-70}},color={0,0,127}));
-  connect(bouConWatCoo.ports[1], pumConWatCoo.port_a)
-    annotation (Line(points={{-260,-170},{-260,-140}}, color={0,127,255}));
-  connect(pumConWatCoo.port_b, hexCoo.port_a1) annotation (Line(points={{-240,
-          -140},{-226,-140},{-226,-110}}, color={0,127,255}));
-  connect(hexCoo.port_b1, coo.port_a) annotation (Line(points={{-226,-90},{-226,
-          0},{-240,0}}, color={0,127,255}));
-  connect(coo.port_b, pumConWatCoo.port_a) annotation (Line(points={{-260,0},{
-          -272,0},{-272,-140},{-260,-140}}, color={0,127,255}));
-  connect(weaBus, coo.weaBus) annotation (Line(
-      points={{1,266},{1,260},{-150,260},{-150,140},{-250,140},{-250,10}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%first",
-      index=-1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
-  connect(ctl.yCoo, coo.y) annotation (Line(points={{-238.182,163},{-238.182,
-          163},{-232,163},{-232,-6},{-238,-6}}, color={0,0,127}));
-  connect(ctl.y1Coo, coo.y1) annotation (Line(points={{-238.182,165},{-230,165},
-          {-230,6},{-238,6}}, color={255,0,255}));
-  connect(ctl.y1PumConWatCoo, pumConWatCoo.y1) annotation (Line(points={{
-          -238.182,161},{-234,161},{-234,148},{-268,148},{-268,-132},{-262,-132}},
-        color={255,0,255}));
-  connect(ctlY1PumConWatCon.y, pumConWatCon.y1)
-    annotation (Line(points={{-179,-152},{-142,-152}}, color={255,0,255}));
-  connect(ctlYPumConWatCon.y, pumConWatCon.y) annotation (Line(points={{-179,
-          -180},{-150,-180},{-150,-156},{-142,-156}}, color={0,0,127}));
+    annotation (Line(points={{60,120},{60,134},{10,134}}, color={0,127,255}));
+  connect(junChiWatChiCooRet.port_3, chiCoo.port_a2) annotation (Line(points={{50,
+          110},{30,110},{30,-152},{10,-152}}, color={0,127,255}));
+  connect(port_aSerHea, junHeaWatRet.port_1) annotation (Line(points={{-300,0},{
+          -280,0},{-280,-220},{240,-220},{240,-200},{190,-200}}, color={0,127,255}));
+  connect(valByp.y, val.y)
+    annotation (Line(points={{78,-180},{-48,-180}}, color={0,0,127}));
+  connect(junConWatEnt.port_2, val.port_3) annotation (Line(points={{-90,-140},
+          {-80,-140},{-80,-180},{-70,-180}}, color={0,127,255}));
+  connect(val.port_2, chiCoo.port_a1) annotation (Line(points={{-60,-170},{-42,
+          -170},{-42,-140},{-10,-140}}, color={0,127,255}));
+  connect(chiCoo.port_b1, val1.port_2)
+    annotation (Line(points={{10,-140},{50,-140}}, color={0,127,255}));
+  connect(val1.port_1, pumHeaWat.port_a) annotation (Line(points={{70,-140},{80,
+          -140},{80,-80},{110,-80}}, color={0,127,255}));
+  connect(valByp.y, val1.y)
+    annotation (Line(points={{78,-180},{60,-180},{60,-152}}, color={0,0,127}));
+  connect(val1.port_3, junConWatLvg.port_3)
+    annotation (Line(points={{60,-130},{60,50}}, color={0,127,255}));
+  connect(mHeaWatPri_flow.port_b, val.port_1) annotation (Line(points={{110,
+          -200},{-60,-200},{-60,-190}}, color={0,127,255}));
 annotation (
   defaultComponentName="pla", Documentation(info="<html>
 <p>
@@ -1172,4 +1023,4 @@ ASHRAE Journal, October 2021.
 </p>
 
 </html>"));
-end AllElectricCWStorage;
+end AllElectricCWStorageDebug;
