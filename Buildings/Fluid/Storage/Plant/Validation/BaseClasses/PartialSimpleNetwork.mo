@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation.BaseClasses;
-model PartialIdealNetwork
-  "Idealised network model with two flow or pressure sources"
+partial model PartialSimpleNetwork
+  "Simple idealised network model with two flow or pressure sources"
 
   package Medium = Buildings.Media.Water "Medium model";
 
@@ -12,13 +12,10 @@ model PartialIdealNetwork
     dp_nominal=300000,
     T_CHWS_nominal=280.15,
     T_CHWR_nominal=285.15) "Nominal values"
-    annotation (Placement(transformation(extent={{120,100},{140,120}})));
+    annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 600,0; 600,1; 1200,
         1; 1200,0; 1800,0; 1800,-1; 3600,-1]) "Mass flow rate setpoint"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Modelica.Blocks.Sources.BooleanTable uAva(final table={600,2400,3000}, final
-      startValue=false)     "Plant availability"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+    annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
   Buildings.Fluid.Sensors.MassFlowRate mTanSup_flow(redeclare final package
       Medium = Medium)
     "Tank mass flow rate on the supply side" annotation (
@@ -130,10 +127,14 @@ model PartialIdealNetwork
   Modelica.Blocks.Sources.TimeTable mChiSet_flow(table=[0,0; 600,0; 600,1; 1800,
         1; 1800,2; 2400,2; 2400,1; 3000,1; 3000,0; 3600,0])
     "Mass flow rate setpoint for the primary pump"
-    annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
-  Modelica.Blocks.Sources.BooleanTable uRemCha(final table={3000}, final
-      startValue=false) "Remote charging status"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+  Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
+    redeclare final package Medium = Medium,
+    final nom=nom) "Ideal reversable connection on supply side"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Add the setpoints of the chiller and the tank together"
+    annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 equation
   connect(dp.y,idePreSou. dp_in) annotation (Line(points={{61,-90},{68,-90},{68,
           6},{82,6}}, color={0,0,127}));
@@ -162,15 +163,25 @@ equation
     annotation (Line(points={{-70,-40},{-70,-30}}, color={0,127,255}));
   connect(mTanRet_flow.port_b,mTanSup_flow. port_a)
     annotation (Line(points={{-70,-10},{-70,10}}, color={0,127,255}));
-  connect(mChiSet_flow.y, ideFloSou.m_flow_in) annotation (Line(points={{-119,-90},
-          {-100,-90},{-100,-60},{-122,-60},{-122,6.66134e-16},{-116,6.66134e-16}},
+  connect(mChiSet_flow.y, ideFloSou.m_flow_in) annotation (Line(points={{-139,10},
+          {-126,10},{-126,0},{-122,0},{-122,6.66134e-16},{-116,6.66134e-16}},
         color={0,0,127}));
+  connect(ideRevConSup.port_b, preDroSup.port_a)
+    annotation (Line(points={{0,50},{40,50}}, color={0,127,255}));
+  connect(ideRevConSup.port_a, junSup1.port_2)
+    annotation (Line(points={{-20,50},{-60,50}}, color={0,127,255}));
+  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-139,90},{-132,90},
+          {-132,96},{-122,96}}, color={0,0,127}));
+  connect(mChiSet_flow.y, add2.u2) annotation (Line(points={{-139,10},{-126,10},
+          {-126,84},{-122,84}}, color={0,0,127}));
+  connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-98,90},{-26,
+          90},{-26,55},{-21,55}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
-  Diagram(coordinateSystem(extent={{-160,-120},{160,140}})), Icon(
+  Diagram(coordinateSystem(extent={{-180,-120},{160,120}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 [fixme: documentation pending.]
 </p>
 </html>"));
-end PartialIdealNetwork;
+end PartialSimpleNetwork;
