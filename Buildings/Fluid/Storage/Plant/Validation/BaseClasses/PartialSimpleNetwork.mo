@@ -39,7 +39,7 @@ partial model PartialSimpleNetwork
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={90,0})));
+        origin={90,-10})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideFloSou(
     redeclare final package Medium = Medium,
     final m_flow_small=1E-5,
@@ -48,7 +48,7 @@ partial model PartialSimpleNetwork
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-108,6})));
+        origin={-110,-10})));
   Buildings.Fluid.FixedResistances.PressureDrop  preDroNet(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -58,7 +58,7 @@ partial model PartialSimpleNetwork
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={130,0})));
+        origin={130,-10})));
   Buildings.Fluid.FixedResistances.PressureDrop preDroSup(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -81,7 +81,7 @@ partial model PartialSimpleNetwork
         origin={50,-50})));
   Modelica.Blocks.Sources.Constant dp(final k=-nom.dp_nominal*0.6)
     "Constant differential pressure"
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
+    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Fluid.FixedResistances.Junction junSup1(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -127,7 +127,7 @@ partial model PartialSimpleNetwork
   Modelica.Blocks.Sources.TimeTable mChiSet_flow(table=[0,0; 600,0; 600,1; 1800,
         1; 1800,2; 2400,2; 2400,1; 3000,1; 3000,0; 3600,0])
     "Mass flow rate setpoint for the primary pump"
-    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
+    annotation (Placement(transformation(extent={{-160,40},{-140,60}})));
   Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
     redeclare final package Medium = Medium,
     final nom=nom) "Ideal reversable connection on supply side"
@@ -135,26 +135,38 @@ partial model PartialSimpleNetwork
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Add the setpoints of the chiller and the tank together"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+protected
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
+    f=20/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-150,-10})));
 equation
-  connect(dp.y,idePreSou. dp_in) annotation (Line(points={{61,-90},{68,-90},{68,
-          6},{82,6}}, color={0,0,127}));
+  connect(dp.y,idePreSou. dp_in) annotation (Line(points={{61,-10},{74,-10},{74,
+          -4},{82,-4}},
+                      color={0,0,127}));
   connect(junSup2.port_2,preDroNet. port_a)
-    annotation (Line(points={{100,50},{130,50},{130,10}},
+    annotation (Line(points={{100,50},{130,50},{130,0}},
                                                        color={0,127,255}));
   connect(preDroNet.port_b,junRet2. port_1)
-    annotation (Line(points={{130,-10},{130,-50},{100,-50}},
+    annotation (Line(points={{130,-20},{130,-50},{100,-50}},
                                                           color={0,127,255}));
   connect(junRet2.port_3,idePreSou. port_a)
-    annotation (Line(points={{90,-40},{90,-10}}, color={0,127,255}));
+    annotation (Line(points={{90,-40},{90,-20}}, color={0,127,255}));
   connect(idePreSou.port_b,junSup2. port_3)
-    annotation (Line(points={{90,10},{90,40}}, color={0,127,255}));
+    annotation (Line(points={{90,0},{90,40}},  color={0,127,255}));
   connect(mTanSup_flow.port_b,junSup1. port_3)
     annotation (Line(points={{-70,30},{-70,40}}, color={0,127,255}));
   connect(junSup1.port_1,ideFloSou. port_b)
-    annotation (Line(points={{-80,50},{-108,50},{-108,16}},
+    annotation (Line(points={{-80,50},{-110,50},{-110,0}},
                                                          color={0,127,255}));
-  connect(ideFloSou.port_a,junRet1. port_2) annotation (Line(points={{-108,-4},{
-          -108,-50},{-80,-50}},color={0,127,255}));
+  connect(ideFloSou.port_a,junRet1. port_2) annotation (Line(points={{-110,-20},
+          {-110,-50},{-80,-50}},
+                               color={0,127,255}));
   connect(preDroSup.port_b,junSup2. port_1)
     annotation (Line(points={{60,50},{80,50}}, color={0,127,255}));
   connect(junRet2.port_2,preDroRet. port_a)
@@ -163,19 +175,20 @@ equation
     annotation (Line(points={{-70,-40},{-70,-30}}, color={0,127,255}));
   connect(mTanRet_flow.port_b,mTanSup_flow. port_a)
     annotation (Line(points={{-70,-10},{-70,10}}, color={0,127,255}));
-  connect(mChiSet_flow.y, ideFloSou.m_flow_in) annotation (Line(points={{-139,10},
-          {-126,10},{-126,0},{-122,0},{-122,6.66134e-16},{-116,6.66134e-16}},
-        color={0,0,127}));
   connect(ideRevConSup.port_b, preDroSup.port_a)
     annotation (Line(points={{0,50},{40,50}}, color={0,127,255}));
   connect(ideRevConSup.port_a, junSup1.port_2)
     annotation (Line(points={{-20,50},{-60,50}}, color={0,127,255}));
-  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-139,90},{-132,90},
-          {-132,96},{-122,96}}, color={0,0,127}));
-  connect(mChiSet_flow.y, add2.u2) annotation (Line(points={{-139,10},{-126,10},
-          {-126,84},{-122,84}}, color={0,0,127}));
+  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-139,90},{-134,90},
+          {-134,96},{-122,96}}, color={0,0,127}));
+  connect(mChiSet_flow.y, add2.u2) annotation (Line(points={{-139,50},{-130,50},
+          {-130,84},{-122,84}}, color={0,0,127}));
   connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-98,90},{-26,
           90},{-26,55},{-21,55}}, color={0,0,127}));
+  connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-139,50},{-130,50},{
+          -130,20},{-170,20},{-170,-10},{-162,-10}}, color={0,0,127}));
+  connect(fil.y, ideFloSou.m_flow_in) annotation (Line(points={{-139,-10},{-126,
+          -10},{-126,-16},{-118,-16}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   Diagram(coordinateSystem(extent={{-180,-120},{160,120}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
