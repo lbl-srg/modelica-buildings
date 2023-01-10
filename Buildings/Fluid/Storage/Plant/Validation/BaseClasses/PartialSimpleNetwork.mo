@@ -183,8 +183,9 @@ equation
           {-134,96},{-122,96}}, color={0,0,127}));
   connect(mChiSet_flow.y, add2.u2) annotation (Line(points={{-139,50},{-130,50},
           {-130,84},{-122,84}}, color={0,0,127}));
-  connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-98,90},{-26,
-          90},{-26,55},{-21,55}}, color={0,0,127}));
+  connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-98,90},{
+          -30,90},{-30,55},{-21,55}},
+                                  color={0,0,127}));
   connect(mChiSet_flow.y, fil.u) annotation (Line(points={{-139,50},{-130,50},{
           -130,20},{-170,20},{-170,-10},{-162,-10}}, color={0,0,127}));
   connect(fil.y, ideFloSou.m_flow_in) annotation (Line(points={{-139,-10},{-126,
