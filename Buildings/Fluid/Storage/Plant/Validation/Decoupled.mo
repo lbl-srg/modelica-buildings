@@ -39,8 +39,8 @@ equation
     annotation (Line(points={{-21,-45},{-30,-45},{-30,-22}}, color={0,0,127}));
   connect(add2.y, gai.u)
     annotation (Line(points={{-98,90},{-30,90},{-30,2}}, color={0,0,127}));
-  connect(bou1.ports[1], mTanSup_flow.port_a) annotation (Line(points={{-60,-90},
-          {-50,-90},{-50,0},{-70,0},{-70,10}}, color={0,127,255}));
+  connect(bou1.ports[1], junSup1.port_3) annotation (Line(points={{-60,-90},{
+          -50,-90},{-50,0},{-70,0},{-70,40}}, color={0,127,255}));
     annotation(experiment(Tolerance=1e-06, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/Decoupled.mos"
         "Simulate and plot"));

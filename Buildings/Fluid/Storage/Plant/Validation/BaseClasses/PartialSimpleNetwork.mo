@@ -16,20 +16,6 @@ partial model PartialSimpleNetwork
   Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 600,0; 600,1; 1200,
         1; 1200,0; 1800,0; 1800,-1; 3600,-1]) "Mass flow rate setpoint"
     annotation (Placement(transformation(extent={{-160,80},{-140,100}})));
-  Buildings.Fluid.Sensors.MassFlowRate mTanSup_flow(redeclare final package
-      Medium = Medium)
-    "Tank mass flow rate on the supply side" annotation (
-      Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-70,20})));
-  Buildings.Fluid.Sensors.MassFlowRate mTanRet_flow(
-    redeclare final package Medium = Medium)
-    "Tank mass flow rate on the return side" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-70,-20})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource idePreSou(
     redeclare final package Medium = Medium,
     final m_flow_small=1E-5,
@@ -159,8 +145,6 @@ equation
     annotation (Line(points={{90,-40},{90,-20}}, color={0,127,255}));
   connect(idePreSou.port_b,junSup2. port_3)
     annotation (Line(points={{90,0},{90,40}},  color={0,127,255}));
-  connect(mTanSup_flow.port_b,junSup1. port_3)
-    annotation (Line(points={{-70,30},{-70,40}}, color={0,127,255}));
   connect(junSup1.port_1,ideFloSou. port_b)
     annotation (Line(points={{-80,50},{-110,50},{-110,0}},
                                                          color={0,127,255}));
@@ -171,10 +155,6 @@ equation
     annotation (Line(points={{60,50},{80,50}}, color={0,127,255}));
   connect(junRet2.port_2,preDroRet. port_a)
     annotation (Line(points={{80,-50},{60,-50}}, color={0,127,255}));
-  connect(junRet1.port_3,mTanRet_flow. port_a)
-    annotation (Line(points={{-70,-40},{-70,-30}}, color={0,127,255}));
-  connect(mTanRet_flow.port_b,mTanSup_flow. port_a)
-    annotation (Line(points={{-70,-10},{-70,10}}, color={0,127,255}));
   connect(ideRevConSup.port_b, preDroSup.port_a)
     annotation (Line(points={{0,50},{40,50}}, color={0,127,255}));
   connect(ideRevConSup.port_a, junSup1.port_2)
@@ -190,6 +170,8 @@ equation
           -130,20},{-170,20},{-170,-10},{-162,-10}}, color={0,0,127}));
   connect(fil.y, ideFloSou.m_flow_in) annotation (Line(points={{-139,-10},{-126,
           -10},{-126,-16},{-118,-16}}, color={0,0,127}));
+  connect(junSup1.port_3, junRet1.port_3)
+    annotation (Line(points={{-70,40},{-70,-40}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   Diagram(coordinateSystem(extent={{-180,-120},{160,120}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),
