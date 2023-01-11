@@ -55,17 +55,15 @@ model Indirect
     "Nominal heat transfer"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a1_nominal(
-    final min=0+273.15,
-    final max=100+273.15,
-    final start=5+273.15,
-    displayUnit="K")
+    final min=273.15,
+    final max=373.15,
+    final start=278.15)
     "Nominal temperature at port a1"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a2_nominal(
-    final min=0+273.15,
-    final max=100+273.15,
-    final start=7+273.15,
-    displayUnit="K")
+    final min=273.15,
+    final max=373.15,
+    final start=280.15)
     "Nominal temperature at port a2"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Efficiency eta(
