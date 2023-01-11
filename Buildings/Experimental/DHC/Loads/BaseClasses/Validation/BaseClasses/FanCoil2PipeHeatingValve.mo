@@ -11,7 +11,7 @@ model FanCoil2PipeHeatingValve
     final have_chiWat=false,
     final have_QReq_flow=true,
     final allowFlowReversal=false,
-    final allowFlowReversalLoa=true,
+    final allowFlowReversalLoa=false,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -120,6 +120,7 @@ model FanCoil2PipeHeatingValve
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
+    final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
