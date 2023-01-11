@@ -183,7 +183,8 @@ equation
       StopTime=16329600,
       Tolerance=1e-06),
     Documentation(info="<html>
-<p>This model illustrates an example of district cooling system, 
+<p>
+This model illustrates an example of district cooling system, 
 consisting of a cooling plant with parallel electric chillers 
 (<a href=\"modelica://Buildings/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.mo\">
 Buildings.Experimental.DHC.Plants.Cooling.ElectricChillerParallel</a>), 
@@ -194,7 +195,8 @@ with the chilled water return temperatures controlled above a minimum
 threshold
 (<a href=\"modelica://Buildings/Experimental/DHC/Loads/Cooling/BuildingTimeSeriesWithETS.mo\">
 Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS</a>).
-This configuration is illustrated in the schematic below.</p>
+This configuration is illustrated in the schematic below.
+</p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Examples/Cooling/ElectricChillersDirectETS.png\" alt=\"DC Schematic\"/></p>
 </html>", revisions="<html>
 <ul>
