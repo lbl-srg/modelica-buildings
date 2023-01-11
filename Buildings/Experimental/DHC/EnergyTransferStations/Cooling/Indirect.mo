@@ -74,10 +74,7 @@ model Indirect
     "Constant effectiveness"
     annotation (Dialog(group="Heat exchanger"));
    //Controller parameters
-  parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.InitialState
-    "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-    annotation (Dialog(group="PID controller"));
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of controller"
     annotation (Dialog(group="PID controller"));
   parameter Real k(
@@ -161,34 +158,33 @@ model Indirect
     redeclare final package Medium=MediumBui,
     final m_flow_nominal=mBui_flow_nominal)
     "Building return temperature sensor"
-    annotation (Placement(transformation(extent={{-218,210},{-198,190}})));
+    annotation (Placement(transformation(extent={{-218,190},{-198,210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
     redeclare final package Medium=MediumBui,
     final m_flow_nominal=mBui_flow_nominal)
     "Building supply temperature sensor"
-    annotation (Placement(transformation(extent={{200,210},{220,190}})));
-  Buildings.Controls.Continuous.LimPID con(
+    annotation (Placement(transformation(extent={{-16,-214},{-36,-194}})));
+  Controls.OBC.CDL.Continuous.PID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin,
-    final initType=Modelica.Blocks.Types.Init.InitialState)
+    final yMin=yMin)
     "Building supply temperature controller"
-    annotation (Placement(transformation(extent={{-180,10},{-160,-10}})));
+    annotation (Placement(transformation(extent={{-130,-230},{-110,-210}})));
 
-  Modelica.Blocks.Math.Add dTdis(
+  Modelica.Blocks.Math.Add dTDis(
     final k1=-1)
   "Temperature difference on the district side"
-    annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
+    annotation (Placement(transformation(extent={{20,-124},{40,-104}})));
   Modelica.Blocks.Math.Product pro
   "product"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
   Modelica.Blocks.Math.Gain cp(
     final k=cp_default)
     "Specific heat multiplier to calculate heat flow rate"
-    annotation (Placement(transformation(extent={{180,-120},{200,-100}})));
+    annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
   Modelica.Blocks.Continuous.Integrator int(
     final k=1)
     "Integration"
@@ -212,8 +208,8 @@ equation
   connect(senMasFlo.port_b, conVal.port_a)
     annotation (Line(points={{-140,-280},{-100,-280}}, color={0,127,255}));
   connect(conVal.port_b, hex.port_a1)
-    annotation (Line(points={{-80,-280},{-40,-280},
-          {-40,-216},{0,-216}}, color={0,127,255}));
+    annotation (Line(points={{-80,-280},{-10,-280},{-10,-216},{0,-216}},
+                                color={0,127,255}));
   connect(hex.port_b1, senTDisRet.port_a)
     annotation (Line(points={{20,-216},{60,
           -216},{60,-280},{180,-280}}, color={0,127,255}));
@@ -223,36 +219,38 @@ equation
     annotation (Line(points={{-198,200},{60,
           200},{60,-204},{20,-204}}, color={0,127,255}));
   connect(hex.port_b2, senTBuiSup.port_a)
-    annotation (Line(points={{0,-204},{-40,
-          -204},{-40,180},{180,180},{180,200},{200,200}}, color={0,127,255}));
+    annotation (Line(points={{0,-204},{-16,-204}},        color={0,127,255}));
   connect(senTBuiSup.port_b, ports_bChiWat[1])
-    annotation (Line(points={{220,200},{300,200}}, color={0,127,255}));
+    annotation (Line(points={{-36,-204},{-60,-204},{-60,180},{280,180},{280,200},
+          {300,200}},                              color={0,127,255}));
   connect(senTBuiSup.T, con.u_m)
-    annotation (Line(points={{210,189},{210,80},{-170,
-          80},{-170,12}}, color={0,0,127}));
+    annotation (Line(points={{-26,-193},{-26,-180},{-140,-180},{-140,-240},{-120,
+          -240},{-120,-232}},
+                          color={0,0,127}));
   connect(TSetBuiSup, con.u_s)
-    annotation (Line(points={{-320,0},{-182,0}}, color={0,0,127}));
+    annotation (Line(points={{-320,0},{-240,0},{-240,-220},{-132,-220}},
+                                                 color={0,0,127}));
   connect(con.y, conVal.y)
-    annotation (Line(points={{-159,0},{-90,0},{-90,-268}}, color={0,0,127}));
-  connect(senTDisSup.T, dTdis.u2)
-    annotation (Line(points={{-210,-269},{-210,-116},
-          {18,-116}}, color={0,0,127}));
-  connect(senTBuiRet.T, dTdis.u1)
-    annotation (Line(points={{-208,189},{-210,189},
-          {-210,-104},{18,-104}}, color={0,0,127}));
+    annotation (Line(points={{-108,-220},{-90,-220},{-90,-268}},
+                                                           color={0,0,127}));
+  connect(senTDisSup.T,dTDis. u2)
+    annotation (Line(points={{-210,-269},{-210,-120},{18,-120}},
+                      color={0,0,127}));
+  connect(senTBuiRet.T,dTDis. u1)
+    annotation (Line(points={{-208,211},{-208,240},{0,240},{0,-108},{18,-108}},
+                                  color={0,0,127}));
   connect(senMasFlo.m_flow, pro.u2)
-    annotation (Line(points={{-150,-269},{-148,-269},{-148,-140},{100,-140},{
-          100,-116},{118,-116}},                         color={0,0,127}));
-  connect(dTdis.y, pro.u1)
-    annotation (Line(points={{41,-110},{88,-110},{88,-104},{118,-104}},
+    annotation (Line(points={{-150,-269},{-150,-140},{100,-140},{100,-126},{118,
+          -126}},                                        color={0,0,127}));
+  connect(dTDis.y, pro.u1)
+    annotation (Line(points={{41,-114},{118,-114}},
                        color={0,0,127}));
   connect(pro.y, cp.u)
-    annotation (Line(points={{141,-110},{178,-110}}, color={0,0,127}));
+    annotation (Line(points={{141,-120},{178,-120}}, color={0,0,127}));
   connect(cp.y, Q_flow)
-    annotation (Line(points={{201,-110},{228,-110},{228,-120},{320,-120}},
-                                                     color={0,0,127}));
+    annotation (Line(points={{201,-120},{320,-120}}, color={0,0,127}));
   connect(cp.y, int.u)
-    annotation (Line(points={{201,-110},{228,-110},{228,-160},{238,-160}},
+    annotation (Line(points={{201,-120},{228,-120},{228,-160},{238,-160}},
                        color={0,0,127}));
   connect(int.y, Q)
     annotation (Line(points={{261,-160},{320,-160}},
@@ -278,8 +276,17 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
-<li>March 21, 2022, by Chengnan Shi:<br/>Update with base class partial model.</li>
-<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
+<li>
+January 11, 2023, by Michael Wetter:<br/>
+Changed controls to use CDL. Changed PID to PI as default for controller.
+</li>
+<li>
+March 21, 2022, by Chengnan Shi:<br/>
+Update with base class partial model.
+</li>
+<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Indirect;

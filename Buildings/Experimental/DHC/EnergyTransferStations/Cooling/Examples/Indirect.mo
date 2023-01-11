@@ -27,8 +27,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     Ti=40,
     yMax=1,
     yMin=0.01,
-    controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     nPorts_bChiWat=1,
     nPorts_aChiWat=1)
     "Direct cooling energy transfer station"

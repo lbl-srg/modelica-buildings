@@ -103,7 +103,7 @@ model Direct "Direct cooling ETS model for district energy systems with in-build
     redeclare final package Medium=MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
     "District return temperature sensor"
-    annotation (Placement(transformation(extent={{30,210},{50,190}})));
+    annotation (Placement(transformation(extent={{30,190},{50,210}})));
   Buildings.Fluid.FixedResistances.Junction spl(
     redeclare final package Medium=MediumSer,
     final energyDynamics=energyDynamics,
@@ -118,12 +118,12 @@ model Direct "Direct cooling ETS model for district energy systems with in-build
     use_inputFilter=true,
     riseTime(displayUnit="s") = 60)
     "Control valve"
-    annotation (Placement(transformation(extent={{-10,210},{10,190}})));
+    annotation (Placement(transformation(extent={{-10,190},{10,210}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiRet(
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
     "Building return temperature sensor"
-    annotation (Placement(transformation(extent={{-220,210},{-200,190}})));
+    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=MediumSer,
     final allowFlowReversal=false,
@@ -133,10 +133,10 @@ model Direct "Direct cooling ETS model for district energy systems with in-build
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-50,-10})));
-  Modelica.Blocks.Math.Add dTdis(
+  Modelica.Blocks.Math.Add dTDis(
     final k1=-1)
     "Temperature difference on the district side"
-    annotation (Placement(transformation(extent={{60,-114},{80,-94}})));
+    annotation (Placement(transformation(extent={{80,-114},{100,-94}})));
   Modelica.Blocks.Math.Product pro
     "Product"
     annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
@@ -148,17 +148,16 @@ model Direct "Direct cooling ETS model for district energy systems with in-build
     final k=1)
     "Integration"
     annotation (Placement(transformation(extent={{260,-170},{280,-150}})));
-  Buildings.Controls.Continuous.LimPID con(
+  Controls.OBC.CDL.Continuous.PID con(
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
     final yMin=yMin,
-    reverseActing=false,
-    y_reset=0)
+    reverseActing=false)
     "District return temperature controller"
-    annotation (Placement(transformation(extent={{-220,100},{-200,80}})));
+    annotation (Placement(transformation(extent={{-220,240},{-200,260}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTBuiSup(
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mBui_flow_nominal)
@@ -199,20 +198,23 @@ equation
                        color={0,0,127}));
   connect(int.y, Q)
     annotation (Line(points={{281,-160},{320,-160}}, color={0,0,127}));
-  connect(dTdis.y, pro.u1)
-    annotation (Line(points={{81,-104},{118,-104}}, color={0,0,127}));
+  connect(dTDis.y, pro.u1)
+    annotation (Line(points={{101,-104},{118,-104}},color={0,0,127}));
   connect(conVal.port_b, senTDisRet.port_a)
     annotation (Line(points={{10,200},{30,200}}, color={0,127,255}));
   connect(senTDisRet.port_b, port_bSerCoo)
     annotation (Line(points={{50,200},{162,200},{162,-240},{262,-240},{262,-280},{300,-280}}, color={0,127,255}));
-  connect(senTDisRet.T, dTdis.u1)
-    annotation (Line(points={{40,189},{40,-98},{58,-98}}, color={0,0,127}));
-  connect(senTDisSup.T, dTdis.u2)
-    annotation (Line(points={{-170,-269},{-170,-110},{58,-110}}, color={0,0,127}));
+  connect(senTDisRet.T,dTDis. u1)
+    annotation (Line(points={{40,211},{40,226},{60,226},{60,-98},{78,-98}},
+                                                          color={0,0,127}));
+  connect(senTDisSup.T,dTDis. u2)
+    annotation (Line(points={{-170,-269},{-172,-269},{-172,-184},{60,-184},{60,-110},
+          {78,-110}},                                            color={0,0,127}));
   connect(TSetDisRet, con.u_s)
-    annotation (Line(points={{-318,0},{-270,0},{-270,90},{-222,90}}, color={0,0,127}));
+    annotation (Line(points={{-318,0},{-272,0},{-272,250},{-222,250}},
+                                                                     color={0,0,127}));
   connect(senTBuiRet.T, con.u_m)
-    annotation (Line(points={{-210,189},{-210,102}},color={0,0,127}));
+    annotation (Line(points={{-210,211},{-210,238}},color={0,0,127}));
   connect(jun.port_2, senTBuiSup.port_a)
     annotation (Line(points={{-40,-280},{220,-280},{220,200},{230,200}}, color={0,127,255}));
   connect(senTBuiSup.port_b, ports_bChiWat[1])
@@ -222,7 +224,8 @@ equation
   connect(cheVal.port_b, jun.port_3)
     annotation (Line(points={{-50,-20},{-50,-270}}, color={0,127,255}));
   connect(con.y, conVal.y)
-    annotation (Line(points={{-199,90},{0,90},{0,188}}, color={0,0,127}));
+    annotation (Line(points={{-198,250},{0,250},{0,212}},
+                                                        color={0,0,127}));
  annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
@@ -248,6 +251,10 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 11, 2023, by Michael Wetter:<br/>
+Changed controls to use CDL. Changed PID to PI as default for controller.
+</li>
 <li>
 January 2, 2023, by Kathryn Hinkelman:<br/>
 Set pressure drops at junctions to 0 and removed parameter <code>dp_nominal</code>
