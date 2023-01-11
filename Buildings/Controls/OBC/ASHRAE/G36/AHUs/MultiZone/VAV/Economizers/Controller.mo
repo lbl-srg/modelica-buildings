@@ -510,6 +510,7 @@ equation
           88},{40,200},{280,200}}, color={255,0,255}));
   connect(damLim.yEnaMinOut, yEnaMinOut) annotation (Line(points={{-118,21},{6,21},
           {6,200},{280,200}}, color={255,0,255}));
+
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={

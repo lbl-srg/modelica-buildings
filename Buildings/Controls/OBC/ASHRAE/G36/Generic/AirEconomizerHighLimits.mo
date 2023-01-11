@@ -595,6 +595,25 @@ block AirEconomizerHighLimits "Specify the economizer high liimits"
     if eneStd == Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24
     "Smaller input"
     annotation (Placement(transformation(extent={{360,-1170},{380,-1150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noAshCli(
+    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified)
+    "No ASHRAE climate zone"
+    annotation (Placement(transformation(extent={{320,940},{340,960}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTit24Cli(
+    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified)
+    "No Title 24 climate zone"
+    annotation (Placement(transformation(extent={{320,900},{340,920}})));
+  Buildings.Controls.OBC.CDL.Logical.And noCli
+    "Climate zone is not specified"
+    annotation (Placement(transformation(extent={{360,940},{380,960}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not4
+    "Logical not"
+    annotation (Placement(transformation(extent={{400,940},{420,960}})));
+  Buildings.Controls.OBC.CDL.Utilities.Assert assMes3(
+    final message="Warning: Climate zone is not specified!")
+    "Warning when the climate zone is not specified"
+    annotation (Placement(transformation(extent={{440,940},{460,960}})));
+
 equation
   connect(ash1B.y, or3.u1) annotation (Line(points={{-358,1230},{-320,1230},{-320,
           858},{-42,858}}, color={255,0,255}));
@@ -967,6 +986,14 @@ equation
           {218,314}}, color={0,0,127}));
   connect(con11.y, min2.u2) annotation (Line(points={{-198,610},{170,610},{170,224},
           {218,224}}, color={0,0,127}));
+  connect(noAshCli.y,noCli. u1)
+    annotation (Line(points={{342,950},{358,950}}, color={255,0,255}));
+  connect(noTit24Cli.y,noCli. u2) annotation (Line(points={{342,910},{350,910},{
+          350,942},{358,942}},  color={255,0,255}));
+  connect(noCli.y,not4. u)
+    annotation (Line(points={{382,950},{398,950}}, color={255,0,255}));
+  connect(not4.y,assMes3. u)
+    annotation (Line(points={{422,950},{438,950}}, color={255,0,255}));
 annotation (defaultComponentName="ecoHigLim",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={

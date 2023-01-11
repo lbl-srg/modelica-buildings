@@ -928,24 +928,6 @@ block Controller
     if have_ahuRelFan and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
     "Control of relief fan when it is part of AHU"
     annotation (Placement(transformation(extent={{60,-220},{80,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noAshCli(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified)
-    "No ASHRAE climate zone"
-    annotation (Placement(transformation(extent={{100,410},{120,430}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTit24Cli(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified)
-    "No Title 24 climate zone"
-    annotation (Placement(transformation(extent={{100,370},{120,390}})));
-  Buildings.Controls.OBC.CDL.Logical.And noCli
-    "Climate zone is not specified"
-    annotation (Placement(transformation(extent={{140,410},{160,430}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Logical not"
-    annotation (Placement(transformation(extent={{180,410},{200,430}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: Climate zone is not specified!")
-    "Warning when the climate zone is not specified"
-    annotation (Placement(transformation(extent={{220,410},{240,430}})));
 
 equation
   connect(modSetPoi.tNexOcc, tNexOcc) annotation (Line(points={{-202,376},{-280,
@@ -1186,14 +1168,6 @@ equation
           {12,-207},{58,-207}}, color={0,0,127}));
   connect(relFanCon.yDam, yRelDam) annotation (Line(points={{82,-207},{122,-207},
           {122,-270},{280,-270}}, color={0,0,127}));
-  connect(noAshCli.y, noCli.u1)
-    annotation (Line(points={{122,420},{138,420}}, color={255,0,255}));
-  connect(noTit24Cli.y, noCli.u2) annotation (Line(points={{122,380},{132,380},
-          {132,412},{138,412}}, color={255,0,255}));
-  connect(noCli.y, not2.u)
-    annotation (Line(points={{162,420},{178,420}}, color={255,0,255}));
-  connect(not2.y, assMes2.u)
-    annotation (Line(points={{202,420},{218,420}}, color={255,0,255}));
 annotation (defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
         graphics={
