@@ -236,14 +236,14 @@ partial model PartialDualSource
         360*4,nom.mTan_flow_nominal; 360*6,nom.mTan_flow_nominal; 360*6,0; 360*
         7,0; 360*7,-nom.mTan_flow_nominal; 360*9,-nom.mTan_flow_nominal; 360*9,
         0]) "Tank flow rate setpoint"
-    annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
   Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 360*1,0; 360*1,
         nom.mTan_flow_nominal; 360*3,nom.mTan_flow_nominal; 360*3,
         m_flow_nominal; 360*5,m_flow_nominal; 360*5,0])
     "Flow rate setpoint for the chiller in the storage plant"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
 
-  Movers.FlowControlled_m_flow pumPri2(
+  Movers.FlowControlled_m_flow pumChi2(
     redeclare final package Medium = Medium,
     per(pressure(dp=chi2PreDro.dp_nominal*{1.14,1,0.42}, V_flow=nom.mChi_flow_nominal
             /1000*{0,1,2})),
@@ -252,7 +252,8 @@ partial model PartialDualSource
     allowFlowReversal=true,
     addPowerToMedium=false,
     m_flow_start=0,
-    T_start=nom.T_CHWR_nominal) "Primary CHW pump of plant 2" annotation (
+    T_start=nom.T_CHWR_nominal) "Primary CHW pump for plant 2"
+                                                              annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -359,18 +360,20 @@ equation
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
   connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
           90},{20,76},{40,76}},     color={0,127,255}));
-  connect(pumPri2.port_b, tanBra.port_aFroChi) annotation (Line(points={{-100,-70},
+  connect(pumChi2.port_b, tanBra.port_aFroChi) annotation (Line(points={{-100,-70},
           {-90,-70},{-90,-84},{-80,-84}}, color={0,127,255}));
   connect(tanBra.port_bToChi,chi2PreDro. port_a) annotation (Line(points={{-80,-96},
           {-90,-96},{-90,-110},{-100,-110}}, color={0,127,255}));
-  connect(chi2PreDro.port_b, pumPri2.port_a) annotation (Line(points={{-120,-110},
+  connect(chi2PreDro.port_b,pumChi2. port_a) annotation (Line(points={{-120,-110},
           {-126,-110},{-126,-70},{-120,-70}}, color={0,127,255}));
-  connect(mChi2Set_flow.y, pumPri2.m_flow_in) annotation (Line(points={{-139,-30},
-          {-110,-30},{-110,-58}}, color={0,0,127}));
-  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-99,-10},{-92,-10},
-          {-92,-24},{-82,-24}}, color={0,0,127}));
-  connect(mChi2Set_flow.y, add2.u2) annotation (Line(points={{-139,-30},{-110,-30},
-          {-110,-36},{-82,-36}}, color={0,0,127}));
+  connect(mChi2Set_flow.y,pumChi2. m_flow_in) annotation (Line(points={{-119,
+          -30},{-110,-30},{-110,-58}},
+                                  color={0,0,127}));
+  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-119,10},{-100,10},
+          {-100,-24},{-82,-24}},color={0,0,127}));
+  connect(mChi2Set_flow.y, add2.u2) annotation (Line(points={{-119,-30},{-110,
+          -30},{-110,-36},{-82,-36}},
+                                 color={0,0,127}));
   connect(tanBra.port_bToNet, ideRevConSup.port_a) annotation (Line(points={{-60,
           -84},{-40,-84},{-40,-70},{-20,-70}}, color={0,127,255}));
   connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-58,-30},{-40,
@@ -384,13 +387,7 @@ equation
         Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This model is a simplified duplicate of
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples.DualSource\">
-Buildings.Fluid.Storage.Plant.Examples.DualSource</a>.
-It is intended to simulate the pump power consumption at the connection
-between the storage plant and the district CHW network without dealing with
-the details and intricacies of controls and numerical challenges
-for the connection pumps and valves.
+[fixme:documentation pending.]
 </p>
 </html>", revisions="<html>
 <ul>
