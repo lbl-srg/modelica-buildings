@@ -23,7 +23,6 @@ model IdealUser "Test model for the dummy user"
 
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse(
     redeclare final package Medium = Medium,
-    final vol(final T_start=15 + 273.15),
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
     final T_a_nominal=T_CHWS_nominal,
@@ -47,19 +46,18 @@ model IdealUser "Test model for the dummy user"
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-70,30})));
-  Modelica.Blocks.Sources.TimeTable preQCooLoa_flow(table=[0*3600,0; 0.5*3600,0;
-        0.5*3600,QCooLoa_flow_nominal; 0.75*3600,QCooLoa_flow_nominal; 0.75*3600,
-        0; 1*3600,0])
-    "Placeholder, prescribed cooling load"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Modelica.Blocks.Sources.TimeTable mPre_flow(table=[0*3600,0; 0.5*3600,0; 0.5*
+        3600,m_flow_nominal; 0.75*3600,m_flow_nominal; 0.75*3600,0; 1*3600,0])
+    "Prescribed flow rate representing cooling load"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(sou.ports[1],ideUse. port_a) annotation (Line(points={{-60,30},{-40,
           30},{-40,6},{-10,6}},                      color={0,127,255}));
   connect(ideUse.port_b, sin.ports[1])
     annotation (Line(points={{-10,-6},{-40,-6},{-40,-30},{-60,-30}},
                                              color={0,127,255}));
-  connect(preQCooLoa_flow.y,ideUse. QCooLoa_flow) annotation (Line(points={{-39,70},
-          {-11,70},{-11,8}},             color={0,0,127}));
+  connect(mPre_flow.y, ideUse.mPre_flow) annotation (Line(points={{-59,70},{-20,
+          70},{-20,8},{-11,8}}, color={0,0,127}));
 annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/BaseClasses/Validation/IdealUser.mos"
         "Simulate and plot"),
 experiment(Tolerance=1e-06, StopTime=3600), Documentation(info="<html>

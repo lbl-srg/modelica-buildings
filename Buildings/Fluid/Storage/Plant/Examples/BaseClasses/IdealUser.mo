@@ -17,53 +17,38 @@ model IdealUser "Ideal user model"
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium,
     use_inputFilter=false,
-    final dpValve_nominal=dp_nominal,
+    final dpValve_nominal=dp_nominal/2,
+    final dpFixed_nominal=dp_nominal/2,
     final m_flow_nominal=m_flow_nominal,
-    y_start=0) "User control valve"
+    y_start=0)
+               "User control valve"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaCon
-    "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{22,70},{42,90}})));
-  Buildings.Fluid.MixingVolumes.MixingVolume vol(
-    redeclare final package Medium = Medium,
-    final prescribedHeatFlowRate=true,
-    nPorts=2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal=m_flow_nominal,
-    final allowFlowReversal=true,
-    V=0.5,
-    p_start=Medium.p_default,
-    T_start=T_b_nominal) "Volume representing the consumer"
-    annotation (
-      Placement(transformation(
-        origin={70,0},
-        extent={{10,10},{-10,-10}},
-        rotation=90)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TUse
-    "Temperature of the user"
-    annotation (Placement(transformation(extent={{40,0},{20,20}})));
   Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=10,
-    Ti=1000,
-    reverseActing=false) "PI controller" annotation (Placement(transformation(
+    k=0.5,
+    Ti=20,
+    final reverseActing=true)  "PI controller" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,30})));
-  Modelica.Blocks.Interfaces.RealInput QCooLoa_flow
-    "Cooling load of the consumer" annotation (Placement(transformation(
+        origin={-30,80})));
+  Modelica.Blocks.Interfaces.RealInput mPre_flow(
+    final quantity = "MassFlowRate",
+    final unit = "kg/s")
+    "Load in terms of flow rate prescription" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,80})));
-  Modelica.Blocks.Interfaces.RealOutput yVal_actual
+  Modelica.Blocks.Interfaces.RealOutput yVal_actual(
+    final unit = "1")
     "Consumer control valve actuator position" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,70}), iconTransformation(
+        origin={110,80}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,80})));
@@ -73,22 +58,19 @@ model IdealUser "Ideal user model"
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
-        origin={-70,-10})));
+        origin={-72,20})));
   Modelica.Blocks.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
     final unit="Pa",
-    final displayUnit="Pa")
+    displayUnit="Pa")
     "Differential pressure from the sensor" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,-80}), iconTransformation(
+        origin={110,20}),  iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,40})));
-  Modelica.Blocks.Sources.Constant set_TRet(final k=T_b_nominal)
-    "CHW return temperature setpoint"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     p(start=Medium.p_default),
     redeclare final package Medium = Medium,
@@ -103,40 +85,36 @@ model IdealUser "Ideal user model"
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}}),
         iconTransformation(extent={{-90,-70},{-110,-50}})));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
+    redeclare final package Medium = Medium)
+    "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 equation
-  connect(val.port_b, vol.ports[1])
-    annotation (Line(points={{20,60},{60,60},{60,1}},
-                                             color={0,127,255}));
-  connect(heaCon.port, vol.heatPort)
-    annotation (Line(points={{42,80},{70,80},{70,10}}, color={191,0,0}));
-  connect(vol.heatPort,TUse. port)
-    annotation (Line(points={{70,10},{40,10}},         color={191,0,0}));
-  connect(TUse.T, conPI.u_m)
-    annotation (Line(points={{19,10},{-30,10},{-30,18}},   color={0,0,127}));
-  connect(heaCon.Q_flow, QCooLoa_flow)
-    annotation (Line(points={{22,80},{-110,80}}, color={0,0,127}));
-  connect(senRelPre.p_rel, dp) annotation (Line(points={{-61,-10},{-48,-10},{-48,
-          -80},{110,-80}}, color={0,0,127}));
+  connect(senRelPre.p_rel, dp) annotation (Line(points={{-63,20},{110,20}},
+                           color={0,0,127}));
   connect(val.y_actual, yVal_actual)
-    annotation (Line(points={{15,67},{94,67},{94,70},{110,70}},
+    annotation (Line(points={{15,67},{40,67},{40,80},{110,80}},
                                                          color={0,0,127}));
-  connect(val.port_a, port_a)
-    annotation (Line(points={{0,60},{-100,60}}, color={0,127,255}));
   connect(senRelPre.port_a, port_a) annotation (Line(
-      points={{-70,-1.77636e-15},{-70,0},{-100,0},{-100,60}},
+      points={{-72,30},{-72,60},{-100,60}},
       color={0,127,255},
       pattern=LinePattern.Dash));
   connect(senRelPre.port_b, port_b) annotation (Line(
-      points={{-70,-20},{-100,-20},{-100,-60}},
+      points={{-72,10},{-72,-60},{-100,-60}},
       color={0,127,255},
       pattern=LinePattern.Dash));
   connect(conPI.y, val.y)
-    annotation (Line(points={{-19,30},{-14,30},{-14,78},{10,78},{10,72}},
-                                                          color={0,0,127}));
-  connect(set_TRet.y, conPI.u_s)
-    annotation (Line(points={{-59,30},{-42,30}}, color={0,0,127}));
-  connect(port_b, vol.ports[2])
-    annotation (Line(points={{-100,-60},{60,-60},{60,-1}}, color={0,127,255}));
+    annotation (Line(points={{-19,80},{10,80},{10,72}},   color={0,0,127}));
+  connect(val.port_b, senMasFlo.port_a) annotation (Line(points={{20,60},{40,60},
+          {40,-60},{-20,-60}}, color={0,127,255}));
+  connect(senMasFlo.port_b, port_b)
+    annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
+  connect(senMasFlo.m_flow, conPI.u_m)
+    annotation (Line(points={{-30,-49},{-30,68}}, color={0,0,127}));
+  connect(mPre_flow, conPI.u_s)
+    annotation (Line(points={{-110,80},{-42,80}}, color={0,0,127}));
+  connect(port_a, val.port_a)
+    annotation (Line(points={{-100,60},{0,60}}, color={0,127,255}));
   annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
@@ -144,6 +122,7 @@ equation
 This is a simple ideal user model used by example models under
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
 Buildings.Fluid.Storage.Plant.Examples</a>.
+[fixme: update documentation.]
 The control valve simply tries to maintain the CHW return temperature
 at its nominal value. The pressure drop of this model is integrated in the valve
 component as its fully-open resistance for simplicity.
