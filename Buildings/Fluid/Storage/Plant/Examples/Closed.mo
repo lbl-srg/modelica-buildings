@@ -16,6 +16,8 @@ equation
   connect(bou1.ports[1], pumSup1.port_a)
     annotation (Line(points={{-60,90},{-20,90}},  color={0,127,255}));
   annotation(experiment(Tolerance=1e-06, StopTime=3600),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/Closed.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-240},{160,220}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end Closed;
