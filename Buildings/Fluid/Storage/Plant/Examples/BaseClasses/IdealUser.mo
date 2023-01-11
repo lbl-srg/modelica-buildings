@@ -20,8 +20,7 @@ model IdealUser "Ideal user model"
     final dpValve_nominal=dp_nominal/2,
     final dpFixed_nominal=dp_nominal/2,
     final m_flow_nominal=m_flow_nominal,
-    y_start=0)
-               "User control valve"
+    y_start=0) "User control valve"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
   Buildings.Controls.Continuous.LimPID conPI(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -89,6 +88,16 @@ model IdealUser "Ideal user model"
     redeclare final package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+protected
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
+    f=20/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-70,80})));
 equation
   connect(senRelPre.p_rel, dp) annotation (Line(points={{-63,20},{110,20}},
                            color={0,0,127}));
@@ -111,10 +120,12 @@ equation
     annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
   connect(senMasFlo.m_flow, conPI.u_m)
     annotation (Line(points={{-30,-49},{-30,68}}, color={0,0,127}));
-  connect(mPre_flow, conPI.u_s)
-    annotation (Line(points={{-110,80},{-42,80}}, color={0,0,127}));
   connect(port_a, val.port_a)
     annotation (Line(points={{-100,60},{0,60}}, color={0,127,255}));
+  connect(mPre_flow, fil.u)
+    annotation (Line(points={{-110,80},{-82,80}}, color={0,0,127}));
+  connect(fil.y, conPI.u_s)
+    annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
