@@ -8,12 +8,12 @@ model ChillerGroup
   parameter Integer nUni(final min=1, start=1)
     "Number of units operating at design conditions"
     annotation(Evaluate=true);
-  parameter Boolean have_switchOver=false
+  parameter Boolean have_switchover=false
     "Set to true for heat recovery chiller with built-in switchover"
     annotation(Evaluate=true);
   parameter Boolean is_cooling=true
     "Set to true for cooling mode, false for heating mode"
-    annotation(Dialog(enable=have_switchOver), Evaluate=true);
+    annotation(Dialog(enable=have_switchover), Evaluate=true);
   parameter Buildings.Experimental.DHC.Types.Valve typValEva=
     Buildings.Experimental.DHC.Types.Valve.None
     "Type of chiller evaporator isolation valve"
@@ -37,7 +37,7 @@ model ChillerGroup
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatUni_flow_nominal=
     -dat.QEva_flow_nominal * (1 + 1 / dat.COP_nominal * dat.etaMotor)
     "Heating design heat flow rate in direct heat recovery mode (each unit, >0)"
-    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+    annotation(Dialog(group="Nominal condition", enable=have_switchover));
   final parameter Modelica.Units.SI.Efficiency COPCas_nominal(fixed=false)
     "Coefficient of performance in cascading mode";
   final parameter Modelica.Units.SI.Temperature TCasLvg_nominal(fixed=false)
@@ -50,11 +50,11 @@ model ChillerGroup
       else TCasEnt_nominal -
         (dat.TEvaLvg_nominal - QChiWatUni_flow_nominal / mChiWatUni_flow_nominal / cpCas))))
     "Cooling design heat flow rate in cascading mode (each unit, <0)"
-    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+    annotation(Dialog(group="Nominal condition", enable=have_switchover));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasUni_flow_nominal=
     -QChiWatCasUni_flow_nominal * (1 + 1 / COPCas_nominal * dat.etaMotor)
     "Heating design heat flow rate in cascading mode (each unit, >0)"
-    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+    annotation(Dialog(group="Nominal condition", enable=have_switchover));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
     nUni * QChiWatUni_flow_nominal
     "Cooling design heat flow rate (all units, <0)"
@@ -62,15 +62,15 @@ model ChillerGroup
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
     nUni * QHeaWatUni_flow_nominal
     "Heating design heat flow rate (all units, >0)"
-    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+    annotation(Dialog(group="Nominal condition", enable=have_switchover));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatCas_flow_nominal=
     nUni * QChiWatCasUni_flow_nominal
     "Cooling design heat flow rate in cascading mode (all units, <0)"
-    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+    annotation(Dialog(group="Nominal condition", enable=have_switchover));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCas_flow_nominal=
     nUni * QHeaWatCasUni_flow_nominal
     "Heating design heat flow rate in cascading mode (all units, >0)"
-    annotation(Dialog(group="Nominal condition", enable=have_switchOver));
+    annotation(Dialog(group="Nominal condition", enable=have_switchover));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal(
     final min=0)=dat.mEva_flow_nominal
     "Chiller CHW design mass flow rate (each unit)"
@@ -158,7 +158,7 @@ model ChillerGroup
     "Chiller On/Off command" annotation (Placement(transformation(extent={{-140,
             100},{-100,140}}), iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Coo[nUni]
-    if have_switchOver
+    if have_switchover
     "Chiller switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -223,7 +223,7 @@ model ChillerGroup
     final per=dat,
     redeclare final package Medium1=Medium1,
     redeclare final package Medium2=Medium2,
-    final have_switchOver=have_switchOver,
+    final have_switchover=have_switchover,
     final dp1_nominal=0,
     final dp2_nominal=0,
     final allowFlowReversal1=allowFlowReversal1,
@@ -257,13 +257,13 @@ model ChillerGroup
     "Flow rate multiplier"
     annotation (Placement(transformation(extent={{-30,-70},{-50,-50}})));
   BaseClasses.MultipleCommands com(final nUni=nUni, final have_mode=
-        have_switchOver) "Convert command signals"
+        have_switchover) "Convert command signals"
     annotation (Placement(transformation(extent={{-94,100},{-74,120}})));
   BaseClasses.MultipleFlowResistances valEva(
     redeclare final package Medium = Medium2,
     final nUni=nUni,
     final mUni_flow_nominal=mChiWatUni_flow_nominal,
-    final have_mode=have_switchOver,
+    final have_mode=have_switchover,
     final dpFixed_nominal=dpEva_nominal + dpBalEva_nominal,
     final dpValve_nominal=dpValveEva_nominal,
     final typVal=typValEva,
@@ -280,7 +280,7 @@ model ChillerGroup
     redeclare final package Medium = Medium1,
     final nUni=nUni,
     final mUni_flow_nominal=mConWatUni_flow_nominal,
-    final have_mode=have_switchOver,
+    final have_mode=have_switchover,
     final dpFixed_nominal=dpCon_nominal + dpBalCon_nominal,
     final dpValve_nominal=dpValveCon_nominal,
     final typVal=typValCon,
@@ -296,13 +296,13 @@ model ChillerGroup
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,30},{90,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant modOpe(
-    final k=is_cooling) if have_switchOver
+    final k=is_cooling) if have_switchover
     "Operating mode (fixed)"
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-80,140})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi if have_switchOver
+  Buildings.Controls.OBC.CDL.Logical.Switch swi if have_switchover
     "In cooling mode: use y1ModOne, in heating mode: use y1NotModOne"
     annotation (
       Placement(transformation(
@@ -310,32 +310,32 @@ model ChillerGroup
         rotation=180,
         origin={-40,136})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(final nout=nUni)
-    if have_switchOver "Replicate operating mode signal (fixed)"
+    if have_switchover "Replicate operating mode signal (fixed)"
     annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={24,130})));
-  Buildings.Controls.OBC.CDL.Logical.Not modHea[nUni] if have_switchOver
+  Buildings.Controls.OBC.CDL.Logical.Not modHea[nUni] if have_switchover
     "Returns true if heating mode" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,90})));
-  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nUni] if have_switchOver
+  Buildings.Controls.OBC.CDL.Logical.Switch swi1[nUni] if have_switchover
     "In cooling mode: use y1Coo, in heating mode: use NOT y1Coo"
     annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={40,100})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiNumUniBou if have_switchOver
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiNumUniBou if have_switchover
     "In cooling mode: use nUniOnModBou, in heating mode: use nUniOnNotModBou"
     annotation (
       Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-40,20})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swiNumUni if have_switchOver
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiNumUni if have_switchover
     "In cooling mode: use nUniOnMod, in heating mode: use nUniOnNotMod"
     annotation (
       Placement(transformation(
@@ -492,35 +492,35 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a set of identical chillers in parallel.
-If the parameter <code>have_switchOver</code> is <code>true</code>
+If the parameter <code>have_switchover</code> is <code>true</code>
 then an additional operating mode signal <code>y1Coo</code> is used
-to switch <i>On/Off</i> the chillers and actuate the chiller isolation 
+to switch <i>On/Off</i> the chillers and actuate the chiller isolation
 valves based on the following logic.
 </p>
 <ul>
 <li>
 If the parameter <code>is_cooling</code> is <code>true</code>
 (resp. <code>false</code>)
-then the chiller <code>#i</code> is commanded <i>On</i> if 
-<code>y1[i]</code> is <code>true</code> and <code>y1Coo[i]</code> 
-is <code>true</code> (resp. <code>false</code>). 
+then the chiller <code>#i</code> is commanded <i>On</i> if
+<code>y1[i]</code> is <code>true</code> and <code>y1Coo[i]</code>
+is <code>true</code> (resp. <code>false</code>).
 </li>
 <li>
 When the chiller <code>#i</code> is commanded <i>On</i>
-the isolation valve input signal <code>y*Val*[i]</code> is used to 
-control the valve opening. 
-Otherwise the valve is closed whatever the value of 
+the isolation valve input signal <code>y*Val*[i]</code> is used to
+control the valve opening.
+Otherwise the valve is closed whatever the value of
 <code>y*Val*[i]</code>.
 </li>
 <li>
-Configured this way, the model represents the set of heat 
+Configured this way, the model represents the set of heat
 recovery chillers operating in cooling mode
-(resp. heating mode), i.e., tracking the CHW (resp. HW) supply 
+(resp. heating mode), i.e., tracking the CHW (resp. HW) supply
 temperature setpoint.
 </li>
 </ul>
 <p>
-Note that the input signal <code>y1Coo</code> is different 
+Note that the input signal <code>y1Coo</code> is different
 from the input signal <code>coo</code> that is used in the model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
@@ -537,22 +537,22 @@ Chiller performance data
 </h4>
 <p>
 When modeling heat recovery chillers (by setting the parameter
-<code>have_switchOver</code> to <code>true</code>) the chiller performance
+<code>have_switchover</code> to <code>true</code>) the chiller performance
 data should cover the chiller lift envelope.
-That is when the chiller is operating in \"direct\" heat recovery mode, 
+That is when the chiller is operating in \"direct\" heat recovery mode,
 i.e., producing CHW and HW at their setpoint value at full load.
 In this case, and to allow for \"cascading\" heat recovery where
 a third fluid circuit is used to generate a cascade of thermodynamic cycles,
-an additional parameter <code>TCasEnt_nominal</code> 
-is exposed to specify the chiller <i>entering</i> temperature of the third fluid 
+an additional parameter <code>TCasEnt_nominal</code>
+is exposed to specify the chiller <i>entering</i> temperature of the third fluid
 circuit.
-This fluid circuit is connected either to the chiller evaporator barrel 
+This fluid circuit is connected either to the chiller evaporator barrel
 when the chiller is operating in heating mode, or to the chiller condenser
 barrel when the chiller is operating in cooling mode.
-The parameter <code>TCasEnt_nominal</code> is then used to assess the 
+The parameter <code>TCasEnt_nominal</code> is then used to assess the
 design chiller capacity in heating and cooling mode, respectively.
-The value of that parameter should typically differ when configuring 
-this model for heating (<code>is_cooling=false</code>) or 
+The value of that parameter should typically differ when configuring
+this model for heating (<code>is_cooling=false</code>) or
 cooling (<code>is_cooling=true</code>).
 </p>
 </html>"));

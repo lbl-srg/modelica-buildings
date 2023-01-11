@@ -275,7 +275,7 @@ model AllElectricCWStorageDebug "All-electric CHW and HW plant with CW storage"
   Subsystems.ChillerGroup chi(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium,
-    final have_switchOver=false,
+    final have_switchover=false,
     final is_cooling=true,
     final typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
     final typValCon=Buildings.Experimental.DHC.Types.Valve.TwoWayModulating,
@@ -418,7 +418,7 @@ model AllElectricCWStorageDebug "All-electric CHW and HW plant with CW storage"
   Subsystems.ChillerGroup chiHea(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    final have_switchOver=true,
+    final have_switchover=true,
     final is_cooling=false,
     final typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
     final typValCon=Buildings.Experimental.DHC.Types.Valve.TwoWayModulating,
@@ -437,7 +437,7 @@ model AllElectricCWStorageDebug "All-electric CHW and HW plant with CW storage"
   Subsystems.ChillerGroup chiCoo(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
-    final have_switchOver=true,
+    final have_switchover=true,
     final is_cooling=true,
     final typValEva=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
     final typValCon=Buildings.Experimental.DHC.Types.Valve.TwoWayModulating,
@@ -984,12 +984,12 @@ The operating level is approximated as equal to the tank height.
 
 <h4>Sizing</h4>
 <p>
-Tank sized to store <i>2</i> hours of peak heating load with 
+Tank sized to store <i>2</i> hours of peak heating load with
 a &Delta;T of <i>20</i>&nbsp;°C (heels and thermocline neglected).
 A default heigth to diameter ratio of <i>2</i> is also taken into
 account
-(designers tend to favor a height to diameter ratio above <i>1.5</i>  
-in order to minimize the volume of the thermocline which is 
+(designers tend to favor a height to diameter ratio above <i>1.5</i>
+in order to minimize the volume of the thermocline which is
 considered useless).
 </p>
 
@@ -1003,11 +1003,11 @@ in the cascade configuration.
 This capacity is evaluted at initialization so the nominal
 attribute of the valve mass flow rate and pressure drop
 are unknown at compile time, which yields some warnings.
-To avoid that behavior, the valve is sized at design flow 
+To avoid that behavior, the valve is sized at design flow
 and a pressure-independant valve (PICV) model is used.
-Using a PICV model also avoids tuning an additional PI 
+Using a PICV model also avoids tuning an additional PI
 controller.
-Note that, while not required, some consulting engineers 
+Note that, while not required, some consulting engineers
 specify a pressure independent valve for bypass.
 </p>
 

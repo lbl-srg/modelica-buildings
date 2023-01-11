@@ -17,7 +17,7 @@ model ChillerGroupHeatRecovery
       TConLvg_nominal=333.15,
       TConLvgMin=296.15,
       TConLvgMax=336.15),
-    chi(have_switchOver=true, typValCon=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition),
+    chi(have_switchover=true, typValCon=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition),
     retConWat(nPorts=2),
     retChiWat(nPorts=2),
     supChiWat(nPorts=2));
@@ -29,7 +29,7 @@ model ChillerGroupHeatRecovery
     "Chiller switchover signal: true for cooling, false for heating"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup chiHea(
-    have_switchOver=true,
+    have_switchover=true,
     is_cooling=false,
     typValCon=Buildings.Experimental.DHC.Types.Valve.TwoWayTwoPosition,
     redeclare final package Medium1 = MediumConWat,
@@ -94,14 +94,14 @@ experiment(
   Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup</a>
 in a configuration with two heat recovery chillers.
 </p>
 <ul>
 <li>
-The chillers are first operated in cooling mode 
+The chillers are first operated in cooling mode
 (tracking a CHW supply temperature setpoint), and are
 switched <i>Off</i> one after the other.
 </li>
