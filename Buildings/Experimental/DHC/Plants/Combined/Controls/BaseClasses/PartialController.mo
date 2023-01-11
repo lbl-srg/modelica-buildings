@@ -46,12 +46,12 @@ block PartialController "Interface class for plant controller"
 
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValEvaChi[nChi]
-    "Cooling-only chiller condenser isolation valve opening command"
+    "Cooling-only chiller evaporator isolation valve opening command"
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,260}),iconTransformation(
+        origin={280,320}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,270})));
@@ -62,7 +62,7 @@ block PartialController "Interface class for plant controller"
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,240}),iconTransformation(
+        origin={280,300}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,250})));
@@ -71,7 +71,7 @@ block PartialController "Interface class for plant controller"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,280}), iconTransformation(
+        origin={280,340}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,290})));
@@ -81,48 +81,48 @@ block PartialController "Interface class for plant controller"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,220}), iconTransformation(
+        origin={280,280}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,210})));
+        origin={240,230})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumChiWat(
     final unit="1")
     "CHW pump speed signal"
     annotation (Placement(
-        transformation(extent={{260,180},{300,220}}, rotation=0),
+        transformation(extent={{260,240},{300,280}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,190})));
+        origin={240,210})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValEvaChiHea[nChiHea]
-    "HR chiller condenser isolation valve opening command"
+    "HR chiller evaporator isolation valve opening command"
     annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,80}), iconTransformation(
+        origin={280,140}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,80})));
+        origin={240,122})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiHea[nChiHea]
     "HR chiller On/Off command"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,120}), iconTransformation(
+        origin={280,180}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,120})));
+        origin={240,162})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1CooChiHea[nChiHea]
     "HR chiller in heating mode switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,100}), iconTransformation(
+        origin={280,160}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,100})));
+        origin={240,142})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConChiHea[nChiHea](
     each final unit="1")
     "HR chiller condenser isolation valve commanded position"
@@ -130,55 +130,55 @@ block PartialController "Interface class for plant controller"
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,60}), iconTransformation(
+        origin={280,120}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,60})));
+        origin={240,102})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumHeaWat[nPumHeaWat]
     "HW pump Start command"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,20}),  iconTransformation(
+        origin={280,0}),   iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,20})));
+        origin={240,-2})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWat(
     final unit="1")
     "HW pump speed signal"
     annotation (Placement(
-        transformation(extent={{260,-20},{300,20}},  rotation=0),
+        transformation(extent={{260,-40},{300,0}},   rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,0})));
+        origin={240,-22})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(
     final unit="1")
     "CHW minimum flow bypass valve control signal"
     annotation (Placement(
-        transformation(extent={{260,140},{300,180}}, rotation=0),
+        transformation(extent={{260,200},{300,240}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,160})));
+        origin={240,190})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(
     final unit="1")
     "HW minimum flow bypass valve control signal"
     annotation (Placement(
-        transformation(extent={{260,-60},{300,-20}},  rotation=0),
+        transformation(extent={{260,-80},{300,-40}},  rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,-40})));
+        origin={240,-52})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumConWatCon[nPumConWatCon]
     "CW pump serving condenser barrels Start command"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-80}), iconTransformation(
+        origin={280,-100}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-80})));
@@ -186,7 +186,7 @@ block PartialController "Interface class for plant controller"
     final unit="1")
     "CW pump serving condenser barrels Speed command"
     annotation (Placement(
-        transformation(extent={{260,-120},{300,-80}}, rotation=0),
+        transformation(extent={{260,-140},{300,-100}},rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -196,7 +196,7 @@ block PartialController "Interface class for plant controller"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-120}), iconTransformation(
+        origin={280,-140}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-120})));
@@ -204,7 +204,7 @@ block PartialController "Interface class for plant controller"
     final unit="1")
     "CW pump serving evaporator barrels Speed command"
     annotation (Placement(
-        transformation(extent={{260,-160},{300,-120}}, rotation=0),
+        transformation(extent={{260,-180},{300,-140}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -214,7 +214,7 @@ block PartialController "Interface class for plant controller"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-180}), iconTransformation(
+        origin={280,-200}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-170})));
@@ -222,7 +222,7 @@ block PartialController "Interface class for plant controller"
     final unit="K", displayUnit="degC")
     "Heat pump supply temperature setpoint"
     annotation (Placement(
-        transformation(extent={{260,-220},{300,-180}}, rotation=0),
+        transformation(extent={{260,-240},{300,-200}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -231,7 +231,7 @@ block PartialController "Interface class for plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValBypTan(
     final unit="1") "TES tank bypass valve"
     annotation (Placement(
-        transformation(extent={{260,-260},{300,-220}}, rotation=0),
+        transformation(extent={{260,-280},{300,-240}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -241,13 +241,13 @@ block PartialController "Interface class for plant controller"
     "Cooling tower Start command" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-280}), iconTransformation(
+        origin={280,-300}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-250})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(final unit="1")
     "Cooling tower fan speed command" annotation (Placement(transformation(
-          extent={{260,-320},{300,-280}}, rotation=0), iconTransformation(
+          extent={{260,-340},{300,-300}}, rotation=0), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-270})));
@@ -256,10 +256,38 @@ block PartialController "Interface class for plant controller"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-320}), iconTransformation(
+        origin={280,-340}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-290})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiHeaCoo[nChiHea]
+    "HR chiller in direct HR mode On/Off command" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={280,80}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={240,70})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ValEvaChiHeaCoo[nChiHea]
+    "HR chiller in direct HR mode evaporator isolation valve opening command"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={280,60}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={240,50})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConChiHeaCoo[nChiHea](
+      each final unit="1")
+    "HR chiller in direct HR mode condenser isolation valve commanded position"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={280,40}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={240,30})));
   annotation (Diagram(coordinateSystem(extent={{-260,-360},{260,360}})), Icon(
         coordinateSystem(extent={{-220,-300},{220,300}}),
         graphics={                      Text(

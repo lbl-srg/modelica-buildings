@@ -76,6 +76,7 @@ model AllElectricCWStorage "Validation of the all-electric plant with CW storage
     chi(show_T=true),
     chiHea(show_T=true),
     chiCoo(show_T=true),
+    chiHeaCoo(show_T=true),
     heaPum(show_T=true),
     redeclare final package Medium = Medium,
     final datChi=datChi,
@@ -107,15 +108,11 @@ model AllElectricCWStorage "Validation of the all-electric plant with CW storage
     offset=pla.THeaWatSup_nominal,
     startTime=600) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                                     dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
-    y(final unit="Pa"))
-                   "Source signal for setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
+    y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                                     dpChiWatSet_max(k=pla.dpChiWatSet_max,
-    y(final unit="Pa"))
-                   "Source signal for setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(k=pla.dpChiWatSet_max,
+    y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
@@ -177,9 +174,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=3600,
-      __Dymola_NumberOfIntervals=5000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      StopTime=3700,
+      Tolerance=1e-06),
   Diagram(coordinateSystem(extent={{-180,-180},{180,180}})));
 end AllElectricCWStorage;
