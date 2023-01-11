@@ -69,7 +69,7 @@ A bicubic polynomial is used to compute the chiller part load performance.
 </html>", revisions="<html>
 <ul>
 <li>
-October 13, 2008, by Brandon Hencey:<br/>
+January 11, 2023, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>

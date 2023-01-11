@@ -390,6 +390,11 @@ The function value needs to be assigned to <code>EIRFunPLR</code>.
 revisions="<html>
 <ul>
 <li>
+January 11, 2023, by Antoine Gautier:<br/>
+Added optional switchover mode for heat recovery chillers.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3211\">#3211</a>.
+</li>
+<li>
 November 19, 2021, by David Blum:<br/>
 Add humidity to entering condenser state calculation.<br/>
 This is for issue <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2770\">2770</a>.
