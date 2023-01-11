@@ -13,7 +13,7 @@ partial model PartialElectric
     vol1(
       final prescribedHeatFlowRate=true));
 
-  parameter Boolean have_switchOver=false
+  parameter Boolean have_switchover=false
     "Set to true for heat recovery chiller with built-in switchover"
     annotation(Evaluate=true);
 
@@ -49,7 +49,7 @@ partial model PartialElectric
   Real PLR2(min=0, unit="1") "Part load ratio";
   Real CR(min=0, unit="1") "Cycling ratio";
 
-  Controls.OBC.CDL.Interfaces.BooleanInput coo if have_switchOver
+  Controls.OBC.CDL.Interfaces.BooleanInput coo if have_switchover
     "Switchover signal: true for cooling, false for heating" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(
@@ -57,7 +57,7 @@ partial model PartialElectric
         rotation=-90,
         origin={-80,140})));
   Controls.OBC.CDL.Logical.Sources.Constant tru(
-    final k=true) if not have_switchOver
+    final k=true) if not have_switchover
     "Constant true signal"
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
 protected
@@ -352,6 +352,20 @@ power draw does not change.
 </ol>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
+</p>
+<p>
+Optionally, the model can be configured to represent heat recovery chillers with
+a switchover option by setting the parameter <code>have_switchover</code> to
+<code>true</code>.
+In that case an additional Boolean input connector <code>coo</code> is used.
+The chiller is tracking a chilled water supply temperature setpoint at the
+outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
+Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
+a hot water supply temperature setpoint at the outlet of the condenser barrel.
+See
+<a href=\"Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
+for an example with a chiller operating in heating mode.
 </p>
 <h4>Implementation</h4>
 <p>

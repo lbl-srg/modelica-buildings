@@ -17,7 +17,7 @@ model ElectricEIR_HeatRecovery
   Buildings.Fluid.Chillers.ElectricEIR chi(
        redeclare package Medium1 = Medium1,
        redeclare package Medium2 = Medium2,
-    have_switchOver=true,
+    have_switchover=true,
        per=per,
        energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
        dp1_nominal=6000,
@@ -60,7 +60,9 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-Example that simulates a chiller whose efficiency is computed based on the
+Example that simulates a heat recovery chiller operating in heating mode,
+i.e., tracking a hot water supply temperature setpoint.
+The chiller efficiency is computed based on the
 condenser entering and evaporator leaving fluid temperature.
 A bicubic polynomial is used to compute the chiller part load performance.
 </p>
