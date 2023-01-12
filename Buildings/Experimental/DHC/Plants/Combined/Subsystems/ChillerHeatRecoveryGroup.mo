@@ -136,12 +136,12 @@ model ChillerHeatRecoveryGroup
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpValveEva_nominal(
     final min=0,
-    displayUnit="Pa") = max(valEva.dpValve_nominal) + max(valCooInl.dpValve_nominal)
+    displayUnit="Pa") = max(valEva.dpValve_nominal) + max(valCoo.dpValve_nominal)
     "Total valve pressure drop on chiller evaporator circuit (each unit)"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpValveCon_nominal(
     final min=0,
-    displayUnit="Pa") = max(valCon.dpValve_nominal) + max(valHeaInl.dpValve_nominal)
+    displayUnit="Pa") = max(valCon.dpValve_nominal) + max(valHea.dpValve_nominal)
     "Total valve pressure drop on chiller condenser circuit (each unit)"
     annotation (Dialog(group="Nominal condition"));
 
@@ -337,7 +337,7 @@ model ChillerHeatRecoveryGroup
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-30})));
-  Fluid.Actuators.Valves.ThreeWayLinear valHeaInl[nUni](
+  Fluid.Actuators.Valves.ThreeWayLinear valHea[nUni](
     redeclare each final package Medium = Medium,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mConWatUni_flow_nominal,
@@ -355,7 +355,7 @@ model ChillerHeatRecoveryGroup
     each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     each linearized={true,true})
-    "Heating switchover valve: : direct connected to HW, bypass connected to CW condenser circuit"
+    "Heating switchover valve: direct connected to HW, bypass connected to CW condenser circuit"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Fluid.FixedResistances.Junction junHeaWatConInl[nUni](
     redeclare each final package Medium = Medium,
@@ -387,12 +387,12 @@ model ChillerHeatRecoveryGroup
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={80,80})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nUni]
-    "Convert DO to AO"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,120})));
-  Fluid.Actuators.Valves.ThreeWayLinear valCooInl[nUni](
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yHeaOrDir[nUni]
+    "Return 1 if heating OR direct HR" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={10,120})));
+  Fluid.Actuators.Valves.ThreeWayLinear valCoo[nUni](
     redeclare each final package Medium = Medium,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mChiWatUni_flow_nominal,
@@ -454,35 +454,32 @@ model ChillerHeatRecoveryGroup
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,-30})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1[nUni]
-    "Return true if heating mode"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,190})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2[nUni]
-    "Return true if heating mode OR direct heat recovery mode"
-    annotation (
-      Placement(transformation(
+  Buildings.Controls.OBC.CDL.Logical.Not hea[nUni] "Return true if heating"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={40,190})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1[nUni]
-    "Return true if cooling mode OR direct heat recovery mode"
-    annotation (
-      Placement(transformation(
+        origin={-60,120})));
+  Buildings.Controls.OBC.CDL.Logical.Or heaOrDir[nUni]
+    "Return true if heating OR direct HR" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={12,150})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2[nUni]
-    "Return false if cooling mode OR direct heat recovery mode"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        origin={-30,120})));
+  Buildings.Controls.OBC.CDL.Logical.Or cooOrDir[nUni]
+    "Return true if cooling OR direct HR" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={40,150})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nUni]
-    "Convert DO to AO"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={14,120})));
+        origin={-30,180})));
+  Buildings.Controls.OBC.CDL.Logical.Not heaAndCas[nUni]
+    "Return true if heating AND cascading HR" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={0,180})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yHeaAndCas[nUni]
+    "Return 1 if heating AND cascading HR" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={30,180})));
   Modelica.Blocks.Sources.RealExpression sumP(y=sum(chi.P))
     "Sum up power drawn from all subsystems"
     annotation (Placement(transformation(extent={{70,170},{90,190}})));
@@ -562,7 +559,8 @@ equation
           {-12,-3}}, color={0,0,127}));
   connect(y1Coo, chi.coo)
     annotation (Line(points={{-120,160},{-8,160},{-8,14}}, color={255,0,255}));
-  connect(yValCon, valCon.y) annotation (Line(points={{60,240},{60,60},{32,60}},
+  connect(yValCon, valCon.y) annotation (Line(points={{60,240},{60,100},{40,100},
+          {40,60},{32,60}},
                    color={0,0,127}));
   connect(junChiWatEvaOut[1].port_2, port_b4)
     annotation (Line(points={{-80,-100},{-90,-100},{-90,-80},{-100,-80}},
@@ -570,9 +568,9 @@ equation
   connect(port_a4, junChiWatEvaInl[1].port_1)
     annotation (Line(points={{100,-80},{90,-80},{90,-100},{80,-100}},
                                                   color={0,127,255}));
-  connect(junChiWatEvaInl.port_3, valCooInl.port_3)
+  connect(junChiWatEvaInl.port_3, valCoo.port_3)
     annotation (Line(points={{70,-90},{50,-90}}, color={0,127,255}));
-  connect(junHeaWatConInl.port_3, valHeaInl.port_1)
+  connect(junHeaWatConInl.port_3, valHea.port_1)
     annotation (Line(points={{-70,80},{-50,80}}, color={0,127,255}));
   connect(port_a1, junHeaWatConInl[1].port_1)
     annotation (Line(points={{-100,80},{-90,80},{-90,90},{-80,90}},
@@ -586,46 +584,39 @@ equation
     annotation (Line(points={{80,-30},{100,-30}}, color={0,127,255}));
   connect(port_a3, junConWatConInl[1].port_1) annotation (Line(points={{-100,-32},
           {-80,-32},{-80,-30}}, color={0,127,255}));
-  connect(junConWatConInl.port_3, valHeaInl.port_3) annotation (Line(points={{-70,
+  connect(junConWatConInl.port_3, valHea.port_3) annotation (Line(points={{-70,
           -20},{-40,-20},{-40,70}}, color={0,127,255}));
   connect(chi.port_b2, TEvaLvg.port_a)
     annotation (Line(points={{-10,-6},{-20,-6},{-20,-20}}, color={0,127,255}));
   connect(TEvaLvg.port_b, valEva.port_a) annotation (Line(points={{-20,-40},{-20,
           -50}},           color={0,127,255}));
-  connect(junConWatEvaInl.port_3, valCooInl.port_1)
+  connect(junConWatEvaInl.port_3, valCoo.port_1)
     annotation (Line(points={{70,20},{40,20},{40,-80}}, color={0,127,255}));
-  connect(valCooInl.port_2, TEvaEnt.port_a) annotation (Line(points={{40,-100},
-          {40,-120},{20,-120},{20,-40}}, color={0,127,255}));
+  connect(valCoo.port_2, TEvaEnt.port_a) annotation (Line(points={{40,-100},{40,
+          -120},{20,-120},{20,-40}}, color={0,127,255}));
   connect(TEvaEnt.port_b, chi.port_a2)
     annotation (Line(points={{20,-20},{20,-6},{10,-6}}, color={0,127,255}));
-  connect(y1Coo, not1.u) annotation (Line(points={{-120,160},{-8,160},{-8,190},{
-          -2,190}},  color={255,0,255}));
-  connect(not1.y, or2.u1)
-    annotation (Line(points={{22,190},{28,190}}, color={255,0,255}));
-  connect(y1HeaCoo, or2.u2) annotation (Line(points={{-120,140},{-20,140},{-20,
-          170},{24,170},{24,182},{28,182}},
-                                       color={255,0,255}));
-  connect(or2.y, booToRea.u) annotation (Line(points={{52,190},{54,190},{54,210},
-          {-40,210},{-40,132}}, color={255,0,255}));
-  connect(booToRea.y, valHeaInl.y)
-    annotation (Line(points={{-40,108},{-40,92}}, color={0,0,127}));
-  connect(or1.y, not2.u)
-    annotation (Line(points={{24,150},{28,150}}, color={255,0,255}));
-  connect(y1Coo, or1.u1) annotation (Line(points={{-120,160},{-8,160},{-8,150},{
-          0,150}}, color={255,0,255}));
-  connect(y1HeaCoo, or1.u2) annotation (Line(points={{-120,140},{-20,140},{-20,142},
-          {0,142}}, color={255,0,255}));
-  connect(booToRea1.y, valCooInl.y)
-    annotation (Line(points={{14,108},{14,-90},{28,-90}}, color={0,0,127}));
-  connect(not2.y, booToRea1.u) annotation (Line(points={{52,150},{54,150},{54,136},
-          {14,136},{14,132}}, color={255,0,255}));
+  connect(y1Coo, hea.u) annotation (Line(points={{-120,160},{-80,160},{-80,120},
+          {-72,120}}, color={255,0,255}));
+  connect(hea.y, heaOrDir.u1)
+    annotation (Line(points={{-48,120},{-42,120}}, color={255,0,255}));
+  connect(y1HeaCoo, heaOrDir.u2) annotation (Line(points={{-120,140},{-46,140},
+          {-46,112},{-42,112}}, color={255,0,255}));
+  connect(cooOrDir.y, heaAndCas.u)
+    annotation (Line(points={{-18,180},{-12,180}}, color={255,0,255}));
+  connect(y1Coo, cooOrDir.u1) annotation (Line(points={{-120,160},{-80,160},{
+          -80,180},{-42,180}}, color={255,0,255}));
+  connect(y1HeaCoo, cooOrDir.u2) annotation (Line(points={{-120,140},{-46,140},
+          {-46,172},{-42,172}}, color={255,0,255}));
+  connect(yHeaAndCas.y, valCoo.y) annotation (Line(points={{42,180},{48,180},{
+          48,-74},{24,-74},{24,-90},{28,-90}}, color={0,0,127}));
   connect(sumP.y, P) annotation (Line(points={{91,180},{120,180}},
         color={0,0,127}));
   connect(junConWatEvaOut[1].port_2, port_b2)
     annotation (Line(points={{-80,30},{-100,30}}, color={0,127,255}));
   connect(yValEva, valEva.y) annotation (Line(points={{-60,-240},{-60,-140},{0,-140},
           {0,-60},{-8,-60}}, color={0,0,127}));
-  connect(valHeaInl.port_2, TConEnt.port_a)
+  connect(valHea.port_2, TConEnt.port_a)
     annotation (Line(points={{-30,80},{-20,80},{-20,40}}, color={0,127,255}));
   connect(TConEnt.port_b, chi.port_a1)
     annotation (Line(points={{-20,20},{-20,6},{-10,6}}, color={0,127,255}));
@@ -641,6 +632,12 @@ equation
           {-20,-90},{-70,-90}}, color={0,127,255}));
   connect(valEva.port_b, junConWatEvaOut.port_3) annotation (Line(points={{-20,-70},
           {-20,-90},{-60,-90},{-60,20},{-70,20}}, color={0,127,255}));
+  connect(heaOrDir.y, yHeaOrDir.u)
+    annotation (Line(points={{-18,120},{-2,120}}, color={255,0,255}));
+  connect(heaAndCas.y, yHeaAndCas.u)
+    annotation (Line(points={{12,180},{18,180}}, color={255,0,255}));
+  connect(yHeaOrDir.y, valHea.y) annotation (Line(points={{22,120},{30,120},{30,
+          100},{-40,100},{-40,92}}, color={0,0,127}));
   annotation (
     defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false),

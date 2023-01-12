@@ -172,7 +172,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=3700,
+      StopTime=3600,
       Tolerance=1e-06),
   Diagram(coordinateSystem(extent={{-180,-180},{180,180}})));
 end AllElectricCWStorage;

@@ -181,7 +181,7 @@ model ChillerGroup
     final nUni=nUni)
     "Convert command signals"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  BaseClasses.MultipleFlowValves valEva(
+  BaseClasses.MultipleValves valEva(
     redeclare final package Medium = Medium2,
     final nUni=nUni,
     final mUni_flow_nominal=mChiWatUni_flow_nominal,
@@ -195,7 +195,7 @@ model ChillerGroup
     final y_start=y_start,
     final show_T=show_T) "Chiller evaporator isolation valves"
     annotation (Placement(transformation(extent={{-70,-50},{-90,-70}})));
-  BaseClasses.MultipleFlowValves valCon(
+  BaseClasses.MultipleValves valCon(
     redeclare final package Medium = Medium1,
     final nUni=nUni,
     final mUni_flow_nominal=mConWatUni_flow_nominal,

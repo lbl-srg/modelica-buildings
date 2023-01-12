@@ -311,6 +311,9 @@ model AllElectricCWStorage
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+  parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
+    "= true, if control signal is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered signal for actuators and movers"));
 
   // Outside connectors
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(
@@ -349,8 +352,10 @@ model AllElectricCWStorage
     final dpBalEva_nominal=dpBalEvaChi_nominal,
     final dpBalCon_nominal=dpBalConChi_nominal,
     final energyDynamics=energyDynamics,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal1=allowFlowReversal,
-    final allowFlowReversal2=allowFlowReversal) "Cooling-only chillers"
+    final allowFlowReversal2=allowFlowReversal)
+    "Cooling-only chillers"
     annotation (Placement(transformation(extent={{-10,76},{10,96}})));
   Subsystems.MultiplePumpsSpeed pumChiWat(
     redeclare final package Medium=Medium,
@@ -360,6 +365,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mChiWat_flow_nominal / nPumChiWat,
     final dpPum_nominal=dpPumChiWat_nominal,
     final energyDynamics=energyDynamics,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "Primary CHW pumps"
     annotation (Placement(transformation(extent={{110,190},{130,210}})));
@@ -421,6 +427,7 @@ model AllElectricCWStorage
     redeclare final package Medium=Medium,
     final m_flow_nominal=mChiWat_flow_nominal,
     final dpValve_nominal=dpEvaChi_nominal,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "CHW minimum flow bypass valve"
     annotation (Placement(transformation(
@@ -469,6 +476,8 @@ model AllElectricCWStorage
     final dpCon_nominal=dpConChiHea_nominal,
     final dpBalEva_nominal=dpBalEvaChiHea_nominal,
     final dpBalCon_nominal=dpBalConChiHea_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_inputFilter=use_inputFilter,
     final energyDynamics=energyDynamics)
     "Heat recovery chillers"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
@@ -480,7 +489,9 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mHeaWat_flow_nominal/nPumHeaWat,
     final dpPum_nominal=dpPumHeaWat_nominal,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "Primary HW pumps"
+    final use_inputFilter=use_inputFilter,
+    final allowFlowReversal=allowFlowReversal)
+    "Primary HW pumps"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
   Fluid.FixedResistances.Junction junHeaWatSup(
     redeclare final package Medium = Medium,
@@ -517,6 +528,7 @@ model AllElectricCWStorage
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final dpValve_nominal=dpConChiHea_nominal,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "HW minimum flow bypass valve"
     annotation (Placement(transformation(
@@ -565,6 +577,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mConWatCon_flow_nominal / nPumConWatCon,
     final dpPum_nominal=dpPumConWatCon_nominal,
     final energyDynamics=energyDynamics,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps serving condenser barrels"
     annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
@@ -576,6 +589,7 @@ model AllElectricCWStorage
     final mPum_flow_nominal=mConWatEva_flow_nominal / nPumConWatEva,
     final dpPum_nominal=dpPumConWatEva_nominal,
     final energyDynamics=energyDynamics,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "CW pumps serving evaporator barrels"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
@@ -687,6 +701,7 @@ model AllElectricCWStorage
     final nUni=nHeaPum,
     final dat=datHeaPum,
     final energyDynamics=energyDynamics,
+    final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "Heat pumps"
     annotation (Placement(transformation(extent={{-140,110},{-160,130}})));

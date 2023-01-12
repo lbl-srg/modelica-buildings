@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses;
-model MultipleFlowValves
+model MultipleValves
   "Parallel arrangement of identical two-way modulating valves"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final massDynamics=energyDynamics,
@@ -94,10 +94,10 @@ model MultipleFlowValves
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,0})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valMod[nUni](
-    redeclare each final package Medium=Medium,
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val[nUni](
+    redeclare each final package Medium = Medium,
     each from_dp=true,
-    each final CvData = Buildings.Fluid.Types.CvTypes.OpPoint,
+    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mUni_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final dpFixed_nominal=dpFixed_nominal,
@@ -105,8 +105,7 @@ model MultipleFlowValves
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTime,
     each final init=init,
-    each final y_start=y_start)
-    "Modulating valve"
+    each final y_start=y_start) "Modulating valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
   final parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
@@ -128,12 +127,10 @@ equation
               {-60,10}},                        color={0,127,255}));
     end for;
   end if;
-  connect(junInl.port_3, valMod.port_a) annotation (Line(points={{-50,-6.66134e-16},
-          {-30,-6.66134e-16},{-30,0},{-10,0}},
-                              color={0,127,255}));
-  connect(valMod.port_b, junOut.port_3) annotation (Line(points={{10,0},{30,0},{
-          30,4.44089e-16},{50,4.44089e-16}},
-                            color={0,127,255}));
+  connect(junInl.port_3, val.port_a) annotation (Line(points={{-50,-6.66134e-16},
+          {-30,-6.66134e-16},{-30,0},{-10,0}}, color={0,127,255}));
+  connect(val.port_b, junOut.port_3) annotation (Line(points={{10,0},{30,0},{30,
+          4.44089e-16},{50,4.44089e-16}}, color={0,127,255}));
   connect(junOut[1].port_2, port_b)
     annotation (Line(points={{60,10},{60,20},{80,20},{80,0},{100,0}},
                                                       color={0,127,255}));
@@ -141,9 +138,9 @@ equation
   connect(port_a, junInl[1].port_1)
     annotation (Line(points={{-100,0},{-80,0},{-80,20},{-60,20},{-60,10}},
                                                          color={0,127,255}));
-  connect(valMod.y_actual, y_actual) annotation (Line(points={{5,7},{20,7},{20,60},
-          {120,60}},        color={0,0,127}));
-  connect(y, valMod.y)
+  connect(val.y_actual, y_actual)
+    annotation (Line(points={{5,7},{20,7},{20,60},{120,60}}, color={0,0,127}));
+  connect(y, val.y)
     annotation (Line(points={{-120,60},{0,60},{0,12}}, color={0,0,127}));
   annotation (
     defaultComponentName="res",
@@ -153,4 +150,4 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
-end MultipleFlowValves;
+end MultipleValves;
