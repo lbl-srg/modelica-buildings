@@ -52,7 +52,7 @@ partial model PartialDualSource
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final nom=nom,
@@ -61,7 +61,7 @@ partial model PartialDualSource
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,-90})));
+        origin={-90,-90})));
 
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
@@ -236,12 +236,12 @@ partial model PartialDualSource
         360*4,nom.mTan_flow_nominal; 360*6,nom.mTan_flow_nominal; 360*6,0; 360*
         7,0; 360*7,-nom.mTan_flow_nominal; 360*9,-nom.mTan_flow_nominal; 360*9,
         0]) "Tank flow rate setpoint"
-    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
+    annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
   Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 360*1,0; 360*1,
         nom.mTan_flow_nominal; 360*3,nom.mTan_flow_nominal; 360*3,
         m_flow_nominal; 360*5,m_flow_nominal; 360*5,0])
     "Flow rate setpoint for the chiller in the storage plant"
-    annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
+    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
   Movers.FlowControlled_m_flow pumChi2(
     redeclare final package Medium = Medium,
@@ -257,7 +257,7 @@ partial model PartialDualSource
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,-70})));
+        origin={-130,-70})));
   FixedResistances.PressureDrop chi2PreDro(
     redeclare final package Medium = Medium,
     final m_flow_nominal=nom.mChi_flow_nominal,
@@ -266,14 +266,14 @@ partial model PartialDualSource
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-110,-110})));
+        origin={-130,-110})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Add the setpoints of the chiller and the tank together"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   IdealReversibleConnection                               ideRevConSup(
       redeclare final package Medium = Medium, final nom=nom)
                    "Ideal reversable connection on supply side"
-    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-119,170},{-104,170}},
@@ -360,26 +360,31 @@ equation
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
   connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
           90},{20,76},{40,76}},     color={0,127,255}));
-  connect(pumChi2.port_b, tanBra.port_aFroChi) annotation (Line(points={{-100,-70},
-          {-90,-70},{-90,-84},{-80,-84}}, color={0,127,255}));
-  connect(tanBra.port_bToChi,chi2PreDro. port_a) annotation (Line(points={{-80,-96},
-          {-90,-96},{-90,-110},{-100,-110}}, color={0,127,255}));
-  connect(chi2PreDro.port_b,pumChi2. port_a) annotation (Line(points={{-120,-110},
-          {-126,-110},{-126,-70},{-120,-70}}, color={0,127,255}));
-  connect(mChi2Set_flow.y,pumChi2. m_flow_in) annotation (Line(points={{-119,
-          -30},{-110,-30},{-110,-58}},
+  connect(pumChi2.port_b, tanBra.port_aFroChi) annotation (Line(points={{-120,
+          -70},{-110,-70},{-110,-84},{-100,-84}},
+                                          color={0,127,255}));
+  connect(tanBra.port_bToChi,chi2PreDro. port_a) annotation (Line(points={{-100,
+          -96},{-110,-96},{-110,-110},{-120,-110}},
+                                             color={0,127,255}));
+  connect(chi2PreDro.port_b,pumChi2. port_a) annotation (Line(points={{-140,
+          -110},{-146,-110},{-146,-70},{-140,-70}},
+                                              color={0,127,255}));
+  connect(mChi2Set_flow.y,pumChi2. m_flow_in) annotation (Line(points={{-139,
+          -30},{-130,-30},{-130,-58}},
                                   color={0,0,127}));
-  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-119,10},{-100,10},
-          {-100,-24},{-82,-24}},color={0,0,127}));
-  connect(mChi2Set_flow.y, add2.u2) annotation (Line(points={{-119,-30},{-110,
-          -30},{-110,-36},{-82,-36}},
+  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-139,10},{-110,10},
+          {-110,-24},{-102,-24}},
+                                color={0,0,127}));
+  connect(mChi2Set_flow.y, add2.u2) annotation (Line(points={{-139,-30},{-130,
+          -30},{-130,-36},{-102,-36}},
                                  color={0,0,127}));
-  connect(tanBra.port_bToNet, ideRevConSup.port_a) annotation (Line(points={{-60,
-          -84},{-40,-84},{-40,-70},{-20,-70}}, color={0,127,255}));
-  connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-58,-30},{-40,
-          -30},{-40,-65},{-21,-65}}, color={0,0,127}));
-  connect(ideRevConSup.port_b, parJunPla2.port_c1) annotation (Line(points={{0,-70},
-          {20,-70},{20,-84},{40,-84}}, color={0,127,255}));
+  connect(tanBra.port_bToNet, ideRevConSup.port_a) annotation (Line(points={{-80,-84},
+          {-70,-84},{-70,-70},{0,-70}},        color={0,127,255}));
+  connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-78,-30},{
+          -60,-30},{-60,-65},{-1,-65}},
+                                     color={0,0,127}));
+  connect(ideRevConSup.port_b, parJunPla2.port_c1) annotation (Line(points={{20,-70},
+          {30,-70},{30,-84},{40,-84}}, color={0,127,255}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/IdealDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
