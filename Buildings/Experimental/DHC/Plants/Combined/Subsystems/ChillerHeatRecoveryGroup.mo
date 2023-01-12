@@ -255,7 +255,7 @@ model ChillerHeatRecoveryGroup
   Fluid.FixedResistances.Junction junConWatEvaOut[nUni](
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=mChiWatUni_flow_nominal*{1,-1,1},
-    each final dp_nominal=fill(0, 3),
+    each final dp_nominal={0,0,1E3},
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -269,7 +269,7 @@ model ChillerHeatRecoveryGroup
         origin={-80,20})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valCon[nUni](
     redeclare each final package Medium = Medium,
-    each from_dp=true,
+    each linearized=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mConWatUni_flow_nominal,
     each dpValve_nominal=1E3,
@@ -285,7 +285,7 @@ model ChillerHeatRecoveryGroup
         origin={20,60})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valEva[nUni](
     redeclare each final package Medium = Medium,
-    each from_dp=true,
+    each linearized=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mChiWatUni_flow_nominal,
     each dpValve_nominal=1E3,
@@ -302,7 +302,7 @@ model ChillerHeatRecoveryGroup
   Fluid.FixedResistances.Junction junChiWatEvaOut[nUni](
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=mChiWatUni_flow_nominal*{1,-1,1},
-    each final dp_nominal=fill(0, 3),
+    each final dp_nominal={0,0,1E3},
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -339,7 +339,6 @@ model ChillerHeatRecoveryGroup
         origin={-20,-30})));
   Fluid.Actuators.Valves.ThreeWayLinear valHeaInl[nUni](
     redeclare each final package Medium = Medium,
-    each from_dp=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mConWatUni_flow_nominal,
     each dpValve_nominal=1E3,
@@ -354,7 +353,8 @@ model ChillerHeatRecoveryGroup
     each final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    each linearized={true,true})
     "Heating switchover valve: : direct connected to HW, bypass connected to CW condenser circuit"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Fluid.FixedResistances.Junction junHeaWatConInl[nUni](
@@ -375,7 +375,7 @@ model ChillerHeatRecoveryGroup
   Fluid.FixedResistances.Junction junHeaWatConOut[nUni](
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=mConWatUni_flow_nominal*{1,-1,1},
-    each final dp_nominal=fill(0, 3),
+    each final dp_nominal={0,0,1E3},
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -394,7 +394,6 @@ model ChillerHeatRecoveryGroup
         origin={-40,120})));
   Fluid.Actuators.Valves.ThreeWayLinear valCooInl[nUni](
     redeclare each final package Medium = Medium,
-    each from_dp=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mChiWatUni_flow_nominal,
     each dpValve_nominal=1E3,
@@ -409,7 +408,8 @@ model ChillerHeatRecoveryGroup
     each final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    each linearized={true,true})
     "Cooling switchover valve: bypass connected to CHW, direct connected to CW evaporator circuit"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -433,7 +433,7 @@ model ChillerHeatRecoveryGroup
   Fluid.FixedResistances.Junction junConWatConOut[nUni](
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=mConWatUni_flow_nominal*{1,-1,1},
-    each final dp_nominal=fill(0, 3),
+    each final dp_nominal={0,0,1E3},
     each final energyDynamics=energyDynamics,
     each final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -486,49 +486,6 @@ model ChillerHeatRecoveryGroup
   Modelica.Blocks.Sources.RealExpression sumP(y=sum(chi.P))
     "Sum up power drawn from all subsystems"
     annotation (Placement(transformation(extent={{70,170},{90,190}})));
-  Fluid.Actuators.Valves.ThreeWayLinear valHeaOut[nUni](
-    redeclare each final package Medium = Medium,
-    each from_dp=true,
-    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final m_flow_nominal=mConWatUni_flow_nominal,
-    each dpValve_nominal=1E3,
-    each final dpFixed_nominal={0,0},
-    each final use_inputFilter=use_inputFilter,
-    each final riseTime=riseTime,
-    each final init=init,
-    each final y_start=y_start,
-    each final energyDynamics=energyDynamics,
-    each final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    each final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-    "Heating switchover valve: : direct connected to HW, bypass connected to CW condenser circuit"
-    annotation (Placement(transformation(extent={{60,70},{40,90}})));
-  Fluid.Actuators.Valves.ThreeWayLinear valCooOut[nUni](
-    redeclare each final package Medium = Medium,
-    each from_dp=true,
-    each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    each final m_flow_nominal=mChiWatUni_flow_nominal,
-    each dpValve_nominal=1E3,
-    each final dpFixed_nominal={0,0},
-    each final use_inputFilter=use_inputFilter,
-    each final riseTime=riseTime,
-    each final init=init,
-    each final y_start=y_start,
-    each final energyDynamics=energyDynamics,
-    each final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    each final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-    "Cooling switchover valve: bypass connected to CHW, direct connected to CW evaporator circuit"
-    annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-50,-90})));
   Fluid.Sensors.TemperatureTwoPort TConEnt[nUni](
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=mConWatUni_flow_nominal,
@@ -666,18 +623,6 @@ equation
         color={0,0,127}));
   connect(junConWatEvaOut[1].port_2, port_b2)
     annotation (Line(points={{-80,30},{-100,30}}, color={0,127,255}));
-  connect(valHeaOut.port_3, junConWatConOut.port_3)
-    annotation (Line(points={{50,70},{50,-20},{70,-20}}, color={0,127,255}));
-  connect(booToRea.y, valHeaOut.y) annotation (Line(points={{-40,108},{-40,100},
-          {50,100},{50,92}}, color={0,0,127}));
-  connect(booToRea1.y, valCooOut.y)
-    annotation (Line(points={{14,108},{14,-90},{-38,-90}}, color={0,0,127}));
-  connect(junChiWatEvaOut.port_3, valCooOut.port_3)
-    annotation (Line(points={{-70,-90},{-60,-90}}, color={0,127,255}));
-  connect(valEva.port_b, valCooOut.port_2) annotation (Line(points={{-20,-70},{
-          -20,-120},{-50,-120},{-50,-100}}, color={0,127,255}));
-  connect(valCooOut.port_1, junConWatEvaOut.port_3)
-    annotation (Line(points={{-50,-80},{-50,20},{-70,20}}, color={0,127,255}));
   connect(yValEva, valEva.y) annotation (Line(points={{-60,-240},{-60,-140},{0,-140},
           {0,-60},{-8,-60}}, color={0,0,127}));
   connect(valHeaInl.port_2, TConEnt.port_a)
@@ -688,10 +633,14 @@ equation
     annotation (Line(points={{10,6},{20,6},{20,20}}, color={0,127,255}));
   connect(TConLvg.port_b, valCon.port_a)
     annotation (Line(points={{20,40},{20,50}}, color={0,127,255}));
-  connect(valCon.port_b, valHeaOut.port_2)
-    annotation (Line(points={{20,70},{20,80},{40,80}}, color={0,127,255}));
-  connect(valHeaOut.port_1, junHeaWatConOut.port_3)
-    annotation (Line(points={{60,80},{70,80}}, color={0,127,255}));
+  connect(valCon.port_b, junHeaWatConOut.port_3)
+    annotation (Line(points={{20,70},{20,80},{70,80}}, color={0,127,255}));
+  connect(valCon.port_b, junConWatConOut.port_3) annotation (Line(points={{20,70},
+          {20,80},{60,80},{60,-20},{70,-20}}, color={0,127,255}));
+  connect(valEva.port_b, junChiWatEvaOut.port_3) annotation (Line(points={{-20,-70},
+          {-20,-90},{-70,-90}}, color={0,127,255}));
+  connect(valEva.port_b, junConWatEvaOut.port_3) annotation (Line(points={{-20,-70},
+          {-20,-90},{-60,-90},{-60,20},{-70,20}}, color={0,127,255}));
   annotation (
     defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false),

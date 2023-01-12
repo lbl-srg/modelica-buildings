@@ -281,7 +281,7 @@ model AllElectricCWStorage
     "CT CW design supply temperature (tower leaving)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Power PFanCoo_nominal(
-    each final min=0,
+    final min=0,
     start=340 * mConWatCoo_flow_nominal)
     "CT fan power (each unit)"
     annotation (Dialog(group="Cooling tower loop"));
