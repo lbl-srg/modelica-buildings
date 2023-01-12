@@ -40,6 +40,11 @@ Return fan control with direct building pressure controls.
 </html>", revisions="<html>
 <ul>
 <li>
+December 15, 2022, by Jianjun Hu:<br/>
+Removed the option of using return fan with tracking calculated supply and return airflow.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
+<li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>

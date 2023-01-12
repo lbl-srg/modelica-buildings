@@ -1264,7 +1264,8 @@ shall be no software reset switch.)
 <ul>
 <li>
 December 22, 2022, by Jianjun Hu:<br/>
-Added flag to disable freeze protection. This is for
+Added flag to disable freeze protection.<br/>
+This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
 </li>
 <li>

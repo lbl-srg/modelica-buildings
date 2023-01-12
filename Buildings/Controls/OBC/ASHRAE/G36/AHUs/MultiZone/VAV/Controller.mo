@@ -1489,6 +1489,11 @@ for more detailed description.
 revisions="<html>
 <ul>
 <li>
+December 15, 2022, by Jianjun Hu:<br/>
+Removed input connectors <code>uRelFan</code> and <code>uSupFanSpe_actual</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
+<li>
 December 20, 2021, by Jianjun Hu:<br/>
 First implementation.
 </li>
