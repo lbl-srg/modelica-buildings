@@ -86,12 +86,7 @@ model BuildingTimeSeries
   parameter Boolean use_inputFilter=false
     "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
-      Dialog(
-      tab="Dynamics",
-      group="Pump",
-      enable=use_inputFilter));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QReqHotWat_flow(
     final unit="W") if have_hotWat
     "SHW load" annotation (Placement(
@@ -292,10 +287,16 @@ equation
     annotation (
     Documentation(
       info="<html>
-<p>This is a simplified building model where the space cooling load is provided as time series. </p>
+<p>
+This is a simplified building model where the space cooling load is provided as time series.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 12, 2023, by Michael Wetter:<br/>
+Removed unused parameter <code>riseTime</code>.
+</li>
 <li>
 December 21, 2022, by Kathryn Hinkelman:<br>
 Removed final declaration for <code>have_pum</code> to optionally allow

@@ -9,10 +9,10 @@ model BuildingTimeSeriesWithETS
       T_aChiWat_nominal=TChiWatSup_nominal,
       T_bChiWat_nominal=TChiWatRet_nominal,
       final energyDynamics=energyDynamics,
-      final use_inputFilter=use_inputFilter,
-      final riseTime=riseTime),
+      final use_inputFilter=use_inputFilter),
       mBui_flow_nominal=-QCoo_flow_nominal/(cp*dT_nominal),
       ets(QChiWat_flow_nominal=QCoo_flow_nominal));
+                                               //fixme: factor 40 and division by -1.5E40 is not clear. Document or remove.
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=bui.QCoo_flow_nominal
     "Space cooling design load (<=0)";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0)=9
@@ -31,12 +31,6 @@ model BuildingTimeSeriesWithETS
   parameter Boolean use_inputFilter=false
     "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Pump"));
-  parameter Modelica.Units.SI.Time riseTime=30
-    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
-      Dialog(
-      tab="Dynamics",
-      group="Pump",
-      enable=use_inputFilter));
   parameter String filNam
     "Library path of the file with thermal loads as time series";
 protected
@@ -59,6 +53,10 @@ where the space cooling loads are provided as time series.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2023, by Michael Wetter:<br/>
+Removed unused parameter <code>riseTime</code>.
+</li>
 <li>
 January 2, 2023, by Kathryn Hinkelman:<br/>
 Propagated energy dynamics and a filter for the (variable) secondary pumps.
