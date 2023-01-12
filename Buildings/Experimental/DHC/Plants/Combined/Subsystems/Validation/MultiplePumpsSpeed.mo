@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
 model MultiplePumpsSpeed
-  "Validation of the multiple pumps model with speed-controlled pump model"
+  "Validation of multiple pumps model with speed-controlled pump model"
   extends BaseClasses.MultiplePumps;
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp spe(duration=500)

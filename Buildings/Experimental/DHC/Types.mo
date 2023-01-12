@@ -62,14 +62,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  type Valve = enumeration(
-    None
-    "No valve",
-    TwoWayModulating
-    "Two-way modulating valve",
-    TwoWayTwoPosition
-    "Two-way two-position valve")
-  "Enumeration to specify the type of valve";
 
 annotation (Documentation(info="<html>
 <p>

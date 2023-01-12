@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
-model HeatPumpGroup "Validation of the heat pump group model"
+model HeatPumpGroup "Validation of heat pump group model"
   extends Modelica.Icons.Example;
 
   replaceable package MediumHeaWat=Buildings.Media.Water
