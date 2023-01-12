@@ -3,8 +3,8 @@ model PartialBuildingWithETS
   "Partial model with ETS model for cooling and partial building model"
   extends
     Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
-      nPorts_chiWat=1, redeclare
-      Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct ets(
+      nPorts_chiWat=1,
+      redeclare Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct ets(
       final mBui_flow_nominal=mBui_flow_nominal,
       final controllerType=controllerType,
       final k=k,
@@ -12,6 +12,7 @@ model PartialBuildingWithETS
       final Td=Td,
       final yMax=yMax,
       final yMin=yMin));
+
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
     final min=0,
     final start=0.5)
