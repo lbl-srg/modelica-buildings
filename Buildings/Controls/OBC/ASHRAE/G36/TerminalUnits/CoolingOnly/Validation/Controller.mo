@@ -8,7 +8,6 @@ model Controller
     final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
-    final have_preIndDam=true,
     final staPreMul=1,
     final floHys=0.01,
     final looHys=0.01,
