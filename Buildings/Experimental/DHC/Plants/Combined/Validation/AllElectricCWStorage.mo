@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Validation;
-model AllElectricCWStorage "Validation of the all-electric plant with CW storage model"
+model AllElectricCWStorage "Validation of all-electric plant model"
   extends Modelica.Icons.Example;
 
   replaceable package Medium=Buildings.Media.Water
@@ -75,8 +75,6 @@ model AllElectricCWStorage "Validation of the all-electric plant with CW storage
     PFanCoo_nominal=340*pla.mConWatCoo_flow_nominal,
     chi(show_T=true),
     chiHea(show_T=true),
-    chiCoo(show_T=true),
-    chiHeaCoo(show_T=true),
     heaPum(show_T=true),
     redeclare final package Medium = Medium,
     final datChi=datChi,

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
-model CoolingTowerGroup "Validation of the cooling tower group model"
+model CoolingTowerGroup "Validation of cooling tower group model"
   extends Modelica.Icons.Example;
 
   replaceable package MediumConWat=Buildings.Media.Water

@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
 model MultiplePumpsDp
-  "Validation of the multiple pumps model with dp-controlled pump model"
+  "Validation of multiple pumps model with dp-controlled pump model"
   extends BaseClasses.MultiplePumps(
     redeclare Subsystems.MultiplePumpsDp pum,
     redeclare Buildings.Fluid.Movers.FlowControlled_dp pum1(

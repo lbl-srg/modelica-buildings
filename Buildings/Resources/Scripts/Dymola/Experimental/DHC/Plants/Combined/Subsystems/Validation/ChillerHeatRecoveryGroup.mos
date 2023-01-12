@@ -1,13 +1,13 @@
-simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.ChillerGroupHeatRecovery",
+simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.ChillerHeatRecoveryGroup",
     method="Cvode",
     tolerance=1e-6,
     startTime=0,
     stopTime=2000,
-    resultFile="ChillerGroupHeatRecovery");
+    resultFile="ChillerHeatRecoveryGroup");
 createPlot(
     id=1,
     position={42, 30, 624, 552},
-    y={"y1Chi.y[1]", "y1Chi.y[2]", "y1Coo.y[1]", "y1Coo.y[2]"},
+    y={"y1.y[1]", "y1.y[2]", "y1Coo.y[1]", "y1Coo.y[2]", "y1HeaCoo.y[1]", "y1HeaCoo.y[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -15,8 +15,8 @@ createPlot(
     color=true);
 createPlot(
     id=1,
-    subPlot=102,
-    y={"chi.m1_flow", "chi.port_aConWat.m_flow", "chi.m2_flow", "chi.chi.m1_flow", "chi.chi.m2_flow"},
+    subPlot=2,
+    y={"chi.port_a1.m_flow", "chi.port_a2.m_flow", "chi.port_a3.m_flow", "chi.port_a4.m_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -24,8 +24,8 @@ createPlot(
     color=true);
 createPlot(
     id=1,
-    subPlot=103,
-    y={"TChiWatSupSet.y", "chi.sta_a2.T", "chi.sta_b2.T"},
+    subPlot=3,
+    y={"chi.chi[1].m1_flow", "chi.chi[2].m1_flow", "chi.chi[1].m2_flow", "chi.chi[2].m2_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -33,8 +33,8 @@ createPlot(
     color=true);
 createPlot(
     id=1,
-    subPlot=104,
-    y={"chi.chi.PLR1", "chi.chi.PLR2", "dat.PLRMax", "chi.chi.COP"},
+    subPlot=4,
+    y={"TSet.y[1]", "TSet.y[2]", "TChiWatSup.T", "chi.TEvaLvg[1].T", "chi.TEvaLvg[2].T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -43,7 +43,7 @@ createPlot(
 createPlot(
     id=2,
     position={378, 29, 624, 552},
-    y={"y1Chi.y[1]", "y1Chi.y[2]", "y1Coo.y[1]", "y1Coo.y[2]"},
+    y={"y1.y[1]", "y1.y[2]", "y1Coo.y[1]", "y1Coo.y[2]", "y1HeaCoo.y[1]", "y1HeaCoo.y[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -52,7 +52,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"chiHea.m1_flow", "chiHea.port_aConWat.m_flow", "chiHea.m2_flow", "chiHea.chi.m1_flow", "chiHea.chi.m2_flow"},
+    y={"floHeaWat.m_flow", "chi.chi[1].m1_flow", "chi.chi[2].m1_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -61,7 +61,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"THeaWatSupSet.y", "chiHea.sta_a1.T", "chiHea.sta_b1.T"},
+    y={"TSet.y[1]", "TSet.y[2]", "THeaWatSup.T", "chi.TConLvg[1].T", "chi.TConLvg[2].T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -70,7 +70,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=4,
-    y={"chiHea.chi.PLR1", "chiHea.chi.PLR2", "dat.PLRMax", "chiHea.chi.COP"},
+    y={"chi.chi[1].PLR2", "chi.chi[2].PLR2", "dat.PLRMax", "chi.chi[1].COP", "chi.chi[2].COP"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
