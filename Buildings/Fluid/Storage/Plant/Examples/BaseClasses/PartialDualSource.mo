@@ -392,12 +392,187 @@ equation
         Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-[fixme:documentation pending.]
+[fixme: update documentation.]
+This is a district system model with two CHW plants and three users
+with the following architecture:
+</p>
+<p align=\"center\">
+<img alt=\"DualSource\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/DualSource.png\"/>
+</p>
+<p>
+The first CHW source is a simplified CHW plant with only a chiller and
+a single supply pump.
+This supply pump is controlled to ensure that all users have enough pressure head.
+</p>
+<p>
+The second CHW source has a chiller and a stratified CHW tank. Its piping is
+arranged in a way that allows the tank to be charged remotely by the other source.
+The secondary pump is controlled to maintain the flow rate setpoint of the tank.
+This plant is disconnected when the largest position of user control valves
+less than 5% open and connected back when this value is higher than 10%.
+</p>
+<p>
+The source blocks give the system the following operation schedule during
+simulation:
+</p>
+<table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<thead>
+  <tr>
+    <th>Time Slot</th>
+    <th>Plant 1 Flow</th>
+    <th colspan=\"4\">Plant 2 Flows</th>
+    <th colspan=\"3\">Users</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Chiller</td>
+    <td>Tank*</td>
+    <td>Charging</td>
+    <td>Overall**</td>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>No load. No flow.</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>0</td>
+    <td>+</td>
+    <td>-</td>
+    <td>Local</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>No load. Tank is being charged locally.</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>+</td>
+    <td>+</td>
+    <td>-</td>
+    <td>Local</td>
+    <td>0</td>
+    <td>Has load</td>
+    <td></td>
+    <td></td>
+    <td>Plant 1 outputs CHW to satisfy load. Plant 2 still offline and in local charging.</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>+</td>
+    <td>+</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>+</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td></td>
+    <td>Both plants output CHW. Tank holding.</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>+</td>
+    <td>+</td>
+    <td>+</td>
+    <td>N/A</td>
+    <td>+</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Both plants including tank output CHW.</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>+</td>
+    <td>0</td>
+    <td>+</td>
+    <td>N/A</td>
+    <td>+</td>
+    <td></td>
+    <td>Has load</td>
+    <td>Has load</td>
+    <td>Plant 1 and tank output CHW, chiller 2 off.</td>
+  </tr>
+  <tr>
+    <td>7</td>
+    <td>+</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td>Has load</td>
+    <td>Plant 1 outputs CHW to satisfy load. Plant 2 off.</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>+</td>
+    <td>0</td>
+    <td>-</td>
+    <td>Remote</td>
+    <td>-</td>
+    <td></td>
+    <td></td>
+    <td>Has load</td>
+    <td>Plant 1 outputs CHW to satisfy load and remotely charge tank.</td>
+  </tr>
+  <tr>
+    <td>9</td>
+    <td>+</td>
+    <td>0</td>
+    <td>-</td>
+    <td>Remote</td>
+    <td>-</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Plant 1 remotely charges tank.</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+    <td>N/A</td>
+    <td>0</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>No load. No flow.</td>
+  </tr>
+</tbody>
+</table>
+<p>
+Notes:<br/>
+*. A positive flow rate at the tank denotes that the tank is discharging
+and a negative flow rate denotes that it is being charged.<br/>
+**. A positive flow rate denotes that the flow direction of Plant 2 is the same
+as the nominal flow direction (outputting CHW to the network).
+A negative flow only occurs when its tank is being charged remotely.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-November 11, 2022 by Hongxiang Fu:<br/>
+January 11, 2023 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
