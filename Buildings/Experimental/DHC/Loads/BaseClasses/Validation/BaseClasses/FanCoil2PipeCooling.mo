@@ -54,7 +54,7 @@ model FanCoil2PipeCooling
     final m_flow_nominal=mLoaCoo_flow_nominal,
     redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     final dp_nominal=dpLoa_nominal)
     "Fan"
