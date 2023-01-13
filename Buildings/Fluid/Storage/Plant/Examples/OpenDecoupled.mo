@@ -34,7 +34,7 @@ equation
           -90},{-10,-105},{-1,-105}}, color={0,0,127}));
   connect(ideRevConRet.port_b, parJunPla2.port_c2) annotation (Line(points={{20,
           -110},{30,-110},{30,-96},{40,-96}}, color={0,127,255}));
-  connect(tanBra.port_aFroNet, ideRevConRet.port_a) annotation (Line(points={{-80,
+  connect(tanBra.port_aRetNet, ideRevConRet.port_a) annotation (Line(points={{-80,
           -96},{-70,-96},{-70,-110},{0,-110}}, color={0,127,255}));
   connect(bou1.ports[1], pumSup1.port_a)
     annotation (Line(points={{-60,90},{-20,90}}, color={0,127,255}));

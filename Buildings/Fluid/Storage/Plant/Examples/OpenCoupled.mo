@@ -12,7 +12,7 @@ model OpenCoupled
         rotation=0,
         origin={-70,10})));
 equation
-  connect(tanBra.port_aFroNet, parJunPla2.port_c2)
+  connect(tanBra.port_aRetNet, parJunPla2.port_c2)
     annotation (Line(points={{-80,-96},{40,-96}}, color={0,127,255}));
   connect(bou2.ports[1], ideRevConSup.port_a) annotation (Line(points={{-60,10},
           {-10,10},{-10,-70},{0,-70}},   color={0,127,255}));

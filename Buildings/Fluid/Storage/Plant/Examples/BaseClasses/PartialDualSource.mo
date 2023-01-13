@@ -360,12 +360,11 @@ equation
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
   connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
           90},{20,76},{40,76}},     color={0,127,255}));
-  connect(pumChi2.port_b, tanBra.port_aFroChi) annotation (Line(points={{-120,
+  connect(pumChi2.port_b,tanBra.port_aSupChi)  annotation (Line(points={{-120,
           -70},{-110,-70},{-110,-84},{-100,-84}},
                                           color={0,127,255}));
-  connect(tanBra.port_bToChi,chi2PreDro. port_a) annotation (Line(points={{-100,
-          -96},{-110,-96},{-110,-110},{-120,-110}},
-                                             color={0,127,255}));
+  connect(tanBra.port_bRetChi, chi2PreDro.port_a) annotation (Line(points={{-100,
+          -96},{-110,-96},{-110,-110},{-120,-110}}, color={0,127,255}));
   connect(chi2PreDro.port_b,pumChi2. port_a) annotation (Line(points={{-140,
           -110},{-146,-110},{-146,-70},{-140,-70}},
                                               color={0,127,255}));
@@ -378,8 +377,8 @@ equation
   connect(mChi2Set_flow.y, add2.u2) annotation (Line(points={{-139,-30},{-130,
           -30},{-130,-36},{-102,-36}},
                                  color={0,0,127}));
-  connect(tanBra.port_bToNet, ideRevConSup.port_a) annotation (Line(points={{-80,-84},
-          {-70,-84},{-70,-70},{0,-70}},        color={0,127,255}));
+  connect(tanBra.port_bSupNet, ideRevConSup.port_a) annotation (Line(points={{-80,
+          -84},{-70,-84},{-70,-70},{0,-70}}, color={0,127,255}));
   connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-78,-30},{
           -60,-30},{-60,-65},{-1,-65}},
                                      color={0,0,127}));

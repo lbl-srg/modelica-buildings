@@ -10,28 +10,26 @@ model TankBranch
   parameter Modelica.Units.SI.Temperature TTan_start=nom.T_CHWS_nominal
     "Start temperature of the tank";
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_aFroNet(
+  Modelica.Fluid.Interfaces.FluidPort_a port_aRetNet(
     redeclare final package Medium = Medium,
     p(final displayUnit="Pa"))
-    "Port whose nominal flow direction is from the district network"
+    "Port that connects to the return side of the district network"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
         iconTransformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bToNet(
-    redeclare final package Medium = Medium,
-    p(final displayUnit="Pa"))
-    "Port whose nominal flow direction is to the district network" annotation (
-      Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
+  Modelica.Fluid.Interfaces.FluidPort_b port_bSupNet(redeclare final package
+      Medium = Medium, p(final displayUnit="Pa"))
+    "Port that connects to the supply side of the district network" annotation
+    (Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
           extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bToChi(
+  Modelica.Fluid.Interfaces.FluidPort_b port_bRetChi(redeclare final package
+      Medium = Medium, p(final displayUnit="Pa"))
+    "Port that connects to the return side of the chiller" annotation (
+      Placement(transformation(extent={{-110,-70},{-90,-50}}),
+        iconTransformation(extent={{-110,-70},{-90,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aSupChi(
     redeclare final package Medium = Medium,
     p(final displayUnit="Pa"))
-    "Port whose nominal flow direction is to the chiller" annotation (Placement(
-        transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
-          extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aFroChi(
-    redeclare final package Medium = Medium,
-    p(final displayUnit="Pa"))
-    "Port whose nominal flow direction is from the chiller" annotation (
+    "Port that connects to the supply side of the chiller"  annotation (
       Placement(transformation(extent={{-110,50},{-90,70}}), iconTransformation(
           extent={{-110,50},{-90,70}})));
 
@@ -119,15 +117,15 @@ equation
     annotation (Line(points={{2,-7.4},{2,-50},{20,-50}}, color={191,0,0}));
   connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-30},{-8,-30},
           {-8,-4},{0,-4},{0,0}}, color={191,0,0}));
-  connect(port_aFroChi, junSup.port_1)
+  connect(port_aSupChi, junSup.port_1)
     annotation (Line(points={{-100,60},{40,60}}, color={0,127,255}));
-  connect(junSup.port_2, port_bToNet)
+  connect(junSup.port_2, port_bSupNet)
     annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
-  connect(port_bToChi, junRet.port_2)
+  connect(port_bRetChi, junRet.port_2)
     annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
   connect(junRet.port_3, senFlo.port_a)
     annotation (Line(points={{-50,-50},{-50,-40}}, color={0,127,255}));
-  connect(junRet.port_1, port_aFroNet)
+  connect(junRet.port_1,port_aRetNet)
     annotation (Line(points={{-40,-60},{100,-60}}, color={0,127,255}));
   connect(senFlo.port_b, tan.port_a)
     annotation (Line(points={{-50,-20},{-50,0},{-10,0}}, color={0,127,255}));
