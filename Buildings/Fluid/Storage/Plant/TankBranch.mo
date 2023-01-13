@@ -1,10 +1,39 @@
 within Buildings.Fluid.Storage.Plant;
 model TankBranch
   "Model of the tank branch of a storage plant"
-  extends Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts;
 
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium package";
+
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
+    "Nominal values";
   parameter Modelica.Units.SI.Temperature TTan_start=nom.T_CHWS_nominal
     "Start temperature of the tank";
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_aFroNet(
+    redeclare final package Medium = Medium,
+    p(final displayUnit="Pa"))
+    "Port whose nominal flow direction is from the district network"
+    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
+        iconTransformation(extent={{90,-70},{110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bToNet(
+    redeclare final package Medium = Medium,
+    p(final displayUnit="Pa"))
+    "Port whose nominal flow direction is to the district network" annotation (
+      Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
+          extent={{90,50},{110,70}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_bToChi(
+    redeclare final package Medium = Medium,
+    p(final displayUnit="Pa"))
+    "Port whose nominal flow direction is to the chiller" annotation (Placement(
+        transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
+          extent={{-110,-70},{-90,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_aFroChi(
+    redeclare final package Medium = Medium,
+    p(final displayUnit="Pa"))
+    "Port whose nominal flow direction is from the chiller" annotation (
+      Placement(transformation(extent={{-110,50},{-90,70}}), iconTransformation(
+          extent={{-110,50},{-90,70}})));
 
   Buildings.Fluid.Storage.Stratified tan(
     redeclare final package Medium = Medium,
@@ -106,6 +135,11 @@ equation
     annotation (Line(points={{10,0},{50,0},{50,50}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
+                               Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(points={{-100,-60},{100,-60}}, color={28,108,200}),
         Line(points={{-100,60},{100,60}}, color={28,108,200}),
         Line(points={{-42,-60}}, color={28,108,200}),
