@@ -100,7 +100,8 @@ model HeatingCooling
   Controls.OBC.CDL.Logical.Not notHea if conMod
     "Pass tru for heating mode signal when hysteresis becomes false"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
-  Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=180,
+  Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=
+        tCooCoiEna,
       falseHoldDuration=0)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
@@ -114,6 +115,7 @@ model HeatingCooling
   Controls.OBC.CDL.Logical.And andTSupLow
     "Enable heating/cooling component only when measured supply temperature is above dew point at thermal comfort level"
     annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
+  parameter Modelica.Units.SI.Time tCooCoiEna "true hold duration";
 equation
 
   connect(TSub.y, hysModCoo.u) annotation (Line(points={{-38,-20},{-10,-20},{

@@ -18,9 +18,6 @@ def main():
     "ZONE1WINDAC:Zone Window Air Conditioner Fan Part Load Ratio [](TimeStep)",
     "ZONE1WINDAC:Zone Window Air Conditioner Compressor Part Load Ratio [](TimeStep)",
     "ZONE1WINDAC:Zone Window Air Conditioner Fan Availability Status [](TimeStep)",
-    "ZONE1WINDACDXCOIL:Cooling Coil Total Cooling Rate [W](TimeStep)",
-    "ZONE1WINDACDXCOIL:Cooling Coil Sensible Cooling Rate [W](TimeStep)",
-    "ZONE1WINDACDXCOIL:Cooling Coil Latent Cooling Rate [W](TimeStep)",
     "ZONE1WINDACAIRINLETNODE:System Node Temperature [C](TimeStep)",
     "ZONE1WINDACAIROUTLETNODE:System Node Temperature [C](TimeStep)",
     "ZONE1WINDACAIRINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
@@ -33,7 +30,10 @@ def main():
     "ZONE1WINDACFAN:Fan Electricity Rate [W](TimeStep)",
     "ZONE1WINDACFAN:Fan Air Mass Flow Rate [kg/s](TimeStep)",
     "ZONE1WINDACFAN:Fan Heat Gain to Air [W](TimeStep)",
-    "ZONE1WINDACFAN:Fan Runtime Fraction [](TimeStep)"
+    "ZONE1WINDACFAN:Fan Runtime Fraction [](TimeStep)",
+    "ZONE1WINDACOAINNODE:System Node Mass Flow Rate [kg/s](TimeStep)",
+    "ZONE1WINDACOAINNODE:System Node Temperature [C](TimeStep)",
+    "Environment:Site Outdoor Air Drybulb Temperature [C](TimeStep)"
     ]
 
     e.energyplus_csv_to_mos(

@@ -4,8 +4,11 @@
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 
+Output:Variable,Zone1WindACOAInNode,System Node Mass Flow Rate,Timestep;
+Output:Variable,Zone1WindACOAInNode,System Node Temperature,Timestep;
+Output:Variable,Zone1WindACOAMixerOutletNode,System Node Mass Flow Rate,Timestep;
+Output:Variable,Zone1WindACOAMixerOutletNode,System Node Temperature,Timestep;
 Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
-
 Output:Variable,West Zone,Zone Air Temperature,Timestep;
 Output:Variable,West Zone,Zone Air Humidity Ratio,Timestep;
 Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature,Timestep;
@@ -13,34 +16,26 @@ Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature,Timestep;
 Output:Variable,West Zone,Zone Total Internal Total Heating Rate,Timestep;
 Output:Variable,West Zone,Zone Air System Sensible Heating Rate,Timestep;
 Output:Variable,West Zone,Zone Air System Sensible Cooling Rate,Timestep;
-
 Output:Variable,Zone1WindACAirOutletNode,System Node Mass Flow Rate,Timestep;
 Output:Variable,Zone1WindACAirOutletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1WindACAirOutletNode,System Node Humidity Ratio,Timestep;
 Output:Variable,Zone1WindACAirInletNode,System Node Mass Flow Rate,Timestep;
 Output:Variable,Zone1WindACAirInletNode,System Node Temperature,Timestep;
 Output:Variable,Zone1WindACAirInletNode,System Node Humidity Ratio,Timestep;
-
 Output:Variable,ZONE1WINDAC,Zone Window Air Conditioner Total Cooling Rate,Timestep;
 Output:Variable,ZONE1WINDAC,Zone Window Air Conditioner Sensible Cooling Rate,Timestep;
 Output:Variable,ZONE1WINDAC,Zone Window Air Conditioner Electricity Rate,Timestep;
 Output:Variable,ZONE1WINDAC,Zone Window Air Conditioner Fan Part Load Ratio,Timestep;
 Output:Variable,ZONE1WINDAC,Zone Window Air Conditioner Compressor Part Load Ratio,Timestep;
 Output:Variable,ZONE1WINDAC,Zone Window Air Conditioner Fan Availability Status,Timestep;
-
 Output:Variable,ZONE1WINDACDXCOIL,Cooling Coil Total Cooling Rate,Timestep;
 Output:Variable,ZONE1WINDACDXCOIL,Cooling Coil Sensible Cooling Rate,Timestep;
 Output:Variable,ZONE1WINDACDXCOIL,Cooling Coil Latent Cooling Rate,Timestep;
-
 Output:Variable,ZONE1WINDACFAN,Fan Electricity Rate,Timestep;
 Output:Variable,ZONE1WINDACFAN,Fan Rise in Air Temperature,Timestep;
 Output:Variable,ZONE1WINDACFAN,Fan Heat Gain to Air,Timestep;
 Output:Variable,ZONE1WINDACFAN,Fan Air Mass Flow Rate,Timestep;
 Output:Variable,ZONE1WINDACFAN,Fan Runtime Fraction,Timestep;
-
-
-
-
 ! WindACAuto.idf
 ! Basic file description:  1 story building divided into 3 conditioned zones. Roof with no plenum.
 !                          No ground contact with floor. Window air conditioners serve each zone.
@@ -156,9 +151,9 @@ SurfaceConvectionAlgorithm:Outside,DOE-2;
 RunPeriod,
     Run Period 1,            !- Name
     1,                       !- Begin Month
-    1,                      !- Begin Day of Month
+    1,                       !- Begin Day of Month
     ,                        !- Begin Year
-    12,                       !- End Month
+    12,                      !- End Month
     31,                      !- End Day of Month
     ,                        !- End Year
     Tuesday,                 !- Day of Week for Start Day
@@ -167,7 +162,6 @@ RunPeriod,
     No,                      !- Apply Weekend Holiday Rule
     Yes,                     !- Use Weather File Rain Indicators
     Yes;                     !- Use Weather File Snow Indicators
-
 
 Site:Location,
     CHICAGO_IL_USA TMY2-94846,  !- Name
@@ -1156,7 +1150,7 @@ Sizing:Zone,
 
 DesignSpecification:OutdoorAir,
     SZ DSOA West Zone,       !- Name
-    flow/person,             !- Outdoor Air Method
+    Flow/Area,               !- Outdoor Air Method
     0.00944,                 !- Outdoor Air Flow per Person {m3/s-person}
     0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
     0.0;                     !- Outdoor Air Flow per Zone {m3/s}
@@ -1526,8 +1520,8 @@ Curve:Quadratic,
 
 Curve:Quadratic,
     WindACPLFFPLR,           !- Name
-    0.85,                    !- Coefficient1 Constant
-    0.15,                    !- Coefficient2 x
+    1.0,                     !- Coefficient1 Constant
+    0.0,                     !- Coefficient2 x
     0.0,                     !- Coefficient3 x**2
     0.0,                     !- Minimum Value of x
     1.0;                     !- Maximum Value of x
@@ -1857,7 +1851,6 @@ Coil:Cooling:DX:SingleSpeed,
     WindACEIRFT,             !- Energy Input Ratio Function of Temperature Curve Name
     WindACEIRFFF,            !- Energy Input Ratio Function of Flow Fraction Curve Name
     WindACPLFFPLR;           !- Part Load Fraction Correlation Curve Name
-
 
 Output:VariableDictionary,Regular;
 Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
