@@ -24,7 +24,7 @@ model IdealReversibleConnection
     redeclare final package Medium = Medium)
     "Mass flow rate"
     annotation (Placement(transformation(extent={{-58,-10},{-38,10}})));
-  Buildings.Fluid.Storage.Plant.Controls.IdealPumpPower idePumPow
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealPumpPower idePumPow
     "Ideal pump power"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Modelica.Blocks.Interfaces.RealOutput PEle(
