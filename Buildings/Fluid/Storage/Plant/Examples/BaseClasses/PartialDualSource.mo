@@ -53,6 +53,30 @@ partial model PartialDualSource
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
+  Buildings.Fluid.Movers.FlowControlled_m_flow pumChi2(
+    redeclare final package Medium = Medium,
+    per(pressure(dp=chi2PreDro.dp_nominal*{1.14,1,0.42},
+                 V_flow=nom.mChi_flow_nominal/1000*{0,1,2})),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final m_flow_nominal=nom.mChi_flow_nominal,
+    allowFlowReversal=true,
+    addPowerToMedium=false,
+    m_flow_start=0,
+    T_start=nom.T_CHWR_nominal) "Primary CHW pump for plant 2"
+                                                              annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-130,-70})));
+  Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=nom.mChi_flow_nominal,
+    dp_nominal=0.1*nom.dp_nominal)
+    "Pressure drop of the chiller branch in plant 2"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={-130,-110})));
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final nom=nom,
@@ -62,6 +86,14 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-90})));
+  Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
+      redeclare final package Medium = Medium,
+      final nom=nom)
+                   "Ideal reversable connection on supply side"
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add add2
+    "Add the setpoints of the chiller and the tank together"
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
@@ -243,37 +275,6 @@ partial model PartialDualSource
     "Flow rate setpoint for the chiller in the storage plant"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
-  Movers.FlowControlled_m_flow pumChi2(
-    redeclare final package Medium = Medium,
-    per(pressure(dp=chi2PreDro.dp_nominal*{1.14,1,0.42}, V_flow=nom.mChi_flow_nominal
-            /1000*{0,1,2})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final m_flow_nominal=nom.mChi_flow_nominal,
-    allowFlowReversal=true,
-    addPowerToMedium=false,
-    m_flow_start=0,
-    T_start=nom.T_CHWR_nominal) "Primary CHW pump for plant 2"
-                                                              annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-130,-70})));
-  FixedResistances.PressureDrop chi2PreDro(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.mChi_flow_nominal,
-    dp_nominal=0.1*nom.dp_nominal)
-    "Pressure drop of the chiller branch in plant 2"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-130,-110})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Add the setpoints of the chiller and the tank together"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  IdealReversibleConnection                               ideRevConSup(
-      redeclare final package Medium = Medium, final nom=nom)
-                   "Ideal reversable connection on supply side"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 equation
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-119,170},{-104,170}},
