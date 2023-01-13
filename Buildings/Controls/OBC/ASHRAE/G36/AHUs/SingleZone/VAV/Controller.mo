@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
+﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
@@ -6,8 +6,7 @@ block Controller
     "Energy standard, ASHRAE 90.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.
-      FixedDryBulb
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
@@ -15,8 +14,11 @@ block Controller
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
+  parameter Boolean have_frePro=true
+    "True: enable freeze protection";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-    "Type of freeze stat";
+    "Type of freeze stat"
+    annotation (Dialog(enable=have_frePro));
 
   parameter Boolean have_winSen=false
     "Check if the zone has window status sensor";
@@ -337,31 +339,35 @@ block Controller
   // ----------- parameters for freeze protection -----------
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation (Dialog(tab="Freeze protection"));
+    annotation (Dialog(tab="Freeze protection", enable=have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController freHeaCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
     annotation (Dialog(tab="Freeze protection", group="Heating coil control",
-                       enable=have_hotWatCoi));
+                       enable=have_hotWatCoi and have_frePro));
   parameter Real kFreHea=1 "Gain of coil controller"
     annotation (Dialog(tab="Freeze protection", group="Heating coil control",
-                       enable=have_hotWatCoi));
+                       enable=have_hotWatCoi and have_frePro));
   parameter Real TiFreHea(unit="s")=0.5
     "Time constant of integrator block"
     annotation (Dialog(tab="Freeze protection", group="Heating coil control",
-      enable=have_hotWatCoi and (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                                 or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=have_hotWatCoi and have_frePro and
+            (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+             or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFreHea(unit="s")=0.1
     "Time constant of derivative block"
     annotation (Dialog(tab="Freeze protection", group="Heating coil control",
-      enable=have_hotWatCoi and (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                                 or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=have_hotWatCoi and have_frePro and
+             (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+              or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFreHea=1
     "Upper limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control", enable=have_hotWatCoi));
+    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+                       enable=have_hotWatCoi and have_frePro));
   parameter Real yMinFreHea=0
     "Lower limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control", enable=have_hotWatCoi));
+    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+                       enable=have_hotWatCoi and have_frePro));
 
   // ----------- parameters for building pressure control -----------
   parameter Real relDam_min(unit="1")=0.1
@@ -641,6 +647,7 @@ block Controller
     annotation (Placement(transformation(extent={{260,250},{300,290}}),
         iconTransformation(extent={{200,170},{240,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
+ if have_frePro
     "Commanded on to energize chilled water pump"
     annotation (Placement(transformation(extent={{260,160},{300,200}}),
         iconTransformation(extent={{200,130},{240,170}})));
@@ -710,7 +717,7 @@ block Controller
     if have_hotWatCoi "Heating coil valve commanded position"
     annotation (Placement(transformation(extent={{260,-200},{300,-160}}),
         iconTransformation(extent={{200,-160},{240,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_frePro
     "Alarm level"
     annotation (Placement(transformation(extent={{260,-230},{300,-190}}),
         iconTransformation(extent={{200,-190},{240,-150}})));
@@ -1162,7 +1169,8 @@ equation
           {12,-207},{58,-207}}, color={0,0,127}));
   connect(relFanCon.yDam, yRelDam) annotation (Line(points={{82,-207},{122,-207},
           {122,-270},{280,-270}}, color={0,0,127}));
-annotation (defaultComponentName="conVAV",
+    annotation (Dialog(enable=have_frePro),
+            defaultComponentName="conVAV",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-400},{200,400}}),
         graphics={
                   Rectangle(
@@ -1357,7 +1365,6 @@ annotation (defaultComponentName="conVAV",
           textString="cooSetAdj"),
         Text(
           visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC,
-
           extent={{-198,-158},{-146,-178}},
           textColor={255,0,255},
           fillColor={0,0,0},

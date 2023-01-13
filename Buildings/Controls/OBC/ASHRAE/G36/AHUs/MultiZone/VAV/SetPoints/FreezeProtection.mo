@@ -4,13 +4,13 @@ block FreezeProtection
 
   parameter Boolean have_frePro=true
     "True: enable freeze protection";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Type of building pressure control system"
     annotation (Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Design of minimum outdoor air and economizer function"
     annotation (Dialog(enable=have_frePro));
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
     annotation (Dialog(enable=have_frePro));
   parameter Boolean have_hotWatCoi=true
