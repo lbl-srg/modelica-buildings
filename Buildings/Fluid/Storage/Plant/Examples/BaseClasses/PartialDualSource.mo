@@ -391,26 +391,26 @@ equation
         Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-[fixme: update documentation.]
-This is a district system model with two CHW plants and three users
-with the following architecture:
-</p>
-<p align=\"center\">
-<img alt=\"DualSource\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/DualSource.png\"/>
+This is the base model for the example models.
+The modelled system is described in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.UsersGuide\">
+Buildings.Fluid.Storage.Plant.UsersGuide</a>.
 </p>
 <p>
-The first CHW source is a simplified CHW plant with only a chiller and
-a single supply pump.
-This supply pump is controlled to ensure that all users have enough pressure head.
+This base model provides common components and connections.
+Two elements are left to be specified in the extended models:
 </p>
-<p>
-The second CHW source has a chiller and a stratified CHW tank. Its piping is
-arranged in a way that allows the tank to be charged remotely by the other source.
-The secondary pump is controlled to maintain the flow rate setpoint of the tank.
-This plant is disconnected when the largest position of user control valves
-less than 5% open and connected back when this value is higher than 10%.
-</p>
+<ul>
+<li>
+The return side of plant 2 is not connected to the district network.
+It can take a direct or reversible connection in the extended models.
+</li>
+<li>
+The pressurisation point (pressure boundary) is not specified.
+The extended models can specify pressurisation point(s) at either or both
+of the two plants.
+</li>
+</ul>
 <p>
 The source blocks give the system the following operation schedule during
 simulation:
