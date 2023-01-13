@@ -32,7 +32,7 @@ of the tank.
 </ul>
 <p align=\"center\">
 <img alt=\"DualSource\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/DualSource.png\"/>
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/DualSource.png\"/>
 </p>
 </html>"));
 end UsersGuide;
