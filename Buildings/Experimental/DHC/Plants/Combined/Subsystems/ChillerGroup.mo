@@ -150,9 +150,8 @@ model ChillerGroup
     final allowFlowReversal1=allowFlowReversal1,
     final allowFlowReversal2=allowFlowReversal2,
     final energyDynamics=energyDynamics,
-    final show_T=show_T)
-    "Chiller"
-    annotation (Placement(transformation(extent={{-2,-10},{18,10}})));
+    final show_T=show_T) "Chiller"
+    annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulConInl(
     redeclare final package Medium = Medium1,
     final allowFlowReversal=allowFlowReversal1,
@@ -183,6 +182,8 @@ model ChillerGroup
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   BaseClasses.MultipleValves valEva(
     redeclare final package Medium = Medium2,
+    redeclare Buildings.Fluid.Actuators.Valves.TwoWayLinear val,
+    linearized=true,
     final nUni=nUni,
     final mUni_flow_nominal=mChiWatUni_flow_nominal,
     final dpFixed_nominal=dpEva_nominal + dpBalEva_nominal,
@@ -193,10 +194,13 @@ model ChillerGroup
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,
-    final show_T=show_T) "Chiller evaporator isolation valves"
+    final show_T=show_T)
+    "Chiller evaporator isolation valves"
     annotation (Placement(transformation(extent={{-70,-50},{-90,-70}})));
   BaseClasses.MultipleValves valCon(
     redeclare final package Medium = Medium1,
+    redeclare Buildings.Fluid.Actuators.Valves.TwoWayLinear val,
+    linearized=true,
     final nUni=nUni,
     final mUni_flow_nominal=mConWatUni_flow_nominal,
     final dpFixed_nominal=dpCon_nominal + dpBalCon_nominal,
@@ -207,18 +211,37 @@ model ChillerGroup
     final riseTime=riseTime,
     final init=init,
     final y_start=y_start,
-    final show_T=show_T) "Chiller condenser isolation valves"
+    final show_T=show_T)
+    "Chiller condenser isolation valves"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{70,30},{90,10}})));
+  Fluid.Sensors.TemperatureTwoPort TConLvg(
+    redeclare final package Medium = Medium1,
+    final m_flow_nominal=mConWatUni_flow_nominal,
+    final allowFlowReversal=allowFlowReversal1)
+    "Chiller condenser leaving temperature" annotation (Placement(
+        transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={20,30})));
+  Fluid.Sensors.TemperatureTwoPort TEvaLvg(
+    redeclare final package Medium = Medium2,
+    final m_flow_nominal=mChiWatUni_flow_nominal,
+    final allowFlowReversal=allowFlowReversal2)
+    "Chiller evaporator leaving temperature" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,-30})));
 equation
-  connect(mulEvaInl.port_b, chi.port_a2)
-    annotation (Line(points={{30,-60},{26,-60},{26,-6},{18,-6}},
+  connect(mulEvaInl.port_b,chi. port_a2)
+    annotation (Line(points={{30,-60},{20,-60},{20,-6},{16,-6}},
     color={0,127,255}));
-  connect(TSet, chi.TSet) annotation (Line(points={{-120,-90},{-20,-90},{-20,-3},
-          {-4,-3}},  color={0,0,127}));
+  connect(TSet,chi. TSet) annotation (Line(points={{-120,-90},{-10,-90},{-10,-3},
+          {-6,-3}},  color={0,0,127}));
   connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{52,66},{54,66},
-          {54,40},{-54,40},{-54,66},{-52,66}}, color={0,0,127}));
+          {54,80},{-54,80},{-54,66},{-52,66}}, color={0,0,127}));
   connect(mulEvaOut.uInv, mulEvaInl.u) annotation (Line(points={{-52,-54},{-54,-54},
           {-54,-80},{56,-80},{56,-54},{52,-54}}, color={0,0,127}));
   connect(port_a1, mulConInl.port_a)
@@ -229,12 +252,9 @@ equation
     annotation (Line(points={{-100,-60},{-90,-60}}, color={0,127,255}));
   connect(mulEvaOut.port_b, valEva.port_a)
     annotation (Line(points={{-50,-60},{-70,-60}}, color={0,127,255}));
-  connect(mulEvaOut.port_a, chi.port_b2)
-    annotation (Line(points={{-30,-60},{-20,-60},{-20,-6},{-2,-6}},
-                                                   color={0,127,255}));
   connect(y1, com.y1) annotation (Line(points={{-120,120},{-82,120}},
                      color={255,0,255}));
-  connect(chi.P, mulP.u1) annotation (Line(points={{19,9},{24,9},{24,14},{68,14}},
+  connect(chi.P, mulP.u1) annotation (Line(points={{17,9},{60,9},{60,14},{68,14}},
                  color={0,0,127}));
   connect(com.nUniOn, mulP.u2) annotation (Line(points={{-58,120},{60,120},{60,26},
           {68,26}},         color={0,0,127}));
@@ -243,22 +263,28 @@ equation
   connect(yValEva, valEva.y) annotation (Line(points={{-60,-180},{-60,-140},{-64,
           -140},{-64,-66},{-68,-66}}, color={0,0,127}));
 
-  connect(mulConInl.port_b, chi.port_a1) annotation (Line(points={{-30,60},{-20,
-          60},{-20,6},{-2,6}},  color={0,127,255}));
-  connect(chi.port_b1, mulConOut.port_a) annotation (Line(points={{18,6},{26,6},
-          {26,60},{30,60}}, color={0,127,255}));
+  connect(mulConInl.port_b,chi. port_a1) annotation (Line(points={{-30,60},{-20,
+          60},{-20,6},{-4,6}},  color={0,127,255}));
   connect(mulP.y, P)
     annotation (Line(points={{92,20},{120,20}}, color={0,0,127}));
   connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-58,114},{20,114},
           {20,66},{28,66}},      color={0,0,127}));
   connect(mulConInl.uInv, mulEvaOut.u) annotation (Line(points={{-28,66},{-24,
           66},{-24,-54},{-28,-54}}, color={0,0,127}));
-  connect(com.y1One, chi.on) annotation (Line(points={{-58,126},{-16,126},{-16,3},
-          {-4,3}},                  color={255,0,255}));
+  connect(com.y1One,chi. on) annotation (Line(points={{-58,126},{-10,126},{-10,3},
+          {-6,3}},                  color={255,0,255}));
   connect(valCon.port_b, port_b1)
     annotation (Line(points={{90,60},{100,60}}, color={0,127,255}));
   connect(mulConOut.port_b, valCon.port_a)
     annotation (Line(points={{50,60},{70,60}}, color={0,127,255}));
+  connect(mulEvaOut.port_a, TEvaLvg.port_b) annotation (Line(points={{-30,-60},{
+          -20,-60},{-20,-40}}, color={0,127,255}));
+  connect(TEvaLvg.port_a,chi. port_b2)
+    annotation (Line(points={{-20,-20},{-20,-6},{-4,-6}}, color={0,127,255}));
+  connect(chi.port_b1, TConLvg.port_a)
+    annotation (Line(points={{16,6},{20,6},{20,20}}, color={0,127,255}));
+  connect(TConLvg.port_b, mulConOut.port_a)
+    annotation (Line(points={{20,40},{20,60},{30,60}}, color={0,127,255}));
   annotation (
     defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -276,68 +302,25 @@ equation
     Documentation(info="<html>
 <p>
 This model represents a set of identical chillers in parallel.
-If the parameter <code>have_switchover</code> is <code>true</code>
-then an additional operating mode signal <code>y1Coo</code> is used
-to switch <i>On/Off</i> the chillers and actuate the chiller isolation
-valves based on the following logic.
-</p>
-<ul>
-<li>
-If the parameter <code>is_cooling</code> is <code>true</code>
-(resp. <code>false</code>)
-then the chiller <code>#i</code> is commanded <i>On</i> if
-<code>y1[i]</code> is <code>true</code> and <code>y1Coo[i]</code>
-is <code>true</code> (resp. <code>false</code>).
-</li>
-<li>
-When the chiller <code>#i</code> is commanded <i>On</i>
-the isolation valve input signal <code>y*Val*[i]</code> is used to
-control the valve opening.
-Otherwise the valve is closed whatever the value of
-<code>y*Val*[i]</code>.
-</li>
-<li>
-Configured this way, the model represents the set of heat
-recovery chillers operating in cooling mode
-(resp. heating mode), i.e., tracking the CHW (resp. HW) supply
-temperature setpoint.
-</li>
-</ul>
-<p>
-Note that the input signal <code>y1Coo</code> is different
-from the input signal <code>coo</code> that is used in the model
-<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
-Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
-where it allows switching the chiller operating mode from cooling
-to heating.
-The current chiller group model rather represents a set of chillers
-that are <i>all</i> operating in the same mode, either cooling or heating.
-The mode is fixed as specified by the parameter <code>is_cooling</code>
-and each chiller which is commanded to operate in a different mode
-is considered <i>Off</i>.
 </p>
 <h4>
-Chiller performance data
+Details
 </h4>
+<h5>
+Actuators
+</h5>
 <p>
-When modeling heat recovery chillers (by setting the parameter
-<code>have_switchover</code> to <code>true</code>) the chiller performance
-data should cover the chiller lift envelope.
-That is when the chiller is operating in \"direct\" heat recovery mode,
-i.e., producing CHW and HW at their setpoint value at full load.
-In this case, and to allow for \"cascading\" heat recovery where
-a third fluid circuit is used to generate a cascade of thermodynamic cycles,
-an additional parameter <code>TCasEnt_nominal</code>
-is exposed to specify the chiller <i>entering</i> temperature of the third fluid
-circuit.
-This fluid circuit is connected either to the chiller evaporator barrel
-when the chiller is operating in heating mode, or to the chiller condenser
-barrel when the chiller is operating in cooling mode.
-The parameter <code>TCasEnt_nominal</code> is then used to assess the
-design chiller capacity in heating and cooling mode, respectively.
-The value of that parameter should typically differ when configuring
-this model for heating (<code>is_cooling=false</code>) or
-cooling (<code>is_cooling=true</code>).
+By default linear valve models are used. Those are configured with 
+a pressure drop varying linearily with the flow rate, as opposed
+to the quadratic dependency usually considered for a turbulent flow
+regime.
+This is because the whole plant model contains large nonlinear systems 
+of equations, and this configuration limits the risk of solver failure 
+while reducing the time to solution.
+This yields an overestimation of the pump power at variable flow which
+is considered as acceptable as it mainly affects the CW 
+pumps, which have a much lower head than the CHW and HW distribution 
+pumps.
 </p>
 </html>"));
 end ChillerGroup;

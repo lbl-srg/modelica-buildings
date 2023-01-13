@@ -8,7 +8,7 @@ simulateModel("Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectric
 createPlot(
     id=1,
     position={14, 12, 442, 465},
-    y={"pla.chi.y1[1]", "pla.chi.y1[2]", "pla.chiCoo.y1[1]", "pla.chiCoo.y1[2]", "pla.chiCoo.y1Coo[1]", "pla.chiCoo.y1Coo[2]", "pla.chiHeaCoo.y1[1]", "pla.chiHeaCoo.y1[2]"},
+    y={"pla.chi.y1[1]", "pla.chi.y1[2]", "pla.chiHea.y1[1]", "pla.chiHea.y1[2]", "pla.chiHea.y1Coo[1]", "pla.chiHea.y1Coo[2]", "pla.chiHea.y1HeaCoo[1]", "pla.chiHea.y1HeaCoo[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -17,7 +17,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"pla.TChiWatSupSet", "pla.TChiWatSup.T", "pla.TChiWatPriRet.T"},
+    y={"pla.chi.m1_flow", "pla.chi.m2_flow", "pla.chiHea.m1_flow", "pla.chiHea.m2_flow", "pla.chiHea.m3_flow", "pla.chiHea.m4_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -26,7 +26,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"pla.chi.sta_a1.T", "pla.chi.sta_b1.T", "pla.chiCoo.sta_a1.T", "pla.chiCoo.sta_b1.T", "pla.chiHeaCoo.sta_a1.T", "pla.chiHeaCoo.sta_b1.T"},
+    y={"pla.chi.chi.m1_flow", "pla.chiHea.chi[1].m1_flow", "pla.chiHea.chi[2].m1_flow", "pla.chi.mChiWatUni_flow_nominal", "pla.chiHea.mChiWatUni_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -35,7 +35,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=4,
-    y={"pla.chi.sta_a2.T", "pla.chi.sta_b2.T", "pla.chiCoo.sta_a2.T", "pla.chiCoo.sta_b2.T", "pla.chiHeaCoo.sta_a2.T", "pla.chiHeaCoo.sta_b2.T"},
+    y={"pla.TChiWatSupSet", "pla.TChiWatPriRet.T", "pla.TChiWatSup.T", "pla.chi.TEvaLvg.T", "pla.chiHea.TEvaLvg[1].T", "pla.chiHea.TEvaLvg[2].T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -63,7 +63,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"pla.mChiWatPri_flow.m_flow", "pla.mChiWat_flow_nominal", "pla.chi.m2_flow", "pla.chiCoo.m2_flow", "pla.chiHeaCoo.m2_flow"},
+    y={"pla.mChiWatPri_flow.m_flow", "pla.mChiWat_flow_nominal", "pla.chi.m2_flow", "pla.chiHea.m4_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -73,7 +73,7 @@ createPlot(
 createPlot(
     id=3,
     position={463, 12, 443, 466},
-    y={"pla.chiHea.y1[1]", "pla.chiHea.y1[2]", "pla.chiHea.y1Coo[1]", "pla.chiHea.y1Coo[2]", "pla.chiHeaCoo.y1[1]", "pla.chiHeaCoo.y1[2]"},
+    y={"pla.chiHea.y1[1]", "pla.chiHea.y1[2]", "pla.chiHea.y1Coo[1]", "pla.chiHea.y1Coo[2]", "pla.chiHea.y1HeaCoo[1]", "pla.chiHea.y1HeaCoo[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -82,7 +82,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=2,
-    y={"pla.THeaWatSupSet", "pla.THeaWatSup.T", "pla.THeaWatPriRet.T"},
+    y={"pla.chiHea.m1_flow", "pla.chiHea.m2_flow", "pla.chiHea.m3_flow", "pla.chiHea.m4_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -91,7 +91,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=3,
-    y={"pla.chiHea.sta_a1.T", "pla.chiHea.sta_b1.T", "pla.chiHeaCoo.sta_a1.T", "pla.chiHeaCoo.sta_b1.T"},
+    y={"pla.chiHea.chi[1].m1_flow", "pla.chiHea.chi[2].m1_flow", "pla.chiHea.mConWatUni_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -100,7 +100,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=4,
-    y={"pla.chiHea.sta_a2.T", "pla.chiHea.sta_b2.T", "pla.chiHeaCoo.sta_a2.T", "pla.chiHeaCoo.sta_b2.T"},
+    y={"pla.THeaWatSupSet", "pla.THeaWatPriRet.T", "pla.THeaWatSup.T", "pla.chiHea.TConLvg[1].T", "pla.chiHea.TConLvg[2].T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -128,7 +128,7 @@ createPlot(
 createPlot(
     id=4,
     subPlot=3,
-    y={"pla.mHeaWatPri_flow.m_flow", "pla.mHeaWat_flow_nominal", "pla.chiHea.m1_flow", "pla.chiHeaCoo.m1_flow"},
+    y={"pla.mHeaWatPri_flow.m_flow", "pla.mHeaWat_flow_nominal", "pla.chiHea.m1_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -138,7 +138,7 @@ createPlot(
 createPlot(
     id=5,
     position={915, 12, 407, 496},
-    y={"pla.pumConWatCon.y1[1]", "pla.pumConWatCon.y1[2]", "pla.pumConWatCon.y"},
+    y={"pla.pumConWatCon.y1[1]", "pla.pumConWatCon.y1[2]", "pla.pumConWatCon.y", "pla.chi.valCon.y_actual", "pla.chiHea.valConSwi[1].y_actual", "pla.chiHea.valConSwi[2].y_actual"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -147,7 +147,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=2,
-    y={"pla.chi.chi.m1_flow", "pla.chiCoo.chi.m1_flow", "pla.chi.chi.m1_flow_nominal", "pla.chiCoo.chi.m1_flow_nominal"},
+    y={"pla.chi.m1_flow", "pla.chiHea.m3_flow", "pla.chiHea.m3_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -156,7 +156,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=3,
-    y={"pla.pumConWatEva.y1[1]", "pla.pumConWatEva.y1[2]", "pla.pumConWatEva.y"},
+    y={"pla.pumConWatEva.y1[1]", "pla.pumConWatEva.y1[2]", "pla.pumConWatEva.y", "pla.chiHea.valEvaSwi[1].y_actual", "pla.chiHea.valEvaSwi[2].y_actual"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -165,7 +165,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=4,
-    y={"pla.chiHea.chi.m2_flow", "pla.chiHea.chi.m2_flow_nominal"},
+    y={"pla.chiHea.m2_flow", "pla.chiHea.m2_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

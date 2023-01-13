@@ -97,14 +97,16 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     height=+3,
     duration=100,
     offset=pla.TChiWatSup_nominal,
-    startTime=600) "Source signal for setpoint"
+    startTime=2000)
+                   "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatSupSet(
     y(final unit="K", displayUnit="degC"),
     height=-5,
     duration=100,
     offset=pla.THeaWatSup_nominal,
-    startTime=600) "Source signal for setpoint"
+    startTime=1000)
+                   "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
@@ -134,7 +136,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatSup_nominal
-         - 5, y(final unit="K", displayUnit="degC"))
+         - 10,y(final unit="K", displayUnit="degC"))
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatSup_nominal
@@ -144,23 +146,26 @@ model AllElectricCWStorage "Validation of all-electric plant model"
 equation
   connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-138,60},
           {-80,60},{-80,28},{-34,28}}, color={0,0,127}));
-  connect(THeaWatSupSet.y, pla.THeaWatSupSet) annotation (Line(points={{-138,-20},
-          {-76,-20},{-76,20},{-34,20}}, color={0,0,127}));
+  connect(THeaWatSupSet.y, pla.THeaWatSupSet) annotation (Line(points={{-138,
+          -20},{-76,-20},{-76,20},{-34,20}},
+                                        color={0,0,127}));
   connect(dpChiWatSet_max.y, pla.dpChiWatSet) annotation (Line(points={{-138,20},
           {-80,20},{-80,24},{-34,24}}, color={0,0,127}));
-  connect(dpHeaWatSet_max.y, pla.dpHeaWatSet) annotation (Line(points={{-138,-60},
-          {-72,-60},{-72,16},{-34,16}}, color={0,0,127}));
+  connect(dpHeaWatSet_max.y, pla.dpHeaWatSet) annotation (Line(points={{-138,
+          -60},{-72,-60},{-72,16},{-34,16}},
+                                        color={0,0,127}));
 
   connect(weaDat.weaBus, pla.weaBus) annotation (Line(
       points={{-140,100},{0.1,100},{0.1,26.6}},
       color={255,204,51},
       thickness=0.5));
-  connect(pla.port_bSerHea, disHeaWat.port_a) annotation (Line(points={{30,0},{60,
-          0},{60,140},{12,140}},    color={0,127,255}));
-  connect(pla.port_bSerCoo, disChiWat.port_a) annotation (Line(points={{30,-4},{
-          60,-4},{60,-140},{10,-140}}, color={0,127,255}));
-  connect(disChiWat.port_b, pla.port_aSerCoo) annotation (Line(points={{-10,-140},
-          {-60,-140},{-60,-4},{-30,-4}}, color={0,127,255}));
+  connect(pla.port_bSerHea, disHeaWat.port_a) annotation (Line(points={{30,0},{
+          60,0},{60,140},{12,140}}, color={0,127,255}));
+  connect(pla.port_bSerCoo, disChiWat.port_a) annotation (Line(points={{30,-4},
+          {60,-4},{60,-140},{10,-140}},color={0,127,255}));
+  connect(disChiWat.port_b, pla.port_aSerCoo) annotation (Line(points={{-10,
+          -140},{-60,-140},{-60,-4},{-30,-4}},
+                                         color={0,127,255}));
   connect(disHeaWat.port_b, pla.port_aSerHea) annotation (Line(points={{-8,140},
           {-60,140},{-60,0},{-30,0}}, color={0,127,255}));
   connect(THeaWatRet.y, disHeaWat.TSet) annotation (Line(points={{-138,160},{20,

@@ -38,7 +38,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     "CW supply temperature (tower leaving)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Power PFanUni_nominal(
-    each final min=0,
+    final min=0,
     start=340 * mConWatUni_flow_nominal)
     "Fan power (each unit)"
     annotation (Dialog(group="Nominal condition"));

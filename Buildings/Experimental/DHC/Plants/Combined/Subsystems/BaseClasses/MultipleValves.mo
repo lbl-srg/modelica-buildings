@@ -49,6 +49,13 @@ model MultipleValves
   parameter Real y_start=1 "Initial position of actuator"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=use_inputFilter));
 
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y[nUni]
     "Valve commanded position"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
@@ -94,9 +101,11 @@ model MultipleValves
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={60,0})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage val[nUni](
+  replaceable Fluid.Actuators.Valves.TwoWayEqualPercentage val[nUni]
+    constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValveKv(
     redeclare each final package Medium = Medium,
-    each from_dp=true,
+    each final from_dp=from_dp,
+    each final linearized=linearized,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mUni_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
@@ -105,7 +114,8 @@ model MultipleValves
     each final use_inputFilter=use_inputFilter,
     each final riseTime=riseTime,
     each final init=init,
-    each final y_start=y_start) "Modulating valve"
+    each final y_start=y_start)
+    "Modulating valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 protected
   final parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(

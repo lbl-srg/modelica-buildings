@@ -237,25 +237,25 @@ block PartialController "Interface class for plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValBypTan(
     final unit="1") "TES tank bypass valve commanded position"
     annotation (Placement(
-        transformation(extent={{260,-260},{300,-220}}, rotation=0),
+        transformation(extent={{260,-280},{300,-240}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,-198})));
+        origin={240,-290})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo[nCoo]
     "Cooling tower Start command"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-280}), iconTransformation(
+        origin={280,-300}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-228})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final unit="1")
     "Cooling tower fan speed command" annotation (Placement(transformation(
-          extent={{260,-320},{300,-280}}, rotation=0), iconTransformation(
+          extent={{260,-340},{300,-300}}, rotation=0), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-248})));
@@ -265,7 +265,7 @@ block PartialController "Interface class for plant controller"
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={280,-320}), iconTransformation(
+        origin={280,-340}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-268})));
@@ -286,6 +286,33 @@ block PartialController "Interface class for plant controller"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,120})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
+      displayUnit="degC")
+    "CHW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-300,40},{-260,80}}),
+        iconTransformation(extent={{-260,270},{-220,310}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa",
+      final min=0)
+    "CHW differential pressure setpoint (for local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,0},{-260,40}}),
+        iconTransformation(extent={{-260,240},{-220,280}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
+      displayUnit="degC")
+    "HW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-300,-40},{-260,0}}),
+        iconTransformation(extent={{-260,200},{-220,240}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa",
+      final min=0)
+    "HW differential pressure setpoint (for local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
+        iconTransformation(extent={{-260,170},{-220,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatChiByp(final unit=
+        "1") "CW chiller bypass valve commanded position" annotation (Placement(
+        transformation(extent={{260,-240},{300,-200}}, rotation=0),
+        iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={240,-200})));
   annotation (Diagram(coordinateSystem(extent={{-260,-360},{260,360}})), Icon(
         coordinateSystem(extent={{-220,-300},{220,300}}),
         graphics={                      Text(

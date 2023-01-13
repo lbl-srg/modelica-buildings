@@ -136,12 +136,12 @@ model ChillerHeatRecoveryGroup
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpValveEva_nominal(
     final min=0,
-    displayUnit="Pa") = max(valEva.dpValve_nominal) + max(valCoo.dpValve_nominal)
+    displayUnit="Pa") = max(valEva.dpValve_nominal) + max(valEvaSwi.dpValve_nominal)
     "Total valve pressure drop on chiller evaporator circuit (each unit)"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpValveCon_nominal(
     final min=0,
-    displayUnit="Pa") = max(valCon.dpValve_nominal) + max(valHea.dpValve_nominal)
+    displayUnit="Pa") = max(valCon.dpValve_nominal) + max(valConSwi.dpValve_nominal)
     "Total valve pressure drop on chiller condenser circuit (each unit)"
     annotation (Dialog(group="Nominal condition"));
 
@@ -337,7 +337,7 @@ model ChillerHeatRecoveryGroup
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-30})));
-  Fluid.Actuators.Valves.ThreeWayLinear valHea[nUni](
+  Fluid.Actuators.Valves.ThreeWayLinear valConSwi[nUni](
     redeclare each final package Medium = Medium,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mConWatUni_flow_nominal,
@@ -355,7 +355,7 @@ model ChillerHeatRecoveryGroup
     each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     each linearized={true,true})
-    "Heating switchover valve: direct connected to HW, bypass connected to CW condenser circuit"
+    "Condenser switchover valve: direct connected to HW, bypass connected to CW condenser circuit"
     annotation (Placement(transformation(extent={{-50,70},{-30,90}})));
   Fluid.FixedResistances.Junction junHeaWatConInl[nUni](
     redeclare each final package Medium = Medium,
@@ -392,7 +392,7 @@ model ChillerHeatRecoveryGroup
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,120})));
-  Fluid.Actuators.Valves.ThreeWayLinear valCoo[nUni](
+  Fluid.Actuators.Valves.ThreeWayLinear valEvaSwi[nUni](
     redeclare each final package Medium = Medium,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     each final m_flow_nominal=mChiWatUni_flow_nominal,
@@ -410,7 +410,7 @@ model ChillerHeatRecoveryGroup
     each final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     each linearized={true,true})
-    "Cooling switchover valve: bypass connected to CHW, direct connected to CW evaporator circuit"
+    "Evaporator switchover valve: bypass connected to CHW, direct connected to CW evaporator circuit"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=-90,
@@ -445,15 +445,6 @@ model ChillerHeatRecoveryGroup
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={80,-20})));
-  Fluid.Sensors.TemperatureTwoPort TEvaEnt[nUni](
-    redeclare each final package Medium = Medium,
-    each final m_flow_nominal=mChiWatUni_flow_nominal,
-    each final allowFlowReversal=allowFlowReversal)
-    "Chiller evaporator entering temperature" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={20,-30})));
   Buildings.Controls.OBC.CDL.Logical.Not hea[nUni] "Return true if heating"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -568,9 +559,9 @@ equation
   connect(port_a4, junChiWatEvaInl[1].port_1)
     annotation (Line(points={{100,-80},{90,-80},{90,-100},{80,-100}},
                                                   color={0,127,255}));
-  connect(junChiWatEvaInl.port_3, valCoo.port_3)
+  connect(junChiWatEvaInl.port_3, valEvaSwi.port_3)
     annotation (Line(points={{70,-90},{50,-90}}, color={0,127,255}));
-  connect(junHeaWatConInl.port_3, valHea.port_1)
+  connect(junHeaWatConInl.port_3, valConSwi.port_1)
     annotation (Line(points={{-70,80},{-50,80}}, color={0,127,255}));
   connect(port_a1, junHeaWatConInl[1].port_1)
     annotation (Line(points={{-100,80},{-90,80},{-90,90},{-80,90}},
@@ -584,18 +575,14 @@ equation
     annotation (Line(points={{80,-30},{100,-30}}, color={0,127,255}));
   connect(port_a3, junConWatConInl[1].port_1) annotation (Line(points={{-100,-32},
           {-80,-32},{-80,-30}}, color={0,127,255}));
-  connect(junConWatConInl.port_3, valHea.port_3) annotation (Line(points={{-70,
+  connect(junConWatConInl.port_3, valConSwi.port_3) annotation (Line(points={{-70,
           -20},{-40,-20},{-40,70}}, color={0,127,255}));
   connect(chi.port_b2, TEvaLvg.port_a)
     annotation (Line(points={{-10,-6},{-20,-6},{-20,-20}}, color={0,127,255}));
   connect(TEvaLvg.port_b, valEva.port_a) annotation (Line(points={{-20,-40},{-20,
           -50}},           color={0,127,255}));
-  connect(junConWatEvaInl.port_3, valCoo.port_1)
+  connect(junConWatEvaInl.port_3, valEvaSwi.port_1)
     annotation (Line(points={{70,20},{40,20},{40,-80}}, color={0,127,255}));
-  connect(valCoo.port_2, TEvaEnt.port_a) annotation (Line(points={{40,-100},{40,
-          -120},{20,-120},{20,-40}}, color={0,127,255}));
-  connect(TEvaEnt.port_b, chi.port_a2)
-    annotation (Line(points={{20,-20},{20,-6},{10,-6}}, color={0,127,255}));
   connect(y1Coo, hea.u) annotation (Line(points={{-120,160},{-80,160},{-80,120},
           {-72,120}}, color={255,0,255}));
   connect(hea.y, heaOrDir.u1)
@@ -608,15 +595,15 @@ equation
           -80,180},{-42,180}}, color={255,0,255}));
   connect(y1HeaCoo, cooOrDir.u2) annotation (Line(points={{-120,140},{-46,140},
           {-46,172},{-42,172}}, color={255,0,255}));
-  connect(yHeaAndCas.y, valCoo.y) annotation (Line(points={{42,180},{48,180},{
-          48,-74},{24,-74},{24,-90},{28,-90}}, color={0,0,127}));
+  connect(yHeaAndCas.y, valEvaSwi.y) annotation (Line(points={{42,180},{48,180},
+          {48,-74},{24,-74},{24,-90},{28,-90}}, color={0,0,127}));
   connect(sumP.y, P) annotation (Line(points={{91,180},{120,180}},
         color={0,0,127}));
   connect(junConWatEvaOut[1].port_2, port_b2)
     annotation (Line(points={{-80,30},{-100,30}}, color={0,127,255}));
   connect(yValEva, valEva.y) annotation (Line(points={{-60,-240},{-60,-140},{0,-140},
           {0,-60},{-8,-60}}, color={0,0,127}));
-  connect(valHea.port_2, TConEnt.port_a)
+  connect(valConSwi.port_2, TConEnt.port_a)
     annotation (Line(points={{-30,80},{-20,80},{-20,40}}, color={0,127,255}));
   connect(TConEnt.port_b, chi.port_a1)
     annotation (Line(points={{-20,20},{-20,6},{-10,6}}, color={0,127,255}));
@@ -636,8 +623,10 @@ equation
     annotation (Line(points={{-18,120},{-2,120}}, color={255,0,255}));
   connect(heaAndCas.y, yHeaAndCas.u)
     annotation (Line(points={{12,180},{18,180}}, color={255,0,255}));
-  connect(yHeaOrDir.y, valHea.y) annotation (Line(points={{22,120},{30,120},{30,
-          100},{-40,100},{-40,92}}, color={0,0,127}));
+  connect(yHeaOrDir.y, valConSwi.y) annotation (Line(points={{22,120},{30,120},
+          {30,100},{-40,100},{-40,92}}, color={0,0,127}));
+  connect(valEvaSwi.port_2, chi.port_a2) annotation (Line(points={{40,-100},{40,
+          -120},{20,-120},{20,-6},{10,-6}}, color={0,127,255}));
   annotation (
     defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false),
@@ -701,24 +690,44 @@ is considered <i>Off</i>.
 Chiller performance data
 </h4>
 <p>
-When modeling heat recovery chillers (by setting the parameter
-<code>have_switchover</code> to <code>true</code>) the chiller performance
-data should cover the chiller lift envelope.
-That is when the chiller is operating in \"direct\" heat recovery mode,
+The chiller performance data should cover the chiller lift envelope,
+that is when the chiller is operating in \"direct\" heat recovery mode,
 i.e., producing CHW and HW at their setpoint value at full load.
 In this case, and to allow for \"cascading\" heat recovery where
 a third fluid circuit is used to generate a cascade of thermodynamic cycles,
-an additional parameter <code>TCasEnt_nominal</code>
-is exposed to specify the chiller <i>entering</i> temperature of the third fluid
-circuit.
-This fluid circuit is connected either to the chiller evaporator barrel
-when the chiller is operating in heating mode, or to the chiller condenser
-barrel when the chiller is operating in cooling mode.
-The parameter <code>TCasEnt_nominal</code> is then used to assess the
+two additional parameters <code>TCasEntCoo_nominal</code> and
+<code>TCasEntHea_nominal</code> are exposed to specify the chiller 
+<i>entering</i> temperature of the third fluid circuit when
+the chiller is operating in cooling mode and in heating mode,
+respectively.
+In cooling mode the third fluid circuit is connected to the chiller 
+condenser barrel.
+In heating mode, the third fluid circuit is connected to the chiller 
+evaporator barrel.
+The parameters <code>TCasEnt*_nominal</code> are then used to assess the
 design chiller capacity in heating and cooling mode, respectively.
 The value of that parameter should typically differ when configuring
 this model for heating (<code>is_cooling=false</code>) or
 cooling (<code>is_cooling=true</code>).
+</p>
+<h4>
+Details
+</h4>
+<h5>
+Actuators
+</h5>
+<p>
+By default linear valve models are used. Those are configured with 
+a pressure drop varying linearily with the flow rate, as opposed
+to the quadratic dependency usually considered for a turbulent flow
+regime.
+This is because the whole plant model contains large nonlinear systems 
+of equations, and this configuration limits the risk of solver failure 
+while reducing the time to solution.
+This yields an overestimation of the pump power at variable flow which
+is considered as acceptable as it mainly affects the CW 
+pumps, which have a much lower head than the CHW and HW distribution 
+pumps.
 </p>
 </html>"));
 end ChillerHeatRecoveryGroup;
