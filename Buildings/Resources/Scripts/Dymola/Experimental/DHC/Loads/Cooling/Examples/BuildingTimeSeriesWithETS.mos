@@ -1,29 +1,5 @@
-// Simulate
-simulateModel("Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS", tolerance=1e-6, stopTime=31536000, method="Dassl", resultFile="BuildingTimeSeriesWithETS");
-// Plot commands
-removePlots(true);
-createPlot(id=1, 
-  position={11, 19, 713, 564}, 
-  y={"buiWitETS.bui.loa.y[1]", "buiWitETS.ets.Q_flow"}, 
-  range={-30000, 0}, 
-  grid=true, 
-  filename="BuildingTimeSeriesWithETS.mat",
-  colors={{28,108,200}, {238,46,47}},  
-  timeUnit="d", 
-  displayUnits={"W", "W"}); 
-createPlot(id=1, 
-  position={11, 19, 713, 280}, 
-  y={"senMasFlo.m_flow", "buiWitETS.ets.senMasFlo.m_flow"}, 
-  range={0.0,0.5,0.1,0.1}, 
-  grid=true, 
-  subPlot=2, 
-  colors={{28,108,200}, {238,46,47}}, 
-  timeUnit="d");
-createPlot(id=2, 
-  position={734, 19, 720, 561}, 
-  y={"supChiWat.T", "buiWitETS.ets.senTDisSup.T", "buiWitETS.ets.senTDisRet.T"}, 
-  range={6.0, 24.0, -0.2, 1.2}, 
-  grid=true, 
-  colors={{28,108,200}, {0,140,72}, {217,67,180}}, 
-  timeUnit="d",
-  displayUnits={"degC", "degC", "degC"});
+simulateModel("Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS", startTime=2592000, stopTime=3628800, method="Cvode", tolerance=1e-06, resultFile="BuildingTimeSeriesWithETS");
+createPlot(id=1, position={11, 19, 713, 558}, y={"buiWitETS.bui.loa.y[1]", "buiWitETS.ets.Q_flow"}, range={30.0, 42.0, -30.0, 10.0}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"kW", "kW"});
+createPlot(id=1, position={11, 19, 713, 558}, y={"senMasFlo.m_flow", "buiWitETS.ets.senMasFlo.m_flow"}, range={30.0, 42.0, -0.1, 0.4}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="d", displayUnits={"kg/s", "kg/s"});
+createPlot(id=2, position={211, 7, 1250, 715}, y={"supChiWat.T", "buiWitETS.ets.senTDisSup.T", "buiWitETS.ets.senTDisRet.T"}, range={30.0, 42.0, 6.0, 24.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="d", displayUnits={"degC", "degC", "degC"});
+

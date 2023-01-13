@@ -30,7 +30,9 @@ model BuildingTimeSeriesWithETS
   Modelica.Blocks.Sources.Constant TDisRetSet(k=273.15 + 16)
     "Setpoint for district return temperature"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
-  Modelica.Blocks.Sources.Constant TDisSup(k=273.15 + 7)
+  Modelica.Blocks.Sources.Constant TDisSup(k(
+      unit="K",
+      displayUnit="degC") = 280.15)
     "District supply temperature"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
 equation
@@ -54,8 +56,10 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Cooling/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
     experiment(
-      StopTime=31536000,
-      Tolerance=1e-06),
+      StartTime=2592000,
+      StopTime=3628800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>
 This model provides an example for a building with loads provided 
@@ -64,7 +68,10 @@ return chilled water temperature controlled above a minimum threshold.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
+<li>
+March 20, 2022, by Chengnan Shi:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end BuildingTimeSeriesWithETS;
