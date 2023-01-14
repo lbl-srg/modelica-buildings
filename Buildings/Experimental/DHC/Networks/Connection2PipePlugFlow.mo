@@ -1,10 +1,11 @@
 within Buildings.Experimental.DHC.Networks;
 model Connection2PipePlugFlow
-  "Model for connecting an agent to a two-pipe distribution network, using plug flow pipe models"
+  "Model for connecting an agent to a two-pipe distribution network, using plug flow pipe models in the main line"
   extends
     Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     redeclare model Model_pipDis=Buildings.Fluid.FixedResistances.PlugFlowPipe
-        (final length=length,
+        (
+      final length=length,
       final dIns=dIns,
       final kIns=kIns),
     redeclare model Model_pipCon=Fluid.FixedResistances.LosslessPipe);
@@ -21,8 +22,9 @@ model Connection2PipePlugFlow
     "Heat transfer to or from surroundings (positive if pipe is colder than surrounding)"
     annotation (Placement(transformation(extent={{-110,60},{-90,80}})));
 equation
-  connect(pipDisRet.heatPort, heatPort) annotation (Line(points={{-70,-70},{-52,
-          -70},{-52,70},{-100,70}}, color={191,0,0}));
+  connect(pipDisRet.heatPort, heatPort) annotation (Line(points={{-70,-70},{-70,
+          -60},{-52,-60},{-52,70},{-100,70}},
+                                    color={191,0,0}));
   connect(pipDisSup.heatPort, heatPort) annotation (Line(points={{-70,-30},{-70,
           -20},{-52,-20},{-52,70},{-100,70}}, color={191,0,0}));
   annotation (
@@ -32,6 +34,10 @@ equation
 This is a model of a connection with a two-pipe distribution network using 
 a plug flow pipe model that includes pressure drop, heat transfer, and transport
 delays.
+</p>
+<p>
+The plug flow pipe model is used in the main distribution line,
+but not in the connection to the building, as the latter is typically short.
 </p>
 </html>",
       revisions="<html>
