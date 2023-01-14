@@ -107,7 +107,6 @@ model ElectricChillersDirectETS "Example model for district cooling system with
   Buildings.Experimental.DHC.Loads.Cooling.BuildingTimeSeriesWithETS buiETS[nLoa](
     each yMin=0.05,
     each use_inputFilter=true,
-    each riseTime=120,
     filNam=filNam,
     mBui_flow_nominal=mBui_flow_nominal,
     each bui(w_aLoaCoo_nominal=0.015))
