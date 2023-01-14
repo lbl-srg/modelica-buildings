@@ -4,12 +4,21 @@
 !-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 
+Schedule:Compact,
+    OFF,                     !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Alldays,            !- Field 2
+    Until: 24:00,  0;        !- Field 4
+
 Output:Variable,Zone1WindACOAInNode,System Node Mass Flow Rate,Timestep;
 Output:Variable,Zone1WindACOAInNode,System Node Temperature,Timestep;
 Output:Variable,Zone1WindACOAMixerOutletNode,System Node Mass Flow Rate,Timestep;
 Output:Variable,Zone1WindACOAMixerOutletNode,System Node Temperature,Timestep;
 Output:Variable,*,Site Outdoor Air Drybulb Temperature,Timestep;
 Output:Variable,West Zone,Zone Air Temperature,Timestep;
+!Output:Variable,North Zone,Zone Air Temperature,Timestep;
+!Output:Variable,East Zone,Zone Air Temperature,Timestep;
 Output:Variable,West Zone,Zone Air Humidity Ratio,Timestep;
 Output:Variable,West Zone,Zone Thermostat Heating Setpoint Temperature,Timestep;
 Output:Variable,West Zone,Zone Thermostat Cooling Setpoint Temperature,Timestep;
@@ -412,7 +421,7 @@ Schedule:Compact,
     Any Number,              !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Alldays,            !- Field 2
-    Until: 24:00, 131.80;    !- Field 4
+    Until: 24:00, 0;         !- Field 4
 
 Schedule:Compact,
     Work Eff Sch,            !- Name
@@ -476,17 +485,17 @@ Schedule:Compact,
     ANY NUMBER,              !- Schedule Type Limits Name
     Through: 12/31,          !- Field 1
     For: Weekdays,           !- Field 2
-    Until: 6:00, 5.00E-002,  !- Field 4
-    Until: 7:00, 0.20,       !- Field 6
-    Until: 17:00, 1.00,      !- Field 8
-    Until: 18:00, 0.50,      !- Field 10
-    Until: 24:00, 5.00E-002, !- Field 12
+    Until: 6:00, 0,          !- Field 4
+    Until: 7:00, 0,          !- Field 6
+    Until: 17:00, 0,         !- Field 8
+    Until: 18:00, 0,         !- Field 10
+    Until: 24:00, 0,         !- Field 12
     For: Weekends Holidays CustomDay1 CustomDay2,  !- Field 13
-    Until: 24:00, 5.00E-002, !- Field 15
+    Until: 24:00, 0,         !- Field 15
     For: SummerDesignDay,    !- Field 16
-    Until: 24:00, 1.00,      !- Field 18
+    Until: 24:00, 0,         !- Field 18
     For: WinterDesignDay,    !- Field 19
-    Until: 24:00, 0.15;      !- Field 21
+    Until: 24:00, 0;         !- Field 21
 
 Schedule:Compact,
     ON,                      !- Name
@@ -652,7 +661,7 @@ ElectricEquipment,
     West Zone,               !- Zone or ZoneList or Space or SpaceList Name
     Intermittent,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
-    2928.751,                !- Design Level {W}
+    0,                       !- Design Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Fraction Latent
@@ -686,7 +695,7 @@ Lights,
     EAST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     Office Lighting,         !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
-    1464.375,                !- Lighting Level {W}
+    0,                       !- Lighting Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
@@ -700,7 +709,7 @@ ElectricEquipment,
     EAST ZONE,               !- Zone or ZoneList or Space or SpaceList Name
     Intermittent,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
-    1464.375,                !- Design Level {W}
+    0,                       !- Design Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Fraction Latent
@@ -734,7 +743,7 @@ Lights,
     NORTH ZONE,              !- Zone or ZoneList or Space or SpaceList Name
     Office Lighting,         !- Schedule Name
     LightingLevel,           !- Design Level Calculation Method
-    878.6252,                !- Lighting Level {W}
+    0,                       !- Lighting Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Return Air Fraction
@@ -748,7 +757,7 @@ ElectricEquipment,
     NORTH ZONE,              !- Zone or ZoneList or Space or SpaceList Name
     Intermittent,            !- Schedule Name
     EquipmentLevel,          !- Design Level Calculation Method
-    2928.751,                !- Design Level {W}
+    0,                       !- Design Level {W}
     ,                        !- Watts per Zone Floor Area {W/m2}
     ,                        !- Watts per Person {W/person}
     0,                       !- Fraction Latent
@@ -1186,7 +1195,7 @@ Sizing:Zone,
 
 DesignSpecification:OutdoorAir,
     SZ DSOA EAST ZONE,       !- Name
-    flow/person,             !- Outdoor Air Method
+    flow/Area,               !- Outdoor Air Method
     0.00944,                 !- Outdoor Air Flow per Person {m3/s-person}
     0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
     0.0;                     !- Outdoor Air Flow per Zone {m3/s}
@@ -1222,7 +1231,7 @@ Sizing:Zone,
 
 DesignSpecification:OutdoorAir,
     SZ DSOA NORTH ZONE,      !- Name
-    flow/person,             !- Outdoor Air Method
+    flow/Area,               !- Outdoor Air Method
     0.00944,                 !- Outdoor Air Flow per Person {m3/s-person}
     0.0,                     !- Outdoor Air Flow per Zone Floor Area {m3/s-m2}
     0.0;                     !- Outdoor Air Flow per Zone {m3/s}
@@ -1696,7 +1705,7 @@ NodeList,
 
 ZoneHVAC:Baseboard:Convective:Water,
     Zone2Baseboard,          !- Name
-    FanAndCoilAvailSched,    !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     Zone2BBHWInletNode,      !- Inlet Node Name
     Zone2BBHWOutletNode,     !- Outlet Node Name
     HeatingDesignCapacity,   !- Heating Design Capacity Method
@@ -1709,7 +1718,7 @@ ZoneHVAC:Baseboard:Convective:Water,
 
 ZoneHVAC:WindowAirConditioner,
     Zone2WindAC,             !- Name
-    CoolingCoilAvailSched,   !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     autosize,                !- Maximum Supply Air Flow Rate {m3/s}
     autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
     Zone2WindACAirInletNode, !- Air Inlet Node Name
@@ -1733,7 +1742,7 @@ OutdoorAir:Mixer,
 
 Fan:ConstantVolume,
     Zone2WindACFan,          !- Name
-    FanAndCoilAvailSched,    !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     0.5,                     !- Fan Total Efficiency
     75.0,                    !- Pressure Rise {Pa}
     autosize,                !- Maximum Flow Rate {m3/s}
@@ -1744,7 +1753,7 @@ Fan:ConstantVolume,
 
 Coil:Cooling:DX:SingleSpeed,
     Zone2WindACDXCoil,       !- Name
-    CoolingCoilAvailSched,   !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     autosize,                !- Gross Rated Total Cooling Capacity {W}
     autosize,                !- Gross Rated Sensible Heat Ratio
     3.0,                     !- Gross Rated Cooling COP {W/W}
@@ -1790,7 +1799,7 @@ NodeList,
 
 ZoneHVAC:Baseboard:Convective:Water,
     Zone3Baseboard,          !- Name
-    FanAndCoilAvailSched,    !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     Zone3BBHWInletNode,      !- Inlet Node Name
     Zone3BBHWOutletNode,     !- Outlet Node Name
     HeatingDesignCapacity,   !- Heating Design Capacity Method
@@ -1803,7 +1812,7 @@ ZoneHVAC:Baseboard:Convective:Water,
 
 ZoneHVAC:WindowAirConditioner,
     Zone3WindAC,             !- Name
-    CoolingCoilAvailSched,   !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     autosize,                !- Maximum Supply Air Flow Rate {m3/s}
     autosize,                !- Maximum Outdoor Air Flow Rate {m3/s}
     Zone3WindACAirInletNode, !- Air Inlet Node Name
@@ -1827,7 +1836,7 @@ OutdoorAir:Mixer,
 
 Fan:ConstantVolume,
     Zone3WindACFan,          !- Name
-    FanAndCoilAvailSched,    !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     0.5,                     !- Fan Total Efficiency
     75.0,                    !- Pressure Rise {Pa}
     autosize,                !- Maximum Flow Rate {m3/s}
@@ -1838,7 +1847,7 @@ Fan:ConstantVolume,
 
 Coil:Cooling:DX:SingleSpeed,
     Zone3WindACDXCoil,       !- Name
-    CoolingCoilAvailSched,   !- Availability Schedule Name
+    OFF,                     !- Availability Schedule Name
     autosize,                !- Gross Rated Total Cooling Capacity {W}
     autosize,                !- Gross Rated Sensible Heat Ratio
     3.0,                     !- Gross Rated Cooling COP {W/W}
