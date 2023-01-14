@@ -5,7 +5,6 @@ simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Example
     numberOfIntervals=500,
     resultFile="Indirect");
 // Plot commands
-removePlots(false);
 createPlot(id=1, 
   position={11, 19, 713, 564},	
   y={"cooETS.senTDisSup.T", "cooETS.senTDisRet.T", "cooETS.senTBuiSup.T", "cooETS.senTBuiRet.T"}, 
