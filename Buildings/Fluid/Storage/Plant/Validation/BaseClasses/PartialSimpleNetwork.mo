@@ -5,8 +5,6 @@ partial model PartialSimpleNetwork
   package Medium = Buildings.Media.Water "Medium model";
 
   parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
-    useReturnPump=true,
-    allowRemoteCharging=true,
     mTan_flow_nominal=1,
     mChi_flow_nominal=1,
     dp_nominal=300000,
@@ -116,7 +114,8 @@ partial model PartialSimpleNetwork
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
   Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
     redeclare final package Medium = Medium,
-    final nom=nom) "Ideal reversable connection on supply side"
+    final m_flow_nominal=nom.m_flow_nominal)
+                   "Ideal reversable connection on supply side"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Add the setpoints of the chiller and the tank together"

@@ -2,13 +2,6 @@ within Buildings.Fluid.Storage.Plant.Data;
 record NominalValues "Nominal values"
   extends Modelica.Icons.Record;
 
-  parameter Boolean allowRemoteCharging
-    "Allows the tank to be charged by a remote chiller"
-    annotation(Dialog(group="Plant configuration"));
-  parameter Boolean useReturnPump
-    "Uses a return pump when being charged remotely"
-    annotation(Dialog(group="Plant configuration"));
-
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
      mTan_flow_nominal+mChi_flow_nominal
     "Nominal mass flow rate"

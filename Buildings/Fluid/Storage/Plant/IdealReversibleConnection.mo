@@ -3,16 +3,12 @@ model IdealReversibleConnection
   "Connecting one side of the storage plant to the district network with an ideal flow source"
   // fixme: change icon.
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final allowFlowReversal=true,
-    final m_flow_nominal=nom.m_flow_nominal);
-
-  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+    final allowFlowReversal=true);
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
-    final m_flow_small=nom.m_flow_nominal*1E-6,
+    final m_flow_small=m_flow_nominal*1E-6,
     final control_m_flow=true,
     final control_dp=false) "Ideal flow source"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

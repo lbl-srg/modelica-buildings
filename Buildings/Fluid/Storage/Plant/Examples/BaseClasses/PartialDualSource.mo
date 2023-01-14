@@ -44,8 +44,6 @@ partial model PartialDualSource
 
 // Second source: chiller and tank
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
-    allowRemoteCharging=true,
-    useReturnPump=false,
     m_flow_nominal=2*m_flow_nominal,
     mTan_flow_nominal=m_flow_nominal,
     mChi_flow_nominal=2*m_flow_nominal,
@@ -87,8 +85,8 @@ partial model PartialDualSource
         rotation=0,
         origin={-90,-90})));
   Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
-      redeclare final package Medium = Medium,
-      final nom=nom)
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=nom.m_flow_nominal)
                    "Ideal reversable connection on supply side"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2

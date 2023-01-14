@@ -12,10 +12,12 @@ model Decoupled
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,-30})));
-  IdealReversibleConnection ideRevConRet(redeclare final package Medium =
-        Medium, final nom=nom) "Ideal reversable connection on supply side"
+  Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConRet(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=nom.mTan_flow_nominal)
+    "Ideal reversable connection on supply side"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Sources.Boundary_pT bou1(
+  Buildings.Fluid.Sources.Boundary_pT bou1(
     redeclare final package Medium = Medium,
     p(final displayUnit="Pa") = 200000,
     nPorts=1) "First pressure boundary" annotation (Placement(transformation(
