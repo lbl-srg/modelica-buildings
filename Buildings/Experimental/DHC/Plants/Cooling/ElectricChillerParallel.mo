@@ -322,20 +322,20 @@ equation
   connect(totPPum.y,PPum)
     annotation (Line(points={{282,160},{320,160}},color={0,0,127}));
   connect(pumCW.P,totPPum.u[1:2])
-    annotation (Line(points={{81,174},{240,174},{240,160.5},{258,160.5}},color={0,0,127}));
+    annotation (Line(points={{81,174},{240,174},{240,159.75},{258,159.75}},
+                                                                         color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,158.5},{258,
-          158.5}},
+    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,160.75}},
       color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
-    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,199}},
+    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,200.5}},
       color={0,0,127}));
   connect(totPCoo.y,PCoo)
     annotation (Line(points={{282,240},{320,240}},color={0,0,127}));
   connect(mulChiSys.P,totPCoo.u[1:2])
-    annotation (Line(points={{39,52},{20,52},{20,239},{258,239}},
+    annotation (Line(points={{39,52},{20,52},{20,240.5},{258,240.5}},
       color={0,0,127}));
   connect(splCHWSup.port_3,senTCHWSup.port_a)
     annotation (Line(points={{130,-42},{130,-40},{140,-40}},color={0,127,255}));
@@ -375,7 +375,7 @@ equation
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>This model showcases a generic district central cooling plant as illustrated
+<p>This model implements a generic district central cooling plant as illustrated
 in the schematics below. </p>
 <ul>
 <li>The cooling is provided by two parallel chillers instantiated from

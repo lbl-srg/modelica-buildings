@@ -133,7 +133,27 @@ equation
         Text(
           extent={{-150,150},{150,110}},
           textString="%name",
-          textColor={0,0,255})}),
+          textColor={0,0,255}),
+        Ellipse(
+          extent={{-54,52},{52,-52}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{78,8},{94,-4}},
+          textColor={0,0,127},
+          textString="y"),
+        Ellipse(
+          extent={{-52,50},{50,-50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-2,50},{-2,-50},{50,0},{-2,50}},
+          lineColor={0,0,0},
+          lineThickness=1,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}),
     Diagram(
       coordinateSystem(
         preserveAspectRatio=false)),
@@ -147,7 +167,7 @@ Added an <code>on</code> input for a plant-level override to turn pumps off.
 <li>
 December 14, 2022 by Kathryn Hinkelman:<br/>
 Normalized <code>u_s</code> and <code>u_m</code> by <code>dpSetPoi</code>.
-Added reset for PID controller based on the number of pumps that are on.<br>
+Added reset for PI controller based on the number of pumps that are on.<br>
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
 </li>
 <li>
@@ -165,7 +185,7 @@ Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>.
 </p>
 <p>
 The pump speed is controlled to maintain the pressure difference setpoint 
-through a PID controller.
+through a PI controller.
 </p>
 <p>The model inputs are the measured chilled water mass flow rate 
 <code>masFloPum</code> and the pressure difference <code>dpMea</code> at a 
