@@ -99,7 +99,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     offset=pla.TChiWatSup_nominal,
     startTime=2000)
                    "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
+    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatSupSet(
     y(final unit="K", displayUnit="degC"),
     height=-5,
@@ -110,10 +110,10 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
+    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(k=pla.dpChiWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
+    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Outdoor conditions"
@@ -142,17 +142,23 @@ model AllElectricCWStorage "Validation of all-electric plant model"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatSup_nominal
          + 5, y(final unit="K", displayUnit="degC"))
     "Source signal for CHW return temperature"
-    annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
+    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(
+    table=[0,0; 0.1,0; 0.1,1; 0.9,1; 0.9,0; 1,0],
+    timeScale=3600,
+    period=3600) "Plant enable signal"
+    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
 equation
-  connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-138,60},
-          {-80,60},{-80,28},{-34,28}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-138,20},
+          {-34,20}},                   color={0,0,127}));
   connect(THeaWatSupSet.y, pla.THeaWatSupSet) annotation (Line(points={{-138,
-          -20},{-76,-20},{-76,20},{-34,20}},
+          -20},{-76,-20},{-76,16},{-34,16}},
                                         color={0,0,127}));
-  connect(dpChiWatSet_max.y, pla.dpChiWatSet) annotation (Line(points={{-138,20},
-          {-80,20},{-80,24},{-34,24}}, color={0,0,127}));
+  connect(dpChiWatSet_max.y, pla.dpChiWatSet) annotation (Line(points={{-138,
+          -60},{-80,-60},{-80,12},{-34,12}},
+                                       color={0,0,127}));
   connect(dpHeaWatSet_max.y, pla.dpHeaWatSet) annotation (Line(points={{-138,
-          -60},{-72,-60},{-72,16},{-34,16}},
+          -100},{-72,-100},{-72,8},{-34,8}},
                                         color={0,0,127}));
 
   connect(weaDat.weaBus, pla.weaBus) annotation (Line(
@@ -170,8 +176,13 @@ equation
           {-60,140},{-60,0},{-30,0}}, color={0,127,255}));
   connect(THeaWatRet.y, disHeaWat.TSet) annotation (Line(points={{-138,160},{20,
           160},{20,148},{14,148}}, color={0,0,127}));
-  connect(TChiWatRet.y, disChiWat.TSet) annotation (Line(points={{-138,-120},{20,
-          -120},{20,-132},{12,-132}}, color={0,0,127}));
+  connect(TChiWatRet.y, disChiWat.TSet) annotation (Line(points={{-138,-160},{
+          20,-160},{20,-132},{12,-132}},
+                                      color={0,0,127}));
+  connect(u1.y[1], pla.u1Coo) annotation (Line(points={{-138,60},{-40,60},{-40,
+          28},{-34,28}}, color={255,0,255}));
+  connect(u1.y[1], pla.u1Hea) annotation (Line(points={{-138,60},{-40,60},{-40,
+          24},{-34,24}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"

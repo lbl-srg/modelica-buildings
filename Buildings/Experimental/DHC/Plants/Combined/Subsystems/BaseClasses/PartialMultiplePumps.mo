@@ -70,7 +70,7 @@ partial model PartialMultiplePumps
           extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
     "Total power (all pumps)"
-    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1_actual[nPum]
     "Pump status"
@@ -109,7 +109,7 @@ partial model PartialMultiplePumps
         rotation=0,
         origin={-50,100})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Compute total power"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply inp
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -118,12 +118,9 @@ partial model PartialMultiplePumps
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cst
                if not have_var "Constant setpoint"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold sta(t=1E-2, h=0.5E-2)
-    "Compute pump status"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(t=1E-2, h=0.5E-2)
+    "Evaluate if pump is operating"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(nout=nPum)
-    "Replicate signal"
-    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mPum_flow_nominal,
@@ -137,6 +134,19 @@ partial model PartialMultiplePumps
     final allowFlowReversal=allowFlowReversal) if not have_valve
     "Direct fluid pass-through (case without check valve)"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and1[nPum]
+    "Return pump status"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={80,100})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(
+    final nout=nPum)
+    "Replicate"
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre preY1[nPum]
+    "Left limit of signal avoiding direct feedback"
+    annotation (Placement(transformation(extent={{20,90},{40,110}})));
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
@@ -158,32 +168,26 @@ equation
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(port_a, mulInl.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(mulOut.uInv, mulInl.u) annotation (Line(points={{82,6},{90,6},{90,-40},
-          {-90,-40},{-90,6},{-82,6}},color={0,0,127}));
+  connect(mulOut.uInv, mulInl.u) annotation (Line(points={{82,6},{88,6},{88,-26},
+          {-90,-26},{-90,6},{-82,6}},color={0,0,127}));
   connect(mulInl.port_b, pum.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
   connect(y1, com.y1)
-    annotation (Line(points={{-120,100},{-94,100},{-94,105},{-92,105}},
+    annotation (Line(points={{-120,100},{-94,100},{-94,100},{-92,100}},
                                                     color={255,0,255}));
-  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,107},{-64,107},
-          {-64,80},{50,80},{50,6},{58,6}},
+  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,94},{-64,94},{-64,
+          80},{50,80},{50,6},{58,6}},
                       color={0,0,127}));
   connect(com.y1One, booToRea.u)
-    annotation (Line(points={{-68,109},{-66,109},{-66,100},{-62,100}},
+    annotation (Line(points={{-68,106},{-64,106},{-64,100},{-62,100}},
                                                    color={255,0,255}));
   connect(mul.y, P)
-    annotation (Line(points={{82,60},{120,60}}, color={0,0,127}));
-  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,105},{-66,105},{-66,
-          78},{40,78},{40,66},{58,66}},
+    annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
+  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,100},{-66,100},{-66,
+          78},{40,78},{40,46},{58,46}},
                     color={0,0,127}));
-  connect(pum.P, mul.u2) annotation (Line(points={{11,9},{40,9},{40,54},{58,54}},
+  connect(pum.P, mul.u2) annotation (Line(points={{11,9},{40,9},{40,34},{58,34}},
                 color={0,0,127}));
-  connect(pum.y_actual, sta.u) annotation (Line(points={{11,7},{20,7},{20,-60},{
-          28,-60}},           color={0,0,127}));
-  connect(sta.y, rep.u)
-    annotation (Line(points={{52,-60},{58,-60}}, color={255,0,255}));
-  connect(rep.y, y1_actual) annotation (Line(points={{82,-60},{94,-60},{94,100},
-          {120,100}}, color={255,0,255}));
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   connect(cheVal.port_b, mulOut.port_a)
@@ -198,6 +202,18 @@ equation
     annotation (Line(points={{10,0},{30,0},{30,-20}}, color={0,127,255}));
   connect(pas.port_b, mulOut.port_a)
     annotation (Line(points={{50,-20},{50,0},{60,0}}, color={0,127,255}));
+  connect(pum.y_actual, isOpe.u) annotation (Line(points={{11,7},{20,7},{20,-60},
+          {28,-60}}, color={0,0,127}));
+  connect(isOpe.y, rep.u)
+    annotation (Line(points={{52,-60},{58,-60}}, color={255,0,255}));
+  connect(and1.y, y1_actual)
+    annotation (Line(points={{92,100},{120,100}}, color={255,0,255}));
+  connect(rep.y, and1.u2) annotation (Line(points={{82,-60},{92,-60},{92,80},{60,
+          80},{60,92},{68,92}}, color={255,0,255}));
+  connect(preY1.y, and1.u1)
+    annotation (Line(points={{42,100},{68,100}}, color={255,0,255}));
+  connect(y1, preY1.u) annotation (Line(points={{-120,100},{-94,100},{-94,116},
+          {0,116},{0,100},{18,100}}, color={255,0,255}));
   annotation (
     defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

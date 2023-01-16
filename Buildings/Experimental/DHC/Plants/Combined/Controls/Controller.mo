@@ -1,6 +1,10 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls;
-block OpenLoop "Open-loop controller for validation purposes"
+block Controller "Open-loop controller for validation purposes"
   extends BaseClasses.PartialController;
+
+  parameter Modelica.Units.SI.MassFlowRate mPumChiWatUni_flow_nominal
+    "CHW pump design mass flow rate (each unit)"
+    annotation(Dialog(group="CHW loop and cooling-only chillers"));
 
   parameter Modelica.Units.SI.Time riseTimePum=30
     "Pump rise time of the filter (time to reach 99.6 % of the speed)"
@@ -15,16 +19,22 @@ block OpenLoop "Open-loop controller for validation purposes"
       tab="Dynamics",
       group="Filtered opening"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1PumChiWat_actual[nPumChiWat]
+    "CHW pump status"
+    annotation (Placement(transformation(extent={{
+            -300,80},{-260,120}}), iconTransformation(extent={{-260,60},{-220,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mChiWatPri_flow(final unit="kg/s")
+    "Primary CHW mass flow rate"
+    annotation (Placement(
+        transformation(extent={{-300,40},{-260,80}}),  iconTransformation(
+          extent={{-260,30},{-220,70}})));
+
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delPum(final delayTime=
         riseTimePum) "Delay command signal to allow for pump start time"
     annotation (Placement(transformation(extent={{-108,330},{-88,350}})));
-
-  Buildings.Controls.OBC.CDL.Logical.Or                y1
+  Buildings.Controls.OBC.CDL.Logical.Or y1
     "Boolean source for DO signals"
     annotation (Placement(transformation(extent={{-220,270},{-200,290}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repPumChiWat(nout=
-        nPumChiWat) "Replicate signal"
-    annotation (Placement(transformation(extent={{60,250},{80,270}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repChi(nout=nChi)
     "Replicate signal"
     annotation (Placement(transformation(extent={{60,330},{80,350}})));
@@ -85,7 +95,7 @@ block OpenLoop "Open-loop controller for validation purposes"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cvtPumChiWat
     "Convert DO to AO"
-    annotation (Placement(transformation(extent={{90,230},{110,250}})));
+    annotation (Placement(transformation(extent={{100,230},{120,250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable coo(
     table=[0,0; 0.9,0; 0.9,1; 1,1],
     timeScale=3600,
@@ -139,9 +149,14 @@ block OpenLoop "Open-loop controller for validation purposes"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cstYValConWatChiByp(k=0)
     "Source signal for valve position"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
+
+  BaseClasses.StagingPumpDetailed pumChiWatSta(
+    final nPum=nPumChiWat,
+    final nChi=nChi + nChiHea,
+    final mPum_flow_nominal=mPumChiWatUni_flow_nominal) "CHW pump staging"
+    annotation (Placement(transformation(extent={{60,250},{80,270}})));
+
 equation
-  connect(repPumChiWat.y, y1PumChiWat)
-    annotation (Line(points={{82,260},{280,260}}, color={255,0,255}));
   connect(delPum.y, repChi.u)
     annotation (Line(points={{-86,340},{58,340}}, color={255,0,255}));
   connect(repChi.y, y1Chi)
@@ -151,9 +166,6 @@ equation
   connect(repChi2.y, yValConChi)
     annotation (Line(points={{122,320},{240,320},{240,300},{280,300}},
                                                    color={0,0,127}));
-  connect(delVal.y, repPumChiWat.u)
-    annotation (Line(points={{-128,280},{-20,280},{-20,260},{58,260}},
-                                                   color={255,0,255}));
   connect(valByp.y, yValChiWatMinByp)
     annotation (Line(points={{-198,200},{280,200}}, color={0,0,127}));
   connect(valByp.y, yValHeaWatMinByp) annotation (Line(points={{-198,200},{220,
@@ -192,9 +204,9 @@ equation
   connect(cvtPumHeaWat.y, yPumHeaWat) annotation (Line(points={{202,0},{280,0}},
                             color={0,0,127}));
   connect(cvtPumChiWat.y, yPumChiWat)
-    annotation (Line(points={{112,240},{280,240}}, color={0,0,127}));
-  connect(delVal.y, cvtPumChiWat.u) annotation (Line(points={{-128,280},{-20,
-          280},{-20,240},{88,240}}, color={255,0,255}));
+    annotation (Line(points={{122,240},{280,240}}, color={0,0,127}));
+  connect(delVal.y, cvtPumChiWat.u) annotation (Line(points={{-128,280},{-20,280},
+          {-20,240},{98,240}},      color={255,0,255}));
   connect(delVal.y, repPumConWatCon.u) annotation (Line(points={{-128,280},{
           -120,280},{-120,-80},{58,-80}}, color={255,0,255}));
   connect(cvtPumConWatCon.y, yPumConWatCon)
@@ -259,20 +271,32 @@ equation
           140,0},{178,0}}, color={255,0,255}));
   connect(repChi2.y, yValEvaChi) annotation (Line(points={{122,320},{194,320},{
           194,320},{280,320}}, color={0,0,127}));
-  connect(TChiWatSupSet, swi.u1) annotation (Line(points={{-280,60},{-220,60},{
-          -220,108},{-162,108}}, color={0,0,127}));
-  connect(THeaWatSupSet, swi.u3) annotation (Line(points={{-280,20},{-200,20},{
-          -200,92},{-162,92}},  color={0,0,127}));
+  connect(TChiWatSupSet, swi.u1) annotation (Line(points={{-280,260},{-232,260},
+          {-232,108},{-162,108}},color={0,0,127}));
+  connect(THeaWatSupSet, swi.u3) annotation (Line(points={{-280,220},{-240,220},
+          {-240,92},{-162,92}}, color={0,0,127}));
   connect(cstYValConWatChiByp.y, yValConWatChiByp)
     annotation (Line(points={{-158,-220},{280,-220}}, color={0,0,127}));
-  connect(u1Coo, y1.u1) annotation (Line(points={{-280,140},{-240,140},{-240,
-          280},{-222,280}}, color={255,0,255}));
-  connect(u1Hea, y1.u2) annotation (Line(points={{-280,100},{-234,100},{-234,
-          272},{-222,272}}, color={255,0,255}));
+  connect(u1Coo, y1.u1) annotation (Line(points={{-280,340},{-228,340},{-228,280},
+          {-222,280}},      color={255,0,255}));
+  connect(u1Hea, y1.u2) annotation (Line(points={{-280,300},{-234,300},{-234,272},
+          {-222,272}},      color={255,0,255}));
   connect(y1.y, delVal.u)
     annotation (Line(points={{-198,280},{-152,280}}, color={255,0,255}));
   connect(y1.y, cvtValChi.u) annotation (Line(points={{-198,280},{-160,280},{
           -160,320},{-42,320}}, color={255,0,255}));
+  connect(pumChiWatSta.y1, y1PumChiWat) annotation (Line(points={{82,260},{176,260},
+          {176,260},{280,260}}, color={255,0,255}));
+  connect(mChiWatPri_flow, pumChiWatSta.m_flow) annotation (Line(points={{-280,60},
+          {-246,60},{-246,264},{58,264}}, color={0,0,127}));
+  connect(yValEvaChi, pumChiWatSta.yVal[1:nChi]) annotation (Line(points={{280,320},
+          {50,320},{50,256},{58,256}}, color={0,0,127}));
+  connect(yValEvaChiHea, pumChiWatSta.yVal[nChi + 1:nChi + nChiHea])
+    annotation (Line(points={{280,80},{50,80},{50,256},{58,256}}, color={0,0,127}));
+  connect(cvtPumChiWat.y, pumChiWatSta.y) annotation (Line(points={{122,240},{
+          140,240},{140,220},{54,220},{54,260},{58,260}}, color={0,0,127}));
+  connect(y1PumChiWat_actual, pumChiWatSta.y1_actual) annotation (Line(points={
+          {-280,100},{-250,100},{-250,268},{58,268}}, color={255,0,255}));
 annotation (
   defaultComponentName="ctl");
-end OpenLoop;
+end Controller;

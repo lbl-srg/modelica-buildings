@@ -51,6 +51,34 @@ block PartialController "Interface class for plant controller"
       Evaluate=true);
 
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
+    "Cooling enable signal"
+    annotation (Placement(transformation(extent={{-300,320},{-260,360}}),
+        iconTransformation(extent={{-260,270},{-220,310}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
+    "Heating enable signal"
+    annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
+        iconTransformation(extent={{-260,240},{-220,280}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
+      displayUnit="degC") "CHW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
+        iconTransformation(extent={{-260,200},{-220,240}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa",
+      final min=0)
+    "CHW differential pressure setpoint (for local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
+        iconTransformation(extent={{-260,130},{-220,170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
+      displayUnit="degC")
+    "HW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
+        iconTransformation(extent={{-260,170},{-220,210}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa",
+      final min=0)
+    "HW differential pressure setpoint (for local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
+        iconTransformation(extent={{-260,100},{-220,140}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaChi[nChi]
     "Cooling-only chiller evaporator isolation valve commanded position"
     annotation (Placement(
@@ -286,26 +314,6 @@ block PartialController "Interface class for plant controller"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,120})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
-      displayUnit="degC")
-    "CHW supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,40},{-260,80}}),
-        iconTransformation(extent={{-260,270},{-220,310}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa",
-      final min=0)
-    "CHW differential pressure setpoint (for local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,0},{-260,40}}),
-        iconTransformation(extent={{-260,240},{-220,280}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
-      displayUnit="degC")
-    "HW supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,-40},{-260,0}}),
-        iconTransformation(extent={{-260,200},{-220,240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa",
-      final min=0)
-    "HW differential pressure setpoint (for local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
-        iconTransformation(extent={{-260,170},{-220,210}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatChiByp(final unit=
         "1") "CW chiller bypass valve commanded position" annotation (Placement(
         transformation(extent={{260,-240},{300,-200}}, rotation=0),
