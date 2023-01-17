@@ -150,7 +150,7 @@ block Controller "Open-loop controller for validation purposes"
     "Source signal for valve position"
     annotation (Placement(transformation(extent={{-180,-230},{-160,-210}})));
 
-  BaseClasses.StagingPumpDetailed pumChiWatSta(
+  BaseClasses.StagingPump         pumChiWatSta(
     final nPum=nPumChiWat,
     final nChi=nChi + nChiHea,
     final mPum_flow_nominal=mPumChiWatUni_flow_nominal) "CHW pump staging"
@@ -293,10 +293,6 @@ equation
           {50,320},{50,256},{58,256}}, color={0,0,127}));
   connect(yValEvaChiHea, pumChiWatSta.yVal[nChi + 1:nChi + nChiHea])
     annotation (Line(points={{280,80},{50,80},{50,256},{58,256}}, color={0,0,127}));
-  connect(cvtPumChiWat.y, pumChiWatSta.y) annotation (Line(points={{122,240},{
-          140,240},{140,220},{54,220},{54,260},{58,260}}, color={0,0,127}));
-  connect(y1PumChiWat_actual, pumChiWatSta.y1_actual) annotation (Line(points={
-          {-280,100},{-250,100},{-250,268},{58,268}}, color={255,0,255}));
 annotation (
   defaultComponentName="ctl");
 end Controller;

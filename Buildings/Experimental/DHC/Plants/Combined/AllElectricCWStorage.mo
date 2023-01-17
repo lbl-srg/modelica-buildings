@@ -824,7 +824,7 @@ model AllElectricCWStorage
     final nPumConWatCoo=nPumConWatCoo,
     final THeaWatSup_nominal=THeaWatSup_nominal,
     final TChiWatSup_nominal=TChiWatSup_nominal,
-    final mPumChiWatUni_flow_nominal=pumChiWat.m_flow_nominal)
+    final mPumChiWatUni_flow_nominal=pumChiWat.mPum_flow_nominal)
     "Controller"
     annotation (Placement(transformation(extent={{-280,140},{-240,200}})));
 
