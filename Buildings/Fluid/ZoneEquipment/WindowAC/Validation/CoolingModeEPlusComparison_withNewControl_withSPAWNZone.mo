@@ -79,7 +79,8 @@ model CoolingModeEPlusComparison_withNewControl_withSPAWNZone
         3)) "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Controls.CycleFanCyclingCoil       conVarWatConFan(tCooCoiEna=60)
+  Controls.CycleFanCyclingCoil       conVarWatConFan(tFanEna=60,
+                                                     tCooCoiEna=60)
     annotation (Placement(transformation(extent={{-76,-68},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
     "Availability signal"
@@ -162,6 +163,11 @@ model CoolingModeEPlusComparison_withNewControl_withSPAWNZone
   Modelica.Blocks.Sources.RealExpression realExpression10(y=(winAC.sinSpeDX.QSen_flow
          + winAC.sinSpeDX.QLat_flow)/winAC.sinSpeDX.datCoi.sta[1].nomVal.Q_flow_nominal)
     annotation (Placement(transformation(extent={{118,-64},{138,-44}})));
+  Modelica.Blocks.Sources.RealExpression realExpression12(y=datRea.y[1])
+    annotation (Placement(transformation(extent={{200,-14},{220,6}})));
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay QCooCoiEPlus(samplePeriod=
+        averagingTimestep)
+    annotation (Placement(transformation(extent={{236,-14},{256,6}})));
 equation
   connect(datRea.y[11], div1.u1) annotation (Line(points={{-99,40},{-94,40},{-94,
           56},{-82,56}}, color={0,0,127}));
@@ -237,6 +243,8 @@ equation
     annotation (Line(points={{217,-54},{234,-54}}, color={0,0,127}));
   connect(realExpression10.y, PLRCooCoiMod.u)
     annotation (Line(points={{139,-54},{154,-54}}, color={0,0,127}));
+  connect(realExpression12.y, QCooCoiEPlus.u)
+    annotation (Line(points={{221,-4},{234,-4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
             {260,140}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{260,
@@ -245,6 +253,7 @@ equation
       StartTime=18144000,
       StopTime=18230400,
       __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeEPlusComparison_withNewControl_withSPAWNZone.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeEPlusComparison_withNewControl_withSPAWNZone.mos"
         "Simulate and Plot"));
 end CoolingModeEPlusComparison_withNewControl_withSPAWNZone;
