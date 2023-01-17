@@ -43,5 +43,24 @@ equation
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenDecoupled.mos"
         "Simulate and plot"),Diagram(coordinateSystem(extent={{-180,-240},{160,220}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}})),
+        Documentation(info="<html>
+<p>
+This variant of the two-plant-three-user example model represents the scenario
+where the storage plant is open and the pressure is decoupled.
+The district system has one pressurisation point at the chiller-only plant.
+The open tank at the storage plant forces the storage plant also to have
+a pressurisation point.
+The return side of the storage plant is connected to the network with
+a pump-valve connection which decouples its pressure from the network.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end OpenDecoupled;

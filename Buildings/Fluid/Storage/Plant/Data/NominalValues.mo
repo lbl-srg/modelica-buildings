@@ -33,9 +33,6 @@ record NominalValues "Nominal values"
 <p>
 This is a data record for nominal value declaratations and assignments for
 the storage plant model.
-It is instantiated in the base class of the branch models
-<a href=\"modelica://Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts\">
-Buildings.Fluid.Storage.Plant.BaseClasses.PartialBranchPorts</a>.
 </p>
 </html>"));
 end NominalValues;

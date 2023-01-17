@@ -174,7 +174,15 @@ equation
         coordinateSystem(extent={{-140,-100},{140,100}})),
     Documentation(info="<html>
 <p>
-[fixme: documentation pending.]
+This is the base model for the validation models.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 9, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
 </html>"));
 end PartialSimpleNetwork;

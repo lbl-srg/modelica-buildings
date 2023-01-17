@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage.Plant;
 model IdealReversibleConnection
   "Connecting one side of the storage plant to the district network with an ideal flow source"
-  // fixme: change icon.
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=true);
 
@@ -80,7 +79,15 @@ equation
     annotation (Line(points={{-82,50},{-110,50}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-[fixme: Documentation pending.]
+This model connects one side of the storage plant to the district network.
+It functions either as a pump or a valve. Either way, it enforces a flow
+rate with the use of
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.IdealSource\">
+Buildings.Fluid.Movers.BaseClasses.IdealSource</a>.
+In the case where it represents a pump (positive pressure rise and positive
+flow rate), it also estimates the electric power consumption with
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.IdealPumpPower\">
+Buildings.Fluid.Storage.Plant.BaseClasses.IdealPumpPower</a>.
 </p>
 </html>", revisions="<html>
 <ul>

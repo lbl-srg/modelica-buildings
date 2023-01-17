@@ -19,5 +19,22 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/Closed.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-180,-240},{160,220}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This variant of the two-plant-three-user example model represents the scenario
+where the storage plant is closed.
+The district system has one pressurisation point at the chiller-only plant.
+The return side of the storage plant is connected to the network with
+a direct connection.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end Closed;

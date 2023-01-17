@@ -47,5 +47,22 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/Decoupled.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This model is almost the same as
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Validation.Coupled\">
+Buildings.Fluid.Storage.Plant.Validation.Coupled</a>
+except that the pressure from the two pressure sources are decoupled
+by the use of two reversible connections on both the supply and return line.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 9, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end Decoupled;

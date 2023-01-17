@@ -21,5 +21,23 @@ equation
         "Simulate and plot"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{160,220}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{160,220}})),
+        Documentation(info="<html>
+<p>
+This variant of the two-plant-three-user example model represents the scenario
+where the storage plant is open and the pressure is coupled.
+The open tank at the storage plant functions as the pressurisation point
+for the district system.
+The return side of the storage plant is connected to the network with
+a direct connection.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 11, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end OpenCoupled;

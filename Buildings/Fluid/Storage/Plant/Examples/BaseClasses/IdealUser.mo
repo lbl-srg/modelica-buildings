@@ -133,10 +133,8 @@ equation
 This is a simple ideal user model used by example models under
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
 Buildings.Fluid.Storage.Plant.Examples</a>.
-[fixme: update documentation.]
-The control valve simply tries to maintain the CHW return temperature
-at its nominal value. The pressure drop of this model is integrated in the valve
-component as its fully-open resistance for simplicity.
+The load of the user is described by a varying flow rate setpoint.
+The valve is controlled to maintain the requested flow.
 </p>
 </html>", revisions="<html>
 <ul>

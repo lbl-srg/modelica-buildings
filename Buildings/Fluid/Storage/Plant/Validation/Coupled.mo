@@ -20,5 +20,21 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/Coupled.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This validation model models a simplified system with two pressure sources
+representing two plants. One of the plants has a storage tank which can
+be charged remotely by the other plant in the district network.
+This 
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 9, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end Coupled;

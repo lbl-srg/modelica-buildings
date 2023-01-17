@@ -90,9 +90,7 @@ equation
           textString="m")}), Documentation(info="<html>
 <p>
 This block estimates the pump power consumption as
-<i>P = V&#775;&nbsp;&Delta;p &frasl; &eta;</i>.
-Both <i>V&#775;</i> and <i>&Delta;p</i> are individually bounded to be
-non-negative.
+<i>P = </i>max<i>(0, V&#775;)&nbsp;</i>max<i>(0, &Delta;p) &frasl; &eta;</i>.
 </p>
 </html>"));
 end IdealPumpPower;
