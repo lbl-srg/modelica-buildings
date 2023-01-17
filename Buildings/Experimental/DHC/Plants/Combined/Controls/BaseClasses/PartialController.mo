@@ -63,21 +63,11 @@ block PartialController "Interface class for plant controller"
       displayUnit="degC") "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
         iconTransformation(extent={{-260,200},{-220,240}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa",
-      final min=0)
-    "CHW differential pressure setpoint (for local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
-        iconTransformation(extent={{-260,130},{-220,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
       displayUnit="degC")
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
         iconTransformation(extent={{-260,170},{-220,210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa",
-      final min=0)
-    "HW differential pressure setpoint (for local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
-        iconTransformation(extent={{-260,100},{-220,140}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaChi[nChi]
     "Cooling-only chiller evaporator isolation valve commanded position"
@@ -321,6 +311,48 @@ block PartialController "Interface class for plant controller"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,-200})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa",
+      final min=0) "CHW differential pressure setpoint (for local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,160},{-260,200}}),
+        iconTransformation(extent={{-260,130},{-220,170}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa",
+      final min=0)
+    "HW differential pressure setpoint (for local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,120},{-260,160}}),
+        iconTransformation(extent={{-260,100},{-220,140}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(final unit="Pa")
+    "CHW differential pressure (from local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,-80},{-260,-40}}),
+        iconTransformation(extent={{-260,-60},{-220,-20}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWat(final unit="Pa")
+    "HW differential pressure (from local dp sensor)"
+    annotation (Placement(transformation(extent={{-300,-120},{-260,-80}}),
+        iconTransformation(extent={{-260,-90},{-220,-50}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mChiWatPri_flow(final unit=
+        "kg/s") "Primary CHW mass flow rate"
+    annotation (Placement(
+        transformation(extent={{-300,80},{-260,120}}), iconTransformation(
+          extent={{-260,60},{-220,100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mHeaWatPri_flow(final unit=
+        "kg/s") "Primary HW mass flow rate" annotation (Placement(
+        transformation(extent={{-300,40},{-260,80}}), iconTransformation(extent
+          ={{-260,30},{-220,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpConWatCon(final unit="Pa")
+    "CW condenser loop differential pressure" annotation (Placement(
+        transformation(extent={{-300,-160},{-260,-120}}), iconTransformation(
+          extent={{-260,-120},{-220,-80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpConWatEva(final unit="Pa")
+    "CW evaporator loop differential pressure" annotation (Placement(
+        transformation(extent={{-300,-200},{-260,-160}}), iconTransformation(
+          extent={{-260,-150},{-220,-110}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatCon_flow(final unit=
+        "kg/s") "CW condenser loop mass flow rate" annotation (Placement(
+        transformation(extent={{-300,0},{-260,40}}), iconTransformation(extent=
+            {{-260,0},{-220,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatEva_flow(final unit=
+        "kg/s") "CW evaporator loop mass flow rate" annotation (Placement(
+        transformation(extent={{-300,-40},{-260,0}}), iconTransformation(extent
+          ={{-260,-30},{-220,10}})));
   annotation (Diagram(coordinateSystem(extent={{-260,-360},{260,360}})), Icon(
         coordinateSystem(extent={{-220,-300},{220,300}}),
         graphics={                      Text(

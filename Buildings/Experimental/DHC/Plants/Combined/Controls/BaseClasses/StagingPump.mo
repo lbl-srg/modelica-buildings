@@ -11,8 +11,8 @@ block StagingPump "Pump staging"
     start=1)
     "Number of chillers served by the pumps"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal
-    "Design mass flow rate (each pump)"
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Loop design mass flow rate (all pumps)"
     annotation(Dialog(group="Nominal condition"));
 
 
@@ -31,33 +31,42 @@ block StagingPump "Pump staging"
         transformation(extent={{180,-20},{220,20}}), iconTransformation(extent={{100,-20},
             {140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter ratFlo(k=1/(nPum*
-        mPum_flow_nominal)) "Ratio of current flow rate to design value"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter ratFlo(
+    final k=1/m_flow_nominal)
+    "Ratio of current flow rate to design value"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmdLead(t=5E-2, h=1E-2)
     "Command lead pump to start if any valve commanded open"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(nin=nChi)
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum sum1(final nin=nChi)
     "Sum up control signals"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(p=0.03)
     "Add offset"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger numOpe
-    "Number of pumps to be operating"
+  Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.Ceiling
+    numOpe "Number of pumps to be operating"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(delta=600)
     "Moving average"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(final nout=
-        nPum)        "Replicate"
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(
+    final nout=nPum)
+    "Replicate"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold cmdLag[nPum](t={i
-        for i in 1:nPum})
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold cmdLag[nPum](
+    final t={i for i in 1:nPum})
     "Compute pump Start command from number of pumps to be commanded On"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca(k=nPum) "Scale"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca(
+    final k=nPum) "Scale"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Buildings.Controls.OBC.CDL.Logical.And disIfLeaDis[nPum]
+    "Disable if lead pump disabled"
+    annotation (Placement(transformation(extent={{120,30},{140,50}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep1(final nout=
+        nPum) "Replicate"
+    annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 equation
   connect(cmdLead.u, sum1.y)
     annotation (Line(points={{-122,-40},{-138,-40}}, color={0,0,127}));
@@ -75,15 +84,20 @@ equation
     annotation (Line(points={{62,40},{78,40}}, color={255,127,0}));
   connect(cmdLead.y, y1[1]) annotation (Line(points={{-98,-40},{160,-40},{160,0},
           {200,0}}, color={255,0,255}));
-  connect(cmdLag[2:nPum].y, y1[2:nPum]) annotation (Line(points={{102,40},{160,
-          40},{160,0},{200,0}},
-                            color={255,0,255}));
   connect(addOff.y, sca.u)
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
   connect(sca.y, numOpe.u)
     annotation (Line(points={{-18,40},{-2,40}}, color={0,0,127}));
+  connect(cmdLag.y, disIfLeaDis.u1)
+    annotation (Line(points={{102,40},{118,40}}, color={255,0,255}));
+  connect(disIfLeaDis[2:nPum].y, y1[2:nPum]) annotation (Line(points={{142,40},
+          {160,40},{160,0},{200,0}}, color={255,0,255}));
+  connect(rep1.y, disIfLeaDis.u2) annotation (Line(points={{102,0},{110,0},{110,
+          32},{118,32}}, color={255,0,255}));
+  connect(cmdLead.y, rep1.u) annotation (Line(points={{-98,-40},{60,-40},{60,0},
+          {78,0}}, color={255,0,255}));
   annotation (
-  defaultComponentName="pum",
+  defaultComponentName="staPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           textColor={0,0,255},

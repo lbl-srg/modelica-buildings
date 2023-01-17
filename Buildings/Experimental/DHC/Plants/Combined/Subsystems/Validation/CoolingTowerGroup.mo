@@ -71,8 +71,8 @@ model CoolingTowerGroup "Validation of cooling tower group model"
         origin={-60,-40})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctl(
     k=1,
-    Ti=60,                                                   reverseActing=
-        false) "Controller"
+    Ti=60,
+    reverseActing=false) "Controller"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Buildings.Experimental.DHC.Plants.Combined.Subsystems.MultiplePumpsSpeed pum(
     redeclare package Medium =MediumConWat,
@@ -122,14 +122,14 @@ equation
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
     Documentation(info="<html>
 <p>
-This model validates 
+This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.CoolingTowerGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.CoolingTowerGroup</a>
 in a configuration with two tower cells.
-The tower cells are switched <i>Off</i> one after the other, and 
+The tower cells are switched <i>Off</i> one after the other, and
 the CW supply temperature setpoint is increasing after an initial
 period where it is fixed at its design value.
-The Start command of the CW pumps is the same signal 
+The Start command of the CW pumps is the same signal
 as the one used for the cooling towers.
 </p>
 </html>"));

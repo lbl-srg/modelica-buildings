@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.Validation;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.Validation;
 model StagingPump "Validation of pump staging block"
   extends Modelica.Icons.Example;
 
@@ -12,20 +12,23 @@ model StagingPump "Validation of pump staging block"
     start=1)=1
     "Number of chillers served by the pumps"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal=1
-    "Design mass flow rate (each pump)"
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     annotation(Dialog(group="Nominal condition"));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable floSpe(table=[0,0,0;
-        1,0,0; 4,(nPum - 1)*mPum_flow_nominal,1; 5,nPum*mPum_flow_nominal,0.9;
-        10,0,0.1],
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable floSpe(
+    table=[
+      0,0,0;
+      1,0,0;
+      4,(nPum - 1)/nPum*m_flow_nominal,1;
+      5,m_flow_nominal,0.9;
+      10,0,0.1],
     timeScale=500)
     "Source signal"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   BaseClasses.StagingPumpDetailed staDet(
     final nPum=nPum,
     final nChi=nChi,
-    final mPum_flow_nominal=mPum_flow_nominal)
+    final m_flow_nominal=m_flow_nominal)
     "Pump staging block - Detailed version"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yVal(k=1)
@@ -36,7 +39,7 @@ model StagingPump "Validation of pump staging block"
   BaseClasses.StagingPump staSim(
     final nPum=nPum,
     final nChi=nChi,
-    final mPum_flow_nominal=mPum_flow_nominal)
+    final m_flow_nominal=m_flow_nominal)
     "Pump staging block - Simplified version"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation
@@ -56,7 +59,7 @@ equation
           -44},{-12,-44}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/Validation/StagingPump.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StagingPump.mos"
       "Simulate and plot"),
     experiment(
       StopTime=5000,
