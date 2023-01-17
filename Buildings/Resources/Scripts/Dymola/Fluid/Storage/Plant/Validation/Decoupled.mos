@@ -6,7 +6,7 @@ simulateModel("Buildings.Fluid.Storage.Plant.Validation.Decoupled",
 // Plot commands
 createPlot(id=1,
  position={11, 15, 929, 667},
- y={"ideFloSou.m_flow", "mTanSup_flow.m_flow", "ideRevConSup.m_flow", "ideRevConRet.m_flow"},
+ y={"ideFloSou.m_flow", "mTan_flow.m_flow", "ideRevConSup.m_flow", "ideRevConRet.m_flow"},
  range={0.0, 3600.0, -3.0, 3.0},
  grid=true,
  subPlot=101,

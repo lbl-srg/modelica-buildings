@@ -120,6 +120,12 @@ partial model PartialSimpleNetwork
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Add the setpoints of the chiller and the tank together"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Buildings.Fluid.Sensors.MassFlowRate mTan_flow(
+    redeclare final package Medium = Medium)
+    "Mass flow rate of the storage tank"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-30,-10})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     f=20/(2*Modelica.Constants.pi*60),
@@ -167,8 +173,10 @@ equation
           -90,10},{-130,10},{-130,-10},{-122,-10}},  color={0,0,127}));
   connect(fil.y, ideFloSou.m_flow_in) annotation (Line(points={{-99,-10},{-86,
           -10},{-86,-16},{-78,-16}},   color={0,0,127}));
-  connect(junSup1.port_3, junRet1.port_3)
-    annotation (Line(points={{-30,20},{-30,-40}}, color={0,127,255}));
+  connect(junSup1.port_3, mTan_flow.port_b)
+    annotation (Line(points={{-30,20},{-30,0}}, color={0,127,255}));
+  connect(mTan_flow.port_a, junRet1.port_3)
+    annotation (Line(points={{-30,-20},{-30,-40}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=3600),
   Diagram(coordinateSystem(extent={{-140,-100},{140,100}})), Icon(
         coordinateSystem(extent={{-140,-100},{140,100}})),
