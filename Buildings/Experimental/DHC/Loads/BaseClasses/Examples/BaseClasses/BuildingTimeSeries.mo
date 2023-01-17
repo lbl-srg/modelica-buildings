@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
+﻿within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
@@ -19,13 +19,13 @@ model BuildingTimeSeries
   parameter String filNam
     "File name with thermal loads as time series";
   parameter Real facMulHea=QHea_flow_nominal /
-    (5e3 * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) / 20 *
-     mLoaHea_flow_nominal / 1)
+    (QHea_flow_nominal_ref * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) / dTHea_nominal_ref *
+     mLoaHea_flow_nominal / mLoaHea_flow_nominal_ref)
     "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat, group="Scaling", tab="Advanced"));
   parameter Real facMulCoo=QCoo_flow_nominal /
-    (-3e3 * abs(T_aLoaCoo_nominal - T_aChiWat_nominal) / 15 *
-     mLoaCoo_flow_nominal / 1)
+    (QCoo_flow_nominal_ref * abs(T_aLoaCoo_nominal - T_aChiWat_nominal) / dTCoo_nominal_ref *
+     mLoaCoo_flow_nominal / mLoaCoo_flow_nominal_ref)
     "Cooling terminal unit scaling factor"
     annotation(Dialog(enable=have_chiWat, group="Scaling", tab="Advanced"));
   parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=313.15
@@ -60,6 +60,24 @@ model BuildingTimeSeries
     mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal_ref = 5e3
+    "Heat flow at nominal conditions in heating mode of reference terminal unit"
+    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.TemperatureDifference dTHea_nominal_ref = 20
+    "Entering air and water temperature difference at nominal conditions in heating mode of reference terminal unit"
+    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal_ref = 1
+    "Load side mass flow rate at nominal conditions in heating mode of reference terminal unit"
+    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal_ref = -3e3
+    "Heat flow at nominal conditions in cooling mode of reference terminal unit"
+    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.TemperatureDifference dTCoo_nominal_ref = 15
+    "Entering air and water temperature difference at nominal conditions in cooling mode of reference terminal unit"
+    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal_ref = 1
+    "Load side mass flow rate at nominal conditions in cooling mode of reference terminal unit"
+    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space cooling load",
@@ -290,7 +308,8 @@ values of the hot water and chilled water supply and return temperatures.
 <p>
 The total space heating (resp. cooling) load is split between
 <code>facMulHea</code> (resp. <code>facMulCoo</code>)
-identical terminal units.
+identical terminal units with heat transfer performance approximated based on 
+design specifications of a reference terminal unit.
 It is not expected that the user modifies the default values 
 that are proposed for <code>facMulHea</code> and <code>facMulCoo</code>
 unless detailed design data are available for the building 
@@ -315,10 +334,10 @@ modified consistently to match the design data.
 </li>
 </ul>
 <p>
-For reference, the default values for <code>facMulHea</code> and 
-<code>facMulCoo</code> are computed based on 
-manufacturer data (Carrier fan coil model 42NL/NH) with an
-air flow rate of <i>1</i>&nbsp;kg/s and a temperature difference 
+For reference, the default reference terminal unit performance is based on 
+manufacturer data (Carrier fan coil model 42NL/NH) with a heat transfer
+of <i>5</i>&nbsp;kW (resp. <i>3</i>&nbsp;kW), 
+air flow rate of <i>1</i>&nbsp;kg/s, and a temperature difference 
 between the entering hot water (resp. chilled water) and the entering air 
 of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C).
 </p>
