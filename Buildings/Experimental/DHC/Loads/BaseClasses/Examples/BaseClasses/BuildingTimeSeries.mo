@@ -19,21 +19,23 @@ model BuildingTimeSeries
   parameter String filNam
     "File name with thermal loads as time series";
   parameter Real facMulHea=QHea_flow_nominal /
-    (QHea_flow_nominal_ref * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) / dTHea_nominal_ref *
+    (QHea_flow_nominal_ref * abs(T_aLoaHea_nominal - T_aHeaWat_nominal) /
+     abs(T_aLoaHea_nominal_ref - T_aHeaWat_nominal_ref) *
      mLoaHea_flow_nominal / mLoaHea_flow_nominal_ref)
     "Heating terminal unit multiplier factor"
     annotation(Dialog(enable=have_heaWat, group="Scaling", tab="Advanced"));
   parameter Real facMulCoo=QCoo_flow_nominal /
-    (QCoo_flow_nominal_ref * abs(T_aLoaCoo_nominal - T_aChiWat_nominal) / dTCoo_nominal_ref *
+    (QCoo_flow_nominal_ref * abs(h_aLoaCoo_nominal - hSat_nominal) /
+     abs(h_aLoaCoo_nominal_ref - hSat_nominal_ref) *
      mLoaCoo_flow_nominal / mLoaCoo_flow_nominal_ref)
     "Cooling terminal unit scaling factor"
     annotation(Dialog(enable=have_chiWat, group="Scaling", tab="Advanced"));
-  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=313.15
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal=323.15
     "Heating water inlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.Units.SI.Temperature T_bHeaWat_nominal(
     min=273.15,
-    displayUnit="degC") = T_aHeaWat_nominal - 5
+    displayUnit="degC") = T_aHeaWat_nominal - 10
     "Heating water outlet temperature at nominal conditions"
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
   parameter Modelica.Units.SI.Temperature T_aChiWat_nominal=280.15
@@ -47,37 +49,49 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal=293.15
     "Load side inlet temperature at nominal conditions in heating mode"
     annotation (Dialog(group="Nominal condition", tab="Advanced"));
-  parameter Modelica.Units.SI.Temperature T_aLoaCoo_nominal=297.15
+  parameter Modelica.Units.SI.Temperature T_aLoaCoo_nominal=298.15
     "Load side inlet temperature at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
-  parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal=0.0095
+  parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal=0.01
     "Load side inlet humidity ratio at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
-  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=1
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=0.5
     "Load side mass flow rate at nominal conditions in heating mode (single unit)"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_heaWat));
   parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal=
     mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal_ref = 5e3
-    "Heat flow at nominal conditions in heating mode of reference terminal unit"
+
+  parameter Modelica.Units.SI.Temperature T_aHeaWat_nominal_ref=323.15
+    "Heating water inlet temperature at nominal conditions of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.TemperatureDifference dTHea_nominal_ref = 20
-    "Entering air and water temperature difference at nominal conditions in heating mode of reference terminal unit"
+  parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal_ref=293.15
+    "Load side inlet temperature at nominal conditions in heating mode of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal_ref = 1
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal_ref = 0.5
     "Load side mass flow rate at nominal conditions in heating mode of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal_ref = -3e3
-    "Heat flow at nominal conditions in cooling mode of reference terminal unit"
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal_ref = 4.5E3
+    "Heat flow at nominal conditions in heating mode of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.TemperatureDifference dTCoo_nominal_ref = 15
-    "Entering air and water temperature difference at nominal conditions in cooling mode of reference terminal unit"
-    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal_ref = 1
+
+  parameter Modelica.Units.SI.Temperature T_aChiWat_nominal_ref=279.15
+    "Chilled water inlet temperature at nominal conditions of reference terminal unit"
+    annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.Temperature T_aLoaCoo_nominal_ref=298.15
+    "Load side inlet temperature at nominal conditions in cooling mode of reference terminal unit"
+    annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal_ref=0.01
+    "Load side inlet humidity ratio at nominal conditions in cooling mode of reference terminal unit"
+    annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal_ref = 0.5
     "Load side mass flow rate at nominal conditions in cooling mode of reference terminal unit"
-    annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
+    annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal_ref = -5.8E3
+    "Heat flow at nominal conditions in cooling mode of reference terminal unit"
+    annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
+
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(max=-Modelica.Constants.eps)=
     Buildings.Experimental.DHC.Loads.BaseClasses.getPeakLoad(string=
     "#Peak space cooling load",
@@ -225,6 +239,43 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqCoo_flow(u(
         final unit="W"), final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
+protected
+  parameter Modelica.Units.SI.AbsolutePressure pSat_nominal=
+    Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T_aChiWat_nominal)
+    "Saturation pressure at entering water temperature";
+  parameter Modelica.Units.SI.AbsolutePressure pSat_nominal_ref=
+    Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T_aChiWat_nominal_ref)
+    "Saturation pressure at entering water temperature for reference terminal unit";
+  parameter Modelica.Units.SI.MassFraction X1_aLoaCoo_nominal=
+     w_aLoaCoo_nominal / (1 + w_aLoaCoo_nominal)
+     "Water vapor concentration in [kg/kg total air]";
+  parameter Modelica.Units.SI.MassFraction X1Sat_nominal=
+    Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=pSat_nominal, p=Medium2.p_default, phi=1.0)
+    "Water vapor concentration at saturation in [kg/kg total air]";
+  parameter Modelica.Units.SI.MassFraction X1_aLoaCoo_nominal_ref=
+     w_aLoaCoo_nominal_ref / (1 + w_aLoaCoo_nominal_ref)
+     "Water vapor concentration in [kg/kg total air]";
+  parameter Modelica.Units.SI.MassFraction X1Sat_nominal_ref=
+    Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=pSat_nominal_ref, p=Medium2.p_default, phi=1.0)
+    "Water vapor concentration at saturation in [kg/kg total air]";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_aLoaCoo_nominal=
+    Buildings.Media.Air.specificEnthalpy_pTX(
+      p=Medium2.p_default, T=T_aLoaCoo_nominal, X={X1_aLoaCoo_nominal, 1-X1_aLoaCoo_nominal})
+    "Specific enthalpy of enytering air at nominal conditions in cooling mode";
+  parameter Modelica.Units.SI.SpecificEnthalpy hSat_nominal=
+    Buildings.Media.Air.specificEnthalpy_pTX(
+      p=Medium2.p_default, T=T_aChiWat_nominal, X={X1Sat_nominal, 1-X1Sat_nominal})
+    "Specific enthalpy of saturated air at entering water temperature in cooling mode";
+  parameter Modelica.Units.SI.SpecificEnthalpy h_aLoaCoo_nominal_ref=
+    Buildings.Media.Air.specificEnthalpy_pTX(
+      p=Medium2.p_default, T=T_aLoaCoo_nominal_ref, X={X1_aLoaCoo_nominal_ref, 1-X1_aLoaCoo_nominal_ref})
+    "Specific enthalpy of enytering air at nominal conditions for reference terminal unit";
+  parameter Modelica.Units.SI.SpecificEnthalpy hSat_nominal_ref=
+    Buildings.Media.Air.specificEnthalpy_pTX(
+      p=Medium2.p_default, T=T_aChiWat_nominal_ref, X={X1Sat_nominal_ref, 1-X1Sat_nominal_ref})
+    "Specific enthalpy of saturated air at entering water temperature for reference terminal unit";
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
     annotation (Line(points={{90,-20.3333},{90,-20},{146,-20},{146,-54},{140,
@@ -335,11 +386,8 @@ modified consistently to match the design data.
 </ul>
 <p>
 For reference, the default reference terminal unit performance is based on 
-manufacturer data (Carrier fan coil model 42NL/NH) with a heat transfer
-of <i>5</i>&nbsp;kW (resp. <i>3</i>&nbsp;kW), 
-air flow rate of <i>1</i>&nbsp;kg/s, and a temperature difference 
-between the entering hot water (resp. chilled water) and the entering air 
-of <i>20</i>&nbsp;°C (resp. <i>15</i>&nbsp;°C).
+manufacturer data (Carrier fan coil model 42NL/NH) at selection conditions
+as specified in the \"Advanced\" tab.
 </p>
 </html>",
 revisions="<html>
