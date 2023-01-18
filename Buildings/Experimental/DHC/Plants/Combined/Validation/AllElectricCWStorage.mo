@@ -5,7 +5,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Main medium (common to CHW, HW and CW)";
-  replaceable package MediumCoo=Buildings.Media.Water
+  replaceable package MediumConWatCoo=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in cooler circuit";
 
@@ -29,14 +29,14 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     "Chiller parameters (each unit)"
     annotation (
       Dialog(group="CHW loop and cooling-only chillers"),
-      Placement(transformation(extent={{80,140},{100,160}})));
+      Placement(transformation(extent={{140,200},{160,220}})));
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic datChiHea=
     datChi
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     "Chiller parameters (each unit)"
     annotation (
       Dialog(group="HW loop and heat recovery chillers"),
-      Placement(transformation(extent={{110,140},{130,160}})));
+      Placement(transformation(extent={{170,200},{190,220}})));
   replaceable parameter Fluid.HeatPumps.Data.EquationFitReversible.Generic datHeaPum(
     dpHeaLoa_nominal=50000,
     dpHeaSou_nominal=100,
@@ -59,7 +59,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
       TRefLoa=273.15,
       TRefSou=273.15))
     "Heat pump parameters (each unit)"
-    annotation (Placement(transformation(extent={{140,140},{160,160}})));
+    annotation (Placement(transformation(extent={{200,200},{220,220}})));
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -68,6 +68,8 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage pla(
+    redeclare final package Medium = Medium,
+    redeclare final package MediumConWatCoo = MediumConWatCoo,
     allowFlowReversal=true,
     dpConWatCooFri_nominal=1E4,
     mAirCoo_flow_nominal=pla.mConWatCoo_flow_nominal/1.45,
@@ -76,7 +78,6 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     chi(show_T=true),
     chiHea(show_T=true),
     heaPum(show_T=true),
-    redeclare final package Medium = Medium,
     final datChi=datChi,
     final datChiHea=datChiHea,
     final datHeaPum=datHeaPum,
@@ -99,7 +100,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     offset=pla.TChiWatSup_nominal,
     startTime=2000)
                    "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
+    annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatSupSet(
     y(final unit="K", displayUnit="degC"),
     height=-5,
@@ -107,13 +108,13 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     offset=pla.THeaWatSup_nominal,
     startTime=1000)
                    "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,-30},{-140,-10}})));
+    annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,-110},{-140,-90}})));
+    annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(k=pla.dpChiWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
-    annotation (Placement(transformation(extent={{-160,-70},{-140,-50}})));
+    annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
     "Outdoor conditions"
@@ -121,74 +122,122 @@ model AllElectricCWStorage "Validation of all-electric plant model"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-150,100})));
+        origin={-210,120})));
   Fluid.HeatExchangers.SensibleCooler_T disHeaWat(
     redeclare final package Medium = Medium,
-    m_flow_nominal=pla.mHeaWat_flow_nominal,
-    dp_nominal=pla.dpHeaWatSet_max)
-    "HW distribution system approximated by fixed flow resistance and prescribed return temperature"
+    final m_flow_nominal=pla.mHeaWat_flow_nominal,
+    final dp_nominal=0)
+    "Distribution system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{12,130},{-8,150}})));
   Fluid.HeatExchangers.Heater_T disChiWat(
     redeclare final package Medium = Medium,
-    m_flow_nominal=pla.mChiWat_flow_nominal,
-    dp_nominal=pla.dpChiWatSet_max)
-    "CHW distribution system approximated by fixed flow resistance and prescribed return temperature"
+    final m_flow_nominal=pla.mChiWat_flow_nominal,
+    final dp_nominal=0)
+    "Distribution system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatSup_nominal
          - 10,y(final unit="K", displayUnit="degC"))
     "Source signal for HW return temperature"
-    annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
+    annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatSup_nominal
          + 5, y(final unit="K", displayUnit="degC"))
     "Source signal for CHW return temperature"
-    annotation (Placement(transformation(extent={{-160,-170},{-140,-150}})));
+    annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(
     table=[0,0; 0.1,0; 0.1,1; 0.9,1; 0.9,0; 1,0],
-    timeScale=3600,
-    period=3600) "Plant enable signal"
-    annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
+    timeScale=10000,
+    period=10000) "Plant enable signal"
+    annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
+  Fluid.Actuators.Valves.TwoWayPressureIndependent valDisHeaWat(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=pla.mHeaWat_flow_nominal,
+    dpValve_nominal=1E4,
+    dpFixed_nominal=pla.dpHeaWatSet_max - valDisHeaWat.dpValve_nominal)
+    "Distribution system approximated by variable flow resistance"
+    annotation (Placement(transformation(extent={{-30,130},{-50,150}})));
+  inner Modelica.Blocks.Noise.GlobalSeed globalSeed
+    annotation (Placement(transformation(extent={{-10,210},{10,230}})));
+  Fluid.Actuators.Valves.TwoWayPressureIndependent valDisChiWat(
+    redeclare final package Medium = Medium,
+    m_flow_nominal=pla.mChiWat_flow_nominal,
+    dpValve_nominal=1E4,
+    dpFixed_nominal=pla.dpChiWatSet_max - valDisChiWat.dpValve_nominal)
+    "Distribution system approximated by variable flow resistance"
+    annotation (Placement(transformation(extent={{-30,-150},{-50,-130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratFlo(table=[0,0,0;
+        1,0,0; 4,0.3,0.1; 5,1,0.1; 10,0.1,0.1; 13,1,0.3; 16,0.3,1; 20,0.1,0.1;
+        24,0.1,0.3; 25,0.1,1; 30,0,0], timeScale=1000)
+                    "Source signal"
+    annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
+  Modelica.Blocks.Noise.TruncatedNormalNoise noi(
+    samplePeriod=300,
+    y_min=-0.3,
+    y_max=+0.3) "Noise"
+    annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add addNoi[2] "Add noise"
+    annotation (Placement(transformation(extent={{-156,180},{-136,200}})));
+  Modelica.Blocks.Continuous.FirstOrder fil(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
+    "Filter noise"
+    annotation (Placement(transformation(extent={{-192,150},{-172,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim[2](each uMax=1.1, each uMin
+      =0) "Limit signal"
+    annotation (Placement(transformation(extent={{-126,180},{-106,200}})));
 equation
-  connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-138,20},
+  connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-198,20},
           {-34,20}},                   color={0,0,127}));
-  connect(THeaWatSupSet.y, pla.THeaWatSupSet) annotation (Line(points={{-138,
-          -20},{-76,-20},{-76,16},{-34,16}},
-                                        color={0,0,127}));
-  connect(dpChiWatSet_max.y, pla.dpChiWatSet) annotation (Line(points={{-138,
-          -60},{-80,-60},{-80,12},{-34,12}},
-                                       color={0,0,127}));
-  connect(dpHeaWatSet_max.y, pla.dpHeaWatSet) annotation (Line(points={{-138,
-          -100},{-72,-100},{-72,8},{-34,8}},
-                                        color={0,0,127}));
+  connect(THeaWatSupSet.y, pla.THeaWatSupSet) annotation (Line(points={{-168,0},
+          {-74,0},{-74,16},{-34,16}},   color={0,0,127}));
+  connect(dpChiWatSet_max.y, pla.dpChiWatSet) annotation (Line(points={{-198,-40},
+          {-70,-40},{-70,12},{-34,12}},color={0,0,127}));
+  connect(dpHeaWatSet_max.y, pla.dpHeaWatSet) annotation (Line(points={{-168,-60},
+          {-66,-60},{-66,8},{-34,8}},   color={0,0,127}));
 
   connect(weaDat.weaBus, pla.weaBus) annotation (Line(
-      points={{-140,100},{0.1,100},{0.1,26.6}},
+      points={{-200,120},{0.1,120},{0.1,26.6}},
       color={255,204,51},
       thickness=0.5));
   connect(pla.port_bSerHea, disHeaWat.port_a) annotation (Line(points={{30,0},{
           60,0},{60,140},{12,140}}, color={0,127,255}));
   connect(pla.port_bSerCoo, disChiWat.port_a) annotation (Line(points={{30,-4},
           {60,-4},{60,-140},{10,-140}},color={0,127,255}));
-  connect(disChiWat.port_b, pla.port_aSerCoo) annotation (Line(points={{-10,
-          -140},{-60,-140},{-60,-4},{-30,-4}},
-                                         color={0,127,255}));
-  connect(disHeaWat.port_b, pla.port_aSerHea) annotation (Line(points={{-8,140},
+  connect(THeaWatRet.y, disHeaWat.TSet) annotation (Line(points={{-168,80},{20,80},
+          {20,148},{14,148}},      color={0,0,127}));
+  connect(TChiWatRet.y, disChiWat.TSet) annotation (Line(points={{-198,-100},{20,
+          -100},{20,-132},{12,-132}}, color={0,0,127}));
+  connect(u1.y[1], pla.u1Coo) annotation (Line(points={{-198,60},{-40,60},{-40,28},
+          {-34,28}},     color={255,0,255}));
+  connect(u1.y[1], pla.u1Hea) annotation (Line(points={{-198,60},{-40,60},{-40,24},
+          {-34,24}},     color={255,0,255}));
+  connect(disHeaWat.port_b, valDisHeaWat.port_a)
+    annotation (Line(points={{-8,140},{-30,140}}, color={0,127,255}));
+  connect(valDisHeaWat.port_b, pla.port_aSerHea) annotation (Line(points={{-50,140},
           {-60,140},{-60,0},{-30,0}}, color={0,127,255}));
-  connect(THeaWatRet.y, disHeaWat.TSet) annotation (Line(points={{-138,160},{20,
-          160},{20,148},{14,148}}, color={0,0,127}));
-  connect(TChiWatRet.y, disChiWat.TSet) annotation (Line(points={{-138,-160},{
-          20,-160},{20,-132},{12,-132}},
-                                      color={0,0,127}));
-  connect(u1.y[1], pla.u1Coo) annotation (Line(points={{-138,60},{-40,60},{-40,
-          28},{-34,28}}, color={255,0,255}));
-  connect(u1.y[1], pla.u1Hea) annotation (Line(points={{-138,60},{-40,60},{-40,
-          24},{-34,24}}, color={255,0,255}));
+  connect(disChiWat.port_b, valDisChiWat.port_a)
+    annotation (Line(points={{-10,-140},{-30,-140}}, color={0,127,255}));
+  connect(valDisChiWat.port_b, pla.port_aSerCoo) annotation (Line(points={{-50,-140},
+          {-60,-140},{-60,-4},{-30,-4}}, color={0,127,255}));
+  connect(ratFlo.y[1:2],addNoi [1:2].u1) annotation (Line(points={{-198,220},{
+          -166,220},{-166,196},{-158,196}},
+                                  color={0,0,127}));
+  connect(noi.y, fil.u)
+    annotation (Line(points={{-199,160},{-194,160}}, color={0,0,127}));
+  connect(fil.y, addNoi[1].u2) annotation (Line(points={{-171,160},{-166,160},{
+          -166,184},{-158,184}}, color={0,0,127}));
+  connect(fil.y, addNoi[2].u2) annotation (Line(points={{-171,160},{-166,160},{
+          -166,184},{-158,184}}, color={0,0,127}));
+  connect(addNoi.y, lim.u)
+    annotation (Line(points={{-134,190},{-128,190}}, color={0,0,127}));
+  connect(lim[2].y, valDisHeaWat.y) annotation (Line(points={{-104,190},{-40,
+          190},{-40,152}}, color={0,0,127}));
+  connect(lim[1].y, valDisChiWat.y) annotation (Line(points={{-104,190},{-80,
+          190},{-80,-120},{-40,-120},{-40,-128}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=3600,
+      StopTime=10000,
       Tolerance=1e-06),
-  Diagram(coordinateSystem(extent={{-180,-180},{180,180}})));
+  Diagram(coordinateSystem(extent={{-240,-240},{240,240}})));
 end AllElectricCWStorage;

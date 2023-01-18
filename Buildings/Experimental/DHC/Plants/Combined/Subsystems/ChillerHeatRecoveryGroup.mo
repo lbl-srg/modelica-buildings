@@ -58,13 +58,13 @@ model ChillerHeatRecoveryGroup
     fixed=false,
     start=QChiWatUni_flow_nominal * (1 + 2E-2 * (TCasHeaEnt_nominal -
       (dat.TEvaLvg_nominal - QChiWatUni_flow_nominal / mChiWatUni_flow_nominal / cpCas))))
-    "Cooling design heat flow rate in cascading mode (each unit, <0)"
+    "Cooling design heat flow rate in cascading heating mode (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCooUni_flow_nominal(
     fixed=false,
     start=QChiWatUni_flow_nominal * (1 - 2E-2 * (TCasCooEnt_nominal -
       (dat.TConLvg_nominal - QHeaWatUni_flow_nominal / mConWatUni_flow_nominal / cpCas))))
-    "Cooling design heat flow rate in cascading mode (each unit, <0)"
+    "Cooling design heat flow rate in cascading cooling mode (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasHeaUni_flow_nominal=
     -QChiWatCasHeaUni_flow_nominal * (1 + 1 / COPCasHea_nominal * dat.etaMotor)

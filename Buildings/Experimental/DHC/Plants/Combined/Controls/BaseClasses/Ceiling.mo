@@ -1,7 +1,12 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block Ceiling
   "Convert real variable to the least integer greater than or equal to real variable"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+
+  parameter Integer yMin=-Modelica.Constants.Integer_inf
+    "Minimum bound";
+  parameter Integer yMax=+Modelica.Constants.Integer_inf
+    "Maximum bound";
+ Buildings.Controls.OBC.CDL.Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
@@ -9,8 +14,9 @@ block Ceiling
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=integer(ceil(u));
-  annotation (
+  y=min(yMax, max(yMin, integer(ceil(u))));
+
+annotation (
   defaultComponentName="cei",
   Icon(graphics={
         Rectangle(

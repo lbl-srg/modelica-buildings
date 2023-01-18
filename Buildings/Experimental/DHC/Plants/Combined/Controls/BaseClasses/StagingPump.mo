@@ -45,7 +45,8 @@ block StagingPump "Pump staging"
     "Add offset"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.Ceiling
-    numOpe "Number of pumps to be operating"
+    numOpe(final yMin=0, final yMax=nPum)
+           "Compute number of pumps to be operating"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(delta=600)
     "Moving average"
@@ -61,8 +62,8 @@ block StagingPump "Pump staging"
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca(
     final k=nPum) "Scale"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  Buildings.Controls.OBC.CDL.Logical.And disIfLeaDis[nPum]
-    "Disable if lead pump disabled"
+  Buildings.Controls.OBC.CDL.Logical.And andLeaEna[nPum]
+    "Command On only if lead pump enabled"
     annotation (Placement(transformation(extent={{120,30},{140,50}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep1(final nout=
         nPum) "Replicate"
@@ -88,11 +89,11 @@ equation
     annotation (Line(points={{-58,40},{-42,40}}, color={0,0,127}));
   connect(sca.y, numOpe.u)
     annotation (Line(points={{-18,40},{-2,40}}, color={0,0,127}));
-  connect(cmdLag.y, disIfLeaDis.u1)
+  connect(cmdLag.y, andLeaEna.u1)
     annotation (Line(points={{102,40},{118,40}}, color={255,0,255}));
-  connect(disIfLeaDis[2:nPum].y, y1[2:nPum]) annotation (Line(points={{142,40},
-          {160,40},{160,0},{200,0}}, color={255,0,255}));
-  connect(rep1.y, disIfLeaDis.u2) annotation (Line(points={{102,0},{110,0},{110,
+  connect(andLeaEna[2:nPum].y, y1[2:nPum]) annotation (Line(points={{142,40},{
+          160,40},{160,0},{200,0}}, color={255,0,255}));
+  connect(rep1.y, andLeaEna.u2) annotation (Line(points={{102,0},{110,0},{110,
           32},{118,32}}, color={255,0,255}));
   connect(cmdLead.y, rep1.u) annotation (Line(points={{-98,-40},{60,-40},{60,0},
           {78,0}}, color={255,0,255}));

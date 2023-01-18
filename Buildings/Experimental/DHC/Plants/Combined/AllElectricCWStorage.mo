@@ -174,6 +174,15 @@ model AllElectricCWStorage
     chiHea.THeaWatSup_nominal
     "Design (maximum) HW supply temperature"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
+
+  final parameter Modelica.Units.SI.Temperature TCasHeaEnt_nominal=
+    max(TTanSet) - (TConWatCooRet_nominal - TConWatCooSup_nominal)
+    "Design value of chiller evaporator entering temperature in cascading heating mode"
+    annotation(Evaluate=true);
+  final parameter Modelica.Units.SI.Temperature TCasCooEnt_nominal=
+    TTanSet[nCycTan, 1]
+    "Design value of chiller condenser entering temperature in cascading cooling mode"
+    annotation(Evaluate=true);
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
     chiHea.QHeaWatCasHea_flow_nominal
     "Heating design heat flow rate (all units)"
@@ -241,6 +250,12 @@ model AllElectricCWStorage
   parameter Modelica.Units.SI.Length hTan = (16 * VTan / Modelica.Constants.pi)^(1/3)
     "Height of tank (without insulation)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
+  // Default considering 1 m high thermmocline and 1 m high section below and above diffusers.
+  // Thermocline only useless during last tank cycle, hence the scale factor.
+  parameter Real fraUslTan(final unit="1", final min=0, final max=1) =
+    ((TTanSet[nCycTan, 2] - TTanSet[nCycTan, 1]) / (TTanSet[1, 2] - TTanSet[1, 1]) * 1 + 1) / hTan
+    "Useless fraction of TES"
+    annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Modelica.Units.SI.Length dInsTan
     "Thickness of insulation"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
@@ -250,9 +265,14 @@ model AllElectricCWStorage
   parameter Integer nSegTan(min=2) = 10
     "Number of volume segments"
     annotation(Dialog(group="CW loop, TES tank and heat pumps", tab="Advanced"));
-  parameter Modelica.Units.SI.Temperature TTanSet[3] = {25, 15, 5} + fill(273.15, 3)
-    "Tank temperature setpoints: 2 cycles with 1 common setpoint in decreasing order"
+  parameter Modelica.Units.SI.Temperature TTanSet[:, 2] = {
+    {15, 25},
+    {TChiWatSup_nominal, 15}} .+ 273.15
+    "Tank temperature setpoints: n cycles with 2 setpoints in increasing order"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
+  final parameter Integer nCycTan = size(TTanSet, 1)
+    "Number of tank cycles"
+    annotation(Evaluate=true);
   // Default TES tank pressure drop without PSV, otherwise ~ 20E3
   parameter Modelica.Units.SI.PressureDifference dpTan_nominal=1E3
     "Design pressure drop through TES tank"
@@ -291,7 +311,7 @@ model AllElectricCWStorage
     "CT CW design return temperature (tower entering)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Temperature TConWatCooSup_nominal(
-    final min=273.15)=TWetBulCooEnt_nominal+3
+    final min=273.15)=TWetBulCooEnt_nominal + 3
     "CT CW design supply temperature (tower leaving)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Power PFanCoo_nominal(
@@ -508,6 +528,8 @@ model AllElectricCWStorage
     redeclare final package Medium = Medium,
     final dat=datChiHea,
     final nUni=nChiHea,
+    final TCasCooEnt_nominal=TCasCooEnt_nominal,
+    final TCasHeaEnt_nominal=TCasHeaEnt_nominal,
     final dpEva_nominal=dpEvaChiHea_nominal,
     final dpCon_nominal=dpConChiHea_nominal,
     final dpBalEva_nominal=dpBalEvaChiHea_nominal,
@@ -517,6 +539,7 @@ model AllElectricCWStorage
     final energyDynamics=energyDynamics)
     "Heat recovery chillers"
     annotation (Placement(transformation(extent={{-10,-98},{10,-78}})));
+
   Subsystems.MultiplePumpsSpeed pumHeaWat(
     redeclare final package Medium=Medium,
     final nPum=nPumHeaWat,
@@ -695,7 +718,7 @@ model AllElectricCWStorage
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={-114,-80})));
+        origin={-240,-80})));
   HeatTransfer.Sources.PrescribedTemperature out "Outdoor temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -897,7 +920,12 @@ model AllElectricCWStorage
     final dpChiWatSet_max=dpChiWatSet_max,
     final dpHeaWatSet_max=dpHeaWatSet_max,
     final dpConWatConSet_max=dpConWatConSet_max,
-    final dpConWatEvaSet_max=dpConWatEvaSet_max)
+    final dpConWatEvaSet_max=dpConWatEvaSet_max,
+    final QChiWatChi_flow_nominal=chi.QChiWat_flow_nominal,
+    final QChiWatCasCoo_flow_nominal=chiHea.QChiWatCasCoo_flow_nominal,
+    final QHeaWat_flow_nominal=QHeaWat_flow_nominal,
+    final cp_default=cp_default,
+    final fraUslTan=fraUslTan)
     "Controller"
     annotation (Placement(transformation(extent={{-280,140},{-240,200}})));
 
@@ -1042,7 +1070,7 @@ equation
     annotation (Line(points={{-170,-20},{-120,-20}},
                                                    color={0,127,255}));
   connect(tan.heaPorVol, TTan.port)
-    annotation (Line(points={{-154,-120},{-154,-96},{-114,-96},{-114,-90}},
+    annotation (Line(points={{-154,-120},{-154,-96},{-240,-96},{-240,-90}},
                                                       color={191,0,0}));
   connect(out.port, tan.heaPorTop) annotation (Line(points={{-140,-90},{-140,-100},
           {-152,-100},{-152,-112.6}},
@@ -1206,14 +1234,14 @@ equation
   connect(u1Hea, ctl.u1Hea) annotation (Line(points={{-320,260},{-286,260},{
           -286,196},{-281.818,196}}, color={255,0,255}));
   connect(mChiWatPri_flow.m_flow, ctl.mChiWatPri_flow) annotation (Line(points={{120,91},
-          {120,132},{-286,132},{-286,178},{-281.818,178}},          color={0,0,127}));
+          {120,132},{-286,132},{-286,170},{-281.818,170}},          color={0,0,127}));
   connect(dpChiWat.p_rel, ctl.dpChiWat) annotation (Line(points={{231,140},{220,
-          140},{220,126},{-290,126},{-290,166},{-281.818,166}}, color={0,0,127}));
+          140},{220,126},{-290,126},{-290,158},{-281.818,158}}, color={0,0,127}));
   connect(mHeaWatPri_flow.m_flow, ctl.mHeaWatPri_flow) annotation (Line(points={{120,
-          -211},{120,-258},{-294,-258},{-294,175},{-281.818,175}},      color={0,
+          -211},{120,-258},{-294,-258},{-294,167},{-281.818,167}},      color={0,
           0,127}));
   connect(dpHeaWat.p_rel, ctl.dpHeaWat) annotation (Line(points={{231,-140},{
-          220,-140},{220,-260},{-292,-260},{-292,163},{-281.818,163}},
+          220,-140},{220,-260},{-292,-260},{-292,155},{-281.818,155}},
                                                                    color={0,0,127}));
   connect(pumConWatEva.port_b, dpConWatEva.port_a) annotation (Line(points={{-100,
           -20},{-60,-20},{-60,-40}}, color={0,127,255}));
@@ -1235,17 +1263,31 @@ equation
           {{-140,-210},{-140,-220},{-120,-220}}, color={0,127,255}));
   connect(pumConWatCon.port_b, junConWatEnt.port_1)
     annotation (Line(points={{-100,-220},{-50,-220}}, color={0,127,255}));
-  connect(mConWatCon_flow.m_flow, ctl.mConWatCon_flow) annotation (Line(points=
-          {{-151,-200},{-296,-200},{-296,172},{-281.818,172}}, color={0,0,127}));
-  connect(mConWatEva_flow.m_flow, ctl.mConWatEva_flow) annotation (Line(points=
-          {{0,-9},{0,66},{-298,66},{-298,169},{-281.818,169}}, color={0,0,127}));
+  connect(mConWatCon_flow.m_flow, ctl.mConWatCon_flow) annotation (Line(points={{-151,
+          -200},{-296,-200},{-296,164},{-281.818,164}},        color={0,0,127}));
+  connect(mConWatEva_flow.m_flow, ctl.mConWatEva_flow) annotation (Line(points={{0,-9},{
+          0,66},{-298,66},{-298,161},{-281.818,161}},          color={0,0,127}));
   connect(dpConWatEva.p_rel, ctl.dpConWatEva) annotation (Line(points={{-69,-50},
-          {-150,-50},{-150,-42},{-286,-42},{-286,157},{-281.818,157}}, color={0,
+          {-150,-50},{-150,-42},{-286,-42},{-286,149},{-281.818,149}}, color={0,
           0,127}));
   connect(dpConWatCon.p_rel, ctl.dpConWatCon) annotation (Line(points={{-89,
-          -180},{-281.818,-180},{-281.818,160}}, color={0,0,127}));
+          -180},{-281.818,-180},{-281.818,152}}, color={0,0,127}));
+  connect(TChiWatPriRet.T, ctl.TChiWatPriRet) annotation (Line(points={{150,91},
+          {150,130},{-288,130},{-288,176},{-281.818,176}}, color={0,0,127}));
+  connect(THeaWatPriRet.T, ctl.THeaWatPriRet) annotation (Line(points={{150,
+          -189},{148,-189},{148,122},{-290,122},{-290,173},{-281.818,173}},
+        color={0,0,127}));
+  connect(TTan[1:nSegTan].T, ctl.TTan[1:nSegTan]) annotation (Line(points={{-240,
+          -69},{-240,-62},{-281.818,-62},{-281.818,144}},
+                                color={0,0,127}));
 annotation (
   defaultComponentName="pla", Documentation(info="<html>
+FIXME:
+* TCasCooEnt_nominal to be updated to take into account offset for enabling Excess Heat Rejection Mode.
+<p>
+NOTES:
+* TCasHeaEnt_nominal set for last TES tank cycle.
+</p>
 <p>
 Credit \"Discussions with Taylor Engineers\" (Gill, 2021).
 </p>

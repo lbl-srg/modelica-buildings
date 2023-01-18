@@ -55,8 +55,8 @@ block OpenLoop "Open-loop controller for validation purposes"
     annotation (Placement(transformation(extent={{150,10},{170,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1CooChi(
     table=[0,0; 0.6,0; 0.6,1; 1,1],
-    timeScale=3600,
-    period=3600) "Boolean source for cooling switchover signal"
+    timeScale=10000,
+    period=10000) "Boolean source for cooling switchover signal"
     annotation (Placement(transformation(extent={{-220,130},{-200,150}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repPumConWatCon(nout=
         nPumConWatCon) "Replicate signal"
@@ -88,8 +88,8 @@ block OpenLoop "Open-loop controller for validation purposes"
     annotation (Placement(transformation(extent={{90,230},{110,250}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable coo(
     table=[0,0; 0.9,0; 0.9,1; 1,1],
-    timeScale=3600,
-    period=3600) "Boolean source for cooler circuit"
+    timeScale=10000,
+    period=10000) "Boolean source for cooler circuit"
     annotation (Placement(transformation(extent={{-220,-310},{-200,-290}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repCoo(nout=nCoo)
     "Replicate signal"
@@ -111,8 +111,8 @@ block OpenLoop "Open-loop controller for validation purposes"
     annotation (Placement(transformation(extent={{60,-350},{80,-330}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1HeaCooChi(
     table=[0,0; 0.3,0; 0.3,1; 0.6,1; 0.6,0; 1,0],
-    timeScale=3600,
-    period=3600) "Boolean source for direct heat recovery switchover"
+    timeScale=10000,
+    period=10000) "Boolean source for direct heat recovery switchover"
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
     "On AND (Heating OR direct HR mode)"

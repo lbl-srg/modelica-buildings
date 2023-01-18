@@ -15,9 +15,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     "CW design mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpConWatFriUni_nominal(
-    displayUnit="Pa",
-    start=1E4,
-    final min=0)
+      displayUnit="Pa")
     "CW flow-friction losses through tower and piping only (without elevation head or valve)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mAirUni_flow_nominal(
@@ -118,15 +116,15 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
 equation
   connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{82,6},{86,6},{86,
           -20},{-86,-20},{-86,6},{-82,6}},     color={0,0,127}));
-  connect(y1, com.y1) annotation (Line(points={{-120,60},{-94,60},{-94,65},{-92,
-          65}},  color={255,0,255}));
-  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-68,65},{18,65},{18,106},
-          {68,106}},        color={0,0,127}));
+  connect(y1, com.y1) annotation (Line(points={{-120,60},{-94,60},{-94,60},{-92,
+          60}},  color={255,0,255}));
+  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-68,60},{18,60},{18,
+          106},{68,106}},   color={0,0,127}));
 
   connect(mulP.y, P)
     annotation (Line(points={{92,100},{120,100}},
                                                 color={0,0,127}));
-  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-68,67},{16,67},
+  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-68,54},{16,54},
           {16,6},{58,6}},        color={0,0,127}));
   connect(mulConOut.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
