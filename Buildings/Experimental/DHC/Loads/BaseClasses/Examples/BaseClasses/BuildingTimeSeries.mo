@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
+within Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses;
 model BuildingTimeSeries
   "Building model with heating and cooling loads provided as time series"
   extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuilding(
