@@ -114,8 +114,7 @@ record VAVMultiZoneController "Record for multiple-zone VAV controller"
     "Airflow differential between supply and return fans to maintain building pressure at setpoint"
     annotation (Dialog(group="Information provided by testing, adjusting, and balancing contractor",
       enable=typ==Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone and
-      (buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir or
-      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir)));
+      buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir));
 
   parameter Real yFanSup_min(
     final unit="1",

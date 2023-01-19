@@ -134,6 +134,7 @@ block G36VAVMultiZone
     final venStd=stdVen,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
+    final have_frePro=have_frePro,
     final freSta=typFreSta,
     final minOADes=typSecOut,
     final buiPreCon=buiPreCon,
@@ -222,9 +223,6 @@ block G36VAVMultiZone
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1SofSwiRes(k=false)
     "FIXME #1913: How to deal with that?"
     annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uRelFan(k=1)
-    "FIXME #1913: The commanded speed should be used"
-    annotation (Placement(transformation(extent={{-280,-110},{-260,-90}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(
     final nout=nZon)
     "Pass signal to terminal unit bus"
@@ -247,9 +245,6 @@ block G36VAVMultiZone
     final nGro=nGro)
     "Compute the AHU operating mode"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uSupFan_actual(k=1)
-    "FIXME #1913: The commanded speed should be used"
-    annotation (Placement(transformation(extent={{-280,-70},{-260,-50}})));
 equation
   /* Control point connection - start */
 
@@ -339,8 +334,6 @@ equation
   // FIXME #1913: connect statements to be updated when FIXME tags above are addressed.
   connect(FIXME_u1FreSta.y, ctl.u1FreSta);
   connect(FIXME_u1SofSwiRes.y, ctl.u1SofSwiRes);
-  connect(FIXME_uRelFan.y, ctl.uRelFan);
-  connect(FIXME_uSupFan_actual.y, ctl.uSupFan_actual);
 
   /* Control point connection - stop */
 
