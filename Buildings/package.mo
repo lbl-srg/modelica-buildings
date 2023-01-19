@@ -354,29 +354,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-
-
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Dampers<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Dampers<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersDualSensors<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersSingleSensors<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.DamperValves<br/>
-                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.DamperValves<br/>
-    </td>
-    <td valign=\"top\">Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
-    </td>
-</tr>
-
-
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints</b>
     </td>
 </tr>
