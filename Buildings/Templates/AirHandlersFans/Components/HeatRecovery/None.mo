@@ -8,7 +8,7 @@ model None "No heat recovery"
 <p>
 This model represents a configuration with no heat recovery unit.
 It resolves to four fluid ports that are not connected
-to each other and for which pressure conditions must but provided.
+to each other and for which pressure conditions must be provided.
 </p>
 </html>"));
 end None;

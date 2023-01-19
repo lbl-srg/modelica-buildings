@@ -9,7 +9,8 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Heating medium (such as HHW)";
 
-  inner parameter UserProject.Data.AllSystems datAll(ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
+  inner parameter UserProject.Data.AllSystems datAll(
+    sysUni=Buildings.Templates.Types.Units.SI,       ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
     redeclare replaceable model VAVBox =
         UserProject.ZoneEquipment.VAVBoxCoolingOnly)
     "System parameters"
@@ -104,6 +105,5 @@ This is a validation model for the configuration represented by
 Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly</a>
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
 end VAVBoxCoolingOnly;

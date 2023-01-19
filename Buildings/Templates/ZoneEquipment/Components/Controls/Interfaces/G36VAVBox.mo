@@ -3,11 +3,6 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
   extends
     Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController;
 
-  final parameter Boolean have_preIndDam=
-    damVAV.typ==Buildings.Templates.Components.Types.Damper.PressureIndependent
-    "Set to true is the VAV damper is pressure independent (with built-in flow controller)"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -20,32 +15,6 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     coiHea.typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
     "Set to true if the system has hot water coil"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  parameter Boolean have_typTerUni=false
-    "Set to true if the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_parFanPowUni)));
-  parameter Boolean have_parFanPowUni=false
-    "Set to true if the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_typTerUni)));
-  parameter Boolean have_SZVAV=false
-    "Set to true if it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUni and not have_typTerUni)));
-
-  parameter Boolean permit_occStandby=true
-    "Set to true if occupied-standby mode is permitted"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  parameter Boolean have_locAdj=true
-    "Set to true if the zone has local setpoint adjustment knob"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-
-  parameter Boolean sepAdj=true
-    "Set to true if cooling and heating setpoints can be adjusted separately"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_locAdj));
-
-  parameter Boolean ignDemLim = true
-    "Set to true to exempt the zone from demand limit setpoint adjustment"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max=
     dat.VAirCooSet_flow_max
@@ -130,12 +99,10 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
     final have_hotWatCoi=have_hotWatCoi,
-    final permit_occStandby=permit_occStandby,
     final VOccMin_flow=VOutMinOcc_flow,
     final VAreMin_flow=VOutMinAre_flow,
     final VAreBreZon_flow=VOutAre_flow,
     final VPopBreZon_flow=VOutOcc_flow,
-    final have_preIndDam=have_preIndDam,
     final VMin_flow=VAirSet_flow_min,
     final VCooMax_flow=VAirCooSet_flow_max,
     final VHeaMin_flow=VAirHeaSet_flow_min,
@@ -151,12 +118,10 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     final have_winSen=have_winSen,
     final have_occSen=have_occSen,
     final have_CO2Sen=have_CO2Sen,
-    final permit_occStandby=permit_occStandby,
     final VOccMin_flow=VOutMinOcc_flow,
     final VAreMin_flow=VOutMinAre_flow,
     final VAreBreZon_flow=VOutAre_flow,
     final VPopBreZon_flow=VOutOcc_flow,
-    final have_preIndDam=have_preIndDam,
     final VMin_flow=VAirSet_flow_min,
     final VCooMax_flow=VAirCooSet_flow_max,
     final zonDisEff_cool=effAirDisCoo,
@@ -166,10 +131,7 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
 
   Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints TZonSet(
     final have_occSen=have_occSen,
-    final have_winSen=have_winSen,
-    final have_locAdj=have_locAdj,
-    final sepAdj=sepAdj,
-    final ignDemLim=ignDemLim)
+    final have_winSen=have_winSen)
     "Compute zone temperature setpoints"
     annotation (Placement(transformation(extent={{-60,-20},{-40,20}})));
 

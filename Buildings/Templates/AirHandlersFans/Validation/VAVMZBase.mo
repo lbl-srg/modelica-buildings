@@ -13,6 +13,7 @@ model VAVMZBase
     "Heating medium (such as HHW)";
 
   inner parameter UserProject.Data.AllSystems datAll(
+    sysUni=Buildings.Templates.Types.Units.SI,
     redeclare replaceable model VAV = UserProject.AirHandlersFans.VAVMZBase,
     stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
@@ -161,6 +162,5 @@ This is a validation model for the configuration represented by
 Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase</a>
 </p>
 </html>"),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
-    Icon(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
 end VAVMZBase;
