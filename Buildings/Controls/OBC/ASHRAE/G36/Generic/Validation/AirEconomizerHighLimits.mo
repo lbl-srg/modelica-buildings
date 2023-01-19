@@ -3,91 +3,91 @@ model AirEconomizerHighLimits
   "Model validates the block for specifying air economizer high limits"
 
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B)
     "ASHRAE standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim1(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1)
     "Title 24 standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim2(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_5A)
     "ASHRAE standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim3(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A)
     "ASHRAE standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{30,90},{50,110}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim4(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B)
     "ASHRAE standard, with differential dry bulb device"
     annotation (Placement(transformation(extent={{-50,60},{-30,80}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim5(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B)
     "ASHRAE standard, with fixed enthalpy and fixed dry bulb device"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim6(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B)
     "ASHRAE standard, with differential enthalpy and fixed dry bulb device"
     annotation (Placement(transformation(extent={{-50,0},{-30,20}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim7(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_2)
     "Title 24 standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim8(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_6)
     "Title 24 standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim9(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_7)
     "Title 24 standard, with fixed dry bulb device"
     annotation (Placement(transformation(extent={{70,-30},{90,-10}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim10(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1)
     "Title 24 standard, with differential dry bulb device"
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim11(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_2)
     "Title 24 standard, with differential dry bulb device"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim12(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_6)
     "Title 24 standard, with differential dry bulb device"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim13(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_7)
     "Title 24 standard, with differential dry bulb device"
     annotation (Placement(transformation(extent={{70,-70},{90,-50}})));
   Buildings.Controls.OBC.ASHRAE.G36.Generic.AirEconomizerHighLimits ecoHigLim14(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb,
     final tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Zone_1)
     "Title 24 standard, with fixed enthalpy and fixed dry bulb device"
