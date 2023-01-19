@@ -53,22 +53,29 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Dampers control parameters ----------------
+  parameter Boolean have_preIndDam=false
+    "True: the VAV damper is pressure independent (with built-in flow controller)"
+    annotation (Dialog(tab="Dampers"));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Dampers"));
+    annotation (Dialog(tab="Dampers",
+      enable=not have_preIndDam));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Dampers"));
+    annotation (Dialog(tab="Dampers",
+      enable=not have_preIndDam));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=not have_preIndDam
+             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=not have_preIndDam
+             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
@@ -413,6 +420,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-160,150},{-140,170}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersDualSensors damDuaSen(
+    final have_preIndDam=have_preIndDam,
     final VCooMax_flow=VCooMax_flow,
     final VHeaMax_flow=VHeaMax_flow,
     final controllerTypeDam=controllerTypeDam,
@@ -425,6 +433,7 @@ block Controller "Controller for snap-acting controlled dual-duct terminal unit"
     "Dampers control when the unit has single dual airflow sensor"
     annotation (Placement(transformation(extent={{0,0},{20,40}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersSingleSensors damSinSen(
+    final have_preIndDam=have_preIndDam,
     final VCooMax_flow=VCooMax_flow,
     final VHeaMax_flow=VHeaMax_flow,
     final controllerTypeDam=controllerTypeDam,

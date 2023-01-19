@@ -2,6 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subseq
 block DampersSingleSensors
   "Output signals for controlling dampers of snap-acting controlled dual-duct terminal unit with single discharge airflow sensors"
 
+  parameter Boolean have_preIndDam
+    "True: the VAV damper is pressure independent (with built-in flow controller)";
   parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -12,23 +14,27 @@ block DampersSingleSensors
     "Design zone heating maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real kDam(final unit="1")=0.5
-    "Gain of controller for damper control";
+    "Gain of controller for damper control"
+    annotation(Dialog(enable=not have_preIndDam));
   parameter Real TiDam(
     final unit="s",
     final quantity="Time")=300
     "Time constant of integrator block for damper control"
     annotation(Dialog(
-      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=not have_preIndDam
+             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(
-      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=not have_preIndDam
+             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time",
@@ -78,7 +84,7 @@ block DampersSingleSensors
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
     final unit="m3/s",
-    final quantity="VolumeFlowRate")
+    final quantity="VolumeFlowRate") if not have_preIndDam
     "Measured discharge airflow rate airflow rate"
     annotation (Placement(transformation(extent={{-360,-40},{-320,0}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
@@ -128,7 +134,7 @@ block DampersSingleSensors
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0)
+    final y_reset=0) if not have_preIndDam
     "Cooling damper position controller"
     annotation (Placement(transformation(extent={{110,90},{130,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
@@ -145,11 +151,16 @@ block DampersSingleSensors
   Buildings.Controls.OBC.CDL.Continuous.Switch damPos "Output damper position"
     annotation (Placement(transformation(extent={{160,0},{180,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
+    if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDisSet_flowNor
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{20,90},{40,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=1) if have_preIndDam
+    "Block that can be disabled so remove the connection"
+    annotation (Placement(transformation(extent={{80,50},{100,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer1(
     final k=0)
     "Constant zero"
@@ -279,6 +290,8 @@ equation
     annotation (Line(points={{42,40},{120,40},{120,88}}, color={0,0,127}));
   connect(VDisSet_flowNor.y, conCooDam.u_s)
     annotation (Line(points={{42,100},{108,100}},  color={0,0,127}));
+  connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{42,100},{60,100},{
+          60,60},{78,60}}, color={0,0,127}));
   connect(VActMin_flow, lin.f1) annotation (Line(points={{-340,120},{-170,120},{
           -170,214},{-162,214}}, color={0,0,127}));
   connect(conZer1.y, lin1.x1) annotation (Line(points={{-258,90},{-230,90},{-230,
@@ -351,6 +364,8 @@ equation
     annotation (Line(points={{102,10},{114,10},{114,88}}, color={255,0,255}));
   connect(or1.y, damPos.u2)
     annotation (Line(points={{102,10},{158,10}}, color={255,0,255}));
+  connect(gai.y, damPos.u1) annotation (Line(points={{102,60},{140,60},{140,18},
+          {158,18}}, color={0,0,127}));
   connect(conCooDam.y, damPos.u1) annotation (Line(points={{132,100},{140,100},{
           140,18},{158,18}}, color={0,0,127}));
   connect(conZer3.y, damPos.u3) annotation (Line(points={{102,-160},{140,-160},{
@@ -478,6 +493,14 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uHea"),
         Text(
+          visible=not have_preIndDam,
+          extent={{-11.5,4.5},{11.5,-4.5}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          origin={39.5,-85.5},
+          rotation=90,
+          textString="VDis_flow"),
+        Text(
           extent={{46,-112},{98,-124}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -515,7 +538,8 @@ annotation (
           extent={{-98,-112},{-64,-128}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="VDis_flow"),
+          textString="VDis_flow",
+          visible=not have_preIndDam),
         Text(
           extent={{-98,-174},{-66,-184}},
           textColor={255,0,255},
@@ -609,11 +633,6 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/TerminalUnit
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-January 12, 2023, by Jianjun Hu:<br/>
-Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
-</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
