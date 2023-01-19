@@ -203,7 +203,7 @@ block Controller
     annotation (Placement(transformation(extent={{-280,230},{-240,270}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if the window is open, false if it is closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-280,200},{-240,240}}),
         iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen

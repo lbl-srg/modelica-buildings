@@ -242,6 +242,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection
+    </td>
+    <td valign=\"top\">Added flag to disable freeze protection.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -343,6 +354,35 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection
+    </td>
+    <td valign=\"top\">Added flag to disable freeze protection.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.Types</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
+    </td>
+    <td valign=\"top\">Removed the option of using return fan with tracking calculated supply and return airflow.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection
+    </td>
+    <td valign=\"top\">Removed the no-economizer option.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+
+
+
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -421,7 +461,17 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Electrical.DC</b>
+  <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime
+    </td>
+    <td valign=\"top\">Refactored implementation to avoid wrong day number due to rounding errors
+                       that caused simultaneous events to not be triggered at the same time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3199\">issue 3199</a>.
+    </td>
+  </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Electrical.DC</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Electrical.DC.Storage.BaseClasses.Charge
@@ -487,6 +537,16 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3065\">#3065</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.Time</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.Time.CalendarTime
+    </td>
+    <td valign=\"top\">Refactored implementation to avoid wrong day number due to rounding errors
+                       that caused simultaneous events to not be triggered at the same time.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3199\">issue 3199</a>.
+    </td>
+  </tr>
 </table>
 <!-- Uncritical errors -->
 <p>

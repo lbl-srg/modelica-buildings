@@ -162,11 +162,12 @@ block Controller
     "Measured outdoor volumetric airflow rate, normalized by design minimum outdoor airflow rate"
     annotation (Placement(transformation(extent={{-280,170},{-240,210}}),
         iconTransformation(extent={{-140,150},{-100,190}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(final unit="1")
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan(final unit="1")
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
-    "Actual supply fan speed" annotation (Placement(transformation(extent={{-280,
-            110},{-240,150}}), iconTransformation(extent={{-140,100},{-100,140}})));
+    "Commanded supply fan speed"
+    annotation (Placement(transformation(extent={{-280,110},{-240,150}}),
+        iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effAbsOutAir_normalized(
     final unit="1")
     if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
@@ -277,8 +278,7 @@ block Controller
     final min=0,
     final max=1,
     final unit="1")
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
     "Relief air damper commanded position"
     annotation (Placement(transformation(extent={{260,-20},{300,20}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -351,8 +351,7 @@ block Controller
     final have_dirCon=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
     final uMin=uHeaMax,
     final uMax=uCooMin)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Modulate economizer dampers position for buildings with return fan controlling pressure"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
@@ -372,37 +371,19 @@ block Controller
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon) "High limits"
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noAshCli(
-    final k=ashCliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified)
-    "No ASHRAE climate zone"
-    annotation (Placement(transformation(extent={{80,-180},{100,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noTit24Cli(
-    final k=tit24CliZon == Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified)
-    "No Title 24 climate zone"
-    annotation (Placement(transformation(extent={{80,-220},{100,-200}})));
-  Buildings.Controls.OBC.CDL.Logical.And noCli
-    "Climate zone is not specified"
-    annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
-    "Logical not"
-    annotation (Placement(transformation(extent={{160,-180},{180,-160}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes2(
-    final message="Warning: Climate zone is not specified!")
-    "Warning when the climate zone is not specified"
-    annotation (Placement(transformation(extent={{200,-180},{220,-160}})));
 equation
   connect(sepAFMS.VOutMinSet_flow_normalized, VOutMinSet_flow_normalized)
     annotation (Line(points={{-142,149},{-160,149},{-160,230},{-260,230}},
         color={0,0,127}));
-  connect(sepAFMS.uSupFan_actual, uSupFan_actual) annotation (Line(points={{-142,
-          131},{-178,131},{-178,130},{-260,130}}, color={0,0,127}));
+  connect(sepAFMS.uSupFan, uSupFan) annotation (Line(points={{-142,131},{-178,131},
+          {-178,130},{-260,130}}, color={0,0,127}));
   connect(sepDp.dpMinOutDam, dpMinOutDam) annotation (Line(points={{-142,83},{-184,
           83},{-184,10},{-260,10}},         color={0,0,127}));
   connect(VOutMinSet_flow_normalized, sepDp.VOutMinSet_flow_normalized)
     annotation (Line(points={{-260,230},{-160,230},{-160,81},{-142,81}},
         color={0,0,127}));
-  connect(uSupFan_actual, sepDp.uSupFan_actual) annotation (Line(points={{-260,
-          130},{-178,130},{-178,71},{-142,71}}, color={0,0,127}));
+  connect(uSupFan, sepDp.uSupFan) annotation (Line(points={{-260,130},{-178,130},
+          {-178,71},{-142,71}}, color={0,0,127}));
   connect(u1SupFan, sepAFMS.u1SupFan) annotation (Line(points={{-260,-190},{-196,
           -190},{-196,143},{-142,143}}, color={255,0,255}));
   connect(u1SupFan, sepDp.u1SupFan) annotation (Line(points={{-260,-190},{-196,-190},
@@ -528,14 +509,7 @@ equation
           88},{40,200},{280,200}}, color={255,0,255}));
   connect(damLim.yEnaMinOut, yEnaMinOut) annotation (Line(points={{-118,21},{6,21},
           {6,200},{280,200}}, color={255,0,255}));
-  connect(noAshCli.y, noCli.u1)
-    annotation (Line(points={{102,-170},{118,-170}}, color={255,0,255}));
-  connect(noTit24Cli.y, noCli.u2) annotation (Line(points={{102,-210},{110,-210},
-          {110,-178},{118,-178}}, color={255,0,255}));
-  connect(noCli.y, not2.u)
-    annotation (Line(points={{142,-170},{158,-170}}, color={255,0,255}));
-  connect(not2.y, assMes2.u)
-    annotation (Line(points={{182,-170},{198,-170}}, color={255,0,255}));
+
 annotation (defaultComponentName="ecoCon",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
     graphics={
@@ -561,12 +535,12 @@ annotation (defaultComponentName="ecoCon",
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)),
         Text(
-          extent={{-96,128},{-22,112}},
+          extent={{-96,128},{-56,112}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           visible=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
                or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
-          textString="uSupFan_actual"),
+          textString="uSupFan"),
         Text(
           extent={{-96,30},{-30,12}},
           textColor={0,0,127},
@@ -633,8 +607,7 @@ annotation (defaultComponentName="ecoCon",
           extent={{42,-50},{98,-66}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
           textString="yRelDam"),
         Text(
           extent={{42,-110},{98,-126}},

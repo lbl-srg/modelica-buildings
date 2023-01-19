@@ -204,7 +204,7 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if the window is open, false if it is closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen

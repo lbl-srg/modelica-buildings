@@ -53,7 +53,8 @@ model ZoneStatus
     final k=303.15)
     "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
   connect(cooDowTim.y, noWinZonSta.cooDowTim) annotation (Line(points={{-58,100},
           {28,100},{28,85},{78,85}},  color={0,0,127}));
@@ -69,8 +70,6 @@ equation
           32,60},{32,2},{78,2}},        color={0,0,127}));
   connect(zonTem.y, witWinZonSta.TZon) annotation (Line(points={{12,20},{36,20},
           {36,-3.8},{78,-3.8}},  color={0,0,127}));
-  connect(uWinSta.y, witWinZonSta.u1Win) annotation (Line(points={{-58,-10},{40,
-          -10},{40,-1},{78,-1}}, color={255,0,255}));
   connect(sin2.y, gai.u)
     annotation (Line(points={{-48,20},{-42,20}},   color={0,0,127}));
   connect(gai.y, zonTem.u)
@@ -91,6 +90,10 @@ equation
           {52,-80},{52,-14},{78,-14}}, color={0,0,127}));
   connect(TCooSetUno.y,witWinZonSta.TUnoCooSet)  annotation (Line(points={{-38,-100},
           {56,-100},{56,-17},{78,-17}}, color={0,0,127}));
+  connect(uWinSta.y, not2.u)
+    annotation (Line(points={{-58,-10},{-22,-10}}, color={255,0,255}));
+  connect(not2.y, witWinZonSta.u1Win) annotation (Line(points={{2,-10},{40,-10},
+          {40,-1},{78,-1}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/ZoneGroups/Validation/ZoneStatus.mos"
