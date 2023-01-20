@@ -55,10 +55,10 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal=0.01
     "Load side inlet humidity ratio at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
-  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal=0.5
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal(min=Modelica.Constants.eps)=0.5
     "Load side mass flow rate at nominal conditions in heating mode (single unit)"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_heaWat));
-  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal=
+  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal(min=Modelica.Constants.eps)=
     mLoaHea_flow_nominal
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
     annotation (Dialog(group="Nominal condition", tab="Advanced", enable=have_chiWat));
@@ -69,10 +69,10 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.Temperature T_aLoaHea_nominal_ref=293.15
     "Load side inlet temperature at nominal conditions in heating mode of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal_ref = 0.5
+  parameter Modelica.Units.SI.MassFlowRate mLoaHea_flow_nominal_ref(min=Modelica.Constants.eps) = 0.5
     "Load side mass flow rate at nominal conditions in heating mode of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal_ref = 4.5E3
+  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal_ref(min=Modelica.Constants.eps) = 4.5E3
     "Heat flow at nominal conditions in heating mode of reference terminal unit"
     annotation(Dialog(enable=have_heaWat, group="Reference terminal unit performance", tab="Advanced"));
 
@@ -85,10 +85,10 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal_ref=0.01
     "Load side inlet humidity ratio at nominal conditions in cooling mode of reference terminal unit"
     annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal_ref = 0.5
+  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal_ref(min=Modelica.Constants.eps) = 0.5
     "Load side mass flow rate at nominal conditions in cooling mode of reference terminal unit"
     annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
-  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal_ref = -5.8E3
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal_ref(max=-Modelica.Constants.eps) = -5.8E3
     "Heat flow at nominal conditions in cooling mode of reference terminal unit"
     annotation(Dialog(enable=have_chiWat, group="Reference terminal unit performance", tab="Advanced"));
 
@@ -104,12 +104,12 @@ model BuildingTimeSeries
     filNam=Modelica.Utilities.Files.loadResource(filNam))
     "Design heating heat flow rate (>=0)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal=abs(
-      QCoo_flow_nominal/cp_default/(T_aChiWat_nominal - T_bChiWat_nominal))
+  parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(min=Modelica.Constants.eps)=
+      QCoo_flow_nominal/cp_default/(T_aChiWat_nominal - T_bChiWat_nominal)
     "Chilled water mass flow rate at nominal conditions (all units)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=abs(
-      QHea_flow_nominal/cp_default/(T_aHeaWat_nominal - T_bHeaWat_nominal))
+  parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal(min=Modelica.Constants.eps)=
+      QHea_flow_nominal/cp_default/(T_aHeaWat_nominal - T_bHeaWat_nominal)
     "Heating water mass flow rate at nominal conditions (all units)"
     annotation (Dialog(group="Nominal condition"));
   parameter Real k(
@@ -276,6 +276,11 @@ protected
     Buildings.Media.Air.specificEnthalpy_pTX(
       p=Medium2.p_default, T=T_aChiWat_nominal_ref, X={X1Sat_nominal_ref, 1-X1Sat_nominal_ref})
     "Specific enthalpy of saturated air at entering water temperature for reference terminal unit";
+initial equation
+  assert(QCoo_flow_nominal < -Modelica.Constants.eps, "QCoo_flow_nominal must be negative.");
+  assert(T_aChiWat_nominal - T_bChiWat_nominal < 0, "Temperature difference (T_aChiWat_nominal - T_bChiWat_nominal) has wrong sign.");
+  assert(T_aHeaWat_nominal - T_bHeaWat_nominal > 0, "Temperature difference (T_aHeaWat_nominal - T_bHeaWat_nominal) has wrong sign.");
+
 equation
   connect(terUniHea.port_bHeaWat,disFloHea.ports_a1[1])
     annotation (Line(points={{90,-20.3333},{90,-20},{146,-20},{146,-54},{140,
