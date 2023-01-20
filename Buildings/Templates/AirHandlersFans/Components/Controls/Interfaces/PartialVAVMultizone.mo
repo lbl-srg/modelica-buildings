@@ -41,12 +41,12 @@ partial block PartialVAVMultizone "Interface class for multiple-zone VAV control
        secOutRel.typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir));
 
   parameter Boolean have_frePro=true
-    "Set to true if the freeze protection is needed"
+    "Set to true to include freeze protection"
     annotation(Evaluate=true);
 
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat typFreSta=
     Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-    "Low limit (freeze) protection"
+    "Option for low limit (freeze) protection"
     annotation(Evaluate=true, Dialog(enable=have_frePro));
 
   final parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection typSecOut=

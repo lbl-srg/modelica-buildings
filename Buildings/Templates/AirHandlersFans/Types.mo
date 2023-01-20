@@ -17,11 +17,6 @@ package Types "Package with type definitions"
       OpenLoop
       "Open loop controller")
     "Enumeration to configure the AHU controller";
-  /*
-  RFE #1913: Add option for calculated airflow.
-      AirflowCalculated
-      "Calculated based on return fan speed and VAV box flow rates",
-  */
   type ControlFanReturn = enumeration(
       AirflowMeasured
       "Airflow tracking with airflow measurement stations",
