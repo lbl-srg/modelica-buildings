@@ -168,7 +168,8 @@ block StagingPlant
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,0})));
-  IntegerHold holChi(holdDuration=15*60)
+  IntegerArrayHold
+              holChi(holdDuration=15*60, nin=1)
     "Hold signal to ensure minimum runtime at given stage"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
@@ -195,12 +196,13 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Integers.Subtract numChiCasCoo
     "Number of HRC required in cascading cooling"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
-  IntegerHold holOpeChiHea(holdDuration=15*60)
+  IntegerArrayHold
+              holOpeChiHea(holdDuration=15*60, nin=1)
     "Hold signal to ensure minimum runtime at given stage"
-    annotation (Placement(transformation(extent={{90,-130},{110,-110}})));
+    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
   ModeHeatRecoveryChiller modHeaCoo(final nChiHea=nChiHea)
     "Compute the indices of HRC required to be operating in direct HR mode"
-    annotation (Placement(transformation(extent={{150,-30},{170,-10}})));
+    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaCooChiHea[nChiHea]
     "HR chiller cooling mode switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(
@@ -216,8 +218,8 @@ block StagingPlant
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-70})));
-  IntegerArrayHold hol(nin=2, holdDuration=15*60)
-    annotation (Placement(transformation(extent={{90,-30},{110,-10}})));
+  IntegerArrayHold hol(nin=3, holdDuration=15*60)
+    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 equation
   connect(dTChiWat.y, loaChiWat.u2) annotation (Line(points={{-158,60},{-156,60},
           {-156,94},{-152,94}},   color={0,0,127}));
@@ -275,9 +277,9 @@ equation
   connect(rep5.y, cmdChiHea.u)
     annotation (Line(points={{142,-120},{148,-120}},
                                                  color={255,127,0}));
-  connect(holChi.y, rep.u)
+  connect(holChi.y[1], rep.u)
     annotation (Line(points={{102,100},{118,100}},color={255,127,0}));
-  connect(holChi.y, intToRea.u) annotation (Line(points={{102,100},{110,100},{
+  connect(holChi.y[1], intToRea.u) annotation (Line(points={{102,100},{110,100},{
           110,60},{-140,60},{-140,42}},       color={255,127,0}));
   connect(u1Coo, booToInt.u) annotation (Line(points={{-220,180},{-190,180},{-190,
           140},{-2,140}},       color={255,0,255}));
@@ -285,9 +287,7 @@ equation
           94},{38,94}}, color={255,127,0}));
   connect(booToInt.y, numOpeChi.u1) annotation (Line(points={{22,140},{32,140},{
           32,106},{38,106}}, color={255,127,0}));
-  connect(numOpeChi.y, holChi.u)
-    annotation (Line(points={{62,100},{78,100}}, color={255,127,0}));
-  connect(holChi.y, scaChi1.u) annotation (Line(points={{102,100},{110,100},{
+  connect(holChi.y[1], scaChi1.u) annotation (Line(points={{102,100},{110,100},{
           110,60},{-80,60},{-80,40},{-72,40}},
                                            color={255,127,0}));
   connect(scaChi1.y, booToInt1.u)
@@ -313,9 +313,7 @@ equation
           {40,6},{48,6}},   color={255,127,0}));
   connect(cmdChiHea.y, y1ChiHea)
     annotation (Line(points={{172,-120},{220,-120}}, color={255,0,255}));
-  connect(holOpeChiHea.y, rep5.u)
-    annotation (Line(points={{112,-120},{118,-120}}, color={255,127,0}));
-  connect(modHeaCoo.y1HeaCoo, y1HeaCooChiHea) annotation (Line(points={{172,-26},
+  connect(modHeaCoo.y1HeaCoo, y1HeaCooChiHea) annotation (Line(points={{162,-26},
           {180,-26},{180,-50},{220,-50}}, color={255,0,255}));
   connect(numChiHea.y, nChiHeaHeaAndCoo.u2)
     annotation (Line(points={{12,-76},{18,-76}}, color={255,127,0}));
@@ -325,23 +323,29 @@ equation
     annotation (Line(points={{12,-44},{48,-44}}, color={255,127,0}));
   connect(nChiHeaHeaAndCoo.y, numChiHeaCoo.u2) annotation (Line(points={{42,-70},
           {46,-70},{46,-56},{48,-56}}, color={255,127,0}));
-  connect(nChiHeaHeaAndCoo.y, holOpeChiHea.u) annotation (Line(points={{42,-70},
-          {46,-70},{46,-120},{88,-120}}, color={255,127,0}));
-  connect(modHeaCoo.y1Coo, y1CooChiHea) annotation (Line(points={{172,-14},{180,
+  connect(modHeaCoo.y1Coo, y1CooChiHea) annotation (Line(points={{162,-14},{180,
           -14},{180,20},{220,20}}, color={255,0,255}));
   connect(numChiHeaCoo.y, numChiCasCoo.u2) annotation (Line(points={{72,-50},{
-          80,-50},{80,-20},{40,-20},{40,-6},{48,-6}},
+          76,-50},{76,-20},{40,-20},{40,-6},{48,-6}},
                                                color={255,127,0}));
-  connect(numChiCasCoo.y, hol.u[1]) annotation (Line(points={{72,0},{86,0},{86,
-          -20.5},{88,-20.5}}, color={255,127,0}));
-  connect(numChiHeaCoo.y, hol.u[2]) annotation (Line(points={{72,-50},{80,-50},
-          {80,-19.5},{88,-19.5}},color={255,127,0}));
-  connect(hol.y[1],modHeaCoo. nCasCoo) annotation (Line(points={{112,-20.5},{
-          126,-20.5},{126,-20},{130,-20},{130,-14},{148,-14}},
+  connect(numChiCasCoo.y, hol.u[1]) annotation (Line(points={{72,0},{76,0},{76,
+          -20.6667},{78,-20.6667}},
+                              color={255,127,0}));
+  connect(numChiHeaCoo.y, hol.u[2]) annotation (Line(points={{72,-50},{76,-50},
+          {76,-20},{78,-20}},    color={255,127,0}));
+  connect(hol.y[1],modHeaCoo. nCasCoo) annotation (Line(points={{102,-20.6667},
+          {126,-20.6667},{126,-20},{130,-20},{130,-14},{138,-14}},
                                                            color={255,127,0}));
-  connect(hol.y[2],modHeaCoo. nHeaCoo) annotation (Line(points={{112,-19.5},{
-          130,-19.5},{130,-26},{148,-26}},
-                                       color={255,127,0}));
+  connect(hol.y[2],modHeaCoo. nHeaCoo) annotation (Line(points={{102,-20},{130,
+          -20},{130,-26},{138,-26}},   color={255,127,0}));
+  connect(numOpeChi.y, holChi.u[1])
+    annotation (Line(points={{62,100},{78,100}}, color={255,127,0}));
+  connect(nChiHeaHeaAndCoo.y, holOpeChiHea.u[1]) annotation (Line(points={{42,
+          -70},{46,-70},{46,-120},{78,-120}}, color={255,127,0}));
+  connect(numChiHeaCoo.y, hol.u[3]) annotation (Line(points={{72,-50},{76,-50},
+          {76,-20},{78,-20},{78,-19.3333}}, color={255,127,0}));
+  connect(holOpeChiHea.y[1], rep5.u)
+    annotation (Line(points={{102,-120},{118,-120}}, color={255,127,0}));
   annotation (
   defaultComponentName="staPla",
   Documentation(info="<html>

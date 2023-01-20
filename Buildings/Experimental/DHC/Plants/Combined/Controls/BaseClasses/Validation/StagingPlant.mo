@@ -52,16 +52,16 @@ model StagingPlant "Validation of plant staging block"
     annotation (Placement(transformation(extent={{30,70},{50,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(k=7 + 273.15)
     "Source signal"
-    annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatPriRet(k=12 + 273.15)
     "Source signal"
-    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
+    annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(k=60 + 273.15)
     "Source signal"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatPriRet(k=50 + 273.15)
     "Source signal"
-    annotation (Placement(transformation(extent={{-30,-90},{-10,-70}})));
+    annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Modelica.Blocks.Noise.TruncatedNormalNoise noi(
     samplePeriod=300,
     y_min=-0.3,
@@ -88,15 +88,15 @@ equation
           9}}, color={255,0,255}));
   connect(u1.y, staChi.u1Hea) annotation (Line(points={{52,80},{60,80},{60,7},{78,
           7}}, color={255,0,255}));
-  connect(TChiWatSupSet.y, staChi.TChiWatSupSet) annotation (Line(points={{22,-20},
+  connect(TChiWatSupSet.y, staChi.TChiWatSupSet) annotation (Line(points={{-38,-20},
           {40,-20},{40,2},{78,2}},
                                  color={0,0,127}));
-  connect(THeaWatPriRet.y, staChi.THeaWatPriRet) annotation (Line(points={{-8,-80},
+  connect(THeaWatPriRet.y, staChi.THeaWatPriRet) annotation (Line(points={{-78,-80},
           {50,-80},{50,-7},{78,-7}}, color={0,0,127}));
-  connect(THeaWatSupSet.y, staChi.THeaWatSupSet) annotation (Line(points={{22,-60},
+  connect(THeaWatSupSet.y, staChi.THeaWatSupSet) annotation (Line(points={{-38,-60},
           {48,-60},{48,-5},{78,-5}},
                                    color={0,0,127}));
-  connect(TChiWatPriRet.y, staChi.TChiWatPriRet) annotation (Line(points={{-8,-40},
+  connect(TChiWatPriRet.y, staChi.TChiWatPriRet) annotation (Line(points={{-78,-40},
           {42,-40},{42,0},{78,0}}, color={0,0,127}));
   connect(sca.y, staChi.mChiWatPri_flow)
     annotation (Line(points={{34,50},{40,50},{40,4},{78,4}},

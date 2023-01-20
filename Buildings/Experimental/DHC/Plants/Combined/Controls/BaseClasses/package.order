@@ -1,9 +1,10 @@
 Ceiling
 IntegerArrayHold
-IntegerHold
+ModeCondenserLoop
 ModeHeatRecoveryChiller
 PartialController
 StagingPlant
 StagingPump
 StagingPumpDetailed
+TankCycle
 Validation

@@ -37,12 +37,6 @@ block PartialController "Interface class for plant controller"
     "Number of CW pumps serving evaporator barrels at design conditions"
     annotation (Dialog(group="CW loop, TES tank and heat pumps"),
       Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TTanSet[:, 2]
-    "Tank temperature setpoints"
-    annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-  final parameter Integer nCycTan = size(TTanSet, 1)
-    "Number of tank cycles"
-    annotation(Evaluate=true);
 
   parameter Integer nCoo(final min=1, start=1)
     "Number of cooling tower cells operating at design conditions"
@@ -103,12 +97,19 @@ block PartialController "Interface class for plant controller"
     "Design (maximum) CW evaporator loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
 
+  parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
+    "Tank temperature setpoints: 2 cycles with 2 setpoints"
+    annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real fraUslTan(final unit="1", final min=0, final max=1)
     "Useless fraction of TES"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-  final parameter Integer nTTan = size(TTan, 1)
+  parameter Integer nTTan(final min=0)=0
     "Number of tank temperature points"
-    annotation(Evaluate=true);
+    annotation (Dialog(group="CW loop, TES tank and heat pumps", connectorSizing=true),HideResult=true);
+  parameter Real ratFraChaTanLim[3](each final unit="1/h")=
+    {0.3, 0.15, 0.8}
+    "Rate of change of tank charge fraction, over 10, 30 and 60 minutes that triggers Charge Assist"
+    annotation(Dialog(group="CW loop, TES tank and heat pumps"));
 
   parameter Modelica.Units.SI.Time riseTimePum=30
     "Pump rise time of the filter (time to reach 99.6 % of the speed)"
@@ -122,14 +123,6 @@ block PartialController "Interface class for plant controller"
       Dialog(
       tab="Dynamics",
       group="Filtered opening"));
-
-  Real fraChaTan(final unit="1")=
-    (sum(TTan .- TTanSet[nCycTan, 2]) / (TTanSet[1, 2] - TTanSet[1, 1]) / nTTan - fraUslTan) /
-    (1 - fraUslTan)
-    "Tank charge fraction";
-  Real ratFraChaTan(final unit="1/s")=
-    fraChaTan - delay(fraChaTan, 5*60)
-    "Rate of change of tank charge fraction";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"
@@ -402,54 +395,64 @@ block PartialController "Interface class for plant controller"
         iconTransformation(extent={{-260,100},{-220,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(final unit="Pa")
     "CHW differential pressure (from local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
-        iconTransformation(extent={{-260,-140},{-220,-100}})));
+    annotation (Placement(transformation(extent={{-300,-240},{-260,-200}}),
+        iconTransformation(extent={{-260,-210},{-220,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWat(final unit="Pa")
     "HW differential pressure (from local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,-220},{-260,-180}}),
-        iconTransformation(extent={{-260,-170},{-220,-130}})));
+    annotation (Placement(transformation(extent={{-300,-280},{-260,-240}}),
+        iconTransformation(extent={{-260,-240},{-220,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mChiWatPri_flow(final unit=
         "kg/s") "Primary CHW mass flow rate"
     annotation (Placement(
         transformation(extent={{-300,-20},{-260,20}}), iconTransformation(
-          extent={{-260,-20},{-220,20}})));
+          extent={{-260,-40},{-220,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mHeaWatPri_flow(final unit=
         "kg/s") "Primary HW mass flow rate" annotation (Placement(
         transformation(extent={{-300,-60},{-260,-20}}),
                                                       iconTransformation(extent={{-260,
-            -50},{-220,-10}})));
+            -70},{-220,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpConWatCon(final unit="Pa")
     "CW condenser loop differential pressure" annotation (Placement(
-        transformation(extent={{-300,-260},{-260,-220}}), iconTransformation(
-          extent={{-260,-200},{-220,-160}})));
+        transformation(extent={{-300,-320},{-260,-280}}), iconTransformation(
+          extent={{-260,-270},{-220,-230}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpConWatEva(final unit="Pa")
     "CW evaporator loop differential pressure" annotation (Placement(
-        transformation(extent={{-300,-300},{-260,-260}}), iconTransformation(
-          extent={{-260,-230},{-220,-190}})));
+        transformation(extent={{-300,-360},{-260,-320}}), iconTransformation(
+          extent={{-260,-300},{-220,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatCon_flow(final unit=
         "kg/s") "CW condenser loop mass flow rate" annotation (Placement(
         transformation(extent={{-300,-100},{-260,-60}}),
                                                      iconTransformation(extent={{-260,
-            -80},{-220,-40}})));
+            -100},{-220,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatEva_flow(final unit=
         "kg/s") "CW evaporator loop mass flow rate" annotation (Placement(
         transformation(extent={{-300,-140},{-260,-100}}),
                                                       iconTransformation(extent={{-260,
-            -110},{-220,-70}})));
+            -130},{-220,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriRet(final unit="K",
       displayUnit="degC") "Primary CHW return temperature " annotation (
       Placement(transformation(extent={{-300,60},{-260,100}}),
-        iconTransformation(extent={{-260,40},{-220,80}})));
+        iconTransformation(extent={{-260,60},{-220,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriRet(final unit="K",
       displayUnit="degC") "Primary HW return temperature " annotation (
-      Placement(transformation(extent={{-300,20},{-260,60}}),
-        iconTransformation(extent={{-260,10},{-220,50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTan[:](
+      Placement(transformation(extent={{-300,40},{-260,80}}),
+        iconTransformation(extent={{-260,30},{-220,70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TTan[nTTan](
     each final unit="K",
     each  displayUnit="degC")
     "TES tank temperature" annotation (Placement(
-        transformation(extent={{-300,-340},{-260,-300}}), iconTransformation(
-          extent={{-260,-280},{-220,-240}})));
+        transformation(extent={{-300,20},{-260,60}}),     iconTransformation(
+          extent={{-260,0},{-220,40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit
+      ="kg/s")
+    "Mass flow rate out of lower port of TES tank (>0 when charging)"
+    annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
+        iconTransformation(extent={{-260,-160},{-220,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatOutTan_flow(final unit
+      ="kg/s")
+    "Mass flow rate out of lower port of TES tank (>0 when charging)"
+    annotation (Placement(transformation(extent={{-300,-200},{-260,-160}}),
+        iconTransformation(extent={{-260,-180},{-220,-140}})));
   annotation (Diagram(coordinateSystem(extent={{-260,-360},{260,360}})), Icon(
         coordinateSystem(extent={{-220,-300},{220,300}}),
         graphics={                      Text(

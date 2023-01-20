@@ -1,7 +1,8 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block IntegerArrayHold
-  parameter Integer nin
-    "Array dimension";
+  parameter Integer nin=0
+    "Array dimension"
+    annotation (Dialog(connectorSizing=true),HideResult=true);
   parameter Real holdDuration(
     final quantity="Time",
     final unit="s")=1
@@ -38,5 +39,17 @@ algorithm
         Text(
           textColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This blocks updates the value of the output array to 
+match the value of the input array only if the time
+since the last update exceeds <code>holdDuration</code>.
+Otherwise, the value of the output array is kept equal
+to its value at the time of the last update.
+At initial time, the value of the output array is set 
+to the value of the input array, and this is considered
+as the first update time.
+</p>
+</html>"));
 end IntegerArrayHold;
