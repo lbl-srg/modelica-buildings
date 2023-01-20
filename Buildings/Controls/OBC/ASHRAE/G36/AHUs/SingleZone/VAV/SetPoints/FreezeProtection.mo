@@ -78,7 +78,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{-480,230},{-440,270}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC and
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS and
     have_frePro
     "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
     annotation (Placement(transformation(extent={{-480,30},{-440,70}}),
@@ -468,16 +468,16 @@ block FreezeProtection
     final k=0) if have_frePro
     "Stage 0 freeze protection"
     annotation (Placement(transformation(extent={{140,580},{160,600}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1 if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg1 if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,40},{-200,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "The output is normally false"
     annotation (Placement(transformation(extent={{-360,40},{-340,60}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "Constant false"
     annotation (Placement(transformation(extent={{-300,-10},{-280,10}})));
@@ -926,7 +926,7 @@ annotation (defaultComponentName="sinAHUFrePro",
           extent={{-96,62},{-54,42}},
           textColor={255,0,255},
           textString="u1FreSta",
-          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
                and have_frePro),
         Text(
           extent={{-102,178},{-46,162}},

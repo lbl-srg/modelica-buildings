@@ -131,7 +131,7 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Real TSupCoo_max(
     unit="K",
     displayUnit="degC")=291.15
-    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
+    "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF)
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
     annotation (Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TOut_min(
@@ -568,7 +568,7 @@ block Controller "Multizone VAV air handling unit controller"
     annotation (Placement(transformation(extent={{-400,-160},{-360,-120}}),
         iconTransformation(extent={{-240,-140},{-200,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
     "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
     annotation (Placement(transformation(extent={{-400,-190},{-360,-150}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
@@ -1298,7 +1298,7 @@ annotation (
           extent={{-196,-148},{-142,-168}},
           textColor={255,0,255},
           textString="u1FreSta",
-          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC),
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS),
        Text(
           extent={{-196,-188},{-122,-208}},
           textColor={255,0,255},
@@ -1450,7 +1450,7 @@ for more detailed description.
 </p>
 <h4>Building pressure control</h4>
 <p>
-By selecting different building pressure control designs, which includes using actuated 
+By selecting different building pressure control designs, which includes using actuated
 relief damper without fan, using actuated relief dampers with relief fan, using
 return fan with direct building pressure control, or using return fan with airflow
 tracking control, the sequences controls relief fans, relief dampers and return fans.

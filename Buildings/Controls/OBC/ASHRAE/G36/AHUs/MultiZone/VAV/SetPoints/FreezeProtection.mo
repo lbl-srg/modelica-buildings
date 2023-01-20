@@ -93,7 +93,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{-480,310},{-440,350}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC and
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS and
     have_frePro
     "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
     annotation (Placement(transformation(extent={{-480,110},{-440,150}}),
@@ -364,7 +364,7 @@ block FreezeProtection
     "Check if it should be in stage 3 mode"
     annotation (Placement(transformation(extent={{-220,192},{-200,212}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "Constant false"
     annotation (Placement(transformation(extent={{-300,50},{-280,70}})));
@@ -525,11 +525,11 @@ block FreezeProtection
      and have_frePro
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{320,-80},{340,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "The output is normally false"
     annotation (Placement(transformation(extent={{-360,120},{-340,140}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
      and have_frePro
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
@@ -1034,7 +1034,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,32},{-48,10}},
           textColor={255,0,255},
-          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
                and have_frePro,
           textString="u1FreSta"),
         Text(
