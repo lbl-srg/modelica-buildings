@@ -58,7 +58,7 @@ block G36VAVMultiZone
     annotation(Evaluate=true);
 
   parameter Boolean have_perZonRehBox=false
-    "Set to true if there is any VAV-reheat boxes on perimeter zones"
+    "Set to true if there are any VAV-reheat boxes on perimeter zones"
     annotation (Dialog(group="Configuration"));
 
   /*
