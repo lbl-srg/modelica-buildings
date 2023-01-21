@@ -1,17 +1,11 @@
 within Buildings.Fluid.Sources.BaseClasses;
-partial model PartialSource
-  "Partial component source with one fluid connector"
+partial model PartialAirSource
+  "Partial component air source with one fluid connector"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choices(
-        choice(redeclare package Medium = Buildings.Media.Air "Moist air"),
-        choice(redeclare package Medium = Buildings.Media.Water "Water"),
-        choice(redeclare package Medium =
-            Buildings.Media.Antifreeze.PropyleneGlycolWater (
-              property_T=293.15,
-              X_a=0.40)
-              "Propylene glycol water, 40% mass fraction")));
+        choice(redeclare package Medium = Buildings.Media.Air "Moist air")));
 
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
   parameter Boolean verifyInputs = false
@@ -43,7 +37,6 @@ protected
     final quantity=Medium.extraPropertiesNames)
     "Needed to connect to conditional connector";
 
-
 initial equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts loop
@@ -61,7 +54,7 @@ equation
   annotation (defaultComponentName="bou",
   Documentation(info="<html>
 <p>
-Partial model for a fluid source that either prescribes
+Partial model for a moist air source that either prescribes
 pressure or mass flow rate.
 Models that extend this partial model need to prescribe the outflowing
 specific enthalpy, composition and trace substances.
@@ -79,32 +72,19 @@ If the temperature is outside these bounds, the simulation will stop with an err
 </p>
 <h4>Usage</h4>
 <p>
-This partial model provides medium selection for water, moist air and glycol.
-For a model that only provides moist air as a selection, use
-<a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialAirSource\">
-Buildings.Fluid.Sources.BaseClasses.PartialAirSource</a>.
+This partial model provides medium selection for moist air.
+For a model that only provides for water, moist air and glycol as a selection, use
+<a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialSource\">
+Buildings.Fluid.Sources.BaseClasses.PartialSource</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-April 1, 2021, by Michael Wetter:<br/>
-Corrected misplaced <code>each</code> and added missing instance comment.<br/>
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1462\">IBPSA, #1462</a>.
-</li>
-<li>
-January 18, 2019, by Jianjun Hu:<br/>
-Limited the media choice.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1050\">IBPSA, #1050</a>.
-</li>
-<li>
-May 30, 2018, by Michael Wetter:<br/>
-Improved documentation.
-</li>
-<li>
-February 2nd, 2018 by Filip Jorissen<br/>
-Initial version for refactoring inputs of sources.
-See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/882\">IBPSA, #882</a>.
+January 09, 2023, by Jianjun Hu:<br/>
+First implementation, specifically for the moist air source.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
 </li>
 </ul>
 </html>"));
-end PartialSource;
+end PartialAirSource;
