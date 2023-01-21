@@ -10,13 +10,13 @@ block Setpoints
     "True: the zone has CO2 sensor";
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_parFanPowUni)));
+    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV and not have_parFanPowUni));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_typTerUni)));
+    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV and not have_typTerUni));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUni and not have_typTerUni)));
+    annotation(Dialog(enable=have_CO2Sen and not have_parFanPowUni and not have_typTerUni));
 
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"

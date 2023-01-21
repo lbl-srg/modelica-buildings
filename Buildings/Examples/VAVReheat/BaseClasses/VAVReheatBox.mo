@@ -72,7 +72,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Supply Air Volumetric Flow Rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Fluid.Actuators.Dampers.Exponential vav(
+  Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=mCooAir_flow_nominal,
     dpDamper_nominal=20,
