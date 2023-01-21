@@ -281,6 +281,13 @@ have been <b style=\"color:blue\">improved</b> in a
   <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
   </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.MassFlowRateMultiplier
+    </td>
+    <td valign=\"top\">Added option to use input connector as multiplier factor.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1684\">IBPSA, #1684</a>.
+    </td>
+  </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
                          Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
                          Buildings.Fluid.MixingVolumes.MixingVolume<br/>
