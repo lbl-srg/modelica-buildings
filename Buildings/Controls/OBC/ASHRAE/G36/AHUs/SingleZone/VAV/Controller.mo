@@ -175,7 +175,7 @@ block Controller
   parameter Real TSupDew_max(
     unit="K",
     displayUnit="degC")=290.15
-    "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C. 
+    "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C.
     For mild and dry climates, a high set point (e.g. 24°C) should be entered for maximum efficiency"
     annotation (Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSupDea_min(
@@ -550,7 +550,7 @@ block Controller
     annotation (Placement(transformation(extent={{-300,-160},{-260,-120}}),
         iconTransformation(extent={{-240,-160},{-200,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
-    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
     "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
     annotation (Placement(transformation(extent={{-300,-190},{-260,-150}}),
         iconTransformation(extent={{-240,-190},{-200,-150}})));
@@ -1364,7 +1364,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="cooSetAdj"),
         Text(
-          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC,
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS,
           extent={{-198,-158},{-146,-178}},
           textColor={255,0,255},
           fillColor={0,0,0},
