@@ -22,7 +22,7 @@ partial model PartialElectric
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point for leaving chilled water temperature"
+    "Set point for leaving chilled water temperature (condenser water if have_switchover=true and coo=false)"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
