@@ -229,9 +229,14 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td valign=\"top\">xxx
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
-    <td valign=\"top\">xxx.
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.PartialAirSource
+    </td>
+    <td valign=\"top\">Added new base class that only provides moist air as a medium selection.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
     </td>
 </tr>
 </table>
@@ -251,6 +256,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added flag to disable freeze protection.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.Outside<br/>
+                       Buildings.Fluid.Sources.MassFlowSource_WeatherData
+    </td>
+    <td valign=\"top\">Changed base class to constrain medium to moist air.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
