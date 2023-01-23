@@ -26,7 +26,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"pla.chi.chi.m1_flow", "pla.chiHea.chi[1].m1_flow", "pla.chiHea.chi[2].m1_flow", "pla.chi.mChiWatUni_flow_nominal", "pla.chiHea.mChiWatUni_flow_nominal"},
+    y={"pla.chi.chi.m2_flow", "pla.chiHea.chi[1].m2_flow", "pla.chiHea.chi[2].m2_flow", "pla.chi.mChiWatUni_flow_nominal", "pla.chiHea.mChiWatUni_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

@@ -93,20 +93,14 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     "CHW and HW plant"
     annotation (Placement(transformation(extent={{-30,-30},{30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatSupSet(
-    y(final unit="K", displayUnit="degC"),
-    height=+3,
-    duration=100,
-    offset=pla.TChiWatSup_nominal,
-    startTime=2000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
+                                                     TChiWatSupSet(final k=pla.TChiWatSup_nominal,
+    y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatSupSet(
-    y(final unit="K", displayUnit="degC"),
-    height=-5,
-    duration=100,
-    offset=pla.THeaWatSup_nominal,
-    startTime=1000)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
+                                                     THeaWatSupSet(final k=pla.THeaWatSup_nominal,
+    y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
@@ -172,8 +166,8 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     annotation (Placement(transformation(extent={{-220,210},{-200,230}})));
   Modelica.Blocks.Noise.TruncatedNormalNoise noi(
     samplePeriod=300,
-    y_min=-0.3,
-    y_max=+0.3) "Noise"
+    y_min=-0.2,
+    y_max=+0.2) "Noise"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addNoi[2] "Add noise"
     annotation (Placement(transformation(extent={{-156,180},{-136,200}})));
@@ -228,8 +222,9 @@ equation
           -166,184},{-158,184}}, color={0,0,127}));
   connect(addNoi.y, lim.u)
     annotation (Line(points={{-134,190},{-128,190}}, color={0,0,127}));
-  connect(lim[2].y, valDisHeaWat.y) annotation (Line(points={{-104,190},{-40,
-          190},{-40,152}}, color={0,0,127}));
+  connect(lim[2].y, valDisHeaWat.y) annotation (Line(pointss={{-104,190},{-40,
+          190},{-40,152}}, color={0,0,127},
+      points={{-104,190},{-40,190},{-40,152}}));
   connect(lim[1].y, valDisChiWat.y) annotation (Line(points={{-104,190},{-80,
           190},{-80,-120},{-40,-120},{-40,-128}}, color={0,0,127}));
   annotation (
@@ -237,7 +232,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=10000,
+      StopTime=30000,
       Tolerance=1e-06),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})));
 end AllElectricCWStorage;
