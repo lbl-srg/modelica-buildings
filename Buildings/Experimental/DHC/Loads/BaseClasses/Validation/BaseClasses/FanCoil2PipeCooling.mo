@@ -19,8 +19,6 @@ model FanCoil2PipeCooling
     final have_TSen=false,
     final have_weaBus=false,
     final have_pum=false,
-    final QHea_flow_nominal=0,
-    final T_aLoaHea_nominal=293.15,
     mChiWat_flow_nominal=abs(
       QCoo_flow_nominal/cpChiWat_nominal/(T_aChiWat_nominal-T_bChiWat_nominal)));
   import hexConfiguration=Buildings.Fluid.Types.HeatExchangerConfiguration;
