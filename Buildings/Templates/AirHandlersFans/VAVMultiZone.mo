@@ -262,7 +262,7 @@ model VAVMultiZone "Multiple-zone VAV"
         "Modulating electric heating coil")),
     Dialog(group="Configuration",
       enable=coiHeaPre.typ==Buildings.Templates.Components.Types.Coil.None and
-      ctl.typ<>Buildings.Templates.AirHandlersFans.Types.Controller.Guideline36),
+      ctl.typ<>Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone),
     Placement(transformation(extent={{130,-210},{150,-190}})));
   Buildings.Fluid.FixedResistances.Junction junHeaWatSup(
     redeclare final package Medium = MediumHeaWat,
