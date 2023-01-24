@@ -84,25 +84,29 @@ model StagingPlant "Validation of plant staging block"
       =0) "Limit signal"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 equation
-  connect(u1.y, staChi.u1Coo) annotation (Line(points={{52,80},{60,80},{60,9},{78,
-          9}}, color={255,0,255}));
-  connect(u1.y, staChi.u1Hea) annotation (Line(points={{52,80},{60,80},{60,7},{78,
-          7}}, color={255,0,255}));
+  connect(u1.y, staChi.u1Coo) annotation (Line(points={{52,80},{60,80},{60,
+          8.57143},{78,8.57143}},
+               color={255,0,255}));
+  connect(u1.y, staChi.u1Hea) annotation (Line(points={{52,80},{60,80},{60,
+          7.14286},{78,7.14286}},
+               color={255,0,255}));
   connect(TChiWatSupSet.y, staChi.TChiWatSupSet) annotation (Line(points={{-38,-20},
-          {40,-20},{40,2},{78,2}},
+          {40,-20},{40,2.85714},{78,2.85714}},
                                  color={0,0,127}));
   connect(THeaWatPriRet.y, staChi.THeaWatPriRet) annotation (Line(points={{-78,-80},
-          {50,-80},{50,-7},{78,-7}}, color={0,0,127}));
+          {50,-80},{50,-8.57143},{78,-8.57143}},
+                                     color={0,0,127}));
   connect(THeaWatSupSet.y, staChi.THeaWatSupSet) annotation (Line(points={{-38,-60},
-          {48,-60},{48,-5},{78,-5}},
+          {48,-60},{48,-7.14286},{78,-7.14286}},
                                    color={0,0,127}));
   connect(TChiWatPriRet.y, staChi.TChiWatPriRet) annotation (Line(points={{-78,-40},
           {42,-40},{42,0},{78,0}}, color={0,0,127}));
   connect(sca.y, staChi.mChiWatPri_flow)
-    annotation (Line(points={{34,50},{40,50},{40,4},{78,4}},
+    annotation (Line(points={{34,50},{40,50},{40,4.28571},{78,4.28571}},
                                                            color={0,0,127}));
-  connect(sca1.y, staChi.mHeaWatPri_flow) annotation (Line(points={{34,20},{38,20},
-          {38,-3},{78,-3}},     color={0,0,127}));
+  connect(sca1.y, staChi.mHeaWatPri_flow) annotation (Line(points={{34,20},{38,
+          20},{38,-5.71429},{78,-5.71429}},
+                                color={0,0,127}));
   connect(ratFlo.y[1:2], addNoi[1:2].u1) annotation (Line(points={{-78,80},{-60,
           80},{-60,56},{-52,56}}, color={0,0,127}));
   connect(noi.y, fil.u)

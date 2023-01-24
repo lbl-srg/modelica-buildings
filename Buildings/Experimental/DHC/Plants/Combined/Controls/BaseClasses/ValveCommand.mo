@@ -214,7 +214,7 @@ block ValveCommand
     "Return true if cooling OR direct HR" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-80,-100})));
+        origin={-90,-100})));
   Buildings.Controls.OBC.CDL.Logical.Not heaAndCas[nChi]
     "Return true if heating AND cascading HR" annotation (Placement(
         transformation(
@@ -225,12 +225,12 @@ block ValveCommand
     "Return 1 if heating AND cascading HR" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,-100})));
+        origin={-10,-100})));
   Buildings.Controls.OBC.CDL.Logical.Not hea[nChiHea] "Return true if heating"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-80,-140})));
+        origin={-90,-140})));
   Buildings.Controls.OBC.CDL.Logical.Or heaOrDir[nChiHea]
     "Return true if heating OR direct HR" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -240,7 +240,7 @@ block ValveCommand
     "Return 1 if heating OR direct HR" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,-140})));
+        origin={-10,-140})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaSwiChiHea[nChiHea](
       each final unit="1") "HRC evaporator switchover valve commanded position"
     annotation (Placement(transformation(
@@ -297,26 +297,28 @@ equation
           -50},{-140,-50},{-140,-60},{-132,-60}},
                                          color={0,0,127}));
   connect(heaAndCas.y, yHeaAndCas.u)
-    annotation (Line(points={{-38,-100},{98,-100}},color={255,0,255}));
+    annotation (Line(points={{-38,-100},{-22,-100}},
+                                                   color={255,0,255}));
   connect(cooOrDir.y, heaAndCas.u)
-    annotation (Line(points={{-68,-100},{-62,-100}},
+    annotation (Line(points={{-78,-100},{-62,-100}},
                                                  color={255,0,255}));
   connect(hea.y, heaOrDir.u1)
-    annotation (Line(points={{-68,-140},{-62,-140}},
+    annotation (Line(points={{-78,-140},{-62,-140}},
                                                  color={255,0,255}));
   connect(heaOrDir.y, yHeaOrDir.u)
-    annotation (Line(points={{-38,-140},{98,-140}},color={255,0,255}));
+    annotation (Line(points={{-38,-140},{-22,-140}},
+                                                   color={255,0,255}));
   connect(u1CooChiHea, cooOrDir.u1) annotation (Line(points={{-240,-20},{-200,
-          -20},{-200,-100},{-92,-100}},
+          -20},{-200,-100},{-102,-100}},
                                    color={255,0,255}));
   connect(u1CooChiHea, hea.u) annotation (Line(points={{-240,-20},{-200,-20},{
-          -200,-140},{-92,-140}},
+          -200,-140},{-102,-140}},
                              color={255,0,255}));
   connect(u1HeaCooChiHea, heaOrDir.u2) annotation (Line(points={{-240,-40},{
-          -210,-40},{-210,-120},{-66,-120},{-66,-148},{-62,-148}},
+          -210,-40},{-210,-120},{-70,-120},{-70,-148},{-62,-148}},
                                                         color={255,0,255}));
   connect(u1HeaCooChiHea, cooOrDir.u2) annotation (Line(points={{-240,-40},{
-          -210,-40},{-210,-108},{-92,-108}},
+          -210,-40},{-210,-108},{-102,-108}},
                                         color={255,0,255}));
   connect(mConChiHea_flow, fil6.u)
     annotation (Line(points={{-240,-80},{-182,-80}}, color={0,0,127}));
@@ -327,9 +329,9 @@ equation
   connect(mEvaChiHea_flow, fil7.u) annotation (Line(points={{-240,-60},{-190,
           -60},{-190,-20},{-182,-20}}, color={0,0,127}));
   connect(yHeaAndCas.y, yValEvaSwiChiHea)
-    annotation (Line(points={{122,-100},{240,-100}}, color={0,0,127}));
+    annotation (Line(points={{2,-100},{240,-100}},   color={0,0,127}));
   connect(yHeaOrDir.y, yValConSwiChiHea)
-    annotation (Line(points={{122,-140},{240,-140}}, color={0,0,127}));
+    annotation (Line(points={{2,-140},{240,-140}},   color={0,0,127}));
   connect(valConChiHea.y, yValConChiHea)
     annotation (Line(points={{-108,-60},{240,-60}}, color={0,0,127}));
   connect(valEvaChiHea.y, yValEvaChiHea) annotation (Line(points={{-108,0},{
