@@ -25,6 +25,12 @@ partial model PartialElectric
     "Set point for leaving chilled water temperature (condenser water if have_switchover=true and coo=false)"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
+    "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput COP_h(final unit="1") if have_switchover
+    "Coefficient of performance of heating";
 
   Modelica.Units.SI.Temperature TEvaEnt "Evaporator entering temperature";
   Modelica.Units.SI.Temperature TEvaLvg "Evaporator leaving temperature";
@@ -34,10 +40,7 @@ partial model PartialElectric
   Modelica.Units.SI.Efficiency COP "Coefficient of performance";
   Modelica.Units.SI.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.Units.SI.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
-    "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
+
 
   Real capFunT(min=0, unit="1")
     "Cooling capacity factor function of temperature curve";
@@ -45,7 +48,7 @@ partial model PartialElectric
     "Power input to cooling capacity ratio function of temperature curve";
   Modelica.Units.SI.Efficiency EIRFunPLR
     "Power input to cooling capacity ratio function of part load ratio";
-  Real PLR1(min=0, unit="1") "Part load ratio";
+  Real PLR1(min=0, unit="1", start=0) "Part load ratio";
   Real PLR2(min=0, unit="1") "Part load ratio";
   Real CR(min=0, unit="1") "Cycling ratio";
 
@@ -112,7 +115,10 @@ protected
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-
+  Modelica.Blocks.Sources.RealExpression calCOPHea(
+    final y=QCon_flow/(P - Q_flow_small)) if have_switchover
+    "Compute heating COP"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be smaller than zero.");
   assert(Q_flow_small < 0, "Parameter Q_flow_small must be smaller than zero.");
@@ -202,7 +208,7 @@ equation
     QCon_flow = 0;
     COP  = 0;
   end if;
-
+  connect(calCOPHea.y, COP_h);
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
       points={{-59,40},{-39,40}},
       color={0,0,127},
