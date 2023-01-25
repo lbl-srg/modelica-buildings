@@ -203,8 +203,8 @@ model BuildingTimeSeries
   replaceable Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BaseClasses.FanCoil2PipeCooling terUniCoo(
     final k=k,
     final Ti=Ti,
-    final TRooHea_nominal=T_aLoaHea_nominal,
-    final QRooHea_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
+    final TRooCoo_nominal=T_aLoaHea_nominal,
+    final QRooCoo_flow_nominal=QHea_flow_nominal/facMulCoo) if have_chiWat
   constrainedby Buildings.Experimental.DHC.Loads.BaseClasses.PartialTerminalUnit(
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium2,
