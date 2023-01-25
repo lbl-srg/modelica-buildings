@@ -35,7 +35,7 @@ model FanCoil2PipeCooling
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.HeatFlowRate QRooCoo_flow_nominal(max=0) = 0
+  parameter Modelica.Units.SI.HeatFlowRate QRooCoo_flow_nominal(max=0)
     "Nominal cooling load (for room air temperature prediction)"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.Temperature TRooCoo_nominal=24 + 273.15
@@ -98,11 +98,11 @@ model FanCoil2PipeCooling
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   // The model SimpleRoomODE is set up to emulate the dynamics if configured for heating.
-  // Hence, we set the outdoor temperature to 10 degC and TIndHea_nominal to 20 degC.
-  // From these, together with QHea_flow_nominal, the thermal conductance is estimated.
+  // Hence, we set 10 K temperature difference, and
+  // together with QHea_flow_nominal, the thermal conductance is estimated.
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=283.15,
-    TIndHea_nominal=293.15,
+    final TOutHea_nominal=T_aLoaCoo_nominal - 10,
+    final TIndHea_nominal=T_aLoaCoo_nominal,
     final QHea_flow_nominal=-QRooCoo_flow_nominal)
     "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
