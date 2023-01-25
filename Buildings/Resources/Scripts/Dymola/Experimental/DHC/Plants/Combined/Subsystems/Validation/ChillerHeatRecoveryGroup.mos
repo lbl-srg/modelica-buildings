@@ -16,7 +16,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"chi.port_a1.m_flow", "chi.port_a2.m_flow", "chi.port_a3.m_flow", "chi.port_a4.m_flow"},
+    y={"chi.port_a1.m_flow", "chi.port_a2.m_flow", "chi.port_a3.m_flow", "chi.port_a4.m_flow", "chi.mChiWat_flow_nominal", "chi.mConWat_flow_nominal"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -25,7 +25,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"chi.chi[1].m1_flow", "chi.chi[2].m1_flow", "chi.chi[1].m2_flow", "chi.chi[2].m2_flow"},
+    y={"floChiWat.m_flow", "floHeaWat.m_flow", "chi.chi[1].m1_flow", "chi.chi[2].m1_flow", "chi.chi[1].m2_flow", "chi.chi[2].m2_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -34,7 +34,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=4,
-    y={"TSet.y[1]", "TSet.y[2]", "TChiWatSup.T", "chi.TEvaLvg[1].T", "chi.TEvaLvg[2].T"},
+    y={"chi.TSet[1]", "chi.TSet[2]", "TChiWatSup.T", "THeaWatSup.T", "chi.TEvaLvg[1]", "chi.TEvaLvg[2]", "chi.TConLvg[1]", "chi.TConLvg[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -42,8 +42,8 @@ createPlot(
     color=true);
 createPlot(
     id=2,
-    position={378, 29, 624, 552},
-    y={"y1.y[1]", "y1.y[2]", "y1Coo.y[1]", "y1Coo.y[2]", "y1HeaCoo.y[1]", "y1HeaCoo.y[2]"},
+    position={317, 28, 592, 539},
+    y={"chi.port_a1.m_flow", "chi.port_b1.m_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -52,7 +52,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=2,
-    y={"floHeaWat.m_flow", "chi.chi[1].m1_flow", "chi.chi[2].m1_flow"},
+    y={"chi.port_a2.m_flow", "chi.port_b2.m_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -61,7 +61,7 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"TSet.y[1]", "TSet.y[2]", "THeaWatSup.T", "chi.TConLvg[1].T", "chi.TConLvg[2].T"},
+    y={"chi.port_a3.m_flow", "chi.port_b3.m_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -70,7 +70,25 @@ createPlot(
 createPlot(
     id=2,
     subPlot=4,
-    y={"chi.chi[1].PLR2", "chi.chi[2].PLR2", "dat.PLRMax", "chi.chi[1].COP", "chi.chi[2].COP"},
+    y={"chi.port_a4.m_flow", "chi.port_b4.m_flow"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    position={593, 26, 592, 396},
+    y={"chi.valConSwi[1].y_actual", "chi.valConSwi[2].y_actual"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=3,
+    subPlot=2,
+    y={"chi.valEvaSwi[1].y_actual", "chi.valEvaSwi[2].y_actual"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

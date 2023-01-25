@@ -28,7 +28,7 @@ model ChillerGroup "Validation of chiller group model"
 
   Fluid.Sources.Boundary_pT retChiWat(
     redeclare final package Medium = MediumChiWat,
-    p=supChiWat.p + chi.dpEva_nominal + chi.dpBalEva_nominal + chi.dpValveEva_nominal,
+    p=supChiWat.p + chi.dpEva_nominal + chi.dpValveEva_nominal,
     T=288.15,
     nPorts=1)
     "Boundary conditions for CHW"
@@ -40,7 +40,7 @@ model ChillerGroup "Validation of chiller group model"
 
   Fluid.Sources.Boundary_pT supConWat(
     redeclare final package Medium = MediumConWat,
-    p=retConWat.p + chi.dpCon_nominal + chi.dpBalCon_nominal + chi.dpValveCon_nominal,
+    p=retConWat.p + chi.dpCon_nominal + chi.dpValveCon_nominal,
     nPorts=1) "Boundary conditions for CW" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,

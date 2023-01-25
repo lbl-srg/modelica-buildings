@@ -29,7 +29,7 @@ block MultipleCommands
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(nin=nUni)
     "Total"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.5)
     "Returns true if at least one unit is commanded on"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1

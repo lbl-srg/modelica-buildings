@@ -21,16 +21,13 @@ model MultiplePumpsFlow
 equation
   connect(m_flow_in, div1.u1) annotation (Line(points={{-120,60},{-90,60},{-90,66},
           {-82,66}}, color={0,0,127}));
-  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,107},{-68,
-          106.25},{-64.1667,106.25},{-64.1667,106},{-64,106},{-64,80},{50,80},{
-          50,6},{58,6}},
-                      color={0,0,127}));
-  connect(com.nUniOnBou, div1.u2) annotation (Line(points={{-68,107},{-64,107},
-          {-64,80},{-86,80},{-86,54},{-82,54}},color={0,0,127}));
-  connect(div1.y, inp.u1) annotation (Line(points={{-58,60},{-40,60},{-40,44},{-32,
-          44}}, color={0,0,127}));
+  connect(com.nUniOnBou, div1.u2) annotation (Line(points={{-28,94},{-20,94},{
+          -20,80},{-86,80},{-86,54},{-82,54}}, color={0,0,127}));
+  connect(div1.y, inp.u1) annotation (Line(points={{-58,60},{-40,60},{-40,34},{
+          -32,34}},
+                color={0,0,127}));
   connect(inp.y, pum.m_flow_in)
-    annotation (Line(points={{-8,50},{0,50},{0,12}}, color={0,0,127}));
+    annotation (Line(points={{-8,40},{0,40},{0,12}}, color={0,0,127}));
   annotation (
     defaultComponentName="pum");
 end MultiplePumpsFlow;

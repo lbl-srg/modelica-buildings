@@ -56,16 +56,6 @@ model ChillerGroup
     displayUnit="Pa")
     "Chiller condenser design pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpBalEva_nominal(
-    final min=0,
-    displayUnit="Pa")=0
-    "Evaporator-side balancing valve design pressure drop (each valve)"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpBalCon_nominal(
-    final min=0,
-    displayUnit="Pa")=0
-    "Condenser-side balancing valve design pressure drop (each valve)"
-    annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.PressureDifference dpValveEva_nominal(
     final min=0,
     displayUnit="Pa")=valEva.dpValve_nominal
@@ -226,7 +216,7 @@ model ChillerGroup
     linearized=true,
     final nUni=nUni,
     final mUni_flow_nominal=mChiWatUni_flow_nominal,
-    final dpFixed_nominal=dpEva_nominal + dpBalEva_nominal,
+    final dpFixed_nominal=dpEva_nominal,
     dpValve_nominal=1E3,
     final allowFlowReversal=allowFlowReversal2,
     final energyDynamics=energyDynamics,
@@ -243,7 +233,7 @@ model ChillerGroup
     linearized=true,
     final nUni=nUni,
     final mUni_flow_nominal=mConWatUni_flow_nominal,
-    final dpFixed_nominal=dpCon_nominal + dpBalCon_nominal,
+    final dpFixed_nominal=dpCon_nominal,
     dpValve_nominal=1E3,
     final allowFlowReversal=allowFlowReversal1,
     final energyDynamics=energyDynamics,

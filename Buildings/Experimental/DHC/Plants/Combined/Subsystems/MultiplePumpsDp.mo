@@ -16,10 +16,10 @@ model MultiplePumpsDp
     Placement(transformation(extent={{-140,40},{-100,80}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
 equation
+  connect(dp_in, inp.u1) annotation (Line(points={{-120,60},{-40,60},{-40,34},{
+          -32,34}}, color={0,0,127}));
   connect(inp.y, pum.dp_in)
-    annotation (Line(points={{-8,50},{0,50},{0,12}}, color={0,0,127}));
-  connect(dp_in, inp.u1) annotation (Line(points={{-120,60},{-40,60},{-40,44},{
-          -32,44}}, color={0,0,127}));
+    annotation (Line(points={{-8,40},{0,40},{0,12}}, color={0,0,127}));
   annotation (
     defaultComponentName="pum");
 end MultiplePumpsDp;

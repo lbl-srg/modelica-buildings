@@ -93,20 +93,20 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     "CHW and HW plant"
     annotation (Placement(transformation(extent={{-30,-30},{30,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                                     TChiWatSupSet(final k=pla.TChiWatSup_nominal,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(final k=pla.TChiWatSup_nominal,
     y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,10},{-200,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant
-                                                     THeaWatSupSet(final k=pla.THeaWatSup_nominal,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(final k=pla.THeaWatSup_nominal,
     y(final unit="K", displayUnit="degC"))
                    "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-10},{-170,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(k=pla.dpHeaWatSet_max,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHeaWatSet_max(
+    k=pla.dpHeaWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-190,-70},{-170,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(k=pla.dpChiWatSet_max,
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpChiWatSet_max(
+    k=pla.dpChiWatSet_max,
     y(final unit="Pa")) "Source signal for setpoint"
     annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -120,13 +120,17 @@ model AllElectricCWStorage "Validation of all-electric plant model"
   Fluid.HeatExchangers.SensibleCooler_T disHeaWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mHeaWat_flow_nominal,
-    final dp_nominal=0)
+    final dp_nominal=0,
+    final energyDynamics=energyDynamics,
+    tau=300)
     "Distribution system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{12,130},{-8,150}})));
   Fluid.HeatExchangers.Heater_T disChiWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
-    final dp_nominal=0)
+    final dp_nominal=0,
+    final energyDynamics=energyDynamics,
+    tau=300)
     "Distribution system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
 
@@ -171,7 +175,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addNoi[2] "Add noise"
     annotation (Placement(transformation(extent={{-156,180},{-136,200}})));
-  Modelica.Blocks.Continuous.FirstOrder fil(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
+  Modelica.Blocks.Continuous.FirstOrder fil(T=120,initType=Modelica.Blocks.Types.Init.InitialOutput)
     "Filter noise"
     annotation (Placement(transformation(extent={{-192,150},{-172,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim[2](each uMax=1.1, each uMin
@@ -216,10 +220,6 @@ equation
                                   color={0,0,127}));
   connect(noi.y, fil.u)
     annotation (Line(points={{-199,160},{-194,160}}, color={0,0,127}));
-  connect(fil.y, addNoi[1].u2) annotation (Line(points={{-171,160},{-166,160},{
-          -166,184},{-158,184}}, color={0,0,127}));
-  connect(fil.y, addNoi[2].u2) annotation (Line(points={{-171,160},{-166,160},{
-          -166,184},{-158,184}}, color={0,0,127}));
   connect(addNoi.y, lim.u)
     annotation (Line(points={{-134,190},{-128,190}}, color={0,0,127}));
   connect(lim[2].y, valDisHeaWat.y) annotation (Line(pointss={{-104,190},{-40,
@@ -227,6 +227,10 @@ equation
       points={{-104,190},{-40,190},{-40,152}}));
   connect(lim[1].y, valDisChiWat.y) annotation (Line(points={{-104,190},{-80,
           190},{-80,-120},{-40,-120},{-40,-128}}, color={0,0,127}));
+  connect(fil.y, addNoi[1].u2) annotation (Line(points={{-171,160},{-166,160},{
+          -166,184},{-158,184}}, color={0,0,127}));
+  connect(fil.y, addNoi[2].u2) annotation (Line(points={{-171,160},{-166,160},{
+          -166,184},{-158,184}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"

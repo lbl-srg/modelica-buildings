@@ -101,23 +101,23 @@ partial model PartialMultiplePumps
     addPowerToMedium=false) "Pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   MultipleCommands com(final nUni=nPum) "Convert command signal"
-    annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
+    annotation (Placement(transformation(extent={{-50,90},{-30,110}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
     "Convert to real"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,100})));
+        origin={10,100})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Compute total power"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply inp
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={-20,50})));
+        origin={-20,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cst
                if not have_var "Constant setpoint"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-80,18},{-60,38}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(t=1E-2, h=0.5E-2)
     "Evaluate if pump is operating"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
@@ -134,19 +134,13 @@ partial model PartialMultiplePumps
     final allowFlowReversal=allowFlowReversal) if not have_valve
     "Direct fluid pass-through (case without check valve)"
     annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1[nPum]
-    "Return pump status"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={80,100})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(
     final nout=nPum)
     "Replicate"
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preY1[nPum]
-    "Left limit of signal avoiding direct feedback"
-    annotation (Placement(transformation(extent={{20,90},{40,110}})));
+    "Left limit of signal avoiding direct feedback of status to controller"
+    annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
 protected
   parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
@@ -172,31 +166,28 @@ equation
           {-90,-26},{-90,6},{-82,6}},color={0,0,127}));
   connect(mulInl.port_b, pum.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
-  connect(y1, com.y1)
-    annotation (Line(points={{-120,100},{-94,100},{-94,100},{-92,100}},
-                                                    color={255,0,255}));
-  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-68,94},{-64,94},{-64,
-          80},{50,80},{50,6},{58,6}},
+  connect(com.nUniOnBou, mulOut.u) annotation (Line(points={{-28,94},{-20,94},{
+          -20,80},{54,80},{54,6},{58,6}},
                       color={0,0,127}));
   connect(com.y1One, booToRea.u)
-    annotation (Line(points={{-68,106},{-64,106},{-64,100},{-62,100}},
+    annotation (Line(points={{-28,106},{-10,106},{-10,100},{-2,100}},
                                                    color={255,0,255}));
   connect(mul.y, P)
     annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
-  connect(com.nUniOn, mul.u1) annotation (Line(points={{-68,100},{-66,100},{-66,
-          78},{40,78},{40,46},{58,46}},
+  connect(com.nUniOn, mul.u1) annotation (Line(points={{-28,100},{-18,100},{-18,
+          82},{56,82},{56,46},{58,46}},
                     color={0,0,127}));
-  connect(pum.P, mul.u2) annotation (Line(points={{11,9},{40,9},{40,34},{58,34}},
+  connect(pum.P, mul.u2) annotation (Line(points={{11,9},{20,9},{20,34},{58,34}},
                 color={0,0,127}));
   connect(pum.port_b, cheVal.port_a)
     annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   connect(cheVal.port_b, mulOut.port_a)
     annotation (Line(points={{50,0},{60,0}}, color={0,127,255}));
-  connect(cst.y, inp.u1) annotation (Line(points={{-58,30},{-40,30},{-40,44},{
-          -32,44}},
+  connect(cst.y, inp.u1) annotation (Line(points={{-58,28},{-40,28},{-40,34},{
+          -32,34}},
                 color={0,0,127}));
-  connect(booToRea.y, inp.u2) annotation (Line(points={{-38,100},{-36,100},{-36,
-          56},{-32,56}},
+  connect(booToRea.y, inp.u2) annotation (Line(points={{22,100},{40,100},{40,60},
+          {-36,60},{-36,46},{-32,46}},
                      color={0,0,127}));
   connect(pum.port_b, pas.port_a)
     annotation (Line(points={{10,0},{30,0},{30,-20}}, color={0,127,255}));
@@ -206,14 +197,12 @@ equation
           {28,-60}}, color={0,0,127}));
   connect(isOpe.y, rep.u)
     annotation (Line(points={{52,-60},{58,-60}}, color={255,0,255}));
-  connect(and1.y, y1_actual)
-    annotation (Line(points={{92,100},{120,100}}, color={255,0,255}));
-  connect(rep.y, and1.u2) annotation (Line(points={{82,-60},{92,-60},{92,80},{60,
-          80},{60,92},{68,92}}, color={255,0,255}));
-  connect(preY1.y, and1.u1)
-    annotation (Line(points={{42,100},{68,100}}, color={255,0,255}));
-  connect(y1, preY1.u) annotation (Line(points={{-120,100},{-94,100},{-94,116},
-          {0,116},{0,100},{18,100}}, color={255,0,255}));
+  connect(y1, preY1.u) annotation (Line(points={{-120,100},{-82,100}},
+                                     color={255,0,255}));
+  connect(preY1.y, com.y1)
+    annotation (Line(points={{-58,100},{-52,100}}, color={255,0,255}));
+  connect(rep.y, y1_actual) annotation (Line(points={{82,-60},{92,-60},{92,100},
+          {120,100}}, color={255,0,255}));
   annotation (
     defaultComponentName="pum",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

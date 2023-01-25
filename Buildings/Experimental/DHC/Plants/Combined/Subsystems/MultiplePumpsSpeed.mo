@@ -16,10 +16,11 @@ model MultiplePumpsSpeed
           extent={{-140,20},{-100,60}})));
 
 equation
-  connect(y, inp.u1) annotation (Line(points={{-120,60},{-40,60},{-40,44},{-32,44}},
+  connect(y, inp.u1) annotation (Line(points={{-120,60},{-40,60},{-40,34},{-32,
+          34}},
         color={0,0,127}));
   connect(inp.y, pum.y)
-    annotation (Line(points={{-8,50},{0,50},{0,12}}, color={0,0,127}));
+    annotation (Line(points={{-8,40},{0,40},{0,12}}, color={0,0,127}));
   annotation (
     defaultComponentName="pum");
 end MultiplePumpsSpeed;
