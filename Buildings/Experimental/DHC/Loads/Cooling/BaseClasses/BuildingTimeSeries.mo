@@ -34,7 +34,8 @@ model BuildingTimeSeries
   parameter Modelica.Units.SI.MassFraction w_aLoaCoo_nominal=0.0095
     "Load side inlet humidity ratio at nominal conditions in cooling mode"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
-  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate mLoaCoo_flow_nominal =
+    -QCoo_flow_nominal/10/Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Load side mass flow rate at nominal conditions in cooling mode (single unit)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal(

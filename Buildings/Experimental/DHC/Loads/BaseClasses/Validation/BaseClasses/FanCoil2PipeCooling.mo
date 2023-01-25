@@ -97,10 +97,13 @@ model FanCoil2PipeCooling
     nPorts=1)
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
+  // The model SimpleRoomODE is set up to emulate the dynamics if configured for heating.
+  // Hence, we set the outdoor temperature to 10 degC and TIndHea_nominal to 20 degC.
+  // From these, together with QHea_flow_nominal, the thermal conductance is estimated.
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 + 35,
-    final TIndHea_nominal=TRooCoo_nominal,
-    final QHea_flow_nominal=QRooCoo_flow_nominal)
+    TOutHea_nominal=283.15,
+    TIndHea_nominal=293.15,
+    final QHea_flow_nominal=-QRooCoo_flow_nominal)
     "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
