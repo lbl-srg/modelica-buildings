@@ -1,10 +1,11 @@
 within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Validation;
-model Controller "Validation controller model"
+model Controller_UnspecifiedClimate
+  "Validation controller model for generating warnng when the climate zone is not specified"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
     final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
-    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B,
+    final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
@@ -193,7 +194,6 @@ equation
           {-100,70},{-100,20},{-82,20}}, color={255,0,255}));
   connect(mul.y, conAHU.uSupFan_actual) annotation (Line(points={{22,-100},{50,
           -100},{50,-38.1818},{96,-38.1818}}, color={0,0,127}));
-
   connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
         points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));
   connect(sumDesAreBreZon.y, conAHU.VSumAdjAreBreZon_flow) annotation (Line(
@@ -203,13 +203,14 @@ equation
   connect(opeMod.y, conAHU.uAhuOpeMod) annotation (Line(points={{-178,250},{80,
           250},{80,38.1818},{96,38.1818}}, color={255,127,0}));
 annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Validation/Controller.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Validation/Controller_UnspecifiedClimate.mos"
     "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller</a>.
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller</a> for generating
+warning when the climate zone is not specified.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -231,4 +232,4 @@ Diagram(coordinateSystem(extent={{-260,-280},{260,280}})),
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Controller;
+end Controller_UnspecifiedClimate;

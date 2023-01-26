@@ -3,7 +3,7 @@ model Controller
   "Validation of model that controls dual-duct unit using mixing control with inlet flow sensor"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Controller duaDucCon(
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final VAreBreZon_flow=0.006,
     final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
