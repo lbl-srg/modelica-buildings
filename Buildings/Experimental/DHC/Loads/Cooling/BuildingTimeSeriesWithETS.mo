@@ -2,18 +2,19 @@ within Buildings.Experimental.DHC.Loads.Cooling;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS for cooling"
   extends BaseClasses.PartialBuildingWithETS(
-    redeclare BaseClasses.BuildingTimeSeries bui(
-      final have_pum=true,
+    redeclare Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+      final have_heaWat=false,
+      final have_chiWat=true,
+      final have_hotWat=false,
       final filNam=filNam,
-      facMulCoo=40*QCoo_flow_nominal/(-1.5E5),
       T_aChiWat_nominal=TChiWatSup_nominal,
-      T_bChiWat_nominal=TChiWatRet_nominal,
-      final energyDynamics=energyDynamics,
-      final use_inputFilter=use_inputFilter),
+      T_bChiWat_nominal=TChiWatRet_nominal),
       mBui_flow_nominal=-QCoo_flow_nominal/(cp*dT_nominal),
-      ets(QChiWat_flow_nominal=QCoo_flow_nominal));
-                                               //fixme: factor 40 and division by -1.5E40 is not clear. Document or remove.
-  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=bui.QCoo_flow_nominal
+          ets(
+      QChiWat_flow_nominal=QCoo_flow_nominal));
+
+  final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
+    bui.facMul * bui.QCoo_flow_nominal
     "Space cooling design load (<=0)";
   parameter Modelica.Units.SI.TemperatureDifference dT_nominal(min=0)=9
     "Water temperature drop/increase accross load and source-side HX (always positive)"
