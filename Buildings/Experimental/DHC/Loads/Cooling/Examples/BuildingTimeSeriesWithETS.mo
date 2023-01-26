@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Cooling.Examples;
 model BuildingTimeSeriesWithETS
-  "Example model of a building with loads provided as time series and 
+  "Example model of a building with loads provided as time series and
   connected to an ETS for cooling"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
@@ -58,13 +58,12 @@ equation
     experiment(
       StartTime=2592000,
       StopTime=3628800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This model provides an example for a building with loads provided 
+This model provides an example for a building with loads provided
 as time series and connected to a direct ETS for cooling with the
-return chilled water temperature controlled above a minimum threshold. 
+return chilled water temperature controlled above a minimum threshold.
 </p>
 </html>", revisions="<html>
 <ul>
