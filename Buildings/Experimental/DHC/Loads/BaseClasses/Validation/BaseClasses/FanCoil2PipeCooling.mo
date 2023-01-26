@@ -35,11 +35,11 @@ model FanCoil2PipeCooling
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.HeatFlowRate QRooCoo_flow_nominal(max=0)
-    "Nominal cooling load (for room air temperature prediction)"
+  parameter Modelica.Units.SI.HeatFlowRate QRooHea_flow_nominal(min=0) = 0
+    "Nominal heating load (for room air temperature prediction)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TRooCoo_nominal=24 + 273.15
-    "Room temperature at cooling nominal conditions (for room air temperature prediction)"
+  parameter Modelica.Units.SI.Temperature TRooHea_nominal=21.1 + 273.15
+    "Room temperature at heating nominal conditions (for room air temperature prediction)"
     annotation (Dialog(group="Nominal condition"));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
@@ -76,14 +76,14 @@ model FanCoil2PipeCooling
     final w_a2_nominal=w_aLoaCoo_nominal)
     "Cooling coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiMasFlo(
-    final k=mChiWat_flow_nominal) "Scale water flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiMasFlo(k=
+        mChiWat_flow_nominal) "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowCoo(
     final y=hexWetNtu.Q2_flow)
     annotation (Placement(transformation(extent={{120,190},{140,210}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(
-    final k=mLoaCoo_flow_nominal) "Scale air flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+        mLoaCoo_flow_nominal) "Scale air flow rate"
     annotation (Placement(transformation(extent={{52,170},{72,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium=Medium2,
@@ -97,13 +97,10 @@ model FanCoil2PipeCooling
     nPorts=1)
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
-  // The model SimpleRoomODE is set up to emulate the dynamics if configured for heating.
-  // Hence, we set 10 K temperature difference, and
-  // together with QHea_flow_nominal, the thermal conductance is estimated.
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
-    final TOutHea_nominal=T_aLoaCoo_nominal - 10,
-    final TIndHea_nominal=T_aLoaCoo_nominal,
-    final QHea_flow_nominal=-QRooCoo_flow_nominal)
+    TOutHea_nominal=273.15 - 5,
+    final TIndHea_nominal=TRooHea_nominal,
+    final QHea_flow_nominal=QRooHea_flow_nominal)
     "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
