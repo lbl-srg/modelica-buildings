@@ -133,13 +133,7 @@ initial equation
       hAirOut <= hSatTWatIn and hAirIn <= hSatTWatOut,
     "In " + getInstanceName() +
     ": The moist air enthalpy at the coil inlet or outlet is unrealistically low. " +
-    "Check the rated conditions, which yield" +
-    "\n  QTot_flow          = " + String(QTot_flow) +
-    "\n  mWat_flow          = " + String(mWat_flow) +
-    "\n  TWatIn             = " + String(TWatIn) +
-    "\n  mAir_flow          = " + String(mAir_flow) +
-    "\n  TAirIn             = " + String(TAirIn) +
-    "\n  X_wAirIn           = " + String(X_wAirIn));
+    "Check the rated conditions.");
   assert(
     isFulDry or isFulWet,
     "In " + getInstanceName() +
