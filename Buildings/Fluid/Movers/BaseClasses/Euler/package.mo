@@ -8,18 +8,13 @@ and its correlation.
 </p>
 <ul>
 <li>
-Efficiency and power are computed and output as look-up tables by
-<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.computeTables\">
-Buildings.Fluid.Movers.BaseClasses.Euler.computeTables</a>.
-</li>
-<li>
 The correlation function using the Euler number is implemented in
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.correlation\">
 Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 </li>
 <li>
 When curves of power and pressure against flow rate is available,
-the function 
+the function
 <a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
 can identify the peak operating condition from them.
@@ -27,15 +22,18 @@ This is useful comparing power computation results
 against other methods.
 </li>
 <li>
-The computed look-up tables are stored in
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables\">
-Buildings.Fluid.Movers.BaseClasses.Euler.lookupTables</a>.
-</li>
-<li>
 The peak operating condition (where the efficiency <i>&eta;</i> is
-at its maximum) which is used by the correlation is stored in the record
+at its maximum) which is used by the correlation is stored in an instance
+of the record
 <a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
+</li>
+<li>
+<a href=\"Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+uses the peak values and the correlation to generate a power curve against
+volumetric flow rate. This estimated power curve is used in place of the
+measured power that would otherwise be provided.
 </li>
 </ul>
 <p>

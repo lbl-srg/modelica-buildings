@@ -89,7 +89,7 @@ equation
     "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pa,
     exceeding the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
     This can happen if the model forces a high mass flow rate through a closed actuator,
-    or if the performance record is unreasonable. Please verify your model, and 
+    or if the performance record is unreasonable. Please verify your model, and
     consider using one of the other pump or fan models.");
 
   if use_inputFilter then
