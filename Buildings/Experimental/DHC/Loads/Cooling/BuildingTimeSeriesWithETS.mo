@@ -2,15 +2,16 @@ within Buildings.Experimental.DHC.Loads.Cooling;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS for cooling"
   extends BaseClasses.PartialBuildingWithETS(
-    redeclare BaseClasses.BuildingTimeSeries bui(
-      final have_pum=true,
+    redeclare Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+      final have_heaWat=false,
+      final have_chiWat=true,
+      final have_hotWat=false,
       final filNam=filNam,
       T_aChiWat_nominal=TChiWatSup_nominal,
-      T_bChiWat_nominal=TChiWatRet_nominal,
-      final energyDynamics=energyDynamics,
-      final use_inputFilter=use_inputFilter),
+      T_bChiWat_nominal=TChiWatRet_nominal),
       mBui_flow_nominal=-QCoo_flow_nominal/(cp*dT_nominal),
-      ets(QChiWat_flow_nominal=QCoo_flow_nominal));
+          ets(
+      QChiWat_flow_nominal=QCoo_flow_nominal));
 
   final parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal=
     bui.facMul * bui.QCoo_flow_nominal
