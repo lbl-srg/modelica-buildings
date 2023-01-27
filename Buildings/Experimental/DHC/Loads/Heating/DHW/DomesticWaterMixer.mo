@@ -25,6 +25,7 @@ model DomesticWaterMixer "A model for a domestic water mixer"
     annotation (Placement(transformation(extent={{80,60},{60,80}})));
   Fluid.Actuators.Valves.ThreeWayLinear ValHea(
     redeclare package Medium = Medium,
+    riseTime=30,
     final m_flow_nominal=mDhw_flow_nominal,
     dpValve_nominal=dpValve_nominal) "Valve" annotation (Placement(
         transformation(
