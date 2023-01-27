@@ -151,7 +151,7 @@ model BuildingTimeSeries
     offset={0,0,0},
     columns={2,3,4},
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1)
-    "Reader for thermal loads (y[1] is cooling load, y[2] is space heating load, y[3] is sanitary water heat load)"
+    "Reader for thermal loads (y[1] is cooling load, y[2] is space heating load, y[3] is domestic water heat load)"
     annotation (Placement(transformation(extent={{-280,-10},{-260,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minTSet(
     k=293.15,
@@ -382,9 +382,8 @@ This file must have columns as shown in this example:
 #First column: Seconds in the year (loads are hourly)
 #Second column: cooling loads in Watts (as negative numbers).
 #Third column: space heating loads in Watts
-#Fourth column: domestic hot water heat loads in Watts
+#Fourth column: domestic hot water loads in Watts
 #
-#Fourth column: water heating
 #Peak space cooling load = -146960 Watts
 #Peak space heating load = 167690 Watts
 #Peak water heating load = 9390 Watts
@@ -412,7 +411,7 @@ If <code>have_heaWat = false</code>, this column must be present but it will be 
 it can be set to any number such as <code>0</code>.
 </li>
 <li>
-If <code>have_hotWat = true</code>, the next column must be the sanitary water heating load in Watts.<br/>
+If <code>have_hotWat = true</code>, the next column must be the domestic hot water load in Watts.<br/>
 If <code>have_hotWat = false</code>, this column must be present but it will be ignored, and hence
 it can be set to any number such as <code>0</code>.
 </li>
