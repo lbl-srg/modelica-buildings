@@ -48,29 +48,22 @@ block Controller "Controller for cooling only VAV box"
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper control parameters ----------------
-  parameter Boolean have_preIndDam=false
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation(Dialog(tab="Damper control"));
   parameter CDL.Types.SimpleController damCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam));
+    annotation (Dialog(tab="Damper control", group="Controller"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam));
+    annotation (Dialog(tab="Damper control", group="Controller"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam
-             and (damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                  or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam
-             and (damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                  or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
@@ -105,7 +98,7 @@ block Controller "Controller for cooling only VAV box"
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
     annotation (Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
-                                "Maximum suppression time"
+    "Maximum suppression time"
     annotation (Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
@@ -330,7 +323,6 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers
     dam(
-    final have_preIndDam=have_preIndDam,
     final VMin_flow=VMin_flow,
     final VCooMax_flow=VCooMax_flow,
     final damCon=damCon,
