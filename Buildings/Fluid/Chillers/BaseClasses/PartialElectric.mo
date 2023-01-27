@@ -232,9 +232,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={
-        Text(extent={{62,96},{112,82}},   textString="P",
+        Text(extent={{62,96},{112,82}},
+          textString="P",
           textColor={0,0,127}),
-        Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
+        Text(extent={{-104,-16},{-58,-28}},
+          textString="TSet",
           textColor={0,0,127}),
         Rectangle(
           extent={{-99,-54},{102,-66}},
@@ -313,6 +315,7 @@ equation
           textString="on"),
         Text(extent={{-102,96},{-56,84}},
           textColor={0,0,127},
+          visible=have_switchover,
           textString="coo")}),
 Documentation(info="<html>
 <p>
