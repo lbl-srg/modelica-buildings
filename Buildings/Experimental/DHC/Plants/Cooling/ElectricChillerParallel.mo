@@ -385,7 +385,7 @@ external control. </li>
 <p>See <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage\">
 Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage</a> for
 the detailed control logic. </p>
-<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.png\" alt=\"System schematics\"/>. </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.png\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>
 <ul>

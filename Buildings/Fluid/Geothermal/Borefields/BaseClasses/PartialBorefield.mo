@@ -117,14 +117,16 @@ protected
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloDiv(
     redeclare final package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_input=false,
     final k=1/borFieDat.conDat.nBor)
                                    "Division of flow rate"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Fluid.BaseClasses.MassFlowRateMultiplier masFloMul(
     redeclare final package Medium = Medium,
-    allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=allowFlowReversal,
+    final use_input=false,
     final k=borFieDat.conDat.nBor) "Mass flow multiplier"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 
