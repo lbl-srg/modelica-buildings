@@ -8,21 +8,23 @@ model ElectricEIR_HeatRecovery
       mCon_flow_nominal=per.mCon_flow_nominal,
     sou1(nPorts=1),
     sou2(nPorts=1),
-    TSet(height=8, offset=273.15 + 25));
+    TSet(
+     height=8,
+     offset=273.15 + 25));
 
   parameter Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes
     per "Chiller performance data"
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
+    annotation (Placement(transformation(extent={{60,78},{80,98}})));
 
   Buildings.Fluid.Chillers.ElectricEIR chi(
-       redeclare package Medium1 = Medium1,
-       redeclare package Medium2 = Medium2,
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     have_switchover=true,
-       per=per,
-       energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-       dp1_nominal=6000,
-       dp2_nominal=6000) "Chiller model"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    per=per,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dp1_nominal=6000,
+    dp2_nominal=6000) "Chiller model"
+    annotation (Placement(transformation(extent={{0,-2},{20,18}})));
 
   Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
     "Constant false signal"
