@@ -139,6 +139,9 @@ model Controller
     final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-20,170},{0,190}})));
+
 equation
   connect(TZon.y,rehBoxCon. TZon) annotation (Line(points={{-98,240},{52,240},{52,
           109},{98,109}}, color={0,0,127}));
@@ -146,8 +149,6 @@ equation
           220},{48,107},{98,107}}, color={0,0,127}));
   connect(heaSet.y,rehBoxCon. THeaSet) annotation (Line(points={{-98,200},{44,
           200},{44,105},{98,105}}, color={0,0,127}));
-  connect(winSta.y, rehBoxCon.u1Win) annotation (Line(points={{-58,180},{40,180},
-          {40,102},{98,102}}, color={255,0,255}));
   connect(occ.y, rehBoxCon.u1Occ) annotation (Line(points={{-98,160},{36,160},{
           36,100},{98,100}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
@@ -178,8 +179,7 @@ equation
   connect(not1.y,rehBoxCon. uHeaOff) annotation (Line(points={{-18,-140},{64,-140},
           {64,80},{98,80}}, color={255,0,255}));
   connect(supFan.y, rehBoxCon.u1Fan) annotation (Line(points={{-58,-200},{68,
-          -200},{68,73.2},{98,73.2}},
-                                color={255,0,255}));
+          -200},{68,73.2},{98,73.2}}, color={255,0,255}));
   connect(hotPla.y, rehBoxCon.u1HotPla) annotation (Line(points={{-58,-240},{72,
           -240},{72,71.2},{98,71.2}}, color={255,0,255}));
   connect(TSupSet.y,rehBoxCon. TSupSet) annotation (Line(points={{-98,-30},{52,-30},
@@ -190,6 +190,10 @@ equation
           {44,90},{98,90}}, color={0,0,127}));
   connect(CO2Set.y, rehBoxCon.ppmCO2Set) annotation (Line(points={{-98,90},{0,
           90},{0,96},{98,96}},   color={0,0,127}));
+  connect(winSta.y, not2.u)
+    annotation (Line(points={{-58,180},{-22,180}}, color={255,0,255}));
+  connect(not2.y, rehBoxCon.u1Win) annotation (Line(points={{2,180},{40,180},{40,
+          102},{98,102}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Validation/Controller.mos"
