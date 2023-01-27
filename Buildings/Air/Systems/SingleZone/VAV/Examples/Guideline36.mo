@@ -54,7 +54,7 @@ model Guideline36
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
-  Modelica.Blocks.Sources.BooleanConstant uWin(k=false) "Window opening signal"
+  Modelica.Blocks.Sources.BooleanConstant uWin(k=true)  "Window opening signal"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(final k=0)
     "Cooling and heating demand imit level"

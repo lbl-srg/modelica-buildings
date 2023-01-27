@@ -30,6 +30,11 @@ Single damper for ventilation and economizer, with airflow measurement station.
 </html>", revisions="<html>
 <ul>
 <li>
+December 15, 2022, by Jianjun Hu:<br/>
+Removed the no-economizer option.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
+<li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>

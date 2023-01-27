@@ -22,8 +22,7 @@ block SeparateWithDP
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
     annotation (Dialog(group="DP control"));
-  parameter Real kDp(unit="1")=1
-                      "Gain of controller"
+  parameter Real kDp(unit="1")=1 "Gain of controller"
     annotation (Dialog(group="DP control"));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
@@ -36,7 +35,7 @@ block SeparateWithDP
       enable=dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
              dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real retDamPhy_max(unit="1")=1
-                        "Physically fixed maximum position of the return air damper"
+    "Physically fixed maximum position of the return air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(unit="1")=0
     "Physically fixed minimum position of the return air damper"
@@ -93,12 +92,13 @@ block SeparateWithDP
     "Economizer outdoor air damper commanded position"
     annotation (Placement(transformation(extent={{-260,-50},{-220,-10}}),
         iconTransformation(extent={{-140,-90},{-100,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan(
     final min=0,
     final max=1,
-    final unit="1") "Actual supply fan speed" annotation (Placement(
-        transformation(extent={{-260,-110},{-220,-70}}), iconTransformation(
-          extent={{-140,-110},{-100,-70}})));
+    final unit="1")
+    "Commanded supply fan speed"
+    annotation (Placement(transformation(extent={{-260,-110},{-220,-70}}),
+        iconTransformation(extent={{-140,-110},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1MinOutDam
     "Status of minimum outdoor air damper position, true means it's open"
     annotation (Placement(transformation(extent={{220,50},{260,90}}),
@@ -291,7 +291,7 @@ equation
           -98},{-122,-98}}, color={0,0,127}));
   connect(one.y, moaP.x2) annotation (Line(points={{-178,-120},{-170,-120},{-170,
           -94},{-122,-94}}, color={0,0,127}));
-  connect(uSupFan_actual, moaP.u)
+  connect(uSupFan, moaP.u)
     annotation (Line(points={{-240,-90},{-122,-90}}, color={0,0,127}));
   connect(uOutDam, les.u1)
     annotation (Line(points={{-240,-30},{-42,-30}}, color={0,0,127}));
@@ -386,8 +386,7 @@ equation
   connect(minDp1.y, maxRetDam.u_s) annotation (Line(points={{42,270},{60,270},{60,
           170},{118,170}}, color={0,0,127}));
   connect(minDp1.y, greThr.u) annotation (Line(points={{42,270},{60,270},{60,
-          170},{-90,170},{-90,150},{-82,150}},
-                                          color={0,0,127}));
+          170},{-90,170},{-90,150},{-82,150}}, color={0,0,127}));
   connect(one2.y, minDp1.u) annotation (Line(points={{-98,250},{-80,250},{-80,270},
           {18,270}}, color={0,0,127}));
 annotation (
@@ -420,10 +419,10 @@ annotation (
           pattern=LinePattern.Dash,
           textString="uOutDam"),
         Text(
-          extent={{-98,-80},{-24,-96}},
+          extent={{-98,-82},{-60,-96}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="uSupFan_actual"),
+          textString="uSupFan"),
         Text(
           extent={{44,60},{98,42}},
           textColor={0,0,127},
