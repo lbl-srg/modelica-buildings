@@ -137,9 +137,9 @@
     comment: returned non-zero exit status 1.
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
-  openmodelica:
-    comment: 'division by zero at time 15724800, (a=0) / (b=0), where divisor b expression is: 0.0'
-    simulate: false
+  optimica:
+    comment: 'The system is structurally singular. Modelon #2023012739000252'
+    translate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
