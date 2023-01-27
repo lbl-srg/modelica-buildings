@@ -74,7 +74,6 @@ equation
     annotation (Line(points={{-120,-50},{-62,-50}}, color={0,0,127}));
   connect(mFloBypSca.y, bypValCon.u_m)
     annotation (Line(points={{-39,-50},{70,-50},{70,-12}}, color={0,0,127}));
-  connect(y, y) annotation (Line(points={{110,0},{110,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="chiBypCon",
     Icon(
@@ -91,6 +90,10 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+January 27, 2023, by Michael Wetter:<br/>
+Removed connection to itself.
+</li>
 <li>
 December 14, 2022, by Kathryn Hinkelman:<br/>
 Corrected measured mass flow rate to be on the chiller 

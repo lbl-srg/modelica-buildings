@@ -28,8 +28,6 @@ protected
         rotation=270,
         origin={-58,30})));
 equation
-  connect(port_aDisSup, port_aDisSup)
-    annotation (Line(points={{-100,0},{-100,0}}, color={0,127,255}));
   connect(heatPort, theCol.port_b)
     annotation (Line(points={{-100,30},{-68,30}}, color={191,0,0}));
   connect(con.heatPort, theCol.port_a) annotation (Line(points={{-10,7},{-40,7},
@@ -53,6 +51,10 @@ the distribution line (after the last connection).
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 27, 2023, by Michael Wetter:<br/>
+Removed connection to itself.
+</li>
 <li>
 January 2, 2023, by Kathryn Hinkelman:<br/>
 First implementation.
