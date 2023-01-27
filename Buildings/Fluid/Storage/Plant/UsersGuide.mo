@@ -14,7 +14,7 @@ In the subpackage
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
 Buildings.Fluid.Storage.Plant.Examples</a>,
 example models representing variants of a system shown in the schematic below
-are implemented. This is a district system model with two CHW plants and
+are implemented, which is a district system model with two CHW plants and
 three users.
 </p>
 <ul>

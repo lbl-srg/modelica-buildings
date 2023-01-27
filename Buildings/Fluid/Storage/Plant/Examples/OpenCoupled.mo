@@ -26,9 +26,9 @@ equation
 <p>
 This variant of the two-plant-three-user example model represents the scenario
 where the storage plant is open and the pressure is coupled.
-The open tank at the storage plant functions as the pressurisation point
-for the district system.
-The return side of the storage plant is connected to the network with
+This means that the open tank at the storage plant functions as the pressurisation point
+for the district system and
+the return side of the storage plant is connected to the network with
 a direct connection.
 </p>
 </html>", revisions="<html>

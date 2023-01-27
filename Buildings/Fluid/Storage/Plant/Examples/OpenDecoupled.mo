@@ -48,11 +48,11 @@ equation
 <p>
 This variant of the two-plant-three-user example model represents the scenario
 where the storage plant is open and the pressure is decoupled.
-The district system has one pressurisation point at the chiller-only plant.
-The open tank at the storage plant forces the storage plant also to have
-a pressurisation point.
-The return side of the storage plant is connected to the network with
-a pump-valve connection which decouples its pressure from the network.
+This means the district system has one pressurisation point at the chiller-only plant.
+Since the open tank at the storage plant forces the storage plant also to have
+a pressurisation point, 
+the return side of the storage plant is connected to the network with
+a pump-valve connection to decouple its pressure from the network.
 </p>
 </html>", revisions="<html>
 <ul>
