@@ -35,8 +35,8 @@ model StagingPump "Validation of pump staging block"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yVal(k=1)
     "Source signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(each t=0.1,
-      each h=5E-2) "Check if valve open"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(t=0.1,
+    h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
   connect(floSpe.y[1],staDet. m_flow) annotation (Line(points={{-58,40},{30,40},
@@ -46,7 +46,7 @@ equation
                                                  color={0,0,127}));
   connect(yVal.y, isOpe.u)
     annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
-  connect(isOpe.y, staDet.y1Ena)
+  connect(isOpe.y,staDet.y1Ena)
     annotation (Line(points={{-18,0},{0,0},{0,6},{38,6}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(

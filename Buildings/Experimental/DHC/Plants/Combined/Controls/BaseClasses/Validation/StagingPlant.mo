@@ -83,29 +83,33 @@ model StagingPlant "Validation of plant staging block"
   Buildings.Controls.OBC.CDL.Continuous.Limiter lim[2](each uMax=1.1, each uMin
       =0) "Limit signal"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSet(k=20E4)
+    "Source signal"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation
   connect(u1.y, staChi.u1Coo) annotation (Line(points={{52,80},{60,80},{60,
-          8.57143},{78,8.57143}},
+          8.875},{78,8.875}},
                color={255,0,255}));
   connect(u1.y, staChi.u1Hea) annotation (Line(points={{52,80},{60,80},{60,
-          7.14286},{78,7.14286}},
+          7.625},{78,7.625}},
                color={255,0,255}));
   connect(TChiWatSupSet.y, staChi.TChiWatSupSet) annotation (Line(points={{-38,-20},
-          {40,-20},{40,2.85714},{78,2.85714}},
+          {40,-20},{40,5},{78,5}},
                                  color={0,0,127}));
   connect(THeaWatPriRet.y, staChi.THeaWatPriRet) annotation (Line(points={{-78,-80},
-          {50,-80},{50,-8.57143},{78,-8.57143}},
+          {50,-80},{50,-6.25},{78,-6.25}},
                                      color={0,0,127}));
   connect(THeaWatSupSet.y, staChi.THeaWatSupSet) annotation (Line(points={{-38,-60},
-          {48,-60},{48,-7.14286},{78,-7.14286}},
+          {48,-60},{48,-3.75},{78,-3.75}},
                                    color={0,0,127}));
   connect(TChiWatPriRet.y, staChi.TChiWatPriRet) annotation (Line(points={{-78,-40},
-          {42,-40},{42,0},{78,0}}, color={0,0,127}));
+          {42,-40},{42,2.5},{78,2.5}},
+                                   color={0,0,127}));
   connect(sca.y, staChi.mChiWatPri_flow)
-    annotation (Line(points={{34,50},{40,50},{40,4.28571},{78,4.28571}},
+    annotation (Line(points={{34,50},{40,50},{40,6.25},{78,6.25}},
                                                            color={0,0,127}));
   connect(sca1.y, staChi.mHeaWatPri_flow) annotation (Line(points={{34,20},{38,
-          20},{38,-5.71429},{78,-5.71429}},
+          20},{38,-2.5},{78,-2.5}},
                                 color={0,0,127}));
   connect(ratFlo.y[1:2], addNoi[1:2].u1) annotation (Line(points={{-78,80},{-60,
           80},{-60,56},{-52,56}}, color={0,0,127}));
@@ -121,6 +125,18 @@ equation
           {-52,44}}, color={0,0,127}));
   connect(addNoi.y, lim.u)
     annotation (Line(points={{-28,50},{-22,50}}, color={0,0,127}));
+  connect(TChiWatSupSet.y, staChi.TChiWatSup) annotation (Line(points={{-38,-20},
+          {40,-20},{40,3.75},{78,3.75}},       color={0,0,127}));
+  connect(dpSet.y, staChi.dpChiWat) annotation (Line(points={{-38,-100},{46,
+          -100},{46,0},{78,0}}, color={0,0,127}));
+  connect(dpSet.y, staChi.dpChiWatSet) annotation (Line(points={{-38,-100},{46,
+          -100},{46,1.25},{78,1.25}}, color={0,0,127}));
+  connect(dpSet.y, staChi.dpHeaWatSet) annotation (Line(points={{-38,-100},{
+          45.8824,-100},{45.8824,-7.5},{78,-7.5}}, color={0,0,127}));
+  connect(dpSet.y, staChi.dpHeaWat) annotation (Line(points={{-38,-100},{
+          45.8824,-100},{45.8824,-8.75},{78,-8.75}}, color={0,0,127}));
+  connect(THeaWatSupSet.y, staChi.THeaWatSup) annotation (Line(points={{-38,-60},
+          {47.8431,-60},{47.8431,-5},{78,-5}}, color={0,0,127}));
           annotation (
               __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StagingPlant.mos"

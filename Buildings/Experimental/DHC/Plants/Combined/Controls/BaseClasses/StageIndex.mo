@@ -105,6 +105,10 @@ block StageIndex
     "Compute left limit of stage index"
     annotation (Placement(transformation(extent={{130,-50},{150,-30}})));
 
+  Buildings.Controls.OBC.CDL.Logical.And upAndEna "Stage up only if enabled"
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.And dowOrDis "Stage down if disabled"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
 initial equation
   idxSta=0;
   preIdxSta=0;
@@ -147,16 +151,12 @@ equation
     annotation (Line(points={{-72,2},{-62,2}}, color={255,0,255}));
   connect(and2.y, enaLea.condition)
     annotation (Line(points={{-38,10},{-32,10},{-32,28}}, color={255,0,255}));
-  connect(u1Up, rep.u)
-    annotation (Line(points={{-180,-80},{-62,-80}}, color={255,0,255}));
   connect(rep.y, andUp.u2) annotation (Line(points={{-38,-80},{34,-80},{34,-88},
           {48,-88}}, color={255,0,255}));
   connect(andUp.y, enaLag.condition)
     annotation (Line(points={{72,-80},{100,-80},{100,28}}, color={255,0,255}));
   connect(tim.passed, andDow.u1) annotation (Line(points={{32,-48},{40,-48},{40,
           -120},{48,-120}}, color={255,0,255}));
-  connect(u1Dow, rep1.u)
-    annotation (Line(points={{-180,-120},{-62,-120}}, color={255,0,255}));
   connect(rep1.y, andDow.u2) annotation (Line(points={{-38,-120},{36,-120},{36,-128},
           {48,-128}}, color={255,0,255}));
   connect(tim.passed, andUp.u1) annotation (Line(points={{32,-48},{40,-48},{40,-80},
@@ -182,10 +182,22 @@ equation
     annotation (Line(points={{-88,80},{-82,80}}, color={255,0,255}));
   connect(or2.y, and2.u1) annotation (Line(points={{-58,80},{-50,80},{-50,60},{-66,
           60},{-66,10},{-62,10}}, color={255,0,255}));
-  connect(u1Up, or2.u2) annotation (Line(points={{-180,-80},{-140,-80},{-140,60},
-          {-86,60},{-86,72},{-82,72}}, color={255,0,255}));
   connect(calPre.y, preIdxSta)
     annotation (Line(points={{151,-40},{178,-40}}, color={255,127,0}));
+  connect(u1, upAndEna.u2) annotation (Line(points={{-180,60},{-150,60},{-150,
+          -88},{-142,-88}}, color={255,0,255}));
+  connect(u1Up, upAndEna.u1)
+    annotation (Line(points={{-180,-80},{-142,-80}}, color={255,0,255}));
+  connect(upAndEna.y, rep.u)
+    annotation (Line(points={{-118,-80},{-62,-80}}, color={255,0,255}));
+  connect(dowOrDis.y, rep1.u)
+    annotation (Line(points={{-118,-120},{-62,-120}}, color={255,0,255}));
+  connect(u1Dow, dowOrDis.u1)
+    annotation (Line(points={{-180,-120},{-142,-120}}, color={255,0,255}));
+  connect(u1, dowOrDis.u2) annotation (Line(points={{-180,60},{-150,60},{-150,
+          -128},{-142,-128}}, color={255,0,255}));
+  connect(upAndEna.y, or2.u2) annotation (Line(points={{-118,-80},{-116,-80},{
+          -116,60},{-86,60},{-86,72},{-82,72}}, color={255,0,255}));
   annotation (
   defaultComponentName="sta",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

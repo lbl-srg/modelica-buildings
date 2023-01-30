@@ -17,8 +17,8 @@ model AllElectricCWStorage "Validation of all-electric plant model"
         0.0406987748, 3.0278e-06, -0.3413411197, -0.000469572, 0.0055009208},
       QEva_flow_nominal=-1E6,
       COP_nominal=2.5,
-      mEva_flow_nominal=20,
-      mCon_flow_nominal=22,
+      mEva_flow_nominal=-datChi.QEva_flow_nominal / 10 / 4186,
+      mCon_flow_nominal=-datChi.QEva_flow_nominal * (1 + 1/datChi.COP_nominal) / 15 / 4186,
       TEvaLvg_nominal=279.15,
       TEvaLvgMin=277.15,
       TEvaLvgMax=308.15,
@@ -222,8 +222,7 @@ equation
     annotation (Line(points={{-199,160},{-194,160}}, color={0,0,127}));
   connect(addNoi.y, lim.u)
     annotation (Line(points={{-134,190},{-128,190}}, color={0,0,127}));
-  connect(lim[2].y, valDisHeaWat.y) annotation (Line(pointss={{-104,190},{-40,
-          190},{-40,152}}, color={0,0,127},
+  connect(lim[2].y, valDisHeaWat.y) annotation (Line(
       points={{-104,190},{-40,190},{-40,152}}));
   connect(lim[1].y, valDisChiWat.y) annotation (Line(points={{-104,190},{-80,
           190},{-80,-120},{-40,-120},{-40,-128}}, color={0,0,127}));

@@ -3,6 +3,8 @@ block IntegerArrayHold
   parameter Integer nin=0
     "Array dimension"
     annotation (Dialog(connectorSizing=true),HideResult=true);
+  final parameter Integer nout=nin
+    "Output array dimension";
   parameter Real holdDuration(
     final quantity="Time",
     final unit="s")=1
@@ -12,7 +14,7 @@ block IntegerArrayHold
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nin]
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y[nout]
     "Connector of Integer output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
