@@ -56,15 +56,15 @@ block StagingPlant
           extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K",
       displayUnit="degC") "CHW supply temperature" annotation (Placement(
-        transformation(extent={{-328,140},{-288,180}}), iconTransformation(
+        transformation(extent={{-280,140},{-240,180}}), iconTransformation(
           extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(final unit="Pa")
   "CHW loop differential pressure" annotation (
-      Placement(transformation(extent={{-328,180},{-288,220}}),
+      Placement(transformation(extent={{-280,180},{-240,220}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa")
   "CHW loop differential pressure setpoint" annotation (
-     Placement(transformation(extent={{-328,200},{-288,240}}),
+     Placement(transformation(extent={{-280,200},{-240,240}}),
         iconTransformation(extent={{-140,-40},{-100,0}})));
 
 
@@ -178,36 +178,36 @@ block StagingPlant
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract errTChiWatSup
     "Compute tracking error"
-    annotation (Placement(transformation(extent={{-220,150},{-200,170}})));
+    annotation (Placement(transformation(extent={{-200,160},{-180,180}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract errDpChiWat
     "Compute tracking error"
-    annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
+    annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpErrLim(t=-1)
     "Check tracking error limit"
-    annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
+    annotation (Placement(transformation(extent={{-170,160},{-150,180}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpErrLim1(t=1E4)
     "Check tracking error limit"
-    annotation (Placement(transformation(extent={{-180,190},{-160,210}})));
+    annotation (Placement(transformation(extent={{-170,200},{-150,220}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim(t=15*60)
     "Timer for error exceeding error limit"
-    annotation (Placement(transformation(extent={{-120,150},{-100,170}})));
+    annotation (Placement(transformation(extent={{-110,160},{-90,180}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timErrExcLim1(t=15*60)
     "Timer for error exceeding error limit"
-    annotation (Placement(transformation(extent={{-120,190},{-100,210}})));
+    annotation (Placement(transformation(extent={{-110,200},{-90,220}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Failsafe condition to stage up"
-    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
+    annotation (Placement(transformation(extent={{-70,180},{-50,200}})));
   Modelica.Blocks.Continuous.FirstOrder fil2(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
     "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-270,150},{-250,170}})));
+    annotation (Placement(transformation(extent={{-230,160},{-210,180}})));
   Modelica.Blocks.Continuous.FirstOrder fil1(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
     "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-270,180},{-250,200}})));
+    annotation (Placement(transformation(extent={{-230,190},{-210,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Apply failsafe condition only in stage >= 1"
-    annotation (Placement(transformation(extent={{-150,190},{-130,210}})));
+    annotation (Placement(transformation(extent={{-140,200},{-120,220}})));
   Buildings.Controls.OBC.CDL.Logical.And and3
     "Apply failsafe condition only in stage >= 1"
-    annotation (Placement(transformation(extent={{-150,150},{-130,170}})));
+    annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
   StageIndex staCoo(final nSta=nChi + nChiHea, tSta=15*60)
     "Compute cooling stage"
     annotation (Placement(transformation(extent={{30,104},{50,124}})));
@@ -265,7 +265,7 @@ block StagingPlant
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not notFail
     "Failsafe conditions are not true"
-    annotation (Placement(transformation(extent={{-50,130},{-30,150}})));
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
   Buildings.Controls.OBC.CDL.Logical.And dowAndNotFail
     "No stage up failsafe condition and efficiency condition to stage down"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
@@ -325,47 +325,49 @@ equation
   connect(numChiHeaCoo.y, numChiCasCoo.u2) annotation (Line(points={{22,-40},{
           30,-40},{30,-26},{38,-26}},          color={255,127,0}));
   connect(TChiWatSupSet, errTChiWatSup.u1) annotation (Line(points={{-260,40},{
-          -230,40},{-230,166},{-222,166}},                color={0,0,127}));
-  connect(dpChiWatSet, errDpChiWat.u1) annotation (Line(points={{-308,220},{
-          -278,220},{-278,206},{-222,206}},
+          -230,40},{-230,140},{-204,140},{-204,176},{-202,176}},
+                                                          color={0,0,127}));
+  connect(dpChiWatSet, errDpChiWat.u1) annotation (Line(points={{-260,220},{
+          -206,220},{-206,216},{-202,216}},
                                        color={0,0,127}));
   connect(errTChiWatSup.y, cmpErrLim.u)
-    annotation (Line(points={{-198,160},{-182,160}}, color={0,0,127}));
+    annotation (Line(points={{-178,170},{-172,170}}, color={0,0,127}));
   connect(errDpChiWat.y, cmpErrLim1.u)
-    annotation (Line(points={{-198,200},{-182,200}}, color={0,0,127}));
-  connect(timErrExcLim1.passed, or2.u1) annotation (Line(points={{-98,192},{-90,
-          192},{-90,180},{-82,180}},   color={255,0,255}));
-  connect(timErrExcLim.passed, or2.u2) annotation (Line(points={{-98,152},{-90,
-          152},{-90,172},{-82,172}},   color={255,0,255}));
+    annotation (Line(points={{-178,210},{-172,210}}, color={0,0,127}));
+  connect(timErrExcLim1.passed, or2.u1) annotation (Line(points={{-88,202},{-80,
+          202},{-80,190},{-72,190}},   color={255,0,255}));
+  connect(timErrExcLim.passed, or2.u2) annotation (Line(points={{-88,162},{-80,
+          162},{-80,182},{-72,182}},   color={255,0,255}));
   connect(TChiWatSup, fil2.u)
-    annotation (Line(points={{-308,160},{-272,160}}, color={0,0,127}));
-  connect(fil2.y, errTChiWatSup.u2) annotation (Line(points={{-249,160},{-236,
-          160},{-236,154},{-222,154}}, color={0,0,127}));
-  connect(fil1.y, errDpChiWat.u2) annotation (Line(points={{-249,190},{-234,190},
-          {-234,194},{-222,194}}, color={0,0,127}));
-  connect(dpChiWat, fil1.u) annotation (Line(points={{-308,200},{-280,200},{
-          -280,190},{-272,190}}, color={0,0,127}));
+    annotation (Line(points={{-260,160},{-236,160},{-236,170},{-232,170}},
+                                                     color={0,0,127}));
+  connect(fil2.y, errTChiWatSup.u2) annotation (Line(points={{-209,170},{-206,
+          170},{-206,164},{-202,164}}, color={0,0,127}));
+  connect(fil1.y, errDpChiWat.u2) annotation (Line(points={{-209,200},{-206,200},
+          {-206,204},{-202,204}}, color={0,0,127}));
+  connect(dpChiWat, fil1.u) annotation (Line(points={{-260,200},{-232,200}},
+                                 color={0,0,127}));
   connect(cmpErrLim1.y, and2.u1)
-    annotation (Line(points={{-158,200},{-152,200}}, color={255,0,255}));
+    annotation (Line(points={{-148,210},{-142,210}}, color={255,0,255}));
   connect(and2.y, timErrExcLim1.u)
-    annotation (Line(points={{-128,200},{-122,200}}, color={255,0,255}));
-  connect(cmpErrLim.y, and3.u1) annotation (Line(points={{-158,160},{-156,160},
-          {-156,160},{-152,160}}, color={255,0,255}));
+    annotation (Line(points={{-118,210},{-112,210}}, color={255,0,255}));
+  connect(cmpErrLim.y, and3.u1) annotation (Line(points={{-148,170},{-142,170}},
+                                  color={255,0,255}));
   connect(and3.y, timErrExcLim.u)
-    annotation (Line(points={{-128,160},{-122,160}}, color={255,0,255}));
-  connect(u1Coo, and3.u2) annotation (Line(points={{-260,120},{-156,120},{-156,
-          152},{-152,152}}, color={255,0,255}));
-  connect(u1Coo, and2.u2) annotation (Line(points={{-260,120},{-156,120},{-156,
-          192},{-152,192}}, color={255,0,255}));
+    annotation (Line(points={{-118,170},{-112,170}}, color={255,0,255}));
+  connect(u1Coo, and3.u2) annotation (Line(points={{-260,120},{-146,120},{-146,
+          162},{-142,162}}, color={255,0,255}));
+  connect(u1Coo, and2.u2) annotation (Line(points={{-260,120},{-146,120},{-146,
+          202},{-142,202}}, color={255,0,255}));
   connect(cmdChi.y, y1Chi)
     annotation (Line(points={{182,80},{260,80}}, color={255,0,255}));
   connect(u1Coo, staCoo.u1)
     annotation (Line(points={{-260,120},{28,120}},  color={255,0,255}));
   connect(cmpOPLRLimUp.y, timOPLRExcLim.u)
     annotation (Line(points={{-58,80},{-42,80}}, color={255,0,255}));
-  connect(or2.y, or1.u1) annotation (Line(points={{-58,180},{-20,180},{-20,100},
-          {-2,100}}, color={255,0,255}));
-  connect(or1.y, staCoo.u1Up) annotation (Line(points={{22,100},{20,100},{20,
+  connect(or2.y, or1.u1) annotation (Line(points={{-48,190},{-6,190},{-6,100},{
+          -2,100}},  color={255,0,255}));
+  connect(or1.y, staCoo.u1Up) annotation (Line(points={{22,100},{24,100},{24,
           114},{28,114}}, color={255,0,255}));
   connect(timOPLRExcLim.passed, or1.u2) annotation (Line(points={{-18,72},{-14,
           72},{-14,92},{-2,92}}, color={255,0,255}));
@@ -393,14 +395,14 @@ equation
           -208},{-12,-208},{-12,-165.8},{-2,-165.8}}, color={255,0,255}));
   connect(cmpOPLRLimDow1.y, timOPLRExcLim3.u)
     annotation (Line(points={{-58,40},{-42,40}}, color={255,0,255}));
-  connect(or2.y, notFail.u) annotation (Line(points={{-58,180},{-56,180},{-56,
-          140},{-52,140}}, color={255,0,255}));
+  connect(or2.y, notFail.u) annotation (Line(points={{-48,190},{-46,190},{-46,
+          160},{-42,160}}, color={255,0,255}));
   connect(dowAndNotFail.y, staCoo.u1Dow) annotation (Line(points={{22,60},{26,
           60},{26,108.2},{28,108.2}}, color={255,0,255}));
   connect(timOPLRExcLim3.passed, dowAndNotFail.u2) annotation (Line(points={{
           -18,32},{-10,32},{-10,52},{-2,52}}, color={255,0,255}));
-  connect(notFail.y, dowAndNotFail.u1) annotation (Line(points={{-28,140},{-10,
-          140},{-10,60},{-2,60}}, color={255,0,255}));
+  connect(notFail.y, dowAndNotFail.u1) annotation (Line(points={{-18,160},{-10,
+          160},{-10,60},{-2,60}}, color={255,0,255}));
   connect(staHea.idxSta, nChiHeaAndCooUnb.u2) annotation (Line(points={{22,-160},
           {30,-160},{30,-120},{-90,-120},{-90,-46},{-82,-46}}, color={255,127,0}));
   connect(numOpeCooChiHea.y, numChiCasCoo.u1) annotation (Line(points={{-98,-20},

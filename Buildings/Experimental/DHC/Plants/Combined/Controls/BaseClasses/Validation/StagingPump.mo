@@ -25,38 +25,29 @@ model StagingPump "Validation of pump staging block"
     timeScale=500)
     "Source signal"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  BaseClasses.StagingPumpDetailed staDet(
+  Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump
+    staDet(
     final nPum=nPum,
     final nChi=nChi,
     final m_flow_nominal=m_flow_nominal)
     "Pump staging block - Detailed version"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yVal(k=1)
     "Source signal"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Pre pre[nPum]
-    annotation (Placement(transformation(extent={{10,70},{-10,90}})));
-  BaseClasses.StagingPump staSim(
-    final nPum=nPum,
-    final nChi=nChi,
-    final m_flow_nominal=m_flow_nominal)
-    "Pump staging block - Simplified version"
-    annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(each t=0.1,
+      each h=5E-2) "Check if valve open"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
-  connect(floSpe.y[1],staDet. m_flow) annotation (Line(points={{-58,40},{-40,40},
-          {-40,44},{-12,44}}, color={0,0,127}));
+  connect(floSpe.y[1],staDet. m_flow) annotation (Line(points={{-58,40},{30,40},
+          {30,0},{38,0}},     color={0,0,127}));
   connect(floSpe.y[2],staDet. y)
-    annotation (Line(points={{-58,40},{-12,40}}, color={0,0,127}));
-  connect(yVal.y,staDet. yVal[1]) annotation (Line(points={{-58,0},{-20,0},{-20,
-          36},{-12,36}}, color={0,0,127}));
-  connect(staDet.y1, pre.u) annotation (Line(points={{12,40},{20,40},{20,80},{12,
-          80}}, color={255,0,255}));
-  connect(pre.y,staDet. y1_actual) annotation (Line(points={{-12,80},{-20,80},{-20,
-          48},{-12,48}}, color={255,0,255}));
-  connect(floSpe.y[1], staSim.m_flow) annotation (Line(points={{-58,40},{-40,40},
-          {-40,-36},{-12,-36}}, color={0,0,127}));
-  connect(yVal.y, staSim.yVal[1]) annotation (Line(points={{-58,0},{-20,0},{-20,
-          -44},{-12,-44}}, color={0,0,127}));
+    annotation (Line(points={{-58,40},{30,40},{30,-6},{38,-6}},
+                                                 color={0,0,127}));
+  connect(yVal.y, isOpe.u)
+    annotation (Line(points={{-58,0},{-42,0}}, color={0,0,127}));
+  connect(isOpe.y, staDet.y1Ena)
+    annotation (Line(points={{-18,0},{0,0},{0,6},{38,6}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StagingPump.mos"
