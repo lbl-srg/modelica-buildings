@@ -8,18 +8,18 @@ model Carnot_y
 defaultComponentName="chi",
 Documentation(info="<html>
 <p>
-This is model of a chiller whose coefficient of performance COP changes
+This is a model of a chiller whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
 The input signal <i>y</i> is the control signal for the compressor.
 </p>
 <p>
-The model allows to either specify the Carnot effectivness
+The model allows to either specify the Carnot effectiveness
 <i>&eta;<sub>Carnot,0</sub></i>, or
 a <i>COP<sub>0</sub></i>
 at the nominal conditions, together with
 the evaporator temperature <i>T<sub>eva,0</sub></i> and
 the condenser temperature <i>T<sub>con,0</sub></i>, in which
-case the model computes the Carnot effectivness as
+case the model computes the Carnot effectiveness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &eta;<sub>Carnot,0</sub> =
