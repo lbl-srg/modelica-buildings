@@ -4,7 +4,11 @@ model Indirect "Example model for indirect cooling energy transfer station
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
-  parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=0.5
+  parameter Modelica.Units.SI.HeatFlowRate QCoo_flow_nominal = -19000
+    "Cooling design flow rate";
+  parameter Modelica.Units.SI.TemperatureDifference dT_nominal = 16-7
+    "Design temperature difference";
+  parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=-QCoo_flow_nominal/dT_nominal/cp
     "Nominal mass flow rate of building cooling supply"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
@@ -14,13 +18,13 @@ model Indirect "Example model for indirect cooling energy transfer station
       Medium.X_default))
     "Default specific heat capacity of medium";
   Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect cooETS(
-    QChiWat_flow_nominal=-18514,
-    mDis_flow_nominal=0.5,
+    QChiWat_flow_nominal=QCoo_flow_nominal,
+    mDis_flow_nominal=mBui_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
     dpConVal_nominal=9000,
-    dp1_nominal=500,
-    dp2_nominal=500,
-    Q_flow_nominal=-18514,
+    dp1_nominal=9000,
+    dp2_nominal=9000,
+    Q_flow_nominal=QCoo_flow_nominal,
     T_a1_nominal=278.15,
     T_a2_nominal=289.15,
     k=0.1,
@@ -34,7 +38,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Fluid.Sources.Boundary_pT souDis(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 300000 + 10000,
+    p(displayUnit="Pa") = 300000 + 2*9000,
     use_T_in=false,
     T=278.15,
     nPorts=1)
@@ -56,7 +60,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     m_flow_nominal=mBui_flow_nominal,
     show_T=true,
     from_dp=false,
-    dp_nominal=100,
+    dp_nominal=6000,
     linearizeFlowResistance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     Q_flow_nominal=-1)
@@ -68,7 +72,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     allowFlowReversal=false,
     m_flow_nominal=mBui_flow_nominal,
     nominalValuesDefineDefaultPressureCurve=true,
-    dp_nominal=6000)
+    dp_nominal=6000+9000)
     "Building-side (secondary) pump"
     annotation (Placement(transformation(extent={{80,40},{60,60}})));
   Modelica.Blocks.Sources.CombiTimeTable QCoo(
@@ -92,7 +96,7 @@ model Indirect "Example model for indirect cooling energy transfer station
     startTime(displayUnit="h")=3600) "Ramp load from zero"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Modelica.Blocks.Math.Gain gai(
-    k=-1/(cp*(16-7)))
+    k=-1/(cp*dT_nominal))
     "Multiplier gain for calculating m_flow"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.Fluid.Sources.Boundary_pT souBui(
@@ -152,7 +156,14 @@ The mass flow rate of chilled water in the building side is varied based on the 
 </html>",
       revisions="<html>
 <ul>
-<li>March 20, 2022, by Chengnan Shi:<br>First implementation. </li>
+<li>
+January 30, 2023:<br/>
+Corrected parameterization.
+</li>
+<li>
+March 20, 2022, by Chengnan Shi:<br/>
+First implementation.
+</li>
 </ul>
 </html>"));
 end Indirect;
