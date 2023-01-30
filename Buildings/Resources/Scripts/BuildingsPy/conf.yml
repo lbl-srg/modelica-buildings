@@ -137,6 +137,9 @@
     comment: returned non-zero exit status 1.
     simulate: false
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
+  openmodelica:
+    comment: Fails on CI (https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/594393080#L386), but works with latest OpenModelica (1.21.0~dev-215-gfbc4a47)
+    translate: false
   optimica:
     comment: 'The system is structurally singular. Modelon #2023012739000252'
     translate: false
@@ -432,4 +435,4 @@
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
     simulate: false
-    
+
