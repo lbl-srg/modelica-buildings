@@ -5,7 +5,7 @@ compareVars :=
     "chi.TEvaLvg",
     "chi.TConEnt",
     "chi.TConLvg",
-    "chi.COP",
+    "chi.COP_h",
     "chi.PLR1",
     "chi.PLR2",
     "chi.CR"
