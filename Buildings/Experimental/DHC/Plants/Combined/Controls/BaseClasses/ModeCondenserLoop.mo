@@ -71,6 +71,7 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.And or1
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Modelica.Blocks.Sources.RealExpression fraChaTanVal(y=fraChaTan)
+    "Tank charge fraction"
     annotation (Placement(transformation(extent={{-150,-130},{-130,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold criChaLow(t=0.97)
     "Low charge fraction criterion"
@@ -93,13 +94,13 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo(t=5*60)
     "Criterion true for given time"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Or anyDis
+  Buildings.Controls.OBC.CDL.Logical.Or disCha
     "Any of the disabling conditions is true"
-    annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch latAss "Latch charge assist mode"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch enaCha "Enable charge assist mode"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timNotCha(t=5*60)
-    annotation (Placement(transformation(extent={{-20,150},{0,170}})));
+    annotation (Placement(transformation(extent={{-10,150},{10,170}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timCriTem(t=5*60)
     "Criterion true for given time"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
@@ -120,20 +121,20 @@ block ModeCondenserLoop
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold criFlo1(t=0)
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo1(t=1*60)
+  Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo1(t=60)
     "Criterion true for given time"
     annotation (Placement(transformation(extent={{-90,110},{-70,130}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch latRej "Latch heat rejection mode"
-    annotation (Placement(transformation(extent={{50,130},{70,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch enaRej "Enable heat rejection mode"
+    annotation (Placement(transformation(extent={{50,90},{70,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant modTan(final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge)
     "Tank charge or discharge mode"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant modRej(final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.heatRejection)
     "Heat rejection mode"
     annotation (Placement(transformation(extent={{88,130},{108,150}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant modAss(final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.chargeAssist)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant modCha(final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.chargeAssist)
     "Charge assist mode"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
+    annotation (Placement(transformation(extent={{90,-50},{110,-30}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
@@ -147,6 +148,8 @@ block ModeCondenserLoop
   Modelica.Blocks.Continuous.FirstOrder fil1(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
     "Filter to break algebraic loop"
     annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not isChaDis "Charge assist mode disabled"
+    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
 equation
 
   connect(ratFraChaTanVal.y, lesThr.u)
@@ -178,12 +181,12 @@ equation
     annotation (Line(points={{-28,0},{-12,0}}, color={255,0,255}));
   connect(anyEnaFal.y, tim2.u)
     annotation (Line(points={{12,0},{18,0}}, color={255,0,255}));
-  connect(tim2.passed, anyDis.u2) annotation (Line(points={{42,-8},{44,-8},{44,32},
-          {48,32}}, color={255,0,255}));
-  connect(or2.y, latAss.u)
+  connect(tim2.passed, disCha.u2) annotation (Line(points={{42,-8},{46,-8},{46,
+          -14},{14,-14},{14,-38},{18,-38}}, color={255,0,255}));
+  connect(or2.y,enaCha. u)
     annotation (Line(points={{12,-60},{18,-60}}, color={255,0,255}));
-  connect(anyDis.y, latAss.clr) annotation (Line(points={{72,40},{80,40},{80,-80},
-          {14,-80},{14,-66},{18,-66}}, color={255,0,255}));
+  connect(disCha.y, enaCha.clr) annotation (Line(points={{42,-30},{46,-30},{46,
+          -44},{14,-44},{14,-66},{18,-66}}, color={255,0,255}));
   connect(criTem.y, timCriTem.u)
     annotation (Line(points={{-128,20},{-122,20}}, color={255,0,255}));
   connect(criFlo.y, timCriFlo.u)
@@ -194,13 +197,10 @@ equation
           {-56,32},{-52,32}},color={255,0,255}));
   connect(criChaLow.y, criFraChaHig.u)
     annotation (Line(points={{-98,-120},{-82,-120}}, color={255,0,255}));
-  connect(or4.y, anyDis.u1)
-    annotation (Line(points={{-28,40},{48,40}}, color={255,0,255}));
-  connect(timNotCha.passed, and3.u1) annotation (Line(points={{2,152},{10,152},
-          {10,148},{18,148}},  color={255,0,255}));
-  connect(anyDis.y, timNotCha.u) annotation (Line(points={{72,40},{80,40},{80,
-          80},{-26,80},{-26,160},{-22,160}},
-                                         color={255,0,255}));
+  connect(or4.y, disCha.u1) annotation (Line(points={{-28,40},{-16,40},{-16,-30},
+          {18,-30}}, color={255,0,255}));
+  connect(timNotCha.passed, and3.u1) annotation (Line(points={{12,152},{16,152},
+          {16,148},{18,148}},  color={255,0,255}));
   connect(criFraChaHig.y, timCriFraChaHig.u)
     annotation (Line(points={{-58,-120},{-50,-120}}, color={255,0,255}));
   connect(timCriFlo.passed, and3.u2) annotation (Line(points={{-68,52},{-60,52},
@@ -213,23 +213,24 @@ equation
         ={{-26,-128},{-20,-128},{-20,112},{-12,112}}, color={255,0,255}));
   connect(criFlo1.y, timCriFlo1.u)
     annotation (Line(points={{-98,120},{-92,120}},   color={255,0,255}));
-  connect(and3.y, latRej.u)
-    annotation (Line(points={{42,140},{48,140}}, color={255,0,255}));
-  connect(timCriFlo1.passed, latRej.clr) annotation (Line(points={{-68,112},{
-          -64,112},{-64,100},{44,100},{44,134},{48,134}},
-                                                      color={255,0,255}));
-  connect(latRej.y, intSwi1.u2) annotation (Line(points={{72,140},{80,140},{80,100},
-          {88,100}}, color={255,0,255}));
+  connect(and3.y,enaRej. u)
+    annotation (Line(points={{42,140},{46,140},{46,100},{48,100}},
+                                                 color={255,0,255}));
+  connect(timCriFlo1.passed,enaRej. clr) annotation (Line(points={{-68,112},{
+          -64,112},{-64,94},{48,94}},                 color={255,0,255}));
+  connect(enaRej.y, intSwi1.u2) annotation (Line(points={{72,100},{88,100}},
+                     color={255,0,255}));
   connect(modRej.y, intSwi1.u1) annotation (Line(points={{110,140},{120,140},{120,
           120},{84,120},{84,108},{88,108}}, color={255,127,0}));
   connect(modTan.y, intSwi1.u3) annotation (Line(points={{112,60},{120,60},{120,
-          80},{86,80},{86,92},{88,92}}, color={255,127,0}));
+          80},{84,80},{84,92},{88,92}}, color={255,127,0}));
   connect(intSwi.y, mode)
     annotation (Line(points={{152,0},{180,0}}, color={255,127,0}));
-  connect(latAss.y, intSwi.u2) annotation (Line(points={{42,-60},{60,-60},{60,0},
+  connect(enaCha.y, intSwi.u2) annotation (Line(points={{42,-60},{60,-60},{60,0},
           {128,0}}, color={255,0,255}));
-  connect(modAss.y, intSwi.u1) annotation (Line(points={{112,-60},{120,-60},{120,
-          8},{128,8}}, color={255,127,0}));
+  connect(modCha.y, intSwi.u1) annotation (Line(points={{112,-40},{120,-40},{
+          120,8},{128,8}},
+                       color={255,127,0}));
   connect(intSwi1.y, intSwi.u3) annotation (Line(points={{112,100},{124,100},{124,
           -8},{128,-8}}, color={255,127,0}));
   connect(varCriWarUp1.y, criWarUp.u2) annotation (Line(points={{-129,-100},{-126,
@@ -246,6 +247,10 @@ equation
     annotation (Line(points={{-180,60},{-152,60}}, color={0,0,127}));
   connect(fil1.y, criFlo.u)
     annotation (Line(points={{-129,60},{-122,60}}, color={0,0,127}));
+  connect(isChaDis.y, timNotCha.u)
+    annotation (Line(points={{-18,160},{-12,160}}, color={255,0,255}));
+  connect(enaCha.y, isChaDis.u) annotation (Line(points={{42,-60},{60,-60},{60,
+          80},{-52,80},{-52,160},{-42,160}}, color={255,0,255}));
   annotation (
   defaultComponentName="modConLoo",
   Icon(graphics={

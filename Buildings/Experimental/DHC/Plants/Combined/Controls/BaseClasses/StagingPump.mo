@@ -1,24 +1,29 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block StagingPump "Pump staging"
 
+
+  parameter Boolean have_flowCriterion=true
+    "Set to true in case of flow criterion in conjunction with speed criterion"
+    annotation(Evaluate=true);
   parameter Integer nPum(
     final min=1,
     start=1)
     "Number of pumps"
     annotation(Evaluate=true);
-  parameter Integer nChi(
-    final min=1,
-    start=1)
-    "Number of chillers served by the pumps"
-    annotation(Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(start=1)
     "Loop design mass flow rate (all pumps)"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Boolean have_switchover=false
-    "Set to true in case of switchover valve in series with isolation valve"
-    annotation(Evaluate=true);
+    annotation(Dialog(group="Nominal condition", enable=have_flowCriterion));
+  parameter Real yDow=0.30
+    "Low speed limit for staging down";
+  parameter Real yUp=0.99
+    "High speed limit for staging up";
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Ena
+    "Lead pump enable signal (e.g. based on isolation valve opening command)"
+    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(final unit="kg/s")
+    if have_flowCriterion
     "Mass flow rate as measured by the loop flow meter"
     annotation (Placement(
         transformation(extent={{-240,60},{-200,100}}),iconTransformation(extent={{-140,
@@ -33,37 +38,40 @@ block StagingPump "Pump staging"
         transformation(extent={{200,-20},{240,20}}), iconTransformation(extent={{100,-20},
             {140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmp(t=0.99)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmp(final t=yUp)
     "Compare"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timSpe(t=5*60)
     "True delay"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter ratFlo(
-    final k=1/m_flow_nominal)
+    final k=1/m_flow_nominal) if have_flowCriterion
     "Ratio of current flow rate to design value"
     annotation (Placement(transformation(extent={{-148,70},{-128,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater cmp2 "Compare"
+  Buildings.Controls.OBC.CDL.Continuous.Greater cmp2
+    if have_flowCriterion
+    "Compare"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Ena
-    "Lead pump enable signal (e.g. based on isolation valve opening command)"
-    annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(p=-0.03)
+    if have_flowCriterion
     "Add offset"
     annotation (Placement(transformation(extent={{-80,130},{-100,150}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo(t=10*60)
+    if have_flowCriterion
     "Check if true for a given time"
     annotation (Placement(transformation(extent={{-72,90},{-52,110}})));
   Buildings.Controls.OBC.CDL.Logical.Or up
     "Check if flow or speed criterion passed for staging up"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less    cmp3 "Compare"
+  Buildings.Controls.OBC.CDL.Continuous.Less cmp3
+    if have_flowCriterion
+    "Compare"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo1(t=10*60)
+    if have_flowCriterion
     "Check if true for a given time"
     annotation (Placement(transformation(extent={{-72,50},{-52,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold  cmp4(t=0.3)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold  cmp4(final t=yDow)
     "Compare"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timSpe1(t=5*60) "True delay"
@@ -85,6 +93,7 @@ block StagingPump "Pump staging"
   Modelica.Blocks.Continuous.FirstOrder filFlo(
     T=60,
     initType=Modelica.Blocks.Types.Init.InitialOutput)
+    if have_flowCriterion
     "Filter input to avoid algebraic loop"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
   StageIndex staLag(final nSta=max(1, nPum - 1), tSta=30)
@@ -92,10 +101,11 @@ block StagingPump "Pump staging"
     "Stage lag pumps (minimum runtime allowing for pump start time)"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal cvtInt "Convert"
-    annotation (Placement(transformation(extent={{70,130},{50,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOffLowSta(p=-1/nPum)
+    annotation (Placement(transformation(extent={{50,130},{30,150}})));
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOffLowSta(
+    final p=-1/nPum) if have_flowCriterion
     "Add offset for lower stage"
-    annotation (Placement(transformation(extent={{-140,30},{-120,50}})));
+    annotation (Placement(transformation(extent={{-150,30},{-130,50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger leaEna
     "Return 1 if lead pump enabled"
     annotation (Placement(transformation(extent={{30,30},{50,50}})));
@@ -107,6 +117,14 @@ block StagingPump "Pump staging"
     if nPum==1
     "Constant"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(final k=false)
+    if not have_flowCriterion
+    "Constant"
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput nPumEna
+    "Number of pumps that are enabled" annotation (Placement(transformation(
+          extent={{200,-80},{240,-40}}), iconTransformation(extent={{100,-80},{
+            140,-40}})));
 equation
   connect(y, cmp.u)
     annotation (Line(points={{-220,0},{-102,0}},     color={0,0,127}));
@@ -148,13 +166,13 @@ equation
           28,6}},
                color={255,0,255}));
   connect(cvtInt.y, ratOpeDsg.u)
-    annotation (Line(points={{48,140},{-38,140}}, color={0,0,127}));
+    annotation (Line(points={{28,140},{-38,140}}, color={0,0,127}));
   connect(cvtBoo.y, y1)
     annotation (Line(points={{182,0},{220,0}}, color={255,0,255}));
   connect(addOff.y, addOffLowSta.u) annotation (Line(points={{-102,140},{-160,
-          140},{-160,40},{-142,40}}, color={0,0,127}));
-  connect(addOffLowSta.y, cmp3.u2) annotation (Line(points={{-118,40},{-110,40},
-          {-110,52},{-102,52}}, color={0,0,127}));
+          140},{-160,40},{-152,40}}, color={0,0,127}));
+  connect(addOffLowSta.y, cmp3.u2) annotation (Line(points={{-128,40},{-116,40},
+          {-116,52},{-102,52}}, color={0,0,127}));
   connect(y1Ena, leaEna.u) annotation (Line(points={{-220,160},{0,160},{0,40},{
           28,40}},
                 color={255,0,255}));
@@ -168,19 +186,25 @@ equation
           {78,-6}}, color={255,127,0}));
   connect(leaEna.y, num.u1) annotation (Line(points={{52,40},{60,40},{60,6},{78,
           6}}, color={255,127,0}));
-  connect(numPre.y, cvtInt.u) annotation (Line(points={{102,60},{100,60},{100,
-          140},{72,140}},
+  connect(numPre.y, cvtInt.u) annotation (Line(points={{102,60},{120,60},{120,
+          140},{52,140}},
                      color={255,127,0}));
   connect(leaEna.y, numPre.u1) annotation (Line(points={{52,40},{60,40},{60,66},
           {78,66}}, color={255,127,0}));
   connect(staLag.preIdxSta, numPre.u2) annotation (Line(points={{52,-6},{56,-6},
           {56,54},{78,54}}, color={255,127,0}));
-  connect(zer.y, num.u2) annotation (Line(points={{52,-40},{60,-40},{60,-6},{78,
+  connect(zer.y, num.u2) annotation (Line(points={{52,-40},{68,-40},{68,-6},{78,
           -6}}, color={255,127,0}));
-  connect(zer.y, numPre.u2) annotation (Line(points={{52,-40},{64,-40},{64,54},
+  connect(zer.y, numPre.u2) annotation (Line(points={{52,-40},{68,-40},{68,54},
           {78,54}},color={255,127,0}));
   connect(up.y, staLag.u1Up)
     annotation (Line(points={{-8,0},{28,0}}, color={255,0,255}));
+  connect(fal.y, dow.u1) annotation (Line(points={{-48,-80},{-40,-80},{-40,-40},
+          {-32,-40}}, color={255,0,255}));
+  connect(fal.y, up.u1) annotation (Line(points={{-48,-80},{-36,-80},{-36,0},{-32,
+          0}}, color={255,0,255}));
+  connect(num.y, nPumEna) annotation (Line(points={{102,0},{110,0},{110,-60},{
+          220,-60}}, color={255,127,0}));
   annotation (
   defaultComponentName="staPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

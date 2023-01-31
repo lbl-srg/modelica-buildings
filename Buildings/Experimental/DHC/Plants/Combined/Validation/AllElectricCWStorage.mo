@@ -128,18 +128,19 @@ model AllElectricCWStorage "Validation of all-electric plant model"
   Fluid.HeatExchangers.Heater_T disChiWat(
     redeclare final package Medium = Medium,
     final m_flow_nominal=pla.mChiWat_flow_nominal,
+    show_T=true,
     final dp_nominal=0,
     final energyDynamics=energyDynamics,
     tau=300)
     "Distribution system approximated by prescribed return temperature"
     annotation (Placement(transformation(extent={{10,-150},{-10,-130}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatSup_nominal
-         - 10,y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
+              y(final unit="K", displayUnit="degC"))
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatSup_nominal
-         + 5, y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatRet_nominal,
+              y(final unit="K", displayUnit="degC"))
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(

@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
-block ValveCommand
+block IsolationSwitchoverValve
   "Block that computes command signal for isolation and switchover valves"
 
   parameter Integer nChi(final min=1, start=1)
@@ -225,7 +225,6 @@ block ValveCommand
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-40})));
-
 
   EnergyTransferStations.Combined.Controls.PIDWithEnable valEvaChi[nChi](
     each final r=mChiWatChi_flow_nominal,
@@ -663,4 +662,4 @@ equation
           extent={{-150,130},{150,170}},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-220,-300},{220,300}})));
-end ValveCommand;
+end IsolationSwitchoverValve;

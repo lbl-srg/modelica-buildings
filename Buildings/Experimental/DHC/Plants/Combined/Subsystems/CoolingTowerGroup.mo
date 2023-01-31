@@ -70,13 +70,13 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
         iconTransformation(extent={{-20,80},{20,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(final unit="W")
     "Power drawn by tower fans"
-    annotation (Placement(transformation(extent={{100,80},{140,120}}),
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
       iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConWatSup(
     final unit="K", displayUnit="degC")
     "CW supply temperature (tower leaving)"
     annotation (Placement(
-        transformation(extent={{100,40},{140,80}}), iconTransformation(extent={{100,20},
+        transformation(extent={{100,20},{140,60}}), iconTransformation(extent={{100,20},
             {140,60}})));
 
   Fluid.BaseClasses.MassFlowRateMultiplier mulConInl(
@@ -93,9 +93,9 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   BaseClasses.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
-    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
-    annotation (Placement(transformation(extent={{70,110},{90,90}})));
+    annotation (Placement(transformation(extent={{60,90},{80,70}})));
 
   Fluid.HeatExchangers.CoolingTowers.Merkel coo(
     redeclare final package Medium = Medium,
@@ -113,19 +113,19 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     "Cooling tower"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
+  Buildings.Controls.OBC.CDL.Logical.Pre preY1[nUni]
+    "Left limit of signal avoiding direct feedback of status to controller"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 equation
-  connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{82,6},{86,6},{86,
-          -20},{-86,-20},{-86,6},{-82,6}},     color={0,0,127}));
-  connect(y1, com.y1) annotation (Line(points={{-120,60},{-94,60},{-94,60},{-92,
-          60}},  color={255,0,255}));
-  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-68,60},{18,60},{18,
-          106},{68,106}},   color={0,0,127}));
+  connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{81,6},{86,6},{
+          86,-20},{-86,-20},{-86,6},{-82,6}},  color={0,0,127}));
+  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-18,60},{20,60},{20,86},
+          {58,86}},         color={0,0,127}));
 
   connect(mulP.y, P)
-    annotation (Line(points={{92,100},{120,100}},
-                                                color={0,0,127}));
-  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-68,54},{16,54},
-          {16,6},{58,6}},        color={0,0,127}));
+    annotation (Line(points={{82,80},{120,80}}, color={0,0,127}));
+  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-18,54},{20,54},
+          {20,6},{58,6}},        color={0,0,127}));
   connect(mulConOut.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(port_a, mulConInl.port_a)
@@ -143,11 +143,15 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(coo.PFan, mulP.u1)
-    annotation (Line(points={{11,8},{20,8},{20,94},{68,94}}, color={0,0,127}));
+    annotation (Line(points={{11,8},{36,8},{36,74},{58,74}}, color={0,0,127}));
   connect(y, coo.y) annotation (Line(points={{-120,-60},{-40,-60},{-40,8},{-12,8}},
         color={0,0,127}));
-  connect(coo.TLvg, TConWatSup) annotation (Line(points={{11,-6},{40,-6},{40,60},
-          {120,60}}, color={0,0,127}));
+  connect(coo.TLvg, TConWatSup) annotation (Line(points={{11,-6},{40,-6},{40,40},
+          {120,40}}, color={0,0,127}));
+  connect(y1, preY1.u)
+    annotation (Line(points={{-120,60},{-82,60}}, color={255,0,255}));
+  connect(preY1.y, com.y1)
+    annotation (Line(points={{-58,60},{-42,60}}, color={255,0,255}));
   annotation (
     defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

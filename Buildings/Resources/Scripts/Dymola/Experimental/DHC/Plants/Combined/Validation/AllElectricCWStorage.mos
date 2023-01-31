@@ -7,8 +7,26 @@ simulateModel("Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectric
 
 createPlot(
     id=1,
-    position={9, 9, 503, 382},
-    y={"pla.chi.y1[1]", "pla.chi.y1[2]", "pla.chiHea.y1[1]", "pla.chiHea.y1[2]", "pla.chiHea.y1Coo[1]", "pla.chiHea.y1Coo[2]", "pla.ctl.y1HeaCooChiHea[1]", "pla.ctl.y1HeaCooChiHea[2]"},
+    position={8, 9, 504, 530},
+    y={"pla.chi.y1[1]", "pla.chi.y1[2]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"pla.chiHea.y1[1]", "pla.chiHea.y1Coo[1]", "pla.ctl.y1HeaCooChiHea[1]"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+createPlot(
+    id=1,
+    subPlot=3,
+    y={"pla.chiHea.y1[2]", "pla.chiHea.y1Coo[2]", "pla.ctl.y1HeaCooChiHea[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

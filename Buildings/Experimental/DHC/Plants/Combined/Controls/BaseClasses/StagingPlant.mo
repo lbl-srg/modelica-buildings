@@ -66,29 +66,22 @@ block StagingPlant
                                             annotation (
      Placement(transformation(extent={{-280,260},{-240,300}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-
-
-  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(delta=300)
-    "Moving average"
-    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply loaChiWat
-    "Compute total chiller load (>0)"
-    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTChiWatPos
-    "Compute deltaT (>0)"
-    annotation (Placement(transformation(extent={{-210,70},{-190,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply loaHeaWat
-    "Compute total chiller load"
-    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHeaWat "Compute deltaT"
-    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
-  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(final nout=
-        nChi) "Replicate"
-    annotation (Placement(transformation(extent={{180,110},{200,130}})));
-  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold cmdChi[nChi](final
-      t={i for i in 1:nChi})
-    "Compute chiller On/Off command from number of units to be commanded On"
-    annotation (Placement(transformation(extent={{210,110},{230,130}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(final unit="K",
+      displayUnit="degC") "HW supply temperature" annotation (Placement(
+        transformation(extent={{-282,-240},{-242,-200}}), iconTransformation(
+          extent={{-140,-100},{-100,-60}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWat(final unit="Pa")
+    "HW loop differential pressure" annotation (Placement(transformation(extent
+          ={{-280,-300},{-240,-260}}), iconTransformation(extent={{-140,-160},{
+            -100,-120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa")
+    "HW loop differential pressure setpoint" annotation (Placement(
+        transformation(extent={{-280,-280},{-240,-240}}), iconTransformation(
+          extent={{-140,-140},{-100,-100}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput QCooReq_flow(final unit="W")
+    "Plant required cooling capacity (>0)" annotation (
+      Placement(transformation(extent={{240,160},{280,200}}),
+        iconTransformation(extent={{100,120},{140,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"
     annotation (Placement(transformation(extent={{-280,140},{-240,180}}),
@@ -115,6 +108,45 @@ block StagingPlant
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-80})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiHea[nChiHea]
+    "HRC On/Off command" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={260,-60}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,-20})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaCooChiHea[nChiHea]
+    "HR chiller cooling mode switchover command: true for cooling, false for heating"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={260,-30}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,-140})));
+
+  Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(delta=300)
+    "Moving average"
+    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply loaChiWat
+    "Compute total chiller load (>0)"
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTChiWatPos
+    "Compute deltaT (>0)"
+    annotation (Placement(transformation(extent={{-210,70},{-190,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply loaHeaWat
+    "Compute total chiller load"
+    annotation (Placement(transformation(extent={{-180,-130},{-160,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Subtract dTHeaWat "Compute deltaT"
+    annotation (Placement(transformation(extent={{-220,-150},{-200,-130}})));
+  Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(final nout=
+        nChi) "Replicate"
+    annotation (Placement(transformation(extent={{180,110},{200,130}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold cmdChi[nChi](final
+      t={i for i in 1:nChi})
+    "Compute chiller On/Off command from number of units to be commanded On"
+    annotation (Placement(transformation(extent={{210,110},{230,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter timCp(final k=
         cp_default) "Scale"
     annotation (Placement(transformation(extent={{-210,130},{-190,150}})));
@@ -141,14 +173,7 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant numChiHea(final k=
         nChiHea) "Number of HRC"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1ChiHea[nChiHea]
-    "HRC On/Off command" annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={260,-60}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={120,-20})));
+
   Buildings.Controls.OBC.CDL.Integers.Add nChiHeaAndCooUnb
     "Number of HRC required to meet heating and cooling load - Unbounded"
     annotation (Placement(transformation(
@@ -161,15 +186,7 @@ block StagingPlant
   ModeHeatRecoveryChiller modHeaCoo(final nChiHea=nChiHea)
     "Compute the indices of HRC required to be operating in direct HR mode"
     annotation (Placement(transformation(extent={{180,0},{200,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaCooChiHea[nChiHea]
-    "HR chiller cooling mode switchover command: true for cooling, false for heating"
-    annotation (Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={260,-30}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=0,
-        origin={120,-140})));
+
   Buildings.Controls.OBC.CDL.Integers.Min nChiHeaHeaAndCoo
     "Number of HRC required to meet heating and cooling load - Bounded by number of HRC"
     annotation (Placement(transformation(
@@ -306,18 +323,7 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Logical.Not notFail1
     "Failsafe conditions are not true"
     annotation (Placement(transformation(extent={{-30,-230},{-10,-210}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(final unit="K",
-      displayUnit="degC") "HW supply temperature" annotation (Placement(
-        transformation(extent={{-282,-240},{-242,-200}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWat(final unit="Pa")
-    "HW loop differential pressure" annotation (Placement(transformation(extent
-          ={{-280,-300},{-240,-260}}), iconTransformation(extent={{-140,-160},{
-            -100,-120}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa")
-    "HW loop differential pressure setpoint" annotation (Placement(
-        transformation(extent={{-280,-280},{-240,-240}}), iconTransformation(
-          extent={{-140,-140},{-100,-100}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Failsafe condition or efficiency condition to stage up"
     annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
@@ -327,6 +333,7 @@ block StagingPlant
   IntegerArrayHold hol(holdDuration=15*60, nin=4)
     "Minimum plant stage runtime (nedded because cooling and heating stage runtimes are handled separetely)"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
+
 equation
   connect(dTChiWatPos.y, loaChiWat.u2) annotation (Line(points={{-188,80},{-186,
           80},{-186,114},{-182,114}},
@@ -548,6 +555,8 @@ equation
           {160,4},{178,4}}, color={255,127,0}));
   connect(hol.y[4], rep5.u) annotation (Line(points={{152,0},{160,0},{160,-60},
           {178,-60}}, color={255,127,0}));
+  connect(movAve.y, QCooReq_flow) annotation (Line(points={{-118,120},{-100,120},
+          {-100,180},{260,180}}, color={0,0,127}));
   annotation (
   defaultComponentName="staPla",
   Documentation(info="<html>
