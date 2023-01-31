@@ -257,6 +257,13 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV
+    </td>
+    <td valign=\"top\">Added flag to choose different damper type and added control for the boxes with the exponential damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
     </td>
 </tr>
