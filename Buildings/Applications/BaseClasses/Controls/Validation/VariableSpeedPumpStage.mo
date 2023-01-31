@@ -20,13 +20,18 @@ model VariableSpeedPumpStage
     f=1/360,
     amplitude=0.5*m_flow_nominal) "Mass flowrate"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Modelica.Blocks.Sources.BooleanConstant on "Plant on signal"
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(speSig.y, varSpePumSta.speSig)
-    annotation (Line(points={{-39,-20},{-32,
-          -20},{-32,4},{-12,4}}, color={0,0,127}));
+    annotation (Line(points={{-39,-20},{-30,-20},{-30,0},{-12,0}},
+      color={0,0,127}));
   connect(masFlo.y, varSpePumSta.masFloPum)
-    annotation (Line(points={{-39,40},{-30,
-          40},{-30,8},{-12,8}}, color={0,0,127}));
+    annotation (Line(points={{-39,40},{-30,40},{-30,4},{-12,4}},
+      color={0,0,127}));
+  connect(on.y, varSpePumSta.on)
+   annotation (Line(points={{-39,70},{-20,70},{-20,8},{-12,8}}, 
+     color={255,0,255}));
   annotation (    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Applications/BaseClasses/Controls/Validation/VariableSpeedPumpStage.mos"
         "Simulate and plot"),
@@ -38,6 +43,10 @@ Buildings.Applications.BaseClasses.Controls.VariableSpeedPumpStage</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Added the <code>on</code> input to the example model.
+</li>
 <li>
 August 25, 2017, by Yangyang Fu:<br/>
 First implementation.
