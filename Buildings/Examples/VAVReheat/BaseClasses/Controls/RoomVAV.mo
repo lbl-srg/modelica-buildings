@@ -8,7 +8,7 @@ block RoomVAV "Controller for room VAV box"
     "Minimum airflow set point (ratio to nominal)";
   parameter Real ratVFloHea(final unit="1") = ratVFloMin
     "Heating airflow set point (ratio to nominal)";
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal(min=0)
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal(min=0)=0.1
     "Norminal air volume flow rate"
     annotation (Dialog(enable=not have_preIndDam));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooController=

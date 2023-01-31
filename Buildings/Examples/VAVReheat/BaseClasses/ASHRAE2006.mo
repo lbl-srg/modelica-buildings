@@ -35,7 +35,7 @@ model ASHRAE2006
     pMin=50) "Duct static pressure setpoint"
     annotation (Placement(transformation(extent={{160,-16},{180,4}})));
   Controls.RoomVAV conVAV[numZon](
-    have_preIndDam=false,
+    have_preIndDam=fill(false, numZon),
     ratVFloMin=ratVMinVAV_flow,
     ratVFloHea=mHeaVAV_flow_nominal ./ mCooVAV_flow_nominal,
     V_flow_nominal=mCooVAV_flow_nominal/1.2)
