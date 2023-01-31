@@ -7,11 +7,11 @@ function motorEfficiencyCurve
   // Below, default values are assigned so that that dimensions are known.
   output Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
     motorEfficiency_yMot(
-        y={0,0.1,0.2,0.3,0.4,0.6,0.8,1,1.2},
-        eta=zeros(9)) "Motor efficiency vs. motor part load ratio";
+        y={0, 0.1, 0.2, 0.3, 0.4, 0.6, 0.8, 1, 1.2},
+        eta=zeros(nPoi)) "Motor efficiency vs. motor part load ratio";
 
 protected
-  constant Modelica.Units.SI.Power u2[8]={700, 2500, 7500, 15000, 35000, 70000, 80000, 90000}
+  constant Modelica.Units.SI.Power u2[nSiz]={700, 2500, 7500, 15000, 35000, 70000, 80000, 90000}
     "Rated motor input power";
   constant Integer nSiz=8 "Number of motor sizes";
   constant Integer nPoi=9 "Size";

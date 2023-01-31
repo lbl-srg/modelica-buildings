@@ -157,8 +157,7 @@ algorithm
     end if;
   end if;
 
-  annotation(smoothOrder=1,
-              Documentation(info="<html>
+  annotation(Documentation(info="<html>
 <p>
 This function finds or estimates the peak point
 <i>(V&#775;,&Delta;p,&eta;)|&eta;=&eta;<sub>max</sub></i>

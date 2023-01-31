@@ -3,7 +3,7 @@ package Euler "Functions and data record templates for Euler number"
 
   annotation (Documentation(info="<html>
 <p>
-This package implements a power computation path using the Euler number
+This package implements a power computation using the Euler number
 and its correlation.
 </p>
 <ul>
@@ -46,7 +46,7 @@ revisions="<html>
 <ul>
 <li>
 October 13, 2021, by Hongxiang Fu:<br/>
-First implementation. This is for 
+First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>

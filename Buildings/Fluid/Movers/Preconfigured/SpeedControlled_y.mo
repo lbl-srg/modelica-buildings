@@ -17,7 +17,9 @@ model SpeedControlled_y "Fan or pump with ideally controlled normalized speed y 
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure head for preconfiguration"
     annotation(Dialog(group="Nominal condition"));
-annotation(Documentation(info="<html>
+annotation (
+defaultComponentName="mov",
+Documentation(info="<html>
 <p>
 This model is the preconfigured version for
 <a href=\"Modelica://Buildings.Fluid.Movers.SpeedControlled_y\">

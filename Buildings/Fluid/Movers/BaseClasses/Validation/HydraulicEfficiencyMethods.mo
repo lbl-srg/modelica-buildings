@@ -66,7 +66,7 @@ model HydraulicEfficiencyMethods
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
 
   Modelica.Blocks.Sources.Constant y(k=1) "Relative speed"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Ramp m_flow(height=rho.k, duration=1) "Mass flow rate"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Constant rho(k=rhoFlu) "Density"
@@ -90,14 +90,16 @@ equation
           {38,4}}, color={0,0,127}));
   connect(rho.y, eff1.rho) annotation (Line(points={{-39,-30},{-20,-30},{-20,44},
           {38,44}}, color={0,0,127}));
-  connect(y.y, eff1.y_in) annotation (Line(points={{-39,90},{68,90},{68,70},{46,
+  connect(y.y, eff1.y_in) annotation (Line(points={{-39,80},{68,80},{68,70},{46,
           70},{46,62}}, color={0,0,127}));
-  connect(y.y, eff2.y_in) annotation (Line(points={{-39,90},{68,90},{68,30},{46,
+  connect(y.y, eff2.y_in) annotation (Line(points={{-39,80},{68,80},{68,30},{46,
           30},{46,22}}, color={0,0,127}));
-  connect(y.y, eff3.y_in) annotation (Line(points={{-39,90},{68,90},{68,-10},{46,
-          -10},{46,-18}}, color={0,0,127}));
-  connect(y.y, eff4.y_in) annotation (Line(points={{-39,90},{68,90},{68,-50},{46,
-          -50},{46,-58}}, color={0,0,127}));
+  connect(y.y, eff3.y_in) annotation (Line(points={{-39,80},{68,80},{68,-10},{
+          46,-10},{46,-18}},
+                          color={0,0,127}));
+  connect(y.y, eff4.y_in) annotation (Line(points={{-39,80},{68,80},{68,-50},{
+          46,-50},{46,-58}},
+                          color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>

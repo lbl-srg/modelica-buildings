@@ -283,7 +283,7 @@ protected
     P = powEu_internal.P)
     "Power vs. volumetric flow rate computed from Euler number";
   final parameter Real powEuDer[:] = powEu_internal.d
-    "Power derivative wrt volumetric flow rate computed from Euler number";
+    "Power derivative with respect to volumetric flow rate computed from Euler number";
 
   parameter Boolean haveMinimumDecrease=
     if nOri<2 then false
@@ -432,10 +432,6 @@ the simulation stops.");
          Use a larger value for per.WMot_nominal or leave it blank to allow the
          model to assume a default value.");
 
-initial algorithm
-//  Assert() warnings have been moved here to avoid the occasional translation
-//    error caused by the assertion statement being always false.
-//    This was observed with Dymola 2022x (64-bit) on Ubuntu 64-bit 20.04.3.
   assert(homotopyInitialization, "In " + getInstanceName() +
          ": The constant homotopyInitialization has been modified from its default
          value. This constant will be removed in future releases.",

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
 function power
-  "Computes power as well as its derivative wrt flow rate using Euler number"
+  "Computes power as well as its derivative with respect to flow rate using Euler number"
   extends Modelica.Icons.Function;
   input Buildings.Fluid.Movers.BaseClasses.Euler.peak peak "Peak operation point";
   input Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal
@@ -74,11 +74,11 @@ Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </li>
 <li>
 It then computes power using efficiency evaluated with the Euler number
-from 10% to 90% of max flow rate on 10% increments. 
+from 10% to 90% of max flow rate on 10% increments.
 </li>
 <li>
 With the incomplete power curve it computes the spline derivatives
-wrt flow rate at the same points.
+with respect to flow rate at the same points.
 </li>
 <li>
 Once the derivatives are available, the power values at the two boundary points

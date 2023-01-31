@@ -16,8 +16,15 @@ protected
   constant Real small = 1E-5 "A small value used in place of zero";
 
 algorithm
-  log_r_Eu:= log10(max(dp * peak.V_flow^2,small)
-                  /max(peak.dp * V_flow^2,small));
+  log_r_Eu:= log10(
+               Buildings.Utilities.Math.Functions.smoothMax(
+                 x1=dp * peak.V_flow^2,
+                 x2=small,
+                 deltaX=0.1*small)
+              /Buildings.Utilities.Math.Functions.smoothMax(
+                 x1=peak.dp * V_flow^2,
+                 x2=small,
+                 deltaX=0.1*small));
   eta:= peak.eta*
           Buildings.Fluid.Movers.BaseClasses.Euler.correlation(x=log_r_Eu);
 

@@ -127,7 +127,7 @@ model StaticReset
     Td=1,
     k=0.5,
     Ti=15) "PI controller"
-    annotation (Placement(transformation(extent={{-60,202},{-40,222}})));
+    annotation (Placement(transformation(extent={{-60,200},{-40,220}})));
   Buildings.Controls.Continuous.LimPID conPID2(
     Td=1,
     k=0.5,
@@ -185,7 +185,7 @@ model StaticReset
     height=1,
     duration=3600,
     offset=0) "Ramp input for damper position"
-    annotation (Placement(transformation(extent={{60,202},{80,222}})));
+    annotation (Placement(transformation(extent={{60,200},{80,220}})));
 
 equation
   connect(y.y, conPID3.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,10},
@@ -224,16 +224,17 @@ equation
     annotation (Line(points={{-50,161},{-50,168}},
                                                  color={0,0,127}));
   connect(gai1.y,conPID1. u_m)
-    annotation (Line(points={{-50,191},{-50,200}},
+    annotation (Line(points={{-50,191},{-50,198}},
                                                  color={0,0,127}));
-  connect(y.y, conPID1.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,212},
-          {-62,212}}, color={0,0,127}));
+  connect(y.y, conPID1.u_s) annotation (Line(points={{-79,220},{-68,220},{-68,
+          210},{-62,210}},
+                      color={0,0,127}));
   connect(pDucSta1.port_a, dp12.port_a) annotation (Line(
       points={{-40,152},{60,152},{60,180}},
       color={0,127,255},
       pattern=LinePattern.Dot));
   connect(conPID1.y, fan1.y)
-    annotation (Line(points={{-39,212},{0,212},{0,192}}, color={0,0,127}));
+    annotation (Line(points={{-39,210},{0,210},{0,192}}, color={0,0,127}));
   connect(pDucSta3.port_a, dp32.port_a) annotation (Line(
       points={{-40,-50},{60,-50},{60,-20}},
       color={0,127,255},
@@ -263,7 +264,7 @@ equation
   connect(damExp1.port_b, sin.ports[1]) annotation (Line(points={{120,180},{134,
           180},{134,-81.3333},{140,-81.3333}}, color={0,127,255}));
   connect(yDam.y, damExp1.y)
-    annotation (Line(points={{81,212},{92,212},{92,202},{110,202},{110,192}},
+    annotation (Line(points={{81,210},{92,210},{92,202},{110,202},{110,192}},
                                                             color={0,0,127}));
   connect(dp22.port_b,damExp2. port_a)
     annotation (Line(points={{80,80},{100,80}}, color={0,127,255}));
@@ -273,9 +274,9 @@ equation
     annotation (Line(points={{80,-20},{100,-20}}, color={0,127,255}));
   connect(damExp3.port_b, sin.ports[3]) annotation (Line(points={{120,-20},{134,
           -20},{134,-78.6667},{140,-78.6667}}, color={0,127,255}));
-  connect(yDam.y, damExp2.y) annotation (Line(points={{81,212},{92,212},{92,100},
+  connect(yDam.y, damExp2.y) annotation (Line(points={{81,210},{92,210},{92,100},
           {110,100},{110,92}},                     color={0,0,127}));
-  connect(yDam.y, damExp3.y) annotation (Line(points={{81,212},{92,212},{92,0},
+  connect(yDam.y, damExp3.y) annotation (Line(points={{81,210},{92,210},{92,0},
           {110,0},{110,-8}},                   color={0,0,127}));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,

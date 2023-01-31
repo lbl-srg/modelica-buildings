@@ -70,12 +70,12 @@ model EulerReducedSpeed
     nOri=nOri,
     computePowerUsingSimilarityLaws=false)
     "Flow machine interface using power Euler correlation"
-    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+    annotation (Placement(transformation(extent={{20,-68},{40,-48}})));
 
   Modelica.Blocks.Sources.Constant y1(k=1) "Control signal"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Modelica.Blocks.Sources.Constant rho(k=rhoCon) "Density"
-    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
+    annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Modelica.Blocks.Sources.Constant y2(k=3400/4100)
     "Reduced speed y = 3400/4100 = 0.829"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
@@ -102,24 +102,25 @@ model EulerReducedSpeed
 
 equation
   connect(eff1.rho, rho.y)
-    annotation (Line(points={{18,44},{10,44},{10,-90},{1,-90}},
+    annotation (Line(points={{18,44},{10,44},{10,-70},{1,-70}},
                                                color={0,0,127}));
   connect(y1.y, eff1.y_in)
     annotation (Line(points={{-39,80},{26,80},{26,62}}, color={0,0,127}));
   connect(m1_flow.y, eff1.m_flow) annotation (Line(points={{-39,50},{-20,50},{-20,
           54},{18,54}}, color={0,0,127}));
-  connect(rho.y, eff2.rho) annotation (Line(points={{1,-90},{10,-90},{10,-16},{18,
-          -16}},                    color={0,0,127}));
+  connect(rho.y, eff2.rho) annotation (Line(points={{1,-70},{10,-70},{10,-16},{
+          18,-16}},                 color={0,0,127}));
   connect(y2.y, eff2.y_in)
     annotation (Line(points={{-39,20},{26,20},{26,2}}, color={0,0,127}));
   connect(m2_flow.y, eff2.m_flow) annotation (Line(points={{-39,-10},{-20,-10},{
           -20,-6},{18,-6}}, color={0,0,127}));
   connect(y3.y, eff3.y_in)
-    annotation (Line(points={{-39,-40},{26,-40},{26,-58}}, color={0,0,127}));
-  connect(m3_flow.y, eff3.m_flow) annotation (Line(points={{-39,-70},{-20,-70},{
-          -20,-66},{18,-66}}, color={0,0,127}));
-  connect(rho.y, eff3.rho) annotation (Line(points={{1,-90},{10,-90},{10,-76},{18,
-          -76}}, color={0,0,127}));
+    annotation (Line(points={{-39,-40},{26,-40},{26,-46}}, color={0,0,127}));
+  connect(m3_flow.y, eff3.m_flow) annotation (Line(points={{-39,-70},{-30,-70},
+          {-30,-54},{18,-54}},color={0,0,127}));
+  connect(rho.y, eff3.rho) annotation (Line(points={{1,-70},{10,-70},{10,-64},{
+          18,-64}},
+                 color={0,0,127}));
   annotation (experiment(Tolerance=1e-6, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/Validation/EulerReducedSpeed.mos"
  "Simulate and plot"),

@@ -14,7 +14,7 @@ This model is the same as
 <a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods\">
 Buildings.Fluid.Movers.BaseClasses.Validation.HydraulicEfficiencyMethods</a>
 except that the enumeration is used for total efficiency <i>&eta;</i>
-via the switch <code>per.powerOrEfficiencyIsHydraulic</code>.
+via the parameter <code>per.powerOrEfficiencyIsHydraulic</code>.
 </p>
 </html>", revisions="<html>
 <ul>

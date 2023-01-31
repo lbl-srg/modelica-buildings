@@ -6,18 +6,17 @@ function correlation
   output Real y "eta/eta_peak";
 
 protected
-  Real a = if x <-0.5 then 0.056873227 else if x>0.5 then -0.0085494313567 else 0.378246;
-  Real b = if x<-0.5 then 0.493231336746 else if x>0.5 then 0.12957001502 else -0.759885;
-  Real c = if x<-0.5 then 1.433531254001 else if x>0.5 then -0.65997315029 else -0.0606145;
-  Real d = if x<-0.5 then 1.407887300933 else if x>0.5 then 1.1399300301 else 1.01427;
+  Real a = if x <-0.5 then 0.05687322707407 else if x>0.5 then -8.5494313567465000E-3 else 0.37824577860088;
+  Real b = if x<-0.5 then 0.493231336746 else if x>0.5 then 1.2957001502368300E-1 else -0.75988502317361;
+  Real c = if x<-0.5 then 1.433531254001 else if x>0.5 then -6.5997315029278200E-1 else -0.060614519563716;
+  Real d = if x<-0.5 then 1.407887300933 else if x>0.5 then 1.13993003013131 else 1.01426507307139;
 algorithm
   y:=max(0,a*x^3+b*x^2+c*x+d)/1.01545;
 
   annotation(smoothOrder = 1,
   Documentation(info="<html>
 <p>
-This function approximates the following correlation with two simple polynomials
-stitched together by a third one of the same order:
+This function approximates the following correlation:
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/BaseClasses/Euler/eulerCorrelation.svg\"/>
@@ -25,7 +24,7 @@ stitched together by a third one of the same order:
 <p>
 where <i>y=&eta; &frasl; &eta;<sub>p</sub></i> (note that <i>&eta;</i>
 refers to the hydraulic efficiency instead of total efficiency),
-<i>x=log10(Eu &frasl; Eu<sub>p</sub>)</i>,
+<i>x=log<sub>10</sub>(Eu &frasl; Eu<sub>p</sub>)</i>,
 with the subscript <i>p</i> denoting the condition where
 the mover is operating at peak efficiency, and
 </p>
@@ -51,7 +50,17 @@ the mover is operating at peak efficiency, and
 <i>d=5.267518</i>
 </p>
 <p>
-This correlation function has the shape as shown below
+The approximation uses two simple polynomials stitched together by
+a third one of the same order.
+Care has been taken to ensure that, on the curve constructed by
+<code>if</code> statements, the differences of <i>dy &frasl; dx</i>
+evaluated by different groups of coefficients at the connecting points
+(i.e. at <i>x = - 0.5</i> and <i>x = + 0.5</i>) are less than 1E-14.
+This helps the solver to be able to consider the derivative continuous
+even when it requires a precision of 1E-10 when there are nested loops.
+</p>
+<p>
+The correlation and the approximation have the shape as shown below
 (plotted by 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve\">
 Buildings.Fluid.Movers.BaseClasses.Validation.EulerCurve</a>).
@@ -69,7 +78,7 @@ The modified dimensionless Euler number is defined as
 where <i>&Delta;p</i> is the fan pressure rise in Pa,
 <i>D</i> is the fan wheel outer diameter in m,
 <i>&rho;</i> is the inlet air density in kg/m<sup>3</sup>,
-and <i>V&#775;</i> is the fan flow in m<sup>3</sup>/s.
+and <i>V&#775;</i> is the volumetric flow rate in m<sup>3</sup>/s.
 Note that the units in the definition do not matter to this correlation
 because it is the ratio of the Euler numbers that is used.
 Since <i>D</i> is constant for the same mover
@@ -90,7 +99,7 @@ Note that the formula is simplified here from the source document.
 </p>
 <p>
 Regarding the approximation polynominals, see the discussions in
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646#issuecomment-1320920539\">
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646\">
 pull request #1646</a>.
 </p>
 <h4>Resources</h4>

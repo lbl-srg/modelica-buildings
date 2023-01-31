@@ -62,7 +62,7 @@ equation
             26},{-26,26},{-26,-46}},
                                    color={0,0,127}));
   end if;
-  annotation (defaultComponentName="pump",
+  annotation (defaultComponentName="mov",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
       graphics={

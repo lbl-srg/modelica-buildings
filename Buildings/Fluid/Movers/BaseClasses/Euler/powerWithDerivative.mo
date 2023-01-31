@@ -1,13 +1,13 @@
 within Buildings.Fluid.Movers.BaseClasses.Euler;
 record powerWithDerivative
-  "Record for electrical power and its derivative wrt flow rate"
+  "Record for electrical power and its derivative with respect to flow rate"
   extends Modelica.Icons.Record;
   parameter Modelica.Units.SI.VolumeFlowRate V_flow[11](each min=0)
     "Volume flow rate at user-selected operating points";
   parameter Modelica.Units.SI.Power P[11](each min=0)
     "Fan or pump electrical power at these flow rates";
-  parameter Real d[11]
-    "Derivative of power wrt flow rate";
+  parameter Real d[11](each unit="J/m3")
+    "Derivative of power with respect to volume flow rate";
   annotation (Documentation(info="<html>
 <p>
 Data record for performance data that describe electrical power and its derivative

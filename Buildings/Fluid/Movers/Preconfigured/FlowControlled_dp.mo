@@ -17,7 +17,9 @@ model FlowControlled_dp "Fan or pump with ideally controlled head dp as input si
     final prescribeSystemPressure=false,
     final init=Modelica.Blocks.Types.Init.InitialOutput,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
-annotation(Documentation(info="<html>
+    annotation (
+defaultComponentName="mov",
+Documentation(info="<html>
 <p>
 This model is the preconfigured version for
 <a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_dp\">

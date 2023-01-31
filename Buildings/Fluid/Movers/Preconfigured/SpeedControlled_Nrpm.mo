@@ -22,7 +22,9 @@ model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as in
     "Nominal rotational speed for preconfiguration"
     annotation (Dialog(group="Nominal condition"));
 
-annotation(Documentation(info="<html>
+annotation (
+defaultComponentName="mov",
+Documentation(info="<html>
 <p>
 This model is the preconfigured version for
 <a href=\"Modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
