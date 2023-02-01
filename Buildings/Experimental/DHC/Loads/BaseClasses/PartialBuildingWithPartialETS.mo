@@ -237,7 +237,7 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
     final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_pum,ets.have_pum}))
+      {bui.have_pum,ets.have_pum})) if have_pum
     "Total power drawn by pump motors"
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQHea_flow(u(
@@ -610,6 +610,12 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuildi
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 21, 2022, by Kathryn Hinkelman:<br>
+Added conditional requirement <code>have_pum</code> to instance 
+<code>totPPum</code> for cases where ETS and building both don't have pumping.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+</li>
 <li>
 December 14, 2020, by Antoine Gautier:<br/>
 First implementation.
