@@ -1,14 +1,17 @@
 within Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors;
-function finiteLineSource_Integrand
+function finiteLineSource_Integrand_Equivalent
   "Integrand function for finite line source evaluation"
   extends Modelica.Icons.Function;
 
   input Real u(unit="1/m") "Integration variable";
-  input Modelica.Units.SI.Distance dis "Radial distance between borehole axes";
-  input Modelica.Units.SI.Height len1 "Length of emitting borehole";
-  input Modelica.Units.SI.Height burDep1 "Buried depth of emitting borehole";
-  input Modelica.Units.SI.Height len2 "Length of receiving borehole";
-  input Modelica.Units.SI.Height burDep2 "Buried depth of receiving borehole";
+  input Modelica.Units.SI.Distance dis[n_dis] "Radial distance between borehole axes";
+  input Integer wDis[n_dis];
+  input Modelica.Units.SI.Height len1 "Length of emitting boreholes";
+  input Modelica.Units.SI.Height burDep1 "Buried depth of emitting boreholes";
+  input Modelica.Units.SI.Height len2 "Length of receiving boreholes";
+  input Modelica.Units.SI.Height burDep2 "Buried depth of receiving boreholes";
+  input Integer nBor2 "Number of receiving boreholes over which the response is averaged";
+  input Integer n_dis "Number of unique distances between emitting and receiving boreholes";
   input Boolean includeRealSource = true "true if contribution of real source is included";
   input Boolean includeMirrorSource = true "true if contribution of mirror source is included";
 
@@ -42,25 +45,21 @@ algorithm
       (burDep2 + burDep1 + len2 + len1)*u)});
   end if;
 
-  y := 0.5/(len2*u^2)*f*exp(-dis^2*u^2);
+  y := 0.5/(nBor2*len2*u^2)*f* (wDis*exp(-dis.*dis*u^2));
 
 annotation (
 Documentation(info="<html>
 <p>
 Integrand of the finite line source solution for use in
-<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource\">
-Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource</a>.
+<a href=\"modelica://Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes\">
+Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.finiteLineSource_EquivalentBoreholes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-August 23, 2018 by Michael Wetter:<br/>
-Reformulated function to use <code>sum</code>.
-</li>
-<li>
-March 22, 2018 by Massimo Cimmino:<br/>
+June 9, 2022 by Massimo Cimmino:<br/>
 First implementation.
 </li>
 </ul>
 </html>"));
-end finiteLineSource_Integrand;
+end finiteLineSource_Integrand_Equivalent;

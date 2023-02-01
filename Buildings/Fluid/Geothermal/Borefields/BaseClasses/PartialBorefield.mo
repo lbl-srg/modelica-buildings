@@ -39,7 +39,12 @@ partial model PartialBorefield
     "Number of segments to use in vertical discretization of the boreholes";
   parameter Boolean forceGFunCalc = false
     "Set to true to force the thermal response to be calculated at the start instead of checking whether this has been pre-computed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (Dialog(tab="Advanced", group="g-function"));
+  parameter Integer nSegGFun(min=1)=12 "Number of segments to use in the calculation of the g-function"
+    annotation (Dialog(tab="Advanced", group="g-function"));
+  parameter Integer nClu(min=1)=5
+    "Number of borehole clusters to use in the calculation of the g-function"
+    annotation (Dialog(tab="Advanced", group="g-function"));
 
   // General parameters of borefield
   parameter Buildings.Fluid.Geothermal.Borefields.Data.Borefield.Template borFieDat "Borefield data"
@@ -83,6 +88,8 @@ partial model PartialBorefield
   Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse groTemRes(
     final tLoaAgg=tLoaAgg,
     final nCel=nCel,
+    final nSeg=nSegGFun,
+    final nClu=nClu,
     final borFieDat=borFieDat,
     final forceGFunCalc=forceGFunCalc)
     "Ground temperature response"
