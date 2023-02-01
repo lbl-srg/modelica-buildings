@@ -306,6 +306,8 @@ response function (G-function) for heat transfer by borehole heat exchangers
 Prieto, C. and Cimmino, M. 2021. <i>Thermal interactions in large irregular
 fields of geothermal boreholes: the method of equivalent boreholes</i>. Journal
 of Building Performance Simulation 14(4): 446-460.
+<a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
+doi:10.1080/19401493.2021.1968953</a>.
 </p>
 </html>", revisions="<html>
 <ul>
