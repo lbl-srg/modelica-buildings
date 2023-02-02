@@ -135,7 +135,7 @@ block Setpoints
     annotation (Placement(transformation(extent={{-460,-290},{-420,-250}}),
         iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status (open=true, close=false)"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-460,-430},{-420,-390}}),
         iconTransformation(extent={{-140,-200},{-100,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TCooSet(
@@ -270,7 +270,6 @@ block Setpoints
     final p=-0.5)
     "Cooling setpoint minus the minimum difference between cooling and heating setpoints"
     annotation (Placement(transformation(extent={{160,-590},{180,-570}})));
-
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
@@ -527,7 +526,8 @@ protected
     annotation (Placement(transformation(extent={{120,-180},{140,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add8 "Add real inputs"
     annotation (Placement(transformation(extent={{160,-140},{180,-120}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not winOpe if have_winSen "Window is open"
+    annotation (Placement(transformation(extent={{-380,-420},{-360,-400}})));
 equation
   connect(uOpeMod, intEqu.u1)
     annotation (Line(points={{-440,630},{-320,630},{-320,610},{-302,610}},
@@ -771,10 +771,10 @@ equation
     annotation (Line(points={{-18,-190},{0,-190},{0,-206},{70,-206},{70,-196},{
           78,-196}}, color={0,0,127}));
   connect(edg.y, cooSetFre.trigger)
-    annotation (Line(points={{-198,0},{-180,0},{-180,134},{-150,134},{-150,138.2}},
+    annotation (Line(points={{-198,0},{-180,0},{-180,134},{-150,134},{-150,138}},
       color={255,0,255}));
   connect(edg.y, heaSetFre.trigger)
-    annotation (Line(points={{-198,0},{-180,0},{-180,-86},{-150,-86},{-150,-81.8}},
+    annotation (Line(points={{-198,0},{-180,0},{-180,-86},{-150,-86},{-150,-82}},
       color={255,0,255}));
   connect(or5.y, swi10.u2)
     annotation (Line(points={{182,-10},{200,-10},{200,90},{218,90}},
@@ -804,10 +804,10 @@ equation
   connect(truHol.y, edg1.u)
     annotation (Line(points={{-78,-270},{-42,-270}}, color={255,0,255}));
   connect(edg1.y, cooSetSam.trigger)
-    annotation (Line(points={{-18,-270},{0,-270},{0,-288},{50,-288},{50,-281.8}},
+    annotation (Line(points={{-18,-270},{0,-270},{0,-288},{50,-288},{50,-282}},
       color={255,0,255}));
   connect(edg1.y, heaSetSam.trigger)
-    annotation (Line(points={{-18,-270},{0,-270},{0,-330},{50,-330},{50,-321.8}},
+    annotation (Line(points={{-18,-270},{0,-270},{0,-330},{50,-330},{50,-322}},
       color={255,0,255}));
   connect(cooSetSam.y, cooSetInc.u)
     annotation (Line(points={{62,-270},{98,-270}}, color={0,0,127}));
@@ -864,8 +864,6 @@ equation
   connect(intEqu2.y, not5.u)
     annotation (Line(points={{-76,610},{-60,610},{-60,380},{280,380},{280,-220},
           {-300,-220},{-300,-390},{-282,-390}}, color={255,0,255}));
-  connect(u1Win, and11.u2) annotation (Line(points={{-440,-410},{-260,-410},{-260,
-          -418},{-222,-418}}, color={255,0,255}));
   connect(not5.y, and11.u1)
     annotation (Line(points={{-258,-390},{-240,-390},{-240,-410},{-222,-410}},
       color={255,0,255}));
@@ -880,10 +878,6 @@ equation
   connect(swi16.y, reaToInt.u)
     annotation (Line(points={{-78,-410},{-64,-410},{-64,-390},{158,-390}},
       color={0,0,127}));
-  connect(u1Win, swi14.u2) annotation (Line(points={{-440,-410},{-260,-410},{-260,
-          -432},{-200,-432},{-200,-450},{-182,-450}}, color={255,0,255}));
-  connect(u1Win, swi15.u2) annotation (Line(points={{-440,-410},{-260,-410},{-260,
-          -432},{-80,-432},{-80,-450},{-62,-450}}, color={255,0,255}));
   connect(cooSetWinOpe.y, swi14.u1)
     annotation (Line(points={{-218,-470},{-204,-470},{-204,-442},{-182,-442}},
       color={0,0,127}));
@@ -918,7 +912,7 @@ equation
           -418},{-222,-418}}, color={255,0,255}));
   connect(conFal.y, swi14.u2)
     annotation (Line(points={{-358,-470},{-340,-470},{-340,-410},{-260,-410},{-260,
-          -432},{-200,-432},{-200,-450},{-182,-450}}, color={255,0,255}));
+          -450},{-182,-450}},                         color={255,0,255}));
   connect(conFal.y, swi15.u2)
     annotation (Line(points={{-358,-470},{-340,-470},{-340,-410},{-260,-410},{-260,
           -432},{-80,-432},{-80,-450},{-62,-450}}, color={255,0,255}));
@@ -1033,7 +1027,14 @@ equation
           270},{60,270},{60,258},{78,258}}, color={0,0,127}));
   connect(con4.y, swi6.u1) annotation (Line(points={{-38,290},{60,290},{60,258},
           {78,258}}, color={0,0,127}));
-
+  connect(u1Win, winOpe.u)
+    annotation (Line(points={{-440,-410},{-382,-410}}, color={255,0,255}));
+  connect(winOpe.y, and11.u2) annotation (Line(points={{-358,-410},{-260,-410},{
+          -260,-418},{-222,-418}}, color={255,0,255}));
+  connect(winOpe.y, swi14.u2) annotation (Line(points={{-358,-410},{-260,-410},{
+          -260,-450},{-182,-450}}, color={255,0,255}));
+  connect(winOpe.y, swi15.u2) annotation (Line(points={{-358,-410},{-260,-410},{
+          -260,-432},{-80,-432},{-80,-450},{-62,-450}}, color={255,0,255}));
 annotation (
   defaultComponentName="TZonSet",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
@@ -1161,7 +1162,7 @@ annotation (
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Rectangle(
-          extent={{-412,-376},{330,-490}},
+          extent={{-412,-382},{330,-496}},
           lineColor={0,0,0},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
