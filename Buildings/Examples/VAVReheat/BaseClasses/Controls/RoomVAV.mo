@@ -300,6 +300,7 @@ In cooling demand, <code>yDam</code> is modulated between the minimum value
 <code>ratVFloMin</code> and 1, and <code>yVal</code> is 0.
 </li>
 </ul>
+<p>
 For the termnal boxes with the exponential damper (<code>have_preIndDam=false</code>),
 </p>
 <ul>
