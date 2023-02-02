@@ -46,10 +46,10 @@ model StagingPlant "Validation of plant staging block"
         0,0; 4,0.3,0.1; 5,1,0.1; 10,0.1,0.1; 13,1,0.3; 16,0.3,1;20,0.1,0.1; 24,0.1,0.3; 25,
         0.1,1; 30,0,0],
     timeScale=1000) "Source signal"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1(k=true)
     "Enable signal"
-    annotation (Placement(transformation(extent={{30,70},{50,90}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(k=7 + 273.15)
     "Source signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
@@ -62,35 +62,20 @@ model StagingPlant "Validation of plant staging block"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatPriRet(k=50 + 273.15)
     "Source signal"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
-  Modelica.Blocks.Noise.TruncatedNormalNoise noi(
-    samplePeriod=300,
-    y_min=-0.3,
-    y_max=+0.3) "Noise"
-    annotation (Placement(transformation(extent={{-114,10},{-94,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca(final k=
         mChiWat_flow_nominal) "Scale signal"
-    annotation (Placement(transformation(extent={{12,40},{32,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add addNoi[2] "Add noise"
-    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
+    annotation (Placement(transformation(extent={{12,30},{32,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter sca1(final k=
         mHeaWat_flow_nominal) "Scale signal"
-    annotation (Placement(transformation(extent={{12,10},{32,30}})));
-  inner Modelica.Blocks.Noise.GlobalSeed globalSeed
-    annotation (Placement(transformation(extent={{90,70},{110,90}})));
-  Modelica.Blocks.Continuous.FirstOrder fil(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter noise"
-    annotation (Placement(transformation(extent={{-86,10},{-66,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim[2](each uMax=1.1, each uMin
-      =0) "Limit signal"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{12,-10},{32,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpSet(k=20E4)
     "Source signal"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation
-  connect(u1.y, staChi.u1Coo) annotation (Line(points={{52,80},{60,80},{60,
+  connect(u1.y, staChi.u1Coo) annotation (Line(points={{-78,80},{60,80},{60,
           8.875},{78,8.875}},
                color={255,0,255}));
-  connect(u1.y, staChi.u1Hea) annotation (Line(points={{52,80},{60,80},{60,
+  connect(u1.y, staChi.u1Hea) annotation (Line(points={{-78,80},{60,80},{60,
           7.625},{78,7.625}},
                color={255,0,255}));
   connect(TChiWatSupSet.y, staChi.TChiWatSupSet) annotation (Line(points={{-38,-20},
@@ -106,25 +91,10 @@ equation
           {42,-40},{42,2.5},{78,2.5}},
                                    color={0,0,127}));
   connect(sca.y, staChi.mChiWatPri_flow)
-    annotation (Line(points={{34,50},{40,50},{40,6.25},{78,6.25}},
+    annotation (Line(points={{34,40},{40,40},{40,6.25},{78,6.25}},
                                                            color={0,0,127}));
-  connect(sca1.y, staChi.mHeaWatPri_flow) annotation (Line(points={{34,20},{38,
-          20},{38,-2.5},{78,-2.5}},
-                                color={0,0,127}));
-  connect(ratFlo.y[1:2], addNoi[1:2].u1) annotation (Line(points={{-78,80},{-60,
-          80},{-60,56},{-52,56}}, color={0,0,127}));
-  connect(noi.y, fil.u)
-    annotation (Line(points={{-93,20},{-88,20}}, color={0,0,127}));
-  connect(lim[1].y, sca.u)
-    annotation (Line(points={{2,50},{10,50}}, color={0,0,127}));
-  connect(lim[2].y, sca1.u)
-    annotation (Line(points={{2,50},{6,50},{6,20},{10,20}}, color={0,0,127}));
-  connect(fil.y, addNoi[1].u2) annotation (Line(points={{-65,20},{-60,20},{-60,44},
-          {-52,44}}, color={0,0,127}));
-  connect(fil.y, addNoi[2].u2) annotation (Line(points={{-65,20},{-60,20},{-60,44},
-          {-52,44}}, color={0,0,127}));
-  connect(addNoi.y, lim.u)
-    annotation (Line(points={{-28,50},{-22,50}}, color={0,0,127}));
+  connect(sca1.y, staChi.mHeaWatPri_flow) annotation (Line(points={{34,0},{38,0},
+          {38,-2.5},{78,-2.5}}, color={0,0,127}));
   connect(TChiWatSupSet.y, staChi.TChiWatSup) annotation (Line(points={{-38,-20},
           {40,-20},{40,3.75},{78,3.75}},       color={0,0,127}));
   connect(dpSet.y, staChi.dpChiWat) annotation (Line(points={{-38,-100},{46,
@@ -137,6 +107,10 @@ equation
           45.8824,-100},{45.8824,-8.75},{78,-8.75}}, color={0,0,127}));
   connect(THeaWatSupSet.y, staChi.THeaWatSup) annotation (Line(points={{-38,-60},
           {47.8431,-60},{47.8431,-5},{78,-5}}, color={0,0,127}));
+  connect(ratFlo.y[1], sca.u) annotation (Line(points={{-78,20},{0,20},{0,40},{
+          10,40}}, color={0,0,127}));
+  connect(ratFlo.y[2], sca1.u)
+    annotation (Line(points={{-78,20},{0,20},{0,0},{10,0}}, color={0,0,127}));
           annotation (
               __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StagingPlant.mos"

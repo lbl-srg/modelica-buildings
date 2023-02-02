@@ -88,11 +88,11 @@ block DirectHeatRecovery
   Buildings.Controls.OBC.CDL.Continuous.MultiMin min(nin=nChiHea)
     "Minimum evaporator flow setpoint"
     annotation (Placement(transformation(extent={{92,70},{112,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo[nChiHea, 2](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo[nChiHea,2](
     final k=fill({0,0.33}, nChiHea))
     "x-value for flow reset"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFlo[nChiHea, 2](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFlo[nChiHea,2](
     final k=fill(1.2 .* {mChiWatChi_flow_min,mChiWatChi_flow_nominal}, nChiHea))
     "y-value for flow reset"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
@@ -128,7 +128,7 @@ block DirectHeatRecovery
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(final p=0.5)
     "Add offset"
     annotation (Placement(transformation(extent={{-88,-90},{-68,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff1(final p=-5)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff1(final p=-15)
     "Add offset"
     annotation (Placement(transformation(extent={{-88,-130},{-68,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(final nout=
@@ -230,5 +230,14 @@ equation
           textColor={0,0,255},
           extent={{-150,110},{150,150}},
           textString="%name")}),                                 Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
+    Documentation(info="<html>
+SOO modifications!
+
+TConEnt reset up to HWRT - 15 °C (27 °F instead of 10 °F) 
+
+Not implemented:
+The loop shall utilize a +/-2°F deadband around the target CHWST setpoint
+to minimize hunting.
+</html>"));
 end DirectHeatRecovery;

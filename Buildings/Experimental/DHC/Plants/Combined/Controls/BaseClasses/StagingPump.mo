@@ -35,8 +35,8 @@ block StagingPump "Pump staging"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1[nPum]
     "Start signal (VFD Run or motor starter contact)"
     annotation (Placement(
-        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent={{100,-20},
-            {140,20}})));
+        transformation(extent={{200,-20},{240,20}}), iconTransformation(extent={{100,40},
+            {140,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmp(final t=yUp)
     "Compare"
@@ -125,6 +125,16 @@ block StagingPump "Pump staging"
     "Number of pumps that are enabled" annotation (Placement(transformation(
           extent={{200,-80},{240,-40}}), iconTransformation(extent={{100,-80},{
             140,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Any
+    "Return true if any pump enabled (left limit to avoid direct feedback)"
+    annotation (Placement(transformation(extent={{200,-140},{240,-100}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold anyEna(final t=1)
+    "Return true if any pump is enabled"
+    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Left limit of signal avoiding direct feedback"
+    annotation (Placement(transformation(extent={{160,-130},{180,-110}})));
 equation
   connect(y, cmp.u)
     annotation (Line(points={{-220,0},{-102,0}},     color={0,0,127}));
@@ -205,6 +215,12 @@ equation
           0}}, color={255,0,255}));
   connect(num.y, nPumEna) annotation (Line(points={{102,0},{110,0},{110,-60},{
           220,-60}}, color={255,127,0}));
+  connect(anyEna.y, pre1.u)
+    annotation (Line(points={{142,-120},{158,-120}}, color={255,0,255}));
+  connect(pre1.y, y1Any)
+    annotation (Line(points={{182,-120},{220,-120}}, color={255,0,255}));
+  connect(num.y, anyEna.u) annotation (Line(points={{102,0},{110,0},{110,-120},
+          {118,-120}}, color={255,127,0}));
   annotation (
   defaultComponentName="staPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

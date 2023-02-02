@@ -162,20 +162,20 @@ block PartialController "Interface class for plant controller"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Coo
     "Cooling enable signal"
     annotation (Placement(transformation(extent={{-300,380},{-260,420}}),
-        iconTransformation(extent={{-260,300},{-220,340}})));
+        iconTransformation(extent={{-260,320},{-220,360}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Hea
     "Heating enable signal"
     annotation (Placement(transformation(extent={{-300,340},{-260,380}}),
-        iconTransformation(extent={{-260,280},{-220,320}})));
+        iconTransformation(extent={{-260,300},{-220,340}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
       displayUnit="degC") "CHW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-300,300},{-260,340}}),
-        iconTransformation(extent={{-260,260},{-220,300}})));
+        iconTransformation(extent={{-260,280},{-220,320}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSupSet(final unit="K",
       displayUnit="degC")
     "HW supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-300,260},{-260,300}}),
-        iconTransformation(extent={{-260,240},{-220,280}})));
+    annotation (Placement(transformation(extent={{-300,280},{-260,320}}),
+        iconTransformation(extent={{-260,260},{-220,300}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaChi[nChi]
     "Cooling-only chiller evaporator isolation valve commanded position"
@@ -274,7 +274,7 @@ block PartialController "Interface class for plant controller"
         origin={280,-20}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,-12})));
+        origin={240,-20})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumHeaWat(
     final unit="1")
     "HW pump speed signal"
@@ -283,7 +283,7 @@ block PartialController "Interface class for plant controller"
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,-32})));
+        origin={240,-40})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValChiWatMinByp(
     final unit="1")
@@ -302,7 +302,7 @@ block PartialController "Interface class for plant controller"
         iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={240,-62})));
+        origin={240,-60})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumConWatCon[nPumConWatCon]
     "CW pump serving condenser barrels Start command"
@@ -412,99 +412,99 @@ block PartialController "Interface class for plant controller"
         origin={240,120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(final unit="Pa",
       final min=0) "CHW differential pressure setpoint (for local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,220},{-260,260}}),
-        iconTransformation(extent={{-260,220},{-220,260}})));
+    annotation (Placement(transformation(extent={{-300,260},{-260,300}}),
+        iconTransformation(extent={{-260,240},{-220,280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWatSet(final unit="Pa",
       final min=0)
     "HW differential pressure setpoint (for local dp sensor)"
-    annotation (Placement(transformation(extent={{-300,180},{-260,220}}),
-        iconTransformation(extent={{-260,200},{-220,240}})));
+    annotation (Placement(transformation(extent={{-300,240},{-260,280}}),
+        iconTransformation(extent={{-260,220},{-220,260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat(final unit="Pa")
     "CHW differential pressure (from local dp sensor)"
     annotation (Placement(transformation(extent={{-300,-360},{-260,-320}}),
-        iconTransformation(extent={{-260,-280},{-220,-240}})));
+        iconTransformation(extent={{-260,-300},{-220,-260}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWat(final unit="Pa")
     "HW differential pressure (from local dp sensor)"
     annotation (Placement(transformation(extent={{-300,-380},{-260,-340}}),
-        iconTransformation(extent={{-260,-300},{-220,-260}})));
+        iconTransformation(extent={{-260,-320},{-220,-280}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mChiWatPri_flow(final unit=
         "kg/s") "Primary CHW mass flow rate"
     annotation (Placement(
         transformation(extent={{-300,-200},{-260,-160}}),
                                                        iconTransformation(
-          extent={{-260,-160},{-220,-120}})));
+          extent={{-260,-180},{-220,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mHeaWatPri_flow(final unit=
         "kg/s") "Primary HW mass flow rate" annotation (Placement(
         transformation(extent={{-300,-220},{-260,-180}}),
                                                       iconTransformation(extent={{-260,
-            -180},{-220,-140}})));
+            -200},{-220,-160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpConWatCon(final unit="Pa")
     "CW condenser loop differential pressure" annotation (Placement(
         transformation(extent={{-300,-400},{-260,-360}}), iconTransformation(
-          extent={{-260,-320},{-220,-280}})));
+          extent={{-260,-340},{-220,-300}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpConWatEva(final unit="Pa")
     "CW evaporator loop differential pressure" annotation (Placement(
         transformation(extent={{-300,-420},{-260,-380}}), iconTransformation(
-          extent={{-260,-340},{-220,-300}})));
+          extent={{-260,-360},{-220,-320}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatCon_flow(final unit=
         "kg/s") "CW condenser loop mass flow rate" annotation (Placement(
         transformation(extent={{-300,-260},{-260,-220}}),
                                                      iconTransformation(extent={{-260,
-            -200},{-220,-160}})));
+            -220},{-220,-180}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatEva_flow(final unit=
         "kg/s") "CW evaporator loop mass flow rate" annotation (Placement(
         transformation(extent={{-300,-280},{-260,-240}}),
                                                       iconTransformation(extent={{-260,
-            -220},{-220,-180}})));
+            -240},{-220,-200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(final unit="K",
       displayUnit="degC") "CHW supply temperature " annotation (
-      Placement(transformation(extent={{-300,140},{-260,180}}),
-        iconTransformation(extent={{-260,160},{-220,200}})));
+      Placement(transformation(extent={{-300,200},{-260,240}}),
+        iconTransformation(extent={{-260,200},{-220,240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatPriRet(final unit="K",
       displayUnit="degC") "Primary CHW return temperature " annotation (
-      Placement(transformation(extent={{-300,120},{-260,160}}),
-        iconTransformation(extent={{-260,120},{-220,160}})));
+      Placement(transformation(extent={{-300,180},{-260,220}}),
+        iconTransformation(extent={{-260,180},{-220,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatPriRet(final unit="K",
       displayUnit="degC") "Primary HW return temperature " annotation (
       Placement(transformation(extent={{-300,60},{-260,100}}),
-        iconTransformation(extent={{-260,80},{-220,120}})));
+        iconTransformation(extent={{-260,60},{-220,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TTan[nTTan](
     each final unit="K",
     each  displayUnit="degC")
     "TES tank temperature" annotation (Placement(
         transformation(extent={{-300,40},{-260,80}}),     iconTransformation(
-          extent={{-260,60},{-220,100}})));
+          extent={{-260,40},{-220,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit
       ="kg/s") "CW mass flow rate through secondary (plant) side of HX"
     annotation (Placement(transformation(extent={{-300,-300},{-260,-260}}),
-        iconTransformation(extent={{-260,-240},{-220,-200}})));
+        iconTransformation(extent={{-260,-260},{-220,-220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatOutTan_flow(final unit
       ="kg/s")
     "Mass flow rate out of lower port of TES tank (>0 when charging)"
     annotation (Placement(transformation(extent={{-300,-320},{-260,-280}}),
-        iconTransformation(extent={{-260,-260},{-220,-220}})));
+        iconTransformation(extent={{-260,-280},{-220,-240}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mEvaChi_flow[nChi](
     each final unit="kg/s")
     "Chiller evaporator barrel mass flow rate" annotation (Placement(
         transformation(extent={{-300,-120},{-260,-80}}),
                                                        iconTransformation(
-          extent={{-260,-80},{-220,-40}})));
+          extent={{-260,-100},{-220,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConChi_flow[nChi](
     each final unit="kg/s")
     "Chiller condenser barrel mass flow rate" annotation (Placement(
         transformation(extent={{-300,-140},{-260,-100}}),
                                                       iconTransformation(extent={{-260,
-            -100},{-220,-60}})));
+            -120},{-220,-80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mEvaChiHea_flow[nChiHea](
     each final unit="kg/s")
     "HRC evaporator barrel mass flow rate" annotation (
       Placement(transformation(extent={{-300,-160},{-260,-120}}),
-        iconTransformation(extent={{-260,-120},{-220,-80}})));
+        iconTransformation(extent={{-260,-140},{-220,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConChiHea_flow[nChiHea](
     each final unit="kg/s")
     "HRC condenser barrel mass flow rate" annotation (
       Placement(transformation(extent={{-300,-180},{-260,-140}}),
-        iconTransformation(extent={{-260,-140},{-220,-100}})));
+        iconTransformation(extent={{-260,-160},{-220,-120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValEvaSwiHea[nChiHea](
     each final unit="1")
     "HRC evaporator switchover valve commanded position"
@@ -526,14 +526,15 @@ block PartialController "Interface class for plant controller"
         rotation=0,
         origin={240,20})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TEvaLvgChiHea[nChiHea](
-    each final unit="K", each displayUnit="degC") "HRC evaporator barrel leaving temperature"
+    each final unit="K", each displayUnit="degC")
+    "HRC evaporator barrel leaving temperature"
     annotation (Placement(transformation(extent={{-300,100},{-260,140}}),
-        iconTransformation(extent={{-260,140},{-220,180}})));
+        iconTransformation(extent={{-260,100},{-220,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(
     final unit="K",
     displayUnit="degC") "HW supply temperature " annotation (Placement(
-        transformation(extent={{-300,80},{-260,120}}),iconTransformation(extent={{-260,
-            100},{-220,140}})));
+        transformation(extent={{-300,80},{-260,120}}),iconTransformation(extent={{-260,80},
+            {-220,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumConWatCoo
     "Cooling tower pump speed command" annotation (Placement(transformation(
           extent={{260,-352},{300,-312}}), iconTransformation(extent={{220,-270},
@@ -542,31 +543,54 @@ block PartialController "Interface class for plant controller"
       displayUnit="degC") "CW chiller and HRC entering temperature"
                                                            annotation (
       Placement(transformation(extent={{-300,20},{-260,60}}),
-        iconTransformation(extent={{-260,42},{-220,82}})));
+        iconTransformation(extent={{-260,20},{-220,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatChiLvg(final unit="K",
       displayUnit="degC") "CW chiller and HRC leaving temperature" annotation (
       Placement(transformation(extent={{-300,0},{-260,40}}),
-        iconTransformation(extent={{-260,20},{-220,60}})));
+        iconTransformation(extent={{-260,0},{-220,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatCooSup(final unit="K",
       displayUnit="degC") "Cooling tower loop CW supply tempetrature"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
-        iconTransformation(extent={{-260,0},{-220,40}})));
+        iconTransformation(extent={{-260,-20},{-220,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatCooRet(final unit="K",
       displayUnit="degC") "Cooling tower loop CW return tempetrature"
     annotation (Placement(transformation(extent={{-300,-40},{-260,0}}),
-        iconTransformation(extent={{-260,-20},{-220,20}})));
+        iconTransformation(extent={{-260,-40},{-220,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatHexCooEnt(final unit="K",
       displayUnit="degC")        "HX entering CW tempetrature" annotation (
       Placement(transformation(extent={{-300,-60},{-260,-20}}),
-        iconTransformation(extent={{-260,-40},{-220,0}})));
+        iconTransformation(extent={{-260,-60},{-220,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatHexCooLvg(final unit="K",
       displayUnit="degC")        "HX leaving CW tempetrature" annotation (
       Placement(transformation(extent={{-300,-80},{-260,-40}}),
-        iconTransformation(extent={{-260,-60},{-220,-20}})));
+        iconTransformation(extent={{-260,-80},{-220,-40}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConEntChiHea[nChiHea](each final
+            unit="K", each displayUnit="degC")
+    "HRC condenser barrel entering temperature" annotation (Placement(
+        transformation(extent={{-300,140},{-260,180}}), iconTransformation(
+          extent={{-260,140},{-220,180}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConLvgChiHea[nChiHea](each final
+            unit="K", each displayUnit="degC")
+    "HRC condenser barrel leaving temperature" annotation (Placement(
+        transformation(extent={{-300,120},{-260,160}}), iconTransformation(
+          extent={{-260,120},{-220,160}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatEvaEnt(final unit="K",
+      displayUnit="degC") "HRC evaporator entering CW temperature " annotation
+    (Placement(transformation(extent={{-300,160},{-260,200}}),
+        iconTransformation(extent={{-260,160},{-220,200}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatEvaMix
+    "HRC evaporator CW mixing valve commanded position" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={280,0}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={240,0})));
   annotation (Diagram(coordinateSystem(extent={{-260,-420},{260,420}})), Icon(
-        coordinateSystem(extent={{-220,-340},{220,340}}),
+        coordinateSystem(extent={{-220,-360},{220,360}}),
         graphics={                      Text(
-        extent={{-150,390},{150,350}},
+        extent={{-150,410},{150,370}},
         textString="%name",
         textColor={0,0,255})}));
 end PartialController;

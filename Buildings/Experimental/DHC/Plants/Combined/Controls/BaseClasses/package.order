@@ -2,7 +2,6 @@ Ceiling
 CoolingTower
 DirectHeatRecovery
 IntegerArrayHold
-IsolationSwitchoverValve
 ModeCondenserLoop
 ModeHeatRecoveryChiller
 PartialController
@@ -10,4 +9,5 @@ StageIndex
 StagingPlant
 StagingPump
 TankCycle
+ValvesCondenserEvaporator
 Validation

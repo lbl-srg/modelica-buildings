@@ -254,7 +254,7 @@ model ChillerHeatRecoveryGroup
         origin={60,160}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={80,120})));
+        origin={90,120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConLvg[nUni](
     each final unit="K", each displayUnit="degC")
     "Chiller condenser leaving temperature" annotation (Placement(
@@ -264,7 +264,7 @@ model ChillerHeatRecoveryGroup
         origin={40,160}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
-        origin={60,120})));
+        origin={70,120})));
 
   Fluid.Chillers.ElectricReformulatedEIR chi[nUni](
     PLR1(each start=0),
@@ -439,6 +439,16 @@ model ChillerHeatRecoveryGroup
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={60,-40})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput TConEnt[nUni](each final
+      unit="K", each displayUnit="degC")
+    "Chiller condenser entering temperature" annotation (Placement(
+        transformation(
+        extent={{20,-20},{-20,20}},
+        rotation=-90,
+        origin={20,160}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={50,120})));
 protected
   parameter Medium.ThermodynamicState staCas=Medium.setState_pTX(
     T=(TCasHeaEnt_nominal + TCasCooEnt_nominal) / 2,
@@ -562,6 +572,8 @@ equation
           -60,-32},{-100,-32}},
                             color={0,127,255}));
 
+  connect(temConEnt.T, TConEnt) annotation (Line(points={{-31,30},{-32,30},{-32,
+          130},{20,130},{20,160}}, color={0,0,127}));
   annotation (
     defaultComponentName="chi",
     Icon(coordinateSystem(preserveAspectRatio=false),
