@@ -58,8 +58,10 @@ model DomesticWaterHeaterAndFixture
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Fluid.Sources.Boundary_pT souDHw(
+  Fluid.Sources.MassFlowSource_T
+                            souDHw(
     redeclare package Medium = Medium,
+    m_flow=mDH_flow_nominal,
     T(displayUnit = "degC") = TDHw,
     nPorts=1) "Source of district hot water" annotation (Placement(
         transformation(
