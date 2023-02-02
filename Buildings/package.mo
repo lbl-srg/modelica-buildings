@@ -229,9 +229,14 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td valign=\"top\">xxx
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
-    <td valign=\"top\">xxx.
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.PartialAirSource
+    </td>
+    <td valign=\"top\">Added new base class that only provides moist air as a medium selection.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
     </td>
 </tr>
 </table>
@@ -242,6 +247,26 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints.FreezeProtection
+    </td>
+    <td valign=\"top\">Added flag to disable freeze protection.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.Outside<br/>
+                       Buildings.Fluid.Sources.MassFlowSource_WeatherData
+    </td>
+    <td valign=\"top\">Changed base class to constrain medium to moist air.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -262,7 +287,24 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
     </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+</td>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries
+    </td>
+    <td valign=\"top\">Compute the scaling parameters based on the peak loads
+                        and revise documentation.<br/>
+                        This is for
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">#2302</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.MassFlowRateMultiplier
+    </td>
+    <td valign=\"top\">Added option to use input connector as multiplier factor.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1684\">IBPSA, #1684</a>.
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
@@ -277,13 +319,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
     </td>
   </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Chillers</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Chillers.BaseClasses.PartialElectric
+    </td>
+    <td valign=\"top\">Added optional switchover mode for heat recovery chillers.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3211\">#3211</a>.
+    </td>
+  </tr>
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
   </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
-                         Fluid.Movers.SpeedControlled_y
+  <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                         Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
                        This is for
@@ -343,6 +395,35 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection
+    </td>
+    <td valign=\"top\">Added flag to disable freeze protection.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+
+
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.Types</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes
+    </td>
+    <td valign=\"top\">Removed the option of using return fan with tracking calculated supply and return airflow.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection
+    </td>
+    <td valign=\"top\">Removed the no-economizer option.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+
+
+
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>

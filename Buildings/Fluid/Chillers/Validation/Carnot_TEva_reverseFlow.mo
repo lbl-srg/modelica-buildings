@@ -80,7 +80,7 @@ model Carnot_TEva_reverseFlow
     duration=60,
     startTime=1800,
     height=-2*m2_flow_nominal,
-    offset=m2_flow_nominal) "Mass flow rate for evaporater"
+    offset=m2_flow_nominal) "Mass flow rate for evaporator"
     annotation (Placement(transformation(extent={{92,-8},{72,12}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
@@ -132,7 +132,7 @@ revisions="<html>
 <ul>
 <li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
+Replaced fluid source. This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
 </li>
 <li>

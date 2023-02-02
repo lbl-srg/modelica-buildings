@@ -3,21 +3,21 @@ model SeparateWithDP
   "Validation model for the minimum outdoor air control - damper position limits for the units with separated outdoor air control"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP disMinCon(
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final dpDesMinOutDam=300,
     final minSpe=0.1)
     "Disable the minimum outdoor air control due to that the supply fan is not proven on"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP disMinCon1(
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final dpDesMinOutDam=300,
     final minSpe=0.1)
     "Disable the minimum outdoor air control due to that it is not in occupied mode"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Limits.SeparateWithDP minCon(
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final dpDesMinOutDam=300,
     final minSpe=0.1)
     "Multi zone VAV AHU minimum outdoor air control - damper position limits"
@@ -130,8 +130,8 @@ equation
           -20},{-180,16},{-142,16}}, color={255,127,0}));
   connect(outDamPos.y, disMinCon.uOutDam) annotation (Line(points={{-198,-60},{
           -170,-60},{-170,13},{-142,13}}, color={0,0,127}));
-  connect(supFanSpe.y, disMinCon.uSupFan_actual) annotation (Line(points={{-198,
-          -100},{-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
+  connect(supFanSpe.y, disMinCon.uSupFan) annotation (Line(points={{-198,-100},
+          {-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
   connect(VOutMinSet_flow2.y, disMinCon1.VOutMinSet_flow_normalized)
     annotation (Line(points={{-38,60},{-20,60},{-20,21},{18,21}}, color={0,0,127}));
   connect(fanSta1.y, disMinCon1.u1SupFan) annotation (Line(points={{-38,20},{-20,
@@ -140,12 +140,12 @@ equation
           -20},{-20,16},{18,16}}, color={255,127,0}));
   connect(outDamPos1.y, disMinCon1.uOutDam) annotation (Line(points={{-38,-60},
           {-10,-60},{-10,13},{18,13}}, color={0,0,127}));
-  connect(supFanSpe1.y, disMinCon1.uSupFan_actual) annotation (Line(points={{-38,
-          -100},{0,-100},{0,11},{18,11}}, color={0,0,127}));
+  connect(supFanSpe1.y, disMinCon1.uSupFan) annotation (Line(points={{-38,-100},
+          {0,-100},{0,11},{18,11}}, color={0,0,127}));
   connect(outDamPos2.y, minCon.uOutDam) annotation (Line(points={{142,-60},{170,
           -60},{170,13},{198,13}}, color={0,0,127}));
-  connect(supFanSpe2.y, minCon.uSupFan_actual) annotation (Line(points={{142,-100},
-          {180,-100},{180,11},{198,11}}, color={0,0,127}));
+  connect(supFanSpe2.y, minCon.uSupFan) annotation (Line(points={{142,-100},{
+          180,-100},{180,11},{198,11}}, color={0,0,127}));
   connect(dpDam.y, disMinCon.dpMinOutDam) annotation (Line(points={{-198,100},{-160,
           100},{-160,23},{-142,23}},  color={0,0,127}));
   connect(dpDam1.y, disMinCon1.dpMinOutDam) annotation (Line(points={{-38,100},{
