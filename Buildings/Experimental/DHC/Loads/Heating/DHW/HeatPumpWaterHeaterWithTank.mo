@@ -78,11 +78,15 @@ model HeatPumpWaterHeaterWithTank
     annotation (Placement(transformation(extent={{-40,40},{-60,60}})));
   Fluid.Sources.Boundary_pT bou(redeclare package Medium = Medium, nPorts=1)
     annotation (Placement(transformation(extent={{100,30},{80,50}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temperatureSensor
-    annotation (Placement(transformation(extent={{-60,62},{-40,82}})));
-  Modelica.Blocks.Sources.Constant dTTanHex2(k=mHex_flow_nominal)
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tanTemSen
+    "Temperature of the hot water tank"
+    annotation (Placement(transformation(extent={{-40,62},{-20,82}})));
+  Controls.OBC.CDL.Continuous.MultiplyByParameter
+                                   dTTanHex2(k=mHex_flow_nominal)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
+  Controls.OBC.CDL.Continuous.PID conPI(k=0.1, Ti=120)
+    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 equation
   connect(heaPum.port_b1, senTemHPOut.port_a)
     annotation (Line(points={{10,6},{40,6}},              color={0,127,255}));
@@ -112,12 +116,18 @@ equation
           60},{-100,60}}, color={0,127,255}));
   connect(bou.ports[1], senTemHPOut.port_b) annotation (Line(points={{80,40},{
           70,40},{70,6},{60,6}}, color={0,127,255}));
-  connect(temperatureSensor.port, tanSte.heaPorVol[4]) annotation (Line(points=
-          {{-60,72},{-66,72},{-66,50.12},{-50,50.12}}, color={191,0,0}));
   connect(dTTanHex2.y, pumHex.m_flow_in)
-    annotation (Line(points={{41,90},{50,90},{50,52}}, color={0,0,127}));
+    annotation (Line(points={{42,90},{50,90},{50,52}}, color={0,0,127}));
   connect(heaPum.port_a2, port_a2) annotation (Line(points={{10,-6},{20,-6},{20,
           -60},{100,-60}}, color={0,127,255}));
+  connect(conPI.y, dTTanHex2.u)
+    annotation (Line(points={{12,90},{18,90}}, color={0,0,127}));
+  connect(TSetHw, conPI.u_s) annotation (Line(points={{-110,0},{-88,0},{-88,90},
+          {-12,90}}, color={0,0,127}));
+  connect(tanTemSen.T, conPI.u_m) annotation (Line(points={{-19,72},{-8,72},{-8,
+          70},{0,70},{0,78}}, color={0,0,127}));
+  connect(tanTemSen.port, tanSte.heaPorVol[4]) annotation (Line(points={{-40,72},
+          {-46,72},{-46,50.12},{-50,50.12}}, color={191,0,0}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model is an example of a domestic hot water (DHW) substation for an  
