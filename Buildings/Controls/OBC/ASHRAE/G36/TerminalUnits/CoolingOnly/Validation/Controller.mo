@@ -111,6 +111,9 @@ model Controller
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
+    annotation (Placement(transformation(extent={{-20,90},{0,110}})));
+
 equation
   connect(TZon.y, cooBoxCon.TZon) annotation (Line(points={{-98,160},{60,160},{60,
           28},{98,28}}, color={0,0,127}));
@@ -118,8 +121,6 @@ equation
           140},{56,26},{98,26}}, color={0,0,127}));
   connect(heaSet.y, cooBoxCon.THeaSet) annotation (Line(points={{-98,120},{52,
           120},{52,24},{98,24}}, color={0,0,127}));
-  connect(winSta.y, cooBoxCon.u1Win) annotation (Line(points={{-58,100},{48,100},
-          {48,21},{98,21}}, color={255,0,255}));
   connect(occ.y, cooBoxCon.u1Occ) annotation (Line(points={{-98,80},{44,80},{44,
           19},{98,19}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
@@ -153,6 +154,10 @@ equation
           -160},{64,-8},{98,-8}}, color={255,0,255}));
   connect(CO2Set.y, cooBoxCon.ppmCO2Set) annotation (Line(points={{-98,30},{36,30},
           {36,15},{98,15}}, color={0,0,127}));
+  connect(winSta.y, not1.u)
+    annotation (Line(points={{-58,100},{-22,100}}, color={255,0,255}));
+  connect(not1.y, cooBoxCon.u1Win) annotation (Line(points={{2,100},{48,100},{48,
+          21},{98,21}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/CoolingOnly/Validation/Controller.mos"
