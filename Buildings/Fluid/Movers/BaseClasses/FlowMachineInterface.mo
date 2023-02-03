@@ -304,6 +304,9 @@ protected
   Modelica.Units.SI.Power P_internal
     "Either PEle or WHyd";
 
+  parameter Real deltaP = 1E-4 * V_flow_max * dpMax
+    "Small value for regularisation of power";
+
   Real yMot(final min=0, final start=0.833)=
     if per.haveWMot_nominal
       then WHyd/per.WMot_nominal
@@ -587,7 +590,7 @@ equation
   WFlo = Buildings.Utilities.Math.Functions.smoothMax(
            x1=dp_internal*V_flow,
            x2=0,
-           deltaX=1E-4*dpMax*V_flow_max);
+           deltaX=deltaP/2);
   if per.powerOrEfficiencyIsHydraulic then
     eta = etaHyd * etaMot;
   else
@@ -619,7 +622,7 @@ equation
       P_internal = (rho/rho_default)*cha.power(per=per.power, V_flow=V_flow, r_N=r_N, d=powDer, delta=delta);
     end if;
     eta_internal = WFlo/Buildings.Utilities.Math.Functions.smoothMax(
-                     x1=P_internal, x2=1E-5, deltaX=1E-6);
+                     x1=P_internal, x2=deltaP, deltaX=deltaP/2);
   elseif per.etaHydMet==
        Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber then
     if homotopyInitialization then
@@ -630,7 +633,7 @@ equation
       P_internal = (rho/rho_default)*cha.power(per=powEu, V_flow=V_flow, r_N=r_N, d=powEuDer, delta=delta);
     end if;
     eta_internal = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
-                            x1=P_internal, x2=1E-5, deltaX=1E-6);
+                            x1=P_internal, x2=deltaP, deltaX=deltaP/2);
   elseif per.etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate then
     if homotopyInitialization then
       eta_internal = homotopy(actual=cha.efficiency(per=per.efficiency,     V_flow=V_flow, d=etaDer, r_N=r_N, delta=delta),

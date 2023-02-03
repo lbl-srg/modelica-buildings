@@ -6,12 +6,37 @@ function correlation
   output Real y "eta/eta_peak";
 
 protected
-  Real a = if x <-0.5 then 0.05687322707407 else if x>0.5 then -8.5494313567465000E-3 else 0.37824577860088;
-  Real b = if x<-0.5 then 0.493231336746 else if x>0.5 then 1.2957001502368300E-1 else -0.75988502317361;
-  Real c = if x<-0.5 then 1.433531254001 else if x>0.5 then -6.5997315029278200E-1 else -0.060614519563716;
-  Real d = if x<-0.5 then 1.407887300933 else if x>0.5 then 1.13993003013131 else 1.01426507307139;
+  Real a "Polynomial coefficient";
+  Real b "Polynomial coefficient";
+  Real c "Polynomial coefficient";
+  Real d "Polynomial coefficient";
+  Real y1 "eta/eta_peak";
 algorithm
-  y:=max(0,a*x^3+b*x^2+c*x+d)/1.01545;
+  if x < -0.5 then
+    a := 0.05687322707407;
+    b := 0.493231336746;
+    c := 1.433531254001;
+    d := 1.407887300933;
+  elseif x > 0.5 then
+    a := -8.5494313567465000E-3;
+    b := 1.2957001502368300E-1;
+    c := -6.5997315029278200E-1;
+    d := 1.13993003013131;
+  else
+    a := 0.37824577860088;
+    b := -0.75988502317361;
+    c := -0.060614519563716;
+    d := 1.01426507307139;
+  end if;
+  y1 := (a*x^3 + b*x^2 + c*x + d) / 1.01545;
+  // y1 is almost always bounded away from zero,
+  // hence we make a test to see whether we indeed
+  // need to call smoothMax or can avoid its overhead
+  y := if y1 > 0.002 then y1 else
+    Buildings.Utilities.Math.Functions.smoothMax(
+      x1=y1,
+      x2=0.001,
+      deltaX=0.0005);
 
   annotation(smoothOrder = 1,
   Documentation(info="<html>
@@ -55,9 +80,9 @@ a third one of the same order.
 Care has been taken to ensure that, on the curve constructed by
 <code>if</code> statements, the differences of <i>dy &frasl; dx</i>
 evaluated by different groups of coefficients at the connecting points
-(i.e. at <i>x = - 0.5</i> and <i>x = + 0.5</i>) are less than 1E-14.
-This helps the solver to be able to consider the derivative continuous
-even when it requires a precision of 1E-10 when there are nested loops.
+(i.e. at <i>x = - 0.5</i> and <i>x = + 0.5</i>) are less than <i>1E-14</i>.
+This way, the derivative is still continuous to the solver even if
+the solver requires a precision of <i>1E-10</i> when there are nested loops.
 </p>
 <p>
 The correlation and the approximation have the shape as shown below
@@ -97,11 +122,6 @@ EnergyPlus 9.6.0 Engineering Reference</a>
 chapter 16.4 equations 16.209 through 16.218.
 Note that the formula is simplified here from the source document.
 </p>
-<p>
-Regarding the approximation polynominals, see the discussions in
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1646\">
-pull request #1646</a>.
-</p>
 <h4>Resources</h4>
 <p>
 The svg file for the correlation equation was generated on
@@ -114,6 +134,11 @@ this script</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 2, 2023, by Michael Wetter:<br/>
+Rewrote to reduce number of <code>if-then</code> statements and to use
+<code>smoothMax</code> rather than <code>max</code>.
+</li>
 <li>
 December 12, 2022, by Hongxiang Fu and Filip Jorissen:<br/>
 First implementation. This is for

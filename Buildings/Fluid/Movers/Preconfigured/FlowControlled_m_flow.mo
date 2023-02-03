@@ -31,8 +31,5 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
 </li>
 </ul>
-</html>"), Icon(graphics={Line(
-          points={{-100,60},{-80,40},{-40,80}},
-          color={0,140,72},
-          thickness=10)}));
+</html>"));
 end FlowControlled_m_flow;
