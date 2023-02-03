@@ -259,17 +259,17 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTUBuildings.Fluid.Geothermal.Borefields.OneUTube<br/>
-                     Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTUBuildings.Fluid.Geothermal.Borefields.TwoUTubes
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.OneUTube<br/>
+                       Buildings.Fluid.Geothermal.Borefields.TwoUTubes
     </td>
     <td valign=\"top\">Enabled calculation of bore fields with hundreds of bore holes. This is
-                     accomplished by updating the calculation of the ground temperature response in the model
-                     <code>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</code>
-                     using clustering of bore holes as described in
-                     <a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
-                     doi:10.1080/19401493.2021.1968953</a>.<br/>
-                     This is for
-                     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1577\">IBPSA, #1577</a>.
+                       accomplished by updating the calculation of the ground temperature response in the model
+                       <code>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</code>
+                       using clustering of bore holes as described in
+                       <a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
+                       doi:10.1080/19401493.2021.1968953</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1577\">IBPSA, #1577</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
@@ -284,7 +284,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA, #1682</a>.
     </td>
-</tr>                       
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
 </tr>
