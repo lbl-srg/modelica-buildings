@@ -168,7 +168,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(modeSelector.yFan, conFanSup.uFan) annotation (Line(points={{-179.091,
-          -305.455},{260,-305.455},{260,-30},{226,-30},{226,6},{238,6}},
+          -305.455},{260,-305.455},{260,-60},{228,-60},{228,6},{238,6}},
                                                                  color={255,0,
           255}));
   connect(conFanSup.y, fanSup.y) annotation (Line(points={{261,0},{280,0},{280,
