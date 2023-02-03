@@ -1,5 +1,4 @@
-Ceiling
-CoolingTower
+CoolingTowerLoop
 DirectHeatRecovery
 IntegerArrayHold
 ModeCondenserLoop
@@ -9,5 +8,5 @@ StageIndex
 StagingPlant
 StagingPump
 TankCycle
-ValvesCondenserEvaporator
+ValveCondenserEvaporator
 Validation

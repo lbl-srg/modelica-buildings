@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
-block CoolingTower "Cooling tower loop control"
+block CoolingTowerLoop "Cooling tower loop control"
 
   parameter Integer nCoo(final min=1, start=1)
     "Number of cooling tower cells operating at design conditions"
@@ -22,6 +22,11 @@ block CoolingTower "Cooling tower loop control"
     each final min=0,
     each final max=1)={0.2 / i for i in 1:nPumConWatCoo}
     "Tower pump speed needed to maintain minimum tower flow (each pump stage)";
+  parameter Real yFanCoo_min(
+    each final unit="1",
+    each final min=0,
+    each final max=1)=0.1
+    "CT fan minimum speed";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode(
     final min=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge,
@@ -50,14 +55,13 @@ block CoolingTower "Cooling tower loop control"
     "Plant required cooling capacity (>0)" annotation (
       Placement(transformation(extent={{-220,140},{-180,180}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatChiEnt(final unit="K",
-      displayUnit="degC") "CW chiller and HRC entering temperature"
-      annotation (
-      Placement(transformation(extent={{-220,40},{-180,80}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConChiEnt(final unit=
+        "K", displayUnit="degC") "Chiller and HRC entering CW temperature"
+    annotation (Placement(transformation(extent={{-220,40},{-180,80}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatChiLvg(final unit="K",
-      displayUnit="degC") "CW chiller and HRC leaving temperature" annotation (
-      Placement(transformation(extent={{-220,20},{-180,60}}),
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConChiLvg(final unit=
+        "K", displayUnit="degC") "Chiller and HRC leaving CW temperature"
+    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSupSet(final unit="K",
       displayUnit="degC") "CHW supply temperature setpoint" annotation (
@@ -81,7 +85,7 @@ block CoolingTower "Cooling tower loop control"
         iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumConWatCoo[
     nPumConWatCoo] "Cooling tower pump Start command" annotation (Placement(
-        transformation(extent={{180,-20},{220,20}}),  iconTransformation(extent
+        transformation(extent={{180,40},{220,80}}),   iconTransformation(extent
           ={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo[nCoo]
     "Cooling tower Start command" annotation (Placement(transformation(extent={{180,
@@ -89,7 +93,7 @@ block CoolingTower "Cooling tower loop control"
             -40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo
     "Cooling tower fan speed command" annotation (Placement(transformation(
-          extent={{180,-100},{220,-60}}), iconTransformation(extent={{100,-140},
+          extent={{180,-80},{220,-40}}),  iconTransformation(extent={{100,-140},
             {140,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPumConWatCoo
     "Cooling tower pump speed command" annotation (Placement(transformation(
@@ -145,7 +149,7 @@ block CoolingTower "Cooling tower loop control"
     yDow=0.4,
     yUp=0.8)
     "Stage pumps"
-    annotation (Placement(transformation(extent={{140,-10},{160,10}})));
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpFlo(t=3) "Compare"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpFlo1(t=3) "Compare"
@@ -172,7 +176,7 @@ block CoolingTower "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Logical.And ena "Enable condition"
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaLea "Enable lead pump"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract delTem2 "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract delTem3 "Compute deltaT"
@@ -195,12 +199,12 @@ block CoolingTower "Cooling tower loop control"
                               "Pump control loop #1"
     annotation (Placement(transformation(extent={{-10,-250},{10,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Min minCtlPum "Minimum loop output"
-    annotation (Placement(transformation(extent={{20,-230},{40,-210}})));
+    annotation (Placement(transformation(extent={{30,-230},{50,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Line pum "Pump speed command"
-    annotation (Placement(transformation(extent={{90,-230},{110,-210}})));
+    annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xPum[2](k={0,1})
     "x-value for pump speed reset"
-    annotation (Placement(transformation(extent={{50,-210},{70,-190}})));
+    annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1)
     "Constant"
     annotation (Placement(transformation(extent={{90,-260},{110,-240}})));
@@ -216,44 +220,44 @@ block CoolingTower "Cooling tower loop control"
     annotation (Placement(transformation(extent={{30,-284},{50,-264}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract errTConWatCooSup
     "Compute tracking error"
-    annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
+    annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpTSup(t=-0.5)
                                                                   "Compare"
-    annotation (Placement(transformation(extent={{10,-130},{30,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpTSup1(t=0.5)
+    annotation (Placement(transformation(extent={{0,-130},{20,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpTSup1(t=2)
     "Compare"
-    annotation (Placement(transformation(extent={{10,-160},{30,-140}})));
+    annotation (Placement(transformation(extent={{0,-160},{20,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timTSup(t=60)
     "Timer for supply temperature exceeding triggering limit"
-    annotation (Placement(transformation(extent={{40,-130},{60,-110}})));
+    annotation (Placement(transformation(extent={{30,-130},{50,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timTSup1(t=60)
     "Timer for supply temperature exceeding triggering limit"
-    annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
+    annotation (Placement(transformation(extent={{30,-160},{50,-140}})));
   Buildings.Controls.OBC.CDL.Logical.And ena1
                                              "Enable condition"
-    annotation (Placement(transformation(extent={{80,-130},{100,-110}})));
+    annotation (Placement(transformation(extent={{66,-130},{86,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or  dis1 "Disable condition"
-    annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
+    annotation (Placement(transformation(extent={{66,-160},{86,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Not       noPum "True if no pump enabled"
-    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+    annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaFan "Enable tower fans"
-    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+    annotation (Placement(transformation(extent={{100,-130},{120,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(final nout=
         nCoo) "Replicate"
-    annotation (Placement(transformation(extent={{150,-130},{170,-110}})));
+    annotation (Placement(transformation(extent={{140,-130},{160,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Line fanMax "Compute maximum fan speed"
-    annotation (Placement(transformation(extent={{50,150},{70,170}})));
+    annotation (Placement(transformation(extent={{70,150},{90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFan[2](k={0,0.5})
     "x-value for maximum fan speed reset"
-    annotation (Placement(transformation(extent={{10,180},{30,200}})));
+    annotation (Placement(transformation(extent={{30,180},{50,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFan[2](final k={0.7,1.0})
     "y-value for maximum fan speed reset"
-    annotation (Placement(transformation(extent={{10,120},{30,140}})));
+    annotation (Placement(transformation(extent={{30,120},{50,140}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlFan(
     k=0.1,
-    Ti=60,
+    Ti=30,
     final reverseActing=false) "Fan control loop"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Left limit of signal to avoid direct feedback"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -266,6 +270,16 @@ block CoolingTower "Cooling tower loop control"
     y(unit="K", displayUnit="degC"))
     "Compute tower supply temperature setpoint"
     annotation (Placement(transformation(extent={{-30,190},{-10,210}})));
+  Buildings.Controls.OBC.CDL.Continuous.Line fan "Compute fan speed"
+    annotation (Placement(transformation(extent={{150,-70},{170,-50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFan1
+                                                             [2](k={0,1})
+    "x-value for fan speed reset"
+    annotation (Placement(transformation(extent={{110,-50},{130,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFan1(final k=
+        yFanCoo_min)
+    "y-value for fan speed reset"
+    annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
 equation
   connect(QCooReq_flow, ratDes.u)
     annotation (Line(points={{-200,160},{-162,160}},
@@ -285,9 +299,9 @@ equation
   connect(yLif[2].y, lif.f2) annotation (Line(points={{-128,130},{-116,130},{-116,
           132},{-112,132}},
                      color={0,0,127}));
-  connect(TConWatChiLvg, delTemCon.u1) annotation (Line(points={{-200,40},{-170,
+  connect(TConWatConChiLvg, delTemCon.u1) annotation (Line(points={{-200,40},{-170,
           40},{-170,46},{-162,46}}, color={0,0,127}));
-  connect(TConWatChiEnt, delTemCon.u2) annotation (Line(points={{-200,60},{-174,
+  connect(TConWatConChiEnt, delTemCon.u2) annotation (Line(points={{-200,60},{-174,
           60},{-174,34},{-162,34}}, color={0,0,127}));
   connect(delTemCon.y, mea.u)
     annotation (Line(points={{-138,40},{-132,40}}, color={0,0,127}));
@@ -338,11 +352,12 @@ equation
   connect(timOpe1.passed, dis.u2) annotation (Line(points={{-108,-128},{-96,-128},
           {-96,-68},{-92,-68}},         color={255,0,255}));
   connect(ena.y,enaLea. u)
-    annotation (Line(points={{-68,-20},{-62,-20}}, color={255,0,255}));
-  connect(dis.y,enaLea. clr) annotation (Line(points={{-68,-60},{-66,-60},{-66,-26},
-          {-62,-26}},          color={255,0,255}));
-  connect(enaLea.y, staPum.y1Ena) annotation (Line(points={{-38,-20},{-20,-20},{
-          -20,6},{138,6}},      color={255,0,255}));
+    annotation (Line(points={{-68,-20},{-66,-20},{-66,-40},{-62,-40}},
+                                                   color={255,0,255}));
+  connect(dis.y,enaLea. clr) annotation (Line(points={{-68,-60},{-66,-60},{-66,-46},
+          {-62,-46}},          color={255,0,255}));
+  connect(enaLea.y, staPum.y1Ena) annotation (Line(points={{-38,-40},{-20,-40},{
+          -20,66},{98,66}},     color={255,0,255}));
   connect(TConWatCooRet, delTem3.u1) annotation (Line(points={{-200,-200},{-166,
           -200},{-166,-194},{-162,-194}},                         color={0,0,127}));
   connect(TConWatCooSup, delTem3.u2) annotation (Line(points={{-200,-180},{-170,
@@ -359,21 +374,22 @@ equation
                                          color={0,0,127}));
   connect(addOff.y, ctlPum2.u_s)
     annotation (Line(points={{-108,-240},{-12,-240}}, color={0,0,127}));
-  connect(ctlPum1.y, minCtlPum.u1) annotation (Line(points={{12,-200},{16,-200},
-          {16,-214},{18,-214}}, color={0,0,127}));
-  connect(ctlPum2.y, minCtlPum.u2) annotation (Line(points={{12,-240},{16,-240},
-          {16,-226},{18,-226}}, color={0,0,127}));
-  connect(xPum[1].y, pum.x1) annotation (Line(points={{72,-200},{80,-200},{80,-212},
-          {88,-212}}, color={0,0,127}));
-  connect(xPum[2].y, pum.x2) annotation (Line(points={{72,-200},{80,-200},{80,-224},
-          {88,-224}}, color={0,0,127}));
-  connect(pum.y, yPumConWatCoo) annotation (Line(points={{112,-220},{200,-220}},
-                             color={0,0,127}));
-  connect(one.y, pum.f2) annotation (Line(points={{112,-250},{114,-250},{114,-234},
-          {86,-234},{86,-228},{88,-228}},
+  connect(ctlPum1.y, minCtlPum.u1) annotation (Line(points={{12,-200},{20,-200},
+          {20,-214},{28,-214}}, color={0,0,127}));
+  connect(ctlPum2.y, minCtlPum.u2) annotation (Line(points={{12,-240},{20,-240},
+          {20,-226},{28,-226}}, color={0,0,127}));
+  connect(xPum[1].y, pum.x1) annotation (Line(points={{112,-200},{114,-200},{114,
+          -212},{118,-212}},
                       color={0,0,127}));
+  connect(xPum[2].y, pum.x2) annotation (Line(points={{112,-200},{114,-200},{114,
+          -224},{118,-224}},
+                      color={0,0,127}));
+  connect(pum.y, yPumConWatCoo) annotation (Line(points={{142,-220},{200,-220}},
+                             color={0,0,127}));
+  connect(one.y, pum.f2) annotation (Line(points={{112,-250},{114,-250},{114,-228},
+          {118,-228}},color={0,0,127}));
   connect(minCtlPum.y, pum.u)
-    annotation (Line(points={{42,-220},{88,-220}}, color={0,0,127}));
+    annotation (Line(points={{52,-220},{118,-220}},color={0,0,127}));
   connect(idxCycTan,extSet. index) annotation (Line(points={{-200,220},{-60,220},
           {-60,228}}, color={255,127,0}));
   connect(yPumMin.y, extYPumMin.u)
@@ -381,75 +397,88 @@ equation
   connect(nPumBou.y, extYPumMin.index) annotation (Line(points={{51,-274},{70,-274},
           {70,-262}}, color={255,127,0}));
   connect(extYPumMin.y, pum.f1) annotation (Line(points={{82,-250},{84,-250},{84,
-          -216},{88,-216}}, color={0,0,127}));
+          -216},{118,-216}},color={0,0,127}));
   connect(TConWatCooSup, errTConWatCooSup.u2) annotation (Line(points={{-200,-180},
-          {-50,-180},{-50,-126},{-42,-126}}, color={0,0,127}));
+          {-50,-180},{-50,-146},{-42,-146}}, color={0,0,127}));
   connect(errTConWatCooSup.y, cmpTSup.u)
-    annotation (Line(points={{-18,-120},{8,-120}},color={0,0,127}));
-  connect(errTConWatCooSup.y, cmpTSup1.u) annotation (Line(points={{-18,-120},{4,
-          -120},{4,-150},{8,-150}}, color={0,0,127}));
+    annotation (Line(points={{-18,-140},{-10,-140},{-10,-120},{-2,-120}},
+                                                  color={0,0,127}));
+  connect(errTConWatCooSup.y, cmpTSup1.u) annotation (Line(points={{-18,-140},{-10,
+          -140},{-10,-150},{-2,-150}},
+                                    color={0,0,127}));
   connect(cmpTSup.y, timTSup.u)
-    annotation (Line(points={{32,-120},{38,-120}}, color={255,0,255}));
+    annotation (Line(points={{22,-120},{28,-120}}, color={255,0,255}));
   connect(cmpTSup1.y, timTSup1.u)
-    annotation (Line(points={{32,-150},{38,-150}}, color={255,0,255}));
+    annotation (Line(points={{22,-150},{28,-150}}, color={255,0,255}));
   connect(timTSup.passed, ena1.u2)
-    annotation (Line(points={{62,-128},{78,-128}}, color={255,0,255}));
-  connect(enaLea.y, ena1.u1) annotation (Line(points={{-38,-20},{74,-20},{74,-120},
-          {78,-120}}, color={255,0,255}));
+    annotation (Line(points={{52,-128},{64,-128}}, color={255,0,255}));
+  connect(enaLea.y, ena1.u1) annotation (Line(points={{-38,-40},{60,-40},{60,-120},
+          {64,-120}}, color={255,0,255}));
   connect(timTSup1.passed, dis1.u2)
-    annotation (Line(points={{62,-158},{78,-158}}, color={255,0,255}));
-  connect(noPum.y, dis1.u1) annotation (Line(points={{62,-40},{68,-40},{68,-150},
-          {78,-150}}, color={255,0,255}));
+    annotation (Line(points={{52,-158},{64,-158}}, color={255,0,255}));
+  connect(noPum.y, dis1.u1) annotation (Line(points={{52,-80},{58,-80},{58,-150},
+          {64,-150}}, color={255,0,255}));
   connect(ena1.y, enaFan.u)
-    annotation (Line(points={{102,-120},{118,-120}}, color={255,0,255}));
-  connect(dis1.y, enaFan.clr) annotation (Line(points={{102,-150},{106,-150},{106,
-          -126},{118,-126}}, color={255,0,255}));
+    annotation (Line(points={{88,-120},{98,-120}},   color={255,0,255}));
+  connect(dis1.y, enaFan.clr) annotation (Line(points={{88,-150},{94,-150},{94,-126},
+          {98,-126}},        color={255,0,255}));
   connect(rep.u, enaFan.y)
-    annotation (Line(points={{148,-120},{142,-120}}, color={255,0,255}));
+    annotation (Line(points={{138,-120},{122,-120}}, color={255,0,255}));
   connect(rep.y, y1Coo)
-    annotation (Line(points={{172,-120},{200,-120}}, color={255,0,255}));
-  connect(xFan[1].y, fanMax.x1) annotation (Line(points={{32,190},{40,190},{40,168},
-          {48,168}}, color={0,0,127}));
-  connect(xFan[2].y, fanMax.x2) annotation (Line(points={{32,190},{40,190},{40,156},
-          {48,156}}, color={0,0,127}));
-  connect(yFan[1].y, fanMax.f1) annotation (Line(points={{32,130},{44,130},{44,164},
-          {48,164}}, color={0,0,127}));
-  connect(yFan[2].y, fanMax.f2) annotation (Line(points={{32,130},{44,130},{44,152},
-          {48,152}}, color={0,0,127}));
+    annotation (Line(points={{162,-120},{200,-120}}, color={255,0,255}));
+  connect(xFan[1].y, fanMax.x1) annotation (Line(points={{52,190},{60,190},{60,168},
+          {68,168}}, color={0,0,127}));
+  connect(xFan[2].y, fanMax.x2) annotation (Line(points={{52,190},{60,190},{60,156},
+          {68,156}}, color={0,0,127}));
+  connect(yFan[1].y, fanMax.f1) annotation (Line(points={{52,130},{64,130},{64,164},
+          {68,164}}, color={0,0,127}));
+  connect(yFan[2].y, fanMax.f2) annotation (Line(points={{52,130},{64,130},{64,152},
+          {68,152}}, color={0,0,127}));
   connect(ratDes.y, fanMax.u)
-    annotation (Line(points={{-138,160},{48,160}}, color={0,0,127}));
-  connect(enaLea.y, pre1.u) annotation (Line(points={{-38,-20},{-20,-20},{-20,-80},
+    annotation (Line(points={{-138,160},{68,160}}, color={0,0,127}));
+  connect(enaLea.y, pre1.u) annotation (Line(points={{-38,-40},{-20,-40},{-20,-80},
           {-80,-80},{-80,-138}}, color={255,0,255}));
-  connect(enaLea.y, noPum.u) annotation (Line(points={{-38,-20},{20,-20},{20,-40},
-          {38,-40}}, color={255,0,255}));
-  connect(enaFan.y, ctlFan.uEna) annotation (Line(points={{142,-120},{144,-120},
-          {144,-100},{106,-100},{106,-92}}, color={255,0,255}));
-  connect(TConWatCooSup, ctlFan.u_m) annotation (Line(points={{-200,-180},{110,-180},
-          {110,-92}}, color={0,0,127}));
-  connect(pum.y, staPum.y) annotation (Line(points={{112,-220},{174,-220},{174,-20},
-          {120,-20},{120,-6},{138,-6}}, color={0,0,127}));
-  connect(ctlFan.y, yCoo) annotation (Line(points={{122,-80},{154,-80},{154,-80},
-          {200,-80}}, color={0,0,127}));
+  connect(enaLea.y, noPum.u) annotation (Line(points={{-38,-40},{20,-40},{20,-80},
+          {28,-80}}, color={255,0,255}));
+  connect(enaFan.y, ctlFan.uEna) annotation (Line(points={{122,-120},{130,-120},
+          {130,-100},{86,-100},{86,-72}},   color={255,0,255}));
+  connect(TConWatCooSup, ctlFan.u_m) annotation (Line(points={{-200,-180},{90,-180},
+          {90,-72}},  color={0,0,127}));
+  connect(pum.y, staPum.y) annotation (Line(points={{142,-220},{176,-220},{176,40},
+          {94,40},{94,54},{98,54}},     color={0,0,127}));
   connect(pre1.y, ctlPum1.uEna) annotation (Line(points={{-80,-162},{-80,-216},{
           -4,-216},{-4,-212}}, color={255,0,255}));
   connect(pre1.y, ctlPum2.uEna) annotation (Line(points={{-80,-162},{-80,-256},{
           -4,-256},{-4,-252}}, color={255,0,255}));
   connect(staPum.y1, y1PumConWatCoo)
-    annotation (Line(points={{162,0},{200,0}}, color={255,0,255}));
+    annotation (Line(points={{122,66},{170,66},{170,60},{200,60}},
+                                               color={255,0,255}));
   connect(setMax.y, TSupSet.u2) annotation (Line(points={{-48,200},{-44,200},{-44,
           194},{-32,194}}, color={0,0,127}));
   connect(TSupSetUnb.y, TSupSet.u1) annotation (Line(points={{-8,260},{0,260},{0,
           220},{-34,220},{-34,206},{-32,206}}, color={0,0,127}));
-  connect(TSupSet.y, ctlFan.u_s) annotation (Line(points={{-8,200},{0,200},{0,-80},
-          {98,-80}}, color={0,0,127}));
-  connect(TSupSet.y, errTConWatCooSup.u1) annotation (Line(points={{-8,200},{0,200},
-          {0,-100},{-60,-100},{-60,-114},{-42,-114}}, color={0,0,127}));
-  connect(TSupSet.y, addApp.u) annotation (Line(points={{-8,200},{-8,199.545},{0,
-          199.545},{0,-100},{-60,-100},{-60,-200},{-42,-200}}, color={0,0,127}));
+  connect(TSupSet.y, ctlFan.u_s) annotation (Line(points={{-8,200},{0,200},{0,-60},
+          {78,-60}}, color={0,0,127}));
+  connect(TSupSet.y, addApp.u) annotation (Line(points={{-8,200},{0,200},{0,-100},
+          {-60,-100},{-60,-200},{-42,-200}},                   color={0,0,127}));
   connect(TConWatHexCooLvg, delTem2.u2) annotation (Line(points={{-200,-260},{
           -170,-260},{-170,-246},{-162,-246}}, color={0,0,127}));
   connect(TConWatHexCooLvg, ctlPum1.u_m) annotation (Line(points={{-200,-260},{
           -170,-260},{-170,-220},{0,-220},{0,-212}}, color={0,0,127}));
+  connect(xFan1[1].y, fan.x1) annotation (Line(points={{132,-40},{144,-40},{144,
+          -52},{148,-52}},   color={0,0,127}));
+  connect(xFan1[2].y, fan.x2) annotation (Line(points={{132,-40},{144,-40},{144,
+          -64},{148,-64}},   color={0,0,127}));
+  connect(yFan1.y, fan.f1) annotation (Line(points={{132,-80},{146,-80},{146,-56},
+          {148,-56}}, color={0,0,127}));
+  connect(ctlFan.y, fan.u)
+    annotation (Line(points={{102,-60},{148,-60}}, color={0,0,127}));
+  connect(fan.y, yCoo)
+    annotation (Line(points={{172,-60},{200,-60}}, color={0,0,127}));
+  connect(fanMax.y, fan.f2) annotation (Line(points={{92,160},{140,160},{140,-68},
+          {148,-68}}, color={0,0,127}));
+  connect(TSupSet.y, errTConWatCooSup.u1) annotation (Line(points={{-8,200},{0,200},
+          {0,-100},{-60,-100},{-60,-134},{-42,-134}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
                    graphics={
         Rectangle(
@@ -462,4 +491,4 @@ equation
           extent={{-150,190},{150,230}},
           textString="%name")}), Diagram(coordinateSystem(extent={{-180,-280},{
             180,280}})));
-end CoolingTower;
+end CoolingTowerLoop;

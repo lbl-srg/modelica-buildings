@@ -40,6 +40,11 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     start=340 * mConWatUni_flow_nominal)
     "Fan power (each unit)"
     annotation (Dialog(group="Nominal condition"));
+  parameter Real yFan_min(
+    each final unit="1",
+    each final min=0,
+    each final max=1)=0.1
+    "CT fan minimum speed";
 
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -56,13 +61,13 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1[nUni]
     "Cooling tower Start command"
-    annotation (Placement(transformation(extent={{-140,40},
-            {-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+                         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput y(
     final unit="1", final min=0)
     "Cooling tower speed (common to all tower cells)"
     annotation (Placement(
-        transformation(extent={{-140,-80},{-100,-40}}), iconTransformation(
+        transformation(extent={{-140,40},{-100,80}}),   iconTransformation(
           extent={{-140,-80},{-100,-40}})));
   BoundaryConditions.WeatherData.Bus weaBus
     "Bus with weather data"
@@ -93,7 +98,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   BaseClasses.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulP "Scale power"
     annotation (Placement(transformation(extent={{60,90},{80,70}})));
 
@@ -101,6 +106,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     redeclare final package Medium = Medium,
     final m_flow_nominal=mConWatUni_flow_nominal,
     final dp_nominal=dpConWatFriUni_nominal,
+    final yMin=yFan_min,
     final ratWatAir_nominal=mConWatUni_flow_nominal/mAirUni_flow_nominal,
     final TAirInWB_nominal=TWetBulEnt_nominal,
     final TWatIn_nominal=TConWatRet_nominal,
@@ -115,16 +121,26 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
 
   Buildings.Controls.OBC.CDL.Logical.Pre preY1[nUni]
     "Left limit of signal avoiding direct feedback of status to controller"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+    annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Convert to real"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-14,70})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply inp
+    "Compute pump input signal" annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-20,30})));
 equation
   connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{81,6},{86,6},{
           86,-20},{-86,-20},{-86,6},{-82,6}},  color={0,0,127}));
-  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-18,60},{20,60},{20,86},
-          {58,86}},         color={0,0,127}));
+  connect(com.nUniOn, mulP.u2) annotation (Line(points={{-38,100},{40,100},{40,
+          86},{58,86}},     color={0,0,127}));
 
   connect(mulP.y, P)
     annotation (Line(points={{82,80},{120,80}}, color={0,0,127}));
-  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-18,54},{20,54},
+  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-38,94},{20,94},
           {20,6},{58,6}},        color={0,0,127}));
   connect(mulConOut.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
@@ -143,15 +159,23 @@ equation
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
   connect(coo.PFan, mulP.u1)
-    annotation (Line(points={{11,8},{36,8},{36,74},{58,74}}, color={0,0,127}));
-  connect(y, coo.y) annotation (Line(points={{-120,-60},{-40,-60},{-40,8},{-12,8}},
-        color={0,0,127}));
-  connect(coo.TLvg, TConWatSup) annotation (Line(points={{11,-6},{40,-6},{40,40},
+    annotation (Line(points={{11,8},{40,8},{40,74},{58,74}}, color={0,0,127}));
+  connect(coo.TLvg, TConWatSup) annotation (Line(points={{11,-6},{50,-6},{50,40},
           {120,40}}, color={0,0,127}));
   connect(y1, preY1.u)
-    annotation (Line(points={{-120,60},{-82,60}}, color={255,0,255}));
+    annotation (Line(points={{-120,100},{-92,100}},
+                                                  color={255,0,255}));
   connect(preY1.y, com.y1)
-    annotation (Line(points={{-58,60},{-42,60}}, color={255,0,255}));
+    annotation (Line(points={{-68,100},{-62,100}},
+                                                 color={255,0,255}));
+  connect(com.y1One, booToRea.u) annotation (Line(points={{-38,106},{-14,106},{
+          -14,82}}, color={255,0,255}));
+  connect(inp.y, coo.y)
+    annotation (Line(points={{-20,18},{-20,8},{-12,8}}, color={0,0,127}));
+  connect(y, inp.u1)
+    annotation (Line(points={{-120,60},{-26,60},{-26,42}}, color={0,0,127}));
+  connect(booToRea.y, inp.u2)
+    annotation (Line(points={{-14,58},{-14,42}}, color={0,0,127}));
   annotation (
     defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

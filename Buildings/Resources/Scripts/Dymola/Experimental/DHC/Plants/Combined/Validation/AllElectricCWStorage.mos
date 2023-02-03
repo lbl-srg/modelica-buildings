@@ -17,7 +17,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=2,
-    y={"pla.chiHea.y1[1]", "pla.chiHea.y1Coo[1]", "pla.ctl.y1HeaCooChiHea[1]"},
+    y={"pla.chiHea.y1[1]", "pla.chiHea.y1Coo[1]", "pla.ctl.y1HeaCooChiHea[1]", "pla.chiHea.y1[2]", "pla.chiHea.y1Coo[2]", "pla.ctl.y1HeaCooChiHea[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -26,7 +26,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"pla.chiHea.y1[2]", "pla.chiHea.y1Coo[2]", "pla.ctl.y1HeaCooChiHea[2]"},
+    y={"pla.ctl.cycTan.idxCycTan", "pla.ctl.modConLoo.mode"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -194,7 +194,7 @@ createPlot(
 createPlot(
     id=7,
     subPlot=2,
-    y={"pla.ctl.THeaPumSet", "pla.heaPum.sta_a.T", "pla.heaPum.sta_b.T"},
+    y={"pla.ctl.THeaPumSet", "pla.TConWatHeaPumEnt.T", "pla.TConWatHeaPumLvg.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -232,6 +232,17 @@ createPlot(
     id=8,
     subPlot=2,
     y={"pla.chiHea.valEvaSwi[1].y_actual", "pla.chiHea.valEvaSwi[2].y_actual"},
+    autoscale=true,
+    autoerase=true,
+    autoreplot=true,
+    grid=true,
+    color=true);
+
+createPlot(
+    id=9,
+    position={75, 75, 584, 361},
+    y={"pla.TConWatConChiEnt.T", "pla.TConWatConChiLvg.T", "pla.TConWatConRet.T",
+"pla.TConWatHexCooEnt.T", "pla.TConWatHexCooLvg.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
