@@ -41,7 +41,7 @@ model SystemHysteresis
     "Switch to overide if system is off"
     annotation (Placement(transformation(extent={{68,-80},{88,-60}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(final delayTime=30)
-    "Short delay to avoid the spike input that triggers pump operatopm"
+    "Short delay to ignore spike inputs that trigger pump to operate"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(greThr.u, u)
