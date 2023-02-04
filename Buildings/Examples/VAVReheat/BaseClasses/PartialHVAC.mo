@@ -446,6 +446,23 @@ partial model PartialHVAC
     dp_nominal=200 + 200 + 100 + 40) "Pressure drop for supply duct"
     annotation (Placement(transformation(extent={{250,-50},{270,-30}})));
 
+  Fluid.FixedResistances.Junction splRetOut(
+    redeclare package Medium = MediumA,
+    m_flow_nominal=mAir_flow_nominal*{1,1,1},
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    dp_nominal(each displayUnit="Pa") = {0,0,0},
+    portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    linearized=true)
+    "Flow splitter"
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=0,
+        origin={0,-40})));
 protected
   constant Modelica.Units.SI.SpecificHeatCapacity cpAir=Buildings.Utilities.Psychrometrics.Constants.cpAir
     "Air specific heat capacity";
@@ -545,12 +562,8 @@ equation
       thickness=0.5));
   connect(VOut1.port_b, damOut.port_a)
     annotation (Line(points={{-70,-40},{-50,-40}}, color={0,127,255}));
-  connect(damOut.port_b, TMix.port_a)
-    annotation (Line(points={{-30,-40},{30,-40}}, color={0,127,255}));
   connect(damRet.port_a, TRet.port_b)
     annotation (Line(points={{0,0},{0,140},{90,140}}, color={0,127,255}));
-  connect(damRet.port_b, TMix.port_a)
-    annotation (Line(points={{0,-20},{0,-40},{30,-40}}, color={0,127,255}));
   connect(pumHeaCoi.port_b, heaCoi.port_a1) annotation (Line(points={{128,-110},
           {128,-52},{118,-52}}, color={0,127,255}));
   connect(cooCoi.port_b1,pumCooCoi. port_a) annotation (Line(points={{190,-52},{
@@ -621,6 +634,12 @@ equation
     annotation (Line(points={{210,-40},{250,-40}}, color={0,127,255}));
   connect(dpSupDuc.port_b, fanSup.port_a)
     annotation (Line(points={{270,-40},{300,-40}}, color={0,127,255}));
+  connect(damOut.port_b, splRetOut.port_1)
+    annotation (Line(points={{-30,-40},{-10,-40}}, color={0,127,255}));
+  connect(splRetOut.port_2, TMix.port_a)
+    annotation (Line(points={{10,-40},{30,-40}}, color={0,127,255}));
+  connect(damRet.port_b, splRetOut.port_3) annotation (Line(points={{-5.55112e-16,
+          -20},{-5.55112e-16,-25},{0,-25},{0,-30}}, color={0,127,255}));
   annotation (
   Diagram(
     coordinateSystem(
