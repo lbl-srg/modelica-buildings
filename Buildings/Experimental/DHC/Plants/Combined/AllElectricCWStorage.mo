@@ -311,12 +311,6 @@ model AllElectricCWStorage
     start=340 * mConWatCoo_flow_nominal / nCoo)
     "CT fan power (each unit)"
     annotation (Dialog(group="Cooling tower loop"));
-  parameter Real yFanCoo_min(
-    each final unit="1",
-    each final min=0,
-    each final max=1)=0.1
-    "CT fan minimum speed"
-    annotation (Dialog(group="Cooling tower loop"));
 
   parameter Integer nPumConWatCoo(final min=1, start=1)=nCoo
     "Number of CW pumps serving cooling towers at design conditions"
@@ -808,7 +802,6 @@ model AllElectricCWStorage
     final TConWatRet_nominal=TConWatCooRet_nominal,
     final TConWatSup_nominal=TConWatCooSup_nominal,
     final PFanUni_nominal=PFanCoo_nominal,
-    final yFan_min=yFanCoo_min,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     "Cooling towers"
@@ -869,7 +862,6 @@ model AllElectricCWStorage
     final nPumConWatEva=nPumConWatEva,
     final TTanSet=TTanSet,
     final nCoo=nCoo,
-    final yFanCoo_min=yFanCoo_min,
     final nPumConWatCoo=nPumConWatCoo,
     final THeaWatSup_nominal=THeaWatSup_nominal,
     final TChiWatSup_nominal=TChiWatSup_nominal,

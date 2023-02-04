@@ -46,12 +46,6 @@ block PartialController "Interface class for plant controller"
     "Number of CW pumps serving cooling towers at design conditions"
     annotation (Dialog(group="Cooling tower loop"),
       Evaluate=true);
-  parameter Real yFanCoo_min(
-    each final unit="1",
-    each final min=0,
-    each final max=1)=0.1
-    "CT fan minimum speed"
-    annotation (Dialog(group="Cooling tower loop"));
 
   parameter Modelica.Units.SI.HeatFlowRate QChiWatChi_flow_nominal
     "Cooling design heat flow rate of cooling-only chillers (all units)"
