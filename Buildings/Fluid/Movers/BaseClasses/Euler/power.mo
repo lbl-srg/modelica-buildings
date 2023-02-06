@@ -20,7 +20,7 @@ protected
 algorithm
   // Construct pressure curve of 10% max flow rate increments
   //   from the given pressure curve
-  V_flow:={pressure.V_flow[end]*i for i in linspace(0,1,11)};
+  V_flow:={pressure.V_flow[end]*i*0.1 for i in 0:10};
   for i in 1:11 loop
     dp[i]:=Buildings.Utilities.Math.Functions.smoothInterpolation(
              x=V_flow[i],
@@ -31,34 +31,22 @@ algorithm
 
   // Compute the power and derivative on non-boundary points
   //   using efficiency estimated by Euler number method
-  // The efficiency is bounded away from zero.
-  //   This is only for suppressing an error with optimica.
   power.V_flow:=V_flow;
   V_flow_dp_small :=1E-4*max(pressure.V_flow)*max(pressure.dp);
 
   for i in 2:10 loop
     power.P[i]:=V_flow[i] * dp[i]
-                / Buildings.Utilities.Math.Functions.smoothMax(
-                    x1 = 1E-5,
-                    x2 = Buildings.Fluid.Movers.BaseClasses.Euler.efficiency(
-                      peak=peak,
-                      dp=dp[i],
-                      V_flow=V_flow[i],
-                      V_flow_dp_small=V_flow_dp_small/2),
-                    deltaX = 1E-6);
+                / Buildings.Fluid.Movers.BaseClasses.Euler.efficiency(
+                    peak=peak,
+                    dp=dp[i],
+                    V_flow=V_flow[i],
+                    V_flow_dp_small=V_flow_dp_small/2);
   end for;
 
-  // The function splineDerivatives() is bypassed when V[2:10] cannot be
-  //   guaranteed to be strictly increasing.
-  //   This is only for suppressing an error with optimica.
-  if V_flow[10] - V_flow[2] > 1E-5 then
-    power.d[2:10]:=Buildings.Utilities.Math.Functions.splineDerivatives(
-                    x=V_flow[2:10],
-                    y=power.P[2:10],
-                    ensureMonotonicity=false);
-  else
-    power.d[2:10]:=zeros(9);
-  end if;
+  power.d[2:10]:=Buildings.Utilities.Math.Functions.splineDerivatives(
+                   x=V_flow[2:10],
+                   y=power.P[2:10],
+                   ensureMonotonicity=false);
 
   // Use linear extrapolation to find the boundary points
   power.d[1]:=power.d[2];
