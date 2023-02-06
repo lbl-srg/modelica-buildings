@@ -296,10 +296,6 @@
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
-- model_name: Buildings.Utilities.Plotters.Examples.SingleZoneVAV
-  optimica:
-    comment: CVodeError: The right-hand side function had repeated recoverable errors. Since OCT 1.40.
-    simulate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231
@@ -442,4 +438,7 @@
 - model_name: Buildings.Utilities.Plotters.Examples.SingleZoneVAV
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
+    simulate: false
+  optimica:
+    comment: 'CVodeError: The right-hand side function had repeated recoverable errors. Since OCT 1.40.'
     simulate: false
