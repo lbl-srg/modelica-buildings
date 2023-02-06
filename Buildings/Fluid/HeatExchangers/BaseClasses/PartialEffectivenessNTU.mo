@@ -177,8 +177,8 @@ equation
     end if;
   else
     flowRegime = flowRegime_nominal;
-    assert((m1_flow > -0.1 * m1_flow_nominal)
-       and (m2_flow > -0.1 * m2_flow_nominal),
+    assert(noEvent(m1_flow > -0.1 * m1_flow_nominal)
+       and noEvent(m2_flow > -0.1 * m2_flow_nominal),
 "*** Warning in " + getInstanceName() +
       ": The flow direction reversed.
       However, because the constant use_dynamicFlowRegime is set to false,
@@ -252,6 +252,12 @@ for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Jianjun Hu:<br/>
+Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1690\">issue 1690</a>.
+</li>
 <li>
 January 24, 2023, by Hongxiang Fu:<br/>
 Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
