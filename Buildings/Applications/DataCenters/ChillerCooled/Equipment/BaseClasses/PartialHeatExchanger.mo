@@ -24,7 +24,7 @@ partial model PartialHeatExchanger "Partial model for heat exchangers "
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=activate_ThrWayVal));
-  parameter Modelica.Units.SI.Time riseTime=120
+  parameter Modelica.Units.SI.Time riseTime=30
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
     annotation (Dialog(
       tab="Dynamics",
@@ -233,6 +233,10 @@ This module simulates a heat exchanger with a three-way bypass used to modulate 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Changed <code>riseTime</code> of valve to be <i>30</i> seconds to make it the same as the rise time of pumps.
+</li>
 <li>
 April 9, 2021, by Kathryn Hinkelman:<br/>
 Added <code>dpValve_nominal</code> to avoid redundant declaration of <code>dp2_nominal</code>.
