@@ -449,7 +449,7 @@ partial model PartialHVAC
   Fluid.FixedResistances.Junction splRetOut(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
@@ -669,6 +669,11 @@ Buildings.Examples.VAVReheat.Guideline36</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 6, 2023, by Jianjun Hu:<br/>
+Added junction to mix the return and outdoor air.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">issue #3230</a>.
+</li>
 <li>
 November 9, 2021, by Baptiste:<br/>
 Vectorized the terminal boxes to be expanded to any number of zones.<br/>
