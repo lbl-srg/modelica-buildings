@@ -121,7 +121,7 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Integers.Equal isModRej "Heat rejection mode"
     annotation (Placement(transformation(extent={{-110,250},{-90,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setOth[2](final k=
-        TTanSet[:, 1] .- dTHexCoo_nominal .- 0.5)
+        TTanSet[:, 1] .- dTHexCoo_nominal)
     "Target setpoint in any mode other than heat rejection"
     annotation (Placement(transformation(extent={{-110,190},{-90,210}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extSet(final nin=2)

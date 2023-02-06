@@ -597,7 +597,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep6(final nout=
         nChiHea) "Replicate"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Line valEvaEnt[nChiHea]
+  Buildings.Controls.OBC.CDL.Continuous.Line valConWatEvaMix[nChiHea]
     "Mixing valve opening reset: 1 means no bypass flow"
     annotation (Placement(transformation(extent={{-40,90},{-20,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xVal[nChiHea,2](final
@@ -647,7 +647,7 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={178,-440})));
+        origin={180,-440})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatConRetSetCst[2](final
       k=TTanSet[:, 2]) "CW condenser loop return temperature setpoint"
     annotation (Placement(transformation(
@@ -980,18 +980,14 @@ equation
     annotation (Line(points={{-118,60},{-112,60}},   color={0,0,127}));
   connect(TConWatEvaLvgSet.y, rep6.u)
     annotation (Line(points={{-148,60},{-142,60}},   color={0,0,127}));
-  connect(yVal[:, 2].y,valEvaEnt. f2) annotation (Line(points={{-58,80},{-46,80},
-          {-46,92},{-42,92}},
-                        color={0,0,127}));
-  connect(yVal[:, 1].y,valEvaEnt. f1) annotation (Line(points={{-58,80},{-46,80},
-          {-46,104},{-42,104}},
-                        color={0,0,127}));
-  connect(xVal[:, 1].y,valEvaEnt. x1) annotation (Line(points={{-58,120},{-48,120},
-          {-48,108},{-42,108}},
-                            color={0,0,127}));
-  connect(xVal[:, 2].y,valEvaEnt. x2) annotation (Line(points={{-58,120},{-48,120},
-          {-48,96},{-42,96}},
-                            color={0,0,127}));
+  connect(yVal[:, 2].y, valConWatEvaMix.f2) annotation (Line(points={{-58,80},{
+          -46,80},{-46,92},{-42,92}}, color={0,0,127}));
+  connect(yVal[:, 1].y, valConWatEvaMix.f1) annotation (Line(points={{-58,80},{
+          -46,80},{-46,104},{-42,104}}, color={0,0,127}));
+  connect(xVal[:, 1].y, valConWatEvaMix.x1) annotation (Line(points={{-58,120},
+          {-48,120},{-48,108},{-42,108}}, color={0,0,127}));
+  connect(xVal[:, 2].y, valConWatEvaMix.x2) annotation (Line(points={{-58,120},
+          {-48,120},{-48,96},{-42,96}}, color={0,0,127}));
   connect(yFlo[:, 2].y, floEva.f2) annotation (Line(points={{-58,0},{-46,0},{-46,
           12},{-42,12}},        color={0,0,127}));
   connect(yFlo[:, 1].y, floEva.f1) annotation (Line(points={{-58,0},{-46,0},{-46,
@@ -1004,8 +1000,8 @@ equation
           -200},{-90,20},{-176,20},{-176,0},{-174,0}},      color={255,0,255}));
   connect(rep3.y, selFloSet.u3) annotation (Line(points={{-188,0},{-184,0},{-184,
           -8},{-174,-8}},        color={0,0,127}));
-  connect(ctlTConWatEvaLvg.y, valEvaEnt.u) annotation (Line(points={{-88,60},{-44,
-          60},{-44,100},{-42,100}},  color={0,0,127}));
+  connect(ctlTConWatEvaLvg.y, valConWatEvaMix.u) annotation (Line(points={{-88,
+          60},{-44,60},{-44,100},{-42,100}}, color={0,0,127}));
   connect(ctlTConWatEvaLvg.y, floEva.u) annotation (Line(points={{-88,60},{-44,60},
           {-44,20},{-42,20}},        color={0,0,127}));
   connect(selFloSet.y, valEvaChiHea.u_s)
@@ -1021,12 +1017,11 @@ equation
   connect(TConWatEvaEntSet.y, ctlTConWatEvaEnt.u_s)
     annotation (Line(points={{-178,-440},{-12,-440}}, color={0,0,127}));
   connect(ctlTConWatEvaEnt.y, mulMin.u[nChiHea+1])
-    annotation (Line(points={{12,-440},{166,-440}}, color={0,0,127}));
-  connect(valEvaEnt.y, mulMin.u[1:nChiHea]) annotation (Line(points={{-18,100},{
-          154,100},{154,-440},{166,-440}},
-                                      color={0,0,127}));
+    annotation (Line(points={{12,-440},{168,-440}}, color={0,0,127}));
+  connect(valConWatEvaMix.y, mulMin.u[1:nChiHea]) annotation (Line(points={{-18,
+          100},{154,100},{154,-440},{168,-440}}, color={0,0,127}));
   connect(mulMin.y, yValConWatEvaMix)
-    annotation (Line(points={{190,-440},{260,-440}}, color={0,0,127}));
+    annotation (Line(points={{192,-440},{260,-440}}, color={0,0,127}));
   connect(TConWatConRetSetCst.y, TConWatConRetSet.u) annotation (Line(points={{-178,
           100},{-172,100}},                            color={0,0,127}));
   connect(idxCycTan, TConWatConRetSet.index) annotation (Line(points={{-260,100},
