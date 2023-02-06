@@ -244,6 +244,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Electrical.Interfaces.PartialTwoPort
+    </td>
+    <td valign=\"top\">Added constraining clause for terminal as models that extend from this model
+                     access a component that is not in the base class, and Optimica 1.40
+                     issues a warning for this.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3236\">#3236</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
