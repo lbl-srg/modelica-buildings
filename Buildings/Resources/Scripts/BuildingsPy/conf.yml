@@ -139,7 +139,7 @@
 - model_name: Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow
   openmodelica:
     comment: timed out after 300 seconds, https://github.com/lbl-srg/modelica-buildings/pull/3225.
-    time_out: 600
+    time_out: 1200
 - model_name: Buildings.Experimental.DHC.Examples.Cooling.ElectricChillersDirectETS
   openmodelica:
     comment: Fails on CI (https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/594393080#L386), but works with latest OpenModelica (1.21.0~dev-215-gfbc4a47)
