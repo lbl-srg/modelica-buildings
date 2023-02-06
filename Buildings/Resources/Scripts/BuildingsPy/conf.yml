@@ -148,13 +148,8 @@
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Cooling.Examples.ElectricChillerParallel
-  dymola:
-    time_out: 600
   openmodelica:
     comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: 0.0'
-    simulate: false
-  optimica:
-    comment: 'Time out, but simulates fast with Dymola and CVOde'
     simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
@@ -362,10 +357,6 @@
   openmodelica:
     comment: "Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379"
     simulate: false
-- model_name: Buildings.ThermalZones.Detailed.Validation.SingleZoneFloorWithHeating
-  optimica:
-    comment: Tolerance of 1E-7 would lead to very slow progress with commit fabaa64231692a2a2b6c044aff34f5ae6b3be868
-    rtol: 1.0e-08
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
   openmodelica:
     comment: "division by zero at time 0, (a=-0) / (b=-0), where divisor b expression is: -0.0"
@@ -444,4 +435,3 @@
   openmodelica:
     comment: 'Division by zero at time 15552000, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
     simulate: false
-
