@@ -247,6 +247,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
+    </td>
+    <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
     </td>
 </tr>
@@ -256,6 +266,8 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added flag to disable freeze protection.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
