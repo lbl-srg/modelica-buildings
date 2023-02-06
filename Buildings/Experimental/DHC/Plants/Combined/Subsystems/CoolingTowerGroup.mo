@@ -41,9 +41,9 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     "Fan power (each unit)"
     annotation (Dialog(group="Nominal condition"));
   parameter Real yFan_min(
-    each final unit="1",
-    each final min=0,
-    each final max=1)=0.1
+    final unit="1",
+    final min=0,
+    final max=1)=0.1
     "CT fan minimum speed";
 
   // Assumptions

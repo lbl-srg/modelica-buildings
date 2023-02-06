@@ -88,10 +88,6 @@ model AllElectricCWStorage
     nChi * mChiWatChi_flow_nominal + nChiHea * mChiWatChiHea_flow_nominal
     "Design CHW mass flow rate (all units)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_min=
-    max(mChiWatChi_flow_min, mChiWatChiHea_flow_min)
-    "Largest chiller minimum CHW mass flow rate"
-    annotation(Dialog(group="CHW loop and cooling-only chillers"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min=10
     "Minimum chiller lift at minimum load"
@@ -188,10 +184,6 @@ model AllElectricCWStorage
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
     chiHea.mConWat_flow_nominal
     "HW design mass flow rate (all units)"
-    annotation (Dialog(group="HW loop and heat recovery chillers"));
-  final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_min=
-    mHeaWatChiHea_flow_min
-    "Chiller minimum HW mass flow rate"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
 
   // CW loop, TES tank and heat pumps
@@ -477,10 +469,12 @@ model AllElectricCWStorage
         rotation=0,
         origin={80,200})));
   // PICV model sized at design flow (instead of minimum flow) for convenience.
-  Fluid.Actuators.Valves.TwoWayPressureIndependent valChiWatMinByp(
+  Fluid.Actuators.Valves.TwoWayLinear valChiWatMinByp(
     redeclare final package Medium=Medium,
-    final m_flow_nominal=mChiWat_flow_nominal,
-    final dpValve_nominal=dpEvaChi_nominal,
+    final m_flow_nominal=max(mChiWatChi_flow_min, mChiWatChiHea_flow_min),
+    from_dp=true,
+    linearized=true,
+    final dpValve_nominal=max(dpEvaChi_nominal, dpEvaChiHea_nominal),
     final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "CHW minimum flow bypass valve"
@@ -578,9 +572,11 @@ model AllElectricCWStorage
         rotation=0,
         origin={180,-200})));
   // PICV model sized at design flow (instead of minimum flow) for convenience.
-  Fluid.Actuators.Valves.TwoWayPressureIndependent valHeaWatMinByp(
+  Fluid.Actuators.Valves.TwoWayLinear valHeaWatMinByp(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=mHeaWat_flow_nominal,
+    final m_flow_nominal=mHeaWatChiHea_flow_min,
+    from_dp=true,
+    linearized=true,
     final dpValve_nominal=dpConChiHea_nominal,
     final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal) "HW minimum flow bypass valve"
@@ -1489,21 +1485,24 @@ considered useless).
 <h4>Details</h4>
 <h5>Minimum flow bypass valve</h5>
 <p>
-As per standard practice, the bypass valve (and pipe)
-should be sized for the highest chiller minimum flow.
-However, the minimum flow is driven by the chiller capacity
-in the cascade configuration.
-This capacity is evaluted at initialization so the nominal
-attribute of the valve mass flow rate and pressure drop
-are unknown at compile time, which yields some warnings.
-To avoid that behavior, the valve is sized at design flow
-and a pressure-independant valve (PICV) model is used.
-Using a PICV model also avoids tuning an additional PI
-controller.
-Note that, while not required, some consulting engineers
-specify a pressure independent valve for bypass.
+As per standard practice, the bypass valve is sized for the highest 
+chiller minimum flow.
+The bypass valve model is configured with
+a pressure drop varying linearily with the flow rate, as opposed
+to a quadratic dependency usually considered for a turbulent flow
+regime.
+This is because the whole plant model contains large nonlinear systems
+of equations, and this configuration limits the risk of solver failure
+while reducing the time to solution.
+This has no significant impact on the operating of the circulation pumps
+due to the control loop that modulates the valve opening to generate 
+enough pressure differential at the chiller boundaries to allow for
+minimum flow circulation.
+So whatever the modeling assumptions for the bypass valve, the 
+control loop ensures that the valve creates the adequate pressure drop
+and bypass flow, which will simply be reached at a different valve opening 
+with the above simplification.
 </p>
-
 
 
 <h4>References</h4>

@@ -142,12 +142,6 @@ block ModeCondenserLoop
   Modelica.Blocks.Sources.RealExpression varCriWarUp1(final y=0.08*(nHouToWarUp -
         2))               "Compute variable used to evaluate warmup criterion"
     annotation (Placement(transformation(extent={{-150,-110},{-130,-90}})));
-  Modelica.Blocks.Continuous.FirstOrder fil3(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
-  Modelica.Blocks.Continuous.FirstOrder fil1(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
   Buildings.Controls.OBC.CDL.Logical.Not isChaDis "Charge assist mode disabled"
     annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
 equation
@@ -239,18 +233,14 @@ equation
     annotation (Line(points={{-129,-80},{-122,-80}}, color={0,0,127}));
   connect(TTan[nTTan], criTem.u) annotation (Line(points={{-180,-60},{-156,-60},{-156,
           20},{-152,20}}, color={0,0,127}));
-  connect(mConWatHexCoo_flow, fil3.u)
-    annotation (Line(points={{-180,120},{-152,120}}, color={0,0,127}));
-  connect(fil3.y, criFlo1.u)
-    annotation (Line(points={{-129,120},{-122,120}}, color={0,0,127}));
-  connect(mConWatOutTan_flow, fil1.u)
-    annotation (Line(points={{-180,60},{-152,60}}, color={0,0,127}));
-  connect(fil1.y, criFlo.u)
-    annotation (Line(points={{-129,60},{-122,60}}, color={0,0,127}));
   connect(isChaDis.y, timNotCha.u)
     annotation (Line(points={{-18,160},{-12,160}}, color={255,0,255}));
   connect(enaCha.y, isChaDis.u) annotation (Line(points={{42,-60},{60,-60},{60,
           80},{-52,80},{-52,160},{-42,160}}, color={255,0,255}));
+  connect(mConWatHexCoo_flow, criFlo1.u)
+    annotation (Line(points={{-180,120},{-122,120}}, color={0,0,127}));
+  connect(mConWatOutTan_flow, criFlo.u)
+    annotation (Line(points={{-180,60},{-122,60}}, color={0,0,127}));
   annotation (
   defaultComponentName="modConLoo",
   Icon(graphics={

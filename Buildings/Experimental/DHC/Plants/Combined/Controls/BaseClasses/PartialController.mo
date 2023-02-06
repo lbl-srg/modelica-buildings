@@ -589,8 +589,8 @@ block PartialController "Interface class for plant controller"
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={240,0})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(each final unit
-      ="K", each displayUnit="degC") "Condenser loop CW return temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(final unit
+      ="K", displayUnit="degC") "Condenser loop CW return temperature"
     annotation (Placement(transformation(extent={{-300,200},{-260,240}}),
         iconTransformation(extent={{-260,180},{-220,220}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConLvgChi[nChi](each final

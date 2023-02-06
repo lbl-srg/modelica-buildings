@@ -68,7 +68,7 @@ block StagingPlant
         iconTransformation(extent={{-140,0},{-100,40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaWatSup(final unit="K",
       displayUnit="degC") "HW supply temperature" annotation (Placement(
-        transformation(extent={{-282,-240},{-242,-200}}), iconTransformation(
+        transformation(extent={{-280,-240},{-240,-200}}), iconTransformation(
           extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpHeaWat(final unit="Pa")
     "HW loop differential pressure" annotation (Placement(transformation(extent
@@ -214,12 +214,6 @@ block StagingPlant
     annotation (Placement(transformation(extent={{-110,250},{-90,270}})));
   Buildings.Controls.OBC.CDL.Logical.Or or2 "Failsafe condition to stage up"
     annotation (Placement(transformation(extent={{-70,220},{-50,240}})));
-  Modelica.Blocks.Continuous.FirstOrder fil2(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-230,200},{-210,220}})));
-  Modelica.Blocks.Continuous.FirstOrder fil1(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-230,250},{-210,270}})));
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Apply failsafe condition only in stage >= 1"
     annotation (Placement(transformation(extent={{-140,250},{-120,270}})));
@@ -308,12 +302,6 @@ block StagingPlant
     annotation (Placement(transformation(extent={{-110,-290},{-90,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Or or3 "Failsafe condition to stage up"
     annotation (Placement(transformation(extent={{-70,-270},{-50,-250}})));
-  Modelica.Blocks.Continuous.FirstOrder fil3(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-230,-230},{-210,-210}})));
-  Modelica.Blocks.Continuous.FirstOrder fil4(T=60, initType=Modelica.Blocks.Types.Init.InitialOutput)
-    "Filter to break algebraic loop"
-    annotation (Placement(transformation(extent={{-230,-290},{-210,-270}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
     "Apply failsafe condition only in stage >= 1"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
@@ -399,15 +387,6 @@ equation
           252},{-80,230},{-72,230}},   color={255,0,255}));
   connect(timErrExcLim.passed, or2.u2) annotation (Line(points={{-88,202},{-80,
           202},{-80,222},{-72,222}},   color={255,0,255}));
-  connect(TChiWatSup, fil2.u)
-    annotation (Line(points={{-260,200},{-236,200},{-236,210},{-232,210}},
-                                                     color={0,0,127}));
-  connect(fil2.y, errTChiWatSup.u2) annotation (Line(points={{-209,210},{-206,
-          210},{-206,204},{-202,204}}, color={0,0,127}));
-  connect(fil1.y, errDpChiWat.u2) annotation (Line(points={{-209,260},{-206,260},
-          {-206,254},{-202,254}}, color={0,0,127}));
-  connect(dpChiWat, fil1.u) annotation (Line(points={{-260,260},{-232,260}},
-                                 color={0,0,127}));
   connect(cmpErrLim1.y, and2.u1)
     annotation (Line(points={{-148,260},{-142,260}}, color={255,0,255}));
   connect(and2.y, timErrExcLim1.u)
@@ -496,14 +475,6 @@ equation
     annotation (Line(points={{-178,-220},{-172,-220}}, color={0,0,127}));
   connect(errDpHeaWat.y, cmpErrLim3.u)
     annotation (Line(points={{-178,-280},{-172,-280}}, color={0,0,127}));
-  connect(THeaWatSup, fil3.u)
-    annotation (Line(points={{-262,-220},{-232,-220}}, color={0,0,127}));
-  connect(fil3.y, errTChiWatSup1.u2) annotation (Line(points={{-209,-220},{-206,
-          -220},{-206,-226},{-202,-226}}, color={0,0,127}));
-  connect(fil4.y, errDpHeaWat.u2) annotation (Line(points={{-209,-280},{-206,
-          -280},{-206,-286},{-202,-286}}, color={0,0,127}));
-  connect(dpHeaWat, fil4.u)
-    annotation (Line(points={{-260,-280},{-232,-280}}, color={0,0,127}));
   connect(cmpErrLim3.y,and1. u1)
     annotation (Line(points={{-148,-280},{-142,-280}},
                                                      color={255,0,255}));
@@ -557,6 +528,14 @@ equation
           {178,-60}}, color={255,127,0}));
   connect(movAve.y, QCooReq_flow) annotation (Line(points={{-118,120},{-100,120},
           {-100,180},{260,180}}, color={0,0,127}));
+  connect(dpChiWat, errDpChiWat.u2) annotation (Line(points={{-260,260},{-220,
+          260},{-220,254},{-202,254}}, color={0,0,127}));
+  connect(TChiWatSup, errTChiWatSup.u2) annotation (Line(points={{-260,200},{
+          -220,200},{-220,204},{-202,204}}, color={0,0,127}));
+  connect(THeaWatSup, errTChiWatSup1.u2) annotation (Line(points={{-260,-220},{
+          -220,-220},{-220,-226},{-202,-226}}, color={0,0,127}));
+  connect(dpHeaWat, errDpHeaWat.u2) annotation (Line(points={{-260,-280},{-220,
+          -280},{-220,-286},{-202,-286}}, color={0,0,127}));
   annotation (
   defaultComponentName="staPla",
   Documentation(info="<html>

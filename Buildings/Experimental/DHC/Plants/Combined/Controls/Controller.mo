@@ -150,18 +150,6 @@ block Controller "Open-loop controller for validation purposes"
     final TTanSet=TTanSet,
     final dTHexCoo_nominal=dTHexCoo_nominal) "Cooling tower loop"
     annotation (Placement(transformation(extent={{40,-356},{60,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFloChiWat(final k=1
-        /mChiWat_flow_nominal) "Scale minimum flow setpoint" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={240,200})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFloHeaWat(final k=1
-        /mHeaWat_flow_nominal) "Scale minimum flow setpoint" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={240,-80})));
 equation
   connect(repHeaPum.y, y1HeaPum)
     annotation (Line(points={{242,-220},{280,-220}},color={255,0,255}));
@@ -437,14 +425,10 @@ equation
           {-258,120},{-258,28},{-82,28}}, color={0,0,127}));
   connect(TConWatConRet, valConEva.TConWatConRet) annotation (Line(points={{
           -280,220},{-242,220},{-242,24},{-82,24}}, color={0,0,127}));
-  connect(scaFloChiWat.y, yValChiWatMinByp)
-    annotation (Line(points={{252,200},{280,200}}, color={0,0,127}));
-  connect(scaFloHeaWat.y, yValHeaWatMinByp)
-    annotation (Line(points={{252,-80},{280,-80}}, color={0,0,127}));
-  connect(valConEva.mHeaWatMinSet_flow, scaFloHeaWat.u) annotation (Line(points
-        ={{-58,46},{-10,46},{-10,-80},{228,-80}}, color={0,0,127}));
-  connect(valConEva.mChiWatMinSet_flow, scaFloChiWat.u) annotation (Line(points
-        ={{-58,48},{-10,48},{-10,200},{228,200}}, color={0,0,127}));
+  connect(valConEva.yValChiWatMinByp, yValChiWatMinByp) annotation (Line(points
+        ={{-58,48},{6,48},{6,200},{280,200}}, color={0,0,127}));
+  connect(valConEva.yValHeaWatMinByp, yValHeaWatMinByp) annotation (Line(points
+        ={{-58,46},{6,46},{6,-80},{280,-80}}, color={0,0,127}));
 annotation (
   defaultComponentName="ctl", Documentation(info="<html>
 All pump speed control loops are biased to launch from 

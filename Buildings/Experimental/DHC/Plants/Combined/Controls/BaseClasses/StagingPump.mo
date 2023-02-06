@@ -90,12 +90,6 @@ block StagingPump "Pump staging"
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(
     final nout=nPum) "Replicate"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
-  Modelica.Blocks.Continuous.FirstOrder filFlo(
-    T=60,
-    initType=Modelica.Blocks.Types.Init.InitialOutput)
-    if have_flowCriterion
-    "Filter input to avoid algebraic loop"
-    annotation (Placement(transformation(extent={{-190,70},{-170,90}})));
   StageIndex staLag(final nSta=max(1, nPum - 1), tSta=30)
     if nPum>1
     "Stage lag pumps (minimum runtime allowing for pump start time)"
@@ -168,10 +162,6 @@ equation
                                color={255,0,255}));
   connect(timSpe1.passed,dow. u2) annotation (Line(points={{-48,-48},{-40,-48},
           {-40,-48},{-32,-48}},color={255,0,255}));
-  connect(m_flow, filFlo.u)
-    annotation (Line(points={{-220,80},{-192,80}}, color={0,0,127}));
-  connect(filFlo.y, ratFlo.u)
-    annotation (Line(points={{-169,80},{-150,80}}, color={0,0,127}));
   connect(y1Ena, staLag.u1) annotation (Line(points={{-220,160},{0,160},{0,6},{
           28,6}},
                color={255,0,255}));
@@ -221,6 +211,8 @@ equation
     annotation (Line(points={{182,-120},{220,-120}}, color={255,0,255}));
   connect(num.y, anyEna.u) annotation (Line(points={{102,0},{110,0},{110,-120},
           {118,-120}}, color={255,127,0}));
+  connect(m_flow, ratFlo.u)
+    annotation (Line(points={{-220,80},{-150,80}}, color={0,0,127}));
   annotation (
   defaultComponentName="staPum",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

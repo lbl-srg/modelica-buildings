@@ -110,7 +110,6 @@ block StageIndex
   Buildings.Controls.OBC.CDL.Logical.And dowOrDis "Stage down if disabled"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
 initial equation
-  idxSta=0;
   preIdxSta=0;
 equation
   for i in 1:(nSta - 1) loop

@@ -82,7 +82,7 @@ createPlot(
 createPlot(
     id=3,
     subPlot=3,
-    y={"pla.mChiWatPri_flow.m_flow", "pla.mChiWat_flow_nominal", "pla.chi.m2_flow", "pla.chiHea.m4_flow"},
+    y={"pla.mChiWatPri_flow.m_flow", "pla.mChiWat_flow_nominal", "pla.chi.m2_flow", "pla.chiHea.m4_flow", "pla.mChiWatChi_flow_min"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -138,7 +138,7 @@ createPlot(
 createPlot(
     id=5,
     subPlot=3,
-    y={"pla.mHeaWatPri_flow.m_flow", "pla.mHeaWat_flow_nominal", "pla.chiHea.m1_flow"},
+    y={"pla.mHeaWatPri_flow.m_flow", "pla.mHeaWat_flow_nominal", "pla.chiHea.m1_flow", "pla.mHeaWatChiHea_flow_min"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
