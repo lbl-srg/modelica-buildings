@@ -250,6 +250,11 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
+    </td>
+    <td valign=\"top\">Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
     </td>
     <td valign=\"top\">Changed the pressure independent damper to exponential damper.<br/>
