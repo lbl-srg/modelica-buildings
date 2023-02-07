@@ -145,17 +145,17 @@ block CoolingTowerLoop "Cooling tower loop control"
     yUp=0.8)
     "Stage pumps"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpFlo(t=3) "Compare"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpFlo(t=3)
+    "Flow criterion to enable lead pump"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpFlo1(t=3) "Compare"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo(t=60)
     "Timer for flow exceeding triggering limit"
     annotation (Placement(transformation(extent={{-130,-10},{-110,10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo1(t=5*60)
     "Timer for flow exceeding triggering limit"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpOpe(t=1) "Compare"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpOpe(t=1)
+    "Valve opening criterion to enable lead pump"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOpe(t=60)
     "Timer for valve opening exceeding triggering limit"
@@ -164,7 +164,7 @@ block CoolingTowerLoop "Cooling tower loop control"
     "Timer for valve opening exceeding triggering limit"
     annotation (Placement(transformation(extent={{-130,-130},{-110,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Timer for valve opening exceeding triggering limit"
+    "Valve opening criterion to disable lead pump"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or dis "Disable condition"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
@@ -250,6 +250,9 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFan1(final k=0)
     "y-value for fan speed reset"
     annotation (Placement(transformation(extent={{110,-90},{130,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2
+    "Flow criterion to disable lead pump"
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 equation
   connect(QCooReq_flow, ratDes.u)
     annotation (Line(points={{-200,160},{-162,160}},
@@ -297,14 +300,10 @@ equation
           240},{-72,240}}, color={0,0,127}));
   connect(extSet.y, TSupSetUnb.u3) annotation (Line(points={{-48,240},{-36,240},
           {-36,252},{-32,252}}, color={0,0,127}));
-  connect(mConWatHexCoo_flow, cmpFlo.u) annotation (Line(points={{-200,-20},{-170,
-          -20},{-170,0},{-162,0}},          color={0,0,127}));
-  connect(mConWatHexCoo_flow, cmpFlo1.u) annotation (Line(points={{-200,-20},{-170,
-          -20},{-170,-40},{-162,-40}},      color={0,0,127}));
+  connect(mConWatHexCoo_flow, cmpFlo.u) annotation (Line(points={{-200,-20},{
+          -174,-20},{-174,0},{-162,0}},     color={0,0,127}));
   connect(cmpFlo.y, timFlo.u)
     annotation (Line(points={{-138,0},{-132,0}},     color={255,0,255}));
-  connect(cmpFlo1.y, timFlo1.u)
-    annotation (Line(points={{-138,-40},{-132,-40}}, color={255,0,255}));
   connect(yValBypTan, cmpOpe.u)
     annotation (Line(points={{-200,-80},{-162,-80}},   color={0,0,127}));
   connect(not1.y, timOpe1.u)
@@ -419,8 +418,12 @@ equation
           {148,-68}}, color={0,0,127}));
   connect(enaLea.y, rep.u) annotation (Line(points={{-38,-40},{-20,-40},{-20,-120},
           {138,-120}}, color={255,0,255}));
-  connect(enaLea.y, ctlFan.uEna) annotation (Line(points={{-38,-40},{-26,-40},{-26,
-          -38},{-20,-38},{-20,-80},{86,-80},{86,-72}}, color={255,0,255}));
+  connect(enaLea.y, ctlFan.uEna) annotation (Line(points={{-38,-40},{-20,-40},{
+          -20,-80},{86,-80},{86,-72}},                 color={255,0,255}));
+  connect(cmpFlo.y, not2.u) annotation (Line(points={{-138,0},{-134,0},{-134,
+          -20},{-166,-20},{-166,-40},{-162,-40}}, color={255,0,255}));
+  connect(not2.y, timFlo1.u)
+    annotation (Line(points={{-138,-40},{-132,-40}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
                    graphics={
         Rectangle(

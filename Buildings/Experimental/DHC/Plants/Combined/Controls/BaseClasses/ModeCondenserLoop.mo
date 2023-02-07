@@ -47,21 +47,19 @@ block ModeCondenserLoop
     else 4 - mod(time, 24 * 3600) / 3600)
     "Number of hours between next warmup period (set at 4 AM by default)";
 
-  Modelica.Blocks.Sources.RealExpression ratFraChaTanVal[3](final y=
-        ratFraChaTan)
+  Modelica.Blocks.Sources.RealExpression ratFraChaTanVal[3](final y=ratFraChaTan)
     "Rate of change of tank charge fraction, over 10, 30 and 60 minutes"
     annotation (Placement(transformation(extent={{-150,-50},{-130,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[3](final t=
-        ratFraChaTanLim)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr[3](final t=ratFraChaTanLim)
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=5*60)
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(nin=3)
     annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Modelica.Blocks.Sources.RealExpression varCriWarUp(y=1 - fraChaTan)
-                          "Compute variable used to evaluate warmup criterion"
+  "Compute variable used to evaluate warmup criterion"
     annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater          criWarUp
+  Buildings.Controls.OBC.CDL.Continuous.Greater criWarUp
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(t=5*60)
     annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
@@ -84,10 +82,10 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(t=15*60)
     "None of the enabling conditions is true for given time"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo(t=0)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo(t=1E-4, h=1E-4)
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criTem(t=TTanSet[1, 2] -
-        2) annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criTem(t=TTanSet[1, 2] - 2)
+           annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
   Buildings.Controls.OBC.CDL.Logical.Or or4
     "Any of the enabling conditions is true for given time"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
@@ -114,12 +112,11 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Or criTemOrCriChaHig
     "Temperature criterion or high charge fraction criterion true"
     annotation (Placement(transformation(extent={{-10,110},{10,130}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit
-      ="kg/s")
-    "Mass flow rate out of lower port of TES tank (>0 when charging)"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(final unit="kg/s")
+  "CW mass flow rate through secondary (plant) side of HX"
     annotation (Placement(transformation(extent={{-200,100},{-160,140}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criFlo1(t=0)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criFlo1(t=-1E-4, h=1E-4)
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo1(t=60)
     "Criterion true for given time"
