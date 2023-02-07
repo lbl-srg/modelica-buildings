@@ -18,7 +18,7 @@ model CarnotVerifyEtaCarnot
     (TCon_nominal + TAppCon_nominal - (TEva_nominal-TAppEva_nominal))  "Coefficient of performance";
 
   parameter Modelica.Units.SI.Temperature TCon_nominal=273.15 + 30
-    "Nominal condensor temperature";
+    "Nominal condenser temperature";
 
   parameter Modelica.Units.SI.Temperature TEva_nominal=273.15 + 5
     "Nominal evaporator temperature";
