@@ -18,7 +18,7 @@ block SequenceBinary_new "Output total stages that should be ON"
     final min=0,
     final max=1)
     "Real input for specifying stages"
-    annotation (Placement(transformation(extent={{-138,-20},{-98,20}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Total number of stages that should be ON"
@@ -30,11 +30,14 @@ protected
     "Stage interval";
 //   final parameter Real staThr[nSta]= {(i-1)*staInt+h for i in 1:nSta}
 //     "Stage thresholds";
+  Real staThr[nSta] = {(i-1)*staInt for i in 1:nSta}
+    "Stage thresholds";
   discrete Real tNext;
   discrete Real upperThreshold;
   discrete Real lowerThreshold;
   Boolean checkUpper;
   Boolean checkLower;
+  Integer iTem;
 
 equation
   checkUpper = not pre(checkUpper) and u > (upperThreshold + h) or pre(checkUpper) and u >= (upperThreshold - h);
@@ -53,6 +56,14 @@ equation
     lowerThreshold = (pre(y)-1)*staInt;
   end when;
 
+  for i in 1:nSta loop
+    if (u < staThr[i]) then
+      iTem = i;
+    end if;
+  end for;
+
+  //checkUpper = not pre(checkUpper) and u > (staThr[iTem] + h) or pre(checkUpper) and u >= (upperThreshold - h);
+  // when (time >= pre(tNext)
 
 
 
