@@ -14,10 +14,12 @@ model PartialTwoPort "Model of a generic two port component with phase systems"
     annotation (choicesAllMatching=true);
 
   extends Buildings.Electrical.Interfaces.PartialBaseTwoPort(
-    redeclare replaceable Buildings.Electrical.Interfaces.Terminal
-      terminal_n(redeclare replaceable package PhaseSystem = PhaseSystem_n),
-    redeclare replaceable Buildings.Electrical.Interfaces.Terminal
-      terminal_p(redeclare replaceable package PhaseSystem=PhaseSystem_p));
+    redeclare replaceable Buildings.Electrical.Interfaces.Terminal terminal_n
+      constrainedby Buildings.Electrical.Interfaces.Terminal(
+        redeclare replaceable package PhaseSystem = PhaseSystem_n),
+    redeclare replaceable Buildings.Electrical.Interfaces.Terminal terminal_p
+      constrainedby Buildings.Electrical.Interfaces.Terminal(
+        redeclare replaceable package PhaseSystem=PhaseSystem_p));
 
   annotation (Documentation(revisions="<html>
 <ul>
