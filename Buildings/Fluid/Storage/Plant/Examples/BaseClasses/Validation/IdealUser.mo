@@ -25,8 +25,8 @@ model IdealUser "Test model for the dummy user"
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
-    final T_a_nominal=T_CHWS_nominal,
-    final T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+    final T_CHWS_nominal=T_CHWS_nominal,
+    final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,

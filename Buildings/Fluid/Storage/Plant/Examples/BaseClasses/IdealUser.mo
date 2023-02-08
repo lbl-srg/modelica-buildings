@@ -6,9 +6,9 @@ model IdealUser "Ideal user model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
-  parameter Modelica.Units.SI.Temperature T_a_nominal
+  parameter Modelica.Units.SI.Temperature T_CHWS_nominal
     "Nominal temperature of CHW supply";
-  parameter Modelica.Units.SI.Temperature T_b_nominal
+  parameter Modelica.Units.SI.Temperature T_CHWR_nominal
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final displayUnit="Pa")
@@ -91,7 +91,7 @@ model IdealUser "Ideal user model"
   Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource ideTemSou(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final TSet=T_b_nominal) "Ideal temperature source"
+    final TSet=T_CHWR_nominal) "Ideal temperature source"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
