@@ -30,7 +30,7 @@ partial model PartialDualSource
         rotation=90,
         origin={-50,70})));
   Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
-    redeclare package Medium = Medium,
+    redeclare final package Medium = Medium,
     per(pressure(dp=dp_nominal*{1.14,1,0.42},
                  V_flow=(m_flow_nominal)/1000*{0,1,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -43,10 +43,10 @@ partial model PartialDualSource
         rotation=0,
         origin={-10,90})));
   Buildings.Controls.Continuous.LimPID conPI_pumChi1(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.2,
     Ti=10,
-    reverseActing=true) "PI controller" annotation (Placement(transformation(
+    final reverseActing=true) "PI controller" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-92,170})));
@@ -114,30 +114,30 @@ partial model PartialDualSource
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
-    T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+    final T_a_nominal=T_CHWS_nominal,
+    final T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,150})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
-    T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+    final T_a_nominal=T_CHWS_nominal,
+    final T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,-10})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
-    T_a_nominal=T_CHWS_nominal,
-    T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+    final T_a_nominal=T_CHWS_nominal,
+    final T_b_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -164,17 +164,17 @@ partial model PartialDualSource
         ideUse3.m_flow_nominal; 360*8,ideUse3.m_flow_nominal; 360*8,0; 3600,0])
     "Cooling load of user 3 represented by flow rate"
     annotation (Placement(transformation(extent={{140,-160},{120,-140}})));
-  Modelica.Blocks.Math.Gain gaiUse1(k=1/ideUse1.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUse1(final k=1/ideUse1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={130,130})));
-  Modelica.Blocks.Math.Gain gaiUse2(k=1/ideUse2.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUse2(final k=1/ideUse2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={130,-30})));
-  Modelica.Blocks.Math.Gain gaiUse3(k=1/ideUse3.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiUse3(final k=1/ideUse3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
