@@ -88,6 +88,11 @@ model IdealUser "Ideal user model"
     redeclare final package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource ideTemSou(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final TSet=T_b_nominal) "Ideal temperature source"
+    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     f=20/(2*Modelica.Constants.pi*60),
@@ -114,8 +119,6 @@ equation
       pattern=LinePattern.Dash));
   connect(conPI.y, val.y)
     annotation (Line(points={{-19,80},{10,80},{10,72}},   color={0,0,127}));
-  connect(val.port_b, senMasFlo.port_a) annotation (Line(points={{20,60},{40,60},
-          {40,-60},{-20,-60}}, color={0,127,255}));
   connect(senMasFlo.port_b, port_b)
     annotation (Line(points={{-40,-60},{-100,-60}}, color={0,127,255}));
   connect(senMasFlo.m_flow, conPI.u_m)
@@ -126,6 +129,10 @@ equation
     annotation (Line(points={{-110,80},{-82,80}}, color={0,0,127}));
   connect(fil.y, conPI.u_s)
     annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
+  connect(val.port_b, ideTemSou.port_a) annotation (Line(points={{20,60},{40,60},
+          {40,-60},{20,-60}}, color={0,127,255}));
+  connect(ideTemSou.port_b, senMasFlo.port_a)
+    annotation (Line(points={{0,-60},{-20,-60}}, color={0,127,255}));
   annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
@@ -135,6 +142,7 @@ This is a simple ideal user model used by example models under
 Buildings.Fluid.Storage.Plant.Examples</a>.
 The load of the user is described by a varying flow rate setpoint.
 The valve is controlled to maintain the requested flow.
+CHW always leaves the user at a fixed return temperature.
 </p>
 </html>", revisions="<html>
 <ul>
