@@ -5,4 +5,5 @@ HeatPumpGroup
 MultiplePumpsDp
 MultiplePumpsFlow
 MultiplePumpsSpeed
+Valve
 BaseClasses

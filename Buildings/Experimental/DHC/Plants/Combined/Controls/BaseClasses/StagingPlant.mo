@@ -100,7 +100,7 @@ block StagingPlant
         rotation=0,
         origin={120,80})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1CooChiHea[nChiHea]
-    "HR chiller cooling mode switchover command: true for cooling, false for heating"
+    "HRC cooling mode switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -117,7 +117,7 @@ block StagingPlant
         rotation=0,
         origin={120,-20})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1HeaCooChiHea[nChiHea]
-    "HR chiller cooling mode switchover command: true for cooling, false for heating"
+    "HRC cooling mode switchover command: true for cooling, false for heating"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -128,7 +128,7 @@ block StagingPlant
 
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve(delta=300)
     "Moving average"
-    annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
+    annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply loaChiWat
     "Compute total chiller load (>0)"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
@@ -352,7 +352,7 @@ equation
           {-186,-114},{-182,-114}},
                                   color={0,0,127}));
   connect(loaChiWat.y, movAve.u)
-    annotation (Line(points={{-158,120},{-142,120}}, color={0,0,127}));
+    annotation (Line(points={{-158,120},{-152,120}}, color={0,0,127}));
   connect(loaHeaWat.y, movAve1.u)
     annotation (Line(points={{-158,-120},{-152,-120}},
                                                      color={0,0,127}));
@@ -452,12 +452,12 @@ equation
   connect(numOpeCooChiHea.y, numChiCasCoo.u1) annotation (Line(points={{-98,20},
           {30,20},{30,26},{38,26}},    color={255,127,0}));
   connect(movAve.y, cmpOPLRLimUp.u1)
-    annotation (Line(points={{-118,120},{-82,120}},
+    annotation (Line(points={{-128,120},{-82,120}},
                                                   color={0,0,127}));
   connect(capCoo.y, cmpOPLRLimUp.u2) annotation (Line(points={{-99,100},{-94,
           100},{-94,112},{-82,112}},
                               color={0,0,127}));
-  connect(movAve.y, cmpOPLRLimDow1.u1) annotation (Line(points={{-118,120},{-90,
+  connect(movAve.y, cmpOPLRLimDow1.u1) annotation (Line(points={{-128,120},{-90,
           120},{-90,80},{-82,80}},color={0,0,127}));
   connect(capCooLow.y, cmpOPLRLimDow1.u2)
     annotation (Line(points={{-99,72},{-82,72}}, color={0,0,127}));
@@ -530,7 +530,7 @@ equation
           {160,4},{178,4}}, color={255,127,0}));
   connect(hol.y[4], rep5.u) annotation (Line(points={{152,0},{160,0},{160,-60},
           {178,-60}}, color={255,127,0}));
-  connect(movAve.y, QCooReq_flow) annotation (Line(points={{-118,120},{-100,120},
+  connect(movAve.y, QCooReq_flow) annotation (Line(points={{-128,120},{-100,120},
           {-100,180},{260,180}}, color={0,0,127}));
   connect(dpChiWat, errDpChiWat.u2) annotation (Line(points={{-260,260},{-220,
           260},{-220,254},{-202,254}}, color={0,0,127}));

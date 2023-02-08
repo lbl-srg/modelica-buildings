@@ -46,25 +46,11 @@ model ChillerGroup
     final min=0)=nUni * mConWatUni_flow_nominal
     "CW design mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(
-    final min=0,
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Chiller evaporator design pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
-    final min=0,
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Chiller condenser design pressure drop (each unit)"
-    annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.PressureDifference dpValveEva_nominal(
-    final min=0,
-    displayUnit="Pa")=valEva.dpValve_nominal
-    "Chiller evaporator isolation valve design pressure drop (each valve)"
-    annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.PressureDifference dpValveCon_nominal(
-    final min=0,
-    displayUnit="Pa")=valCon.dpValve_nominal
-    "Chiller condenser isolation valve design pressure drop (each valve)"
     annotation(Dialog(group="Nominal condition"));
 
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic dat
@@ -212,7 +198,7 @@ model ChillerGroup
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   BaseClasses.MultipleValves valEva(
     redeclare final package Medium = Medium2,
-    redeclare Buildings.Fluid.Actuators.Valves.TwoWayLinear val,
+    redeclare final Buildings.Fluid.Actuators.Valves.TwoWayLinear val,
     linearized=true,
     final nUni=nUni,
     final mUni_flow_nominal=mChiWatUni_flow_nominal,
@@ -229,7 +215,7 @@ model ChillerGroup
     annotation (Placement(transformation(extent={{-70,-50},{-90,-70}})));
   BaseClasses.MultipleValves valCon(
     redeclare final package Medium = Medium1,
-    redeclare Buildings.Fluid.Actuators.Valves.TwoWayLinear val,
+    redeclare final Buildings.Fluid.Actuators.Valves.TwoWayLinear val,
     linearized=true,
     final nUni=nUni,
     final mUni_flow_nominal=mConWatUni_flow_nominal,
@@ -308,9 +294,9 @@ equation
     color={0,127,255}));
   connect(TSet,chi. TSet) annotation (Line(points={{-120,-90},{-10,-90},{-10,-3},
           {-6,-3}},  color={0,0,127}));
-  connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{52,66},{54,66},
+  connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{51,66},{54,66},
           {54,80},{-54,80},{-54,66},{-52,66}}, color={0,0,127}));
-  connect(mulEvaOut.uInv, mulEvaInl.u) annotation (Line(points={{-52,-54},{-54,-54},
+  connect(mulEvaOut.uInv, mulEvaInl.u) annotation (Line(points={{-51,-54},{-54,-54},
           {-54,-80},{56,-80},{56,-54},{52,-54}}, color={0,0,127}));
   connect(port_a1, mulConInl.port_a)
     annotation (Line(points={{-100,60},{-50,60}}, color={0,127,255}));
@@ -337,8 +323,8 @@ equation
     annotation (Line(points={{92,20},{120,20}}, color={0,0,127}));
   connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-58,114},{20,114},
           {20,66},{28,66}},      color={0,0,127}));
-  connect(mulConInl.uInv, mulEvaOut.u) annotation (Line(points={{-28,66},{-24,
-          66},{-24,-54},{-28,-54}}, color={0,0,127}));
+  connect(mulConInl.uInv, mulEvaOut.u) annotation (Line(points={{-29,66},{-24,66},
+          {-24,-54},{-28,-54}},     color={0,0,127}));
   connect(com.y1One,chi. on) annotation (Line(points={{-58,126},{-10,126},{-10,3},
           {-6,3}},                  color={255,0,255}));
   connect(valCon.port_b, port_b1)

@@ -60,8 +60,8 @@ model AllElectricCWStorage
   parameter Modelica.Units.SI.PressureDifference dpPumChiWat_nominal(
     final min=0,
     displayUnit="Pa")=1.1 * (dpChiWatSet_max + max(
-      dpEvaChi_nominal + chi.dpValveEva_nominal,
-      dpEvaChiHea_nominal + chiHea.dpValveEva_nominal))
+      dpEvaChi_nominal + chi.valEva.dpValve_nominal,
+      dpEvaChiHea_nominal + max(chiHea.valEva.dpValve_nominal) + sum(chiHea.valEvaSwi.dpValve_nominal)))
     "Design head of CHW pump(each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
 
@@ -141,13 +141,14 @@ model AllElectricCWStorage
   parameter Modelica.Units.SI.PressureDifference dpConChiHea_nominal(
     final min=0,
     displayUnit="Pa")=5E4
-    "Design chiller condenser pressure drop (each unit)"
+    "Design HRC condenser pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
 
   parameter Modelica.Units.SI.PressureDifference dpPumHeaWat_nominal(
     final min=0,
     displayUnit="Pa")=1.1 * (dpHeaWatSet_max +
-      dpConChiHea_nominal + chiHea.dpValveCon_nominal)
+      dpConChiHea_nominal + max(chiHea.valCon.dpValve_nominal) +
+      sum(chiHea.valConSwi.dpValve_nominal))
     "Design head of HW pump(each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
 
@@ -202,19 +203,19 @@ model AllElectricCWStorage
   parameter Modelica.Units.SI.PressureDifference dpConWatConSet_max(
     final min=0,
     displayUnit="Pa")=max(
-     dpConChi_nominal + chi.dpValveCon_nominal,
-     dpConChiHea_nominal + chiHea.dpValveCon_nominal)
+     dpConChi_nominal + chi.valCon.dpValve_nominal,
+     dpConChiHea_nominal + max(chiHea.valCon.dpValve_nominal) + sum(chiHea.valConSwi.dpValve_nominal))
     "Design (maximum) CW condenser loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Modelica.Units.SI.PressureDifference dpConWatEvaSet_max(
     final min=0,
-    displayUnit="Pa")=dpEvaChiHea_nominal + chiHea.dpValveEva_nominal
+    displayUnit="Pa")=
+    dpEvaChiHea_nominal + max(chiHea.valEva.dpValve_nominal) + sum(chiHea.valEvaSwi.dpValve_nominal)
     "Design (maximum) CW evaporator loop differential pressure setpoint"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Modelica.Units.SI.PressureDifference dpPumConWatCon_nominal(
     final min=0,
-    displayUnit="Pa")=1.1 * (dpConWatConSet_max + max(
-      dpHexCoo_nominal, dpTan_nominal))
+    displayUnit="Pa")=1.1 * (dpConWatConSet_max + max(dpHexCoo_nominal, dpTan_nominal))
     "Design head of CW pump serving condenser barrels (each unit)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Modelica.Units.SI.PressureDifference dpPumConWatEva_nominal(
@@ -876,6 +877,10 @@ model AllElectricCWStorage
     final dpHeaWatSet_max=dpHeaWatSet_max,
     final dpConWatConSet_max=dpConWatConSet_max,
     final dpConWatEvaSet_max=dpConWatEvaSet_max,
+    final dpEvaChi_nominal=dpEvaChi_nominal,
+    final dpValEvaChi_nominal=chi.valEva.dpValve_nominal,
+    final dpEvaChiHea_nominal=dpEvaChiHea_nominal,
+    final dpValEvaChiHea_nominal=max(chiHea.valEva.dpValve_nominal),
     final QChiWatChi_flow_nominal=chi.QChiWat_flow_nominal,
     final QChiWatCasCoo_flow_nominal=chiHea.QChiWatCasCoo_flow_nominal,
     final QHeaWat_flow_nominal=QHeaWat_flow_nominal,

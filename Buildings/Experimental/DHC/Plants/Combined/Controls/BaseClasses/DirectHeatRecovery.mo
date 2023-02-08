@@ -70,7 +70,7 @@ block DirectHeatRecovery
     "Return true if direct HR AND On" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,80})));
+        origin={-110,60})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
     final nout=nChiHea) "Replicate"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
@@ -87,7 +87,7 @@ block DirectHeatRecovery
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin min(nin=nChiHea)
     "Minimum evaporator flow setpoint"
-    annotation (Placement(transformation(extent={{92,70},{112,90}})));
+    annotation (Placement(transformation(extent={{90,70},{110,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo[nChiHea,2](
     final k=fill({0,0.33}, nChiHea))
     "x-value for flow reset"
@@ -101,7 +101,7 @@ block DirectHeatRecovery
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin min1(nin=nChiHea)
     "Minimum evaporator flow setpoint"
-    annotation (Placement(transformation(extent={{92,-10},{112,10}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFlo1
                                                              [nChiHea, 2](final k=
         fill({0.33,0.67}, nChiHea))
@@ -127,16 +127,16 @@ block DirectHeatRecovery
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff(final p=0.5)
     "Add offset"
-    annotation (Placement(transformation(extent={{-88,-90},{-68,-70}})));
+    annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addOff1(final p=-15)
     "Add offset"
-    annotation (Placement(transformation(extent={{-88,-130},{-68,-110}})));
+    annotation (Placement(transformation(extent={{-90,-130},{-70,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(final nout=
         nChiHea) "Replicate"
-    annotation (Placement(transformation(extent={{-58,-90},{-38,-70}})));
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep2(final nout=
         nChiHea) "Replicate"
-    annotation (Placement(transformation(extent={{-58,-130},{-38,-110}})));
+    annotation (Placement(transformation(extent={{-60,-130},{-40,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndRea(final nin=nChiHea)
     "Keep reset value from HRC in direct HR with higher index"
     annotation (Placement(transformation(extent={{90,-90},{110,-70}})));
@@ -150,18 +150,20 @@ block DirectHeatRecovery
 equation
   connect(TChiWatSupSet, rep.u) annotation (Line(points={{-160,0},{-122,0}},
                                  color={0,0,127}));
-  connect(y1, heaCooAndOn.u1) annotation (Line(points={{-160,80},{-122,80}},
+  connect(y1, heaCooAndOn.u1) annotation (Line(points={{-160,80},{-130,80},{
+          -130,60},{-122,60}},
                           color={255,0,255}));
   connect(y1HeaCoo, heaCooAndOn.u2) annotation (Line(points={{-160,40},{-130,40},
-          {-130,72},{-122,72}}, color={255,0,255}));
+          {-130,52},{-122,52}}, color={255,0,255}));
   connect(rep.y, ctl.u_s)
     annotation (Line(points={{-98,0},{-72,0}},     color={0,0,127}));
   connect(TEvaLvg, ctl.u_m) annotation (Line(points={{-160,-40},{-60,-40},{-60,-12}},
         color={0,0,127}));
-  connect(heaCooAndOn.y, ctl.uEna) annotation (Line(points={{-98,80},{-80,80},{-80,
-          -20},{-64,-20},{-64,-12}}, color={255,0,255}));
+  connect(heaCooAndOn.y, ctl.uEna) annotation (Line(points={{-98,60},{-80,60},{
+          -80,-20},{-64,-20},{-64,-12}},
+                                     color={255,0,255}));
   connect(chiFloRes.y, min.u)
-    annotation (Line(points={{62,80},{90,80}}, color={0,0,127}));
+    annotation (Line(points={{62,80},{88,80}}, color={0,0,127}));
   connect(yFlo[:, 2].y, chiFloRes.f2) annotation (Line(points={{22,60},{34,60},{
           34,72},{38,72}},
                         color={0,0,127}));
@@ -174,10 +176,10 @@ equation
           {32,88},{38,88}}, color={0,0,127}));
   connect(xFlo[:, 2].y, chiFloRes.x2) annotation (Line(points={{22,100},{32,100},
           {32,76},{38,76}}, color={0,0,127}));
-  connect(min.y, mEvaChiSet_flow) annotation (Line(points={{114,80},{160,80}},
+  connect(min.y, mEvaChiSet_flow) annotation (Line(points={{112,80},{160,80}},
                          color={0,0,127}));
   connect(chiHeaFloRes.y, min1.u)
-    annotation (Line(points={{62,0},{90,0}}, color={0,0,127}));
+    annotation (Line(points={{62,0},{88,0}}, color={0,0,127}));
   connect(yFlo1[:, 2].y, chiHeaFloRes.f2) annotation (Line(points={{22,-20},{34,
           -20},{34,-8},{38,-8}},
                             color={0,0,127}));
@@ -190,7 +192,7 @@ equation
     annotation (Line(points={{22,20},{32,20},{32,8},{38,8}},color={0,0,127}));
   connect(xFlo1[:, 2].y, chiHeaFloRes.x2) annotation (Line(points={{22,20},{32,20},
           {32,-4},{38,-4}}, color={0,0,127}));
-  connect(min1.y, mEvaChiHeaSet_flow) annotation (Line(points={{114,0},{160,0}},
+  connect(min1.y, mEvaChiHeaSet_flow) annotation (Line(points={{112,0},{160,0}},
                        color={0,0,127}));
   connect(ctl.y, chiHeaConTemRes.u) annotation (Line(points={{-48,0},{-20,0},{-20,
           -80},{38,-80}}, color={0,0,127}));
@@ -201,13 +203,15 @@ equation
           32,-60},{32,-84},{38,-84}},
                                    color={0,0,127}));
   connect(addOff.y, rep1.u)
-    annotation (Line(points={{-66,-80},{-60,-80}}, color={0,0,127}));
+    annotation (Line(points={{-68,-80},{-62,-80}}, color={0,0,127}));
   connect(addOff1.y, rep2.u)
-    annotation (Line(points={{-66,-120},{-60,-120}}, color={0,0,127}));
-  connect(rep2.y, chiHeaConTemRes.f2) annotation (Line(points={{-36,-120},{20,-120},
-          {20,-88},{38,-88}},color={0,0,127}));
-  connect(rep1.y, chiHeaConTemRes.f1) annotation (Line(points={{-36,-80},{-30,-80},
-          {-30,-76},{38,-76}}, color={0,0,127}));
+    annotation (Line(points={{-68,-120},{-62,-120}}, color={0,0,127}));
+  connect(rep2.y, chiHeaConTemRes.f2) annotation (Line(points={{-38,-120},{0,
+          -120},{0,-88},{38,-88}},
+                             color={0,0,127}));
+  connect(rep1.y, chiHeaConTemRes.f1) annotation (Line(points={{-38,-80},{-30,
+          -80},{-30,-76},{38,-76}},
+                               color={0,0,127}));
   connect(extIndRea.y, TConEntChiHeaSet)
     annotation (Line(points={{112,-80},{160,-80}}, color={0,0,127}));
   connect(chiHeaConTemRes.y, extIndRea.u)
@@ -215,11 +219,12 @@ equation
   connect(idxHig.y, extIndRea.index) annotation (Line(points={{81,-120},{100,-120},
           {100,-92}}, color={255,127,0}));
   connect(addOff.u, mea.y)
-    annotation (Line(points={{-90,-80},{-108,-80}}, color={0,0,127}));
+    annotation (Line(points={{-92,-80},{-108,-80}}, color={0,0,127}));
   connect(THeaWatPriRet, mea.u) annotation (Line(points={{-160,-80},{-144,-80},{
           -144,-80},{-132,-80}}, color={0,0,127}));
-  connect(mea.y, addOff1.u) annotation (Line(points={{-108,-80},{-100,-80},{-100,
-          -120},{-90,-120}}, color={0,0,127}));
+  connect(mea.y, addOff1.u) annotation (Line(points={{-108,-80},{-100,-80},{
+          -100,-120},{-92,-120}},
+                             color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

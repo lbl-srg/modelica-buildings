@@ -28,9 +28,9 @@ model ChillerHeatRecoveryGroup
   parameter Integer nUni(final min=1, start=1)
     "Number of units operating at design conditions"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TCasHeaEnt_nominal=25 + 273.15
+  parameter Modelica.Units.SI.Temperature TCasHeaEnt_nominal=298.15
     "Design value of chiller evaporator entering temperature in cascading heating mode";
-  parameter Modelica.Units.SI.Temperature TCasCooEnt_nominal=15 + 273.15
+  parameter Modelica.Units.SI.Temperature TCasCooEnt_nominal=288.15
     "Design value of chiller condenser entering temperature in cascading cooling mode";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     dat.TEvaLvg_nominal
@@ -114,26 +114,12 @@ model ChillerHeatRecoveryGroup
     final min=0)=nUni * mConWatUni_flow_nominal
     "CW design mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(
-    final min=0,
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
     "Chiller evaporator design pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(
-    final min=0,
-    displayUnit="Pa")
+  parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Chiller condenser design pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.PressureDifference dpValveEva_nominal(
-    final min=0,
-    displayUnit="Pa") = max(valEva.dpValve_nominal) + max(valEvaSwi.dpValve_nominal)
-    "Total valve pressure drop on chiller evaporator circuit (each unit)"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.PressureDifference dpValveCon_nominal(
-    final min=0,
-    displayUnit="Pa") = max(valCon.dpValve_nominal) + max(valConSwi.dpValve_nominal)
-    "Total valve pressure drop on chiller condenser circuit (each unit)"
-    annotation (Dialog(group="Nominal condition"));
 
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic dat
     "Chiller parameters (each unit)"
@@ -279,7 +265,7 @@ model ChillerHeatRecoveryGroup
     each final energyDynamics=energyDynamics,
     each final show_T=show_T) "Chiller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valCon[nUni](
+  Fluid.Actuators.Valves.TwoWayLinear valCon[nUni](
     redeclare each final package Medium = Medium,
     each linearized=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -294,7 +280,7 @@ model ChillerHeatRecoveryGroup
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,80})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valEva[nUni](
+  Fluid.Actuators.Valves.TwoWayLinear valEva[nUni](
     redeclare each final package Medium = Medium,
     each linearized=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -407,7 +393,7 @@ model ChillerHeatRecoveryGroup
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,50})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valConSwi[nUni](
+  Fluid.Actuators.Valves.TwoWayLinear valConSwi[nUni](
     redeclare each final package Medium = Medium,
     each linearized=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
@@ -423,7 +409,7 @@ model ChillerHeatRecoveryGroup
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,20})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage valEvaSwi[nUni](
+  Fluid.Actuators.Valves.TwoWayLinear valEvaSwi[nUni](
     redeclare each final package Medium = Medium,
     each linearized=true,
     each final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,

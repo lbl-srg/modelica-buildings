@@ -125,11 +125,16 @@ block Controller "Open-loop controller for validation purposes"
     final mChiWatChi_flow_nominal=mChiWatChi_flow_nominal,
     final mChiWatChi_flow_min=mChiWatChi_flow_min,
     final mConWatChi_flow_nominal=mConWatChi_flow_nominal,
+    final dpEvaChi_nominal=dpEvaChi_nominal,
+    final dpValEvaChi_nominal=dpValEvaChi_nominal,
     final mChiWatChiHea_flow_nominal=mChiWatChiHea_flow_nominal,
     final mChiWatChiHea_flow_min=mChiWatChiHea_flow_min,
     final mConWatChiHea_flow_nominal=mConWatChiHea_flow_nominal,
     final mHeaWatChiHea_flow_min=mHeaWatChiHea_flow_min,
-    final TTanSet=TTanSet)
+    final dpEvaChiHea_nominal=dpEvaChiHea_nominal,
+    final dpValEvaChiHea_nominal=dpValEvaChiHea_nominal,
+    final TTanSet=TTanSet,
+    k=0.02)
     "Controller for chiller and HRC condenser and evaporator valves"
     annotation (Placement(transformation(extent={{-80,20},{-60,60}})));
   Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.DirectHeatRecovery dirHeaCoo(
@@ -140,7 +145,7 @@ block Controller "Open-loop controller for validation purposes"
     final mChiWatChiHea_flow_nominal=mChiWatChiHea_flow_nominal,
     final mChiWatChiHea_flow_min=mChiWatChiHea_flow_min)
     "Control logic for HRC in direct HR mode"
-    annotation (Placement(transformation(extent={{-120,-12},{-100,8}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   BaseClasses.CoolingTowerLoop coo(
     final nCoo=nCoo,
     final nPumConWatCoo=nPumConWatCoo,
@@ -342,20 +347,20 @@ equation
   connect(staPla.y1HeaCooChiHea, y1HeaCooChiHea) annotation (Line(points={{-188,
           142},{4,142},{4,120},{280,120}},   color={255,0,255}));
   connect(staPla.y1ChiHea, dirHeaCoo.y1) annotation (Line(points={{-188,154},{
-          -166,154},{-166,6},{-122,6}},         color={255,0,255}));
+          -166,154},{-166,8},{-122,8}},         color={255,0,255}));
   connect(staPla.y1HeaCooChiHea, dirHeaCoo.y1HeaCoo) annotation (Line(points={{-188,
-          142},{-170,142},{-170,2},{-122,2}},                       color={255,
+          142},{-170,142},{-170,4},{-126,4},{-126,4},{-122,4}},     color={255,
           0,255}));
   connect(TChiWatSupSet, dirHeaCoo.TChiWatSupSet) annotation (Line(points={{-280,
-          360},{-254,360},{-254,-2},{-122,-2}},        color={0,0,127}));
+          360},{-254,360},{-254,0},{-122,0}},          color={0,0,127}));
   connect(TEvaLvgChiHea, dirHeaCoo.TEvaLvg) annotation (Line(points={{-280,140},
-          {-232,140},{-232,-6},{-122,-6}},      color={0,0,127}));
+          {-232,140},{-232,-4},{-122,-4}},      color={0,0,127}));
   connect(THeaWatPriRet, dirHeaCoo.THeaWatPriRet) annotation (Line(points={{-280,80},
-          {-242,80},{-242,-10},{-122,-10}},              color={0,0,127}));
+          {-242,80},{-242,-8},{-122,-8}},                color={0,0,127}));
   connect(dirHeaCoo.mEvaChiSet_flow,valConEva. mEvaChiSet_flow) annotation (
-      Line(points={{-98,4},{-92,4},{-92,46},{-82,46}},         color={0,0,127}));
+      Line(points={{-98,6},{-92,6},{-92,46},{-82,46}},         color={0,0,127}));
   connect(dirHeaCoo.mEvaChiHeaSet_flow,valConEva. mEvaChiHeaSet_flow)
-    annotation (Line(points={{-98,-2},{-88,-2},{-88,44},{-82,44}},   color={0,0,
+    annotation (Line(points={{-98,0},{-88,0},{-88,44},{-82,44}},     color={0,0,
           127}));
   connect(dpHeaWatSet, staPla.dpHeaWatSet) annotation (Line(points={{-280,300},
           {-240,300},{-240,144},{-212,144}},color={0,0,127}));
@@ -399,7 +404,7 @@ equation
   connect(cvtValBypTan.y, coo.yValBypTan) annotation (Line(points={{-18,-280},{-6,
           -280},{-6,-354},{38,-354}}, color={0,0,127}));
   connect(dirHeaCoo.TConEntChiHeaSet,valConEva. TConEntChiHeaSet) annotation (
-      Line(points={{-98,-8},{-84,-8},{-84,34},{-82,34}},             color={0,0,
+      Line(points={{-98,-6},{-84,-6},{-84,34},{-82,34}},             color={0,0,
           127}));
   connect(TConEntChiHea,valConEva. TConEntChiHea) annotation (Line(points={{-280,
           180},{-220,180},{-220,32},{-82,32}},              color={0,0,127}));

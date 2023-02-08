@@ -113,6 +113,27 @@ block PartialController "Interface class for plant controller"
     "Chiller HW minimum mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
 
+  parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(
+    final min=0,
+    displayUnit="Pa")
+    "Chiller evaporator design pressure drop (each unit)"
+    annotation(Dialog(group="CHW loop and cooling-only chillers"));
+  parameter Modelica.Units.SI.PressureDifference dpValEvaChi_nominal(
+    final min=0,
+    displayUnit="Pa")
+    "Chiller evaporator isolation valve design pressure drop (each unit)"
+    annotation(Dialog(group="CHW loop and cooling-only chillers"));
+  parameter Modelica.Units.SI.PressureDifference dpEvaChiHea_nominal(
+    final min=0,
+    displayUnit="Pa")
+    "Design chiller evaporator  pressure drop (each unit)"
+    annotation(Dialog(group="HW loop and heat recovery chillers"));
+  parameter Modelica.Units.SI.PressureDifference dpValEvaChiHea_nominal(
+    final min=0,
+    displayUnit="Pa")
+    "HRC evaporator isolation valve design pressure drop (each unit)"
+    annotation(Dialog(group="HW loop and heat recovery chillers"));
+
   parameter Modelica.Units.SI.PressureDifference dpConWatConSet_max(
     final min=0,
     displayUnit="Pa")

@@ -149,14 +149,14 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     period=24*3600)
                   "Plant enable signal"
     annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage     valDisHeaWat(
+  Fluid.Actuators.Valves.TwoWayPressureIndependent valDisHeaWat(
     redeclare final package Medium = Medium,
     m_flow_nominal=pla.mHeaWat_flow_nominal,
     dpValve_nominal=1E4,
     dpFixed_nominal=pla.dpHeaWatSet_max - valDisHeaWat.dpValve_nominal)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{-30,130},{-50,150}})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage     valDisChiWat(
+  Fluid.Actuators.Valves.TwoWayPressureIndependent valDisChiWat(
     redeclare final package Medium = Medium,
     m_flow_nominal=pla.mChiWat_flow_nominal,
     dpValve_nominal=1E4,
