@@ -20,10 +20,19 @@ partial model PartialDualSource
     "Nominal temperature of CHW supply";
 
 // First source: chiller only
- Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource chi1(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final TSet=T_CHWS_nominal)
+    "Chiller 1 represented by an ideal temperature source" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,70})));
+  Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
     redeclare package Medium = Medium,
-    per(pressure(dp=dp_nominal*{1.14,1,0.42}, V_flow=(m_flow_nominal)/1000*{0,1,
-            2})),
+    per(pressure(dp=dp_nominal*{1.14,1,0.42},
+                 V_flow=(m_flow_nominal)/1000*{0,1,2})),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     addPowerToMedium=false,
     y_start=0,
@@ -43,6 +52,15 @@ partial model PartialDualSource
         origin={-92,170})));
 
 // Second source: chiller and tank
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource chi2(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=nom.mChi_flow_nominal,
+    final TSet=T_CHWS_nominal)
+    "Chiller 2 represented by an ideal temperature source" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-150,-90})));
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     m_flow_nominal=2*m_flow_nominal,
     mTan_flow_nominal=m_flow_nominal,
@@ -302,9 +320,6 @@ equation
     annotation (Line(points={{-118,130},{-92,130},{-92,158}},color={0,0,127}));
   connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-81,170},{-10,170},
           {-10,102}},      color={0,0,127}));
-  connect(pumSup1.port_a,parJunPla1.port_c2)  annotation (Line(points={{-20,90},
-          {-40,90},{-40,64},{40,64}},
-                                    color={0,127,255}));
   connect(parJunUse1.port_a2, pipEnd1.port_a)
     annotation (Line(points={{44,160},{44,180}}, color={0,127,255}));
   connect(pipEnd1.port_b, parJunUse1.port_b1)
@@ -364,9 +379,6 @@ equation
                                           color={0,127,255}));
   connect(tanBra.port_bRetChi, chi2PreDro.port_a) annotation (Line(points={{-100,
           -96},{-110,-96},{-110,-110},{-120,-110}}, color={0,127,255}));
-  connect(chi2PreDro.port_b,pumChi2. port_a) annotation (Line(points={{-140,
-          -110},{-146,-110},{-146,-70},{-140,-70}},
-                                              color={0,127,255}));
   connect(mChi2Set_flow.y,pumChi2. m_flow_in) annotation (Line(points={{-139,
           -30},{-130,-30},{-130,-58}},
                                   color={0,0,127}));
@@ -383,6 +395,14 @@ equation
                                      color={0,0,127}));
   connect(ideRevConSup.port_b, parJunPla2.port_c1) annotation (Line(points={{20,-70},
           {30,-70},{30,-84},{40,-84}}, color={0,127,255}));
+  connect(pumSup1.port_a, chi1.port_b)
+    annotation (Line(points={{-20,90},{-50,90},{-50,80}}, color={0,127,255}));
+  connect(chi1.port_a, parJunPla1.port_c2) annotation (Line(points={{-50,60},{
+          -50,54},{20,54},{20,64},{40,64}}, color={0,127,255}));
+  connect(chi2PreDro.port_b, chi2.port_a) annotation (Line(points={{-140,-110},
+          {-150,-110},{-150,-100}}, color={0,127,255}));
+  connect(chi2.port_b, pumChi2.port_a) annotation (Line(points={{-150,-80},{
+          -150,-70},{-140,-70}}, color={0,127,255}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/IdealDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
