@@ -199,7 +199,7 @@ equation
           {78,54}},color={255,127,0}));
   connect(up.y, staLag.u1Up)
     annotation (Line(points={{-8,0},{28,0}}, color={255,0,255}));
-  connect(fal.y, dow.u1) annotation (Line(points={{-48,-80},{-40,-80},{-40,-40},
+  connect(fal.y, dow.u1) annotation (Line(points={{-48,-80},{-36,-80},{-36,-40},
           {-32,-40}}, color={255,0,255}));
   connect(fal.y, up.u1) annotation (Line(points={{-48,-80},{-36,-80},{-36,0},{-32,
           0}}, color={255,0,255}));

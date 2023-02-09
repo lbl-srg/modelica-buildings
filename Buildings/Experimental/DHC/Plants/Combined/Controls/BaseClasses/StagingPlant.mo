@@ -112,7 +112,7 @@ block StagingPlant
     "HRC On/Off command" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={260,-60}), iconTransformation(
+        origin={260,-100}),iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-20})));
@@ -121,7 +121,7 @@ block StagingPlant
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={260,-30}), iconTransformation(
+        origin={260,-40}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-140})));
@@ -159,20 +159,20 @@ block StagingPlant
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep5(final nout=
         nChiHea)
     "Replicate"
-    annotation (Placement(transformation(extent={{180,-70},{200,-50}})));
+    annotation (Placement(transformation(extent={{180,-110},{200,-90}})));
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold cmdChiHea[nChiHea](
       final t={i for i in 1:nChiHea})
     "Compute chiller On/Off command from number of units to be commanded On"
-    annotation (Placement(transformation(extent={{210,-70},{230,-50}})));
+    annotation (Placement(transformation(extent={{210,-110},{230,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Subtract numChiHeaCoo
     "Number of HRC required in direct HR mode" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={10,0})));
+        origin={10,-20})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant numChiHea(final k=
         nChiHea) "Number of HRC"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add nChiHeaAndCooUnb
     "Number of HRC required to meet heating and cooling load - Unbounded"
@@ -185,14 +185,14 @@ block StagingPlant
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
   ModeHeatRecoveryChiller modHeaCoo(final nChiHea=nChiHea)
     "Compute the indices of HRC required to be operating in direct HR mode"
-    annotation (Placement(transformation(extent={{180,0},{200,20}})));
+    annotation (Placement(transformation(extent={{180,-10},{200,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Min nChiHeaHeaAndCoo
     "Number of HRC required to meet heating and cooling load - Bounded by number of HRC"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-30,-60})));
+        origin={-30,-40})));
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract errTChiWatSup
     "Compute tracking error"
@@ -357,26 +357,27 @@ equation
     annotation (Line(points={{-158,-120},{-152,-120}},
                                                      color={0,0,127}));
   connect(rep5.y, cmdChiHea.u)
-    annotation (Line(points={{202,-60},{208,-60}},
+    annotation (Line(points={{202,-100},{208,-100}},
                                                  color={255,127,0}));
   connect(cmdChiHea.y, y1ChiHea)
-    annotation (Line(points={{232,-60},{260,-60}},   color={255,0,255}));
-  connect(modHeaCoo.y1HeaCoo, y1HeaCooChiHea) annotation (Line(points={{202,4},
-          {220,4},{220,-30},{260,-30}},   color={255,0,255}));
+    annotation (Line(points={{232,-100},{260,-100}}, color={255,0,255}));
+  connect(modHeaCoo.y1HeaCoo, y1HeaCooChiHea) annotation (Line(points={{202,-6},
+          {220,-6},{220,-40},{260,-40}},  color={255,0,255}));
   connect(numChiHea.y, nChiHeaHeaAndCoo.u2)
-    annotation (Line(points={{-58,-60},{-50,-60},{-50,-66},{-42,-66}},
+    annotation (Line(points={{-58,-40},{-50,-40},{-50,-46},{-42,-46}},
                                                  color={255,127,0}));
   connect(nChiHeaAndCooUnb.y, nChiHeaHeaAndCoo.u1) annotation (Line(points={{-58,0},
-          {-50,0},{-50,-54},{-42,-54}},     color={255,127,0}));
+          {-50,0},{-50,-34},{-42,-34}},     color={255,127,0}));
   connect(nChiHeaAndCooUnb.y, numChiHeaCoo.u1)
-    annotation (Line(points={{-58,0},{-20,0},{-20,6},{-2,6}},
+    annotation (Line(points={{-58,0},{-20,0},{-20,-14},{-2,-14}},
                                                  color={255,127,0}));
-  connect(nChiHeaHeaAndCoo.y, numChiHeaCoo.u2) annotation (Line(points={{-18,-60},
-          {-10,-60},{-10,-6},{-2,-6}}, color={255,127,0}));
-  connect(modHeaCoo.y1Coo, y1CooChiHea) annotation (Line(points={{202,16},{220,
-          16},{220,40},{260,40}},  color={255,0,255}));
-  connect(numChiHeaCoo.y, numChiCasCoo.u2) annotation (Line(points={{22,0},{30,
-          0},{30,14},{38,14}},                 color={255,127,0}));
+  connect(nChiHeaHeaAndCoo.y, numChiHeaCoo.u2) annotation (Line(points={{-18,-40},
+          {-10,-40},{-10,-26},{-2,-26}},
+                                       color={255,127,0}));
+  connect(modHeaCoo.y1Coo, y1CooChiHea) annotation (Line(points={{202,6},{220,6},
+          {220,40},{260,40}},      color={255,0,255}));
+  connect(numChiHeaCoo.y, numChiCasCoo.u2) annotation (Line(points={{22,-20},{
+          30,-20},{30,14},{38,14}},            color={255,127,0}));
   connect(TChiWatSupSet, errTChiWatSup.u1) annotation (Line(points={{-260,80},{
           -230,80},{-230,180},{-204,180},{-204,216},{-202,216}},
                                                           color={0,0,127}));
@@ -516,20 +517,23 @@ equation
     annotation (Line(points={{32,-120},{48,-120}}, color={255,0,255}));
   connect(numOpeChi.y, hol.u[1]) annotation (Line(points={{112,120},{120,120},{
           120,-0.75},{128,-0.75}}, color={255,127,0}));
-  connect(numChiCasCoo.y, hol.u[2]) annotation (Line(points={{62,20},{120,20},{
-          120,-0.25},{128,-0.25}}, color={255,127,0}));
-  connect(numChiHeaCoo.y, hol.u[3]) annotation (Line(points={{22,0},{76,0},{76,
-          0.25},{128,0.25}}, color={255,127,0}));
-  connect(nChiHeaHeaAndCoo.y, hol.u[4]) annotation (Line(points={{-18,-60},{120,
-          -60},{120,0.75},{128,0.75}}, color={255,127,0}));
+  connect(numChiCasCoo.y, hol.u[2]) annotation (Line(points={{62,20},{116,20},{
+          116,-0.25},{128,-0.25}}, color={255,127,0}));
+  connect(numChiHeaCoo.y, hol.u[3]) annotation (Line(points={{22,-20},{116,-20},
+          {116,0.25},{128,0.25}},
+                             color={255,127,0}));
+  connect(nChiHeaHeaAndCoo.y, hol.u[4]) annotation (Line(points={{-18,-40},{120,
+          -40},{120,-2},{128,-2},{128,0.75}},
+                                       color={255,127,0}));
   connect(hol.y[1], rep.u) annotation (Line(points={{152,0},{160,0},{160,120},{
           178,120}}, color={255,127,0}));
   connect(hol.y[2], modHeaCoo.nCasCoo) annotation (Line(points={{152,0},{160,0},
-          {160,16},{178,16}}, color={255,127,0}));
+          {160,6},{178,6}},   color={255,127,0}));
   connect(hol.y[3], modHeaCoo.nHeaCoo) annotation (Line(points={{152,0},{160,0},
-          {160,4},{178,4}}, color={255,127,0}));
-  connect(hol.y[4], rep5.u) annotation (Line(points={{152,0},{160,0},{160,-60},
-          {178,-60}}, color={255,127,0}));
+          {160,-6},{178,-6}},
+                            color={255,127,0}));
+  connect(hol.y[4], rep5.u) annotation (Line(points={{152,0},{160,0},{160,-100},
+          {178,-100}},color={255,127,0}));
   connect(movAve.y, QCooReq_flow) annotation (Line(points={{-128,120},{-100,120},
           {-100,180},{260,180}}, color={0,0,127}));
   connect(dpChiWat, errDpChiWat.u2) annotation (Line(points={{-260,260},{-220,

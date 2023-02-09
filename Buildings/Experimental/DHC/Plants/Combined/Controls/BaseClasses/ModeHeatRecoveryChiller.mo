@@ -1,6 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block ModeHeatRecoveryChiller
-  "Block that computes the cascading cooling and direct HR switchover signals of HRC"
+  "Block that computes the cascading cooling and direct HR switchover signals"
 
   parameter Integer nChiHea
     "Number of HRC"

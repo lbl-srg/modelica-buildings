@@ -133,8 +133,7 @@ block Controller "Open-loop controller for validation purposes"
     final mHeaWatChiHea_flow_min=mHeaWatChiHea_flow_min,
     final dpEvaChiHea_nominal=dpEvaChiHea_nominal,
     final dpValEvaChiHea_nominal=dpValEvaChiHea_nominal,
-    final TTanSet=TTanSet,
-    k=0.02)
+    final TTanSet=TTanSet)
     "Controller for chiller and HRC condenser and evaporator valves"
     annotation (Placement(transformation(extent={{-80,20},{-60,60}})));
   Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.DirectHeatRecovery dirHeaCoo(
