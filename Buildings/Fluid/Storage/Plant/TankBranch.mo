@@ -7,8 +7,28 @@ model TankBranch
 
   parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
     "Nominal values";
-  parameter Modelica.Units.SI.Temperature TTan_start=nom.T_CHWS_nominal
-    "Start temperature of the tank";
+
+  // Storage tank parameters
+  parameter Modelica.Units.SI.Volume VTan "Tank volume";
+  parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
+  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
+    "Specific heat conductivity of insulation";
+  parameter Integer nSeg(min=2) = 2 "Number of volume segments";
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Formulation of energy balance"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Medium.Temperature T_start=nom.T_CHWS_nominal
+    "Start value of temperature"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
+    "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aRetNet(
     redeclare final package Medium = Medium,
@@ -36,17 +56,18 @@ model TankBranch
   Buildings.Fluid.Storage.Stratified tan(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
-    hTan=3,
-    dIns=0.3,
-    VTan=10,
-    nSeg=7,
-    show_T=true,
-    m_flow_nominal=nom.mTan_flow_nominal,
-    final T_start=TTan_start,
-    TFlu_start=linspace(
-        nom.T_CHWR_nominal,
-        nom.T_CHWS_nominal,
-        tan.nSeg)) "Tank"
+    final VTan=VTan,
+    final hTan=hTan,
+    final dIns=dIns,
+    final kIns=kIns,
+    final nSeg=nSeg,
+    final energyDynamics=energyDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final TFlu_start=TFlu_start,
+    final tau=tau,
+    final m_flow_nominal=nom.mTan_flow_nominal,
+    show_T=true) "Tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Fluid.Sensors.MassFlowRate senFlo(redeclare final package Medium =
         Medium, final allowFlowReversal=true) "Flow rate sensor for the tank,"

@@ -96,7 +96,10 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final nom=nom,
-    final TTan_start=nom.T_CHWR_nominal)
+    VTan=10,
+    hTan=3,
+    dIns=0.3,
+    nSeg=7)
     "Tank branch, tank can be charged remotely" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
