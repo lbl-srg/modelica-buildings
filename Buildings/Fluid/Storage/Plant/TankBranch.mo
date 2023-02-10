@@ -22,7 +22,7 @@ model TankBranch
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-  parameter Medium.Temperature T_start=nom.T_CHWS_nominal
+  parameter Medium.Temperature T_start=nom.T_CHWR_nominal
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
   parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)

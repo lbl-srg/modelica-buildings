@@ -67,7 +67,7 @@ partial model PartialDualSource
     mChi_flow_nominal=2*m_flow_nominal,
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
-    T_CHWR_nominal=T_CHWS_nominal) "Nominal values for the second plant"
+    T_CHWR_nominal=T_CHWR_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
   Buildings.Fluid.Movers.FlowControlled_m_flow pumChi2(
     redeclare final package Medium = Medium,
@@ -78,7 +78,7 @@ partial model PartialDualSource
     allowFlowReversal=true,
     addPowerToMedium=false,
     m_flow_start=0,
-    T_start=nom.T_CHWR_nominal) "Primary CHW pump for plant 2"
+    T_start=nom.T_CHWS_nominal) "Primary CHW pump for plant 2"
                                                               annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -187,7 +187,7 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
     parJunUse1(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWS_nominal,
+    T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
@@ -198,7 +198,7 @@ partial model PartialDualSource
     parJunPla1(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWS_nominal,
-    T2_start=nom.T_CHWS_nominal)
+    T2_start=nom.T_CHWR_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -207,7 +207,7 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
     parJunUse2(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWS_nominal,
+    T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
@@ -218,7 +218,7 @@ partial model PartialDualSource
     parJunPla2(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWS_nominal,
-    T2_start=nom.T_CHWS_nominal)
+    T2_start=nom.T_CHWR_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -227,7 +227,7 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
     parJunUse3(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWS_nominal,
+    T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
