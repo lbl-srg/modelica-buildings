@@ -11,5 +11,7 @@ compareVars :=
     "falTru.u",
     "falTru.y",
     "falTru1.u",
-    "falTru1.y"
+    "falTru1.y",
+    "conChaWid.u",
+    "conChaWid.y"
   };
