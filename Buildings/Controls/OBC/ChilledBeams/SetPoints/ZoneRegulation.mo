@@ -88,21 +88,21 @@ block ZoneRegulation
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Design air volume flow rate when zone is occupied"
-    annotation (Dialog(tab="Setpoints", group="Airflow setpoints"));
+    annotation (Dialog(group="Airflow setpoints"));
 
   parameter Real VDes_unoccSch(
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Design air volume flow rate when zone is unoccupied during scheduled unoccupancy"
-    annotation (Dialog(tab="Setpoints", group="Airflow setpoints"));
+    annotation (Dialog(group="Airflow setpoints"));
 
   parameter Real VDes_unoccUnsch(
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Design air volume flow rate when zone is unoccupied during scheduled occupancy"
-    annotation (Dialog(tab="Setpoints", group="Airflow setpoints"));
+    annotation (Dialog(group="Airflow setpoints"));
 
   parameter Real zonOccHeaSet(
     final unit="K",
@@ -284,15 +284,15 @@ protected
     annotation (Placement(transformation(extent={{-20,-160},{0,-140}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conIntUn(
-	final k=Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied)
+ final k=Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied)
     "Constant signal for unoccupied mode"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
-	final k={
-		Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied,
-		Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedScheduled,
-		Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedUnscheduled})
+ final k={
+  Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied,
+  Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedScheduled,
+  Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedUnscheduled})
     "List of possible modes"
     annotation (Placement(transformation(extent={{-110,-120},{-90,-100}})));
 
@@ -321,7 +321,7 @@ equation
     annotation (Line(points={{-2,-30},{-8,-30}}, color={0,0,127}));
 
   connect(pro.y, mulSum.u[1:3]) annotation (Line(points={{-38,-30},{-36,-30},{
-          -36,-31.3333},{-32,-31.3333}},
+          -36,-29.3333},{-32,-29.3333}},
                                      color={0,0,127}));
 
   connect(con.y, pro.u1) annotation (Line(points={{-78,-10},{-70,-10},{-70,-24},
@@ -407,7 +407,7 @@ annotation (defaultComponentName="zonRegCon",
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>
-Zone temperature regulation controller for terminal box of CAV DOAS system with 
+Zone temperature regulation controller for terminal box of CAV DOAS system with
 reheat and chilled beam mainfold valves. It outputs damper position <code>yDam</code>,
 reheat signal <code>yReh</code>, and chilled water manifold control valve position
 <code>yVal</code>.
@@ -419,9 +419,9 @@ Each signal is calculated as follows.
 Reheat signal
 <ul>
 <li>
-The CAV reheat signal <code>yReh</code> is generated using a PI-controller to 
-maintain the measured zone temperature <code>TZon</code> at or above the zone heating 
-setpoint <code>TZonHeaSet</code> from 
+The CAV reheat signal <code>yReh</code> is generated using a PI-controller to
+maintain the measured zone temperature <code>TZon</code> at or above the zone heating
+setpoint <code>TZonHeaSet</code> from
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature</a>.
 </li>
@@ -436,18 +436,18 @@ mode signal <code>uOpeMod</code>.
 </li>
 <li>
 When the operating mode is <code>occupied</code>, <code>yDam</code> is adjusted
-to supply air at volume flow rate <code>Vdes_occ</code>.
+to supply air at volume flow rate <code>VDes_occ</code>.
 </li>
 <li>
 When the operating mode is <code>unoccupiedUnscheduled</code>, <code>yDam</code>
-is adjusted to supply air at volume flow rate <code>Vdes_unoccUnsch</code>.
+is adjusted to supply air at volume flow rate <code>VDes_unoccUnsch</code>.
 </li>
 <li>
 When the operating mode is <code>unoccupiedScheduled</code>, <code>yDam</code>
-is adjusted to supply air at volume flow rate <code>Vdes_unoccSch</code>.
+is adjusted to supply air at volume flow rate <code>VDes_unoccSch</code>.
 </li>
 <li>
-When a continuous signal is received from the condensation sensor in the zone 
+When a continuous signal is received from the condensation sensor in the zone
 <code>uConSen</code> for time <code>conSenOnThr</code>, <code>yDam</code> is set
 to fully open.
 </li>
@@ -457,9 +457,9 @@ to fully open.
 Chilled beam control valve position
 <ul>
 <li>
-The chilled beam control valve position <code>yVal</code> is adjusted using a 
+The chilled beam control valve position <code>yVal</code> is adjusted using a
 PI-controller to regulate <code>TZon</code> at or below the zone cooling setpoint
-<code>TZonCooSet</code> from 
+<code>TZonCooSet</code> from
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature</a>.
 </li>

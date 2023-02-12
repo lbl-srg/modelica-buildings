@@ -50,16 +50,16 @@ block BypassValvePosition
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump proven On signal"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatLoo(
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference")
     "Chilled water loop differential static pressure"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-      iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPumSpe(
     final unit="1",
@@ -96,12 +96,12 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Ensure bypass valve is open when no pumps are enabled and close it when any pump is enabled"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=0)
     "Constant real zero source"
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
     final k=1)
@@ -125,7 +125,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
     "Check if any chilled water pump is enabled"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant offSetdPChiWatMax(
     final k(final unit="Pa")=dPChiWatMax)
@@ -137,7 +137,7 @@ protected
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
 
 equation
-  connect(uPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-120,50},{-82,50}},
+  connect(uPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-120,60},{-82,60}},
                              color={255,0,255}));
 
   connect(uPumSpe, hys.u)
@@ -152,19 +152,21 @@ equation
   connect(swi.y, yBypValPos)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
 
-  connect(mulOr.y, and2.u1) annotation (Line(points={{-58,50},{-30,50},{-30,0},{
-          -22,0}}, color={255,0,255}));
+  connect(mulOr.y, and2.u1) annotation (Line(points={{-58,60},{-30,60},{-30,0},
+          {-22,0}},color={255,0,255}));
 
   connect(mulOr.y, swi1.u2)
-    annotation (Line(points={{-58,50},{18,50}}, color={255,0,255}));
+    annotation (Line(points={{-58,60},{18,60}}, color={255,0,255}));
 
-  connect(con1.y, swi1.u3) annotation (Line(points={{2,30},{6,30},{6,42},{18,42}},
+  connect(con1.y, swi1.u3) annotation (Line(points={{2,30},{6,30},{6,52},{18,52}},
         color={0,0,127}));
 
-  connect(con.y, swi1.u1) annotation (Line(points={{2,70},{10,70},{10,58},{18,58}},
+  connect(con.y, swi1.u1) annotation (Line(points={{2,80},{10,80},{10,68},{18,
+          68}},
         color={0,0,127}));
 
-  connect(swi1.y, swi.u3) annotation (Line(points={{42,50},{54,50},{54,-8},{58,-8}},
+  connect(swi1.y, swi.u3) annotation (Line(points={{42,60},{54,60},{54,-8},{58,
+          -8}},
         color={0,0,127}));
 
   connect(and2.y, swi.u2)
@@ -173,13 +175,14 @@ equation
   connect(conPID.y, swi.u1) annotation (Line(points={{42,-50},{48,-50},{48,8},{
           58,8}}, color={0,0,127}));
 
-  connect(con.y, conPID.u_s) annotation (Line(points={{2,70},{10,70},{10,-50},{
+  connect(con.y, conPID.u_s) annotation (Line(points={{2,80},{10,80},{10,-50},{
           18,-50}}, color={0,0,127}));
 
   connect(and2.y, conPID.trigger) annotation (Line(points={{2,0},{6,0},{6,-66},{
           24,-66},{24,-62}}, color={255,0,255}));
-  connect(dpChiWatLoo, subDpChiWatMax.u1) annotation (Line(points={{-120,-40},{-80,
-          -40},{-80,-34},{-62,-34}}, color={0,0,127}));
+  connect(dpChiWatLoo, subDpChiWatMax.u1) annotation (Line(points={{-120,-60},{
+          -80,-60},{-80,-34},{-62,-34}},
+                                     color={0,0,127}));
   connect(offSetdPChiWatMax.y, subDpChiWatMax.u2) annotation (Line(points={{-68,
           -80},{-64,-80},{-64,-46},{-62,-46}}, color={0,0,127}));
   connect(subDpChiWatMax.y, div.u1) annotation (Line(points={{-38,-40},{-36,-40},

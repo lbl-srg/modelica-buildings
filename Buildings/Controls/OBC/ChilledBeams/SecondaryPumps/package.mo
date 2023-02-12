@@ -26,6 +26,6 @@ This package contains control sequences for chilled water pumps.
         fillPattern=FillPattern.Solid), Polygon(
         points={{0,66},{0,-68},{68,0},{0,66}},
         lineColor={0,0,0},
-        fillColor={255,0,0},
+        fillColor={0,0,0},
         fillPattern=FillPattern.Solid)}));
 end SecondaryPumps;

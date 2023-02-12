@@ -50,7 +50,7 @@ block EnableLag_pumpSpeed
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
     "Next lag pump status"
-    annotation (Placement(transformation(extent={{140,10},{180,50}}),
+    annotation (Placement(transformation(extent={{140,50},{180,90}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDown
@@ -171,7 +171,8 @@ equation
           -80,86},{-80,60},{-72,60}},     color={255,0,255}));
 
   connect(or2.y, yUp)
-    annotation (Line(points={{122,30},{160,30}}, color={255,0,255}));
+    annotation (Line(points={{122,30},{130,30},{130,70},{160,70}},
+                                                 color={255,0,255}));
 
   connect(edg1.y, not2.u)
     annotation (Line(points={{62,-40},{68,-40}},
@@ -237,7 +238,19 @@ annotation (
       Text(
         extent={{-100,150},{100,110}},
         lineColor={0,0,255},
-        textString="%name")}),
+        textString="%name"),
+        Text(
+          extent={{-94,16},{-60,-12}},
+          textColor={0,0,127},
+          textString="uPumSpe"),
+        Text(
+          extent={{68,54},{92,30}},
+          textColor={255,85,255},
+          textString="yUp"),
+        Text(
+          extent={{70,-26},{94,-50}},
+          textColor={255,85,255},
+          textString="yDown")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,160}})),
   Documentation(info="<html>
     <p>
@@ -257,11 +270,11 @@ annotation (
     </ol>
     </p>
     </html>", revisions="<html>
-    <ul>
-    <li>
-    June 8, 2021, by Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+<ul>
+<li>
+June 8, 2021, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableLag_pumpSpeed;

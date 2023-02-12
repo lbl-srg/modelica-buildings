@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences;
 block Speed_remoteDp
   "Pump speed control for chilled beam systems where the remote DP sensor(s) is hardwired to the controller"
 
-  parameter Integer nSen = 2
+  parameter Integer nSen(min=1)
     "Total number of remote differential pressure sensors";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Total number of chilled water pumps";
 
   parameter Real minPumSpe = 0.1
@@ -41,7 +41,7 @@ block Speed_remoteDp
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nPum]
     "Chilled water pump status"
-    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
+    annotation (Placement(transformation(extent={{-160,80},{-120,120}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWat[nSen](
@@ -49,7 +49,7 @@ block Speed_remoteDp
     displayUnit=fill("Pa", nSen),
     final quantity=fill("PressureDifference", nSen))
     "Chilled water differential static pressure"
-    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
@@ -66,7 +66,7 @@ block Speed_remoteDp
     final unit="1",
     displayUnit="1")
     "Chilled water pump speed"
-    annotation (Placement(transformation(extent={{120,80},{160,120}}),
+    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax maxLoo(
@@ -97,7 +97,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nPum)
     "Check if any chilled water pumps are enabled"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep(
     final nout=nSen)
@@ -130,7 +130,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Divide div[nSen]
     "Normalized pressure difference"
-    annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
+    annotation (Placement(transformation(extent={{0,-76},{20,-56}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaRep1(
     final nout=nSen)
@@ -141,14 +141,15 @@ protected
     "Logical switch"
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add addSmaPre
+  Buildings.Controls.OBC.CDL.Continuous.Max guaDivZer
     "Ensure zero setpoint does not cause division by zero"
-    annotation (Placement(transformation(extent={{-72,-100},{-52,-80}})));
+    annotation (Placement(transformation(extent={{-70,-100},{-50,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaPre(final k(final unit="Pa")=1E-6)
-    "Constant for small pressure, used to avoid division by zero"
-    annotation (Placement(transformation(extent={{-114,-90},{-94,-70}})));
-	
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant smaPre(
+    final k(final unit="Pa") = 1)
+    "Constant for small pressure, used to avoid division by zero. Set to 1 Pa as default as set point is usually in the order of 1 kPa"
+    annotation (Placement(transformation(extent={{-110,-90},{-90,-70}})));
+
 equation
 
   connect(zer.y, pumSpe.x1)
@@ -168,7 +169,7 @@ equation
       color={0,0,127}));
 
   connect(dpChiWat, div.u1)
-    annotation (Line(points={{-140,-60},{-8,-60},{-8,-74},{-2,-74}},
+    annotation (Line(points={{-140,0},{-100,0},{-100,-60},{-2,-60}},
       color={0,0,127}));
 
   connect(one.y, reaRep1.u)
@@ -180,13 +181,14 @@ equation
       color={0,0,127}));
 
   connect(swi.y,yChiWatPumSpe)
-    annotation (Line(points={{102,100},{140,100}}, color={0,0,127}));
+    annotation (Line(points={{102,100},{110,100},{110,0},{140,0}},
+                                                   color={0,0,127}));
 
-  connect(uChiWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,0},{-122,0},{
-          -122,0},{-102,0}},       color={255,0,255}));
-  connect(mulOr.y, swi.u2) annotation (Line(points={{-78,0},{-50,0},{-50,100},{78,
+  connect(uChiWatPum, mulOr.u[1:nPum]) annotation (Line(points={{-140,100},{-90,
+          100},{-90,0},{-82,0}},   color={255,0,255}));
+  connect(mulOr.y, swi.u2) annotation (Line(points={{-58,0},{-50,0},{-50,100},{78,
           100}}, color={255,0,255}));
-  connect(mulOr.y, edg.u) annotation (Line(points={{-78,0},{-50,0},{-50,-40},{-42,
+  connect(mulOr.y, edg.u) annotation (Line(points={{-58,0},{-50,0},{-50,-40},{-42,
           -40}}, color={255,0,255}));
   connect(edg.y, booRep.u)
     annotation (Line(points={{-18,-40},{-12,-40}}, color={255,0,255}));
@@ -195,18 +197,18 @@ equation
   connect(reaRep1.y, conPID.u_s)
     annotation (Line(points={{2,0},{18,0}}, color={0,0,127}));
   connect(div.y, conPID.u_m)
-    annotation (Line(points={{22,-80},{30,-80},{30,-12}},color={0,0,127}));
+    annotation (Line(points={{22,-66},{30,-66},{30,-12}},color={0,0,127}));
   connect(conPID.y, maxLoo.u[1:nSen])
     annotation (Line(points={{42,0},{50,0},{50,0},{58,0}},   color={0,0,127}));
   connect(pumSpe_max.y, swi.u3) annotation (Line(points={{2,40},{10,40},{10,92},
           {78,92}}, color={0,0,127}));
-  connect(reaRep.y, div.u2) annotation (Line(points={{-18,-90},{-10,-90},{-10,-86},
-          {-2,-86}},       color={0,0,127}));
-  connect(addSmaPre.y, reaRep.u)
-    annotation (Line(points={{-50,-90},{-42,-90}}, color={0,0,127}));
-  connect(addSmaPre.u1, smaPre.y) annotation (Line(points={{-74,-84},{-84,-84},{
-          -84,-80},{-92,-80}}, color={0,0,127}));
-  connect(addSmaPre.u2, dpChiWatSet) annotation (Line(points={{-74,-96},{-84,-96},
+  connect(reaRep.y, div.u2) annotation (Line(points={{-18,-90},{-10,-90},{-10,-72},
+          {-2,-72}},       color={0,0,127}));
+  connect(guaDivZer.y, reaRep.u)
+    annotation (Line(points={{-48,-90},{-42,-90}}, color={0,0,127}));
+  connect(guaDivZer.u1, smaPre.y) annotation (Line(points={{-72,-84},{-82,-84},{
+          -82,-80},{-88,-80}}, color={0,0,127}));
+  connect(guaDivZer.u2, dpChiWatSet) annotation (Line(points={{-72,-96},{-84,-96},
           {-84,-100},{-140,-100}}, color={0,0,127}));
 annotation (
   defaultComponentName="chiPumSpe",
@@ -220,7 +222,23 @@ annotation (
         Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-92,14},{-58,-14}},
+          textColor={0,0,127},
+          textString="dpChiWat"),
+        Text(
+          extent={{-92,-66},{-58,-94}},
+          textColor={0,0,127},
+          textString="dpChiWatSet"),
+        Text(
+          extent={{-92,100},{-46,58}},
+          textColor={255,85,255},
+          textString="uChiWatPum"),
+        Text(
+          extent={{44,18},{92,-16}},
+          textColor={0,0,127},
+          textString="yChiWatPum")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-120},{120,120}})),
   Documentation(info="<html>
 <p>
@@ -234,8 +252,8 @@ When any chilled water pump is proven on, <code>uChiWatPum = true</code>,
 pump speed will be controlled by a reverse acting PID loop maintaining the
 differential pressure signal at a setpoint <code>dpChiWatSet</code>. All pumps
 receive the same speed signal. PID loop output shall be mapped from minimum
-pump speed (<code>minPumSpe</code>) at 0% to maximum pump speed
-(<code>maxPumSpe</code>) at 100%.
+pump speed <code>minPumSpe</code> at 0% to maximum pump speed
+<code>maxPumSpe</code> at 100%.
 </li>
 <li>
 Where multiple differential pressure sensors exist, a PID loop shall run for
@@ -245,6 +263,10 @@ of all DP sensor loops.
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+August 8, 2022, by Michael Wetter:<br/>
+Set minimum attribute for parameter, and removed default value.
+</li>
 <li>
 June 9, 2021, by Karthik Devaprasad:<br/>
 First implementation.

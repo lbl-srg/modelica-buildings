@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences;
 block EnableLead
   "Sequence to enable or disable the lead pump of chilled beam systems"
 
-  parameter Integer nVal = 3
+  parameter Integer nVal(min=1)
     "Number of chilled water control valves on chilled beam manifolds";
 
   parameter Real valPosClo(
@@ -104,7 +104,15 @@ annotation (
         Text(
           extent={{-100,150},{100,110}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Text(
+          extent={{-92,14},{-58,-14}},
+          textColor={0,0,127},
+          textString="uValPos"),
+        Text(
+          extent={{66,12},{90,-12}},
+          textColor={255,85,255},
+          textString="yLea")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
   <p>
@@ -120,11 +128,15 @@ annotation (
   time.
   </li>
   </html>", revisions="<html>
-  <ul>
-  <li>
-  June 07, 2021, by Karthik Devaprasad:<br/>
-  First implementation.
-  </li>
-  </ul>
-  </html>"));
+<ul>
+<li>
+August 8, 2022, by Michael Wetter:<br/>
+Set minimum attribute for parameter, and removed default value.
+</li>
+<li>
+June 07, 2021, by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end EnableLead;
