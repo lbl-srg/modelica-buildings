@@ -280,42 +280,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
     </td>
 </tr>       
-<tr><td colspan=\"2\"><b>Buildings.Electrical</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Electrical.Interfaces.PartialTwoPort
-    </td>
-    <td valign=\"top\">Added constraining clause for terminal as models that extend from this model
-                     access a component that is not in the base class, and Optimica 1.40
-                     issues a warning for this.<br/>
-                     This is for
-                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3236\">#3236</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU<br/>
-                       Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
-    </td>
-    <td valign=\"top\">Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
-                       by default. Added an assertion warning to inform the user about how to change
-                       this behaviour if the flow direction does need to change.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA, #1682</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.Outside<br/>
-                       Buildings.Fluid.Sources.MassFlowSource_WeatherData
-    </td>
-    <td valign=\"top\">Changed base class to constrain medium to moist air.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
