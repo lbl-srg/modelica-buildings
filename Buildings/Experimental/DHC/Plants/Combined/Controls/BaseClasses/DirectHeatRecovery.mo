@@ -237,12 +237,26 @@ equation
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
-SOO modifications!
-
-TConEnt reset up to HWRT - 15 °C (27 °F instead of 10 °F) 
-
-Not implemented:
-The loop shall utilize a +/-2°F deadband around the target CHWST setpoint
-to minimize hunting.
+<p>
+In direct heat recovery mode, the HRC is internally controlled in heating mode
+and tracks a HW supply temperature setpoint.
+The CHW supply temperature setpoint is maintained by means of supervisory controls
+that act on the evaporator flow rate and condenser entering water temperature as
+described below.
+</p>
+<p>
+A direct acting control loop runs for each HRC operating in direct heat recovery 
+mode.
+The loop output is mapped as follows.
+From <i>0&nbsp;%</i> to <i>33&nbsp;%</i> the evaporator flow setpoint of 
+cooling-only chillers is reset from <i>1.2</i> times its mininum value
+to <i>1.2</i> times its design value.
+From <i>33&nbsp;%</i> to <i>67&nbsp;%</i> the evaporator flow setpoint of 
+the HRC is reset from <i>1.2</i> times its mininum value
+to <i>1.2</i> times its design value.
+From <i>67&nbsp;%</i> to <i>100&nbsp;%</i> the HRC condenser entering 
+temperature setpoint is reset from <i>THeaWatRet + 0.5&nbsp;</i>°C
+to <i>THeaWatRet - 15&nbsp;</i>°C.
+</p>
 </html>"));
 end DirectHeatRecovery;

@@ -461,7 +461,7 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe1[nChiHea](each t
       =0.1, each h=5E-2) "Check if valve open"
-    annotation (Placement(transformation(extent={{192,-130},{172,-110}})));
+    annotation (Placement(transformation(extent={{190,-130},{170,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe2[nChi](each t=0.1,
       each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{190,-30},{170,-10}})));
@@ -783,13 +783,13 @@ block ValveCondenserEvaporator
     each final y_neutral=0) "HW minimum flow bypass valve control"
     annotation (Placement(transformation(extent={{170,410},{190,430}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floChiWatMin[nChi +
-    nChiHea](final k=cat(
+    nChiHea](final k=1.1*cat(
         1,
         fill(mChiWatChi_flow_min, nChi),
         fill(mChiWatChiHea_flow_min, nChiHea))) "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{100,450},{120,470}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floHeaWatMin[nChiHea](
-      final k=fill(mHeaWatChiHea_flow_min, nChiHea)) "Minimum flow setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floHeaWatMin[nChiHea](final k=
+        1.1*fill(mHeaWatChiHea_flow_min, nChiHea))   "Minimum flow setpoint"
     annotation (Placement(transformation(extent={{100,410},{120,430}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax max2(nin=nChi + nChiHea)
     "Maximum control signal"
@@ -943,7 +943,7 @@ equation
   connect(yValEvaChiHea, isOpe.u) annotation (Line(points={{260,-80},{192,-80}},
                                color={0,0,127}));
   connect(yValConChiHea, isOpe1.u) annotation (Line(points={{260,-100},{220,
-          -100},{220,-120},{194,-120}},
+          -100},{220,-120},{192,-120}},
                                 color={0,0,127}));
   connect(isOpe.y, cooOrDirAndOnAndOpe.u1) annotation (Line(points={{168,-80},{
           108,-80},{108,380},{118,380}},
@@ -969,14 +969,14 @@ equation
                                                 color={255,0,255}));
   connect(u1CooChiHea, cooAndOpe.u1) annotation (Line(points={{-260,-80},{88,-80},
           {88,270},{118,270}},     color={255,0,255}));
-  connect(isOpe1.y, cooAndOpe.u2) annotation (Line(points={{170,-120},{92,-120},
+  connect(isOpe1.y, cooAndOpe.u2) annotation (Line(points={{168,-120},{92,-120},
           {92,262},{118,262}},   color={255,0,255}));
   connect(cooAndOpe[1:nChiHea].y, enaPumConWatCon.u[nChi+1:nChi+nChiHea]) annotation (Line(points={{142,270},
           {160,270},{160,300},{168,300}},
                                    color={255,0,255}));
   connect(heaAndOn.y, heaAndOnAndOpe.u1) annotation (Line(points={{-98,-240},{
           -84,-240},{-84,-340},{168,-340}}, color={255,0,255}));
-  connect(isOpe1.y, heaAndOnAndOpe.u2) annotation (Line(points={{170,-120},{160,
+  connect(isOpe1.y, heaAndOnAndOpe.u2) annotation (Line(points={{168,-120},{160,
           -120},{160,-348},{168,-348}}, color={255,0,255}));
   connect(heaAndOnAndOpe.y, enaPumHeaWat.u)
     annotation (Line(points={{192,-340},{208,-340}}, color={255,0,255}));
@@ -1314,7 +1314,8 @@ design flow.
 </li>
 <li>
 If any HRC is concurrently operating in direct heat recovery mode, the valve
-is modulated with a control loop tracking an evaporator flow setpoint.
+is modulated with a control loop tracking an evaporator flow setpoint
+which is reset as described hereunder.
 The loop output is mapped to a valve position of <i>10&nbsp;%</i> (resp. <i>100&nbsp;%</i>) 
 at <i>0&nbsp;%</i> (resp. <i>100&nbsp;%</i>) output signal.
 The loop is biaised to launch from <i>100&nbsp;%</i>.
@@ -1413,11 +1414,11 @@ The loop is biaised to launch from <i>100&nbsp;%</i>.
 <p>Otherwise, the valve is commanded to a closed position.</p>
 <h4>HRC condenser and evaporator switchover valve</h4>
 <p>
-Each valve is commanded in a fully open or fully closed position depending 
+Each valve is commanded to a fully open or fully closed position depending 
 on the valve index and the current operating mode of the HRC (cascading cooling, 
 cascading heating or direct heat recovery). 
-In addition, the switchover valve indexed to the HRC closest to the 
-interconnection with the condenser loop (highest index) and that is operating 
+In addition, the switchover valve indexed to the HRC which is nearest to the 
+interconnection with the condenser loop (highest index) and which is operating 
 in direct heat recovery mode is modulated with a control loop tracking
 the condenser entering temperature.
 The condenser entering temperature setpoint is reset based on the logic implemented in 
@@ -1429,7 +1430,7 @@ the CHW supply temperature setpoint simultaneously.
 </p>
 <h4>HRC evaporator CW mixing valve</h4>
 <p>
-The valve position is computed based on two control loops:
+The valve is modulated based on two control loops:
 the HRC evaporator leaving temperature control loop (see the section 
 <i>HRC evaporator flow setpoint</i>) and another control loop that maintains
 the HRC evaporator entering water temperature below the highest temperature
@@ -1440,12 +1441,26 @@ When the loop is enabled, the loop output is mapped to a valve position
 of <i>100&nbsp;%</i> (resp. <i>0&nbsp;%</i>) at <i>0&nbsp;%</i> (resp. <i>100&nbsp;%</i>) 
 output signal.
 When the loop is disabled, the loop output is set to <i>100&nbsp;%</i> (no bypass flow).
+The valve control signal is the minimum (maximum bypass flow) of the resulting
+signals of those two control loops.
 </p>
 <h4>CHW and HW minimum flow bypass valve</h4>
 <p>
+Each chiller and HRC has its own CHW (resp. HW) minimum flow control loop.
+The loop is enabled whenever the unit's evaporator (resp. condenser) is indexed
+to the CHW (resp. HW) loop and its evaporator (resp. condenser) isolation valve 
+is commanded open (with a threshold of <i>10&nbsp;%</i>).
+When enabled, each loop tracks a flow setpoint equal to <i>1.1</i> times the 
+minimum CHW (resp. HW) flow rate.
+When disabled, each loop output is set to <i>0&nbsp;%</i>.
+The valve control signal is the maximum (maximum bypass flow) of the resulting
+signals of all control loops.
 </p>
 <h4>CHW, HW, CWC, CWE lead pump</h4>
 <p>
+The lead pump of each loop is enabled whenever any chiller or HRC is indexed
+to the loop and the corresponding evaporator or condenser isolation valve is 
+commanded open (with a threshold of <i>10&nbsp;%</i>).
 </p>
 </html>"));
 end ValveCondenserEvaporator;

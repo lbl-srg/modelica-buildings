@@ -65,5 +65,20 @@ algorithm
         Text(
           textColor={0,0,255},
           extent={{-150,110},{150,150}},
-          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
+          textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This block computes the command signals to the HRCs to initiate
+the switchover into either cascading cooling mode (with the evaporator 
+indexed to the CHW loop and the condenser indexed to the CW loop)
+or direct heat recovery mode (with the evaporator 
+indexed to the CHW loop and the condenser indexed to the HW loop).
+Switching a HRC to cascading cooling mode is done starting from the unit nearest
+to the CW interconnection, that is the unit with the highest index.
+Switching a HRC to ditrect heat recovery mode is done starting from the unit nearest
+to the CW interconnection and that is not operating in cascading cooling, 
+that is the unit with the highest index below the lowest index of HRCs operating
+in cascading cooling mode.
+</p>
+</html>"));
 end ModeHeatRecoveryChiller;

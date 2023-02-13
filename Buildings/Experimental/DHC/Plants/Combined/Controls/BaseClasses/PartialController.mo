@@ -629,5 +629,10 @@ block PartialController "Interface class for plant controller"
           extent={{-220,-380},{220,380}},
           lineColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>
+This block serves as an interface class for the plant controller.
+</p>
+</html>"));
 end PartialController;

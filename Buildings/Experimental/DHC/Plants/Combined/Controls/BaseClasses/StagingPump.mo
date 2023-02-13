@@ -19,7 +19,7 @@ block StagingPump "Pump staging"
     "High speed limit for staging up";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput y1Ena
-    "Lead pump enable signal (e.g. based on isolation valve opening command)"
+    "Lead pump Enable signal (e.g. based on isolation valve opening command)"
     annotation (Placement(transformation(extent={{-240,140},{-200,180}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput m_flow(final unit="kg/s")
@@ -226,5 +226,35 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),          Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,
-            200}})));
+            200}})),
+    Documentation(info="<html>
+<p>
+This block implements the logic for staging the lag pump of
+a multiple-pump group.
+<p>
+The first staging criterion is optional and is based on <i>ratFlo</i>,
+the ratio of current flow rate to design flow rate.
+The lag pump is enabled whenever any of the following is true.
+</p>
+<ul>
+<li>The pump speed command is higher than <code>yUp</code> for <i>5</i>&nbsp;min.
+</li>
+<li>Optionally if <code>have_flowCriterion</code> is set to <code>true</code>, the ratio <i>ratFlo</i> 
+is higher than <i>n / nPum - 0.03</i> for <i>10</i>&nbsp;min, where <i>n</i> is the number 
+of operating pumps and <i>nPum</i> is the number of pumps operating at design conditions.
+</li>
+</ul>
+<p>
+The lag pump is disabled whenever any of the following is true.
+</p>
+<ul>
+<li>The lead pump is disabled.
+</li>
+<li>The pump speed command is lower than <code>yDow</code> for <i>5</i>&nbsp;min.
+</li>
+<li>Optionally if <code>have_flowCriterion</code> is set to <code>true</code>, the ratio <i>ratFlo</i> 
+is higher than <i>(n - 1) / nPum - 0.03</i> for <i>10</i>&nbsp;min.
+</li>
+</ul>
+</html>"));
 end StagingPump;
