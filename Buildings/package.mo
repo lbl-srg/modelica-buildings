@@ -267,6 +267,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added flag to disable freeze protection.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
+    </td>
+    <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
@@ -279,50 +289,6 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3236\">#3236</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU<br/>
-                       Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
-    </td>
-    <td valign=\"top\">Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
-                       by default. Added an assertion warning to inform the user about how to change
-                       this behaviour if the flow direction does need to change.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA, #1682</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.Outside<br/>
-                       Buildings.Fluid.Sources.MassFlowSource_WeatherData
-    </td>
-    <td valign=\"top\">Changed base class to constrain medium to moist air.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
-    </td>
-    <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3125\">#3125</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36_PR1</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
-    </td>
-    <td valign=\"top\">Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
-    </td>
-  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
 </td>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries
@@ -333,7 +299,7 @@ have been <b style=\"color:blue\">improved</b> in a
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">#2302</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses</b>
     </td>
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.MassFlowRateMultiplier
@@ -365,9 +331,36 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3211\">#3211</a>.
     </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
-  </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.OneUTube<br/>
+                       Buildings.Fluid.Geothermal.Borefields.TwoUTubes
+    </td>
+    <td valign=\"top\">Enabled calculation of bore fields with hundreds of bore holes. This is
+                       accomplished by updating the calculation of the ground temperature response in the model
+                       <code>Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.GroundTemperatureResponse</code>
+                       using clustering of bore holes as described in
+                       <a href=\"https://doi.org/10.1080/19401493.2021.1968953\">
+                       doi:10.1080/19401493.2021.1968953</a>.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1577\">IBPSA, #1577</a>.
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.WetCoilEffectivenessNTU<br/>
+                       Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectivenessNTU
+    </td>
+    <td valign=\"top\">Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
+                       by default. Added an assertion warning to inform the user about how to change
+                       this behaviour if the flow direction does need to change.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">IBPSA, #1682</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+  </td>
+</tr>
   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
                          Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
@@ -378,8 +371,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
     </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.BaseClasses.Outside<br/>
+                       Buildings.Fluid.Sources.MassFlowSource_WeatherData
+    </td>
+    <td valign=\"top\">Changed base class to constrain medium to moist air.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
+  </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassTRExteriorIrradiationNoShading<br/>
                        Buildings.HeatTransfer.Windows.Functions.glassTRInteriorIrradiationNoShading
@@ -389,6 +393,17 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.AHU
+    </td>
+    <td valign=\"top\">Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
+    </td>
+  </tr>
+
   <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
     </td>
   </tr>
