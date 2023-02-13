@@ -13,14 +13,13 @@ model ThreeWayEqualPercentageLinear
     "Range of significant deviation from equal percentage law";
 
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
-          20,-50},{12,-50}},
+  connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{30,46},{30,-50},{
+          12,-50}},      color={0,0,127}));
+  connect(y_actual, inv.u2) annotation (Line(points={{50,70},{88,70},{88,34},{
+          -68,34},{-68,41.2}},
                          color={0,0,127}));
-  connect(y_actual, inv.u2) annotation (Line(points={{50,70},{84,70},{84,32},{-68,
-          32},{-68,41.2}},
-                         color={0,0,127}));
-  connect(y_actual, res1.y) annotation (Line(points={{50,70},{84,70},{84,32},{
-          -50,32},{-50,12}},
+  connect(y_actual, res1.y) annotation (Line(points={{50,70},{88,70},{88,34},{
+          -50,34},{-50,12}},
         color={0,0,127}));
   annotation (                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Text(
