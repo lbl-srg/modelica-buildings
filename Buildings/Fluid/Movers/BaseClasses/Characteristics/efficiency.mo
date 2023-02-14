@@ -17,8 +17,8 @@ algorithm
   if n == 1 then
     eta := per.eta[1];
   else
-    // The use of the max function to avoids problems for low speeds
-    // and turned off pumps
+    // The use of the max function avoids problems with low speeds
+    // and turned-off pumps
     rat:=V_flow/
             Buildings.Utilities.Math.Functions.smoothMax(
               x1=r_N,
