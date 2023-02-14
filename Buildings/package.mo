@@ -299,6 +299,16 @@ have been <b style=\"color:blue\">improved</b> in a
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">#2302</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve
+    </td>
+    <td valign=\"top\">Removed start value for <code>dp</code>.
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3231\">#3231</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.BaseClasses</b>
     </td>
   </tr>
@@ -331,6 +341,18 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3211\">#3211</a>.
     </td>
   </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Chillers.BaseClasses.Carnot
+  </td>
+  <td valign=\"top\">Changed parameter binding
+                     <code>etaCarnot_nominal(unit=\"1\") =
+                     COP_nominal/(TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))</code>
+                     to
+                     <code>etaCarnot_nominal(unit=\"1\") = 0.3</code> to avoid a circular assignment.<br/>
+                     Improved documentation.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3226\">#3226</a>.
+  </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Geothermal</b>
     </td>
 </tr>

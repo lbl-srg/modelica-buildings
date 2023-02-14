@@ -24,14 +24,13 @@ partial model Carnot
   parameter Boolean use_eta_Carnot_nominal = true
     "Set to true to use Carnot effectiveness etaCarnot_nominal rather than COP_nominal"
     annotation(Dialog(group="Efficiency"));
-  parameter Real etaCarnot_nominal(unit="1") = COP_nominal/
-    (TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))
-    "Carnot effectiveness (=COP/COP_Carnot) used if use_eta_Carnot_nominal = true"
+  parameter Real etaCarnot_nominal(unit="1") = 0.3
+    "Carnot effectiveness (=COP/COP_Carnot) used during simulation if use_eta_Carnot_nominal = true"
     annotation (Dialog(group="Efficiency", enable=use_eta_Carnot_nominal));
 
   parameter Real COP_nominal(unit="1") = etaCarnot_nominal*TUseAct_nominal/
     (TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal))
-    "Coefficient of performance at TEva_nominal and TCon_nominal, used if use_eta_Carnot_nominal = false"
+    "Coefficient of performance at TEva_nominal and TCon_nominal, used during simulation if use_eta_Carnot_nominal = false"
     annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot_nominal));
 
   parameter Modelica.Units.SI.Temperature TCon_nominal=303.15
@@ -336,24 +335,30 @@ whose coefficient of performance COP changes
 with temperatures in the same way as the Carnot efficiency changes.
 </p>
 <p>
-The model allows to either specify the Carnot effectiveness
-<i>&eta;<sub>Carnot,0</sub></i>, or
-a <i>COP<sub>0</sub></i>
-at the nominal conditions, together with
-the evaporator temperature <i>T<sub>eva,0</sub></i> and
-the condenser temperature <i>T<sub>con,0</sub></i>, in which
-case the model computes the Carnot effectiveness as
+Set <code>use_eta_Carnot_nominal=true</code> to specify directly
+the Carnot effectiveness <i>&eta;<sub>Carnot,0</sub></i>,
+in which case the value of the parameter <code>COP_nominal</code>
+will not affect the simulation.
+If <code>use_eta_Carnot_nominal=false</code>, the model will use
+the value of the parameter <code>COP_nominal</code>
+together with the specified nominal temperatures
+to compute the Carnot effectiveness as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 &eta;<sub>Carnot,0</sub> =
   COP<sub>0</sub>
-&frasl;  (T<sub>use,0</sub> &frasl; (T<sub>con,0</sub>-T<sub>eva,0</sub>)),
+&frasl;  (T<sub>use,0</sub> &frasl; (T<sub>con,0</sub> + T<sub>app,con,0</sub> - (T<sub>eva,0</sub>-T<sub>app,eva,0</sub>))),
 </p>
 <p>
 where
-<i>T<sub>use</sub></i> is the temperature of the the useful heat,
-e.g., the evaporator temperature for a chiller or the condenser temperature
-for a heat pump.
+<i>T<sub>eva,0</sub></i> is the evaporator temperature,
+<i>T<sub>con,0</sub></i> is the condenser temperature,
+<i>T<sub>app,eva,0</sub></i> is the evaporator approach temperature,
+<i>T<sub>app,con,0</sub></i> is the condenser approach temperature, and
+<i>T<sub>use,0</sub></i> is the temperature of the the useful heat.
+If <code>COP_is_for_cooling=true</code>,
+then <i>T<sub>use,0</sub></i> is the condenser temperature of a heat pump plus the approach temperature,
+otherwise it is the evaporator temperature minus the approach temperature of a chiller.
 </p>
 <p>
 The COP is computed as the product
@@ -368,7 +373,7 @@ a polynomial.
 This polynomial has the form
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...
+  &eta;<sub>PL</sub> = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...,
 </p>
 <p>
 where <i>y &isin; [0, 1]</i> is
@@ -385,6 +390,16 @@ and the part load ratio are set up.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Michael Wetter:<br/>
+Changed parameter binding
+<code>etaCarnot_nominal(unit=\"1\") = COP_nominal/(TUseAct_nominal/(TCon_nominal+TAppCon_nominal - (TEva_nominal-TAppEva_nominal)))</code>
+to
+<code>etaCarnot_nominal(unit=\"1\") = 0.3</code> to avoid a circular assignment.<br/>
+Improved documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3226\">Buildings, #3226</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>
