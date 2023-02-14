@@ -2,26 +2,26 @@ within Buildings.Controls.OBC.CDL.Integers.Validation;
 model SequenceBinary
   "Validation model for the block to find the total number of fired stages"
 
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new seqBin(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(
     final nSta=4,
     final minStaOn=4,
     final h=0.05) "Total number of fired stages"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new lesHolTim(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary zerHolTim(
     final nSta=4,
-    final minStaOn=1,
+    final minStaOn=0,
     final h=0.05)
-    "Total number of fired stages, with smaller stage ON-OFF holding time"
+    "Total number of fired stages, with zero stage ON-OFF holding time"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new seqBin1(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(
     final nSta=4,
     final minStaOn=2,
     final h=0.05) "Total number of fired stages"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary_new noOffHol(
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
     final nSta=4,
-    final minStaOn=2,
-    final h=0.05) "Total number of fired stages, without holding staging off"
+    final minStaOn=1,
+    final h=0.05) "Total number of fired stages, with less stage holding time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
@@ -39,11 +39,11 @@ model SequenceBinary
 equation
   connect(ramp1.y, seqBin.u)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
-  connect(ramp1.y, lesHolTim.u) annotation (Line(points={{-18,60},{0,60},{0,20},
+  connect(ramp1.y,zerHolTim. u) annotation (Line(points={{-18,60},{0,60},{0,20},
           {18,20}}, color={0,0,127}));
   connect(sin.y,seqBin1. u)
     annotation (Line(points={{-18,-20},{18,-20}}, color={0,0,127}));
-  connect(sin.y, noOffHol.u) annotation (Line(points={{-18,-20},{0,-20},{0,-60},
+  connect(sin.y, lesHolTim.u) annotation (Line(points={{-18,-20},{0,-20},{0,-60},
           {18,-60}}, color={0,0,127}));
   annotation (
     experiment(StopTime=10.0,

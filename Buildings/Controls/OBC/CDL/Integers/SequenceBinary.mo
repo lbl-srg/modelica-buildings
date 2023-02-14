@@ -7,98 +7,65 @@ block SequenceBinary "Output total stages that should be ON"
   parameter Real minStaOn(
     final quantity="Time",
     final unit="s")
-    "Minimum stage ON duration";
-  parameter Real minStaOff(
-    final quantity="Time",
-    final unit="s")=minStaOn
-    "Minimum stage OFF duration";
-  parameter Real h
+    "Minimum time on each stage";
+
+  parameter Integer y_start=0;
+  parameter Real h=0.01
     "Hysteresis for comparing input with threshold";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final min=0,
     final max=1)
     "Real input for specifying stages"
-    annotation (Placement(transformation(extent={{-160,100},{-120,140}}),
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
     "Total number of stages that should be ON"
-    annotation (Placement(transformation(extent={{220,0},{260,40}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Change cha
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Logical.Latch lat
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Discrete.TriggeredSampler triSam
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Conversions.IntegerToReal intToRea
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
-  Conversions.RealToInteger reaToInt
-    annotation (Placement(transformation(extent={{180,10},{200,30}})));
-  Logical.Timer tim(t=minStaOn)
-    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-  Logical.Pre pre
-    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 protected
   final parameter Real staInt = 1/nSta
     "Stage interval";
-  final parameter Real staThr[nSta]= {(i-1)*staInt+h for i in 1:nSta}
+  final parameter Real staThr[nSta] = {(i-1)*staInt for i in 1:nSta}
     "Stage thresholds";
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
-    final nout=nSta)
-    "Replicate input"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr[nSta](
-    final t=staThr,
-    final h=fill(h/2, nSta))
-    "Check if the input is greater than thresholds"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta]
-    "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    final nin=nSta)
-    "Calculate total number of stages that should be ON"
-    annotation (Placement(transformation(extent={{20,110},{40,130}})));
+  discrete Real tNext
+    "Next check point if it has passed the minimum hold time";
+  discrete Real upperThreshold
+    "Current upper bound of the stage range which the input is in";
+  discrete Real lowerThreshold
+    "Current lower bound of the stage range which the input is in";
+  discrete Real uTem
+    "Sampled input value";
+  Boolean checkUpper
+    "Check if the input value is greater than the upper bound";
+  Boolean checkLower
+    "Check if the input value is greater than the lower bound";
+
+initial equation
+  upperThreshold = 0;
+  lowerThreshold = 0;
+  pre(checkUpper) = false;
+  pre(checkLower) = true;
+  tNext = minStaOn;
+  pre(y)=y_start;
+  uTem = 0;
 
 equation
-  connect(booToInt.y, mulSumInt.u)
-    annotation (Line(points={{2,120},{18,120}},
-                                             color={255,127,0}));
-  connect(u, reaScaRep.u)
-    annotation (Line(points={{-140,120},{-102,120}},
-                                                color={0,0,127}));
-  connect(reaScaRep.y, greThr.u)
-    annotation (Line(points={{-78,120},{-62,120}},
-                                               color={0,0,127}));
+  checkUpper = not pre(checkUpper) and (u > (pre(upperThreshold) + h)) or pre(checkUpper) and (u >= (pre(upperThreshold) - h));
+  checkLower = not pre(checkLower) and (u > (pre(lowerThreshold) + h)) or pre(checkLower) and (u >= (pre(lowerThreshold) - h));
 
-  connect(mulSumInt.y, cha.u) annotation (Line(points={{42,120},{70,120},{70,92},
-          {-110,92},{-110,-50},{-102,-50}},
-                                         color={255,127,0}));
-  connect(intToRea.y, triSam.u)
-    annotation (Line(points={{-78,60},{-42,60}},
-                                              color={0,0,127}));
-  connect(mulSumInt.y, intToRea.u) annotation (Line(points={{42,120},{70,120},{70,
-          92},{-110,92},{-110,60},{-102,60}},
-                                           color={255,127,0}));
-  connect(cha.y, lat.u)
-    annotation (Line(points={{-78,-50},{-62,-50}},color={255,0,255}));
-  connect(reaToInt.y, y) annotation (Line(points={{202,20},{240,20}},
-                color={255,127,0}));
-  connect(lat.y, tim.u)
-    annotation (Line(points={{-38,-50},{78,-50}},color={255,0,255}));
-  connect(greThr.y, booToInt.u)
-    annotation (Line(points={{-38,120},{-22,120}},
-                                                color={255,0,255}));
-  connect(tim.passed, pre.u) annotation (Line(points={{102,-58},{110,-58},{110,
-          -120},{-110,-120},{-110,-90},{-102,-90}},
-                                              color={255,0,255}));
-  connect(pre.y, lat.clr) annotation (Line(points={{-78,-90},{-70,-90},{-70,-56},
-          {-62,-56}},color={255,0,255}));
+  when (time >= pre(tNext) and ((checkUpper) or not (checkLower))) then
+    uTem = u;
+    tNext = time + minStaOn;
+    y = if (uTem >= staThr[nSta]) then nSta else sum({(if ((uTem < staThr[i]) and (uTem >= staThr[i-1])) then i-1 else 0) for i in 2:nSta});
+    upperThreshold = if (y == nSta) then staThr[nSta] else staThr[y+1];
+    lowerThreshold = if (y == 0) then pre(lowerThreshold) else staThr[y];
+  end when;
+
 annotation (defaultComponentName="seqBin",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-                                                    graphics={
+    graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -126,7 +93,7 @@ annotation (defaultComponentName="seqBin",
           extent={{-62,70},{64,100}},
           textColor={0,0,0},
           textString="h=%h")}),
-  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-140},{120,140}})),
+  Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 <p>
 Block that outputs total number of stages that should be ON (<code>true</code>).

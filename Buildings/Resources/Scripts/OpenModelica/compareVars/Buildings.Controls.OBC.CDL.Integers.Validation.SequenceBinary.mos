@@ -2,8 +2,8 @@ compareVars :=
   {
     "seqBin.u",
     "seqBin.y",
-    "lesHolTim.y",
+    "zerHolTim.y",
     "seqBin1.u",
     "seqBin1.y",
-    "noOffHol.y"
+    "lesHolTim.y"
   };
