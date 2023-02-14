@@ -8,7 +8,6 @@ model DomesticWaterHeater
   parameter Modelica.Units.SI.Temperature TDcw = 273.15+10 "Temperature setpoint of domestic cold water supply";
   parameter Modelica.Units.SI.MassFlowRate mHw_flow_nominal = 0.1 "Nominal mass flow rate of hot water supply";
   parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal = 1 "Nominal mass flow rate of district heating water";
-  parameter Boolean havePEle = datGenDHW.havePEle "Flag that specifies whether electric power is required for water heating";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
@@ -19,11 +18,9 @@ model DomesticWaterHeater
         origin={-30,30})));
   DirectHeatExchangerWaterHeaterWithAuxHeat genDHW(
     redeclare package Medium = Medium,
-    havePEle = havePEle,
     mHw_flow_nominal = mHw_flow_nominal,
-    mDH_flow_nominal = mDH_flow_nominal,
-    eps=datGenDHW.eps,
-    QMax_flow = datGenDHW.QMax_flow) "Generation of DHW"
+    mDH_flow_nominal = mDH_flow_nominal)
+                                     "Generation of DHW"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sources.MassFlowSource_T sinDhw(
     redeclare package Medium = Medium,
@@ -55,11 +52,6 @@ model DomesticWaterHeater
   Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput PEle(unit="W") if havePEle == true
-    "Electric power required for generation equipment"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
-  replaceable Data.GenericDirectHeatExchangerWaterHeater datGenDHW
-    annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
   Modelica.Blocks.Sources.Sine     TDis(
     amplitude=5,
     f=0.001,
@@ -67,6 +59,9 @@ model DomesticWaterHeater
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,-90})));
+  Modelica.Blocks.Interfaces.RealOutput PEle
+    "Electric power required for generation equipment"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
   connect(conTSetHw.y, genDHW.TSetHw)
     annotation (Line(points={{-79,0},{-11,0}}, color={0,0,127}));
@@ -76,8 +71,6 @@ equation
     annotation (Line(points={{-10,-6},{-30,-6},{-30,-20}}, color={0,127,255}));
   connect(souDcw.ports[1], genDHW.port_a1)
     annotation (Line(points={{-30,20},{-30,6},{-10,6}}, color={0,127,255}));
-  connect(genDHW.PEle, PEle) annotation (Line(points={{11,0},{80,0},{80,80},{
-          110,80}}, color={0,0,127}));
   connect(const.y, sinDHw.m_flow_in) annotation (Line(points={{2.05391e-15,-79},
           {2.05391e-15,-60},{-60,-60},{-60,-42},{-38,-42}}, color={0,0,127}));
   connect(const.y, sinDhw.m_flow_in) annotation (Line(points={{2.05391e-15,-79},
@@ -86,6 +79,8 @@ equation
     annotation (Line(points={{10,6},{30,6},{30,20}}, color={0,127,255}));
   connect(TDis.y, souDHw.T_in) annotation (Line(points={{50,-79},{50,-48},{26,-48},
           {26,-42}}, color={0,0,127}));
+  connect(genDHW.PEle, PEle)
+    annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water heater.

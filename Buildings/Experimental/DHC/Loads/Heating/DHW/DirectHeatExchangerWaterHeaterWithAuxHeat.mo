@@ -2,16 +2,19 @@ within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model DirectHeatExchangerWaterHeaterWithAuxHeat
   "A model for domestic water heating served by district heat exchanger and supplemental electric resistance"
   extends
-    Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW;
-  parameter Modelica.Units.SI.Efficiency eps(max=1) = eps "Heat exchanger effectiveness";
-  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = QMax_flow "Maximum heat flow rate for heating (positive)";
+    Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW(
+      final have_PEle = have_eleHea);
+  parameter Modelica.Units.SI.Efficiency eps(min=0,max=1) = 0.8 "Heat exchanger effectiveness";
+  parameter Boolean have_eleHea = true "True if has auxiliary electric heater";
+  parameter Modelica.Units.SI.HeatFlowRate QMax_flow(min=0) = Modelica.Constants.inf "Maximum heat flow rate for electric heater (positive)"
+  annotation(Dialog(enable=have_eleHea));
 
   Buildings.Fluid.HeatExchangers.Heater_T heaDhw(
     redeclare package Medium = Medium,
     m_flow_nominal=mHw_flow_nominal,
     dp_nominal=0,
     QMax_flow=QMax_flow)
-                  if havePEle == true "Supplemental electric resistance domestic hot water heater"
+    if have_eleHea == true "Supplemental electric resistance domestic hot water heater"
     annotation (Placement(transformation(extent={{10,16},{30,-4}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemAuxHeaOut(redeclare package
       Medium = Medium, m_flow_nominal=mHw_flow_nominal)
@@ -32,7 +35,7 @@ protected
   Fluid.FixedResistances.LosslessPipe pip(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHw_flow_nominal,
-    final show_T=false) if havePEle == false "Pipe without electric resistance"
+    final show_T=false) if have_eleHea == false "Pipe without electric resistance"
     annotation (Placement(transformation(extent={{10,44},{30,24}})));
 
 equation
