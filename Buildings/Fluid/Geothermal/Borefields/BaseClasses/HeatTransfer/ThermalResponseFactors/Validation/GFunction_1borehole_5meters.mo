@@ -22,6 +22,10 @@ model GFunction_1borehole_5meters
   final parameter Modelica.Units.SI.Time[nTimTot] tGFun(each fixed=false);
   final parameter Real[nTimTot] dspline(each fixed=false);
 
+  parameter Integer nClu=1 "Number of clusters to be generated";
+  parameter Integer labels[nBor](each fixed=false) "Cluster label associated with each data point";
+  parameter Integer cluSiz[nClu](each fixed=false) "Size of the clusters";
+
   Real gFun_int "Interpolated value of g-function";
   Real lntts_int "Non-dimensional logarithmic time for interpolation";
 
@@ -35,6 +39,13 @@ model GFunction_1borehole_5meters
 
 initial equation
   // Evaluate g-function for the specified bore field configuration
+  (labels, cluSiz) = Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.clusterBoreholes(
+    nBor = nBor,
+    cooBor = cooBor,
+    hBor = hBor,
+    dBor = dBor,
+    rBor = rBor,
+    nClu = nClu);
   (tGFun,gFun) =
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.HeatTransfer.ThermalResponseFactors.gFunction(
       nBor = nBor,
@@ -46,7 +57,10 @@ initial equation
       nSeg = nSeg,
       nTimSho = nTimSho,
       nTimLon = nTimLon,
-      ttsMax = ttsMax);
+      ttsMax = ttsMax,
+      nClu = nClu,
+      labels = labels,
+      cluSiz = cluSiz);
   lntts = log(tGFun/ts .+ Modelica.Constants.small);
   // Initialize parameters for interpolation
   dspline = Buildings.Utilities.Math.Functions.splineDerivatives(
@@ -90,6 +104,11 @@ g-function of a borefield of <i>100</i> boreholes in a <i>1</i> configuration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 9, 2022, by Massimo Cimmino:<br/>
+Added parameters to define the number of clusters for the method of Prieto and
+Cimmino (2021).
+</li>
 <li>
 March 15, 2019, by Massimo Cimmino:<br/>
 First implementation.
