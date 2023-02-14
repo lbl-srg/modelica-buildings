@@ -15,7 +15,6 @@ model DomesticWaterHeaterAndFixture
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 240 "Time constant of Integrator block";
   parameter Real uLow = 0.01*mDhw_flow_nominal "low hysteresis threshold";
   parameter Real uHigh = 0.05*mDhw_flow_nominal "high hysteresis threshold";
-  parameter Boolean havePEle = datGenDHW.havePEle "Flag that specifies whether electric power is required for water heating";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
@@ -26,25 +25,8 @@ model DomesticWaterHeaterAndFixture
         origin={-30,-50})));
   HeatPumpWaterHeaterWithTank genDHW(
     redeclare package Medium = Medium,
-    havePEle=havePEle,
     mHw_flow_nominal=mHw_flow_nominal,
-    mDH_flow_nominal=mDH_flow_nominal,
-    QCon_flow_max = datGenDHW.QCon_flow_max,
-    QCon_flow_nominal=datGenDHW.QCon_flow_nominal,
-    VTan=datGenDHW.VTan,
-    hTan=datGenDHW.hTan,
-    dIns=datGenDHW.dIns,
-    kIns=datGenDHW.kIns,
-    QTan_flow_nominal = datGenDHW.QTan_flow_nominal,
-    hHex_a = datGenDHW.hHex_a,
-    hHex_b = datGenDHW.hHex_b,
-    mHex_flow_nominal = datGenDHW.mHex_flow_nominal,
-    TTan_nominal = datGenDHW.TTan_nominal,
-    THex_nominal = datGenDHW.THex_nominal,
-    dpHex_nominal = datGenDHW.dpHex_nominal,
-    nSeg=datGenDHW.nSeg,
-    dTEva_nominal=datGenDHW.dTEva_nominal,
-    dTCon_nominal=datGenDHW.dTCon_nominal)   "Generation of DHW"
+    mDH_flow_nominal=mDH_flow_nominal)       "Generation of DHW"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   DomesticWaterMixer tmv(
     redeclare package Medium = Medium,
@@ -71,17 +53,12 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Sources.Constant conTSetHw(k=TSetHw)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Interfaces.RealOutput PEle if havePEle == true
-    "Electric power required for generation equipment"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
   DHWLoad loaDHW(redeclare package Medium = Medium, mDhw_flow_nominal=
         mDhw_flow_nominal) "load for DHW"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Interfaces.RealOutput mDhw "Total hot water consumption"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
-  replaceable Data.HeatPumpWaterHeater datGenDHW
-    annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
   Modelica.Blocks.Sources.CombiTimeTable schDhw(
     tableOnFile=true,
     tableName="tab1",
@@ -98,13 +75,14 @@ model DomesticWaterHeaterAndFixture
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-70,-50})));
+  Modelica.Blocks.Interfaces.RealOutput PEle
+    "Electric power required for generation equipment"
+    annotation (Placement(transformation(extent={{100,70},{120,90}})));
 equation
   connect(tmv.TTw, TTw)
     annotation (Line(points={{21,6},{30,6},{30,60},{110,60}},color={0,0,127}));
   connect(conTSetHw.y, genDHW.TSetHw)
     annotation (Line(points={{-79,0},{-41,0}}, color={0,0,127}));
-  connect(genDHW.PEle, PEle) annotation (Line(points={{-19,0},{-10,0},{-10,80},
-          {110,80}}, color={0,0,127}));
   connect(genDHW.port_b1, tmv.port_hw)
     annotation (Line(points={{-20,6},{0,6}}, color={0,127,255}));
   connect(souDHw.ports[1], genDHW.port_a2) annotation (Line(points={{10,-40},{
@@ -122,6 +100,8 @@ equation
     annotation (Line(points={{61,3},{74,3},{74,30},{79,30}}, color={0,0,127}));
   connect(genDHW.port_b2, sinDHw.ports[1])
     annotation (Line(points={{-40,-6},{-70,-6},{-70,-40}}, color={0,127,255}));
+  connect(genDHW.PEle, PEle) annotation (Line(points={{-19,0},{-10,0},{-10,80},{
+          110,80}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This is an example of a domestic water heater and fixture.
@@ -134,7 +114,8 @@ Created example.
 </li>
 </ul>
 </html>"),experiment(
-      StopTime=86400,
-      Interval=1,
+      StopTime=864000,
+      Interval=300,
+      Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
 end DomesticWaterHeaterAndFixture;

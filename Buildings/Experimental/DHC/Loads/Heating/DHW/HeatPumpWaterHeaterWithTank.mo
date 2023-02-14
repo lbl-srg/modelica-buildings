@@ -2,45 +2,30 @@ within Buildings.Experimental.DHC.Loads.Heating.DHW;
 model HeatPumpWaterHeaterWithTank
   "A model for domestic water heating served by heat pump water heater and local storage tank"
   extends
-    Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW(mDH_flow_nominal = 1);
-  parameter Modelica.Units.SI.MassFlowRate mHex_flow_nominal = 0.1 "Mass flow rate of heat exchanger";
-
-  parameter Modelica.Units.SI.Length hTan = 1 "Height of tank (without insulation)";
-  parameter Integer nSeg(min=4) = 5 "Number of volume segments";
-
-  parameter Modelica.Units.SI.Volume VTan "Tank volume";
-  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
-  parameter Modelica.Units.SI.ThermalConductivity kIns "Specific heat conductivity of insulation";
-  parameter Modelica.Units.SI.PressureDifference dpHex_nominal "Pressure drop across the heat exchanger at nominal conditions";
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_max "Maximum heating flow rate";
-  parameter Modelica.Units.SI.HeatFlowRate QCon_flow_nominal "Nominal heating flow rate";
-  parameter Modelica.Units.SI.HeatFlowRate QTan_flow_nominal "Nominal heating flow rate";
-  parameter Modelica.Units.SI.Height hHex_a "Height of portHex_a of the heat exchanger, measured from tank bottom";
-  parameter Modelica.Units.SI.Height hHex_b "Height of portHex_b of the heat exchanger, measured from tank bottom";
-  parameter Modelica.Units.SI.Temperature  TTan_nominal "Temperature of fluid inside the tank at nominal heat transfer conditions";
-  parameter Modelica.Units.SI.Temperature THex_nominal "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
-  parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal "Temperature difference condenser outlet-inlet";
-
+    Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW(
+      final have_PEle = true);
+  parameter Buildings.Experimental.DHC.Loads.Heating.DHW.Data.GenericHeatPumpWaterHeater datWatHea
+    "Performance data"
+    annotation (Placement(transformation(extent={{-96,-96},{-84,-84}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare package
       Medium = Medium, m_flow_nominal=mHw_flow_nominal)
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
   Buildings.Fluid.HeatPumps.Carnot_TCon heaPum(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    m1_flow_nominal=mHex_flow_nominal,
+    m1_flow_nominal=datWatHea.mHex_flow_nominal,
     m2_flow_nominal=mDH_flow_nominal,
-    dTEva_nominal=dTEva_nominal,
-    dTCon_nominal=dTCon_nominal,
+    dTEva_nominal=datWatHea.dTEva_nominal,
+    dTCon_nominal=datWatHea.dTCon_nominal,
     etaCarnot_nominal=0.3,
-    QCon_flow_max = QCon_flow_max,
-    QCon_flow_nominal=QCon_flow_nominal,
+    QCon_flow_max = datWatHea.QCon_flow_max,
+    QCon_flow_nominal=datWatHea.QCon_flow_nominal,
     dp1_nominal=5000,
     dp2_nominal=5000)
               "Domestic hot water heater"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.TemperatureTwoPort senTemHPOut(redeclare package Medium =
-        Medium, m_flow_nominal=mHex_flow_nominal) annotation (Placement(
+        Medium, m_flow_nominal=datWatHea.mHex_flow_nominal) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -54,24 +39,24 @@ model HeatPumpWaterHeaterWithTank
   Fluid.Movers.FlowControlled_m_flow pumHex(
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     redeclare package Medium = Medium,
-    m_flow_nominal=mHex_flow_nominal,
-    massFlowRates={0,0.5,1}*mHex_flow_nominal)
+    m_flow_nominal=datWatHea.mHex_flow_nominal,
+    massFlowRates={0,0.5,1}*datWatHea.mHex_flow_nominal)
     "Pump with m_flow input"
     annotation (Placement(transformation(extent={{60,30},{40,50}})));
   Fluid.Storage.StratifiedEnhancedInternalHex
     tanSte(energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
     redeclare package MediumHex = Medium,
-    hTan=hTan,
-    dIns=dIns,
-    VTan=VTan,
-    nSeg=nSeg,
-    hHex_a=hHex_a,
-    hHex_b=hHex_b,
-    Q_flow_nominal=QTan_flow_nominal,
-    TTan_nominal=TTan_nominal,
-    THex_nominal=THex_nominal,
-    mHex_flow_nominal=mHex_flow_nominal,
+    hTan=datWatHea.hTan,
+    dIns=datWatHea.dIns,
+    VTan=datWatHea.VTan,
+    nSeg=datWatHea.nSeg,
+    hHex_a=datWatHea.hHex_a,
+    hHex_b=datWatHea.hHex_b,
+    Q_flow_nominal=datWatHea.QTan_flow_nominal,
+    TTan_nominal=datWatHea.TTan_nominal,
+    THex_nominal=datWatHea.THex_nominal,
+    mHex_flow_nominal=datWatHea.mHex_flow_nominal,
     show_T=true,
     m_flow_nominal=mHw_flow_nominal)
     "Tank with steady-state heat exchanger balance"
@@ -82,7 +67,7 @@ model HeatPumpWaterHeaterWithTank
     "Temperature of the hot water tank"
     annotation (Placement(transformation(extent={{-40,62},{-20,82}})));
   Controls.OBC.CDL.Continuous.MultiplyByParameter
-                                   dTTanHex2(k=mHex_flow_nominal)
+                                   dTTanHex2(k=datWatHea.mHex_flow_nominal)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
   Controls.OBC.CDL.Continuous.PID conPI(k=0.1, Ti=120)
@@ -127,7 +112,7 @@ equation
   connect(tanTemSen.T, conPI.u_m) annotation (Line(points={{-19,72},{-8,72},{-8,
           70},{0,70},{0,78}}, color={0,0,127}));
   connect(tanTemSen.port, tanSte.heaPorVol[4]) annotation (Line(points={{-40,72},
-          {-46,72},{-46,50.12},{-50,50.12}}, color={191,0,0}));
+          {-46,72},{-46,50},{-50,50}},       color={191,0,0}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model is an example of a domestic hot water (DHW) substation for an  
