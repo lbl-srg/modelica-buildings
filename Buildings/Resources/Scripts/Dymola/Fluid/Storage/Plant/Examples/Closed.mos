@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.Storage.Plant.Examples.Closed",
- stopTime=3600,
+ stopTime=9000,
  tolerance=1e-06,
  method="radau",
  resultFile="Closed");
