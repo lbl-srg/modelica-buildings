@@ -1,16 +1,16 @@
 within Buildings.Controls.OBC.CDL.Integers;
-block SequenceBinary "Output total stages that should be ON"
+block SequenceBinary "Output total stages that should be enabled"
 
   parameter Integer nSta(
     final min=1)
-    "Maximum stages that could be ON";
-  parameter Real minStaOn(
+    "Maximum stages that could be enabled";
+  parameter Real minStaHol(
     final quantity="Time",
     final unit="s")
     "Minimum time on each stage";
 
-  parameter Integer y_start=0;
-  parameter Real h=0.01
+  parameter Integer y_start = 0;
+  parameter Real h = 0.02*1/nSta
     "Hysteresis for comparing input with threshold";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
@@ -20,7 +20,7 @@ block SequenceBinary "Output total stages that should be ON"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput y
-    "Total number of stages that should be ON"
+    "Total number of stages that should be enabled"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
@@ -47,7 +47,7 @@ initial equation
   lowerThreshold = 0;
   pre(checkUpper) = false;
   pre(checkLower) = true;
-  tNext = minStaOn;
+  tNext = minStaHol;
   pre(y)=y_start;
   uTem = 0;
 
@@ -57,7 +57,7 @@ equation
 
   when (time >= pre(tNext) and ((checkUpper) or not (checkLower))) then
     uTem = u;
-    tNext = time + minStaOn;
+    tNext = time + minStaHol;
     y = if (uTem >= staThr[nSta]) then nSta else sum({(if ((uTem < staThr[i]) and (uTem >= staThr[i-1])) then i-1 else 0) for i in 2:nSta});
     upperThreshold = if (y == nSta) then staThr[nSta] else staThr[y+1];
     lowerThreshold = if (y == 0) then pre(lowerThreshold) else staThr[y];
@@ -96,18 +96,17 @@ annotation (defaultComponentName="seqBin",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 <p>
-Block that outputs total number of stages that should be ON (<code>true</code>).
+Block that outputs total number of stages that should be enabled (<code>true</code>).
 It compares the input <code>u</code> with the threshold of each stage. When it is greater
-than a stage threshold, the corresponding stage should be ON. It then sums up total
-number of stages that are ON.
+than a stage threshold, the corresponding stage should be enabled. It then outputs the total
+number of stages that are enabled.
 </p>
 <p>
 The parameter <code>nSta</code> specifies the maximum number of stages.
 It assumes that the stage thresholds are evenly distributed, i.e. the thresholds
 for stages <code>[1, 2, 3, ... , nSta]</code> are
 <code>[0, 1/nSta, 2/nSta, ... , (nSta-1)/nSta]</code>.
-It holds each stage ON (or OFF) by the minimum duration time of <codE>minStaOn</code>
-(or <code>minStaOff</code>).
+It holds each stage by the minimum duration time of <codE>minStaHol</code>.
 </p>
 </html>",
 revisions="<html>

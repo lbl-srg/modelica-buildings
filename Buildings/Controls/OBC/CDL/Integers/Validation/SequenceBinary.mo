@@ -1,27 +1,26 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
 model SequenceBinary
-  "Validation model for the block to find the total number of fired stages"
+  "Validation model for the block to find the total number of enabled stages"
 
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(
     final nSta=4,
-    final minStaOn=4,
-    final h=0.05) "Total number of fired stages"
+    final minStaHol=5)
+    "Total number of enabled stages"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary zerHolTim(
     final nSta=4,
-    final minStaOn=0,
-    final h=0.05)
-    "Total number of fired stages, with zero stage ON-OFF holding time"
+    final minStaHol=0)
+    "Total number of enabled stages, with zero stage ON-OFF holding time"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(
     final nSta=4,
-    final minStaOn=2,
-    final h=0.05) "Total number of fired stages"
+    final minStaHol=2)
+    "Total number of enabled stages"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
     final nSta=4,
-    final minStaOn=1,
-    final h=0.05) "Total number of fired stages, with less stage holding time"
+    final minStaHol=1)
+    "Total number of enabled stages, with less stage holding time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
@@ -58,7 +57,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Integers.SequenceBinary</a>.
 </p>
 <p>
-It shows the results that when the stage ON/OFF holding time are set differently.
+It shows the results that when the stage holding time are set differently.
 </p>
 </html>",
 revisions="<html>
