@@ -155,30 +155,30 @@ partial model PartialDualSource
   Modelica.Blocks.Sources.TimeTable mLoa1_flow(table=[0,0; 3000,0; 3000,ideUse1.m_flow_nominal;
         6000,ideUse1.m_flow_nominal; 6000,0; 9000,0])
     "Cooling load of user 1 represented by flow rate"
-    annotation (Placement(transformation(extent={{140,160},{120,180}})));
+    annotation (Placement(transformation(extent={{100,180},{80,200}})));
   Modelica.Blocks.Sources.TimeTable mLoa2_flow(table=[0,0; 3500,0; 3500,ideUse2.m_flow_nominal;
         5500,ideUse2.m_flow_nominal; 5500,0; 9000,0])
     "Cooling load of user 2 represented by flow rate"
-    annotation (Placement(transformation(extent={{140,0},{120,20}})));
+    annotation (Placement(transformation(extent={{100,20},{80,40}})));
   Modelica.Blocks.Sources.TimeTable mLoa3_flow(table=[0,0; 4000,0; 4000,ideUse3.m_flow_nominal;
         5000,ideUse3.m_flow_nominal; 5000,0; 9000,0])
     "Cooling load of user 3 represented by flow rate"
-    annotation (Placement(transformation(extent={{140,-160},{120,-140}})));
+    annotation (Placement(transformation(extent={{100,-140},{80,-120}})));
   Modelica.Blocks.Math.Gain gaiUse1(final k=1/ideUse1.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={130,130})));
+        origin={130,170})));
   Modelica.Blocks.Math.Gain gaiUse2(final k=1/ideUse2.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={130,-30})));
+        origin={130,12})));
   Modelica.Blocks.Math.Gain gaiUse3(final k=1/ideUse3.dp_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
-        origin={130,-190})));
+        origin={130,-150})));
 
 // District pipe network
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
@@ -287,31 +287,27 @@ partial model PartialDualSource
     "Flow rate setpoint for the chiller in the storage plant"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
+  Modelica.Blocks.Routing.Multiplex muxDp(n=3) "Multiplexer block for routing"
+    annotation (Placement(transformation(extent={{180,140},{200,160}})));
+  Modelica.Blocks.Routing.Multiplex muxVal(n=3) "Multiplexer block for routing"
+    annotation (Placement(transformation(extent={{180,-180},{200,-160}})));
 equation
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-119,170},{-104,170}},
                                                    color={0,0,127}));
-  connect(mLoa1_flow.y, ideUse1.mPre_flow) annotation (Line(points={{119,170},{78,
-          170},{78,158},{79,158}}, color={0,0,127}));
-  connect(mLoa2_flow.y, ideUse2.mPre_flow) annotation (Line(points={{119,10},{78,
-          10},{78,-2},{79,-2}}, color={0,0,127}));
-  connect(mLoa3_flow.y, ideUse3.mPre_flow) annotation (Line(points={{119,-150},{
-          78,-150},{78,-162},{79,-162}}, color={0,0,127}));
-  connect(ideUse1.dp, gaiUse1.u) annotation (Line(points={{101,154},{114,154},{
-          114,130},{118,130}}, color={0,0,127}));
-  connect(ideUse2.dp, gaiUse2.u) annotation (Line(points={{101,-6},{114,-6},{
-          114,-30},{118,-30}}, color={0,0,127}));
-  connect(ideUse3.dp, gaiUse3.u) annotation (Line(points={{101,-166},{114,-166},
-          {114,-190},{118,-190}}, color={0,0,127}));
-  connect(gaiUse1.y,mulMin_dpUse.u[1]) annotation (Line(points={{141,130},{150,
-          130},{150,-230},{-170,-230},{-170,129.333},{-142,129.333}},
-                                     color={0,0,127}));
-  connect(gaiUse2.y,mulMin_dpUse.u[2]) annotation (Line(points={{141,-30},{150,-30},
-          {150,-230},{-170,-230},{-170,130},{-142,130}},
-                                                   color={0,0,127}));
-  connect(gaiUse3.y,mulMin_dpUse.u[3]) annotation (Line(points={{141,-190},{150,
-          -190},{150,-230},{-170,-230},{-170,130.667},{-142,130.667}},
-                                          color={0,0,127}));
+  connect(mLoa1_flow.y, ideUse1.mPre_flow) annotation (Line(points={{79,190},{
+          74,190},{74,158},{79,158}},
+                                   color={0,0,127}));
+  connect(mLoa2_flow.y, ideUse2.mPre_flow) annotation (Line(points={{79,30},{74,
+          30},{74,-2},{79,-2}}, color={0,0,127}));
+  connect(mLoa3_flow.y, ideUse3.mPre_flow) annotation (Line(points={{79,-130},{
+          74,-130},{74,-162},{79,-162}}, color={0,0,127}));
+  connect(ideUse1.dp, gaiUse1.u) annotation (Line(points={{101,154},{110,154},{
+          110,170},{118,170}}, color={0,0,127}));
+  connect(ideUse2.dp, gaiUse2.u) annotation (Line(points={{101,-6},{110,-6},{
+          110,12},{118,12}},   color={0,0,127}));
+  connect(ideUse3.dp, gaiUse3.u) annotation (Line(points={{101,-166},{110,-166},
+          {110,-150},{118,-150}}, color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-118,130},{-92,130},{-92,158}},color={0,0,127}));
   connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-81,170},{-10,170},
@@ -392,11 +388,28 @@ equation
           -150,-70},{-140,-70}}, color={0,127,255}));
   connect(mPla2Set_flow.y, ideRevConSup.mSet_flow) annotation (Line(points={{
           -139,10},{-10,10},{-10,-65},{-1,-65}}, color={0,0,127}));
+  connect(gaiUse1.y, muxDp.u[1]) annotation (Line(points={{141,170},{160,170},{
+          160,147.667},{180,147.667}},
+                                   color={0,0,127}));
+  connect(gaiUse2.y, muxDp.u[2]) annotation (Line(points={{141,12},{160,12},{
+          160,150},{180,150}},
+                           color={0,0,127}));
+  connect(gaiUse3.y, muxDp.u[3]) annotation (Line(points={{141,-150},{160,-150},
+          {160,152.333},{180,152.333}}, color={0,0,127}));
+  connect(muxDp.y[:], mulMin_dpUse.u[:]) annotation (Line(points={{201,150},{
+          206,150},{206,206},{-152,206},{-152,130},{-142,130}},     color={0,0,127}));
+  connect(ideUse1.yVal_actual, muxVal.u[1]) annotation (Line(points={{101,158},
+          {106,158},{106,-172.333},{180,-172.333}}, color={0,0,127}));
+  connect(ideUse2.yVal_actual, muxVal.u[2]) annotation (Line(points={{101,-2},{
+          106,-2},{106,-170},{180,-170}}, color={0,0,127}));
+  connect(ideUse3.yVal_actual, muxVal.u[3]) annotation (Line(points={{101,-162},
+          {106,-162},{106,-170},{162,-170},{162,-167.667},{180,-167.667}},
+        color={0,0,127}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/IdealDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
-        Diagram(coordinateSystem(extent={{-180,-240},{160,220}})),
-        Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
+        Diagram(coordinateSystem(extent={{-180,-240},{220,220}})),
+        Icon(coordinateSystem(extent={{-180,-240},{220,220}})),
     Documentation(info="<html>
 <p>
 This is the base model for the example models.
