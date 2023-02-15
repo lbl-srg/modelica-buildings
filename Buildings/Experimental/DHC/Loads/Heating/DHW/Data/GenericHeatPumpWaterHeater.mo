@@ -1,7 +1,6 @@
 within Buildings.Experimental.DHC.Loads.Heating.DHW.Data;
 record GenericHeatPumpWaterHeater
   "Equipment specifications for a generic heat pump water heater"
-  parameter Boolean havePEle = true "Flag that specifies whether electric power is required for water heating";
   parameter Modelica.Units.SI.Volume VTan = 0.3 "Tank volume";
   parameter Modelica.Units.SI.Length hTan = 2 "Height of tank (without insulation)";
   parameter Modelica.Units.SI.Length dIns = 0.3 "Thickness of insulation";
