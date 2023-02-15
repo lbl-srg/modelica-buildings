@@ -9,7 +9,8 @@ block SequenceBinary "Output total stages that should be enabled"
     final unit="s")
     "Minimum time on each stage";
 
-  parameter Integer y_start = 0;
+  parameter Integer pre_y_start = 0
+    "Value of pre(y) at initial time";
   parameter Real h = 0.02*1/nSta
     "Hysteresis for comparing input with threshold";
 
@@ -48,7 +49,7 @@ initial equation
   pre(checkUpper) = false;
   pre(checkLower) = true;
   tNext = minStaHol;
-  pre(y)=y_start;
+  pre(y)=pre_y_start;
   uTem = 0;
 
 equation
