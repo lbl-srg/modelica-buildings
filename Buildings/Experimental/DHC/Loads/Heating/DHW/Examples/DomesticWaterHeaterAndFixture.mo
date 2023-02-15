@@ -11,10 +11,6 @@ model DomesticWaterHeaterAndFixture
   parameter Modelica.Units.SI.MassFlowRate mDH_flow_nominal = 1 "Nominal mass flow rate of district heating water";
   parameter Modelica.Units.SI.MassFlowRate mDhw_flow_nominal = mHw_flow_nominal "Nominal mass flow rate of tempered water";
   parameter Modelica.Units.SI.PressureDifference dpValve_nominal(min=0, displayUnit="Pa") = 1000 "Pressure difference";
-  parameter Real kCon(min=0) = 0.5 "Gain of controller";
-  parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 240 "Time constant of Integrator block";
-  parameter Real uLow = 0.01*mDhw_flow_nominal "low hysteresis threshold";
-  parameter Real uHigh = 0.05*mDhw_flow_nominal "high hysteresis threshold";
 
   Buildings.Fluid.Sources.Boundary_pT souDcw(
     redeclare package Medium = Medium,
@@ -32,11 +28,8 @@ model DomesticWaterHeaterAndFixture
     redeclare package Medium = Medium,
     TSet(displayUnit="degC") = TSetTw,
     mDhw_flow_nominal=mDhw_flow_nominal,
-    dpValve_nominal=dpValve_nominal,
-    k=kCon,
-    uLow=uLow,
-    uHigh=uHigh,
-    Ti=Ti) "Ideal thermostatic mixing valve"
+    dpValve_nominal=dpValve_nominal)
+           "Ideal thermostatic mixing valve"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Interfaces.RealOutput TTw(final unit="K",displayUnit = "degC") "Temperature of the outlet tempered water"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
@@ -62,8 +55,7 @@ model DomesticWaterHeaterAndFixture
   Modelica.Blocks.Sources.CombiTimeTable schDhw(
     tableOnFile=true,
     tableName="tab1",
-    fileName=Modelica.Utilities.Files.loadResource(
-        "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Heating/DHW/DHW_SingleApartment.mos"),
+    fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Heating/DHW/DHW_SingleApartment.mos"),
     smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic) "Domestic hot water fraction schedule"
     annotation (Placement(transformation(extent={{100,20},{80,40}})));
@@ -115,7 +107,7 @@ Created example.
 </ul>
 </html>"),experiment(
       StopTime=864000,
-      Interval=300,
+      Interval=1,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
 end DomesticWaterHeaterAndFixture;
