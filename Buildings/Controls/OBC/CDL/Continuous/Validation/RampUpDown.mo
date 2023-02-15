@@ -19,12 +19,14 @@ model RampUpDown
     "Ramp up from initial moment"
     annotation (Placement(transformation(extent={{80,70},{100,90}})));
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramDow(
-    final upDuration=5, final y_start=0.5)
+    final upDuration=5,
+    final y_start=0.5)
     "Ramp down from initial moment"
     annotation (Placement(transformation(extent={{80,10},{100,30}})));
   Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramDowUp(
-    final upDuration=5, final y_start=0)
-    "Ramp down from initial moment and then ram up"
+    final upDuration=5,
+    final y_start=0.5)
+    "Initially output constant value then ramp down, and then ram up the output"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
@@ -55,17 +57,17 @@ model RampUpDown
     final k=false)
     "Boolean false"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=true)
-    "Boolean true"
-    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul4(
     final width=0.3,
     final period=12,
     final shift=3)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
+    final width=0.9,
+    final period=12,
+    final shift=1) "Boolean pulse"
+    annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
 equation
   connect(booPul1.y, ramUp.ramp) annotation (Line(points={{-78,100},{-70,100},{-70,
           86},{-42,86}}, color={255,0,255}));
@@ -87,10 +89,10 @@ equation
           14},{78,14}}, color={255,0,255}));
   connect(con1.y, ramDow.ramp) annotation (Line(points={{42,40},{70,40},{70,26},
           {78,26}}, color={255,0,255}));
-  connect(con2.y, ramDowUp.activate) annotation (Line(points={{42,-90},{60,-90},
-          {60,-66},{78,-66}}, color={255,0,255}));
   connect(booPul4.y, ramDowUp.ramp) annotation (Line(points={{42,-30},{60,-30},{
           60,-54},{78,-54}}, color={255,0,255}));
+  connect(booPul5.y, ramDowUp.activate) annotation (Line(points={{42,-90},{60,-90},
+          {60,-66},{78,-66}}, color={255,0,255}));
   annotation (
     experiment(
       StopTime=10.0,
@@ -104,8 +106,24 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.RampUpDown\">
 Buildings.Controls.OBC.CDL.Continuous.RampUpDown</a>.
 </p>
-
-
+<ul>
+<li>
+The instances <code>ramUp</code>, <code>ramUp1</code> and <code>ramUp2</code>
+show how to ramp up the outputs when giving different <code>ramp</code> and
+<code>activate</code> inputs. It shows when to ramp up the output in different
+scenarios.
+</li>
+<li>
+The instance <code>ramDow</code> shows how to ramp down the output when
+setting a non-zero initial output and activating the ramp down at the
+initial moment.
+</li>
+<li>
+The instances <code>ramUpDown</code> and <code>ramDowUp</code> shows how
+to ramp the output when the ramping inputs changes from up to down,
+and from down to up.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
