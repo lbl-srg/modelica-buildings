@@ -64,6 +64,9 @@ model TankTemperature
   Modelica.Blocks.Sources.TimeTable mPumSec_flow(table=[0,0; 2400,0; 2400,nom.mTan_flow_nominal;
         3600,nom.mTan_flow_nominal]) "Secondary pump flow rate"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
+  Buildings.Fluid.Storage.Plant.BaseClasses.StateOfCharge SOC(TLow=nom.T_CHWS_nominal,
+      THig=nom.T_CHWR_nominal)
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
   connect(chi.port_b, pumPri.port_a)
     annotation (Line(points={{-60,10},{-40,10}}, color={0,127,255}));
@@ -84,6 +87,10 @@ equation
     annotation (Line(points={{-39,70},{-36,70},{-36,18}}, color={0,0,127}));
   connect(mPumSec_flow.y, pumSec.m_flow_in)
     annotation (Line(points={{21,70},{24,70},{24,18}}, color={0,0,127}));
+  connect(tanBra.heaPorTop, SOC.tanTop) annotation (Line(points={{2,-6},{22,-6},
+          {22,-43.8},{40,-43.8}}, color={191,0,0}));
+  connect(tanBra.heaPorBot, SOC.tanBot)
+    annotation (Line(points={{2,-14},{2,-56.2},{40,-56.2}}, color={191,0,0}));
     annotation(experiment(Tolerance=1e-06, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/TankTemperature.mos"
         "Simulate and plot"),

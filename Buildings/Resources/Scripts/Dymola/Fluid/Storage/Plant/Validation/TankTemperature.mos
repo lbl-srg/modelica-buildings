@@ -5,15 +5,15 @@ simulateModel("Buildings.Fluid.Storage.Plant.Validation.TankTemperature",
  resultFile="TankTemperature");
 // Plot commands
 createPlot(id=1,
- position={35, 35, 592, 480},
+ position={35, 35, 592, 680},
  y={"mPumPri_flow.y", "mPumSec_flow.y", "tanBra.mTan_flow"},
- range={0.0, 4000.0, -1.5, 1.5},
+ range={0.0, 4000.0, -2.0, 2.0},
  grid=true,
  subPlot=101,
  colors={{28,108,200}, {238,46,47}, {0,140,72}},
  timeUnit="s");
 createPlot(id=1,
- position={35, 35, 592, 480},
+ position={35, 35, 592, 680},
  y={"tanBra.heaPorTop.T", "tanBra.heaPorBot.T"},
  range={0.0, 4000.0, 6.0, 14.0},
  grid=true,
@@ -21,4 +21,12 @@ createPlot(id=1,
  colors={{28,108,200}, {238,46,47}},
  timeUnit="s",
  displayUnits={"degC", "degC"});
- 
+createPlot(id=1,
+ position={35, 35, 592, 680},
+ y={"SOC.isFul", "SOC.isDep"},
+ range={0.0, 4000.0, -0.5, 1.5},
+ grid=true,
+ subPlot=103,
+ colors={{28,108,200}, {28,108,200}},
+ timeUnit="s");
+
