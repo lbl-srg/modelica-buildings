@@ -96,10 +96,10 @@ partial model PartialDualSource
   Buildings.Fluid.Storage.Plant.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final nom=nom,
-    VTan=10,
+    VTan=1.5,
     hTan=3,
     dIns=0.3,
-    nSeg=7)
+    nSeg=3)
     "Tank branch, tank can be charged remotely" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -110,9 +110,6 @@ partial model PartialDualSource
     final m_flow_nominal=nom.m_flow_nominal)
                    "Ideal reversable connection on supply side"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Add the setpoints of the chiller and the tank together"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
@@ -155,16 +152,16 @@ partial model PartialDualSource
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,170})));
-  Modelica.Blocks.Sources.TimeTable mLoa1_flow(table=[0,0; 360*2,0; 360*2,
-        ideUse1.m_flow_nominal; 360*5,ideUse1.m_flow_nominal; 360*5,0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable mLoa1_flow(table=[0,0; 3000,0; 3000,ideUse1.m_flow_nominal;
+        6000,ideUse1.m_flow_nominal; 6000,0; 9000,0])
     "Cooling load of user 1 represented by flow rate"
     annotation (Placement(transformation(extent={{140,160},{120,180}})));
-  Modelica.Blocks.Sources.TimeTable mLoa2_flow(table=[0,0; 360*3,0; 360*3,
-        ideUse2.m_flow_nominal; 360*6,ideUse2.m_flow_nominal; 360*6,0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable mLoa2_flow(table=[0,0; 3500,0; 3500,ideUse2.m_flow_nominal;
+        5500,ideUse2.m_flow_nominal; 5500,0; 9000,0])
     "Cooling load of user 2 represented by flow rate"
     annotation (Placement(transformation(extent={{140,0},{120,20}})));
-  Modelica.Blocks.Sources.TimeTable mLoa3_flow(table=[0,0; 360*4,0; 360*4,
-        ideUse3.m_flow_nominal; 360*8,ideUse3.m_flow_nominal; 360*8,0; 3600,0])
+  Modelica.Blocks.Sources.TimeTable mLoa3_flow(table=[0,0; 4000,0; 4000,ideUse3.m_flow_nominal;
+        5000,ideUse3.m_flow_nominal; 5000,0; 9000,0])
     "Cooling load of user 3 represented by flow rate"
     annotation (Placement(transformation(extent={{140,-160},{120,-140}})));
   Modelica.Blocks.Math.Gain gaiUse1(final k=1/ideUse1.dp_nominal)
@@ -282,15 +279,11 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-210})));
-  Modelica.Blocks.Sources.TimeTable mTanSet_flow(table=[0,0; 360*1,0; 360*1,-
-        nom.mTan_flow_nominal; 360*3,-nom.mTan_flow_nominal; 360*3,0; 360*4,0;
-        360*4,nom.mTan_flow_nominal; 360*6,nom.mTan_flow_nominal; 360*6,0; 360*
-        7,0; 360*7,-nom.mTan_flow_nominal; 360*9,-nom.mTan_flow_nominal; 360*9,
-        0]) "Tank flow rate setpoint"
+  Modelica.Blocks.Sources.TimeTable mPla2Set_flow(table=[0,0; 9000,0])
+    "Flow rate setpoint of the second plant"
     annotation (Placement(transformation(extent={{-160,0},{-140,20}})));
-  Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 360*1,0; 360*1,
-        nom.mTan_flow_nominal; 360*3,nom.mTan_flow_nominal; 360*3,
-        m_flow_nominal; 360*5,m_flow_nominal; 360*5,0])
+  Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 500,0; 500,nom.mChi_flow_nominal;
+        3000,nom.mChi_flow_nominal; 3000,0; 9000,0])
     "Flow rate setpoint for the chiller in the storage plant"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
 
@@ -385,17 +378,8 @@ equation
   connect(mChi2Set_flow.y,pumChi2. m_flow_in) annotation (Line(points={{-139,
           -30},{-130,-30},{-130,-58}},
                                   color={0,0,127}));
-  connect(mTanSet_flow.y, add2.u1) annotation (Line(points={{-139,10},{-110,10},
-          {-110,-24},{-102,-24}},
-                                color={0,0,127}));
-  connect(mChi2Set_flow.y, add2.u2) annotation (Line(points={{-139,-30},{-130,
-          -30},{-130,-36},{-102,-36}},
-                                 color={0,0,127}));
   connect(tanBra.port_bSupNet, ideRevConSup.port_a) annotation (Line(points={{-80,
           -84},{-70,-84},{-70,-70},{0,-70}}, color={0,127,255}));
-  connect(add2.y, ideRevConSup.mSet_flow) annotation (Line(points={{-78,-30},{
-          -60,-30},{-60,-65},{-1,-65}},
-                                     color={0,0,127}));
   connect(ideRevConSup.port_b, parJunPla2.port_c1) annotation (Line(points={{20,-70},
           {30,-70},{30,-84},{40,-84}}, color={0,127,255}));
   connect(pumSup1.port_a, chi1.port_b)
@@ -406,6 +390,8 @@ equation
           {-150,-110},{-150,-100}}, color={0,127,255}));
   connect(chi2.port_b, pumChi2.port_a) annotation (Line(points={{-150,-80},{
           -150,-70},{-140,-70}}, color={0,127,255}));
+  connect(mPla2Set_flow.y, ideRevConSup.mSet_flow) annotation (Line(points={{
+          -139,10},{-10,10},{-10,-65},{-1,-65}}, color={0,0,127}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/IdealDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),

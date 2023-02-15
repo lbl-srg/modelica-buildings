@@ -40,7 +40,7 @@ equation
     annotation (Line(points={{-60,90},{-20,90}}, color={0,127,255}));
   connect(bou2.ports[1], ideRevConSup.port_a) annotation (Line(points={{-60,10},
           {-10,10},{-10,-70},{0,-70}}, color={0,127,255}));
-  annotation (experiment(Tolerance=1e-06, StopTime=3600),
+  annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenDecoupled.mos"
         "Simulate and plot"),Diagram(coordinateSystem(extent={{-180,-240},{160,220}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})),

@@ -16,7 +16,7 @@ equation
     annotation (Line(points={{-80,-96},{40,-96}}, color={0,127,255}));
   connect(bou2.ports[1], ideRevConSup.port_a) annotation (Line(points={{-60,10},
           {-10,10},{-10,-70},{0,-70}},   color={0,127,255}));
-  annotation (experiment(Tolerance=1e-06, StopTime=3600),
+  annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenCoupled.mos"
         "Simulate and plot"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
