@@ -1,5 +1,4 @@
-removePlots();
-simulateModel("Buildings.Obsolete.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
+simulateModel("Buildings.Obsolete.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", tolerance=1e-6, stopTime = 86400, method = "dassl", resultFile = "ObsoleteSolarPumpController");
 createPlot(id = 1,
  position = {0, 0, 1000, 500},
  y = {"pumCon.y"},
@@ -11,7 +10,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "SolarPumpController.mat",
+ filename = "ObsoleteSolarPumpController.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});

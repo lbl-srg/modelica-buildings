@@ -38,7 +38,6 @@ model Carnot_TCon_reverseFlow
     m1_flow_nominal=m1_flow_nominal,
     show_T=true,
     use_eta_Carnot_nominal=true,
-    etaCarnot_nominal=0.3,
     QCon_flow_nominal=QCon_flow_nominal,
     allowFlowReversal1=true,
     allowFlowReversal2=true,
@@ -115,9 +114,15 @@ This example checks the correct behavior if a mass flow rate attains zero.
 revisions="<html>
 <ul>
 <li>
+February 10, 2023, by Michael Wetter:<br/>
+Removed binding of parameter with same value as the default.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1692\">#1692</a>.
+</li>
+<li>
 May 15, 2019, by Jianjun Hu:<br/>
-Replaced fluid source. This is for 
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\"> #1072</a>.
+Replaced fluid source. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1072\">#1072</a>.
 </li>
 <li>
 November 25, 2015, by Michael Wetter:<br/>
