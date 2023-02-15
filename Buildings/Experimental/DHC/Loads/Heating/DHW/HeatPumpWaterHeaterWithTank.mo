@@ -7,6 +7,8 @@ model HeatPumpWaterHeaterWithTank
   parameter Buildings.Experimental.DHC.Loads.Heating.DHW.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{-96,-96},{-84,-84}})));
+  parameter Real k=0.1 "Proportioanl gain of circulation pump controller";
+  parameter Real Ti=60 "Integrator time constant of circulation pump controller";
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemTankOut(redeclare package
       Medium = Medium, m_flow_nominal=mHw_flow_nominal)
     annotation (Placement(transformation(extent={{-20,44},{0,64}})));
@@ -33,13 +35,14 @@ model HeatPumpWaterHeaterWithTank
   Modelica.Blocks.Math.Add add
     "Gain for control signal controlling source pump"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
-  Modelica.Blocks.Sources.Constant dTTanHex(k=5)
-    "Temperature setpoint for domestic hot water supply from heater"
+  Modelica.Blocks.Sources.Constant dTTanHex(k=datWatHea.dTCon_nominal)
+    "Temperature difference of heat pump condenser leaving water above tank set point"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Fluid.Movers.FlowControlled_m_flow pumHex(
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     redeclare package Medium = Medium,
     m_flow_nominal=datWatHea.mHex_flow_nominal,
+    riseTime=10,
     massFlowRates={0,0.5,1}*datWatHea.mHex_flow_nominal)
     "Pump with m_flow input"
     annotation (Placement(transformation(extent={{60,30},{40,50}})));
@@ -70,7 +73,10 @@ model HeatPumpWaterHeaterWithTank
                                    dTTanHex2(k=datWatHea.mHex_flow_nominal)
     "Temperature setpoint for domestic hot water supply from heater"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Controls.OBC.CDL.Continuous.PID conPI(k=0.1, Ti=120)
+  Controls.OBC.CDL.Continuous.PID conPI(
+    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    k=k,
+    Ti=Ti)
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
 equation
   connect(heaPum.port_b1, senTemHPOut.port_a)
