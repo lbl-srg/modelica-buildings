@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.CDL.Integers;
 block Change
   "Output whether the Integer input changes values, increases or decreases"
   parameter Integer pre_u_start=0
-    "Initial value of y";
+    "Start value of pre(u) at initial time";
   Interfaces.IntegerInput u
     "Connector of Integer input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
