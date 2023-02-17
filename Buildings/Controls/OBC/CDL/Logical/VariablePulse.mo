@@ -7,6 +7,11 @@ block VariablePulse
   parameter Real chaWidThr=0.01
     "Minimum input change to re-trigger an update of the output interval. It is the ratio of the value change to the original value"
     annotation (Dialog(tab="Advanced"));
+  parameter Real minTruFalHol(
+    final quantity="Time",
+    final unit="s",
+    final min=Constants.small)=1
+    "Minimum time to hold true or false";
   parameter Real zerWidThr=0.01
     "Minimum value of the input below which the output remains always false"
     annotation (Dialog(tab="Advanced"));
@@ -56,17 +61,31 @@ protected
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "Rising edge when the width becomes positive"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Rising edge when there is width change"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preBre
     "Break loop"
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
   Cycle cycOut(
-    final period=period)
+    final period=period,
+    final minTruFalHol=minTruFalHol)
     "Produce boolean pulse output"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Zero input"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
+    final t=1-zerWidThr,
+    final h=0.5*zerWidThr)
+    "Check if the input is one"
+    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold falHol(
+    final trueHoldDuration=0,
+    final falseHoldDuration=minTruFalHol)
+    "Ensure the minimum false holding time"
+    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   block Cycle
     "Generate boolean pulse with the width specified by input"
@@ -75,12 +94,20 @@ protected
       final unit="s",
       final min=Constants.small)
       "Time for one pulse period";
-  //   parameter Real minTruFalHol(
-  //     final quantity="Time",
-  //     final unit="s",
-  //     final min=Constants.small)=1
-  //     "Minimum time to hold true or false";
+    parameter Real minTruFalHol(
+      final quantity="Time",
+      final unit="s",
+      final min=Constants.small)
+      "Minimum time to hold true or false";
 
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConTru
+      "True: output constant true"
+      annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
+          iconTransformation(extent={{-140,60},{-100,100}})));
+    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConFal
+      "True: output constant false"
+      annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+          iconTransformation(extent={{-140,20},{-100,60}})));
     Buildings.Controls.OBC.CDL.Interfaces.BooleanInput go
       "True: cycle the output"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
@@ -113,11 +140,21 @@ protected
       final unit="s",
       fixed=false)
       "Total true time in one period";
+     Real tempTrue(
+      final quantity="Time",
+      final unit="s",
+      fixed=false)
+      "Total true time in one period";
+     Real tempFalse(
+      final quantity="Time",
+      final unit="s",
+      fixed=false)
+      "Total true time in one period";
 
   initial equation
     pre(t0)=time;
-  //   assert(period >= minTruFalHol*2,
-  //     "The pulse period must be greater than 2 times of the minimum true and false holding time.");
+    assert(period >= minTruFalHol*2,
+      "The pulse period must be greater than 2 times of the minimum true and false holding time.");
 
   equation
     when go then
@@ -127,13 +164,28 @@ protected
     t_sta = Buildings.Utilities.Math.Functions.round(
       x=integer((time-t0)/period)*period, n=6)+t0;
 
-    trueTime = u*period;
+    tempTrue = u*period;
+    tempFalse = (1-u)*period;
+    if (tempTrue < minTruFalHol) then
+      trueTime = minTruFalHol;
+    elseif (tempFalse < minTruFalHol) then
+      trueTime = period - minTruFalHol;
+    else
+      trueTime = tempTrue;
+    end if;
 
     t_end = t_sta + trueTime;
-    if ((time>=t_sta) and (time<t_end)) then
+
+    if uConTru then
       y = true;
-    else
+    elseif uConFal then
       y = false;
+    else
+      if ((time>=t_sta) and (time<t_end)) then
+        y = true;
+      else
+        y = false;
+      end if;
     end if;
 
   annotation (Icon(
@@ -170,14 +222,10 @@ equation
           28}}, color={0,0,127}));
   connect(div1.y, greThr.u)
     annotation (Line(points={{2,40},{18,40}}, color={0,0,127}));
-  connect(greThr1.y, edg1.u) annotation (Line(points={{-138,-90},{-42,-90}},
+  connect(greThr1.y, edg1.u) annotation (Line(points={{-138,-90},{-22,-90}},
           color={255,0,255}));
-  connect(edg1.y, or2.u2) annotation (Line(points={{-18,-90},{0,-90},{0,-58},{18,
-          -58}},      color={255,0,255}));
-  connect(greThr.y, edg2.u) annotation (Line(points={{42,40},{50,40},{50,0},{-60,
-          0},{-60,-50},{-42,-50}}, color={255,0,255}));
-  connect(edg2.y, or2.u1)
-    annotation (Line(points={{-18,-50},{18,-50}}, color={255,0,255}));
+  connect(greThr.y, edg2.u) annotation (Line(points={{42,40},{50,40},{50,0},{-40,
+          0},{-40,-50},{-22,-50}}, color={255,0,255}));
   connect(greThr.y, preBre.u)
     annotation (Line(points={{42,40},{78,40}},   color={255,0,255}));
   connect(preBre.y, triSam.trigger) annotation (Line(points={{102,40},{120,40},{
@@ -186,12 +234,28 @@ equation
           20},{-62,20}}, color={255,0,255}));
   connect(con.y, swi3.u3) annotation (Line(points={{-78,0},{-70,0},{-70,12},{-62,
           12}}, color={0,0,127}));
-  connect(u, cycOut.u) annotation (Line(points={{-200,0},{-170,0},{-170,-20},{78,
-          -20}}, color={0,0,127}));
+  connect(u, cycOut.u) annotation (Line(points={{-200,0},{-170,0},{-170,-20},{
+          138,-20}},
+                 color={0,0,127}));
   connect(cycOut.y, y)
-    annotation (Line(points={{102,-20},{200,-20}}, color={255,0,255}));
-  connect(or2.y, cycOut.go) annotation (Line(points={{42,-50},{60,-50},{60,-28},
-          {78,-28}}, color={255,0,255}));
+    annotation (Line(points={{162,-20},{200,-20}}, color={255,0,255}));
+  connect(u, greThr2.u) annotation (Line(points={{-200,0},{-170,0},{-170,-40},{-162,
+          -40}}, color={0,0,127}));
+  connect(greThr2.y, cycOut.uConTru) annotation (Line(points={{-138,-40},{-60,
+          -40},{-60,-12},{138,-12}},
+                               color={255,0,255}));
+  connect(greThr1.y, not1.u) annotation (Line(points={{-138,-90},{-120,-90},{-120,
+          -70},{-102,-70}}, color={255,0,255}));
+  connect(not1.y, cycOut.uConFal) annotation (Line(points={{-78,-70},{-50,-70},
+          {-50,-16},{138,-16}},color={255,0,255}));
+  connect(edg2.y, or2.u1)
+    annotation (Line(points={{2,-50},{18,-50}}, color={255,0,255}));
+  connect(edg1.y, or2.u2) annotation (Line(points={{2,-90},{10,-90},{10,-58},{18,
+          -58}}, color={255,0,255}));
+  connect(or2.y, falHol.u)
+    annotation (Line(points={{42,-50},{58,-50}}, color={255,0,255}));
+  connect(falHol.y, cycOut.go) annotation (Line(points={{82,-50},{120,-50},{120,
+          -28},{138,-28}}, color={255,0,255}));
 annotation (
     defaultComponentName="varPul",
     Icon(
@@ -294,11 +358,11 @@ annotation (
 <p>
 Block that produces boolean pulse output according to the specified period of the pulse
 (<code>period</code>) and the value of the input <code>u</code>, which indicates
-the percentage of the period that the output should be true.
+the percentage of the period that the output should be <code>true</code>.
 </p>
 <ul>
 <li>
-If the input <code>u</code> is zero, the output <code>y</code> remains false.
+If the input <code>u</code> is zero, the output <code>y</code> remains <code>false</code>.
 </li>
 <li>
 If the input <code>u</code> is greater than zero, the output <code>y</code> will be
@@ -306,8 +370,13 @@ a boolean pulse with the period specified by the parameter <code>period</code> a
 the width specified by the input <code>u</code>.
 </li>
 <li>
-At the moment when the input <code>u</code> changes to a new value, the output
-will immediately change to a new pulse with the width specified by the new value.
+If the input <code>u</code> is one, the output <code>y</code> remains <code>true</code>.
+</li>
+<li>
+At the moment when the input <code>u</code> changes to a new value and the output
+has been holding the true or false for more than minimum holding time
+<code>minTruFalHol</code>, the output will change to a new pulse with the
+width specified by the new value. 
 </li>
 </ul>
 <p align=\"center\">
