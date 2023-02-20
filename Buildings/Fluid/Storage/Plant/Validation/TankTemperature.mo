@@ -44,19 +44,6 @@ model TankTemperature
     final control_m_flow=true,
     final control_dp=false) "Ideal flow source representing the secondary pump"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource use(
-    redeclare package Medium = Medium,
-    m_flow_nominal=nom.m_flow_nominal,
-    TSet=nom.T_CHWR_nominal) "Ideal temperature source representing the user"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Fluid.Sources.Boundary_pT bou(
-    p(final displayUnit="Pa") = 101325 + nom.dp_nominal,
-    redeclare final package Medium = Medium,
-    T=nom.T_CHWS_nominal,
-    nPorts=1) "Pressure boundary" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-10,30})));
   Modelica.Blocks.Sources.TimeTable mPumPri_flow(table=[0,0; 1200,0; 1200,nom.mChi_flow_nominal;
         2400,nom.mChi_flow_nominal; 2400,0; 3600,0])
                          "Primary pump flow rate"
@@ -67,6 +54,24 @@ model TankTemperature
   Buildings.Fluid.Storage.Plant.BaseClasses.StateOfCharge SOC(TLow=nom.T_CHWS_nominal,
       THig=nom.T_CHWR_nominal)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Buildings.Fluid.Sources.Boundary_pT bouSup(
+    p(final displayUnit="Pa") = 101325 + nom.dp_nominal,
+    redeclare final package Medium = Medium,
+    T=nom.T_CHWS_nominal,
+    nPorts=1) "Pressure boundary representing district CHW supply line"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={70,10})));
+  Buildings.Fluid.Sources.Boundary_pT bouRet(
+    p(final displayUnit="Pa") = 101325,
+    redeclare final package Medium = Medium,
+    T=nom.T_CHWR_nominal,
+    nPorts=1) "Pressure boundary representing district CHW return line"
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={70,-30})));
 equation
   connect(chi.port_b, pumPri.port_a)
     annotation (Line(points={{-60,10},{-40,10}}, color={0,127,255}));
@@ -77,12 +82,6 @@ equation
           -16},{-86,10},{-80,10}}, color={0,127,255}));
   connect(tanBra.port_bSupNet, pumSec.port_a) annotation (Line(points={{10,-4},{
           16,-4},{16,10},{20,10}}, color={0,127,255}));
-  connect(pumSec.port_b, use.port_a)
-    annotation (Line(points={{40,10},{60,10}}, color={0,127,255}));
-  connect(use.port_b, tanBra.port_aRetNet) annotation (Line(points={{80,10},{84,
-          10},{84,-16},{10,-16}},  color={0,127,255}));
-  connect(bou.ports[1], pumSec.port_a) annotation (Line(points={{0,30},{14,30},{
-          14,10},{20,10}},  color={0,127,255}));
   connect(mPumPri_flow.y, pumPri.m_flow_in)
     annotation (Line(points={{-39,70},{-36,70},{-36,18}}, color={0,0,127}));
   connect(mPumSec_flow.y, pumSec.m_flow_in)
@@ -91,6 +90,10 @@ equation
           {22,-43.8},{40,-43.8}}, color={191,0,0}));
   connect(tanBra.heaPorBot, SOC.tanBot)
     annotation (Line(points={{2,-14},{2,-56.2},{40,-56.2}}, color={191,0,0}));
+  connect(pumSec.port_b, bouSup.ports[1])
+    annotation (Line(points={{40,10},{60,10}}, color={0,127,255}));
+  connect(bouRet.ports[1], tanBra.port_aRetNet) annotation (Line(points={{60,
+          -30},{16,-30},{16,-16},{10,-16}}, color={0,127,255}));
     annotation(experiment(Tolerance=1e-06, StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/TankTemperature.mos"
         "Simulate and plot"),
