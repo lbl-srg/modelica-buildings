@@ -70,14 +70,14 @@ model TankTemperature
     mTan_flow_nominal=nom.mTan_flow_nominal)
     "Block for primary and secondary pump and valve flow control"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 500,1; 1000,2; 1500,3;
-        2000,2; 2500,1])
+  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 200,1; 1000,2; 1200,3;
+        2000,2; 2200,1])
     "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
-  Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,2000}, startValue=true)
+  Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,2000}, startValue=false)
     "Chiller is online"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Modelica.Blocks.Sources.BooleanTable hasLow(table={1000,2000}, startValue=
+  Modelica.Blocks.Sources.BooleanTable hasLoa(table={1000,2000}, startValue=
         false) "The system has load"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 equation
@@ -110,7 +110,7 @@ equation
           90},{-86,58},{-81,58}}, color={255,127,0}));
   connect(chiOnl.y, flowControl.chiIsOnl) annotation (Line(points={{-119,50},{
           -98,50},{-98,46},{-81,46}}, color={255,0,255}));
-  connect(hasLow.y, flowControl.hasLoa) annotation (Line(points={{-119,10},{-98,
+  connect(hasLoa.y, flowControl.hasLoa) annotation (Line(points={{-119,10},{-98,
           10},{-98,42},{-81,42}}, color={255,0,255}));
     annotation(experiment(Tolerance=1e-06, StopTime=3000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/TankTemperature.mos"
