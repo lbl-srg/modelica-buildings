@@ -52,7 +52,7 @@ by comparing an instance of that model with two instances of
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_m_flow\">
 Buildings.Fluid.Movers.FlowControlled_m_flow</a>
 connected in parallel.
-The two pumps are commanded <i>On</i> one after the other, and receive
+The two pumps are commanded On one after the other, and receive
 an increasing flow setpoint while working
 against a two-way modulating valve that gets progressively opened.
 </p>

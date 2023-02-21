@@ -31,7 +31,7 @@ partial model PartialMultiplePumps
   parameter Modelica.Units.SI.PressureDifference dpPum_nominal
     "Design head (each pump)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=1E4
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=10000
     "Pressure drop of check valve fully open"
     annotation(Dialog(group="Nominal condition", enable=have_valve));
   replaceable parameter Fluid.Movers.Data.Generic per
@@ -113,11 +113,11 @@ partial model PartialMultiplePumps
   Buildings.Controls.OBC.CDL.Continuous.Multiply inp
     "Compute pump input signal" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-20,40})));
+        rotation=90,
+        origin={0,40})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cst
                if not have_var "Constant setpoint"
-    annotation (Placement(transformation(extent={{-80,18},{-60,38}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe(t=1E-2, h=0.5E-2)
     "Evaluate if pump is operating"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
@@ -162,7 +162,7 @@ equation
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(port_a, mulInl.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(mulOut.uInv, mulInl.u) annotation (Line(points={{82,6},{88,6},{88,-26},
+  connect(mulOut.uInv, mulInl.u) annotation (Line(points={{81,6},{88,6},{88,-26},
           {-90,-26},{-90,6},{-82,6}},color={0,0,127}));
   connect(mulInl.port_b, pum.port_a)
     annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
@@ -183,11 +183,11 @@ equation
     annotation (Line(points={{10,0},{30,0}}, color={0,127,255}));
   connect(cheVal.port_b, mulOut.port_a)
     annotation (Line(points={{50,0},{60,0}}, color={0,127,255}));
-  connect(cst.y, inp.u1) annotation (Line(points={{-58,28},{-40,28},{-40,34},{
-          -32,34}},
+  connect(cst.y, inp.u1) annotation (Line(points={{-58,30},{-40,30},{-40,60},{
+          -6,60},{-6,52}},
                 color={0,0,127}));
   connect(booToRea.y, inp.u2) annotation (Line(points={{22,100},{40,100},{40,60},
-          {-36,60},{-36,46},{-32,46}},
+          {6,60},{6,52}},
                      color={0,0,127}));
   connect(pum.port_b, pas.port_a)
     annotation (Line(points={{10,0},{30,0},{30,-20}}, color={0,127,255}));
@@ -220,10 +220,19 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})),
     Documentation(info="<html>
 <p>
-This base class is used to construct the various multiple-pump 
-models within 
+This base class represents multiple identical pumps that are piped in parallel.
+An optional check valve in series with each pump is included.
+This class is used to construct the various multiple-pump models within 
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 </p>
+<h4>Details</h4>
+<p>
+In a parallel arrangement, all operating units have the same operating point.
+This allows modeling the multiple pumps with a single instance of any
+class derived from 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
+Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
+Hydronics are resolved with mass flow rate multiplier components.
 </html>"));
 end PartialMultiplePumps;

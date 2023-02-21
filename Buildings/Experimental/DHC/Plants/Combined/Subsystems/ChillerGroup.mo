@@ -314,8 +314,8 @@ equation
           26},{68,26}},     color={0,0,127}));
   connect(yValCon, valCon.y) annotation (Line(points={{0,178},{0,122},{64,122},
           {64,66},{68,66}}, color={0,0,127}));
-  connect(yValEva, valEva.y) annotation (Line(points={{0,-180},{0,-140},{-64,
-          -140},{-64,-66},{-68,-66}}, color={0,0,127}));
+  connect(yValEva, valEva.y) annotation (Line(points={{0,-180},{0,-140},{-60,
+          -140},{-60,-66},{-68,-66}}, color={0,0,127}));
 
   connect(mulConInl.port_b,chi. port_a1) annotation (Line(points={{-30,60},{-20,
           60},{-20,6},{-4,6}},  color={0,127,255}));
@@ -375,26 +375,67 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}})),
     Documentation(info="<html>
 <p>
-This model represents a set of identical chillers in parallel.
+This model represents a set of identical water-cooled compression chillers 
+that are piped in parallel.
+Modulating isolation valves are included on condenser and evaporator side.
 </p>
-<h4>
-Details
-</h4>
-<h5>
-Actuators
-</h5>
+<h4>Control points</h4>
 <p>
-By default linear valve models are used. Those are configured with 
-a pressure drop varying linearily with the flow rate, as opposed
+The following input and output points are available.
+</p>
+<ul>
+<li>
+On/Off command <code>y1</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+CHW supply temperature setpoint <code>TSet</code>: 
+AO signal common to all units, with a dimensionality of zero
+</li>
+<li>
+Condenser and evaporator isolation valve commanded position <code>yVal(Con|Eva)</code>:
+AO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Condenser and evaporator leaving temperature <code>T(Con|Eva)Lvg</code>:
+AI signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Condenser and evaporator meass flow rate <code>m(Con|Eva)_flow</code>:
+AI signal dedicated to each unit, with a dimensionality of one
+</li>
+</ul>
+<h4>Details</h4>
+<h5>Modeling approach</h5>
+<p>
+In a parallel arrangement, all operating units have the same operating point,
+<i>provided that the isolation valves are commanded to the same position</i>.
+This allows modeling the heat transfer through the condenser and evaporator
+barrel with a single instance of
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
+Hydronics are resolved with mass flow rate multiplier components in 
+conjunction with instances of 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleValves\">
+Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleValves</a>
+which represent the parallel network of valves and fixed resistances.
+</p>
+<h5>Actuators</h5>
+<p>
+By default, linear valve models are used. Those are configured with
+a pressure drop varying linearly with the flow rate, as opposed
 to the quadratic dependency usually considered for a turbulent flow
 regime.
-This is because the whole plant model contains large nonlinear systems 
-of equations, and this configuration limits the risk of solver failure 
+This is because the whole plant model contains large nonlinear systems
+of equations and this configuration limits the risk of solver failure
 while reducing the time to solution.
-This yields an overestimation of the pump power at variable flow which
-is considered as acceptable as it mainly affects the CW 
-pumps, which have a much lower head than the CHW and HW distribution 
-pumps.
+This has no significant impact on the operating point of the circulation pumps
+when a control loop is used to modulate the valve opening and maintain
+the flow rate or the leaving temperature at setpoint.
+Then, whatever the modeling assumptions for the valve, the
+control loop ensures that the valve creates the adequate pressure drop
+and flow, which will simply be reached at a different valve opening
+with the above simplification.
 </p>
 </html>"));
 end ChillerGroup;

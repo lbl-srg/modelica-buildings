@@ -128,7 +128,7 @@ This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.HeatPumpGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.HeatPumpGroup</a>
 in a configuration with two heat pumps.
-The heat pumps are switched <i>Off</i> one after the other, and 
+The heat pumps are switched Off one after the other, and 
 are exposed to an increasing HW return temperature.
 </p>
 </html>"));

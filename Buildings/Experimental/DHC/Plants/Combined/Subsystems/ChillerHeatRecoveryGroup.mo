@@ -364,7 +364,7 @@ model ChillerHeatRecoveryGroup
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-20,30})));
+        origin={-20,20})));
   Fluid.Sensors.TemperatureTwoPort temConLvg[nUni](
     redeclare each final package Medium = Medium,
     each final m_flow_nominal=mConWatUni_flow_nominal,
@@ -501,7 +501,7 @@ equation
           -120},{-4,-80},{-8,-80}},
                              color={0,0,127}));
   connect(temConEnt.port_b, chi.port_a1)
-    annotation (Line(points={{-20,20},{-20,6},{-10,6}}, color={0,127,255}));
+    annotation (Line(points={{-20,10},{-20,6},{-10,6}}, color={0,127,255}));
   connect(chi.port_b1, temConLvg.port_a)
     annotation (Line(points={{10,6},{20,6},{20,10}}, color={0,127,255}));
   connect(valCon.port_b, junHeaWatConOut.port_3)
@@ -536,7 +536,7 @@ equation
   connect(yValEvaSwi, valEvaSwi.y)
     annotation (Line(points={{0,-160},{0,-40},{48,-40}}, color={0,0,127}));
   connect(junHeaWatConInl.port_3, temConEnt.port_a)
-    annotation (Line(points={{-50,60},{-20,60},{-20,40}}, color={0,127,255}));
+    annotation (Line(points={{-50,60},{-20,60},{-20,30}}, color={0,127,255}));
 
   connect(port_a1, junHeaWatConInl[1].port_2)
     annotation (Line(points={{-100,80},{-60,80},{-60,70}}, color={0,127,255}));
@@ -558,7 +558,7 @@ equation
           -60,-32},{-100,-32}},
                             color={0,127,255}));
 
-  connect(temConEnt.T, TConEnt) annotation (Line(points={{-31,30},{-32,30},{-32,
+  connect(temConEnt.T, TConEnt) annotation (Line(points={{-31,20},{-32,20},{-32,
           130},{20,130},{20,160}}, color={0,0,127}));
   annotation (
     defaultComponentName="chi",
@@ -576,91 +576,108 @@ equation
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
     Documentation(info="<html>
-    <p>
-    TODO: Update doc.
-This model represents a set of identical chillers in parallel.
-If the parameter <code>have_switchover</code> is <code>true</code>
-then an additional operating mode signal <code>y1Coo</code> is used
-to switch <i>On/Off</i> the chillers and actuate the chiller isolation
-valves based on the following logic.
+<p>
+This model represents a set of identical heat recovery chillers 
+that are piped in parallel.
+Modulating isolation valves and modulating switchover valves are included
+on condenser and evaporator side.
+The switchover valves allow indexing the condenser (resp. the evaporator)
+either to the CWC loop or to the HW loop (resp. to the CWE loop or to 
+the CHW loop). Modulating valves are used to allow for sequences of
+operation that bleed CWE into the HW return flow to modulate the 
+condenser entering temperature.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
 </p>
 <ul>
 <li>
-If the parameter <code>is_cooling</code> is <code>true</code>
-(resp. <code>false</code>)
-then the chiller <code>#i</code> is commanded <i>On</i> if
-<code>y1[i]</code> is <code>true</code> and <code>y1Coo[i]</code>
-is <code>true</code> (resp. <code>false</code>).
+On/Off command <code>y1</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-When the chiller <code>#i</code> is commanded <i>On</i>
-the isolation valve input signal <code>y*Val*[i]</code> is used to
-control the valve opening.
-Otherwise the valve is closed whatever the value of
-<code>y*Val*[i]</code>.
+Cooling switchover command <code>y1Coo</code>:
+DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Configured this way, the model represents the set of heat
-recovery chillers operating in cooling mode
-(resp. heating mode), i.e., tracking the CHW (resp. HW) supply
-temperature setpoint.
+Supply temperature setpoint <code>TSet</code>: 
+AO signal dedicated to each unit, with a dimensionality of one</br>
+The signal corresponds either to the HW supply temperature setpoint when
+the unit operates in heating mode, or to the CHW supply temperature setpoint when
+the unit operates in cooling mode.
+</li>
+<li>
+Condenser and evaporator isolation valve commanded position <code>yVal(Con|Eva)</code>:
+AO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Condenser and evaporator switchover valve commanded position <code>yVal(Con|Eva)Swi</code>:
+AO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Condenser and evaporator leaving temperature <code>T(Con|Eva)Lvg</code>:
+AI signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Condenser entering temperature <code>TConEnt</code>:
+AI signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Condenser and evaporator meass flow rate <code>m(Con|Eva)_flow</code>:
+AI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
-<p>
-Note that the input signal <code>y1Coo</code> is different
-from the input signal <code>coo</code> that is used in the model
-<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
-Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
-where it allows switching the chiller operating mode from cooling
-to heating.
-The current chiller group model rather represents a set of chillers
-that are <i>all</i> operating in the same mode, either cooling or heating.
-The mode is fixed as specified by the parameter <code>is_cooling</code>
-and each chiller which is commanded to operate in a different mode
-is considered <i>Off</i>.
-</p>
-<h4>
-Chiller performance data
-</h4>
-<p>
-The chiller performance data should cover the chiller lift envelope,
-that is when the chiller is operating in \"direct\" heat recovery mode,
-i.e., producing CHW and HW at their setpoint value at full load.
-In this case, and to allow for \"cascading\" heat recovery where
-a third fluid circuit is used to generate a cascade of thermodynamic cycles,
-two additional parameters <code>TCasEntCoo_nominal</code> and
-<code>TCasEntHea_nominal</code> are exposed to specify the chiller
-<i>entering</i> temperature of the third fluid circuit when
-the chiller is operating in cooling mode and in heating mode,
-respectively.
-In cooling mode the third fluid circuit is connected to the chiller
-condenser barrel.
-In heating mode, the third fluid circuit is connected to the chiller
-evaporator barrel.
-The parameters <code>TCasEnt*_nominal</code> are then used to assess the
-design chiller capacity in heating and cooling mode, respectively.
-The value of that parameter should typically differ when configuring
-this model for heating (<code>is_cooling=false</code>) or
-cooling (<code>is_cooling=true</code>).
-</p>
 <h4>
 Details
 </h4>
 <h5>
+HRC performance data
+</h5>
+<p>
+The performance data should cover the HRC lift envelope,
+that is when the HRC is operating in direct heat recovery mode,
+producing CHW and HW at their setpoint value at full load.
+In this case, and to allow for cascading heat recovery where
+a third fluid circuit is used to generate a cascade of thermodynamic cycles,
+two additional parameters <code>TCasEntCoo_nominal</code> and
+<code>TCasEntHea_nominal</code> are exposed to specify the
+<i>entering</i> temperature of the third fluid circuit when
+the HRC is operating in cooling mode and in heating mode,
+respectively.
+In cooling mode the third fluid circuit is connected to the 
+condenser barrel.
+In heating mode, the third fluid circuit is connected to the 
+evaporator barrel.
+The parameters <code>TCasEnt*_nominal</code> are then used to assess the
+design capacity in heating and cooling mode, respectively.
+</p>
+<h5>
 Actuators
 </h5>
 <p>
-By default linear valve models are used. Those are configured with
-a pressure drop varying linearily with the flow rate, as opposed
+By default, linear valve models are used. Those are configured with
+a pressure drop varying linearly with the flow rate, as opposed
 to the quadratic dependency usually considered for a turbulent flow
 regime.
 This is because the whole plant model contains large nonlinear systems
 of equations, and this configuration limits the risk of solver failure
 while reducing the time to solution.
-This yields an overestimation of the pump power at variable flow which
-is considered as acceptable as it mainly affects the CW
-pumps, which have a much lower head than the CHW and HW distribution
-pumps.
+<p>
+By default, linear valve models are used. Those are configured with
+a pressure drop varying linearly with the flow rate, as opposed
+to the quadratic dependency usually considered for a turbulent flow
+regime.
+This is because the whole plant model contains large nonlinear systems
+of equations and this configuration limits the risk of solver failure
+while reducing the time to solution.
+This has no significant impact on the operating point of the circulation pumps
+when a control loop is used to modulate the valve opening and maintain
+the flow rate or the leaving temperature at setpoint.
+Then, whatever the modeling assumptions for the valve, the
+control loop ensures that the valve creates the adequate pressure drop
+and flow, which will simply be reached at a different valve opening
+with the above simplification.
 </p>
 </html>"));
 end ChillerHeatRecoveryGroup;

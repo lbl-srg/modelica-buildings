@@ -154,9 +154,9 @@ block PartialController "Interface class for plant controller"
   parameter Integer nTTan(final min=0)=0
     "Number of tank temperature points"
     annotation (Dialog(group="CW loop, TES tank and heat pumps", connectorSizing=true),HideResult=true);
-  parameter Real ratFraChaTanLim[3](each final unit="1/h")=
-    {0.3, 0.15, 0.8}
-    "Rate of change of tank charge fraction, over 10, 30 and 60 minutes that triggers Charge Assist"
+  parameter Real ratFraChaTanLim[5](each final unit="1/h")=
+    {-0.3, -0.2, -0.15, -0.10, -0.08}
+    "Rate of change of tank charge fraction (over 10, 30, 120, 240, and 360') that triggers Charge Assist (<0)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTLifChi_min
@@ -572,19 +572,19 @@ block PartialController "Interface class for plant controller"
     annotation (Placement(transformation(extent={{-300,0},{-260,40}}),
         iconTransformation(extent={{-260,-20},{-220,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatCooSup(final unit="K",
-      displayUnit="degC") "Cooling tower loop CW supply tempetrature"
+      displayUnit="degC") "Cooling tower loop CW supply temperature"
     annotation (Placement(transformation(extent={{-300,-20},{-260,20}}),
         iconTransformation(extent={{-260,-40},{-220,0}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatCooRet(final unit="K",
-      displayUnit="degC") "Cooling tower loop CW return tempetrature"
+      displayUnit="degC") "Cooling tower loop CW return temperature"
     annotation (Placement(transformation(extent={{-300,-40},{-260,0}}),
         iconTransformation(extent={{-260,-60},{-220,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatHexCooEnt(final unit="K",
-      displayUnit="degC")        "HX entering CW tempetrature" annotation (
+      displayUnit="degC")        "HX entering CW temperature" annotation (
       Placement(transformation(extent={{-300,-60},{-260,-20}}),
         iconTransformation(extent={{-260,-80},{-220,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatHexCooLvg(final unit="K",
-      displayUnit="degC")        "HX leaving CW tempetrature" annotation (
+      displayUnit="degC")        "HX leaving CW temperature" annotation (
       Placement(transformation(extent={{-300,-80},{-260,-40}}),
         iconTransformation(extent={{-260,-100},{-220,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConEntChiHea[nChiHea](each final

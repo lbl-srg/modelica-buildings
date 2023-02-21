@@ -40,10 +40,7 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     start=340 * mConWatUni_flow_nominal)
     "Fan power (each unit)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Real yFan_min(
-    final unit="1",
-    final min=0,
-    final max=1)=0.1
+  parameter Real yFan_min(unit="1")=0.1
     "CT fan minimum speed";
 
   // Assumptions
@@ -84,17 +81,17 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
         transformation(extent={{100,20},{140,60}}), iconTransformation(extent={{100,20},
             {140,60}})));
 
-  Fluid.BaseClasses.MassFlowRateMultiplier mulConInl(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulInl(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_input=true)
-    "Flow rate multiplier"
+    final use_input=false,
+    final k=1/nUni)       "Flow rate multiplier"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Fluid.BaseClasses.MassFlowRateMultiplier mulConOut(
+  Fluid.BaseClasses.MassFlowRateMultiplier mulOut(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
-    final use_input=true)
-    "Flow rate multiplier"
+    final use_input=false,
+    final k=nUni)         "Flow rate multiplier"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   BaseClasses.MultipleCommands com(final nUni=nUni)
     "Convert command signals"
@@ -126,29 +123,25 @@ model CoolingTowerGroup "Model of multiple identical cooling towers in parallel"
     "Convert to real"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-14,70})));
+        origin={-14,80})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply inp
-    "Compute pump input signal" annotation (Placement(transformation(
+    "Compute pump input signal"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,30})));
 equation
-  connect(mulConOut.uInv, mulConInl.u) annotation (Line(points={{81,6},{86,6},{
-          86,-20},{-86,-20},{-86,6},{-82,6}},  color={0,0,127}));
   connect(com.nUniOn, mulP.u2) annotation (Line(points={{-38,100},{40,100},{40,
           86},{58,86}},     color={0,0,127}));
 
   connect(mulP.y, P)
     annotation (Line(points={{82,80},{120,80}}, color={0,0,127}));
-  connect(com.nUniOnBou, mulConOut.u) annotation (Line(points={{-38,94},{20,94},
-          {20,6},{58,6}},        color={0,0,127}));
-  connect(mulConOut.port_b, port_b)
+  connect(mulOut.port_b, port_b)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
-  connect(port_a, mulConInl.port_a)
-    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(mulConInl.port_b, coo.port_a)
-    annotation (Line(points={{-60,0},{-10,0}}, color={0,127,255}));
-  connect(coo.port_b, mulConOut.port_a)
+  connect(mulInl.port_b, coo.port_a)
+    annotation (Line(points={{-60,0},{-10,0}},
+                                             color={0,127,255}));
+  connect(coo.port_b, mulOut.port_a)
     annotation (Line(points={{10,0},{60,0}}, color={0,127,255}));
   connect(weaBus.TWetBul, coo.TAir) annotation (Line(
       points={{100,-40},{-20,-40},{-20,4},{-12,4}},
@@ -169,13 +162,15 @@ equation
     annotation (Line(points={{-68,100},{-62,100}},
                                                  color={255,0,255}));
   connect(com.y1One, booToRea.u) annotation (Line(points={{-38,106},{-14,106},{
-          -14,82}}, color={255,0,255}));
+          -14,92}}, color={255,0,255}));
   connect(inp.y, coo.y)
     annotation (Line(points={{-20,18},{-20,8},{-12,8}}, color={0,0,127}));
   connect(y, inp.u1)
     annotation (Line(points={{-120,60},{-26,60},{-26,42}}, color={0,0,127}));
   connect(booToRea.y, inp.u2)
-    annotation (Line(points={{-14,58},{-14,42}}, color={0,0,127}));
+    annotation (Line(points={{-14,68},{-14,42}}, color={0,0,127}));
+  connect(port_a, mulInl.port_a)
+    annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
   annotation (
     defaultComponentName="coo",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -192,17 +187,44 @@ equation
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Documentation(info="<html>
 <p>
-The model
-<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
-Buildings.Fluid.HeatPumps.EquationFitReversible</a>
-does not capture the sensitivity of the HP performance
-to the HW supply temperature setpoint.
-This means that a varying HW supply temperature setpoint
-has no impact on the heat pump <i>COP</i> (all other variables
-such as the HW return temperature being kept invariant).
-This limitation is not an issue for the CW storage plant
-where the heat pump supply temperature setpoint is not
-to be reset.
+This model represents a set of identical cooling towers
+that are piped in parallel.
+No actuated isolation valves are included.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
+</p>
+<ul>
+<li>
+Start command (VFD Run) <code>y1</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Speed command <code>y</code>:
+AO signal common to all units, with a dimensionality of zero
+</li>
+<li>
+CW supply temperature <code>TConWatSup</code>: 
+AI signal common to all units, with a dimensionality of zero
+</li>
+</ul>
+<h4>Details</h4>
+<h5>Modeling approach</h5>
+<p>
+In a parallel arrangement, all operating units have the same operating point.
+This allows modeling the heat transfer from outdoor air to condenser water
+with a single instance of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a>.
+Hydronics are resolved with mass flow rate multiplier components.
+Note that the elevation head of open-circuit cooling towers is not modeled,
+which is an inherent limitation of the cooling tower component model.
+</p>
+<p>
+The fan cycling On and Off is implicitly modeled
+in the cooling tower component which uses a low limit of the control signal
+to switch to a free convection regime at zero fan power.
 </p>
 </html>"));
 end CoolingTowerGroup;

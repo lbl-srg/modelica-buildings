@@ -1,9 +1,9 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls;
-block Controller "Open-loop controller for validation purposes"
+block Controller "Plant controller"
   extends BaseClasses.PartialController;
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repHeaPum(nout=
-        nHeaPum) "Replicate signal"
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator repHeaPum(
+    final nout=nHeaPum) "Replicate signal"
     annotation (Placement(transformation(extent={{220,-230},{240,-210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal cvtValBypTan
     "Convert DO to AO"
@@ -104,7 +104,7 @@ block Controller "Open-loop controller for validation purposes"
     annotation (Placement(transformation(extent={{186,-210},{206,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaPumSetVal[2](
     final k={max(TTanSet[i]) + 3 for i in 1:2})
-    "HP supply temperature sepoint for each tank cycle"
+    "HP supply temperature setpoint for each tank cycle"
     annotation (Placement(transformation(extent={{-170,-230},{-150,-210}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndRea(final nin=2)
     "Extract active setpoint"
@@ -153,7 +153,7 @@ block Controller "Open-loop controller for validation purposes"
     final dTLifChi_nominal=dTLifChi_nominal,
     final TTanSet=TTanSet,
     final dTHexCoo_nominal=dTHexCoo_nominal) "Cooling tower loop"
-    annotation (Placement(transformation(extent={{40,-356},{60,-320}})));
+    annotation (Placement(transformation(extent={{40,-364},{60,-328}})));
 equation
   connect(repHeaPum.y, y1HeaPum)
     annotation (Line(points={{242,-220},{280,-220}},color={255,0,255}));
@@ -367,41 +367,44 @@ equation
           -360},{-234,142},{-212,142}}, color={0,0,127}));
   connect(THeaWatSup, staPla.THeaWatSup) annotation (Line(points={{-280,100},{-230,
           100},{-230,148},{-212,148}},color={0,0,127}));
-  connect(coo.y1PumConWatCoo, y1PumConWatCoo) annotation (Line(points={{62,-326},
-          {240,-326},{240,-320},{280,-320}}, color={255,0,255}));
-  connect(coo.yPumConWatCoo, yPumConWatCoo) annotation (Line(points={{62,-332},
-          {166,-332},{166,-340},{280,-340}},color={0,0,127}));
-  connect(coo.y1Coo, y1Coo) annotation (Line(points={{62,-344},{244,-344},{244,
+  connect(coo.y1PumConWatCoo, y1PumConWatCoo) annotation (Line(points={{62,-334},
+          {240,-334},{240,-320},{280,-320}}, color={255,0,255}));
+  connect(coo.yPumConWatCoo, yPumConWatCoo) annotation (Line(points={{62,-340},
+          {280,-340}},                      color={0,0,127}));
+  connect(coo.y1Coo, y1Coo) annotation (Line(points={{62,-352},{240,-352},{240,
           -360},{280,-360}},
                        color={255,0,255}));
-  connect(coo.yCoo, yCoo) annotation (Line(points={{62,-350},{240,-350},{240,
+  connect(coo.yCoo, yCoo) annotation (Line(points={{62,-358},{236,-358},{236,
           -380},{280,-380}},
                        color={0,0,127}));
   connect(cycTan.idxCycTan, coo.idxCycTan) annotation (Line(points={{-148,-100},
-          {0,-100},{0,-324},{38,-324}}, color={255,127,0}));
-  connect(modConLoo.mode, coo.mode) annotation (Line(points={{-148,-160},{2,-160},
-          {2,-322},{38,-322}}, color={255,127,0}));
+          {0,-100},{0,-332},{38,-332}}, color={255,127,0}));
+  connect(modConLoo.mode, coo.mode) annotation (Line(points={{-148,-160},{2,
+          -160},{2,-330},{38,-330}},
+                               color={255,127,0}));
   connect(TChiWatSupSet, coo.TChiWatSupSet) annotation (Line(points={{-280,360},
-          {-2,360},{-2,-328},{38,-328}}, color={0,0,127}));
-  connect(TConWatConChiEnt, coo.TConWatConChiEnt) annotation (Line(points={{-280,
-          40},{-252,40},{-252,-330},{38,-330}}, color={0,0,127}));
-  connect(TConWatConChiLvg, coo.TConWatConChiLvg) annotation (Line(points={{-280,
-          20},{-248,20},{-248,-332},{38,-332}}, color={0,0,127}));
-  connect(TConWatCooSup, coo.TConWatCooSup) annotation (Line(points={{-280,0},{-250,
-          0},{-250,-335.8},{38,-335.8}}, color={0,0,127}));
+          {-2,360},{-2,-336},{38,-336}}, color={0,0,127}));
+  connect(TConWatConChiEnt, coo.TConWatConChiEnt) annotation (Line(points={{-280,40},
+          {-252,40},{-252,-338},{38,-338}},     color={0,0,127}));
+  connect(TConWatConChiLvg, coo.TConWatConChiLvg) annotation (Line(points={{-280,20},
+          {-248,20},{-248,-340},{38,-340}},     color={0,0,127}));
+  connect(TConWatCooSup, coo.TConWatCooSup) annotation (Line(points={{-280,0},{
+          -250,0},{-250,-343.8},{38,-343.8}},
+                                         color={0,0,127}));
   connect(TConWatCooRet, coo.TConWatCooRet) annotation (Line(points={{-280,-20},
-          {-244,-20},{-244,-337.8},{38,-337.8}},                       color={0,
+          {-244,-20},{-244,-345.8},{38,-345.8}},                       color={0,
           0,127}));
   connect(TConWatHexCooEnt, coo.TConWatHexCooEnt) annotation (Line(points={{-280,
-          -40},{-248,-40},{-248,-339.8},{38,-339.8}}, color={0,0,127}));
+          -40},{-248,-40},{-248,-347.8},{38,-347.8}}, color={0,0,127}));
   connect(TConWatHexCooLvg, coo.TConWatHexCooLvg) annotation (Line(points={{-280,
-          -60},{-236,-60},{-236,-341.8},{38,-341.8}}, color={0,0,127}));
+          -60},{-236,-60},{-236,-349.8},{38,-349.8}}, color={0,0,127}));
   connect(staPla.QCooReq_flow, coo.QCooReq_flow) annotation (Line(points={{-188,
-          170},{-8,170},{-8,-346},{38,-346}}, color={0,0,127}));
-  connect(mConWatHexCoo_flow, coo.mConWatHexCoo_flow) annotation (Line(points={{
-          -280,-280},{-232,-280},{-232,-350},{38,-350}}, color={0,0,127}));
-  connect(cvtValBypTan.y, coo.yValBypTan) annotation (Line(points={{-18,-280},{-6,
-          -280},{-6,-354},{38,-354}}, color={0,0,127}));
+          170},{-8,170},{-8,-354},{38,-354}}, color={0,0,127}));
+  connect(mConWatHexCoo_flow, coo.mConWatHexCoo_flow) annotation (Line(points={{-280,
+          -280},{-232,-280},{-232,-358},{38,-358}},      color={0,0,127}));
+  connect(cvtValBypTan.y, coo.yValBypTan) annotation (Line(points={{-18,-280},{
+          -6,-280},{-6,-362},{38,-362}},
+                                      color={0,0,127}));
   connect(dirHeaCoo.TConEntChiHeaSet,valConEva. TConEntChiHeaSet) annotation (
       Line(points={{-98,-6},{-84,-6},{-84,34},{-82,34}},             color={0,0,
           127}));
@@ -435,20 +438,77 @@ equation
         ={{-58,46},{6,46},{6,-80},{280,-80}}, color={0,0,127}));
 annotation (
   defaultComponentName="ctl", Documentation(info="<html>
-All pump speed control loops are biased to launch from 
-100 % (maximum speed).
-
-<h4>
-CW pumps
-</h4>
 <p>
-CW pumps serving the evaporator loop or the condenser loop
-are controlled to track the loop differential pressure
-setpoint.
-A constant setpoint is used.
-Optimizations are possible, for instance by resetting the setpoint 
-based on valve requests, or based on a linear relationship with
-the loop flow setpoint.
+This block implements the following control functions.
+</p>
+<ul>
+<li>
+Plant heating and cooling staging and HRC operating mode selection,
+see description in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant</a>.
+</li>
+<li>
+CW loop operating mode selection, see description in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeCondenserLoop\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeCondenserLoop</a>.
+</li>
+<li>
+TES tanck cycle flag selection, see description in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.TankCycle\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.TankCycle</a>.
+</li>
+<li>
+Load balancing, temperature and flow setpoint tracking for chillers and HRCs
+depending on active operating modes, see description in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ValveCondenserEvaporator\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ValveCondenserEvaporator</a>.
+</li>
+<li>
+Cooling tower pumps and cooling tower fans control, see description in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.CoolingTowerLoop\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.CoolingTowerLoop</a>.
+</li>
+<li>
+Air-to-water heat pump contol, see below.
+</li>
+<li>
+CHW, HW, CWE and CWC pumps, see below.
+</li>
+</ul>
+<h4>Heat pumps</h4>
+<p>
+Heat pumps are enabled whenever Charge Assist mode is active and any 
+CWC pump is enabled. Heat pumps are disabled otherwise.
+</p>
+<p>
+The supply temperature setpoint is <i>3&nbsp;</i>K plus the highest 
+setpoint of the active tank cycle.
+Note that no limitation of the setpoint value per manufacturer specification
+is taken into account.
+</p>
+<h4>CHW, HW, CWE and CWC pumps</h4>
+<p>
+The lead pump is enabled based on the logic described in 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ValveCondenserEvaporator\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ValveCondenserEvaporator</a>.
+</p>
+<p>
+Pumps are staged based on the logic described in 
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump</a>.
+</p>
+<p>
+When the pump is enabled, the pump speed is modulated by a PI controller tracking
+a differential pressure setpoint at the boundaries of the circuit served by the pump.
+The control loop is biased to launch from <i>100&nbsp;%</i> (maximum speed).
+</p>
+<p>
+The differential pressure setpoint for the CHW and HW loops is provided as a control input.
+Ideally, a reset logic based on consumer valve requests should be implemented to adapt
+those setpoints to the demand.
+For the sake of simplicity, the differential pressure setpoint for the CWC and CWE loops 
+is a fixed parameter.
 </p>
 </html>"));
 end Controller;

@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block DirectHeatRecovery
   "Block controlling HRC in direct heat recovery mode"
 
@@ -245,16 +245,19 @@ that act on the evaporator flow rate and condenser entering water temperature as
 described below.
 </p>
 <p>
-A direct acting control loop runs for each HRC operating in direct heat recovery 
+A direct acting control loop runs for each HRC operating in direct heat recovery
 mode.
+Each loop is enabled with a bias of <i>50&nbsp;%</i> whenever the HRC
+is commanded On and in direct heat recovery mode.
+The loop is disabled with output set to <i>50&nbsp;%</i> otherwise.
 The loop output is mapped as follows.
-From <i>0&nbsp;%</i> to <i>33&nbsp;%</i> the evaporator flow setpoint of 
-cooling-only chillers is reset from <i>1.2</i> times its mininum value
+From <i>0&nbsp;%</i> to <i>33&nbsp;%</i> the evaporator flow setpoint of
+cooling-only chillers is reset from <i>1.2</i> times its minimum value
 to <i>1.2</i> times its design value.
-From <i>33&nbsp;%</i> to <i>67&nbsp;%</i> the evaporator flow setpoint of 
-the HRC is reset from <i>1.2</i> times its mininum value
+From <i>33&nbsp;%</i> to <i>67&nbsp;%</i> the evaporator flow setpoint of
+the HRC is reset from <i>1.2</i> times its minimum value
 to <i>1.2</i> times its design value.
-From <i>67&nbsp;%</i> to <i>100&nbsp;%</i> the HRC condenser entering 
+From <i>67&nbsp;%</i> to <i>100&nbsp;%</i> the HRC condenser entering
 temperature setpoint is reset from <i>THeaWatRet + 0.5&nbsp;</i>°C
 to <i>THeaWatRet - 15&nbsp;</i>°C.
 </p>

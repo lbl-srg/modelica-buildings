@@ -7,7 +7,7 @@ model ChillerHeatRecoveryGroup
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium model";
   final parameter Integer nChiHea(final min=1, start=1)=2
-    "Number of HRC operating at design conditions"
+    "Number of HRCs operating at design conditions"
     annotation(Evaluate=true);
   parameter
     Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_Carrier_19XR_1403kW_7_09COP_VSD dat(
@@ -463,8 +463,8 @@ equation
 This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup</a>
-in a configuration with two \"cooling-only\" chillers.
-The chillers are switched <i>Off</i> one after the other, and
+in a configuration with two HRCs.
+The HRCs are switched Off one after the other, and
 receive an increasing CHW supply temperature setpoint.
 </p>
 </html>"));

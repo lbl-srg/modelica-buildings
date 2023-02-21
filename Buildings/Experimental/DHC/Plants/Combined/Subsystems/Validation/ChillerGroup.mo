@@ -110,8 +110,8 @@ equation
 This model validates 
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup</a>
-in a configuration with two \"cooling-only\" chillers.
-The chillers are switched <i>Off</i> one after the other, and 
+in a configuration with two chillers.
+The chillers are switched Off one after the other, and 
 receive an increasing CHW supply temperature setpoint.
 </p>
 </html>"));

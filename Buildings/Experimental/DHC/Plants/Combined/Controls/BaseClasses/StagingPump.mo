@@ -1,9 +1,8 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block StagingPump "Pump staging"
 
-
   parameter Boolean have_flowCriterion=true
-    "Set to true in case of flow criterion in conjunction with speed criterion"
+    "Set to true for flow criterion in conjunction with speed criterion"
     annotation(Evaluate=true);
   parameter Integer nPum(
     final min=1,

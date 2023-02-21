@@ -1,5 +1,6 @@
 within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block IntegerArrayHold
+  "Block that holds the value of an integer array for a given time"
   parameter Integer nin=0
     "Array dimension"
     annotation (Dialog(connectorSizing=true),HideResult=true);

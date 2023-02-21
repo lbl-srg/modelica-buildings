@@ -323,7 +323,7 @@ block StagingPlant
     "No stage up failsafe condition and efficiency condition to stage down"
     annotation (Placement(transformation(extent={{10,-170},{30,-150}})));
   IntegerArrayHold hol(holdDuration=15*60, nin=4)
-    "Minimum plant stage runtime (nedded because cooling and heating stage runtimes are handled separetely)"
+    "Minimum plant stage runtime (needed because cooling and heating stage runtimes are handled separately)"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
 
 equation
@@ -550,41 +550,41 @@ equation
 <p>
 This block implements the staging logic for the chillers and HRCs.
 The units are staged in part based on an efficiency condition
-using the operative part load ratio. 
-The units are also staged based on failsafe conditions using the CHW and HW 
+using the operative part load ratio.
+The units are also staged based on failsafe conditions using the CHW and HW
 supply temperature and differential pressure.
 </p>
 <p>
-For the sake of simplicity, equipment rotation (i.e. the possibility at a given 
+For the sake of simplicity, equipment rotation (i.e. the possibility at a given
 stage that either one unit or another unit can be operating) is not taken into account.
 </p>
 <h4>Plant stages</h4>
 <p>
-At cooling (resp. heating) stage <code>#i</code>, a number <code>#i</code> 
+At cooling (resp. heating) stage <code>#i</code>, a number <code>i</code>
 of units are operating in cooling (resp. heating) mode.
-The cooling (resp. heating) stage <code>#0</code> (no unit operating in 
-that given mode) is active whevener the plant is disabled based on the cooling
-and heating Enable condition (see below) or when the plant is enabled 
+The cooling (resp. heating) stage <code>#0</code> (no unit operating in
+that given mode) is active whenever the plant is disabled based on the cooling
+and heating Enable condition (see below) or when the plant is enabled
 and has been staged down due to the efficiency or failsafe conditions.
 The plant stage is given by the couple (cooling stage, heating stage).
 The minimum runtime of each plant stage is set to <i>15</i>&nbsp;min.
 </p>
 <h5>Direct heat recovery mode</h5>
 <p>
-All HRCs are allowed to operate in direct heat recovery mode, that is with 
-their condenser indexed to the HW loop and their evaporator indexed to the 
+All HRCs are allowed to operate in direct heat recovery mode, that is when
+their condenser is indexed to the HW loop and their evaporator is indexed to the
 CHW loop.
 Switching a HRC to operate in direct heat recovery mode is done on
-a load requirement basis. This means that HRCs are first switched over 
+a load requirement basis. This means that HRCs are first switched over
 to cascading heating or cascading cooling mode. Only when all HRCs are operating
-and when a new stage up event is initiated, an additional HRC is then switched 
+and when a new stage up event is initiated, an additional HRC is then switched
 to operate in direct heat recovery mode.
-As described in 
+As described in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeHeatRecoveryChiller\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeHeatRecoveryChiller</a>
-the HRC with the highest index that is not operating operating in cascading 
+the HRC with the highest index that is not operating operating in cascading
 cooling mode is the next to be switched into direct heat recovery mode.
-For example, considering a plant with two chillers and three HRCs, the following 
+For example, considering a plant with two chillers and three HRCs, the following
 plant stages are derived from this logic.
 </p>
 <table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">
@@ -632,22 +632,22 @@ plant stages are derived from this logic.
 <h4>Cooling and heating Enable condition</h4>
 <p>
 The cooling and heating Enable signals <code>u1Coo</code> and <code>u1Hea</code>
-shall be computed outside of the plant model, 
+shall be computed outside of the plant model,
 at least based on a time schedule and ideally in conjunction
 with a signal representative of the demand such as the requests yielded by
 the consumer control valves.
-Based on those signals, the cooling (resp. heating) stage <code>#1</code> is 
-activated whenever the cooling (resp. heating) Enable signal switches 
-to <code>true</code> and when cooling (resp. heating) has been disabled 
+Based on those signals, the cooling (resp. heating) stage <code>#1</code> is
+activated whenever the cooling (resp. heating) Enable signal switches
+to <code>true</code> and when cooling (resp. heating) has been disabled
 for at least <i>15</i>&nbsp;min.
 </p>
 <h4>Operative part load ratio</h4>
 <p>
 The efficiency condition is based on the operative part load ratio
-which is computed as the ratio of the required capacity 
-relative to design capacity of a given stage, which is the sum of the design capacity 
+which is computed as the ratio of the required capacity
+relative to design capacity of a given stage, which is the sum of the design capacity
 of each unit active in a given stage.
-The required capacity is calculated based on the primary mass flow rate and the 
+The required capacity is calculated based on the primary mass flow rate and the
 temperature difference between supply and primary return, and averaged over a
 <i>5</i>-minute moving window.
 <h4>Cooling and heating staging</h4>
@@ -656,13 +656,13 @@ A stage up event is initiated if any of the following conditions is true.
 </p>
 <ul>
 <li>
-Efficiency condition: the operative part load ratio of the current stage 
+Efficiency condition: the operative part load ratio of the current stage
 exceeds the value of the parameter <i>PLRStaTra</i> for <i>15</i>&nbsp;min.
 </li>
 <li>
-Failsafe conditions: the CHW (resp. HW) supply temperature is <i>1</i>&nbsp;&deg;C 
+Failsafe conditions: the CHW (resp. HW) supply temperature is <i>1</i>&nbsp;&deg;C
 higher (resp. lower) than setpoint for <i>15</i>&nbsp;min, or
-the CHW (resp. HW) differential pressure is <i>1.5E4</i>&nbsp;Pa lower than 
+the CHW (resp. HW) differential pressure is <i>1.5E4</i>&nbsp;Pa lower than
 setpoint for <i>15</i>&nbsp;min.
 </li>
 </ul>
@@ -671,7 +671,7 @@ A stage down event is initiated if both of the following conditions are true.
 </p>
 <ul>
 <li>
-Efficiency condition: the operative part load ratio of the next lower stage 
+Efficiency condition: the operative part load ratio of the next lower stage
 falls below the value of the parameter <i>PLRStaTra</i> for <i>15</i>&nbsp;min.
 </li>
 <li>

@@ -30,7 +30,7 @@ model CoolingTowerGroup "Validation of cooling tower group model"
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={2,-90})));
+        origin={0,-70})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TConWatSupSet(
     height=+3,
@@ -43,9 +43,9 @@ model CoolingTowerGroup "Validation of cooling tower group model"
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1(
     table=[0,1,1; 0.4,1,1; 0.4,1,0; 0.8,1,0; 0.8,0,0; 1,0,0],
     timeScale=1000,
-    period=1000) "On/Off command"
+    period=1000)
+    "On/Off command"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
-
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam=Modelica.Utilities.Files.loadResource(
     "modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos"))
@@ -94,8 +94,8 @@ equation
   connect(coo.port_b, TConWatSup.port_a)
     annotation (Line(points={{10,0},{10,1.77636e-15},{20,1.77636e-15}},
                                                       color={0,127,255}));
-  connect(bouConWat.ports[1],TConWatRet. port_a) annotation (Line(points={{1,-100},
-          {-60,-100},{-60,-50}}, color={0,127,255}));
+  connect(bouConWat.ports[1],TConWatRet. port_a) annotation (Line(points={{-1,-80},
+          {-60,-80},{-60,-50}},  color={0,127,255}));
   connect(TConWatRet.port_b, coo.port_a)
     annotation (Line(points={{-60,-30},{-60,0},{-10,0}}, color={0,127,255}));
   connect(coo.TConWatSup, ctl.u_m) annotation (Line(points={{12,4},{20,4},{20,
@@ -107,7 +107,7 @@ equation
   connect(ctl.y, coo.y) annotation (Line(points={{12,60},{20,60},{20,80},{-28,
           80},{-28,-6},{-12,-6}}, color={0,0,127}));
   connect(pum.port_b, bouConWat.ports[2]) annotation (Line(points={{70,0},{80,0},
-          {80,-100},{3,-100}}, color={0,127,255}));
+          {80,-80},{1,-80}},   color={0,127,255}));
   connect(TConWatSup.port_b, pum.port_a)
     annotation (Line(points={{40,0},{50,0}}, color={0,127,255}));
   connect(y1.y, pum.y1) annotation (Line(points={{-88,100},{40,100},{40,8},{48,8}},
@@ -126,7 +126,7 @@ This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.CoolingTowerGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.CoolingTowerGroup</a>
 in a configuration with two tower cells.
-The tower cells are switched <i>Off</i> one after the other, and
+The tower cells are switched Off one after the other, and
 the CW supply temperature setpoint is increasing after an initial
 period where it is fixed at its design value.
 The Start command of the CW pumps is the same signal

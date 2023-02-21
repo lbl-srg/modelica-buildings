@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block CoolingTowerLoop "Cooling tower loop control"
 
   parameter Integer nCoo(final min=1, start=1)
@@ -17,10 +17,8 @@ block CoolingTowerLoop "Cooling tower loop control"
     "Tank temperature setpoints: 2 cycles with 2 setpoints";
   parameter Modelica.Units.SI.TemperatureDifference dTHexCoo_nominal
     "Design heat exchanger approach";
-  parameter Real yPumConWatCoo_min[nPumConWatCoo](
-    each final unit="1",
-    each final min=0,
-    each final max=1)={0.2 / i for i in 1:nPumConWatCoo}
+  parameter Real yPumConWatCoo_min[nPumConWatCoo](each final unit="1")=
+    {0.2/i for i in 1:nPumConWatCoo}
     "Tower pump speed needed to maintain minimum tower flow (each pump stage)";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode(
@@ -36,14 +34,14 @@ block CoolingTowerLoop "Cooling tower loop control"
     annotation (Placement(transformation(extent={{-220,200},{-180,240}}),
     iconTransformation(extent={{-140,120},{-100,160}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatCooSup(final unit="K",
-      displayUnit="degC") "Cooling tower loop CW supply tempetrature"
+      displayUnit="degC") "Cooling tower loop CW supply temperature"
     annotation (Placement(transformation(extent={{-220,-200},{-180,-160}}),
         iconTransformation(extent={{-140,2},{-100,42}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput mConWatHexCoo_flow(
     final unit="kg/s")
     "CW mass flow rate through secondary side of HX"
       annotation (
-      Placement(transformation(extent={{-220,-40},{-180,0}}),
+      Placement(transformation(extent={{-220,-20},{-180,20}}),
         iconTransformation(extent={{-140,-140},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput  QCooReq_flow(
     final unit="W")
@@ -63,7 +61,7 @@ block CoolingTowerLoop "Cooling tower loop control"
       Placement(transformation(extent={{-220,80},{-180,120}}),
         iconTransformation(extent={{-140,80},{-100,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatCooRet(final unit="K",
-      displayUnit="degC") "Cooling tower loop CW return tempetrature"
+      displayUnit="degC") "Cooling tower loop CW return temperature"
     annotation (Placement(transformation(extent={{-220,-220},{-180,-180}}),
         iconTransformation(extent={{-140,-18},{-100,22}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yValBypTan(final unit="1")
@@ -71,21 +69,17 @@ block CoolingTowerLoop "Cooling tower loop control"
         transformation(extent={{-220,-100},{-180,-60}}),  iconTransformation(
           extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatHexCooEnt(final unit=
-        "K", displayUnit="degC") "HX entering CW tempetrature" annotation (
+        "K", displayUnit="degC") "HX entering CW temperature" annotation (
       Placement(transformation(extent={{-220,-260},{-180,-220}}),
         iconTransformation(extent={{-140,-38},{-100,2}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatHexCooLvg(final unit=
-        "K", displayUnit="degC") "HX leaving CW tempetrature" annotation (
+        "K", displayUnit="degC") "HX leaving CW temperature" annotation (
       Placement(transformation(extent={{-220,-280},{-180,-240}}),
         iconTransformation(extent={{-140,-58},{-100,-18}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumConWatCoo[
     nPumConWatCoo] "Cooling tower pump Start command" annotation (Placement(
         transformation(extent={{180,40},{220,80}}),   iconTransformation(extent
           ={{100,100},{140,140}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo[nCoo]
-    "Cooling tower Start command" annotation (Placement(transformation(extent={{180,
-            -140},{220,-100}}),    iconTransformation(extent={{100,-80},{140,
-            -40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo
     "Cooling tower fan speed command" annotation (Placement(transformation(
           extent={{180,-80},{220,-40}}),  iconTransformation(extent={{100,-140},
@@ -94,7 +88,10 @@ block CoolingTowerLoop "Cooling tower loop control"
     "Cooling tower pump speed command" annotation (Placement(transformation(
           extent={{180,-240},{220,-200}}), iconTransformation(extent={{100,40},{
             140,80}})));
-
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1Coo[nCoo]
+    "Cooling tower Start command" annotation (Placement(transformation(extent={{180,
+            -140},{220,-100}}),    iconTransformation(extent={{100,-80},{140,
+            -40}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract delTemCon "Compute CW deltaT"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage mea(delta=5*60)
@@ -103,7 +100,7 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Continuous.Subtract delTem1 "Compute deltaT"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add lifPlu "Add target lift"
-    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
+    annotation (Placement(transformation(extent={{-130,90},{-110,110}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter subApp(final p=-
         dTHexCoo_nominal) "Substract HX approach"
     annotation (Placement(transformation(extent={{-70,60},{-50,80}})));
@@ -134,10 +131,10 @@ block CoolingTowerLoop "Cooling tower loop control"
     annotation (Placement(transformation(extent={{-110,130},{-90,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xLif[2](k={0.1,1})
     "x-value for lift reset"
-    annotation (Placement(transformation(extent={{-150,180},{-130,200}})));
+    annotation (Placement(transformation(extent={{-160,180},{-140,200}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLif[2](final k={
         dTLifChi_min,dTLifChi_nominal}) "y-value for lift reset"
-    annotation (Placement(transformation(extent={{-150,120},{-130,140}})));
+    annotation (Placement(transformation(extent={{-160,120},{-140,140}})));
   StagingPump staPum(
     nPum=nPumConWatCoo,
     have_flowCriterion=false,
@@ -167,11 +164,11 @@ block CoolingTowerLoop "Cooling tower loop control"
     "Valve opening criterion to disable lead pump"
     annotation (Placement(transformation(extent={{-160,-130},{-140,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or dis "Disable condition"
-    annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
+    annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
   Buildings.Controls.OBC.CDL.Logical.And ena "Enable condition"
-    annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
+    annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch enaLea "Enable lead pump"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{-30,-50},{-10,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract delTem2 "Compute deltaT"
     annotation (Placement(transformation(extent={{-160,-250},{-140,-230}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract delTem3 "Compute deltaT"
@@ -213,9 +210,6 @@ block CoolingTowerLoop "Cooling tower loop control"
   Modelica.Blocks.Sources.IntegerExpression nPumBou(y=max(1, staPum.nPumEna))
     "Number of pumps commanded on, bounded by 1"
     annotation (Placement(transformation(extent={{30,-284},{50,-264}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(final nout=
-        nCoo) "Replicate"
-    annotation (Placement(transformation(extent={{140,-130},{160,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Line fanMax "Compute maximum fan speed"
     annotation (Placement(transformation(extent={{70,150},{90,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant xFan[2](k={0,0.5})
@@ -233,7 +227,7 @@ block CoolingTowerLoop "Cooling tower loop control"
     "Left limit of signal to avoid direct feedback"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-80,-150})));
+        origin={-60,-150})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setMax(k=25 + 273.15)
     "Maximum setpoint"
     annotation (Placement(transformation(extent={{-70,190},{-50,210}})));
@@ -253,6 +247,14 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Logical.Not not2
     "Flow criterion to disable lead pump"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep(final nout=
+        nCoo) "Replicate"
+    annotation (Placement(transformation(extent={{110,-130},{130,-110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not notDis "Not disabled"
+    annotation (Placement(transformation(extent={{-90,-40},{-70,-20}})));
+  Buildings.Controls.OBC.CDL.Logical.And enaAndNotDis
+    "Reset enable condition when disable is true to trigger latch block when (enable, disable) becomes (true, false) again"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(QCooReq_flow, ratDes.u)
     annotation (Line(points={{-200,160},{-162,160}},
@@ -260,17 +262,17 @@ equation
   connect(ratDes.y, lif.u)
     annotation (Line(points={{-138,160},{-126,160},{-126,140},{-112,140}},
                                                  color={0,0,127}));
-  connect(xLif[1].y, lif.x1) annotation (Line(points={{-128,190},{-120,190},{-120,
-          148},{-112,148}},
+  connect(xLif[1].y, lif.x1) annotation (Line(points={{-138,190},{-120,190},{
+          -120,148},{-112,148}},
                      color={0,0,127}));
-  connect(xLif[2].y, lif.x2) annotation (Line(points={{-128,190},{-120,190},{-120,
-          136},{-112,136}},
+  connect(xLif[2].y, lif.x2) annotation (Line(points={{-138,190},{-120,190},{
+          -120,136},{-112,136}},
                      color={0,0,127}));
-  connect(yLif[1].y, lif.f1) annotation (Line(points={{-128,130},{-116,130},{-116,
-          144},{-112,144}},
+  connect(yLif[1].y, lif.f1) annotation (Line(points={{-138,130},{-116,130},{
+          -116,144},{-112,144}},
                      color={0,0,127}));
-  connect(yLif[2].y, lif.f2) annotation (Line(points={{-128,130},{-116,130},{-116,
-          132},{-112,132}},
+  connect(yLif[2].y, lif.f2) annotation (Line(points={{-138,130},{-116,130},{
+          -116,132},{-112,132}},
                      color={0,0,127}));
   connect(TConWatConChiLvg, delTemCon.u1) annotation (Line(points={{-200,40},{-170,
           40},{-170,46},{-162,46}}, color={0,0,127}));
@@ -278,12 +280,15 @@ equation
           60},{-174,34},{-162,34}}, color={0,0,127}));
   connect(delTemCon.y, mea.u)
     annotation (Line(points={{-138,40},{-132,40}}, color={0,0,127}));
-  connect(lif.y, lifPlu.u1) annotation (Line(points={{-88,140},{-80,140},{-80,100},
-          {-150,100},{-150,86},{-142,86}},color={0,0,127}));
-  connect(TChiWatSupSet, lifPlu.u2) annotation (Line(points={{-200,100},{-160,100},
-          {-160,74},{-142,74}}, color={0,0,127}));
-  connect(lifPlu.y, delTem1.u1) annotation (Line(points={{-118,80},{-104,80},{-104,
-          76},{-102,76}},  color={0,0,127}));
+  connect(lif.y, lifPlu.u1) annotation (Line(points={{-88,140},{-80,140},{-80,
+          116},{-140,116},{-140,106},{-132,106}},
+                                          color={0,0,127}));
+  connect(TChiWatSupSet, lifPlu.u2) annotation (Line(points={{-200,100},{-140,
+          100},{-140,94},{-132,94}},
+                                color={0,0,127}));
+  connect(lifPlu.y, delTem1.u1) annotation (Line(points={{-108,100},{-104,100},
+          {-104,76},{-102,76}},
+                           color={0,0,127}));
   connect(mea.y, delTem1.u2) annotation (Line(points={{-108,40},{-104,40},{-104,
           64},{-102,64}},  color={0,0,127}));
   connect(delTem1.y,subApp. u)
@@ -300,8 +305,8 @@ equation
           240},{-72,240}}, color={0,0,127}));
   connect(extSet.y, TSupSetUnb.u3) annotation (Line(points={{-48,240},{-36,240},
           {-36,252},{-32,252}}, color={0,0,127}));
-  connect(mConWatHexCoo_flow, cmpFlo.u) annotation (Line(points={{-200,-20},{
-          -174,-20},{-174,0},{-162,0}},     color={0,0,127}));
+  connect(mConWatHexCoo_flow, cmpFlo.u) annotation (Line(points={{-200,0},{-162,
+          0}},                              color={0,0,127}));
   connect(cmpFlo.y, timFlo.u)
     annotation (Line(points={{-138,0},{-132,0}},     color={255,0,255}));
   connect(yValBypTan, cmpOpe.u)
@@ -312,21 +317,18 @@ equation
     annotation (Line(points={{-138,-80},{-132,-80}},   color={255,0,255}));
   connect(cmpOpe.y, not1.u) annotation (Line(points={{-138,-80},{-134,-80},{-134,
           -100},{-170,-100},{-170,-120},{-162,-120}},      color={255,0,255}));
-  connect(timFlo.passed, ena.u1) annotation (Line(points={{-108,-8},{-100,-8},{-100,
-          -20},{-92,-20}},       color={255,0,255}));
+  connect(timFlo.passed, ena.u1) annotation (Line(points={{-108,-8},{-104,-8},{
+          -104,0},{-92,0}},      color={255,0,255}));
   connect(timOpe.passed, ena.u2) annotation (Line(points={{-108,-88},{-100,-88},
-          {-100,-28},{-92,-28}},       color={255,0,255}));
-  connect(timFlo1.passed, dis.u1) annotation (Line(points={{-108,-48},{-96,-48},
-          {-96,-60},{-92,-60}},   color={255,0,255}));
-  connect(timOpe1.passed, dis.u2) annotation (Line(points={{-108,-128},{-96,-128},
-          {-96,-68},{-92,-68}},         color={255,0,255}));
-  connect(ena.y,enaLea. u)
-    annotation (Line(points={{-68,-20},{-66,-20},{-66,-40},{-62,-40}},
-                                                   color={255,0,255}));
-  connect(dis.y,enaLea. clr) annotation (Line(points={{-68,-60},{-66,-60},{-66,-46},
-          {-62,-46}},          color={255,0,255}));
-  connect(enaLea.y, staPum.y1Ena) annotation (Line(points={{-38,-40},{-20,-40},{
-          -20,66},{98,66}},     color={255,0,255}));
+          {-100,-8},{-92,-8}},         color={255,0,255}));
+  connect(timFlo1.passed, dis.u1) annotation (Line(points={{-108,-48},{-104,-48},
+          {-104,-70},{-92,-70}},  color={255,0,255}));
+  connect(timOpe1.passed, dis.u2) annotation (Line(points={{-108,-128},{-96,
+          -128},{-96,-78},{-92,-78}},   color={255,0,255}));
+  connect(dis.y,enaLea. clr) annotation (Line(points={{-68,-70},{-40,-70},{-40,
+          -46},{-32,-46}},     color={255,0,255}));
+  connect(enaLea.y, staPum.y1Ena) annotation (Line(points={{-8,-40},{20,-40},{
+          20,66},{98,66}},      color={255,0,255}));
   connect(TConWatCooRet, delTem3.u1) annotation (Line(points={{-200,-200},{-166,
           -200},{-166,-194},{-162,-194}},                         color={0,0,127}));
   connect(TConWatCooSup, delTem3.u2) annotation (Line(points={{-200,-180},{-170,
@@ -367,8 +369,6 @@ equation
           {70,-262}}, color={255,127,0}));
   connect(extYPumMin.y, pum.f1) annotation (Line(points={{82,-250},{84,-250},{84,
           -216},{118,-216}},color={0,0,127}));
-  connect(rep.y, y1Coo)
-    annotation (Line(points={{162,-120},{200,-120}}, color={255,0,255}));
   connect(xFan[1].y, fanMax.x1) annotation (Line(points={{52,190},{60,190},{60,168},
           {68,168}}, color={0,0,127}));
   connect(xFan[2].y, fanMax.x2) annotation (Line(points={{52,190},{60,190},{60,156},
@@ -379,16 +379,16 @@ equation
           {68,152}}, color={0,0,127}));
   connect(ratDes.y, fanMax.u)
     annotation (Line(points={{-138,160},{68,160}}, color={0,0,127}));
-  connect(enaLea.y, pre1.u) annotation (Line(points={{-38,-40},{-20,-40},{-20,-80},
-          {-80,-80},{-80,-138}}, color={255,0,255}));
+  connect(enaLea.y, pre1.u) annotation (Line(points={{-8,-40},{20,-40},{20,-80},
+          {-60,-80},{-60,-138}}, color={255,0,255}));
   connect(TConWatCooSup, ctlFan.u_m) annotation (Line(points={{-200,-180},{90,-180},
           {90,-72}},  color={0,0,127}));
   connect(pum.y, staPum.y) annotation (Line(points={{142,-220},{176,-220},{176,40},
           {94,40},{94,54},{98,54}},     color={0,0,127}));
-  connect(pre1.y, ctlPum1.uEna) annotation (Line(points={{-80,-162},{-80,-216},{
-          -4,-216},{-4,-212}}, color={255,0,255}));
-  connect(pre1.y, ctlPum2.uEna) annotation (Line(points={{-80,-162},{-80,-256},{
-          -4,-256},{-4,-252}}, color={255,0,255}));
+  connect(pre1.y, ctlPum1.uEna) annotation (Line(points={{-60,-162},{-60,-216},
+          {-4,-216},{-4,-212}},color={255,0,255}));
+  connect(pre1.y, ctlPum2.uEna) annotation (Line(points={{-60,-162},{-60,-256},
+          {-4,-256},{-4,-252}},color={255,0,255}));
   connect(staPum.y1, y1PumConWatCoo)
     annotation (Line(points={{122,66},{170,66},{170,60},{200,60}},
                                                color={255,0,255}));
@@ -398,8 +398,8 @@ equation
           220},{-34,220},{-34,206},{-32,206}}, color={0,0,127}));
   connect(TSupSet.y, ctlFan.u_s) annotation (Line(points={{-8,200},{0,200},{0,-60},
           {78,-60}}, color={0,0,127}));
-  connect(TSupSet.y, addApp.u) annotation (Line(points={{-8,200},{0,200},{0,-100},
-          {-60,-100},{-60,-200},{-42,-200}},                   color={0,0,127}));
+  connect(TSupSet.y, addApp.u) annotation (Line(points={{-8,200},{0,200},{0,
+          -100},{-80,-100},{-80,-200},{-42,-200}},             color={0,0,127}));
   connect(TConWatHexCooLvg, delTem2.u2) annotation (Line(points={{-200,-260},{
           -170,-260},{-170,-246},{-162,-246}}, color={0,0,127}));
   connect(TConWatHexCooLvg, ctlPum1.u_m) annotation (Line(points={{-200,-260},{
@@ -416,14 +416,24 @@ equation
     annotation (Line(points={{172,-60},{200,-60}}, color={0,0,127}));
   connect(fanMax.y, fan.f2) annotation (Line(points={{92,160},{140,160},{140,-68},
           {148,-68}}, color={0,0,127}));
-  connect(enaLea.y, rep.u) annotation (Line(points={{-38,-40},{-20,-40},{-20,-120},
-          {138,-120}}, color={255,0,255}));
-  connect(enaLea.y, ctlFan.uEna) annotation (Line(points={{-38,-40},{-20,-40},{
-          -20,-80},{86,-80},{86,-72}},                 color={255,0,255}));
+  connect(enaLea.y, ctlFan.uEna) annotation (Line(points={{-8,-40},{20,-40},{20,
+          -80},{86,-80},{86,-72}},                     color={255,0,255}));
   connect(cmpFlo.y, not2.u) annotation (Line(points={{-138,0},{-134,0},{-134,
           -20},{-166,-20},{-166,-40},{-162,-40}}, color={255,0,255}));
   connect(not2.y, timFlo1.u)
     annotation (Line(points={{-138,-40},{-132,-40}}, color={255,0,255}));
+  connect(rep.y, y1Coo)
+    annotation (Line(points={{132,-120},{200,-120}}, color={255,0,255}));
+  connect(enaLea.y, rep.u) annotation (Line(points={{-8,-40},{20,-40},{20,-120},
+          {108,-120}},       color={255,0,255}));
+  connect(ena.y, enaAndNotDis.u1)
+    annotation (Line(points={{-68,0},{-62,0}}, color={255,0,255}));
+  connect(notDis.y, enaAndNotDis.u2) annotation (Line(points={{-68,-30},{-66,
+          -30},{-66,-8},{-62,-8}}, color={255,0,255}));
+  connect(enaAndNotDis.y, enaLea.u) annotation (Line(points={{-38,0},{-36,0},{
+          -36,-40},{-32,-40}}, color={255,0,255}));
+  connect(dis.y, notDis.u) annotation (Line(points={{-68,-70},{-64,-70},{-64,
+          -48},{-96,-48},{-96,-30},{-92,-30}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-180},{100,180}}),
                    graphics={
         Rectangle(
@@ -437,9 +447,77 @@ equation
           textString="%name")}), Diagram(coordinateSystem(extent={{-180,-280},{
             180,280}})),
     Documentation(info="<html>
-Fan enable/disable logic not included.
-Implicitely modeled in the cooling tower component which uses
-a low limit of the control signal to switch to free convection
-and zero fan power.
+<p>
+This block implements the control logic for the CT pumps and
+CT fans.
+</p>
+<h4>CT supply temperature setpoint</h4>
+<p>
+When Heat Rejection mode is enabled, the setpoint is equal to
+<i>min(25&nbsp;°C, TChiWatSupSet + dTLif - dTConWat - dTHexCoo_nominal)</i>, where
+<i>TChiWatSupSet</i> is the CHW supply temperature setpoint,
+<i>dTLif</i> is the target chiller lift (see below),
+<i>dTConWat</i> is the chiller condenser Delta-T averaged over
+a <i>5</i>-minute moving window, and
+<i>dTHexCoo_nominal</i> is the design heat exchanger approach.
+The target chiller lift is reset from the minimum chiller lift
+to the design chiller lift when the plant required cooling capacity
+varies from  <i>10&nbsp;%</i> to <i>100&nbsp;%</i> of the design value.
+</p>
+<p>
+In any other mode the setpoint is equal to the minimum setpoint value
+of the active tank cycle minus the design heat exchanger approach.
+</p>
+<h4>CT pumps</h4>
+<p>
+The lead pump is enabled whenever the TES tank bypass valve commanded
+position is lower than <i>1</i> for <i>1&nbsp;</i>min and the
+CW mass flow rate through the secondary side of the cooling heat exchanger
+is higher than <i>3&nbsp;</i>kg/s for <i>1&nbsp;</i>min.
+The lead pump is disabled whenever the TES tank bypass valve commanded
+position is equal to <i>1</i> for <i>1&nbsp;</i>min or the
+CW mass flow rate through the secondary side of the cooling heat exchanger
+is lower than <i>3&nbsp;</i>kg/s for <i>5&nbsp;</i>min.
+</p>
+<p>
+The lag pump is enabled whenever the pump speed command (common to all pumps)
+is higher than <i>80&nbsp;%</i> for <i>5&nbsp;</i>min.
+The lag pump is disabled whenever the pump speed command
+is lower than <i>80&nbsp;%</i> for <i>5&nbsp;</i>min or the lead pump
+is disabled.
+</p>
+<p>
+The pump speed command is the lower of that output by two loops, each loop
+being enabled whenever any pump is proven on.
+The first loop maintains the heat exchanger leaving CW
+temperature on plant side at setpoint.
+The setpoint is equal to the CT supply temperature setpoint plus
+the design HX approach.
+The second loop maintains the Delta-T across the primary side (CT loop)
+of the HX at a setpoint equal to the Delta-T across the secondary
+side (plant side) of the HX minus <i>1&nbsp;</i>K.
+(This loop keeps the primary and secondary HX flow rates close to each other
+and prevents pump speed runaway when target CT supply temperature setpoint
+cannot be met.)
+The output of each loop is mapped to the minimum pump speed at <i>80&nbsp;%</i>
+to <i>100&nbsp;%</i> at <i>100&nbsp;%</i>.
+The minimum pump speed is provided as a parameter for each pump stage since
+different speeds are required for each stage to maintain minimum tower flow.
+</p>
+<h5>
+<h4>CT fans</h4>
+<p>
+When any of the CT pumps is commanded On, a control loop maintains the
+tower water supply temperature at setpoint by resetting the tower fan speed
+from <i>0&nbsp;%</i> to a maximum value varying between <i>70&nbsp;%</i>
+and <i>100&nbsp;%</i> when the plant required cooling capacity
+varies from  <i>0&nbsp;%</i> to <i>50&nbsp;%</i> of the design value.
+Otherwise, the loop is disabled and its output set to <i>0&nbsp;%</i>.
+</p>
+<p>
+Note that the fan cycling On and Off is implicitly modeled
+in the cooling tower component which uses a low limit of the control signal
+to switch to a free convection regime at zero fan power.
+</p>
 </html>"));
 end CoolingTowerLoop;

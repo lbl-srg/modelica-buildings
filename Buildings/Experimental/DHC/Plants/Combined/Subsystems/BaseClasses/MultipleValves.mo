@@ -159,5 +159,12 @@ equation
           extent={{-100,-100},{100,100}},
           lineColor={0,0,127},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>
+This model represents a set of control valves piped in 
+parallel.
+An optional fixed resistance may be included in series with each valve.
+</p>
+</html>"));
 end MultipleValves;

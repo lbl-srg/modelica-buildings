@@ -142,7 +142,7 @@ model HeatPumpGroup
     final use_m_flow_in=true,
     final nPorts=1)
     "Air flow source"
-    annotation (Placement(transformation(extent={{42,-22},{22,-2}})));
+    annotation (Placement(transformation(extent={{42,-50},{22,-30}})));
   Fluid.Sources.Boundary_pT airSin(
     redeclare final package Medium=MediumAir,
     final nPorts=1)
@@ -211,16 +211,17 @@ equation
                     color={0,0,127}));
   connect(port_a, mulConInl.port_a)
     annotation (Line(points={{-100,0},{-80,0}}, color={0,127,255}));
-  connect(airSou.ports[1], heaPum.port_a2) annotation (Line(points={{22,-12},{
-          10,-12}},                color={0,127,255}));
+  connect(airSou.ports[1], heaPum.port_a2) annotation (Line(points={{22,-40},{
+          16,-40},{16,-12},{10,-12}},
+                                   color={0,127,255}));
   connect(airSin.ports[1], heaPum.port_b2) annotation (Line(points={{-30,-40},{-20,
           -40},{-20,-12},{-10,-12}}, color={0,127,255}));
   connect(TSet, heaPum.TSet) annotation (Line(points={{-120,-60},{-16,-60},{-16,
           3},{-11.4,3}}, color={0,0,127}));
-  connect(comFan.y, airSou.m_flow_in) annotation (Line(points={{46,18},{46,-4},
-          {42,-4}},          color={0,0,127}));
+  connect(comFan.y, airSou.m_flow_in) annotation (Line(points={{46,18},{46,-32},
+          {42,-32}},         color={0,0,127}));
   connect(weaBus, airSou.weaBus) annotation (Line(
-      points={{100,-40},{42,-40},{42,-11.8}},
+      points={{100,-40},{42,-40},{42,-39.8}},
       color={255,204,51},
       thickness=0.5), Text(
       string="%first",
@@ -269,17 +270,47 @@ equation
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Documentation(info="<html>
 <p>
+This model represents a set of identical air-to-water heap pumps
+that are piped in parallel.
+Dedicated constant-speed condenser pumps are included.
+</p>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
+</p>
+<ul>
+<li>
+On/Off command <code>y1</code>: 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Supply temperature setpoint <code>TSet</code>:
+AO signal common to all units, with a dimensionality of zero
+</li>
+<li>
+CW supply temperature <code>TConWatSup</code>: 
+AI signal common to all units, with a dimensionality of zero
+</li>
+</ul>
+<h4>Details</h4>
+<h5>Modeling approach</h5>
+<p>
+In a parallel arrangement, all operating units have the same operating point.
+This allows modeling the heat transfer from outdoor air to condenser water
+with a single instance of
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
+Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
+Hydronics are resolved with mass flow rate multiplier components.
+<p>
 The model
 <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>
-does not capture the sensitivity of the HP performance
+does not capture the sensitivity of the heat pump performance
 to the HW supply temperature setpoint.
 This means that a varying HW supply temperature setpoint
 has no impact on the heat pump <i>COP</i> (all other variables
 such as the HW return temperature being kept invariant).
-This limitation is not an issue for the CW storage plant
-where the heat pump supply temperature setpoint is not
-to be reset.
+This is a limitation of the model.
 </p>
 </html>"));
 end HeatPumpGroup;
