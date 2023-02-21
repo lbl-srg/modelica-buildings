@@ -36,7 +36,7 @@ model TankTemperature
     dp_nominal = 300000,
     T_CHWS_nominal=280.15,
     T_CHWR_nominal=285.15) "Nominal values of the storage plant"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource pumSec(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -44,13 +44,6 @@ model TankTemperature
     final control_m_flow=true,
     final control_dp=false) "Ideal flow source representing the secondary pump"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Modelica.Blocks.Sources.TimeTable mPumPri_flow(table=[0,0; 1200,0; 1200,nom.mChi_flow_nominal;
-        2400,nom.mChi_flow_nominal; 2400,0; 3600,0])
-                         "Primary pump flow rate"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.TimeTable mPumSec_flow(table=[0,0; 2400,0; 2400,nom.mTan_flow_nominal;
-        3600,nom.mTan_flow_nominal]) "Secondary pump flow rate"
-    annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Storage.Plant.BaseClasses.StateOfCharge SOC(TLow=nom.T_CHWS_nominal,
       THig=nom.T_CHWR_nominal)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -72,6 +65,21 @@ model TankTemperature
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,-30})));
+  Buildings.Fluid.Storage.Plant.Controls.FlowControl flowControl(
+    mChi_flow_nominal=nom.mChi_flow_nominal,
+    mTan_flow_nominal=nom.mTan_flow_nominal)
+    "Block for primary and secondary pump and valve flow control"
+    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 500,1; 1000,2; 1500,3;
+        2000,2; 2500,1])
+    "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
+  Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,2000}, startValue=true)
+    "Chiller is online"
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
+  Modelica.Blocks.Sources.BooleanTable hasLow(table={1000,2000}, startValue=
+        false) "The system has load"
+    annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
 equation
   connect(chi.port_b, pumPri.port_a)
     annotation (Line(points={{-60,10},{-40,10}}, color={0,127,255}));
@@ -82,10 +90,6 @@ equation
           -16},{-86,10},{-80,10}}, color={0,127,255}));
   connect(tanBra.port_bSupNet, pumSec.port_a) annotation (Line(points={{10,-4},{
           16,-4},{16,10},{20,10}}, color={0,127,255}));
-  connect(mPumPri_flow.y, pumPri.m_flow_in)
-    annotation (Line(points={{-39,70},{-36,70},{-36,18}}, color={0,0,127}));
-  connect(mPumSec_flow.y, pumSec.m_flow_in)
-    annotation (Line(points={{21,70},{24,70},{24,18}}, color={0,0,127}));
   connect(tanBra.heaPorTop, SOC.tanTop) annotation (Line(points={{2,-6},{22,-6},
           {22,-43.8},{40,-43.8}}, color={191,0,0}));
   connect(tanBra.heaPorBot, SOC.tanBot)
@@ -94,7 +98,21 @@ equation
     annotation (Line(points={{40,10},{60,10}}, color={0,127,255}));
   connect(bouRet.ports[1], tanBra.port_aRetNet) annotation (Line(points={{60,
           -30},{16,-30},{16,-16},{10,-16}}, color={0,127,255}));
-    annotation(experiment(Tolerance=1e-06, StopTime=3600),
+  connect(flowControl.mPriPum_flow, pumPri.m_flow_in)
+    annotation (Line(points={{-59,54},{-36,54},{-36,18}}, color={0,0,127}));
+  connect(flowControl.mSecPum_flow, pumSec.m_flow_in)
+    annotation (Line(points={{-59,46},{24,46},{24,18}}, color={0,0,127}));
+  connect(SOC.isFul, flowControl.tanIsFul) annotation (Line(points={{61,-44},{68,
+          -44},{68,-68},{-94,-68},{-94,54},{-81,54}}, color={255,0,255}));
+  connect(SOC.isDep, flowControl.tanIsDep) annotation (Line(points={{61,-56},{64,
+          -56},{64,-64},{-90,-64},{-90,50},{-81,50}}, color={255,0,255}));
+  connect(tanCom.y, flowControl.tanCom) annotation (Line(points={{-119,90},{-86,
+          90},{-86,58},{-81,58}}, color={255,127,0}));
+  connect(chiOnl.y, flowControl.chiIsOnl) annotation (Line(points={{-119,50},{
+          -98,50},{-98,46},{-81,46}}, color={255,0,255}));
+  connect(hasLow.y, flowControl.hasLoa) annotation (Line(points={{-119,10},{-98,
+          10},{-98,42},{-81,42}}, color={255,0,255}));
+    annotation(experiment(Tolerance=1e-06, StopTime=3000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/TankTemperature.mos"
         "Simulate and plot"),
     Documentation(info="<html>

@@ -1,5 +1,5 @@
 simulateModel("Buildings.Fluid.Storage.Plant.Validation.TankTemperature",
- stopTime=3600,
+ stopTime=3000,
  tolerance=1e-06,
  method="dassl",
  resultFile="TankTemperature");
