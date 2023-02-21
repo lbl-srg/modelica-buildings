@@ -1,21 +1,23 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block RampUpDown "Ramp up or down the output to maximum or maximum"
 
-  parameter Real min = 0
+  parameter Real yMin = 0
     "Minimum output";
-  parameter Real max = 1
+  parameter Real yMax = 1
     "Maximum output";
   parameter Real upDuration(
     final quantity="Time",
-    final unit="s")
+    final unit="s",
+    min=1E-5)
     "Ramp up duration time";
   parameter Real downDuration(
     final quantity="Time",
-    final unit="s")=upDuration
+    final unit="s",
+    min=1E-5)=upDuration
     "Ramp down duration time";
   parameter Real y_start(
-    final min=min,
-    final max=max)=0
+    final min=yMin,
+    final max=yMax)=0
     "Initial output value";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ramp
@@ -41,11 +43,11 @@ protected
     fixed=true)
     "Time instant when ending the ramping";
   discrete Real beginValue(
-    start=min,
+    start=y_start,
     fixed=true)
     "Output value at the ramping begining";
   discrete Real endValue(
-    start=max,
+    start=yMax,
     fixed=true)
     "Output value at the ramping ending";
   discrete Real y_end
@@ -61,12 +63,12 @@ equation
     entryTime = time;
     endTime = entryTime + upDuration;
     beginValue = y_end;
-    endValue = max;
+    endValue = yMax;
   elsewhen {(initial() and activate and not ramp), (not ramp and activate)} then
     entryTime = time;
     endTime = entryTime + downDuration;
     beginValue = y_end;
-    endValue = min;
+    endValue = yMin;
   end when;
 
   when {ramp and activate, not ramp and activate, not activate} then
@@ -74,11 +76,11 @@ equation
   end when;
 
   if activate then
-     if (time<endTime) then
-       y = time*(endValue - beginValue)/(endTime - entryTime) + (endValue*entryTime - beginValue*endTime)/(entryTime-endTime);
-     else
-       y = pre(endValue);
-     end if;
+    if (time >= endTime) then
+      y = pre(endValue);
+    else
+      y = time*(endValue - beginValue)/(endTime - entryTime) + (endValue*entryTime - beginValue*endTime)/(entryTime-endTime);
+    end if;
   else
     y = y_end;
   end if;
