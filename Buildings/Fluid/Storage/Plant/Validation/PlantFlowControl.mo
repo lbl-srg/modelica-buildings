@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model TankTemperature
+model PlantFlowControl
   "This simple model validates the charging and discharging of the tank"
   extends Modelica.Icons.Example;
 
@@ -113,7 +113,7 @@ equation
   connect(hasLoa.y, flowControl.hasLoa) annotation (Line(points={{-119,10},{-98,
           10},{-98,42},{-81,42}}, color={255,0,255}));
     annotation(experiment(Tolerance=1e-06, StopTime=3000),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/TankTemperature.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/PlantFlowControl.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -134,4 +134,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end TankTemperature;
+end PlantFlowControl;

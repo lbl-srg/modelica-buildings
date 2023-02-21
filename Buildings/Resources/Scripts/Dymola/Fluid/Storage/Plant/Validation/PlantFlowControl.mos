@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Validation.TankTemperature",
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.PlantFlowControl",
  stopTime=3000,
  tolerance=1e-06,
  method="dassl",
- resultFile="TankTemperature");
+ resultFile="PlantFlowControl");
 // Plot commands
 createPlot(id=1,
  position={35, 35, 592, 683},
