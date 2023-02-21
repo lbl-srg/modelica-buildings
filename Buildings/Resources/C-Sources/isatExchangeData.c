@@ -96,7 +96,6 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   --------------------------------------------------------------------------*/
   /* If previous data hasn't been read, wait*/
   while(cosim->modelica->flag==1) {
-<<<<<<< HEAD
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
 	  return -1;
@@ -164,7 +163,6 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
   ****************************************************************************/
   /* If the data is not ready or not updated, check again*/
   while(cosim->ffd->flag!=1) {
-<<<<<<< HEAD
     if(cosim->para->ffdError==1) {
       ModelicaError(cosim->ffd->msg);
 	  return -1;
@@ -172,15 +170,6 @@ int isatExchangeData(double t0, double dt, double *u, size_t nU, size_t nY,
     else {
       Sleep(10);
     }
-=======
-    if(cosim->para->ffdError==1){
-      ModelicaError(cosim->ffd->msg);
-	  return -1;
-	}
-    else{
-      Sleep(10);
-	}
->>>>>>> origin/issue1413_isat_WetterComments
   }
 
   /* Get the temperature/heat flux for solid surface*/
