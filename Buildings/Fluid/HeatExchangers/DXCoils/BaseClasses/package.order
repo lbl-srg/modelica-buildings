@@ -4,6 +4,7 @@ Condensation
 CoolingCapacityAirCooled
 CoolingCapacityWaterCooled
 DXCooling
+DXHeating
 DryCoil
 DryWetSelector
 EssentialParameters
@@ -13,6 +14,7 @@ PartialCoilCondition
 PartialCoilInterface
 PartialCoolingCapacity
 PartialDXCoil
+PartialDXHeatingCoil
 PartialSurfaceCondition
 PartialWaterCooledDXCoil
 SensibleHeatRatio
