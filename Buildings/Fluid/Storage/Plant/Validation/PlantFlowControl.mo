@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.Validation;
 model PlantFlowControl
-  "This simple model validates the charging and discharging of the tank"
+  "Validation model for flow control of the storage plant"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Water "Medium model for CHW";
@@ -117,18 +117,43 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Stor
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This model validates the charging and discharging of the tank.
-At the start of the simulation, the tank is fully depleted,
-meaning the whole tank is at nominal CHW return temperature.
-Then, it is then charged to full,
-where the whole tank is at nominal CHW supply temperature.
-Finally, it is discharged and depleted by the user,
-where the whole tank is at nominal CHW return temperature again.
+This model validates the flow control of the storage plant.
+The time table blocks implement the following schedule for the system:
 </p>
+<ul>
+<li>
+At <code>time = 0</code>, the system is all off.
+</li>
+<li>
+At <code>time = 200</code>, the tank is commanded to charge. The chiller is
+available and charges the tank locally.
+After some time, the charging stops when the tank becomes full.
+</li>
+<li>
+At <code>time = 1000</code>, the district system has load and the storage
+plant starts to output CHW to the system. Currently the tank is commanded
+to hold. Therefore, the CHW is supplied by the chiller.
+</li>
+<li>
+At <code>time = 1200</code>, the tank is commanded to output.
+It takes priority over the chiller.
+After some time, the outputting stops when the tank is depleted.
+Now the CHW is produced by the chiller instead.
+</li>
+<li>
+At <code>time = 2000</code>, there is no longer load in the district system.
+The system is back to the all-off state.
+</li>
+<li>
+At <code>time = 2200</code>, the tank is once again commanded to charge.
+But the chiller is offline at this time. The tank is therefore charged
+remotely by the district.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
-January 13, 2023 by Hongxiang Fu:<br/>
+February 21, 2023 by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
