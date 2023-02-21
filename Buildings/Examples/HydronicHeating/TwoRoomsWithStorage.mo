@@ -47,9 +47,10 @@ model TwoRoomsWithStorage
     "Pump for boiler circuit" annotation (Placement(transformation(extent={{-10,
             -10},{10,10}}, origin={70,-170})));
 
-  Buildings.Fluid.Movers.SpeedControlled_y pumRad(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumRad(
     redeclare package Medium = MediumW,
-    per(pressure(V_flow=mRad_flow_nominal/1000*{0,2}, dp=dp_nominal*{2,0})),
+    m_flow_nominal=mRad_flow_nominal,
+    dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Pump that serves the radiators" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -1193,6 +1194,12 @@ Buildings.Examples.HydronicHeating.TwoRoomsWithStorage.CoolingControl</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 22, 2022, by Hongxiang Fu:<br/>
+Replaced <code>pumRad</code> with a preconfigured pump model.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue #2668</a>.
+</li>
 <li>
 June 9, 2022, by Michael Wetter:<br/>
 Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
