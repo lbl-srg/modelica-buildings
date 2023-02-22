@@ -38,8 +38,8 @@ model TankBranch
         iconTransformation(extent={{90,-70},{110,-50}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSupNet(redeclare final package
       Medium = Medium, p(final displayUnit="Pa"))
-    "Port that connects to the supply side of the district network" annotation
-    (Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
+    "Port that connects to the supply side of the district network" annotation (
+     Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
           extent={{90,50},{110,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bRetChi(redeclare final package
       Medium = Medium, p(final displayUnit="Pa"))

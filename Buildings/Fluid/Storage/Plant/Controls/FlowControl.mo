@@ -87,8 +87,8 @@ block FlowControl
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiTanCha(realTrue=-
         mTan_flow_nominal, realFalse=0) "Switch for tank charging"
     annotation (Placement(transformation(extent={{460,-20},{480,0}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiPriPum2(realTrue=
-        mChi_flow_nominal, realFalse=0) "Switch for tank discharging"
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiTanDis(realTrue=
+        mTan_flow_nominal, realFalse=0) "Switch for tank discharging"
     annotation (Placement(transformation(extent={{460,-80},{480,-60}})));
   Modelica.Blocks.Sources.BooleanExpression expTanCha(y=steLocCha.active or
         steRemCha.active) "Boolean expression for tank charging"
@@ -98,7 +98,8 @@ block FlowControl
     annotation (Placement(transformation(extent={{420,-80},{440,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Add tanFlo "Flow rate of the tank"
     annotation (Placement(transformation(extent={{500,-60},{520,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add tanFlo1 "Flow rate of the tank"
+  Buildings.Controls.OBC.CDL.Continuous.Add secPumFlo
+    "Flow rate at the secondary pump and valve connection"
     annotation (Placement(transformation(extent={{540,-40},{560,-20}})));
   Modelica.StateGraph.Alternative altTanCha(nBranches=2)
     "Alternative: Tank charging locally or remotely"
@@ -169,16 +170,16 @@ equation
     annotation (Line(points={{441,40},{458,40}}, color={255,0,255}));
   connect(expTanCha.y, swiTanCha.u)
     annotation (Line(points={{441,-10},{458,-10}}, color={255,0,255}));
-  connect(expTanDis.y, swiPriPum2.u)
+  connect(expTanDis.y, swiTanDis.u)
     annotation (Line(points={{441,-70},{458,-70}}, color={255,0,255}));
   connect(swiTanCha.y, tanFlo.u1) annotation (Line(points={{482,-10},{490,-10},{
           490,-44},{498,-44}}, color={0,0,127}));
-  connect(swiPriPum2.y, tanFlo.u2) annotation (Line(points={{482,-70},{490,-70},
+  connect(swiTanDis.y, tanFlo.u2) annotation (Line(points={{482,-70},{490,-70},
           {490,-56},{498,-56}}, color={0,0,127}));
-  connect(tanFlo.y, tanFlo1.u2) annotation (Line(points={{522,-50},{530,-50},{530,
-          -36},{538,-36}}, color={0,0,127}));
-  connect(swiPriPum.y, tanFlo1.u1) annotation (Line(points={{482,40},{530,40},{530,
-          -24},{538,-24}}, color={0,0,127}));
+  connect(tanFlo.y, secPumFlo.u2) annotation (Line(points={{522,-50},{530,-50},
+          {530,-36},{538,-36}}, color={0,0,127}));
+  connect(swiPriPum.y, secPumFlo.u1) annotation (Line(points={{482,40},{530,40},
+          {530,-24},{538,-24}}, color={0,0,127}));
   connect(traTanChaAndNotFul.outPort, steTanCha.inPort[1])
     annotation (Line(points={{71.5,50},{99,50}}, color={0,0,0}));
   connect(steTanCha.outPort[1], altTanCha.inPort)
@@ -219,7 +220,7 @@ equation
           40},{482,40}}, color={0,0,127}));
   connect(fil1.y, mPriPum_flow) annotation (Line(points={{601,50},{614,50},{614,
           40},{630,40}}, color={0,0,127}));
-  connect(tanFlo1.y, fil2.u)
+  connect(secPumFlo.y, fil2.u)
     annotation (Line(points={{562,-30},{578,-30}}, color={0,0,127}));
   connect(fil2.y, mSecPum_flow) annotation (Line(points={{601,-30},{614,-30},{
           614,-40},{630,-40}}, color={0,0,127}));
@@ -229,8 +230,8 @@ equation
           614,40},{630,40}}, color={0,0,127}));
   connect(reaPas2.y, mSecPum_flow) annotation (Line(points={{601,-70},{614,-70},
           {614,-40},{630,-40}}, color={0,0,127}));
-  connect(reaPas2.u, tanFlo1.y) annotation (Line(points={{578,-70},{568,-70},{
-          568,-30},{562,-30}}, color={0,0,127}));
+  connect(reaPas2.u, secPumFlo.y) annotation (Line(points={{578,-70},{568,-70},
+          {568,-30},{562,-30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{620,120}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end FlowControl;
