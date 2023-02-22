@@ -297,12 +297,6 @@ Model for a VAV terminal box with a water reheat coil and exponential damper.
 </html>", revisions="<html>
 <ul>
 <li>
-January 12, 2023, by Jianjun Hu:<br/>
-Changed the pressure independent damper to exponential damper.
-This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue #3139</a>.
-</li>
-<li>
 December 20, 2021, by Michael Wetter:<br/>
 Changed parameter declarations for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2829\">issue #2829</a>.

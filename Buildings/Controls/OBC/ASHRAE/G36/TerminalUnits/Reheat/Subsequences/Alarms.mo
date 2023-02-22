@@ -140,8 +140,8 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final h=floHys)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=floHys,
+      final h=0.5*floHys)
     "Check if setpoint airflow is greater than zero"
     annotation (Placement(transformation(extent={{-180,250},{-160,270}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
@@ -368,6 +368,10 @@ block Alarms "Generate alarms of terminal unit with reheat"
     "Level 4 leaking valve alarm"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
 
+  CDL.Logical.TrueDelay                        truDel7(final delayTime=
+        lowFloTim)
+    "Check if the measured airflow has been less than threshold value for threshold time"
+    annotation (Placement(transformation(extent={{-140,250},{-120,270}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,260},{-200,260},{-200,
           310},{-182,310}},  color={0,0,127}));
@@ -389,10 +393,6 @@ equation
     annotation (Line(points={{-98,210},{-82,210}}, color={255,0,255}));
   connect(truDel.y, and2.u1)
     annotation (Line(points={{-58,340},{-42,340}}, color={255,0,255}));
-  connect(greThr.y, and2.u2) annotation (Line(points={{-158,260},{-50,260},{-50,
-          332},{-42,332}}, color={255,0,255}));
-  connect(greThr.y, and1.u1)
-    annotation (Line(points={{-158,260},{-42,260}}, color={255,0,255}));
   connect(truDel1.y, and1.u2) annotation (Line(points={{-58,210},{-50,210},{-50,
           252},{-42,252}}, color={255,0,255}));
   connect(and2.y, lowFloAla.u2)
@@ -552,6 +552,12 @@ equation
   connect(booToInt6.y, yLeaValAla)
     annotation (Line(points={{162,-110},{260,-110}}, color={255,127,0}));
 
+  connect(greThr.y, truDel7.u)
+    annotation (Line(points={{-158,260},{-142,260}}, color={255,0,255}));
+  connect(truDel7.y, and1.u1)
+    annotation (Line(points={{-118,260},{-42,260}}, color={255,0,255}));
+  connect(truDel7.y, and2.u2) annotation (Line(points={{-118,260},{-50,260},{
+          -50,332},{-42,332}}, color={255,0,255}));
 annotation (defaultComponentName="ala",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
