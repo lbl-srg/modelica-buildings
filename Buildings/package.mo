@@ -217,9 +217,11 @@ Version 10.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package that contains models for reduced building physics of thermal zones 
+                       based on a thermal network consisting of five resistances and one capacitance. 
+                       The models are inspired by the ISO 13790:2008 Standard.
     </td>
     </tr>
 </table>
