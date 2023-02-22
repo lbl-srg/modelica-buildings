@@ -28,7 +28,7 @@ annotation (
     Documentation(info="<html>
     <p>This package contains models for reduced building physics of thermal zones 
     based on a thermal network consisting of five resistances and one capacitance. 
-    The models are inspired by the ISO 13790:2008 Standard.</p>
+    The models are based on the ISO 13790:2008 Standard.</p>
     
   </html>"));
 end ISO13790;

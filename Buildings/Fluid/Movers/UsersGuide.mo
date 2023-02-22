@@ -868,9 +868,9 @@ Simulation Association</i>, p. 3505-3512. Chambery, France. August 2013.
 <p>
 Hongxiang Fu, David Blum, Michael Wetter.
 Fan and Pump Efficiency in Modelica based on the Euler Number.
-<a href=\"https://2022.american.conference.modelica.org/documents/NA_Modelica_2022_Proceedings.pdf\">
-<i>Proc. of the American Modelica Conference 2022</i></a>, p. 19-25.
+<i>Proc. of the American Modelica Conference 2022</i>, p. 19-25.
 Dallas, TX, USA. October 2022.
+<a href=\"https://doi.org/10.3384/ECP2118619\">https://doi.org/10.3384/ECP2118619</a>
 </p>
 <p>
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v9.6.0/EngineeringReference.pdf\">
