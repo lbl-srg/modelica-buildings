@@ -290,8 +290,10 @@ partial model PartialDualSource
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
   Modelica.Blocks.Routing.Multiplex muxVal(n=3) "Multiplexer block for routing"
     annotation (Placement(transformation(extent={{180,-180},{200,-160}})));
-  Controls.FlowControl floCon(final mChi_flow_nominal=nom.mChi_flow_nominal,
-      final mTan_flow_nominal=nom.mTan_flow_nominal)
+  Buildings.Fluid.Storage.Plant.Controls.FlowControl floCon(
+    final mChi_flow_nominal=nom.mChi_flow_nominal,
+    final mTan_flow_nominal=nom.mTan_flow_nominal,
+    final use_outFil=true)
     "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 500,1; 3000,2; 4000,3;

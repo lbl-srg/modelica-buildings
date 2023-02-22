@@ -4,9 +4,15 @@ block FlowControl
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal
-    "Nominal mass flow rate of the chiller loop";
+    "Nominal mass flow rate of the chiller loop"
+    annotation(Dialog(group="Nominal values"));
   parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal
-    "Nominal mass flow rate of the tank branch";
+    "Nominal mass flow rate of the tank branch"
+    annotation(Dialog(group="Nominal values"));
+
+  parameter Boolean use_outFil=true
+    "= true, if output is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filter"));
 
   Modelica.Blocks.Interfaces.IntegerInput tanCom
     "Command to tank: 1 = charge, 2 = hold, 3 = discharge" annotation (
@@ -114,26 +120,34 @@ block FlowControl
   Modelica.StateGraph.Alternative altOutCHW(nBranches=2)
     "Alternative: Outputting CHW from the chiller or the tank"
     annotation (Placement(transformation(extent={{142,-90},{318,-10}})));
+  Modelica.Blocks.Routing.RealPassThrough reaPas1 if not use_outFil
+    "Routing block to replace a conditional block"
+    annotation (Placement(transformation(extent={{580,0},{600,20}})));
+  Modelica.Blocks.Routing.RealPassThrough reaPas2 if not use_outFil
+    "Routing block to replace a conditional block"
+    annotation (Placement(transformation(extent={{580,-80},{600,-60}})));
 protected
-  Buildings.Fluid.BaseClasses.ActuatorFilter filPriPum(
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil1(
     f=30/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
-    final normalized=true) "Second order filter to improve numerics"
-    annotation (Placement(transformation(
+    final normalized=true) if use_outFil
+    "Second order filter to improve numerics" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={590,40})));
+        origin={590,50})));
 protected
-  Buildings.Fluid.BaseClasses.ActuatorFilter filSecPum(
+  Buildings.Fluid.BaseClasses.ActuatorFilter fil2(
     f=30/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
-    final normalized=true) "Second order filter to improve numerics"
-    annotation (Placement(transformation(
+    final normalized=true) if use_outFil
+    "Second order filter to improve numerics" annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={590,-42})));
+        origin={590,-30})));
 equation
   connect(traChiOnl.outPort, steLocCha.inPort[1])
     annotation (Line(points={{191.5,70},{219,70}}, color={0,0,0}));
@@ -201,14 +215,22 @@ equation
           {338,-50},{338,25},{338.31,25}}, color={0,0,0}));
   connect(traTanUna.inPort, altOutCHW.split[1]) annotation (Line(points={{186,-30},
           {160,-30},{160,-60},{160.48,-60}}, color={0,0,0}));
-  connect(filPriPum.u, swiPriPum.y)
-    annotation (Line(points={{578,40},{482,40}}, color={0,0,127}));
-  connect(filPriPum.y, mPriPum_flow)
-    annotation (Line(points={{601,40},{630,40}}, color={0,0,127}));
-  connect(tanFlo1.y, filSecPum.u) annotation (Line(points={{562,-30},{570,-30},{
-          570,-42},{578,-42}}, color={0,0,127}));
-  connect(filSecPum.y, mSecPum_flow) annotation (Line(points={{601,-42},{614,-42},
+  connect(fil1.u, swiPriPum.y) annotation (Line(points={{578,50},{530,50},{530,
+          40},{482,40}}, color={0,0,127}));
+  connect(fil1.y, mPriPum_flow) annotation (Line(points={{601,50},{614,50},{614,
+          40},{630,40}}, color={0,0,127}));
+  connect(tanFlo1.y, fil2.u)
+    annotation (Line(points={{562,-30},{578,-30}}, color={0,0,127}));
+  connect(fil2.y, mSecPum_flow) annotation (Line(points={{601,-30},{614,-30},{
+          614,-40},{630,-40}}, color={0,0,127}));
+  connect(reaPas1.u, swiPriPum.y) annotation (Line(points={{578,10},{530,10},{
+          530,40},{482,40}}, color={0,0,127}));
+  connect(reaPas1.y, mPriPum_flow) annotation (Line(points={{601,10},{614,10},{
+          614,40},{630,40}}, color={0,0,127}));
+  connect(reaPas2.y, mSecPum_flow) annotation (Line(points={{601,-70},{614,-70},
           {614,-40},{630,-40}}, color={0,0,127}));
+  connect(reaPas2.u, tanFlo1.y) annotation (Line(points={{578,-70},{568,-70},{
+          568,-30},{562,-30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{620,120}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end FlowControl;
