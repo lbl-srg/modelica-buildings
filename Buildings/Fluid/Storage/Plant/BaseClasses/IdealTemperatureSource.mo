@@ -1,8 +1,9 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
 model IdealTemperatureSource
   "Sets a prescribed temperature at port_b"
-  extends Interfaces.PartialTwoPortInterface(
-    final allowFlowReversal = false);
+  extends Interfaces.PartialTwoPortInterface;
+  /*(
+    final allowFlowReversal = false)*/
 
   parameter Modelica.Units.SI.Temperature TSet "Temperature set point";
 

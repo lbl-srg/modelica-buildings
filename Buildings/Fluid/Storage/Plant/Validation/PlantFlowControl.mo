@@ -95,9 +95,9 @@ equation
   connect(tanBra.port_bSupNet, pumSec.port_a) annotation (Line(points={{10,-4},{
           16,-4},{16,10},{20,10}}, color={0,127,255}));
   connect(tanBra.heaPorTop, SOC.tanTop) annotation (Line(points={{2,-6},{22,-6},
-          {22,-43.8},{40,-43.8}}, color={191,0,0}));
+          {22,-44},{40,-44}},     color={191,0,0}));
   connect(tanBra.heaPorBot, SOC.tanBot)
-    annotation (Line(points={{2,-14},{2,-56.2},{40,-56.2}}, color={191,0,0}));
+    annotation (Line(points={{2,-14},{2,-55.8},{40,-55.8}}, color={191,0,0}));
   connect(pumSec.port_b, bouSup.ports[1])
     annotation (Line(points={{40,10},{60,10}}, color={0,127,255}));
   connect(bouRet.ports[1], tanBra.port_aRetNet) annotation (Line(points={{60,

@@ -28,8 +28,6 @@ model OpenDecoupled
         rotation=0,
         origin={-70,10})));
 equation
-  connect(add2.y, gai.u) annotation (Line(points={{-78,-30},{-60,-30},{-60,-90},
-          {-42,-90}}, color={0,0,127}));
   connect(gai.y, ideRevConRet.mSet_flow) annotation (Line(points={{-18,-90},{-10,
           -90},{-10,-105},{-1,-105}}, color={0,0,127}));
   connect(ideRevConRet.port_b, parJunPla2.port_c2) annotation (Line(points={{20,
@@ -40,6 +38,8 @@ equation
     annotation (Line(points={{-60,90},{-20,90}}, color={0,127,255}));
   connect(bou2.ports[1], ideRevConSup.port_a) annotation (Line(points={{-60,10},
           {-10,10},{-10,-70},{0,-70}}, color={0,127,255}));
+  connect(gai.u, floCon.mSecPum_flow) annotation (Line(points={{-42,-90},{-50,
+          -90},{-50,-34},{-139,-34}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenDecoupled.mos"
         "Simulate and plot"),Diagram(coordinateSystem(extent={{-180,-240},{160,220}})), Icon(

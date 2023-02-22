@@ -13,12 +13,12 @@ model StateOfCharge
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b tanTop
     "Heat port for temperature at tank top" annotation (Placement(
-        transformation(extent={{-110,50},{-90,70}}), iconTransformation(extent={
-            {-110,52},{-90,72}})));
+        transformation(extent={{-110,50},{-90,70}}), iconTransformation(extent={{-110,50},
+            {-90,70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b tanBot
     "Heat port for temperature at tank bottom" annotation (Placement(
         transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
-          extent={{-110,-72},{-90,-52}})));
+          extent={{-110,-68},{-90,-48}})));
   Modelica.Blocks.Interfaces.BooleanOutput isFul "Tank is full" annotation (
       Placement(transformation(extent={{100,50},{120,70}}), iconTransformation(
           extent={{100,50},{120,70}})));
