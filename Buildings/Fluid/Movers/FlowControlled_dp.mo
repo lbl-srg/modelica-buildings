@@ -15,13 +15,29 @@ model FlowControlled_dp
       u_nominal=dp_nominal),
     eff(
       per(
-        final pressure = if per.havePressureCurve then
-          per.pressure
-        else
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
-            V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
-            dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+        final pressure=
+          if per.havePressureCurve then
+            per.pressure
+          else
+            Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
+              V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
+              dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
+        final etaHydMet=
+          if (per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+            and not per.havePressureCurve then
+              Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+          else per.etaHydMet,
+        final etaMotMet=
+          if (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+            and (not per.haveWMot_nominal and not per.havePressureCurve) then
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+          else per.etaMotMet),
       r_N(start=if abs(dp_nominal) > 1E-8 then dp_start/dp_nominal else 0)));
 
   parameter Modelica.Units.SI.PressureDifference dp_start(
@@ -65,7 +81,7 @@ model FlowControlled_dp
         origin={-80,120})));
 
   Modelica.Blocks.Interfaces.RealInput dp_in(final unit="Pa")
- if inputType == Buildings.Fluid.Types.InputType.Continuous
+    if inputType == Buildings.Fluid.Types.InputType.Continuous
     "Prescribed pressure rise"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -119,17 +135,11 @@ equation
           textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("dp", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(dp_in, format=".0f") else String(stage)))}),
-  defaultComponentName="fan",
+  defaultComponentName="mov",
   Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
-The input connector provides the difference between
-outlet minus inlet pressure.
-The efficiency of the device is computed based
-on the efficiency and pressure curves that are defined
-in record <code>per</code>, which is of type
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+The input connector provides the pressure rise from the inlet to the outlet.
 </p>
 <h4>Main equations</h4>
 <p>
@@ -164,6 +174,17 @@ Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 27, 2022, by Hongxiang Fu:<br/>
+Replaced <code>not use_powerCharacteristic</code> with the enumerations
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

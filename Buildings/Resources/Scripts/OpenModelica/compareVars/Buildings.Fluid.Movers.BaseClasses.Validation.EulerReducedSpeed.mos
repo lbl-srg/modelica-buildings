@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "pow1",
+    "eff1.WHyd",
+    "pow2",
+    "eff2.WHyd",
+    "pow3",
+    "eff3.WHyd"
+  };

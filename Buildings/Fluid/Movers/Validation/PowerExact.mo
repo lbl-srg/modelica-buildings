@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers.Validation;
 model PowerExact
   "Power calculation comparison among three mover types, using exact power computation for m_flow and dp"
-  extends PowerSimplified(
+  extends Buildings.Fluid.Movers.Validation.PowerSimplified(
     pump_dp(per=per),
     pump_m_flow(per=per));
   annotation (

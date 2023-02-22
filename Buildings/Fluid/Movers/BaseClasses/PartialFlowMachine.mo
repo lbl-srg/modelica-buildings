@@ -65,7 +65,7 @@ partial model PartialFlowMachine
     annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=use_inputFilter));
 
   // Connectors and ports
-    Modelica.Blocks.Interfaces.IntegerInput stage
+  Modelica.Blocks.Interfaces.IntegerInput stage
     if inputType == Buildings.Fluid.Types.InputType.Stages
     "Stage input signal for the pressure head"
     annotation (Placement(
@@ -76,7 +76,7 @@ partial model PartialFlowMachine
 
   Modelica.Blocks.Interfaces.RealOutput y_actual(
     final unit="1")
-    "Actual normalised pump speed that is used for computations"
+    "Actual normalised fan or pump speed that is used for computations"
     annotation (Placement(transformation(extent={{100,60},{120,80}}),
         iconTransformation(extent={{100,60},{120,80}})));
 
@@ -106,7 +106,7 @@ protected
   final parameter Modelica.Units.SI.VolumeFlowRate _VMachine_flow=0
     "Start value for VMachine_flow, used to avoid a warning if not specified";
 
-  parameter Types.PrescribedVariable preVar "Type of prescribed variable";
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable preVar "Type of prescribed variable";
 
   // The parameter speedIsInput is required to conditionally remove the instance gain.
   // If the conditional removal of this instance where to use the test
@@ -123,15 +123,12 @@ protected
     "Number of data points for pressure curve"
     annotation(Evaluate=true);
 
-  final parameter Boolean haveVMax = (abs(per.pressure.dp[nOri]) < Modelica.Constants.eps)
+  final parameter Boolean haveVMax = eff.haveVMax
     "Flag, true if user specified data that contain V_flow_max";
 
-  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=if per.havePressureCurve
-       then (if haveVMax then per.pressure.V_flow[nOri] else per.pressure.V_flow[
-      nOri] - (per.pressure.V_flow[nOri] - per.pressure.V_flow[nOri - 1])/((per.pressure.dp[
-      nOri] - per.pressure.dp[nOri - 1]))*per.pressure.dp[nOri]) else
-      m_flow_nominal/rho_default "Maximum volume flow rate, used for smoothing";
-  final parameter Modelica.Units.SI.Density rho_default=Medium.density_pTX(
+  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=eff.V_flow_max;
+  final parameter Modelica.Units.SI.Density rho_default=
+    Medium.density_pTX(
       p=Medium.p_default,
       T=Medium.T_default,
       X=Medium.X_default) "Default medium density";
@@ -188,7 +185,7 @@ protected
     final f=fCut,
     final normalized=true,
     final initType=init) if use_inputFilter
-    "Second order filter to approximate dynamics of pump speed, and to improve numerics"
+    "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
     annotation (Placement(transformation(extent={{20,61},{40,80}})));
 
   Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
@@ -233,26 +230,27 @@ protected
     redeclare final package Medium = Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-50,10},{-30,-10}})));
 
-  Sensors.RelativePressure senRelPre(
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium) "Head of mover"
     annotation (Placement(transformation(extent={{58,-27},{43,-14}})));
 
   // Because the speed data are not used by FlowMachineInterface, we set them
   // to zero.
-  FlowMachineInterface eff(
+  Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface eff(
     per(
-      final hydraulicEfficiency = per.hydraulicEfficiency,
-      final motorEfficiency =     per.motorEfficiency,
-      final motorCooledByFluid =  per.motorCooledByFluid,
-      final speed_nominal =       0,
-      final constantSpeed =       0,
-      final speeds =              {0},
-      final power =               per.power),
+      final powerOrEfficiencyIsHydraulic = per.powerOrEfficiencyIsHydraulic,
+      final efficiency =           per.efficiency,
+      final motorEfficiency =      per.motorEfficiency,
+      final motorEfficiency_yMot = per.motorEfficiency_yMot,
+      final motorCooledByFluid =   per.motorCooledByFluid,
+      final speed_nominal =        0,
+      final constantSpeed =        0,
+      final speeds =               {0},
+      final power =                per.power,
+      final peak =                 per.peak),
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    final haveVMax=haveVMax,
-    final V_flow_max=V_flow_max,
     r_V(start=m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
@@ -342,7 +340,9 @@ initial equation
   assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
   ": The value of parameter m_flow_nominal should be greater or equal than " +
   String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
-  // The control signal is dp or m_flow but the user did not provide a pump curve.
+
+initial algorithm
+  // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // Therefore, scaling the power using the speed is inaccurate.
   assert(nominalValuesDefineDefaultPressureCurve or
@@ -356,25 +356,65 @@ initial equation
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
          level=AssertionLevel.warning);
 
-  // The control signal is dp or m_flow but the user did not provide a pump curve.
+  // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
   // In addition, the user wants to use (V_flow, P) to compute the power.
   // This can lead to using a power that is less than the flow work. We avoid
-  // this by ignoring the setting of per.use_powerCharacteristics.
+  // this by ignoring the setting of per.etaHydMet.
   // The comment is split into two parts since otherwise the JModelica C-compiler
   // throws warnings.
   assert(nominalValuesDefineDefaultPressureCurve or
          (per.havePressureCurve or
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
-         per.use_powerCharacteristic == false,
+         per.etaHydMet<>
+      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
 "*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve and you set use_powerCharacteristic = true.
+             default pressure curve with per.etaHydMet set to
+             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
              Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead use_powerCharacteristic = false." +
-             "Since this causes the efficiency curve to be used,
-             make sure that the efficiency curves in the performance record per
-             are correct or add the pressure curve of the mover.
+             this setting and use instead
+             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided." +
+             "See the user guide to see what assumptions are made in this setting
+             or provide other information to the model.
              Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+         level=AssertionLevel.warning);
+
+  assert(per.havePressureCurve or
+          not (per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
+"*** Warning in "+ getInstanceName()+
+             ": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
+             This requires that per.pressure be provided.
+             Because it is not,
+             the model will override this setting and use .NotProvided instead.",
+         level=AssertionLevel.warning);
+
+  assert(per.havePressureCurve or per.haveWMot_nominal or
+          not (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
+"*** Warning in "+ getInstanceName()+
+             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
+             or .GenericCurve. This requires that per.WMot_nominal be provided
+             or at least per.pressure be provided so that per.WMot_nominal can
+             be estimated. Because neither is provided,
+             the model will override this setting and use .NotProvided instead.",
+         level=AssertionLevel.warning);
+
+  assert(per.powerOrEfficiencyIsHydraulic or
+          not (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
+"*** Warning in "+ getInstanceName()+
+             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
+             or .GenericCurve while information is provided for total electric
+             power instead of hydraulic power. This forms an algebraic loop
+             and may cause the simulation to not converge
+             (see the \"Motor efficiency\" section in usersguide).",
          level=AssertionLevel.warning);
 
 equation
@@ -418,24 +458,18 @@ equation
   connect(senRelPre.port_a, preSou.port_b) annotation (Line(points={{58,-20.5},{
           80,-20.5},{80,0},{60,0}},
                                color={0,127,255}));
-  connect(heaDis.etaHyd,eff. etaHyd) annotation (Line(points={{18,-60},{10,-60},
-          {10,-65},{-11,-65}},                     color={0,0,127}));
-  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-66},{14,-66},
-          {14,-53.2},{-6,-53.2},{-11,-53.2}},
-                                     color={0,0,127}));
-  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-59},{0,-59},{0,-80},
-          {18,-80}},      color={0,0,127}));
-  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-11,-56},{-8,-56},{-8,
-          -74},{18,-74}}, color={0,0,127}));
+  connect(heaDis.V_flow,eff. V_flow) annotation (Line(points={{18,-60},{14,-60},
+          {14,-52},{-11,-52}},       color={0,0,127}));
+  connect(eff.PEle, heaDis.PEle) annotation (Line(points={{-11,-60},{0,-60},{0,
+          -80},{18,-80}}, color={0,0,127}));
+  connect(eff.WFlo, heaDis.WFlo) annotation (Line(points={{-11,-56},{4,-56},{4,
+          -66},{18,-66}}, color={0,0,127}));
   connect(rho_inlet.y,eff. rho) annotation (Line(points={{-69,-64},{-69,-64},{-34,
           -64}},                          color={0,0,127}));
   connect(eff.m_flow, senMasFlo.m_flow) annotation (Line(points={{-34,-54},{-34,
           -54},{-40,-54},{-40,-11}},               color={0,0,127}));
-  connect(eff.PEle, P) annotation (Line(points={{-11,-59},{0,-59},{0,-50},{90,
-          -50},{90,90},{110,90}},
-                             color={0,0,127}));
-  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{-8,-56},{-8,-86},
-          {48,-86}},      color={0,0,127}));
+  connect(eff.WFlo, PToMed.u2) annotation (Line(points={{-11,-56},{4,-56},{4,
+          -86},{48,-86}}, color={0,0,127}));
   connect(inputSwitch.y, filter.u) annotation (Line(points={{1,50},{12,50},{12,70.5},
           {18,70.5}},     color={0,0,127}));
 
@@ -445,11 +479,16 @@ equation
           70},{110,70}},
                      color={0,0,127}));
   connect(port_a, vol.ports[1])
-    annotation (Line(points={{-100,0},{-78,0},{-78,0}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-79,0},{-79,0}}, color={0,127,255}));
   connect(vol.ports[2], senMasFlo.port_a)
-    annotation (Line(points={{-82,0},{-82,0},{-50,0}}, color={0,127,255}));
+    annotation (Line(points={{-81,0},{-81,0},{-50,0}}, color={0,127,255}));
   connect(senMasFlo.port_b, preSou.port_a)
     annotation (Line(points={{-30,0},{40,0},{40,0}}, color={0,127,255}));
+  connect(eff.WHyd, heaDis.WHyd) annotation (Line(points={{-11,-58},{2,-58},{2,
+          -74},{18,-74}}, color={0,0,127}));
+  connect(eff.PEle, P) annotation (Line(points={{-11,-60},{0,-60},{0,-50},{90,
+          -50},{90,90},{110,90}},
+                             color={0,0,127}));
    annotation(Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}}),
     graphics={
@@ -541,6 +580,34 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 6, 2022, by Hongxiang Fu:<br/>
+<ul>
+<li>
+Moved <code>haveVMax</code> from here to
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+and <code>V_flow_max</code> from here to
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Generic\">
+Buildings.Fluid.Movers.Data.Generic</a>.
+</li>
+<li>
+Added <code>per.peak</code>, <code>per.totalEfficiency,</code>,
+<code>per.motorEfficiency_yMot</code>to be also passed down to <code>eff.per</code>
+at instantiation.
+</li>
+<li>
+Added an <code>assert()</code> warning when the model has to make an unreliable
+guess for efficiency computation using <code>.EulerNumber</code>.
+</li>
+<li>
+Added an <code>assert()</code> warning when the model has to overwrite
+<code>per.etaMotMet</code>.
+</li>
+</ul>
+These are for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 June 17, 2021, by Michael Wetter:<br/>
 Changed implementation of the filter.<br/>
