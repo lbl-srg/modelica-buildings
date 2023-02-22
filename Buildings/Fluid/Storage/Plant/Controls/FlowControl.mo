@@ -16,11 +16,11 @@ block FlowControl
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealOutput mPriPum_flow
-    "Primary pump mass flow rate" annotation (Placement(transformation(extent={{580,30},
-            {600,50}}),         iconTransformation(extent={{100,30},{120,50}})));
+    "Primary pump mass flow rate" annotation (Placement(transformation(extent={{620,30},
+            {640,50}}),         iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput mSecPum_flow
     "Primary pump and valve mass flow rate" annotation (Placement(
-        transformation(extent={{580,-50},{600,-30}}), iconTransformation(extent
+        transformation(extent={{620,-50},{640,-30}}), iconTransformation(extent
           ={{100,-50},{120,-30}})));
   Modelica.Blocks.Interfaces.BooleanInput tanIsFul "Tank is full" annotation (
       Placement(transformation(extent={{-120,30},{-100,50}}),
@@ -114,6 +114,26 @@ block FlowControl
   Modelica.StateGraph.Alternative altOutCHW(nBranches=2)
     "Alternative: Outputting CHW from the chiller or the tank"
     annotation (Placement(transformation(extent={{142,-90},{318,-10}})));
+protected
+  Buildings.Fluid.BaseClasses.ActuatorFilter filPriPum(
+    f=30/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={590,40})));
+protected
+  Buildings.Fluid.BaseClasses.ActuatorFilter filSecPum(
+    f=30/(2*Modelica.Constants.pi*60),
+    final initType=Modelica.Blocks.Types.Init.InitialState,
+    final n=2,
+    final normalized=true) "Second order filter to improve numerics"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={590,-42})));
 equation
   connect(traChiOnl.outPort, steLocCha.inPort[1])
     annotation (Line(points={{191.5,70},{219,70}}, color={0,0,0}));
@@ -133,8 +153,6 @@ equation
     annotation (Line(points={{240.5,-70},{266,-70}}, color={0,0,0}));
   connect(expPriPumFlo.y, swiPriPum.u)
     annotation (Line(points={{441,40},{458,40}}, color={255,0,255}));
-  connect(swiPriPum.y, mPriPum_flow)
-    annotation (Line(points={{482,40},{590,40}}, color={0,0,127}));
   connect(expTanCha.y, swiTanCha.u)
     annotation (Line(points={{441,-10},{458,-10}}, color={255,0,255}));
   connect(expTanDis.y, swiPriPum2.u)
@@ -147,8 +165,6 @@ equation
           -36},{538,-36}}, color={0,0,127}));
   connect(swiPriPum.y, tanFlo1.u1) annotation (Line(points={{482,40},{530,40},{530,
           -24},{538,-24}}, color={0,0,127}));
-  connect(tanFlo1.y, mSecPum_flow) annotation (Line(points={{562,-30},{574,-30},
-          {574,-40},{590,-40}}, color={0,0,127}));
   connect(traTanChaAndNotFul.outPort, steTanCha.inPort[1])
     annotation (Line(points={{71.5,50},{99,50}}, color={0,0,0}));
   connect(steTanCha.outPort[1], altTanCha.inPort)
@@ -185,6 +201,14 @@ equation
           {338,-50},{338,25},{338.31,25}}, color={0,0,0}));
   connect(traTanUna.inPort, altOutCHW.split[1]) annotation (Line(points={{186,-30},
           {160,-30},{160,-60},{160.48,-60}}, color={0,0,0}));
-  annotation (Diagram(coordinateSystem(extent={{-100,-120},{580,120}})), Icon(
+  connect(filPriPum.u, swiPriPum.y)
+    annotation (Line(points={{578,40},{482,40}}, color={0,0,127}));
+  connect(filPriPum.y, mPriPum_flow)
+    annotation (Line(points={{601,40},{630,40}}, color={0,0,127}));
+  connect(tanFlo1.y, filSecPum.u) annotation (Line(points={{562,-30},{570,-30},{
+          570,-42},{578,-42}}, color={0,0,127}));
+  connect(filSecPum.y, mSecPum_flow) annotation (Line(points={{601,-42},{614,-42},
+          {614,-40},{630,-40}}, color={0,0,127}));
+  annotation (Diagram(coordinateSystem(extent={{-100,-120},{620,120}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
 end FlowControl;
