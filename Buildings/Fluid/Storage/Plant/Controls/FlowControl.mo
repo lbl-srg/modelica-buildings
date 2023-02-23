@@ -129,7 +129,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{580,-80},{600,-60}})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil1(
-    f=30/(2*Modelica.Constants.pi*60),
+    f=10/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
     final normalized=true) if use_outFil
@@ -140,7 +140,7 @@ protected
         origin={590,50})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil2(
-    f=30/(2*Modelica.Constants.pi*60),
+    f=10/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
     final normalized=true) if use_outFil
