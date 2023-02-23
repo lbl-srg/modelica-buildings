@@ -75,20 +75,25 @@ model TankBranch
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-30})));
-  Modelica.Blocks.Interfaces.RealOutput mTan_flow "Mass flow rate of the tank"
+  Modelica.Blocks.Interfaces.RealOutput mTan_flow(
+    final quantity="MassFlowRate",
+    final unit="kg/s")
+    "Mass flow rate of the tank"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={50,110}), iconTransformation(
+        rotation=0,
+        origin={110,80}), iconTransformation(
         extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={40,110})));
-  Modelica.Blocks.Interfaces.RealOutput Ql_flow
+        rotation=180,
+        origin={110,100})));
+  Modelica.Blocks.Interfaces.RealOutput Ql_flow(
+    final quantity="HeatFlowRate",
+    final unit="W")
     "Heat loss of tank (positive if heat flows from tank to ambient)"
     annotation (Placement(transformation(extent={{100,0},{120,20}}),
         iconTransformation(extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,-110})));
+        rotation=0,
+        origin={110,0})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
     "Heat port tank top (outside insulation)"
     annotation (Placement(transformation(extent={{14,22},{26,34}}),
@@ -126,7 +131,7 @@ model TankBranch
         origin={-50,-60})));
 equation
   connect(senFlo.m_flow, mTan_flow) annotation (Line(points={{-61,-30},{-66,-30},
-          {-66,80},{50,80},{50,110}}, color={0,0,127}));
+          {-66,80},{110,80}},         color={0,0,127}));
   connect(tan.Ql_flow, Ql_flow)
     annotation (Line(points={{11,7.2},{11,10},{110,10}},
                                                        color={0,0,127}));
@@ -170,7 +175,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{38,0},{80,0},{80,-100}},
+          points={{38,0},{80,0},{100,0}},
           color={127,0,0},
           pattern=LinePattern.Dot),
         Line(
