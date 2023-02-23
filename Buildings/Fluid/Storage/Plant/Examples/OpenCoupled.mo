@@ -31,6 +31,14 @@ for the district system and
 the return side of the storage plant is connected to the network with
 a direct connection.
 </p>
+<p>
+The modelled system is described in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.UsersGuide\">
+Buildings.Fluid.Storage.Plant.UsersGuide</a>.
+The scheduled behaviour of the system is described in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource\">
+Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PartialDualSource</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

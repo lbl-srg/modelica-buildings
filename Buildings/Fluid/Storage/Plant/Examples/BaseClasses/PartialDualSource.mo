@@ -452,159 +452,36 @@ of the two plants.
 The source blocks give the system the following operation schedule during
 simulation:
 </p>
-<table summary= \"system modes\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
-<thead>
-  <tr>
-    <th>Time Slot</th>
-    <th>Plant 1 Flow</th>
-    <th colspan=\"4\">Plant 2 Flows</th>
-    <th colspan=\"3\">Users</th>
-    <th>Description</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>Chiller</td>
-    <td>Tank*</td>
-    <td>Charging</td>
-    <td>Overall**</td>
-    <td>1</td>
-    <td>2</td>
-    <td>3</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>N/A</td>
-    <td>0</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>No load. No flow.</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>0</td>
-    <td>+</td>
-    <td>-</td>
-    <td>Local</td>
-    <td>0</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>No load. Tank is being charged locally.</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>+</td>
-    <td>+</td>
-    <td>-</td>
-    <td>Local</td>
-    <td>0</td>
-    <td>Has load</td>
-    <td></td>
-    <td></td>
-    <td>Plant 1 outputs CHW to satisfy load. Plant 2 still offline and in local charging.</td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>+</td>
-    <td>+</td>
-    <td>0</td>
-    <td>N/A</td>
-    <td>+</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td></td>
-    <td>Both plants output CHW. Tank holding.</td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>+</td>
-    <td>+</td>
-    <td>+</td>
-    <td>N/A</td>
-    <td>+</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Both plants including tank output CHW.</td>
-  </tr>
-  <tr>
-    <td>6</td>
-    <td>+</td>
-    <td>0</td>
-    <td>+</td>
-    <td>N/A</td>
-    <td>+</td>
-    <td></td>
-    <td>Has load</td>
-    <td>Has load</td>
-    <td>Plant 1 and tank output CHW, chiller 2 off.</td>
-  </tr>
-  <tr>
-    <td>7</td>
-    <td>+</td>
-    <td>0</td>
-    <td>0</td>
-    <td>N/A</td>
-    <td>0</td>
-    <td></td>
-    <td></td>
-    <td>Has load</td>
-    <td>Plant 1 outputs CHW to satisfy load. Plant 2 off.</td>
-  </tr>
-  <tr>
-    <td>8</td>
-    <td>+</td>
-    <td>0</td>
-    <td>-</td>
-    <td>Remote</td>
-    <td>-</td>
-    <td></td>
-    <td></td>
-    <td>Has load</td>
-    <td>Plant 1 outputs CHW to satisfy load and remotely charge tank.</td>
-  </tr>
-  <tr>
-    <td>9</td>
-    <td>+</td>
-    <td>0</td>
-    <td>-</td>
-    <td>Remote</td>
-    <td>-</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>Plant 1 remotely charges tank.</td>
-  </tr>
-  <tr>
-    <td>10</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>N/A</td>
-    <td>0</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>No load. No flow.</td>
-  </tr>
-</tbody>
-</table>
-<p>
-Notes:<br/>
-*. A positive flow rate at the tank denotes that the tank is discharging
-and a negative flow rate denotes that it is being charged.<br/>
-**. A positive flow rate denotes that the flow direction of Plant 2 is the same
-as the nominal flow direction (outputting CHW to the network).
-A negative flow only occurs when its tank is being charged remotely.
-</p>
+<ul>
+<li>
+At <code>time = 0</code>, the system is all off.
+</li>
+<li>
+At <code>time = 500</code>, the tank is commanded to charge. The chiller is
+available and charges the tank locally.
+After some time, the charging stops when the tank becomes full.
+</li>
+<li>
+At <code>time = 3000</code>, the district system has load and the storage
+plant starts to output CHW to the system. Currently the tank is commanded
+to hold. Therefore, the CHW is supplied by the chiller.
+</li>
+<li>
+At <code>time = 3750</code>, the tank is commanded to output.
+It takes priority over the chiller.
+After some time, the outputting stops when the tank is depleted.
+Now the CHW is produced by the chiller instead.
+</li>
+<li>
+At <code>time = 6000</code>, there is no longer load in the district system.
+The system is back to the all-off state.
+</li>
+<li>
+At <code>time = 6500</code>, the tank is once again commanded to charge.
+But the chiller is offline at this time. The tank is therefore charged
+remotely by the district.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
