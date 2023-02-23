@@ -57,7 +57,7 @@ model SingleSpeedHeatingDX "Test model for single speed DX coil"
         perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves.DXHeating_Curve_I())},
         nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{58,60},{78,80}})));
-  Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 - 5)
+  Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 0)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium,
