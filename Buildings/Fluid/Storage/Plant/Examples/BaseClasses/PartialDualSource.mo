@@ -296,7 +296,7 @@ partial model PartialDualSource
     final use_outFil=true)
     "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 500,1; 3000,2; 4000,3;
+  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 500,1; 3000,2; 3750,3;
         6000,2; 6500,1])
     "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
     annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
