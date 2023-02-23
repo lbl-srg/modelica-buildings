@@ -278,13 +278,6 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,-210})));
-  Modelica.Blocks.Sources.TimeTable mPla2Set_flow(table=[0,0; 9000,0])
-    "Flow rate setpoint of the second plant"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Modelica.Blocks.Sources.TimeTable mChi2Set_flow(table=[0,0; 500,0; 500,nom.mChi_flow_nominal;
-        3000,nom.mChi_flow_nominal; 3000,0; 9000,0])
-    "Flow rate setpoint for the chiller in the storage plant"
-    annotation (Placement(transformation(extent={{-140,22},{-120,42}})));
 
   Modelica.Blocks.Routing.Multiplex muxDp(n=3) "Multiplexer block for routing"
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
