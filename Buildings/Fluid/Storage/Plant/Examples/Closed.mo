@@ -18,7 +18,7 @@ equation
   annotation(experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/Closed.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(extent={{-180,-240},{160,220}})),
+    Diagram(coordinateSystem(extent={{-280,-240},{220,220}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>

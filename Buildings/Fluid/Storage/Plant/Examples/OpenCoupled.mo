@@ -19,9 +19,9 @@ equation
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenCoupled.mos"
         "Simulate and plot"),
-        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{160,220}})),
+        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),                                             Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-280,-240},{220,220}})),
         Documentation(info="<html>
 <p>
 This variant of the two-plant-three-user example model represents the scenario

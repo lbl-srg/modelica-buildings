@@ -447,8 +447,8 @@ equation
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/IdealDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
-        Diagram(coordinateSystem(extent={{-180,-240},{220,220}})),
-        Icon(coordinateSystem(extent={{-180,-240},{220,220}})),
+        Diagram(coordinateSystem(extent={{-280,-240},{220,220}})),
+        Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
 This is the base model for the example models.

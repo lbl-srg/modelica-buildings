@@ -162,5 +162,7 @@ First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-160,-100},{100,120}})),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end PlantFlowControl;
