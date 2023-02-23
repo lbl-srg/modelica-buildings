@@ -44,7 +44,7 @@ model IdealReversibleConnection
         origin={-110,50})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
-    f=20/(2*Modelica.Constants.pi*60),
+    f=60/(2*Modelica.Constants.pi*60),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
     final normalized=true) "Second order filter to improve numerics"
