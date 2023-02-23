@@ -1,0 +1,13 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Validation.Enable_TOut_hOut", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Enable_TOut_hOut_MultiZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"TOutCut.y","TOut.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"enaDis.truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=3, y={"enaDis.yRetDam_max", "enaDis.yRetDam_min"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=4, y={"enaDis.yOutDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"hOutCut1.y","hOut.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"enaDis1.truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=3, y={"enaDis1.yRetDam_max", "enaDis1.yRetDam_min"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=4, y={"enaDis1.yOutDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=1, y={"TOutCut.y","TOut.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=2, y={"enaDis2.truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=3, y={"enaDis2.yRetDam_max", "enaDis2.yRetDam_min"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={20, 10, 1200, 650}, subPlot=4, y={"enaDis2.yOutDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}});
