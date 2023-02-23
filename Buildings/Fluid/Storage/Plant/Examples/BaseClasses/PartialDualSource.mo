@@ -29,19 +29,12 @@ partial model PartialDualSource
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,70})));
-  Buildings.Fluid.Movers.SpeedControlled_y pumSup1(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumSup1(
     redeclare final package Medium = Medium,
-    per(pressure(dp=dp_nominal*{1.14,1,0.42},
-                 V_flow=(m_flow_nominal)/1000*{0,1,2})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    addPowerToMedium=false,
-    y_start=0,
-    T_start=T_CHWS_nominal) "CHW supply pump for chi1"
-                                                 annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-10,90})));
+    final addPowerToMedium=false,
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal) "CHW supply pump for chi1"
+    annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Buildings.Controls.Continuous.LimPID conPI_pumChi1(
     final controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.2,
@@ -68,21 +61,12 @@ partial model PartialDualSource
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWR_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumChi2(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumChi2(
     redeclare final package Medium = Medium,
-    per(pressure(dp=chi2PreDro.dp_nominal*{1.14,1,0.42},
-                 V_flow=nom.mChi_flow_nominal/1000*{0,1,2})),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final addPowerToMedium=false,
     final m_flow_nominal=nom.mChi_flow_nominal,
-    allowFlowReversal=true,
-    addPowerToMedium=false,
-    m_flow_start=0,
-    T_start=nom.T_CHWS_nominal) "Primary CHW pump for plant 2"
-                                                              annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-130,-70})));
+    final dp_nominal=chi2PreDro.dp_nominal) "Primary CHW pump for plant 2"
+    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
     redeclare final package Medium = Medium,
     final m_flow_nominal=nom.mChi_flow_nominal,
@@ -305,6 +289,7 @@ partial model PartialDualSource
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal_actual(nin=3)
     "Position of the most open user control valve"
     annotation (Placement(transformation(extent={{-260,-80},{-240,-60}})));
+
 equation
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-119,170},{-104,170}},
@@ -324,8 +309,6 @@ equation
           {110,-150},{118,-150}}, color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-118,130},{-92,130},{-92,158}},color={0,0,127}));
-  connect(conPI_pumChi1.y,pumSup1. y) annotation (Line(points={{-81,170},{-10,170},
-          {-10,102}},      color={0,0,127}));
   connect(parJunUse1.port_a2, pipEnd1.port_a)
     annotation (Line(points={{44,160},{44,180}}, color={0,127,255}));
   connect(pipEnd1.port_b, parJunUse1.port_b1)
@@ -378,25 +361,16 @@ equation
     annotation (Line(points={{56,-140},{56,-160}}, color={0,127,255}));
   connect(parJunUse3.port_a2, parPipS2U3.port_b2)
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
-  connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
-          90},{20,76},{40,76}},     color={0,127,255}));
-  connect(pumChi2.port_b,tanBra.port_aSupChi)  annotation (Line(points={{-120,
-          -70},{-110,-70},{-110,-84},{-100,-84}},
-                                          color={0,127,255}));
   connect(tanBra.port_bRetChi, chi2PreDro.port_a) annotation (Line(points={{-100,
           -96},{-110,-96},{-110,-110},{-120,-110}}, color={0,127,255}));
   connect(tanBra.port_bSupNet, ideRevConSup.port_a) annotation (Line(points={{-80,
           -84},{-70,-84},{-70,-70},{0,-70}}, color={0,127,255}));
   connect(ideRevConSup.port_b, parJunPla2.port_c1) annotation (Line(points={{20,-70},
           {30,-70},{30,-84},{40,-84}}, color={0,127,255}));
-  connect(pumSup1.port_a, chi1.port_b)
-    annotation (Line(points={{-20,90},{-50,90},{-50,80}}, color={0,127,255}));
   connect(chi1.port_a, parJunPla1.port_c2) annotation (Line(points={{-50,60},{
           -50,54},{20,54},{20,64},{40,64}}, color={0,127,255}));
   connect(chi2PreDro.port_b, chi2.port_a) annotation (Line(points={{-140,-110},
           {-150,-110},{-150,-100}}, color={0,127,255}));
-  connect(chi2.port_b, pumChi2.port_a) annotation (Line(points={{-150,-80},{
-          -150,-70},{-140,-70}}, color={0,127,255}));
   connect(gaiUse1.y, muxDp.u[1]) annotation (Line(points={{141,170},{160,170},{
           160,147.667},{180,147.667}},
                                    color={0,0,127}));
@@ -416,8 +390,6 @@ equation
         color={0,0,127}));
   connect(floCon.mSecPum_flow, ideRevConSup.mSet_flow) annotation (Line(points=
           {{-139,-34},{-50,-34},{-50,-65},{-1,-65}}, color={0,0,127}));
-  connect(floCon.mPriPum_flow, pumChi2.m_flow_in) annotation (Line(points={{
-          -139,-26},{-130,-26},{-130,-58}}, color={0,0,127}));
   connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-199,10},{-166,10},
           {-166,-22},{-161,-22}}, color={255,127,0}));
   connect(tanBra.heaPorTop, SOC.tanTop) annotation (Line(points={{-88,-86},{-88,
@@ -437,6 +409,18 @@ equation
   connect(muxVal.y, mulMax_yVal_actual.u[1:3]) annotation (Line(points={{201,
           -170},{210,-170},{210,-230},{-270,-230},{-270,-69.3333},{-262,
           -69.3333}}, color={0,0,127}));
+  connect(chi2.port_b, pumChi2.port_a) annotation (Line(points={{-150,-80},{-150,
+          -70},{-140,-70}}, color={0,127,255}));
+  connect(pumChi2.port_b, tanBra.port_aSupChi) annotation (Line(points={{-120,-70},
+          {-110,-70},{-110,-84},{-100,-84}}, color={0,127,255}));
+  connect(floCon.mPriPum_flow, pumChi2.m_flow_in) annotation (Line(points={{-139,
+          -26},{-130,-26},{-130,-58}}, color={0,0,127}));
+  connect(pumSup1.port_a, chi1.port_b)
+    annotation (Line(points={{-20,90},{-50,90},{-50,80}}, color={0,127,255}));
+  connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
+          90},{20,76},{40,76}}, color={0,127,255}));
+  connect(conPI_pumChi1.y, pumSup1.y)
+    annotation (Line(points={{-81,170},{-10,170},{-10,102}}, color={0,0,127}));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/IdealDualSource.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=3600),
