@@ -193,5 +193,57 @@ equation
   connect(mSecPum_flow, secPumFlo.y) annotation (Line(points={{590,-40},{570,-40},
           {570,-30},{562,-30}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{580,120}})), Icon(
-        coordinateSystem(extent={{-100,-100},{100,100}})));
+        coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+        Rectangle(extent={{-20,80},{20,40}}, lineColor={28,108,200}),
+        Line(points={{-40,-20},{-40,20},{40,20},{40,-20}}, color={28,108,200}),
+
+        Line(points={{0,40},{0,20}}, color={28,108,200}),
+        Polygon(
+          points={{-6,2},{2.74617e-16,-16},{-12,-16},{-6,2}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={34,-16},
+          rotation=180),
+        Polygon(
+          points={{-6,2},{2.74617e-16,-16},{-12,-16},{-6,2}},
+          lineColor={28,108,200},
+          lineThickness=1,
+          fillColor={28,108,200},
+          fillPattern=FillPattern.Solid,
+          origin={-46,-16},
+          rotation=180),
+        Rectangle(
+          extent={{-80,-38},{80,-42}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Ellipse(
+          extent={{20,-20},{60,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{58,-40},{28,-24},{28,-56},{58,-40}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None),
+        Ellipse(
+          extent={{-60,-20},{-20,-60}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-22,-40},{-52,-24},{-52,-56},{-22,-40}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.None),
+        Rectangle(
+          extent={{-2,-42},{2,-80}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0})}));
 end FlowControl;
