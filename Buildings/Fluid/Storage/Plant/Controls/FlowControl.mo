@@ -225,5 +225,59 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}));
+          lineColor={0,0,0})}),
+Documentation(info="<html>
+<p>
+This block implements a finite state machine to control the flows of the
+storage plant.
+The system transitions among the following states:
+</p>
+<ul>
+<li>
+All Off - The system is off. No flow rate at the primary pump,
+the secondary pump, or the tank.
+</li>
+<li>
+Charge Tank - The tank is ready to be charged.
+The transition into this state fires when the tank receives a charge command
+AND the tank is not full.
+<ul>
+<li>
+Local Charging - The local chiller charges the tank.
+The transition into this state fires when the local chiller is available.
+Its outward transition fires when the condition of either of the two prior
+transitions becomes false.
+</li>
+<li>
+Remote Charging - The tank is charged by the district network while
+the local chiller is shut off.
+The transition into this state fires when the local chiller is offline.
+Its outward transition fires when the condition of either of the two prior
+transitions becomes false.
+</li>
+</ul>
+</li>
+<li>
+Tank Output - The tank outputs CHW to the district network.
+The transition into this state fires when the district network has sufficient
+load AND the tank receives a discharge command AND the tank is not depleted.
+Its outward transition fires when the condition above becomes false.
+</li>
+<li>
+Chiller Output - The chiller outputs CHW to the district network.
+The transition into this state fires when the district network has sufficient
+load AND the tank is unavailable (no discharge command OR is depleted)
+AND the chiller is available.
+Its outward transition fires when the condition above becomes false.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 23, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end FlowControl;
