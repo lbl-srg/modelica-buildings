@@ -455,7 +455,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Subsystems/Validation/ChillerHeatRecoveryGroup.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=1000,
+      StopTime=2000,
       Tolerance=1e-06),
     Diagram(coordinateSystem(extent={{-260,-260},{260,260}})),
     Documentation(info="<html>

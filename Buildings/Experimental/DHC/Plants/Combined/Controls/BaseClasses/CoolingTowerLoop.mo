@@ -504,7 +504,6 @@ to <i>100&nbsp;%</i> at <i>100&nbsp;%</i>.
 The minimum pump speed is provided as a parameter for each pump stage since
 different speeds are required for each stage to maintain minimum tower flow.
 </p>
-<h5>
 <h4>CT fans</h4>
 <p>
 When any of the CT pumps is commanded On, a control loop maintains the

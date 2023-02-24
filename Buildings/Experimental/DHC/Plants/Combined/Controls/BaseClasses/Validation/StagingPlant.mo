@@ -113,7 +113,7 @@ equation
     annotation (Line(points={{-78,20},{0,20},{0,0},{10,0}}, color={0,0,127}));
           annotation (
               __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StagingPlant.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseClasses/Validation/StagingPlant.mos"
       "Simulate and plot"),
     experiment(
       StopTime=30000,

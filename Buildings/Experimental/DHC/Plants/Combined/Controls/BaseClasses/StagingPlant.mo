@@ -594,7 +594,7 @@ the units enumerated before (resp. after) the semicolon sign (<code>:</code>) op
 in cooling (resp. heating) mode, the units marked with a star (<code>*</code>) operate
 in direct heat recovery mode.
 </p>
-<table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">
+<table border=\"1\" summary=\"Explanation of the enumeration\">
 <tr><th>Heating stage &darr; Cooling stage &rarr;</th>
 <td>0</td>
 <td>1</td>

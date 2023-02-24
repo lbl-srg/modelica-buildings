@@ -28,7 +28,6 @@ model StagingPump "Validation of pump staging block"
   Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump
     staDet(
     final nPum=nPum,
-    final nChi=nChi,
     final m_flow_nominal=m_flow_nominal)
     "Pump staging block - Detailed version"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -50,7 +49,7 @@ equation
     annotation (Line(points={{-18,0},{0,0},{0,6},{38,6}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StagingPump.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseClasses/Validation/StagingPump.mos"
       "Simulate and plot"),
     experiment(
       StopTime=5000,

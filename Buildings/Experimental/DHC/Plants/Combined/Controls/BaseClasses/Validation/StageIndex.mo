@@ -21,7 +21,7 @@ equation
 
 annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseCLasses/Validation/StageIndex.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Controls/BaseClasses/Validation/StageIndex.mos"
       "Simulate and plot"),
     experiment(
       StopTime=1000,

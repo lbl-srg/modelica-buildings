@@ -76,21 +76,22 @@ equation
     Documentation(info="<html>
 <p>
 This block computes the following variables based on a Boolean array
-representing typically the On/Off command signal for a group of multiple 
+representing typically the On/Off command signal for a group of multiple
 units such as chillers or CHW pumps.
 </p>
 <ul>
 <li>
 The Boolean output <code>y1One</code> is <code>true</code> if at least
-one element of the input array is <code>true</code>. 
+one element of the input array is <code>true</code>.
 </li>
 <li>
-The real output <code>nUniOn</code> is the number of elements of 
-the input array that are <code>true</code> (may be zero). 
+The real output <code>nUniOn</code> is the number of elements of
+the input array that are <code>true</code> (may be zero).
 </li>
 <li>
 The real output <code>nUniOnBou</code> is the maximum between <i>1</i>
-and <code>nUniOn</code>. 
+and <code>nUniOn</code>.
 </li>
+</ul>
 </html>"));
 end MultipleCommands;

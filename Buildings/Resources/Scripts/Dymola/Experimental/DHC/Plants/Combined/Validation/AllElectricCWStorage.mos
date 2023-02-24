@@ -4,7 +4,6 @@ simulateModel("Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectric
     startTime=0,
     stopTime=259200,
     resultFile="AllElectricCWStorage");
-
 createPlot(
     id=1,
     position={8, 9, 504, 530},
@@ -32,7 +31,6 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=2,
     position={38, 10, 442, 494},
@@ -54,13 +52,12 @@ createPlot(
 createPlot(
     id=2,
     subPlot=3,
-    y={"pla.TChiWatSupSet", "pla.TChiWatPriRet.T", "pla.TChiWatSup.T", "pla.chi.TEvaLvg.T", "pla.chiHea.TEvaLvg[1].T", "pla.chiHea.TEvaLvg[2].T"},
+    y={"pla.TChiWatSupSet", "pla.TChiWatPriRet.T", "pla.TChiWatSup.T", "pla.chiHea.TEvaLvg[1]", "pla.chiHea.TEvaLvg[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=3,
     position={66, 80, 442, 494},
@@ -88,7 +85,6 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=4,
     position={463, 12, 443, 466},
@@ -110,13 +106,12 @@ createPlot(
 createPlot(
     id=4,
     subPlot=3,
-    y={"pla.THeaWatSupSet", "pla.THeaWatPriRet.T", "pla.THeaWatSup.T", "pla.chiHea.TConLvg[1].T", "pla.chiHea.TConLvg[2].T"},
+    y={"pla.THeaWatSupSet", "pla.THeaWatPriRet.T", "pla.THeaWatSup.T", "pla.chiHea.TConLvg[1]", "pla.chiHea.TConLvg[2]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=5,
     position={517, 80, 443, 495},
@@ -144,7 +139,6 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=6,
     position={915, 12, 407, 496},
@@ -181,7 +175,6 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=7,
     position={981, 81, 443, 524},
@@ -218,7 +211,6 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=8,
     position={593, 26, 592, 396},
@@ -237,12 +229,10 @@ createPlot(
     autoreplot=true,
     grid=true,
     color=true);
-
 createPlot(
     id=9,
     position={75, 75, 584, 361},
-    y={"pla.TConWatConChiEnt.T", "pla.TConWatConChiLvg.T", "pla.TConWatConRet.T",
-"pla.TConWatHexCooEnt.T", "pla.TConWatHexCooLvg.T"},
+    y={"pla.TConWatConChiEnt.T", "pla.TConWatConChiLvg.T", "pla.TConWatConRet.T", "pla.TConWatHexCooEnt.T", "pla.TConWatHexCooLvg.T"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

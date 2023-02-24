@@ -5,8 +5,9 @@ simulateModel("Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.
     stopTime=1,
     resultFile="ValveOpeningFlowBalancing");
 createPlot(
-    id=2,
+    id=1,
     position={42, 27, 592, 367},
+    y={"y1", "y2"},
     range={0.0, 1, 0.0, 1.0},
     autoscale=false,
     autoerase=true,

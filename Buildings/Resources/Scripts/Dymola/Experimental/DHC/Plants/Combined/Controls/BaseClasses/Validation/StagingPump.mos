@@ -26,7 +26,7 @@ createPlot(
 createPlot(
     id=1,
     subPlot=3,
-    y={"staDet.y1[1]", "staDet.y1[2]", "staDet.y1[3]", "staSim.y1[1]", "staSim.y1[2]", "staSim.y1[3]"},
+    y={"staDet.y1[1]", "staDet.y1[2]", "staDet.y1[3]"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

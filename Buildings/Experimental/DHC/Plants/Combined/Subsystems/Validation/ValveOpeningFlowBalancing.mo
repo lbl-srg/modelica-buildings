@@ -74,10 +74,13 @@ equation
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Subsystems/Validation/ValveOpeningFlowBalancing.mos"
       "Simulate and plot"),
+    experiment(
+      StopTime=1,
+      Tolerance=1e-06),
   Documentation(info="<html>
 <p>
-This model validates the computation of the valve opening that ensures 
-flow balancing proportional to design flow in the case of linear valves 
+This model validates the computation of the valve opening that ensures
+flow balancing proportional to design flow in the case of linear valves
 configured with a pressure drop varying linearly with the flow rate.
 </p>
 </html>"));
