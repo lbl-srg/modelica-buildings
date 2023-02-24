@@ -4,6 +4,10 @@ model IdealReversibleConnection
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=true);
 
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation (Dialog(tab="Dynamics"));
+
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
     final allowFlowReversal=true,
@@ -44,7 +48,7 @@ model IdealReversibleConnection
         origin={-110,50})));
 protected
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
-    f=60/(2*Modelica.Constants.pi*60),
+    final f=5/(2*Modelica.Constants.pi*riseTime),
     final initType=Modelica.Blocks.Types.Init.InitialState,
     final n=2,
     final normalized=true) "Second order filter to improve numerics"

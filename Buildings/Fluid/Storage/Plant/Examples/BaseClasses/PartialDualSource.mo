@@ -90,7 +90,8 @@ partial model PartialDualSource
         origin={-90,-90})));
   Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.m_flow_nominal)
+    final m_flow_nominal=nom.m_flow_nominal,
+    final riseTime=pumChi2.riseTime)
                    "Ideal reversable connection on supply side"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
 

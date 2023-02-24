@@ -6,7 +6,8 @@ model OpenDecoupled
 
   Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConRet(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.mTan_flow_nominal) "Ideal reversable connection on supply side"
+    final m_flow_nominal=nom.mTan_flow_nominal,
+    final riseTime=pumChi2.riseTime)                  "Ideal reversable connection on supply side"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=-1)
     "Take additive inverse" annotation (Placement(transformation(
