@@ -886,17 +886,23 @@ model AllElectricCWStorage
     annotation (Placement(transformation(extent={{-280,140},{-236,216}})));
 
   // Miscellaneous
-  Modelica.Blocks.Sources.RealExpression sumPHea(y=chiHea.P + heaPum.P)
-    "FIXME: Sum up power drawn from all subsystems"
+  Modelica.Blocks.Sources.RealExpression sumPHea(
+    final y=heaPum.P + sum({
+      if ctl.y1CooChiHea[i] or ctl.y1HeaCooChiHea[i] then 0 else chiHea.chi[i].P
+      for i in 1:nChiHea}))
+    "Sum up power drawn from all subsystems"
     annotation (Placement(transformation(extent={{270,270},{290,290}})));
-  Modelica.Blocks.Sources.RealExpression sumPCoo(y=chi.P + chiHea.P)
-    "FIXME: Sum up power drawn from all subsystems"
+  Modelica.Blocks.Sources.RealExpression sumPCoo(
+    final y=chi.P + sum({
+      if ctl.y1CooChiHea[i] or ctl.y1HeaCooChiHea[i] then chiHea.chi[i].P else 0
+      for i in 1:nChiHea}))
+    "Sum up power drawn from all subsystems"
     annotation (Placement(transformation(extent={{270,230},{290,250}})));
   Modelica.Blocks.Sources.RealExpression sumPFan(y=coo.P)
     "Sum up power drawn from all subsystems"
     annotation (Placement(transformation(extent={{270,190},{290,210}})));
   Modelica.Blocks.Sources.RealExpression sumPPum(
-    final y=pumChiWat.P + pumHeaWat.P + pumConWatCon.P + pumConWatEva.P + heaPum.PPum)
+    final y=pumChiWat.P + pumHeaWat.P + pumConWatCon.P + pumConWatEva.P + pumConWatCoo.P + heaPum.PPum)
     "Sum up power drawn from all subsystems"
     annotation (Placement(transformation(extent={{270,150},{290,170}})));
   Modelica.Blocks.Sources.RealExpression ctlYPumConWatCon(
