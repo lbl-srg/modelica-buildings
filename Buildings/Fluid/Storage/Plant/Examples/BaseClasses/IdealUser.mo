@@ -16,8 +16,9 @@ model IdealUser "Ideal user model"
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium,
-    use_inputFilter=false,
+    use_inputFilter=true,
     final dpValve_nominal=dp_nominal/2,
+    init=Modelica.Blocks.Types.Init.SteadyState,
     final dpFixed_nominal=dp_nominal/2,
     final m_flow_nominal=m_flow_nominal,
     y_start=0) "User control valve"
@@ -93,16 +94,6 @@ model IdealUser "Ideal user model"
     final m_flow_nominal=m_flow_nominal,
     final TSet=T_CHWR_nominal) "Ideal temperature source"
     annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
-protected
-  Buildings.Fluid.BaseClasses.ActuatorFilter fil(
-    f=20/(2*Modelica.Constants.pi*60),
-    final initType=Modelica.Blocks.Types.Init.InitialState,
-    final n=2,
-    final normalized=true) "Second order filter to improve numerics"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,80})));
 equation
   connect(senRelPre.p_rel, dp) annotation (Line(points={{-63,20},{110,20}},
                            color={0,0,127}));
@@ -125,14 +116,12 @@ equation
     annotation (Line(points={{-30,-49},{-30,68}}, color={0,0,127}));
   connect(port_a, val.port_a)
     annotation (Line(points={{-100,60},{0,60}}, color={0,127,255}));
-  connect(mPre_flow, fil.u)
-    annotation (Line(points={{-110,80},{-82,80}}, color={0,0,127}));
-  connect(fil.y, conPI.u_s)
-    annotation (Line(points={{-59,80},{-42,80}}, color={0,0,127}));
   connect(val.port_b, ideTemSou.port_a) annotation (Line(points={{20,60},{40,60},
           {40,-60},{20,-60}}, color={0,127,255}));
   connect(ideTemSou.port_b, senMasFlo.port_a)
     annotation (Line(points={{0,-60},{-20,-60}}, color={0,127,255}));
+  connect(conPI.u_s, mPre_flow)
+    annotation (Line(points={{-42,80},{-110,80}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
