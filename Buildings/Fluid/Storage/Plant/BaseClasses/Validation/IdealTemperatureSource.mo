@@ -56,8 +56,8 @@ equation
 <p>
 This model validates
 <a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource\">
-Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource</a>
-</p>.
+Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
