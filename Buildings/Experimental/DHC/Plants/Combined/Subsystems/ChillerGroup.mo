@@ -11,43 +11,43 @@ model ChillerGroup
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     dat.TEvaLvg_nominal
     "Design (minimum) CHW supply temperature";
-  final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
+  final parameter Modelica.Units.SI.Temperature TConWatLvg_nominal=
     dat.TConLvg_nominal
-    "Design (maximum) HW supply temperature";
+    "Design (maximum) CW leaving temperature";
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatUni_flow_nominal=
     dat.QEva_flow_nominal
-    "Cooling design heat flow rate (each unit, <0)"
+    "Design cooling heat flow rate (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate QHeaWatUni_flow_nominal=
+  final parameter Modelica.Units.SI.HeatFlowRate QConWatUni_flow_nominal=
     -dat.QEva_flow_nominal * (1 + 1 / dat.COP_nominal * dat.etaMotor)
-    "Heating design heat flow rate in direct heat recovery mode (each unit, >0)"
+    "Design CW heat flow rate (each unit, >0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
     nUni * QChiWatUni_flow_nominal
-    "Cooling design heat flow rate (all units, <0)"
+    "Design cooling heat flow rate (all units, <0)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
-    nUni * QHeaWatUni_flow_nominal
-    "Heating design heat flow rate (all units, >0)"
+  final parameter Modelica.Units.SI.HeatFlowRate QConWat_flow_nominal=
+    nUni * QConWatUni_flow_nominal
+    "Design CW heat flow rate (all units, >0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal(
     final min=0)=dat.mEva_flow_nominal
-    "Chiller CHW design mass flow rate (each unit)"
+    "Design chiller CHW mass flow rate (each unit)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWatUni_flow_nominal(
     final min=0)=dat.mCon_flow_nominal
-    "Chiller CW design mass flow rate (each unit)"
+    "Design chiller CW mass flow rate (each unit)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
     final min=0)=nUni * mChiWatUni_flow_nominal
-    "CHW design mass flow rate (all units)"
+    "Design CHW mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal(
     final min=0)=nUni * mConWatUni_flow_nominal
-    "CW design mass flow rate (all units)"
+    "Design CW mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
-    "Chiller evaporator design pressure drop (each unit)"
+    "Design chiller evaporator pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
     "Chiller condenser design pressure drop (each unit)"
@@ -375,7 +375,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,160}})),
     Documentation(info="<html>
 <p>
-This model represents a set of identical water-cooled compression chillers 
+This model represents a set of identical water-cooled compression chillers
 that are piped in parallel.
 Modulating isolation valves are included on condenser and evaporator side.
 </p>
@@ -385,11 +385,11 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-On/Off command <code>y1</code>: 
+On/Off command <code>y1</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-CHW supply temperature setpoint <code>TSet</code>: 
+CHW supply temperature setpoint <code>TSet</code>:
 AO signal common to all units, with a dimensionality of zero
 </li>
 <li>
@@ -401,7 +401,7 @@ Condenser and evaporator leaving temperature <code>T(Con|Eva)Lvg</code>:
 AI signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Condenser and evaporator meass flow rate <code>m(Con|Eva)_flow</code>:
+Condenser and evaporator mass flow rate <code>m(Con|Eva)_flow</code>:
 AI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
@@ -414,8 +414,8 @@ This allows modeling the heat transfer through the condenser and evaporator
 barrel with a single instance of
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
-Hydronics are resolved with mass flow rate multiplier components in 
-conjunction with instances of 
+Hydronics are resolved with mass flow rate multiplier components in
+conjunction with instances of
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleValves\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.MultipleValves</a>
 which represent the parallel network of valves and fixed resistances.

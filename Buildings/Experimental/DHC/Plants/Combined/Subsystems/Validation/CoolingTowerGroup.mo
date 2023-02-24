@@ -126,8 +126,8 @@ This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.CoolingTowerGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.CoolingTowerGroup</a>
 in a configuration with two tower cells.
-The tower cells are switched Off one after the other, and
-the CW supply temperature setpoint is increasing after an initial
+The tower cells are initially enabled and they are disabled one after the other
+as the CW supply temperature setpoint is increasing after an initial
 period where it is fixed at its design value.
 The Start command of the CW pumps is the same signal
 as the one used for the cooling towers.

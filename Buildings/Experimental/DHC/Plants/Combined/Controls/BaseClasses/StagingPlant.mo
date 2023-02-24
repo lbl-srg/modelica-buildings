@@ -567,7 +567,7 @@ that given mode) is active whenever the plant is disabled based on the cooling
 and heating Enable condition (see below) or when the plant is enabled
 and has been staged down due to the efficiency or failsafe conditions.
 The plant stage is given by the couple (cooling stage, heating stage).
-The minimum runtime of each plant stage is set to <i>15</i>&nbsp;min.
+The minimum runtime of each plant stage is set to <i>15&nbsp;</i>min.
 </p>
 <h5>Direct heat recovery mode</h5>
 <p>
@@ -584,8 +584,15 @@ As described in
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeHeatRecoveryChiller</a>
 the HRC with the highest index that is not operating operating in cascading
 cooling mode is the next to be switched into direct heat recovery mode.
-For example, considering a plant with two chillers and three HRCs, the following
-plant stages are derived from this logic.
+</p>
+<p>
+For example, considering a plant with two chillers and three HRCs, the table below shows
+the plant stages derived from this logic.
+In this table, the chiller with index <code>#i</code> is denoted <code>CHI#i</code>,
+the HRC with index <code>#i</code> is denoted <code>HRC#i</code>,
+the units enumerated before (resp. after) the semicolon sign (<code>:</code>) operate
+in cooling (resp. heating) mode, the units marked with a star (<code>*</code>) operate
+in direct heat recovery mode.
 </p>
 <table border=\\\"1\\\" summary=\\\"Explanation of the enumeration\\\">
 <tr><th>Heating stage &darr; Cooling stage &rarr;</th>
@@ -610,23 +617,23 @@ plant stages are derived from this logic.
 <td>CHI1 &amp; CHI2:<br/>HRC1</td>
 <td>CHI1 &amp; CHI2 &amp; HRC3:<br/>HRC1</td>
 <td>CHI1 &amp; CHI2 &amp; HRC3 &amp; HRC2:<br/>HRC1</td>
-<td>CHI1 &amp; CHI2 &amp; HRC3 &amp; HRC2 &amp; HRC1*:<br/>N/A</td>
+<td>CHI1 &amp; CHI2 &amp; HRC3 &amp; HRC2:<br/>HRC1*</td>
 </tr>
 <tr><td>2</td>
 <td>N/A:<br/>HRC1 &amp; HRC2</td>
 <td>CHI1:<br/>HRC1 &amp; HRC2</td>
 <td>CHI1 &amp; CHI2:<br/>HRC1 &amp; HRC2</td>
 <td>CHI1 &amp; CHI2 &amp; HRC3:<br/>HRC1 &amp; HRC2</td>
-<td>CHI1 &amp; CHI2 &amp; HRC3 &amp; HRC2*:<br/>HRC1</td>
-<td>CHI1 &amp; CHI2 &amp; HRC3 &amp; HRC2* &amp; HRC1*:<br/>N/A</td>
+<td>CHI1 &amp; CHI2 &amp; HRC3:<br/>HRC1 &amp; HRC2*</td>
+<td>CHI1 &amp; CHI2 &amp; HRC3:<br/>HRC1* &amp; HRC2*</td>
 </tr>
 <tr><td>3</td>
 <td>N/A:<br/>HRC1 &amp; HRC2 &amp; HRC3</td>
 <td>CHI1:<br/>HRC1 &amp; HRC2 &amp; HRC3</td>
 <td>CHI1 &amp; CHI2:<br/>HRC1 &amp; HRC2 &amp; HRC3</td>
-<td>CHI1 &amp; CHI2 &amp; HRC3*:<br/>HRC1 &amp; HRC2</td>
-<td>CHI1 &amp; CHI2 &amp; HRC3* &amp; HRC2*:<br/>HRC1</td>
-<td>CHI1 &amp; CHI2 &amp; HRC3* &amp; HRC2* &amp; HRC1*:<br/>N/A</td>
+<td>CHI1 &amp; CHI2:<br/>HRC1 &amp; HRC2 &amp; HRC3*</td>
+<td>CHI1 &amp; CHI2:<br/>HRC1 &amp; HRC2* &amp; HRC3*</td>
+<td>CHI1 &amp; CHI2:<br/>HRC1* &amp; HRC2* &amp; HRC3*</td>
 </tr>
 </table>
 <h4>Cooling and heating Enable condition</h4>
@@ -639,7 +646,7 @@ the consumer control valves.
 Based on those signals, the cooling (resp. heating) stage <code>#1</code> is
 activated whenever the cooling (resp. heating) Enable signal switches
 to <code>true</code> and when cooling (resp. heating) has been disabled
-for at least <i>15</i>&nbsp;min.
+for at least <i>15&nbsp;</i>min.
 </p>
 <h4>Operative part load ratio</h4>
 <p>
@@ -657,13 +664,13 @@ A stage up event is initiated if any of the following conditions is true.
 <ul>
 <li>
 Efficiency condition: the operative part load ratio of the current stage
-exceeds the value of the parameter <i>PLRStaTra</i> for <i>15</i>&nbsp;min.
+exceeds the value of the parameter <i>PLRStaTra</i> for <i>15&nbsp;</i>min.
 </li>
 <li>
-Failsafe conditions: the CHW (resp. HW) supply temperature is <i>1</i>&nbsp;&deg;C
+Failsafe conditions: the CHW (resp. HW) supply temperature is <i>1&nbsp;</i>K
 higher (resp. lower) than setpoint for <i>15</i>&nbsp;min, or
-the CHW (resp. HW) differential pressure is <i>1.5E4</i>&nbsp;Pa lower than
-setpoint for <i>15</i>&nbsp;min.
+the CHW (resp. HW) differential pressure is <i>1.5E4&nbsp;</i>Pa lower than
+setpoint for <i>15&nbsp;</i>min.
 </li>
 </ul>
 <p>
@@ -672,7 +679,7 @@ A stage down event is initiated if both of the following conditions are true.
 <ul>
 <li>
 Efficiency condition: the operative part load ratio of the next lower stage
-falls below the value of the parameter <i>PLRStaTra</i> for <i>15</i>&nbsp;min.
+falls below the value of the parameter <i>PLRStaTra</i> for <i>15&nbsp;</i>min.
 </li>
 <li>
 Failsafe conditions: the failsafe stage up conditions are not true.

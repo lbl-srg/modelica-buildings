@@ -118,5 +118,12 @@ equation
     experiment(
       StopTime=30000,
       Tolerance=1e-06),
-    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})),
+    Documentation(info="<html>
+<p>
+This is a validation model for the plant staging logic implemented in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant</a>.
+</p>
+</html>"));
 end StagingPlant;

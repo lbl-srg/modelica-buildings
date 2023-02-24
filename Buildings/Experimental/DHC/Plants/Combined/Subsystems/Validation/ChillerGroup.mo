@@ -28,7 +28,7 @@ model ChillerGroup "Validation of chiller group model"
 
   Fluid.Sources.Boundary_pT retChiWat(
     redeclare final package Medium = MediumChiWat,
-    p=supChiWat.p + chi.dpEva_nominal + chi.dpValveEva_nominal,
+    p=supChiWat.p + chi.dpEva_nominal + chi.valEva.dpValve_nominal,
     T=288.15,
     nPorts=1)
     "Boundary conditions for CHW"
@@ -40,7 +40,7 @@ model ChillerGroup "Validation of chiller group model"
 
   Fluid.Sources.Boundary_pT supConWat(
     redeclare final package Medium = MediumConWat,
-    p=retConWat.p + chi.dpCon_nominal + chi.dpValveCon_nominal,
+    p=retConWat.p + chi.dpCon_nominal + chi.valCon.dpValve_nominal,
     nPorts=1) "Boundary conditions for CW" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -111,8 +111,8 @@ This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerGroup</a>
 in a configuration with two chillers.
-The chillers are switched Off one after the other, and 
-receive an increasing CHW supply temperature setpoint.
+The chillers are initially On and they are switched Off one after the other
+as they receive an increasing CHW supply temperature setpoint.
 </p>
 </html>"));
 end ChillerGroup;

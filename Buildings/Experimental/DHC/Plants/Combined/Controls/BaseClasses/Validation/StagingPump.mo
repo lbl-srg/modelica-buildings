@@ -56,5 +56,12 @@ equation
       StopTime=5000,
       Tolerance=1e-06),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>
+This is a validation model for the pump staging logic implemented in
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump</a>.
+</p>
+</html>"));
 end StagingPump;

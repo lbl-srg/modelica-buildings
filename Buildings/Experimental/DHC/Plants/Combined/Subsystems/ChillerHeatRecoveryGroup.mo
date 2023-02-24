@@ -29,9 +29,9 @@ model ChillerHeatRecoveryGroup
     "Number of units operating at design conditions"
     annotation(Evaluate=true);
   parameter Modelica.Units.SI.Temperature TCasHeaEnt_nominal=298.15
-    "Design value of chiller evaporator entering temperature in cascading heating mode";
+    "Design evaporator entering temperature in cascading heating mode";
   parameter Modelica.Units.SI.Temperature TCasCooEnt_nominal=288.15
-    "Design value of chiller condenser entering temperature in cascading cooling mode";
+    "Design condenser entering temperature in cascading cooling mode";
   final parameter Modelica.Units.SI.Temperature TChiWatSup_nominal=
     dat.TEvaLvg_nominal
     "Design (minimum) CHW supply temperature";
@@ -40,85 +40,85 @@ model ChillerHeatRecoveryGroup
     "Design (maximum) HW supply temperature";
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatUni_flow_nominal=
     dat.QEva_flow_nominal
-    "Cooling design heat flow rate (each unit, <0)"
+    "Design cooling heat flow rate (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatUni_flow_nominal=
     -dat.QEva_flow_nominal * (1 + 1 / dat.COP_nominal * dat.etaMotor)
-    "Heating design heat flow rate in direct heat recovery mode (each unit, >0)"
+    "Design heating heat flow rate in direct heat recovery mode (each unit, >0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.Efficiency COPCasHea_nominal(fixed=false)
     "Coefficient of performance in cascading heating mode";
   final parameter Modelica.Units.SI.Efficiency COPCasCoo_nominal(fixed=false)
     "Coefficient of performance in cascading cooling mode";
   final parameter Modelica.Units.SI.Temperature TCasHeaLvg_nominal(fixed=false)
-    "Design value of chiller evaporator leaving temperature in cascading heating mode";
+    "Design value of evaporator leaving temperature in cascading heating mode";
   final parameter Modelica.Units.SI.Temperature TCasCooLvg_nominal(fixed=false)
-    "Design value of chiller condenser leaving temperature in cascading cooling mode";
-  final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasHeaUni_flow_nominal(
+    "Design value of condenser leaving temperature in cascading cooling mode";
+  final parameter Modelica.Units.SI.HeatFlowRate QEvaCasHeaUni_flow_nominal(
     fixed=false,
     start=QChiWatUni_flow_nominal * (1 + 2E-2 * (TCasHeaEnt_nominal -
       (dat.TEvaLvg_nominal - QChiWatUni_flow_nominal / mChiWatUni_flow_nominal / cpCas))))
-    "Cooling design heat flow rate in cascading heating mode (each unit, <0)"
+    "Design evaporator heat flow rate in cascading heating mode (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCooUni_flow_nominal(
     fixed=false,
     start=QChiWatUni_flow_nominal * (1 - 2E-2 * (TCasCooEnt_nominal -
       (dat.TConLvg_nominal - QHeaWatUni_flow_nominal / mConWatUni_flow_nominal / cpCas))))
-    "Cooling design heat flow rate in cascading cooling mode (each unit, <0)"
+    "Design cooling heat flow rate in cascading cooling mode (each unit, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasHeaUni_flow_nominal=
-    -QChiWatCasHeaUni_flow_nominal * (1 + 1 / COPCasHea_nominal * dat.etaMotor)
-    "Heating design heat flow rate in cascading heating mode (each unit, >0)"
+    -QEvaCasHeaUni_flow_nominal * (1 + 1 / COPCasHea_nominal * dat.etaMotor)
+    "Design heating heat flow rate in cascading heating mode (each unit, >0)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasCooUni_flow_nominal=
+  final parameter Modelica.Units.SI.HeatFlowRate QConCasCooUni_flow_nominal=
     -QChiWatCasCooUni_flow_nominal * (1 + 1 / COPCasCoo_nominal * dat.etaMotor)
-    "Heating design heat flow rate in cascading cooling mode (each unit, >0)"
+    "Design condenser heat flow rate in cascading cooling mode (each unit, >0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
     nUni * QChiWatUni_flow_nominal
-    "Cooling design heat flow rate (all units, <0)"
+    "Design cooling heat flow rate (all units, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
     nUni * QHeaWatUni_flow_nominal
-    "Heating design heat flow rate (all units, >0)"
+    "Design heating heat flow rate (all units, >0)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasHea_flow_nominal=
-    nUni * QChiWatCasHeaUni_flow_nominal
-    "Cooling design heat flow rate in cascading heating mode (all units, <0)"
+  final parameter Modelica.Units.SI.HeatFlowRate QEvaCasHea_flow_nominal=
+    nUni * QEvaCasHeaUni_flow_nominal
+    "Design evaporator heat flow rate in cascading heating mode (all units, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal=
     nUni * QChiWatCasCooUni_flow_nominal
-    "Cooling design heat flow rate in cascading cooling mode (all units, <0)"
+    "Design cooling heat flow rate in cascading cooling mode (all units, <0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasHea_flow_nominal=
     nUni * QHeaWatCasHeaUni_flow_nominal
-    "Heating design heat flow rate in cascading heating mode (all units, >0)"
+    "Design heating heat flow rate in cascading heating mode (all units, >0)"
     annotation(Dialog(group="Nominal condition"));
-  final parameter Modelica.Units.SI.HeatFlowRate QHeaWatCasCoo_flow_nominal=
-    nUni * QHeaWatCasCooUni_flow_nominal
-    "Heating design heat flow rate in cascading cooling mode (all units, >0)"
+  final parameter Modelica.Units.SI.HeatFlowRate QConCasCoo_flow_nominal=
+    nUni * QConCasCooUni_flow_nominal
+    "Design condenser heat flow rate in cascading cooling mode (all units, >0)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatUni_flow_nominal(
     final min=0)=dat.mEva_flow_nominal
-    "Chiller CHW design mass flow rate (each unit)"
+    "Design CHW mass flow rate (each unit)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWatUni_flow_nominal(
     final min=0)=dat.mCon_flow_nominal
-    "Chiller CW design mass flow rate (each unit)"
+    "Design CW mass flow rate (each unit)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
     final min=0)=nUni * mChiWatUni_flow_nominal
-    "CHW design mass flow rate (all units)"
+    "Design CHW mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mConWat_flow_nominal(
     final min=0)=nUni * mConWatUni_flow_nominal
-    "CW design mass flow rate (all units)"
+    "Design CW mass flow rate (all units)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpEva_nominal(displayUnit="Pa")
-    "Chiller evaporator design pressure drop (each unit)"
+    "Design evaporator pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpCon_nominal(displayUnit="Pa")
-    "Chiller condenser design pressure drop (each unit)"
+    "Design condenser pressure drop (each unit)"
     annotation(Dialog(group="Nominal condition"));
 
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic dat
@@ -446,10 +446,10 @@ protected
     "Heat capacity of source medium in cascading mode";
 initial equation
   TCasHeaLvg_nominal = TCasHeaEnt_nominal +
-    QChiWatCasHeaUni_flow_nominal / cpCas / mConWatUni_flow_nominal;
+    QEvaCasHeaUni_flow_nominal / cpCas / mConWatUni_flow_nominal;
   TCasCooLvg_nominal = TCasCooEnt_nominal +
-    QHeaWatCasCooUni_flow_nominal / cpCas / mConWatUni_flow_nominal;
-  QChiWatCasHeaUni_flow_nominal = dat.QEva_flow_nominal *
+    QConCasCooUni_flow_nominal / cpCas / mConWatUni_flow_nominal;
+  QEvaCasHeaUni_flow_nominal = dat.QEva_flow_nominal *
     Buildings.Utilities.Math.Functions.biquadratic(
       a=dat.capFunT,
       x1=Modelica.Units.Conversions.to_degC(TCasHeaLvg_nominal),
@@ -577,14 +577,14 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
     Documentation(info="<html>
 <p>
-This model represents a set of identical heat recovery chillers 
+This model represents a set of identical heat recovery chillers
 that are piped in parallel.
 Modulating isolation valves and modulating switchover valves are included
 on condenser and evaporator side.
 The switchover valves allow indexing the condenser (resp. the evaporator)
-either to the CWC loop or to the HW loop (resp. to the CWE loop or to 
+either to the CWC loop or to the HW loop (resp. to the CWE loop or to
 the CHW loop). Modulating valves are used to allow for sequences of
-operation that bleed CWE into the HW return flow to modulate the 
+operation that bleed CWE into the HW return flow to modulate the
 condenser entering temperature.
 </p>
 <h4>Control points</h4>
@@ -593,7 +593,7 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-On/Off command <code>y1</code>: 
+On/Off command <code>y1</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
@@ -601,7 +601,7 @@ Cooling switchover command <code>y1Coo</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Supply temperature setpoint <code>TSet</code>: 
+Supply temperature setpoint <code>TSet</code>:
 AO signal dedicated to each unit, with a dimensionality of one</br>
 The signal corresponds either to the HW supply temperature setpoint when
 the unit operates in heating mode, or to the CHW supply temperature setpoint when
@@ -624,7 +624,7 @@ Condenser entering temperature <code>TConEnt</code>:
 AI signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Condenser and evaporator meass flow rate <code>m(Con|Eva)_flow</code>:
+Condenser and evaporator mass flow rate <code>m(Con|Eva)_flow</code>:
 AI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
@@ -645,9 +645,9 @@ two additional parameters <code>TCasEntCoo_nominal</code> and
 <i>entering</i> temperature of the third fluid circuit when
 the HRC is operating in cooling mode and in heating mode,
 respectively.
-In cooling mode the third fluid circuit is connected to the 
+In cooling mode the third fluid circuit is connected to the
 condenser barrel.
-In heating mode, the third fluid circuit is connected to the 
+In heating mode, the third fluid circuit is connected to the
 evaporator barrel.
 The parameters <code>TCasEnt*_nominal</code> are then used to assess the
 design capacity in heating and cooling mode, respectively.

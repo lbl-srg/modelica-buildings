@@ -270,7 +270,7 @@ equation
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Documentation(info="<html>
 <p>
-This model represents a set of identical air-to-water heap pumps
+This model represents a set of identical air-to-water heat pumps
 that are piped in parallel.
 Dedicated constant-speed condenser pumps are included.
 </p>
@@ -280,7 +280,7 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-On/Off command <code>y1</code>: 
+On/Off command <code>y1</code>:
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
@@ -288,7 +288,7 @@ Supply temperature setpoint <code>TSet</code>:
 AO signal common to all units, with a dimensionality of zero
 </li>
 <li>
-CW supply temperature <code>TConWatSup</code>: 
+CW supply temperature <code>TConWatSup</code>:
 AI signal common to all units, with a dimensionality of zero
 </li>
 </ul>

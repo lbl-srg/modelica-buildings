@@ -454,7 +454,7 @@ CW loop operating mode selection, see description in
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ModeCondenserLoop</a>.
 </li>
 <li>
-TES tanck cycle flag selection, see description in
+TES tank cycle flag selection, see description in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.TankCycle\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.TankCycle</a>.
 </li>
@@ -470,7 +470,7 @@ Cooling tower pumps and cooling tower fans control, see description in
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.CoolingTowerLoop</a>.
 </li>
 <li>
-Air-to-water heat pump contol, see below.
+Air-to-water heat pump control, see below.
 </li>
 <li>
 CHW, HW, CWE and CWC pumps, see below.
@@ -478,37 +478,38 @@ CHW, HW, CWE and CWC pumps, see below.
 </ul>
 <h4>Heat pumps</h4>
 <p>
-Heat pumps are enabled whenever Charge Assist mode is active and any 
+Heat pumps are enabled whenever Charge Assist mode is active and any
 CWC pump is enabled. Heat pumps are disabled otherwise.
 </p>
 <p>
-The supply temperature setpoint is <i>3&nbsp;</i>K plus the highest 
+The supply temperature setpoint is <i>3&nbsp;</i>K plus the highest
 setpoint of the active tank cycle.
-Note that no limitation of the setpoint value per manufacturer specification
+Note that no limitation of the setpoint value per HP manufacturer specification
 is taken into account.
 </p>
 <h4>CHW, HW, CWE and CWC pumps</h4>
 <p>
-The lead pump is enabled based on the logic described in 
+The lead pump is enabled based on the logic described in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ValveCondenserEvaporator\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.ValveCondenserEvaporator</a>.
 </p>
 <p>
-Pumps are staged based on the logic described in 
+Pumps are staged based on the logic described in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump</a>.
 </p>
 <p>
-When the pump is enabled, the pump speed is modulated by a PI controller tracking
+When any pump is enabled, the pump speed is modulated by a PI controller tracking
 a differential pressure setpoint at the boundaries of the circuit served by the pump.
 The control loop is biased to launch from <i>100&nbsp;%</i> (maximum speed).
+All pumps within the same group receive the same speed command signal.
 </p>
 <p>
 The differential pressure setpoint for the CHW and HW loops is provided as a control input.
 Ideally, a reset logic based on consumer valve requests should be implemented to adapt
 those setpoints to the demand.
-For the sake of simplicity, the differential pressure setpoint for the CWC and CWE loops 
-is a fixed parameter.
+For the sake of simplicity, the differential pressure setpoint for the CWC and CWE loops
+is a fixed parameter (design pressure drop).
 </p>
 </html>"));
 end Controller;

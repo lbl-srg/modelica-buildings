@@ -54,7 +54,6 @@ block ValveCondenserEvaporator
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-
   parameter Real k(min=0)=0.02
     "Gain of controller"
     annotation (Dialog(group="Control parameters"));
@@ -70,7 +69,6 @@ block ValveCondenserEvaporator
   parameter Real y_neutral=0
     "Value to which the controller output is reset when the controller is disabled"
     annotation (Dialog(group="Control parameters"));
-
   parameter Real yBalEvaChi = if dpEvaChiHea_nominal + dpValEvaChiHea_nominal - dpEvaChi_nominal <= 0
     then 1 else (dpValEvaChi_nominal / (dpEvaChiHea_nominal + dpValEvaChiHea_nominal - dpEvaChi_nominal))^0.5
     "Chiller evaporator isolation valve opening for flow balancing with HRC";
@@ -339,7 +337,6 @@ block ValveCondenserEvaporator
     each final y_neutral=y_neutral)
     "Chiller evaporator isolation valve control when HRC in direct HR"
     annotation (Placement(transformation(extent={{-110,390},{-90,410}})));
-
   EnergyTransferStations.Combined.Controls.PIDWithEnable valConChi[nChi](
     each k=k,
     each Ti=Ti,
@@ -1424,7 +1421,7 @@ The loop is biased to launch from <i>100&nbsp;%</i>.
 Each valve is commanded to a fully open or fully closed position depending
 on the valve index and the current operating mode of the HRC (cascading cooling,
 cascading heating or direct heat recovery).
-In addition, the switchover valve indexed to the HRC which is nearest to the
+In addition, the condenser switchover valve indexed to the HRC which is nearest to the
 interconnection with the condenser loop (highest index) and which is operating
 in direct heat recovery mode is modulated with a control loop tracking
 the condenser entering temperature.

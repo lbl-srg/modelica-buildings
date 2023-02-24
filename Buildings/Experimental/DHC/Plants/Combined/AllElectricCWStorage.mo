@@ -32,15 +32,15 @@ model AllElectricCWStorage
       Evaluate=true);
   final parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal(
     final min=0)=datChi.mEva_flow_nominal
-    "Chiller CHW design mass flow rate (each unit)"
+    "Design chiller CHW mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min(
     final min=0)=0.6 * mChiWatChi_flow_nominal
-    "Chiller CHW minimum mass flow rate (each unit)"
+    "Design chiller CHW minimum mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   final parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal(
     final min=0)=datChi.mCon_flow_nominal
-    "Chiller CW design mass flow rate (each unit)"
+    "Design chiller CW mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.PressureDifference dpChiWatSet_max(
     final min=0,
@@ -50,12 +50,12 @@ model AllElectricCWStorage
   parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(
     final min=0,
     displayUnit="Pa")=5E4
-    "Chiller evaporator design pressure drop (each unit)"
+    "Design evaporator pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.PressureDifference dpConChi_nominal(
     final min=0,
     displayUnit="Pa")=5E4
-    "Chiller condenser design pressure drop (each unit)"
+    "Design condenser pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.PressureDifference dpPumChiWat_nominal(
     final min=0,
@@ -80,8 +80,10 @@ model AllElectricCWStorage
     TChiWatSup_nominal - QChiWat_flow_nominal / mChiWat_flow_nominal / cp_default
     "Design (maximum) CHW return temperature"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
+  // Plant capacity computed with HRCs in direct heat recovery mode, see
+  // Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant.
   final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
-    chi.QChiWat_flow_nominal + chiHea.QChiWatCasCoo_flow_nominal
+    chi.QChiWat_flow_nominal + chiHea.QChiWat_flow_nominal
     "Design plant cooling heat flow rate (all units)";
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
     final min=0)=
@@ -106,15 +108,9 @@ model AllElectricCWStorage
     "Number of HW pumps operating at design conditions"
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
-  parameter Modelica.Units.SI.Temperature TCasEvaEnt_nominal=25 + 273.15
-    "Design value of evaporator entering temperature in cascade heating configuration"
-    annotation(Dialog(group="HW loop and heat recovery chillers"));
-  parameter Modelica.Units.SI.Temperature TCasConEnt_nominal=15 + 273.15
-    "Design value of condenser entering temperature in cascade cooling configuration"
-    annotation(Dialog(group="HW loop and heat recovery chillers"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_nominal=
     datChiHea.mEva_flow_nominal
-    "Chiller CHW design mass flow rate (each unit)"
+    "Design chiller CHW mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_min(
     final min=0)=0.6 * mChiWatChiHea_flow_nominal
@@ -171,20 +167,20 @@ model AllElectricCWStorage
   // TCasHeaEnt_nominal computed in second cycle of TES tank.
   final parameter Modelica.Units.SI.Temperature TCasHeaEnt_nominal=
     TTanSet[2, 2]
-    "Design value of chiller evaporator entering temperature in cascading heating mode"
+    "Design evaporator entering temperature in cascading heating mode"
     annotation(Evaluate=true);
-  // TCasCooEnt_nominal computed in heat rejection mode.
+  // TCasCooEnt_nominal computed in Heat Rejection mode.
   final parameter Modelica.Units.SI.Temperature TCasCooEnt_nominal=
-    max(TTanSet) - (TConWatCooRet_nominal - TConWatCooSup_nominal)
-    "Design value of chiller condenser entering temperature in cascading cooling mode"
+    TConWatCooSup_nominal + dTHexCoo_nominal
+    "Design condenser entering temperature in cascading cooling mode"
     annotation(Evaluate=true);
   final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal=
-    chiHea.QHeaWatCasHea_flow_nominal
-    "Heating design heat flow rate (all units)"
+    chiHea.QHeaWat_flow_nominal
+    "Design heating heat flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
     chiHea.mConWat_flow_nominal
-    "HW design mass flow rate (all units)"
+    "Design HW mass flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
 
   // CW loop, TES tank and heat pumps
@@ -231,7 +227,8 @@ model AllElectricCWStorage
     "Design total CW mass flow rate through evaporator barrels (all units)"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Modelica.Units.SI.Volume VTan=
-    QHeaWat_flow_nominal * 2 * 3600 / (max(TTanSet) - min(TTanSet)) / cp_default / rho_default
+    -chiHea.QEvaCasHea_flow_nominal * 3 * 3600 / (max(TTanSet) - min(TTanSet)) /
+    cp_default / rho_default
     "Tank volume"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Modelica.Units.SI.Length hTan = (16 * VTan / Modelica.Constants.pi)^(1/3)
@@ -273,31 +270,31 @@ model AllElectricCWStorage
       Evaluate=true);
   parameter Modelica.Units.SI.MassFlowRate mConWatCoo_flow_nominal(
     final min=0)=mConWatCon_flow_nominal
-    "CT CW design mass flow rate (all units)"
+    "Design CT CW mass flow rate (all units)"
     annotation(Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.PressureDifference dpConWatCooFri_nominal(
     displayUnit="Pa",
     start=1E4,
     final min=0)
-    "CW flow-friction losses through tower and piping only (without elevation head or valve)"
+    "Design CW flow-friction losses through tower and piping only (without elevation head or valve)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.MassFlowRate mAirCooUni_flow_nominal(
     final min=0,
     start=mConWatCoo_flow_nominal / nCoo / 1.45)
-    "CT design air mass flow rate (each unit)"
+    "Design CT air mass flow rate (each unit)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Temperature TWetBulCooEnt_nominal(
     final min=273.15)
-    "CT design entering air wetbulb temperature"
+    "Design CT entering air wetbulb temperature"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Temperature TConWatCooRet_nominal(
     final min=273.15)=TConWatCooSup_nominal +
     abs(QHexCoo_flow_nominal) / mConWatCoo_flow_nominal / cpConWatCoo_default
-    "CT CW design return temperature (tower entering)"
+    "Design CT CW return temperature (tower entering)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Temperature TConWatCooSup_nominal(
     final min=273.15)=TWetBulCooEnt_nominal + 3
-    "CT CW design supply temperature (tower leaving)"
+    "Design CT CW supply temperature (tower leaving)"
     annotation (Dialog(group="Cooling tower loop"));
   parameter Modelica.Units.SI.Power PFanCoo_nominal(
     final min=0,
@@ -321,14 +318,9 @@ model AllElectricCWStorage
     "Design pressure drop through heat exchanger (same on both sides)"
     annotation (Dialog(group="Cooling tower loop"));
 
-  /* Stricly, QHexCoo_flow_nominal should be computed based on chiHea.QHeaWatCasCoo_flow_nominal.
-  However, some Modelica tools reject this as chiHea.QHeaWatCasCoo_flow_nominal depends
-  on QHexCoo_flow_nominal due to the way TCasCooEnt_nominal is computed, which creates a coupled
-  system of equations within the parameter bindings of chiHea.
-  Hence, we use a sizing factor of 20 % above chiHea.QHeaWat_flow_nominal.
-  */
+  // HX sized with all HRCs in cascading cooling mode.
   parameter Modelica.Units.SI.HeatFlowRate QHexCoo_flow_nominal=
-    -(chi.QHeaWat_flow_nominal + 1.2 * chiHea.QHeaWat_flow_nominal)
+    -(chi.QConWat_flow_nominal + chiHea.QConCasCoo_flow_nominal)
     "Design cooling heat flow rate of heat exchanger (<0)"
     annotation (Dialog(group="Cooling tower loop"));
 
@@ -1430,24 +1422,21 @@ equation
           -220,6},{-228,6}}, color={255,0,255}));
 annotation (
   defaultComponentName="pla", Documentation(info="<html>
-FIXME:
-* TCasCooEnt_nominal to be updated to take into account offset for enabling Excess Heat Rejection Mode.
 <p>
-NOTES:
-* TCasHeaEnt_nominal set for last TES tank cycle.
-* No (high) limit considered for tank flow rate.
-* No (low) limit considered for HP supply temperature setpoint.
+This model represents a combined heating and cooling plant where chilled
+water is produced by cooling-only chillers and heat recovery chillers,
+hot water is produced by heat recovery chillers, and a thermal energy storage
+tank is integrated in the condenser water circuit to maximize heat recovery
+(\"Tank Charge/Discharge\" operating mode).
+Cooling towers allow rejecting excess heat from the condenser loop
+(\"Heat Rejection\" operating mode).
+Air-source heat pumps allow injecting heat into the condenser loop
+(\"Charge Assist\" operating mode).
 </p>
 <p>
-Credit \"Discussions with Taylor Engineers\" (Gill, 2021).
+This model has been developed based on the publication by <a href=\"#Gill2021\">B. Gill (2021)</a>
+and further discussions with Taylor Engineers.
 </p>
-<p>
-Tank assumed to be without pressure separation, i.e.,
-the operating level of the tank sets the system pressure.
-The operating level is approximated as equal to the tank height.
-</p>
-
-
 <h4>Abbreviations and naming conventions</h4>
 <p>
 The following abbreviations are used in the documentation of this
@@ -1464,6 +1453,8 @@ model and of its components.<br/>
 <tr><td>CWE</td><td>Condenser water circuit serving HRC evaporator barrel</td></tr>
 <tr><td>DI</td><td>Digital input (Boolean)</td></tr>
 <tr><td>DO</td><td>Digital output (Boolean)</td></tr>
+<tr><td>HP</td><td>Heat pump</td></tr>
+<tr><td>HR</td><td>Heat recovery</td></tr>
 <tr><td>HRC</td><td>Heat recovery chiller</td></tr>
 <tr><td>HW</td><td>Hot water</td></tr>
 <tr><td>VFD</td><td>Variable frequency drive</td></tr>
@@ -1475,7 +1466,7 @@ whereas the abbreviation \"HRC\" is used systematically to refer to heat recover
 </p>
 <p>
 Each HRC can operate under the following modes.
-In <b>cascading heating</b> mode, the condenser barrel is connected to the 
+In <b>cascading heating</b> mode, the condenser barrel is connected to the
 HW loop and the evaporator barrel is connected to the CW loop (CWE circuit).
 The onboard controller controls the HRC to track a HW
 supply temperature setpoint at condenser outlet.
@@ -1490,19 +1481,44 @@ supply temperature setpoint at condenser outlet while the plant supervisory
 controller maintains the CHW supply temperature at setpoint by
 modulating the evaporator flow rate or the condenser entering temperature.
 </p>
-<h4>Sizing</h4>
+<h4>System schematic</h4>
 <p>
-Tank sized to store <i>2</i> hours of peak heating load with
-a &Delta;T of <i>20</i>&nbsp;°C (heels and thermocline neglected).
+The schematic below represents a configuration of the system with two chillers
+and three HRCs.
+The equipment tags correspond to the component names in the plant model.
+For the sake of clarity, control logic that is duplicated between multiple
+units (for instance the chiller isolation valve control) is only illustrated for
+one unit.
+The detailed description of each control function is available in the documentation
+of
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.Controller\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.Controller</a>.
+For an overview of the different operating modes and the design principles of such
+a system, the user may refer to the article by <a href=\"#Gill2021\">B. Gill (2021)</a>.
+</p>
+<p align=\"left\">
+<img alt=\"System schematic\"
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Combined/AllElectricCWStorage.png\"/>
+</p>
+<h4>Details</h4>
+<h5>TES tank</h5>
+<p>
+The tank is assumed to be integrated without pressure separation, i.e.,
+the operating level of the tank sets the system pressure and no pressure
+sustaining valve or discharge pump is included.
+The operating level is approximated as equal to the tank height.
+The tank is sized to store the heat needed to operate the HRCs
+during <i>3&nbsp;</i>h at peak heating load with
+a <i>&Delta;T</i> covering the two temperature cycles specified  with the parameter <code>TTanSet</code>
+(heels and thermocline neglected).
 A default height to diameter ratio of <i>2</i> is also taken into
 account
 (designers tend to favor a height to diameter ratio above <i>1.5</i>
 in order to minimize the volume of the thermocline which is
 considered useless).
+No high limit is considered for the tank mass flow rate.
 </p>
-
-<h4>Details</h4>
-<h5>Minimum flow bypass valve</h5>
+<h5>CHW and HW minimum flow bypass valve</h5>
 <p>
 As per standard practice, the bypass valve is sized for the highest
 chiller minimum flow.
@@ -1522,8 +1538,26 @@ control loop ensures that the valve creates the adequate pressure drop
 and bypass flow, which will simply be reached at a different valve opening
 with the above simplification.
 </p>
-
-
+<h5>Cooling tower circuit</h5>
+<p>
+The design heat flow rate used to size the cooling towers and the intermediary
+heat exchanger corresponds to the heat flow rate rejected by all HRCs operating in
+cascading cooling mode and all chillers operating at design conditions.
+The cooling towers are sized with a default approach of <i>3&nbsp;</i>K to the
+design wetbulb temperature.
+The intermediary heat exchanger is sized with a default approach of <i>2&nbsp;</i>K.
+</p>
+<h5>Chiller and HRC CW bypass valve</h5>
+<p>
+The chillers and HRCs are piped in a parallel arrangement.
+When no unit is operating, heating up the CW loop with the heat pumps
+(Charge Assist mode) requires bypassing the chillers and HRCs.
+This is the purpose of the bypass valve represented on the schematic.
+However, this valve is currently not included in the model for simplification.
+This means that the model can only be run for a short period of time
+(corresponding to the thermal energy available in the TES tank)
+with heating loads and no concomitant cooling loads.
+</p>
 <h4>References</h4>
 <p>
 <a name=\"Gill2021\"/>

@@ -43,8 +43,8 @@ by comparing an instance of that model with two instances of
 <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
 Buildings.Fluid.Movers.FlowControlled_dp</a>
 connected in parallel.
-The two pumps are commanded On one after the other, and receive
-an increasing differential pressure setpoint while working
+The two pumps are commanded On one after the other as they receive
+an increasing differential pressure setpoint and work
 against a two-way modulating valve that gets progressively opened.
 </p>
 </html>"));

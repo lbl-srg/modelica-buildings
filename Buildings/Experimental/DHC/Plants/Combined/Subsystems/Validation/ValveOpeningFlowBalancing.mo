@@ -76,10 +76,9 @@ equation
       "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model validates the computation of the valve opening
-that ensures flow balancing proportional to design flow in
-the case of linear valves configured with
-a pressure drop varying linearly with the flow rate.
+This model validates the computation of the valve opening that ensures 
+flow balancing proportional to design flow in the case of linear valves 
+configured with a pressure drop varying linearly with the flow rate.
 </p>
 </html>"));
 end ValveOpeningFlowBalancing;

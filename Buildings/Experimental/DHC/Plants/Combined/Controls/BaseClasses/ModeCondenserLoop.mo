@@ -129,7 +129,7 @@ block ModeCondenserLoop
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant modTan(
     final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.tankCharge)
-    "Tank charge or discharge mode"
+    "Tank Charge/Discharge mode"
     annotation (Placement(transformation(extent={{90,50},{110,70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant modRej(
     final k=Buildings.Experimental.DHC.Plants.Combined.Controls.ModeCondenserLoop.heatRejection)
@@ -357,7 +357,7 @@ temperature setpoint minus <i>2&nbsp;</i>K for <i>5&nbsp;</i>min.
 The mode is disabled whenever there is reverse flow through the cooling
 heat exchanger for <i>1&nbsp;</i>min.
 </p>
-<h5>Tank Charge or Discharge</h5>
+<h5>Tank Charge/Discharge</h5>
 <p>
 The mode is enabled whenever neither Charge Assist nor Heat Rejection mode is enabled.
 </p>

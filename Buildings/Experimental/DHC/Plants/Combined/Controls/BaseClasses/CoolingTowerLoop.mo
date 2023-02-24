@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block CoolingTowerLoop "Cooling tower loop control"
 
   parameter Integer nCoo(final min=1, start=1)
@@ -180,12 +180,12 @@ block CoolingTowerLoop "Cooling tower loop control"
         dTHexCoo_nominal) "Add HX approach"
     annotation (Placement(transformation(extent={{-40,-210},{-20,-190}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlPum1(
-    k=0.1,
+    k=0.01,
     Ti=60,
     final reverseActing=false) "Pump control loop #1"
     annotation (Placement(transformation(extent={{-10,-210},{10,-190}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlPum2(
-    k=0.1,
+    k=0.01,
     Ti=60,
     final reverseActing=false)
                               "Pump control loop #1"

@@ -25,5 +25,12 @@ annotation (
       "Simulate and plot"),
     experiment(
       StopTime=1000,
-      Tolerance=1e-06));
+      Tolerance=1e-06),
+    Documentation(info="<html>
+<p>
+This is a validation model for the block
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StageIndex\">
+Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StageIndex</a>.
+</p>
+</html>"));
 end StageIndex;

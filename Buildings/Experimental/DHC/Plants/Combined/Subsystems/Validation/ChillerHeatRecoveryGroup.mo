@@ -464,8 +464,6 @@ This model validates
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup</a>
 in a configuration with two HRCs.
-The HRCs are switched Off one after the other, and
-receive an increasing CHW supply temperature setpoint.
 </p>
 </html>"));
 end ChillerHeatRecoveryGroup;
