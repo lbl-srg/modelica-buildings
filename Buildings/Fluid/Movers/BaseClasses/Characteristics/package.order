@@ -1,7 +1,10 @@
 efficiency
+efficiency_yMot
+motorEfficiencyCurve
 power
 pressure
 efficiencyParameters
+efficiencyParameters_yMot
 flowParameters
 flowParametersInternal
 powerParameters

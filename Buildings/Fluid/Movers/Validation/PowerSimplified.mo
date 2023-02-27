@@ -8,7 +8,8 @@ model PowerSimplified
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=3
     "Nominal mass flow rate";
 
-  parameter Data.Pumps.Wilo.Stratos30slash1to8 per "Pump performance data"
+  parameter Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per
+    "Pump performance data"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
 
   Buildings.Fluid.Movers.SpeedControlled_Nrpm pump_Nrpm(
@@ -20,22 +21,25 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Fluid.Movers.FlowControlled_dp pump_dp(
     redeclare package Medium = Medium,
-    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      use_powerCharacteristic=false,
-      hydraulicEfficiency(V_flow={0}, eta={0.3577})),
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+      efficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with pressure rise as control signal"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow pump_m_flow(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    redeclare Data.Pumps.Wilo.Stratos30slash1to8 per(
+    redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8 per(
       pressure(V_flow={0,0}, dp={0,0}),
-      use_powerCharacteristic=false,
-      hydraulicEfficiency(V_flow={0}, eta={0.3577})),
+      etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate,
+      etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate,
+      efficiency(V_flow={0}, eta={0.3577})),
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     "Pump with mass flow rate as control signal"
@@ -71,13 +75,13 @@ model PowerSimplified
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 equation
   connect(bou.ports[1], pump_Nrpm.port_a) annotation (Line(
-      points={{-82,22.6667},{-82,60},{-60,60}},
+      points={{-82,18.6667},{-82,60},{-60,60}},
       color={0,127,255}));
   connect(pump_dp.port_a, bou.ports[2]) annotation (Line(
       points={{-60,20},{-82,20}},
       color={0,127,255}));
   connect(pump_m_flow.port_a, bou.ports[3]) annotation (Line(
-      points={{-60,-20},{-82,-20},{-82,17.3333}},
+      points={{-60,-20},{-82,-20},{-82,21.3333}},
       color={0,127,255}));
   connect(pump_Nrpm.port_b, res[1].port_a) annotation (Line(
       points={{-40,60},{0,60},{0,20},{20,20}},
@@ -89,7 +93,7 @@ equation
       points={{-40,-20},{0,-20},{0,20},{20,20}},
       color={0,127,255}));
   connect(sink.ports[1:3], res.port_b) annotation (Line(
-      points={{80,17.3333},{60,17.3333},{60,20},{40,20}},
+      points={{80,21.3333},{60,21.3333},{60,20},{40,20}},
       color={0,127,255}));
   connect(ramp.y, pump_Nrpm.Nrpm) annotation (Line(
       points={{-59,80},{-50,80},{-50,72}},
@@ -146,6 +150,15 @@ the nominal speed <i>N<sub>nominal</sub></i>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2022, by Hongxiang Fu:<br/>
+Refactored the model by replacing <code>not use_powerCharacteristic</code>
+with the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 October 15, 2021, by Hongxiang Fu:<br/>
 Fixed the image in the documentation which was cut off
