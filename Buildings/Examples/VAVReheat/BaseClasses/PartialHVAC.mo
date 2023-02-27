@@ -449,6 +449,7 @@ partial model PartialHVAC
 
   Fluid.FixedResistances.Junction splRetOut(
     redeclare package Medium = MediumA,
+    tau=15,
     m_flow_nominal=mAir_flow_nominal*{1,1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
