@@ -219,8 +219,8 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
-    <td valign=\"top\">Package that contains models for reduced building physics of thermal zones 
-                       based on a thermal network consisting of five resistances and one capacitance. 
+    <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
+                       based on a thermal network consisting of five resistances and one capacity.
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
     </tr>
@@ -612,8 +612,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
-
-
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
@@ -626,6 +624,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        This change is supported in the conversion script.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+    </td>
+    <td valign=\"top\">Changed control that enables the heating system.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
