@@ -155,8 +155,7 @@ for details regarding the valve implementation.
 February 3, 2023, by Michael Wetter:<br/>
 Removed start value for <code>dp</code>.<br/>
 This is for
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3231\">
-https://github.com/lbl-srg/modelica-buildings/issues/3231</a>.
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3231\">Buildings, #3231</a>.
 </li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
