@@ -47,7 +47,7 @@ model StagingPlant "Validation of plant staging block"
         0.1,1; 30,0,0],
     timeScale=1000) "Source signal"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1(k=true)
+  Modelica.Blocks.Sources.BooleanExpression u1(y=time > 0)
     "Enable signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatSupSet(k=7 + 273.15)
@@ -72,10 +72,10 @@ model StagingPlant "Validation of plant staging block"
     "Source signal"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation
-  connect(u1.y, staChi.u1Coo) annotation (Line(points={{-78,80},{60,80},{60,
+  connect(u1.y, staChi.u1Coo) annotation (Line(points={{-79,80},{60,80},{60,
           8.875},{78,8.875}},
                color={255,0,255}));
-  connect(u1.y, staChi.u1Hea) annotation (Line(points={{-78,80},{60,80},{60,
+  connect(u1.y, staChi.u1Hea) annotation (Line(points={{-79,80},{60,80},{60,
           7.625},{78,7.625}},
                color={255,0,255}));
   connect(TChiWatSupSet.y, staChi.TChiWatSupSet) annotation (Line(points={{-38,-20},
