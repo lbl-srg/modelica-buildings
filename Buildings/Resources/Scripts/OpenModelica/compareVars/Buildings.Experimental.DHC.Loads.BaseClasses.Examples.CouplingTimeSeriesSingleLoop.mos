@@ -1,7 +1,7 @@
 compareVars :=
   {
     "buiCoo.maxTSet.y",
-    "buiCoo.minTSet.y",
+    "buiHea.minTSet.y",
     "buiCoo.terUniCoo.TLoaODE.TAir",
     "buiHea.terUniHea.TLoaODE.TAir",
     "supChiWat.T_in",

@@ -25,11 +25,11 @@ model CheckValve "Check valve that avoids flow reversal"
     if dpFixed_nominal > Modelica.Constants.eps then
       m_flow_nominal/sqrt(dpFixed_nominal)
     else 0
-    "Flow coefficient of fixed resistance that may be in series with valve, 
+    "Flow coefficient of fixed resistance that may be in series with valve,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
   Real k(min=Modelica.Constants.small)
-    "Flow coefficient of valve and pipe in series in allowed/forward direction, 
+    "Flow coefficient of valve and pipe in series in allowed/forward direction,
     k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 
 protected
@@ -42,7 +42,7 @@ protected
 
 initial equation
   assert(dpFixed_nominal > -Modelica.Constants.eps,
-    "In " + getInstanceName() + ": We require dpFixed_nominal >= 0. 
+    "In " + getInstanceName() + ": We require dpFixed_nominal >= 0.
     Received dpFixed_nominal = " + String(dpFixed_nominal) + " Pa.");
   assert(l > -Modelica.Constants.eps,
     "In " + getInstanceName() + ": We require l >= 0. Received l = " + String(l));
@@ -80,15 +80,15 @@ equation
         Line(
           points={{-100,0},{-70,0}},
           color={0,128,255},
-          lineThickness=0.5),
+          thickness=0.5),
         Line(
           points={{0,70},{-70,0}},
           color={0,128,255},
-          lineThickness=0.5),
+          thickness=0.5),
         Line(
           points={{0,-70},{-70,0}},
           color={0,128,255},
-          lineThickness=0.5),
+          thickness=0.5),
         Ellipse(
           extent={{-40,-55},{70,55}},
           lineColor={0,128,255},
@@ -98,7 +98,7 @@ equation
         Line(
           points={{70,0},{100,0}},
           color={0,128,255},
-          lineThickness=0.5)}),
+          thickness=0.5)}),
 defaultComponentName="cheVal",
 Documentation(info="<html>
 <p>
@@ -129,11 +129,11 @@ For larger pressure drops, the pressure drop is a quadratic function of the flow
 </p>
 <h4>Typical use and important parameters</h4>
 <p>
-The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code> 
-determine the flow coefficient of the check valve when it is fully opened. 
+The parameters <code>m_flow_nominal</code> and <code>dpValve_nominal</code>
+determine the flow coefficient of the check valve when it is fully opened.
 A typical value for a nominal flow rate of <i>1</i> m/s is
 <code>dpValve_nominal = 3400 Pa</code>.
-The leakage ratio <code>l</code> determines the minimum flow coefficient, 
+The leakage ratio <code>l</code> determines the minimum flow coefficient,
 for negative pressure differences.
 The parameter <code>dpFixed_nominal</code> allows to include a series
 pressure drop with a fixed flow coefficient into the model.
@@ -155,6 +155,10 @@ by default.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Michael Wetter:<br/>
+Corrected grahpical annotation.
+</li>
 <li>
 September 16, 2019, by Kristoff Six and Filip Jorissen:<br/>
 Implementation of a hydraulic check valve. This is for

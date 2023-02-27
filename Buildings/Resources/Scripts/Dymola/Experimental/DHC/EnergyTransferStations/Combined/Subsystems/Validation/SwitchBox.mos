@@ -1,11 +1,9 @@
-removePlots(false);
 simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.Validation.SwitchBox",
     method="cvode",
     tolerance=1e-6,
     startTime=0,
     stopTime=1000,
     resultFile="SwitchBox");
-Advanced.FilenameInLegend = true;
 createPlot(
     id=1,
     position={7, 11, 1004, 1016}, y={"pum1.m_flow_actual", "pum2.m_flow_actual", "senMasFlo.m_flow"},

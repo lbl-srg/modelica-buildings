@@ -275,7 +275,7 @@ The generator heat input ratio is
 genHIR = D<sub>1</sub> + D<sub>2</sub>PLR+D<sub>3</sub>PLR<sup>2</sup>+D<sub>4</sub>PLR<sup>3</sup>.
 </p>
 <p>
-Two additional curves modifiy the heat input requirement based on the condenser inlet water temperature
+Two additional curves modify the heat input requirement based on the condenser inlet water temperature
 and the evaporator outlet water temperature. Specifically,
 the generator heat modifier based on the condenser inlet water temperature is
 <p align=\"center\" style=\"font-style:italic;\">

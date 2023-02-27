@@ -4,7 +4,9 @@ function regNonZeroPower
   extends Modelica.Icons.Function;
 
  input Real x "Abscissa value";
- input Real n "Exponent";
+ input Real n(
+   min=0.000001,
+   max=1.999999) "Exponent";
  input Real delta = 0.01 "Abscissa value where transition occurs";
  output Real y "Function value";
 protected
@@ -29,18 +31,18 @@ algorithm
    a3 := (yPP_d - 12 * a1 * delta2)/2;
    a5 := (y_d - delta2 * (a3 + delta2 * a1));
    y := a5 + x2 * (a3 + x2 * a1);
-   assert(a5>0, "Delta is too small for this exponent.");
+   assert(a5 > 0 and 0 < n and n < 2, "Delta is too small for this exponent or n is outside (0, 2).");
   end if;
   annotation (
     Documentation(info="<html>
-
-Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i>
+<p>
+Function that approximates <i>y=|x|<sup>n</sup></i> where <i>0 &lt; n &lt; 2</i>
 so that
+</p>
 <ul>
 <li><i>y(0)</i> is not equal to zero.</li>
 <li><i>dy/dx</i> is bounded and continuous everywhere.</li>
 </ul>
-
 <p>
 This function replaces <i>y=|x|<sup>n</sup></i> in the interval
 <i>-&delta;...+&delta;</i> by a 4-th order polynomial that has the same
@@ -51,7 +53,7 @@ A typical use of this function is to replace the
 function for the convective heat transfer
 coefficient for forced or free convection that is of the form
 <i>h=c |dT|<sup>n</sup></i> for some constant <i>c</i> and exponent
-<i>0 &le; n &le; 1</i>.
+<i>0 &lt; n &le; 1</i>.
 By using this function, the original function
 that has an infinite derivative near zero and that takes on zero
 at the origin is replaced by a function with a bounded derivative and
@@ -59,9 +61,17 @@ a non-zero value at the origin. Physically,
 the region <i>-&delta;...+&delta;</i> may be interpreted as the region
 where heat conduction dominates convection in the boundary layer.
 </p>
+<p>
 See the package <code>Examples</code> for the graph.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 2, 2022, by Michael Wetter:<br/>
+Set minimum and maximum attribute on <code>n</code>, improved assertion and documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3135\">Buildings, #3135</a>.
+</li>
 <li>
 March 30, 2011, by Michael Wetter:<br/>
 Added <code>zeroDerivative</code> keyword.
