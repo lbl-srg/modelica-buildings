@@ -29,6 +29,7 @@ model IntegratedPrimarySecondary
     k=0.4,
     Ti=80,
     numChi=numChi,
+    perPum=perPum,
     addPowerToMedium=false,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
@@ -70,6 +71,7 @@ model IntegratedPrimarySecondary
     k=0.4,
     Ti=80,
     numChi=numChi,
+    perPum=perPum,
     addPowerToMedium=false,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -147,6 +149,10 @@ is reset every 1800s.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Added missing assignment of pump record.
+</li>
 <li>
 May 13, 2021, by Michael Wetter:<br/>
 Changed boundary condition model to prescribed pressure rather than prescribed mass flow rate.

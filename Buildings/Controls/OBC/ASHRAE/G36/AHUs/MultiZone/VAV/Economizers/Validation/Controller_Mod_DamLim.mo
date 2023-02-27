@@ -6,7 +6,7 @@ model Controller_Mod_DamLim
     eco(
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan,
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1A)
     "Multi zone VAV AHU economizer"
@@ -16,10 +16,10 @@ model Controller_Mod_DamLim
     eco1(
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir,
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
     final ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_1B,
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016)
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1)
     "Multi zone VAV AHU economizer"
     annotation (Placement(transformation(extent={{100,-60},{120,-20}})));
 
@@ -114,10 +114,10 @@ equation
   connect(uTSup.y, eco1.uTSup) annotation (Line(points={{-98,-40},{0,-40},{0,
           -41},{98,-41}},
                      color={0,0,127}));
-  connect(supFanSpe.y, eco.uSupFan_actual) annotation (Line(points={{-98,0},{-12,
-          0},{-12,12},{18,12}}, color={0,0,127}));
-  connect(supFanSpe.y, eco1.uSupFan_actual) annotation (Line(points={{-98,0},{-12,
-          0},{-12,-28},{98,-28}}, color={0,0,127}));
+  connect(supFanSpe.y, eco.uSupFan) annotation (Line(points={{-98,0},{-12,0},{-12,
+          12},{18,12}}, color={0,0,127}));
+  connect(supFanSpe.y, eco1.uSupFan) annotation (Line(points={{-98,0},{-12,0},{
+          -12,-28},{98,-28}}, color={0,0,127}));
   connect(dpDam2.y, eco1.dpMinOutDam) annotation (Line(points={{-58,-60},{-32,
           -60},{-32,-38},{98,-38}},
                                color={0,0,127}));

@@ -2,7 +2,7 @@ compareVars :=
   {
     "eco.VOutMinSet_flow_normalized",
     "eco.VOut_flow_normalized",
-    "eco.uSupFan_actual",
+    "eco.uSupFan",
     "eco.uTSup",
     "eco.yOutDam_min",
     "eco.yMinOutDam",
@@ -17,7 +17,7 @@ compareVars :=
     "eco.modRel.yOutDam",
     "eco1.sepDp.dpMinOutDam",
     "eco1.sepDp.minDp.y",
-    "eco1.uSupFan_actual",
+    "eco1.uSupFan",
     "eco1.uTSup",
     "eco1.yOutDam_min",
     "eco1.y1MinOutDam",

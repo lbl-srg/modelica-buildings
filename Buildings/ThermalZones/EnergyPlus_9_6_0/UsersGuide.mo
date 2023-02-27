@@ -249,24 +249,26 @@ temperature, and based on these values, actuates the window shading control
 using an EMS actuator.
 </li>
 <li>
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>
-illustrates how to couple a radiant slab for heating in a configuration in which the
-bottom of the slab is connected to a ground heat transfer model in Modelica.
-</li>
-<li>
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface</a>
 and
 <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom</a>
-are similar to the previous model, but they add a radiant slab for cooling which interfaces
+  illustrate how to couple a radiant slab for heating and cooling which interfaces
 two surfaces in EnergyPlus: The floor that connects the slab to the zone above, and the ceiling
 that connects the slab to the zone below.
 In the first model, cooling is controlled based on the surface temperature, and in the second model, it is controlled
 based on the room temperature.
 </li>
-</ol>
+<li>
+  <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+  Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>
+  illustrates how to couple a radiant slab for heating in a configuration in which the
+  bottom of the slab is connected to a ground heat transfer model in Modelica.
+  Heating is provided with a geothermal heat pump that is connected to a borehole heat exchanger.
+  </li>
+  
+  </ol>
 </html>"));
   end GettingStarted;
 
@@ -500,19 +502,6 @@ the internal wall temperatures.
       Documentation(
         info="<html>
 <h4>Known issues</h4>
-<h5>EnergyPlus warnings</h5>
-<p>
-EnergyPlus may issue a warning such as
-</p>
-<pre>
-Calculated Relative Humidity out of range (PsyRhFnTdbWPb)
-</pre>
-<p>
-Such warnings can be ignored. The humidity balance of EnergyPlus is not used
-because Modelica computes the humidity balance.<br/>
-This will be addressed through
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2220\">issue 2220</a>.
-</p>
 <h5>Signals to time schedules and actuators</h5>
 <p>
 If Modelica overrides a time schedule or an actuator at a time instant that does not
