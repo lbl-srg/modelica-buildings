@@ -81,9 +81,9 @@ public
   InputAbsolutePressure p(
      stateSelect=StateSelect.avoid) "Absolute pressure of medium";
   InputMassFraction[1] Xi(
-    each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
     start=X_default[1:1],
-    nominal={0.01})
+    nominal={0.01},
+    each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
     "Structurally independent mass fractions";
   InputSpecificEnthalpy h "Specific enthalpy of medium";
   Modelica.Units.SI.Density d(

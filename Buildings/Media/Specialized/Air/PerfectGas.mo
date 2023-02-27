@@ -30,13 +30,13 @@ package PerfectGas "Model for air as a perfect gas"
   redeclare replaceable model extends BaseProperties(
     u(nominal=1E4),
     p(stateSelect=StateSelect.avoid),
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
-      start=T_default,
+    T(start=T_default,
+      stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
       nominal=100),
     d(stateSelect=StateSelect.never),
     Xi(
-      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default,
-      nominal={0.01}),
+      nominal={0.01},
+      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
