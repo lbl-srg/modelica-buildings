@@ -111,13 +111,13 @@ block Controller "Controller for dual-duct terminal unit using mixing control wi
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(unit="1")=0.05
+  parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real floHys(unit="m3/s")=0.01
+  parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
-  parameter Real damPosHys(unit="1")=0.05
+  parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
     annotation (Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30

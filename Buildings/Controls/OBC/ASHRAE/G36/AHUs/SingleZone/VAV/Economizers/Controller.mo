@@ -58,7 +58,9 @@ block Controller "Single zone VAV AHU economizer control sequence"
     annotation(Dialog(tab="Advanced", group="Hysteresis",
                       enable = ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                                or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb));
-  parameter Real floHys=0.01
+  parameter Real floHys(
+    final unit="m3/s",
+    final quantity="VolumeFlowRate")=0.01
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
 
