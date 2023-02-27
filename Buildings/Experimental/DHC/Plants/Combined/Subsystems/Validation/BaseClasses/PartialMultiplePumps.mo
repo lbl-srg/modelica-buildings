@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation.BaseClasses;
-partial model MultiplePumps
+partial model PartialMultiplePumps
   "Base class for validating the multiple pumps model"
   extends Modelica.Icons.Example;
 
@@ -194,4 +194,4 @@ for the various multiple-pump models within
 Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 </p>
 </html>"));
-end MultiplePumps;
+end PartialMultiplePumps;

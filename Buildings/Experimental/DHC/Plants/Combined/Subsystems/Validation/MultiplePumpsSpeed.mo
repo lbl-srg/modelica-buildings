@@ -1,7 +1,10 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
 model MultiplePumpsSpeed
   "Validation of multiple pumps model with speed-controlled pump model"
-  extends BaseClasses.MultiplePumps;
+  extends BaseClasses.PartialMultiplePumps(
+    redeclare final Subsystems.MultiplePumpsSpeed pum,
+    redeclare final Fluid.Movers.SpeedControlled_y pum1,
+    redeclare final Fluid.Movers.SpeedControlled_y pum2);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp spe(duration=500)
     "Pump speed signal"

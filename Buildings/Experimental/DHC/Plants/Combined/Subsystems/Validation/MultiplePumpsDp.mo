@@ -1,12 +1,12 @@
 within Buildings.Experimental.DHC.Plants.Combined.Subsystems.Validation;
 model MultiplePumpsDp
   "Validation of multiple pumps model with dp-controlled pump model"
-  extends BaseClasses.MultiplePumps(
-    redeclare Subsystems.MultiplePumpsDp pum,
-    redeclare Buildings.Fluid.Movers.FlowControlled_dp pum1(
+  extends BaseClasses.PartialMultiplePumps(
+    redeclare final Subsystems.MultiplePumpsDp pum,
+    redeclare final Buildings.Fluid.Movers.FlowControlled_dp pum1(
       final m_flow_nominal=mPum_flow_nominal,
       final dp_nominal=dpPum_nominal),
-    redeclare Buildings.Fluid.Movers.FlowControlled_dp pum2(
+    redeclare final Buildings.Fluid.Movers.FlowControlled_dp pum2(
       final m_flow_nominal=mPum_flow_nominal,
       final dp_nominal=dpPum_nominal));
 
