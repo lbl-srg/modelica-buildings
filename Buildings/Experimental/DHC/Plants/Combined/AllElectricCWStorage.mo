@@ -1553,6 +1553,17 @@ The cooling towers are sized with a default approach of <i>3&nbsp;</i>K to the
 design wetbulb temperature.
 The intermediary heat exchanger is sized with a default approach of <i>2&nbsp;</i>K.
 </p>
+<h5>Chiller and HRC performance data</h5>
+<p>
+The chiller performance data should cover the CW temperature levels
+reached when the plant is operating in Heat Rejection mode.
+The parameter <code>TCasConEnt_nominal</code> (set with a final assignment)
+provides the maximum CW supply (condenser entering) temperature in this
+operating mode.
+The HRC performance data should cover the HRC lift envelope,
+that is when the HRC is operating in direct heat recovery mode,
+producing CHW and HW at their setpoint value at full load.
+</p>
 <h5>Chiller and HRC CW bypass valve</h5>
 <p>
 The chillers and HRCs are piped in a parallel arrangement.
