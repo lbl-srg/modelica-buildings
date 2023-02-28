@@ -295,6 +295,8 @@ to <b style=\"color:blue\">existing</b> libraries:
     Added preconfigured versions for the mover models that only require the user
     to provide nominal conditions.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
 </tr>
