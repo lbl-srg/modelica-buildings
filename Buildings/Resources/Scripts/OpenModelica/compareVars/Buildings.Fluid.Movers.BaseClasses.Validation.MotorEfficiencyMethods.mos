@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "eff1.eta",
+    "eff1.etaHyd",
+    "eff1.etaMot",
+    "eff2.eta",
+    "eff2.etaHyd",
+    "eff2.etaMot",
+    "eff3.eta",
+    "eff3.etaHyd",
+    "eff3.etaMot",
+    "eff4.eta",
+    "eff4.etaHyd",
+    "eff4.etaMot"
+  };
