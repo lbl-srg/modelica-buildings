@@ -49,6 +49,10 @@ schematic) is deployed.
 </ul>
 </li>
 </ul>
+<p align=\"center\">
+<img alt=\"DualSource\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/DualSource.png\"/>
+</p>
 <p>
 The plants are controlled as follows:
 </p>
@@ -82,7 +86,7 @@ controlled to maintain the flow rate needed by plant 2.
 </ul>
 <p align=\"center\">
 <img alt=\"DualSource\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/DualSource.png\"/>
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/ControlSignals.png\"/>
 </p>
 </html>"));
 end UsersGuide;
