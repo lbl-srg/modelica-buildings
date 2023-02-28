@@ -367,12 +367,11 @@ block Alarms "Generate alarms of terminal unit with reheat"
     final message="Warning: the valve is leaking.")
     "Level 4 leaking valve alarm"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
-
-  CDL.Logical.TrueDelay                        truDel7(final delayTime=
-        lowFloTim)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
+    final delayTime=lowFloTim)
     "Check if the measured airflow has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-140,250},{-120,270}})));
-  CDL.Logical.And fanHotPlaOn if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Logical.And fanHotPlaOn if have_hotWatCoi
     "True: both the supply fan and the hot water plant are ON"
     annotation (Placement(transformation(extent={{-140,-210},{-120,-190}})));
 equation
@@ -523,7 +522,6 @@ equation
     annotation (Line(points={{122,-150},{138,-150}}, color={255,0,255}));
   connect(booToInt6.y, yLeaValAla)
     annotation (Line(points={{162,-110},{260,-110}}, color={255,127,0}));
-
   connect(greThr.y, truDel7.u)
     annotation (Line(points={{-158,260},{-142,260}}, color={255,0,255}));
   connect(truDel7.y, and1.u1)
