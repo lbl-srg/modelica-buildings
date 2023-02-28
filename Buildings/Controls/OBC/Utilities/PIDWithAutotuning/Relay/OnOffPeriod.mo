@@ -117,11 +117,8 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block processes a relay swtich output signal and calculates</p>
-<ol>
-<li>the length of the On period (when the relay switch signal becomes True);</li>
-<li>the length of the Off period (when the relay switch signal becomes False).</li>
-</ol>
+<p>This block processes a relay swtich output signal and calculates the length of the On period (when the relay switch signal becomes True),
+and the length of the Off period (when the relay switch signal becomes False), respectively.
 <h4>References</h4>
 <p>
 Josefin Berner (2017)
