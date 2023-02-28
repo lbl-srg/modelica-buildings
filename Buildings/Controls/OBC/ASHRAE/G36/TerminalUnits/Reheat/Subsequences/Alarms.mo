@@ -369,7 +369,7 @@ block Alarms "Generate alarms of terminal unit with reheat"
     annotation (Placement(transformation(extent={{140,-160},{160,-140}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
     final delayTime=lowFloTim)
-    "Check if the measured airflow has been less than threshold value for threshold time"
+    "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-140,250},{-120,270}})));
   Buildings.Controls.OBC.CDL.Logical.And fanHotPlaOn if have_hotWatCoi
     "True: both the supply fan and the hot water plant are ON"

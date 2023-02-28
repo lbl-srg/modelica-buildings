@@ -204,14 +204,14 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-200,-130},{-180,-110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=fanOffTim) if have_duaSen
-    "Check if the supply fan has been OFF more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre1(
     final h=floHys) if have_duaSen
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,-70},{-80,-50}})));
   Buildings.Controls.OBC.CDL.Logical.And and5 if have_duaSen
-    "Logical and"
+    "Check if the measured airflow is greater than the threshold and the supply fan is OFF"
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4 if have_duaSen
     "Logical not"
@@ -227,7 +227,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{140,-70},{160,-50}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
     final delayTime=leaFloTim) if have_duaSen
-    "Check if the air flow is above threshold by more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-200},{40,-180}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
     final t=damPosHys,
@@ -261,7 +261,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-200,-360},{-180,-340}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
     final delayTime=fanOffTim) if have_duaSen
-    "Check if the supply fan has been OFF more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-300},{40,-280}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre2(
     final h=floHys)
@@ -269,7 +269,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,-300},{-80,-280}})));
   Buildings.Controls.OBC.CDL.Logical.And and6 if have_duaSen
-    "Logical and"
+    "Check if the measured airflow is greater than the threshold and the supply fan is OFF"
     annotation (Placement(transformation(extent={{-20,-300},{0,-280}})));
   Buildings.Controls.OBC.CDL.Logical.Not not7 if have_duaSen
     "Logical not"
@@ -285,7 +285,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{140,-300},{160,-280}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel5(
     final delayTime=leaFloTim) if have_duaSen
-    "Check if the air flow is above threshold by more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-430},{40,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam1(
     final t=damPosHys,
@@ -322,7 +322,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-80,190},{-60,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and7 if not have_duaSen
-    "Logical and"
+    "Check if the measured airflow is greater than the threshold and the supply fan is OFF"
     annotation (Placement(transformation(extent={{-20,190},{0,210}})));
   Buildings.Controls.OBC.CDL.Logical.Not not9 if not have_duaSen
     "Logical not"
@@ -341,14 +341,14 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
     final delayTime=fanOffTim) if not have_duaSen
-    "Check if the supply fan has been OFF more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{40,190},{60,210}})));
   Buildings.Controls.OBC.CDL.Logical.Not not10 if not have_duaSen
     "Logical not"
     annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
     final delayTime=leaFloTim) if not have_duaSen
-    "Check if the air flow is above threshold by more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla2 if not have_duaSen
     "Check if generating leak damper alarms"
@@ -373,7 +373,7 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel8(
     final delayTime=lowFloTim)
-    "Check if the measured airflow has been less than threshold value for threshold time"
+    "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-120,330},{-100,350}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,340},{-200,340},{-200,

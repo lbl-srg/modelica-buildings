@@ -156,14 +156,14 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{-200,-110},{-180,-90}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=fanOffTim)
-    "Check if the supply fan has been OFF more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre1(
     final h=floHys)
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
-    "Logical and"
+    "Check if the measured airflow is greater than the threshold and the supply fan is OFF"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4
     "Logical not"
@@ -178,7 +178,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{140,-50},{160,-30}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
     final delayTime=leaFloTim)
-    "Check if the flow is above threshold by more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
     final t=damPosHys,
@@ -200,7 +200,7 @@ block Alarms "Generate alarms of cooling only terminal unit"
     annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel4(
     final delayTime=lowFloTim)
-    "Check if the measured airflow has been less than threshold value for threshold time"
+    "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,90},{-200,90},{-200,

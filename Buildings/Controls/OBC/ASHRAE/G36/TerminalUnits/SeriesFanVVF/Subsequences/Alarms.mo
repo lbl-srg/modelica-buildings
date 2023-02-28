@@ -233,14 +233,14 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=fanOffTim)
-    "Check if the supply fan has been OFF more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{0,190},{20,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre1(
     final h=floHys)
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Logical.And and5
-    "Logical and"
+    "Check if the measured airflow is greater than the threshold and the AHU supply fan is OFF"
     annotation (Placement(transformation(extent={{-40,190},{-20,210}})));
   Buildings.Controls.OBC.CDL.Logical.Not not4
     "Logical not"
@@ -255,7 +255,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     annotation (Placement(transformation(extent={{140,190},{160,210}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel3(
     final delayTime=leaFloTim)
-    "Check if the air flow is above threshold by more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloDam(
     final t=damPosHys,
@@ -299,7 +299,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     "Check if the discharge temperature has been less than threshold value for threshold time"
     annotation (Placement(transformation(extent={{-40,-390},{-20,-370}})));
   Buildings.Controls.OBC.CDL.Logical.And and6 if have_hotWatCoi
-    "Discharge temperature has been less than threshold value for sufficient time"
+    "Discharge temperature has been less than threshold and the hot water plant is proven on"
     annotation (Placement(transformation(extent={{-80,-320},{-60,-300}})));
   Buildings.Controls.OBC.CDL.Logical.And and7 if have_hotWatCoi
     "Logical and"
@@ -320,7 +320,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     "Level 2 alarm"
     annotation (Placement(transformation(extent={{80,-280},{100,-260}})));
   Buildings.Controls.OBC.CDL.Logical.And and8 if have_hotWatCoi
-    "Discharge temperature has been less than threshold value for sufficient time"
+    "Discharge temperature has been less than threshold and the hot water plant is proven on"
     annotation (Placement(transformation(extent={{-80,-390},{-60,-370}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt4(
     final integerTrue=3) if have_hotWatCoi
@@ -354,7 +354,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     annotation (Placement(transformation(extent={{200,-380},{220,-360}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
     final delayTime=valCloTim)
-    "Check if valve position is closed for more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold cloVal(
     final t=valPosHys,
@@ -383,7 +383,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     annotation (Placement(transformation(extent={{140,-230},{160,-210}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
     final delayTime=comChaTim)
-    "Check if the fan has been commond on for threshold time"
+    "Check if the terminal fan has been commond on for threshold time"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and11
     "Check if the fan has been commond on for threshold time and fan is still off"
@@ -400,7 +400,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel8(
     final delayTime=comChaTim)
-    "Check if the fan has been commond off for threshold time"
+    "Check if the terminal fan has been commond off for threshold time"
     annotation (Placement(transformation(extent={{-120,-20},{-100,0}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and10
     "Check if the fan has been commond off for threshold time and fan is still on"
@@ -428,7 +428,7 @@ block Alarms "Generate alarms of series fan-powered terminal unit with variable-
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel9(
     final delayTime=lowFloTim)
-    "Check if the measured airflow has been less than threshold value for threshold time"
+    "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-120,320},{-100,340}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,330},{-200,330},{-200,

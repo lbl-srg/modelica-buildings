@@ -176,7 +176,7 @@ block Alarms
     "Check if measured airflow is greater than threshold"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Logical.And and7
-    "Logical and"
+    "Check if the measured airflow is greater than the threshold and the supply fan is OFF"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not9
     "Logical not"
@@ -194,14 +194,14 @@ block Alarms
     annotation (Placement(transformation(extent={{-180,-120},{-160,-100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel6(
     final delayTime=fanOffTim)
-    "Check if the supply fan has been OFF more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
   Buildings.Controls.OBC.CDL.Logical.Not not10
     "Logical not"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel7(
     final delayTime=leaFloTim)
-    "Check if the air flow is above threshold by more than threshold time"
+    "Check if the input has been true for more than threshold time"
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Logical.And3 leaDamAla2
     "Check if generating leak damper alarms"
@@ -222,7 +222,7 @@ block Alarms
     annotation (Placement(transformation(extent={{140,-190},{160,-170}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel2(
     final delayTime=lowFloTim)
-    "Check if the measured airflow has been less than threshold value for threshold time"
+    "Check if the active flow setpoint has been greater than zero for the threshold time"
     annotation (Placement(transformation(extent={{-120,120},{-100,140}})));
 equation
   connect(VActSet_flow, gai.u) annotation (Line(points={{-260,130},{-200,130},{-200,
