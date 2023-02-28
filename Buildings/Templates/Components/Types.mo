@@ -120,6 +120,10 @@ package Types "Package with type definitions"
   type Valve = enumeration(
       None
       "No valve",
+      PumpedCoilThreeWay
+      "Pumped coil with three-way valve",
+      PumpedCoilTwoWay
+      "Pumped coil with two-way valve",
       ThreeWayModulating
       "Three-way modulating valve",
       ThreeWayTwoPosition

@@ -1,6 +1,6 @@
 within Buildings.Templates.Components.Interfaces;
 partial model PartialPumpMultiple
-  "Interface class for models of multiple pumps in parallel"
+  "Interface class for multiple pumps in parallel arrangement"
   extends Buildings.Templates.Components.Interfaces.PartialPump;
 
   replaceable package Medium=Buildings.Media.Water
@@ -18,7 +18,8 @@ partial model PartialPumpMultiple
   parameter Buildings.Templates.Components.Data.PumpMultiple dat(
     final nPum=nPum,
     final typ=typ)
-    "Design and operating parameters";
+    "Design and operating parameters"
+    annotation(__Linkage(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal[nPum](
     each final min=0)=dat.m_flow_nominal
@@ -50,13 +51,13 @@ partial model PartialPumpMultiple
      annotation (Placement(
         transformation(extent={{90,-40},{110,40}}), iconTransformation(extent={{90,-40},
             {110,40}})));
-  annotation (Icon(graphics={
-        Text(
-          extent={{-149,-114},{151,-154}},
-          textColor={0,0,255},
-          textString="%name")}), Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
-This partial class provides a standard interface for multiple pump models.
+This partial class provides a standard interface for models
+of multiple pumps in parallel arrangement.
+Note that the inlet and outlet manifolds are not included
+in this model. This way, the same interface can be used to model
+both headered pumps and dedicated pumps.
 </p>
 </html>", revisions="<html>
 <ul>

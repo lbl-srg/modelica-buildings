@@ -1,5 +1,5 @@
 within Buildings.Templates.Components.Interfaces;
-partial model PartialPumpSingle "Interface class for models of single pump"
+partial model PartialPumpSingle "Interface class for single pump"
   extends Buildings.Templates.Components.Interfaces.PartialPump;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare replaceable package Medium=Buildings.Media.Water,
@@ -8,7 +8,8 @@ partial model PartialPumpSingle "Interface class for models of single pump"
 
   parameter Buildings.Templates.Components.Data.PumpSingle dat(
     final typ=typ)
-    "Design and operating parameters";
+    "Design and operating parameters"
+    annotation(__Linkage(enable=false));
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=0,
@@ -19,7 +20,8 @@ partial model PartialPumpSingle "Interface class for models of single pump"
 
   annotation (Documentation(info="<html>
 <p>
-This partial class provides a standard interface for single pump models.
+This partial class provides a standard interface for 
+single pump models.
 </p>
 </html>", revisions="<html>
 <ul>
