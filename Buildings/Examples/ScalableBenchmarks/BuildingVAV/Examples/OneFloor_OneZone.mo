@@ -139,10 +139,11 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     redeclare each package Medium = MediumA,
     each m_flow_nominal=m_flow_nominal)  "Sensor for return fan flow rate"
     annotation (Placement(transformation(extent={{28,118},{12,134}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet[nFlo](
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fanRet[nFlo](
     redeclare each package Medium = MediumA,
+    each m_flow_nominal=m_flow_nominal,
+    each dp_nominal=1.5*110,
     each tau=60,
-    each per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=1.5*110*{2,0})),
     each energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
       "Return air fan"
     annotation (Placement(transformation(extent={{-10,116},{-30,136}})));
@@ -510,6 +511,12 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 22, 2022, by Hongxiang Fu:<br/>
+Replaced <code>fanRet[]</code> with a preconfigured fan model.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue #2668</a>.
+</li>
 <li>
 June 17, 2022, by Hongxiang Fu:<br/>
 Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
