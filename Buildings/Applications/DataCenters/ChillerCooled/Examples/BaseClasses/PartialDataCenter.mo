@@ -415,7 +415,7 @@ equation
       color={0,0,127}));
   connect(mPum_flow.y, varSpeCon.masFloPum)
     annotation (Line(
-      points={{-199,4},{-170,4}},
+      points={{-199,4},{-194,4},{-194,0},{-170,0}},
       color={0,0,127}));
   connect(senRelPre.port_a, ahu.port_a1)
     annotation (Line(
@@ -424,7 +424,7 @@ equation
       thickness=0.5));
   connect(pumSpe.y, varSpeCon.speSig)
     annotation (Line(
-      points={{-225,-20},{-196,-20},{-196,0},{-170,0}},
+      points={{-225,-20},{-196,-20},{-196,-4},{-170,-4}},
       color={0,0,127}));
   connect(dpSetSca.y, pumSpe.u_s)
     annotation (Line(points={{-259,-20},{-248,-20}}, color={0,0,127}));
@@ -484,13 +484,13 @@ equation
       color={255,127,0}));
   connect(ahu.port_a2, roo.airPorts[1])
     annotation (Line(
-      points={{20,-126},{32,-126},{32,-196},{4.5625,-196},{4.5625,-188.7}},
+      points={{20,-126},{32,-126},{32,-196},{1.525,-196},{1.525,-188.7}},
       color={0,127,255},
       thickness=0.5));
 
   connect(roo.airPorts[2], TAirSup.port_b)
     annotation (Line(
-      points={{2.5375,-188.7},{2.5375,-196},{-50,-196},{-50,-160}},
+      points={{5.575,-188.7},{5.575,-196},{-50,-196},{-50,-160}},
       color={0,127,255},
       thickness=0.5));
   connect(roo.TRooAir, ahuFanSpeCon.u_m)
@@ -549,6 +549,8 @@ equation
                                color={0,0,127}));
   connect(gai.y, swi.u1) annotation (Line(points={{-109,70},{-86,70},{-86,226},
           {-126,226},{-126,248},{-122,248}},color={0,0,127}));
+  connect(plaOn.y, varSpeCon.on) annotation (Line(points={{-138,240},{-136,240},
+          {-136,210},{-190,210},{-190,4},{-170,4}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-360,-200},{160,260}})),
     Documentation(info="<html>
@@ -564,6 +566,11 @@ Taylor, S. T. (2014). How to design &amp; control waterside economizers. ASHRAE 
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 2, 2022, by Kathryn Hinkelman:<br/>
+Passed the <code>plaOn</code> signal to the chilled water pump control
+to turn them off when the plant is off.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Corrected control to avoid cooling tower pumps to operate when plant is off, because

@@ -2,7 +2,7 @@ within Buildings.Applications.DataCenters.ChillerCooled.Equipment.BaseClasses;
 record SignalFilterParameters
   "Record that contains the parameters of the filtered opening for multiple valves and dampers"
   parameter Integer numFil(min=1)=4 "Number of filters";
-  parameter Boolean use_inputFilter=true
+  parameter Boolean use_inputFilter=false
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.Units.SI.Time riseTimeValve=30
