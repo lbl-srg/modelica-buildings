@@ -14,10 +14,6 @@ partial model PartialPumpMultiple
     "Number of pumps"
     annotation (Dialog(group="Configuration",
     enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-  parameter Buildings.Templates.Components.Types.PumpMultipleSpeedControl typCtrSpe
-    "Type of pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
 
   parameter Buildings.Templates.Components.Data.PumpMultiple dat(
     final nPum=nPum,
@@ -63,5 +59,12 @@ Note that the inlet and outlet manifolds are not included
 in this model. This way, the same interface can be used to model
 both headered pumps and dedicated pumps.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialPumpMultiple;

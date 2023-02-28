@@ -6,11 +6,6 @@ partial model PartialPumpSingle "Interface class for single pump"
     final m_flow_nominal(min=0)=dat.m_flow_nominal)
     annotation(__Linkage(enable=false));
 
-  parameter Buildings.Templates.Components.Types.PumpSingleSpeedControl typCtrSpe
-    "Type of pump speed control"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=typ<>Buildings.Templates.Components.Types.Pump.None));
-
   parameter Buildings.Templates.Components.Data.PumpSingle dat(
     final typ=typ)
     "Design and operating parameters"
@@ -28,5 +23,12 @@ partial model PartialPumpSingle "Interface class for single pump"
 This partial class provides a standard interface for 
 single pump models.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 18, 2022, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialPumpSingle;

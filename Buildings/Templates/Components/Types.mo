@@ -1,6 +1,12 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
+  type Chiller = enumeration(
+      AirCooled
+      "Air-cooled compression chiller",
+      WaterCooled
+      "Water-cooled compression chiller")
+    "Enumeration to specify the type of chiller";
   type Coil = enumeration(
       ElectricHeating
       "Modulating electric heating coil",
@@ -15,6 +21,16 @@ package Types "Package with type definitions"
       WaterBasedHeating
       "Hot water coil")
     "Enumeration to configure the coil";
+  type Cooler = enumeration(
+      None
+      "No external cooler (typically for air-cooled chillers)",
+      CoolingTowerClosed
+      "Closed-circuit cooling tower",
+      CoolingTowerOpen
+      "Open-circuit cooling tower",
+      DryCooler
+      "Dry cooler")
+    "Enumeration to configure the condenser water cooling equipment";
   type Damper = enumeration(
       NoPath
       "No fluid path",
@@ -58,13 +74,14 @@ package Types "Package with type definitions"
   type Pump = enumeration(
       None
       "No pump",
-      ParallelVariable
-      "Parallel pumps (identical) - Variable speed",
-      SingleConstant
-      "Single pump - Constant speed",
-      SingleVariable
-      "Single pump - Variable speed")
+      Single
+      "Single pump",
+      Multiple
+      "Multiple pumps in parallel")
     "Enumeration to configure the pump";
+  type PumpArrangement = enumeration(
+      Dedicated "Dedicated pumps",
+      Headered "Headered pumps") "Enumeration to specify the pump arrangement";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",
