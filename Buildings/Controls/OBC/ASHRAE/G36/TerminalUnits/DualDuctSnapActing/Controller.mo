@@ -981,6 +981,11 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.
 </html>", revisions="<html>
 <ul>
 <li>
+January 12, 2023, by Jianjun Hu:<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
+<li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
 </li>
