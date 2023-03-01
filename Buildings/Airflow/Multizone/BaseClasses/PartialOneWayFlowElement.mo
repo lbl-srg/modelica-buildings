@@ -33,7 +33,7 @@ protected
 
   Medium.ThermodynamicState sta "State of the medium in the component";
   Modelica.Units.SI.DynamicViscosity dynVis "Dynamic viscosity";
-  Real mExc(quantity="Mass", final unit="kg")
+  Real mExc(quantity="Mass", final unit="kg", unbounded=true)
     "Air mass exchanged (for purpose of error control only)";
 
 initial equation
@@ -109,6 +109,10 @@ not in the equation section since this model sets both
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 28, 2023, by Michael Wetter:<br/>
+Added <code>unbounded</code> attribute.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>

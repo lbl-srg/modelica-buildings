@@ -41,9 +41,9 @@ protected
   Modelica.Units.SI.VolumeFlowRate VZer_flow(fixed=false)
     "Minimum net volume flow rate to prevent zero flow";
 
-  Modelica.Units.SI.Mass mExcAB(start=0, fixed=true)
+  Modelica.Units.SI.Mass mExcAB(start=0, fixed=true, unbounded=true)
     "Air mass exchanged (for purpose of error control only)";
-  Modelica.Units.SI.Mass mExcBA(start=0, fixed=true)
+  Modelica.Units.SI.Mass mExcBA(start=0, fixed=true, unbounded=true)
     "Air mass exchanged (for purpose of error control only)";
 
   Medium.MassFraction Xi_a1_inflow[Medium1.nXi]
@@ -134,6 +134,10 @@ for doors that can be open or closed as a function of an input signal.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 28, 2023, by Michael Wetter:<br/>
+Added <code>unbounded</code> attribute.
+</li>
 <li>
 May 12, 2020, by Michael Wetter:<br/>
 Changed assignment of <code>m1_flow_small</code> and
