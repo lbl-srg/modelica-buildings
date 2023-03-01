@@ -2,19 +2,23 @@ within Buildings.Controls.OBC.CDL.Integers.Validation;
 model SequenceBinary
   "Validation model for the block to find the total number of enabled stages"
 
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(final n=4, final
-      holdDuration=5) "Total number of enabled stages"
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(
+    n=4,
+    holdDuration=5) "Total number of enabled stages, with a hold duration of 5 seconds"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary zerHolTim(final n=4,
-      final holdDuration=0)
-    "Total number of enabled stages, with zero stage ON-OFF holding time"
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary zerHolTim(
+    n=4,
+    holdDuration=0)
+    "Total number of enabled stages, without any hold duration"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(final n=4, final
-      holdDuration=2) "Total number of enabled stages"
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(
+    n=4,
+    holdDuration=2) "Total number of enabled stages, with a hold duration of 2 seconds"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(final n=4,
-      final holdDuration=1)
-    "Total number of enabled stages, with less stage holding time"
+  Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
+    n=4,
+    holdDuration=1)
+    "Total number of enabled stages, with a hold duration of 1 second"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramp1(
@@ -51,7 +55,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Integers.SequenceBinary</a>.
 </p>
 <p>
-It shows the results for different settings of the stage holding parameter.
+The instances use different values for the duration time during which the output is held constant.
 </p>
 </html>",
 revisions="<html>
