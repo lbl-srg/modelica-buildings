@@ -51,29 +51,22 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     "Time constant of integrator block for heating control loop"
     annotation (Dialog(tab="Control loops", group="Heating"));
   // ---------------- Dampers control parameters ----------------
-  parameter Boolean have_preIndDam=false
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation (Dialog(tab="Dampers"));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Dampers",
-      enable=not have_preIndDam));
+    annotation (Dialog(tab="Dampers"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Dampers",
-      enable=not have_preIndDam));
+    annotation (Dialog(tab="Dampers"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=not have_preIndDam
-             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
     annotation (Dialog(tab="Dampers",
-      enable=not have_preIndDam
-             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
@@ -392,7 +385,6 @@ block Controller "Controller for dual-duct terminal unit with cold-duct minimum 
     annotation (Placement(transformation(extent={{-160,140},{-140,160}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers
     damDuaSen(
-    final have_preIndDam=have_preIndDam,
     final VCooMax_flow=VCooMax_flow,
     final VHeaMax_flow=VHeaMax_flow,
     final controllerTypeDam=controllerTypeDam,
@@ -897,6 +889,11 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2023, by Jianjun Hu:<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
