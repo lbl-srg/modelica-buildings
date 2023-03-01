@@ -17,7 +17,7 @@ model Guideline36
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaPum
     "Switch for freeze stat of pump"
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1.0)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 

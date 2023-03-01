@@ -113,23 +113,23 @@ block Controller
     annotation (Dialog(tab="Enable", group="Delays"));
 
   // Commissioning
-  parameter Real retDamPhy_max(unit="1")=1
+  parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
     annotation (Dialog(tab="Commissioning", group="Limits"));
-  parameter Real retDamPhy_min(unit="1")=0
+  parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
     annotation (Dialog(tab="Commissioning", group="Limits"));
-  parameter Real outDamPhy_max(unit="1")=1
+  parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Limits"));
-  parameter Real outDamPhy_min(unit="1")=0
+  parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Limits"));
-  parameter Real minOutDamPhy_max(unit="1")=1
+  parameter Real minOutDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
-  parameter Real minOutDamPhy_min(unit="1")=0
+  parameter Real minOutDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
@@ -728,6 +728,12 @@ for a description.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 Updated implementation according to ASHRAE G36 official release.
