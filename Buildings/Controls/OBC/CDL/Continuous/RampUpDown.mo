@@ -1,90 +1,46 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block RampUpDown "Ramp up or down the output to maximum or maximum"
+block RampUpDown "Limit the changing rate of the input"
 
-  parameter Real yMin = 0
-    "Minimum output";
-  parameter Real yMax = 1
-    "Maximum output";
-  parameter Real upDuration(
-    final quantity="Time",
-    final unit="s",
-    min=1E-5)
-    "Ramp up duration time";
-  parameter Real downDuration(
-    final quantity="Time",
-    final unit="s",
-    min=1E-5)=upDuration
-    "Ramp down duration time";
-  parameter Real y_start(
-    final min=yMin,
-    final max=yMax)=0
-    "Initial output value";
+  parameter Real raisingSlewRate
+    "Speed with which to increase the output";
+  parameter Real fallingSlewRate=-raisingSlewRate
+    "Speed with which to decrease the output";
+  parameter Real Td = raisingSlewRate*0.001
+    "Derivative time constant";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput ramp
-    "True: ramp up; False: ramp down"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput activate
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput u
+    "Real input"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput active
     "True: ramping output"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Ramped output"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-protected
-  discrete Real entryTime(
-    final quantity="Time",
-    final unit="s",
-    start=0)
-    "Time instant when begining the ramping";
-  discrete Real endTime(
-    final quantity="Time",
-    final unit="s",
-    start=upDuration,
-    fixed=true)
-    "Time instant when ending the ramping";
-  discrete Real beginValue(
-    start=y_start,
-    fixed=true)
-    "Output value at the ramping begining";
-  discrete Real endValue(
-    start=yMax,
-    fixed=true)
-    "Output value at the ramping ending";
-  discrete Real y_end
-    "Output value at the moment when ramping changes";
-
-initial equation
-  y = y_start;
-  y_end = y_start;
-  pre(activate)=false;
+  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(
+    final raisingSlewRate=raisingSlewRate,
+    final fallingSlewRate=fallingSlewRate,
+    final Td=Td)
+    "Limit the increase or decrease rate of input"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+    "Limit the input ramping when the condition is true"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
 equation
-  when {(initial() and activate and ramp), (ramp and activate)} then
-    entryTime = time;
-    endTime = entryTime + upDuration;
-    beginValue = y_end;
-    endValue = yMax;
-  elsewhen {(initial() and activate and not ramp), (not ramp and activate)} then
-    entryTime = time;
-    endTime = entryTime + downDuration;
-    beginValue = y_end;
-    endValue = yMin;
-  end when;
-
-  when {ramp and activate, not ramp and activate, not activate} then
-    y_end = pre(y);
-  end when;
-
-  if activate then
-    if (time >= endTime) then
-      y = pre(endValue);
-    else
-      y = time*(endValue - beginValue)/(endTime - entryTime) + (endValue*entryTime - beginValue*endTime)/(entryTime-endTime);
-    end if;
-  else
-    y = y_end;
-  end if;
-
+  connect(active, swi.u2) annotation (Line(points={{-120,-80},{-20,-80},{-20,0},
+          {-2,0}},   color={255,0,255}));
+  connect(u, ramLim.u)
+    annotation (Line(points={{-120,0},{-80,0},{-80,40},{-62,40}}, color={0,0,127}));
+  connect(ramLim.y, swi.u1) annotation (Line(points={{-38,40},{-20,40},{-20,8},{
+          -2,8}},   color={0,0,127}));
+  connect(u, swi.u3) annotation (Line(points={{-120,0},{-80,0},{-80,-8},{-2,-8}},
+        color={0,0,127}));
+  connect(swi.y, y) annotation (Line(points={{22,0},{120,0}},
+        color={0,0,127}));
 annotation (defaultComponentName="ramUpDow",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -99,29 +55,25 @@ annotation (defaultComponentName="ramUpDow",
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-Block that ramps the output between the minimum and maximum value.
+Block that limits the rate of change of the input <code>u</code> by a ramp
+if the boolean input <code>active</code> is <code>true</code>.
+It computes a threshold for the rate of change between
+input <code>u</code> and output <code>y</code> as
+<code>thr = (u-y)/Td</code>, where <code>Td &gt; 0</code> is  parameter.
+The output <code>y</code> is computed as follows:
+<br/>
+If <code>thr &lt; fallingSlewRate</code>, then <code>dy/dt = fallingSlewRate</code>,
+<br/>
+if <code>thr &gt; raisingSlewRate</code>, then <code>dy/dt = raisingSlewRate</code>,
+<br/>
+otherwise, <code>dy/dt = thr</code>.
 </p>
-<ul>
-<li>
-If the boolean input <code>activate</code> is <code>true</code>,
-<ul>
-<li>
-when the boolean input <code>ramp</code> is <code>true</code>, the output ramps
-from current value to the maximum value <code>max</code>, with duration time of
-<code>upDuration</code>.
-</li>
-<li>
-when the boolean input <code>ramp</code> is <code>false</code>, the output ramps
-from current value to the minimum value <code>min</code>, with duration time of
-<code>downDuration</code>.
-</li>
-</ul>
-</li>
-<li>
-If the boolean input <code>activate</code> is <code>false</code>, the output stays
-at current value.
-</li>
-</ul>
+<h4>Implementation</h4>
+<p>
+For the block to work with arbitrary inputs and in order to produce a differential output,
+the input is numerically differentiated with derivative time constant <code>Td</code>.
+Smaller time constant <code>Td</code> means nearer ideal derivative.
+</p>
 </html>",
 revisions="<html>
 <ul>
