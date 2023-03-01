@@ -231,7 +231,8 @@ partial model PartialHVAC
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix(
     redeclare package Medium = MediumA,
     m_flow_nominal=mAir_flow_nominal,
-    allowFlowReversal=allowFlowReversal) "Mixed air temperature sensor"
+    allowFlowReversal=allowFlowReversal,
+    transferHeat=true) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Fluid.Sensors.VolumeFlowRate VOut1(redeclare package Medium =
         MediumA, m_flow_nominal=mAir_flow_nominal)
@@ -651,6 +652,10 @@ Buildings.Examples.VAVReheat.Guideline36</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2023, by Jianjun Hu:<br/>
+Set the value of parameter <code>transferHeat</code> to <code>true</code> for the mixed air temperature sensor.
+</li>
 <li>
 August 22, 2022, by Hongxiang Fu:<br/>
 Replaced fan and pump models with preconfigured mover models.
