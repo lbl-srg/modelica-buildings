@@ -57,7 +57,7 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Integers.SequenceBinary</a>.
 </p>
 <p>
-It shows the results that when the stage holding time are set differently.
+It shows the results for different settings of the stage holding parameter.
 </p>
 </html>",
 revisions="<html>
