@@ -68,7 +68,7 @@ model ASHRAE2006
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFreStaVal
     "Switch for freeze stat of valve"
     annotation (Placement(transformation(extent={{40,-170},{60,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yFreHeaCoi(final k=1.0)
     "Flow rate signal for heating coil when freeze stat is on"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMin TRooMin(
