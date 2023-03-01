@@ -314,6 +314,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Switch
+    </td>
+    <td valign=\"top\">Added <code>smoothOrder(0, ...)</code> as this is required for some solvers
+                     that assume otherwise the output of the block to be differentiable.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
     </td>
     <td valign=\"top\">Added assertion when the extract index is out of range.<br/>
