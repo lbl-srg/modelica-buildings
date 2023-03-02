@@ -15,10 +15,16 @@ model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as in
     final init=Modelica.Blocks.Types.Init.InitialOutput,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    final min=Modelica.Constants.small)
+    "Nominal mass flow rate for preconfiguration"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    final min=Modelica.Constants.small)
     "Nominal pressure head for preconfiguration"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm speed_rpm_nominal(
+    final min=Modelica.Constants.small)
     "Nominal rotational speed for preconfiguration"
     annotation (Dialog(group="Nominal condition"));
 
@@ -31,6 +37,13 @@ This model is the preconfigured version for
 Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Refactored the model with a new declaration for
+<code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
 <li>
 August 17, 2022, by Hongxiang Fu:<br/>
 First implementation. This is for
