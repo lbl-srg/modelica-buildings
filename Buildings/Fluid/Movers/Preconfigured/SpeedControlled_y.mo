@@ -16,11 +16,11 @@ model SpeedControlled_y "Fan or pump with ideally controlled normalized speed y 
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=Modelica.Constants.small)
-    "Nominal mass flow rate for preconfiguration"
+    "Nominal mass flow rate for configuration of pressure curve"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final min=Modelica.Constants.small)
-    "Nominal pressure head for preconfiguration"
+    "Nominal pressure head for configuration of pressure curve"
     annotation(Dialog(group="Nominal condition"));
 annotation (
 defaultComponentName="mov",
