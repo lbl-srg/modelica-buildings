@@ -1,46 +1,61 @@
 within Buildings.Controls.OBC.CDL.Continuous;
 block RampUpDown "Limit the changing rate of the input"
 
-  parameter Real raisingSlewRate
-    "Speed with which to increase the output";
-  parameter Real fallingSlewRate=-raisingSlewRate
-    "Speed with which to decrease the output";
-  parameter Real Td = raisingSlewRate*0.001
+  parameter Real raisingSlewRate(
+    min=Constants.small,
+    unit="1/s")
+    "Maximum speed with which to increase the output";
+  parameter Real fallingSlewRate(
+    max=-Constants.small,
+    unit="1/s")=-raisingSlewRate
+    "Maximum speed with which to decrease the output";
+  parameter Real Td(
+    final quantity="Time",
+    final unit="s",
+    min=Constants.eps)=raisingSlewRate*0.001
     "Derivative time constant";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Real input"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-        iconTransformation(extent={{-140,40},{-100,80}})));
+    "Connector of Real input signal"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput active
-    "True: ramping output"
+    "Set to false to disable rate limiter"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
-        iconTransformation(extent={{-140,-80},{-100,-40}})));
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
-    "Ramped output"
+    "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(
     final raisingSlewRate=raisingSlewRate,
     final fallingSlewRate=fallingSlewRate,
     final Td=Td)
-    "Limit the increase or decrease rate of input"
-    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+    "Limit the input change"
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Limit the input ramping when the condition is true"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    "Switch to limit the input change"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+
+protected
+  Real thr=(u-y)/Td
+    "Approximation to derivative between input and output";
+
+initial equation
+  y=u;
+  assert(
+    fallingSlewRate < 0,
+    "fallingSlewRate should be less than zero");
 
 equation
-  connect(active, swi.u2) annotation (Line(points={{-120,-80},{-20,-80},{-20,0},
-          {-2,0}},   color={255,0,255}));
-  connect(u, ramLim.u)
-    annotation (Line(points={{-120,0},{-80,0},{-80,40},{-62,40}}, color={0,0,127}));
-  connect(ramLim.y, swi.u1) annotation (Line(points={{-38,40},{-20,40},{-20,8},{
-          -2,8}},   color={0,0,127}));
-  connect(u, swi.u3) annotation (Line(points={{-120,0},{-80,0},{-80,-8},{-2,-8}},
+  connect(active, swi.u2) annotation (Line(points={{-120,-80},{40,-80},{40,0},{
+          58,0}},  color={255,0,255}));
+  connect(u, swi.u3) annotation (Line(points={{-120,0},{-80,0},{-80,-8},{58,-8}},
         color={0,0,127}));
-  connect(swi.y, y) annotation (Line(points={{22,0},{120,0}},
-        color={0,0,127}));
+  connect(ramLim.y, swi.u1) annotation (Line(points={{22,40},{40,40},{40,8},{58,
+          8}}, color={0,0,127}));
+  connect(swi.y, y) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+  connect(u, ramLim.u) annotation (Line(points={{-120,0},{-80,0},{-80,40},{-2,
+          40}}, color={0,0,127}));
 annotation (defaultComponentName="ramUpDow",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
