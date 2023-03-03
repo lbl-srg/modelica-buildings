@@ -461,6 +461,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
     </td>
   </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                         Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
+                         Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+    </td>
+    <td valign=\"top\">Changed the way the nominal flow rate is declared
+                       so that it can be modified in <code>PartialFlowMachine</code>
+                       by a higher-level model, but not the other way around.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">IBPSA, #1705</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
   </tr>
