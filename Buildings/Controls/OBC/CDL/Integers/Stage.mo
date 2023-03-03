@@ -10,7 +10,9 @@ block Stage "Output total stages that should be enabled"
     min=0)
     "Minimum time that the output needs to be held constant. Set to 0 to disable hold time";
 
-  parameter Real h(min=1E-4/n)=0.02/n "Hysteresis for comparing input with threshold";
+  parameter Real h(
+    min=0.001/n,
+    max=0.5/n) = 0.02/n "Hysteresis for comparing input with threshold";
 
   parameter Integer pre_y_start = 0
     "Value of pre(y) at initial time";
