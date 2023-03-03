@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Integers;
-block SequenceBinary "Output total stages that should be enabled"
+block Stage "Output total stages that should be enabled"
 
   parameter Integer n(final min=1)
     "Maximum stages that could be enabled";
@@ -119,4 +119,4 @@ This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\
 </li>
 </ul>
 </html>"));
-end SequenceBinary;
+end Stage;

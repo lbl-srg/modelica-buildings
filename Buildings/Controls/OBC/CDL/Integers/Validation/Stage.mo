@@ -1,21 +1,21 @@
 within Buildings.Controls.OBC.CDL.Integers.Validation;
-model SequenceBinary
+model Stage
   "Validation model for the block to find the total number of enabled stages"
 
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin(
+  Buildings.Controls.OBC.CDL.Integers.Stage seqBin(
     n=4,
     holdDuration=5) "Total number of enabled stages, with a hold duration of 5 seconds"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary zerHolTim(
+  Buildings.Controls.OBC.CDL.Integers.Stage zerHolTim(
     n=4,
     holdDuration=0)
     "Total number of enabled stages, without any hold duration"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary seqBin1(
+  Buildings.Controls.OBC.CDL.Integers.Stage seqBin1(
     n=4,
     holdDuration=2) "Total number of enabled stages, with a hold duration of 2 seconds"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Integers.SequenceBinary lesHolTim(
+  Buildings.Controls.OBC.CDL.Integers.Stage lesHolTim(
     n=4,
     holdDuration=1)
     "Total number of enabled stages, with a hold duration of 1 second"
@@ -46,13 +46,13 @@ equation
     experiment(StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/SequenceBinary.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Integers/Validation/Stage.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.SequenceBinary\">
-Buildings.Controls.OBC.CDL.Integers.SequenceBinary</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Integers.Stage\">
+Buildings.Controls.OBC.CDL.Integers.Stage</a>.
 </p>
 <p>
 The instances use different values for the duration time during which the output is held constant.
@@ -79,4 +79,4 @@ First implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end SequenceBinary;
+end Stage;

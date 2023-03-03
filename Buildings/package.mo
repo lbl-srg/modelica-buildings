@@ -234,7 +234,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.SequenceBinary
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Stage
     </td>
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231P committee.<br/>
                        This is for
