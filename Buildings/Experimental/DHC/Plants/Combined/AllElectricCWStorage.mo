@@ -1492,6 +1492,9 @@ modulating the evaporator flow rate or the condenser entering temperature.
 The schematic below represents a configuration of the system with two chillers
 and three HRCs.
 The equipment tags correspond to the component names in the plant model.
+The control points used by each control function are represented at the intersection
+of the gray area that describes the function and the four bus lines corresponding
+to the different control point categories (AI, DI, AO, DO).
 For the sake of clarity, control logic that is duplicated between multiple
 units (for instance the chiller isolation valve control) is only illustrated for
 one unit.
@@ -1505,6 +1508,18 @@ a system, the user may refer to the article by <a href=\"#Gill2021\">B. Gill (20
 <p align=\"left\">
 <img alt=\"System schematic\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Combined/AllElectricCWStorage.png\"/>
+</p>
+<h4>Control points</h4>
+<h5>Cooling and heating Enable signals</h5>
+<p>
+The cooling and heating Enable signals <code>u1Coo</code> and <code>u1Hea</code>
+shall be computed outside of the plant model, for instance based on a time schedule.
+</p>
+<h5>CHW and HW supply temperature and differential pressure setpoint</h5>
+<p>
+Those setpoints are provided as control inputs.
+Ideally, a reset logic based on consumer valve requests should be implemented to adapt
+those setpoints to the demand.
 </p>
 <h4>Details</h4>
 <h5>TES tank</h5>
