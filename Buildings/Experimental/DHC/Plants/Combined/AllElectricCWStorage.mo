@@ -36,7 +36,7 @@ model AllElectricCWStorage
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min(
     final min=0)=0.6 * mChiWatChi_flow_nominal
-    "Design chiller CHW minimum mass flow rate (each unit)"
+    "Chiller CHW minimum mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   final parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal(
     final min=0)=datChi.mCon_flow_nominal
@@ -110,19 +110,19 @@ model AllElectricCWStorage
       Evaluate=true);
   final parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_nominal=
     datChiHea.mEva_flow_nominal
-    "Design chiller CHW mass flow rate (each unit)"
+    "Design HRC CHW mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_min(
     final min=0)=0.6 * mChiWatChiHea_flow_nominal
-    "Chiller CHW minimum mass flow rate (each unit)"
+    "HRC CHW minimum mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mHeaWatChiHea_flow_min(
     final min=0)=0.6 * mConWatChiHea_flow_nominal
-    "Chiller HW minimum mass flow rate (each unit)"
+    "HRC HW minimum mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   final parameter Modelica.Units.SI.MassFlowRate mConWatChiHea_flow_nominal=
     datChiHea.mCon_flow_nominal
-    "Design chiller CW mass flow rate (each unit)"
+    "Design HRC CW mass flow rate (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatSet_max(
     final min=0,
@@ -132,12 +132,12 @@ model AllElectricCWStorage
   parameter Modelica.Units.SI.PressureDifference dpEvaChiHea_nominal(
     final min=0,
     displayUnit="Pa")=5E4
-    "Design chiller evaporator  pressure drop (each unit)"
+    "Design evaporator  pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.PressureDifference dpConChiHea_nominal(
     final min=0,
     displayUnit="Pa")=5E4
-    "Design HRC condenser pressure drop (each unit)"
+    "Design condenser pressure drop (each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
 
   parameter Modelica.Units.SI.PressureDifference dpPumHeaWat_nominal(
@@ -150,7 +150,7 @@ model AllElectricCWStorage
 
   replaceable parameter Fluid.Chillers.Data.ElectricReformulatedEIR.Generic datChiHea
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
-    "Chiller parameters (each unit)"
+    "HRC parameters (each unit)"
     annotation (
       Dialog(group="HW loop and heat recovery chillers"),
       Placement(transformation(extent={{120,260},{140,280}})));
@@ -467,7 +467,7 @@ model AllElectricCWStorage
     final m_flow_nominal=max(mChiWatChi_flow_min, mChiWatChiHea_flow_min),
     from_dp=true,
     linearized=true,
-    final dpValve_nominal=max(dpEvaChi_nominal, dpEvaChiHea_nominal),
+    dpValve_nominal=1E3,
     final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
     "CHW minimum flow bypass valve"
@@ -570,7 +570,7 @@ model AllElectricCWStorage
     final m_flow_nominal=mHeaWatChiHea_flow_min,
     from_dp=true,
     linearized=true,
-    final dpValve_nominal=dpConChiHea_nominal,
+    dpValve_nominal=1E3,
     final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal) "HW minimum flow bypass valve"
     annotation (Placement(transformation(
@@ -664,7 +664,7 @@ model AllElectricCWStorage
     redeclare final package Medium = Medium,
     final p=hTan * rho_default * Modelica.Constants.g_n,
     final nPorts=1)
-    "CW boundary pressure condition prescribed by tank operating level"
+    "CW pressure boundary condition prescribed by tank operating level"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-110,-150})));
@@ -813,7 +813,7 @@ model AllElectricCWStorage
     redeclare final package Medium = Medium,
     final p=130000,
     nPorts=1)
-    "CW boundary pressure condition prescribed by CT elevation head"
+    "CW pressure boundary condition prescribed by CT elevation head"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
