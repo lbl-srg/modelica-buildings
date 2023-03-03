@@ -2,22 +2,24 @@ within Buildings.Controls.OBC.CDL.Integers.Validation;
 model Stage
   "Validation model for the block to find the total number of enabled stages"
 
-  Buildings.Controls.OBC.CDL.Integers.Stage seqBin(
-    n=4,
-    holdDuration=5) "Total number of enabled stages, with a hold duration of 5 seconds"
+  Buildings.Controls.OBC.CDL.Integers.Stage sta(
+    final n=4,
+    final holdDuration=5)
+    "Total number of enabled stages, with a hold duration of 5 seconds"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Integers.Stage zerHolTim(
-    n=4,
-    holdDuration=0)
+    final n=4,
+    final holdDuration=0)
     "Total number of enabled stages, without any hold duration"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
-  Buildings.Controls.OBC.CDL.Integers.Stage seqBin1(
-    n=4,
-    holdDuration=2) "Total number of enabled stages, with a hold duration of 2 seconds"
+  Buildings.Controls.OBC.CDL.Integers.Stage sta1(
+    final n=4,
+    final holdDuration=2)
+    "Total number of enabled stages, with a hold duration of 2 seconds"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Integers.Stage lesHolTim(
-    n=4,
-    holdDuration=1)
+    final n=4,
+    final holdDuration=1)
     "Total number of enabled stages, with a hold duration of 1 second"
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
 
@@ -30,15 +32,16 @@ model Stage
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     final amplitude=0.5,
     final freqHz=1/5,
-    final offset=0.5) "Block that generates sine signal"
+    final offset=0.5)
+    "Block that generates sine signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
 equation
-  connect(ramp1.y, seqBin.u)
+  connect(ramp1.y, sta.u)
     annotation (Line(points={{-18,60},{18,60}}, color={0,0,127}));
   connect(ramp1.y,zerHolTim. u) annotation (Line(points={{-18,60},{0,60},{0,20},
           {18,20}}, color={0,0,127}));
-  connect(sin.y,seqBin1. u)
+  connect(sin.y, sta1.u)
     annotation (Line(points={{-18,-20},{18,-20}}, color={0,0,127}));
   connect(sin.y, lesHolTim.u) annotation (Line(points={{-18,-20},{0,-20},{0,-60},
           {18,-60}}, color={0,0,127}));
