@@ -299,16 +299,16 @@ block Controller
   parameter Real outDamDesFloMaxSpe(unit="1")=0.8
     "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real outDamPhy_max(unit="1")=1
+  parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real outDamPhy_min(unit="1")=0
+  parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real retDamPhy_max(unit="1")=1
+  parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real retDamPhy_min(unit="1")=0
+  parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
   parameter Real delTOutHys(
@@ -1655,6 +1655,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
