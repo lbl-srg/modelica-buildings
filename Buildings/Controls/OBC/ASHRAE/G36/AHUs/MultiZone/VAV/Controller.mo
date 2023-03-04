@@ -430,7 +430,7 @@ block Controller "Multizone VAV air handling unit controller"
   // ----------- Advanced parameters -----------
   parameter Real Thys=0.25 "Hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
-  parameter Real posHys=0.05
+  parameter Real posHys=0.01
     "Hysteresis for checking valve position difference"
     annotation (Dialog(tab="Advanced"));
   parameter Real hys = 0.005

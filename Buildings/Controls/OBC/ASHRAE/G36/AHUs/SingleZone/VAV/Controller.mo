@@ -401,7 +401,7 @@ block Controller
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
 
   // ----------- Advanced -----------
-  parameter Real posHys=0.05 "Hysteresis for damper position check"
+  parameter Real posHys=0.01 "Hysteresis for damper position check"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
@@ -411,7 +411,7 @@ block Controller
     annotation(Dialog(tab="Advanced", group="Hysteresis",
                       enable = (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                              or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)));
-  parameter Real floHys=0.01
+  parameter Real floHys(unit="m3/s")=0.01*VOutMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
 
