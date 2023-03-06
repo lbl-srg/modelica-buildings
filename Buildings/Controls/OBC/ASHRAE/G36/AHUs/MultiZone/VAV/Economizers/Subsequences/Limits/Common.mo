@@ -37,24 +37,24 @@ block Common
   parameter Real retDamPhy_max(
     final min=0,
     final max=1,
-    final unit="1") = 1 "Physically fixed maximum position of the return air damper"
+    final unit="1") = 1.0 "Physically fixed maximum position of the return air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.0
     "Physically fixed minimum position of the return air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_max(
     final min=0,
     final max=1,
-    final unit="1") = 1
+    final unit="1") = 1.0
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.0
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
 
@@ -411,6 +411,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZo
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed default value of integral time for minimum outdoor air control.

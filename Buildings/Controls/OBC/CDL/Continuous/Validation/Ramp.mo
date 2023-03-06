@@ -1,20 +1,19 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
-model RampUpDown
-    "Validation model for the RampUpDown block"
+model Ramp "Validation model for the Ramp block"
 
-  Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramUp(
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUp(
     final raisingSlewRate=1/20)
     "Ramp the input increasing"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramUp1(
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUp1(
     final raisingSlewRate=1/10)
     "Ramp the input increasing in different speed"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramUpDow(
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow(
     final raisingSlewRate=1/5)
     "Limit the increase and decrease of the input if the active is true"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.RampUpDown ramUpDow1(final
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow1(final
       raisingSlewRate=1/5, final fallingSlewRate=-1/2)
     "Different increase and decrease slew rate limits"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
@@ -26,8 +25,9 @@ model RampUpDown
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final width=0.8,
-    final period=12,
-    final shift=2) "Boolean pulse"
+    final period=12.0,
+    final shift=2.0)
+                   "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.9,
@@ -36,13 +36,13 @@ model RampUpDown
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
     final width=0.2,
-    final period=12,
+    final period=12.0,
     final shift=1.5) "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul2(
     final width=0.3,
-    final period=12,
-    final shift=3)
+    final period=12.0,
+    final shift=3.0)
     "Boolean pulse"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
@@ -53,8 +53,9 @@ model RampUpDown
 equation
   connect(booPul2.y, ramUpDow.active) annotation (Line(points={{-78,-90},{-60,-90},
           {-60,-68},{-42,-68}}, color={255,0,255}));
-  connect(booPul5.y, ramUpDow1.active) annotation (Line(points={{42,-30},{70,-30},
-          {70,-8},{78,-8}}, color={255,0,255}));
+  connect(booPul5.y, ramUpDow1.active) annotation (Line(points={{42,-30},{70,
+          -30},{70,-8},{78,-8}},
+                            color={255,0,255}));
   connect(pul.y, ramUp.u) annotation (Line(points={{-78,80},{-60,80},{-60,80},{-42,
           80}},     color={0,0,127}));
   connect(pul.y, ramUp1.u) annotation (Line(points={{-78,80},{-60,80},{-60,20},{
@@ -66,19 +67,19 @@ equation
   connect(pul1.y, ramUpDow.u) annotation (Line(points={{-78,-30},{-60,-30},{-60,
           -60},{-42,-60}}, color={0,0,127}));
   connect(pul2.y, ramUpDow1.u)
-    annotation (Line(points={{42,30},{68,30},{68,0},{78,0}}, color={0,0,127}));
+    annotation (Line(points={{42,30},{70,30},{70,0},{78,0}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/RampUpDown.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Ramp.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.RampUpDown\">
-Buildings.Controls.OBC.CDL.Continuous.RampUpDown</a>.
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Ramp\">
+Buildings.Controls.OBC.CDL.Continuous.Ramp</a>.
 </p>
 <ul>
 <li>
@@ -118,4 +119,4 @@ First implementation.
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(extent={{-120,-140},{120,140}})));
-end RampUpDown;
+end Ramp;

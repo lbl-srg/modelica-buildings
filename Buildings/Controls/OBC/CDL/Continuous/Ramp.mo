@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous;
-block RampUpDown "Limit the changing rate of the input"
+block Ramp "Limit the changing rate of the input"
 
   parameter Real raisingSlewRate(
     min=Constants.small,
@@ -36,12 +36,7 @@ block RampUpDown "Limit the changing rate of the input"
     "Switch to limit the input change"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-protected
-  Real thr=(u-y)/Td
-    "Approximation to derivative between input and output";
-
 initial equation
-  y=u;
   assert(
     fallingSlewRate < 0,
     "fallingSlewRate should be less than zero");
@@ -98,4 +93,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end RampUpDown;
+end Ramp;
