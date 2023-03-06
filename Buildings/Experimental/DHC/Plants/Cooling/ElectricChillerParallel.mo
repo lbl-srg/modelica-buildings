@@ -101,14 +101,14 @@ model ElectricChillerParallel
     annotation(Evaluate=true, Dialog(tab = "Advanced", group="Dynamics"));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
-    annotation (Placement(transformation(extent={{-340,220},{-300,260}}),
-   iconTransformation(extent={{-342,202},{-302,242}})));
+    annotation (Placement(transformation(extent={{-420,200},{-380,240}}),
+   iconTransformation(extent={{-340,200},{-300,240}})));
   Modelica.Blocks.Interfaces.RealInput TCHWSupSet(
     final unit="K",
     displayUnit="degC")
     "Set point for chilled water supply temperature"
-    annotation (Placement(transformation(extent={{-340,100},{-300,140}}),
-   iconTransformation(extent={{-340,138},{-300,178}})));
+    annotation (Placement(transformation(extent={{-420,100},{-380,140}}),
+   iconTransformation(extent={{-340,140},{-300,180}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
     final use_inputFilter=use_inputFilter,
     final per=fill(
@@ -222,15 +222,15 @@ model ElectricChillerParallel
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
     nin=4)
     "Total pump power"
-    annotation (Placement(transformation(extent={{260,150},{280,170}})));
+    annotation (Placement(transformation(extent={{340,150},{360,170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPFan(
     nin=2)
     "Total fan power"
-    annotation (Placement(transformation(extent={{260,190},{280,210}})));
+    annotation (Placement(transformation(extent={{340,190},{360,210}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPCoo(
     nin=2)
     "Total cooling power"
-    annotation (Placement(transformation(extent={{260,230},{280,250}})));
+    annotation (Placement(transformation(extent={{340,230},{360,250}})));
   Buildings.Fluid.FixedResistances.Junction joiCHWRet(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal .* {1,-1,1},
@@ -282,7 +282,8 @@ equation
   connect(cooTowWitByp.port_b,pumCW.port_a)
     annotation (Line(points={{-20,170},{60,170}},color={0,127,255}));
   connect(on,chiStaCon.on)
-    annotation (Line(points={{-320,240},{-280,240},{-280,213.75},{-201.25,213.75}},
+    annotation (Line(points={{-400,220},{-220,220},{-220,213.75},{-201.25,
+          213.75}},
       color={255,0,255}));
   connect(pumCHW.port_b,mulChiSys.port_a2)
     annotation (Line(points={{-32,44},{40,44}}, color={0,127,255}));
@@ -310,32 +311,33 @@ equation
     annotation (Line(points={{-179.375,210},{-160,210},{-160,174},{-42,174}},
       color={255,0,255}));
   connect(weaBus.TWetBul,cooTowWitByp.TWetBul)
-    annotation (Line(points={{1,266},{0,266},{0,238},{-50,238},{-50,168},{-42,168}},
+    annotation (Line(points={{0,380},{0,380},{0,238},{-50,238},{-50,168},{-42,168}},
     color={255,204,51},thickness=0.5),Text(string="%first",index=-1,
     extent={{-6,3},{-6,3}},horizontalAlignment=TextAlignment.Right));
   connect(port_aSerCoo,senTCHWRet.port_a)
-    annotation (Line(points={{-300,-40},{-270,-40}},color={0,127,255}));
+    annotation (Line(points={{-380,-40},{-270,-40}},color={0,127,255}));
   connect(senTCHWSup.port_b,port_bSerCoo)
-    annotation (Line(points={{160,-40},{300,-40}}, color={0,127,255}));
+    annotation (Line(points={{160,-40},{380,-40}}, color={0,127,255}));
   connect(TCHWSupSet,mulChiSys.TSet)
-    annotation (Line(points={{-320,120},{100,120},{100,50},{62,50}},color={0,0,127}));
+    annotation (Line(points={{-400,120},{100,120},{100,50},{62,50}},color={0,0,127}));
   connect(totPPum.y,PPum)
-    annotation (Line(points={{282,160},{320,160}},color={0,0,127}));
+    annotation (Line(points={{362,160},{400,160}},color={0,0,127}));
   connect(pumCW.P,totPPum.u[1:2])
-    annotation (Line(points={{81,174},{240,174},{240,159.75},{258,159.75}},
+    annotation (Line(points={{81,174},{240,174},{240,159.75},{338,159.75}},
                                                                          color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,160.75}},
+    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{338,
+          160.75}},
       color={0,0,127}));
   connect(totPFan.y,PFan)
-    annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
+    annotation (Line(points={{362,200},{400,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
-    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,200.5}},
+    annotation (Line(points={{-19,176},{-20,176},{-20,200},{338,200},{338,200.5}},
       color={0,0,127}));
   connect(totPCoo.y,PCoo)
-    annotation (Line(points={{282,240},{320,240}},color={0,0,127}));
+    annotation (Line(points={{362,240},{400,240}},color={0,0,127}));
   connect(mulChiSys.P,totPCoo.u[1:2])
-    annotation (Line(points={{39,52},{20,52},{20,240.5},{258,240.5}},
+    annotation (Line(points={{39,52},{20,52},{20,240.5},{338,240.5}},
       color={0,0,127}));
   connect(splCHWSup.port_3,senTCHWSup.port_a)
     annotation (Line(points={{130,-42},{130,-40},{140,-40}},color={0,127,255}));
@@ -441,9 +443,5 @@ First implementation.
           points={{-62,-14},{-62,-14}},
           lineColor={238,46,47},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
-    Diagram(
-      coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-300,-300},{300,300}})));
+          fillPattern=FillPattern.Solid)}));
 end ElectricChillerParallel;
