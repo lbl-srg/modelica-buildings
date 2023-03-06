@@ -231,6 +231,17 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Stage
+    </td>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231P committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">
+                       issue 3103</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
@@ -284,6 +295,8 @@ to <b style=\"color:blue\">existing</b> libraries:
     Added preconfigured versions for the mover models that only require the user
     to provide nominal conditions.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
 </tr>
