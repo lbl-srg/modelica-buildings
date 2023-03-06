@@ -13,6 +13,7 @@ PartialCoilCondition
 PartialCoilInterface
 PartialCoolingCapacity
 PartialDXCoil
+PartialDXHeatingCoil
 PartialSurfaceCondition
 PartialWaterCooledDXCoil
 SensibleHeatRatio
