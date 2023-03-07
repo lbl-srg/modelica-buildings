@@ -9,6 +9,8 @@ model Guideline36
     "Design value for chiller leaving water temperature";
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller con(
+    eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final VAreBreZon_flow=0.0144,
     final VPopBreZon_flow=0.0075,
     ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb,
@@ -52,7 +54,7 @@ model Guideline36
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{8,18})
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-200,0},{-180,20}})));
-  Modelica.Blocks.Sources.BooleanConstant uWin(k=false) "Window opening signal"
+  Modelica.Blocks.Sources.BooleanConstant uWin(k=true)  "Window opening signal"
     annotation (Placement(transformation(extent={{-200,-90},{-180,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant demLim(final k=0)
     "Cooling and heating demand imit level"

@@ -131,8 +131,8 @@ equation
           -20},{-180,17},{-142,17}}, color={255,127,0}));
   connect(outDamPos.y, disMinCon.uOutDam) annotation (Line(points={{-198,-60},{
           -170,-60},{-170,14},{-142,14}}, color={0,0,127}));
-  connect(supFanSpe.y, disMinCon.uSupFan_actual) annotation (Line(points={{-198,
-          -100},{-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
+  connect(supFanSpe.y, disMinCon.uSupFan) annotation (Line(points={{-198,-100},
+          {-160,-100},{-160,11},{-142,11}}, color={0,0,127}));
   connect(VOutMinSet_flow2.y, disMinCon1.VOutMinSet_flow_normalized)
     annotation (Line(points={{-38,60},{-20,60},{-20,29},{18,29}}, color={0,0,127}));
   connect(VOut_flow2.y, disMinCon1.VOut_flow_normalized) annotation (Line(
@@ -143,12 +143,12 @@ equation
           -20},{-20,17},{18,17}}, color={255,127,0}));
   connect(outDamPos1.y, disMinCon1.uOutDam) annotation (Line(points={{-38,-60},
           {-10,-60},{-10,14},{18,14}}, color={0,0,127}));
-  connect(supFanSpe1.y, disMinCon1.uSupFan_actual) annotation (Line(points={{-38,
-          -100},{0,-100},{0,11},{18,11}}, color={0,0,127}));
+  connect(supFanSpe1.y, disMinCon1.uSupFan) annotation (Line(points={{-38,-100},
+          {0,-100},{0,11},{18,11}}, color={0,0,127}));
   connect(outDamPos2.y, minCon.uOutDam) annotation (Line(points={{142,-60},{170,
           -60},{170,14},{198,14}}, color={0,0,127}));
-  connect(supFanSpe2.y, minCon.uSupFan_actual) annotation (Line(points={{142,-100},
-          {180,-100},{180,11},{198,11}}, color={0,0,127}));
+  connect(supFanSpe2.y, minCon.uSupFan) annotation (Line(points={{142,-100},{
+          180,-100},{180,11},{198,11}}, color={0,0,127}));
 
 annotation (experiment(StopTime=1800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/MultiZone/VAV/Economizers/Subsequences/Limits/Validation/SeparateWithAFMS.mos"

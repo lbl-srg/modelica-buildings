@@ -59,7 +59,8 @@ INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+",
                       "fontSize\s*=",
                       "file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
                       "parameter.*Boolean.*homotopyInitialization",
-                      "(Text\s*\([^\).]*)lineColor"]
+                      "(Text\s*\([^\).]*)lineColor",
+                      "(Line\s*\([^\).]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
