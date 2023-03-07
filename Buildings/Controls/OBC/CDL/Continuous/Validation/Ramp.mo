@@ -89,7 +89,7 @@ input in different speed.
 <li>
 The instance <code>ramUpDow</code> shows ramping up and down the input in
 the same speed. It also shows that the output will be the ramped input if
-the boolean input <code>active</code> is true.
+the boolean input <code>active</code> is <code>true</code>.
 </li>
 <li>
 The instance <code>ramUpDow1</code> shows ramping up and down the input in
