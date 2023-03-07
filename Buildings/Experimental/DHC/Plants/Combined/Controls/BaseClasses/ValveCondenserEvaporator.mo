@@ -893,8 +893,8 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={140,80})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe4(each t=0.1,
-      each h=5E-2) "Check if valve open"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe4(t=0.1, h=5E-2)
+                   "Check if valve open"
     annotation (Placement(transformation(extent={{190,130},{170,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooOrHea
     "Plant Enable signal: either cooling or heating is enabled" annotation (
@@ -1528,7 +1528,8 @@ signals of all control loops.
 </p>
 <h4>CW chiller and HRC bypass valve</h4>
 <p>
-The valve control is enabled when Charge Assist mode is active and
+The valve control is enabled when the plant is enabled either in cooling or
+heating mode, the Charge Assist mode is active and 
 all chiller condenser isolation valves are closed (based on their 
 commanded position).
 </p>
@@ -1544,6 +1545,8 @@ setpoint of the active tank cycle (see the section \"Chiller condenser flow setp
 The lead pump of each loop is enabled whenever any chiller or HRC is indexed
 to the loop and the corresponding evaporator or condenser isolation valve is
 commanded open (with a threshold of <i>10&nbsp;%</i>).
+In addition, the CWC lead pump may also be enabled if the CW chiller and HRC
+bypass valve is commanded open.
 </p>
 </html>"));
 end ValveCondenserEvaporator;

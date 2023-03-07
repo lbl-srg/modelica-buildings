@@ -341,12 +341,12 @@ equation
           -180},{-100,-186},{-92,-186}}, color={0,0,127}));
   connect(floChaTan.y, ratHeaRec.u1) annotation (Line(points={{-128,0},{-120,0},
           {-120,-160},{-100,-160},{-100,-174},{-92,-174}}, color={0,0,127}));
-  connect(ratHeaRec.y, criRatHeaRec.u)
-    annotation (Line(points={{-68,-180},{-62,-180}}, color={0,0,127}));
   connect(criRatHeaRec.y, noEnaTruAndRatCon.u[7]) annotation (Line(points={{-38,
           -180},{-12,-180},{-12,3},{8,3}}, color={255,0,255}));
   connect(tim2.passed, disCha.u2) annotation (Line(points={{62,-8},{64,-8},{64,-14},
           {34,-14},{34,-38},{38,-38}}, color={255,0,255}));
+  connect(ratHeaRec.y, criRatHeaRec.u)
+    annotation (Line(points={{-68,-180},{-62,-180}}, color={0,0,127}));
   annotation (
   defaultComponentName="modConLoo",
   Icon(graphics={

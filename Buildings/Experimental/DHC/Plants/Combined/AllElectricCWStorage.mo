@@ -1606,17 +1606,6 @@ The HRC performance data should cover the HRC lift envelope,
 that is when the HRC is operating in direct heat recovery mode,
 producing CHW and HW at their setpoint value at full load.
 </p>
-<h5>Chiller and HRC CW bypass valve</h5>
-<p>
-The chillers and HRCs are piped in a parallel arrangement.
-When no unit is operating, heating up the CW loop with the heat pumps
-(Charge Assist mode) requires bypassing the chillers and HRCs.
-This is the purpose of the bypass valve represented on the schematic.
-However, this valve is currently not included in the model for simplification.
-This means that the model can only be run for a short period of time
-(corresponding to the thermal energy available in the TES tank)
-with heating loads and no concomitant cooling loads.
-</p>
 <h4>References</h4>
 <p>
 <a name=\"Gill2021\"/>

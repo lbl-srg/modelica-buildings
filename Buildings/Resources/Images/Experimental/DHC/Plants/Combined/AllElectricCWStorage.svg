@@ -3364,8 +3364,8 @@
      showgrid="true"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="157.50092"
-     inkscape:cx="272.58576"
+     inkscape:cy="181.20403"
+     inkscape:cx="255.12031"
      inkscape:zoom="1.6031652"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
@@ -3402,6 +3402,20 @@
      inkscape:groupmode="layer"
      inkscape:label="System"
      style="display:inline">
+    <rect
+       style="font-variation-settings:normal;display:inline;fill:#ececec;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.499998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       id="rect82201-3-8-0-1"
+       width="80"
+       height="40.00005"
+       x="315"
+       y="2422.1582" />
+    <rect
+       style="font-variation-settings:normal;display:inline;fill:#ececec;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.499999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       id="rect82201-3-8-0-9"
+       width="65"
+       height="40.00005"
+       x="449.99997"
+       y="2422.1582" />
     <g
        id="g174201-2-3-9-8-4"
        style="display:inline;fill:#b3b3b3;stroke:#b3b3b3"
@@ -3657,7 +3671,7 @@
        id="rect82201-3-8-0"
        width="45"
        height="40.00005"
-       x="420"
+       x="400"
        y="2422.1582" />
     <rect
        style="font-variation-settings:normal;display:inline;fill:#ececec;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.500001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
@@ -4063,7 +4077,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16342">EVAP</tspan></text>
+             id="tspan9087">EVAP</tspan></text>
         <g
            id="g13423-7-3-0-0"
            transform="translate(3.3046875,-26.182276)"
@@ -4083,7 +4097,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
                x="345"
                y="511.29409"
-               id="tspan16344">COND</tspan></text>
+               id="tspan9089">COND</tspan></text>
         </g>
         <rect
            y="-2572.1582"
@@ -4279,7 +4293,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2-6);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
            x="345"
            y="511.29409"
-           id="tspan16346">EVAP</tspan></text>
+           id="tspan9091">EVAP</tspan></text>
       <g
          id="g13423-7-3-0-0-1"
          transform="translate(3.3046875,-26.182276)"
@@ -4299,7 +4313,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2-9);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16348">COND</tspan></text>
+             id="tspan9093">COND</tspan></text>
       </g>
       <rect
          y="-2572.1582"
@@ -4431,7 +4445,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2-6-0);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16350">EVAP</tspan></text>
+             id="tspan9095">EVAP</tspan></text>
         <g
            id="g13423-7-3-0-0-1-0"
            transform="translate(3.3046875,-26.182276)"
@@ -4451,7 +4465,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2-9-6);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
                x="345"
                y="511.29409"
-               id="tspan16352">COND</tspan></text>
+               id="tspan9097">COND</tspan></text>
         </g>
         <rect
            y="-2572.1582"
@@ -6979,7 +6993,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2-6-0-62);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16354">EVAP</tspan></text>
+             id="tspan9099">EVAP</tspan></text>
         <g
            id="g13423-7-3-0-0-1-0-6"
            transform="translate(3.3046875,-26.182276)"
@@ -6999,7 +7013,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2-9-6-67);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
                x="345"
                y="511.29409"
-               id="tspan16356">COND</tspan></text>
+               id="tspan9101">COND</tspan></text>
         </g>
         <rect
            y="-2572.1582"
@@ -7052,7 +7066,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2-6-0-62-5);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16358">EVAP</tspan></text>
+             id="tspan9103">EVAP</tspan></text>
         <g
            id="g13423-7-3-0-0-1-0-6-4"
            transform="translate(3.3046875,-26.182276)"
@@ -7072,7 +7086,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2-9-6-67-1);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
                x="345"
                y="511.29409"
-               id="tspan16360">COND</tspan></text>
+               id="tspan9105">COND</tspan></text>
         </g>
         <rect
            y="-2572.1582"
@@ -7125,7 +7139,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2-6-0-62-3);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16362">EVAP</tspan></text>
+             id="tspan9107">EVAP</tspan></text>
         <g
            id="g13423-7-3-0-0-1-0-6-7"
            transform="translate(3.3046875,-26.182276)"
@@ -7145,7 +7159,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2-9-6-67-7);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
                x="345"
                y="511.29409"
-               id="tspan16364">COND</tspan></text>
+               id="tspan9109">COND</tspan></text>
         </g>
         <rect
            y="-2572.1582"
@@ -7722,11 +7736,11 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#ff00ff;fill-opacity:1;stroke:none;stroke-width:0.666667;stroke-opacity:1"
-       x="379.69144"
+       x="381.69144"
        y="2535.033"
        id="text80127-7-6-2-0-1-5-9-5-7"><tspan
          sodipodi:role="line"
-         x="379.69144"
+         x="381.69144"
          y="2535.033"
          id="tspan5157-2">heaPum.pum</tspan></text>
     <text
@@ -7898,7 +7912,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-92-52-2-6-0-62-3-4);display:inline;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
              x="345"
              y="511.29409"
-             id="tspan16366">EVAP</tspan></text>
+             id="tspan9111">EVAP</tspan></text>
         <g
            id="g13423-7-3-0-0-1-0-6-7-4"
            transform="translate(3.3046875,-26.182276)"
@@ -7918,7 +7932,7 @@
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.66667px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;white-space:pre;shape-inside:url(#rect13068-9-0-60-2-9-6-67-7-9);display:inline;opacity:1;fill:#4d4d4d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"><tspan
                x="345"
                y="511.29409"
-               id="tspan16368">COND</tspan></text>
+               id="tspan9113">COND</tspan></text>
         </g>
         <rect
            y="-2572.1582"
@@ -9603,12 +9617,12 @@
          y="2444.186">AI</tspan></text>
     <path
        style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#DotS);stop-color:#000000;stop-opacity:1"
-       d="m 462,2612.1583 h -1 v -170"
+       d="m 462,2612.1583 h -18 v -170"
        id="path17920"
        sodipodi:nodetypes="ccc" />
     <path
-       style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#DotS);stop-color:#000000;stop-opacity:1"
-       d="m 462,2587.1583 h -4 v -145"
+       style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.299999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#DotS);stop-color:#000000;stop-opacity:1"
+       d="m 462,2587.1583 h -19.7495 v -145"
        id="path26108"
        sodipodi:nodetypes="ccc" />
     <path
@@ -9641,8 +9655,8 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;display:inline;fill:#333333;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
-       x="432.53906"
-       y="2426.2993"
+       x="413.84375"
+       y="2426.3633"
        id="text3708-8-6-6-3-7-1-5-2-0-85-2-9-4"
        inkscape:transform-center-x="35.007756"
        inkscape:transform-center-y="-27.863261"
@@ -9651,8 +9665,8 @@
        inkscape:export-ydpi="300"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
          sodipodi:role="line"
-         x="432.53906"
-         y="2426.2993"
+         x="413.84375"
+         y="2426.3633"
          id="tspan109818-2-1">CWC pumps</tspan></text>
     <path
        style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#DotS);stop-color:#000000;stop-opacity:1"
@@ -9810,7 +9824,7 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;display:inline;fill:#333333;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
-       x="528.96582"
+       x="524.96582"
        y="2426.1582"
        id="text3708-8-6-6-3-7-1-5-2-0-85-2-9-0-7"
        inkscape:transform-center-x="35.007756"
@@ -9820,17 +9834,17 @@
        inkscape:export-ydpi="300"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
          sodipodi:role="line"
-         x="528.96582"
+         x="524.96582"
          y="2426.1582"
          id="tspan20662">Charge Assist: CW return temperature</tspan><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
          sodipodi:role="line"
-         x="528.96582"
+         x="524.96582"
          y="2430.1582"
          id="tspan20666">Tank Charge: chiller condenser leaving temperature</tspan><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
          sodipodi:role="line"
-         x="528.96582"
+         x="524.96582"
          y="2434.1582"
          id="tspan32736">Heat Rejection: design chiller condenser flow</tspan></text>
     <path
@@ -10801,6 +10815,154 @@
          id="tspan80121-6-8-3"
          x="569.18164"
          y="2616.1514">chiHea.chi[3]</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;display:inline;fill:#333333;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+       x="469.84375"
+       y="2427.0703"
+       id="text3708-8-6-6-3-7-1-5-2-0-85-2-9-4-3"
+       inkscape:transform-center-x="35.007756"
+       inkscape:transform-center-y="-27.863261"
+       inkscape:export-filename="/Users/agautier/pic.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="469.84375"
+         y="2427.0703"
+         id="tspan109818-2-1-0">CW bypass valve</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;display:inline;fill:#333333;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+       x="450"
+       y="2432.1582"
+       id="text3708-8-6-6-3-7-1-5-2-0-85-2-9-0-7-9"
+       inkscape:transform-center-x="35.007756"
+       inkscape:transform-center-y="-27.863261"
+       inkscape:export-filename="/Users/agautier/pic.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="450"
+         y="2432.1582"
+         id="tspan4910">Charge Assist and chiller condenser isolation </tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="450"
+         y="2436.1582"
+         id="tspan6710">valves closed: CW return temperature</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="450"
+         y="2440.1582"
+         id="tspan20666-8">Otherwise: Valve closed</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="450"
+         y="2444.1582"
+         id="tspan32736-79" /></text>
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;marker-start:url(#DotS);stop-color:#000000;stop-opacity:1"
+       d="m 493,2452.1583 0,132"
+       id="path6766"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-end:url(#DotS)"
+       d="m 455,2467.1583 v -25"
+       id="path11805" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;display:inline;fill:#333333;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+       x="346.84375"
+       y="2426.3633"
+       id="text3708-8-6-6-3-7-1-5-2-0-85-2-9-4-1"
+       inkscape:transform-center-x="35.007756"
+       inkscape:transform-center-y="-27.863261"
+       inkscape:export-filename="/Users/agautier/pic.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="346.84375"
+         y="2426.3633"
+         id="tspan109818-2-1-1">Heat pumps</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;display:inline;fill:#333333;stroke:#4d4d4d;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+       x="325"
+       y="2433.1582"
+       id="text3708-8-6-6-3-7-1-5-2-0-85-2-9-0-7-9-1"
+       inkscape:transform-center-x="35.007756"
+       inkscape:transform-center-y="-27.863261"
+       inkscape:export-filename="/Users/agautier/pic.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="325"
+         y="2433.1582"
+         id="tspan6710-0">Charge Assist: Enabled with supply</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="325"
+         y="2437.1582"
+         id="tspan15491">temperature depending on active tank cycle</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="325"
+         y="2441.1582"
+         id="tspan20666-8-7">Otherwise: Disabled</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:4px;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#333333"
+         sodipodi:role="line"
+         x="325"
+         y="2445.1582"
+         id="tspan32736-79-3" /></text>
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-start:url(#DotS)"
+       d="m 374,2452.1583 0,35 h -9.37493"
+       id="path17213"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-start:url(#DotS)"
+       d="m 372,2457.1583 v 25 h -7.37493"
+       id="path17215" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="m 374,2487.1583 v 55 h -9.37494"
+       id="path17217" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="m 372,2482.1583 v 55 h -7.37494"
+       id="path17219" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-start:url(#DotS)"
+       d="m 380,2457.1583 v 27 h 10.12491"
+       id="path17221" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="m 380,2484.1583 v 55 h 10.12491"
+       id="path17223" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-end:url(#DotS)"
+       d="m 372,2460.1583 h -2 v -3"
+       id="path17225" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-end:url(#DotS)"
+       d="m 374,2455.1583 h -2 v -3"
+       id="path17227" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1;marker-end:url(#DotS)"
+       d="m 380,2460.1583 h -2 v -3"
+       id="path17229" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="m 330,2487.1583 h 5"
+       id="path20939" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#b3b3b3;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       d="m 330,2542.1583 h 5"
+       id="path20941" />
   </g>
   <g
      transform="translate(-207.86198,-2422.1582)"
