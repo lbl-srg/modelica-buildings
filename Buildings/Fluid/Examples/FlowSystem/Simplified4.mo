@@ -5,11 +5,9 @@ model Simplified4 "Removed valve dynamics"
     valSouth(use_inputFilter=false),
     pmpNorth(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       use_inputFilter=false),
     pmpSouth(
       energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-      massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
       use_inputFilter=false),
     valSouth1(each use_inputFilter=false),
     valSouth2(each use_inputFilter=false),

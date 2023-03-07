@@ -19,7 +19,7 @@ model MultiStage "Multi-stage DX cooling coil"
     annotation (Placement(transformation(extent={{-56,-68},{-44,-56}})));
 equation
   connect(onSwi.y, eva.on) annotation (Line(
-      points={{-43.4,-62},{-10,-62}},
+      points={{-43.4,-62},{-26,-62},{-26,-64},{-10,-64}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.u, stage) annotation (Line(
@@ -54,6 +54,12 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 7, 2022, by Michael Wetter:<br/>
+Set <code>final massDynamics=energyDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">#1542</a>.
+</li>
 <li>
 September 6, 2012 by Michael Wetter:<br/>
 Changed control signal from a real number to an integer that is equal to the stage of

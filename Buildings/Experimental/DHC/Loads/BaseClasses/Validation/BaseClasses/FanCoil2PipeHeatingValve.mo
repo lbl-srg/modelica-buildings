@@ -11,7 +11,7 @@ model FanCoil2PipeHeatingValve
     final have_chiWat=false,
     final have_QReq_flow=true,
     final allowFlowReversal=false,
-    final allowFlowReversalLoa=true,
+    final allowFlowReversalLoa=false,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -25,8 +25,8 @@ model FanCoil2PipeHeatingValve
     "Heating heat exchanger configuration";
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)";
-  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
-     = 250 "Load side pressure drop"
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")=
+       250 "Load side pressure drop"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpSou_nominal=30000
     "Nominal pressure drop on source side";
@@ -68,8 +68,8 @@ model FanCoil2PipeHeatingValve
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
-    k=mLoaHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+        mLoaHea_flow_nominal)
     annotation (Placement(transformation(extent={{56,170},{76,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium=Medium2,
@@ -84,9 +84,9 @@ model FanCoil2PipeHeatingValve
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={110,0})));
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
+    dTEnv_nominal=25,
+    TAir_start=293.15,
+    QEnv_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium=Medium1,
@@ -100,12 +100,14 @@ model FanCoil2PipeHeatingValve
     redeclare final package Medium=Medium1,
     final allowFlowReversal=allowFlowReversal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=-90,origin={-40,-120})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
-    k=1/QHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+        QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-40,210},{-20,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
-    k=1/QHea_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+        QHea_flow_nominal) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,190})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(
     k=1)
     "One constant"
@@ -118,6 +120,7 @@ model FanCoil2PipeHeatingValve
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
+    final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
@@ -206,5 +209,36 @@ February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(
+          points={{-120,-1.46958e-14},{-80,-9.79717e-15},{-40,60},{40,-60},{80,9.79717e-15},{120,1.46958e-14}},
+          color={255,255,255},
+          thickness=1,
+          rotation=180),
+        Polygon(
+          points={{46,62},{70,70},{62,46},{46,62}},
+          lineColor={255,255,255},
+          lineThickness=1,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-118,-118},{120,120}},
+          color={255,255,255},
+          thickness=1),
+    Polygon(
+      points={{-72,-100},{-86,-90},{-86,-112},{-72,-100}},
+      lineColor={0,0,0},
+      fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
+      fillPattern=FillPattern.Solid),
+    Polygon(
+      points={{-72,-100},{-60,-90},{-60,-112},{-72,-100}},
+      lineColor={0,0,0},
+      fillColor={255,255,255},
+      fillPattern=FillPattern.Solid)}));
 end FanCoil2PipeHeatingValve;

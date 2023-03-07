@@ -254,7 +254,7 @@ model GroundCouplingAIT
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={130,30})));
-  BoundaryConditions.GroundTemperature.ClimaticConstants.Generic cliCon(
+  parameter BoundaryConditions.GroundTemperature.ClimaticConstants.Generic cliCon(
     TSurMea=281.53,
     TSurAmp=9.88,
     sinPha=9002880)
@@ -417,6 +417,12 @@ Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT</a> for mo
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 11, 2022, by Michael Wetter:<br/>
+Changed declaration of <code>cliCon</code> to be parameter.
+This is required to avoid a translation error in OpenModelica which
+complained about the variability of the component.
+</li>
 <li>
 June 25, 2021, by Baptiste Ravache:<br/>
 First implementation.

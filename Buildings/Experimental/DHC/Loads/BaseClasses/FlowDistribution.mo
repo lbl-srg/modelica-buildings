@@ -8,15 +8,6 @@ model FlowDistribution
     "Types of distribution system";
   import Type_ctr=Buildings.Experimental.DHC.Loads.BaseClasses.Types.PumpControlType
     "Types of distribution pump control";
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic per(
-    pressure(
-      V_flow=m_flow_nominal/rho_default .* {0,1,2},
-      dp=dp_nominal .* {1.5,1,0.5}),
-    motorCooledByFluid=false)
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{70,-100},{90,-80}})));
   parameter Integer nPorts_a1=0
     "Number of terminal units return ports"
     annotation (Dialog(connectorSizing=true),Evaluate=true);
@@ -72,10 +63,10 @@ model FlowDistribution
       Dialog(group="Nominal condition", enable=typCtr == Type_ctr.ConstantDp));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance (except for the pump always modeled in steady state)"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Type of mass balance (except for the pump always modeled in steady state)"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Modelica.Units.SI.Time tau=120
     "Time constant of fluid temperature variation at nominal flow rate"
     annotation (Dialog(
@@ -231,7 +222,6 @@ model FlowDistribution
     final Q_flow_nominal=-1,
     final allowFlowReversal=allowFlowReversal,
     final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     final tau=tau)
     "Heat transfer from the terminal units to the distribution system"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
@@ -285,41 +275,20 @@ model FlowDistribution
       final unit="1")=spePum_nominal)
     "Pump speed (fractional)"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},rotation=180,origin={-80,80})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow pumFlo(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumFlo(
     redeclare final package Medium=Medium,
-    per(
-      pressure(
-        final V_flow = per.pressure.V_flow,
-        final dp = per.pressure.dp),
-      final hydraulicEfficiency=per.hydraulicEfficiency,
-      final motorEfficiency=per.motorEfficiency,
-      final motorCooledByFluid=per.motorCooledByFluid,
-      final speed_nominal=per.speed_nominal,
-      final constantSpeed=per.constantSpeed,
-      final speeds=per.speeds,
-      final power=per.power),
-    final allowFlowReversal=allowFlowReversal,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal=dp_nominal,
+    final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true,
     use_inputFilter=false,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) if have_pum and typCtr <> Type_ctr.ConstantSpeed
     "Distribution pump with prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
-  Buildings.Fluid.Movers.SpeedControlled_y pumSpe(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumSpe(
     redeclare final package Medium=Medium,
-    per(
-      pressure(
-        final V_flow=per.pressure.V_flow,
-        final dp=per.pressure.dp),
-      final hydraulicEfficiency=per.hydraulicEfficiency,
-      final motorEfficiency=per.motorEfficiency,
-      final motorCooledByFluid=per.motorCooledByFluid,
-      final speed_nominal=per.speed_nominal,
-      final constantSpeed=per.constantSpeed,
-      final speeds=per.speeds,
-      final power=per.power),
+    final m_flow_nominal=m_flow_nominal,
+    final dp_nominal=dp_nominal,
     final allowFlowReversal=allowFlowReversal,
     addPowerToMedium=false,
     use_inputFilter=false,
@@ -609,7 +578,7 @@ sensor must be set to zero.
 </ul>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/BaseClasses/FlowDistribution1.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribution1.png\"/>
 </p>
 <h4>Energy and mass dynamics</h4>
 <p>
@@ -669,11 +638,18 @@ also plotted for the model labelled <code>simple</code>, resp. <code>detailed</c
 </p>
 <p>
 <img alt=\"image\"
-src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/BaseClasses/FlowDistribution2.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/FlowDistribution2.png\"/>
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 30, 2022, by Hongxiang Fu:<br/>
+Swapped the pump models for preconfigured versions and removed the pump curve
+record <code>per</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>.
+</li>
 <li>
 December 12, 2021, by Michael Wetter:<br/>
 Added parameter assignment for <code>pumFlo.per.V_flow</code> and <code>pumFlo.per.pressure</code>.

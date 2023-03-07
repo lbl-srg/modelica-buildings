@@ -8,7 +8,7 @@ model CoolingTowersParallel
     "Number of cooling towers";
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Equations"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics",group="Conservation equations"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -77,6 +77,7 @@ model CoolingTowersParallel
     each final m_flow_nominal=m_flow_nominal,
     each final dpValve_nominal=dpValve_nominal,
     each final use_inputFilter=use_inputFilter,
+    each riseTime=30,
     each final dpFixed_nominal=dp_nominal)
     "Cooling tower valves"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -255,17 +256,21 @@ equation
       revisions="<html>
 <ul>
 <li>
+November 16, 2022, by Michael Wetter:<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
+</li>
+<li>
 May 19, 2020 by Jing Wang:<br/>
 First implementation.
 </li>
 </ul>
 </html>",
       info="<html>
-<p>This model implements a parallel cooling tower system with <code>num</code> 
+<p>This model implements a parallel cooling tower system with <code>num</code>
 identical cooling towers. </p>
-<p>The cooling tower type is replaceable. 
+<p>The cooling tower type is replaceable.
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel\">
-Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in 
+Buildings.Fluid.HeatExchangers.CoolingTowers.Merkel</a> is currently used in
 this model. </p>
 </html>"),
     __Dymola_Commands);

@@ -49,7 +49,7 @@ equation
     Documentation(
       info="<html>
 <p>
-Block that outputs <code>y = avg(u1,u2)</code>,
+Block that outputs <code>y = (u1 + u2) / 2</code>,
 where
 <code>u1</code> and <code>u2</code> are inputs.
 </p>

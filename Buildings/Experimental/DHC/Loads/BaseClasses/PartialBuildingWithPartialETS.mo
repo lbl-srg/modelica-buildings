@@ -61,14 +61,14 @@ partial model PartialBuildingWithPartialETS
   final parameter Boolean have_weaBus=bui.have_weaBus or ets.have_weaBus
     "Set to true to use a weather bus"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal(min=0)=
     ets.QHeaWat_flow_nominal "Nominal capacity of heating system (>=0)"
     annotation (Dialog(group="Nominal condition", enable=have_heaWat));
-  final parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=0) =
+  final parameter Modelica.Units.SI.HeatFlowRate QHotWat_flow_nominal(min=0)=
     ets.QHotWat_flow_nominal
     "Nominal capacity of hot water production system (>=0)"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
-  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal(max=0) =
+  final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal(max=0)=
     ets.QChiWat_flow_nominal "Nominal capacity of cooling system (<=0)"
     annotation (Dialog(group="Nominal condition", enable=have_chiWat));
   // Parameters for connect clauses.
@@ -237,33 +237,26 @@ partial model PartialBuildingWithPartialETS
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum totPPum(
     final nin=Modelica.Math.BooleanVectors.countTrue(
-      {bui.have_pum,ets.have_pum}))
+      {bui.have_pum,ets.have_pum})) if have_pum
     "Total power drawn by pump motors"
     annotation (Placement(transformation(extent={{240,70},{260,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQHea_flow(
-    u(final unit="W"),
-    final k=facMul) if bui.have_heaLoa "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQHea_flow(u(
+        final unit="W"), final k=facMul) if bui.have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{270,270},{290,290}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQCoo_flow(
-    u(final unit="W"),
-    final k=facMul) if bui.have_cooLoa
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQCoo_flow(u(
+        final unit="W"), final k=facMul) if bui.have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{270,230},{290,250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPHea(
-    u(final unit="W"),
-    final k=facMul) if have_eleHea "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPHea(u(final
+        unit="W"), final k=facMul) if have_eleHea "Scaling"
     annotation (Placement(transformation(extent={{270,192},{290,212}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPCoo(
-    u(final unit="W"),
-    final k=facMul) if have_eleCoo "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPCoo(u(final
+        unit="W"), final k=facMul) if have_eleCoo "Scaling"
     annotation (Placement(transformation(extent={{270,150},{290,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPFan(
-    u(final unit="W"),
-    final k=facMul) if have_fan "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPFan(u(final
+        unit="W"), final k=facMul) if have_fan "Scaling"
     annotation (Placement(transformation(extent={{270,110},{290,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulPPum(
-    u(final unit="W"),
-    final k=facMul) if have_pum "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulPPum(u(final
+        unit="W"), final k=facMul) if have_pum "Scaling"
     annotation (Placement(transformation(extent={{270,70},{290,90}})));
   Fluid.BaseClasses.MassFlowRateMultiplier mulSerAmbInl(
     redeclare final package Medium = MediumSer,
@@ -307,10 +300,8 @@ partial model PartialBuildingWithPartialETS
     typ == TypDisSys.CombinedGeneration2to4 or
     typ == TypDisSys.Cooling "Mass flow rate multiplier"
     annotation (Placement(transformation(extent={{260,-290},{280,-270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain mulQFue_flow[nFue](
-    u(each final unit="W"),
-    each final k=facMul) if nFue>0
-    "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQFue_flow[nFue](
+      u(each final unit="W"), each final k=facMul) if nFue > 0 "Scaling"
     annotation (Placement(transformation(extent={{270,30},{290,50}})));
 initial equation
   assert(ets.have_heaWat == bui.have_heaWat,
@@ -619,6 +610,12 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Loads/PartialBuildi
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 21, 2022, by Kathryn Hinkelman:<br>
+Added conditional requirement <code>have_pum</code> to instance 
+<code>totPPum</code> for cases where ETS and building both don't have pumping.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+</li>
 <li>
 December 14, 2020, by Antoine Gautier:<br/>
 First implementation.

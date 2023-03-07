@@ -106,15 +106,17 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{290,-10},{310,10}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanSupCol(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fanSupCol(
     redeclare package Medium = MediumA,
-    per(pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0})),
+    m_flow_nominal=mAirCol_flow_nominal,
+    dp_nominal=600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{290,-160},{310,-140}})));
-  Buildings.Fluid.Movers.SpeedControlled_y fanRet(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y fanRet(
     redeclare package Medium = MediumA,
-    per(pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0})),
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=100,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                            "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));
@@ -428,7 +430,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splCol1(
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
@@ -440,7 +441,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.Junction splCol2(
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearized=true,
     dp_nominal(each displayUnit="Pa") = {0,0,0},
     redeclare package Medium = MediumW,
@@ -671,11 +671,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(eco.port_Exh, amb.ports[1]) annotation (Line(
-      points={{-40,55.2},{-100,55.2},{-100,24},{-112,24}},
+      points={{-40,55.2},{-100,55.2},{-100,21},{-112,21}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(amb.ports[2], VOut1.port_a) annotation (Line(
-      points={{-112,20},{-96,20},{-96,22},{-80,22}},
+      points={{-112,23},{-96,23},{-96,22},{-80,22}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(VOut1.port_b, eco.port_Out) annotation (Line(
@@ -758,45 +758,45 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(cor.port_b, flo.portsCor[1]) annotation (Line(
-      points={{582,112},{582,252},{784,252},{784,364},{915.409,364},{915.409,
+      points={{582,112},{582,252},{784,252},{784,364},{918.843,364},{918.843,
           401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetRoo1.port_3, flo.portsCor[2]) annotation (Line(
       points={{602,170},{602,240},{792,240},{792,352},{928,352},{928,401.262},{
-          929.148,401.262}},
+          925.713,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.port_b, flo.portsSou[1]) annotation (Line(
-      points={{722,114},{722,228},{915.409,228},{915.409,331.108}},
+      points={{722,114},{722,228},{918.843,228},{918.843,331.108}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
-      points={{742,170},{742,218},{934,218},{934,331.108},{929.148,331.108}},
+      points={{742,170},{742,218},{934,218},{934,331.108},{925.713,331.108}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(eas.port_b, flo.portsEas[1]) annotation (Line(
-      points={{858,114},{858,212},{1078,212},{1078,401.262},{1072.03,401.262}},
+      points={{858,114},{858,212},{1078,212},{1078,401.262},{1075.47,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
-      points={{882,170},{882,210},{1085.77,210},{1085.77,401.262}},
+      points={{882,170},{882,210},{1082.34,210},{1082.34,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nor.port_b, flo.portsNor[1]) annotation (Line(
-      points={{998,114},{998,412},{915.409,412},{915.409,460.892}},
+      points={{998,114},{998,412},{918.843,412},{918.843,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
-      points={{1022,170},{1022,418},{929.148,418},{929.148,460.892}},
+      points={{1022,170},{1022,418},{925.713,418},{925.713,460.892}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(wes.port_b, flo.portsWes[1]) annotation (Line(
-      points={{1136,114},{1136,248},{830.226,248},{830.226,401.262}},
+      points={{1136,114},{1136,248},{833.661,248},{833.661,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
-      points={{1032,160},{1130,160},{1130,240},{843.965,240},{843.965,401.262}},
+      points={{1032,160},{1130,160},{1130,240},{840.53,240},{840.53,401.262}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus, flo.weaBus) annotation (Line(
@@ -866,7 +866,7 @@ equation
       smooth=Smooth.None));
   connect(souHea.ports[1], valPreHea.port_a)
                                           annotation (Line(
-      points={{120,-230},{120,-180}},
+      points={{123,-230},{123,-206},{120,-206},{120,-180}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valPreHea.port_b, splCol1.port_1)
@@ -887,7 +887,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(splCol2.port_2, sinHea.ports[1]) annotation (Line(
-      points={{88,-140},{88,-230}},
+      points={{88,-140},{88,-186},{88,-230},{91,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_a1, valHea.port_b)  annotation (Line(
@@ -895,12 +895,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(valHea.port_a, souHea.ports[2])  annotation (Line(
-      points={{380,-60},{380,-80},{180,-80},{180,-220},{124,-220},{124,-230}},
+      points={{380,-60},{380,-80},{180,-80},{180,-220},{121,-220},{121,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoi.port_b1, sinHea.ports[2]) annotation (Line(
-      points={{350,-12},{340,-12},{340,-28},{220,-28},{220,-74},{174,-74},{174,
-          -212},{92,-212},{92,-230}},
+      points={{350,-12},{340,-12},{340,-28},{220,-28},{220,-74},{174,-74},{174,-212},
+          {89,-212},{89,-230}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TSetHot.y, heaCoiCon.u_s) annotation (Line(
@@ -1240,6 +1240,13 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 22, 2022, by Hongxiang Fu:<br/>
+Replaced <code>fanSupCol</code> and <code>fanRet</code> with preconfigured
+fan models.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue #2668</a>.
+</li>
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

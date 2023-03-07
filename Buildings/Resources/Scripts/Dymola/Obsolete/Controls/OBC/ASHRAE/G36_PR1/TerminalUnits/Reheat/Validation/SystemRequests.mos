@@ -1,0 +1,10 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.Validation.SystemRequests", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="SystemRequests_Reheat");
+createPlot(id=1, position={10, 10, 400, 700}, subPlot=1, y={"sysReq_RehBox.TZonCooSet","sysReq_RehBox.TZon"}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=1, position={10, 10, 400, 700}, subPlot=2, y={"sysReq_RehBox.uCoo"}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 400, 700}, subPlot=3, y={"sysReq_RehBox.yZonTemResReq"}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={420, 10, 400, 700}, subPlot=1, y={"sysReq_RehBox.VDisSet_flow","sysReq_RehBox.VDis_flow"}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=2, position={420, 10, 400, 700}, subPlot=2, y={"sysReq_RehBox.yDam_actual"}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={420, 10, 400, 700}, subPlot=3, y={"sysReq_RehBox.yZonPreResReq"}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={830, 10, 400, 700}, subPlot=1, y={"sysReq_RehBox.TDisHeaSet","sysReq_RehBox.TDis"}, grid=true, colors={{238,46,47},{28,108,200}});
+createPlot(id=3, position={830, 10, 400, 700}, subPlot=2, y={"sysReq_RehBox.uHeaVal"}, grid=true, colors={{238,46,47}});
+createPlot(id=3, position={830, 10, 400, 700}, subPlot=3, y={"sysReq_RehBox.yHeaValResReq","sysReq_RehBox.yHeaPlaReq"}, grid=true, colors={{238,46,47},{28,108,200}});

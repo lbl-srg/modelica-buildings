@@ -14,6 +14,8 @@
  * \date   2/14/2017
  *
  */
+#include "ModelicaUtilities.h"
+
 #include "cfdCosimulation.h"
 
 /*
@@ -41,9 +43,9 @@
  *
  * @return 0 if no error occurred
  */
-int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
-                int *bouCon, int nPorts, char** portName, int haveSensor,
-                char **sensorName, int haveShade, size_t nSur, size_t nSen,
+int cfdStartCosimulation(const char *cfdFilNam, const char **name, const double *A, const double *til,
+                const int *bouCon, int nPorts, const char** portName, int haveSensor,
+                const char **sensorName, int haveShade, size_t nSur, size_t nSen,
                 size_t nConExtWin, size_t nXi, size_t nC, double rho_start) {
   size_t i;
   size_t nBou;
@@ -80,7 +82,7 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
   if (cosim->para->til == NULL){
     ModelicaError("Failed to allocate memory for cosim->para->til in cfdStartCosimulation.c");
   }
-  cosim->para->bouCon = (size_t *) malloc(nSur*sizeof(size_t));
+  cosim->para->bouCon = (int *) malloc(nSur*sizeof(int));
   if (cosim->para->bouCon == NULL){
     ModelicaError("Failed to allocate memory for cosim->para->bouCon in cfdStartCosimulation.c");
   }

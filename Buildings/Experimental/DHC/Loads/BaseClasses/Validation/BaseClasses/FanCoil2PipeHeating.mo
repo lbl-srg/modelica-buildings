@@ -12,7 +12,7 @@ model FanCoil2PipeHeating
     final have_chiWat=false,
     final have_QReq_flow=true,
     allowFlowReversal=false,
-    allowFlowReversalLoa=true,
+    final allowFlowReversalLoa=false,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -27,8 +27,8 @@ model FanCoil2PipeHeating
     "Gain of controller";
   parameter Modelica.Units.SI.Time Ti(min=Modelica.Constants.small) = 10
     "Time constant of integrator block";
-  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")
-     = 250 "Load side pressure drop"
+  parameter Modelica.Units.SI.PressureDifference dpLoa_nominal(displayUnit="Pa")=
+       250 "Load side pressure drop"
     annotation (Dialog(group="Nominal condition"));
   final parameter hexConfiguration hexConHea=hexConfiguration.CounterFlow
     "Heating heat exchanger configuration";
@@ -41,7 +41,7 @@ model FanCoil2PipeHeating
     final m_flow_nominal=mLoaHea_flow_nominal,
     redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     final dp_nominal=dpLoa_nominal)
     "Fan"
@@ -68,16 +68,14 @@ model FanCoil2PipeHeating
     final allowFlowReversal2=allowFlowReversalLoa)
     "Heating coil"
     annotation (Placement(transformation(extent={{-80,4},{-60,-16}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiMasFlo(
-    k=mHeaWat_flow_nominal)
-    "Scale water flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiMasFlo(k=
+        mHeaWat_flow_nominal) "Scale water flow rate"
     annotation (Placement(transformation(extent={{40,210},{60,230}})));
   Modelica.Blocks.Sources.RealExpression Q_flowHea(
     y=hex.Q2_flow)
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiFloNom2(
-    k=mLoaHea_flow_nominal)
-    "Scale air flow rate"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiFloNom2(k=
+        mLoaHea_flow_nominal) "Scale air flow rate"
     annotation (Placement(transformation(extent={{56,170},{76,190}})));
   Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium=Medium2,
@@ -93,16 +91,18 @@ model FanCoil2PipeHeating
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
-    TIndHea_nominal=T_aLoaHea_nominal,
-    QHea_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
+    dTEnv_nominal=25,
+    TAir_start=293.15,
+    QEnv_flow_nominal=QHea_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo(
-    k=1/QHea_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
+        QHea_flow_nominal)
     annotation (Placement(transformation(extent={{-88,210},{-68,230}})));
-  Buildings.Controls.OBC.CDL.Continuous.Gain gaiHeaFlo1(
-    k=1/QHea_flow_nominal)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},rotation=90,origin={0,190})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo1(k=1/
+        QHea_flow_nominal) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,190})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Logical switch"
     annotation (Placement(transformation(extent={{30,170},{50,190}})));
@@ -120,6 +120,7 @@ model FanCoil2PipeHeating
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
+    final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaHea_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
@@ -221,13 +222,26 @@ February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    revisions="<html>
-<ul>
-<li>
-February 21, 2020, by Antoine Gautier:<br/>
-First implementation.
-</li>
-</ul>
-</html>");
+</html>"), Icon(graphics={
+        Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={127,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(
+          points={{-120,-1.46958e-14},{-80,-9.79717e-15},{-40,60},{40,-60},{80,9.79717e-15},{120,1.46958e-14}},
+          color={255,255,255},
+          thickness=1,
+          rotation=180),
+        Polygon(
+          points={{46,62},{70,70},{62,46},{46,62}},
+          lineColor={255,255,255},
+          lineThickness=1,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-118,-118},{120,120}},
+          color={255,255,255},
+          thickness=1)}));
 end FanCoil2PipeHeating;

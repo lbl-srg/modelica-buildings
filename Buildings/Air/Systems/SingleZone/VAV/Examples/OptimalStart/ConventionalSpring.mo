@@ -50,10 +50,10 @@ model ConventionalSpring
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1(realTrue=5)
     "Switch to occupied heating setpoint"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add3(final k1=+1, final k2=+1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add3
     "New cooling setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,34},{60,54}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add4(final k1=+1, final k2=+1)
+  Buildings.Controls.OBC.CDL.Continuous.Add add4
     "New heating setpoint schedule for room"
     annotation (Placement(transformation(extent={{40,64},{60,84}})));
   Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.BaseClasses.ZoneWithAHUConventional zonAHUOpt
@@ -75,7 +75,7 @@ equation
   connect(booToRea.y, add3.u1) annotation (Line(points={{22,50},{38,50}},
                          color={0,0,127}));
   connect(TSetCooOn.y, optSta.TSetZonCoo) annotation (Line(points={{-78,30},{-70,
-          30},{-70,73},{-42,73}},    color={0,0,127}));
+          30},{-70,74},{-42,74}},    color={0,0,127}));
   connect(optSta.optOn, booToRea.u) annotation (Line(points={{-18,66},{-6,66},{
           -6,50},{-2,50}},        color={255,0,255}));
   connect(add4.y, zonAHUOpt.TSetRooHea) annotation (Line(points={{62,74},{72,
@@ -86,8 +86,8 @@ equation
           {54,-50},{54,-54},{78,-54}},          color={0,0,127}));
   connect(TSetRooCoo.y[1], zonAHUCon.TSetRooCoo) annotation (Line(points={{-18,-80},
           {54,-80},{54,-60},{78,-60}},      color={0,0,127}));
-  connect(zonAHUOpt.TZon, optSta.TZon) annotation (Line(points={{102,60},{104,
-          60},{104,30},{-58,30},{-58,67},{-42,67}}, color={0,0,127}));
+  connect(zonAHUOpt.TZon, optSta.TZon) annotation (Line(points={{102,60},{104,60},
+          {104,30},{-58,30},{-58,66},{-42,66}},     color={0,0,127}));
   connect(optSta.optOn, booToRea1.u) annotation (Line(points={{-18,66},{-6,66},{
           -6,80},{-2,80}}, color={255,0,255}));
   connect(occSch.occupied, zonAHUCon.uOcc) annotation (Line(points={{-79,-12},

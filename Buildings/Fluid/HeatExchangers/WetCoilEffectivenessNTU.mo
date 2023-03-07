@@ -10,6 +10,13 @@ model WetCoilEffectivenessNTU
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
+  constant Boolean use_dynamicFlowRegime = false
+    "If true, flow regime is determined using actual flow rates";
+  // This switch is declared as a constant instead of a parameter
+  //   as users typically need not to change this setting,
+  //   and setting it true may generate events.
+  //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
+
   parameter Buildings.Fluid.Types.HeatExchangerConfiguration configuration=
     con.CounterFlow
     "Heat exchanger configuration";
@@ -51,10 +58,7 @@ model WetCoilEffectivenessNTU
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.SteadyState
     "Type of energy balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Type of mass balance: dynamic (3 initialization options) or steady state"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   Modelica.Units.SI.HeatFlowRate Q1_flow=-dryWetCalcs.QTot_flow
     "Heat input into water stream (positive if air is cooled)";
@@ -75,6 +79,7 @@ model WetCoilEffectivenessNTU
 
   Real dryFra(final unit="1", min=0, max=1) = dryWetCalcs.dryFra
     "Dry fraction, 0.3 means condensation occurs at 30% heat exchange length from air inlet";
+
 protected
   final parameter Modelica.Units.SI.MassFraction X_w_a2_nominal=w_a2_nominal/(1
        + w_a2_nominal)
@@ -120,7 +125,6 @@ protected
     final dp_nominal = dp1_nominal,
     final m_flow_nominal = m1_flow_nominal,
     final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics,
     final Q_flow_nominal=-1,
     u(final unit="W"))
     "Heat exchange with water stream"
@@ -132,7 +136,6 @@ protected
     final dp_nominal = dp2_nominal,
     final m_flow_nominal = m2_flow_nominal,
     final energyDynamics = energyDynamics,
-    final massDynamics = massDynamics,
     u(final unit="kg/s"))
     "Heat and moisture exchange with air stream"
     annotation (Placement(transformation(extent={{-60,-70},{-80,-50}})));
@@ -282,6 +285,13 @@ protected
      X=Medium2.X_default[1:Medium2.nXi]) "Default state for medium 2";
 
 initial equation
+  assert(m1_flow_nominal > Modelica.Constants.eps,
+    "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
+    m1_flow_nominal));
+  assert(m2_flow_nominal > Modelica.Constants.eps,
+    "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
+    m2_flow_nominal));
+
   cp1_nominal = Medium1.specificHeatCapacityCp(sta1_default);
   cp2_nominal = Medium2.specificHeatCapacityCp(sta2_default);
   C1_flow_nominal = m1_flow_nominal*cp1_nominal;
@@ -311,36 +321,51 @@ initial equation
       configuration <= con.CrossFlowStream1UnmixedStream2Mixed,
       "Invalid heat exchanger configuration.");
   end if;
+
 equation
   // Assign the flow regime for the given heat exchanger configuration and
   // mass flow rates
-  if (configuration == con.ParallelFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0)
-      then
-        flo.ParallelFlow
-      else
-        flo.CounterFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0)
-      then
-        flo.CounterFlow
-      else
-        flo.ParallelFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime = flo.CrossFlowUnmixed;
-  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
-    flowRegime = if (C1_flow < C2_flow)
-      then
-        flo.CrossFlowCMinMixedCMaxUnmixed
-      else
-        flo.CrossFlowCMinUnmixedCMaxMixed;
+  if use_dynamicFlowRegime then
+    if (configuration == con.ParallelFlow) then
+      flowRegime = if (C1_flow*C2_flow >= 0)
+        then
+          flo.ParallelFlow
+        else
+          flo.CounterFlow;
+    elseif (configuration == con.CounterFlow) then
+      flowRegime = if (C1_flow*C2_flow >= 0)
+        then
+          flo.CounterFlow
+        else
+          flo.ParallelFlow;
+    elseif (configuration == con.CrossFlowUnmixed) then
+      flowRegime = flo.CrossFlowUnmixed;
+    elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+      flowRegime = if (C1_flow < C2_flow)
+        then
+          flo.CrossFlowCMinMixedCMaxUnmixed
+        else
+          flo.CrossFlowCMinUnmixedCMaxMixed;
+    else
+      // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+      flowRegime = if (C1_flow < C2_flow)
+        then
+          flo.CrossFlowCMinUnmixedCMaxMixed
+        else
+          flo.CrossFlowCMinMixedCMaxUnmixed;
+    end if;
   else
-    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
-    flowRegime = if (C1_flow < C2_flow)
-      then
-        flo.CrossFlowCMinUnmixedCMaxMixed
-      else
-        flo.CrossFlowCMinMixedCMaxUnmixed;
+    flowRegime = flowRegime_nominal;
+    assert(noEvent(m1_flow > -0.1 * m1_flow_nominal)
+       and noEvent(m2_flow > -0.1 * m2_flow_nominal),
+"*** Warning in " + getInstanceName() +
+      ": The flow direction reversed.
+      However, because the constant use_dynamicFlowRegime is set to false,
+      the model does not change equations based on the actual flow regime.
+      To switch equations based on the actual flow regime during the simulation,
+      set the constant use_dynamicFlowRegime=true.
+      Note that this can lead to slow simulation because of events.",
+      level = AssertionLevel.warning);
   end if;
 
   connect(heaCoo.port_b, port_b1) annotation (Line(points={{80,60},{80,60},{100,60}},color={0,127,255},
@@ -582,6 +607,18 @@ with water and coil materials are considered.</p>
 coefficient, is assumed to be <i>1</i>.</p>
 <p>The model is not suitable for a cross-flow heat exchanger of which the number
 of passes is less than four.</p>
+<p>
+By default, the flow regime, such as counter flow or parallel flow,
+is kept constant based on the parameter value <code>configuration</code>.
+If a flow reverses direction, it is not changed, e.g.,
+a heat exchanger does not change from counter flow to parallel flow
+if one flow changes direction.
+To dynamically change the flow regime,
+set the constant <code>use_dynamicFlowRegime</code> to
+<code>true</code>.
+However, <code>use_dynamicFlowRegime=true</code>
+can cause slower simulation due to events.
+</p>
 <h4>Validation</h4>
 <p>Validation results can be found in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTU\">
@@ -615,6 +652,26 @@ Fuzzy identification of systems and its applications to modeling and control.
 &nbsp;IEEE transactions on systems, man, and cybernetics, (1), pp.116-132.</p>
 </html>",                    revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Jianjun Hu:<br/>
+Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1690\">issue 1690</a>.
+</li>
+<li>
+January 24, 2023, by Hongxiang Fu:<br/>
+Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
+by default. Added an assertion warning to inform the user about how to change
+this behaviour if the flow direction does need to change.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
+</li>
+<li>
+March 3, 2022, by Michael Wetter:<br/>
+Removed <code>massDynamics</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1542\">issue 1542</a>.
+</li>
 <li>
 November 2, 2021, by Michael Wetter:<br/>
 Corrected unit assignment during the model instantiation.<br/>
