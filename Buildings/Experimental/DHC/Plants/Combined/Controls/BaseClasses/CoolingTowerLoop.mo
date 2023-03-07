@@ -219,7 +219,7 @@ block CoolingTowerLoop "Cooling tower loop control"
     "y-value for maximum fan speed reset"
     annotation (Placement(transformation(extent={{30,120},{50,140}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlFan(
-    k=0.1,
+    k=0.05,
     Ti=60,
     final reverseActing=false) "Fan control loop"
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));

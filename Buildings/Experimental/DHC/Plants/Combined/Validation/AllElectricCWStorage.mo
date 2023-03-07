@@ -144,10 +144,9 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-220,-110},{-200,-90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable u1(
-    table=[0,0; 6,1; 24,0],
+    table=[0,0,0; 4,1,1; 72,0,1; 96,0,0],
     timeScale=3600,
-    period=24*3600)
-                  "Plant enable signal"
+    period=96*3600) "Plant enable signal: y[1] for cooling, y[2] for heating"
     annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
   Fluid.Actuators.Valves.TwoWayPressureIndependent valDisHeaWat(
     redeclare final package Medium = Medium,
@@ -163,10 +162,11 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     dpFixed_nominal=pla.dpChiWatSet_max - valDisChiWat.dpValve_nominal)
     "Distribution system approximated by variable flow resistance"
     annotation (Placement(transformation(extent={{-30,-150},{-50,-130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratFlo(table=[0,0,0; 6,
-        0,0; 10,0.3,0.1; 15,1,0.1; 24,0.1,0.1; 30,0.1,1; 39,1,0.3; 48,0.1,0.1; 54,
-        0.1,1; 63,0.1,0.3; 72,0,0], timeScale=3600)
-                    "Source signal"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratFlo(table=[0,0,0;
+        6,0,0; 10,0.3,0.1; 15,1,0.1; 24,0.1,0.1; 30,0.1,1; 39,1,0.3; 48,0.1,0.1;
+        54,0.1,1; 63,0.1,0.3; 72,0,0; 78,0,1; 96,0,0],
+                                    timeScale=3600)
+    "Source signal: y[1] for cooling load, y[2] for heating load"
     annotation (Placement(transformation(extent={{-220,170},{-200,190}})));
 equation
   connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-198,20},
@@ -179,7 +179,7 @@ equation
           {-66,-60},{-66,8},{-34,8}},   color={0,0,127}));
 
   connect(weaDat.weaBus, pla.weaBus) annotation (Line(
-      points={{-200,120},{0.1,120},{0.1,26.6}},
+      points={{-200,120},{0,120},{0,30}},
       color={255,204,51},
       thickness=0.5));
   connect(pla.port_bSerHea, disHeaWat.port_a) annotation (Line(points={{30,0},{
@@ -192,8 +192,6 @@ equation
           -100},{20,-132},{12,-132}}, color={0,0,127}));
   connect(u1.y[1], pla.u1Coo) annotation (Line(points={{-198,60},{-40,60},{-40,28},
           {-34,28}},     color={255,0,255}));
-  connect(u1.y[1], pla.u1Hea) annotation (Line(points={{-198,60},{-40,60},{-40,24},
-          {-34,24}},     color={255,0,255}));
   connect(disHeaWat.port_b, valDisHeaWat.port_a)
     annotation (Line(points={{-8,140},{-30,140}}, color={0,127,255}));
   connect(valDisHeaWat.port_b, pla.port_aSerHea) annotation (Line(points={{-50,140},
@@ -206,12 +204,14 @@ equation
           180},{-40,152}}, color={0,0,127}));
   connect(ratFlo.y[1], valDisChiWat.y) annotation (Line(points={{-198,180},{-80,
           180},{-80,-120},{-40,-120},{-40,-128}}, color={0,0,127}));
+  connect(u1.y[2], pla.u1Hea) annotation (Line(points={{-198,60},{-40,60},{-40,
+          24},{-34,24}}, color={255,0,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=259200,
+      StopTime=345600,
       Tolerance=1e-06),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
     Documentation(info="<html>

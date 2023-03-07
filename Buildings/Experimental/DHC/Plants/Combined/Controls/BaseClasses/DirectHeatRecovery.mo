@@ -26,7 +26,7 @@ block DirectHeatRecovery
   parameter Real k(min=0)=0.01
     "Gain of controller"
     annotation (Dialog(group="Control parameters"));
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)= 60
+  parameter Modelica.Units.SI.Time Ti=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control parameters"));
   parameter Real y_reset=0.5

@@ -319,8 +319,7 @@ block PartialController "Interface class for plant controller"
         rotation=0,
         origin={240,190})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValHeaWatMinByp(
-    final unit="1")
-    "HW minimum flow bypass valve control signal"
+    final unit="1") "HW minimum flow bypass valve control signal"
     annotation (Placement(
         transformation(extent={{260,-100},{300,-60}}, rotation=0),
         iconTransformation(
@@ -619,6 +618,13 @@ block PartialController "Interface class for plant controller"
     "Chiller condenser barrel leaving temperature" annotation (Placement(
         transformation(extent={{-300,100},{-260,140}}), iconTransformation(
           extent={{-260,80},{-220,120}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatByp(final unit="1")
+    "CW chiller and HRC bypass valve control signal" annotation (Placement(
+        transformation(extent={{260,-440},{300,-400}}, rotation=0),
+        iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={240,-360})));
   annotation (Diagram(coordinateSystem(extent={{-260,-460},{260,460}})), Icon(
         coordinateSystem(extent={{-220,-380},{220,380}}),
         graphics={                      Text(

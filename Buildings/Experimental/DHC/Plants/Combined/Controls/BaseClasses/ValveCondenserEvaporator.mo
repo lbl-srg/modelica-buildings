@@ -19,8 +19,7 @@ block ValveCondenserEvaporator
   parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal
     "Chiller CW design mass flow rate (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
-  parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(displayUnit=
-        "Pa")
+  parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(displayUnit="Pa")
     "Chiller evaporator design pressure drop (each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.PressureDifference dpValEvaChi_nominal(
@@ -50,10 +49,10 @@ block ValveCondenserEvaporator
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
-  parameter Real k(min=0)=0.02
+  parameter Real k(min=0)=0.01
     "Gain of controller"
     annotation (Dialog(group="Control parameters"));
-  parameter Modelica.Units.SI.Time Ti(min=Buildings.Controls.OBC.CDL.Constants.small)= 60
+  parameter Modelica.Units.SI.Time Ti=60
     "Time constant of integrator block"
     annotation (Dialog(group="Control parameters"));
   parameter Real yMin=0.1
@@ -311,7 +310,7 @@ block ValveCondenserEvaporator
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
-        origin={260,-460}), iconTransformation(
+        origin={260,-440}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={120,-100})));
@@ -360,7 +359,7 @@ block ValveCondenserEvaporator
     each final y_reset=y_reset,
     each final y_neutral=y_neutral)
     "HRC condenser isolation valve control"
-    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
+    annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal yValConSwi[nChiHea]
     "HRC condenser switchover valve commanded position"
     annotation (Placement(transformation(
@@ -385,7 +384,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep(
     final nout=nChiHea)
     "Replicate"
-    annotation (Placement(transformation(extent={{-20,-250},{0,-230}})));
+    annotation (Placement(transformation(extent={{-24,-250},{-4,-230}})));
   Buildings.Controls.OBC.CDL.Logical.Or heaOrCooCon[nChiHea]
     "Return true if switchover valve to be open for heating or cooling operation"
     annotation (Placement(transformation(
@@ -399,7 +398,7 @@ block ValveCondenserEvaporator
         origin={-110,-240})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant idx[nChiHea](final k={i
         for i in 1:nChiHea}) "HRC index"
-    annotation (Placement(transformation(extent={{-20,-290},{0,-270}})));
+    annotation (Placement(transformation(extent={{-24,-290},{-4,-270}})));
   Buildings.Controls.OBC.CDL.Logical.Or cooOrDir[nChiHea]
     "Return true if cooling OR direct HR" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -424,7 +423,7 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(extent={{-52,-210},{-32,-190}})));
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator rep1(final nout=
         nChiHea) "Replicate"
-    annotation (Placement(transformation(extent={{-20,-210},{0,-190}})));
+    annotation (Placement(transformation(extent={{-24,-210},{-4,-190}})));
   Buildings.Controls.OBC.CDL.Integers.Less intLes1[nChiHea]
     "Return true if switchover valve to be open for heating operation"
     annotation (Placement(transformation(extent={{30,-210},{50,-190}})));
@@ -484,9 +483,9 @@ block ValveCondenserEvaporator
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={180,340})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr enaPumConWatCon(nin=nChi+nChiHea)
+  Buildings.Controls.OBC.CDL.Logical.MultiOr enaPumConWatCon(nin=nChi+nChiHea+1)
     "Enable signal for lead CW pump serving condenser loop"
-                                                        annotation (Placement(
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -505,7 +504,7 @@ block ValveCondenserEvaporator
         origin={220,-340})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr enaPumConWatEva(nin=nChiHea)
     "Enable signal for lead CW pump serving evaporator loop"
-                                                         annotation (Placement(
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -564,7 +563,7 @@ block ValveCondenserEvaporator
         origin={-30,-400})));
   Buildings.Controls.OBC.CDL.Integers.Equal equIdx[nChiHea]
     "Return true if index equals highest index of HRC in direct HR"
-    annotation (Placement(transformation(extent={{-10,-378},{10,-358}})));
+    annotation (Placement(transformation(extent={{20,-378},{40,-358}})));
   Modelica.Blocks.Sources.IntegerExpression idxChiHea[nChiHea](final y={i for i in
             1:nChiHea}) "HRC index"
     annotation (Placement(transformation(extent={{-50,-386},{-30,-366}})));
@@ -572,12 +571,12 @@ block ValveCondenserEvaporator
     "Select control signal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={40,-400})));
+        origin={70,-400})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[nChiHea](each final
             k=0) "Constant" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={0,-420})));
+        origin={30,-420})));
   Buildings.Controls.OBC.CDL.Continuous.Max max1[nChiHea]
     "Take into account entering CW temperature control in direct HR mode"
     annotation (Placement(transformation(
@@ -595,7 +594,7 @@ block ValveCondenserEvaporator
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConWatEvaLvg[nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
-    each k=0.05,
+    each final k=k/2,
     each Ti=Ti,
     each final yMin=0,
     each final yMax=1,
@@ -669,7 +668,7 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={210,-460})));
+        origin={210,-440})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TConWatConRetSetCst[2](final
       k=TTanSet[:, 2]) "CW condenser loop return temperature setpoint"
     annotation (Placement(transformation(
@@ -682,7 +681,7 @@ block ValveCondenserEvaporator
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConWatConRet(
     u_s(final unit="K", displayUnit="degC"),
     u_m(final unit="K", displayUnit="degC"),
-    k=0.01,
+    k=k,
     Ti=Ti,
     final yMin=0,
     final yMax=1,
@@ -690,7 +689,7 @@ block ValveCondenserEvaporator
     final y_reset=0.2,
     final y_neutral=0.0)
     "Condenser loop CW return temperature control"
-    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
+    annotation (Placement(transformation(extent={{-90,170},{-70,190}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isChaAss
     "Check if charge assist mode is active"
     annotation (Placement(transformation(extent={{-170,150},{-150,170}})));
@@ -718,12 +717,12 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={30,-60})));
+        origin={30,-40})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable ctlTConLvgChi[nChi +
     nChiHea](
     u_s(each final unit="K", each displayUnit="degC"),
     u_m(each final unit="K", each displayUnit="degC"),
-    each k=0.01,
+    each k=k,
     each Ti=Ti,
     each final yMin=0,
     each final yMax=1,
@@ -747,19 +746,19 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(extent={{-100,250},{-80,270}})));
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep11(final nout=nChi +
         nChiHea) "Replicate"
-    annotation (Placement(transformation(extent={{-70,170},{-50,190}})));
+    annotation (Placement(transformation(extent={{-50,170},{-30,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[nChi + nChiHea](
       each final k=1) "Constant" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-40,210})));
+        origin={-40,220})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFloSet[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{30,190},{50,210}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator
                                                           rep12(final nout=nChi +
         nChiHea) "Replicate"
-    annotation (Placement(transformation(extent={{-40,150},{-20,170}})));
+    annotation (Placement(transformation(extent={{-10,190},{10,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiFloSet1[nChi + nChiHea]
     "Switch condenser flow setpoint based on condenser loop operating mode"
     annotation (Placement(transformation(extent={{-10,230},{10,250}})));
@@ -855,18 +854,17 @@ block ValveCondenserEvaporator
         origin={-170,-60})));
   Buildings.Controls.OBC.CDL.Continuous.Switch selValPos[nChiHea]
     "Select HRC evaporator isolation valve command signal"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yBalChiHea[nChiHea](
       final k=fill(yBalEvaChiHea, nChiHea)) "Constant"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr anyCooOrDirAndOn(nin=nChiHea)
     "Return true if any HRC in (cooling OR direct HR) AND On" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-170,420})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator
-                                                          rep13(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator rep13(final nout=nChi)
     "Replicate"
     annotation (Placement(transformation(extent={{-150,410},{-130,430}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nChiHea]
@@ -874,21 +872,53 @@ block ValveCondenserEvaporator
     annotation (Placement(transformation(extent={{20,-110},{40,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Max max4[nChiHea] "Convert"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatByp(final unit="1")
+    "CW chiller and HRC bypass valve control signal" annotation (Placement(
+        transformation(extent={{240,80},{280,120}}, rotation=0),
+        iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={120,-140})));
+  Buildings.Controls.OBC.CDL.Logical.Not isCloConChi[nChi]
+    "Check if valve closed"
+    annotation (Placement(transformation(extent={{80,10},{60,30}})));
+  Buildings.Controls.OBC.CDL.Logical.MultiAnd allCloAndChaAndEna(nin=nChi+2)
+    "Check if all valves closed AND Charge Assist mode is active"
+    annotation (Placement(transformation(extent={{40,10},{20,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch enaCtlValConWatByp
+    "Enable CW bypass valve control"
+    annotation (Placement(transformation(extent={{170,90},{190,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
+    "Constant" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={140,80})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe4(each t=0.1,
+      each h=5E-2) "Check if valve open"
+    annotation (Placement(transformation(extent={{190,130},{170,150}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1CooOrHea
+    "Plant Enable signal: either cooling or heating is enabled" annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-260,-40}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={-78,220})));
 equation
   connect(u1Chi, valConChi.uEna) annotation (Line(points={{-260,360},{-220,360},
           {-220,340},{76,340},{76,348}},color={255,0,255}));
   connect(valConChi.y, yValConChi) annotation (Line(points={{92,360},{226,360},
           {226,-40},{260,-40}},
                             color={0,0,127}));
-  connect(rep.y,intLes. u2) annotation (Line(points={{2,-240},{10,-240},{10,
-          -248},{28,-248}},
-                      color={255,127,0}));
+  connect(rep.y,intLes. u2) annotation (Line(points={{-2,-240},{10,-240},{10,-248},
+          {28,-248}}, color={255,127,0}));
   connect(intLes.y, heaOrCooCon.u2) annotation (Line(points={{52,-240},{56,-240},
           {56,-248},{68,-248}}, color={255,0,255}));
   connect(heaOrCooCon.y, yValConSwi.u)
     annotation (Line(points={{92,-240},{118,-240}},color={255,0,255}));
   connect(numHeaAndOn.y, rep.u)
-    annotation (Line(points={{-28,-240},{-22,-240}}, color={255,127,0}));
+    annotation (Line(points={{-28,-240},{-26,-240}}, color={255,127,0}));
   connect(u1CooChiHea, hea.u) annotation (Line(points={{-260,-80},{-220,-80},{
           -220,-240},{-202,-240}},
                               color={255,0,255}));
@@ -899,15 +929,15 @@ equation
           {-134,-248},{-122,-248}},color={255,0,255}));
   connect(heaAndOn.y, booToInt.u)
     annotation (Line(points={{-98,-240},{-82,-240}},   color={255,0,255}));
-  connect(idx.y, intLes.u1) annotation (Line(points={{2,-280},{20,-280},{20,
-          -240},{28,-240}},  color={255,127,0}));
+  connect(idx.y, intLes.u1) annotation (Line(points={{-2,-280},{20,-280},{20,-240},
+          {28,-240}},        color={255,127,0}));
   connect(cooOrDir.y,heaAndCas. u) annotation (Line(points={{-178,-200},{-166,
           -200}},                                           color={255,0,255}));
   connect(booToInt1.y, numHeaAndCasAndOn.u)
     annotation (Line(points={{-58,-200},{-54,-200}}, color={255,127,0}));
   connect(numHeaAndCasAndOn.y, rep1.u)
-    annotation (Line(points={{-30,-200},{-22,-200}}, color={255,127,0}));
-  connect(rep1.y,intLes1. u2) annotation (Line(points={{2,-200},{10,-200},{10,-208},
+    annotation (Line(points={{-30,-200},{-26,-200}}, color={255,127,0}));
+  connect(rep1.y,intLes1. u2) annotation (Line(points={{-2,-200},{10,-200},{10,-208},
           {28,-208}},        color={255,127,0}));
   connect(intLes1.y, heaOrCooEva.u2) annotation (Line(points={{52,-200},{80,
           -200},{80,-208},{118,-208}},color={255,0,255}));
@@ -931,8 +961,8 @@ equation
     annotation (Line(points={{-98,-200},{-82,-200}}, color={255,0,255}));
   connect(booToInt.y, numHeaAndOn.u)
     annotation (Line(points={{-58,-240},{-52,-240}}, color={255,127,0}));
-  connect(idx.y, intLes1.u1) annotation (Line(points={{2,-280},{20,-280},{20,
-          -200},{28,-200}}, color={255,127,0}));
+  connect(idx.y, intLes1.u1) annotation (Line(points={{-2,-280},{20,-280},{20,-200},
+          {28,-200}},       color={255,127,0}));
   connect(cooOrDirAndOn.y, heaOrCooEva.u1)
     annotation (Line(points={{-98,-160},{100,-160},{100,-200},{118,-200}},
                                                     color={255,0,255}));
@@ -1016,17 +1046,17 @@ equation
           255}));
   connect(valConSwi.y, rep4.u)
     annotation (Line(points={{-58,-400},{-42,-400}}, color={0,0,127}));
-  connect(equIdx.y, selCtl.u2) annotation (Line(points={{12,-368},{20,-368},{20,
-          -400},{28,-400}}, color={255,0,255}));
-  connect(rep4.y, selCtl.u1) annotation (Line(points={{-18,-400},{0,-400},{0,
-          -392},{28,-392}}, color={0,0,127}));
-  connect(zer.y, selCtl.u3) annotation (Line(points={{12,-420},{20,-420},{20,
-          -408},{28,-408}}, color={0,0,127}));
+  connect(equIdx.y, selCtl.u2) annotation (Line(points={{42,-368},{50,-368},{50,
+          -400},{58,-400}}, color={255,0,255}));
+  connect(rep4.y, selCtl.u1) annotation (Line(points={{-18,-400},{40,-400},{40,-392},
+          {58,-392}},       color={0,0,127}));
+  connect(zer.y, selCtl.u3) annotation (Line(points={{42,-420},{50,-420},{50,-408},
+          {58,-408}},       color={0,0,127}));
   connect(yValConSwi.y, max1.u1) annotation (Line(points={{142,-240},{150,-240},
           {150,-234},{168,-234}}, color={0,0,127}));
   connect(max1.y, yValConSwiChiHea) annotation (Line(points={{192,-240},{260,
           -240}},                     color={0,0,127}));
-  connect(selCtl.y, max1.u2) annotation (Line(points={{52,-400},{150,-400},{150,
+  connect(selCtl.y, max1.u2) annotation (Line(points={{82,-400},{150,-400},{150,
           -246},{168,-246}}, color={0,0,127}));
   connect(TConEntChiHea, extT.u)
     annotation (Line(points={{-260,-440},{-182,-440}}, color={0,0,127}));
@@ -1038,9 +1068,9 @@ equation
     annotation (Line(points={{-199,-460},{-110,-460},{-110,-360},{-82,-360}},
                                                       color={255,127,0}));
   connect(idxChiHea.y, equIdx.u2)
-    annotation (Line(points={{-29,-376},{-12,-376}}, color={255,127,0}));
-  connect(rep5.y, equIdx.u1) annotation (Line(points={{-58,-360},{-20,-360},{
-          -20,-368},{-12,-368}}, color={255,127,0}));
+    annotation (Line(points={{-29,-376},{18,-376}},  color={255,127,0}));
+  connect(rep5.y, equIdx.u1) annotation (Line(points={{-58,-360},{-20,-360},{-20,
+          -368},{18,-368}},      color={255,127,0}));
   connect(heaAndCasAndOn.y, ctlTConWatEvaLvg.uEna) annotation (Line(points={{-98,
           -200},{-90,-200},{-90,20},{-104,20},{-104,48}},  color={255,0,255}));
   connect(TEvaLvgChiHea, ctlTConWatEvaLvg.u_m) annotation (Line(points={{-260,40},
@@ -1057,10 +1087,10 @@ equation
           90},{-46,92},{-42,92}},     color={0,0,127}));
   connect(yVal[:, 1].y, valConWatEvaMix.f1) annotation (Line(points={{-58,90},{-46,
           90},{-46,104},{-42,104}},     color={0,0,127}));
-  connect(xVal[:, 1].y, valConWatEvaMix.x1) annotation (Line(points={{-58,120},
-          {-48,120},{-48,108},{-42,108}}, color={0,0,127}));
-  connect(xVal[:, 2].y, valConWatEvaMix.x2) annotation (Line(points={{-58,120},
-          {-48,120},{-48,96},{-42,96}}, color={0,0,127}));
+  connect(xVal[:, 1].y, valConWatEvaMix.x1) annotation (Line(points={{-58,120},{
+          -48,120},{-48,108},{-42,108}},  color={0,0,127}));
+  connect(xVal[:, 2].y, valConWatEvaMix.x2) annotation (Line(points={{-58,120},{
+          -48,120},{-48,96},{-42,96}},  color={0,0,127}));
   connect(yFlo[:, 2].y, floEva.f2) annotation (Line(points={{-58,10},{-46,10},{-46,
           12},{-42,12}},        color={0,0,127}));
   connect(yFlo[:, 1].y, floEva.f1) annotation (Line(points={{-58,10},{-46,10},{-46,
@@ -1092,11 +1122,12 @@ equation
   connect(TConWatEvaEntSet.y, ctlTConWatEvaEnt.u_s)
     annotation (Line(points={{-38,-460},{-12,-460}},  color={0,0,127}));
   connect(ctlTConWatEvaEnt.y, mulMin.u[nChiHea+1])
-    annotation (Line(points={{12,-460},{198,-460}}, color={0,0,127}));
+    annotation (Line(points={{12,-460},{180,-460},{180,-440},{198,-440}},
+                                                    color={0,0,127}));
   connect(valConWatEvaMix.y, mulMin.u[1:nChiHea]) annotation (Line(points={{-18,100},
-          {154,100},{154,-460},{198,-460}},      color={0,0,127}));
+          {0,100},{0,-440},{198,-440}},          color={0,0,127}));
   connect(mulMin.y, yValConWatEvaMix)
-    annotation (Line(points={{222,-460},{260,-460}}, color={0,0,127}));
+    annotation (Line(points={{222,-440},{260,-440}}, color={0,0,127}));
   connect(TConWatConRetSetCst.y, TConWatConRetSet.u) annotation (Line(points={{-188,
           100},{-172,100}},                            color={0,0,127}));
   connect(idxCycTan, TConWatConRetSet.index) annotation (Line(points={{-260,100},
@@ -1106,12 +1137,11 @@ equation
   connect(chaAss.y, isChaAss.u2) annotation (Line(points={{-188,160},{-184,160},
           {-184,152},{-172,152}}, color={255,127,0}));
   connect(isChaAss.y, ctlTConWatConRet.uEna) annotation (Line(points={{-148,160},
-          {-94,160},{-94,168}},   color={255,0,255}));
+          {-84,160},{-84,168}},   color={255,0,255}));
   connect(TConWatConRetSet.y, ctlTConWatConRet.u_s) annotation (Line(points={{-148,
-          100},{-110,100},{-110,180},{-102,180}},      color={0,0,127}));
-  connect(TConWatConRet, ctlTConWatConRet.u_m) annotation (Line(points={{-260,
-          140},{-90,140},{-90,168}},
-                                  color={0,0,127}));
+          100},{-110,100},{-110,180},{-92,180}},       color={0,0,127}));
+  connect(TConWatConRet, ctlTConWatConRet.u_m) annotation (Line(points={{-260,140},
+          {-80,140},{-80,168}},   color={0,0,127}));
   connect(xFloCon[:, 1].y, floCon.x1) annotation (Line(points={{82,220},{124,220},
           {124,208},{128,208}},
                               color={0,0,127}));
@@ -1133,24 +1163,24 @@ equation
   connect(rep10.y, ctlTConLvgChi.u_s)
     annotation (Line(points={{-78,260},{-72,260}}, color={0,0,127}));
   connect(ctlTConWatConRet.y, rep11.u)
-    annotation (Line(points={{-78,180},{-72,180}}, color={0,0,127}));
+    annotation (Line(points={{-68,180},{-52,180}}, color={0,0,127}));
   connect(TConWatConRetSet.y, rep10.u) annotation (Line(points={{-148,100},{-110,
           100},{-110,260},{-102,260}}, color={0,0,127}));
-  connect(rep12.y, swiFloSet.u2) annotation (Line(points={{-18,160},{0,160},{0,
-          200},{28,200}}, color={255,0,255}));
+  connect(rep12.y, swiFloSet.u2) annotation (Line(points={{12,200},{28,200}},
+                          color={255,0,255}));
   connect(isChaAss.y, rep12.u)
-    annotation (Line(points={{-148,160},{-42,160}}, color={255,0,255}));
-  connect(rep11.y, swiFloSet.u1) annotation (Line(points={{-48,180},{16,180},{
-          16,208},{28,208}},
+    annotation (Line(points={{-148,160},{-20,160},{-20,200},{-12,200}},
+                                                    color={255,0,255}));
+  connect(rep11.y, swiFloSet.u1) annotation (Line(points={{-28,180},{16,180},{16,
+          208},{28,208}},
                      color={0,0,127}));
   connect(rep9.y, swiFloSet1.u2) annotation (Line(points={{-118,200},{-56,200},
           {-56,240},{-12,240}},color={255,0,255}));
   connect(ctlTConLvgChi.y, swiFloSet1.u1) annotation (Line(points={{-48,260},{
           -20,260},{-20,248},{-12,248}},
                                      color={0,0,127}));
-  connect(one.y, swiFloSet1.u3) annotation (Line(points={{-28,210},{-20,210},{
-          -20,232},{-12,232}},
-                           color={0,0,127}));
+  connect(one.y, swiFloSet1.u3) annotation (Line(points={{-28,220},{-20,220},{-20,
+          232},{-12,232}}, color={0,0,127}));
   connect(swiFloSet1.y, swiFloSet.u3) annotation (Line(points={{12,240},{20,240},
           {20,192},{28,192}}, color={0,0,127}));
   connect(swiFloSet.y, floCon.u)
@@ -1162,9 +1192,9 @@ equation
   connect(scaFloConChi.y, valConChi.u_s)
     annotation (Line(points={{62,360},{68,360}}, color={0,0,127}));
   connect(scaFloConChiHea.y, valConChiHea.u_s)
-    annotation (Line(points={{42,-60},{48,-60}},   color={0,0,127}));
+    annotation (Line(points={{42,-40},{48,-40}},   color={0,0,127}));
   connect(floCon[nChi + 1:nChi + nChiHea].y, scaFloConChiHea.u) annotation (
-      Line(points={{152,200},{160,200},{160,160},{4,160},{4,-60},{18,-60}},
+      Line(points={{152,200},{160,200},{160,150},{4,150},{4,-40},{18,-40}},
         color={0,0,127}));
   connect(floCon[1:nChi].y, scaFloConChi.u) annotation (Line(points={{152,200},{
           160,200},{160,240},{32,240},{32,360},{38,360}}, color={0,0,127}));
@@ -1201,9 +1231,8 @@ equation
   connect(mEvaChi_flow, valChiWatMinByp[1:nChi].u_m) annotation (Line(points={{-260,
           300},{0,300},{0,440},{154,440},{154,448}},
                                      color={0,0,127}));
-  connect(mConChiHea_flow, valConChiHea.u_m) annotation (Line(points={{-260,
-          -140},{60,-140},{60,-72}},
-                                color={0,0,127}));
+  connect(mConChiHea_flow, valConChiHea.u_m) annotation (Line(points={{-260,-140},
+          {60,-140},{60,-52}},  color={0,0,127}));
   connect(mConChiHea_flow, valHeaWatMinByp.u_m)
     annotation (Line(points={{-260,-140},{104,-140},{104,400},{180,400},{180,
           408}},                                            color={0,0,127}));
@@ -1253,15 +1282,15 @@ equation
     annotation (Line(points={{-260,-60},{-182,-60}}, color={255,0,255}));
   connect(u1CooChiHea, cooAndOn.u2) annotation (Line(points={{-260,-80},{-200,
           -80},{-200,-68},{-182,-68}}, color={255,0,255}));
-  connect(cooAndOn.y, selValPos.u2) annotation (Line(points={{-158,-60},{-46,
-          -60},{-46,-40},{-42,-40}}, color={255,0,255}));
-  connect(yBalChiHea.y, selValPos.u1) annotation (Line(points={{-58,-40},{-50,
-          -40},{-50,-32},{-42,-32}},   color={0,0,127}));
+  connect(cooAndOn.y, selValPos.u2) annotation (Line(points={{-158,-60},{-120,-60},
+          {-120,-76},{-46,-76},{-46,-60},{-42,-60}},
+                                     color={255,0,255}));
+  connect(yBalChiHea.y, selValPos.u1) annotation (Line(points={{-58,-60},{-50,-60},
+          {-50,-52},{-42,-52}},        color={0,0,127}));
   connect(valEvaChiHea.y, selValPos.u3) annotation (Line(points={{-108,0},{-100,
-          0},{-100,-10},{-54,-10},{-54,-48},{-42,-48}},    color={0,0,127}));
-  connect(selValPos.y, yValEvaChiHea) annotation (Line(points={{-18,-40},{96,
-          -40},{96,-60},{220,-60},{220,-80},{260,-80}},
-                                color={0,0,127}));
+          0},{-100,-10},{-54,-10},{-54,-68},{-42,-68}},    color={0,0,127}));
+  connect(selValPos.y, yValEvaChiHea) annotation (Line(points={{-18,-60},{220,-60},
+          {220,-80},{260,-80}}, color={0,0,127}));
   connect(anyCooOrDirAndOn.y, rep13.u)
     annotation (Line(points={{-158,420},{-152,420}}, color={255,0,255}));
   connect(rep13.y, fulOpe.u) annotation (Line(points={{-128,420},{-120,420},{
@@ -1269,21 +1298,41 @@ equation
   connect(cooOrDirAndOn.y, anyCooOrDirAndOn.u) annotation (Line(points={{-98,
           -160},{-80,-160},{-80,-120},{-238,-120},{-238,420},{-182,420}}, color
         ={255,0,255}));
-  connect(cooAndOn.y, anyCooAndOn.u) annotation (Line(points={{-158,-60},{-140,
-          -60},{-140,-40},{-236,-40},{-236,480},{-222,480}}, color={255,0,255}));
+  connect(cooAndOn.y, anyCooAndOn.u) annotation (Line(points={{-158,-60},{-140,-60},
+          {-140,-46},{-236,-46},{-236,480},{-222,480}},      color={255,0,255}));
   connect(cooAndOn.y, heaOrCooCon.u1) annotation (Line(points={{-158,-60},{-140,
           -60},{-140,-260},{60,-260},{60,-240},{68,-240}},
                                      color={255,0,255}));
-  connect(cooAndOn.y, valConChiHea.uEna) annotation (Line(points={{-158,-60},{
-          -140,-60},{-140,-116},{56,-116},{56,-72}}, color={255,0,255}));
+  connect(cooAndOn.y, valConChiHea.uEna) annotation (Line(points={{-158,-60},{-140,
+          -60},{-140,-116},{56,-116},{56,-52}},      color={255,0,255}));
   connect(heaAndOn.y, booToRea.u) annotation (Line(points={{-98,-240},{-94,-240},
           {-94,-100},{18,-100}}, color={255,0,255}));
   connect(max4.y, yValConChiHea)
     annotation (Line(points={{142,-100},{260,-100}}, color={0,0,127}));
   connect(booToRea.y, max4.u2) annotation (Line(points={{42,-100},{80,-100},{80,
           -106},{118,-106}}, color={0,0,127}));
-  connect(valConChiHea.y, max4.u1) annotation (Line(points={{72,-60},{80,-60},{
-          80,-94},{118,-94}}, color={0,0,127}));
+  connect(valConChiHea.y, max4.u1) annotation (Line(points={{72,-40},{80,-40},{80,
+          -94},{118,-94}},    color={0,0,127}));
+  connect(isOpe3.y, isCloConChi.u) annotation (Line(points={{128,-40},{112,-40},
+          {112,20},{82,20}}, color={255,0,255}));
+  connect(isCloConChi.y, allCloAndChaAndEna.u[1:nChi])
+    annotation (Line(points={{58,20},{42,20}}, color={255,0,255}));
+  connect(enaCtlValConWatByp.y, yValConWatByp)
+    annotation (Line(points={{192,100},{260,100}}, color={0,0,127}));
+  connect(allCloAndChaAndEna.y, enaCtlValConWatByp.u2) annotation (Line(points={
+          {18,20},{12,20},{12,100},{168,100}}, color={255,0,255}));
+  connect(ctlTConWatConRet.y, enaCtlValConWatByp.u1) annotation (Line(points={{-68,
+          180},{-60,180},{-60,140},{160,140},{160,108},{168,108}}, color={0,0,127}));
+  connect(isChaAss.y, allCloAndChaAndEna.u[nChi + 1]) annotation (Line(points={{
+          -148,160},{50,160},{50,20},{42,20}}, color={255,0,255}));
+  connect(zer2.y, enaCtlValConWatByp.u3) annotation (Line(points={{152,80},{160,
+          80},{160,92},{168,92}}, color={0,0,127}));
+  connect(yValConWatByp, isOpe4.u) annotation (Line(points={{260,100},{220,100},
+          {220,140},{192,140}}, color={0,0,127}));
+  connect(isOpe4.y, enaPumConWatCon.u[nChi+nChiHea+1]) annotation (Line(points={{168,140},{164,
+          140},{164,300},{168,300}}, color={255,0,255}));
+  connect(u1CooOrHea, allCloAndChaAndEna.u[nChi+2]) annotation (Line(points={{-260,-40},
+          {-4,-40},{-4,0},{50,0},{50,20},{42,20}}, color={255,0,255}));
   annotation (
   defaultComponentName="valCmd",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -1302,7 +1351,8 @@ equation
 <p>
 This block implements the control logic for the chiller isolation valves,
 the HRC isolation and switchover valves, the CHW and HW minimum flow
-bypass valves, and the HRC evaporator CW mixing valve.
+bypass valves, the HRC evaporator CW mixing valve, and the
+CW chiller and HRC bypass valve.
 It also computes the lead pump Enable signal for the CHW, HW, CWC and CWE
 pump groups.
 </p>
@@ -1476,6 +1526,19 @@ When disabled, each loop output is set to <i>0&nbsp;%</i>.
 The valve control signal is the maximum (maximum bypass flow) of the resulting
 signals of all control loops.
 </p>
+<h4>CW chiller and HRC bypass valve</h4>
+<p>
+The valve control is enabled when Charge Assist mode is active and
+all chiller condenser isolation valves are closed (based on their 
+commanded position).
+</p>
+<p>
+When the valve control is enabled the valve position is modulated 
+by the same control loop used to maintain the condenser loop return 
+temperature at a target setpoint equal to the highest temperature 
+setpoint of the active tank cycle (see the section \"Chiller condenser flow setpoint\").
+</p>
+<p>Otherwise, the valve is commanded to a closed position.</p>
 <h4>CHW, HW, CWC, CWE lead pump</h4>
 <p>
 The lead pump of each loop is enabled whenever any chiller or HRC is indexed

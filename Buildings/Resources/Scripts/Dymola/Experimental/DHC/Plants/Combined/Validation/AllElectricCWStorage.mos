@@ -2,7 +2,7 @@ simulateModel("Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectric
     method="Cvode",
     tolerance=1e-6,
     startTime=0,
-    stopTime=259200,
+    stopTime=345600,
     resultFile="AllElectricCWStorage");
 createPlot(
     id=1,
