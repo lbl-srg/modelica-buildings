@@ -221,7 +221,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       .......................................................................*/
       fgets(string, 400, file_params);
       /* Get the length of name (The name may contain white space)*/
-      for(j=0; string[j] != '\n'; j++) {
+      for(j=0; string[j] != '\n' && string[j] != '\r'; j++) {
         continue;
       }
 
@@ -319,7 +319,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       .......................................................................*/
       fgets(string, 400, file_params);
       /* Get the length of name (The name may contain white space)*/
-      for(j=0; string[j] != '\n'; j++) {
+      for(j=0; string[j] != '\n' && string[j] != '\r'; j++) {
         continue;
       }
 
@@ -562,7 +562,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       .......................................................................*/
       fgets(string, 400, file_params);
       /* Get the length of name (The name may contain white space)*/
-      for(j=0; string[j] != '\n'; j++) {
+      for(j=0; string[j] != '\n' && string[j] != '\r'; j++) {
         continue;
       }
 
@@ -714,7 +714,7 @@ int read_sci_input(PARA_DATA *para, REAL **var, int **BINDEX) {
       .......................................................................*/
       fgets(string, 400, file_params);
       /* Get the length of name (The name may contain white space)*/
-      for(j=0; string[j] != '\n'; j++) {
+      for(j=0; string[j] != '\n' && string[j] != '\r'; j++) {
         continue;
       }
 
