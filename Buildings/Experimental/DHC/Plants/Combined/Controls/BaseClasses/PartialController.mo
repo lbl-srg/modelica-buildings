@@ -619,7 +619,7 @@ block PartialController "Interface class for plant controller"
         transformation(extent={{-300,100},{-260,140}}), iconTransformation(
           extent={{-260,80},{-220,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatByp(final unit="1")
-    "CW chiller and HRC bypass valve control signal" annotation (Placement(
+    "CW chiller bypass valve control signal" annotation (Placement(
         transformation(extent={{260,-440},{300,-400}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},

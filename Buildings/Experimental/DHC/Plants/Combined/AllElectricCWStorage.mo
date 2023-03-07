@@ -929,8 +929,8 @@ model AllElectricCWStorage
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-120,-320})));
-  Fluid.Sensors.MassFlowRate mConWatOutTan_flow(redeclare final package Medium =
-        Medium, final allowFlowReversal=allowFlowReversal)
+  Fluid.Sensors.MassFlowRate mConWatOutTan_flow(redeclare final package Medium
+      = Medium, final allowFlowReversal=allowFlowReversal)
     "Mass flow rate out of lower port of TES tank (>0 when charging)"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -1059,8 +1059,8 @@ protected
     MediumConWatCoo.specificHeatCapacityCp(staConWatCoo_default)
     "Specific heat capacity of the fluid";
 public
-  Fluid.Sensors.MassFlowRate mConWatHexCoo_flow(redeclare final package Medium =
-        Medium, final allowFlowReversal=allowFlowReversal)
+  Fluid.Sensors.MassFlowRate mConWatHexCoo_flow(redeclare final package Medium
+      = Medium, final allowFlowReversal=allowFlowReversal)
     "CW mass flow rate through secondary (plant) side of HX" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -1074,7 +1074,7 @@ public
     dpValve_nominal=1E3,
     final use_inputFilter=use_inputFilter,
     final allowFlowReversal=allowFlowReversal)
-    "CW chiller and HRC bypass valve" annotation (Placement(transformation(
+    "CW chiller bypass valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,-120})));
@@ -1549,16 +1549,30 @@ Ideally, a reset logic based on consumer valve requests should be implemented to
 those setpoints to the demand.
 </p>
 <h4>Details</h4>
+<h5>Sizing considerations</h5>
+<p>
+Sizing the TES tank and the heat pumps is a joint optimization problem
+under the constraint that on a design heating day, heating loads can be
+met using both the recovered heat and the heat added to the tank by
+the heat pumps.
+As stated by <a href=\"#Gill2021\">B. Gill (2021)</a>, increasing the tank
+capacity generally improves plant efficiency by providing more opportunity
+for heat recovery. Tank capacity should therefore be maximized under the limit
+corresponding to the amount of heat that can be recovered over the day.
+</p>
+<p>
+The model is configured by default with a tank that is sized to store
+the heat needed to operate the HRCs during <i>3&nbsp;</i>h at peak heating
+load with a <i>&Delta;T</i> covering the two temperature cycles specified
+with the parameter <code>TTanSet</code> (heels and thermocline neglected).
+This default can be overwritten.
+</p>
 <h5>TES tank</h5>
 <p>
 The tank is assumed to be integrated without pressure separation, i.e.,
 the operating level of the tank sets the system pressure and no pressure
 sustaining valve or discharge pump is included.
 The operating level is approximated as equal to the tank height.
-The tank is sized to store the heat needed to operate the HRCs
-during <i>3&nbsp;</i>h at peak heating load with
-a <i>&Delta;T</i> covering the two temperature cycles specified  with the parameter <code>TTanSet</code>
-(heels and thermocline neglected).
 A default height to diameter ratio of <i>2</i> is also taken into
 account
 (designers tend to favor a height to diameter ratio above <i>1.5</i>

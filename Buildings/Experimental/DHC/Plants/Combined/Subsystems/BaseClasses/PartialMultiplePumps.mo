@@ -213,10 +213,27 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-60,60},{60,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid)}),                      Diagram(
+          extent={{-100,16},{100,-16}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Ellipse(
+          extent={{-58,58},{58,-58}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Ellipse(
+          extent={{4,16},{36,-16}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          visible=energyDynamics <> Modelica.Fluid.Types.Dynamics.SteadyState,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{0,50},{0,-50},{54,0},{0,50}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255})}),                            Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,120}})),
     Documentation(info="<html>
 <p>

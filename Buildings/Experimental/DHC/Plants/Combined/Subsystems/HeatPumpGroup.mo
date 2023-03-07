@@ -263,9 +263,58 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-60,60},{60,-60}},
-          lineColor={27,0,55},
-          fillColor={170,213,255},
+          extent={{-70,80},{70,-80}},
+          lineColor={0,0,0},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Rectangle(
+          extent={{-56,68},{58,50}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-56,-52},{58,-70}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-42,0},{-52,-12},{-32,-12},{-42,0}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Polygon(
+          points={{-42,0},{-52,10},{-32,10},{-42,0}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Rectangle(
+          extent={{-44,50},{-40,10}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-44,-12},{-40,-52}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{38,50},{42,-52}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{18,22},{62,-20}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Polygon(
+          points={{40,22},{22,-10},{58,-10},{40,22}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(extent={{-100,-120},{100,120}})),
     Documentation(info="<html>

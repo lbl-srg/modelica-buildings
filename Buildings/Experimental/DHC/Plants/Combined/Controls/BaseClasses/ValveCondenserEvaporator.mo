@@ -873,7 +873,7 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Continuous.Max max4[nChiHea] "Convert"
     annotation (Placement(transformation(extent={{120,-110},{140,-90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yValConWatByp(final unit="1")
-    "CW chiller and HRC bypass valve control signal" annotation (Placement(
+    "CW chiller bypass valve control signal" annotation (Placement(
         transformation(extent={{240,80},{280,120}}, rotation=0),
         iconTransformation(
         extent={{-20,-20},{20,20}},
@@ -1352,7 +1352,7 @@ equation
 This block implements the control logic for the chiller isolation valves,
 the HRC isolation and switchover valves, the CHW and HW minimum flow
 bypass valves, the HRC evaporator CW mixing valve, and the
-CW chiller and HRC bypass valve.
+CW chiller bypass valve.
 It also computes the lead pump Enable signal for the CHW, HW, CWC and CWE
 pump groups.
 </p>
@@ -1469,11 +1469,11 @@ When a HRC is enabled, the valve position is controlled as follows.
 <li>
 If the HRC condenser is indexed to the HW loop (cascading heating or
 direct heat recovery mode), the valve is commanded to a fully open
-position. 
+position.
 </li>
 <li>
 If the HRC condenser is indexed to the CW loop (cascading cooling mode),
-the valve is modulated with a control loop tracking a condenser flow setpoint 
+the valve is modulated with a control loop tracking a condenser flow setpoint
 which is reset based
 on the same logic as for the chiller condenser flow setpoint (see above).
 The loop output is mapped to a valve position of <i>10&nbsp;%</i> (resp. <i>100&nbsp;%</i>)
@@ -1526,17 +1526,17 @@ When disabled, each loop output is set to <i>0&nbsp;%</i>.
 The valve control signal is the maximum (maximum bypass flow) of the resulting
 signals of all control loops.
 </p>
-<h4>CW chiller and HRC bypass valve</h4>
+<h4>CW chiller bypass valve</h4>
 <p>
 The valve control is enabled when the plant is enabled either in cooling or
-heating mode, the Charge Assist mode is active and 
-all chiller condenser isolation valves are closed (based on their 
+heating mode, the Charge Assist mode is active and
+all chiller condenser isolation valves are closed (based on their
 commanded position).
 </p>
 <p>
-When the valve control is enabled the valve position is modulated 
-by the same control loop used to maintain the condenser loop return 
-temperature at a target setpoint equal to the highest temperature 
+When the valve control is enabled the valve position is modulated
+by the same control loop used to maintain the condenser loop return
+temperature at a target setpoint equal to the highest temperature
 setpoint of the active tank cycle (see the section \"Chiller condenser flow setpoint\").
 </p>
 <p>Otherwise, the valve is commanded to a closed position.</p>
@@ -1545,7 +1545,7 @@ setpoint of the active tank cycle (see the section \"Chiller condenser flow setp
 The lead pump of each loop is enabled whenever any chiller or HRC is indexed
 to the loop and the corresponding evaporator or condenser isolation valve is
 commanded open (with a threshold of <i>10&nbsp;%</i>).
-In addition, the CWC lead pump may also be enabled if the CW chiller and HRC
+In addition, the CWC lead pump may also be enabled if the CW chiller
 bypass valve is commanded open.
 </p>
 </html>"));
