@@ -53,13 +53,17 @@ The following abbreviations are used in that package.<br/>
 <tr><td>AHU</td><td>Air handling unit</td></tr>
 <tr><td>AO</td><td>Analog output (integer or real)</td></tr>
 <tr><td>CHW</td><td>Chilled water</td></tr>
+<tr><td>CT</td><td>Cooling tower</td></tr>
 <tr><td>CW</td><td>Condenser water</td></tr>
 <tr><td>DHW</td><td>Domestic hot water</td></tr>
 <tr><td>DI</td><td>Digital input (Boolean)</td></tr>
 <tr><td>DO</td><td>Digital output (Boolean)</td></tr>
 <tr><td>DOAS</td><td>Dedicated outdoor air system</td></tr>
 <tr><td>DP</td><td>Differential pressure</td></tr>
-<tr><td>HHW</td><td>Heating hot water</td></tr>
+<tr><td>FCU</td><td>Fan coil unit</td></tr>
+<tr><td>DP</td><td>Differential pressure</td></tr>
+<tr><td>HW</td><td>Hot water (heating)</td></tr>
+<tr><td>MS</td><td>Motor starter</td></tr>
 <tr><td>OA</td><td>Outdoor air</td></tr>
 <tr><td>VAV</td><td>Variable air volume</td></tr>
 <tr><td>VFD</td><td>Variable frequency drive</td></tr>
