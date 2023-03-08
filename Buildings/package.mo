@@ -256,6 +256,48 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3236\">#3236</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls
+    </td>
+    <td valign=\"top\">Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi
+    </td>
+    <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
+                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
+
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ControlsBuildings.Fluid
+    </td>
+    <td valign=\"top\">Buildings.Fluid.Examples.Performance.Example5<br/>
+                       Buildings.Fluid.Examples.Performance.Example6<br/>
+                       Buildings.Fluid.Examples.Performance.Example7<br/>
+                       Buildings.Fluid.Examples.Performance.Example8
+    </td>
+    <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
+                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
+
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid
+    </td>
+    <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ
+    </td>
+    <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
+                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
+
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities
+    </td>
+    <td valign=\"top\">Buildings.Utilities.Plotters.Examples.Scatter<br/>
+                       Buildings.Utilities.Plotters.Examples.TimeSeries<br/>
+                       Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi<br/>
+                       Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
+    </td>
+    <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
+                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
+
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -326,7 +368,7 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_9_1_1;
+  end Version_9_1_1;
 
 
   class Version_9_1_0 "Version 9.1.0"
