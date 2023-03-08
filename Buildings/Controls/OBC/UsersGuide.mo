@@ -129,8 +129,8 @@ as it is clear that this will be the room temperature.
     <td>Minimum chilled water supply temperature</td></tr>
 <tr><td><code>dpChiWatPumMin</code></td>
     <td>Minimum chilled water pump differential static pressure</td></tr>
-<tr><td><code>LIFT_min</code></td>
-    <td>Chiller minimum LIFT</td></tr>
+<tr><td><code>lift_min</code></td>
+    <td>Chiller minimum lift</td></tr>
 </table>
 <br/>
 </html>"),
