@@ -693,6 +693,25 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Atan<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Atan2
+    </td>
+    <td valign=\"top\">Added unit <code>rad</code> to the output.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Cos<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sin<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Tan
+    </td>
+    <td valign=\"top\">Added unit <code>rad</code> to the input.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
+    </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
     </td>
     <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
@@ -702,7 +721,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This change is supported in the conversion script.
     </td>
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
@@ -711,7 +729,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed control that enables the heating system.
     </td>
 </tr>
-
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
