@@ -245,7 +245,7 @@ model PartialHydronicConfiguration
                          iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yPum_actual(
     final unit="1") if typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    "Actual normalised pump speed that is used for computations"
+    "Actual pump input value that is used for computations"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput PPum(

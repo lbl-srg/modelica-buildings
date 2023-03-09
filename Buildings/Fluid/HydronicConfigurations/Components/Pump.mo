@@ -99,7 +99,7 @@ model Pump "Container class for circulating pumps"
         origin={-52,70})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y_actual(
     final unit="1") if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    "Actual normalised pump speed that is used for computations"
+    "Actual pump input value that is used for computations"
     annotation (Placement(transformation(extent={{100,50},{140,90}}),
         iconTransformation(extent={{100,50},{140,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput P(
