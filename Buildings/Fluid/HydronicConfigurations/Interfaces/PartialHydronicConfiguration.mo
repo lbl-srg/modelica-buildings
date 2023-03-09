@@ -214,7 +214,7 @@ model PartialHydronicConfiguration
     redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     h_outflow(start = Medium.h_default, nominal = Medium.h_default))
-    "Secondary return port"
+    "Secondary supply port"
     annotation (Placement(transformation(extent={{-50,90},{-70,110}}),
         iconTransformation(extent={{-50,90},{-70,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput yVal(
