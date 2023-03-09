@@ -500,9 +500,9 @@ in consistency with
 Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 This requirement only applies to the source side.
 On the load side one is free to use whatever option suitable for the modeling needs.
-Note that typically for an air flow network connected to the outdoor
+Note that typically for an air flow network connected to the outdoor air
 (either at the room level for modeling infiltration or at the system level
-for the fresh air source), the unidirectional air flow condition cannot be guaranted.
+for the fresh air source), the unidirectional air flow condition cannot be guaranteed.
 The reason is the varying pressure of the outdoor air that can lead to a negative
 pressure difference at the terminal unit boundaries when the fan is off.
 </li>
@@ -536,6 +536,8 @@ and serving <i>multiple identical loads</i> (e.g., a thermal zone representing a
 </li>
 </ul>
 <p>
+Note that the two multiplier factors serve different modeling purposes.
+As such they typically should not be used simultaneously.
 Both multiplier factors are of type real (as opposed to integer) to allow
 for instance modeling a set of terminal units based on manufacturer data,
 while still being able to size the full set based on a peak load.

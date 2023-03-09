@@ -4,7 +4,7 @@ annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains sequences that specify the zone minimum outdoor air and minimum
 airflow set points, for compliance with the Ventilation Rate Procedure of ASHRAE
-Standard 62.1-2016.
+Standard 62.1.
 </p>
 </html>"),
   Icon(graphics={

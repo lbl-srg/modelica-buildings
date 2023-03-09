@@ -77,6 +77,13 @@ medium temperature is within the bounds <code>T_min</code> and <code>T_max</code
 where <code>T_min</code> and <code>T_max</code> are constants of the <code>Medium</code>.
 If the temperature is outside these bounds, the simulation will stop with an error.
 </p>
+<h4>Usage</h4>
+<p>
+This partial model provides medium selection for water, moist air and glycol.
+For a model that only provides moist air as a selection, use
+<a href=\"modelica://Buildings.Fluid.Sources.BaseClasses.PartialAirSource\">
+Buildings.Fluid.Sources.BaseClasses.PartialAirSource</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

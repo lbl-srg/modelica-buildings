@@ -124,7 +124,9 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal=mAir_flow_nominal,
     final nominalValuesDefineDefaultPressureCurve=true,
     final dp_nominal=875,
-    final per(use_powerCharacteristic=false),
+    final per(
+      final etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided,
+      final etaMotMet=Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=false,
     final use_inputFilter=false,
@@ -187,7 +189,7 @@ model ChillerDXHeatingEconomizer
     final m_flow_nominal=mChiEva_flow_nominal,
     final addPowerToMedium=false,
     final per(
-      hydraulicEfficiency(eta={1}),
+      efficiency(eta={1}),
       motorEfficiency(eta={0.9}),
       motorCooledByFluid=false),
     final dp_nominal=12000,
@@ -632,6 +634,15 @@ feedback control of damper positions. The cooling coil is a dry coil model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 1, 2021, by Hongxiang Fu:<br/>
+Refactored the model by replacing <code>not use_powerCharacteristic</code>
+with the enumeration
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 February 25, 2021, by Baptiste Ravache:<br/>
 Inverse the sign of <code>cooCoi.Q_flow_nominal</code> to respect the heat flow convention.
