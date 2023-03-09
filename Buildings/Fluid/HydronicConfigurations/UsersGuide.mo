@@ -1,4 +1,4 @@
-within Buildings.Fluid.HydronicConfigurations;
+﻿within Buildings.Fluid.HydronicConfigurations;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -14,6 +14,16 @@ See
 Buildings.Fluid.HydronicConfigurations.UsersGuide.NomenclatureSymbols</a>
 for the definitions of the different circuit types
 and the symbols used in the schematics below.
+</p>
+<p>
+Example models using the configurations are provided in 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples</a>
+and
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples\">
+Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples</a>.
+It is recommended that the user read the documentation of each example model
+carefully to understand their implementation, demonstration intent, and observations. 
 </p>
     <h4>Configurations for active networks</h4>
     <p>
