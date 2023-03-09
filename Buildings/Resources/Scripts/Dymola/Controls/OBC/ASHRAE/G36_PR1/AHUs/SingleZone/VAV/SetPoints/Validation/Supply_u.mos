@@ -1,7 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.Supply_u", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="Supply_u_SingleZone");
-createPlot(id=1, position={35, 30, 808, 1122}, y={"setPoiVAV.uHea", "setPoiVAV.uCoo"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={35, 30, 808, 277}, y={"setPoiVAV.TSupHeaEco", "setPoiVAV.TSupCoo"}, range={0.0, 1.0, 10.0, 40.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
-createPlot(id=1, position={35, 30, 808, 278}, y={"setPoiVAV.y"}, range={0.0, 1.0, 0.0, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=1, position={35, 30, 808, 277}, y={"setPoiVAV.TZon", "setPoiVAV.TOut"}, range={0.0, 1.0, 22.5, 24.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
-createPlot(id=2, position={861, 33, 865, 1120}, x="setPoiVAV.uCoo", y={"setPoiVAV.y", "setPoiVAV1.y", "setPoiVAV2.y"}, range={0.0, 1.0, 0.25, 1.05}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-

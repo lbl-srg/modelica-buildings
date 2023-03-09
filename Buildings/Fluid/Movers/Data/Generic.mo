@@ -9,40 +9,126 @@ record Generic "Generic data record for movers"
     dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
+  parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
+    if havePressureCurve
+      then (pressure.V_flow[end]
+                -(pressure.V_flow[end] - pressure.V_flow[end - 1])
+                /(pressure.dp[end] - pressure.dp[end - 1])
+                * pressure.dp[end])
+    else 0
+      "Volume flow rate on the curve when pressure rise is zero";
+  parameter Modelica.Units.SI.PressureDifference dpMax=
+    if havePressureCurve
+      then (pressure.dp[1]
+                -(pressure.dp[1] - pressure.dp[2])
+                /(pressure.V_flow[1] - pressure.V_flow[2])
+                * pressure.V_flow[1])
+    else 0
+      "Pressure rise on the curve when flow rate is zero";
 
-  parameter Boolean use_powerCharacteristic=false
-    "Use power data instead of motor efficiency"
+  // Efficiency computation choices
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod etaHydMet=
+    Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber
+    "Efficiency computation method for the hydraulic efficiency etaHyd"
+    annotation (Dialog(group="Power computation"));
+  parameter Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod etaMotMet=
+    if powerOrEfficiencyIsHydraulic
+      then Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve
+    else Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+    "Efficiency computation method for the motor efficiency etaMot"
     annotation (Dialog(group="Power computation"));
 
+  parameter Boolean powerOrEfficiencyIsHydraulic=true
+    "=true if hydraulic power or efficiency is provided, instead of total"
+    annotation (Dialog(group="Power computation",
+    enable=max(power.P)>Modelica.Constants.eps
+    or max(efficiency.eta)>Modelica.Constants.eps));
+
+  // Arrays for efficiency values
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
-    hydraulicEfficiency(
+    efficiency(
       V_flow={0},
-      eta={0.7}) "Hydraulic efficiency (used if use_powerCharacteristic=false)"
+      eta={0.7}) "Total or hydraulic efficiency vs. volumetric flow rate"
     annotation (Dialog(group="Power computation",
-                       enable=not use_powerCharacteristic));
+                       enable=etaHydMet == Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Efficiency_VolumeFlowRate));
   parameter
     Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
     motorEfficiency(
       V_flow={0},
       eta={0.7})
-    "Electric motor efficiency (used if use_powerCharacteristic=false)"
+    "Motor efficiency vs. volumetric flow rate"
     annotation (Dialog(group="Power computation",
-                       enable=not use_powerCharacteristic));
+                       enable=etaMotMet == Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_VolumeFlowRate));
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+    motorEfficiency_yMot(y={0}, eta={0.7})
+    "Motor efficiency vs. part load ratio yMot, where yMot = WHyd/WMot_nominal"
+    annotation (Dialog(group="Power computation", enable=etaMotMet ==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio));
 
-  // Power requires default values to avoid in Dymola the message
-  // Failed to expand the variable Power.V_flow
-  parameter BaseClasses.Characteristics.powerParameters power(
+  // Power curve
+  //   It requires default values to suppress Dymola message
+  //   "Failed to expand the variable Power.V_flow"
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters power(
     V_flow={0},
     P={0})
-    "Volume flow rate vs. electrical power consumption (used if use_powerCharacteristic=true)"
+    "Power (either consumed or hydraulic) vs. volumetric flow rate"
    annotation (Dialog(group="Power computation",
-                      enable=use_powerCharacteristic));
+                      enable =   etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate));
 
+  // Peak condition
+  parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak(
+    V_flow=peak_internal.V_flow,
+    dp=peak_internal.dp,
+    eta=peak_internal.eta)
+    "Volume flow rate, pressure rise, and efficiency (either total or hydraulic) at peak condition"
+    annotation (Dialog(group="Power computation",
+                       enable =  etaHydMet==
+      Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber));
+  final parameter Buildings.Fluid.Movers.BaseClasses.Euler.peak peak_internal=
+    Buildings.Fluid.Movers.BaseClasses.Euler.getPeak(pressure=pressure,power=power)
+    "Internal peak variable";
+  // The getPeak() function automatically handles the estimation of peak point
+  //   when insufficient information is provided from the pressure curve.
+
+  // Motor
   parameter Boolean motorCooledByFluid=true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Motor heat rejection"));
+  parameter Modelica.Units.SI.Power WMot_nominal(final displayUnit="W")=
+    if max(power.P)>Modelica.Constants.eps
+    then
+      if powerOrEfficiencyIsHydraulic
+        then max(power.P)*1.2
+      else max(power.P)
+    else
+      if havePressureCurve
+        then V_flow_max/2 * dpMax/2 /0.7*1.2
+      else 0
+    "Rated motor power"
+      annotation(Dialog(group="Power computation",
+                        enable= etaMotMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+                        or      etaMotMet==
+        Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve));
+  parameter Modelica.Units.SI.Efficiency etaMot_max(max=1)= 0.7
+    "Maximum motor efficiency"
+    annotation (Dialog(group="Power computation", enable=etaMotMet ==
+      Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve));
+  final parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters_yMot
+      motorEfficiency_yMot_generic=
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.motorEfficiencyCurve(
+          P_nominal=WMot_nominal,
+          eta_max=etaMot_max)
+    "Motor efficiency  vs. part load ratio"
+    annotation (Dialog(enable=false));
+  final parameter Boolean haveWMot_nominal=WMot_nominal > Modelica.Constants.eps
+    "= true, if the rated motor power is provided";
 
+  // Speed
   parameter Real speed_nominal(
     final min=0,
     final unit="1") = 1 "Nominal rotational speed for flow characteristic"
@@ -85,6 +171,32 @@ record Generic "Generic data record for movers"
   defaultComponentName = "per",
   Documentation(revisions="<html>
 <ul>
+<li>
+March 1, 2022, by Hongxiang Fu:<br/>
+<ul>
+<li>
+Modified the record to allow separate specifications of different
+efficiency variables.
+</li>
+<li>
+Added parameters for computation using Euler number.
+</li>
+<li>
+Added parameters for providing the motor efficiency as an array
+vs. motor part load ratio.
+</li>
+<li>
+Moved the computation of <code>V_flow_max</code> here from
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
+Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>
+and <code>dpMax</code> here from
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
+</li>
+</ul>
+These are for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 February 19, 2016, by Filip Jorissen:<br/>
 Refactored model such that <code>SpeedControlled_Nrpm</code>,
@@ -149,6 +261,22 @@ Buildings.Fluid.Movers.FlowControlled_m_flow</a>.
 An example that uses manufacturer data can be found in
 <a href=\"modelica://Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos\">
 Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos</a>.
+</p>
+<h4>Declaration of the peak condition</h4>
+<p>
+The variable <code>peak</code> is intentionally declared in a way that each of its
+element is declared individually. If it was delcared the same way as does
+<code>peak_internal</code>, Modelica would prevent the modification of its
+specific elements with the following error message:<br/>
+<code>
+Record has a value, and attempt to modify specific elements.<br/>
+The element modification of e.g. V_flow will be ignored.<br/>
+</code>
+The other variable <code>peak_internal</code> uses a function call to compute its
+default values. By passing them to <code>peak</code> one by one, the model can
+both have default values and also allow the user to override them easily.
+See <a href=\"https://github.com/modelica/ModelicaSpecification/issues/791\">
+Modelica Specification issue #791</a>.
 </p>
 <h4>Parameters in RPM</h4>
 <p>

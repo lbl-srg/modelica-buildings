@@ -51,6 +51,7 @@ test-openmodelica-spawn-spaces-success:
 	@echo "*** Check if for OpenModelica, Spawn works with OpenModelica if the root folder is not Buildings."
 	@$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
 	@mkdir -p $(TMP)
+	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
@@ -69,16 +70,18 @@ test-openmodelica-spawn-spaces-success:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
-	@cd $(TMP) && grep -q "The simulation finished successfully." SpawnTest.log
-	@rm -rf $(TMP)
+	@(cd $(TMP) && omc openmod.mos > /dev/null )
+	@cd $(TMP) && sudo grep -q "The simulation finished successfully." SpawnTest.log
+	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
 test-openmodelica-spawn-spaces-failure:
 	@echo "*** Check if for OpenModelica, Spawn properly fails if the root folder contains a space."
-	$(eval TMP := $(shell mktemp --suffix=-LBL-Buildings -d))
-	$(eval TMP := $(TMP)/dir\ with\ spaces)
+	$(eval TMP1 := $(shell mktemp --suffix=-LBL-Buildings -d))
+	@chmod a+rwx $(TMP1)
+	$(eval TMP := $(TMP1)/dir\ with\ spaces)
 	@mkdir -p $(TMP)
+	@chmod a+rwx $(TMP)
 	@cp -rp $(ROOT)/Buildings $(TMP)/
 	@mv $(TMP)/Buildings $(TMP)/Buildings\ 9.0.0
 	@cp $(ROOT)/Buildings/Resources/Scripts/travis/SpawnTest.mo $(TMP)
@@ -97,9 +100,9 @@ test-openmodelica-spawn-spaces-failure:
 	"loadFile(\"SpawnTest.mo\");\n" \
 	"simulate(SpawnTest);\n" \
 	"getErrorString();" > openmod.mos )
-	@(cd $(TMP) && export OPENMODELICALIBRARY=$(TMP):/usr/lib/omlibrary && omc openmod.mos > /dev/null )
-	@cd $(TMP) && grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
-	@rm -rf $(TMP)
+	@(cd $(TMP) && omc openmod.mos > /dev/null )
+	@cd $(TMP) && sudo grep -q "To use EnergyPlus, the Modelica Buildings Library must be installed in a directory that has no spaces." SpawnTest.log
+	@sudo rm -rf $(TMP)
 	@echo "    Success."
 
 test-dymola-spawn-spaces:
