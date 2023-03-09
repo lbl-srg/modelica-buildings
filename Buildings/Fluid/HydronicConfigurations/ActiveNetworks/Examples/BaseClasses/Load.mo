@@ -294,15 +294,11 @@ model Load "Model of a load on a hydronic circuit"
     "Values of entering air temperature"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirEnt_actual(
-    allowOutOfRange=true,
-    outOfRangeValue=MediumAir.T_default,
     y(final unit="K", displayUnit="degC"),
     final nin=2)
     "Actual value of entering air temperature"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirLvg_actual(
-    allowOutOfRange=true,
-    outOfRangeValue=MediumAir.T_default,
     y(final unit="K", displayUnit="degC"),
     final nin=2)
     "Actual value of leaving air temperature"

@@ -87,9 +87,7 @@ block PIDWithOperatingMode "PID controller with operating mode input"
     "Multiply input with mapping coefficient"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
-    allowOutOfRange=true,
-    final nin=2,
-    outOfRangeValue=0)
+    final nin=2)
     "Select mapping coefficient based on operating mode"
     annotation (Placement(transformation(extent={{-38,50},{-18,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant map_ms[2](k={1,-1})

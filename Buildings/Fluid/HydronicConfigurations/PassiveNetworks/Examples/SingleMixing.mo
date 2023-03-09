@@ -87,9 +87,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         rotation=0,
         origin={-50,-30})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor T2SetMod(
-    allowOutOfRange=true,
     nin=2,
-    outOfRangeValue=20 + 273.15,
     y(final unit="K", displayUnit="degC"))
     "Select consumer circuit temperature set point based on operating mode"
     annotation (Placement(transformation(
@@ -105,9 +103,7 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
     "Primary circuit temperature set point values"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(
-    allowOutOfRange=true,
     nin=2,
-    outOfRangeValue=20 + 273.15,
     y(final unit="K", displayUnit="degC"))
     "Primary circuit temperature set point" annotation (Placement(
         transformation(

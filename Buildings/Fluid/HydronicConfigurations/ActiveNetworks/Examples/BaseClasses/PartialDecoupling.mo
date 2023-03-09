@@ -133,9 +133,7 @@ partial model PartialDecoupling
     "Primary circuit temperature set point values"
     annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(
-    allowOutOfRange=true,
     nin=2,
-    outOfRangeValue=20 + 273.15,
     y(final unit="K", displayUnit="degC"))
     "Primary circuit temperature set point"
     annotation (Placement(

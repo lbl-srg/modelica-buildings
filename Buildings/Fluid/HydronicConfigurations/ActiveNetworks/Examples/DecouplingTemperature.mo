@@ -22,8 +22,7 @@ model DecouplingTemperature
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dTSetAct(
     y(final unit="K"),
-    final nin=2,
-    outOfRangeValue=0) "Select actual set point based on operating mode"
+    final nin=2)       "Select actual set point based on operating mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -61,8 +60,7 @@ model DecouplingTemperature
         origin={110,-140})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dTSetCor(
     y(final unit="K"),
-    final nin=2,
-    outOfRangeValue=0) if is_cor
+    final nin=2)       if is_cor
     "Delta-T set point corrected for low load operation" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
