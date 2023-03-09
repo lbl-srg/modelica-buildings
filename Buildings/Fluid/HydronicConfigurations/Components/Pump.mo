@@ -233,8 +233,8 @@ model Pump "Container class for circulating pumps"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,30})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
-    final k=0) "Zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0.0)
+               "Zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
@@ -242,7 +242,7 @@ model Pump "Container class for circulating pumps"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant One(final k=1.0)
     if typ==Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput
     "one"
     annotation (Placement(transformation(extent={{60,70},{40,90}})));
