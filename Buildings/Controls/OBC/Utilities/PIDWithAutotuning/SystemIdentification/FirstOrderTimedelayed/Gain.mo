@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
-block Gain "Identifies the gain of a first order time delayed model"
+block Gain "Identify the gain of a first order time delayed model"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6) = 0.5
@@ -23,11 +23,9 @@ block Gain "Identifies the gain of a first order time delayed model"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triSta
-    "Relay tuning status, true if the tuning starts" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
+    "Relay tuning status, true if the tuning starts"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90, origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -35,7 +33,8 @@ block Gain "Identifies the gain of a first order time delayed model"
     "Integral of the relay output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset Iy(
-     final k=1,y_start=1E-11)
+    final k=1,
+    final y_start=1E-11)
     "Integral of the process output"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant refRelOut(
@@ -101,7 +100,10 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 k = I<sub>y</sub>/I<sub>u</sub>,
 </p>
-<p>where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the process output and the integral of the relay output, respectively.</p>
+<p>
+where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the process
+output and the integral of the relay output, respectively.
+</p>
 <p><i>I<sub>y</sub></i> is calculated by </p>
 <p>I<sub>y</sub> = &int; u(t) dt;</p>
 <p>where <i>u</i> is the process output.</p>
@@ -109,11 +111,17 @@ k = I<sub>y</sub>/I<sub>u</sub>,
 <p align=\"center\" style=\"font-style:italic;\">
 I<sub>u</sub> = t<sub>on</sub> (y<sub>hig</sub> - y<sub>ref</sub>)+ t<sub>off</sub>(-y<sub>low</sub> - y<sub>ref</sub>),
 </p>
-<p>where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the relay control output, respectively.</p>
-<p><i>y<sub>ref</sub></i> is the reference value of the relay output.</p>
-<p><i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the On period and the Off period, respectively.</p>
-<p>During an On period, the relay switch signal becomes True;</p>
-<p>During an Off period, the relay switch signal becomes False.</p>
+<p>
+where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value
+and the lower value of the relay control output, respectively.
+<i>y<sub>ref</sub></i> is the reference value of the relay output.
+<i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the On
+period and the Off period, respectively.
+</p>
+<p>
+During an On period, the relay switch signal becomes <code>true</code>.
+During an Off period, the relay switch signal becomes <code>false</code>.
+</p>
 <h4>References</h4>
 <p>Josefin Berner (2017).
 \"Automatic Controller Tuning using Relay-based Model Identification\".

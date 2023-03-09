@@ -8,9 +8,9 @@ block OnOffPeriod
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
-    "Relay switch signal" annotation (Placement(transformation(
-          extent={{-140,-90},{-100,-50}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+    "Relay switch signal"
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff(
     final quantity="Time",
     final unit="s",
@@ -59,22 +59,19 @@ equation
   connect(Off.u, On) annotation (Line(points={{-82,-70},{-120,-70}},
                       color={255,0,255}));
   connect(Off.y, timOff.trigger) annotation (Line(points={{-58,-70},{-30,-70},{
-          -30,-52}},
-                 color={255,0,255}));
+          -30,-52}}, color={255,0,255}));
   connect(timOn.trigger, On) annotation (Line(points={{-30,28},{-30,20},{-92,20},
           {-92,-70},{-120,-70}}, color={255,0,255}));
   connect(lenOffCal.u1, timOn.y) annotation (Line(points={{18,-24},{8,-24},{8,
-          40},{-18,40}},          color={0,0,127}));
+          40},{-18,40}}, color={0,0,127}));
   connect(lenOnCal.u2, timOn.y)
     annotation (Line(points={{18,34},{8,34},{8,40},{-18,40}},color={0,0,127}));
   connect(lenOnCal.u1, timOff.y) annotation (Line(points={{18,46},{0,46},{0,-40},
           {-18,-40}},color={0,0,127}));
   connect(lenOffCal.u2, timOff.y) annotation (Line(points={{18,-36},{0,-36},{0,
-          -40},{-18,-40}},
-                     color={0,0,127}));
+          -40},{-18,-40}}, color={0,0,127}));
   connect(minLen.y, greTimOn.u2)
-    annotation (Line(points={{-38,0},{-10,0},{-10,62},{38,62}},
-                                                color={0,0,127}));
+    annotation (Line(points={{-38,0},{-10,0},{-10,62},{38,62}}, color={0,0,127}));
   connect(lenOnCal.y, greTimOn.u1) annotation (Line(points={{42,40},{50,40},{50,
           56},{20,56},{20,70},{38,70}}, color={0,0,127}));
   connect(greTimOff.u2, greTimOn.u2) annotation (Line(points={{38,-78},{-10,-78},
@@ -117,8 +114,11 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block processes a relay swtich output signal and calculates the length of the On period (when the relay switch signal becomes True),
-and the length of the Off period (when the relay switch signal becomes False), respectively.
+<p>
+This block processes a relay swtich output signal and calculates the length of
+the On period (when the relay switch signal becomes <code>true</code>),
+and the length of the Off period (when the relay switch signal becomes
+<code>false</code>), respectively.
 <h4>References</h4>
 <p>
 Josefin Berner (2017)

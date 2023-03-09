@@ -1,5 +1,5 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
-block PIDIntegralTime "Identifies the integral time of a PID controller"
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+block PIDIntegralTime "Identify the integral time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
     final unit="s",
@@ -29,13 +29,16 @@ block PIDIntegralTime "Identifies the integral time of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of add3 divided by the output of add1"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.4)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+    final k=0.4)
     "Calculate the product of 0.4 and the time delay"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=0.8)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+    final k=0.8)
     "Calculate the product of 0.8 and the input time constant"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
+    final k=0.1)
     "Calculate the product of 0.1 and the input time constant"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
@@ -92,8 +95,10 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>i</sub> = L(0.4L + 0.8T)/(L + 0.1T),
 </p>
-<p>where <i>T</i> is the time constant of the first-order time-delayed model;</p>
-<p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<p>
+where <code>T</code> is the time constant of the first-order time-delayed model
+and <code>L</code> is the time delay of the first-order time-delayed model.
+</p>
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see

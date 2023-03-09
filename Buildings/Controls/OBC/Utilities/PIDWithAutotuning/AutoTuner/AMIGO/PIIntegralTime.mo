@@ -1,5 +1,5 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
-block PIIntegralTime "Identifies the integral time of a PI controller"
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+block PIIntegralTime "Identify the integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
     final unit="s",
@@ -60,8 +60,7 @@ block PIIntegralTime "Identifies the integral time of a PI controller"
 
 equation
   connect(add2.y, Ti)
-    annotation (Line(points={{82,-2},{120,-2}},
-                                              color={0,0,127}));
+    annotation (Line(points={{82,-2},{120,-2}}, color={0,0,127}));
   connect(gai4.u, L) annotation (Line(points={{-82,-20},{-92,-20},{-92,-60},{-120,
           -60}},      color={0,0,127}));
   connect(mul3.u1, T) annotation (Line(points={{-62,66},{-90,66},{-90,60},{-120,
@@ -127,8 +126,10 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>i</sub> = 0.35L + 13LT<sup>2</sup>/(T<sup>2</sup> + 12LT + 7L<sup>2</sup>),
 </p>
-<p>where <i>T</i> is the time constant of the first-order time-delayed model;</p>
-<p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<p>
+where <code>T</code> is the time constant of the first-order time-delayed model
+and <code>L</code> is the time delay of the first-order time-delayed model.
+</p>
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see

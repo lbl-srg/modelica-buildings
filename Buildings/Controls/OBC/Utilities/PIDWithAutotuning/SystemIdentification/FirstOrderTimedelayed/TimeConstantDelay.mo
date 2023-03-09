@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
 block TimeConstantDelay
-  "Calculates the time constant and the time delay of a first order time delayed model"
+  "Calculate the time constant and the time delay of a first order time delayed model"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output (assuming the reference output is 0)";
   parameter Real yLow(min=1E-6) = 0.5
@@ -149,18 +149,27 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the time constant and the time delay of a first-order time-delayed model</p>
+<p>
+This block calculates the time constant and the time delay of a first-order time-delayed model.
+</p>
 <h4>Main equations</h4>
-<P>The time constant, <i>T</i>, is calculated by </p>
+<p>
+The time constant, <code>T</code>, is calculated by
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub>hig</sub> + y<sub>low</sub>))/(y<sub>hig</sub>-&delta;/|k|))),
 </p>
-<p>where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the relay control output, respectively,</p>
-<p><i>t<sub>on</sub></i> is the length of the On period,</p>
-<p><i>&delta;</i> is the dead band of a relay controller,</p>
-<p><i>k</i> is the gain of the first-order time-delayed model.</p>
-<p><i>&tau;</i> is the normalized time delay.</p>
-<P>The time delay, <i>L</i>, is calculated by </p>
+<p>
+where <code>y<sub>hig</sub></code> and <code>y<sub>low</sub></code> are the higher value
+and the lower value of the relay control output, respectively.
+<code>t<sub>on</sub></code> is the length of the On period.
+<code>&delta;</code> is the dead band of a relay controller.
+<code>k</code> is the gain of the first-order time-delayed model.
+<code>&tau;</code> is the normalized time delay.
+</p>
+<p>
+The time delay, <code>L</code>, is calculated by
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
 L = T &tau;/(1 - &tau;),
 </p>

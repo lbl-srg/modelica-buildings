@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PI "Identify the parameters of a PI controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(final min=1E-6)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
+    final min=1E-6)
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
@@ -70,11 +71,19 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain and the integral time of a PI model.</p>
-<P>Please refer to the following block for detailed information:</p>
-<P><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIGain</a></p>
-<P><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIIntegralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIIntegralTime</a></p>
+<p>
+This block calculates the control gain and the integral time of a PI model.
+</p>
+<p>Please refer to the following block for detailed information:</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIGain</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIIntegralTime</a>
+</li>
+</ul>
 </html>"));
 end PI;

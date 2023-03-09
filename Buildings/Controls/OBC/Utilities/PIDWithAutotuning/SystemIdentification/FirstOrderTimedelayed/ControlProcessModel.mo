@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed;
 block ControlProcessModel
-  "Identifies the parameters of a first order time delayed model for the control process"
+  "Identify the parameters of a first order time delayed model for the control process"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
@@ -14,27 +14,24 @@ block ControlProcessModel
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOn(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps
-    )
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the On period"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
     iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps
-    )
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau(
     final quantity="Time",
     final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps
-    )
-    "Normalized time delay" annotation (Placement(
-        transformation(extent={{-140,-100},{-100,-60}}), iconTransformation(
-          extent={{-140,-100},{-100,-60}})));
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)
+    "Normalized time delay"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
     annotation (Placement(transformation(extent={{100,36},{140,86}})));
@@ -63,36 +60,39 @@ block ControlProcessModel
     "Calculate the time constant and the time delay"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triSta
-    "Relay tuning status, true if the tuning starts" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120})));
+    "Relay tuning status, true if the tuning starts"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90, origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triEnd
-    "Relay tuning status, true if the tuning ends" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={60,-120})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samT(y_start=1)
+    "Relay tuning status, true if the tuning ends"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90, origin={60,-120})));
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samT(
+    final y_start=1)
     "Sample the time constant when the tuning period ends"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samL(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samL(
+    final y_start=1)
     "Sample the time delay when the tuning period ends"
     annotation (Placement(transformation(extent={{44,-90},{64,-70}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samk(
+    final y_start=1)
     "Sample the gain when the tuning period ends"
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtOn(y_start=1)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtOn(
+    final y_start=1)
     "Sample the length of the On period when the tuning period ends"
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtau(y_start=0.5)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtau(
+    final y_start=0.5)
     "Sample the normalized time delay"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(k=-1)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=-1)
     "Product of the normalized time delay and -1"
     annotation (Placement(transformation(extent={{-36,-90},{-16,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(p=1)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
+    final p=1)
     "Difference between 1 and the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
@@ -169,7 +169,10 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>This block calculates the parameters of a first-order time-delayed model.</p>
-<p>For more details, please refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain</a>,</p>
-<p><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay</a>.</p>
+<p>For more details, please refer to
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain</a>,</p>
+<p><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay</a>.</p>
 </html>"));
 end ControlProcessModel;

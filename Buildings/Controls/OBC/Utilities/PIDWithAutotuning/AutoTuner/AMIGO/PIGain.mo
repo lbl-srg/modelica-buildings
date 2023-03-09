@@ -1,6 +1,7 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
-block PIGain "Identifies the control gain of a PI controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(final min=1E-6)
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+block PIGain "Identify the control gain of a PI controller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
+    final min=1E-6)
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
@@ -127,10 +128,10 @@ First implementation<br/>
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
 </p>
 <p>
-where <i>k<sub>p</sub></i> is the gain of the first-order time-delayed model;
+where <code>k<sub>p</sub></code> is the gain of the first-order time-delayed model,
+<code>T</code> is the time constant of the first-order time-delayed model, and
+<code>L</code> is the time delay of the first-order time-delayed model.
 </p>
-<p><i>T</i> is the time constant of the first-order time-delayed model;</p>
-<p><i>L</i> is the time delay of the first-order time-delayed model.</p>
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see

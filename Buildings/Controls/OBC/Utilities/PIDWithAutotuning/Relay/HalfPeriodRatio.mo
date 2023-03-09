@@ -20,13 +20,13 @@ block HalfPeriodRatio
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
         iconTransformation(extent={{100,50},{120,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
-    "A boolean signal, true if the tuning starts" annotation (Placement(
-        transformation(extent={{100,-20},{140,20}}), iconTransformation(extent=
-            {{100,-10},{120,10}})));
+    "A boolean signal, true if the tuning starts"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
-    "A boolean signal, true if the tuning completes" annotation (Placement(
-        transformation(extent={{100,-50},{140,-10}}), iconTransformation(extent=
-           {{100,-70},{120,-50}})));
+    "A boolean signal, true if the tuning completes"
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
+        iconTransformation(extent={{100,-70},{120,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Min tmin
     "Minimum value of the length for the On period and the length for the off period "
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -80,51 +80,41 @@ equation
   connect(tmin.u1, tOn) annotation (Line(points={{-82,46},{-94,46},{-94,60},{
           -120,60}}, color={0,0,127}));
   connect(tmin.u2, tOff) annotation (Line(points={{-82,34},{-88,34},{-88,-60},{
-          -120,-60}},
-                    color={0,0,127}));
+          -120,-60}}, color={0,0,127}));
   connect(minLen.y, gretOntOff.u2) annotation (Line(points={{-58,10},{-40,10},{
           -40,48},{-22,48}},color={0,0,127}));
   connect(tOnSample.u, tOn)
-    annotation (Line(points={{-82,80},{-94,80},{-94,60},{-120,60}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-82,80},{-94,80},{-94,60},{-120,60}}, color={0,0,127}));
   connect(tOffSample.u, tOff) annotation (Line(points={{-82,-70},{-88,-70},{-88,
-          -60},{-120,-60}},
-                       color={0,0,127}));
+          -60},{-120,-60}}, color={0,0,127}));
   connect(samAddtOntOff.y, tIncrease.u2) annotation (Line(points={{42,20},{60,
           20},{60,-6},{18,-6},{18,-38},{28,-38}},   color={0,0,127}));
   connect(gretOntOff.y, samAddtOntOff.trigger) annotation (Line(points={{2,40},{
-          30,40},{30,32}},                  color={255,0,255}));
+          30,40},{30,32}}, color={255,0,255}));
   connect(tOnSample.y, maxtOntOff.u1) annotation (Line(points={{-58,80},{-52,80},
-          {-52,86},{-22,86}},
-                           color={0,0,127}));
+          {-52,86},{-22,86}}, color={0,0,127}));
   connect(maxtOntOff.u2, tOffSample.y) annotation (Line(points={{-22,74},{-48,
-          74},{-48,-70},{-58,-70}},
-                              color={0,0,127}));
+          74},{-48,-70},{-58,-70}}, color={0,0,127}));
   connect(mintOntOff.u2, tOffSample.y) annotation (Line(points={{-22,-76},{-48,
-          -76},{-48,-70},{-58,-70}},
-                              color={0,0,127}));
+          -76},{-48,-70},{-58,-70}}, color={0,0,127}));
   connect(maxtOntOff.y, halPerRat.u1) annotation (Line(points={{2,80},{52,80},{
-          52,86},{58,86}},
-                        color={0,0,127}));
+          52,86},{58,86}}, color={0,0,127}));
   connect(halPerRat.u2, mintOntOff.y) annotation (Line(points={{58,74},{14,74},
-          {14,-70},{2,-70}},                  color={0,0,127}));
+          {14,-70},{2,-70}}, color={0,0,127}));
   connect(halPerRat.y, rho) annotation (Line(points={{82,80},{120,80}},
                 color={0,0,127}));
   connect(AddtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-88,-36},{
-          -88,-60},{-120,-60}},
-                            color={0,0,127}));
+          -88,-60},{-120,-60}}, color={0,0,127}));
   connect(AddtOntOff.u1, tOn) annotation (Line(points={{-82,-24},{-94,-24},{-94,
-          60},{-120,60}},                   color={0,0,127}));
+          60},{-120,60}}, color={0,0,127}));
   connect(gretmaxtOntOff.y, triSta)
     annotation (Line(points={{2,0},{120,0}},  color={255,0,255}));
   connect(tChanges.u1, tIncrease.y)
     annotation (Line(points={{68,-30},{52,-30}}, color={255,0,255}));
   connect(samAddtOntOff.y, tDecrease.u2) annotation (Line(points={{42,20},{60,
-          20},{60,-6},{18,-6},{18,-88},{28,-88}},
-                                              color={0,0,127}));
+          20},{60,-6},{18,-6},{18,-88},{28,-88}}, color={0,0,127}));
   connect(gretmaxtOntOff.u1, AddtOntOff.y) annotation (Line(points={{-22,0},{
-          -40,0},{-40,-30},{-58,-30}},
-                                   color={0,0,127}));
+          -40,0},{-40,-30},{-58,-30}}, color={0,0,127}));
   connect(gretmaxtOntOff.u2, minLen.y) annotation (Line(points={{-22,8},{-40,8},
           {-40,10},{-58,10}},color={0,0,127}));
   connect(gretOntOff.u1, tmin.y) annotation (Line(points={{-22,40},{-58,40}},
@@ -138,9 +128,9 @@ equation
   connect(tDecrease.u1, mul.y) annotation (Line(points={{28,-80},{10,-80},{10,
           -30},{-12,-30}}, color={0,0,127}));
   connect(samAddtOntOff.u, mul.y) annotation (Line(points={{18,20},{10,20},{10,
-          -30},{-12,-30}},                   color={0,0,127}));
+          -30},{-12,-30}},  color={0,0,127}));
   connect(tOnSample.trigger, tChanges.y) annotation (Line(points={{-70,68},{-70,
-          60},{94,60},{94,-30},{92,-30}},                     color={255,0,255}));
+          60},{94,60},{94,-30},{92,-30}}, color={255,0,255}));
   connect(triEnd, tChanges.y) annotation (Line(points={{120,-30},{92,-30}},
                           color={255,0,255}));
   connect(tOnSample.y, mintOntOff.u1) annotation (Line(points={{-58,80},{-52,80},
@@ -149,11 +139,10 @@ equation
           -30},{94,-54},{-70,-54},{-70,-58}}, color={255,0,255}));
   connect(tDecrease.y, tChanges.u2) annotation (Line(points={{52,-80},{60,-80},
           {60,-38},{68,-38}}, color={255,0,255}));
-  annotation (
+  annotation (defaultComponentName = "halPerRat",
         Diagram(
            coordinateSystem(
            extent={{-100,-100},{100,100}})),
-        defaultComponentName = "halPerRat",
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{80,
             100}}),                                      graphics={
         Rectangle(
@@ -178,27 +167,41 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 &rho; = max(t<sub>on</sub>,t<sub>off</sub>)/ min(t<sub>on</sub>,t<sub>off</sub>),
 </p>
-<p>where <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the On period and the Off period, respectively.</p>
-<p>During an On period, the relay switch signal becomes True;</p>
-<p>During an Off period,  the relay switch signal becomes False.</p>
+<p>
+where <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code> are the
+length of the On period and the Off period, respectively.
+</p>
+<p>During an On period, the relay switch signal becomes True;
+During an Off period,  the relay switch signal becomes False.</p>
 <p>Note that only the first On period and the first Off period are considered.</p>
 <h4>Algorithm</h4>
 <p>
-The algorithm for calculating <i>&rho;</i> is as follows:
+The algorithm for calculating <code>&rho;</code> is as follows:
 </p>
 <h5>Step 1: detects when the tuning period begins.</h5>
-<p>The  tuning period is triggered to begin when either <i>t<sub>on</sub></i> or <i>t<sub>off</sub></i> are larger than 0.
-In this implementation, we detect the beginning time by monitoring the sum of <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i>.</p>
-
-<h5>Step 2: detects when both <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are larger than 0.</h5>
 <p>
-We then record the value of the minimum value between <i>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</i> at the momement when both <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> become postive.
+The  tuning period is triggered to begin when either <code>t<sub>on</sub></code>
+or <code>t<sub>off</sub></code> are larger than 0.
+In this implementation, we detect the beginning time by monitoring the sum of
+<code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>.
+</p>
+
+<h5>Step 2: detects when both <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>
+are larger than 0.</h5>
+<p>
+We then record the value of the minimum value between
+<code>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</code>
+at the momement when both <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>
+become postive.
 </p>
 
 <h5>Step 3: detects when the tuning period ends.</h5>
 <p>
-The tuning period is triggered to end when either <i>t<sub>on</sub></i> or <i>t<sub>off</sub></i> changes after they become positive.
-In this implementation, we detect the end time by checking if the value of <i>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</i> is different from the output of step2.
+The tuning period is triggered to end when either <code>t<sub>on</sub></code>
+or <code>t<sub>off</sub></code> changes after they become positive.
+In this implementation, we detect the end time by checking if the value of
+<code>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</code>
+is different from the output of step2.
 </p>
 
 <h4>References</h4>

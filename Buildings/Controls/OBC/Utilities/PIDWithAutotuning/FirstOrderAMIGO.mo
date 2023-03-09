@@ -128,9 +128,6 @@ protected
 
 initial equation
   assert(
-    yHig-yRef>1E-6,
-    "Higher value for the relay output should be larger than the reference output. Check parameters.");
-  assert(
     controllerType <> Buildings.Controls.OBC.CDL.Types.SimpleController.PD and controllerType <> Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     "Only PI and PID are supported");
 
@@ -207,19 +204,31 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
-Specifically, this PID tuning method approximates the control process with a first-order delay (FOD) model.
-It then determines the parameters of this FOD model based on the responses of the control process to an asymmetric relay feedback.
-After that, taking the parameters of this FOD mode as inputs, this PID tuning method calculates the PID parameters based on prescribed rules, i.e., Approximate M-constrained Integral Gain Optimization (AMIGO) Tuner.
-This block is built based on <a href=\\\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\\\"> Buildings.Controls.OBC.Utilities.PIDWithInputGains</a> and inherits all the parameters of the latter.
-However, through the parameter <code>controllerType</code>, the controller can only be configured as PI or PID controller.
+Specifically, this PID tuning method approximates the control process with a
+first-order delay (FOD) model.
+It then determines the parameters of this FOD model based on the responses of
+the control process to an asymmetric relay feedback.
+After that, taking the parameters of this FOD mode as inputs, this PID tuning
+method calculates the PID parameters based on prescribed rules,
+i.e., Approximate M-constrained Integral Gain Optimization (AMIGO) Tuner.
+This block is built based on
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
+Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
+and inherits all the parameters of the latter. However, through the parameter
+<code>controllerType</code>, the controller can only be configured as PI or
+PID controller.
 </p>
 <h4>Breif guidance</h4>
 <p>
 To use this block, connect it to the control loop. 
 It will start the PID tuning process once the simulation starts.
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
-The PID tuning process will ends automatically based on the algorithm defined in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
+The PID tuning process will ends automatically based on the algorithm defined
+in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
 Starting from then, the control loop is controlled by a PI or PID controller.
+</p>
+<p>
 Note that the output of this block is limited from 0 to 1.
 </p>
 <h4>References</h4>

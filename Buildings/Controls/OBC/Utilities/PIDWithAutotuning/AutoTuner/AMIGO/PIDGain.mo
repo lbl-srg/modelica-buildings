@@ -1,6 +1,7 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDGain "Identify the control gain of a PID controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(final min=1E-6)
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
+    final min=1E-6)
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,24},{-100,64}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
@@ -24,16 +25,19 @@ block PIDGain "Identify the control gain of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
     "Calculate the inverse of the input gain"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(final k=1)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
+    final k=1)
     "Constant parameter"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter add(final p=0.2)
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter add(
+    final p=0.2)
     "Calculate the sum of 0.2 and the output of gai1"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Calculate ratio of the time constant to the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.45)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+    final k=0.45)
     "Calculate the product of 0.45 and the output of div2"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
@@ -82,9 +86,11 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 k = 1/k<sub>p</sub> + (0.2 + 0.45T/L),
 </p>
-<p>where <i>k<sub>p</sub></i> is the gain of the first-order time-delayed model;</p>
-<p><i>T</i> is the time constant of the first-order time-delayed model;</p>
-<p><i>L</i> is the time delay of the first-order time-delayed model.</p>
+<p>
+where <code>k<sub>p</sub></code> is the gain of the first-order time-delayed model,
+<code>T</code> is the time constant of the first-order time-delayed model,
+and <code>L</code> is the time delay of the first-order time-delayed model.
+</p>
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see

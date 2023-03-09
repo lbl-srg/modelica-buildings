@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block Controller
-  "Outputs relay signals for tuning PID controllers"
+  "Output relay signals for tuning PID controllers"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the relay output";
   parameter Real yLow(min=1E-6) = 0.5
@@ -52,32 +52,26 @@ initial equation
 
 equation
   connect(swi.y, y)
-    annotation (Line(points={{82,0},{88,0},{88,60},{120,60}},
-                                                            color={0,0,127}));
+    annotation (Line(points={{82,0},{88,0},{88,60},{120,60}},  color={0,0,127}));
   connect(greMeaSet.reference, u_s)
-    annotation (Line(points={{-22,6},{-40,6},{-40,0},{-120,0}},
-                                               color={0,0,127}));
+    annotation (Line(points={{-22,6},{-40,6},{-40,0},{-120,0}}, color={0,0,127}));
   connect(greMeaSet.u, u_m)
     annotation (Line(points={{-22,-6},{-70,-6},{-70,-94},{0,-94},{0,-120}},
-                             color={0,0,127}));
+         color={0,0,127}));
   connect(yHigSig.y, swi.u1)
-    annotation (Line(points={{2,60},{20,60},{20,8},{58,8}},
-               color={0,0,127}));
+    annotation (Line(points={{2,60},{20,60},{20,8},{58,8}}, color={0,0,127}));
   connect(yLowSig.y, swi.u3)
-    annotation (Line(points={{2,-40},{20,-40},{20,-8},{58,-8}},
-                    color={0,0,127}));
+    annotation (Line(points={{2,-40},{20,-40},{20,-8},{58,-8}}, color={0,0,127}));
   connect(yOn, swi.u2) annotation (Line(points={{120,-60},{40,-60},{40,0},{58,0}},
         color={255,0,255}));
   connect(conErr.y, yErr) annotation (Line(points={{-38,20},{40,20},{40,30},{
-          120,30}},
-               color={0,0,127}));
+          120,30}}, color={0,0,127}));
   connect(greMeaSet.y, swi.u2)
     annotation (Line(points={{2,0},{58,0}}, color={255,0,255}));
   connect(conErr.u1, u_m) annotation (Line(points={{-62,26},{-70,26},{-70,-94},
-          {0,-94},{0,-120}},                   color={0,0,127}));
+          {0,-94},{0,-120}}, color={0,0,127}));
   connect(conErr.u2, u_s) annotation (Line(points={{-62,14},{-80,14},{-80,0},{
-          -120,0}},
-               color={0,0,127}));
+          -120,0}}, color={0,0,127}));
   annotation (defaultComponentName = "relCon",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -90,14 +84,30 @@ equation
           textString="%name",
           textColor={0,0,255})}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
-<p>This block grenerates a real control output signal, y, and a boolean control switch signal, y<sub>On</sub>, as described below:</p>
-<p>if e(t) &lt; - &delta;, then y(t) = y<sub>hig</sub>, y<sub>On</sub>(t) = true</p>
-<p>if e(t) &gt; &delta;, then y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</p>
-<p>otherwise, y(t) = y(t-&Delta;t), y<sub>On</sub>(t) = y<sub>On</sub>(t-&Delta;t)</p>
-<p>where <i>&delta;</i> is a dead band, <i>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</i> is the control error, <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value and the lower value of the output <i>y,</i> respectively.</p>
-<p><i>t-&Delta;t</i> is the previous time step.</p>
-<p>Note that this block generates an asymmetric signal, meaning <i>y<sub>hig</sub> &ne; y<sub>low</sub></i>.</p>
+Documentation(info="<html>
+<p>
+This block grenerates a real control output signal, <code>y</code>, and a
+boolean control switch signal, <code>y<sub>On</sub></code>, as described below:
+</p>
+<ul>
+<li>
+if <code>e(t) &lt; - &delta;</code>, then <code>y(t) = y<sub>hig</sub>, y<sub>On</sub>(t) = true</code>,
+</li>
+<li>
+if <code>e(t) &gt; &delta;</code>, then <code>y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</code>,
+</li>
+<li>
+otherwise, <code>y(t) = y(t-&Delta;t)</code>, <code>y<sub>On</sub>(t) = y<sub>On</sub>(t-&Delta;t)</code>
+</li>
+</ul>
+<p>where <code>&delta;</code> is a dead band, <code>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</code>
+is the control error, <code>y<sub>hig</sub></code> and <code>y<sub>low</sub></code>
+are the higher value and the lower value of the output <code>y</code>,
+and <code>t-&Delta;t</code> is the previous time step.
+</p>
+<p>
+Note that this block generates an asymmetric signal, meaning <code>y<sub>hig</sub> &ne; y<sub>low</sub></code>.
+</p>
 <h4>References</h4>
 <p>Josefin Berner (2017)
 \"Automatic Controller Tuning using Relay-based Model Identification.\"

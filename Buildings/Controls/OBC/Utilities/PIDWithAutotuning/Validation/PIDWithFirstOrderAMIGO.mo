@@ -93,12 +93,16 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example is to compare the output of a PID controller (<code>PIDWitTun</code>) with an autotuning feature to that of another PID controller (<code>PID</code>) with arbitary gains
+This example is to compare the output of a PID controller (<code>PIDWitTun</code>)
+with an autotuning feature to that of another PID controller (<code>PID</code>)
+with arbitary gains.
 </p>
 <p>
 Both PID controllers are connected with a first-order control process.
-Under the control of <code>PIDWitTun</code>, the value of the controlled variable is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
-On the contrary, <code>PID</code> has a poor control performance, i.e., the value of the controlled variable oscillates, without an autotuning setup.
+Under the control of <code>PIDWitTun</code>, the value of the controlled variable
+is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
+On the contrary, <code>PID</code> has a poor control performance,
+i.e., the value of the controlled variable oscillates, without an autotuning setup.
 </p>
 </html>",
       revisions="<html>

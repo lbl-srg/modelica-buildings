@@ -1,14 +1,14 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Calculates the lengths of the On period and the Off period, the half period ratio, as well as the times when the tuning starts and ends"
+  "Calculate the lengths of the On period and the Off period, the half period ratio, as well as the times when the tuning starts and ends"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
-    "Relay switch signal" annotation (Placement(transformation(
-          extent={{-140,-80},{-100,-40}}), iconTransformation(extent={{-140,-80},
-            {-100,-40}})));
+    "Relay switch signal"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s")
@@ -88,13 +88,39 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block processes a relay swtich output signall and calculates</p>
-<p>1) the length of the On period (when the relay switch signal becomes True);</p>
-<p>2) the length of the Off period (when the relay switch signal becomes False);</p>
-<p>3) the normalized time delay of the responses;</p>
-<p>4) the flags which indicates if the tuning starts and completes, respectively.</p>
-<p>For more details, please refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>,</p>
-<p><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>,</p>
-<p><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod</a>.</p>
+<p>
+This block processes a relay swtich output signall and calculates:
+</p>
+<ol>
+<li>
+the length of the On period (when the relay switch signal becomes <code>true</code>);
+</li>
+<li>
+the length of the Off period (when the relay switch signal becomes <code>false</code>);
+</li>
+<li>
+the normalized time delay of the responses;
+</li>
+<li>
+the flags which indicates if the tuning starts and completes, respectively.
+</li>
+</ol>
+<p>
+For more details, please refer to:
+</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>,
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>,
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod</a>.
+</li>
+</ul>
 </html>"));
 end ResponseProcess;

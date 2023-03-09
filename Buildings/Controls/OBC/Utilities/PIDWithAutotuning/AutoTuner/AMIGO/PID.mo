@@ -1,6 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
-block PID "Identifies the parameters of a PID controller"
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(final min=1E-6)
+block PID "Identify the parameters of a PID controller"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
+    final min=1E-6)
     "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
@@ -85,13 +86,23 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain, the integral time, and the derivative time of a PID model.</p>
-<P>Please refer to the following block for detailed information:</p>
-<P><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDGain</a></p>
-<P><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDIntegralTime</a></p>
-<P><a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDDerivativeTime</a></p>
+<p>
+This block calculates the control gain, the integral time, and the derivative time of a PID model.
+</p>
+<p>Please refer to the following block for detailed information:</p>
+<ul>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDGain</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDIntegralTime</a>
+</li>
+<li>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDDerivativeTime</a>
+</li>
+</ul>
 </html>"));
 end PID;

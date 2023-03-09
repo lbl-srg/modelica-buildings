@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDDerivativeTime "Identify the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
@@ -79,8 +79,10 @@ First implementation<br/>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>d</sub> = 0.5LT/(0.3L+T),
 </p>
-<p>where <i>T</i> is the time constant of the first-order time-delayed model;
-<i>L</i> is the time delay of the first-order time-delayed model.</p>
+<p>
+where <code>T</code> is the time constant of the first-order time-delayed model
+and <code>L</code> is the time delay of the first-order time-delayed model.
+</p>
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see
