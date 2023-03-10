@@ -52,12 +52,10 @@ equation
     annotation (Line(points={{-58,40},{-20,40},{-20,14},{70,14},{70,28}},                color={255,0,255}));
   connect(con.y,intWitRes3.trigger)
     annotation (Line(points={{-58,40},{-20,40},{-20,-56},{70,-56},{70,-52}},                color={255,0,255}));
-  connect(mode.y[1], limPIDPar.mod) annotation (Line(points={{-58,80},{14,80},
-          {14,20},{24,20},{24,28}},
-                                color={255,127,0}));
-  connect(mode.y[1], limPIPar.mod) annotation (Line(points={{-58,80},{14,80},{
-          14,-60},{24,-60},{24,-52}},
-                                   color={255,127,0}));
+  connect(mode.y[1], limPIDPar.mode) annotation (Line(points={{-58,80},{14,80},
+          {14,20},{24,20},{24,28}}, color={255,127,0}));
+  connect(mode.y[1], limPIPar.mode) annotation (Line(points={{-58,80},{14,80},{
+          14,-60},{24,-60},{24,-52}}, color={255,127,0}));
   connect(resVal.y, limPIDPar.u_s)
     annotation (Line(points={{-58,0},{0,0},{0,40},{18,40}}, color={0,0,127}));
   connect(resVal.y, limPIPar.u_s) annotation (Line(points={{-58,0},{-0,0},{-0,

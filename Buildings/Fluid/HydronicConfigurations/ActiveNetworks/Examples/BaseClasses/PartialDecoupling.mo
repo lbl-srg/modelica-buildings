@@ -128,19 +128,18 @@ partial model PartialDecoupling
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-100,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[2](
-    final k={TLiqSup_nominal, TLiqSupChg_nominal})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[3](final k={
+        MediumLiq.T_default,TLiqSup_nominal,TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
-    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(
-    nin=2,
+    annotation (Placement(transformation(extent={{-140,-150},{-120,-130}})));
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(nin=3,
     y(final unit="K", displayUnit="degC"))
     "Primary circuit temperature set point"
     annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
-        origin={-100,-120})));
+        origin={-100,-140})));
   Sensors.TemperatureTwoPort T1ConRet(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=con.m2_flow_nominal,
@@ -160,6 +159,11 @@ partial model PartialDecoupling
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={20,60})));
+  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(final p=1)
+    "Convert mode index to array index" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-160,60})));
 equation
   connect(con.port_a1, dp.port_a) annotation (Line(points={{4,0},{0,0},{0,-40}},
                      color={0,127,255}));
@@ -188,13 +192,11 @@ equation
           18},{-2,18}}, color={255,127,0}));
   connect(mode.y[1], isEna.u) annotation (Line(points={{-118,80},{-100,80},{-100,
           72}}, color={255,127,0}));
-  connect(T1Set.y, ref.T_in) annotation (Line(points={{-88,-120},{-76,-120},{-76,
-          -102}}, color={0,0,127}));
+  connect(T1Set.y, ref.T_in) annotation (Line(points={{-88,-140},{-76,-140},{
+          -76,-102}},
+                  color={0,0,127}));
   connect(T1SetVal.y, T1Set.u)
-    annotation (Line(points={{-118,-120},{-112,-120}}, color={0,0,127}));
-  connect(mode.y[1], T1Set.index) annotation (Line(points={{-118,80},{-100,80},{
-          -100,100},{-160,100},{-160,-100},{-100,-100},{-100,-108}},color={255,127,
-          0}));
+    annotation (Line(points={{-118,-140},{-112,-140}}, color={0,0,127}));
   connect(con.port_b1, T1ConRet.port_a)
     annotation (Line(points={{16,0},{20,0},{20,-10}}, color={0,127,255}));
   connect(T1ConRet.port_b, dp.port_b)
@@ -225,6 +227,10 @@ equation
     annotation (Line(points={{100,100},{100,70}}, color={0,127,255}));
   connect(isEna.y, ctlPum2.trigger) annotation (Line(points={{-100,48},{-100,40},
           {-46,40},{-46,32}}, color={255,0,255}));
+  connect(addPar.y, T1Set.index) annotation (Line(points={{-160,48},{-160,-120},
+          {-100,-120},{-100,-128}}, color={255,127,0}));
+  connect(mode.y[1], addPar.u) annotation (Line(points={{-118,80},{-100,80},{
+          -100,100},{-160,100},{-160,72}}, color={255,127,0}));
   annotation (Diagram(coordinateSystem(extent={{-180,-160},{180,160}})),
       Documentation(info="<html>
 <p>

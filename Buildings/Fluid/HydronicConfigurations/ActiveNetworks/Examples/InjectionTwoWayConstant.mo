@@ -157,7 +157,7 @@ equation
   connect(yValMax.y, resT2.u_m) annotation (Line(points={{38,150},{20,150},{20,
           90},{-90,90},{-90,98}},
                               color={0,0,127}));
-  connect(mode.y[1], resT2.mod)
+  connect(mode.y[1], resT2.mode)
     annotation (Line(points={{-118,0},{-96,0},{-96,98}}, color={255,127,0}));
   connect(yValSet.y, resT2.u_s)
     annotation (Line(points={{-118,150},{-106,150},{-106,110},{-102,110}},

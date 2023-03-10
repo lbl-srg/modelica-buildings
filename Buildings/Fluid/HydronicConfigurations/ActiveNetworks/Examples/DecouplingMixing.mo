@@ -39,14 +39,16 @@ model DecouplingMixing
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,230})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1, y(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one(final k=1.0,
+                                                                        y(
         final unit="1"))
     "One"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,230})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0, y(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer1(final k=0.0,
+                                                                         y(
         final unit="1"))
     "Zero"
     annotation (Placement(transformation(
@@ -113,7 +115,7 @@ equation
           38},{-2,38}}, color={255,127,0}));
   connect(ctlPum2.y, con1.yPum) annotation (Line(points={{-28,20},{-20,20},{-20,
           34},{-2,34}}, color={0,0,127}));
-  connect(mode.y[1], resT2.mod) annotation (Line(points={{-118,80},{-100,80},{-100,
+  connect(mode.y[1], resT2.mode) annotation (Line(points={{-118,80},{-100,80},{-100,
           178}}, color={255,127,0}));
   connect(con1.port_b2, jun.port_1)
     annotation (Line(points={{4,40},{4,60},{10,60}}, color={0,127,255}));
@@ -181,5 +183,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-180,-140},{180,260}})));
+    Diagram(coordinateSystem(extent={{-180,-160},{180,260}})));
 end DecouplingMixing;

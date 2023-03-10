@@ -207,7 +207,7 @@ equation
           {0,-80},{0,-72}}, color={0,0,127}));
   connect(ctl.y, val.y) annotation (Line(points={{12,-60},{20,-60},{20,-20},{
           -80,-20},{-80,-40},{-72,-40}}, color={0,0,127}));
-  connect(mode, ctl.mod) annotation (Line(points={{-120,80},{-90,80},{-90,-76},
+  connect(mode, ctl.mode) annotation (Line(points={{-120,80},{-90,80},{-90,-76},
           {-6,-76},{-6,-72}}, color={255,127,0}));
   connect(junBypSup.port_3, res3.port_b)
     annotation (Line(points={{-50,0},{-10,0}}, color={0,127,255}));

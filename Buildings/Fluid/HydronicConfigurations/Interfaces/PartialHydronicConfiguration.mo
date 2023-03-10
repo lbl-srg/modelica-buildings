@@ -129,7 +129,8 @@ model PartialHydronicConfiguration
     constrainedby Movers.Data.Generic(
       pressure(
         V_flow={0, 1, 2} * mPum_flow_nominal / rho_default,
-        dp={1.14, 1, 0.42} * dpPum_nominal))
+        dp=if typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None then
+          {1.14, 1, 0.42} * dpPum_nominal else {1.14, 1, 0.42}))
     "Pump parameters"
     annotation (
     Dialog(group="Pump",

@@ -60,10 +60,14 @@ block PIDWithOperatingMode "PID controller with operating mode input"
     "Connector of actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mod
-    "Control mode"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),
-      iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput mode "Control mode"
+    annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final k=k,
@@ -86,13 +90,12 @@ block PIDWithOperatingMode "PID controller with operating mode input"
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulSet
     "Multiply input with mapping coefficient"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
-    final nin=2)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(final nin=3)
     "Select mapping coefficient based on operating mode"
-    annotation (Placement(transformation(extent={{-38,50},{-18,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant map_ms[2](k={1,-1})
+    annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant map_ms[3](k={0,1,-1})
     "Map set point and measured values depending on actual operating mode"
-    annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulMea
     "Multiply input with mapping coefficient"
     annotation (Placement(
@@ -104,43 +107,48 @@ block PIDWithOperatingMode "PID controller with operating mode input"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold isDis(t=Controls.OperatingModes.disabled)
     "Returns true if disabled"
-    annotation (Placement(transformation(extent={{10,30},{30,50}})));
+    annotation (Placement(transformation(extent={{10,20},{30,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant disVal(k=y_neutral)
     "Value when disabled"
     annotation (Placement(transformation(extent={{10,70},{30,90}})));
+  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(final p=1)
+    "Convert mode index to array index"
+    annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
 equation
   connect(cha.y, conPID.trigger)
     annotation (Line(points={{2,-30},{14,-30},{14,-12}}, color={255,0,255}));
-  connect(map_ms.y, extIndSig.u) annotation (Line(points={{-48,60},{-40,60}},
-                                           color={0,0,127}));
   connect(u_s, mulSet.u2) annotation (Line(points={{-120,0},{-80,0},{-80,-6},{-22,
           -6}}, color={0,0,127}));
-  connect(extIndSig.y, mulSet.u1) annotation (Line(points={{-16,60},{-8,60},{-8,
-          20},{-30,20},{-30,6},{-22,6}},
+  connect(extIndSig.y, mulSet.u1) annotation (Line(points={{-8,80},{0,80},{0,20},
+          {-30,20},{-30,6},{-22,6}},
                        color={0,0,127}));
   connect(u_m, mulMea.u2) annotation (Line(points={{0,-120},{0,-80},{26,-80},{
           26,-62}},
                  color={0,0,127}));
-  connect(extIndSig.y, mulMea.u1) annotation (Line(points={{-16,60},{-8,60},{-8,
-          20},{-30,20},{-30,-70},{14,-70},{14,-62}},
+  connect(extIndSig.y, mulMea.u1) annotation (Line(points={{-8,80},{0,80},{0,20},
+          {-30,20},{-30,-70},{14,-70},{14,-62}},
                                    color={0,0,127}));
   connect(mulMea.y, conPID.u_m)
     annotation (Line(points={{20,-38},{20,-12}}, color={0,0,127}));
   connect(mulSet.y, conPID.u_s)
     annotation (Line(points={{2,0},{8,0}}, color={0,0,127}));
-  connect(mod, extIndSig.index) annotation (Line(points={{-60,-120},{-60,40},{
-          -28,40},{-28,48}}, color={255,127,0}));
-  connect(mod, cha.u) annotation (Line(points={{-60,-120},{-60,-30},{-22,-30}},
+  connect(mode, cha.u) annotation (Line(points={{-60,-120},{-60,-30},{-22,-30}},
         color={255,127,0}));
   connect(swi.y, y) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(conPID.y, swi.u3)
     annotation (Line(points={{32,0},{40,0},{40,-8},{58,-8}}, color={0,0,127}));
-  connect(isDis.y, swi.u2) annotation (Line(points={{32,40},{46,40},{46,0},{58,
+  connect(isDis.y, swi.u2) annotation (Line(points={{32,30},{46,30},{46,0},{58,
           0}}, color={255,0,255}));
-  connect(mod, isDis.u) annotation (Line(points={{-60,-120},{-60,40.1667},{8,
-          40.1667},{8,40}}, color={255,127,0}));
+  connect(mode, isDis.u)
+    annotation (Line(points={{-60,-120},{-60,30},{8,30}}, color={255,127,0}));
   connect(disVal.y, swi.u1)
     annotation (Line(points={{32,80},{52,80},{52,8},{58,8}}, color={0,0,127}));
+  connect(addPar.y, extIndSig.index)
+    annotation (Line(points={{-28,50},{-20,50},{-20,68}}, color={255,127,0}));
+  connect(mode, addPar.u) annotation (Line(points={{-60,-120},{-60,50},{-52,50}},
+        color={255,127,0}));
+  connect(map_ms.y, extIndSig.u)
+    annotation (Line(points={{-58,80},{-32,80}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -194,7 +194,7 @@ equation
   connect(extIndSig.y, ctl.u_m)
     annotation (Line(points={{-40,-72},{-40,-80},{20,-80},{20,-52}},
                                                           color={0,0,127}));
-  connect(mode, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-60},
+  connect(mode, ctl.mode) annotation (Line(points={{-120,80},{-20,80},{-20,-60},
           {14,-60},{14,-52}}, color={255,127,0}));
   connect(junRet.port_3, res3.port_a)
     annotation (Line(points={{50,0},{10,0}}, color={0,127,255}));

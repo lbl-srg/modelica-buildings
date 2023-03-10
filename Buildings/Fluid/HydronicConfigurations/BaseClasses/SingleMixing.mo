@@ -146,7 +146,7 @@ equation
   connect(ctl.y, val.y) annotation (Line(points={{12,0},{20,0},{20,-60},{-80,-60},
           {-80,-40},{-72,-40}},
                  color={0,0,127}));
-  connect(mode, ctl.mod) annotation (Line(points={{-120,80},{-90,80},{-90,-16},
+  connect(mode, ctl.mode) annotation (Line(points={{-120,80},{-90,80},{-90,-16},
           {-6,-16},{-6,-12}}, color={255,127,0}));
   connect(T2Sup.T, ctl.u_m) annotation (Line(points={{-49,60},{-20,60},{-20,-20},
           {0,-20},{0,-12}}, color={0,0,127}));

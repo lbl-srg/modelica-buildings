@@ -323,12 +323,13 @@ equation
     annotation (Line(points={{60,18},{60,-48}}, color={0,0,127}));
   connect(scaRot.y, pumRot.Nrpm)
     annotation (Line(points={{20,18},{20,-28}},color={0,0,127}));
-  connect(zer.y, swi.u3) annotation (Line(points={{-38,80},{-28,80},{-28,72},{-8,
-          72}}, color={0,0,127}));
+  connect(zer.y, swi.u3) annotation (Line(points={{-38,80},{-8,80},{-8,72}},
+                color={0,0,127}));
   connect(y, swi.u1)
     annotation (Line(points={{0,120},{0,92},{8,92},{8,72}}, color={0,0,127}));
-  connect(y1, swi.u2) annotation (Line(points={{-120,60},{-20,60},{-20,80},{0,80},
-          {0,72}}, color={255,0,255}));
+  connect(y1, swi.u2) annotation (Line(points={{-120,60},{-20,60},{-20,74},{0,
+          74},{0,72}},
+                   color={255,0,255}));
   connect(swi.y, scaHea.u) annotation (Line(points={{0,48},{0,46},{-60,46},{-60,
           42}}, color={0,0,127}));
   connect(swi.y, scaSpe.u) annotation (Line(points={{0,48},{0,46},{-20,46},{-20,

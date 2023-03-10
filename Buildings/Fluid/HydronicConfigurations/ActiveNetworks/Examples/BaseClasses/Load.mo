@@ -127,7 +127,7 @@ model Load "Model of a load on a hydronic circuit"
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-40,12})));
+        origin={-30,12})));
   HeatExchangers.WetCoilEffectivenessNTU coi(
     redeclare final package Medium1 = MediumLiq,
     redeclare final package Medium2 = MediumAir,
@@ -171,7 +171,7 @@ model Load "Model of a load on a hydronic circuit"
   Buildings.Controls.OBC.CDL.Continuous.Add  TAirSupSet(
     y(final unit="K", displayUnit="degC"))
     "Compute set point as TAirEnt_nominal + u * (TAirLvg_nominal - TAirEnt_nominal)"
-    annotation (Placement(transformation(extent={{10,50},{30,70}})));
+    annotation (Placement(transformation(extent={{14,50},{34,70}})));
   HeatExchangers.WetCoilEffectivenessNTU coiNom(
     redeclare final package Medium1 = MediumLiq,
     redeclare final package Medium2 = MediumAir,
@@ -275,7 +275,7 @@ model Load "Model of a load on a hydronic circuit"
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-40,-20})));
+        origin={-50,-20})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Compute TAirLvg_nominal - TAirEnt_nominal"
     annotation (Placement(
@@ -288,25 +288,33 @@ model Load "Model of a load on a hydronic circuit"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-10,60})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[2](
-    final k={TAirEnt_nominal,TAirEntChg_nominal})
+        origin={-14,60})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirEntVal[3](final k=
+        {TAirEnt_nominal,TAirEnt_nominal,TAirEntChg_nominal})
     "Values of entering air temperature"
     annotation (Placement(transformation(extent={{-90,130},{-70,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirEnt_actual(
-    y(final unit="K", displayUnit="degC"),
-    final nin=2)
+    y(final unit="K", displayUnit="degC"), final nin=3)
     "Actual value of entering air temperature"
     annotation (Placement(transformation(extent={{-60,130},{-40,150}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor TAirLvg_actual(
-    y(final unit="K", displayUnit="degC"),
-    final nin=2)
+    y(final unit="K", displayUnit="degC"), final nin=3)
     "Actual value of leaving air temperature"
     annotation (Placement(transformation(extent={{40,130},{20,150}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TAirLvgVal(
     final k=TAirLvgChg_nominal) "Values of leaving air temperature"
-    annotation (Placement(transformation(extent={{80,130},{60,150}})));
+    annotation (Placement(transformation(extent={{90,130},{70,150}})));
 
+  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(final p=1)
+    "Convert mode index to array index" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-80,100})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(nout=2)
+    "Replicate" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,110})));
 protected
   final parameter Modelica.Units.SI.SpecificHeatCapacity cpLiq_nominal=
     MediumLiq.specificHeatCapacityCp(MediumLiq.setState_pTX(
@@ -342,21 +350,21 @@ equation
   connect(souAir.ports[1], coi.port_a2) annotation (Line(points={{20,12},{10,12}},
                             color={0,127,255}));
   connect(outAir.ports[1],TAirLvg. port_b) annotation (Line(points={{-70,19},{
-          -70,12},{-50,12}},      color={0,127,255}));
-  connect(TAirLvg.port_a, coi.port_b2) annotation (Line(points={{-30,12},{-10,12}},
-                              color={0,127,255}));
+          -70,12},{-40,12}},      color={0,127,255}));
+  connect(TAirLvg.port_a, coi.port_b2) annotation (Line(points={{-20,12},{-10,
+          12}},               color={0,127,255}));
   connect(ctl.y, yVal)
     annotation (Line(points={{72,60},{120,60}}, color={0,0,127}));
   connect(TAirSupSet.y, ctl.u_s)
-    annotation (Line(points={{32,60},{48,60}},              color={0,0,127}));
+    annotation (Line(points={{36,60},{48,60}},              color={0,0,127}));
   connect(souAirNom.ports[1], coiNom.port_a2)
     annotation (Line(points={{20,-24},{10,-24}}, color={0,127,255}));
   connect(souLiq.ports[1], coiNom.port_a1) annotation (Line(points={{-20,-40},{-20,
           -36},{-10,-36}},           color={0,127,255}));
   connect(coiNom.port_b1, outLiq.ports[1]) annotation (Line(points={{10,-36},{
           20,-36},{20,-40}},       color={0,127,255}));
-  connect(TAirSupSet.y, u_s) annotation (Line(points={{32,60},{40,60},{40,80},{94,
-          80},{94,-30},{120,-30}},
+  connect(TAirSupSet.y, u_s) annotation (Line(points={{36,60},{40,60},{40,80},{
+          94,80},{94,-30},{120,-30}},
                      color={0,0,127}));
   connect(port_a, TLiqEnt.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
@@ -372,45 +380,53 @@ equation
     annotation (Line(points={{50,-11},{50,-64},{68,-64}}, color={0,0,127}));
   connect(TLiqEnt.T, dT.u2) annotation (Line(points={{-80,-11},{-80,-80},{60,-80},
           {60,-76},{68,-76}}, color={0,0,127}));
-  connect(TAirLvg.T, ctl.u_m) annotation (Line(points={{-40,23},{-40,30},{60,30},
+  connect(TAirLvg.T, ctl.u_m) annotation (Line(points={{-30,23},{-30,30},{60,30},
           {60,48}}, color={0,0,127}));
-  connect(TAirLvg.T, u_m) annotation (Line(points={{-40,23},{-40,30},{60,30},{60,
-          -50},{120,-50}}, color={0,0,127}));
+  connect(TAirLvg.T, u_m) annotation (Line(points={{-30,23},{-30,30},{60,30},{
+          60,-50},{120,-50}},
+                           color={0,0,127}));
   connect(heaFlo.y, Q_flow)
     annotation (Line(points={{91,-90},{120,-90}}, color={0,0,127}));
   connect(yLoa_actual, loaFra.y)
     annotation (Line(points={{120,30},{91,30}}, color={0,0,127}));
   connect(coiNom.port_b2, TAirLvgNom.port_a)
-    annotation (Line(points={{-10,-24},{-20,-24},{-20,-20},{-30,-20}},
+    annotation (Line(points={{-10,-24},{-20,-24},{-20,-20},{-40,-20}},
                                                    color={0,127,255}));
-  connect(TAirLvgNom.port_b, outAir.ports[2]) annotation (Line(points={{-50,-20},
+  connect(TAirLvgNom.port_b, outAir.ports[2]) annotation (Line(points={{-60,-20},
           {-68,-20},{-68,21},{-70,21}}, color={0,127,255}));
-  connect(mode, ctl.mod)
+  connect(mode, ctl.mode)
     annotation (Line(points={{-120,40},{54,40},{54,48}}, color={255,127,0}));
   connect(TAirEntVal.y, TAirEnt_actual.u)
     annotation (Line(points={{-68,140},{-62,140}}, color={0,0,127}));
   connect(pro.y, TAirSupSet.u2)
-    annotation (Line(points={{2,60},{2,54},{8,54}},         color={0,0,127}));
-  connect(TAirEnt_actual.y, TAirSupSet.u1) annotation (Line(points={{-38,140},{4,
-          140},{4,66},{8,66}}, color={0,0,127}));
-  connect(sub.y, pro.u1) annotation (Line(points={{-30,90},{-30,66},{-22,66}},
+    annotation (Line(points={{-2,60},{8,60},{8,54},{12,54}},color={0,0,127}));
+  connect(TAirEnt_actual.y, TAirSupSet.u1) annotation (Line(points={{-38,140},{
+          6,140},{6,66},{12,66}},
+                               color={0,0,127}));
+  connect(sub.y, pro.u1) annotation (Line(points={{-30,90},{-30,66},{-26,66}},
                          color={0,0,127}));
-  connect(u, pro.u2) annotation (Line(points={{-120,80},{-60,80},{-60,54},{-22,54}},
+  connect(u, pro.u2) annotation (Line(points={{-120,80},{-60,80},{-60,54},{-26,
+          54}},
         color={0,0,127}));
-  connect(TAirEnt_actual.y, souAir.T_in) annotation (Line(points={{-38,140},{4,140},
-          {4,34},{50,34},{50,8},{42,8}}, color={0,0,127}));
+  connect(TAirEnt_actual.y, souAir.T_in) annotation (Line(points={{-38,140},{6,
+          140},{6,34},{50,34},{50,8},{42,8}},
+                                         color={0,0,127}));
   connect(sub.u1, TAirLvg_actual.y) annotation (Line(points={{-24,114},{-24,132},
           {10,132},{10,140},{18,140}}, color={0,0,127}));
   connect(TAirEnt_actual.y, sub.u2)
     annotation (Line(points={{-38,140},{-36,140},{-36,114}}, color={0,0,127}));
-  connect(mode, TAirEnt_actual.index) annotation (Line(points={{-120,40},{-50,40},
-          {-50,128}}, color={255,127,0}));
-  connect(TAirLvgNom.T, TAirLvg_actual.u[1]) annotation (Line(points={{-40,-9},{
-          -40,-6},{-36,-6},{-36,84},{50,84},{50,139.5},{42,139.5}}, color={0,0,127}));
-  connect(TAirLvgVal.y, TAirLvg_actual.u[2]) annotation (Line(points={{58,140},{
-          50,140},{50,140.5},{42,140.5}}, color={0,0,127}));
-  connect(mode, TAirLvg_actual.index) annotation (Line(points={{-120,40},{-50,40},
-          {-50,120},{30,120},{30,128}}, color={255,127,0}));
+  connect(addPar.y, TAirEnt_actual.index) annotation (Line(points={{-80,112},{
+          -80,120},{-50,120},{-50,128}}, color={255,127,0}));
+  connect(addPar.y, TAirLvg_actual.index) annotation (Line(points={{-80,112},{
+          -80,120},{30,120},{30,128}}, color={255,127,0}));
+  connect(mode, addPar.u)
+    annotation (Line(points={{-120,40},{-80,40},{-80,88}}, color={255,127,0}));
+  connect(TAirLvgNom.T, reaScaRep.u) annotation (Line(points={{-50,-9},{-50,84},
+          {50,84},{50,98}}, color={0,0,127}));
+  connect(reaScaRep.y, TAirLvg_actual.u[1:2])
+    annotation (Line(points={{50,122},{50,140},{42,140}}, color={0,0,127}));
+  connect(TAirLvgVal.y, TAirLvg_actual.u[3]) annotation (Line(points={{68,140},
+          {56,140},{56,140.667},{42,140.667}}, color={0,0,127}));
   annotation (
   defaultComponentName="loa",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

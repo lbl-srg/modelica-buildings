@@ -208,8 +208,8 @@ equation
     annotation (Line(points={{0,-29},{0,-48}}, color={0,0,127}));
   connect(dp3Set.y, ctl.u_s) annotation (Line(points={{-28,-60},{-12,-60}},
                       color={0,0,127}));
-  connect(enaCtl.y, ctl.mod) annotation (Line(points={{-40,-32},{-40,-40},{-6,-40},
-          {-6,-48}}, color={255,127,0}));
+  connect(enaCtl.y, ctl.mode) annotation (Line(points={{-40,-32},{-40,-40},{-6,
+          -40},{-6,-48}}, color={255,127,0}));
   connect(isEna.y, enaCtl.u) annotation (Line(points={{12,80},{20,80},{20,20},{
           -40,20},{-40,-8}},  color={255,0,255}));
   connect(isEna.y, pum.y1) annotation (Line(points={{12,80},{20,80},{20,20},{

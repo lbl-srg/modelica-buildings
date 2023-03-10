@@ -47,7 +47,7 @@ model DiversionOpenLoop "Model illustrating the operation of diversion circuits 
     final TLiqEnt_nominal=TLiqEnt_nominal,
     final TLiqLvg_nominal=TLiqLvg_nominal,
     k=10) "Load" annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1)
+  .Buildings.Controls.OBC.CDL.Continuous.Sources.Constant fraLoa(k=1.0)
     "Load modulating signal"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   ActiveNetworks.Diversion con1(

@@ -145,7 +145,7 @@ model InjectionThreeWay "Injection circuit with three-way valve"
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold isEna(
     final t=Controls.OperatingModes.disabled)
     "Returns true if enabled"
-    annotation (Placement(transformation(extent={{-12,70},{8,90}})));
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Sensors.TemperatureTwoPort T2Ret(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m2_flow_nominal,
@@ -188,14 +188,14 @@ equation
     annotation (Line(points={{-60,50},{-60,50}}, color={0,127,255}));
   connect(T2Sup.port_b, port_b2)
     annotation (Line(points={{-60,70},{-60,100}}, color={0,127,255}));
-  connect(mode, ctl.mod) annotation (Line(points={{-120,80},{-20,80},{-20,-80},
+  connect(mode, ctl.mode) annotation (Line(points={{-120,80},{-20,80},{-20,-80},
           {34,-80},{34,-72}}, color={255,127,0}));
   connect(set, ctl.u_s) annotation (Line(points={{-120,-40},{-80,-40},{-80,-60},
           {28,-60}},  color={0,0,127}));
   connect(yVal, val.y) annotation (Line(points={{-120,0},{-80,0},{-80,-20},{80,-20},
           {80,-40},{72,-40}}, color={0,0,127}));
   connect(mode, isEna.u)
-    annotation (Line(points={{-120,80},{-14,80}}, color={255,127,0}));
+    annotation (Line(points={{-120,80},{-12,80}}, color={255,127,0}));
   connect(port_a2, T2Ret.port_a)
     annotation (Line(points={{60,100},{60,70}}, color={0,127,255}));
   connect(T2Ret.port_b,res2. port_a)
@@ -219,7 +219,7 @@ equation
           {80,40},{120,40}}, color={0,0,127}));
   connect(yPum, pum.y)
     annotation (Line(points={{-120,40},{-72,40}}, color={0,0,127}));
-  connect(isEna.y, pum.y1) annotation (Line(points={{10,80},{20,80},{20,20},{
+  connect(isEna.y, pum.y1) annotation (Line(points={{12,80},{20,80},{20,20},{
           -67,20},{-67,34.8}}, color={255,0,255}));
   annotation (
     defaultComponentName="con",

@@ -16,13 +16,13 @@ model DecouplingTemperature
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-40})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSetVal[2](final k={
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dTSetVal[3](final k={1,
         if typ == Types.Control.Heating then 1 else -1,1})
     "Delta-T set point values"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dTSetAct(
-    y(final unit="K"),
-    final nin=2)       "Select actual set point based on operating mode"
+    y(final unit="K"), final nin=3)
+                       "Select actual set point based on operating mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -51,7 +51,7 @@ model DecouplingTemperature
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,-110})));
+        origin={110,-100})));
   Buildings.Controls.OBC.CDL.Continuous.Min minDelT(y(final unit="K"))
     "Compute min(T2Sup-T2Ret, dTSet) for heating mode" annotation (Placement(
         transformation(
@@ -59,19 +59,17 @@ model DecouplingTemperature
         rotation=0,
         origin={110,-140})));
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dTSetCor(
-    y(final unit="K"),
-    final nin=2)       if is_cor
+    y(final unit="K"), final nin=3)
+                       if is_cor
     "Delta-T set point corrected for low load operation" annotation (
       Placement(transformation(
-        extent={{-10,10},{10,-10}},
+        extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={140,-110})));
+        origin={140,-120})));
   Modelica.Blocks.Routing.RealPassThrough dTSetUnc if not is_cor
     "Delta-T set point uncorrected"
     annotation (Placement(transformation(extent={{170,-40},{190,-20}})));
 equation
-  connect(mode.y[1], dTSetAct.index) annotation (Line(points={{-118,80},{20,80},
-          {20,80},{92,80},{92,0},{140,0},{140,-18}}, color={255,127,0}));
 
   connect(T1ConRet.T, dT.u1) annotation (Line(points={{31,-20},{50,-20},{50,-34},
           {58,-34}}, color={0,0,127}));
@@ -81,8 +79,8 @@ equation
     annotation (Line(points={{122,-30},{128,-30}}, color={0,0,127}));
   connect(ctl.y, con.yVal) annotation (Line(points={{152,-60},{160,-60},{160,-8},
           {-10,-8},{-10,10},{-2,10}},       color={0,0,127}));
-  connect(mode.y[1], ctl.mod) annotation (Line(points={{-118,80},{20,80},{20,80},
-          {92,80},{92,-80},{134,-80},{134,-72}}, color={255,127,0}));
+  connect(mode.y[1], ctl.mode) annotation (Line(points={{-118,80},{162,80},{162,
+          -80},{134,-80},{134,-72}}, color={255,127,0}));
   connect(T2Ret.y, dT.u2)
     annotation (Line(points={{51,-46},{58,-46}}, color={0,0,127}));
   connect(T2Sup.y, dT2SupRet.u1)
@@ -90,32 +88,38 @@ equation
   connect(T2Ret.y, dT2SupRet.u2) annotation (Line(points={{51,-46},{54,-46},{54,
           -126},{58,-126}}, color={0,0,127}));
   connect(dT2SupRet.y, maxDelT.u2) annotation (Line(points={{82,-120},{86,-120},
-          {86,-116},{98,-116}}, color={0,0,127}));
+          {86,-106},{98,-106}}, color={0,0,127}));
   connect(dT2SupRet.y, minDelT.u1) annotation (Line(points={{82,-120},{86,-120},
           {86,-134},{98,-134}}, color={0,0,127}));
   connect(dTSetAct.y, maxDelT.u1) annotation (Line(points={{152,-30},{154,-30},{
-          154,-46},{90,-46},{90,-104},{98,-104}}, color={0,0,127}));
+          154,-46},{90,-46},{90,-94},{98,-94}},   color={0,0,127}));
   connect(dTSetAct.y, minDelT.u2) annotation (Line(points={{152,-30},{154,-30},{
           154,-46},{90,-46},{90,-146},{98,-146}}, color={0,0,127}));
-  connect(maxDelT.y, dTSetCor.u[1]) annotation (Line(points={{122,-110},{126,-110},
-          {126,-109.5},{128,-109.5}}, color={0,0,127}));
-  connect(minDelT.y, dTSetCor.u[2]) annotation (Line(points={{122,-140},{126,-140},
-          {126,-110},{128,-110},{128,-110.5}}, color={0,0,127}));
-  connect(dTSetCor.y, ctl.u_s) annotation (Line(points={{152,-110},{160,-110},{160,
-          -90},{120,-90},{120,-60},{128,-60}}, color={0,0,127}));
-  connect(mode.y[1], dTSetCor.index) annotation (Line(points={{-118,80},{20,80},
-          {20,80},{92,80},{92,-80},{140,-80},{140,-98}}, color={255,127,0}));
+  connect(dTSetCor.y, ctl.u_s) annotation (Line(points={{152,-120},{160,-120},{160,
+          -90},{124,-90},{124,-60},{128,-60}}, color={0,0,127}));
   connect(dTSetAct.y, dTSetUnc.u)
     annotation (Line(points={{152,-30},{168,-30}}, color={0,0,127}));
   connect(dTSetUnc.y, ctl.u_s) annotation (Line(points={{191,-30},{196,-30},{196,
-          -90},{120,-90},{120,-60},{128,-60}}, color={0,0,127}));
+          -90},{124,-90},{124,-60},{128,-60}}, color={0,0,127}));
+  connect(addPar.y, dTSetAct.index) annotation (Line(points={{-160,48},{-160,-12},
+          {140,-12},{140,-18}}, color={255,127,0}));
+  connect(addPar.y, dTSetCor.index) annotation (Line(points={{-160,48},{-160,-160},
+          {140,-160},{140,-132}}, color={255,127,0}));
+  connect(maxDelT.y, dTSetCor.u[2]) annotation (Line(points={{122,-100},{124,-100},
+          {124,-120},{128,-120}}, color={0,0,127}));
+  connect(minDelT.y, dTSetCor.u[3]) annotation (Line(points={{122,-140},{124,
+          -140},{124,-119.333},{128,-119.333}},
+                                          color={0,0,127}));
+  connect(dT2SupRet.y, dTSetCor.u[1]) annotation (Line(points={{82,-120},{106,
+          -120},{106,-120.667},{128,-120.667}},
+                                          color={0,0,127}));
    annotation (experiment(
     StopTime=86400,
     Tolerance=1e-6),
     __Dymola_Commands(file=
     "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HydronicConfigurations/ActiveNetworks/Examples/DecouplingTemperature.mos"
     "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-180},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,-180},{200,
             180}})),
     Documentation(info="<html>
 <p>

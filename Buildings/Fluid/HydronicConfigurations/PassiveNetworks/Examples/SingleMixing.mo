@@ -86,24 +86,22 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-30})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor T2SetMod(
-    nin=2,
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor T2SetMod(nin=3,
     y(final unit="K", displayUnit="degC"))
     "Select consumer circuit temperature set point based on operating mode"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-80,0})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetVal[2](final k={
-        TLiqEnt_nominal,TLiqEntChg_nominal})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T2SetVal[3](final k={
+        MediumLiq.T_default,TLiqEnt_nominal,TLiqEntChg_nominal})
     "Consumer circuit temperature set point values"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[2](final k={
-        TLiqSup_nominal,TLiqSupChg_nominal})
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant T1SetVal[3](final k={
+        MediumLiq.T_default,TLiqSup_nominal,TLiqSupChg_nominal})
     "Primary circuit temperature set point values"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(
-    nin=2,
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor T1Set(nin=3,
     y(final unit="K", displayUnit="degC"))
     "Primary circuit temperature set point" annotation (Placement(
         transformation(
@@ -113,6 +111,11 @@ model SingleMixing "Model illustrating the operation of single mixing circuits"
   Modelica.Blocks.Sources.RealExpression uPum(y=(dp2Set + con1.val.dp3)/con1.pum.dp_nominal)
     "Pump control signal"
     annotation (Placement(transformation(extent={{30,-36},{50,-16}})));
+  Buildings.Controls.OBC.CDL.Integers.AddParameter addPar(final p=1)
+    "Convert mode index to array index" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={-140,40})));
 equation
   connect(con.port_b2, loa.port_a)
     annotation (Line(points={{4,-20},{0,-20},{0,30}}, color={0,127,255}));
@@ -138,16 +141,14 @@ equation
           {-2,34}}, color={255,127,0}));
   connect(mode.y[1], loa1.mode) annotation (Line(points={{-98,80},{40,80},{40,34},
           {58,34}}, color={255,127,0}));
-  connect(mode.y[1], con.mode) annotation (Line(points={{-98,80},{-20,80},{-20,
-          -22},{-2,-22}}, color={255,127,0}));
+  connect(mode.y[1], con.mode) annotation (Line(points={{-98,80},{-20,80},{-20,-22},
+          {-2,-22}},      color={255,127,0}));
   connect(fraLoa.y[1], loa.u) annotation (Line(points={{-98,120},{-10,120},{-10,
           38},{-2,38}}, color={0,0,127}));
   connect(fraLoa.y[2], loa1.u) annotation (Line(points={{-98,120},{50,120},{50,38},
           {58,38}}, color={0,0,127}));
-  connect(mode.y[1], con1.mode) annotation (Line(points={{-98,80},{40,80},{40,
-          34},{54,34},{54,-22},{58,-22}}, color={255,127,0}));
-  connect(mode.y[1], T2SetMod.index)
-    annotation (Line(points={{-98,80},{-80,80},{-80,12}}, color={255,127,0}));
+  connect(mode.y[1], con1.mode) annotation (Line(points={{-98,80},{40,80},{40,34},
+          {54,34},{54,-22},{58,-22}},     color={255,127,0}));
   connect(T2SetVal.y, T2SetMod.u)
     annotation (Line(points={{-98,0},{-92,0}}, color={0,0,127}));
   connect(T2SetMod.y, T2Set.u1) annotation (Line(points={{-68,0},{-66,0},{-66,-24},
@@ -163,14 +164,18 @@ equation
           -94,-120},{-92,-120}}, color={0,0,127}));
   connect(T1Set.y, ref.T_in) annotation (Line(points={{-68,-120},{-66,-120},{-66,
           -90},{-120,-90},{-120,-74},{-102,-74}}, color={0,0,127}));
-  connect(mode.y[1], T1Set.index) annotation (Line(points={{-98,80},{-80,80},{-80,
-          60},{-130,60},{-130,-100},{-80,-100},{-80,-108}}, color={255,127,0}));
   connect(res1.port_b, con.port_a1) annotation (Line(points={{-10,-60},{0,-60},
           {0,-40},{4,-40}}, color={0,127,255}));
   connect(res1.port_b, con1.port_a1) annotation (Line(points={{-10,-60},{60,-60},
           {60,-40},{64,-40}}, color={0,127,255}));
   connect(uPum.y, con1.yPum)
     annotation (Line(points={{51,-26},{58,-26}}, color={0,0,127}));
+  connect(mode.y[1], addPar.u) annotation (Line(points={{-98,80},{-80,80},{-80,60},
+          {-140,60},{-140,52}}, color={255,127,0}));
+  connect(addPar.y, T1Set.index) annotation (Line(points={{-140,28},{-140,-100},
+          {-80,-100},{-80,-108}}, color={255,127,0}));
+  connect(addPar.y, T2SetMod.index) annotation (Line(points={{-140,28},{-140,20},
+          {-80,20},{-80,12}}, color={255,127,0}));
 annotation (
 experiment(
     StopTime=86400,
@@ -201,5 +206,6 @@ June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-160,-140},{140,140}})));
 end SingleMixing;
