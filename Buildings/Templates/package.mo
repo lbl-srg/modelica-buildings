@@ -11,5 +11,10 @@ The templates include closed-loop controls as implemented within
 <a href=\"modelica://Buildings.Controls.OBC\">
 Buildings.Controls.OBC</a>.
 </p>
-</html>"));
+</html>"), Icon(graphics={Text(
+          extent={{-100,100},{100,-100}},
+          textColor={0,0,0},
+          fontName="Engravers MT",
+          textString="T",
+          textStyle={TextStyle.Bold})}));
 end Templates;
