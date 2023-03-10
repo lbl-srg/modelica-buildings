@@ -181,7 +181,7 @@ protected
     "Constant integer source"
     annotation (Placement(transformation(extent={{-30,60},{-10,80}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
     final iniSet=maxPumSpe,
     final minSet=minPumSpe,
     final maxSet=maxPumSpe,
@@ -247,8 +247,8 @@ protected
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6) if
-                  not primarySecondarySensors
+    final p=1e-6)
+               if not primarySecondarySensors
     "Pass non-zero divisor in case sum is zero"
     annotation (Placement(transformation(extent={{-10,-100},{10,-80}})));
 
