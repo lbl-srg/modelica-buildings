@@ -216,7 +216,7 @@ It is backwards compatible with versions 8.0.0, 8.1.0, 8.1.1. 8.1.2 and 8.1.3.
 The library has been tested with Dymola 2022,
 JModelica (revision 14023),
 OpenModelica 1.19.0-dev (449+g4f16e6af22),
-OPTIMICA (revision OCT-dev-r26446_JM-r14295) and recent versions of Impact.
+OPTIMICA (version 1.40) and recent versions of Impact.
 </p>
 </div>
 <!-- New libraries -->
