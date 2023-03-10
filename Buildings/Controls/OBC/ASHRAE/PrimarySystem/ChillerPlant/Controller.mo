@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block Controller "Chiller plant controller"
 
   parameter Boolean closeCoupledPlant=false
@@ -1345,7 +1345,7 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax(
     final nin=nTowCel) if have_WSE
     "All input values are the same"
-    annotation(Placement(transformation(extent={{-60,-690},{-40,-670}})));
+    annotation(Placement(transformation(extent={{-60,-590},{-40,-570}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or chaProUpDown "Either in staging up or in staging down process"
     annotation(Placement(transformation(extent={{380,-90},{400,-70}})));
@@ -1643,8 +1643,8 @@ equation
           {-580,-636},{-268,-636}}, color={255,0,255}));
   connect(TOutWet, staSetCon.TOutWet) annotation(Line(points={{-920,360},{-870,360},
           {-870,-20},{-268,-20}}, color={0,0,127}));
-  connect(mulMax.y, staSetCon.uTowFanSpeMax) annotation(Line(points={{-38,-680},
-          {0,-680},{0,-360},{-780,-360},{-780,-36},{-268,-36}},
+  connect(mulMax.y, staSetCon.uTowFanSpeMax) annotation(Line(points={{-38,-580},
+          {0,-580},{0,-360},{-780,-360},{-780,-36},{-268,-36}},
         color={0,0,127}));
   connect(staSetCon.ySta, upProCon.uStaSet) annotation(Line(points={{-172,-24},{
           -140,-24},{-140,436},{172,436}}, color={255,127,0}));
@@ -1670,8 +1670,8 @@ equation
           {60,-204},{172,-204}},         color={255,127,0}));
   connect(reaToInt1.y, staSetCon.uSta) annotation(Line(points={{42,-10},{60,-10},
           {60,-208},{-460,-208},{-460,60},{-268,60}},       color={255,127,0}));
-  connect(mulMax.y, wseSta.uTowFanSpeMax) annotation(Line(points={{-38,-680},{0,
-          -680},{0,-360},{-780,-360},{-780,324},{-704,324}},       color={0,0,127}));
+  connect(mulMax.y, wseSta.uTowFanSpeMax) annotation(Line(points={{-38,-580},{0,
+          -580},{0,-360},{-780,-360},{-780,324},{-704,324}},       color={0,0,127}));
   connect(towCon.yMakUp, yMakUp) annotation(Line(points={{-172,-708},{-140,-708},
           {-140,-760},{940,-760}},       color={255,0,255}));
   connect(uChiWatPum, chiWatPlaRes.uChiWatPum) annotation(Line(points={{-920,574},
@@ -1839,8 +1839,9 @@ equation
           {120,-510},{-320,-510},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{590,
           -400},{60,-400},{60,-440},{78,-440}},        color={255,0,255}));
-  connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,-684},
-          {-100,-680},{-62,-680}}, color={0,0,127}));
+  connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
+          -684},{-100,-580},{-62,-580}},
+                                   color={0,0,127}));
   connect(booToInt.y, totChiPum.u)
     annotation (Line(points={{602,560},{618,560}}, color={255,127,0}));
   connect(chiStaUp.y, desConWatPumSpeSwi.u2) annotation (Line(points={{402,320},
@@ -2026,7 +2027,7 @@ equation
           -433},{-110,-433},{-110,364},{172,364}}, color={255,0,255}));
   connect(enaDev.yConWatIsoVal, upProCon.uEnaPlaConIso) annotation (Line(points={{-518,
           -426},{70,-426},{70,320},{172,320}},         color={255,0,255}));
-  connect(enaDev.yLeaTwoCel, towCon.uEnaPla) annotation (Line(points={{-518,-436},
+  connect(enaDev.yLeaTowCel, towCon.uEnaPla) annotation (Line(points={{-518,-436},
           {-400,-436},{-400,-668},{-268,-668}}, color={255,0,255}));
   connect(wseSta.yConWatIsoVal, yEcoConWatIsoVal) annotation (Line(points={{-656,
           320},{-620,320},{-620,780},{940,780}}, color={0,0,127}));
@@ -2322,9 +2323,10 @@ annotation (
           textString="dpChiWat",
           visible=have_WSE and have_byPasValCon),
         Text(
-          extent={{-98,-44},{-50,-54}},
+          extent={{-98,-44},{-62,-56}},
           textColor={255,0,255},
-          textString="have_WSE and not have_byPasValCon"),
+          textString="uEcoPum",
+          visible=have_WSE and not have_byPasValCon),
         Text(
           extent={{34,398},{94,384}},
           textColor={0,0,125},

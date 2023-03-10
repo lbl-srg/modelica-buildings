@@ -86,7 +86,7 @@ block Initial "Outputs the initial stage"
     final TOutWetDes=TOutWetDes,
     final VHeaExcDes_flow=VHeaExcDes_flow) if have_WSE
     "Waterside economizer outlet temperature predictor"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-160,20},{-140,40}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea "Type converter"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -107,7 +107,7 @@ block Initial "Outputs the initial stage"
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub1 if have_WSE
     "Difference between predicted heat exchanger leaving water temperature and chilled water supply temperature setpoint"
-    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
+    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
@@ -125,25 +125,23 @@ equation
   connect(reaToInt.y, yIni)
     annotation (Line(points={{182,40},{200,40},{200,0},{250,0}}, color={255,127,0}));
   connect(sub1.y,hys1. u)
-    annotation (Line(points={{-88,90},{-62,90}}, color={0,0,127}));
+    annotation (Line(points={{-78,90},{-62,90}}, color={0,0,127}));
   connect(noWSE.y,swi. u2)
     annotation (Line(points={{-38,50},{-20,50},{-20,90},{58,90}},
       color={255,0,255}));
   connect(hys1.y,swi. u2)
     annotation (Line(points={{-38,90},{58,90}}, color={255,0,255}));
   connect(wseTOut.TOutWet,TOutWet)
-    annotation (Line(points={{-142,38},{-180,38},{-180,70},{-260,70}},
+    annotation (Line(points={{-162,38},{-180,38},{-180,70},{-260,70}},
       color={0,0,127}));
   connect(con3.y,wseTOut. VChiWat_flow)
-    annotation (Line(points={{-198,30},{-142,30}},
+    annotation (Line(points={{-198,30},{-162,30}},
       color={0,0,127}));
   connect(wseTOut.uTunPar,uTunPar)
-    annotation (Line(points={{-142,22},{-180,22},{-180,0},{-260,0}},
+    annotation (Line(points={{-162,22},{-180,22},{-180,0},{-260,0}},
       color={0,0,127}));
-  connect(wseTOut.y,sub1. u2)
-    annotation (Line(points={{-118,30},{-112,30},{-112,84}},   color={0,0,127}));
   connect(TChiWatSupSet,sub1. u1)
-    annotation (Line(points={{-260,110},{-170,110},{-170,96},{-112,96}},
+    annotation (Line(points={{-260,110},{-170,110},{-170,96},{-102,96}},
       color={0,0,127}));
   connect(staZer.y,swi. u1)
     annotation (Line(points={{22,110},{40,110},{40,98},{58,98}}, color={0,0,127}));
@@ -159,6 +157,8 @@ equation
     annotation (Line(points={{-260,-90},{-62,-90}}, color={255,0,255}));
   connect(edg.y, triSam.trigger)
     annotation (Line(points={{-38,-90},{0,-90},{0,-12}},   color={255,0,255}));
+  connect(wseTOut.y, sub1.u2) annotation (Line(points={{-138,30},{-120,30},{
+          -120,84},{-102,84}}, color={0,0,127}));
 annotation (defaultComponentName = "iniSta",
         Icon(graphics={
         Rectangle(

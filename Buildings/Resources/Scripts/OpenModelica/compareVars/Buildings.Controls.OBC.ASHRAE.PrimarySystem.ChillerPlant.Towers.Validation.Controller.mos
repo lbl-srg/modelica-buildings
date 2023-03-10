@@ -5,16 +5,11 @@ compareVars :=
     "towCon.yLeaCel",
     "towCon.TChiWatSup",
     "towCon.TChiWatSupSet",
-    "towCon.yNumCel",
     "towCon.yMakUp",
     "towCon.uChiSta",
     "towCon.uChiStaSet",
     "towCon.uTowSta[1]",
     "towCon.uTowSta[2]",
-    "towCon.uTowSta[3]",
-    "towCon.uTowSta[4]",
     "towCon.ySpeSet[1]",
-    "towCon.ySpeSet[2]",
-    "towCon.ySpeSet[3]",
-    "towCon.ySpeSet[4]"
+    "towCon.ySpeSet[2]"
   };
