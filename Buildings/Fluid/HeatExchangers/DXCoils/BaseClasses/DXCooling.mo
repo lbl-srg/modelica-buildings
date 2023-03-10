@@ -20,7 +20,7 @@ model DXCooling "DX cooling coil operation "
     final variableSpeedCoil = variableSpeedCoil,
     datCoi=datCoi,
     use_mCon_flow=use_mCon_flow) "Dry coil condition"
-    annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
+    annotation (Placement(transformation(extent={{-50,-80},{-30,-60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector dryWet
     "Actual coil condition"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
@@ -47,7 +47,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TConIn, dryCoi.TConIn)  annotation (Line(
-      points={{-110,50},{-76,50},{-76,-45},{-51,-45}},
+      points={{-110,50},{-76,50},{-76,-65},{-51,-65}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow, wetCoi.m_flow)  annotation (Line(
@@ -55,7 +55,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow, dryCoi.m_flow)  annotation (Line(
-      points={{-110,24},{-72,24},{-72,-47.6},{-51,-47.6}},
+      points={{-110,24},{-72,24},{-72,-67.6},{-51,-67.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEvaIn, wetCoi.TEvaIn)  annotation (Line(
@@ -63,7 +63,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEvaIn, dryCoi.TEvaIn)  annotation (Line(
-      points={{-110,5.55112e-16},{-68,5.55112e-16},{-68,-50},{-51,-50}},
+      points={{-110,5.55112e-16},{-68,5.55112e-16},{-68,-70},{-51,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p, wetCoi.p)  annotation (Line(
@@ -83,7 +83,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speRat, dryCoi.speRat)  annotation (Line(
-      points={{-110,76},{-80,76},{-80,-42.4},{-51,-42.4}},
+      points={{-110,76},{-80,76},{-80,-62.4},{-51,-62.4}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -92,7 +92,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(stage, dryCoi.stage) annotation (Line(
-      points={{-110,100},{-54,100},{-54,-40},{-51,-40}},
+      points={{-110,100},{-54,100},{-54,-60},{-51,-60}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(stage, wetCoi.stage) annotation (Line(
@@ -116,11 +116,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryCoi.EIR, dryWet.EIRDry) annotation (Line(
-      points={{-29,-42},{58,-42},{58,-11}},
+      points={{-29,-62},{58,-62},{58,-11}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryCoi.Q_flow, dryWet.QDry_flow) annotation (Line(
-      points={{-29,-46},{54,-46},{54,-11}},
+      points={{-29,-66},{54,-66},{54,-11}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryWet.EIR, EIR) annotation (Line(
@@ -132,8 +132,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryWet.SHR, SHR) annotation (Line(
-      points={{61,6.10623e-16},{81.5,6.10623e-16},{81.5,5.55112e-16},{110,
-          5.55112e-16}},
+      points={{61,-4},{81.5,-4},{81.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dryWet.mWat_flow, mWat_flow) annotation (Line(
@@ -146,8 +145,9 @@ equation
       smooth=Smooth.None));
   connect(mCon_flow, wetCoi.mCon_flow) annotation (Line(points={{-110,-100},{-84,
           -100},{-84,40},{-51,40}}, color={0,0,127}));
-  connect(mCon_flow, dryCoi.mCon_flow) annotation (Line(points={{-110,-100},{-84,
-          -100},{-84,-60},{-51,-60}}, color={0,0,127}));
+  connect(mCon_flow, dryCoi.mCon_flow) annotation (Line(points={{-110,-100},{
+          -84,-100},{-84,-80},{-51,-80}},
+                                      color={0,0,127}));
   annotation (defaultComponentName="dxCoo", Documentation(info="<html>
 <p>
 This block combines the models for the dry coil and the wet coil.

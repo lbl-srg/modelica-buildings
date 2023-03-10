@@ -7,7 +7,7 @@ model Evaporation
      annotation (choicesAllMatching=true);
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
     nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -66,10 +66,10 @@ model Evaporation
   ////////////////////////////////////////////////////////////////////////////////
   // Protected parameters and variables
 protected
-  final parameter Modelica.Units.SI.HeatFlowRate QSen_flow_nominal(max=0, fixed
-      =false) "Nominal sensible heat flow rate (negative number)";
-  final parameter Modelica.Units.SI.HeatFlowRate QLat_flow_nominal(max=0, fixed
-      =false) "Nominal latent heat flow rate (negative number)";
+  final parameter Modelica.Units.SI.HeatFlowRate QSen_flow_nominal(max=0, fixed=
+       false) "Nominal sensible heat flow rate (negative number)";
+  final parameter Modelica.Units.SI.HeatFlowRate QLat_flow_nominal(max=0, fixed=
+       false) "Nominal latent heat flow rate (negative number)";
   final parameter Modelica.Units.SI.MassFraction XEvaIn_nominal(fixed=false)
     "Mass fraction at nominal inlet conditions";
   final parameter Modelica.Units.SI.MassFraction XEvaOut_nominal(fixed=false)
@@ -174,7 +174,7 @@ initial equation
     This means that the coil is not dehumidifying air at the nominal conditions.
     Check nominal parameters.
     " +
-      Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
       nomVal),
     AssertionLevel.warning);
 
@@ -206,7 +206,7 @@ initial equation
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
    " +
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
     nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 
