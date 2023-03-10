@@ -1,8 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Reheat.Validation.DamperValves", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="DamperValves_Reheat");
-createPlot(id=1, position={20, 10, 600, 700}, subPlot=1, y={"damVal.uHea","damVal.uCoo"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47},{28,108,200}});
-createPlot(id=1, position={20, 10, 600, 700}, subPlot=2, y={"damVal.VDisSet_flow"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
-createPlot(id=1, position={20, 10, 600, 700}, subPlot=3, y={"damVal.yDam"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
-createPlot(id=2, position={630, 10, 600, 700}, subPlot=1, y={"damVal.uHea","damVal.uCoo"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47},{28,108,200}});
-createPlot(id=2, position={630, 10, 600, 700}, subPlot=2, y={"damVal.TDisHeaSet"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
-createPlot(id=2, position={630, 10, 600, 700}, subPlot=3, y={"damVal.yHeaVal"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
-createPlot(id=2, position={630, 10, 600, 700}, subPlot=4, y={"damVal.conVal.u_s","damVal.conVal.u_m"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47},{28,108,200}});

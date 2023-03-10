@@ -1,0 +1,14 @@
+compareVars :=
+  {
+    "ove.oveFloSet",
+    "ove.VActSet_flow",
+    "ove.VMin_flow",
+    "ove.VCooMax_flow",
+    "ove.VSet_flow",
+    "ove.oveCooDamPos",
+    "ove.uCooDam",
+    "ove.yCooDam",
+    "ove.oveHeaDamPos",
+    "ove.uHeaDam",
+    "ove.yHeaDam"
+  };

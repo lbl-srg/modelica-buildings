@@ -14,8 +14,8 @@ This is an example model on how to use the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.OptimalStart\">
 Buildings.Controls.OBC.Utilities.OptimalStart</a>
 that integrates with a controller based on Guideline36
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.Controller</a>, 
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Controller</a>, 
 a single-zone VAV system and a single-zone floor building.
 The building, HVAC system and controller model 
 can be found in the base class
