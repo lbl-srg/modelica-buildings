@@ -171,8 +171,10 @@ First implementation<br/>
 where <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code> are the
 length of the On period and the Off period, respectively.
 </p>
-<p>During an On period, the relay switch signal becomes True;
-During an Off period,  the relay switch signal becomes False.</p>
+<p>An On period is defined as the period when the switch output of the relay controller is True;
+Likewise, an Off period is defined as the period when the switch output is False.
+See details of the switch output in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a> </p>
 <p>Note that only the first On period and the first Off period are considered.</p>
 <h4>Algorithm</h4>
 <p>

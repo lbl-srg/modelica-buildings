@@ -86,8 +86,8 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This block grenerates a real control output signal, <code>y</code>, and a
-boolean control switch signal, <code>y<sub>On</sub></code>, as described below:
+This block grenerates a real control output, <code>y</code>, and a
+boolean control switch output, <code>y<sub>On</sub></code>, as described below:
 </p>
 <ul>
 <li>
@@ -106,7 +106,7 @@ are the higher value and the lower value of the output <code>y</code>,
 and <code>t-&Delta;t</code> is the previous time step.
 </p>
 <p>
-Note that this block generates an asymmetric signal, meaning <code>y<sub>hig</sub> &ne; y<sub>low</sub></code>.
+Note that this block generates an asymmetric output, meaning <code>y<sub>hig</sub> &ne; y<sub>low</sub></code>.
 </p>
 <h4>References</h4>
 <p>Josefin Berner (2017)
