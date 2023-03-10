@@ -14,13 +14,20 @@ model PartialEffectivenessNTU
   parameter con configuration "Heat exchanger configuration"
     annotation (Evaluate=true);
 
+  constant Boolean use_dynamicFlowRegime = false
+    "If true, flow regime is determined using actual flow rates";
+  // This switch is declared as a constant instead of a parameter
+  //   as users typically need not to change this setting,
+  //   and setting it true may generate events.
+  //   See discussions in https://github.com/ibpsa/modelica-ibpsa/pull/1683
+
   parameter Boolean use_Q_flow_nominal = true
     "Set to true to specify Q_flow_nominal and temperatures, or to false to specify effectiveness"
     annotation (Evaluate=true,
                 Dialog(group="Nominal thermal performance"));
 
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(fixed=
-        use_Q_flow_nominal)
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(
+    fixed=use_Q_flow_nominal)
     "Nominal heat flow rate (positive for heat transfer from 1 to 2)"
     annotation (Dialog(group="Nominal thermal performance", enable=
           use_Q_flow_nominal));
@@ -83,10 +90,10 @@ protected
   flo flowRegime(fixed=false, start=flowRegime_nominal)
     "Heat exchanger flow regime";
 initial equation
-  assert(m1_flow_nominal > 0,
+  assert(m1_flow_nominal > Modelica.Constants.eps,
     "m1_flow_nominal must be positive, m1_flow_nominal = " + String(
     m1_flow_nominal));
-  assert(m2_flow_nominal > 0,
+  assert(m2_flow_nominal > Modelica.Constants.eps,
     "m2_flow_nominal must be positive, m2_flow_nominal = " + String(
     m2_flow_nominal));
 
@@ -153,19 +160,33 @@ initial equation
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 equation
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
-  if (configuration == con.ParallelFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
-  elseif (configuration == con.CounterFlow) then
-    flowRegime = if (C1_flow*C2_flow >= 0) then flo.CounterFlow else flo.ParallelFlow;
-  elseif (configuration == con.CrossFlowUnmixed) then
-    flowRegime = flo.CrossFlowUnmixed;
-  elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
-    flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinMixedCMaxUnmixed
-       else flo.CrossFlowCMinUnmixedCMaxMixed;
+  if use_dynamicFlowRegime then
+    if (configuration == con.ParallelFlow) then
+      flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
+    elseif (configuration == con.CounterFlow) then
+      flowRegime = if (C1_flow*C2_flow >= 0) then flo.CounterFlow else flo.ParallelFlow;
+    elseif (configuration == con.CrossFlowUnmixed) then
+      flowRegime = flo.CrossFlowUnmixed;
+    elseif (configuration == con.CrossFlowStream1MixedStream2Unmixed) then
+      flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinMixedCMaxUnmixed
+         else flo.CrossFlowCMinUnmixedCMaxMixed;
+    else
+      // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
+      flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
+         else flo.CrossFlowCMinMixedCMaxUnmixed;
+    end if;
   else
-    // have ( configuration == con.CrossFlowStream1UnmixedStream2Mixed)
-    flowRegime = if (C1_flow < C2_flow) then flo.CrossFlowCMinUnmixedCMaxMixed
-       else flo.CrossFlowCMinMixedCMaxUnmixed;
+    flowRegime = flowRegime_nominal;
+    assert(noEvent(m1_flow > -0.1 * m1_flow_nominal)
+       and noEvent(m2_flow > -0.1 * m2_flow_nominal),
+"*** Warning in " + getInstanceName() +
+      ": The flow direction reversed.
+      However, because the constant use_dynamicFlowRegime is set to false,
+      the model does not change equations based on the actual flow regime.
+      To switch equations based on the actual flow regime during the simulation,
+      set the constant use_dynamicFlowRegime=true.
+      Note that this can lead to slow simulation because of events.",
+      level = AssertionLevel.warning);
   end if;
 
   // Effectiveness
@@ -214,11 +235,37 @@ Buildings.Fluid.Types.HeatExchangerConfiguration</a>
 are supported.
 </p>
 <p>
+By default, the flow regime, such as counter flow or parallel flow,
+is kept constant based on the parameter value <code>configuration</code>.
+If a flow reverses direction, it is not changed, e.g.,
+a heat exchanger does not change from counter flow to parallel flow
+if one flow changes direction.
+To dynamically change the flow regime,
+set the constant <code>use_dynamicFlowRegime</code> to
+<code>true</code>.
+However, <code>use_dynamicFlowRegime=true</code>
+can cause slower simulation due to events.
+</p>
+<p>
 Models that extend from this partial model need to provide an assignment
 for <code>UA</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Jianjun Hu:<br/>
+Added <code>noEvent()</code> in the assertion function to avoid Optimica to not converge.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1690\">issue 1690</a>.
+</li>
+<li>
+January 24, 2023, by Hongxiang Fu:<br/>
+Set <code>flowRegime</code> to be equal to <code>flowRegime_nominal</code>
+by default. Added an assertion warning to inform the user about how to change
+this behaviour if the flow direction does need to change.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1682\">issue 1682</a>.
+</li>
 <li>
 November 11, 2023, by Michael Wetter:<br/>
 Corrected wrong temperature in assignment of <code>sta2_default</code>.<br/>

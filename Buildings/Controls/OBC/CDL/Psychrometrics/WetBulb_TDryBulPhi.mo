@@ -20,6 +20,8 @@ block WetBulb_TDryBulPhi
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 protected
+  constant Real uniCon(final unit="1/rad") = 1
+    "Unit conversion to satisfy unit check";
   Real TDryBul_degC(
     final unit="degC",
     displayUnit="degC")
@@ -31,12 +33,13 @@ protected
 equation
   TDryBul_degC=TDryBul-273.15;
   rh_per=100*phi;
-  TWetBul=273.15+TDryBul_degC*Modelica.Math.atan(
-    0.151977*sqrt(
-      rh_per+8.313659))+Modelica.Math.atan(
-    TDryBul_degC+rh_per)-Modelica.Math.atan(
-    rh_per-1.676331)+0.00391838*rh_per^(1.5)*Modelica.Math.atan(
-    0.023101*rh_per)-4.686035;
+  TWetBul=273.15
+    + TDryBul_degC * uniCon * Modelica.Math.atan(0.151977*sqrt(rh_per+8.313659))
+    + uniCon * (
+      Modelica.Math.atan(TDryBul_degC+rh_per)
+      - Modelica.Math.atan(rh_per-1.676331)
+      + 0.00391838*rh_per^(1.5)*Modelica.Math.atan(0.023101*rh_per))
+      -4.686035;
   annotation (
     defaultComponentName="wetBul",
     Icon(
@@ -137,6 +140,12 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>

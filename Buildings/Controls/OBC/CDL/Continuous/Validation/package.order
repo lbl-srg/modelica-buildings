@@ -40,6 +40,7 @@ PIDInitialState
 PIDScale
 PIDWithReset
 PIDWithResetScale
+Ramp
 Round
 Sin
 Sort

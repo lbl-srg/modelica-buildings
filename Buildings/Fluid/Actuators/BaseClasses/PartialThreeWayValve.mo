@@ -7,7 +7,6 @@ partial model PartialThreeWayValve "Partial three way valve"
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res1
         constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
           deltaM=deltaM,
-          dp(start=dpValve_nominal/2),
           from_dp=from_dp,
           final linearized=linearized[1],
           final homotopyInitialization=homotopyInitialization,
@@ -23,7 +22,6 @@ partial model PartialThreeWayValve "Partial three way valve"
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve res3
         constrainedby Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
           deltaM=deltaM,
-          dp(start=dpValve_nominal/2),
           from_dp=from_dp,
           final linearized=linearized[2],
           final homotopyInitialization=homotopyInitialization,
@@ -153,6 +151,12 @@ for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2023, by Michael Wetter:<br/>
+Removed start value for <code>dp</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3231\">Buildings, #3231</a>.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Propagated parameter <code>riseTime</code> to valves. The value is not used as the filter is disabled,
