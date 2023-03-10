@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
-# Script that tuns simulations of
+
+# Script that runs simulations of
 # Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
 # and generates the plots used in the documentation of that model.
 
