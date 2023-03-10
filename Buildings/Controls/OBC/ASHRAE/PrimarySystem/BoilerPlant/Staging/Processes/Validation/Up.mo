@@ -773,9 +773,9 @@ equation
   connect(conInt2.y, upProCon.uStaTyp) annotation (Line(points={{-198,150},{-190,
           150},{-190,183},{-162,183}}, color={255,127,0}));
 
-  connect(con3.y, upProCon.THotWatSup) annotation (Line(points={{-158,290},{-150,
-          290},{-150,270},{-170,270},{-170,201},{-162,201}},
-                                                       color={0,0,127}));
+  connect(con3.y, upProCon.THotWatSupSet) annotation (Line(points={{-158,290},{
+          -150,290},{-150,270},{-170,270},{-170,201},{-162,201}}, color={0,0,
+          127}));
 
   connect(falEdg.y, pre1.u) annotation (Line(points={{-68,160},{-32,160}},
                            color={255,0,255}));
@@ -861,8 +861,8 @@ equation
   connect(or1.y, upProCon1.uStaUpPro) annotation (Line(points={{292,120},{310,120},
           {310,104},{194,104},{194,186},{208,186}}, color={255,0,255}));
 
-  connect(con8.y, upProCon1.THotWatSup) annotation (Line(points={{212,290},{220,
-          290},{220,270},{200,270},{200,201},{208,201}}, color={0,0,127}));
+  connect(con8.y, upProCon1.THotWatSupSet) annotation (Line(points={{212,290},{
+          220,290},{220,270},{200,270},{200,201},{208,201}}, color={0,0,127}));
 
   connect(falEdg3.y, pre5.u) annotation (Line(points={{302,160},{338,160}},
                       color={255,0,255}));
@@ -952,8 +952,8 @@ equation
   connect(or3.y, upProCon2.uStaUpPro) annotation (Line(points={{-78,-210},{-70,-210},
           {-70,-226},{-186,-226},{-186,-154},{-172,-154}},        color={255,0,255}));
 
-  connect(con13.y, upProCon2.THotWatSup) annotation (Line(points={{-318,-50},{-180,
-          -50},{-180,-139},{-172,-139}}, color={0,0,127}));
+  connect(con13.y, upProCon2.THotWatSupSet) annotation (Line(points={{-318,-50},
+          {-180,-50},{-180,-139},{-172,-139}}, color={0,0,127}));
 
   connect(falEdg6.y, pre8.u) annotation (Line(points={{-78,-170},{-56,-170},{-56,
           -190},{-52,-190}}, color={255,0,255}));
@@ -1048,8 +1048,8 @@ equation
   connect(or4.y, upProCon3.uStaUpPro) annotation (Line(points={{492,-210},{500,-210},
           {500,-226},{394,-226},{394,-156},{408,-156}}, color={255,0,255}));
 
-  connect(con18.y, upProCon3.THotWatSup) annotation (Line(points={{262,-50},{400,
-          -50},{400,-141},{408,-141}}, color={0,0,127}));
+  connect(con18.y, upProCon3.THotWatSupSet) annotation (Line(points={{262,-50},
+          {400,-50},{400,-141},{408,-141}}, color={0,0,127}));
 
   connect(falEdg9.y, pre11.u) annotation (Line(points={{502,-170},{524,-170},{524,
           -190},{528,-190}}, color={255,0,255}));

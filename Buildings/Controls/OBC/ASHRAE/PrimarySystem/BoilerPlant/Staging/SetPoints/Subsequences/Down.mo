@@ -538,7 +538,7 @@ annotation(defaultComponentName = "staDow",
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-120,244},{100,206}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-80,-10},{-20,-22}},

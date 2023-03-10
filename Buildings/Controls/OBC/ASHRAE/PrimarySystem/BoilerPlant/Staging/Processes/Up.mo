@@ -147,7 +147,7 @@ block Up
     annotation (Placement(transformation(extent={{-280,220},{-240,260}}),
       iconTransformation(extent={{-140,170},{-100,210}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSup(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THotWatSupSet(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") if not have_priOnl
@@ -403,8 +403,8 @@ equation
   connect(VMinHotWatSet_flow, minBypRes.VMinHotWatSet_flow) annotation (Line(
         points={{-260,200},{-180,200},{-180,12},{-172,12}}, color={0,0,127}));
 
-  connect(THotWatSup, hotWatSupTemRes.THotWatSup) annotation (Line(points={{
-          -260,160},{-186,160},{-186,-17},{-172,-17}}, color={0,0,127}));
+  connect(THotWatSupSet, hotWatSupTemRes.THotWatSup) annotation (Line(points={{-260,
+          160},{-186,160},{-186,-17},{-172,-17}}, color={0,0,127}));
 
   connect(uHotWatIsoVal, enaHotWatIsoVal.uHotWatIsoVal) annotation (Line(points={{-260,
           120},{-80,120},{-80,5},{-72,5}},       color={0,0,127}));
@@ -588,7 +588,7 @@ annotation (
         borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,260},{120,200}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-10,120},{10,-140}},

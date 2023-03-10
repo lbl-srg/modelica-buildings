@@ -114,28 +114,28 @@ equation
     annotation (Line(points={{38,-20},{32,-20}},
       color={0,0,127}));
   connect(plaEna1.supResReq, reaToInt1.y)
-    annotation (Line(points={{-22,-35},{-30,-35},{-30,-20},{-38,-20}},
+    annotation (Line(points={{-22,-36},{-30,-36},{-30,-20},{-38,-20}},
       color={255,127,0}));
   connect(plaEna2.supResReq, reaToInt2.y)
-    annotation (Line(points={{78,65},{70,65},{70,80},{62,80}},
+    annotation (Line(points={{78,64},{70,64},{70,80},{62,80}},
       color={255,127,0}));
   connect(plaEna2.TOut, sin5.y)
-    annotation (Line(points={{78,55},{70,55},{70,40},{32,40}},
+    annotation (Line(points={{78,56},{70,56},{70,40},{32,40}},
       color={0,0,127}));
   connect(plaEna3.supResReq, reaToInt3.y)
-    annotation (Line(points={{78,-35},{70,-35},{70,-20},{62,-20}},
+    annotation (Line(points={{78,-36},{70,-36},{70,-20},{62,-20}},
       color={255,127,0}));
   connect(plaEna3.TOut, con3.y)
-    annotation (Line(points={{78,-45},{70,-45},{70,-60},{32,-60}},
+    annotation (Line(points={{78,-44},{70,-44},{70,-60},{32,-60}},
       color={0,0,127}));
   connect(reaToInt.y, plaEna.supResReq)
-    annotation (Line(points={{-38,80},{-30,80},{-30,65},{-22,65}},
+    annotation (Line(points={{-38,80},{-30,80},{-30,64},{-22,64}},
       color={255,127,0}));
   connect(sin1.y, plaEna.TOut)
-    annotation (Line(points={{-68,40},{-30,40},{-30,55},{-22,55}},
+    annotation (Line(points={{-68,40},{-30,40},{-30,56},{-22,56}},
       color={0,0,127}));
   connect(con1.y, plaEna1.TOut)
-    annotation (Line(points={{-68,-60},{-30,-60},{-30,-45},{-22,-45}},
+    annotation (Line(points={{-68,-60},{-30,-60},{-30,-44},{-22,-44}},
       color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false),
@@ -154,19 +154,19 @@ equation
       preserveAspectRatio=false),
       graphics={Text(
                   extent={{-72,26},{-24,18}},
-                  lineColor={28,108,200},
+                  textColor={28,108,200},
                   textString="Combination of all inputs"),
                 Text(
                   extent={{32,26},{80,18}},
-                  lineColor={28,108,200},
+                  textColor={28,108,200},
                   textString="Changing outdoor temperature"),
                 Text(
                   extent={{-80,-74},{-16,-82}},
-                  lineColor={28,108,200},
+                  textColor={28,108,200},
                   textString="Changing number of hot-water requests"),
                 Text(
                   extent={{26,-74},{74,-82}},
-                  lineColor={28,108,200},
+                  textColor={28,108,200},
                   textString="Changing boiler-enable schedule")}),
     experiment(
       StopTime=7200,

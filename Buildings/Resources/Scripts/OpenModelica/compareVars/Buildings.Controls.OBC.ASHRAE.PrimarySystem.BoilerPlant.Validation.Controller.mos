@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "controller.supResReq",
+    "controller.plaReq",
     "controller.staSetCon.ySta",
     "controller.yHotWatIsoVal[1]",
     "controller.yPriPum[1]",
@@ -14,7 +14,7 @@ compareVars :=
     "controller.maxLocDpPri",
     "controller.minLocDpPri",
     "controller.yPriPumSpe",
-    "controller1.supResReq",
+    "controller1.plaReq",
     "controller1.staSetCon.ySta",
     "controller1.yHotWatIsoVal[1]",
     "controller1.yPriPum[1]",
@@ -34,7 +34,7 @@ compareVars :=
     "controller1.maxLocDpSec",
     "controller1.minLocDpSec",
     "controller1.ySecPumSpe",
-    "controller2.supResReq",
+    "controller2.plaReq",
     "controller2.staSetCon.ySta",
     "controller2.yPriPum[1]",
     "controller2.yBoi[1]",

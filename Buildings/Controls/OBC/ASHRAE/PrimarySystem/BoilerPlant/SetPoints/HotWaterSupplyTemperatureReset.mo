@@ -281,7 +281,7 @@ equation
                                                    color={255,0,255}));
   connect(edg.u, uStaCha) annotation (Line(points={{-42,0},{-160,0}},
                       color={255,0,255}));
-  connect(edg.y, triSam.trigger) annotation (Line(points={{-18,0},{60,0},{60,38.2}},
+  connect(edg.y, triSam.trigger) annotation (Line(points={{-18,0},{60,0},{60,38}},
                   color={255,0,255}));
   connect(triSam.y, swi.u1)
     annotation (Line(points={{72,50},{80,50},{80,8},{98,8}}, color={0,0,127}));
@@ -365,13 +365,13 @@ annotation(defaultComponentName="hotWatSupTemRes",
                   fillPattern=FillPattern.Solid),
                 Text(
                   extent={{-50,20},{50,-20}},
-                  lineColor={28,108,200},
+                  textColor={28,108,200},
                   fillColor={255,255,255},
                   fillPattern=FillPattern.None,
                   textString="hotWatSupTemRes"),
                 Text(
                   extent={{-100,150},{100,110}},
-                  lineColor={0,0,255},
+                  textColor={0,0,255},
                   textString="%name")}),
   Documentation(info="<html>
 <p>

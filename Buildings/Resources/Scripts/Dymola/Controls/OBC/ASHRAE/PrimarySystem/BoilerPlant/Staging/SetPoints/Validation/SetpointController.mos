@@ -1,7 +1,7 @@
 simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Validation.SetpointController", method="Dassl", stopTime=14000, tolerance=1e-06, resultFile="SetpointController");
 
 createPlot(id=1, position={0, 0, 731, 959}, y={"staSetCon.u"}, range={0.0, 14000.0, -2.0, 4.0}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 731, 155}, y={"staSetCon.capReq1.y", "staSetCon.cap.yUpMin"}, range={0.0, 14000.0, -1000000.0, 2000000.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, range2={0.0, 0.15000000000000002});
+createPlot(id=1, position={0, 0, 731, 155}, y={"staSetCon.capReq1.y", "staSetCon.cap.yUpMin"}, range={0.0, 14000.0, -1000000.0, 2000000.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, range2={0.0, 0.15});
 createPlot(id=1, position={0, 0, 731, 156}, y={"staSetCon.capReq1.y", "staSetCon.cap.yDowDes"}, range={0.0, 14000.0, -1000000.0, 3000000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 731, 156}, y={"staSetCon.capReq1.y", "staSetCon.cap.yMin"}, range={0.0, 14000.0, -1000000.0, 3000000.0}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, range2={0.2, 0.8});
 createPlot(id=1, position={0, 0, 731, 155}, y={"staSetCon.VHotWat_flow", "staSetCon.VMinSet_flow[1]", "staSetCon.VMinSet_flow[2]", "staSetCon.VMinSet_flow[3]"}, range={0.0, 14000.0, -0.02, 0.06}, grid=true, subPlot=5, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}});

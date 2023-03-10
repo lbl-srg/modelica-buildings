@@ -574,7 +574,7 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-120,146},{100,108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(extent={{-36,42},{0,28}}, lineColor={28,108,200}),
         Rectangle(extent={{-36,28},{0,14}}, lineColor={28,108,200}),
@@ -583,28 +583,28 @@ annotation (
         Rectangle(extent={{-36,-14},{0,-28}}, lineColor={28,108,200}),
         Text(
           extent={{-32,38},{-12,32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Stage #"),
         Text(
           extent={{-30,24},{-10,18}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="0"),
         Text(
           extent={{-30,10},{-10,4}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="1"),
         Text(
           extent={{-30,-4},{-10,-10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="2"),
         Rectangle(extent={{-36,-28},{0,-42}}, lineColor={28,108,200}),
         Text(
           extent={{-30,-18},{-10,-24}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="..."),
         Text(
           extent={{-30,-32},{-10,-38}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="n"),
         Rectangle(extent={{2,42},{38,28}}, lineColor={28,108,200}),
         Rectangle(extent={{2,28},{38,14}}, lineColor={28,108,200}),
@@ -613,28 +613,28 @@ annotation (
         Rectangle(extent={{2,-14},{38,-28}}, lineColor={28,108,200}),
         Text(
           extent={{8,38},{34,32}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Min flow"),
         Text(
           extent={{6,24},{34,18}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[1]"),
         Rectangle(extent={{2,-28},{38,-42}}, lineColor={28,108,200}),
         Text(
           extent={{8,-18},{28,-24}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="..."),
         Text(
           extent={{6,10},{34,4}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[2]"),
         Text(
           extent={{6,-32},{34,-38}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[n]"),
         Text(
           extent={{6,-4},{34,-10}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="minFloSet[3]")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-140,-340},{320,140}})),

@@ -217,8 +217,8 @@ equation
     annotation (Line(points={{142,-40},{200,-40}}, color={0,0,127}));
 
   connect(booRep.y, triSam.trigger)
-    annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},
-      {-70,-111.8}},  color={255,0,255}));
+    annotation (Line(points={{42,-140},{60,-140},{60,-120},{-70,-120},{-70,-112}},
+                      color={255,0,255}));
 
   connect(booRep1.y, not2.u)
     annotation (Line(points={{82,-170},{100,-170},{100,-110},{-40,-110},
@@ -352,7 +352,7 @@ annotation (
         pattern=LinePattern.None,
         fillColor={210,210,210},
         fillPattern=FillPattern.Solid,
-        lineColor={0,0,127},
+        textColor={0,0,127},
         horizontalAlignment=TextAlignment.Right,
         textString="Check if all enabled HW isolation valves 
           have been fully open")}),
@@ -364,31 +364,31 @@ annotation (
         fillPattern=FillPattern.Solid),
       Text(
         extent={{-120,146},{100,108}},
-        lineColor={0,0,255},
+        textColor={0,0,255},
         textString="%name"),
       Text(
         extent={{-96,-74},{-60,-86}},
-        lineColor={255,0,255},
+        textColor={255,0,255},
         pattern=LinePattern.Dash,
         textString="chaPro"),
       Text(
         extent={{-96,-42},{-46,-56}},
-        lineColor={255,0,255},
+        textColor={255,0,255},
         pattern=LinePattern.Dash,
         textString="uUpsDevSta"),
       Text(
         extent={{-96,86},{-48,74}},
-        lineColor={255,127,0},
+        textColor={255,127,0},
         pattern=LinePattern.Dash,
         textString="nexChaBoi"),
       Text(
         extent={{-96,58},{-42,46}},
-        lineColor={0,0,127},
+        textColor={0,0,127},
         pattern=LinePattern.Dash,
         textString="uHotWatIsoVal"),
       Text(
         extent={{32,70},{96,54}},
-        lineColor={255,0,255},
+        textColor={255,0,255},
         pattern=LinePattern.Dash,
         textString="yEnaHotWatIsoVal"),
       Polygon(
@@ -403,7 +403,7 @@ annotation (
         fillPattern=FillPattern.Solid),
       Text(
         extent={{44,-54},{98,-66}},
-        lineColor={0,0,127},
+        textColor={0,0,127},
         pattern=LinePattern.Dash,
         textString="yHotWatIsoVal")}),
   Documentation(info="<html>

@@ -148,13 +148,13 @@ annotation (defaultComponentName="bypValPos",
                 fillPattern=FillPattern.Solid),
               Text(
                 extent={{-70,20},{70,-20}},
-                lineColor={0,0,0},
+                textColor={0,0,0},
                 fillColor={255,255,255},
                 fillPattern=FillPattern.None,
                 textString="bypValPos"),
               Text(
                 extent={{-100,146},{100,108}},
-                lineColor={0,0,255},
+                textColor={0,0,255},
                 textString="%name")}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
@@ -190,11 +190,5 @@ annotation (defaultComponentName="bypValPos",
     First implementation.
     </li>
     </ul>
-    </html>"),
-    experiment(
-      StartTime=-1814400,
-      StopTime=1814400,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+    </html>"));
 end BypassValvePosition;

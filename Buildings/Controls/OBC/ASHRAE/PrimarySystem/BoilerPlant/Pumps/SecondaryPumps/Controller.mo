@@ -736,7 +736,7 @@ equation
   connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{214,0},{274,
           0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
   connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},{
-          -216,-156},{-216,-156},{-202,-156}},     color={255,127,0}));
+          -216,-156},{-216,-159.5},{-202,-159.5}}, color={255,127,0}));
   connect(min.y, yPumSpe)
     annotation (Line(points={{182,-400},{300,-400}}, color={0,0,127}));
 annotation (defaultComponentName="secPumCon",
@@ -753,7 +753,7 @@ annotation (defaultComponentName="secPumCon",
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable lead pump"),
           Rectangle(
@@ -766,7 +766,7 @@ annotation (defaultComponentName="secPumCon",
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable next lag pump"),
           Text(
@@ -774,7 +774,7 @@ annotation (defaultComponentName="secPumCon",
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Disable last lag pump"),
           Rectangle(
@@ -787,7 +787,7 @@ annotation (defaultComponentName="secPumCon",
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Pump speed"),
           Rectangle(
@@ -800,7 +800,7 @@ annotation (defaultComponentName="secPumCon",
           pattern=LinePattern.None,
           fillColor={210,210,210},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Right,
           textString="Enable/Disable lag pumps for fixed-speed secondary pumps")}),
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
@@ -812,7 +812,7 @@ annotation (defaultComponentName="secPumCon",
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,250},{100,210}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Rectangle(
           extent={{-80,60},{82,-60}},

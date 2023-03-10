@@ -14,7 +14,7 @@ package SetPoints "Package for boiler plant staging setpoint control sequences"
           radius=25.0),
         Text(
           extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="S")}),
     Documentation(info="<html>
     <p>

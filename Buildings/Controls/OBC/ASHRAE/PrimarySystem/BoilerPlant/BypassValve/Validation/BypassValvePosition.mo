@@ -101,6 +101,5 @@ First implementation.
       StartTime=0,
       StopTime=300,
       Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"));
+      Tolerance=1e-06));
 end BypassValvePosition;
