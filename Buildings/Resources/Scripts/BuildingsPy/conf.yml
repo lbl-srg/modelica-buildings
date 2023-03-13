@@ -366,16 +366,16 @@
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
-  optimica:
-    comment: "Simulation requires libgfortran.so.4 which is not in the docker image of OCT 1.40"
+  dymola:
+    comment: ".so files are not found"
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones2
-  optimica:
-    comment: "Simulation requires libgfortran.so.4 which is not in the docker image of OCT 1.40"
+  dymola:
+    comment: ".so files are not found"
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones3
-  optimica:
-    comment: "Simulation requires libgfortran.so.4 which is not in the docker image of OCT 1.40"
+  dymola:
+    comment: ".so files are not found"
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
   openmodelica:
