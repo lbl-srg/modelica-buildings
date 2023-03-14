@@ -54,7 +54,7 @@ partial model PartialHotWaterPlant "Interface class for HW plant"
     start=1,
     final min=0)=if typDisHeaWat==Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Constant1Only
      or typDisHeaWat==Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Variable1Only then 0
-    else nChi
+    else nUni
     "Number of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop",
     enable=typDisHeaWat==Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Constant1Variable2
@@ -64,67 +64,6 @@ partial model PartialHotWaterPlant "Interface class for HW plant"
     "Number of secondary HW loops for distributed secondary distribution"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop",
     enable=typDisHeaWat==Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Variable1And2Distributed));
-
-  parameter Buildings.Templates.Components.Types.Cooler typCoo(
-    start=Buildings.Templates.Components.Types.Cooler.CoolingTowerOpen)
-    "Condenser water cooling equipment"
-    annotation(Evaluate=true, Dialog(group="Coolers",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-  parameter Integer nCoo(
-    start=1,
-    final min=0)=nChi
-    "Number of cooler units"
-    annotation (Evaluate=true, Dialog(group="Coolers",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
-
-  parameter Integer nPumConWat(
-    start=1,
-    final min=0)=nChi
-    "Number of CW pumps"
-    annotation (Evaluate=true, Dialog(group="CW loop",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-           and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  // The following parameter stores the user selection.
-  parameter Buildings.Templates.Components.Types.PumpArrangement
-    typArrPumConWat_select(start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
-    "Type of CW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="CW loop",
-    enable=typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled
-       and typEco == Buildings.Templates.HeatingPlants.HotWater.Types.Economizer.None));
-  // The following parameter stores the actual configuration setting.
-  final parameter Buildings.Templates.Components.Types.PumpArrangement
-    typArrPumConWat=if typEco <> Buildings.Templates.HeatingPlants.HotWater.Types.Economizer.None
-       then Buildings.Templates.Components.Types.PumpArrangement.Headered else
-      typArrPumConWat_select
-    "Type of CW pump arrangement"
-    annotation (Evaluate=true, Dialog(group="CW loop"));
-  // The following parameter stores the user selection.
-  parameter Boolean have_varPumConWat_select=false
-    "Set to true for variable speed CW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="CW loop",
-      enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled and
-      typEco==Buildings.Templates.HeatingPlants.HotWater.Types.Economizer.None));
-  // The following parameter stores the actual configuration setting.
-  final parameter Boolean have_varPumConWat=
-    if typEco<>Buildings.Templates.HeatingPlants.HotWater.Types.Economizer.None
-      then true
-    else false
-    "Set to true for variable speed CW pumps, false for constant speed pumps"
-    annotation (Evaluate=true, Dialog(group="CW loop"));
-  final parameter Boolean have_varComPumConWat=
-    if typEco<>Buildings.Templates.HeatingPlants.HotWater.Types.Economizer.None
-      then true
-    elseif typArrPumConWat==Buildings.Templates.Components.Types.PumpArrangement.Dedicated
-      then false
-    else true
-    "Set to true for single common speed signal for CW pumps, false for dedicated signals"
-    annotation (Evaluate=true, Dialog(group="CW loop"));
-
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.Economizer typEco(
-    start=Buildings.Templates.HeatingPlants.HotWater.Types.Economizer.None)
-    "Type of WSE"
-    annotation (Evaluate=true, Dialog(group="Waterside economizer",
-    enable=typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Controller typCtl
     "Type of controller"
@@ -158,7 +97,7 @@ partial model PartialHotWaterPlant "Interface class for HW plant"
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Data.ChilledWaterPlant dat(
     typChi=typChi,
-    nChi=nChi,
+    nUni=nUni,
     nPumHeaWatPri=nPumHeaWatPri,
     nPumConWat=nPumConWat,
     typDisHeaWat=typDisHeaWat,
@@ -212,36 +151,27 @@ partial model PartialHotWaterPlant "Interface class for HW plant"
     "= true, if actual temperature at port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  final parameter MediumHeaWat.Density rhoHeaWat_default=
-    MediumHeaWat.density(staHeaWat_default)
+  final parameter Medium.Density rho_default=
+    Medium.density(sta_default)
     "HW default density";
-  final parameter MediumHeaWat.ThermodynamicState staHeaWat_default=
-     MediumHeaWat.setState_pTX(
+  final parameter Medium.ThermodynamicState sta_default=
+     Medium.setState_pTX(
        T=Buildings.Templates.Data.Defaults.THeaWatSup,
-       p=MediumHeaWat.p_default,
-       X=MediumHeaWat.X_default)
+       p=Medium.p_default,
+       X=Medium.X_default)
     "HW default state";
-  final parameter MediumCon.Density rhoCon_default=
-    MediumCon.density(staCon_default)
-    "Condenser cooling fluid default density";
-  final parameter MediumCon.ThermodynamicState staCon_default=
-     MediumCon.setState_pTX(
-       T=Buildings.Templates.Data.Defaults.TConEnt_max,
-       p=MediumCon.p_default,
-       X=MediumCon.X_default)
-    "Condenser cooling fluid default state";
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare final package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumHeaWat.h_default, nominal=MediumHeaWat.h_default))
+    h_outflow(start=Medium.h_default, nominal=Medium.h_default))
     "HW return"
     annotation (Placement(transformation(extent={{290,-250},{310,-230}}),
         iconTransformation(extent={{192,-110},{212,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
-    redeclare final package Medium = MediumRet,
+    redeclare final package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start = MediumHeaWat.h_default, nominal = MediumHeaWat.h_default))
+    h_outflow(start = Medium.h_default, nominal = Medium.h_default))
     "HW supply"
     annotation (Placement(transformation(extent={{290,-10},{310,10}}),
         iconTransformation(extent={{192,-10},{212,10}})));
@@ -288,24 +218,24 @@ partial model PartialHotWaterPlant "Interface class for HW plant"
     displayUnit="Pa")=port_a.p - port_b.p
     "Pressure difference between port_a and port_b";
 
-  MediumHeaWat.ThermodynamicState sta_a=
+  Medium.ThermodynamicState sta_a=
     if allowFlowReversal then
-      MediumHeaWat.setState_phX(port_a.p,
+      Medium.setState_phX(port_a.p,
                           noEvent(actualStream(port_a.h_outflow)),
                           noEvent(actualStream(port_a.Xi_outflow)))
     else
-      MediumHeaWat.setState_phX(port_a.p,
+      Medium.setState_phX(port_a.p,
                           noEvent(inStream(port_a.h_outflow)),
                           noEvent(inStream(port_a.Xi_outflow)))
       if show_T "Medium properties in port_a";
 
-  MediumHeaWat.ThermodynamicState sta_b=
+  Medium.ThermodynamicState sta_b=
     if allowFlowReversal then
-      MediumHeaWat.setState_phX(port_b.p,
+      Medium.setState_phX(port_b.p,
                           noEvent(actualStream(port_b.h_outflow)),
                           noEvent(actualStream(port_b.Xi_outflow)))
     else
-      MediumHeaWat.setState_phX(port_b.p,
+      Medium.setState_phX(port_b.p,
                           noEvent(port_b.h_outflow),
                           noEvent(port_b.Xi_outflow))
        if show_T "Medium properties in port_b";
@@ -319,19 +249,19 @@ protected
 
 initial equation
   if typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
-    assert(nPumHeaWatPri==nChi,
+    assert(nPumHeaWatPri==nUni,
       "In " + getInstanceName() + ": " +
       "In case of dedicated pumps, the number of primary HW pumps (=" +
       String(nPumHeaWatPri) + ") must be equal to the number of chillers (=" +
-      String(nChi) + ").");
+      String(nUni) + ").");
   end if;
   if typChi == Buildings.Templates.Components.Types.Chiller.WaterCooled and
       typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
-    assert(nPumConWat==nChi,
+    assert(nPumConWat==nUni,
       "In " + getInstanceName() + ": " +
       "In case of dedicated pumps, the number of CW pumps (=" +
       String(nPumConWat) + ") must be equal to the number of chillers (=" +
-      String(nChi) + ").");
+      String(nUni) + ").");
   end if;
 
   annotation (

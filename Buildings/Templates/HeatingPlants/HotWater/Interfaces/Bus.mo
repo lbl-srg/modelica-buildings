@@ -3,7 +3,5 @@ expandable connector Bus "Control bus for HW plant"
   extends Modelica.Icons.SignalBus;
 
   annotation (
-    defaultComponentName="bus",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+    defaultComponentName="bus");
 end Bus;

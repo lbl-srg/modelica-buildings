@@ -74,6 +74,8 @@ package Defaults "Package with default sizing parameters"
     "CHW circuit minimum pressure";
   constant Modelica.Units.SI.PressureDifference pHeaWat_rel_min=1.5E5
     "HHW circuit minimum pressure";
+  constant Modelica.Units.SI.PressureDifference dpHeaWatBoi=5E3
+    "Boiler HW pressure drop";
   annotation (Documentation(info="<html>
 <p>
 This package defines some constants that are either
