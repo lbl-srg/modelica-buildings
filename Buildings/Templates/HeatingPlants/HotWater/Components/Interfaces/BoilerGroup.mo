@@ -1,4 +1,4 @@
-within Buildings.Templates.HeatingPlants.HotWater.Components;
+within Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces;
 model BoilerGroup "Boiler group"
   replaceable package Medium = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -7,18 +7,15 @@ model BoilerGroup "Boiler group"
   parameter Integer nBoi(final min=0)
     "Number of boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+    "Type of boiler model"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean is_con
+    "Set to true for condensing boiler, false for non-condensing boiler"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.PumpArrangement
     typArrPumHeaWatPri "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.Distribution typDisHeaWat
-    "Type of HW distribution system"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement typMeaCtlHeaWatPri(
-    start=Buildings.Templates.ChilledWaterPlants.Types.PrimaryOverflowMeasurement.FlowDecoupler)
-    "Type of sensors for primary HW pump control in variable primary-variable secondary plants"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=
-    typDisHeaWat==Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Variable1And2
-    or typDisHeaWat==Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Variable1And2Distributed));
 
   final parameter Buildings.Templates.Components.Types.Valve typValBoiIso=
     if typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated then
@@ -26,25 +23,21 @@ model BoilerGroup "Boiler group"
     else Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Type of boiler HW isolation valve";
 
-  parameter Buildings.Templates.ChilledWaterPlants.Components.Data.boilerGroup dat(
-    final typChi=typChi,
-    final nBoi=nBoi)
+  parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.BoilerGroup dat(
+    final nBoi=nBoi,
+    final typMod=typMod)
     "Parameter record for boiler group";
-  /* FIXME DS#SR00937490-01
-  Propagation of per from boilerGroup is removed temporarily due to an issue in Dymola.
-  A local assignment in boiler component is implemented instead.
-  */
-  final parameter Buildings.Templates.Components.Data.boiler datBoi[nBoi](
-    final typ=fill(typChi, nBoi),
+  final parameter Buildings.Templates.Components.Data.BoilerHotWater datBoi[nBoi](
+    final typMod=fill(typMod, nBoi),
+    each final fue=dat.fue,
     final mHeaWat_flow_nominal=mHeaWatBoi_flow_nominal,
-    final mCon_flow_nominal=mConBoi_flow_nominal,
     final cap_nominal=capBoi_nominal,
     final dpHeaWat_nominal=if typValBoiIso==Buildings.Templates.Components.Types.Valve.None then
       dat.dpHeaWatBoi_nominal else fill(0, nBoi),
     final THeaWatSup_nominal=dat.THeaWatBoiSup_nominal,
     final per=dat.per)
     "Parameter record of each boiler";
-  final parameter Buildings.Templates.Components.Data.Valve datValHeaWatBoiIso[nBoi](
+  final parameter Buildings.Templates.Components.Data.Valve datValBoiIso[nBoi](
     final typ=fill(typValBoiIso, nBoi),
     final m_flow_nominal=mHeaWatBoi_flow_nominal,
     dpValve_nominal=fill(Buildings.Templates.Data.Defaults.dpValIso, nBoi),
@@ -112,16 +105,26 @@ model BoilerGroup "Boiler group"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={-40,170})));
-  Buildings.Templates.Components.Boilers.HotWaterPolynomial boi[nBoi](
+
+  replaceable Buildings.Templates.Components.Interfaces.BoilerHotWater boi[nBoi]
+    constrainedby Buildings.Templates.Components.Interfaces.BoilerHotWater(
     redeclare each final package Medium=Medium,
-    final dat=datBoi)
+    each final is_con=is_con,
+    final dat=datBoi,
+    each final allowFlowReversal=allowFlowReversal,
+    each final energyDynamics=energyDynamics)
     "Boiler"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
-  Buildings.Templates.Components.Valves.TwoWayTwoPosition valBoiIso[nBoi]
+  Buildings.Templates.Components.Valves.TwoWayTwoPosition valBoiIso[nBoi](
+    redeclare each final package Medium=Medium,
+    final dat=datValBoiIso,
+    each final allowFlowReversal=allowFlowReversal)
+ if typValBoiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Boiler isolation valve"
     annotation (Placement(transformation(extent={{150,110},{170,130}})));
-  Buildings.Templates.Components.Routing.PassThroughFluid pas[nBoi]
+  Buildings.Templates.Components.Routing.PassThroughFluid pas[nBoi](
+    redeclare each final package Medium=Medium)
+ if typValBoiIso==Buildings.Templates.Components.Types.Valve.None
     "No boiler isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
 protected
@@ -154,6 +157,14 @@ equation
           120},{140,120},{140,100},{150,100}}, color={0,127,255}));
   connect(busBoi, boi.bus) annotation (Line(
       points={{0,140},{0,10}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.valBoiIso, valBoiIso.bus) annotation (Line(
+      points={{0,200},{0,190},{160,190},{160,130}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busBoi, bus.boi) annotation (Line(
+      points={{0,140},{40,140},{40,200},{0,200}},
       color={255,204,51},
       thickness=0.5));
   annotation (

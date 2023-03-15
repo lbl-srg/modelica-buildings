@@ -76,6 +76,10 @@ package Defaults "Package with default sizing parameters"
     "HHW circuit minimum pressure";
   constant Modelica.Units.SI.PressureDifference dpHeaWatBoi=5E3
     "Boiler HW pressure drop";
+  constant Modelica.Units.SI.Temperature THeaWatSup=70+273.15
+    "HW supply temperature";
+  constant Modelica.Units.SI.Temperature THeaWatRet=50+273.15
+    "HW return temperature";
   annotation (Documentation(info="<html>
 <p>
 This package defines some constants that are either

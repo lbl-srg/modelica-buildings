@@ -9,7 +9,7 @@ model Boiler
   Buildings.Templates.Components.Data.BoilerHotWater datBoi(
     final typMod=boi.typMod,
     fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue(),
-    mHeaWat_flow_nominal=boi.cap_nominal/15/4186,
+    mHeaWat_flow_nominal=datBoi.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=1000E3,
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
     THeaWatSup_nominal=333.15,

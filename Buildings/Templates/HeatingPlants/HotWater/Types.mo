@@ -7,7 +7,7 @@ type Boilers = enumeration(
     NonCondensing "Non-condensing boilers")
     "Enumeration to specify the type of boilers";
 type Controller = enumeration(
-    G36VAVMultiZone
+    Guideline36
     "Guideline 36 controller for boiler plant",
     OpenLoop
     "Open loop controller")

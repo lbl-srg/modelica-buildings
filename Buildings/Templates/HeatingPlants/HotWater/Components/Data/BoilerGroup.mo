@@ -5,14 +5,20 @@ record BoilerGroup "Record for boiler group model"
   parameter Integer nBoi(final min=1)
     "Number of boilers (as installed)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+    "Type of boiler model (same model for all boilers)"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
+  parameter Buildings.Fluid.Data.Fuels.Generic fue
+    "Fuel type"
+    annotation (choicesAllMatching = true);
   parameter Modelica.Units.SI.MassFlowRate mHeaWatBoi_flow_nominal[nBoi](
     each final min=0)
     "HW mass flow rate - Each boiler"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatBoi_nominal[nBoi](
     each final min=0,
-    each start=Buildings.Templates.Data.Defaults.dpHeaWatChi)
+    each start=Buildings.Templates.Data.Defaults.dpHeaWatBoi)
     "HW pressure drop - Each boiler"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.HeatFlowRate capBoi_nominal[nBoi](
@@ -23,29 +29,35 @@ record BoilerGroup "Record for boiler group model"
     each final min=260)
     "(Highest) HW supply temperature - Each boiler"
     annotation(Dialog(group="Nominal condition"));
-  replaceable parameter Buildings.Fluid.Chillers.Data.ElectricEIR.Generic per[nBoi](
-    TConEnt_nominal=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then TConWatChiEnt_nominal
-      elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then TConAirChiEnt_nominal
-      else fill(Buildings.Templates.Data.Defaults.TConAirEnt, nBoi),
-    TConEntMin=TConBoiEnt_min,
-    TConEntMax=TConBoiEnt_max)
-    constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller(
-      QEva_flow_nominal=-1 * capBoi_nominal,
-      TEvaLvg_nominal=THeaWatChiSup_nominal,
-      TEvaLvgMin=THeaWatChiSup_nominal,
-      TEvaLvgMax=THeaWatChiSup_max,
-      PLRMin=PLRBoi_min,
-      PLRMinUnl=PLRUnlBoi_min,
-      mEva_flow_nominal=mHeaWatBoi_flow_nominal,
-      mCon_flow_nominal=if typChi==Buildings.Templates.Components.Types.Chiller.WaterCooled
-      then mConWatBoi_flow_nominal
-      elseif typChi==Buildings.Templates.Components.Types.Chiller.AirCooled
-      then mConAirBoi_flow_nominal
-      else fill(0, nBoi))
-    "Chiller performance data"
-    annotation(choicesAllMatching=true);
+
+  replaceable parameter Buildings.Fluid.Boilers.Data.Generic per[nBoi]
+    constrainedby Buildings.Fluid.Boilers.Data.Generic(
+      each fue=fue,
+      Q_flow_nominal=capBoi_nominal,
+      TIn_nominal=THeaWatBoiSup_nominal -
+        capBoi_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./ mHeaWatBoi_flow_nominal,
+      m_flow_nominal=mHeaWatBoi_flow_nominal,
+      dp_nominal=dpHeaWatBoi_nominal)
+    "Boiler performance data - Each boiler"
+    annotation (
+    Dialog(enable=typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Table),
+    choicesAllMatching=true);
+
+  parameter Buildings.Fluid.Types.EfficiencyCurves effCur=
+    Buildings.Fluid.Types.EfficiencyCurves.Constant
+    "Curve used to compute the efficiency (same curve type for all boilers)"
+    annotation (Dialog(enable=
+    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial));
+  parameter Real a[nBoi, :] = fill({0.9}, nBoi)
+    "Coefficients for efficiency curve - Each boiler"
+    annotation (Dialog(enable=
+    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial));
+  parameter Modelica.Units.SI.Temperature T_nominal[nBoi]=THeaWatBoiSup_nominal
+    "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature) - Each boiler"
+    annotation (Dialog(enable=
+    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial and
+    (effCur==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear)));
+
   annotation (
   defaultComponentName="datBoi",
   Documentation(info="<html>
