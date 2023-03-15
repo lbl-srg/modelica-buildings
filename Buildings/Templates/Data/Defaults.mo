@@ -52,6 +52,8 @@ package Defaults "Package with default sizing parameters"
     "Water-cooled chiller COP";
   constant Modelica.Units.SI.PressureDifference dpValIso=1E3
     "Isolation or bypass valve pressure drop";
+  constant Modelica.Units.SI.PressureDifference dpValBypMin=5E3
+    "Minimum flow bypass valve ";
   constant Modelica.Units.SI.PressureDifference dpValChe=1E4
     "Check valve pressure drop";
   constant Modelica.Units.SI.PressureDifference dpChiWatChi=5E4
@@ -76,10 +78,20 @@ package Defaults "Package with default sizing parameters"
     "HHW circuit minimum pressure";
   constant Modelica.Units.SI.PressureDifference dpHeaWatBoi=5E3
     "Boiler HW pressure drop";
-  constant Modelica.Units.SI.Temperature THeaWatSup=70+273.15
+  constant Modelica.Units.SI.Temperature THeaWatSup=80+273.15
     "HW supply temperature";
-  constant Modelica.Units.SI.Temperature THeaWatRet=50+273.15
+  constant Modelica.Units.SI.Temperature THeaWatConSup=65+273.15
+    "HW supply temperature for condensing boilers";
+  constant Modelica.Units.SI.Temperature THeaWatRet=55+273.15
     "HW return temperature";
+  constant Modelica.Units.SI.Temperature TOutBoiLoc=24+273.15
+    "Outdoor air lockout temperature above which the HW plant is prevented from operating";
+  constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min=3.5E4
+    "Minimum HW differential pressure setpoint used in HW plant reset logic";
+  constant Modelica.Units.SI.PressureDifference dpHeaWatSet_max=5E4
+    "Maximum HW differential pressure setpoint remote from the HW plant";
+  constant Modelica.Units.SI.PressureDifference dpHeaWatLocSet_max=15E4
+    "Maximum HW differential pressure setpoint local to the CHW plant";
   annotation (Documentation(info="<html>
 <p>
 This package defines some constants that are either

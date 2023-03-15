@@ -13,8 +13,8 @@ model BoilerGroup "Boiler group"
   parameter Boolean is_con
     "Set to true for condensing boiler, false for non-condensing boiler"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.PumpArrangement
-    typArrPumHeaWatPri "Type of primary HW pump arrangement"
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPri
+    "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Buildings.Templates.Components.Types.Valve typValBoiIso=
@@ -90,8 +90,9 @@ model BoilerGroup "Boiler group"
   Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
-    iconTransformation(extent={{-20,780},{20,820}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator THeaWatSupSet(nout=nBoi)
+    iconTransformation(extent={{-20,580},{20,620}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator THeaWatSupSet(
+    final nout=nBoi) if not is_con
     "Replicating common HW supply temperature setpoint"
     annotation (Placement(
         transformation(
@@ -119,14 +120,21 @@ model BoilerGroup "Boiler group"
     redeclare each final package Medium=Medium,
     final dat=datValBoiIso,
     each final allowFlowReversal=allowFlowReversal)
- if typValBoiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
+    if typValBoiIso==Buildings.Templates.Components.Types.Valve.TwoWayTwoPosition
     "Boiler isolation valve"
     annotation (Placement(transformation(extent={{150,110},{170,130}})));
   Buildings.Templates.Components.Routing.PassThroughFluid pas[nBoi](
     redeclare each final package Medium=Medium)
- if typValBoiIso==Buildings.Templates.Components.Types.Valve.None
+    if typValBoiIso==Buildings.Templates.Components.Types.Valve.None
     "No boiler isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator THeaWatConSupSet(
+    final nout=nBoi) if is_con
+    "Replicating common HW supply temperature setpoint for condensing boilers"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={40,170})));
 protected
   Buildings.Templates.Components.Interfaces.Bus busBoi[nBoi]
     "Boiler control bus"
@@ -164,14 +172,20 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busBoi, bus.boi) annotation (Line(
-      points={{0,140},{40,140},{40,200},{0,200}},
+      points={{0,140},{60,140},{60,200},{0,200}},
       color={255,204,51},
       thickness=0.5));
+  connect(bus.THeaWatConSupSet, THeaWatConSupSet.u) annotation (Line(
+      points={{0,200},{0,190},{40,190},{40,182}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(THeaWatConSupSet.y, busBoi.THeaWatSupSet) annotation (Line(points={{40,
+          158},{40,144},{0,144},{0,140}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-400,-800},{400,800}}), graphics={
+    extent={{-400,-600},{400,600}}), graphics={
         Text(
-          extent={{-149,-810},{151,-850}},
+          extent={{-149,-610},{151,-650}},
           textColor={0,0,255},
           textString="%name")}),
   Diagram(coordinateSystem(extent={{-200,-180},{200,200}})));

@@ -1,25 +1,36 @@
 within Buildings.Templates.HeatingPlants.HotWater;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-type Boilers = enumeration(
-    Condensing "Condensing boilers",
-    Hybrid "Condensing and non-condensing boilers",
-    NonCondensing "Non-condensing boilers")
-    "Enumeration to specify the type of boilers";
 type Controller = enumeration(
     Guideline36
     "Guideline 36 controller for boiler plant",
     OpenLoop
     "Open loop controller")
   "Enumeration to configure the plant controller";
-type Distribution = enumeration(
-    Variable1Only "Variable primary-only",
-    Constant1Variable2 "Constant primary - Variable secondary centralized",
-    Variable1And2 "Variable primary - Variable secondary centralized",
-    Variable1And2Distributed "Variable primary - Variable secondary distributed")
-    "Enumeration to specify the type of HW distribution system";
-type Plant = enumeration(
-    Boiler "Hot water boiler plant",
-    HeatPump "Heat pump plant")
-    "Enumeration to specify the type of HW plant";
+type PrimaryOverflowMeasurement = enumeration(
+    FlowDecoupler "Flow meter in the decoupler",
+    FlowDifference "Primary and secondary loop flow meters",
+    TemperatureSupplySensor "Delta-T with single HWST sensor measuring combined flow of all boilers",
+    TemperatureBoilerSensor "Delta-T with weighted average of HWST of all boilers proven on")
+  "Enumeration to configure the sensors for variable speed primary pumps control in primary-secondary plants";
+type PumpsPrimary = enumeration(
+    FactoryConstant "Primary pump provided with boiler with factory controls - Constant speed ",
+    FactoryVariable "Primary pump provided with boiler with factory controls - Variable speed ",
+    Constant "Constant speed pump",
+    Variable "Variable speed pump")
+    "Enumeration to specify the type of primary HW pumps";
+type PumpsSecondary = enumeration(
+    None "No secondary pump (primary-only)",
+    Centralized "Variable secondary centralized",
+    ConstantVariable "Variable secondary distributed")
+    "Enumeration to specify the type of secondary HW pumps";
+type PlantBoiler = enumeration(
+    Condensing "Condensing boilers only",
+    Hybrid "Condensing and non-condensing boilers",
+    NonCondensing "Non-condensing boilers only")
+    "Enumeration to specify the type of boilers";
+type SensorLocation = enumeration(
+    Return "Sensor in the return line",
+    Supply "Sensor in the supply line")
+    "Enumeration to specify the sensor location";
 end Types;

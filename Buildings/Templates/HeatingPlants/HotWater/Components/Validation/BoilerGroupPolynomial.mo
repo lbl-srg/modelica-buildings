@@ -1,5 +1,5 @@
 within Buildings.Templates.HeatingPlants.HotWater.Components.Validation;
-model BoilerGroup "Validation model for boiler group"
+model BoilerGroupPolynomial "Validation model for boiler group"
   extends Modelica.Icons.Example;
 
   replaceable package Medium=Buildings.Media.Water
@@ -29,7 +29,7 @@ model BoilerGroup "Validation model for boiler group"
     final typ=Buildings.Templates.Components.Types.Pump.Multiple,
     final nPum=nBoi,
     final m_flow_nominal=fill(mHeaWat_flow_nominal/datPumHeaWatPri.nPum, datPumHeaWatPri.nPum),
-    dp_nominal=1.5*(datBoi.dpHeaWatBoi_nominal .+ Buildings.Templates.Data.Defaults.dpValChe))
+    dp_nominal=datBoi.dpHeaWatBoi_nominal .+ Buildings.Templates.Data.Defaults.dpValChe)
     "Parameter record for primary HW pumps";
   parameter Modelica.Units.SI.Time tau=10
     "Time constant at nominal flow"
@@ -39,11 +39,12 @@ model BoilerGroup "Validation model for boiler group"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  BoilerGroups.BoilerGroupPolynomial boi(
+  replaceable BoilerGroups.BoilerGroupPolynomial boi
+    constrainedby Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.BoilerGroup(
     redeclare final package Medium=Medium,
     final nBoi=nBoi,
     is_con=false,
-    typArrPumHeaWatPri=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typArrPumHeaWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final dat=datBoi,
     final energyDynamics=energyDynamics)
     "Boiler group"
@@ -66,13 +67,16 @@ model BoilerGroup "Validation model for boiler group"
     "Primary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatPri(
-    redeclare final package Medium=Medium,final
-      nPorts=nBoi, final m_flow_nominal=mHeaWat_flow_nominal)
+    redeclare final package Medium=Medium,
+    final nPorts=nBoi,
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    final energyDynamics=energyDynamics)
     "Primary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatSup(
-    redeclare final package Medium=Medium,final m_flow_nominal=
-        mHeaWat_flow_nominal) "HW supply temperature"
+    redeclare final package Medium=Medium,
+    final m_flow_nominal=mHeaWat_flow_nominal)
+    "HW supply temperature"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Fluid.Sensors.MassFlowRate mHeaWat_flow(
     redeclare final package Medium=Medium) "HW mass flow rate"
@@ -80,18 +84,11 @@ model BoilerGroup "Validation model for boiler group"
   Fluid.Sources.Boundary_pT bouHeaWat(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_min,
-    nPorts=1) "Boundary conditions for HW distribution system"
+    T=Buildings.Templates.Data.Defaults.THeaWatRet,
+    nPorts=2) "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-20,-60})));
-  Fluid.HeatExchangers.HeaterCooler_u loa(
-    redeclare final package Medium=Medium,
-    final m_flow_nominal=mHeaWat_flow_nominal,
-    final energyDynamics=energyDynamics,
-    final Q_flow_nominal=-sum(datBoi.capBoi_nominal),
-    dp_nominal=0)
-    "Heating load"
-    annotation (Placement(transformation(extent={{30,-50},{10,-30}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatRet(redeclare final package Medium =
         Medium, final m_flow_nominal=mHeaWat_flow_nominal)
     "HW return temperature"
@@ -104,43 +101,37 @@ model BoilerGroup "Validation model for boiler group"
     "Boiler group inlet manifold"
     annotation (Placement(transformation(extent={{-90,-50},{-110,-30}})));
   Controls.OpenLoop ctl(
+    have_boiCon=true,
+    have_boiNon=false,
     final nBoi=nBoi,
-    typDisHeaWat=Buildings.Templates.HeatingPlants.HotWater.Types.Distribution.Variable1Only)
+    nBoiNon=0,
+    typPumHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
+    typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
+    final typArrPumHeaWatPri=boi.typArrPumHeaWatPri)
     "Controller"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+
   Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus busPla
     "Plant control bus" annotation (Placement(transformation(extent={{-180,100},
             {-140,140}}), iconTransformation(extent={{-310,60},{-270,100}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
     "Primary HW pump control bus" annotation (Placement(transformation(extent={{-90,70},
             {-50,110}}),         iconTransformation(extent={{-276,64},{-236,104}})));
-  Buildings.Templates.Components.Interfaces.Bus busBoi[nBoi]
-    "Boiler control bus" annotation (Placement(transformation(extent={{60,70},{100,
-            110}}), iconTransformation(extent={{-276,64},{-236,104}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(k=fill(1/nBoi, nBoi), nin=nBoi)
-    "Sum up firing rate" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={80,40})));
 equation
   connect(inlPumHeaWatPri.ports_b, pumHeaWatPri.ports_a)
     annotation (Line(points={{-90,40},{-80,40}}, color={0,127,255}));
   connect(boi.ports_bHeaWat, inlPumHeaWatPri.ports_a)
-    annotation (Line(points={{-120,40},{-110,40}}, color={0,127,255}));
+    annotation (Line(points={{-120,53.3333},{-116,53.3333},{-116,40},{-110,40}},
+                                                   color={0,127,255}));
   connect(outPumHeaWatPri.port_b, THeaWatSup.port_a)
     annotation (Line(points={{-30,40},{-20,40}}, color={0,127,255}));
   connect(THeaWatSup.port_b, mHeaWat_flow.port_a)
     annotation (Line(points={{0,40},{10,40}}, color={0,127,255}));
   connect(inlBoi.ports_b, boi.ports_aHeaWat)
-    annotation (Line(points={{-110,-40},{-120,-40}}, color={0,127,255}));
+    annotation (Line(points={{-110,-40},{-116,-40},{-116,-53.3333},{-120,
+          -53.3333}},                                color={0,127,255}));
   connect(THeaWatRet.port_b, inlBoi.port_a)
     annotation (Line(points={{-70,-40},{-90,-40}}, color={0,127,255}));
-  connect(loa.port_b, THeaWatRet.port_a)
-    annotation (Line(points={{10,-40},{-50,-40}}, color={0,127,255}));
-  connect(bouHeaWat.ports[1], loa.port_b) annotation (Line(points={{-20,-50},{-20,
-          -40},{10,-40}}, color={0,127,255}));
-  connect(mHeaWat_flow.port_b, loa.port_a) annotation (Line(points={{30,40},{40,
-          40},{40,-40},{30,-40}}, color={0,127,255}));
   connect(boi.bus, busPla) annotation (Line(
       points={{-160,80},{-160,120}},
       color={255,204,51},
@@ -153,35 +144,35 @@ equation
       points={{-70,90},{-70,50}},
       color={255,204,51},
       thickness=0.5));
-  connect(busPla.boi, busBoi) annotation (Line(
-      points={{-160,120},{80,120},{80,90}},
-      color={255,204,51},
-      thickness=0.5));
   connect(busPla.pumHeaWatPri, busPumHeaWatPri) annotation (Line(
       points={{-160,120},{-70,120},{-70,90}},
       color={255,204,51},
       thickness=0.5));
-  connect(mulSum.y, loa.u)
-    annotation (Line(points={{80,28},{80,-34},{32,-34}}, color={0,0,127}));
-  connect(busBoi.y_actual, mulSum.u) annotation (Line(
-      points={{80,90},{80,72},{80,52},{80,52}},
-      color={255,204,51},
-      thickness=0.5));
   connect(pumHeaWatPri.ports_b, outPumHeaWatPri.ports_a)
     annotation (Line(points={{-60,40},{-50,40}}, color={0,127,255}));
+  connect(mHeaWat_flow.port_b, bouHeaWat.ports[1]) annotation (Line(points={{30,
+          40},{40,40},{40,-40},{-21,-40},{-21,-50}}, color={0,127,255}));
+  connect(bouHeaWat.ports[2], THeaWatRet.port_a) annotation (Line(points={{-19,
+          -50},{-19,-40},{-50,-40}}, color={0,127,255}));
   annotation (
   Diagram(coordinateSystem(extent={{-220,-220},{220,220}})),
   experiment(
     StopTime=2000,
     Tolerance=1e-06),
   __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Templates/HeatingPlants/HotWater/Components/Validation/BoilerGroup.mos"
+  "modelica://Buildings/Resources/Scripts/Dymola/Templates/HeatingPlants/HotWater/Components/Validation/BoilerGroupPolynomial.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-This model validates the chiller group model
-<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression\">
-Buildings.Templates.ChilledWaterPlants.Components.ChillerGroups.Compression</a>
-for air-cooled chillers.
-</p>"));
-end BoilerGroup;
+FIXME: Bug in Dymola #SR01004314-01. 
+The parameters inside pumHeaWatPri.dat are left unassigned and the start value 
+is used instead without any warning being issued.
+OCT properly propagates the parameter values from the composite component binding.
+</p>
+<p>
+This model validates the boiler group model
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupPolynomial\">
+Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupPolynomial</a>.
+</p>
+</html>"));
+end BoilerGroupPolynomial;

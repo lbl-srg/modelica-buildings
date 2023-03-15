@@ -1,8 +1,8 @@
-simulateModel("Buildings.Templates.HeatingPlants.HotWater.Components.Validation.BoilerGroup",
+simulateModel("Buildings.Templates.HeatingPlants.HotWater.Components.Validation.BoilerGroupTable",
   method="cvode",
   tolerance=1e-6,
   stopTime=2000.0,
-  resultFile="BoilerGroup");
+  resultFile="BoilerGroupTable");
 createPlot(id=1,
   position={19, 10, 508, 564},
   y={"THeaWatRet.T", "THeaWatSup.T", "ctl.THeaWatSupSet.y"},
