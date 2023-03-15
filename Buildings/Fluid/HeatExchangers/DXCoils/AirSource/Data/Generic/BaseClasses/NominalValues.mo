@@ -3,7 +3,7 @@ record NominalValues "Data record of nominal values"
   extends Modelica.Icons.Record;
 
 //-----------------------------Nominal conditions-----------------------------//
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
     "Nominal cooling capacity (negative number)"
     annotation (Dialog(group="Nominal condition"));
   parameter Real COP_nominal "Nominal coefficient of performance"

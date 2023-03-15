@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
-model SingleSpeed "Single speed DX cooling coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-      dxCoo(final variableSpeedCoil=false,
+model SingleSpeedDXCooling "Single speed DX cooling coil"
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
+            final dxCoiOpe(final variableSpeedCoil=false,
             wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
             dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
       redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi,
@@ -19,20 +20,20 @@ protected
 initial equation
   assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
 equation
-  connect(speRat.y, dxCoo.speRat) annotation (Line(
-      points={{-43.4,64},{-40,64},{-40,57.6},{-21,57.6}},
+  connect(speRat.y, dxCoiOpe.speRat) annotation (Line(
+      points={{-43.4,64},{-40,64},{-40,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.on, on) annotation (Line(
-      points={{-10,-62},{-92,-62},{-92,80},{-110,80}},
+      points={{-10,-64},{-92,-64},{-92,80},{-110,80}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(on, onSwi.u) annotation (Line(
       points={{-110,80},{-57.2,80}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(onSwi.y, dxCoo.stage) annotation (Line(
-      points={{-43.4,80},{-34,80},{-34,60},{-21,60}},
+  connect(onSwi.y, dxCoiOpe.stage) annotation (Line(
+      points={{-43.4,80},{-34,80},{-34,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
@@ -64,4 +65,4 @@ First implementation.
           extent={{-140,132},{-96,112}},
           textColor={0,0,255},
           textString="on")}));
-end SingleSpeed;
+end SingleSpeedDXCooling;

@@ -106,7 +106,7 @@ equation
       points={{-39,70},{-18,70},{-18,18},{-11,18}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(TConIn.y, mulStaDX.TConIn) annotation (Line(
+  connect(TConIn.y, mulStaDX.TIn) annotation (Line(
       points={{-79,50},{-46,50},{-46,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));

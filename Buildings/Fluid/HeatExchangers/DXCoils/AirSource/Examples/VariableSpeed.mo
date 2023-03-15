@@ -105,7 +105,7 @@ equation
       points={{-79,2},{-61.5,2},{-61.5,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(varSpeDX.TConIn, TConIn.y) annotation (Line(
+  connect(varSpeDX.TIn, TConIn.y) annotation (Line(
       points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
       color={0,0,127},
       smooth=Smooth.None));

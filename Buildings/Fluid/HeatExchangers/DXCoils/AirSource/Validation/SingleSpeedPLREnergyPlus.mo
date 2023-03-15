@@ -26,7 +26,8 @@ model SingleSpeedPLREnergyPlus
     use_X_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed sinSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling
+    sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
@@ -338,7 +339,7 @@ equation
       points={{-59,-50},{-52,-50},{-52,-14},{-42,-14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TCIn_K.Kelvin, sinSpeDX.TConIn)  annotation (Line(
+  connect(TCIn_K.Kelvin, sinSpeDX.TIn) annotation (Line(
       points={{-79,69.8},{-66.5,69.8},{-66.5,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));

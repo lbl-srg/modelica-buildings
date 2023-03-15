@@ -80,7 +80,8 @@ model SpaceCooling "Space cooling with DX coils"
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed sinSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling
+    sinSpeDX(
     redeclare package Medium = Medium,
     datCoi=datCoi,
     dp_nominal=400,
@@ -350,7 +351,7 @@ public
   end SimpleRoom;
 equation
 
-  connect(sinSpeDX.TConIn, weaBus.TDryBul) annotation (Line(
+  connect(sinSpeDX.TIn, weaBus.TDryBul) annotation (Line(
       points={{-3,-61},{-56,-61},{-56,-50},{-128,-50},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -385,7 +386,7 @@ equation
       points={{18,-164},{66,-164}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mulStaDX.TConIn, weaBus.TDryBul) annotation (Line(
+  connect(mulStaDX.TIn, weaBus.TDryBul) annotation (Line(
       points={{-3,-161},{-62,-161},{-62,-150},{-128,-150},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -523,7 +524,7 @@ equation
       points={{-66,-240},{-4,-240}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(varSpeDX.TConIn, weaBus.TDryBul) annotation (Line(
+  connect(varSpeDX.TIn, weaBus.TDryBul) annotation (Line(
       points={{-5,-237},{-64,-237},{-64,-226},{-128,-226},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
