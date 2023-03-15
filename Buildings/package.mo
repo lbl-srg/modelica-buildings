@@ -328,10 +328,9 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
     </td>
     <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
+                       Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
-    <td valign=\"top\">Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.
-    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
     </td>
