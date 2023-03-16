@@ -292,15 +292,15 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Continuous.Switch outDam2 if have_frePro
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,440},{140,460}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0) if have_frePro
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(final k=0.0)
+               if have_frePro
     "Fully closed damper position"
     annotation (Placement(transformation(extent={{40,460},{60,480}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch retDam2 if have_frePro
     "Return air damper position"
     annotation (Placement(transformation(extent={{120,308},{140,328}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=1) if have_frePro
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=1.0)
+               if have_frePro
     "Fully open damper or valve position"
     annotation (Placement(transformation(extent={{-80,200},{-60,220}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if have_frePro
@@ -1134,6 +1134,12 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 December 22, 2022, by Jianjun Hu:<br/>
 Added flag to disable freeze protection.<br/>

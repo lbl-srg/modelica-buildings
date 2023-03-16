@@ -30,7 +30,7 @@ partial block PartialCoilInterface "Partial block for DX coil"
 
 
   Modelica.Blocks.Interfaces.RealInput mCon_flow if use_mCon_flow
-    "Water mass flow rate at condensers for water-cooled DX units"
+    "Water mass flow rate at condensers for water source DX units"
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
   annotation ( Documentation(info="<html>
 <p>
@@ -48,7 +48,7 @@ April 13, 2017, by Michael Wetter:<br/>
 Removed connectors that are no longer needed.
 </li>
 <li>February 17, 2017 by Yangyang Fu:<br/>
-Added a boolean constant <code>use_mCon_flow</code> which is required in water-cooled DX coils.
+Added a boolean constant <code>use_mCon_flow</code> which is required in water source DX coils.
 </li>
 <li>August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation.

@@ -299,16 +299,16 @@ block Controller
   parameter Real outDamDesFloMaxSpe(unit="1")=0.8
     "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real outDamPhy_max(unit="1")=1
+  parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real outDamPhy_min(unit="1")=0
+  parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real retDamPhy_max(unit="1")=1
+  parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
-  parameter Real retDamPhy_min(unit="1")=0
+  parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning"));
   parameter Real delTOutHys(
@@ -401,7 +401,7 @@ block Controller
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
 
   // ----------- Advanced -----------
-  parameter Real posHys=0.05 "Hysteresis for damper position check"
+  parameter Real posHys=0.01 "Hysteresis for damper position check"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
@@ -411,7 +411,7 @@ block Controller
     annotation(Dialog(tab="Advanced", group="Hysteresis",
                       enable = (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                              or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)));
-  parameter Real floHys=0.01
+  parameter Real floHys(unit="m3/s")=0.01*VOutMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced", group="Hysteresis"));
 
@@ -1655,6 +1655,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.
