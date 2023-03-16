@@ -382,7 +382,6 @@ First implementation.
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5,
-
           origin={66,-187},
           rotation=90),
         Rectangle(
@@ -392,7 +391,6 @@ First implementation.
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid,
           visible=typ <> TypDisSys.Cooling and typ <> TypDisSys.CombinedGeneration5,
-
           origin={-66,-187},
           rotation=90),
         Rectangle(
