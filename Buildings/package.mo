@@ -918,6 +918,19 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect
+    </td>
+    <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
+                       by changing from <code>true</code> to <code>false</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3299\">
+                       issue 3299</a>.
+    </td>
+  </tr>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
