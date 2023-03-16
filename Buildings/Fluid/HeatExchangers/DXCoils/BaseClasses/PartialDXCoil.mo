@@ -69,7 +69,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     "Inlet air mass flow rate"
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
 
-  BaseClasses.InputPower pwr(activate_CooCoi=activate_CooCoi)
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr(activate_CooCoi=activate_CooCoi)
                              "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 

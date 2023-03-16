@@ -47,15 +47,18 @@ model SingleSpeedDXHeating "Test model for single speed DX heating coil"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
-         spe=1800/60, nomVal=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=16381.47714,
-        COP_nominal=3.90494,
-        SHR_nominal=1,
-        m_flow_nominal=2,
-        TEvaIn_nominal=273.15 - 5,
-        TConIn_nominal=273.15 + 21),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I())},
+        spe=1800/60,
+        nomVal=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          activate_CooCoi=false,
+          Q_flow_nominal=16381.47714,
+          COP_nominal=3.90494,
+          SHR_nominal=1,
+          m_flow_nominal=2,
+          TEvaIn_nominal=273.15 - 5,
+          TConIn_nominal=273.15 + 21),
+        perCur=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I())},
         nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 0)
