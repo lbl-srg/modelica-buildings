@@ -352,7 +352,7 @@ public
   end SimpleRoom;
 equation
 
-  connect(sinSpeDX.TIn, weaBus.TDryBul) annotation (Line(
+  connect(sinSpeDX.TOut, weaBus.TDryBul) annotation (Line(
       points={{-3,-61},{-56,-61},{-56,-50},{-128,-50},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
