@@ -1,10 +1,15 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model VariableSpeed "Variable speed water source DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed eva(
-        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-        final minSpeRat = minSpeRat,
-        final speRatDeaBan = speRatDeaBan));
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
+      redeclare final
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling
+      eva(
+      redeclare final
+        Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil
+        datCoi=datCoi,
+      final minSpeRat=minSpeRat,
+      final speRatDeaBan=speRatDeaBan));
 
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";

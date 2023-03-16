@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model VariableSpeed "Test model for variable speed DX coil"
+model VariableSpeedDXCooling "Test model for variable speed DX coil"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air "Medium model";
@@ -22,7 +22,8 @@ model VariableSpeed "Test model for variable speed DX coil"
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed varSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling
+    varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
@@ -105,7 +106,7 @@ equation
       points={{-79,2},{-61.5,2},{-61.5,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(varSpeDX.TIn, TConIn.y) annotation (Line(
+  connect(varSpeDX.TOut, TConIn.y) annotation (Line(
       points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -140,4 +141,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end VariableSpeed;
+end VariableSpeedDXCooling;

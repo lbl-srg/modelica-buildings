@@ -2,11 +2,18 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
 model SingleSpeedDXCooling "Single speed DX cooling coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
-            final dxCoiOpe(final variableSpeedCoil=false,
-            wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
-            dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
-      redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi,
-      use_mCon_flow=false);
+    dxCoi(
+      final variableSpeedCoil=false,
+      wetCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          cooCap),
+      dryCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          cooCap)),
+    redeclare
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+      datCoi,
+    use_mCon_flow=false);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
   Modelica.Blocks.Interfaces.BooleanInput on
@@ -20,7 +27,7 @@ protected
 initial equation
   assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
 equation
-  connect(speRat.y, dxCoiOpe.speRat) annotation (Line(
+  connect(speRat.y, dxCoi.speRat) annotation (Line(
       points={{-43.4,64},{-40,64},{-40,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -32,7 +39,7 @@ equation
       points={{-110,80},{-57.2,80}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(onSwi.y, dxCoiOpe.stage) annotation (Line(
+  connect(onSwi.y, dxCoi.stage) annotation (Line(
       points={{-43.4,80},{-34,80},{-34,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));

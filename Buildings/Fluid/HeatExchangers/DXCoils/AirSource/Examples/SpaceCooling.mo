@@ -183,7 +183,8 @@ model SpaceCooling "Space cooling with DX coils"
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{64,-246},{76,-234}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed varSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling
+    varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoiMulSpe,
@@ -386,7 +387,7 @@ equation
       points={{18,-164},{66,-164}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mulStaDX.TIn, weaBus.TDryBul) annotation (Line(
+  connect(mulStaDX.TOut, weaBus.TDryBul) annotation (Line(
       points={{-3,-161},{-62,-161},{-62,-150},{-128,-150},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -524,7 +525,7 @@ equation
       points={{-66,-240},{-4,-240}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(varSpeDX.TIn, weaBus.TDryBul) annotation (Line(
+  connect(varSpeDX.TOut, weaBus.TDryBul) annotation (Line(
       points={{-5,-237},{-64,-237},{-64,-226},{-128,-226},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));

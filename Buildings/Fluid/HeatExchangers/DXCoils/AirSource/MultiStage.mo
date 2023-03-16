@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
 model MultiStage "Multi-stage DX cooling coil"
 
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-      dxCoo(final variableSpeedCoil=false,
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
+      dxCoi(final variableSpeedCoil=false,
           wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
           dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
       redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi,
@@ -30,12 +30,12 @@ equation
       points={{-110,80},{-92,80},{-92,66},{-80.6,66}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(speSel.speRat, dxCoo.speRat) annotation (Line(
-      points={{-67.4,66},{-40,66},{-40,57.6},{-21,57.6}},
+  connect(speSel.speRat, dxCoi.speRat) annotation (Line(
+      points={{-67.4,66},{-40,66},{-40,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(stage, dxCoo.stage) annotation (Line(
-      points={{-110,80},{-30,80},{-30,60},{-21,60}},
+  connect(stage, dxCoi.stage) annotation (Line(
+      points={{-110,80},{-30,80},{-30,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>

@@ -164,7 +164,7 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     final X_start=XEva_start,
     final C_start=CEva_start,
     final computeReevaporation=computeReevaporation,
-    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
+    dxCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
                  redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
                  appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
@@ -240,7 +240,7 @@ protected
     "Small mass flow rate for regularization of zero flow at condenser"
     annotation(Dialog(tab = "Advanced"));
 
-  Modelica.Blocks.Sources.RealExpression u(final y=(-eva.dxCoo.Q_flow + eva.P)/(
+  Modelica.Blocks.Sources.RealExpression u(final y=(-eva.dxCoi.Q_flow + eva.P)/(
         -datCoi.sta[nSta].nomVal.Q_flow_nominal*(1 + 1/datCoi.sta[nSta].nomVal.COP_nominal)))
     "Signal of total heat flow removed by condenser" annotation (Placement(
         transformation(
@@ -283,7 +283,7 @@ equation
   connect(senMasFloCon.m_flow, eva.mCon_flow) annotation (Line(points={{30,-69},
           {30,-69},{30,-38},{30,-30},{-20,-30},{-20,-3},{-11,-3}},     color={0,
           0,127}));
-  connect(TConEntWat.y, eva.TConIn) annotation (Line(points={{-39,11},{-20,11},{
+  connect(TConEntWat.y, eva.TOut) annotation (Line(points={{-39,11},{-20,11},{
           -20,4},{-20,4},{-20,3},{-11,3}}, color={0,0,127}));
   connect(portCon_a, senMasFloCon.port_a) annotation (Line(points={{60,-100},{60,
           -100},{60,-80},{40,-80}}, color={0,127,255}));

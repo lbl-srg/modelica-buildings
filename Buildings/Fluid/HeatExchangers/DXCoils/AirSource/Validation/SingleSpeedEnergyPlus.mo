@@ -238,7 +238,7 @@ equation
       points={{-119,70},{-116,70},{-116,69.6},{-102,69.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TCIn_K.Kelvin, sinSpeDX.TIn) annotation (Line(
+  connect(TCIn_K.Kelvin, sinSpeDX.TOut) annotation (Line(
       points={{-79,69.8},{-66.5,69.8},{-66.5,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
