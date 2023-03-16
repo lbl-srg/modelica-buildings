@@ -758,14 +758,6 @@ a pressure drop varying linearly with the flow rate, as opposed
 to the quadratic dependency usually considered for a turbulent flow
 regime.
 This is because the whole plant model contains large nonlinear systems
-of equations, and this configuration limits the risk of solver failure
-while reducing the time to solution.
-<p>
-By default, linear valve models are used. Those are configured with
-a pressure drop varying linearly with the flow rate, as opposed
-to the quadratic dependency usually considered for a turbulent flow
-regime.
-This is because the whole plant model contains large nonlinear systems
 of equations and this configuration limits the risk of solver failure
 while reducing the time to solution.
 This has no significant impact on the operating point of the circulation pumps
