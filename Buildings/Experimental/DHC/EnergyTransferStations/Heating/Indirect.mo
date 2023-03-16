@@ -3,22 +3,22 @@ model Indirect
   "Indirect cooling energy transfer station for district energy systems"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect(
-      QChiWat_flow_nominal=-Q_flow_nominal,
-      final typ=DHC.Types.DistrictSystemType.Cooling,
-      final have_chiWat=true,
-      final have_heaWat=false,
-    nPorts_aChiWat=1,
-    nPorts_bChiWat=1);
+      QHeaWat_flow_nominal=Q_flow_nominal,
+      final typ=DHC.Types.DistrictSystemType.HeatingGeneration2to4,
+      final have_chiWat=false,
+      final have_heaWat=true,
+      Q_flow_nominal(min=0),
+      nPorts_aHeaWat=1,
+      nPorts_bHeaWat=1);
 equation
-  connect(ports_aChiWat[1], senTBuiRet.port_a)
-    annotation (Line(points={{-300,200},{-218,200}}, color={0,127,255}));
-  connect(port_aSerCoo, senTDisSup.port_a)
-    annotation (Line(points={{-300,-280},{-220,-280}}, color={0,127,255}));
-  connect(senTDisRet.port_b, port_bSerCoo)
-    annotation (Line(points={{200,-280},{300,-280}}, color={0,127,255}));
-  connect(senTBuiSup.port_b, ports_bChiWat[1]) annotation (Line(points={{-36,
-          -204},{-60,-204},{-60,180},{240,180},{240,200},{300,200}}, color={0,
-          127,255}));
+  connect(ports_aHeaWat[1], senTBuiRet.port_a) annotation (Line(points={{-300,260},
+          {-240,260},{-240,200},{-218,200}}, color={0,127,255}));
+  connect(port_aSerHea, senTDisSup.port_a) annotation (Line(points={{-300,-240},
+          {-260,-240},{-260,-280},{-220,-280}}, color={0,127,255}));
+  connect(senTBuiSup.port_b, ports_bHeaWat[1]) annotation (Line(points={{-36,-204},
+          {-60,-204},{-60,180},{220,180},{220,260},{300,260}}, color={0,127,255}));
+  connect(senTDisRet.port_b, port_bSerHea) annotation (Line(points={{200,-280},
+          {242,-280},{242,-240},{300,-240}}, color={0,127,255}));
   annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>

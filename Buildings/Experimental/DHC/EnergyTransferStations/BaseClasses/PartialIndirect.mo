@@ -43,22 +43,18 @@ model PartialIndirect
   parameter Boolean use_Q_flow_nominal=true
     "Set to true to specify Q_flow_nominal and temeratures, or to false to specify effectiveness"
     annotation (Dialog(group="Heat exchanger"));
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(
-    final max=0,
-    final start=-100000)
-    "Nominal heat transfer"
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
+    "Nominal heat transfer (positive for heat transfer from district to building)"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a1_nominal(
     final min=273.15,
-    final max=373.15,
-    final start=278.15)
-    "Nominal temperature at port a1"
+    final max=373.15)
+    "Nominal temperature at port a1 (district supply)"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Temperature T_a2_nominal(
     final min=273.15,
-    final max=373.15,
-    final start=280.15)
-    "Nominal temperature at port a2"
+    final max=373.15)
+    "Nominal temperature at port a2 (building return)"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.Efficiency eta(
     final min=0,

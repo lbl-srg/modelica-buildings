@@ -1,14 +1,14 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Heating.Examples;
-model Direct "Example model for direct cooling energy transfer station 
+model Direct "Example model for direct heating energy transfer station 
   with in-building pumping and controlled district return temperature"
   extends Modelica.Icons.Example;
   package Medium=Buildings.Media.Water
     "Water medium";
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal=18000
-    "Nominal cooling load (negative for cooling)"
+    "Nominal heating load"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal=Q_flow_nominal/(cp*(50-40))
-    "Nominal mass flow rate of building cooling supply"
+    "Nominal mass flow rate of building heating supply"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(
     Medium.setState_pTX(
@@ -64,7 +64,7 @@ model Direct "Example model for direct cooling energy transfer station
     linearizeFlowResistance=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=-1)
-    "Aggregate building cooling load"
+    "Aggregate building heating load"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   Modelica.Blocks.Sources.Ramp ram(
     height=1,

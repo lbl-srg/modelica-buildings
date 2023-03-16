@@ -3,12 +3,14 @@ model Indirect
   "Indirect cooling energy transfer station for district energy systems"
   extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialIndirect(
-      QChiWat_flow_nominal=-Q_flow_nominal,
+      QChiWat_flow_nominal=Q_flow_nominal,
       final typ=DHC.Types.DistrictSystemType.Cooling,
       final have_chiWat=true,
       final have_heaWat=false,
-    nPorts_aChiWat=1,
-    nPorts_bChiWat=1);
+      Q_flow_nominal(max=0),
+      nPorts_aChiWat=1,
+      nPorts_bChiWat=1,
+    con(reverseActing=false));
 equation
   connect(ports_aChiWat[1], senTBuiRet.port_a)
     annotation (Line(points={{-300,200},{-218,200}}, color={0,127,255}));
