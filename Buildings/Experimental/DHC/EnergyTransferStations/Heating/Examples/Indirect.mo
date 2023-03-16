@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Examples;
+within Buildings.Experimental.DHC.EnergyTransferStations.Heating.Examples;
 model Indirect "Example model for indirect cooling energy transfer station 
   with a closed chilled water loop on the building side"
   extends Modelica.Icons.Example;
@@ -17,7 +17,7 @@ model Indirect "Example model for indirect cooling energy transfer station
       Medium.T_default,
       Medium.X_default))
     "Default specific heat capacity of medium";
-  Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect cooETS(
+  Buildings.Experimental.DHC.EnergyTransferStations.Heating.Indirect cooETS(
     QChiWat_flow_nominal=QCoo_flow_nominal,
     mDis_flow_nominal=mBui_flow_nominal,
     mBui_flow_nominal=mBui_flow_nominal,
