@@ -171,18 +171,22 @@ First implementation<br/>
 where <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code> are the
 length of the On period and the Off period, respectively.
 </p>
-<p>An On period is defined as the period when the switch output of the relay controller is True;
+<p>
+An On period is defined as the period when the switch output of the relay controller is True;
 Likewise, an Off period is defined as the period when the switch output is False.
 See details of the switch output in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a> </p>
-<p>Note that only the first On period and the first Off period are considered.</p>
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
+</p>
+<p>
+Note that only the first On period and the first Off period are considered.
+</p>
 <h4>Algorithm</h4>
 <p>
 The algorithm for calculating <code>&rho;</code> is as follows:
 </p>
 <h5>Step 1: detects when the tuning period begins.</h5>
 <p>
-The  tuning period is triggered to begin when either <code>t<sub>on</sub></code>
+The tuning period is triggered to begin when either <code>t<sub>on</sub></code>
 or <code>t<sub>off</sub></code> are larger than 0.
 In this implementation, we detect the beginning time by monitoring the sum of
 <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>.
