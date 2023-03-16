@@ -11,7 +11,7 @@ model SingleSpeedDXHeating "Test model for single speed DX heating coil"
     p(displayUnit="Pa") = 101325,
     T=303.15,
     nPorts=1) "Sink"
-    annotation (Placement(transformation(extent={{80,-20},{60,0}})));
+    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_T_in=true,
@@ -37,7 +37,7 @@ model SingleSpeedDXHeating "Test model for single speed DX heating coil"
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Single speed DX coil"
-    annotation (Placement(transformation(extent={{-10,2},{10,22}})));
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Sources.Ramp p(
     duration=600,
@@ -57,14 +57,10 @@ model SingleSpeedDXHeating "Test model for single speed DX heating coil"
         TConIn_nominal=273.15 + 21),
         perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I())},
         nSta=1) "Coil data"
-    annotation (Placement(transformation(extent={{58,60},{78,80}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 0)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Sensors.TemperatureTwoPort senTem(redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal,
-    T_start=datCoi.sta[1].nomVal.TConIn_nominal)
-    annotation (Placement(transformation(extent={{22,-20},{42,0}})));
 equation
   connect(TConIn.y, sou.T_in) annotation (Line(
       points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
@@ -72,21 +68,23 @@ equation
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-39,70},{-26,70},{-26,20},{-11,20}},
+      points={{-39,70},{-26,70},{-26,18},{-11,18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
       points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinSpeDX.port_b, senTem.port_a) annotation (Line(points={{10,12},{14,12},
-          {14,-10},{22,-10}}, color={0,127,255}));
-  connect(senTem.port_b, sin.ports[1])
-    annotation (Line(points={{42,-10},{60,-10}}, color={0,127,255}));
-  connect(sinSpeDX.port_a, sou.ports[1]) annotation (Line(points={{-10,12},{-14,
-          12},{-14,-10},{-20,-10}}, color={0,127,255}));
-  connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-44,50},{-44,
-          15},{-11,15}}, color={0,0,127}));
+  connect(sinSpeDX.port_a, sou.ports[1]) annotation (Line(
+      points={{-20,-10},{-16,-10},{-16,10},{-10,10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-42,50},{-42,
+          13},{-11,13}}, color={0,0,127}));
+  connect(sinSpeDX.port_b, sin.ports[1]) annotation (Line(
+      points={{10,10},{16,10},{16,-10},{20,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
