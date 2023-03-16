@@ -168,7 +168,8 @@ model Indirect
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)
+    final yMin=yMin,
+    reverseActing=false)
     "Building supply temperature controller"
     annotation (Placement(transformation(extent={{-130,-230},{-110,-210}})));
 
