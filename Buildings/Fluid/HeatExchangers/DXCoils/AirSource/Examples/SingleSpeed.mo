@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model SingleSpeedDXCooling "Test model for single speed cooling DX coil"
+model SingleSpeed "Test model for single speed cooling DX coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -117,4 +117,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedDXCooling;
+end SingleSpeed;

@@ -1,6 +1,6 @@
-SingleSpeedDXCooling
-MultiStageDXCooling
-VariableSpeedDXCooling
+SingleSpeed
+MultiStage
+VariableSpeed
 SingleSpeedDXHeating
 SpaceCooling
 PerformanceCurves

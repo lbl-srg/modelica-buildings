@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model MultiStageDXCooling
-  "Test model for multi stage DX cooling coil"
+model MultiStage "Test model for multi stage DX cooling coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -21,7 +20,7 @@ model MultiStageDXCooling
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage mulStaDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageDXCooling mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
@@ -142,4 +141,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MultiStageDXCooling;
+end MultiStage;
