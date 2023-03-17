@@ -61,7 +61,7 @@ createPlot(
 createPlot(
     id=3,
     position={66, 80, 442, 494},
-    y={"pla.pumChiWat.y1[1]", "pla.pumChiWat.y1[2]", "pla.pumChiWat.y1[3]", "pla.pumChiWat.y1[4]","pla.pumChiWat.pum.y_actual"},
+    y={"pla.pumChiWat.y1[1]", "pla.pumChiWat.y1[2]","pla.pumChiWat.pum.y_actual"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
