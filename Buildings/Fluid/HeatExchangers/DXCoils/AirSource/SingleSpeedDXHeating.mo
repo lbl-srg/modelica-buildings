@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
 model SingleSpeedDXHeating "Single speed DX heating coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil(
-    dxCoi(final variableSpeedCoil=false, redeclare
+    dxCoo(final variableSpeedCoil=false, redeclare
         Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
         cooCap),
     computeReevaporation=false,
@@ -23,7 +23,7 @@ protected
 initial equation
   assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
 equation
-  connect(speRat.y, dxCoi.speRat) annotation (Line(
+  connect(speRat.y,dxCoo.speRat)  annotation (Line(
       points={{-43.4,64},{-40,64},{-40,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -31,7 +31,7 @@ equation
       points={{-110,80},{-57.2,80}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(onSwi.y, dxCoi.stage) annotation (Line(
+  connect(onSwi.y,dxCoo.stage)  annotation (Line(
       points={{-43.4,80},{-34,80},{-34,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
