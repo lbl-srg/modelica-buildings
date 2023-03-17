@@ -8,7 +8,7 @@ model EvaporatorVariableSpeed
   parameter Boolean have_dryCon = true
     "Set to true for air-cooled condenser, false for evaporative condenser";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed hex(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed hex(
     redeclare final package Medium = MediumAir,
     final datCoi=dat.datCoi,
     final minSpeRat=dat.datCoi.minSpeRat,
