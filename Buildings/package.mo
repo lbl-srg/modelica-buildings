@@ -244,6 +244,28 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi
+    </td>
+    <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
+                     See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
+
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Validation.MovingAverage<br/>
+                     Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSet<br/>
+                     Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSetNegativeStartTime<br/>
+                     Buildings.Controls.OBC.CDL.Utilities.Validation.SunRiseSetPositiveStartTime
+    </td>
+    <td valign=\"top\">Changed models to comply with CDL specifications.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3301\">#3301</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Electrical</b>
     </td>
 </tr>
@@ -256,17 +278,10 @@ have been <b style=\"color:blue\">improved</b> in a
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3236\">#3236</a>.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls
-    </td>
-    <td valign=\"top\">Buildings.Controls.OBC.CDL.Psychrometrics.WetBulb_TDryBulPhi
-    </td>
-    <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
-                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
-
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.ControlsBuildings.Fluid
-    </td>
+<tr>
     <td valign=\"top\">Buildings.Fluid.Examples.Performance.Example5<br/>
                        Buildings.Fluid.Examples.Performance.Example6<br/>
                        Buildings.Fluid.Examples.Performance.Example7<br/>
@@ -277,8 +292,7 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid
-    </td>
+<tr>
     <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ
     </td>
     <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
@@ -286,15 +300,17 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Utilities
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
+</tr>
+<tr>
     <td valign=\"top\">Buildings.Utilities.Plotters.Examples.Scatter<br/>
                        Buildings.Utilities.Plotters.Examples.TimeSeries<br/>
                        Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi<br/>
                        Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
     </td>
     <td valign=\"top\">Added a constant in order for unit check to pass.<br/>
-                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
+                       See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">IBPSA, #1711</a>.
 
     </td>
 </tr>
