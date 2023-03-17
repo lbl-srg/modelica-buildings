@@ -1,4 +1,4 @@
-within Buildings.Fluid.HydronicConfigurations;
+﻿within Buildings.Fluid.HydronicConfigurations;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
@@ -340,7 +340,7 @@ progression, referred to as a Reynard series (Petitjean, 1994):
 The models from this package do not take into account those discrete
 sizes but rather consider that any pressure drop can be achieved at
 design conditions.
-Additionnally, the models neither take into account the additional
+Also, the models neither take into account the additional
 pressure drop of the reducers that are needed when the valve diameter
 is lower than the pipe diameter.
 </p>
