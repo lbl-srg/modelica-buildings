@@ -90,8 +90,7 @@ protected
     final k=Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.Types.OperationModes.occupied)
     "Occupied mode "
     annotation (Placement(transformation(extent={{100,340},{120,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(final k=0.0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
@@ -905,6 +904,12 @@ src=\"modelica://Buildings/Resources/Images/Obsolete/Controls/OBC/ASHRAE/G36_PR1
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 August 5, 2022, by Jianjun Hu:<br/>
 Corrected the input for enabling freeze protection setback mode.<br/>

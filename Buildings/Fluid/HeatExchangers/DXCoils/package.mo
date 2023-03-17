@@ -6,6 +6,6 @@ package DXCoils "DX(Direct Expansion) cooling coil models"
 
 
 annotation (preferredView="info", Documentation(info="<html>
-This package contains air-cooled and water-cooled DX coil models.
+This package contains air source and water source DX coil models.
 </html>"));
 end DXCoils;
