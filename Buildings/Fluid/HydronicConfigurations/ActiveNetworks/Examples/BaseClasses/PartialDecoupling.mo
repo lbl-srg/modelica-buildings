@@ -97,7 +97,7 @@ partial model PartialDecoupling
     Ti=60,
     r=1e4,
     y_reset=0) "Secondary pump controller"
-    annotation (Placement(transformation(extent={{-50,30},{-30,10}})));
+    annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
   FixedResistances.PressureDrop resEnd1(
     redeclare final package Medium = MediumLiq,
     final m_flow_nominal=0.1*mPum_flow_nominal,
@@ -180,8 +180,9 @@ equation
           {18,104}}, color={255,127,0}));
   connect(mode.y[1],loa1. mode) annotation (Line(points={{-118,80},{70,80},{70,104},
           {78,104}},                  color={255,127,0}));
-  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{90,61},{90,50},{-40,
-          50},{-40,32}}, color={0,0,127}));
+  connect(dp2.p_rel, ctlPum2.u_m) annotation (Line(points={{90,61},{90,48},{-24,
+          48},{-24,4},{-40,4},{-40,8}},
+                         color={0,0,127}));
   connect(res1.port_b, resEnd1.port_a)
     annotation (Line(points={{-10,-60},{40,-60}}, color={0,127,255}));
   connect(resEnd1.port_b, del1.ports[3])
@@ -225,8 +226,8 @@ equation
     annotation (Line(points={{80,100},{80,70}}, color={0,127,255}));
   connect(loa1.port_b, dp2.port_b)
     annotation (Line(points={{100,100},{100,70}}, color={0,127,255}));
-  connect(isEna.y, ctlPum2.trigger) annotation (Line(points={{-100,48},{-100,40},
-          {-46,40},{-46,32}}, color={255,0,255}));
+  connect(isEna.y, ctlPum2.trigger) annotation (Line(points={{-100,48},{-100,4},
+          {-46,4},{-46,8}},   color={255,0,255}));
   connect(addPar.y, T1Set.index) annotation (Line(points={{-160,48},{-160,-120},
           {-100,-120},{-100,-128}}, color={255,127,0}));
   connect(mode.y[1], addPar.u) annotation (Line(points={{-118,80},{-100,80},{

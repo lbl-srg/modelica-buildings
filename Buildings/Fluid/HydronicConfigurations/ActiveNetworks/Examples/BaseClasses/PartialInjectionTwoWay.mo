@@ -61,7 +61,7 @@ partial model PartialInjectionTwoWay
     Ti=60,
     r=1e4,
     y_reset=0) "Primary pump controller"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dp1SetVal(final k=
         dp1Set) "Pressure differential set point"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
@@ -88,8 +88,9 @@ equation
                           color={0,127,255}));
   connect(dp1SetVal.y, ctlPum1.u_s)
     annotation (Line(points={{-118,-30},{-102,-30}}, color={0,0,127}));
-  connect(dp1.p_rel, ctlPum1.u_m) annotation (Line(points={{30,-31},{30,-16},{
-          -90,-16},{-90,-18}}, color={0,0,127}));
+  connect(dp1.p_rel, ctlPum1.u_m) annotation (Line(points={{30,-31},{30,-20},{
+          -74,-20},{-74,-44},{-90,-44},{-90,-42}},
+                               color={0,0,127}));
   connect(mode.y[1], con.mode) annotation (Line(points={{-118,0},{10,0},{10,18},
           {18,18}}, color={255,127,0}));
   connect(del2.ports[1], con.port_a2) annotation (Line(points={{60,20},{48,20},
@@ -106,14 +107,15 @@ equation
   connect(resEnd1.port_b, del1.ports[3])
     annotation (Line(points={{80,-80},{60,-80},{60,-80},{20,-80}},
                                                    color={0,127,255}));
-  connect(ctlPum1.y, pum.y) annotation (Line(points={{-78,-30},{-70,-30},{-70,-44},
-          {-80,-44},{-80,-48}}, color={0,0,127}));
+  connect(ctlPum1.y, pum.y) annotation (Line(points={{-78,-30},{-70,-30},{-70,
+          -46},{-80,-46},{-80,-48}},
+                                color={0,0,127}));
   connect(isEna.y, pum.y1) annotation (Line(points={{-118,-60},{-110,-60},{-110,
           -53},{-85.2,-53}}, color={255,0,255}));
   connect(mode.y[1], isEna.u) annotation (Line(points={{-118,0},{-110,0},{-110,
           -14},{-150,-14},{-150,-60},{-142,-60}}, color={255,127,0}));
   connect(isEna.y, ctlPum1.trigger) annotation (Line(points={{-118,-60},{-110,
-          -60},{-110,-16},{-96,-16},{-96,-18}}, color={255,0,255}));
+          -60},{-110,-48},{-96,-48},{-96,-42}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-160,-160},{160,200}})),
       Documentation(info="<html>
 <p>
