@@ -26,7 +26,7 @@ model AllElectricCWStorage
     "Number of units operating at design conditions"
     annotation (Dialog(group="CHW loop and cooling-only chillers"),
       Evaluate=true);
-  parameter Integer nPumChiWat(final min=1, start=1)=nChi + nChiHea
+  parameter Integer nPumChiWat(final min=1, start=1)=max(nChi, nChiHea)
     "Number of CHW pumps operating at design conditions"
     annotation (Dialog(group="CHW loop and cooling-only chillers"),
       Evaluate=true);
@@ -188,7 +188,7 @@ model AllElectricCWStorage
     "Number of heat pumps operating at design conditions"
     annotation (Dialog(group="CW loop, TES tank and heat pumps"),
       Evaluate=true);
-  parameter Integer nPumConWatCon(final min=1, start=1)
+  parameter Integer nPumConWatCon(final min=1, start=1)=max(nChi, nChiHea)
     "Number of CW pumps serving condenser barrels at design conditions"
     annotation (Dialog(group="CW loop, TES tank and heat pumps"),
       Evaluate=true);
@@ -929,8 +929,8 @@ model AllElectricCWStorage
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-120,-320})));
-  Fluid.Sensors.MassFlowRate mConWatOutTan_flow(redeclare final package Medium
-      = Medium, final allowFlowReversal=allowFlowReversal)
+  Fluid.Sensors.MassFlowRate mConWatOutTan_flow(redeclare final package Medium =
+        Medium, final allowFlowReversal=allowFlowReversal)
     "Mass flow rate out of lower port of TES tank (>0 when charging)"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -1059,8 +1059,8 @@ protected
     MediumConWatCoo.specificHeatCapacityCp(staConWatCoo_default)
     "Specific heat capacity of the fluid";
 public
-  Fluid.Sensors.MassFlowRate mConWatHexCoo_flow(redeclare final package Medium
-      = Medium, final allowFlowReversal=allowFlowReversal)
+  Fluid.Sensors.MassFlowRate mConWatHexCoo_flow(redeclare final package Medium =
+        Medium, final allowFlowReversal=allowFlowReversal)
     "CW mass flow rate through secondary (plant) side of HX" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},

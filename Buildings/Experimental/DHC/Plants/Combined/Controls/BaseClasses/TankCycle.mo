@@ -186,6 +186,19 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-160,-160},{160,160}})),
     Documentation(info="<html>
 <p>
+The tank operating conditions should match the operating limits and selection
+conditions of the chillers and HRCs.
+The highest temperature (at the top of the tank) should be limited by the 
+maximum evaporator entering temperature per manufacturer’s recommendations.
+The lowest temperature (at the bottom of the tank) should be limited by the 
+design CHW supply temperature.
+This gives the tank maximum <i>&Delta;T</i> and the actual storage capacity.
+However, this value is likely above the maximum <i>&Delta;T</i> that chillers
+and HRCs can achieve across the condenser or evaporator barrel (typically
+<i>11&nbsp;</i>K). Therefore, in order to fully leverage the TES capacity,
+two temperature cycles are needed.
+</p>
+<p>
 The first tank cycle (higher temperature setpoint) is activated whenever 
 all of the following conditions are true.
 </p>

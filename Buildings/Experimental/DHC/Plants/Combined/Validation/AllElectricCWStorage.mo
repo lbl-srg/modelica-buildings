@@ -86,7 +86,6 @@ model AllElectricCWStorage "Validation of all-electric plant model"
     nChiHea=2,
     dpHeaWatSet_max=20E4,
     nHeaPum=2,
-    nPumConWatCon=2,
     dInsTan=0.05,
     nCoo=3,
     final energyDynamics=energyDynamics)
