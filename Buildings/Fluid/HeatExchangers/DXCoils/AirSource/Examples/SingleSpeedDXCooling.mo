@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model SingleSpeed "Test model for single speed cooling DX coil"
+model SingleSpeedDXCooling "Test model for single speed cooling DX coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -86,7 +86,7 @@ equation
       smooth=Smooth.None));
   connect(TConIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-42,50},{-42,
           13},{-11,13}}, color={0,0,127}));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeed.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedDXCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
@@ -117,4 +117,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeed;
+end SingleSpeedDXCooling;
