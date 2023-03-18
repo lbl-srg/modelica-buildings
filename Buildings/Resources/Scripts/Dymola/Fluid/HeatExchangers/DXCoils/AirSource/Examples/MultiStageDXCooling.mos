@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.MultiStage", stopTime=3600, method="radau", tolerance=1e-6, resultFile="MultiStage");
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.MultiStageDXCooling", stopTime=3600, method="radau", tolerance=1e-6, resultFile="MultiStageDXCooling");
 removePlots();
 createPlot(id = 1,
  position = {4, 0, 487, 690},
@@ -11,7 +11,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "MultiStage.mat",
+ filename = "MultiStageDXCooling.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}});

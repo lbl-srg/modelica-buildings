@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model MultiStage "Test model for multi stage DX cooling coil"
+model MultiStageDXCooling "Test model for multi stage DX cooling coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -110,7 +110,7 @@ equation
       points={{-79,50},{-46,50},{-46,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/MultiStage.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/MultiStageDXCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
@@ -141,4 +141,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end MultiStage;
+end MultiStageDXCooling;
