@@ -5703,7 +5703,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
    The package <code>Buildings.Controls.OBC.CDL</code> has been added.
    This package provides elementary blocks to implemented control sequences.
    The blocks conform to the Control Description Language specification
-   published at <a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>.
+   published at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
    </li>
    <li>
    The package <code>Buildings.Controls.OBC.ASHRAE.G36_PR1</code> has been added.
@@ -5737,7 +5737,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
        </td>
        <td valign=\"top\">Library with basic control blocks and ready-to-use control sequences
                           from the OpenBuildingControl project
-                          (<a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>).<br/>
+                          (<a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>).<br/>
                           The subpackage <code>Buildings.Controls.OBC.ASHRAE</code>
                           contains control sequences
                           for HVAC systems as described in ASHRAE Guideline 36.<br/>
