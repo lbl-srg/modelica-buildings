@@ -224,6 +224,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
+    </td>
+    <td valign=\"top\">Package that contains models for standard connection 
+                       configurations used in hydronic circuits for heating or cooling applications.
+    </td>
+    </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
