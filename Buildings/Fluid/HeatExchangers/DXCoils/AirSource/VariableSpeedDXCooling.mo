@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
 model VariableSpeedDXCooling "Variable speed DX cooling coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
-    dxCoo(
+    dxCoi(
         final variableSpeedCoil=true,
           wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
           dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
@@ -24,7 +24,7 @@ protected
     final integerFalse=0) "On/off switch"
     annotation (Placement(transformation(extent={{-42,64},{-30,76}})));
 equation
-  connect(speRat,dxCoo.speRat)  annotation (Line(
+  connect(speRat,dxCoi.speRat)  annotation (Line(
       points={{-110,80},{-90,80},{-90,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -37,7 +37,7 @@ equation
       points={{-51.4,70},{-48,70},{-48,62},{-92,62},{-92,-64},{-10,-64}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(onSwi.y,dxCoo.stage)  annotation (Line(
+  connect(onSwi.y,dxCoi.stage)  annotation (Line(
       points={{-29.4,70},{-26,70},{-26,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));

@@ -147,7 +147,7 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
    constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
+    dxCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
                  redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
                  appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
@@ -240,7 +240,7 @@ protected
     "Small mass flow rate for regularization of zero flow at condenser"
     annotation(Dialog(tab = "Advanced"));
 
-  Modelica.Blocks.Sources.RealExpression u(final y=(-eva.dxCoo.Q_flow + eva.P)/(
+  Modelica.Blocks.Sources.RealExpression u(final y=(-eva.dxCoi.Q_flow + eva.P)/(
         -datCoi.sta[nSta].nomVal.Q_flow_nominal*(1 + 1/datCoi.sta[nSta].nomVal.COP_nominal)))
     "Signal of total heat flow removed by condenser" annotation (Placement(
         transformation(

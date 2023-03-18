@@ -35,7 +35,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
 
   replaceable
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoo(datCoi=
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoi(datCoi=
         datCoi, use_mCon_flow=use_mCon_flow) "DX coil"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));
 
@@ -106,16 +106,16 @@ initial algorithm
                   + "Change medium model to one that has '" + substanceName + "' as a substance.");
 
 equation
-  connect(m.y,dxCoo. m_flow) annotation (Line(
+  connect(m.y,dxCoi. m_flow) annotation (Line(
       points={{-69,44},{-66,44},{-66,54.4},{-21,54.4}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(dxCoo.EIR, pwr.EIR) annotation (Line(
+  connect(dxCoi.EIR, pwr.EIR) annotation (Line(
       points={{1,60},{6,60},{6,76.6},{18,76.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dxCoo.Q_flow, pwr.Q_flow) annotation (Line(
+  connect(dxCoi.Q_flow, pwr.Q_flow) annotation (Line(
       points={{1,56},{10,56},{10,70},{18,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -128,7 +128,7 @@ equation
       points={{41,76},{50.5,76},{50.5,90},{110,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dxCoo.Q_flow, q.Q_flow) annotation (Line(
+  connect(dxCoi.Q_flow, q.Q_flow) annotation (Line(
       points={{1,56},{22,56},{22,54},{42,54}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -141,7 +141,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(mCon_flow,dxCoo. mCon_flow) annotation (Line(points={{-110,-30},{-24,
+  connect(mCon_flow,dxCoi. mCon_flow) annotation (Line(points={{-110,-30},{-24,
           -30},{-24,42},{-21,42}}, color={0,0,127}));
 
   if activate_CooCoi then

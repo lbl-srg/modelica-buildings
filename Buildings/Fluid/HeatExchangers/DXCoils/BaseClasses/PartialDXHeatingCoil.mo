@@ -2,14 +2,14 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXHeatingCoil "Partial model for DX heating coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
     final activate_CooCoi=false,
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dxCoo(
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dxCoi(
         redeclare package Medium = Medium),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
 equation
-  connect(TOut,dxCoo.TEvaIn)  annotation (Line(points={{-110,30},{-92,30},{-92,
+  connect(TOut,dxCoi.TEvaIn)  annotation (Line(points={{-110,30},{-92,30},{-92,
           52},{-21,52}}, color={0,0,127}));
-  connect(T.y,dxCoo.TConIn)  annotation (Line(points={{-69,28},{-60,28},{-60,57},
+  connect(T.y,dxCoi.TConIn)  annotation (Line(points={{-69,28},{-60,28},{-60,57},
           {-21,57}}, color={0,0,127}));
   annotation (
 defaultComponentName="dxCoi",
