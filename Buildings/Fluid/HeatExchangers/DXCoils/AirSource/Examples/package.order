@@ -2,5 +2,5 @@ MultiStageDXCooling
 SingleSpeedDXCooling
 SingleSpeedDXHeating
 SpaceCooling
-VariableSpeed
+VariableSpeedDXCooling
 PerformanceCurves
