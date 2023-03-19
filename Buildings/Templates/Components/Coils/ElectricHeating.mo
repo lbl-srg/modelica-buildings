@@ -4,10 +4,6 @@ model ElectricHeating "Modulating electric heating coil"
     final typ=Buildings.Templates.Components.Types.Coil.ElectricHeating,
     final typVal=Buildings.Templates.Components.Types.Valve.None);
 
-  final parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final min=0)=
-    dat.Q_flow_nominal
-    "Nominal heat flow rate";
-
   Buildings.Fluid.HeatExchangers.HeaterCooler_u hex(
     redeclare final package Medium = MediumAir,
     final Q_flow_nominal=dat.Q_flow_nominal,
