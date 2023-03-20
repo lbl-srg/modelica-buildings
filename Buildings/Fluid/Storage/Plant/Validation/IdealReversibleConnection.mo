@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Validation;
-model Coupled "Simplified dual-source network with coupled pressure"
+model IdealReversibleConnection "Simplified dual-source network with coupled pressure"
   extends Modelica.Icons.Example;
 
     package Medium = Buildings.Media.Water "Medium model";
@@ -191,7 +191,7 @@ equation
   connect(mTan_flow.port_a, junRet1.port_3)
     annotation (Line(points={{-30,-20},{-30,-40}}, color={0,127,255}));
     annotation(experiment(Tolerance=1e-06, StopTime=3600),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/Coupled.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/IdealReversibleConnection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-140,-100},{140,100}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
@@ -211,4 +211,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end Coupled;
+end IdealReversibleConnection;

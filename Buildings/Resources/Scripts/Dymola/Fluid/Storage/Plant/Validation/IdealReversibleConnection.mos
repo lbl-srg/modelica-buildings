@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Validation.Coupled",
+simulateModel("Buildings.Fluid.Storage.Plant.Validation.IdealReversibleConnection",
  stopTime=3600,
  tolerance=1e-06,
  method="dassl",
- resultFile="Coupled");
+ resultFile="IdealReversibleConnection");
 // Plot commands
 createPlot(id=1,
  position={11, 15, 929, 516},
