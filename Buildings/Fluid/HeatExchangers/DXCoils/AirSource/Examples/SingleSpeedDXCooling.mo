@@ -100,6 +100,10 @@ The model has open-loop control and time-varying input conditions.
 revisions="<html>
 <ul>
 <li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Updated model name and instance class for <code>sinSpeDX</code>.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is

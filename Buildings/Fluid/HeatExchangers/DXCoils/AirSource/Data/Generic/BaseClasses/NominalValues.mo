@@ -49,6 +49,10 @@ for a description of the data. </p>
 revisions="<html>
 <ul>
 <li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Added Boolean conditional for cooling mode operation. Added conditional enable to parameters for SHR_nominal, tWet and gamma.
+</li>
+<li>
 September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.
 </li>

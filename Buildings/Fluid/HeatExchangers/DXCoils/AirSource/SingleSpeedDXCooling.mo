@@ -57,6 +57,10 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Renamed class to <code>SingleSpeedDXCooling</code> to differentiate it from DX heating coils.
+</li>
+<li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
 This is for

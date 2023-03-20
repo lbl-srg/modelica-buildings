@@ -101,16 +101,16 @@ equation
       __Dymola_Algorithm="Cvode"),
             Documentation(info="<html>
 <p>
-This is a test model for
+This is an example model for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating</a>.
-The model has open-loop control and time-varying input conditions.
+The model has time-varying control signals and input conditions.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 08, 2023 by Xing Lu:<br/>
+March 08, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

@@ -43,7 +43,7 @@ This model can be used to simulate an air-source DX heating coil with single spe
 revisions="<html>
 <ul>
 <li>
-March 8, 2023, by Xing Lu:<br/>
+March 8, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Initial implementation.
 </li>
 </ul>
