@@ -1,5 +1,5 @@
 within Buildings.Fluid.Storage.Plant.Examples;
-model OpenCoupled
+model DualSource
   "Idealised district system model with two sources and three users"
   extends Modelica.Icons.Example;
 
@@ -435,7 +435,7 @@ equation
   connect(conPI_pumChi1.y, pumSup1.y)
     annotation (Line(points={{-81,170},{-10,170},{-10,102}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/OpenCoupled.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),                                             Diagram(
@@ -489,4 +489,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end OpenCoupled;
+end DualSource;

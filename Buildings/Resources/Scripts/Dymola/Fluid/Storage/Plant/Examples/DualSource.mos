@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Storage.Plant.Examples.OpenCoupled",
+simulateModel("Buildings.Fluid.Storage.Plant.Examples.DualSource",
  stopTime=9000,
  tolerance=1e-06,
  method="radau",
- resultFile="OpenCoupled");
+ resultFile="DualSource");
 // Plot commands
 createPlot(id=1,
  position={27, 28, 733, 296},
