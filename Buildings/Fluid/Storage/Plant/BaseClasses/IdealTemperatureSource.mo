@@ -2,8 +2,6 @@ within Buildings.Fluid.Storage.Plant.BaseClasses;
 model IdealTemperatureSource
   "Sets a prescribed temperature at port_b"
   extends Interfaces.PartialTwoPortInterface;
-  /*(
-    final allowFlowReversal = false)*/
 
   parameter Modelica.Units.SI.Temperature TSet "Temperature set point";
 
@@ -63,23 +61,13 @@ defaultComponentName="ideTemSou",
 <p>
 This model is an ideal temperature source that outputs fluid that passes
 through at a fixed temperature, with no flow resistance or transport delay.
-It can be used to replace chillers or energy consumers as an efficient
-simplification. It is very similar to
+It is used in this package to replace chillers or energy consumers as an
+efficient simplification. It is similar to
 <a href=\"Modelica://Buildings.Fluid.FixedResistances.LosslessPipe\">
 Buildings.Fluid.FixedResistances.LosslessPipe</a>,
-except that:
+except that there is heat transfer unless the temperature at
+<code>port_a</code> is already equal to <code>TSet</code>.
 </p>
-<ul>
-<li>
-Because the temperature at <code>port_b</code> is set at a fixed temperature
-<code>TSet</code>, there is heat transfer unless the temperature at
-<code>port_a</code> is equal to <code>TSet</code>.
-</li>
-<li>
-This model always assumes (but does not enforce) no flow reversal by setting
-<code>final allowFlowReversal = false</code>.
-</li>
-</ul>
 </html>",
 revisions="<html>
 <ul>

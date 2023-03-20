@@ -88,18 +88,18 @@ equation
    Documentation(info="<html>
 <p>
 This model outputs state of charge (SOC) signals using the temperatures
-at the tank top and the tank bottom as input.
-The SOC has two separate boolean signals on whether the tank is full or
-is depleted. The tank can be neither full nor depleted, but never both.
+at the CHW tank top and the tank bottom as input.
+The SOC has two separate boolean signals indicating whether the tank is full
+or depleted. The tank can be neither full nor depleted, but never both.
 </p>
 <p>
-The tank is considered full when the temperature at the bottom goes below
+The CHW tank is considered full when the temperature at the bottom goes below
 <i>T<sub>Low</sub> + &Delta; T<sub>Unc</sub></i> where
 <i>T<sub>Low</sub></i> is the user-determined lower threshold and
 <i>&Delta; T<sub>Unc</sub></i> is the sensor uncertainty.
 This signal is reset when the the bottom temperature goes above
 <i>T<sub>Low</sub> + &Delta; T<sub>Unc</sub> + &Delta; T<sub>Hys</sub></i>
-where <i>&Delta; T<sub>Hys</sub></i> is the deadband for hysteresis.
+where <i>&Delta; T<sub>Hys</sub></i> is the hysteresis deadband.
 The tank being depleted is determined similarly.
 </p>
 </html>",
