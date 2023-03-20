@@ -197,10 +197,12 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
 <p>
-This validation model models a simplified system with two pressure sources
+This model validates
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.IdealReversibleConnection\">
+Buildings.Fluid.Storage.Plant.IdealReversibleConnection</a>
+with a simplified system that has two pressure sources
 representing two plants. One of the plants has a storage tank which can
 be charged remotely by the other plant in the district network.
-This 
 </p>
 </html>", revisions="<html>
 <ul>
