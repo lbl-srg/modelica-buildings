@@ -86,7 +86,7 @@ equation
       smooth=Smooth.None));
   connect(TConIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-42,50},{-42,
           13},{-11,13}}, color={0,0,127}));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeed.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedDXCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
@@ -99,6 +99,10 @@ The model has open-loop control and time-varying input conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Updated model name and instance class for <code>sinSpeDX</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

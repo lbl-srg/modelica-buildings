@@ -26,6 +26,11 @@ Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil</a>.
 revisions="<html>
 <ul>
 <li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Added performance curve <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I</a>.
+</li>
+<li>
 December 17, 2012 by Michael Wetter:<br/>
 Moved curves to <code>Examples</code> directory because these curves
 are not of general applicability to other models. Users should use the

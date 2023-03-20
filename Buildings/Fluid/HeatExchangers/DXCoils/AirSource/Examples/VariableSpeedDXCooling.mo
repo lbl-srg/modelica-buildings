@@ -110,7 +110,7 @@ equation
       points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/VariableSpeed.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/VariableSpeedDXCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
@@ -123,6 +123,10 @@ The model has open-loop control and time-varying input conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Updated model name and instance class for </code>varSpeDX</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.

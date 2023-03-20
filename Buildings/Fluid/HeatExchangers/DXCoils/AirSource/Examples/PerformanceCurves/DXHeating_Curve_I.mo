@@ -16,7 +16,9 @@ record DXHeating_Curve_I "Performance curve DX heating coil I"
 
   annotation (defaultComponentName="per", Documentation(info="<html>
 <p>
-This record declares performance curves for the heating capacity and the EIR.
+This record declares performance curves for the heating capacity and the EIR for use in
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.SingleSpeedDXHeating\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.SingleSpeedDXHeating</a>.
 It has been obtained from the EnergyPlus 9.6 example file
 <code>PackagedTerminalHeatPump.idf</code>.
 </p>
@@ -24,7 +26,7 @@ It has been obtained from the EnergyPlus 9.6 example file
 revisions="<html>
 <ul>
 <li>
-March 08, 2023 by Xing Lu:<br/>
+March 08, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

@@ -1,8 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
-model MultiStage "Multi-stage DX cooling coil"
+model MultiStageDXCooling "Multi-stage DX cooling coil"
 
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
-      dxCoi(final variableSpeedCoil=false,
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
+    dxCoi(  final variableSpeedCoil=false,
           wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
           dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
       redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi,
@@ -30,11 +31,11 @@ equation
       points={{-110,80},{-92,80},{-92,66},{-80.6,66}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(speSel.speRat, dxCoi.speRat) annotation (Line(
+  connect(speSel.speRat,dxCoi.speRat)  annotation (Line(
       points={{-67.4,66},{-40,66},{-40,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(stage, dxCoi.stage) annotation (Line(
+  connect(stage,dxCoi.stage)  annotation (Line(
       points={{-110,80},{-30,80},{-30,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
@@ -54,6 +55,10 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Renamed class to <code>MultiStageDXCooling</code> to differentiate it from DX heating coils.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
@@ -80,4 +85,4 @@ First implementation.
           extent={{-102,94},{-44,76}},
           textColor={0,0,127},
           textString="stage")}));
-end MultiStage;
+end MultiStageDXCooling;

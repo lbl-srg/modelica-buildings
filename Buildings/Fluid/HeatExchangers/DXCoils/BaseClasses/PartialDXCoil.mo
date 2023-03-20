@@ -106,7 +106,7 @@ initial algorithm
                   + "Change medium model to one that has '" + substanceName + "' as a substance.");
 
 equation
-  connect(m.y, dxCoi.m_flow) annotation (Line(
+  connect(m.y,dxCoi. m_flow) annotation (Line(
       points={{-69,44},{-66,44},{-66,54.4},{-21,54.4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -141,7 +141,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(mCon_flow, dxCoi.mCon_flow) annotation (Line(points={{-110,-30},{-24,
+  connect(mCon_flow,dxCoi. mCon_flow) annotation (Line(points={{-110,-30},{-24,
           -30},{-24,42},{-21,42}}, color={0,0,127}));
 
   if activate_CooCoi then
@@ -161,22 +161,18 @@ defaultComponentName="dxCoi",
 Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed</a>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</a>.
-</p>
-<p>
-See
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
-Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
-for an explanation of the model.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+Changed baseclass to create common version for both heating and cooling coils. Renamed <code>TConIn</code> to <code>TOut</code>. Added conditional enable to <code>QLat_flow</code> and <code>eva</code>.
+</li>
 <li>
 June 19, 2017, by Michael Wetter:<br/>
 Added missing <code>replaceable</code> to the medium declaration.<br/>

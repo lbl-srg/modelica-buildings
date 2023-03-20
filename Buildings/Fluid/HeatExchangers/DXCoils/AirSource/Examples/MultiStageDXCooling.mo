@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model MultiStageDXCooling
-  "Test model for multi stage DX cooling coil"
+model MultiStageDXCooling "Test model for multi stage DX cooling coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -21,7 +20,7 @@ model MultiStageDXCooling
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage mulStaDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageDXCooling mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
@@ -111,7 +110,7 @@ equation
       points={{-79,50},{-46,50},{-46,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/MultiStage.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/MultiStageDXCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
@@ -124,6 +123,10 @@ The model has open-loop control and time-varying input conditions.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Updated model name and instance class for </code>mulStaDX</code>.
+</li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
