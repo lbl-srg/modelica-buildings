@@ -19,9 +19,11 @@ model BoilerPlant "Boiler plant"
     final typArrPumHeaWatPri=typArrPumHeaWatPriCon,
     final dat=dat.boiCon,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) "Condensing boilers" annotation (
-     Dialog(group="Boilers"), Placement(transformation(extent={{-190,-260},{-110,
-            -140}})));
+    final allowFlowReversal=allowFlowReversal)
+    "Condensing boilers"
+    annotation (
+     Dialog(group="Boilers"),
+     Placement(transformation(extent={{-190,-260},{-110,-140}})));
 
   replaceable Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupPolynomial boiNon
     if have_boiNon constrainedby
@@ -352,7 +354,7 @@ model BoilerPlant "Boiler plant"
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVHeaWatSec and ctl.locSenFloHeaWatSec ==
-      Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
+      Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Secondary HW volume flow rate"
@@ -362,7 +364,7 @@ model BoilerPlant "Boiler plant"
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVHeaWatSec and ctl.locSenFloHeaWatSec ==
-        Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
+      Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
     final text_flip=true,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Secondary HW volume flow rate"
@@ -491,4 +493,8 @@ equation
     annotation (Line(points={{240,0},{250,0}}, color={0,127,255}));
   connect(THeaWatSecSup.port_b, port_b)
     annotation (Line(points={{270,0},{300,0}}, color={0,127,255}));
+  connect(bus, ctl.bus) annotation (Line(
+      points={{-300,140},{-10,140}},
+      color={255,204,51},
+      thickness=0.5));
 end BoilerPlant;

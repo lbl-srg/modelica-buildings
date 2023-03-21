@@ -91,21 +91,6 @@ model BoilerGroup "Boiler group"
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,580},{20,620}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator THeaWatSupSet(
-    final nout=nBoi) if not is_con
-    "Replicating common HW supply temperature setpoint"
-    annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={0,170})));
-  Modelica.Blocks.Routing.BooleanPassThrough pasEna[nBoi]
-    "Direct pass through for Enable signal"
-    annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-40,170})));
 
   replaceable Buildings.Templates.Components.Interfaces.BoilerHotWater boi[nBoi]
     constrainedby Buildings.Templates.Components.Interfaces.BoilerHotWater(
@@ -128,31 +113,28 @@ model BoilerGroup "Boiler group"
     if typValBoiIso==Buildings.Templates.Components.Types.Valve.None
     "No boiler isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator THeaWatConSupSet(
-    final nout=nBoi) if is_con
-    "Replicating common HW supply temperature setpoint for condensing boilers"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={40,170})));
 protected
-  Buildings.Templates.Components.Interfaces.Bus busBoi[nBoi]
-    "Boiler control bus"
-    annotation (Placement(transformation(extent={{-20,120},
-            {20,160}}), iconTransformation(extent={{-350,6},{-310,46}})));
+  Buildings.Templates.Components.Interfaces.Bus busBoiCon[nBoi] if is_con
+    "Boiler control bus - Condensing boilers"
+    annotation (Placement(
+        transformation(extent={{-20,140},{20,180}}), iconTransformation(extent={
+            {-350,6},{-310,46}})));
+  Buildings.Templates.Components.Interfaces.Bus busBoiNon[nBoi] if not is_con
+    "Boiler control bus - Non-condensing boilers"
+    annotation (Placement(
+        transformation(extent={{-100,140},{-60,180}}),
+                                                     iconTransformation(extent={
+            {-350,6},{-310,46}})));
+  Buildings.Templates.Components.Interfaces.Bus busValBoiNonIso[nBoi]
+    if not is_con "Boiler isolation valve control bus - Non-condensing boilers"
+    annotation (Placement(transformation(extent={{80,140},{120,180}}),
+        iconTransformation(extent={{-350,6},{-310,46}})));
+protected
+  Buildings.Templates.Components.Interfaces.Bus busValBoiConIso[nBoi] if is_con
+    "Boiler isolation valve control bus - Condensing boilers" annotation (
+      Placement(transformation(extent={{140,140},{180,180}}),
+        iconTransformation(extent={{-350,6},{-310,46}})));
 equation
-  connect(bus.THeaWatSupSet, THeaWatSupSet.u) annotation (Line(
-      points={{0,200},{0,182}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(THeaWatSupSet.y, busBoi.THeaWatSupSet)
-    annotation (Line(points={{0,158},{0,140}}, color={0,0,127}));
-  connect(bus.y1Boi, pasEna.u) annotation (Line(
-      points={{0,200},{0,190},{-40,190},{-40,182}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(pasEna.y, busBoi.y1)
-    annotation (Line(points={{-40,159},{-40,140},{0,140}}, color={255,0,255}));
   connect(ports_aHeaWat, boi.port_a) annotation (Line(points={{200,-100},{-20,
           -100},{-20,0},{-10,0}}, color={0,127,255}));
   connect(boi.port_b, valBoiIso.port_a) annotation (Line(points={{10,0},{20,0},
@@ -163,24 +145,38 @@ equation
           100},{180,120},{200,120}}, color={0,127,255}));
   connect(boi.port_b, pas.port_a) annotation (Line(points={{10,0},{20,0},{20,
           120},{140,120},{140,100},{150,100}}, color={0,127,255}));
-  connect(busBoi, boi.bus) annotation (Line(
-      points={{0,140},{0,10}},
+  connect(busBoiCon, boi.bus) annotation (Line(
+      points={{0,160},{0,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.valBoiIso, valBoiIso.bus) annotation (Line(
-      points={{0,200},{0,190},{160,190},{160,130}},
+  connect(bus.boiCon, busBoiCon) annotation (Line(
+      points={{0,200},{0,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(busBoi, bus.boi) annotation (Line(
-      points={{0,140},{60,140},{60,200},{0,200}},
+  connect(bus.boiNon, busBoiNon) annotation (Line(
+      points={{0,200},{0,180},{-80,180},{-80,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(bus.THeaWatConSupSet, THeaWatConSupSet.u) annotation (Line(
-      points={{0,200},{0,190},{40,190},{40,182}},
+  connect(busBoiNon, boi.bus) annotation (Line(
+      points={{-80,160},{-80,10},{0,10}},
       color={255,204,51},
       thickness=0.5));
-  connect(THeaWatConSupSet.y, busBoi.THeaWatSupSet) annotation (Line(points={{40,
-          158},{40,144},{0,144},{0,140}}, color={0,0,127}));
+  connect(valBoiIso.bus, busValBoiConIso) annotation (Line(
+      points={{160,130},{160,160}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValBoiNonIso, valBoiIso.bus) annotation (Line(
+      points={{100,160},{100,130},{160,130}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.valBoiNonIso, busValBoiNonIso) annotation (Line(
+      points={{0,200},{0,180},{100,180},{100,160}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(bus.valBoiConIso, busValBoiConIso) annotation (Line(
+      points={{0,200},{4,200},{4,184},{6,184},{6,180},{160,180},{160,160}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-400,-600},{400,600}}), graphics={

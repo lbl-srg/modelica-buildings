@@ -7,36 +7,46 @@ block OpenLoop
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiCon[nBoiCon](
     each table=[0,0; 1,1; 2,0],
     each timeScale=1000,
-    each period=2000) "Boiler Enable signal - Condensing Boilers"
+    each period=2000)
+    "Boiler Enable signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,170},{-140,190}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatConSupSet(
-    y(final unit="K", displayUnit="degC"),
-    k=Buildings.Templates.Data.Defaults.THeaWatConSup)
+    y(final unit="K", displayUnit="degC"), final k=dat.THeaWatConSup_nominal)
+                                                        if have_boiCon
     "HW supply temperature set point - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,210},{-140,230}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep(
+    final nout=nBoiCon)  if have_boiCon
+    "Replicate signal"
+    annotation (Placement(transformation(extent={{-150,210},{-170,230}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiConIso[nBoiCon](
     table=y1BoiCon.table,
     timeScale=y1BoiCon.timeScale,
-    period=y1BoiCon.period)
+    period=y1BoiCon.period) if have_boiCon
     "Boiler isolation valve opening signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,110},{-140,130}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1BoiNon[nBoiNon](
     each table=[0,0; 1,1; 2,0],
     each timeScale=1000,
-    each period=2000) "Boiler Enable signal - Non-condensing Boilers"
-    annotation (Placement(transformation(extent={{-120,170},{-140,190}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatNonSupSet(
-    y(final unit="K", displayUnit="degC"),
-    k=Buildings.Templates.Data.Defaults.THeaWatSup)
-    "HW supply temperature set point - Non-condensing Boilers"
-    annotation (Placement(transformation(extent={{-120,210},{-140,230}})));
+    each period=2000)  if have_boiNon
+    "Boiler Enable signal - Non-condensing Boilers"
+    annotation (Placement(transformation(extent={{-60,150},{-80,170}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(
+    y(final unit="K", displayUnit="degC"), final k=dat.THeaWatSup_nominal)
+                                                    if have_boiNon
+    "HW supply temperature set point"
+    annotation (Placement(transformation(extent={{-60,190},{-80,210}})));
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator rep1(
+    final nout=nBoiNon) if have_boiNon
+    "Replicate signal"
+    annotation (Placement(transformation(extent={{-90,190},{-110,210}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1ValBoiNonIso[nBoiNon](
     table=y1BoiNon.table,
     timeScale=y1BoiNon.timeScale,
-    period=y1BoiNon.period)
+    period=y1BoiNon.period) if have_boiNon
     "Boiler isolation valve opening signal - Non-condensing Boilers"
-    annotation (Placement(transformation(extent={{-120,110},{-140,130}})));
+    annotation (Placement(transformation(extent={{-60,90},{-80,110}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatPriCon[
     nPumHeaWatPriCon](
@@ -46,7 +56,7 @@ block OpenLoop
     "Primary HW pump Enable signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,70},{-140,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumHeaWatPriCon(
-    y(final unit="1"), k=1)
+    y(final unit="1"), k=1) if have_boiCon and have_varPumHeaWatPri
     "Primary HW pump speed signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,30},{-140,50}})));
 
@@ -56,11 +66,11 @@ block OpenLoop
     timeScale=y1BoiNon.timeScale,
     period=y1BoiNon.period) if have_boiNon
     "Primary HW pump Enable signal - Non-condensing Boilers"
-    annotation (Placement(transformation(extent={{-120,70},{-140,90}})));
+    annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumHeaWatPriNon(
-    y(final unit="1"), k=1) if have_boiNon
+    y(final unit="1"), k=1) if have_boiNon and have_varPumHeaWatPri
     "Primary HW pump speed signal - Non-condensing Boilers"
-    annotation (Placement(transformation(extent={{-120,30},{-140,50}})));
+    annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[
     nPumHeaWatPriCon](
@@ -69,29 +79,42 @@ block OpenLoop
     period=y1BoiCon.period)
     if typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump Enable signal"
-    annotation (Placement(transformation(extent={{-120,70},{-140,90}})));
+    annotation (Placement(transformation(extent={{-120,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumHeaWatSec(
     y(final unit="1"), k=1)
     if typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump speed signal"
-    annotation (Placement(transformation(extent={{-120,30},{-140,50}})));
-
+    annotation (Placement(transformation(extent={{-120,-90},{-140,-70}})));
 
 equation
-  connect(y1BoiCon.y[1], bus.y1BoiCon)
-    annotation (Line(points={{-142,180},{-200,180},
-          {-200,0},{-260,0}}, color={255,0,255}));
-  connect(THeaWatSupSet.y, bus.THeaWatConSupSet)
-    annotation (Line(points={{-142,220},{-192,220},{-192,0},{-260,0}}, color={0,0,127}));
   connect(y1PumHeaWatPriCon.y[1], busPumHeaWatPriCon.y1)
     annotation (Line(points={{-142,80},{-240,80},{-240,60}},color={255,0,255}));
   connect(yPumHeaWatPriCon.y, busPumHeaWatPriCon.y)
     annotation (Line(points={{-142,40},{-240,40},{-240,60}}, color={0,0,127}));
-  connect(y1ValBoiIso.y[1], busValBoiConIso.y1) annotation (Line(points={{-142,120},
-          {-240,120},{-240,100}}, color={255,0,255}));
+  connect(y1PumHeaWatSec.y[1], busPumHeaWatSec.y1)
+    annotation (Line(points={{-142,-40},{-220,-40}}, color={255,0,255}));
+  connect(yPumHeaWatSec.y, busPumHeaWatSec.y) annotation (Line(points={{-142,-80},
+          {-220,-80},{-220,-40}}, color={0,0,127}));
+  connect(y1PumHeaWatPriNon.y[1], busPumHeaWatPriNon.y1)
+    annotation (Line(points={{-82,60},{-180,60}}, color={255,0,255}));
+  connect(y1ValBoiNonIso.y[1], busValBoiNonIso.y1)
+    annotation (Line(points={{-82,100},{-180,100}}, color={255,0,255}));
+  connect(yPumHeaWatPriNon.y, busPumHeaWatPriNon.y)
+    annotation (Line(points={{-82,20},{-180,20},{-180,60}}, color={0,0,127}));
+  connect(y1BoiCon.y[1], busBoiCon.y1) annotation (Line(points={{-142,180},{-240,
+          180},{-240,140}}, color={255,0,255}));
+  connect(THeaWatConSupSet.y, rep.u)
+    annotation (Line(points={{-142,220},{-148,220}}, color={0,0,127}));
+  connect(rep.y, busBoiCon.THeaWatSupSet) annotation (Line(points={{-172,220},{-240,
+          220},{-240,140}}, color={0,0,127}));
+  connect(THeaWatSupSet.y, rep1.u)
+    annotation (Line(points={{-82,200},{-88,200}}, color={0,0,127}));
+  connect(rep1.y, busBoiNon.THeaWatSupSet) annotation (Line(points={{-112,200},{
+          -180,200},{-180,140}}, color={0,0,127}));
+  connect(y1BoiNon.y[1], busBoiNon.y1) annotation (Line(points={{-82,160},{-180,
+          160},{-180,140}}, color={255,0,255}));
+  connect(y1ValBoiConIso.y[1], busValBoiConIso.y1) annotation (Line(points={{-142,
+          120},{-240,120},{-240,100}}, color={255,0,255}));
   annotation (
-  defaultComponentName="ctl",
-  Icon(coordinateSystBuildings(Templates(HeatingPlants(HotWater(Components(
-       BoilerGroupsem(                                                                    preserveAspectRatio=false))))))),
-  Diagram(coordinateSystem(preserveAspectRatio=false)));
+  defaultComponentName="ctl");
 end OpenLoop;

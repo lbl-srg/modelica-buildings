@@ -41,7 +41,7 @@ block PartialController
     enable=typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
   parameter Boolean have_valHeaWatMinByp
     "Set to true if the plant has a HW minimum flow bypass valve"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement typMeaCtlHeaWatPri(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor)
@@ -50,10 +50,6 @@ block PartialController
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_varPumHeaWatPri and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
 
-  parameter Boolean have_senVHeaWatPri_select=false
-    "Set to true for primary HW flow sensor"
-    annotation (Evaluate=true, Dialog(group="Configuration",
-    enable=have_varPumHeaWatPri and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
   final parameter Boolean have_senVHeaWatPri=
     if have_varPumHeaWatPri and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
@@ -131,6 +127,8 @@ block PartialController
     final nBoiCon=nBoiCon,
     final nBoiNon=nBoiNon,
     final have_varPumHeaWatPri=have_varPumHeaWatPri,
+    final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
+    final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
     final typPumHeaWatSec=typPumHeaWatSec,
     final nPumHeaWatPriCon=nPumHeaWatPriCon,
     final nPumHeaWatPriNon=nPumHeaWatPriNon,
@@ -198,15 +196,15 @@ protected
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
 equation
-  connect(busBoiCon, bus.boi) annotation (Line(
+  connect(busBoiCon, bus.boiCon) annotation (Line(
       points={{-240,140},{-220,140},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busValBoiConIso, bus.valBoiIso) annotation (Line(
+  connect(busValBoiConIso, bus.valBoiConIso) annotation (Line(
       points={{-240,100},{-220,100},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busPumHeaWatPriCon, bus.pumHeaWatPri) annotation (Line(
+  connect(busPumHeaWatPriCon, bus.pumHeaWatPriCon) annotation (Line(
       points={{-240,60},{-220,60},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));

@@ -40,15 +40,16 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
   replaceable BoilerGroups.BoilerGroupPolynomial boi
-    constrainedby Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.BoilerGroup(
+    constrainedby
+    Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.BoilerGroup(
     redeclare final package Medium=Medium,
     final nBoi=nBoi,
-    is_con=false,
+    final is_con=true,
     typArrPumHeaWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final dat=datBoi,
     final energyDynamics=energyDynamics)
     "Boiler group"
-    annotation (Placement(transformation(extent={{-200,-80},{-120,80}})));
+    annotation (Placement(transformation(extent={{-120,-60},{-40,60}})));
   Buildings.Templates.Components.Pumps.Multiple pumHeaWatPri(
     have_var=false,
     have_valChe=true,
@@ -57,7 +58,7 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     final energyDynamics=energyDynamics,
     final tau=tau)
     "Primary HW pumps"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.Templates.Components.Routing.MultipleToMultiple inlPumHeaWatPri(
     redeclare final package Medium=Medium,
     final nPorts_a=nBoi,
@@ -65,22 +66,22 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics)
     "Primary HW pumps inlet manifold"
-    annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
+    annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatPri(
     redeclare final package Medium=Medium,
     final nPorts=nBoi,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics)
     "Primary HW pumps outlet manifold"
-    annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
+    annotation (Placement(transformation(extent={{30,30},{50,50}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mHeaWat_flow_nominal)
     "HW supply temperature"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Fluid.Sensors.MassFlowRate mHeaWat_flow(
     redeclare final package Medium=Medium) "HW mass flow rate"
-    annotation (Placement(transformation(extent={{10,30},{30,50}})));
+    annotation (Placement(transformation(extent={{90,30},{110,50}})));
   Fluid.Sources.Boundary_pT bouHeaWat(
     redeclare final package Medium = Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_min,
@@ -88,72 +89,67 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     nPorts=2) "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-20,-60})));
-  Fluid.Sensors.TemperatureTwoPort THeaWatRet(redeclare final package Medium =
-        Medium, final m_flow_nominal=mHeaWat_flow_nominal)
+        origin={60,-60})));
+  Fluid.Sensors.TemperatureTwoPort THeaWatRet(
+    redeclare final package Medium =Medium,
+    final m_flow_nominal=mHeaWat_flow_nominal)
     "HW return temperature"
-    annotation (Placement(transformation(extent={{-50,-50},{-70,-30}})));
+    annotation (Placement(transformation(extent={{30,-50},{10,-30}})));
   Buildings.Templates.Components.Routing.SingleToMultiple inlBoi(
     redeclare final package Medium = Medium,
     final nPorts=nBoi,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics)
     "Boiler group inlet manifold"
-    annotation (Placement(transformation(extent={{-90,-50},{-110,-30}})));
+    annotation (Placement(transformation(extent={{-10,-50},{-30,-30}})));
   Controls.OpenLoop ctl(
-    have_boiCon=true,
-    have_boiNon=false,
-    final nBoi=nBoi,
-    nBoiNon=0,
-    typPumHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
-    typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
-    final typArrPumHeaWatPri=boi.typArrPumHeaWatPri)
+    final have_boiCon=true,
+    final have_boiNon=false,
+    final nBoiCon=nBoi,
+    final nBoiNon=0,
+    final typArrPumHeaWatPriCon=boi.typArrPumHeaWatPri,
+    final have_varPumHeaWatPri=pumHeaWatPri.have_var,
+    final typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
+    have_valHeaWatMinByp=false,
+    dat(THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup))
     "Controller"
-    annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
+    annotation (Placement(transformation(extent={{-10,150},{10,170}})));
 
   Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus busPla
-    "Plant control bus" annotation (Placement(transformation(extent={{-180,100},
-            {-140,140}}), iconTransformation(extent={{-310,60},{-270,100}})));
-  Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPri
-    "Primary HW pump control bus" annotation (Placement(transformation(extent={{-90,70},
-            {-50,110}}),         iconTransformation(extent={{-276,64},{-236,104}})));
+    "Plant control bus" annotation (Placement(transformation(extent={{-100,100},
+            {-60,140}}),  iconTransformation(extent={{-310,60},{-270,100}})));
+
 equation
   connect(inlPumHeaWatPri.ports_b, pumHeaWatPri.ports_a)
-    annotation (Line(points={{-90,40},{-80,40}}, color={0,127,255}));
+    annotation (Line(points={{-10,40},{0,40}},   color={0,127,255}));
   connect(boi.ports_bHeaWat, inlPumHeaWatPri.ports_a)
-    annotation (Line(points={{-120,53.3333},{-116,53.3333},{-116,40},{-110,40}},
-                                                   color={0,127,255}));
+    annotation (Line(points={{-40,40},{-30,40}},   color={0,127,255}));
   connect(outPumHeaWatPri.port_b, THeaWatSup.port_a)
-    annotation (Line(points={{-30,40},{-20,40}}, color={0,127,255}));
+    annotation (Line(points={{50,40},{60,40}},   color={0,127,255}));
   connect(THeaWatSup.port_b, mHeaWat_flow.port_a)
-    annotation (Line(points={{0,40},{10,40}}, color={0,127,255}));
+    annotation (Line(points={{80,40},{90,40}},color={0,127,255}));
   connect(inlBoi.ports_b, boi.ports_aHeaWat)
-    annotation (Line(points={{-110,-40},{-116,-40},{-116,-53.3333},{-120,
-          -53.3333}},                                color={0,127,255}));
+    annotation (Line(points={{-30,-40},{-40,-40}},   color={0,127,255}));
   connect(THeaWatRet.port_b, inlBoi.port_a)
-    annotation (Line(points={{-70,-40},{-90,-40}}, color={0,127,255}));
-  connect(boi.bus, busPla) annotation (Line(
-      points={{-160,80},{-160,120}},
-      color={255,204,51},
-      thickness=0.5));
+    annotation (Line(points={{10,-40},{-10,-40}},  color={0,127,255}));
   connect(ctl.bus, busPla) annotation (Line(
-      points={{-140,160},{-160,160},{-160,120}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPumHeaWatPri, pumHeaWatPri.bus) annotation (Line(
-      points={{-70,90},{-70,50}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busPla.pumHeaWatPri, busPumHeaWatPri) annotation (Line(
-      points={{-160,120},{-70,120},{-70,90}},
+      points={{-10,160},{-80,160},{-80,120}},
       color={255,204,51},
       thickness=0.5));
   connect(pumHeaWatPri.ports_b, outPumHeaWatPri.ports_a)
-    annotation (Line(points={{-60,40},{-50,40}}, color={0,127,255}));
-  connect(mHeaWat_flow.port_b, bouHeaWat.ports[1]) annotation (Line(points={{30,
-          40},{40,40},{40,-40},{-21,-40},{-21,-50}}, color={0,127,255}));
-  connect(bouHeaWat.ports[2], THeaWatRet.port_a) annotation (Line(points={{-19,
-          -50},{-19,-40},{-50,-40}}, color={0,127,255}));
+    annotation (Line(points={{20,40},{30,40}},   color={0,127,255}));
+  connect(mHeaWat_flow.port_b, bouHeaWat.ports[1]) annotation (Line(points={{110,40},
+          {120,40},{120,-40},{59,-40},{59,-50}},     color={0,127,255}));
+  connect(bouHeaWat.ports[2], THeaWatRet.port_a) annotation (Line(points={{61,-50},
+          {61,-40},{30,-40}},        color={0,127,255}));
+  connect(busPla, boi.bus) annotation (Line(
+      points={{-80,120},{-80,60}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busPla.pumHeaWatPriCon, pumHeaWatPri.bus) annotation (Line(
+      points={{-80,120},{10,120},{10,50}},
+      color={255,204,51},
+      thickness=0.5));
   annotation (
   Diagram(coordinateSystem(extent={{-220,-220},{220,220}})),
   experiment(

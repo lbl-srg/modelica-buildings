@@ -58,9 +58,12 @@ equation
   connect(swiSet.u2, swiSig.u2) annotation (Line(points={{-82,40},{-86.1538,40},
           {-86.1538,24},{-10,24},{-10,40},{-2,40}}, color={255,0,255}));
   connect(swiSig.y, bus.y_actual) annotation (Line(points={{22,40},{40,40},{40,
-          100},{0,100}}, color={0,0,127}));
+          96},{0,96},{0,100}},
+                         color={0,0,127}));
   connect(swiSig.y, boi.y) annotation (Line(points={{22,40},{40,40},{40,-40},{
           -20,-40},{-20,-52},{-12,-52}}, color={0,0,127}));
+  connect(boi.T, bus.THeaWatSup) annotation (Line(points={{11,-52},{60,-52},{60,
+          98},{0,98},{0,100}}, color={0,0,127}));
   annotation (
   defaultComponentName="boi",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
@@ -79,7 +82,11 @@ Boiler Enable command
 Hot water supply temperature setpoint
 <code>THeaWatSupSet</code>: AO signal
 </li>
-<li>Boiler firing rate <code>y_actual</code>: AI signal
+<li>Hot water supply temperature
+<code>THeaWatSup</code>: AI signal
+</li>
+<li>Boiler firing rate 
+<code>y_actual</code>: AI signal
 </li>
 </ul>
 </html>"));

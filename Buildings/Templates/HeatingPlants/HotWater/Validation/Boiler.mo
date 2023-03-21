@@ -12,10 +12,10 @@ model Boiler
     mHeaWat_flow_nominal=datBoi.cap_nominal/15/Buildings.Utilities.Psychrometrics.Constants.cpWatLiq,
     cap_nominal=1000E3,
     dpHeaWat_nominal(displayUnit="Pa") = 5000,
-    THeaWatSup_nominal=333.15,
-    redeclare Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500 per)
+    THeaWatSup_nominal=333.15)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    //,redeclare Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500 per
   Buildings.Templates.Components.Boilers.HotWaterTable boi(
     redeclare final package Medium = Medium,
     final dat=datBoi,
@@ -35,8 +35,6 @@ model Boiler
                 nPorts=1)
     "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-  UserProject.BASControlPoints sigBAS "BAS control points"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=datBoi.mHeaWat_flow_nominal)
@@ -55,6 +53,9 @@ model Boiler
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Interfaces.Bus bus annotation (Placement(transformation(extent={{-20,20},{20,
             60}}), iconTransformation(extent={{-296,-74},{-256,-34}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(k=Buildings.Templates.Data.Defaults.THeaWatSup)
+    "HW supply temperature setpoint"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   connect(retHeaWat.ports[1], boi.port_a)
     annotation (Line(points={{-20,0},{-10,0}}, color={0,127,255}));
@@ -72,18 +73,17 @@ equation
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(sigBAS.bus, bus) annotation (Line(
-      points={{-60,40},{0,40}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}},
-      horizontalAlignment=TextAlignment.Left));
   connect(y1Boi.y[1], bus.y1) annotation (Line(points={{-58,80},{0,80},{0,40}},
         color={255,0,255}), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
+  connect(THeaWatSupSet.y, bus.THeaWatSupSet)
+    annotation (Line(points={{-58,40},{0,40}}, color={0,0,127}));
+  annotation (Documentation(info="<html>
+  /* FIXME: The example yields a final overriding message for fue with Dymola
+  when redeclaring per. Open ticket at DS.
+  */
+</html>"));
 end Boiler;

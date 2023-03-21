@@ -5,12 +5,12 @@ simulateModel("Buildings.Templates.HeatingPlants.HotWater.Components.Validation.
   resultFile="BoilerGroupPolynomial");
 createPlot(id=1,
   position={19, 10, 508, 564},
-  y={"THeaWatRet.T", "THeaWatSup.T", "ctl.THeaWatSupSet.y"},
+  y={"THeaWatRet.T", "THeaWatSup.T", "ctl.THeaWatConSupSet.y"},
   subPlot=101,
   autoscale=true,
   grid=true);
 createPlot(id=1,
-  y={"busPla.y1Boi[1]", "busPla.boi[1].y_actual[1]"},
+  y={"busPla.boiCon[1].y1", "busPla.boiCon[1].y_actual"},
   subPlot=102,
   autoscale=true,
   grid=true);
