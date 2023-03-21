@@ -136,10 +136,6 @@ partial model PartialChillerGroup "Interface class for chiller group"
     final typChi=typChi,
     final nChi=nChi)
     "Parameter record for chiller group";
-  /* FIXME DS#SR00937490-01
-  Propagation of per from ChillerGroup is removed temporarily due to an issue in Dymola.
-  A local assignment in Chiller component is implemented instead.
-  */
   final parameter Buildings.Templates.Components.Data.Chiller datChi[nChi](
     final typ=fill(typChi, nChi),
     final mChiWat_flow_nominal=mChiWatChi_flow_nominal,

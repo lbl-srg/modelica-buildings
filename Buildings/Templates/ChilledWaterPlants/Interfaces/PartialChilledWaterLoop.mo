@@ -102,8 +102,8 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium = MediumChiWat,
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final have_sen=ctl.have_senVChiWatPri and ctl.locSenFloChiWatPri
-                            ==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
+    final have_sen=ctl.have_senVChiWatPri and
+    ctl.locSenFloChiWatPri==Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Primary CHW volume flow rate"
@@ -187,7 +187,7 @@ partial model PartialChilledWaterLoop
     redeclare final package Medium=MediumChiWat,
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
     if have_pumChiWatSec
     "Secondary CHW pumps inlet manifold"
@@ -245,7 +245,7 @@ partial model PartialChilledWaterLoop
     final m_flow_nominal=mChiWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
     final have_sen=ctl.have_senVChiWatSec and ctl.locSenFloChiWatSec ==
-        Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Supply,
+        Buildings.Templates.ChilledWaterPlants.Types.SensorLocation.Return,
     final text_flip=true,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Secondary CHW volume flow rate"
