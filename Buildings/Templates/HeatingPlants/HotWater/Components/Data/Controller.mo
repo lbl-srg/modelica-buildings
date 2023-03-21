@@ -71,48 +71,48 @@ record Controller "Record for plant controller"
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
 
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_nominal[nBoiCon](
-    each start=0.1,
-    each displayUnit="L/s",
-    each final min=0)
+    start=fill(0.1, nBoiCon),
+    displayUnit=fill("L/s", nBoiCon),
+    final min=fill(0, nBoiCon))
     "Design HW volume flow rate - Each condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_boiCon and have_valHeaWatMinByp));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_min[nBoiCon](
-    each start=0.1,
-    each displayUnit="L/s",
-    each final min=0)
+    start=fill(0.1, nBoiCon),
+    displayUnit=fill("L/s", nBoiCon),
+    final min=fill(0, nBoiCon))
     "Minimum HW volume flow rate - Each condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_boiCon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_nominal[nBoiNon](
-    each start=0.1,
-    each displayUnit="L/s",
-    each final min=0)
+    start=fill(0.1, nBoiNon),
+    displayUnit=fill("L/s", nBoiNon),
+    final min=fill(0, nBoiNon))
     "Design HW volume flow rate - Each non-condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_boiNon
     and have_valHeaWatMinByp));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_min[nBoiNon](
-    each start=0.1,
-    each displayUnit="L/s",
-    each final min=0)
+    start=fill(0.1, nBoiNon),
+    displayUnit=fill("L/s", nBoiNon),
+    final min=fill(0, nBoiNon))
     "Minimum HW volume flow rate - Each non-condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_boiNon));
 
   parameter Modelica.Units.SI.HeatFlowRate capBoiCon_nominal[nBoiCon](
-    each start=1,
-    each final min=0)
+    start=fill(1, nBoiCon),
+    final min=fill(0, nBoiCon))
     "Design capacity - Each condensing boiler"
     annotation(Dialog(group="Capacity", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
   parameter Modelica.Units.SI.HeatFlowRate capBoiNon_nominal[nBoiNon](
-    each start=1,
-    each final min=0)
+    start=fill(1, nBoiNon),
+    final min=fill(0, nBoiNon))
     "Design capacity - Each non-condensing boiler"
     annotation(Dialog(group="Capacity", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
@@ -136,8 +136,8 @@ record Controller "Record for plant controller"
     have_varPumHeaWatPri and typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
 
   parameter Modelica.Units.SI.PressureDifference dpHeaWatRemSet_nominal[nSenDpHeaWatRem](
-    each start=Buildings.Templates.Data.Defaults.dpHeaWatSet_max,
-    each final min=0)
+    start=fill(Buildings.Templates.Data.Defaults.dpHeaWatSet_max, nSenDpHeaWatRem),
+    final min=fill(0, nSenDpHeaWatRem))
     "Design (maximum) HW differential pressure setpoint - Remote sensor"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=

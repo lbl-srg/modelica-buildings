@@ -52,7 +52,7 @@ partial model PartialBoilerPlant
 
   parameter Integer nPumHeaWatPriCon(
     start=1,
-    final min=1)=if have_boiCon then nBoiCon else 0
+    final min=0)=if have_boiCon then nBoiCon else 0
     "Number of primary HW pumps - Condensing boilers"
     annotation (Evaluate=true, Dialog(group="Primary HW loop",
     enable=have_boiCon and
@@ -69,7 +69,7 @@ partial model PartialBoilerPlant
 
   parameter Integer nPumHeaWatPriNon(
     start=1,
-    final min=1)=if have_boiNon then nBoiNon else 0
+    final min=0)=if have_boiNon then nBoiNon else 0
     "Number of primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Primary HW loop",
     enable=have_boiNon and
@@ -124,6 +124,7 @@ partial model PartialBoilerPlant
     Dialog(group="Controls",
     enable=typCtl==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
 
+  // See derived class for additional bindings of parameters not defined at top-level.
   parameter Buildings.Templates.HeatingPlants.HotWater.Data.BoilerPlant dat(
     final have_boiCon=have_boiCon,
     final have_boiNon=have_boiNon,
@@ -134,6 +135,9 @@ partial model PartialBoilerPlant
     final nPumHeaWatPriNon=nPumHeaWatPriNon,
     final nPumHeaWatSec=nPumHeaWatSec,
     final have_valHeaWatMinByp=have_valHeaWatMinByp,
+    final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
+    final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
+    final have_varPumHeaWatPri=have_varPumHeaWatPri,
     final typCtl=typCtl,
     final rho_default=rho_default)
     "Design and operating parameters";

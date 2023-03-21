@@ -2,7 +2,7 @@ within Buildings.Templates.HeatingPlants.HotWater.Components.Data;
 record BoilerGroup "Record for boiler group model"
   extends Modelica.Icons.Record;
 
-  parameter Integer nBoi(final min=1)
+  parameter Integer nBoi(final min=0)
     "Number of boilers (as installed)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
@@ -29,15 +29,16 @@ record BoilerGroup "Record for boiler group model"
     each final min=260)
     "(Highest) HW supply temperature - Each boiler"
     annotation(Dialog(group="Nominal condition"));
-
-  replaceable parameter Buildings.Fluid.Boilers.Data.Generic per[nBoi]
+  // To avoid missing support for zero-sized record in case of nBoi=0 we use max(nBoi, 1).
+  replaceable parameter Buildings.Fluid.Boilers.Data.Generic per[max(nBoi, 1)]
     constrainedby Buildings.Fluid.Boilers.Data.Generic(
       each fue=fue,
-      Q_flow_nominal=capBoi_nominal,
-      TIn_nominal=THeaWatBoiSup_nominal -
-        capBoi_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./ mHeaWatBoi_flow_nominal,
-      m_flow_nominal=mHeaWatBoi_flow_nominal,
-      dp_nominal=dpHeaWatBoi_nominal)
+      Q_flow_nominal=if nBoi>0 then capBoi_nominal else {0},
+      TIn_nominal=if nBoi>0 then THeaWatBoiSup_nominal -
+        capBoi_nominal / Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./ mHeaWatBoi_flow_nominal
+        else {Buildings.Templates.Data.Defaults.THeaWatRet},
+      m_flow_nominal=if nBoi>0 then mHeaWatBoi_flow_nominal else {0},
+      dp_nominal=if nBoi>0 then dpHeaWatBoi_nominal else {0})
     "Boiler performance data - Each boiler"
     annotation (
     Dialog(enable=typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Table),

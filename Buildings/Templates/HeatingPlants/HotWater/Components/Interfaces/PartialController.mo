@@ -87,6 +87,11 @@ block PartialController
     "Set to true for plant HW return temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
+  final parameter Boolean have_senTHeaWatSecSup=
+    typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
+    "Set to true for secondary HW supply temperature sensor"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+
   final parameter Boolean have_senTHeaWatSecRet=
     typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
     "Set to true for secondary HW return temperature sensor"
@@ -191,10 +196,14 @@ protected
     annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatSec
- if typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
+    if typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump control bus"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinByp if have_valHeaWatMinByp
+    "HW minimum flow bypass valve control bus" annotation (
+      Placement(transformation(extent={{-260,0},{-220,40}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
 equation
   connect(busBoiCon, bus.boiCon) annotation (Line(
       points={{-240,140},{-220,140},{-220,0},{-260,0}},
@@ -222,6 +231,10 @@ equation
       thickness=0.5));
   connect(busBoiNon, bus.boiNon) annotation (Line(
       points={{-180,140},{-180,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValHeaWatMinByp, bus.valHeaWatMinByp) annotation (Line(
+      points={{-240,20},{-240,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

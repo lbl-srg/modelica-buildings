@@ -22,7 +22,7 @@ type PumpsPrimary = enumeration(
 type PumpsSecondary = enumeration(
     None "No secondary pump (primary-only)",
     Centralized "Variable secondary centralized",
-    ConstantVariable "Variable secondary distributed")
+    Distributed "Variable secondary distributed")
     "Enumeration to specify the type of secondary HW pumps";
 type PlantBoiler = enumeration(
     Condensing "Condensing boilers only",

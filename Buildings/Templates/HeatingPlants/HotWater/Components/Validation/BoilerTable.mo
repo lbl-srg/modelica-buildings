@@ -1,5 +1,5 @@
-within Buildings.Templates.HeatingPlants.HotWater.Validation;
-model Boiler
+within Buildings.Templates.HeatingPlants.HotWater.Components.Validation;
+model BoilerTable
   extends Modelica.Icons.Example;
 
   replaceable package Medium=Buildings.Media.Water
@@ -40,20 +40,22 @@ model Boiler
     final m_flow_nominal=datBoi.mHeaWat_flow_nominal)
     "HW supply temperature"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp THeaWatRet(
     height=35,
     duration=500,
     offset=datBoi.THeaWatSup_nominal - 25,
     startTime=100) "HW return temperature value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Controls.OBC.CDL.Logical.Sources.TimeTable y1Boi(
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1Boi(
     table=[0,1; 1,1],
     timeScale=3600,
     period=3600) "Boiler Enable signal"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Interfaces.Bus bus annotation (Placement(transformation(extent={{-20,20},{20,
-            60}}), iconTransformation(extent={{-296,-74},{-256,-34}})));
-  Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(k=Buildings.Templates.Data.Defaults.THeaWatSup)
+  Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus bus annotation (
+      Placement(transformation(extent={{-20,20},{20,60}}), iconTransformation(
+          extent={{-296,-74},{-256,-34}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupSet(k=
+        Buildings.Templates.Data.Defaults.THeaWatSup)
     "HW supply temperature setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
@@ -86,4 +88,4 @@ equation
   when redeclaring per. Open ticket at DS.
   */
 </html>"));
-end Boiler;
+end BoilerTable;

@@ -35,13 +35,18 @@ record BoilerPlant "Record for HW plant model"
   parameter Integer nSenDpHeaWatRem
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Integer nLooHeaWatSec=1
-    "Number of secondary HW loops"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_senVHeaWatSec
     "Set to true if secondary loop is equipped with a flow meter"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon
+    "Type of primary HW pump arrangement - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon
+    "Type of primary HW pump arrangement - Non-condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_varPumHeaWatPri
+    "Set to true for variable speed primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Controller typCtl
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -52,15 +57,22 @@ record BoilerPlant "Record for HW plant model"
     annotation(Dialog(enable=false));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.Controller ctl(
+    final typ=typCtl,
     final have_boiCon=have_boiCon,
     final have_boiNon=have_boiNon,
     final nBoiCon=nBoiCon,
     final nBoiNon=nBoiNon,
-    final typPumHeaWatSec=typPumHeaWatSec,
     final nPumHeaWatPriCon=nPumHeaWatPriCon,
     final nPumHeaWatPriNon=nPumHeaWatPriNon,
+    final have_varPumHeaWatPri=have_varPumHeaWatPri,
+    final typPumHeaWatSec=typPumHeaWatSec,
     final nPumHeaWatSec=nPumHeaWatSec,
-    final have_valHeaWatMinByp=have_valHeaWatMinByp)
+    final have_valHeaWatMinByp=have_valHeaWatMinByp,
+    final have_senDpHeaWatLoc=have_senDpHeaWatLoc,
+    final nSenDpHeaWatRem=nSenDpHeaWatRem,
+    final have_senVHeaWatSec=have_senVHeaWatSec,
+    final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
+    final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon)
     "Controller"
     annotation(Dialog(group="Controls"));
 

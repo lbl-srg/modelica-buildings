@@ -6,7 +6,6 @@ model BoilerPlant "Boiler plant"
     dat(
       have_senDpHeaWatLoc=ctl.have_senDpHeaWatLoc,
       nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
-      nLooHeaWatSec=ctl.nLooHeaWatSec,
       have_senVHeaWatSec=ctl.have_senVHeaWatSec));
 
   replaceable
@@ -46,7 +45,7 @@ model BoilerPlant "Boiler plant"
     final have_sen=typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "HW intermediate supply temperature"
+    "Intermediate HW supply temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -99,7 +98,7 @@ model BoilerPlant "Boiler plant"
     annotation (Placement(transformation(extent={{-80,-110},{-100,-90}})));
   Buildings.Templates.Components.Routing.MultipleToMultiple inlPumHeaWatPriNon(
     redeclare final package Medium = Medium,
-    final nPorts_a=nPumHeaWatPri,
+    final nPorts_a=nPumHeaWatPriNon,
     final m_flow_nominal=mHeaWatPriNon_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
@@ -144,17 +143,26 @@ model BoilerPlant "Boiler plant"
     Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={150,-100})));
-  Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatPri_flow(
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatPriSup_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWatPri_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final have_sen=ctl.have_senVHeaWatPri and
-    ctl.locSenFloHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply,
+    final have_sen=ctl.have_senVHeaWatPri and ctl.locSenFloHeaWatPri ==
+        Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply,
     final text_flip=false,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
     "Primary HW volume flow rate"
-    annotation (
-    Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+  Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatPriRet_flow(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=mHeaWatPri_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final have_sen=ctl.have_senVHeaWatPri and ctl.locSenFloHeaWatPri ==
+        Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
+    final text_flip=true,
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    "Primary HW volume flow rate"
+    annotation (Placement(transformation(extent={{80,-250},{60,-230}})));
   Buildings.Fluid.FixedResistances.Junction junBypSup(
     redeclare final package Medium = Medium,
     final tau=tau,
@@ -176,7 +184,8 @@ model BoilerPlant "Boiler plant"
   Buildings.Templates.Components.Sensors.Temperature THeaWatPriSup(
     redeclare final package Medium = Medium,
     final have_sen=ctl.have_senTHeaWatPriSup,
-    final m_flow_nominal=mHeaWat_flow_nominal,
+    final text_flip=false,
+    final m_flow_nominal=mHeaWatPri_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Primary HW supply temperature"
     annotation (
@@ -184,6 +193,18 @@ model BoilerPlant "Boiler plant"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={110,0})));
+  Buildings.Templates.Components.Sensors.Temperature THeaWatPlaRet(
+    redeclare final package Medium = Medium,
+    final have_sen=ctl.have_senTHeaWatPlaRet,
+    final text_flip=true,
+    final m_flow_nominal=mHeaWatPri_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    "Plant HW return temperature"
+    annotation (
+    Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={110,-240})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatByp_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWat_flow_nominal,
@@ -371,13 +392,23 @@ model BoilerPlant "Boiler plant"
     annotation (Placement(transformation(extent={{260,-250},{240,-230}})));
   Buildings.Templates.Components.Sensors.Temperature THeaWatSecRet(
     redeclare final package Medium = Medium,
-    final have_sen=have_pumHeaWatSec,
+    final have_sen=ctl.have_senTHeaWatSecRet,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
     "Secondary HW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={200,-240})));
+  Buildings.Templates.Components.Sensors.Temperature THeaWatSecSup(
+    redeclare final package Medium = Medium,
+    final have_sen=ctl.have_senTHeaWatSecSup,
+    final m_flow_nominal=mHeaWat_flow_nominal,
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    "Secondary HW supply temperature"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={260,0})));
 
   // Controls
   replaceable Buildings.Templates.HeatingPlants.HotWater.Components.Controls.OpenLoop ctl
@@ -395,6 +426,7 @@ model BoilerPlant "Boiler plant"
       final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
       final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
       final nPumHeaWatSec=nPumHeaWatSec,
+      final have_valHeaWatMinByp=have_valHeaWatMinByp,
       final nAirHan=nAirHan,
       final nEquZon=nEquZon)
     "Plant controller"
@@ -402,17 +434,28 @@ model BoilerPlant "Boiler plant"
     Dialog(group="Controls"),
     Placement(transformation(extent={{-10,130},{10,150}})));
 
-
-  Buildings.Templates.Components.Sensors.Temperature THeaWatSecSup(
-    redeclare final package Medium = Medium,
-    final have_sen=have_pumHeaWatSec,
-    final m_flow_nominal=mHeaWat_flow_nominal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Secondary HW supply temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={260,0})));
 equation
+  /* Control point connection - start */
+  connect(bus, boiCon.bus);
+  connect(bus, boiNon.bus);
+  connect(bus.pumHeaWatPriCon, pumHeaWatPriCon.bus);
+  connect(bus.pumHeaWatPriNon, pumHeaWatPriNon.bus);
+  connect(bus.valHeaWatMinByp, valHeaWatMinByp.bus);
+  connect(bus.pumHeaWatSec, pumHeaWatSec.bus);
+  connect(dpHeaWatLoc.y, bus.dpHeaWatLoc);
+  connect(VHeaWatPriSup_flow.y, bus.VHeaWatPri_flow);
+  connect(VHeaWatPriRet_flow.y, bus.VHeaWatPri_flow);
+  connect(VHeaWatSecSup_flow.y, bus.VHeaWatSec_flow);
+  connect(VHeaWatSecRet_flow.y, bus.VHeaWatSec_flow);
+  connect(VHeaWatByp_flow.y, bus.VHeaWatByp_flow);
+  connect(THeaWatPriSup.y, bus.THeaWatPriSup);
+  connect(THeaWatPlaRet.y, bus.THeaWatPlaRet);
+  connect(THeaWatSecSup.y, bus.THeaWatSecSup);
+  connect(THeaWatSecRet.y, bus.THeaWatSecRet);
+  connect(THeaWatIntSup.y, bus.THeaWatIntSup);
+
+  /* Control point connection - stop */
+
   connect(pumHeaWatPriNon.ports_b, outPumHeaWatPriNon.ports_a) annotation (Line(
         points={{-50,-20},{-40,-20}},           color={0,127,255}));
   connect(port_a, VHeaWatSecRet_flow.port_a)
@@ -429,7 +472,7 @@ equation
     annotation (Line(points={{-80,-160},{-70,-160}}, color={0,127,255}));
   connect(boiCon.ports_bHeaWat, inlPumHeaWatPriCon.ports_a)
     annotation (Line(points={{-110,-160},{-100,-160}}, color={0,127,255}));
-  connect(junOutBoiNon.port_2, VHeaWatPri_flow.port_a)
+  connect(junOutBoiNon.port_2, VHeaWatPriSup_flow.port_a)
     annotation (Line(points={{0,-10},{0,0},{60,0}}, color={0,127,255}));
   connect(THeaWatIntSup.port_b, junInlBoiNon.port_1)
     annotation (Line(points={{0,-120},{0,-110}}, color={0,127,255}));
@@ -459,8 +502,6 @@ equation
           -50},{6.10623e-16,-40},{0,-40},{0,-30}}, color={0,127,255}));
   connect(THeaWatSecRet.port_b, junBypRet.port_1)
     annotation (Line(points={{190,-240},{150,-240}}, color={0,127,255}));
-  connect(junBypRet.port_2, junInlBoiCon.port_1) annotation (Line(points={{130,-240},
-          {20,-240},{20,-260},{0,-260},{0,-250}}, color={0,127,255}));
   connect(VHeaWatByp_flow.port_b, junBypRet.port_3)
     annotation (Line(points={{140,-160},{140,-230}}, color={0,127,255}));
   connect(valHeaWatMinByp.port_b, VHeaWatByp_flow.port_a) annotation (Line(
@@ -485,7 +526,7 @@ equation
     annotation (Line(points={{170,0},{170,0}}, color={0,127,255}));
   connect(pumHeaWatSec.ports_b, outPumHeaWatSec.ports_a)
     annotation (Line(points={{190,0},{190,0}}, color={0,127,255}));
-  connect(VHeaWatPri_flow.port_b, THeaWatPriSup.port_a)
+  connect(VHeaWatPriSup_flow.port_b, THeaWatPriSup.port_a)
     annotation (Line(points={{80,0},{100,0}}, color={0,127,255}));
   connect(inlPumHeaWatPriNon.ports_b, pumHeaWatPriNon.ports_a)
     annotation (Line(points={{-80,-20},{-70,-20}}, color={0,127,255}));
@@ -497,4 +538,10 @@ equation
       points={{-300,140},{-10,140}},
       color={255,204,51},
       thickness=0.5));
+  connect(VHeaWatPriRet_flow.port_b, junInlBoiCon.port_1) annotation (Line(
+        points={{60,-240},{20,-240},{20,-260},{0,-260},{0,-250}}, color={0,127,255}));
+  connect(junBypRet.port_2, THeaWatPlaRet.port_a)
+    annotation (Line(points={{130,-240},{120,-240}}, color={0,127,255}));
+  connect(THeaWatPlaRet.port_b, VHeaWatPriRet_flow.port_a)
+    annotation (Line(points={{100,-240},{80,-240}}, color={0,127,255}));
 end BoilerPlant;
