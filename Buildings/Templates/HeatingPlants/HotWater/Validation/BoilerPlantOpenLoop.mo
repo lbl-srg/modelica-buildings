@@ -50,11 +50,6 @@ model BoilerPlantOpenLoop
     dp_nominal=datAll._BOI.ctl.dpHeaWatLocSet_nominal)
     "Flow resistance of HW distribution system"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    filNam=Modelica.Utilities.Files.loadResource(
-    "modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    "Weather data"
-    annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
   Fluid.Sensors.TemperatureTwoPort THeaWatRet(
     redeclare final package Medium =Medium,
@@ -72,10 +67,6 @@ model BoilerPlantOpenLoop
 equation
   connect(res.port_b, bou.ports[1])
     annotation (Line(points={{40,0},{70,0},{70,-21}},      color={0,127,255}));
-  connect(weaDat.weaBus, BOI.busWea) annotation (Line(
-      points={{-70,80},{-40,80},{-40,10}},
-      color={255,204,51},
-      thickness=0.5));
   connect(BOI.port_b, res.port_a)
     annotation (Line(points={{-19.8,-10},{0,-10},{0,0},{20,0}},
                                                color={0,127,255}));
@@ -94,7 +85,8 @@ equation
   "modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Validation/WaterCooledOpenLoop.mos"
   "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})),
     Documentation(revisions="<html>
 <ul>
 <li>

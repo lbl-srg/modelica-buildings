@@ -174,7 +174,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(bus.valBoiConIso, busValBoiConIso) annotation (Line(
-      points={{0,200},{4,200},{4,184},{6,184},{6,180},{160,180},{160,160}},
+      points={{0,200},{4,200},{4,184},{160,184},{160,160}},
       color={255,204,51},
       thickness=0.5));
   annotation (

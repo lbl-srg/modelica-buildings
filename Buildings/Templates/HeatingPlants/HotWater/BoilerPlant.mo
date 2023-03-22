@@ -4,6 +4,8 @@ model BoilerPlant "Boiler plant"
     Buildings.Templates.HeatingPlants.HotWater.Interfaces.PartialBoilerPlant(
     final typCtl=ctl.typ,
     dat(
+      typModBoiCon=boiCon.typMod,
+      typModBoiNon=boiNon.typMod,
       have_senDpHeaWatLoc=ctl.have_senDpHeaWatLoc,
       nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
       have_senVHeaWatSec=ctl.have_senVHeaWatSec));
@@ -544,4 +546,27 @@ equation
     annotation (Line(points={{150,0},{150,-40},{170,-40}}, color={0,127,255}));
   connect(supHeaWat.port_b, VHeaWatSecSup_flow.port_a)
     annotation (Line(points={{190,-40},{220,-40},{220,0}}, color={0,127,255}));
+  connect(busAirHan, ctl.busAirHan) annotation (Line(
+      points={{300,180},{20,180},{20,146},{10,146}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  connect(busEquZon, ctl.busEquZon) annotation (Line(
+      points={{300,100},{20,100},{20,134},{10,134}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{6,3},{6,3}},
+      horizontalAlignment=TextAlignment.Left));
+  annotation (Documentation(info="<html>
+<p>
+The outdoor air temperature used for optimum start, plant lockout, and other global sequences shall
+be the average of all valid sensor readings. If there are four or more valid outdoor air temperature
+sensors, discard the highest and lowest temperature readings.
+</p>
+</html>"));
 end BoilerPlant;

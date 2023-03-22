@@ -78,7 +78,7 @@ block PartialController
     if typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
     else have_varPumHeaWatPri
-    "Set to true for HW supply temperature sensor"
+    "Set to true for primary HW supply temperature sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Boolean have_senTHeaWatPlaRet=
@@ -98,19 +98,15 @@ block PartialController
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Boolean have_senDpHeaWatLoc=false
-    "Set to true for local HW differential pressure sensor hardwired to plant controller"
+    "Set to true for local HW differential pressure sensor hardwired to plant or pump controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
-    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    (have_varPumHeaWatPri and typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None or
-    typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)));
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
   parameter Integer nSenDpHeaWatRem(
     final min=if typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36
     then 1 else 0)=1
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
-    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    (have_varPumHeaWatPri and typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None or
-    typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)));
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
 
   parameter Integer nAirHan(
     final min=0)=0

@@ -26,7 +26,7 @@ type PumpsSecondary = enumeration(
     "Enumeration to specify the type of secondary HW pumps";
 type PlantBoiler = enumeration(
     Condensing "Condensing boilers only",
-    Hybrid "Condensing and non-condensing boilers",
+    Hybrid "Condensing and non-condensing boilers (hybrid plant)",
     NonCondensing "Non-condensing boilers only")
     "Enumeration to specify the type of boilers";
 type SensorLocation = enumeration(

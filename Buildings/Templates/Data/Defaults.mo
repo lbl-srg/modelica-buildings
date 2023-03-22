@@ -84,7 +84,7 @@ package Defaults "Package with default sizing parameters"
     "HW supply temperature for condensing boilers";
   constant Modelica.Units.SI.Temperature THeaWatRet=55+273.15
     "HW return temperature";
-  constant Modelica.Units.SI.Temperature TOutBoiLoc=24+273.15
+  constant Modelica.Units.SI.Temperature TOutBoiLck=24+273.15
     "Outdoor air lockout temperature above which the HW plant is prevented from operating";
   constant Modelica.Units.SI.PressureDifference dpHeaWatSet_min=3.5E4
     "Minimum HW differential pressure setpoint used in HW plant reset logic";

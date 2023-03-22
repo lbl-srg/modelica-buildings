@@ -14,6 +14,12 @@ record BoilerPlant "Record for HW plant model"
   parameter Integer nBoiNon
     "Number of non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typModBoiCon
+    "Type of boiler model for condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typModBoiNon
+    "Type of boiler model for non-condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec
     "Type of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
@@ -78,6 +84,7 @@ record BoilerPlant "Record for HW plant model"
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.BoilerGroup boiCon(
     final nBoi=nBoiCon,
+    final typMod=typModBoiCon,
     capBoi_nominal=ctl.capBoiCon_nominal,
     THeaWatBoiSup_nominal=fill(if have_boiCon and have_boiNon then ctl.THeaWatConSup_nominal
      else ctl.THeaWatSup_nominal, nBoiCon))
@@ -86,6 +93,7 @@ record BoilerPlant "Record for HW plant model"
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.BoilerGroup boiNon(
     final nBoi=nBoiNon,
+    final typMod=typModBoiNon,
     capBoi_nominal=ctl.capBoiNon_nominal,
     THeaWatBoiSup_nominal=fill(ctl.THeaWatSup_nominal, nBoiNon))
     "Non-condensing boilers"

@@ -205,15 +205,6 @@ partial model PartialBoilerPlant
     "HW supply"
     annotation (Placement(transformation(extent={{290,-10},{310,10}}),
         iconTransformation(extent={{192,-10},{212,10}})));
-  Buildings.BoundaryConditions.WeatherData.Bus busWea
-    "Weather data bus"
-    annotation (Placement(transformation(
-      extent={{-20,20},{20,-20}},
-      rotation=180,
-      origin={0,280}), iconTransformation(
-        extent={{-20,20},{20,-20}},
-        rotation=180,
-        origin={0,200})));
   Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus bus
     "Plant control bus" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
