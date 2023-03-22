@@ -168,7 +168,8 @@ model Indirect
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin)
+    final yMin=yMin,
+    reverseActing=false)
     "Building supply temperature controller"
     annotation (Placement(transformation(extent={{-130,-230},{-110,-210}})));
 
@@ -276,6 +277,14 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 16, 2023, by David Blum:<br/>
+Fixed building supply temperature controller parameter <code>reverseActing</code>
+by changing from <code>true</code> to <code>false</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3299\">
+issue 3299</a>.
+</li>
 <li>
 January 11, 2023, by Michael Wetter:<br/>
 Changed controls to use CDL. Changed PID to PI as default for controller.

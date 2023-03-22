@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="5.688509mm"
+   height="4.1113219mm"
+   viewBox="0 0 5.688509 4.1113219"
+   version="1.1"
+   id="svg318"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs315">
+    <marker
+       style="overflow:visible"
+       id="TriangleStart"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="5.3244081"
+       markerHeight="6.155385"
+       viewBox="0 0 5.3244081 6.1553851"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path135" />
+    </marker>
+  </defs>
+  <g
+     id="layer1"
+     transform="matrix(-1,0,0,1,90.289036,-118.73179)">
+    <g
+       id="g3131"
+       transform="rotate(-90,115.75521,146.18229)"
+       style="stroke:#4d4d4d;stroke-opacity:1">
+      <g
+         id="g2904"
+         transform="rotate(90,107.81772,107.8177)"
+         style="stroke:#4d4d4d;stroke-opacity:1">
+        <rect
+           style="fill:#ffffff;stroke:#4d4d4d;stroke-width:0.132292;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect14681"
+           width="2.6458333"
+           height="5.2916665"
+           x="-75.406258"
+           y="115.09377"
+           transform="rotate(-90)" />
+        <path
+           style="font-variation-settings:normal;fill:none;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+           d="m 115.09376,75.40627 5.29167,-2.64583"
+           id="path14716" />
+        <circle
+           style="fill:#4d4d4d;fill-opacity:1;stroke:#4d4d4d;stroke-width:0.132292;stroke-opacity:1"
+           id="path2554"
+           cx="120.38541"
+           cy="72.760437"
+           r="0.26458332" />
+      </g>
+    </g>
+  </g>
+  <path
+     style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#999999;stroke-width:0.132292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#TriangleStart);stop-color:#000000;stop-opacity:1"
+     d="M 1.3229164,3.7041689 H 3.9687498"
+     id="path6246" />
+</svg>

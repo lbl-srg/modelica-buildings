@@ -8,8 +8,8 @@ of DX cooling coils that are used in the examples.
 </p>
 <p>
 The data are described in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil</a>.
 </p>
 </html>",
 revisions="<html>
