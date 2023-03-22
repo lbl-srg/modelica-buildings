@@ -223,7 +223,7 @@ model BoilerPlant "Boiler plant"
     final tau=tau,
     final m_flow_nominal=mHeaWatPri_flow_nominal*{1,-1,-1},
     final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
+    dp_nominal=fill(1E3, 3),
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -255,7 +255,7 @@ model BoilerPlant "Boiler plant"
     final tau=tau,
     final m_flow_nominal=mHeaWatPri_flow_nominal*{1,-1,-1},
     final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
+    dp_nominal=fill(1E3, 3),
     final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
          else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
@@ -518,10 +518,6 @@ equation
     annotation (Line(points={{150,0},{150,0}}, color={0,127,255}));
   connect(outPumHeaWatSec.port_b, VHeaWatSecSup_flow.port_a)
     annotation (Line(points={{210,0},{220,0}}, color={0,127,255}));
-  connect(supHeaWat.port_b, VHeaWatSecSup_flow.port_a) annotation (Line(points={{190,-40},
-          {220,-40},{220,0}},                   color={0,127,255}));
-  connect(junBypSup.port_2, supHeaWat.port_a) annotation (Line(points={{150,0},
-          {150,-40},{170,-40}},        color={0,127,255}));
   connect(pumHeaWatSec.ports_a, inlPumHeaWatSec.ports_b)
     annotation (Line(points={{170,0},{170,0}}, color={0,127,255}));
   connect(pumHeaWatSec.ports_b, outPumHeaWatSec.ports_a)
@@ -544,4 +540,8 @@ equation
     annotation (Line(points={{130,-240},{120,-240}}, color={0,127,255}));
   connect(THeaWatPlaRet.port_b, VHeaWatPriRet_flow.port_a)
     annotation (Line(points={{100,-240},{80,-240}}, color={0,127,255}));
+  connect(junBypSup.port_2, supHeaWat.port_a)
+    annotation (Line(points={{150,0},{150,-40},{170,-40}}, color={0,127,255}));
+  connect(supHeaWat.port_b, VHeaWatSecSup_flow.port_a)
+    annotation (Line(points={{190,-40},{220,-40},{220,0}}, color={0,127,255}));
 end BoilerPlant;
