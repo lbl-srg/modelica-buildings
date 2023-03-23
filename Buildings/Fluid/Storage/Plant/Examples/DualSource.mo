@@ -89,12 +89,11 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,-90})));
-  Buildings.Fluid.Storage.Plant.IdealReversibleConnection ideRevConSup(
+  Buildings.Fluid.Storage.Plant.ReversibleConnection revCon(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.m_flow_nominal,
-    final riseTime=pumChi2.riseTime)
-                   "Ideal reversable connection on supply side"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    final nom=nom) "Reversible connection"
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+
   Buildings.Fluid.Sources.Boundary_pT bou2(
     p(final displayUnit="Pa") = 101325 + dp_nominal,
     redeclare final package Medium = Medium,
@@ -302,8 +301,6 @@ model DualSource
 equation
   connect(tanBra.port_aRetNet, parJunPla2.port_c2)
     annotation (Line(points={{-80,-96},{40,-96}}, color={0,127,255}));
-  connect(bou2.ports[1], ideRevConSup.port_a) annotation (Line(points={{-60,10},
-          {-10,10},{-10,-70},{0,-70}},   color={0,127,255}));
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-119,170},{-104,170}},
                                                    color={0,0,127}));
@@ -376,10 +373,6 @@ equation
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
   connect(tanBra.port_bRetChi, chi2PreDro.port_a) annotation (Line(points={{-100,
           -96},{-110,-96},{-110,-110},{-120,-110}}, color={0,127,255}));
-  connect(tanBra.port_bSupNet, ideRevConSup.port_a) annotation (Line(points={{-80,
-          -84},{-70,-84},{-70,-70},{0,-70}}, color={0,127,255}));
-  connect(ideRevConSup.port_b, parJunPla2.port_c1) annotation (Line(points={{20,-70},
-          {30,-70},{30,-84},{40,-84}}, color={0,127,255}));
   connect(chi1.port_a, parJunPla1.port_c2) annotation (Line(points={{-50,60},{
           -50,54},{20,54},{20,64},{40,64}}, color={0,127,255}));
   connect(chi2PreDro.port_b, chi2.port_a) annotation (Line(points={{-140,-110},
@@ -401,24 +394,22 @@ equation
   connect(ideUse3.yVal_actual, muxVal.u[3]) annotation (Line(points={{101,-162},
           {106,-162},{106,-170},{162,-170},{162,-167.667},{180,-167.667}},
         color={0,0,127}));
-  connect(floCon.mSecPum_flow, ideRevConSup.mSet_flow) annotation (Line(points=
-          {{-139,-34},{-50,-34},{-50,-65},{-1,-65}}, color={0,0,127}));
-  connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-199,10},{-166,10},
-          {-166,-22},{-161,-22}}, color={255,127,0}));
+  connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-199,10},{-172,10},
+          {-172,-24},{-161,-24}}, color={255,127,0}));
   connect(tanBra.heaPorTop, SOC.tanTop) annotation (Line(points={{-88,-86},{-88,
           -74},{-66,-74},{-66,-144},{-60,-144}}, color={191,0,0}));
   connect(tanBra.heaPorBot, SOC.tanBot) annotation (Line(points={{-88,-94},{-88,
           -155.8},{-60,-155.8}}, color={191,0,0}));
   connect(SOC.isFul, floCon.tanIsFul) annotation (Line(points={{-39,-144},{-36,
-          -144},{-36,-136},{-168,-136},{-168,-26},{-161,-26}}, color={255,0,255}));
+          -144},{-36,-136},{-168,-136},{-168,-28},{-161,-28}}, color={255,0,255}));
   connect(SOC.isDep, floCon.tanIsDep) annotation (Line(points={{-39,-156},{-32,
-          -156},{-32,-132},{-164,-132},{-164,-30},{-161,-30}}, color={255,0,255}));
+          -156},{-32,-132},{-164,-132},{-164,-32},{-161,-32}}, color={255,0,255}));
   connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-199,-30},{-172,
-          -30},{-172,-34},{-161,-34}}, color={255,0,255}));
+          -30},{-172,-36},{-161,-36}}, color={255,0,255}));
   connect(mulMax_yVal_actual.y, hys_yVal_actual.u)
     annotation (Line(points={{-238,-70},{-222,-70}}, color={0,0,127}));
   connect(hys_yVal_actual.y, floCon.hasLoa) annotation (Line(points={{-198,-70},
-          {-172,-70},{-172,-38},{-161,-38}}, color={255,0,255}));
+          {-172,-70},{-172,-40},{-161,-40}}, color={255,0,255}));
   connect(muxVal.y, mulMax_yVal_actual.u[1:3]) annotation (Line(points={{201,
           -170},{210,-170},{210,-230},{-270,-230},{-270,-69.3333},{-262,
           -69.3333}}, color={0,0,127}));
@@ -427,13 +418,25 @@ equation
   connect(pumChi2.port_b, tanBra.port_aSupChi) annotation (Line(points={{-120,-70},
           {-110,-70},{-110,-84},{-100,-84}}, color={0,127,255}));
   connect(floCon.mPriPum_flow, pumChi2.m_flow_in) annotation (Line(points={{-139,
-          -26},{-130,-26},{-130,-58}}, color={0,0,127}));
+          -24},{-130,-24},{-130,-58}}, color={0,0,127}));
   connect(pumSup1.port_a, chi1.port_b)
     annotation (Line(points={{-20,90},{-50,90},{-50,80}}, color={0,127,255}));
   connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
           90},{20,76},{40,76}}, color={0,127,255}));
   connect(conPI_pumChi1.y, pumSup1.y)
     annotation (Line(points={{-81,170},{-10,170},{-10,102}}, color={0,0,127}));
+  connect(conPI_pumChi1.y, floCon.yPum) annotation (Line(points={{-81,170},{-76,
+          170},{-76,26},{-168,26},{-168,-20},{-161,-20}}, color={0,0,127}));
+  connect(revCon.port_b, parJunPla2.port_c1) annotation (Line(points={{0,-80},{
+          34,-80},{34,-84},{40,-84}}, color={0,127,255}));
+  connect(tanBra.port_bSupNet, revCon.port_a) annotation (Line(points={{-80,-84},
+          {-40,-84},{-40,-80},{-20,-80}}, color={0,127,255}));
+  connect(floCon.ySecPum, revCon.yPum) annotation (Line(points={{-139,-30},{-26,
+          -30},{-26,-74},{-21,-74}}, color={0,0,127}));
+  connect(floCon.yVal, revCon.yVal) annotation (Line(points={{-139,-36},{-32,
+          -36},{-32,-86},{-21,-86}}, color={0,0,127}));
+  connect(bou2.ports[1], revCon.port_a) annotation (Line(points={{-60,10},{-40,
+          10},{-40,-80},{-20,-80}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
