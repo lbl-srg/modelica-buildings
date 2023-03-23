@@ -25,7 +25,7 @@ model SingleSpeedHeatingEnergyPlus
     use_X_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  SingleSpeedDXHeating
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating
     sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -120,7 +120,7 @@ model SingleSpeedHeatingEnergyPlus
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=sinSpeDX.vol.T)
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Modelica.Blocks.Math.Mean XEvaOutMea(f=1/3600)
+  Modelica.Blocks.Math.Mean XConOutMea(f=1/3600)
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
   Modelica.Blocks.Sources.RealExpression XConOut(y=sum(sinSpeDX.vol.Xi))
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
@@ -253,7 +253,7 @@ equation
       points={{101,90},{118,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XConOut.y, XEvaOutMea.u)
+  connect(XConOut.y,XConOutMea. u)
                            annotation (Line(
       points={{61,130},{78,130}},
       color={0,0,127},
