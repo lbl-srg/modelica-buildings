@@ -240,6 +240,81 @@
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
     simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.Decoupling
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingMixing
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+  optimica:
+    comment: The rootfinding function failed in an unrecoverable manner. At time 32431.252047.
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DecouplingTemperature
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.DiversionOpenLoop
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: isEna.u = loa.ctl.cha.pre_u_start, isEna.u = loa1.ctl.cha.pre_u_start'
+    translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionThreeWay
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayCheckValve
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstantReturn
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariable
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayVariableReturn
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: loaOpe.mode = loaOpe.loa.ctl.cha.pre_u_start...'
+    translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.SingleMixing
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.ThrottleOpenLoop
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
+    translate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.DualMixing
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixing
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+- model_name: Buildings.Fluid.HydronicConfigurations.PassiveNetworks.Examples.SingleMixingOpenLoop
+  openmodelica:
+    comment: 'division by zero at time 0, (a=-10714.99753345652) / (b=0), where divisor b expression is: 1.0 - $cse79'
+    simulate: false
+  optimica:
+    comment: 'The following equation(s) could not be matched to any variable: con.mode = loa.ctl.cha.pre_u_start, con.mode = loa1.ctl.cha.pre_u_start'
+    translate: false
 - model_name: Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.Guideline36
   openmodelica:
     comment: 'division by zero at time 0, (a=0) / (b=0), where divisor b expression is: hvac.cooCoi.m1_flow + hvac.ideVal.preMasFlo.m_flow'
@@ -366,16 +441,25 @@
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones1
-  optimica:
-    comment: "Simulation requires libgfortran.so.4 which is not in the docker image of OCT 1.40"
+  dymola:
+    comment: "Requires docker update to Ubuntu 22.04 due to libgc."
+    simulate: false
+  openmodelica:
+    comment: "Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image."
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones2
-  optimica:
-    comment: "Simulation requires libgfortran.so.4 which is not in the docker image of OCT 1.40"
+  dymola:
+    comment: "Requires docker update to Ubuntu 22.04 due to libgc."
+    simulate: false
+  openmodelica:
+    comment: "Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image."
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones3
-  optimica:
-    comment: "Simulation requires libgfortran.so.4 which is not in the docker image of OCT 1.40"
+  dymola:
+    comment: "Requires docker update to Ubuntu 22.04 due to libgc."
+    simulate: false
+  openmodelica:
+    comment: "Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image."
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
   openmodelica:
