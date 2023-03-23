@@ -8,7 +8,7 @@ ASHRAE Guideline 36 (G36).
 All sequences are created using blocks from the
 <a href=\"modelica://Buildings.Controls.OBC.CDL\">
 Buildings.Controls.OBC.CDL</a> library, following the
-<a href=\"http://obc.lbl.gov/specification/cdl.html\">
+<a href=\"https://obc.lbl.gov/specification/cdl.html\">
 CDL specification</a>.
 </p>
 <p>

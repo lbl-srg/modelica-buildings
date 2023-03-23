@@ -17,8 +17,8 @@ The following six DX coil models are available:
       <th>Control signal</th>
   </tr>
   <tr>
-    <td>Air-cooled</td>
-    <td>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage</td>
+    <td>Air source</td>
+    <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage</td>
     <td>Coil with multiple operating stages, each stage having a constant speed.
         Each stage has its own performance curve, which may represent
         the coil performance at different compressor speed, or the
@@ -29,14 +29,14 @@ The following six DX coil models are available:
                  <i>2</i> for second stage, etc.</td>
   </tr>
   <tr>
-      <td>Air-cooled</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed</td>
+      <td>Air source</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed</td>
       <td>Single stage coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
   <tr>
-      <td>Air-cooled</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</td>
+      <td>Air source</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</td>
       <td>Coil with variable speed compressor with lower speed limit. If the control signal
           is below the lower limit, the coil switches off. It switches on if the control
           signal is above the lower limit plus a hysteresis. By default, the minimum speed
@@ -45,8 +45,8 @@ The following six DX coil models are available:
       <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
   </tr>
   <tr>
-      <td>Water-cooled</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.MultiStage</td>
+      <td>Water source</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.MultiStage</td>
       <td>Coil with multiple operating stages, each stage having a constant speed.
       Each stage has its own performance curve, which may represent the coil
       performance at different compressor speed, or the coil performance as
@@ -54,14 +54,14 @@ The following six DX coil models are available:
       <td>Integer; <i>0</i> for off, <i>1</i> for first stage, <i>2</i> for second stage, etc.</td>
   </tr>
    <tr>
-      <td>Water-cooled</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.SingleSpeed</td>
+      <td>Water source</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.SingleSpeed</td>
       <td>Single stage coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
    </tr>
    <tr>
-      <td>Water-cooled</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.VariableSpeed</td>
+      <td>Water source</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.VariableSpeed</td>
       <td>Coil with variable speed compressor with lower speed limit.
       If the control signal is below the lower limit, the coil switches off.
       It switches on if the control signal is above the lower limit plus a hysteresis.
@@ -81,14 +81,14 @@ If the supply air temperature is used, then the control algorithm should be such
 </p>
 <h4>Coil performance</h4>
 <p>
-For air-cooled DX coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR)
+For air source DX coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR)
 are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate),
 the evaporator air inlet temperature and the condenser air inlet temperature. These polynomials are explained at
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>.
 </p>
 <p>
-For water-cooled DX coils, the steady-state total rate of cooling and the EIR
+For water source DX coils, the steady-state total rate of cooling and the EIR
 are computed using polynimials in the air mass flow fraction (relative to the nominal mass flow rate),
 the water mass flow fraction (relative to the nomina water mass flow rate),
 the evaporator air inelt temperature and the condenser water intet temperature.
@@ -152,7 +152,7 @@ the bypass factor is a function of the current mass flow rate only.
 <h4>Limitations</h4>
 <p>This model has the following limitations: </p>
 <ul>
-  <li>For air-cooled DX coil models, they do not account for fan in the evaporator or in the condenser air stream.
+  <li>For air source DX coil models, they do not account for fan in the evaporator or in the condenser air stream.
    Fans can be modeled separately using models from the package <a href=\"modelica://Buildings.Fluid.Movers\">Buildings.Fluid.Movers</a>.
    However, if the performance curve for the energy input ratio contains electricity use for a condenser fan, then this is of course reflected by the model output.
   </li>
@@ -164,7 +164,7 @@ the bypass factor is a function of the current mass flow rate only.
 <ul>
 <li>
 February 28, 2017 by Yangyang Fu:<br/>
-Added desciption about water-cooled DX coil models.
+Added desciption about water source DX coil models.
 </li>
 <li>
 September 24, 2012 by Michael Wetter:<br/>
