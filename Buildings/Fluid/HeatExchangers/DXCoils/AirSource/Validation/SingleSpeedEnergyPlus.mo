@@ -316,7 +316,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedEnergyPlus.mos"
+             __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedEnergyPlus.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
     Documentation(info="<html>
