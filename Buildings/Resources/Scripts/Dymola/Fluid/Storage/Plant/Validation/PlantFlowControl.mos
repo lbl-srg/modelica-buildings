@@ -5,16 +5,16 @@ simulateModel("Buildings.Fluid.Storage.Plant.Validation.PlantFlowControl",
  resultFile="PlantFlowControl");
 // Plot commands
 createPlot(id=1,
- position={35, 35, 592, 683},
- y={"pumPri.m_flow", "pumSec.m_flow", "tanBra.mTan_flow"},
+ position={35, 35, 592, 686},
+ y={"pumPri.m_flow", "tanBra.mTan_flow", "revCon.pum.m_flow", "revCon.val.m_flow"},
  range={0.0, 3000.0, -2.0, 2.0},
  grid=true,
  subPlot=101,
- colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}},
  timeUnit="s",
- displayUnits={"kg/s", "kg/s", "kg/s"});
+ displayUnits={"kg/s", "kg/s", "kg/s", "kg/s"});
 createPlot(id=1,
- position={35, 35, 592, 683},
+ position={35, 35, 592, 686},
  y={"tanBra.heaPorTop.T", "tanBra.heaPorBot.T"},
  range={0.0, 3000.0, 6.0, 14.0},
  grid=true,
@@ -23,10 +23,11 @@ createPlot(id=1,
  timeUnit="s",
  displayUnits={"degC", "degC"});
 createPlot(id=1,
- position={35, 35, 592, 683},
+ position={35, 35, 592, 686},
  y={"SOC.isFul", "SOC.isDep"},
- range={0.0, 3000.0, -0.5, 1.5},
+ range={0.0, 3000.0, -5.0, 5.0},
  grid=true,
  subPlot=103,
- colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+ colors={{28,108,200}, {28,108,200}},
+ timeUnit="s");
 
