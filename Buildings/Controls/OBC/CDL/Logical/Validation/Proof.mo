@@ -43,7 +43,7 @@ equation
       StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Proof.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Proof1.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
