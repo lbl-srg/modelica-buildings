@@ -19,7 +19,7 @@ equation
   connect(cos1.y, der1.u)
     annotation (Line(points={{12,0},{38,0}},        color={0,0,127}));
   annotation (
-  experiment(StopTime=2.0, Tolerance=1e-06),
+  experiment(StopTime=2.0, Tolerance=1e-07),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Obsolete/Controls/OBC/CDL/Continuous/Validation/Derivative.mos"
         "Simulate and plot"),
     Documentation(info="<html>
