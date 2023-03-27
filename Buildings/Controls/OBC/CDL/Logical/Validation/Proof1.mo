@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model Proof "Validation model for the Proof block"
+model Proof1 "Validation model for the Proof block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp(
     final width=0.2,
     final period=10,
@@ -7,7 +7,7 @@ model Proof "Validation model for the Proof block"
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Proof pro(debounce=2, delay=0.5)
+  Buildings.Controls.OBC.CDL.Logical.Proof1 pro(debounce=2, delay=0.5)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Sources.Pulse                                    latInp1(
     final width=0.2,
@@ -15,7 +15,7 @@ model Proof "Validation model for the Proof block"
     shift=1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-160,50},{-140,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Proof pro1(debounce=2, delay=0.5)
+  Buildings.Controls.OBC.CDL.Logical.Proof1 pro1(debounce=2, delay=0.5)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Sources.Pulse                                    latInp2(
     final width=0.1,
@@ -23,7 +23,7 @@ model Proof "Validation model for the Proof block"
     shift=1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-160,-2},{-140,18}})));
-  Buildings.Controls.OBC.CDL.Logical.Proof pro2(debounce=2, delay=0.5)
+  Buildings.Controls.OBC.CDL.Logical.Proof1 pro2(debounce=2, delay=0.5)
     annotation (Placement(transformation(extent={{-100,-32},{-80,-12}})));
 equation
   connect(latInp.y, pro.uMea) annotation (Line(points={{-138,110},{-120,110},{-120,
@@ -43,7 +43,7 @@ equation
       StopTime=10.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Proof.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Proof1.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
@@ -102,4 +102,4 @@ First implementation.
     Diagram(
       coordinateSystem(
         extent={{-180,-180},{180,180}})));
-end Proof;
+end Proof1;
