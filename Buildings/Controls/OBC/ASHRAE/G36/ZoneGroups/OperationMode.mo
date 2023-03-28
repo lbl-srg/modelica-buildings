@@ -90,8 +90,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode "
     annotation (Placement(transformation(extent={{100,340},{120,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(final k=0.0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
@@ -899,6 +898,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/S
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constant from <code>0</code> to <code>0.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 June 15, 2020, by Jianjun Hu:<br/>
 Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.

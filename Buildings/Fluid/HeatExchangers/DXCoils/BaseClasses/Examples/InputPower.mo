@@ -13,7 +13,8 @@ extends Modelica.Icons.Example;
     offset=0.333,
     startTime=0) "Energy input ratio"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr(
+      activate_CooCoi=true)
     "Calculates electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp Q_flow(
