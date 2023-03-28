@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
-model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
+model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive
   "Validation model for single speed heating DX coil with defrost operation"
   extends Modelica.Icons.Example;
 
@@ -104,8 +104,7 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource(
-        "./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle/DXCoilSystemAuto.dat"),
+    fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive/DXCoilSystemAuto.dat"),
     columns=2:18,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -196,7 +195,7 @@ equation
           {-108,-80},{98,-80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive.mos"
         "Simulate and Plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
             Documentation(info="<html>
@@ -268,4 +267,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle;
+end SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive;
