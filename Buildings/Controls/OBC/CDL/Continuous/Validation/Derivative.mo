@@ -13,7 +13,7 @@ model Derivative
     startTime=5) "Ramp for time constant used in approximating derivative"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Sources.ModelTime modTim "Model time"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-110,0},{-90,20}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes(y_start=1)
     "Integration of input"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
@@ -39,6 +39,9 @@ model Derivative
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=0.1, h=0.01)
     "Output true if difference is within expected accuracy"
     annotation (Placement(transformation(extent={{140,26},{160,46}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1)
+    "Dummy gain to avoid unit difference error"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(con.y, der1.k) annotation (Line(points={{-58,80},{-10,80},{-10,58},{38,
           58}}, color={0,0,127}));
@@ -48,8 +51,6 @@ equation
           {38,50}}, color={0,0,127}));
   connect(booSig.y, intWitRes.trigger)
     annotation (Line(points={{-18,-20},{10,-20},{10,-2}}, color={255,0,255}));
-  connect(modTim.y, cos.u)
-    annotation (Line(points={{-58,10},{-42,10}}, color={0,0,127}));
   connect(intWitRes.u, cos.y)
     annotation (Line(points={{-2,10},{-18,10}}, color={0,0,127}));
   connect(intWitRes.y_reset_in, cos.y) annotation (Line(points={{-2,2},{-10,2},{
@@ -70,10 +71,14 @@ equation
     annotation (Line(points={{132,36},{138,36}}, color={0,0,127}));
   connect(lesThr.y, assMes.u)
     annotation (Line(points={{162,36},{168,36}}, color={255,0,255}));
+  connect(modTim.y, gai.u)
+    annotation (Line(points={{-88,10},{-82,10}}, color={0,0,127}));
+  connect(gai.y, cos.u)
+    annotation (Line(points={{-58,10},{-42,10}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10.0,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Derivative.mos" "Simulate and plot"),
     Documentation(
@@ -120,5 +125,5 @@ This is for
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
-    Diagram(coordinateSystem(extent={{-100,-100},{200,100}})));
+    Diagram(coordinateSystem(extent={{-120,-100},{200,100}})));
 end Derivative;

@@ -72,7 +72,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Supply Air Volumetric Flow Rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
+  Buildings.Fluid.Actuators.Dampers.Exponential vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=mCooAir_flow_nominal,
     dpDamper_nominal=20,
@@ -297,7 +297,7 @@ Model for a VAV terminal box with a water reheat coil and exponential damper.
 </html>", revisions="<html>
 <ul>
 <li>
-January 12, 2023, by Jianjun Hu:<br/>
+January 27, 2023, by Jianjun Hu:<br/>
 Changed the pressure independent damper to exponential damper.
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue #3139</a>.

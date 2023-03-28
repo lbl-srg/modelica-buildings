@@ -149,11 +149,11 @@ partial model PartialPumpParallel "Partial model for pump parallel"
     annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer[num](
-    each final k=0) "Outputs 0 as the control signal"
+    each final k=0.0) "Outputs 0 as the control signal"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant one[num](each final k=
-        1) "Outputs 1 as the control signal"
+        1.0) "Outputs 1 as the control signal"
     annotation (Placement(transformation(extent={{-90,-32},{-70,-12}})));
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -253,6 +253,12 @@ equation
           origin={-60,0},
           rotation=90)}),    Documentation(revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Improved sequence to avoid switching pump on when the valve is commanded off.

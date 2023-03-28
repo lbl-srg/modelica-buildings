@@ -57,13 +57,6 @@ equation
           textColor={0,0,127},
           textString="u"),
         Rectangle(
-          visible=use_T_in,
-          extent={{-100,-59},{-70,-62}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillColor={191,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-100,5},{101,-5}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -107,6 +100,12 @@ equation
               {42,-28},{42,-26}},
           lineColor={255,255,255},
           fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-98,-57},{-70,-60}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={191,0,0},
           fillPattern=FillPattern.Solid)}),
 defaultComponentName="hum",
 Documentation(info="<html>
@@ -136,6 +135,13 @@ is adiabatic. To change the enthalpy of the air, add heat flow to the connector
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 9, 2023, by Michael Wetter:<br/>
+Removed access to parameter <code>use_T_in</code> which does not exist
+in this model.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1697\">#1697</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Removed <code>massDynamics</code>.<br/>
