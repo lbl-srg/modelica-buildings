@@ -124,21 +124,9 @@ equation
       points={{62,54},{66,54},{66,22},{-12,22},{-12,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pwr.P, P)    annotation (Line(
-      points={{41,76},{50.5,76},{50.5,90},{110,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoi.Q_flow, q.Q_flow) annotation (Line(
-      points={{1,56},{22,56},{22,54},{42,54}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TVol.port, q.port) annotation (Line(
       points={{66,22},{66,54},{62,54}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(pwr.QSen_flow, QSen_flow) annotation (Line(
-      points={{41,70},{110,70}},
-      color={0,0,127},
       smooth=Smooth.None));
 
   connect(mCon_flow,dxCoi. mCon_flow) annotation (Line(points={{-110,-30},{-24,

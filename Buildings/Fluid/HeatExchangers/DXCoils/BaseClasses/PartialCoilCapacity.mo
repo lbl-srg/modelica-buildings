@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-partial block PartialCoolingCapacity
+partial block PartialCoilCapacity
   "Calculates performance curve value at given temperature and mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
@@ -441,4 +441,4 @@ First implementation.
 </ul>
 
 </html>"));
-end PartialCoolingCapacity;
+end PartialCoilCapacity;

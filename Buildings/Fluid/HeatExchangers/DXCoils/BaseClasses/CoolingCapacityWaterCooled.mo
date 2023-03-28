@@ -2,7 +2,7 @@
 block CoolingCapacityWaterCooled
   "Calculates cooling capacity at given temperature and flow fraction for water source DX coils"
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(
   final use_mCon_flow=true,
   redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
 

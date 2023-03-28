@@ -5,13 +5,13 @@ model SingleSpeedDXCooling "Single speed DX cooling coil"
     dxCoi(
       final variableSpeedCoil=false,
       wetCoi(redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
           cooCap),
       dryCoi(redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
           cooCap)),
     redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
       datCoi,
     use_mCon_flow=false);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"

@@ -6,8 +6,8 @@ model SpeedSelect "Test model for speed select"
     speSet=datCoi.sta.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
-      nSta=4, sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=

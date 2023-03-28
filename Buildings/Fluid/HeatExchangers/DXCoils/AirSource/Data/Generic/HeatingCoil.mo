@@ -1,25 +1,14 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic;
-record DXCoil
-  "Performance record for a DX Cooling Coil with one or multiple stages"
-  extends Modelica.Icons.Record;
-  parameter Integer nSta(min=1) "Number of stages"
-    annotation (Evaluate = true,
-                Dialog(enable = not sinStaOpe));
-  parameter Real minSpeRat( min=0,max=1)=0.2 "Minimum speed ratio"
-    annotation (Dialog(enable = not sinStaOpe));
-  final parameter Boolean sinStaOpe = nSta == 1
-    "The data record is used for single speed operation"
-    annotation(HideResult=true);
+record HeatingCoil
+  "Performance record for a DX Heating Coil with one or multiple stages"
+  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil;
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
-    sta[nSta]
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
-    "Data record for coil performance at each stage";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_small=0.0001*sta[nSta].nomVal.m_flow_nominal
-    "Small mass flow rate for regularization near zero flow"
-    annotation (Dialog(group="Minimum conditions"));
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+    defCur constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+    "Data record for coil defrost mode operation performance curves";
+
 annotation (preferredView="info",
 defaultComponentName="datCoi",
 defaultComponentPrefixes="parameter",
@@ -127,4 +116,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DXCoil;
+end HeatingCoil;

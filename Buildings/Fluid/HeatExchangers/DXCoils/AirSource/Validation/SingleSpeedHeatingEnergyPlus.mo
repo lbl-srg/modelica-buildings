@@ -36,7 +36,9 @@ model SingleSpeedHeatingEnergyPlus
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(sta={
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil
+    datCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
@@ -50,8 +52,15 @@ model SingleSpeedHeatingEnergyPlus
           TConIn_nominal=273.15 + 21),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())},
-      nSta=1) "Coil data"
+      nSta=1,
+    defCur(
+      defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+      QDefResCap=10500,
+      QCraCap=200,
+      PLFraFunPLR={1}))
+              "Coil data"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
+
   Modelica.Blocks.Sources.TimeTable plr_onOff(table=[0,0; 3600,0; 3600,0; 7200,0;
         7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0; 21600,
         0; 25200,0; 25200,1; 28800,1; 28800,1; 32400,1; 32400,1; 36000,1; 36000,

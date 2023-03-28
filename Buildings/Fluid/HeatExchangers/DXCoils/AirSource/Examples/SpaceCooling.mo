@@ -134,8 +134,9 @@ model SpaceCooling "Space cooling with DX coils"
     mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
      annotation (Placement(transformation(extent={{180,40},{200,60}})));
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
-      sta={Data.Generic.BaseClasses.Stage(
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi(sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
@@ -146,7 +147,7 @@ model SpaceCooling "Space cooling with DX coils"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
     datCoiMulSpe(nSta=2, sta={Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(

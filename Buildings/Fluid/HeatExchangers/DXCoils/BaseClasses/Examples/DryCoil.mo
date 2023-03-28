@@ -11,7 +11,7 @@ extends Modelica.Icons.Example;
     datCoi=datCoi,
     variableSpeedCoil=true,
     redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
       cooCap,
     use_mCon_flow=false) "Performs calculation for dry coil condition"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -32,7 +32,7 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
-  parameter AirSource.Data.Generic.DXCoil datCoi(sta={
+  parameter AirSource.Data.Generic.CoolingCoil datCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=

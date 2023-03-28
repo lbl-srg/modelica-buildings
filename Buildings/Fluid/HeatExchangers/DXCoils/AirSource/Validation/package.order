@@ -1,6 +1,7 @@
 SingleSpeedEnergyPlus
 SingleSpeedPLREnergyPlus
-PLRToPulse
-PLRToPulseExample
 SingleSpeedHeatingEnergyPlus
 SingleSpeedHeatingPLREnergyPlus
+BaseClasses
+SingleSpeedHeatingPLREnergyPlusDefrost_TimedResistive
+SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle

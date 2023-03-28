@@ -3,18 +3,25 @@ model SingleSpeedDXHeating "Single speed DX heating coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil(
     dxCoi(final variableSpeedCoil=false, redeclare
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
         cooCap),
     computeReevaporation=false,
     redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
       datCoi,
-    use_mCon_flow=false);
+    use_mCon_flow=false,
+    defCap(redeclare package MediumA = Medium));
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Sensors.MassFraction senMasFra(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
+  Sensors.Pressure senPre(redeclare package Medium = Medium)
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
 protected
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
@@ -35,6 +42,20 @@ equation
       points={{-43.4,80},{-34,80},{-34,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
+  connect(TOut, dxCoi.TEvaIn) annotation (Line(points={{-110,30},{-92,30},{-92,
+          52},{-21,52}}, color={0,0,127}));
+  connect(senMasFra.port, port_a) annotation (Line(points={{-50,6},{-80,6},{-80,
+          0},{-100,0}}, color={0,127,255}));
+  connect(senPre.port, port_a) annotation (Line(points={{-50,-60},{-80,-60},{
+          -80,0},{-100,0}}, color={0,127,255}));
+  connect(senPre.p, defCap.pIn) annotation (Line(points={{-39,-50},{-36,-50},{-36,
+          -56},{59,-56}}, color={0,0,127}));
+  connect(senMasFra.X, defCap.XConIn) annotation (Line(points={{-39,16},{26,16},
+          {26,-53},{59,-53}}, color={0,0,127}));
+  connect(on, booToRea.u) annotation (Line(points={{-110,80},{-94,80},{-94,-90},
+          {-62,-90}}, color={255,0,255}));
+  connect(booToRea.y, defCap.uSpe) annotation (Line(points={{-38,-90},{56,-90},
+          {56,-38},{59,-38}}, color={0,0,127}));
   annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
 <p>
 This model can be used to simulate an air-source DX heating coil with single speed compressor.

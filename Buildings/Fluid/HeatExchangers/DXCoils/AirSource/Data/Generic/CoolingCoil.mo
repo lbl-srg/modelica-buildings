@@ -1,14 +1,31 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic;
-record DXCoil
+within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic;
+record CoolingCoil
   "Performance record for a DX Cooling Coil with one or multiple stages"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil(
-  redeclare parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
+  extends Modelica.Icons.Record;
+  parameter Integer nSta(min=1) "Number of stages"
+    annotation (Evaluate = true,
+                Dialog(enable = not sinStaOpe));
+  parameter Real minSpeRat( min=0,max=1)=0.2 "Minimum speed ratio"
+    annotation (Dialog(enable = not sinStaOpe));
+  final parameter Boolean sinStaOpe = nSta == 1
+    "The data record is used for single speed operation"
+    annotation(HideResult=true);
+
+  replaceable parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
+    sta[nSta]
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
+    "Data record for coil performance at each stage";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small=0.0001*sta[nSta].nomVal.m_flow_nominal
+    "Small mass flow rate for regularization near zero flow"
+    annotation (Dialog(group="Minimum conditions"));
 annotation (preferredView="info",
 defaultComponentName="datCoi",
 defaultComponentPrefixes="parameter",
 Documentation(info="<html>
 <p>
-This record declares the performance data for the water source DX cooling coil model.
+This record declares the performance data for the air source DX cooling coil model.
 The performance data are structured as follows:
 </p>
 <pre>
@@ -33,10 +50,11 @@ Each element of the array <code>per</code> has the following data.
 
      m_flow_nominal - Evaporator air mass flow rate at nominal conditions.
      TEvaIn_nominal    - Evaporator air inlet wet-bulb temperature at nominal conditions.
-     TConIn_nominal    - Condenser water inlet temperature at nominal conditions.
+     TConIn_nominal    - Condenser air inlet temperature at nominal conditions
+                         (for evaporative coils, use wet bulb, otherwise use dry bulb
+                         temperature).
      phiIn_nominal  - Relative humidity at evaporator inlet at nominal conditions.
      p_nominal      - Atmospheric pressure at nominal conditions.
-     mCon_flow_nominal - Condenser water mass flow rate at nominal conditions.
 
      tWet           - Time until moisture drips from coil when coil is switched on
      gamma          - Ratio of evaporation heat transfer divided by latent
@@ -48,29 +66,19 @@ Each element of the array <code>per</code> has the following data.
      capFunT  - Coefficients of biquadratic polynomial for cooling capacity
                 as a function of temperature.
      capFunFF - Polynomial coefficients for cooling capacity
-                as a function of the air mass flow fraction at evaporators.
-     capFunFFCon - Polynomial coefficients for cooling capacity
-                as a function of the water mass flow fraction at condensers.
-
-     EIRFunT  - Coefficients of biquadratic polynomial for EIR
-                as a function of temperature.
+                as a function of the mass flow fraction.
+     EIRFunT  - Coefficients of biquadratic polynomial for EIR as a function of temperature.
      EIRFunFF - Polynomial coefficients for EIR
-                as a function of the air mass flow fraction at evaporators.
-     EIRFunFFCon - Polynomial coefficients for EIR
-                as a function of the water mass flow fraction at condensers.
-     TConInRan - Minimum and maximum condenser water inlet temperatures
+                as a function of the mass flow fraction.
+     TConInRan - Minimum and maximum condenser air inlet temperatures
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
      TEvaInRan - Minimum and maximum evaporator air inlet temperatures
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
-     ffRan     - Minimum and maximum air mass flow fraction at evaporators (relative to m_flow_nominal)
+     ffRan     - Minimum and maximum air mass flow fraction (relative to m_flow_nominal)
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.
-     ffConRan     - Minimum and maximum water mass flow fraction at condensers (relative to m_flow_nominal)
-                 for which the performance curves are valid.
-                 Outside this range, they will be linearly extrapolated.
-
 </pre>
 <p>
 The data used to develop the performance curves
@@ -96,7 +104,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
 </p>
 <p>
 There can be an arbitrary number of polynomial coefficients for the record
-<code>capFunFF</code>,<code>capFunFFCon</code>,<code>EIRFunFF</code> and <code>EIRFunFFCon</code>.
+<code>capFunFF</code> and <code>EIRFunFF</code>.
 However, if a coil has multiple stages, then each stage must declare the
 same amount of polynomial coefficients. For example, if a
 quadratic function is used for stage one, then stage two must also use
@@ -105,10 +113,6 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
-<li>
-February 17, 2017, by Yangyang Fu:<br/>
-Revised documentation for water source DX coils.
-</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.
@@ -123,4 +127,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DXCoil;
+end CoolingCoil;

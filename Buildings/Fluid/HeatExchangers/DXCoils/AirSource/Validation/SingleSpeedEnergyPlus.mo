@@ -36,8 +36,9 @@ model SingleSpeedEnergyPlus
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
-       nSta=1, sta={Data.Generic.BaseClasses.Stage(
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-10500,

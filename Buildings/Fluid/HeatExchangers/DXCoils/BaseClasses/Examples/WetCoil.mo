@@ -11,8 +11,8 @@ model WetCoil "Test model for WetCoil"
     variableSpeedCoil=true,
     use_mCon_flow=false,
     redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)
-      "Performs calculation for wet coil condition"
+      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+      cooCap) "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant TConIn(
     k=273.15 + 35) "Condenser inlet air temperature"
@@ -46,7 +46,7 @@ model WetCoil "Test model for WetCoil"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter AirSource.Data.Generic.DXCoil datCoi(nSta=4, sta={
+  parameter AirSource.Data.Generic.CoolingCoil datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=

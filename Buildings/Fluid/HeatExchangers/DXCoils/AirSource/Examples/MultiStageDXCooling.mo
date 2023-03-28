@@ -42,8 +42,9 @@ model MultiStageDXCooling "Test model for multi stage DX cooling coil"
     height=dp_nominal,
     offset=101325) "Pressure"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
-        nSta=4, sta={Data.Generic.BaseClasses.Stage(
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi(nSta=4, sta={Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-12000,

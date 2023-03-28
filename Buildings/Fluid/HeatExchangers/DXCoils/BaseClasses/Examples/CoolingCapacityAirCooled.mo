@@ -2,10 +2,8 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model CoolingCapacityAirCooled "Test model for CoolingCapacityAirCooled"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled
-    cooCap(
-    sta={sta},
-    nSta=1) "Cooling capacity calculation"
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+    cooCap(sta={sta}, nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Ramp m_flow(
     duration=2400,

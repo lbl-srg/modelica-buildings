@@ -2,9 +2,9 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block EssentialParameters "A partial block for essential parameters"
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected

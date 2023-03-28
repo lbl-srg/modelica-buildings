@@ -3,11 +3,17 @@ model VariableSpeedDXCooling "Variable speed DX cooling coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
-        final variableSpeedCoil=true,
-          wetCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap),
-          dryCoi(redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled cooCap)),
-  redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi,
-  use_mCon_flow=false);
+      final variableSpeedCoil=true,
+      wetCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+          cooCap),
+      dryCoi(redeclare
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+          cooCap)),
+    redeclare
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+      datCoi,
+    use_mCon_flow=false);
 
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";

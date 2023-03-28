@@ -31,16 +31,20 @@ model SingleSpeedHeatingPLREnergyPlus
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start(displayUnit="K") = datCoi.sta[1].nomVal.TEvaIn_nominal,
+    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    defCur=defCur,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.onDemand,
+    tDefRun=0.166667)
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Routing.Multiplex2 mux "Converts in an array"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Utilities.IO.BCVTB.From_degC TConIn_K "Converts degC to K"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Math.Mean TOutMea(f=1/3600)
@@ -68,7 +72,7 @@ model SingleSpeedHeatingPLREnergyPlus
     period=36000,
     startTime=25200,
     amplitude=1086) "Pressure"
-    annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
+    annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
   Modelica.Blocks.Sources.RealExpression XConInMod(y=XConIn.y/(1 + XConIn.y))
     "Modified XConIn"
     annotation (Placement(transformation(extent={{-140,-54},{-120,-34}})));
@@ -93,7 +97,7 @@ model SingleSpeedHeatingPLREnergyPlus
         68400,-1.7; 72000,-1.7; 72000,-1.991666667; 75600,-1.991666667; 75600,-2.2;
         79200,-2.2; 79200,-2.55; 82800,-2.55; 82800,-3.091666667; 86400,-3.091666667])
     "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
+    annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Modelica.Blocks.Sources.TimeTable TConIn(table=[0,17.7467728; 3600,17.7467728;
         3600,17.03647146; 7200,17.03647146; 7200,16.3042587; 10800,16.3042587; 10800,
         15.54963436; 14400,15.54963436; 14400,14.8261144; 18000,14.8261144; 18000,
@@ -176,7 +180,9 @@ model SingleSpeedHeatingPLREnergyPlus
         72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
                            "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(sta={
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
@@ -198,7 +204,7 @@ model SingleSpeedHeatingPLREnergyPlus
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
   UnitDelay TOutEPlu(samplePeriod=3600, y_start=29.34948133)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  UnitDelay XConOutEPlu(samplePeriod=3600)
+  UnitDelay XConOutEPlu(samplePeriod=1)
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
   // The UnitDelay is reimplemented to avoid in Dymola 2016 the translation warning
@@ -207,6 +213,63 @@ model SingleSpeedHeatingPLREnergyPlus
   //   Assuming fixed default start value for the discrete non-states:
   //     PEPlu.firstTrigger(start = false)
   //     ...
+  Data.Generic.BaseClasses.Defrost defCur(
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    QDefResCap=10500,
+    QCraCap=200,
+    PLFraFunPLR={1})
+    annotation (Placement(transformation(extent={{80,-6},{100,14}})));
+
+  Modelica.Blocks.Sources.TimeTable XOut(table=[0, 0.002977455;
+3600, 0.002977455;
+3600, 0.00291943;
+7200, 0.00291943;
+7200, 0.002837845;
+10800, 0.002837845;
+10800, 0.002801369;
+14400, 0.002801369;
+14400, 0.002809981;
+18000, 0.002809981;
+18000, 0.002808798;
+21600, 0.002808798;
+21600, 0.002948981;
+25200, 0.002948981;
+25200, 0.003124722;
+28800, 0.003124722;
+28800, 0.003250046;
+32400, 0.003250046;
+32400, 0.003136823;
+36000, 0.003136823;
+36000, 0.003181272;
+39600, 0.003181272;
+39600, 0.00319715;
+43200, 0.00319715;
+43200, 0.003049156;
+46800, 0.003049156;
+46800, 0.002861627;
+50400, 0.002861627;
+50400, 0.002651674;
+54000, 0.002651674;
+54000, 0.002559639;
+57600, 0.002559639;
+57600, 0.002541949;
+61200, 0.002541949;
+61200, 0.002551284;
+64800, 0.002551284;
+64800, 0.002574109;
+68400, 0.002574109;
+68400, 0.002658437;
+72000, 0.002658437;
+72000, 0.002704881;
+75600, 0.002704881;
+75600, 0.002697955;
+79200, 0.002697955;
+79200, 0.002691605;
+82800, 0.002691605;
+82800, 0.002672408;
+86400, 0.002672408])
+    "Evaporator inlet temperature"
+    annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 protected
   block UnitDelay
     extends Modelica.Blocks.Discrete.UnitDelay(
@@ -228,7 +291,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TEvaIn_K.Kelvin, sinSpeDX.TOut) annotation (Line(
-      points={{-79,69.8},{-66.5,69.8},{-66.5,13},{-11,13}},
+      points={{-79,79.8},{-66.5,79.8},{-66.5,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TConIn_K.Kelvin, sou.T_in)    annotation (Line(
@@ -264,7 +327,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
-      points={{-119,30},{-74,30},{-74,-2},{-42,-2}},
+      points={{-119,20},{-74,20},{-74,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XConInMod.y, mux.u1[1]) annotation (Line(
@@ -280,7 +343,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(TEvaIn.y, TEvaIn_K.Celsius) annotation (Line(
-      points={{-119,70},{-110.5,70},{-110.5,69.6},{-102,69.6}},
+      points={{-119,80},{-110.5,80},{-110.5,79.6},{-102,79.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TConIn.y,TConIn_K. Celsius) annotation (Line(
@@ -305,6 +368,8 @@ equation
       smooth=Smooth.None));
   connect(sinSpeDX.QSen_flow, Q_flowMea.u) annotation (Line(points={{11,17},{20,
           17},{20,54},{-10,54},{-10,90},{-2,90}}, color={0,0,127}));
+  connect(XOut.y, sinSpeDX.XOut) annotation (Line(points={{-119,50},{-20,50},{
+          -20,1},{-11,1}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlus.mos"
