@@ -205,8 +205,8 @@ block ValveCondenserEvaporator
     "Chiller condenser barrel leaving temperature" annotation (Placement(
         transformation(extent={{-280,220},{-240,260}}), iconTransformation(
           extent={{-140,-140},{-100,-100}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(final unit
-      ="K", displayUnit="degC") "CWC return temperature"
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TConWatConRet(final unit=
+       "K", displayUnit="degC") "CWC return temperature"
     annotation (Placement(transformation(extent={{-280,120},{-240,160}}),
         iconTransformation(extent={{-140,-180},{-100,-140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1PumChiWat
@@ -342,8 +342,8 @@ block ValveCondenserEvaporator
     each final y_neutral=y_neutral) "Chiller condenser isolation valve control"
     annotation (Placement(transformation(extent={{70,350},{90,370}})));
   EnergyTransferStations.Combined.Controls.PIDWithEnable valEvaChiHea[nChiHea](
-    each k=k,
-    each Ti=Ti,
+    each k=4*k,
+    each Ti=Ti/3,
     each final yMin=yMin,
     each final yMax=1,
     each final reverseActing=true,
@@ -450,8 +450,8 @@ block ValveCondenserEvaporator
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe[nChiHea](each t=0.1,
       each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{190,-90},{170,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe1[nChiHea](each t
-      =0.1, each h=5E-2) "Check if valve open"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe1[nChiHea](each t=
+       0.1, each h=5E-2) "Check if valve open"
     annotation (Placement(transformation(extent={{190,-130},{170,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold isOpe2[nChi](each t=0.1,
       each h=5E-2) "Check if valve open"
@@ -1296,8 +1296,8 @@ equation
   connect(rep13.y, fulOpe.u) annotation (Line(points={{-128,420},{-120,420},{
           -120,440},{-112,440}}, color={255,0,255}));
   connect(cooOrDirAndOn.y, anyCooOrDirAndOn.u) annotation (Line(points={{-98,
-          -160},{-80,-160},{-80,-120},{-238,-120},{-238,420},{-182,420}}, color
-        ={255,0,255}));
+          -160},{-80,-160},{-80,-120},{-238,-120},{-238,420},{-182,420}}, color=
+         {255,0,255}));
   connect(cooAndOn.y, anyCooAndOn.u) annotation (Line(points={{-158,-60},{-140,-60},
           {-140,-46},{-236,-46},{-236,480},{-222,480}},      color={255,0,255}));
   connect(cooAndOn.y, heaOrCooCon.u1) annotation (Line(points={{-158,-60},{-140,
