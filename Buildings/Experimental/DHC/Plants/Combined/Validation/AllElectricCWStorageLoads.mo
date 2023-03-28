@@ -134,6 +134,7 @@ model AllElectricCWStorageLoads
   Loads.Cooling.BuildingTimeSeriesWithETS loaCoo(
       TChiWatSup_nominal=pla.TChiWatSup_nominal,
       filNam=filNam,
+      ets(dpCheVal_nominal=120000),
       bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
     annotation (Placement(transformation(extent={{10,-78},{-10,-58}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
@@ -219,8 +220,9 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=2592000,
-      Interval=59.9999616,
+      StartTime=5184000,
+      StopTime=15552000,
+      Interval=299.999808,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
