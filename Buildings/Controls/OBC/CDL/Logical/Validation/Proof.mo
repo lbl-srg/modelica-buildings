@@ -70,28 +70,28 @@ annotation (
 <p>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Logical.Proof\">
-Buildings.Controls.OBC.CDL.Logical.Proof</a>. Following tests are implemented:
+Buildings.Controls.OBC.CDL.Logical.Proof</a>. The following tests are implemented:
 </p>
 <ul>
 <li>
-If both boolean inputs changes simultaneously, both outputs should remain
+If both boolean inputs change simultaneously, both outputs will be
 <code>false</code>. It is tested through instance <code>pro</code>.
 </li>
 <li>
 Both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>uMea</code> changes, the input <code>uCom</code> remains
-<code>true</code> for a time that is longer than the difference check delay
-<code>checkDelay</code>. The output <code>y1</code> should be <code>true</code>.
+<code>true</code> for a time that is longer than
+<code>checkDelay</code>. The output <code>y1</code> will be <code>true</code>.
 This is tested through instances <code>pro2</code> and <code>pro3</code>, with
 different delay <code>checkDelay</code> for checking the input difference.
 </li>
 <li>
 Both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>uCom</code> changes, the input <code>uMea</code> remains
-<code>true</code> for a time that is longer than the difference check delay
-<code>checkDelay</code>. The output <code>y2</code> should be <code>true</code>.
+<code>true</code> for a time that is longer than
+<code>checkDelay</code>. The output <code>y2</code> will be <code>true</code>.
 This is tested through instances <code>pro1</code> and <code>pro4</code>, with
-different delay <code>checkDelay</code> for checking the input difference.
+different delay <code>checkDelay</code> for checking the inputs.
 </li>
 </ul>
 </html>",
