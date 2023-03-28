@@ -3,36 +3,33 @@ model Less
   "Validation model for the Less block"
   Buildings.Controls.OBC.CDL.Continuous.Less les
     "Less block, without hysteresis"
-    annotation (Placement(transformation(extent={{20,10},{40,30}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Less lesHys(
     h=1)
     "Less block, with hysteresis"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[0,-1; 3,1; 5,0; 7,2; 10,0])
-    "Time table with smoothness method of constant segments"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin1(
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    table=[
-      0,0;
-      4,1;
-      6,0;
-      7,-1;
-      10,-2])
-    "Time table with smoothness method of constant segments"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+    amplitude=3,
+    freqHz=1/10,
+    offset=-2,
+    startTime=1)
+    "Sine source"
+    annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram1(
+    height=5,
+    duration=10,
+    offset=-2)
+    "Ramp source"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
 equation
-  connect(timTabLin.y[1], les.u1)
-    annotation (Line(points={{-18,20},{18,20}}, color={0,0,127}));
-  connect(timTabLin.y[1], lesHys.u1) annotation (Line(points={{-18,20},{0,20},{0,
-          -20},{18,-20}}, color={0,0,127}));
-  connect(timTabLin1.y[1], les.u2) annotation (Line(points={{-18,-20},{-10,-20},
-          {-10,12},{18,12}}, color={0,0,127}));
-  connect(timTabLin1.y[1], lesHys.u2) annotation (Line(points={{-18,-20},{-10,-20},
-          {-10,-28},{18,-28}}, color={0,0,127}));
+  connect(sin.y, les.u1)
+    annotation (Line(points={{-18,40},{18,40}}, color={0,0,127}));
+  connect(sin.y, lesHys.u1) annotation (Line(points={{-18,40},{0,40},{0,-20},{18,
+          -20}}, color={0,0,127}));
+  connect(ram1.y, les.u2) annotation (Line(points={{-18,-20},{-10,-20},{-10,32},
+          {18,32}}, color={0,0,127}));
+  connect(ram1.y, lesHys.u2) annotation (Line(points={{-18,-20},{-10,-20},{-10,-28},
+          {18,-28}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10.0,
@@ -51,6 +48,13 @@ instance <code>lesHys</code> has a hysteresis.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 14, 2023, by Jianjun Hu:<br/>
+Changed the greater block input to avoid near zero crossing.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3294\">
+issue 3294</a>.
+</li>  
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Updated model to add a test case with hysteresis.

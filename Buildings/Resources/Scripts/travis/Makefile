@@ -45,6 +45,13 @@ test-optimica-spawn-fmu:
 	  python3 Buildings/Resources/Scripts/travis/pyfmi/runSpawnFromOtherDirectory.py )
 	@echo "    Success."
 
+test-openmodelica-cdl:
+	@echo "*** Running result verification of CDL with OpenModelica."
+	(cd $(ROOT)/Buildings && \
+	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
+	  python3 ../bin/runUnitTests.py --batch --single-package Buildings.Controls.OBC.CDL --tool openmodelica)
+
+
 test-openmodelica-spawn-spaces: test-openmodelica-spawn-spaces-success test-openmodelica-spawn-spaces-failure
 
 test-openmodelica-spawn-spaces-success:
