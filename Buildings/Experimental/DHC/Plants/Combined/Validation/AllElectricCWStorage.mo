@@ -17,14 +17,14 @@ model AllElectricCWStorage "Validation of all-electric plant model"
         0.0406987748, 3.0278e-06, -0.3413411197, -0.000469572, 0.0055009208},
       QEva_flow_nominal=-1E6,
       COP_nominal=2.5,
-      mEva_flow_nominal=-datChi.QEva_flow_nominal / 7 / 4186,
+    mEva_flow_nominal=-datChi.QEva_flow_nominal/5/4186,
       mCon_flow_nominal=-datChi.QEva_flow_nominal * (1 + 1/datChi.COP_nominal) / 10 / 4186,
-      TEvaLvg_nominal=279.15,
-      TEvaLvgMin=277.15,
-      TEvaLvgMax=308.15,
-      TConLvg_nominal=333.15,
-      TConLvgMin=296.15,
-      TConLvgMax=336.15)
+    TEvaLvg_nominal=279.15,
+    TEvaLvgMin=277.15,
+    TEvaLvgMax=308.15,
+    TConLvg_nominal=333.15,
+    TConLvgMin=296.15,
+    TConLvgMax=336.15)
     constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     "Chiller parameters (each unit)"
     annotation (
