@@ -7,16 +7,18 @@ model LessThreshold
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesHys(t=2, h=1)
     "Less block, with hysteresis"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable timTabLin(
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    final table=[0,-3.5; 1,-2; 2,2; 3,3; 6,4; 8,-2; 10,-3.5])
-    "Time table with smoothness method of constant segments"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+    amplitude=8,
+    freqHz=1/10,
+    offset=-2,
+    startTime=1)
+    "Sine source"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 equation
-  connect(timTabLin.y[1], les.u)
+  connect(sin.y, les.u)
     annotation (Line(points={{-18,30},{18,30}}, color={0,0,127}));
-  connect(timTabLin.y[1], lesHys.u)
-    annotation (Line(points={{-18,30},{0,30},{0,-20},{18,-20}}, color={0,0,127}));
+  connect(sin.y, lesHys.u) annotation (Line(points={{-18,30},{0,30},{0,-20},{18,
+          -20}}, color={0,0,127}));
   annotation (
     experiment(
       StopTime=10.0,
@@ -35,6 +37,13 @@ instance <code>lesHys</code> has a hysteresis.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 14, 2023, by Jianjun Hu:<br/>
+Changed the greater block input to avoid near zero crossing.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3294\">
+issue 3294</a>.
+</li> 
 <li>
 August 5, 2020, by Michael Wetter:<br/>
 Updated model to add a test case with hysteresis.

@@ -78,7 +78,7 @@ equation
   annotation (
     experiment(
       StopTime=10.0,
-      Tolerance=1e-06),
+      Tolerance=1e-07),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Validation/Derivative.mos" "Simulate and plot"),
     Documentation(
