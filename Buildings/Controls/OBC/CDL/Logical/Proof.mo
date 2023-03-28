@@ -93,6 +93,12 @@ protected
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3 "False input"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+
+initial equation
+  assert(
+    difCheDel >= valInpDel,
+    "The delay for checking different must not be shorter than the delay for validing input.");
+
 equation
   connect(uMea,valTru. u)
     annotation (Line(points={{-200,130},{-162,130}}, color={255,0,255}));
@@ -158,6 +164,7 @@ equation
           20},{-62,20}}, color={255,0,255}));
   connect(not3.y, botFal.u2) annotation (Line(points={{-38,20},{80,20},{80,72},{
           98,72}}, color={255,0,255}));
+
 annotation (defaultComponentName="pro",
   Diagram(coordinateSystem(extent={{-180,-120},{160,160}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
@@ -198,5 +205,40 @@ annotation (defaultComponentName="pro",
         Text(
           extent={{-100,140},{100,100}},
           textColor={0,0,255},
-          textString="%name")}));
+          textString="%name")}),
+Documentation(info="<html>
+<p>
+Block that compares two boolean inputs, <code>uMea</code> and <code>uCom</code>.
+If the two inputs do not receive the same signal, the block provides two outputs
+<code>y1</code> and <code>y2</code> that can trigger alarms.
+</p>
+<p>
+The parameter <code>valInpDel</code> specifies the amount of time that the inputs
+<code>uMea</code> and <code>uCom</code> must remain unchanged before they are
+considered valid. If either of the valid input changes, after a delay which is
+specified by the parameter <code>difCheDel</code>, the block checks if the
+inputs are the same. The <code>valInpDel</code> should not be greater than the
+<code>difCheDel</code>.
+</p>
+<ul>
+<li>
+The output <code>y1</code> will be <code>true</code> if the valid <code>uCom</code>
+is <code>true</code> and the valid <code>uMea</code> is <code>false</code>.
+Otherwise, it will be <code>false</code>.
+</li>
+<li>
+The output <code>y2</code> will be <code>true</code> if the valid <code>uCom</code>
+is <code>false</code> and the valid <code>uMea</code> is <code>true</code>.
+Otherwise, it will be <code>false</code>.
+</li>
+</ul>
+</html>",
+revisions="<html>
+<ul>
+<li>
+March 27, 2023, by Jianjun Hu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Proof;
