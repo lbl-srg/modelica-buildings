@@ -9,10 +9,12 @@ block Proof "Verify two boolean inputs"
     final unit="s")
     "Delay to check if the valid inputs are the same";
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMea "Current status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uMea
+    "Current status"
     annotation (Placement(transformation(extent={{-220,110},{-180,150}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCom "Commanded status"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uCom
+    "Commanded status"
     annotation (Placement(transformation(extent={{-220,-30},{-180,10}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
@@ -72,7 +74,7 @@ protected
     "Delay the difference check"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Not not5 "False input"
-    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
@@ -89,7 +91,8 @@ protected
     final k=true)
     "True constant"
     annotation (Placement(transformation(extent={{-160,30},{-140,50}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not3 "False input"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
 equation
   connect(uMea,valTru. u)
     annotation (Line(points={{-200,130},{-162,130}}, color={255,0,255}));
@@ -109,8 +112,6 @@ equation
           122},{-62,122}}, color={255,0,255}));
   connect(botTru.y, notBotTru.u)
     annotation (Line(points={{-38,130},{-22,130}}, color={255,0,255}));
-  connect(valTru1.y, not5.u) annotation (Line(points={{-138,-10},{-80,-10},{-80,
-          -40},{-62,-40}}, color={255,0,255}));
   connect(notBotTru.y, delChe.u)
     annotation (Line(points={{2,130},{38,130}}, color={255,0,255}));
   connect(delChe.y, falTru.u1)
@@ -125,7 +126,7 @@ equation
     annotation (Line(points={{102,-90},{118,-90}},   color={255,0,255}));
   connect(truFal.y, y2)
     annotation (Line(points={{142,-90},{180,-90}},   color={255,0,255}));
-  connect(not5.y, truFal.u2) annotation (Line(points={{-38,-40},{110,-40},{110,-98},
+  connect(not5.y, truFal.u2) annotation (Line(points={{62,-40},{110,-40},{110,-98},
           {118,-98}},        color={255,0,255}));
   connect(booToInt.y, equSta.u1)
     annotation (Line(points={{2,80},{38,80}},  color={255,127,0}));
@@ -133,8 +134,6 @@ equation
           72},{38,72}},     color={255,127,0}));
   connect(equSta.y, botFal.u1)
     annotation (Line(points={{62,80},{98,80}},  color={255,0,255}));
-  connect(not5.y, botFal.u2) annotation (Line(points={{-38,-40},{80,-40},{80,72},
-          {98,72}},  color={255,0,255}));
   connect(truDel1.y, valFal.u2)
     annotation (Line(points={{-98,80},{-62,80}}, color={255,0,255}));
   connect(uMea, valFal.u1) annotation (Line(points={{-200,130},{-170,130},{-170,
@@ -142,7 +141,7 @@ equation
   connect(truDel2.y, valFal1.u2)
     annotation (Line(points={{-98,-90},{-62,-90}},   color={255,0,255}));
   connect(uCom, valFal1.u1) annotation (Line(points={{-200,-10},{-170,-10},{-170,
-          -60},{-70,-60},{-70,-82},{-62,-82}},          color={255,0,255}));
+          -60},{-80,-60},{-80,-82},{-62,-82}},          color={255,0,255}));
   connect(valFal1.y, booToInt1.u)
     annotation (Line(points={{-38,-90},{-22,-90}},color={255,0,255}));
   connect(con.y, valFal.u3) annotation (Line(points={{-138,40},{-90,40},{-90,72},
@@ -153,7 +152,12 @@ equation
     annotation (Line(points={{-38,80},{-22,80}},  color={255,0,255}));
   connect(botFal.y, notBotFal.u) annotation (Line(points={{122,80},{140,80},{140,
           -20},{20,-20},{20,-90},{38,-90}}, color={255,0,255}));
-
+  connect(valFal1.y, not5.u) annotation (Line(points={{-38,-90},{-30,-90},{-30,-40},
+          {38,-40}}, color={255,0,255}));
+  connect(valTru1.y, not3.u) annotation (Line(points={{-138,-10},{-80,-10},{-80,
+          20},{-62,20}}, color={255,0,255}));
+  connect(not3.y, botFal.u2) annotation (Line(points={{-38,20},{80,20},{80,72},{
+          98,72}}, color={255,0,255}));
 annotation (defaultComponentName="pro",
   Diagram(coordinateSystem(extent={{-180,-120},{160,160}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
