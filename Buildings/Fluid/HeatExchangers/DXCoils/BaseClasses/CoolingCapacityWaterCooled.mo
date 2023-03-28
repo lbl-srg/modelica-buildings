@@ -28,7 +28,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.capFunFFCon,
          xMin=sta[iSta].perCur.ffConMin,
-         xMax=sta[iSta].perCur.ffConMin),
+         xMax=sta[iSta].perCur.ffConMax),
          msg="Capacity as a function of normalized water mass flow rate at the condenser",
          curveName="sta[" + String(iSta) + "].perCur.capFunFFCon");
 
@@ -37,7 +37,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.EIRFunFF,
          xMin=sta[iSta].perCur.ffConMin,
-         xMax=sta[iSta].perCur.ffConMin),
+         xMax=sta[iSta].perCur.ffConMax),
          msg="EIR as a function of normalized water mass flow rate at the condenser",
          curveName="sta[" + String(iSta) + "].perCur.EIRFunFFCon");
    end for;
@@ -65,21 +65,21 @@ if stage > 0 then
   //-------------------------Cooling capacity modifiers----------------------------//
 
     cap_FFCon[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
-      x=ff[iSta],
+      x=ffCon[iSta],
       c=sta[iSta].perCur.capFunFFCon,
       xMin=sta[iSta].perCur.ffConMin,
-      xMax=sta[iSta].perCur.ffConMin);
+      xMax=sta[iSta].perCur.ffConMax);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_FFCon[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
-       x=ff[iSta],
+       x=ffCon[iSta],
        c=sta[iSta].perCur.EIRFunFFCon,
        xMin=sta[iSta].perCur.ffConMin,
-       xMax=sta[iSta].perCur.ffConMin)
+       xMax=sta[iSta].perCur.ffConMax)
         "Cooling capacity modification factor as function of flow fraction";
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFacCon[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ffCon[iSta] - sta[iSta].perCur.ffConMin/4,
-       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffConMin/4));
+       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffConMin/8));
 
     Q_flow[iSta] = corFac[iSta]*corFacCon[iSta]*cap_T[iSta]*cap_FF[iSta]*cap_FFCon[iSta]*sta[iSta].nomVal.Q_flow_nominal;
     EIR[iSta]    = corFac[iSta]*corFacCon[iSta]*EIR_T[iSta]*EIR_FF[iSta]*EIR_FFCon[iSta]/sta[iSta].nomVal.COP_nominal;
@@ -147,14 +147,21 @@ if stage > 0 then
 revisions="<html>
 <ul>
 <li>
-February 17, 2017 by Yangyang Fu:<br/>
-First implementation.
+November 8, 2022, by Michael Wetter:<br/>
+Corrected calculation of performance which used the wrong upper bound, and
+which used <code>ff</code> instead of <code>ffCon</code> for calculating <code>cap_FFCon</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\">issue 3146</a>.
 </li>
 <li>
 October 21, 2019, by Michael Wetter:<br/>
 Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
+<li>
+February 17, 2017 by Yangyang Fu:<br/>
+First implementation.
 </li>
 </ul>
 

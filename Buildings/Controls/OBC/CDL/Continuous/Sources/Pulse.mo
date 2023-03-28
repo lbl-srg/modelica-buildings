@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
 block Pulse
   "Generate pulse signal of type Real"
-  parameter Real amplitude=1
+  parameter Real amplitude=1.0
     "Amplitude of pulse";
   parameter Real width(
     final min=Constants.small,
@@ -17,7 +17,7 @@ block Pulse
     final quantity="Time",
     final unit="s")=0
     "Shift time for output";
-  parameter Real offset=0
+  parameter Real offset=0.0
     "Offset of output signals";
   Interfaces.RealOutput y
     "Connector of Pulse output signal"

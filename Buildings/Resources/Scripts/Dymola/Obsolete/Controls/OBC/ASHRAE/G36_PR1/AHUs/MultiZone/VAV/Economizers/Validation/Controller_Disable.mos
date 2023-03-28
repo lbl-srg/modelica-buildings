@@ -1,0 +1,14 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.Economizers.Validation.Controller_Disable", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Controller_Disable_MultiZone");
+createPlot(id=1, position={10, 10, 1200, 1050}, subPlot=1, y={"economizer.VOut_flow_normalized","economizer.VOutMinSet_flow_normalized"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1200, 1050}, subPlot=2, y={"economizer.enaDis.andEnaDis.y","economizer.uFreProSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1200, 1050}, subPlot=3, y={"economizer.damLim.yOutDamPosMin","economizer.damLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1200, 1050}, subPlot=4, y={"economizer.yOutDamPos","economizer.yRetDamPos"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={30, 10, 1200, 1050}, subPlot=1, y={"economizer1.VOut_flow_normalized","economizer1.VOutMinSet_flow_normalized"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={30, 10, 1200, 1050}, subPlot=2, y={"economizer1.enaDis.andEnaDis.y","economizer1.uFreProSta"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72},{238,46,47}});
+createPlot(id=2, position={30, 10, 1200, 1050}, subPlot=3, y={"economizer1.damLim.yOutDamPosMin","economizer1.damLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, position={30, 10, 1200, 1050}, subPlot=4, y={"economizer1.yOutDamPos","economizer1.yRetDamPos"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={50, 10, 1200, 1050}, subPlot=1, y={"economizer2.TMix","economizer2.freProTMix.TFreSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72},{238,46,47}});
+createPlot(id=3, position={50, 10, 1200, 1050}, subPlot=2, y={"economizer2.yOutDamPos","economizer2.yRetDamPos"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={50, 10, 1200, 1050}, subPlot=3, y={"economizer2.VOut_flow_normalized","economizer2.VOutMinSet_flow_normalized"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, position={50, 10, 1200, 1050}, subPlot=4, y={"economizer2.enaDis.andEnaDis.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72}});
+createPlot(id=3, position={50, 10, 1200, 1050}, subPlot=5, y={"economizer2.damLim.yOutDamPosMin","economizer2.damLim.yRetDamPosMax"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

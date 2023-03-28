@@ -12,7 +12,7 @@ block Capacities
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHig
     "Current stage is the highest available stage"
-    annotation (Placement(transformation(extent={{-240,-140},{-200,-100}}),
+    annotation (Placement(transformation(extent={{-240,-110},{-200,-70}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput u(
@@ -30,7 +30,7 @@ block Capacities
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uDown(
     final min=0,
     final max=nSta) "Next available lower stage"
-    annotation (Placement(transformation(extent={{-240,-20},{-200,20}}),
+    annotation (Placement(transformation(extent={{-240,-40},{-200,0}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uDesCap[nSta](
@@ -80,39 +80,29 @@ protected
   "Large gain";
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
-    final nin=nSta,
-    final outOfRangeValue=0,
-    final allowOutOfRange=true)
+    final nin=nSta)
     "Extracts the design capacity at the current stage"
-    annotation (Placement(transformation(extent={{-100,140},{-80,160}})));
+    annotation (Placement(transformation(extent={{-10,170},{10,190}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor dowCap(
-    final nin=nSta,
-    final outOfRangeValue=0,
-    final allowOutOfRange=true)
+    final nin=nSta)
     "Extracts the design capacity of one stage lower than the current stage"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCapMin(
-    final nin=nSta,
-    final allowOutOfRange=true,
-    final outOfRangeValue=0)
+    final nin=nSta)
     "Extracts minimal capacity of the next higher stage"
-    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
+    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor upCap(
-    final nin=nSta,
-    final allowOutOfRange=true,
-    final outOfRangeValue=0)
+    final nin=nSta)
     "Extracts the design capacity of the next stage"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor capMin(
-    final nin=nSta,
-    final outOfRangeValue=0,
-    final allowOutOfRange=true)
+    final nin=nSta)
     "Extracts the minimum capacity of the current stage"
-    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+    annotation (Placement(transformation(extent={{0,-150},{20,-130}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2 "Switch"
     annotation (Placement(transformation(extent={{160,50},{180,70}})));
@@ -122,65 +112,146 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Outputs minimum current stage capacity as design stage down capacity if operating in the lowest available stage"
-    annotation (Placement(transformation(extent={{100,10},{120,30}})));
+    annotation (Placement(transformation(extent={{160,10},{180,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=larGai)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=larGai)
     "Ouputs a very large and unachievable staging up capacity when current is the highest available stage"
-    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
+    annotation (Placement(transformation(extent={{80,110},{100,130}})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[3]
+    "Convert boolean to real"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
+    "Ensure zero output when the index is out of range"
+    annotation (Placement(transformation(extent={{30,140},{50,160}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
+    "Ensure zero output when the index is out of range"
+    annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
+    "Ensure zero output when the index is out of range"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
+    "Ensure zero output when the index is out of range"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
+    "Ensure zero output when the index is out of range"
+    annotation (Placement(transformation(extent={{60,30},{80,50}})));
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr[3](
+    final t=fill(1, 3)) "Check if index is in the range"
+    annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr[3](
+    final t=fill(nSta, 3)) "Check if index is in the range"
+    annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt[3](
+    final k=fill(1, 3))
+    "Dummy index so the extractor will not have out of range index"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2[3]
+    "Check if index is in the range"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi[3] "Valid index"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
-  connect(upCap.y, swi2.u3) annotation (
-    Line(points={{22,80},{80,80},{80,52},{158,52}}, color={0,0,127}));
   connect(yMin, yMin)
     annotation (Line(points={{220,-20},{220,-20}}, color={0,0,127}));
-  connect(upCapMin.y, swi4.u3) annotation (Line(points={{22,-30},{40,-30},{40,-98},
-          {158,-98}}, color={0,0,127}));
   connect(swi4.y, yUpMin) annotation (Line(points={{182,-90},{220,-90}}, color={0,0,127}));
-  connect(capMin.y, yMin) annotation (Line(points={{22,-70},{80,-70},{80,-20},{220,
-          -20}},      color={0,0,127}));
-  connect(dowCap.y, swi1.u3) annotation (Line(points={{-78,80},{-40,80},{-40,12},
-          {98,12}}, color={0,0,127}));
-  connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-120,-180},
-          {-120,-30},{-2,-30}}, color={0,0,127}));
-  connect(uMinCap, capMin.u) annotation (Line(points={{-220,-180},{-120,-180},{-120,
-          -70},{-2,-70}}, color={0,0,127}));
-  connect(uDesCap, cap.u) annotation (Line(points={{-220,180},{-120,180},{-120,150},
-          {-102,150}}, color={0,0,127}));
-  connect(uDesCap, dowCap.u) annotation (Line(points={{-220,180},{-140,180},{-140,
-          80},{-102,80}},                            color={0,0,127}));
-  connect(uDesCap, upCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,80},
-          {-2,80}}, color={0,0,127}));
-  connect(uLow, swi1.u2) annotation (Line(points={{-220,-60},{-140,-60},{-140,20},
-          {98,20}},  color={255,0,255}));
-  connect(uHig, swi2.u2) annotation (Line(points={{-220,-120},{140,-120},{140,60},
+  connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-20,-180},{
+          -20,-60},{-2,-60}},   color={0,0,127}));
+  connect(uMinCap, capMin.u) annotation (Line(points={{-220,-180},{-20,-180},{-20,
+          -140},{-2,-140}},  color={0,0,127}));
+  connect(uDesCap, cap.u) annotation (Line(points={{-220,180},{-12,180}},
+                       color={0,0,127}));
+  connect(uDesCap, dowCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,
+          0},{-2,0}},                                color={0,0,127}));
+  connect(uDesCap, upCap.u) annotation (Line(points={{-220,180},{-20,180},{-20,90},
+          {-2,90}}, color={0,0,127}));
+  connect(uLow, swi1.u2) annotation (Line(points={{-220,-60},{-50,-60},{-50,20},
+          {158,20}}, color={255,0,255}));
+  connect(uHig, swi2.u2) annotation (Line(points={{-220,-90},{140,-90},{140,60},
           {158,60}}, color={255,0,255}));
-  connect(uHig, swi4.u2) annotation (Line(points={{-220,-120},{140,-120},{140,-90},
-          {158,-90}}, color={255,0,255}));
-  connect(cap.y, gai.u) annotation (Line(points={{-78,150},{-70,150},{-70,120},{
-          -62,120}}, color={0,0,127}));
-  connect(gai.y, swi2.u1) annotation (Line(points={{-38,120},{100,120},{100,68},
+  connect(uHig, swi4.u2) annotation (Line(points={{-220,-90},{158,-90}},
+                      color={255,0,255}));
+  connect(gai.y, swi2.u1) annotation (Line(points={{102,120},{120,120},{120,68},
           {158,68}}, color={0,0,127}));
-  connect(gai.y, swi4.u1) annotation (Line(points={{-38,120},{60,120},{60,-82},{
-          158,-82}}, color={0,0,127}));
-  connect(swi1.y, yDowDes) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
-  connect(u, cap.index) annotation (Line(points={{-220,120},{-90,120},{-90,138}},
-           color={255,127,0}));
-  connect(uDown, dowCap.index) annotation (Line(points={{-220,0},{-90,0},{-90,68}},
-          color={255,127,0}));
-  connect(uUp, upCap.index) annotation (Line(points={{-220,60},{10,60},{10,68}},
-          color={255,127,0}));
-  connect(uUp, upCapMin.index) annotation (Line(points={{-220,60},{-60,60},{-60,
-          -50},{10,-50},{10,-42}}, color={255,127,0}));
-  connect(cap.y, yDes) annotation (Line(points={{-78,150},{220,150}},
-          color={0,0,127}));
-  connect(capMin.y, swi1.u1) annotation (Line(points={{22,-70},{80,-70},{80,28},
-          {98,28}},color={0,0,127}));
-  connect(u, capMin.index) annotation (Line(points={{-220,120},{-160,120},{-160,
-          -90},{10,-90},{10,-82}}, color={255,127,0}));
+  connect(gai.y, swi4.u1) annotation (Line(points={{102,120},{120,120},{120,-82},
+          {158,-82}},color={0,0,127}));
+  connect(swi1.y, yDowDes) annotation (Line(points={{182,20},{220,20}}, color={0,0,127}));
+  connect(cap.y, yDes) annotation (Line(points={{12,180},{122,180},{122,150},{220,
+          150}}, color={0,0,127}));
   connect(yUpMin, yUpMin)
     annotation (Line(points={{220,-90},{220,-90}}, color={0,0,127}));
-
+  connect(intGreEquThr.y, and2.u1)
+    annotation (Line(points={{-138,80},{-122,80}}, color={255,0,255}));
+  connect(intLesEquThr.y, and2.u2) annotation (Line(points={{-138,0},{-130,0},{-130,
+          72},{-122,72}}, color={255,0,255}));
+  connect(and2.y, intSwi.u2) annotation (Line(points={{-98,80},{-90,80},{-90,30},
+          {-82,30}}, color={255,0,255}));
+  connect(conInt.y, intSwi.u3) annotation (Line(points={{-98,0},{-90,0},{-90,22},
+          {-82,22}}, color={255,127,0}));
+  connect(and2.y, booToRea.u)
+    annotation (Line(points={{-98,80},{-82,80}}, color={255,0,255}));
+  connect(cap.y, mul.u1) annotation (Line(points={{12,180},{20,180},{20,156},{28,
+          156}}, color={0,0,127}));
+  connect(mul.y, gai.u) annotation (Line(points={{52,150},{60,150},{60,120},{78,
+          120}}, color={0,0,127}));
+  connect(capMin.y, mul1.u2) annotation (Line(points={{22,-140},{40,-140},{40,-126},
+          {58,-126}}, color={0,0,127}));
+  connect(mul1.y, yMin) annotation (Line(points={{82,-120},{130,-120},{130,-20},
+          {220,-20}}, color={0,0,127}));
+  connect(mul1.y, swi1.u1) annotation (Line(points={{82,-120},{130,-120},{130,28},
+          {158,28}}, color={0,0,127}));
+  connect(u, intGreEquThr[1].u) annotation (Line(points={{-220,120},{-190,120},{
+          -190,80},{-162,80}}, color={255,127,0}));
+  connect(u, intLesEquThr[1].u) annotation (Line(points={{-220,120},{-190,120},{
+          -190,0},{-162,0}}, color={255,127,0}));
+  connect(u, intSwi[1].u1) annotation (Line(points={{-220,120},{-190,120},{-190,
+          38},{-82,38}}, color={255,127,0}));
+  connect(booToRea[1].y, mul1.u1) annotation (Line(points={{-58,80},{-30,80},{-30,
+          -114},{58,-114}}, color={0,0,127}));
+  connect(booToRea[1].y, mul.u2) annotation (Line(points={{-58,80},{-30,80},{-30,
+          144},{28,144}}, color={0,0,127}));
+  connect(intSwi[1].y, cap.index) annotation (Line(points={{-58,30},{-40,30},{-40,
+          160},{0,160},{0,168}}, color={255,127,0}));
+  connect(intSwi[1].y, capMin.index) annotation (Line(points={{-58,30},{-40,30},
+          {-40,-160},{10,-160},{10,-152}}, color={255,127,0}));
+  connect(mul2.y, swi4.u3) annotation (Line(points={{82,-40},{100,-40},{100,-98},
+          {158,-98}}, color={0,0,127}));
+  connect(upCapMin.y, mul2.u2) annotation (Line(points={{22,-60},{40,-60},{40,-46},
+          {58,-46}}, color={0,0,127}));
+  connect(booToRea[2].y, mul2.u1) annotation (Line(points={{-58,80},{-30,80},{-30,
+          -34},{58,-34}}, color={0,0,127}));
+  connect(intSwi[2].y, upCapMin.index) annotation (Line(points={{-58,30},{-40,30},
+          {-40,-80},{10,-80},{10,-72}}, color={255,127,0}));
+  connect(upCap.y, mul3.u1) annotation (Line(points={{22,90},{40,90},{40,76},{58,
+          76}}, color={0,0,127}));
+  connect(mul3.y, swi2.u3) annotation (Line(points={{82,70},{100,70},{100,52},{158,
+          52}}, color={0,0,127}));
+  connect(booToRea[2].y, mul3.u2) annotation (Line(points={{-58,80},{-14,80},{-14,
+          64},{58,64}}, color={0,0,127}));
+  connect(intSwi[2].y, upCap.index)
+    annotation (Line(points={{-58,30},{10,30},{10,78}}, color={255,127,0}));
+  connect(mul4.y, swi1.u3) annotation (Line(points={{82,40},{100,40},{100,12},{158,
+          12}}, color={0,0,127}));
+  connect(dowCap.y, mul4.u2)
+    annotation (Line(points={{22,0},{40,0},{40,34},{58,34}}, color={0,0,127}));
+  connect(booToRea[3].y, mul4.u1) annotation (Line(points={{-58,80},{-30,80},{-30,
+          46},{58,46}}, color={0,0,127}));
+  connect(intSwi[3].y, dowCap.index) annotation (Line(points={{-58,30},{-40,30},
+          {-40,-20},{10,-20},{10,-12}}, color={255,127,0}));
+  connect(uUp, intGreEquThr[2].u) annotation (Line(points={{-220,60},{-180,60},{
+          -180,80},{-162,80}}, color={255,127,0}));
+  connect(uUp, intLesEquThr[2].u) annotation (Line(points={{-220,60},{-180,60},{
+          -180,0},{-162,0}}, color={255,127,0}));
+  connect(uUp, intSwi[2].u1) annotation (Line(points={{-220,60},{-180,60},{-180,
+          38},{-82,38}}, color={255,127,0}));
+  connect(uDown, intGreEquThr[3].u) annotation (Line(points={{-220,-20},{-170,-20},
+          {-170,80},{-162,80}}, color={255,127,0}));
+  connect(uDown, intLesEquThr[3].u) annotation (Line(points={{-220,-20},{-170,-20},
+          {-170,0},{-162,0}}, color={255,127,0}));
+  connect(uDown, intSwi[3].u1) annotation (Line(points={{-220,-20},{-170,-20},{-170,
+          38},{-82,38}}, color={255,127,0}));
 annotation (defaultComponentName = "cap",
         Icon(graphics={
         Rectangle(

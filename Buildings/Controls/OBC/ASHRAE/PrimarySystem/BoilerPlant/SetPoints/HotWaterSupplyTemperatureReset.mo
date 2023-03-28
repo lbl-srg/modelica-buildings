@@ -161,7 +161,7 @@ protected
     "Check for non-condensing stage type"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
     final iniSet=TPlaHotWatSetMax,
     final minSet=THotWatSetMinNonConBoi,
     final maxSet=TPlaHotWatSetMax,
@@ -195,7 +195,7 @@ protected
     "Check if any pumps are turned on"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes1(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes1(
     final iniSet=TPlaHotWatSetMax,
     final minSet=THotWatSetMinConBoi,
     final maxSet=TPlaHotWatSetMax,

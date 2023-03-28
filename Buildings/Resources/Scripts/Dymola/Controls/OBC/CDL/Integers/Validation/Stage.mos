@@ -1,0 +1,6 @@
+simulateModel("Buildings.Controls.OBC.CDL.Integers.Validation.Stage", stopTime=10.0, method="Cvode", tolerance=1e-06, resultFile="Stage");
+createPlot(id=1, position={15, 15, 1152, 1184}, y={"sta.u"}, range={0.0, 10.0, -0.2, 1.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 1152, 1184}, y={"sta.y", "zerHolTim.y"}, range={0.0, 10.0, -0.1, 1.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1187, 17, 1214, 1182}, y={"sta1.u"}, range={0.0, 10.0, -0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={1187, 17, 1214, 1182}, y={"sta1.y", "lesHolTim.y"}, range={0.0, 10.0, -1.5, 1.5}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+

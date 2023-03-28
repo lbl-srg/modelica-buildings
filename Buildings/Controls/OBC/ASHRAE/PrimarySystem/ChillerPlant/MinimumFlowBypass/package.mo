@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 package MinimumFlowBypass "Sequences for controlling chilled water minimum flow bypass valve"
 
 annotation (preferredView="info", Documentation(info="<html>

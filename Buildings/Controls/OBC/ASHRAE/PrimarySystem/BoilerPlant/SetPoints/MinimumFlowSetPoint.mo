@@ -183,7 +183,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Subtract subInt
     "Previous stage during stage change"
-    annotation (Placement(transformation(extent={{-62,70},{-42,90}})));
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=1)
@@ -373,14 +373,15 @@ equation
           52,80},{58,80}},
                         color={0,0,127}));
 
-  connect(conInt.y,subInt. u2) annotation (Line(points={{-98,70},{-72,70},{-72,74},
-          {-64,74}},
+  connect(conInt.y,subInt. u2) annotation (Line(points={{-98,70},{-72,70},{-72,
+          74},{-62,74}},
                    color={255,127,0}));
 
-  connect(uStaSet,subInt. u1) annotation (Line(points={{-160,-90},{-128,-90},{-128,
-          100},{-72,100},{-72,86},{-64,86}},   color={255,127,0}));
+  connect(uStaSet,subInt. u1) annotation (Line(points={{-160,-90},{-128,-90},{
+          -128,100},{-72,100},{-72,86},{-62,86}},
+                                               color={255,127,0}));
 
-  connect(subInt.y, extIndSig1.index) annotation (Line(points={{-40,80},{40,80},
+  connect(subInt.y, extIndSig1.index) annotation (Line(points={{-38,80},{40,80},
           {40,60},{70,60},{70,68}},color={255,127,0}));
 
   connect(matGai.y, extIndSig2.u)

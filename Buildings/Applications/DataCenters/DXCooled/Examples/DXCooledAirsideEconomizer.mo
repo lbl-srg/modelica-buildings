@@ -69,7 +69,10 @@ model DXCooledAirsideEconomizer
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     addPowerToMedium=false,
-    per(pressure(V_flow=mA_flow_nominal*{0,1,2}/1.2, dp=500*{2,1,0})),
+    per(
+      pressure(
+        V_flow=mA_flow_nominal*{0, 2}/1.2,
+        dp=500*{2, 0})),
     use_inputFilter=true)
     "Supply air fan"
     annotation (Placement(transformation(

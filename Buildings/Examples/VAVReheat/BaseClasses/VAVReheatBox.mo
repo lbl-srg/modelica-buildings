@@ -49,6 +49,10 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
   "Actual VAV damper position"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput yVal_actual(final unit="1")
+    "Actual valve position"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
   Modelica.Fluid.Interfaces.FluidPort_a port_aHeaWat(redeclare package Medium =
       MediumW) "Hot water inlet port"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
@@ -68,7 +72,7 @@ model VAVReheatBox "Supply box of a VAV system with a hot water reheat coil"
     "Supply Air Volumetric Flow Rate"
     annotation (Placement(transformation(extent={{100,70},{120,90}}),
         iconTransformation(extent={{100,70},{120,90}})));
-  Buildings.Fluid.Actuators.Dampers.PressureIndependent vav(
+  Buildings.Fluid.Actuators.Dampers.Exponential vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=mCooAir_flow_nominal,
     dpDamper_nominal=20,
@@ -167,6 +171,8 @@ equation
     annotation (Line(points={{-50,0},{-12,0},{-12,-20}}, color={0,127,255}));
   connect(yHea, val.y)
     annotation (Line(points={{-120,40},{-60,40},{-60,12}}, color={0,0,127}));
+  connect(val.y_actual, yVal_actual) annotation (Line(points={{-55,7},{-40,7},{-40,
+          -80},{110,-80}}, color={0,0,127}));
   annotation (Icon(
     graphics={
         Rectangle(
@@ -286,13 +292,16 @@ equation
         Line(points={{-100,30},{-66,30},{-66,-2},{-66,-20}}, color={0,0,127})}),
                                 Documentation(info="<html>
 <p>
-Model for a VAV terminal box with a water reheat coil and pressure independent damper.
-The pressure independent damper model includes an idealized flow rate controller
-and requires a discharge air flow rate set-point (normalized to the nominal value)
-as a control signal.
+Model for a VAV terminal box with a water reheat coil and exponential damper.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 27, 2023, by Jianjun Hu:<br/>
+Changed the pressure independent damper to exponential damper.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue #3139</a>.
+</li>
 <li>
 December 20, 2021, by Michael Wetter:<br/>
 Changed parameter declarations for

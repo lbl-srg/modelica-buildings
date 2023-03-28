@@ -166,8 +166,9 @@ equation
     annotation (Line(points={{-100,60},{40,60}},  color={0,127,255}));
   connect(con.port_b, port_b1)
     annotation (Line(points={{60,60},{60,60},{100,60}}, color={0,127,255}));
-  connect(con.Q_flow, QCon_flow) annotation (Line(points={{61,64},{60,64},{60,90},
-          {110,90}}, color={0,0,127}));
+  connect(con.Q_flow, QCon_flow) annotation (Line(points={{61,64},{80,64},{80,
+          90},{110,90}},
+                     color={0,0,127}));
   connect(eva.port_a, port_a2)
     annotation (Line(points={{60,-60},{100,-60}}, color={0,127,255}));
   connect(eva.port_b, port_b2)

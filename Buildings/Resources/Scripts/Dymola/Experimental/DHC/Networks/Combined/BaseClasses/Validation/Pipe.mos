@@ -1,0 +1,12 @@
+// Simulate
+simulateModel("Buildings.Experimental.DHC.Networks.Combined.BaseClasses.Validation.Pipe", 
+    stopTime=1, 
+    method="Cvode", 
+    tolerance=1e-06,
+    resultFile="Pipe");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={527, 3, 592, 648}, y={"pipSta1.dh", "pipAut1.dh"}, range={0.0, 1.0, 0.005476000000000001, 0.005482000000000001}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m", "m"});
+createPlot(id=1, position={527, 3, 592, 648}, y={"pipSta2.dh", "pipAut2.dh"}, range={0.0, 1.0, 2.9429, 2.9432}, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"m", "m"});
+createPlot(id=1, position={527, 3, 592, 648}, y={"pipSta1.dp", "pipAut1.dp"}, range={0.0, 1.0, 105200.0, 105800.0}, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"Pa", "Pa"});
+createPlot(id=1, position={527, 3, 592, 648}, y={"pipSta2.dp", "pipAut2.dp"}, range={0.0, 1.0, 9.998, 10.004}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"Pa", "Pa"});

@@ -30,7 +30,7 @@ block Status
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLow
     "If true current stage is the lowest available stage"
-    annotation (Placement(transformation(extent={{440,-100},{480,-60}}),
+    annotation (Placement(transformation(extent={{440,-110},{480,-70}}),
         iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yAvaCur
@@ -52,11 +52,6 @@ block Status
     annotation (Placement(transformation(extent={{440,-60},{480,-20}}),
         iconTransformation(extent={{100,20},{140,60}})));
 
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nSta](
-    final integerTrue=fill(1, nSta),
-    final integerFalse=fill(0, nSta)) "Type conversion"
-    annotation (Placement(transformation(extent={{-360,-30},{-340,-10}})));
-
 protected
   final parameter Integer staInd[nSta] = {i for i in 1:nSta}
     "Stage index vector";
@@ -68,10 +63,10 @@ protected
     "Lower diagonal unit matrix";
 
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not unavailable"
-    annotation (Placement(transformation(extent={{20,-250},{40,-230}})));
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 "Switch"
-    annotation (Placement(transformation(extent={{100,-220},{120,-200}})));
+    annotation (Placement(transformation(extent={{260,-220},{280,-200}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 "Switch"
     annotation (Placement(transformation(extent={{360,70},{380,90}})));
@@ -161,30 +156,18 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 "Logical switch"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor extStaAva(
-    final allowOutOfRange=true,
-    final outOfRangeValue=nSta + 1,
+  Buildings.Controls.OBC.CDL.Routing.BooleanExtractor extStaAva(
     final nin=nSta) "Extracts stage availability for the current stage"
-    annotation (Placement(transformation(extent={{-200,-160},{-180,-140}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    final t=0.5)
-    "Detects if the current stage becomes unavailable"
-    annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nSta](
-    final realTrue=fill(1, nSta), realFalse=fill(0, nSta))
-    "Type converter"
-    annotation (Placement(transformation(extent={{-240,-160},{-220,-140}})));
+    annotation (Placement(transformation(extent={{-200,-140},{-180,-120}})));
 
   Buildings.Controls.OBC.CDL.Utilities.Assert cheStaAva1(
     final message="There are no available chiller stages. The staging cannot be performed.")
     "Checks if any stage is available"
-    annotation (Placement(transformation(extent={{-340,-140},{-320,-120}})));
+    annotation (Placement(transformation(extent={{-320,-50},{-300,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nSta) "Logical or"
-    annotation (Placement(transformation(extent={{-380,-140},{-360,-120}})));
+    annotation (Placement(transformation(extent={{-360,-50},{-340,-30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
     final k=0) "Zero"
@@ -193,16 +176,34 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And and4 "Logical and"
     annotation (Placement(transformation(extent={{220,70},{240,90}})));
 
+  Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(
+    final t=1)
+    "Check if index is in the range"
+    annotation (Placement(transformation(extent={{-380,-120},{-360,-100}})));
+  Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr1(
+    final t=nSta)
+    "Check if index is in the range"
+    annotation (Placement(transformation(extent={{-380,-200},{-360,-180}})));
+  Buildings.Controls.OBC.CDL.Logical.And and3 "Check if index is in the range"
+    annotation (Placement(transformation(extent={{-320,-120},{-300,-100}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    final k=1)
+    "Dummy index so the extractor will not have out of range index"
+    annotation (Placement(transformation(extent={{-320,-200},{-300,-180}})));
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi4 "Valid index"
+    annotation (Placement(transformation(extent={{-260,-160},{-240,-140}})));
+  Buildings.Controls.OBC.CDL.Logical.And and5 "Chiller availability"
+    annotation (Placement(transformation(extent={{-140,-180},{-120,-160}})));
+
 equation
   connect(staIndx.y, intGre.u1) annotation (Line(points={{-218,130},{-200,130},{
           -200,90},{-182,90}},  color={255,127,0}));
   connect(intRep.y, intGre.u2) annotation (Line(points={{-278,200},{-260,200},{
-          -260,82},{-182,82}},
-                 color={255,127,0}));
+          -260,82},{-182,82}}, color={255,127,0}));
   connect(intGre.y, and2.u1) annotation (Line(points={{-158,90},{-150,90},{-150,
           80},{-142,80}},color={255,0,255}));
-  connect(uAva, and2.u2) annotation (Line(points={{-440,-80},{-280,-80},{-280,
-          72},{-142,72}}, color={255,0,255}));
+  connect(uAva, and2.u2) annotation (Line(points={{-440,-80},{-220,-80},{-220,72},
+          {-142,72}},     color={255,0,255}));
   connect(staIndx.y, proInt1.u1) annotation (Line(points={{-218,130},{-70,130},{
           -70,116},{-62,116}},  color={255,127,0}));
   connect(booToInt1.y, proInt1.u2) annotation (Line(points={{-78,80},{-70,80},{-70,
@@ -215,8 +216,8 @@ equation
           -260,-78},{-182,-78}}, color={255,127,0}));
   connect(staIndx.y, intLes.u1) annotation (Line(points={{-218,130},{-200,130},{
           -200,-70},{-182,-70}},  color={255,127,0}));
-  connect(uAva, and1.u2) annotation (Line(points={{-440,-80},{-280,-80},{-280,
-          -98},{-142,-98}}, color={255,0,255}));
+  connect(uAva, and1.u2) annotation (Line(points={{-440,-80},{-220,-80},{-220,-98},
+          {-142,-98}},      color={255,0,255}));
   connect(intLes.y, and1.u1) annotation (Line(points={{-158,-70},{-150,-70},{-150,
           -90},{-142,-90}},      color={255,0,255}));
   connect(proInt2.y, intToRea3.u)
@@ -242,50 +243,37 @@ equation
   connect(intLesEquThr.y, intSwi1.u2)
     annotation (Line(points={{122,-70},{178,-70}}, color={255,0,255}));
   connect(intLesEquThr.y, yLow) annotation (Line(points={{122,-70},{140,-70},{140,
-          -90},{340,-90},{340,-80},{460,-80}},     color={255,0,255}));
-  connect(uAva, booToRea.u) annotation (Line(points={{-440,-80},{-280,-80},{
-          -280,-150},{-242,-150}}, color={255,0,255}));
+          -90},{460,-90}},  color={255,0,255}));
   connect(and2.y, booToInt1.u)
     annotation (Line(points={{-118,80},{-102,80}}, color={255,0,255}));
-  connect(lesThr.y, intSwi2.u2) annotation (Line(points={{-138,-150},{0,-150},{0,
-          -210},{98,-210}},   color={255,0,255}));
   connect(intGreThr.y, and4.u1)
     annotation (Line(points={{122,110},{140,110},{140,80},{218,80}},
-                                  color={255,0,255}));
-  connect(lesThr.y, and4.u2)
-    annotation (Line(points={{-138,-150},{210,-150},{210,72},{218,72}},
-                                                               color={255,0,255}));
+         color={255,0,255}));
   connect(and4.y, intSwi3.u2)
     annotation (Line(points={{242,80},{358,80}}, color={255,0,255}));
   connect(yAvaUp, yAvaUp)
     annotation (Line(points={{460,80},{460,80}}, color={255,127,0}));
-  connect(uAva, mulOr.u) annotation (Line(points={{-440,-80},{-400,-80},{-400,-130},
-          {-392,-130},{-392,-130},{-382,-130}}, color={255,0,255}));
+  connect(uAva, mulOr.u) annotation (Line(points={{-440,-80},{-380,-80},{-380,-40},
+          {-362,-40}},  color={255,0,255}));
   connect(mulOr.y, cheStaAva1.u)
-    annotation (Line(points={{-358,-130},{-342,-130}},   color={255,0,255}));
-  connect(booToRea.y, extStaAva.u)
-    annotation (Line(points={{-218,-150},{-202,-150}}, color={0,0,127}));
-  connect(extStaAva.y, lesThr.u)
-    annotation (Line(points={{-178,-150},{-162,-150}}, color={0,0,127}));
+    annotation (Line(points={{-338,-40},{-322,-40}},     color={255,0,255}));
   connect(and1.y, booToInt2.u)
     annotation (Line(points={{-118,-90},{-102,-90}}, color={255,0,255}));
-  connect(u, intRep.u) annotation (Line(points={{-440,80},{-320,80},{-320,200},
-          {-302,200}}, color={255,127,0}));
-  connect(u, extStaAva.index) annotation (Line(points={{-440,80},{-300,80},{
-          -300,-180},{-190,-180},{-190,-162}}, color={255,127,0}));
+  connect(u, intRep.u) annotation (Line(points={{-440,80},{-400,80},{-400,200},{
+          -302,200}},  color={255,127,0}));
   connect(conInt.y, intSwi1.u1) annotation (Line(points={{122,-30},{160,-30},{160,
           -62},{178,-62}},     color={255,127,0}));
   connect(intSwi1.y, yAvaDow) annotation (Line(points={{202,-70},{320,-70},{320,
           -40},{460,-40}}, color={255,127,0}));
   connect(intSwi1.y, intSwi2.u1) annotation (Line(points={{202,-70},{220,-70},{220,
-          -160},{80,-160},{80,-202},{98,-202}},     color={255,127,0}));
-  connect(intSwi2.y, intSwi3.u1) annotation (Line(points={{122,-210},{350,-210},
+          -202},{258,-202}},                        color={255,127,0}));
+  connect(intSwi2.y, intSwi3.u1) annotation (Line(points={{282,-210},{350,-210},
           {350,88},{358,88}}, color={255,127,0}));
-  connect(u, intSwi2.u3) annotation (Line(points={{-440,80},{-300,80},{-300,
-          -218},{98,-218}}, color={255,127,0}));
+  connect(u, intSwi2.u3) annotation (Line(points={{-440,80},{-400,80},{-400,-218},
+          {258,-218}},      color={255,127,0}));
   connect(intSwi.y, intSwi3.u3) annotation (Line(points={{202,110},{340,110},{340,
           72},{358,72}},     color={255,127,0}));
-  connect(u, intSwi.u1) annotation (Line(points={{-440,80},{-300,80},{-300,160},
+  connect(u, intSwi.u1) annotation (Line(points={{-440,80},{-400,80},{-400,160},
           {160,160},{160,118},{178,118}}, color={255,127,0}));
   connect(reaToInt.y, intSwi.u3) annotation (Line(points={{82,110},{90,110},{90,
           90},{160,90},{160,102},{178,102}}, color={255,127,0}));
@@ -293,12 +281,36 @@ equation
           -100},{170,-100},{170,-78},{178,-78}},    color={255,127,0}));
   connect(intSwi3.y, yAvaUp)
     annotation (Line(points={{382,80},{460,80}}, color={255,127,0}));
-  connect(lesThr.y, not1.u) annotation (Line(points={{-138,-150},{0,-150},{0,-240},
-          {18,-240}}, color={255,0,255}));
-  connect(not1.y, yAvaCur)
-    annotation (Line(points={{42,-240},{460,-240}}, color={255,0,255}));
-  connect(uAva, booToInt.u) annotation (Line(points={{-440,-80},{-400,-80},{
-          -400,-20},{-362,-20}}, color={255,0,255}));
+  connect(uAva, extStaAva.u) annotation (Line(points={{-440,-80},{-220,-80},{-220,
+          -130},{-202,-130}},      color={255,0,255}));
+  connect(not1.y, intSwi2.u2) annotation (Line(points={{-38,-170},{210,-170},{210,
+          -210},{258,-210}},color={255,0,255}));
+  connect(not1.y, and4.u2) annotation (Line(points={{-38,-170},{210,-170},{210,72},
+          {218,72}},     color={255,0,255}));
+  connect(u, intGreEquThr.u) annotation (Line(points={{-440,80},{-400,80},{-400,
+          -110},{-382,-110}}, color={255,127,0}));
+  connect(u, intLesEquThr1.u) annotation (Line(points={{-440,80},{-400,80},{-400,
+          -190},{-382,-190}}, color={255,127,0}));
+  connect(intGreEquThr.y, and3.u1)
+    annotation (Line(points={{-358,-110},{-322,-110}}, color={255,0,255}));
+  connect(intLesEquThr1.y, and3.u2) annotation (Line(points={{-358,-190},{-340,-190},
+          {-340,-118},{-322,-118}}, color={255,0,255}));
+  connect(intSwi4.y, extStaAva.index) annotation (Line(points={{-238,-150},{-190,
+          -150},{-190,-142}}, color={255,127,0}));
+  connect(and3.y, intSwi4.u2) annotation (Line(points={{-298,-110},{-280,-110},{
+          -280,-150},{-262,-150}}, color={255,0,255}));
+  connect(u, intSwi4.u1) annotation (Line(points={{-440,80},{-400,80},{-400,-142},
+          {-262,-142}}, color={255,127,0}));
+  connect(conInt1.y, intSwi4.u3) annotation (Line(points={{-298,-190},{-290,-190},
+          {-290,-158},{-262,-158}}, color={255,127,0}));
+  connect(extStaAva.y, and5.u1) annotation (Line(points={{-178,-130},{-160,-130},
+          {-160,-170},{-142,-170}}, color={255,0,255}));
+  connect(and5.y, not1.u)
+    annotation (Line(points={{-118,-170},{-62,-170}}, color={255,0,255}));
+  connect(and5.y, yAvaCur) annotation (Line(points={{-118,-170},{-100,-170},{-100,
+          -240},{460,-240}}, color={255,0,255}));
+  connect(and3.y, and5.u2) annotation (Line(points={{-298,-110},{-280,-110},{-280,
+          -178},{-142,-178}}, color={255,0,255}));
   annotation (defaultComponentName = "sta",
         Icon(graphics={
         Rectangle(

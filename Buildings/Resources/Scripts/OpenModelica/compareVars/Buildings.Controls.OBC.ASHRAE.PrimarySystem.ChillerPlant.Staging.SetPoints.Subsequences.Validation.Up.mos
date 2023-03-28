@@ -1,6 +1,7 @@
 compareVars :=
   {
     "staUp.y",
+    "staUp.uPla",
     "staUp.uOpe",
     "staUp.uStaUp",
     "staUp.dpChiWatPumSet_local",
@@ -8,6 +9,7 @@ compareVars :=
     "staUp.TChiWatSup",
     "staUp.TChiWatSupSet",
     "staUp1.y",
+    "staUp1.uPla",
     "staUp1.uOpe",
     "staUp1.uStaUp",
     "staUp1.dpChiWatPumSet_local",
