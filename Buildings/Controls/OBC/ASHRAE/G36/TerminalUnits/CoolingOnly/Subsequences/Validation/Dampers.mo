@@ -2,14 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.
 model Dampers
   "Validate model for controlling damper position of cooling  only terminal unit"
 
-  Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers dam(
-    final have_preIndDam=true,
-    final VMin_flow=0.01,
-    final VCooMax_flow=0.09,
-    final kDam=1) "Output signal for controlling damper position"
-    annotation (Placement(transformation(extent={{80,60},{100,100}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers dam1(
-    final have_preIndDam=false,
     final VMin_flow=0.01,
     final VCooMax_flow=0.09,
     final kDam=1) "Output signal for controlling damper position"
@@ -79,23 +72,11 @@ model Dampers
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
 equation
-  connect(uCoo.y, dam.uCoo) annotation (Line(points={{-38,60},{36,60},{36,89},{78,
-          89}}, color={0,0,127}));
-  connect(TSup.y, dam.TSup) annotation (Line(points={{-38,100},{52,100},{52,95},
-          {78,95}}, color={0,0,127}));
-  connect(TZon.y, dam.TZon) annotation (Line(points={{-78,80},{40,80},{40,92},{78,
-          92}}, color={0,0,127}));
-  connect(VActCooMax_flow.y, dam.VActCooMax_flow) annotation (Line(points={{-78,40},
-          {44,40},{44,86},{78,86}},   color={0,0,127}));
-  connect(VActMin_flow.y, dam.VActMin_flow) annotation (Line(points={{-78,120},{
-          56,120},{56,98},{78,98}}, color={0,0,127}));
   connect(zonSta.y,round2. u)
     annotation (Line(points={{-78,-60},{-62,-60}}, color={0,0,127}));
   connect(round2.y,reaToInt2. u)
     annotation (Line(points={{-38,-60},{-22,-60}},
       color={0,0,127}));
-  connect(reaToInt2.y, dam.uZonSta) annotation (Line(points={{2,-60},{48,-60},{48,
-          80},{78,80}},    color={255,127,0}));
   connect(VActMin_flow.y, dam1.VActMin_flow) annotation (Line(points={{-78,120},
           {56,120},{56,-42},{78,-42}}, color={0,0,127}));
   connect(TSup.y, dam1.TSup) annotation (Line(points={{-38,100},{52,100},{52,-45},
@@ -118,12 +99,8 @@ equation
     annotation (Line(points={{-78,-130},{-62,-130}},  color={0,0,127}));
   connect(round3.y,reaToInt3. u)
     annotation (Line(points={{-38,-130},{-22,-130}}, color={0,0,127}));
-  connect(reaToInt1.y, dam.oveFloSet) annotation (Line(points={{2,0},{32,0},{32,
-          71},{78,71}}, color={255,127,0}));
   connect(reaToInt1.y, dam1.oveFloSet) annotation (Line(points={{2,0},{32,0},{32,
           -69},{78,-69}}, color={255,127,0}));
-  connect(reaToInt3.y, dam.oveDamPos) annotation (Line(points={{2,-130},{60,-130},
-          {60,62},{78,62}}, color={255,127,0}));
   connect(reaToInt3.y, dam1.oveDamPos) annotation (Line(points={{2,-130},{60,-130},
           {60,-78},{78,-78}}, color={255,127,0}));
 annotation (
