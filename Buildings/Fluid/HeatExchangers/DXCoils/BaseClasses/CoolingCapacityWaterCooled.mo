@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacityWaterCooled
-  "Calculates cooling capacity at given temperature and flow fraction for water-cooled DX coils"
+  "Calculates cooling capacity at given temperature and flow fraction for water source DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
   final use_mCon_flow=true,
-  redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage sta[nSta]);
+  redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
 
 protected
   Real[nSta] ffCon(each min=0)
@@ -103,14 +103,14 @@ if stage > 0 then
           textString="f(T,m)")}),
           Documentation(info="<html>
 <p>
-  This model calculates cooling capacity and EIR at off-designed conditions for water-cooled DX coils.
-  The difference between air-cooled and water-cooled DX coils is that water-cooled DX coils require
+  This model calculates cooling capacity and EIR at off-designed conditions for water source DX coils.
+  The difference between air source and water source DX coils is that water source DX coils require
   two additional modifer curves for total cooling capacity and EIR
   as a function of water mass flowrate at the condensers.
 </p>
 <h4>Total Cooling Capacity</h4>
 <p>
-  The total cooling capacity at off-designed conditions for water-cooled DX coils is calculated as:
+  The total cooling capacity at off-designed conditions for water source DX coils is calculated as:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
      Q̇(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) cap<sub>FF</sub>(ff) cap<sub>FFCon</sub>(ffCon) Q̇<sub>nom</sub>

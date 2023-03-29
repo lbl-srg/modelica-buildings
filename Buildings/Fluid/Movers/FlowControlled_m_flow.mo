@@ -6,6 +6,7 @@ model FlowControlled_m_flow
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
     final stageInputs(each final unit="kg/s")=massFlowRates,
     final constInput(final unit="kg/s")=constantMassFlowRate,
+    final _m_flow_nominal = m_flow_nominal,
     filter(
       final y_start=m_flow_start,
       u(final unit="kg/s"),
@@ -39,9 +40,13 @@ model FlowControlled_m_flow
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    final min=Modelica.Constants.small)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    min=0,
+    final min=Modelica.Constants.small,
     displayUnit="Pa") = if rho_default < 500 then 500 else 10000
     "Nominal pressure raise, used for default pressure curve if not specified in record per"
     annotation (Dialog(group="Nominal condition"));
@@ -141,6 +146,13 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Refactored the model with a new declaration for
+<code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
 <li>
 April 27, 2022, by Hongxiang Fu:<br/>
 Replaced <code>not use_powerCharacteristic</code> with the enumerations

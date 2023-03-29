@@ -283,23 +283,23 @@ block Controller "Multizone VAV air handling unit controller"
     "Short time delay before closing the outdoor air damper at disable to avoid pressure fluctuations"
     annotation (Dialog(tab="Economizer", group="Enable"));
   // Commissioning
-  parameter Real retDamPhy_max(unit="1")=1
+  parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real retDamPhy_min(unit="1")=0
+  parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real outDamPhy_max(unit="1")=1
+  parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real outDamPhy_min(unit="1")=0
+  parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits"));
-  parameter Real minOutDamPhy_max(unit="1")=1
+  parameter Real minOutDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
-  parameter Real minOutDamPhy_min(unit="1")=0
+  parameter Real minOutDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the minimum outdoor air damper"
     annotation (Dialog(tab="Economizer", group="Commissioning, limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
@@ -430,7 +430,7 @@ block Controller "Multizone VAV air handling unit controller"
   // ----------- Advanced parameters -----------
   parameter Real Thys=0.25 "Hysteresis for checking temperature difference"
     annotation (Dialog(tab="Advanced"));
-  parameter Real posHys=0.05
+  parameter Real posHys=0.01
     "Hysteresis for checking valve position difference"
     annotation (Dialog(tab="Advanced"));
   parameter Real hys = 0.005
@@ -1488,6 +1488,12 @@ for more detailed description.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 December 15, 2022, by Jianjun Hu:<br/>
 Removed input connectors <code>uRelFan</code> and <code>uSupFanSpe_actual</code>.<br/>
