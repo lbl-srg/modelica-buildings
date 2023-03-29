@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacityAirCooled
-  "Calculates cooling capacity at given temperature and flow fraction for air-cooled coils"
+  "Calculates cooling capacity at given temperature and flow fraction for air source coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
-  redeclare replaceable Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta],
+  redeclare replaceable Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage sta[nSta],
   use_mCon_flow=false);
 
 equation
@@ -28,7 +28,7 @@ equation
           textString="f(T,m)")}),
           Documentation(info="<html>
 <p>
-This model calculates cooling capacity and EIR for air-cooled DX coils in off-designed conditions based on
+This model calculates cooling capacity and EIR for air source DX coils in off-designed conditions based on
 performance modifers calculated in partial model
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity</a>.
 </p>

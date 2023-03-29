@@ -7,7 +7,7 @@ block Atan2
   Interfaces.RealInput u2
     "Connector of Real input signal 2"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Interfaces.RealOutput y
+  Interfaces.RealOutput y(unit="rad")
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
@@ -42,6 +42,12 @@ gives a solution in the range
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 7, 2023, by Jianjun Hu:<br/>
+Added unit <code>rad</code> to the output.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">issue 3277</a>.
+</li>
 <li>
 March 2, 2020, by Michael Wetter:<br/>
 Changed icon to display dynamically the output value.

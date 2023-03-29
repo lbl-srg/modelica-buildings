@@ -40,7 +40,7 @@ env:
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-openmodelica-spawn-spaces" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
+    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-openmodelica-spawn-spaces test-openmodelica-cdl" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
     - TEST_ARG="make test-bestest"
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Air,Examples}\""
@@ -75,9 +75,9 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.FixedResistances\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.FixedResistances\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.FixedResistances\""
-    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Geothermal,HeatExchangers,HeatPumps,Interfaces}\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Geothermal,HeatExchangers,HeatPumps,Interfaces}\""
-    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Geothermal,HeatExchangers,HeatPumps,Interfaces}\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Geothermal,HeatExchangers,HeatPumps,Humidifiers,HydronicConfigurations,Interfaces}\""
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Geothermal,HeatExchangers,HeatPumps,Humidifiers,HydronicConfigurations,Interfaces}\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{Geothermal,HeatExchangers,HeatPumps,Humidifiers,HydronicConfigurations,Interfaces}\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Fluid.{MassExchangers,MixingVolumes,Movers,Sensors,SolarCollectors,Sources,Storage,Utilities}\""
