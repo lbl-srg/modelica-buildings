@@ -72,20 +72,12 @@ protected
     final period=period,
     final minTruFalHol=minTruFalHol)
     "Produce boolean pulse output"
-    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Zero input"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr2(
-    final t=1-zerWidThr,
-    final h=0.5*zerWidThr)
-    "Check if the input is one"
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold falHol(
-    final trueHoldDuration=0,
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=minTruFalHol,
     final falseHoldDuration=minTruFalHol)
-    "Ensure the minimum false holding time"
-    annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
+    "Ensure the minimum holding time"
+    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
 
   block Cycle
     "Generate boolean pulse with the width specified by input"
@@ -100,14 +92,6 @@ protected
       final min=Constants.small)
       "Minimum time to hold true or false";
 
-    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConTru
-      "True: output constant true"
-      annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-          iconTransformation(extent={{-140,60},{-100,100}})));
-    Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConFal
-      "True: output constant false"
-      annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-          iconTransformation(extent={{-140,20},{-100,60}})));
     Buildings.Controls.OBC.CDL.Interfaces.BooleanInput go
       "True: cycle the output"
       annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
@@ -135,26 +119,9 @@ protected
       final unit="s",
       fixed=false)
       "End time instant of one period";
-     Real trueTime(
-      final quantity="Time",
-      final unit="s",
-      fixed=false)
-      "Total true time in one period";
-     Real tempTrue(
-      final quantity="Time",
-      final unit="s",
-      fixed=false)
-      "Total true time in one period";
-     Real tempFalse(
-      final quantity="Time",
-      final unit="s",
-      fixed=false)
-      "Total true time in one period";
 
   initial equation
     pre(t0)=time;
-    assert(period >= minTruFalHol*2,
-      "The pulse period must be greater than 2 times of the minimum true and false holding time.");
 
   equation
     when go then
@@ -163,29 +130,12 @@ protected
 
     t_sta = Buildings.Utilities.Math.Functions.round(
       x=integer((time-t0)/period)*period, n=6)+t0;
+    t_end = t_sta + u*period;
 
-    tempTrue = u*period;
-    tempFalse = (1-u)*period;
-    if (tempTrue < minTruFalHol) then
-      trueTime = minTruFalHol;
-    elseif (tempFalse < minTruFalHol) then
-      trueTime = period - minTruFalHol;
-    else
-      trueTime = tempTrue;
-    end if;
-
-    t_end = t_sta + trueTime;
-
-    if uConTru then
-      y = true;
-    elseif uConFal then
-      y = false;
-    else
-      if ((time>=t_sta) and (time<t_end)) then
+    if ((time>=t_sta) and (time<t_end)) then
         y = true;
-      else
+    else
         y = false;
-      end if;
     end if;
 
   annotation (Icon(
@@ -202,6 +152,10 @@ protected
             textString="%name",
             textColor={0,0,255})}));
   end Cycle;
+
+initial equation
+  assert(period >= minTruFalHol*2,
+      "In " + getInstanceName() + ": The pulse period must be greater than 2 times of the minimum true and false holding time.");
 
 equation
   connect(u, triSam.u) annotation (Line(points={{-200,0},{-170,0},{-170,100},{-162,
@@ -234,28 +188,18 @@ equation
           20},{-62,20}}, color={255,0,255}));
   connect(con.y, swi3.u3) annotation (Line(points={{-78,0},{-70,0},{-70,12},{-62,
           12}}, color={0,0,127}));
-  connect(u, cycOut.u) annotation (Line(points={{-200,0},{-170,0},{-170,-20},{
-          138,-20}},
-                 color={0,0,127}));
-  connect(cycOut.y, y)
-    annotation (Line(points={{162,-20},{200,-20}}, color={255,0,255}));
-  connect(u, greThr2.u) annotation (Line(points={{-200,0},{-170,0},{-170,-40},{-162,
-          -40}}, color={0,0,127}));
-  connect(greThr2.y, cycOut.uConTru) annotation (Line(points={{-138,-40},{-60,
-          -40},{-60,-12},{138,-12}},
-                               color={255,0,255}));
-  connect(greThr1.y, not1.u) annotation (Line(points={{-138,-90},{-120,-90},{-120,
-          -70},{-102,-70}}, color={255,0,255}));
-  connect(not1.y, cycOut.uConFal) annotation (Line(points={{-78,-70},{-50,-70},
-          {-50,-16},{138,-16}},color={255,0,255}));
+  connect(u, cycOut.u) annotation (Line(points={{-200,0},{-170,0},{-170,-20},{98,
+          -20}},     color={0,0,127}));
   connect(edg2.y, or2.u1)
     annotation (Line(points={{2,-50},{18,-50}}, color={255,0,255}));
   connect(edg1.y, or2.u2) annotation (Line(points={{2,-90},{10,-90},{10,-58},{18,
           -58}}, color={255,0,255}));
-  connect(or2.y, falHol.u)
-    annotation (Line(points={{42,-50},{58,-50}}, color={255,0,255}));
-  connect(falHol.y, cycOut.go) annotation (Line(points={{82,-50},{120,-50},{120,
-          -28},{138,-28}}, color={255,0,255}));
+  connect(cycOut.y, truFalHol.u)
+    annotation (Line(points={{122,-20},{138,-20}}, color={255,0,255}));
+  connect(truFalHol.y, y)
+    annotation (Line(points={{162,-20},{200,-20}}, color={255,0,255}));
+  connect(or2.y, cycOut.go) annotation (Line(points={{42,-50},{50,-50},{50,-28},
+          {98,-28}}, color={255,0,255}));
 annotation (
     defaultComponentName="varPul",
     Icon(

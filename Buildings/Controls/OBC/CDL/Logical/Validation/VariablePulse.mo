@@ -27,7 +27,7 @@ model VariablePulse "Validation model for producing boolean pulse output"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse conPul(
     final amplitude=0.65,
     final width=0.8,
-    final period=3600)
+    final period=4000)
     "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
@@ -62,7 +62,7 @@ model VariablePulse "Validation model for producing boolean pulse output"
     "Variable pulse with constantly changing pulse width "
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    height=0.8,
+    final height=0.8,
     final duration=900,
     final startTime=300)
     "Ramp input"

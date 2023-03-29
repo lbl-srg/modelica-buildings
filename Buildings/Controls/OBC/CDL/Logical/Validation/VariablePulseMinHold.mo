@@ -30,8 +30,10 @@ Validation test for the block
 Buildings.Controls.OBC.CDL.Logical.VariablePulse</a>.
 </p>
 <p>
-It tests the scenario that the input value changes at the moment when the output
+It tests the case that the input value changes at the moment when the output
 is still in previous status in less than the minimum holding time.
+In the case, the output holds the previous status for the minimum holding time
+and then change to the new status.
 </p>
 </html>",
 revisions="<html>
