@@ -1,20 +1,17 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model Ramp "Validation model for the Ramp block"
 
-  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUp(
-    final raisingSlewRate=1/20)
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUp(final raisingSlewRate=1/20)
     "Ramp the input increasing"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUp1(
-    final raisingSlewRate=1/10)
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUp1(final raisingSlewRate=1/10)
     "Ramp the input increasing in different speed"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow(
-    final raisingSlewRate=1/5)
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow(final raisingSlewRate=1/5)
     "Limit the increase and decrease of the input if the active is true"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow1(final
-      raisingSlewRate=1/5, final fallingSlewRate=-1/2)
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow1(final raisingSlewRate=1/
+        5, final fallingSlewRate=-1/2)
     "Different increase and decrease slew rate limits"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
