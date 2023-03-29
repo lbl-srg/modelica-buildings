@@ -1,15 +1,18 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Proof "Validation model for the Proof block"
-  Buildings.Controls.OBC.CDL.Logical.Proof pro(final validDelay=0.5, final
-      checkDelay=0.75)
+  Buildings.Controls.OBC.CDL.Logical.Proof pro(
+    final validDelay=0.5,
+    final checkDelay=0.75)
     "Both inputs change at the same time"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Proof pro1(final validDelay=0.5, final
-      checkDelay=0.75)
+  Buildings.Controls.OBC.CDL.Logical.Proof pro1(
+    final validDelay=0.5,
+    final checkDelay=0.75)
     "Commanded input changes from true to false earlier than measured input"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Buildings.Controls.OBC.CDL.Logical.Proof pro2(final validDelay=0.5, final
-      checkDelay=0.75)
+  Buildings.Controls.OBC.CDL.Logical.Proof pro2(
+    final validDelay=0.5,
+    final checkDelay=0.75)
     "Measured input changes from true to false earlier than commanded input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro3(
@@ -81,7 +84,7 @@ If both boolean inputs change simultaneously, both outputs will be
 Both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>uMea</code> changes, the input <code>uCom</code> remains
 <code>true</code> for a time that is longer than
-<code>checkDelay</code>. The output <code>y1</code> will be <code>true</code>.
+<code>checkDelay</code>. The output <code>yProTru</code> will be <code>true</code>.
 This is tested through instances <code>pro2</code> and <code>pro3</code>, with
 different delay <code>checkDelay</code> for checking the input difference.
 </li>
@@ -89,7 +92,7 @@ different delay <code>checkDelay</code> for checking the input difference.
 Both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>uCom</code> changes, the input <code>uMea</code> remains
 <code>true</code> for a time that is longer than
-<code>checkDelay</code>. The output <code>y2</code> will be <code>true</code>.
+<code>checkDelay</code>. The output <code>yProFal</code> will be <code>true</code>.
 This is tested through instances <code>pro1</code> and <code>pro4</code>, with
 different delay <code>checkDelay</code> for checking the inputs.
 </li>

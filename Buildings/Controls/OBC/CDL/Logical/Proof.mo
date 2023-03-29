@@ -17,11 +17,11 @@ block Proof "Verify two boolean inputs"
     "Commanded status"
     annotation (Placement(transformation(extent={{-220,-80},{-180,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yProTru
     "True: commanded status is true and current status is false"
     annotation (Placement(transformation(extent={{160,60},{200,100}}),
         iconTransformation(extent={{100,40},{140,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y2
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yProFal
     "True: commanded status is false and current status is true"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
@@ -133,14 +133,13 @@ equation
     annotation (Line(points={{62,130},{98,130}}, color={255,0,255}));
   connect(valTru1.y, falTru.u2) annotation (Line(points={{-138,-10},{70,-10},{70,
           122},{98,122}}, color={255,0,255}));
-  connect(falTru.y, y1)
-    annotation (Line(points={{122,130},{152,130},{152,80},{180,80}},
-                                                   color={255,0,255}));
+  connect(falTru.y, yProTru) annotation (Line(points={{122,130},{152,130},{152,80},
+          {180,80}}, color={255,0,255}));
   connect(notBotFal.y, delChe1.u)
     annotation (Line(points={{62,-60},{78,-60}}, color={255,0,255}));
   connect(delChe1.y, truFal.u1)
     annotation (Line(points={{102,-60},{118,-60}}, color={255,0,255}));
-  connect(truFal.y, y2)
+  connect(truFal.y, yProFal)
     annotation (Line(points={{142,-60},{180,-60}}, color={255,0,255}));
   connect(not5.y, truFal.u2) annotation (Line(points={{64,-90},{110,-90},{110,-68},
           {118,-68}},        color={255,0,255}));
@@ -157,10 +156,9 @@ equation
   connect(truDel2.y, valFal1.u2)
     annotation (Line(points={{-98,-90},{-62,-90}}, color={255,0,255}));
   connect(uCom, valFal1.u1) annotation (Line(points={{-200,-60},{-80,-60},{-80,-82},
-          {-62,-82}},                          color={255,0,255}));
+          {-62,-82}},  color={255,0,255}));
   connect(valFal1.y, booToInt1.u)
-    annotation (Line(points={{-38,-90},{-30,-90},{-30,-60},{-22,-60}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{-38,-90},{-30,-90},{-30,-60},{-22,-60}}, color={255,0,255}));
   connect(con.y, valFal.u3) annotation (Line(points={{-138,40},{-90,40},{-90,72},
           {-62,72}}, color={255,0,255}));
   connect(con.y, valFal1.u3) annotation (Line(points={{-138,40},{-90,40},{-90,-98},
@@ -204,16 +202,16 @@ annotation (
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{73,67},{87,53}},
-          lineColor=DynamicSelect({235,235,235}, if y1 then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if yProTru then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y1 then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if yProTru then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{73,-53},{87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if y2 then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if yProFal then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if y2 then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if yProFal then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Text(
@@ -224,7 +222,7 @@ Documentation(info="<html>
 <p>
 Block that compares two boolean inputs <code>uMea</code> and <code>uCom</code>.
 The block has two outputs
-<code>y1</code> and <code>y2</code> that can trigger alarms
+<code>yProTru</code> and <code>yProFal</code> that can trigger alarms
 if <code>uMea &ne; uCom</code> after user-adjustable delay times.
 </p>
 <p>
@@ -242,13 +240,13 @@ Once <code>uMea</code> and <code>uCom</code> are valid, the outputs are as follo
 </p>
 <ul>
 <li>
-The output <code>y1</code> is <code>y1 = uCom == true and uMea == false</code>.<br/>
-For example, <code>y1</code> indicates an alarm status (<code>y1 = true</code>)
+The output <code>yProTru</code> is <code>yProTru = uCom == true and uMea == false</code>.<br/>
+For example, <code>yProTru</code> indicates an alarm status (<code>yProTru = true</code>)
 if an equipment is commanded on (it receives a <code>true</code> signal) but it does not run.
 </li>
 <li>
-The output <code>y2</code> is <code>y2 = uCom == false and uMea == true</code>.<br/>
-For example, <code>y2</code> indicates an alarm status (<code>y2 = true</code>)
+The output <code>yProFal</code> is <code>yProFal = uCom == false and uMea == true</code>.<br/>
+For example, <code>yProFal</code> indicates an alarm status (<code>yProFal = true</code>)
 if an equipment is commanded off but it runs.
 </li>
 </ul>
