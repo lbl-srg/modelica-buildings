@@ -203,8 +203,8 @@ equation
   connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
           {16,-100},{16,-113},{11,-113}},
                                         color={0,0,127}));
-  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{
-          -42,50},{-42,126},{16,126},{16,117},{11,117}},
+  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-42,
+          50},{-42,126},{16,126},{16,117},{11,117}},
                                                  color={0,0,127}));
   connect(norQFloHea.y, offCoo.u)
     annotation (Line(points={{-163,164},{-146,164}}, color={0,0,127}));
@@ -214,50 +214,47 @@ equation
     annotation (Line(points={{-82,156},{-66,156}}, color={255,0,255}));
   connect(onPla.y, pla.u1Hea) annotation (Line(points={{-42,156},{-38,156},{-38,
           24},{-34,24}},                     color={255,0,255}));
-  connect(loaHea.QHea_flow, norQFloHea.u) annotation (Line(points={{-5,98},{-4,
-          98},{-4,94},{-20,94},{-20,130},{-192,130},{-192,164},{-186,164}},
-                                                                        color={0,
+  connect(loaHea.QHea_flow, norQFloHea.u) annotation (Line(points={{-5,98},{-4,98},
+          {-4,94},{-20,94},{-20,130},{-192,130},{-192,164},{-186,164}}, color={0,
           0,127}));
   connect(tim1.passed, onPla1.u)
-    annotation (Line(points={{-44,-188},{-40,-188},{-40,-190},{-36,-190},{-36,
-          -188},{-28,-188}},                         color={255,0,255}));
+    annotation (Line(points={{-44,-188},{-40,-188},{-40,-190},{-36,-190},{-36,-188},
+          {-28,-188}},                               color={255,0,255}));
   connect(offCoo1.y, tim1.u)
-    annotation (Line(points={{-84,-180},{-80,-180},{-80,-182},{-76,-182},{-76,
-          -180},{-68,-180}},                         color={255,0,255}));
+    annotation (Line(points={{-84,-180},{-80,-180},{-80,-182},{-76,-182},{-76,-180},
+          {-68,-180}},                               color={255,0,255}));
   connect(norQFloCoo.y, offCoo1.u)
-    annotation (Line(points={{-125,-180},{-120,-180},{-120,-182},{-116,-182},{
-          -116,-180},{-108,-180}},                     color={0,0,127}));
-  connect(loaCoo.QCoo_flow, norQFloCoo.u) annotation (Line(points={{-7,-132},{
-          -7,-164},{-156,-164},{-156,-180},{-148,-180}},       color={0,0,127}));
-  connect(onPla1.y, pla.u1Coo) annotation (Line(points={{-4,-188},{8,-188},{8,
-          -150},{-54,-150},{-54,28},{-34,28}},
-                                         color={255,0,255}));
+    annotation (Line(points={{-125,-180},{-120,-180},{-120,-182},{-116,-182},{-116,
+          -180},{-108,-180}},                          color={0,0,127}));
+  connect(loaCoo.QCoo_flow, norQFloCoo.u) annotation (Line(points={{-7,-132},{-7,
+          -164},{-156,-164},{-156,-180},{-148,-180}},          color={0,0,127}));
+  connect(onPla1.y, pla.u1Coo) annotation (Line(points={{-4,-188},{8,-188},{8,-150},
+          {-54,-150},{-54,28},{-34,28}}, color={255,0,255}));
   connect(pla.port_bSerHea, disHea.port_aDisSup) annotation (Line(points={{30,0},
           {40,0},{40,72},{20,72}}, color={0,127,255}));
-  connect(disHea.port_bDisRet, pla.port_aSerHea) annotation (Line(points={{20,
-          66},{30,66},{30,50},{-40,50},{-40,0},{-30,0}}, color={0,127,255}));
-  connect(disHea.ports_aCon[1], loaHea.port_bSerHea) annotation (Line(points={{
-          -12,82},{-12,90},{-30,90},{-30,106},{-10,106}}, color={0,127,255}));
-  connect(loaHea.port_aSerHea, disHea.ports_bCon[1]) annotation (Line(points={{
-          10,106},{30,106},{30,90},{12,90},{12,82}}, color={0,127,255}));
-  connect(disCoo.ports_bCon[1], loaCoo.port_aSerCoo) annotation (Line(points={{
-          12,-80},{12,-92},{30,-92},{30,-128},{10,-128}}, color={0,127,255}));
-  connect(loaCoo.port_bSerCoo, disCoo.ports_aCon[1]) annotation (Line(points={{
-          -10,-128},{-30,-128},{-30,-92},{-12,-92},{-12,-80}}, color={0,127,255}));
-  connect(disCoo.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,
-          -70},{40,-70},{40,-4},{30,-4}}, color={0,127,255}));
-  connect(disCoo.port_bDisRet, pla.port_aSerCoo) annotation (Line(points={{20,
-          -64},{30,-64},{30,-46},{-40,-46},{-40,-4},{-30,-4}}, color={0,127,255}));
+  connect(disHea.port_bDisRet, pla.port_aSerHea) annotation (Line(points={{20,66},
+          {30,66},{30,50},{-40,50},{-40,0},{-30,0}}, color={0,127,255}));
+  connect(disHea.ports_aCon[1], loaHea.port_bSerHea) annotation (Line(points={{-12,
+          82},{-12,90},{-30,90},{-30,106},{-10,106}}, color={0,127,255}));
+  connect(loaHea.port_aSerHea, disHea.ports_bCon[1]) annotation (Line(points={{10,
+          106},{30,106},{30,90},{12,90},{12,82}}, color={0,127,255}));
+  connect(disCoo.ports_bCon[1], loaCoo.port_aSerCoo) annotation (Line(points={{12,
+          -80},{12,-92},{30,-92},{30,-128},{10,-128}}, color={0,127,255}));
+  connect(loaCoo.port_bSerCoo, disCoo.ports_aCon[1]) annotation (Line(points={{-10,
+          -128},{-30,-128},{-30,-92},{-12,-92},{-12,-80}}, color={0,127,255}));
+  connect(disCoo.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-70},
+          {40,-70},{40,-4},{30,-4}}, color={0,127,255}));
+  connect(disCoo.port_bDisRet, pla.port_aSerCoo) annotation (Line(points={{20,-64},
+          {30,-64},{30,-46},{-40,-46},{-40,-4},{-30,-4}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorageLoads.mos"
       "Simulate and plot"),
     experiment(
-      StartTime=5184000,
-      StopTime=6912000,
-      Interval=299.999808,
+      StopTime=31536000,
+      Interval=25920000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      __Dymola_Algorithm="Cvode"),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
     Documentation(info="<html>
 <p>
