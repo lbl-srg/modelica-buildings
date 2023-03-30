@@ -300,29 +300,35 @@ annotation (
     Documentation(
       info="<html>
 <p>
-Block that produces boolean pulse output according to the specified period of the pulse
-(<code>period</code>) and the value of the input <code>u</code>, which indicates
-the percentage of the period that the output should be <code>true</code>.
+Block that outputs a boolean pulse.
+</p>
+<p>
+The output of this block is a pulse with a constant period
+and a width as obtained from the input connector <code>u</code>.
+The input <code>0 &le; u &le; 1</code> is the width relative to the period.
+</p>
+<p>
+The block produces the following ouputs:
 </p>
 <ul>
 <li>
-If the input <code>u</code> is zero, the output <code>y</code> remains <code>false</code>.
+If <code>u = 0</code>, the output <code>y</code> remains <code>false</code>.
 </li>
 <li>
-If the input <code>u</code> is greater than zero, the output <code>y</code> will be
+If <code>0 &lt; u &lt; 1</code>, the output <code>y</code> will be
 a boolean pulse with the period specified by the parameter <code>period</code> and
-the width specified by the input <code>u</code>.
+the width set to <code>u period</code>.
 </li>
 <li>
-If the input <code>u</code> is one, the output <code>y</code> remains <code>true</code>.
-</li>
-<li>
-At the moment when the input <code>u</code> changes to a new value and the output
-has been holding the true or false for more than minimum holding time
-<code>minTruFalHol</code>, the output will change to a new pulse with the
-width specified by the new value. 
+If <code>u = 1</code>, the output <code>y</code> remains <code>true</code>.
 </li>
 </ul>
+<p>
+When the input <code>u</code> changes by more than <code>chaWidThr</code> and the output
+has been holding constant for more than minimum holding time
+<code>minTruFalHol</code>, the output will change to a new pulse with the
+width specified by the new value of <code>u</code>.
+</p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/VariablePulse.png\"
      alt=\"VariablePulse.png\" />
