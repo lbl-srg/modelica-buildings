@@ -19,7 +19,7 @@ block Ramp "Limit the changing rate of the input"
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput active
-    "Set to false to disable rate limiter"
+    "Set to true to enable rate limiter"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
@@ -120,14 +120,16 @@ otherwise, <code>dy/dt = thr</code>.
 </li>
 </ul>
 <p>
-Note that when the output <code>activate</code> switches to <code>false</code>,
-the output <code>y</code> can have a jump.
+Smaller time constant <code>Td</code> means a higher accuracy for the derivative approximation.
+</p>
+<p>
+Note that when the input <code>activate</code> switches to <code>false</code>,
+the output <code>y</code> can have a discontinuity.
 </p>
 <h4>Implementation</h4>
 <p>
 For the block to work with arbitrary inputs and in order to produce a differentiable output,
 the input is numerically differentiated with derivative time constant <code>Td</code>.
-Smaller time constant <code>Td</code> means nearer ideal derivative.
 </p>
 </html>",
 revisions="<html>
