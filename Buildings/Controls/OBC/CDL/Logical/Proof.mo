@@ -220,36 +220,112 @@ annotation (
           textString="%name")}),
 Documentation(info="<html>
 <p>
-Block that compares two boolean inputs <code>uMea</code> and <code>uCom</code>.
-The block has two outputs
-<code>yProTru</code> and <code>yProFal</code> that can trigger alarms
-if <code>uMea &ne; uCom</code> after user-adjustable delay times.
+Block that compares a boolean set point <code>u_s</code> with
+a measured signal <code>u_m</code> and produces two outputs
+that may be used to raise alarms about malfunctioning equipment.
 </p>
 <p>
-The parameter <code>validDelay</code> specifies the amount of time that the inputs
-<code>uMea</code> and <code>uCom</code> must remain unchanged before they are
-considered valid. If either of the valid input changes, after a delay which is
-specified by the parameter <code>checkDelay</code>,
-where <code>checkDelay &ge; validDelay</code>, the block checks if
-<code>uMea == uCom</code>.
-If <code>checkDelay &lt; validDelay</code>, the block issues a warning
-and sets <code>checkDelay = validDelay</code>.
+The block sets the output <code>yLocTru = true</code> if
+the set point is <code>u_s = true</code> but the measured signal is locked
+at <code>false</code>, i.e., <code>u_m = false</code>.
+Similarly, the block sets the output <code>yLocFal = true</code>
+if the set point is <code>u_s = false</code> but the measured signal is locked
+at <code>true</code>, i.e., <code>u_m = true</code>.
+Hence, any output being <code>true</code> indicates an operational
+problem.
 </p>
 <p>
-Once <code>uMea</code> and <code>uCom</code> are valid, the outputs are as follows:
+To use this block, proceed as follows:
+Set the parameter <code>feedbackDelay &ge; 0</code> to specify how long the
+feedback of the controlled device is allowed to take to report
+its measured operational signal <code>u_s</code>
+after a set point change <code>u_m</code>.
+Set the parameter <code>debounce &ge; 0</code>
+to specify how long the measured
+signal <code>u_m</code> need to remain constant for it to be considered
+stable.
+Connect the set point to <code>u_s</code> and
+the measured signal to <code>u_m</code>.
+If either output is <code>true</code>, raise an alarm, such as by
+connecting instances of
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Assert\">
+Buildings.Controls.OBC.CDL.Utilities.Assert</a>
+to the outputs of this block.
 </p>
-<ul>
+<p>
+Any output being <code>true</code> indicates a problem.
+</p>
+<p>
+The block has two timers that each start whenever the corresponding input changes.
+One timer, called <code>feedbackDelay+debounce</code> timer, starts
+whenever the set point <code>u_s</code> change, and it runs for a time equal to
+<code>feedbackDelay+debounce</code>.
+The other timer, called <code>debounce</code> timer, starts whenever
+the measured signal <code>u_m</code> changes, and it runs for a time equal to
+<code>debounce</code>.
+The block starts verifying the inputs whenever the <code>feedbackDelay+debounce</code> timer
+lapsed, or the <code>debounce</code> timer lapsed,
+(and hence the measurement is stable,) whichever is first.
+</p>
+<p>
+Both outputs being <code>true</code> indicates that the measured signal <code>u_m</code>
+is not stable within <code>feedbackDelay+debounce</code> time.
+Exactly one output being <code>true</code> indicates
+that the measured signal <code>u_m</code> is stable, but
+<code>u_s &ne; u_m</code>. In this case,
+the block sets <code>yLocFal = true</code> if <code>u_s = true</code>
+(the measured signal is locked at <code>false</code>),
+or it sets <code>yLocTru = true</code> if <code>u_s = false</code>
+(the measured signal is locked at <code>true</code>).
+</p>
+<p>
+Therefore, exactly one output being <code>true</code> can be interpreted as follows:
+Suppose <code>true</code> means on and <code>false</code> means off.</br>
+Then, <code>yLocTru = true</code> indicates that an equipment is locked
+in operation mode but is commanded off; and similarly,
+<code>yLocFal = true</code> indicates that it is locked in off mode
+when it is commanded on.
+</p>
+<h4>Detailed description</h4>
+<p>
+The block works as follows.
+Any change in set point <code>u_s</code> starts the <code>feedbackDelay+debounce</code> timer, and
+any change in measured signal <code>u_m</code> starts the <code>debounce</code> timer.
+</p>
+<p>
+As soon as the <code>feedbackDelay+debounce</code> timer
+or the <code>debounce</code> timer lapsed,
+whichever happens first,
+the controller continuously performs these checks:
+</p>
+<ol>
 <li>
-The output <code>yProTru</code> is <code>yProTru = uCom == true and uMea == false</code>.<br/>
-For example, <code>yProTru</code> indicates an alarm status (<code>yProTru = true</code>)
-if an equipment is commanded on (it receives a <code>true</code> signal) but it does not run.
+<b>Check for stable measured signal.</b><br/>
+If <code>u_m</code> is stable, then<br/>
+&nbsp; &nbsp; goto step 2.<br/>
+Else:<br/>
+&nbsp; &nbsp; Set <code>yLocFal = yLocTru = true</code>.<br/>
+&nbsp; &nbsp; (Equipment is commanded on but we cannot conclude it is running;<br/>
+&nbsp; &nbsp; set both <code>true</code> to flag an unstable measurement signal.)<br/>
 </li>
 <li>
-The output <code>yProFal</code> is <code>yProFal = uCom == false and uMea == true</code>.<br/>
-For example, <code>yProFal</code> indicates an alarm status (<code>yProFal = true</code>)
-if an equipment is commanded off but it runs.
+<b>Check for commanded and measured input to be equal.</b><br/>
+If <code>u_s &NotEqual; u_m</code>, then<br/>
+&nbsp; &nbsp; goto step 3.<br/>
+Else,<br/>
+&nbsp; &nbsp; set <code>yLocFal = false </code> and <code>yLocTru = false</code>.<br/>
+&nbsp; &nbsp; (Equipment is operating as commanded, verified using stable input.)
+<li>
+<b>Inputs differ.</b><br/>
+If <code>u_s = true </code>, then<br/>
+&nbsp; &nbsp; set  <code>yLocFal = true </code> and <code>yLocTru = false</code>.<br/>
+&nbsp; &nbsp; (The equipment is commanded on, but it is off.)<br/>
+Else,<br/>
+&nbsp; &nbsp; set  <code>yLocFal = false </code> and <code>yLocTru = true</code>.<br/>
+&nbsp; &nbsp; (The equipment is commanded off, but it is on.)<br/>
 </li>
-</ul>
+</li>
+</ol>
 </html>",
 revisions="<html>
 <ul>
