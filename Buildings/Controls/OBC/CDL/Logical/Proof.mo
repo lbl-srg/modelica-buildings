@@ -315,6 +315,7 @@ If <code>u_s &NotEqual; u_m</code>, then<br/>
 Else,<br/>
 &nbsp; &nbsp; set <code>yLocFal = false </code> and <code>yLocTru = false</code>.<br/>
 &nbsp; &nbsp; (Equipment is operating as commanded, verified using stable input.)
+</li>
 <li>
 <b>Inputs differ.</b><br/>
 If <code>u_s = true </code>, then<br/>
@@ -323,7 +324,6 @@ If <code>u_s = true </code>, then<br/>
 Else,<br/>
 &nbsp; &nbsp; set  <code>yLocFal = false </code> and <code>yLocTru = true</code>.<br/>
 &nbsp; &nbsp; (The equipment is commanded off, but it is on.)<br/>
-</li>
 </li>
 </ol>
 </html>",
