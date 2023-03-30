@@ -37,8 +37,7 @@ protected
     "Minimum stage capacities"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage0(final k=1)
     "Boiler stage"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
 
@@ -72,8 +71,7 @@ protected
     "Boiler stage"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage6(
-    final k=3)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant stage6(final k=2)
     "Boiler stage"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 
