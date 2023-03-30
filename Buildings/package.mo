@@ -615,10 +615,18 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Corrected units of protected variables to avoid warning during model check.<br/>
                        This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
     </td>
+    </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0</b>
+  </td>
   </tr>
-<tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse</b>
-    </td>
-</tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
+  <tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone
+  </td>
+  <td valign=\"top\">Added check for air pressure to be within reasonable limits.<br/>
+                    This is for
+                    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
+  </td>
+  </tr>
+  </tr><tr><td valign=\"top\">Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TRoom<br/>
                           Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingCooling_TSurface<br/>
                           Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer
     </td>
