@@ -88,9 +88,9 @@ model AllElectricCWStorageLoads
     final datChiHea=datChiHea,
     final datHeaPum=datHeaPum,
     nChi=2,
-    dpChiWatSet_max=20E4,
+    dpChiWatSet_max=sum(disCoo.dpDis_nominal),
     nChiHea=2,
-    dpHeaWatSet_max=20E4,
+    dpHeaWatSet_max=sum(disCoo.dpDis_nominal),
     nHeaPum=2,
     nPumConWatCon=2,
     dInsTan=0.05,
@@ -130,13 +130,13 @@ model AllElectricCWStorageLoads
     annotation (Placement(transformation(extent={{-190,-110},{-170,-90}})));
   Loads.Heating.BuildingTimeSeriesWithETS loaHea(THeaWatSup_nominal=pla.THeaWatSup_nominal,
       filNam=filNam) "Building heating load"
-    annotation (Placement(transformation(extent={{10,60},{-10,80}})));
+    annotation (Placement(transformation(extent={{10,100},{-10,120}})));
   Loads.Cooling.BuildingTimeSeriesWithETS loaCoo(
       TChiWatSup_nominal=pla.TChiWatSup_nominal,
       filNam=filNam,
       ets(dpCheVal_nominal=120000),
       bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
-    annotation (Placement(transformation(extent={{10,-78},{-10,-58}})));
+    annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
       y(final unit="K", displayUnit="degC"))
     "Source signal for HW return temperature"
@@ -158,16 +158,34 @@ model AllElectricCWStorageLoads
   Buildings.Controls.OBC.CDL.Logical.Not
                                onPla1
                                      "On signal for the plant"
-    annotation (Placement(transformation(extent={{-26,-168},{-6,-148}})));
+    annotation (Placement(transformation(extent={{-26,-198},{-6,-178}})));
   Buildings.Controls.OBC.CDL.Logical.Timer
                                  tim1(t=3600)
-    annotation (Placement(transformation(extent={{-66,-160},{-46,-140}})));
+    annotation (Placement(transformation(extent={{-66,-190},{-46,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold offCoo1(t=1e-4)
     "Threshold comparison to disable the plant"
-    annotation (Placement(transformation(extent={{-106,-160},{-86,-140}})));
+    annotation (Placement(transformation(extent={{-106,-190},{-86,-170}})));
   Modelica.Blocks.Math.Gain norQFloCoo(k=1/loaCoo.QCoo_flow_nominal)
     "Normalized Q_flow"
-    annotation (Placement(transformation(extent={{-146,-160},{-126,-140}})));
+    annotation (Placement(transformation(extent={{-146,-190},{-126,-170}})));
+  Networks.Distribution2Pipe disHea(
+    redeclare final package Medium = Medium,
+    nCon=1,
+    allowFlowReversal=false,
+    mDis_flow_nominal=loaHea.mBui_flow_nominal,
+    mCon_flow_nominal={loaHea.mBui_flow_nominal},
+    dpDis_nominal(displayUnit="Pa") = {200000})
+    "Distribution network for district heating system"
+    annotation (Placement(transformation(extent={{20,62},{-20,82}})));
+  Networks.Distribution2Pipe disCoo(
+    redeclare final package Medium = Medium,
+    nCon=1,
+    allowFlowReversal=false,
+    mDis_flow_nominal=loaCoo.mBui_flow_nominal,
+    mCon_flow_nominal={loaCoo.mBui_flow_nominal},
+    dpDis_nominal(displayUnit="Pa") = {20e4})
+    "Distribution network for district cooling system"
+    annotation (Placement(transformation(extent={{20,-60},{-20,-80}})));
 equation
   connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-198,20},
           {-34,20}},                   color={0,0,127}));
@@ -182,18 +200,12 @@ equation
       points={{-200,120},{-100,120},{-100,40},{0,40},{0,30}},
       color={255,204,51},
       thickness=0.5));
-  connect(pla.port_bSerHea, loaHea.port_aSerHea) annotation (Line(points={{30,0},
-          {40,0},{40,66},{10,66}}, color={0,127,255}));
-  connect(loaHea.port_bSerHea, pla.port_aSerHea) annotation (Line(points={{-10,66},
-          {-40,66},{-40,0},{-30,0}}, color={0,127,255}));
-  connect(pla.port_bSerCoo, loaCoo.port_aSerCoo) annotation (Line(points={{30,-4},
-          {40,-4},{40,-76},{10,-76}}, color={0,127,255}));
-  connect(loaCoo.port_bSerCoo, pla.port_aSerCoo) annotation (Line(points={{-10,-76},
-          {-40,-76},{-40,-4},{-30,-4}}, color={0,127,255}));
   connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
-          {16,-100},{16,-61},{11,-61}}, color={0,0,127}));
-  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-42,
-          50},{-42,86},{16,86},{16,77},{11,77}}, color={0,0,127}));
+          {16,-100},{16,-113},{11,-113}},
+                                        color={0,0,127}));
+  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{
+          -42,50},{-42,126},{16,126},{16,117},{11,117}},
+                                                 color={0,0,127}));
   connect(norQFloHea.y, offCoo.u)
     annotation (Line(points={{-163,164},{-146,164}}, color={0,0,127}));
   connect(offCoo.y, tim.u)
@@ -201,27 +213,48 @@ equation
   connect(tim.passed, onPla.u)
     annotation (Line(points={{-82,156},{-66,156}}, color={255,0,255}));
   connect(onPla.y, pla.u1Hea) annotation (Line(points={{-42,156},{-38,156},{-38,
-          100},{-58,100},{-58,24},{-34,24}}, color={255,0,255}));
-  connect(loaHea.QHea_flow, norQFloHea.u) annotation (Line(points={{-5,58},{-4,58},
-          {-4,54},{-20,54},{-20,130},{-192,130},{-192,164},{-186,164}}, color={0,
+          24},{-34,24}},                     color={255,0,255}));
+  connect(loaHea.QHea_flow, norQFloHea.u) annotation (Line(points={{-5,98},{-4,
+          98},{-4,94},{-20,94},{-20,130},{-192,130},{-192,164},{-186,164}},
+                                                                        color={0,
           0,127}));
   connect(tim1.passed, onPla1.u)
-    annotation (Line(points={{-44,-158},{-28,-158}}, color={255,0,255}));
+    annotation (Line(points={{-44,-188},{-40,-188},{-40,-190},{-36,-190},{-36,
+          -188},{-28,-188}},                         color={255,0,255}));
   connect(offCoo1.y, tim1.u)
-    annotation (Line(points={{-84,-150},{-68,-150}}, color={255,0,255}));
+    annotation (Line(points={{-84,-180},{-80,-180},{-80,-182},{-76,-182},{-76,
+          -180},{-68,-180}},                         color={255,0,255}));
   connect(norQFloCoo.y, offCoo1.u)
-    annotation (Line(points={{-125,-150},{-108,-150}}, color={0,0,127}));
-  connect(loaCoo.QCoo_flow, norQFloCoo.u) annotation (Line(points={{-7,-80},{-8,
-          -80},{-8,-110},{-160,-110},{-160,-150},{-148,-150}}, color={0,0,127}));
-  connect(onPla1.y, pla.u1Coo) annotation (Line(points={{-4,-158},{8,-158},{8,-120},
-          {-54,-120},{-54,28},{-34,28}}, color={255,0,255}));
+    annotation (Line(points={{-125,-180},{-120,-180},{-120,-182},{-116,-182},{
+          -116,-180},{-108,-180}},                     color={0,0,127}));
+  connect(loaCoo.QCoo_flow, norQFloCoo.u) annotation (Line(points={{-7,-132},{
+          -7,-164},{-156,-164},{-156,-180},{-148,-180}},       color={0,0,127}));
+  connect(onPla1.y, pla.u1Coo) annotation (Line(points={{-4,-188},{8,-188},{8,
+          -150},{-54,-150},{-54,28},{-34,28}},
+                                         color={255,0,255}));
+  connect(pla.port_bSerHea, disHea.port_aDisSup) annotation (Line(points={{30,0},
+          {40,0},{40,72},{20,72}}, color={0,127,255}));
+  connect(disHea.port_bDisRet, pla.port_aSerHea) annotation (Line(points={{20,
+          66},{30,66},{30,50},{-40,50},{-40,0},{-30,0}}, color={0,127,255}));
+  connect(disHea.ports_aCon[1], loaHea.port_bSerHea) annotation (Line(points={{
+          -12,82},{-12,90},{-30,90},{-30,106},{-10,106}}, color={0,127,255}));
+  connect(loaHea.port_aSerHea, disHea.ports_bCon[1]) annotation (Line(points={{
+          10,106},{30,106},{30,90},{12,90},{12,82}}, color={0,127,255}));
+  connect(disCoo.ports_bCon[1], loaCoo.port_aSerCoo) annotation (Line(points={{
+          12,-80},{12,-92},{30,-92},{30,-128},{10,-128}}, color={0,127,255}));
+  connect(loaCoo.port_bSerCoo, disCoo.ports_aCon[1]) annotation (Line(points={{
+          -10,-128},{-30,-128},{-30,-92},{-12,-92},{-12,-80}}, color={0,127,255}));
+  connect(disCoo.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,
+          -70},{40,-70},{40,-4},{30,-4}}, color={0,127,255}));
+  connect(disCoo.port_bDisRet, pla.port_aSerCoo) annotation (Line(points={{20,
+          -64},{30,-64},{30,-46},{-40,-46},{-40,-4},{-30,-4}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
       StartTime=5184000,
-      StopTime=15552000,
+      StopTime=6912000,
       Interval=299.999808,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
