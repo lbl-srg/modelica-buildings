@@ -44,25 +44,25 @@ model Proof "Validation model for the Proof block"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 equation
-  connect(latInp.y, pro.uMea) annotation (Line(points={{-18,80},{8,80},{8,86},{18,
-          86}},  color={255,0,255}));
-  connect(latInp1.y, pro.uCom) annotation (Line(points={{-18,20},{10,20},{10,74},
-          {18,74}},  color={255,0,255}));
-  connect(latInp1.y, pro1.uMea) annotation (Line(points={{-18,20},{10,20},{10,46},
+  connect(latInp.y, pro.u_m) annotation (Line(points={{-18,80},{8,80},{8,86},{
+          18,86}}, color={255,0,255}));
+  connect(latInp1.y, pro.u_s) annotation (Line(points={{-18,20},{10,20},{10,74},
+          {18,74}}, color={255,0,255}));
+  connect(latInp1.y, pro1.u_m) annotation (Line(points={{-18,20},{10,20},{10,46},
           {18,46}}, color={255,0,255}));
-  connect(latInp2.y, pro1.uCom) annotation (Line(points={{-18,-50},{0,-50},{0,34},
+  connect(latInp2.y, pro1.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,34},
           {18,34}}, color={255,0,255}));
-  connect(latInp1.y, pro2.uCom) annotation (Line(points={{-18,20},{10,20},{10,-6},
+  connect(latInp1.y, pro2.u_s) annotation (Line(points={{-18,20},{10,20},{10,-6},
           {18,-6}}, color={255,0,255}));
-  connect(latInp2.y, pro2.uMea) annotation (Line(points={{-18,-50},{0,-50},{0,6},
+  connect(latInp2.y, pro2.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,6},
           {18,6}}, color={255,0,255}));
-  connect(latInp1.y,pro4. uMea) annotation (Line(points={{-18,20},{10,20},{10,-74},
+  connect(latInp1.y, pro4.u_m) annotation (Line(points={{-18,20},{10,20},{10,-74},
           {18,-74}}, color={255,0,255}));
-  connect(latInp2.y,pro4. uCom) annotation (Line(points={{-18,-50},{0,-50},{0,-86},
-          {18,-86}},  color={255,0,255}));
-  connect(latInp1.y, pro3.uCom) annotation (Line(points={{-18,20},{10,20},{10,-46},
+  connect(latInp2.y, pro4.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,-86},
+          {18,-86}}, color={255,0,255}));
+  connect(latInp1.y, pro3.u_s) annotation (Line(points={{-18,20},{10,20},{10,-46},
           {18,-46}}, color={255,0,255}));
-  connect(latInp2.y, pro3.uMea) annotation (Line(points={{-18,-50},{0,-50},{0,-34},
+  connect(latInp2.y, pro3.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,-34},
           {18,-34}}, color={255,0,255}));
 annotation (
     experiment(StopTime=10.0, Tolerance=1e-06),
