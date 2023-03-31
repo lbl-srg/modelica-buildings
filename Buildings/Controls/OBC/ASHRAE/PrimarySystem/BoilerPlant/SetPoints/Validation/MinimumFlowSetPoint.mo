@@ -54,7 +54,9 @@ protected
     annotation (Placement(transformation(extent={{-90,90},{-70,110}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig(
-    final nin=3)
+    final allowOutOfRange=true,
+    final nin=3,
+    final outOfRangeValue=0)
     "Extract scalar out of vector"
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
 
@@ -91,7 +93,9 @@ protected
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
-    final nin=3)
+    final allowOutOfRange=true,
+    final nin=3,
+    final outOfRangeValue=0)
     "Extract scalar out of vector"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
@@ -117,7 +121,9 @@ protected
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig2(
-    final nin=3)
+    final allowOutOfRange=true,
+    final nin=3,
+    final outOfRangeValue=0)
     "Extract scalar out of vector"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 

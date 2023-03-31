@@ -175,7 +175,9 @@ protected
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
-    final nin=nSta)
+    final allowOutOfRange=true,
+    final nin=nSta,
+    final outOfRangeValue=1e-6)
     "Extract flow ratio of previous setpoint during stage-up"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
@@ -202,7 +204,9 @@ protected
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig3(
-    final nin=nBoi)
+    final allowOutOfRange=true,
+    final nin=nBoi,
+    final outOfRangeValue=1e-6)
     "Extract max flowrate of boiler being disabled during stage-up"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
@@ -244,7 +248,9 @@ protected
     annotation (Placement(transformation(extent={{-90,-310},{-70,-290}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig4(
-    final nin=nSta)
+    final allowOutOfRange=true,
+    final nin=nSta,
+    final outOfRangeValue=1e-6)
     "Extract flow ratio of previous setpoint during stage-down"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 
@@ -253,7 +259,9 @@ protected
     annotation (Placement(transformation(extent={{100,-260},{120,-240}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig5(
-    final nin=nBoi)
+    final allowOutOfRange=true,
+    final nin=nBoi,
+    final outOfRangeValue=1e-6)
     "Extract max flowrate of boiler being disabled during stage-down"
     annotation (Placement(transformation(extent={{-40,-270},{-20,-250}})));
 
@@ -361,8 +369,8 @@ equation
   connect(uStaSet, extIndSig.index) annotation (Line(points={{-160,-90},{70,-90},
           {70,-62}},                     color={255,127,0}));
 
-  connect(matMax.y, extIndSig1.u) annotation (Line(points={{42,-150},{52,-150},
-          {52,80},{58,80}},
+  connect(matMax.y, extIndSig1.u) annotation (Line(points={{42,-150},{52,-150},{
+          52,80},{58,80}},
                         color={0,0,127}));
 
   connect(conInt.y,subInt. u2) annotation (Line(points={{-98,70},{-72,70},{-72,
