@@ -3,7 +3,7 @@ model VariableSpeed "Variable speed water source DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
       redeclare final
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling
       eva(
       redeclare final
         Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil

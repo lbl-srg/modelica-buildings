@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model VariableSpeedDXCooling "Test model for variable speed DX coil"
+model VariableSpeedCooling "Test model for variable speed DX coil"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.Air "Medium model";
@@ -22,7 +22,7 @@ model VariableSpeedDXCooling "Test model for variable speed DX coil"
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling
     varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -111,7 +111,7 @@ equation
       points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/VariableSpeedDXCooling.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/VariableSpeedCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),
             Documentation(info="<html>
@@ -146,4 +146,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end VariableSpeedDXCooling;
+end VariableSpeedCooling;

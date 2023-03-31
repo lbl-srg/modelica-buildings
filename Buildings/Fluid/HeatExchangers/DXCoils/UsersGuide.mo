@@ -36,7 +36,7 @@ The following six DX coil models are available:
   </tr>
   <tr>
       <td>Air source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</td>
       <td>Cooling coil with variable speed compressor with lower speed limit. If the control signal
           is below the lower limit, the coil switches off. It switches on if the control
           signal is above the lower limit plus a hysteresis. By default, the minimum speed

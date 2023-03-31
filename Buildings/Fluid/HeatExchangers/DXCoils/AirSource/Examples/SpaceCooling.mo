@@ -184,7 +184,7 @@ model SpaceCooling "Space cooling with DX coils"
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{64,-246},{76,-234}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling
     varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
