@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
-model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
+model SingleSpeedHeating_TimedResistiveDefrost
   "Validation model for single speed heating DX coil with defrost operation"
   extends Modelica.Icons.Example;
 
@@ -26,8 +26,8 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     defCur=defCur,
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.onDemand,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed,
     tDefRun=0.166667)
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -88,10 +88,9 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
   //     PEPlu.firstTrigger(start = false)
   //     ...
   Data.Generic.BaseClasses.Defrost defCur(
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
     QDefResCap=10500,
     QCraCap=200,
-    defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
     PLFraFunPLR={1})
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
@@ -99,13 +98,14 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir1
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  UnitDelay PDefEPlu(samplePeriod=1)
+  UnitDelay PDefEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   UnitDelay PCraEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle/DXCoilSystemAuto.dat"),
+    fileName=ModelicaServices.ExternalReferences.loadResource(
+        "./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedResistive/DXCoilSystemAuto.dat"),
     columns=2:18,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -162,41 +162,41 @@ equation
           {38,20}}, color={0,0,127}));
   connect(datRea.y[14], pLRToPulse.uPLR)
     annotation (Line(points={{-131,120},{-82,120}}, color={0,0,127}));
-  connect(pLRToPulse.y, sinSpeDX.on) annotation (Line(points={{-58,120},{-26,120},
-          {-26,18},{-11,18}}, color={255,0,255}));
-  connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
-          120},{-108,79.6},{-102,79.6}}, color={0,0,127}));
-  connect(datRea.y[9], toTotAir.XiDry) annotation (Line(points={{-131,120},{-108,
-          120},{-108,50},{-101,50}}, color={0,0,127}));
+  connect(pLRToPulse.y, sinSpeDX.on) annotation (Line(points={{-58,120},{-26,
+          120},{-26,18},{-11,18}}, color={255,0,255}));
+  connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{
+          -108,120},{-108,79.6},{-102,79.6}}, color={0,0,127}));
+  connect(datRea.y[9], toTotAir.XiDry) annotation (Line(points={{-131,120},{
+          -108,120},{-108,50},{-101,50}}, color={0,0,127}));
   connect(datRea.y[17], boundary.m_flow_in) annotation (Line(points={{-131,120},
           {-108,120},{-108,16},{-50,16},{-50,-2}}, color={0,0,127}));
-  connect(TConIn_K.Kelvin, boundary.T_in) annotation (Line(points={{-79,-10.2},{
-          -60,-10.2},{-60,-6},{-50,-6}}, color={0,0,127}));
-  connect(toTotAir2.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-79,
-          -50},{-60,-50},{-60,-14},{-50,-14}}, color={0,0,127}));
-  connect(datRea.y[5], TConIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
-          120},{-108,-10.4},{-102,-10.4}}, color={0,0,127}));
-  connect(datRea.y[6], toTotAir2.XiDry) annotation (Line(points={{-131,120},{-108,
-          120},{-108,-50},{-101,-50}}, color={0,0,127}));
+  connect(TConIn_K.Kelvin, boundary.T_in) annotation (Line(points={{-79,-10.2},
+          {-60,-10.2},{-60,-6},{-50,-6}}, color={0,0,127}));
+  connect(toTotAir2.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{
+          -79,-50},{-60,-50},{-60,-14},{-50,-14}}, color={0,0,127}));
+  connect(datRea.y[5], TConIn_K.Celsius) annotation (Line(points={{-131,120},{
+          -108,120},{-108,-10.4},{-102,-10.4}}, color={0,0,127}));
+  connect(datRea.y[6], toTotAir2.XiDry) annotation (Line(points={{-131,120},{
+          -108,120},{-108,-50},{-101,-50}}, color={0,0,127}));
   connect(boundary.ports[1], sinSpeDX.port_a) annotation (Line(points={{-28,-10},
           {-18,-10},{-18,10},{-10,10}}, color={0,127,255}));
-  connect(datRea.y[7], TOutEPlu.u) annotation (Line(points={{-131,120},{-108,120},
-          {-108,-30},{-10,-30},{-10,-60},{-2,-60}}, color={0,0,127}));
-  connect(datRea.y[8], toTotAir1.XiDry) annotation (Line(points={{-131,120},{-108,
-          120},{-108,-30},{-10,-30},{-10,-130},{-1,-130}}, color={0,0,127}));
-  connect(datRea.y[3], PEPlu.u) annotation (Line(points={{-131,120},{-108,120},{
-          -108,-30},{-10,-30},{-10,-108},{-74,-108},{-74,-130},{-70,-130}},
+  connect(datRea.y[7], TOutEPlu.u) annotation (Line(points={{-131,120},{-108,
+          120},{-108,-30},{-10,-30},{-10,-60},{-2,-60}}, color={0,0,127}));
+  connect(datRea.y[8], toTotAir1.XiDry) annotation (Line(points={{-131,120},{
+          -108,120},{-108,-30},{-10,-30},{-10,-130},{-1,-130}}, color={0,0,127}));
+  connect(datRea.y[3], PEPlu.u) annotation (Line(points={{-131,120},{-108,120},
+          {-108,-30},{-10,-30},{-10,-108},{-74,-108},{-74,-130},{-70,-130}},
         color={0,0,127}));
-  connect(datRea.y[2], Q_flowEPlu.u) annotation (Line(points={{-131,120},{-108,120},
-          {-108,-30},{-10,-30},{-10,-108},{90,-108},{90,-130},{98,-130}}, color=
-         {0,0,127}));
-  connect(datRea.y[15], PDefEPlu.u) annotation (Line(points={{-131,120},{-108,120},
-          {-108,-30},{-10,-30},{-10,-40},{98,-40}}, color={0,0,127}));
-  connect(datRea.y[16], PCraEPlu.u) annotation (Line(points={{-131,120},{-108,120},
-          {-108,-80},{98,-80}}, color={0,0,127}));
+  connect(datRea.y[2], Q_flowEPlu.u) annotation (Line(points={{-131,120},{-108,
+          120},{-108,-30},{-10,-30},{-10,-108},{90,-108},{90,-130},{98,-130}},
+        color={0,0,127}));
+  connect(datRea.y[15], PDefEPlu.u) annotation (Line(points={{-131,120},{-108,
+          120},{-108,-30},{-10,-30},{-10,-40},{98,-40}}, color={0,0,127}));
+  connect(datRea.y[16], PCraEPlu.u) annotation (Line(points={{-131,120},{-108,
+          120},{-108,-80},{98,-80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_TimedResistiveDefrost.mos"
         "Simulate and Plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
             Documentation(info="<html>
@@ -268,4 +268,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle;
+end SingleSpeedHeating_TimedResistiveDefrost;

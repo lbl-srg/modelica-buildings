@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
-model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive
+model SingleSpeedHeating_OnDemandResistiveDefrost
   "Validation model for single speed heating DX coil with defrost operation"
   extends Modelica.Icons.Example;
 
@@ -196,7 +196,7 @@ equation
           {-108,-80},{98,-80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandResistiveDefrost.mos"
         "Simulate and Plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
             Documentation(info="<html>
@@ -268,4 +268,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive;
+end SingleSpeedHeating_OnDemandResistiveDefrost;

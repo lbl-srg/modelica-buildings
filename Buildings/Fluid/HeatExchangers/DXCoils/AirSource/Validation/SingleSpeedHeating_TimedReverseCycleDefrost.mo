@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
-model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
+model SingleSpeedHeating_TimedReverseCycleDefrost
   "Validation model for single speed heating DX coil with defrost operation"
   extends Modelica.Icons.Example;
 
@@ -205,7 +205,7 @@ equation
           120},{-108,-80},{-140,-80},{-140,-128},{-122,-128}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_TimedReverseCycleDefrost.mos"
         "Simulate and Plot"),
     experiment(
       StopTime=172800,
@@ -280,4 +280,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle;
+end SingleSpeedHeating_TimedReverseCycleDefrost;
