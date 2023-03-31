@@ -106,12 +106,12 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedResistive
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedResistive/DXCoilSystemAuto.dat"),
-
     columns=2:18,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
       annotation (Placement(transformation(extent={{-152,110},{-132,130}})));
+
   BaseClasses.PLRToPulse pLRToPulse(timePeriod=3600)
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Sources.MassFlowSource_T boundary(

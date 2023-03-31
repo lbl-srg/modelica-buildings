@@ -25,10 +25,14 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    dxCoi(datCoi(sta={
+            Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage()})),
+
     defCur=defCur,
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
     defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed,
-    tDefRun=0.166667)
+    tDefRun=0.166667,
+    TDefLim(displayUnit="degC"))
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
@@ -88,9 +92,10 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
   //     PEPlu.firstTrigger(start = false)
   //     ...
   Data.Generic.BaseClasses.Defrost defCur(
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
     QDefResCap=10500,
     QCraCap=200,
+    defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
     PLFraFunPLR={1})
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
@@ -98,15 +103,15 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir1
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  UnitDelay PDefEPlu(samplePeriod=3600)
+  UnitDelay PDefEPlu(samplePeriod=1)
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  UnitDelay PCraEPlu(samplePeriod=3600)
+  UnitDelay PCraEPlu(samplePeriod=1)
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     tableOnFile=true,
     fileName=ModelicaServices.ExternalReferences.loadResource(
         "./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle/DXCoilSystemAuto.dat"),
-    columns=2:18,
+    columns=2:19,
     tableName="EnergyPlus",
     smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
@@ -122,6 +127,8 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle
     nPorts=1) annotation (Placement(transformation(extent={{-48,-20},{-28,0}})));
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir2
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+  UnitDelay RTFEPlu(samplePeriod=1) "Value for calculated runtime fraction"
+    annotation (Placement(transformation(extent={{-120,-138},{-100,-118}})));
 protected
   block UnitDelay
     extends Modelica.Blocks.Discrete.UnitDelay(
@@ -194,11 +201,16 @@ equation
           {-108,-30},{-10,-30},{-10,-40},{98,-40}}, color={0,0,127}));
   connect(datRea.y[16], PCraEPlu.u) annotation (Line(points={{-131,120},{-108,120},
           {-108,-80},{98,-80}}, color={0,0,127}));
+  connect(datRea.y[14], RTFEPlu.u) annotation (Line(points={{-131,120},{-108,
+          120},{-108,-80},{-140,-80},{-140,-128},{-122,-128}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_TimedReverseCycle.mos"
         "Simulate and Plot"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
             Documentation(info="<html>
 <p>
 This model validates the model

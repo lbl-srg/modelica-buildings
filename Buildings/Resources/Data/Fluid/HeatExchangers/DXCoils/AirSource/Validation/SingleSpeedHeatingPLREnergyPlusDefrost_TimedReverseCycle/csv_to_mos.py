@@ -28,7 +28,8 @@ def main():
       'HEAT PUMP DX HEATING COIL 1:Heating Coil Runtime Fraction [](Hourly)',
       'HEAT PUMP DX HEATING COIL 1:Heating Coil Defrost Electricity Rate [W](Hourly)',
       'HEAT PUMP DX HEATING COIL 1:Heating Coil Crankcase Heater Electricity Rate [W](Hourly)',
-      'HEATING COIL AIR INLET NODE:System Node Mass Flow Rate [kg/s](Hourly)'
+      'HEATING COIL AIR INLET NODE:System Node Mass Flow Rate [kg/s](Hourly)',
+      'HPACHEATEIRFT:Performance Curve Output Value [](Hourly)'
     ]
 
     e.energyplus_csv_to_mos(

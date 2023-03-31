@@ -62,7 +62,7 @@ block CoilDefrostCapacity
   Modelica.Blocks.Interfaces.RealInput pIn(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure")
+    final quantity="AbsolutePressure")
     "Pressure of air entering indoor condenser coil"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
@@ -126,7 +126,7 @@ block CoilDefrostCapacity
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}}),
       iconTransformation(extent={{-120,-170},{-100,-150}})));
 
-  Modelica.Units.SI.Power QDefResCap if (defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive)
+  parameter Modelica.Units.SI.Power QDefResCap = defCur.QDefResCap
     "Capacity of resistive defrost element";
 
   Modelica.Blocks.Interfaces.RealInput EIR(
@@ -175,23 +175,18 @@ equation
       x2=0.001,
       deltaX=0.0001)
       "Cooling capacity modification factor as function of temperature";
+  PLR = uSpe;
   if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive then
-    QDefResCap = defCur.QDefResCap;
     QDef = 0;
     PDef = QDefResCap * tFracDef * RTF;
-    if uSpe > 0 then
-      PLR=1;
-    else
-      PLR=0;
-    end if;
   else
     QDef = 0.01 * tFracDef * (7.222 - Modelica.Units.Conversions.to_degC(TOut)) * QTot/1.01667;
     PDef = defMod_T * QTot * tFracDef * RTF/1.01667;
   end if;
   QTotDef = QTot * heaCapMul;
-  //when (PLR+(QDef/QTotDef)) > 1 then
-    //PLR = pre(PLR)+(QDef/QTotDef);
-  //end when;
+// when (PLR+(QDef/QTotDef)) < 1 then
+//   PLR =  pre(PLR)+(QDef/QTotDef);
+// end when;
   //if (PLR+(QDef/QTotDef)) < 1 then
     //PLR=1;
   //end if;

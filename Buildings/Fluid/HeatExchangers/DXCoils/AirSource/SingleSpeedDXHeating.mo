@@ -9,8 +9,7 @@ model SingleSpeedDXHeating "Single speed DX heating coil"
     redeclare
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
       datCoi,
-    use_mCon_flow=false,
-    defCap(redeclare package MediumA = Medium));
+    use_mCon_flow=false);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
   Modelica.Blocks.Interfaces.BooleanInput on

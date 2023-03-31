@@ -13,9 +13,12 @@ block CoilDefrostTimeCalculations
     "Time period for which defrost cycle is run"
     annotation(Dialog(enable= defTri==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed));
 
+  parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim
+    "Maximum temperature at which defrost operation is activated";
+
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
-    final displayUnit="K",
+    displayUnit="degC",
     final quantity="ThermodynamicTemperature") "Humidity ratio of outdoor air"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
@@ -66,17 +69,23 @@ equation
   XOutDryAir = toDryAir.XiDry;
   // Calculate difference between outdoor air humidity ratio and saturated air humidity
   // ratio at estimated outdoor coil temperature
-  delta_XCoilOut = max(1e-6, (XOut - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)));
-  if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed then
-    tFracDef = tDefRun;
-    heaCapMul = 0.909 - 107.33*delta_XCoilOut;
-    inpPowMul = 0.9 - 36.45*delta_XCoilOut;
+  delta_XCoilOut = max(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)));
+  if TOut < TDefLim then
+    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed then
+      tFracDef = tDefRun;
+      heaCapMul = 0.909 - 107.33*delta_XCoilOut;
+      inpPowMul = 0.9 - 36.45*delta_XCoilOut;
+    else
+      tFracDef = 1/(1+(0.01446/delta_XCoilOut));
+      heaCapMul = 0.875*(1 - tFracDef);
+      inpPowMul = 0.954*(1 - tFracDef);
+    end if;
   else
-    tFracDef = 1/(1+(0.01446/delta_XCoilOut));
-    heaCapMul = 0.875*(1 - tFracDef);
-    inpPowMul = 0.954*(1 - tFracDef);
+    tFracDef = 0;
+    heaCapMul = 1;
+    inpPowMul = 1;
   end if;
-   annotation (
+  annotation (
     defaultComponentName="cooCap",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                     graphics={

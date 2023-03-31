@@ -26,8 +26,8 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     defCur=defCur,
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.onDemand,
     tDefRun=0.166667)
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -88,9 +88,10 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
   //     PEPlu.firstTrigger(start = false)
   //     ...
   Data.Generic.BaseClasses.Defrost defCur(
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
     QDefResCap=10500,
     QCraCap=200,
+    defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
     PLFraFunPLR={1})
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
@@ -98,7 +99,7 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir1
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  UnitDelay PDefEPlu(samplePeriod=3600)
+  UnitDelay PDefEPlu(samplePeriod=1)
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   UnitDelay PCraEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{100,-90},{120,-70}})));

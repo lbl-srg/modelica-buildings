@@ -7,7 +7,8 @@ partial model PartialDXHeatingCoil "Partial model for DX heating coil"
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi);
 
-  CoilDefrostTimeCalculations defTim(defTri=defTri, tDefRun=tDefRun)
+  CoilDefrostTimeCalculations defTim(defTri=defTri, tDefRun=tDefRun,
+    TDefLim=TDefLim)
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   CoilDefrostCapacity defCap(
     defTri=defTri,
@@ -35,6 +36,10 @@ partial model PartialDXHeatingCoil "Partial model for DX heating coil"
     final unit="1",
     displayUnit="1")=0.5
     "Time period for which defrost cycle is run";
+  parameter Real PLFraFunPLR[:]={1}
+    "Quadratic/cubic equation for part load fraction as a function of part-load ratio";
+  parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=273.65
+    "Maximum temperature at which defrost operation is activated";
 equation
   connect(TOut,dxCoi.TEvaIn)  annotation (Line(points={{-110,30},{-92,30},{-92,
           52},{-21,52}}, color={0,0,127}));

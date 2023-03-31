@@ -1880,7 +1880,7 @@ Coil:Heating:DX:SingleSpeed,
     HPACHeatEIRFT,           !- Energy Input Ratio Function of Temperature Curve Name
     HPACHeatEIRFFF,          !- Energy Input Ratio Function of Flow Fraction Curve Name
     HPACCOOLPLFFPLR,         !- Part Load Fraction Correlation Curve Name
-    HPACHeatEIRFT,           !- Defrost Energy Input Ratio Function of Temperature Curve Name
+    HPACCOOLEIRFT,           !- Defrost Energy Input Ratio Function of Temperature Curve Name
     -8.0,                    !- Minimum Outdoor Dry-Bulb Temperature for Compressor Operation {C}
     ,                        !- Outdoor Dry-Bulb Temperature to Turn On Compressor {C}
     0.5,                     !- Maximum Outdoor Dry-Bulb Temperature for Defrost Operation {C}
@@ -2536,3 +2536,4 @@ Output:Meter:MeterFileOnly,
     NaturalGas:HVAC,         !- Key Name
     runperiod;               !- Reporting Frequency
 
+Output:Variable,HPACHeatEIRFT,Performance Curve Output Value,hourly; !- HVAC Average []
