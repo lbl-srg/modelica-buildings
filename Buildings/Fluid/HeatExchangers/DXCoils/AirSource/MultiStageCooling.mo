@@ -46,6 +46,12 @@ equation
       points={{-110,80},{-30,80},{-30,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
+  connect(pwr.P, P) annotation (Line(points={{41,76},{72,76},{72,90},{110,90}},
+        color={0,0,127}));
+  connect(pwr.QSen_flow, QSen_flow)
+    annotation (Line(points={{41,70},{110,70}}, color={0,0,127}));
+  connect(dxCoi.Q_flow, q.Q_flow) annotation (Line(points={{1,56},{20,56},{20,
+          54},{42,54}}, color={0,0,127}));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
 This model can be used to simulate an air source DX cooling coil with multiple
