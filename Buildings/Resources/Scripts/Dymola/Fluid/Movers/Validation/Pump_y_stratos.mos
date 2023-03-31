@@ -1,7 +1,7 @@
-simulateModel("Buildings.Fluid.Movers.Validation.Pump_Nrpm_stratos", stopTime=1000, method="CVode", tolerance=1e-08, resultFile="Pump_Nrpm_stratos");
+simulateModel("Buildings.Fluid.Movers.Validation.Pump_y_stratos", stopTime=1000, method="CVode", tolerance=1e-08, resultFile="Pump_y_stratos");
 removePlots();
 createPlot(id=1,
-filename = "Pump_Nrpm_stratos.mat",
+filename = "Pump_y_stratos.mat",
 position={0, 0, 1010, 701},
 y={"pump1.m_flow", "pump2.m_flow", "pump3.m_flow", "pump4.m_flow", "pump5.m_flow"},
 range={0.0, 1000.0, -2.0, 16.0},
