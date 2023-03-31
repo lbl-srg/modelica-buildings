@@ -1,12 +1,12 @@
-within Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data;
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data;
 record FanData "Fan data for the validation model"
   extends Buildings.Fluid.Movers.Data.Generic(
     speed_rpm_nominal=2900,
-    power(V_flow={0,0.056578,0.113156,0.169734,0.226312,0.28289,
-        0.339468,0.396046,0.452624,0.509202,0.56578}, P={0,3.314,4.313,5.403,6.775,
-          8.619,11.125,14.484,18.886,24.521,31.581}),
-    pressure(V_flow={0.056578,0.113156,0.169734,0.226312,0.28289,
-        0.339468,0.396046,0.452624,0.509202,0.56578}, dp={7500,1875,833.33,468.75,300,208.33,153.06,117.1875, 92.59, 75}),
+    power(V_flow={0, 0.042691, 0.085382, 0.128073, 0.170764, 0.213455,
+    0.256146, 0.298837, 0.341528, 0.384219, 0.42691}, P={4.510,6.747,8.782,
+    11.002,13.794,17.548, 22.650, 29.489, 38.451,49.926, 64.300}),
+    pressure(V_flow={0.042691, 0.085382, 0.128073, 0.170764, 0.213455,
+    0.256146, 0.298837, 0.341528, 0.384219, 0.42691}, dp={7500,1875,833.33,468.75,300,208.33,153.06,117.1875, 92.59, 75}),
     motorCooledByFluid=true);
   annotation (
 defaultComponentPrefixes="parameter",

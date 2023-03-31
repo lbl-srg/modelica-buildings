@@ -1,6 +1,6 @@
-within Buildings.Fluid.ZoneEquipment.WindowAC.Validation;
-model CoolingModeEPlusComparison
-  "Validation model for cooling mode operation of window AC system"
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation;
+model HeatingModeEPlusComparison
+  "Validation model for heating mode operation of window AC system"
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -57,17 +57,20 @@ model CoolingModeEPlusComparison
         "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.SizingData winACSizing
-    "Sizing parameters for window AC"
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data.SizingData
+    PTHPSizing "Sizing parameters for PTHP"
     annotation (Placement(transformation(extent={{60,72},{80,92}})));
-  Buildings.Fluid.ZoneEquipment.WindowAC.WindowAC winAC(
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.PackagedTerminalHeatPump
+    PTHP(
     redeclare package MediumA = MediumA,
-    mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
-    mAir_flow_nominal=winACSizing.mAir_flow_nominal,
+    mAirOut_flow_nominal=PTHPSizing.mAirOut_flow_nominal,
+    mAir_flow_nominal=PTHPSizing.mAir_flow_nominal,
     dpAir_nominal(displayUnit="Pa") = dpAir_nominal,
     dpDX_nominal(displayUnit="Pa") = dpDX_nominal,
-    redeclare Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.FanData fanPer,
-    datCoi=datCoi)
+    redeclare
+      Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data.FanData
+      fanPer,
+    datCooCoi=datCoi)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Modelica.Blocks.Sources.Pulse p(
     nperiod=1,
@@ -100,16 +103,15 @@ model CoolingModeEPlusComparison
   .Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 equation
-  connect(weaDat.weaBus, winAC.weaBus) annotation (Line(
+  connect(weaDat.weaBus, PTHP.weaBus) annotation (Line(
       points={{-60,120},{-15.8,120},{-15.8,18}},
       color={255,204,51},
       thickness=0.5));
-  connect(damPos.y, winAC.uEco)
-    annotation (Line(points={{-98,0},{-40,0},{-40,18},{-22,18}},
-                                                 color={0,0,127}));
-  connect(souAir.ports[1], winAC.port_Air_a2) annotation (Line(points={{70,36},{
-          78,36},{78,4},{20,4}},  color={0,127,255}));
-  connect(sinAir.ports[1], winAC.port_Air_b2) annotation (Line(points={{72,-44},
+  connect(damPos.y, PTHP.uEco) annotation (Line(points={{-98,0},{-40,0},{-40,18},
+          {-22,18}}, color={0,0,127}));
+  connect(souAir.ports[1], PTHP.port_Air_a2) annotation (Line(points={{70,36},{
+          78,36},{78,4},{20,4}}, color={0,127,255}));
+  connect(sinAir.ports[1], PTHP.port_Air_b2) annotation (Line(points={{72,-44},
           {78,-44},{78,-4},{20,-4}}, color={0,127,255}));
   connect(datRea.y[11], div1.u1) annotation (Line(points={{-99,40},{-82,40},{-82,
           56},{-52,56}}, color={0,0,127}));
@@ -126,10 +128,10 @@ equation
   connect(datRea.y[4], greThr.u) annotation (Line(points={{-99,40},{-92,40},{
           -92,-40},{-82,-40}},
                            color={0,0,127}));
-  connect(greThr.y, winAC.uCooEna) annotation (Line(points={{-58,-40},{-30,-40},
+  connect(greThr.y, PTHP.uCooEna) annotation (Line(points={{-58,-40},{-30,-40},
           {-30,-9.8},{-22,-9.8}}, color={255,0,255}));
-  connect(datRea.y[4], winAC.uFan) annotation (Line(points={{-99,40},{-92,40},{
-          -92,-18},{-34,-18},{-34,10},{-22,10}}, color={0,0,127}));
+  connect(datRea.y[4], PTHP.uFan) annotation (Line(points={{-99,40},{-92,40},{-92,
+          -18},{-34,-18},{-34,10},{-22,10}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
             {120,140}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,
@@ -141,4 +143,4 @@ equation
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeEPlusComparison.mos"
         "Simulate and Plot"));
-end CoolingModeEPlusComparison;
+end HeatingModeEPlusComparison;

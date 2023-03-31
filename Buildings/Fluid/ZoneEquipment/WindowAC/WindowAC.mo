@@ -22,7 +22,7 @@ model WindowAC
       Placement(transformation(extent={{50,100},{70,120}})),
       Dialog(group="Fan parameters"));
 
-  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.DXCoil datCoi(
+  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
     nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{2,100},{22,120}})));
 
@@ -35,7 +35,7 @@ model WindowAC
     "Supply fan"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed sinSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling sinSpeDX(
     redeclare final package Medium = MediumA,
     show_T=true,
     dp_nominal=dpDX_nominal,
