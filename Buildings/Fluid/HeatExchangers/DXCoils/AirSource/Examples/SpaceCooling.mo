@@ -120,7 +120,7 @@ model SpaceCooling "Space cooling with DX coils"
      m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{66,-170},{78,-158}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageDXCooling mulStaDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoiMulSpe,

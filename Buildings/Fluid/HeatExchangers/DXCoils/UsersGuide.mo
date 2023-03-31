@@ -18,7 +18,7 @@ The following six DX coil models are available:
   </tr>
   <tr>
     <td>Air source</td>
-    <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageDXCooling</td>
+    <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</td>
     <td>Cooling coil with multiple operating stages, each stage having a constant speed.
         Each stage has its own performance curve, which may represent
         the coil performance at different compressor speed, or the

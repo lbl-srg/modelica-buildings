@@ -49,8 +49,8 @@ Documentation(info="<html>
 This partial model is the base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling</a>,
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageDXCooling\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageDXCooling</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedDXCooling</a>.
 </p>

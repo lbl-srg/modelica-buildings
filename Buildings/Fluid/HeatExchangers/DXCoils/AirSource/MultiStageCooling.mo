@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
-model MultiStageDXCooling "Multi-stage DX cooling coil"
+model MultiStageCooling "Multi-stage DX cooling coil"
 
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
@@ -92,4 +92,4 @@ First implementation.
           extent={{-102,94},{-44,76}},
           textColor={0,0,127},
           textString="stage")}));
-end MultiStageDXCooling;
+end MultiStageCooling;
