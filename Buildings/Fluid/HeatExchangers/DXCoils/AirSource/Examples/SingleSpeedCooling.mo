@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model SingleSpeedDXCooling "Test model for single speed cooling DX coil"
+model SingleSpeedCooling "Test model for single speed cooling DX coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -29,7 +29,7 @@ model SingleSpeedDXCooling "Test model for single speed cooling DX coil"
     height=-5,
     offset=273.15 + 23) "Temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
     sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
@@ -126,4 +126,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedDXCooling;
+end SingleSpeedCooling;

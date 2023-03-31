@@ -80,7 +80,7 @@ model SpaceCooling "Space cooling with DX coils"
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
     annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
     sinSpeDX(
     redeclare package Medium = Medium,
     datCoi=datCoi,

@@ -26,7 +26,7 @@ model SingleSpeedPLREnergyPlus
     use_X_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
     sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,

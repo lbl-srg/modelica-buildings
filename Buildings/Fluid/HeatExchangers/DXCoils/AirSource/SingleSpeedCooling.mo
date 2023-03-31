@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
-model SingleSpeedDXCooling "Single speed DX cooling coil"
+model SingleSpeedCooling "Single speed DX cooling coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
@@ -76,4 +76,4 @@ First implementation.
           extent={{-140,132},{-96,112}},
           textColor={0,0,255},
           textString="on")}));
-end SingleSpeedDXCooling;
+end SingleSpeedCooling;

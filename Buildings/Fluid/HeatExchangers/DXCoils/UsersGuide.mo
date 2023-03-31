@@ -30,7 +30,7 @@ The following six DX coil models are available:
   </tr>
   <tr>
       <td>Air source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling</td>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</td>
       <td>Single stage cooling coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
