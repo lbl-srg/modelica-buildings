@@ -17,7 +17,7 @@ model SingleSpeedHeatingPLREnergyPlusDefrost_TimedResistive
     nPorts=1,
     T=294.15) "Sink"
     annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating
     sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,

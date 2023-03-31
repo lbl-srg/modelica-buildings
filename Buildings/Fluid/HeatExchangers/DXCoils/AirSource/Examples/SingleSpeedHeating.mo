@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
-model SingleSpeedDXHeating "Test model for single speed DX heating coil"
+model SingleSpeedHeating "Test model for single speed DX heating coil"
   package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
@@ -26,7 +26,7 @@ model SingleSpeedDXHeating "Test model for single speed DX heating coil"
                 nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating
     sinSpeDX(
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
@@ -96,7 +96,7 @@ equation
       points={{10,10},{16,10},{16,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedDXHeating.mos"
+  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedHeating.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,
@@ -105,8 +105,8 @@ equation
             Documentation(info="<html>
 <p>
 This is an example model for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</a>.
 The model has time-varying control signals and input conditions.
 </p>
 </html>",
@@ -118,4 +118,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end SingleSpeedDXHeating;
+end SingleSpeedHeating;

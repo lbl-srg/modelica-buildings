@@ -74,8 +74,8 @@ defaultComponentName="dxCoi",
 Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</a>.
 </p>
 </html>",
 revisions="<html>

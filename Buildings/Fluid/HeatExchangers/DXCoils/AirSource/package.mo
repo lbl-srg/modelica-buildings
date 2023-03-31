@@ -9,8 +9,8 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Added DX heating coil class <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating</a>.
+Added DX heating coil class <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</a>.
 </li>
 </ul>
 </html>"));
