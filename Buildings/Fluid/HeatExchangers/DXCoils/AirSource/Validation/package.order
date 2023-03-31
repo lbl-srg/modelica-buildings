@@ -1,8 +1,6 @@
 BaseClasses
 SingleSpeedCooling
 SingleSpeedCoolingPLR
-SingleSpeedHeatingEnergyPlus
-SingleSpeedHeatingPLREnergyPlus
 SingleSpeedHeating_OnDemandResistiveDefrost
 SingleSpeedHeating_OnDemandReverseCycleDefrost
 SingleSpeedHeating_TimedResistiveDefrost
