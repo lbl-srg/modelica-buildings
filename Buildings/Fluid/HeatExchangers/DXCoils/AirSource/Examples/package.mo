@@ -10,8 +10,8 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Added example model <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.SingleSpeedDXHeating\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.SingleSpeedDXHeating</a>.
+Added example model <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.SingleSpeedHeating\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.SingleSpeedHeating</a>.
 </li>
 </ul>
 </html>"));
