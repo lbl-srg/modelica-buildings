@@ -1,5 +1,5 @@
 BaseClasses
-SingleSpeedEnergyPlus
+SingleSpeedCooling
 SingleSpeedHeatingEnergyPlus
 SingleSpeedHeatingPLREnergyPlus
 SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandResistive

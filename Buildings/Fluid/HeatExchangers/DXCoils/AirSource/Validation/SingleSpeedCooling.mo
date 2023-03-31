@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
-model SingleSpeedEnergyPlus
+model SingleSpeedCooling
   "Validation model for single speed DX coil with PLR=1"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air "Medium model";
@@ -318,7 +318,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -140},{160,140}})),
              __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedEnergyPlus.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedCooling.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
     Documentation(info="<html>
@@ -374,4 +374,4 @@ First implementation.
 </ul>
 
 </html>"));
-end SingleSpeedEnergyPlus;
+end SingleSpeedCooling;
