@@ -7,10 +7,10 @@ model MultiStageCooling "Multi-stage DX cooling coil"
       final variableSpeedCoil=false,
       wetCoi(redeclare
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
-          cooCap),
+          coiCap),
       dryCoi(redeclare
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
-          cooCap)),
+          coiCap)),
     redeclare
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
       datCoi,
@@ -27,7 +27,7 @@ model MultiStageCooling "Multi-stage DX cooling coil"
     annotation (Placement(transformation(extent={{-56,-68},{-44,-56}})));
 equation
   connect(onSwi.y, eva.on) annotation (Line(
-      points={{-43.4,-62},{-26,-62},{-26,-64},{-10,-64}},
+      points={{-43.4,-62},{-26,-62},{-26,-54},{-12,-54}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.u, stage) annotation (Line(
@@ -46,12 +46,6 @@ equation
       points={{-110,80},{-30,80},{-30,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(pwr.P, P) annotation (Line(points={{41,76},{72,76},{72,90},{110,90}},
-        color={0,0,127}));
-  connect(pwr.QSen_flow, QSen_flow)
-    annotation (Line(points={{41,70},{110,70}}, color={0,0,127}));
-  connect(dxCoi.Q_flow, q.Q_flow) annotation (Line(points={{1,56},{20,56},{20,
-          54},{42,54}}, color={0,0,127}));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
 This model can be used to simulate an air source DX cooling coil with multiple

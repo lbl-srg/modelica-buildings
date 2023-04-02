@@ -6,10 +6,10 @@ model VariableSpeedCooling "Variable speed DX cooling coil"
       final variableSpeedCoil=true,
       wetCoi(redeclare
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
-          cooCap),
+          coiCap),
       dryCoi(redeclare
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
-          cooCap)),
+          coiCap)),
     redeclare
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
       datCoi,
@@ -40,7 +40,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(deaBan.y, eva.on) annotation (Line(
-      points={{-51.4,70},{-48,70},{-48,62},{-92,62},{-92,-64},{-10,-64}},
+      points={{-51.4,70},{-48,70},{-48,62},{-92,62},{-92,-54},{-12,-54}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.y,dxCoi.stage)  annotation (Line(
@@ -51,12 +51,6 @@ equation
       points={{-51.4,70},{-43.2,70}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(dxCoi.Q_flow, q.Q_flow) annotation (Line(points={{1,56},{20,56},{20,
-          54},{42,54}}, color={0,0,127}));
-  connect(pwr.P, P) annotation (Line(points={{41,76},{74,76},{74,90},{110,90}},
-        color={0,0,127}));
-  connect(pwr.QSen_flow, QSen_flow)
-    annotation (Line(points={{41,70},{110,70}}, color={0,0,127}));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
 This model can be used to simulate an air source DX cooling coil with continuously variable speed compressors.
