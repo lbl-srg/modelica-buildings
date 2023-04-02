@@ -17,23 +17,14 @@ model SingleSpeedHeating_TimedReverseCycleDefrost
     nPorts=1,
     T=294.15) "Sink"
     annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating
-    sinSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dxCoi(datCoi(sta={
-            Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage()})),
-
-    defCur=defCur,
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed,
-    tDefRun=0.166667,
-    TDefLim(displayUnit="degC"))
-    "Single speed DX coil"
+    datDef=datDef) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
@@ -59,8 +50,10 @@ model SingleSpeedHeating_TimedReverseCycleDefrost
     "Modified XConOut of energyPlus to comapre with the model results"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCoi(sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    datCoi(
+    activate_CooCoi=false,
+           sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
@@ -91,12 +84,13 @@ model SingleSpeedHeating_TimedReverseCycleDefrost
   //   Assuming fixed default start value for the discrete non-states:
   //     PEPlu.firstTrigger(start = false)
   //     ...
-  Data.Generic.BaseClasses.Defrost defCur(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
     defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed,
     QDefResCap=10500,
     QCraCap=200,
     defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
-    PLFraFunPLR={1})
+    PLFraFunPLR={1}) "Defrost data"
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir

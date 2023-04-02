@@ -17,19 +17,14 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
     nPorts=1,
     T=294.15) "Sink"
     annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating
-    sinSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    defCur=defCur,
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.onDemand,
-    tDefRun=0.166667)
-    "Single speed DX coil"
+    datDef=datDef) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
@@ -55,8 +50,10 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
     "Modified XConOut of energyPlus to comapre with the model results"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCoi(sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    datCoi(
+    activate_CooCoi=false,
+           sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
@@ -87,8 +84,9 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
   //   Assuming fixed default start value for the discrete non-states:
   //     PEPlu.firstTrigger(start = false)
   //     ...
-  Data.Generic.BaseClasses.Defrost defCur(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
     defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.onDemand,
     QDefResCap=10500,
     QCraCap=200,
     defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
@@ -216,10 +214,9 @@ are equal to the state variables of the model.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>DXCoilSystemAuto.idf</code>
-from EnergyPlus 7.1.
+from EnergyPlus 22.2.
+</p>
 <p>
-The EnergyPlus results were generated using the example file
-<code>DXCoilSystemAuto.idf</code> from EnergyPlus 7.1.
 On the summer design day, the PLR is below 1.
 A similar effect has been achieved in this example by turning on the coil only for the period
 during which it run in EnergyPlus.
