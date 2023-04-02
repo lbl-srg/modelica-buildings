@@ -7,36 +7,17 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1000
     "Pressure drop at m_flow_nominal";
 
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil
-    datCoi(sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
-        spe=1800/60,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
-          Q_flow_nominal=16381.47714,
-          COP_nominal=3.90494,
-          SHR_nominal=1,
-          m_flow_nominal=2,
-          TEvaIn_nominal=273.15 - 5,
-          TConIn_nominal=273.15 + 21),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I())},
-                nSta=1) "Coil data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating
-    sinSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
     final datCoi=datCoi,
     final T_start=datCoi.sta[1].nomVal.TConIn_nominal,
     final show_T=true,
     final from_dp=true,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final datDef=datDef)
     "Single speed DX coil"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -44,58 +25,95 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
     T=303.15,
     nPorts=1)
     "Sink"
-    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
+    annotation (Placement(transformation(extent={{68,-30},{48,-10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
     use_T_in=true,
     use_p_in=true,
     nPorts=1)      "Source"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-12,-30},{8,-10}})));
   Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
     "Compressor on-off signal"
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Modelica.Blocks.Sources.Ramp TConIn(
     duration=600,
     startTime=2400,
     height=-3,
     offset=273.15 + 23) "Temperature"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Modelica.Blocks.Sources.Ramp p(
     duration=600,
     startTime=600,
     height=dp_nominal,
     offset=101325) "Pressure"
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 0)
     "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.Blocks.Sources.Constant XEvaIn(k=0.001/1.001)
+    "Evaporator inlet humidity ratio"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    datCoi(
+    activate_CooCoi=false,
+    nSta=1,
+    minSpeRat=0.2,
+    sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        spe=1800/60,
+        nomVal=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=16381.47714,
+          COP_nominal=3.90494,
+          SHR_nominal=1,
+          m_flow_nominal=2,
+          TEvaIn_nominal=273.15 - 5,
+          TConIn_nominal=273.15 + 21),
+        perCur=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())})
+                "Coil heat transfer data record"
+    annotation (Placement(transformation(extent={{60,34},{80,54}})));
+
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed,
+    tDefRun=1/6,
+    TDefLim=273.65,
+    QDefResCap=10500,
+    QCraCap=200) "Heating coil defrost data"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+
 equation
   connect(TConIn.y, sou.T_in) annotation (Line(
-      points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
+      points={{-59,-50},{-30,-50},{-30,-16},{-14,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-39,70},{-26,70},{-26,18},{-11,18}},
+      points={{-19,60},{0,60},{0,8},{19,8}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
-      points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
+      points={{-59,-20},{-40,-20},{-40,-12},{-14,-12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.port_a, sou.ports[1]) annotation (Line(
-      points={{-10,10},{-16,10},{-16,-10},{-20,-10}},
+      points={{20,0},{12,0},{12,-20},{8,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-42,50},{-42,
-          13},{-11,13}}, color={0,0,127}));
+  connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-59,40},{-10,40},{-10,
+          3},{19,3}},    color={0,0,127}));
   connect(sinSpeDX.port_b, sin.ports[1]) annotation (Line(
-      points={{10,10},{16,10},{16,-10},{20,-10}},
+      points={{40,0},{44,0},{44,-20},{48,-20}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(XEvaIn.y, sinSpeDX.XOut) annotation (Line(points={{-59,10},{-20,10},{-20,
+          -9},{19,-9}},color={0,0,127}));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedHeating.mos"
         "Simulate and plot"),
     experiment(
