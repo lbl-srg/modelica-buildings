@@ -9,7 +9,7 @@ partial block PartialCoilCondition
 
   replaceable
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
-    cooCap constrainedby
+    coiCap constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(sta=
         datCoi.sta, nSta=datCoi.nSta) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));
@@ -26,12 +26,12 @@ protected
     final speSet=datCoi.sta.spe) "Interpolates Q_flow"
     annotation (Placement(transformation(extent={{32,44},{46,58}})));
 equation
-  connect(cooCap.EIR, speShiEIR.u)
+  connect(coiCap.EIR, speShiEIR.u)
                                   annotation (Line(
       points={{7,54},{10,54},{10,65.4},{30.6,65.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cooCap.Q_flow, speShiQ_flow.u)
+  connect(coiCap.Q_flow, speShiQ_flow.u)
                                         annotation (Line(
       points={{7,46},{12,46},{12,45.4},{30.6,45.4}},
       color={0,0,127},
@@ -64,15 +64,15 @@ equation
       points={{30.6,76.6},{20,76.6},{20,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(cooCap.m_flow, m_flow) annotation (Line(
+  connect(coiCap.m_flow, m_flow) annotation (Line(
       points={{-15,50},{-92,50},{-92,24},{-110,24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cooCap.TConIn, TConIn) annotation (Line(
+  connect(coiCap.TConIn, TConIn) annotation (Line(
       points={{-15,54.8},{-96,54.8},{-96,54},{-96,54},{-96,50},{-110,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cooCap.stage, stage) annotation (Line(
+  connect(coiCap.stage, stage) annotation (Line(
       points={{-15,60},{-60,60},{-60,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));

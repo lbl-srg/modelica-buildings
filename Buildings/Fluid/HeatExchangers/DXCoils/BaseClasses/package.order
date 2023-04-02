@@ -7,7 +7,7 @@ Condensation
 CoolingCapacityWaterCooled
 DXCooling
 DefrostOperation
-DefrostTriggers
+DefrostTimeMethods
 DryCoil
 DryWetSelector
 EssentialParameters
