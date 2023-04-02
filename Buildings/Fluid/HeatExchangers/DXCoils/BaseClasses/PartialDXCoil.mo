@@ -43,24 +43,11 @@ partial model PartialDXCoil "Partial model for DX coil"
     "Sensible heat flow rate"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  Modelica.Blocks.Interfaces.RealOutput QLat_flow(
-    final quantity="Power",
-    final unit="W") if activate_CooCoi
-    "Latent heat flow rate"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
-
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoi(
     final datCoi=datCoi,
     final use_mCon_flow=use_mCon_flow)
     "DX coil"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));
-
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation eva(
-    redeclare package  Medium = Medium,
-    final nomVal=datCoi.sta[nSta].nomVal,
-    final computeReevaporation = computeReevaporation) if activate_CooCoi
-    "Model that computes evaporation of water that accumulated on the coil surface"
-    annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
 
   // Flow reversal is not needed. Also, if ff < ffMin/4, then
   // Q_flow and EIR are set the zero. Hence, it is safe to assume
@@ -85,8 +72,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{-90,18},{-70,38}})));
 
   Modelica.Blocks.Sources.RealExpression m(
-    final y=port_a.m_flow)
-    "Inlet air mass flow rate"
+    final y=port_a.m_flow) "Inlet air mass flow rate"
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr(
@@ -158,14 +144,6 @@ equation
           -30},{-24,42},{-21,42}}, color={0,0,127}));
 
   if activate_CooCoi then
-    connect(m.y, eva.mAir_flow) annotation (Line(
-      points={{-69,44},{-66,44},{-66,-76},{-10,-76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-    connect(TVol.T, eva.TEvaOut) annotation (Line(
-      points={{78.6,22},{88,22},{88,-94},{8,-94},{8,-82}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   end if;
 
