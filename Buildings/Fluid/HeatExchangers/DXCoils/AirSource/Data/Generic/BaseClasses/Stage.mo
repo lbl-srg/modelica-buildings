@@ -4,14 +4,24 @@ record Stage "Generic data record for a stage of a air source DX coil"
 
   parameter Modelica.Units.SI.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
+
+  parameter Boolean activate_CooCoi = true
+    "=false, for heating coil";
+
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
-    nomVal "Nominal values"
+    nomVal(
+    final activate_CooCoi=activate_CooCoi)
+    "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve
-    perCur "Performance curves for this stage" annotation (choicesAllMatching=
-        true, Placement(transformation(extent={{60,20},{80,40}})));
+    perCur
+    "Performance curves for this stage"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{60,20},{80,40}})));
+
 annotation (defaultComponentName="per",
               preferredView="info",
   Documentation(info="<html>
