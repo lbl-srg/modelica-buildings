@@ -3,15 +3,16 @@ block CoilDefrostTimeCalculations
   "Calculates defrost curve value at given temperature and mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers
-    defTri = Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
     "Type of method to trigger the defrost cycle";
 
   parameter Real tDefRun(
     final unit="1",
     displayUnit="1") = 0.5
     "Time period for which defrost cycle is run"
-    annotation(Dialog(enable= defTri==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed));
+    annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim
     "Maximum temperature at which defrost operation is activated";
@@ -71,7 +72,8 @@ equation
   // ratio at estimated outdoor coil temperature
   delta_XCoilOut = max(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)));
   if TOut < TDefLim then
-    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed then
+    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
+         then
       tFracDef = tDefRun;
       heaCapMul = 0.909 - 107.33*delta_XCoilOut;
       inpPowMul = 0.9 - 36.45*delta_XCoilOut;

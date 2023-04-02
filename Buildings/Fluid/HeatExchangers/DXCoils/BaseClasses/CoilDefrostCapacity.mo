@@ -3,8 +3,9 @@ block CoilDefrostCapacity
   "Calculates defrost curve value at given temperature and mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers
-    defTri = Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
     "Type of method to trigger the defrost cycle";
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation
@@ -15,7 +16,7 @@ block CoilDefrostCapacity
     final unit="1",
     displayUnit="1") = 0.5
     "Time period for which defrost cycle is run"
-    annotation(Dialog(enable= defTri==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTriggers.timed));
+    annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed));
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
@@ -62,7 +63,7 @@ block CoilDefrostCapacity
   Modelica.Blocks.Interfaces.RealInput pIn(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="AbsolutePressure")
+    final quantity="Pressure")
     "Pressure of air entering indoor condenser coil"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}),
       iconTransformation(extent={{-120,-70},{-100,-50}})));
@@ -130,9 +131,8 @@ block CoilDefrostCapacity
     "Capacity of resistive defrost element";
 
   Modelica.Blocks.Interfaces.RealInput EIR(
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
+    final unit="1",
+    final displayUnit="1")
     "Total energy input ratio from heating coil curve calculations"
     annotation (Placement(transformation(extent={{-120,-130},{-100,-110}}),
       iconTransformation(extent={{-120,-130},{-100,-110}})));
