@@ -1,27 +1,28 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Proof "Validation model for the Proof block"
   Buildings.Controls.OBC.CDL.Logical.Proof pro(
-    final validDelay=0.5,
-    final checkDelay=0.75)
-    "Both inputs change at the same time"
+    final debounce=0.5,
+    final feedbackDelay=0.75) "Both inputs change at the same time"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro1(
-    final validDelay=0.5,
-    final checkDelay=0.75)
+    final debounce=0.5,
+    final feedbackDelay=0.75)
     "Commanded input changes from true to false earlier than measured input"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro2(
-    final validDelay=0.5,
-    final checkDelay=0.75)
+    final debounce=0.5,
+    final feedbackDelay=0.75)
     "Measured input changes from true to false earlier than commanded input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro3(
-    final validDelay=0.5,
-    final checkDelay=0.5) "Shorter delay to valid input"
+    final debounce=0.5,
+    final feedbackDelay=0.5)
+    "Shorter delay to valid input"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro4(
-    final validDelay=0.5,
-    final checkDelay=0.5) "Shorter delay to valid input"
+    final debounce=0.5,
+    final feedbackDelay=0.5)
+    "Shorter delay to valid input"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp(
@@ -44,26 +45,26 @@ model Proof "Validation model for the Proof block"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
 equation
-  connect(latInp.y, pro.u_m) annotation (Line(points={{-18,80},{8,80},{8,86},{
-          18,86}}, color={255,0,255}));
-  connect(latInp1.y, pro.u_s) annotation (Line(points={{-18,20},{10,20},{10,74},
-          {18,74}}, color={255,0,255}));
-  connect(latInp1.y, pro1.u_m) annotation (Line(points={{-18,20},{10,20},{10,46},
-          {18,46}}, color={255,0,255}));
-  connect(latInp2.y, pro1.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,34},
-          {18,34}}, color={255,0,255}));
-  connect(latInp1.y, pro2.u_s) annotation (Line(points={{-18,20},{10,20},{10,-6},
-          {18,-6}}, color={255,0,255}));
-  connect(latInp2.y, pro2.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,6},
-          {18,6}}, color={255,0,255}));
-  connect(latInp1.y, pro4.u_m) annotation (Line(points={{-18,20},{10,20},{10,-74},
-          {18,-74}}, color={255,0,255}));
-  connect(latInp2.y, pro4.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,-86},
-          {18,-86}}, color={255,0,255}));
-  connect(latInp1.y, pro3.u_s) annotation (Line(points={{-18,20},{10,20},{10,-46},
-          {18,-46}}, color={255,0,255}));
-  connect(latInp2.y, pro3.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,-34},
-          {18,-34}}, color={255,0,255}));
+  connect(latInp1.y, pro.u_s) annotation (Line(points={{-18,20},{10,20},{10,80},
+          {18,80}}, color={255,0,255}));
+  connect(latInp2.y, pro1.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,40},
+          {18,40}}, color={255,0,255}));
+  connect(latInp1.y, pro2.u_s) annotation (Line(points={{-18,20},{10,20},{10,0},
+          {18,0}},  color={255,0,255}));
+  connect(latInp2.y, pro4.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,-80},
+          {18,-80}}, color={255,0,255}));
+  connect(latInp1.y, pro3.u_s) annotation (Line(points={{-18,20},{10,20},{10,-40},
+          {18,-40}}, color={255,0,255}));
+  connect(latInp.y, pro.u_m) annotation (Line(points={{-18,80},{0,80},{0,64},{30,
+          64},{30,68}}, color={255,0,255}));
+  connect(latInp1.y, pro4.u_m) annotation (Line(points={{-18,20},{10,20},{10,-96},
+          {30,-96},{30,-92}}, color={255,0,255}));
+  connect(latInp2.y, pro3.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,-56},
+          {30,-56},{30,-52}}, color={255,0,255}));
+  connect(latInp2.y, pro2.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,-16},
+          {30,-16},{30,-12}}, color={255,0,255}));
+  connect(latInp1.y, pro1.u_m) annotation (Line(points={{-18,20},{10,20},{10,24},
+          {30,24},{30,28}}, color={255,0,255}));
 annotation (
     experiment(StopTime=10.0, Tolerance=1e-06),
     __Dymola_Commands(
@@ -84,17 +85,17 @@ If both boolean inputs change simultaneously, both outputs will be
 Both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>uMea</code> changes, the input <code>uCom</code> remains
 <code>true</code> for a time that is longer than
-<code>checkDelay</code>. The output <code>yProTru</code> will be <code>true</code>.
+<code>feedbackDelay</code>. The output <code>yProTru</code> will be <code>true</code>.
 This is tested through instances <code>pro2</code> and <code>pro3</code>, with
-different delay <code>checkDelay</code> for checking the input difference.
+different delay <code>feedbackDelay</code> for checking the input difference.
 </li>
 <li>
 Both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>uCom</code> changes, the input <code>uMea</code> remains
 <code>true</code> for a time that is longer than
-<code>checkDelay</code>. The output <code>yProFal</code> will be <code>true</code>.
+<code>feedbackDelay</code>. The output <code>yProFal</code> will be <code>true</code>.
 This is tested through instances <code>pro1</code> and <code>pro4</code>, with
-different delay <code>checkDelay</code> for checking the inputs.
+different delay <code>feedbackDelay</code> for checking the inputs.
 </li>
 </ul>
 </html>",
