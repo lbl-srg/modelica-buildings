@@ -7,11 +7,11 @@ model DryCoil "Calculates dry coil condition"
       annotation (choicesAllMatching=true);
 equation
 
-  connect(TEvaIn, cooCap.TEvaIn) annotation (Line(
+  connect(TEvaIn,coiCap.TEvaIn)  annotation (Line(
       points={{-110,5.55112e-16},{-32,5.55112e-16},{-32,45.2},{-15,45.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{
+  connect(mCon_flow,coiCap.mCon_flow)  annotation (Line(points={{-110,-100},{
           -92,-100},{-92,40},{-15,40}}, color={0,0,127}));
   annotation (defaultComponentName="dryCoi", Documentation(info="<html>
 <p>
