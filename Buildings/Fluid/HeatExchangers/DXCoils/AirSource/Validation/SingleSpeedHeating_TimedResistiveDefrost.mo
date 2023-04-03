@@ -155,15 +155,16 @@ model SingleSpeedHeating_TimedResistiveDefrost
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_TimedResistiveDefrost/DXCoilSystemAuto.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_TimedResistiveDefrost/DXCoilSystemAuto.dat"),
     final columns=2:18,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
     "Reader for EnergyPlus example results"
     annotation (Placement(transformation(extent={{-152,110},{-132,130}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.BaseClasses.PLRToPulse pLRToPulse(
-    final timePeriod=3600)
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.BaseClasses.PLRToPulse
+    plrToPul(
+    final tPer=3600)
     "Convert PLR signal to on-off signal"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
 
@@ -213,9 +214,9 @@ equation
     annotation (Line(points={{21,-130},{28,-130}}, color={0,0,127}));
   connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{25.5,19},{25.5,20},
           {38,20}}, color={0,0,127}));
-  connect(datRea.y[14], pLRToPulse.uPLR)
+  connect(datRea.y[14], plrToPul.uPLR)
     annotation (Line(points={{-131,120},{-82,120}}, color={0,0,127}));
-  connect(pLRToPulse.y, sinSpeDX.on) annotation (Line(points={{-58,120},{-26,120},
+  connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-26,120},
           {-26,18},{-11,18}}, color={255,0,255}));
   connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
           120},{-108,79.6},{-102,79.6}}, color={0,0,127}));
