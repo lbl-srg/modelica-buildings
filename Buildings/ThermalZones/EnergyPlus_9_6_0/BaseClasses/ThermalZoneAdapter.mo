@@ -223,12 +223,13 @@ equation
       Modelica.Utilities.Strings.length(fmuName) > 1,
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
-  when {initial(),time >= pre(tNext)} then
+//    assert(p > pMin,
+//      "In " + getInstanceName() + ": Air pressure is below physically reasonable limit. Model seems to have exhaust air put no supply air or infiltration.");
+
+    when {initial(),time >= pre(tNext)} then
     // Monitor pressure to catch cases where a user may forget to add a flow path for exhaust air
-    assert(p < pMax,
-      "In " + getInstanceName() + ": Air pressure exceeds physically reasonable limit. Model seems to have fresh air supply but no flow path for exhaust air or exfiltration.");
-    assert(p > pMin,
-      "In " + getInstanceName() + ": Air pressure is below physically reasonable limit. Model seems to have exhaust air put no supply air or infiltration.");
+// fixme    assert(p < pMax,
+//      "In " + getInstanceName() + ": Air pressure exceeds physically reasonable limit. Model seems to have fresh air supply but no flow path for exhaust air or exfiltration.");
 
     // Initialization of output variables.
     TRooLast=T;

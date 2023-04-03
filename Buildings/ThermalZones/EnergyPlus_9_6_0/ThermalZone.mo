@@ -77,7 +77,7 @@ model ThermalZone
     "Relative humidity"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}}),iconTransformation(extent={{200,90},{220,110}})));
 
-protected
+public
   constant Modelica.Units.SI.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
       273.15 + 37) "Latent heat of water vapor";
   final parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=V*3/3600
@@ -97,6 +97,7 @@ protected
     final logLevel=logLevel)
     "FMU zone adapter"
     annotation (Placement(transformation(extent={{82,-60},{102,-40}})));
+protected
   Buildings.Fluid.Interfaces.ConservationEquation vol(
     redeclare final package Medium=Medium,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
