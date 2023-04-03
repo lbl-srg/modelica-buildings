@@ -429,6 +429,12 @@ to the parameter <code>typ</code>.</p>
 </html>", revisions="<html>
 <ul>
 <li>
+April 4, 2023, by Hongxiang Fu:<br/>
+Deleted the mover with <code>Nrpm</code> signal.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
