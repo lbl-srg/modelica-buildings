@@ -3,58 +3,22 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
   "Validation model for single speed heating DX coil with defrost operation"
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.Air "Medium model";
+  package Medium = Buildings.Media.Air
+    "Medium model";
 
   parameter Modelica.Units.SI.Power Q_flow_nominal=datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
+
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1141
     "Pressure drop at m_flow_nominal";
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325,
-    nPorts=1,
-    T=294.15) "Sink"
-    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
-    redeclare package Medium = Medium,
-    dp_nominal=dp_nominal,
-    datCoi=datCoi,
-    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
-    from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    datDef=datDef) "Single speed DX coil"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Buildings.Utilities.IO.BCVTB.From_degC TConIn_K "Converts degC to K"
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Math.Mean TOutMea(f=1/3600)
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Buildings.Utilities.IO.BCVTB.To_degC TOutDegC
-    annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Modelica.Blocks.Sources.RealExpression TOut(y=sinSpeDX.vol.T)
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Modelica.Blocks.Math.Mean XConOutMea(f=1/3600)
-    annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Modelica.Blocks.Sources.RealExpression XConOut(y=sum(sinSpeDX.vol.Xi))
-    annotation (Placement(transformation(extent={{40,120},{60,140}})));
-  Modelica.Blocks.Math.Mean Q_flowMea(f=1/3600) "Mean of cooling rate"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Math.Mean PMea(f=1/3600) "Mean of power"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
-  Modelica.Blocks.Sources.RealExpression XConOutEPluMod(y=XConOutEPlu.y/(1 +
-        XConOutEPlu.y))
-    "Modified XConOut of energyPlus to comapre with the model results"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
     datCoi(
-    activate_CooCoi=false,
-           sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      activate_CooCoi=false,
+      sta={Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
@@ -67,15 +31,90 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
           TConIn_nominal=273.15 + 21),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())},
-      nSta=1) "Coil data"
+      nSta=1)
+    "Coil heat transfer data"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  UnitDelay PEPlu(samplePeriod=3600)
+
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    final p(displayUnit="Pa") = 101325,
+    final nPorts=1,
+    final T=294.15)
+    "Sink"
+    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
+    redeclare package Medium = Medium,
+    final dp_nominal=dp_nominal,
+    final datCoi=datCoi,
+    final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
+    final from_dp=true,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final datDef=datDef)
+    "Single speed DX heating coil"
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+
+  Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K
+    "Converts degC to K"
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+
+  Buildings.Utilities.IO.BCVTB.From_degC TConIn_K
+    "Converts degC to K"
+    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+
+  Modelica.Blocks.Math.Mean TOutMea(
+    final f=1/3600)
+    "Mean of measured outlet air temperature"
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+
+  Buildings.Utilities.IO.BCVTB.To_degC TOutDegC
+    "Convert measured outlet air temperature to deg C"
+    annotation (Placement(transformation(extent={{120,80},{140,100}})));
+
+  Modelica.Blocks.Sources.RealExpression TOut(
+    final y=sinSpeDX.vol.T)
+    "Measured temperature of outlet air"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+
+  Modelica.Blocks.Math.Mean XConOutMea(
+    final f=1/3600)
+    "Mean of measured outlet air humidity ratio (Total air)"
+    annotation (Placement(transformation(extent={{80,120},{100,140}})));
+
+  Modelica.Blocks.Sources.RealExpression XConOut(
+    final y=sum(sinSpeDX.vol.Xi))
+    "Measured humidity ratio of outlet air"
+    annotation (Placement(transformation(extent={{40,120},{60,140}})));
+
+  Modelica.Blocks.Math.Mean Q_flowMea(
+    final f=1/3600)
+    "Mean of cooling rate"
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+
+  Modelica.Blocks.Math.Mean PMea(
+    final f=1/3600)
+    "Mean of power"
+    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay PEPlu(
+    final samplePeriod=3600)
+    "Total power consumption from EnergyPlus"
     annotation (Placement(transformation(extent={{-68,-140},{-48,-120}})));
-  UnitDelay Q_flowEPlu(samplePeriod=3600)
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay Q_flowEPlu(
+    final samplePeriod=3600)
+    "Heat transfer to airloop from EnergyPlus"
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
-  UnitDelay TOutEPlu(samplePeriod=3600, y_start=29.34948133)
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TOutEPlu(
+    final samplePeriod=3600,
+    final y_start=29.34948133)
+    "Outlet temperature from EnergyPlus"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  UnitDelay XConOutEPlu(samplePeriod=1)
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay XConOutEPlu(
+    final samplePeriod=1)
+    "Outlet air humidity ratio from EnergyPlus"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
   // The UnitDelay is reimplemented to avoid in Dymola 2016 the translation warning
@@ -85,49 +124,63 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
   //     PEPlu.firstTrigger(start = false)
   //     ...
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.onDemand,
-    QDefResCap=10500,
-    QCraCap=200,
-    defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
-    PLFraFunPLR={1}) "Defrost data"
+    final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle,
+    final defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.onDemand,
+    final QDefResCap=10500,
+    final QCraCap=200,
+    final defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
+    final PLFraFunPLR={1})
+    "Defrost data"
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
+    "Convert humidity ratio (dry air) to humidity ratio (total air) for outdoor air"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir1
-    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  UnitDelay PDefEPlu(samplePeriod=1)
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  UnitDelay PCraEPlu(samplePeriod=3600)
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
-  Modelica.Blocks.Sources.CombiTimeTable datRea(
-    tableOnFile=true,
-    fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeatingPLREnergyPlusDefrost_OnDemandReverseCycle/DXCoilSystemAuto.dat"),
-    columns=2:18,
-    tableName="EnergyPlus",
-    smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
-    "Reader for \"IndirectAbsorptionChiller.idf\" EnergyPlus example results"
-      annotation (Placement(transformation(extent={{-152,110},{-132,130}})));
 
-  BaseClasses.PLRToPulse pLRToPulse(timePeriod=3600)
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirEPlu
+    "Convert humidity ratio (dry air) from EnergyPlus to humidity ratio (total air)"
+    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay PDefEPlu(
+    final samplePeriod=1)
+    "Defrost power from EnergyPlus"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay PCraEPlu(
+    final samplePeriod=3600)
+    "Cranckcase heater power from EnergyPlus"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+
+  Modelica.Blocks.Sources.CombiTimeTable datRea(
+    final tableOnFile=true,
+    final fileName=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandReverseCycleDefrost/DXCoilSystemAuto.dat"),
+    final columns=2:18,
+    final tableName="EnergyPlus",
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+    "Reader for EnergyPlus example results"
+    annotation (Placement(transformation(extent={{-152,110},{-132,130}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.BaseClasses.PLRToPulse pLRToPulse(
+    final timePeriod=3600)
+    "Convert PLR signal to on-off signal"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
-  Sources.MassFlowSource_T boundary(
+
+  Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
-    use_Xi_in=true,
-    use_m_flow_in=true,
-    use_T_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{-48,-20},{-28,0}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAir2
+    final use_Xi_in=true,
+    final use_m_flow_in=true,
+    final use_T_in=true,
+    final nPorts=1)
+    "Mass flow source for coil inlet air"
+    annotation (Placement(transformation(extent={{-48,-20},{-28,0}})));
+
+  Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
+    "Convert humidity ratio (dry air) to humidity ratio (total air) for coil inlet air"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-protected
-  block UnitDelay
-    extends Modelica.Blocks.Discrete.UnitDelay(
-      firstTrigger(start=false, fixed=true));
-  end UnitDelay;
+
 equation
   connect(sinSpeDX.port_b, sin.ports[1])
-                                        annotation (Line(
+    annotation (Line(
       points={{10,10},{16,10},{16,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -152,9 +205,9 @@ equation
       smooth=Smooth.None));
   connect(sinSpeDX.QSen_flow, Q_flowMea.u) annotation (Line(points={{11,17},{20,
           17},{20,54},{-10,54},{-10,90},{-2,90}}, color={0,0,127}));
-  connect(toTotAir.XiTotalAir, sinSpeDX.XOut) annotation (Line(points={{-79,50},
+  connect(toTotAirOut.XiTotalAir, sinSpeDX.XOut) annotation (Line(points={{-79,50},
           {-20,50},{-20,1},{-11,1}}, color={0,0,127}));
-  connect(toTotAir1.XiTotalAir, XConOutEPlu.u)
+  connect(toTotAirEPlu.XiTotalAir, XConOutEPlu.u)
     annotation (Line(points={{21,-130},{28,-130}}, color={0,0,127}));
   connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{25.5,19},{25.5,20},
           {38,20}}, color={0,0,127}));
@@ -164,24 +217,24 @@ equation
           {-26,18},{-11,18}}, color={255,0,255}));
   connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
           120},{-108,79.6},{-102,79.6}}, color={0,0,127}));
-  connect(datRea.y[9], toTotAir.XiDry) annotation (Line(points={{-131,120},{-108,
+  connect(datRea.y[9], toTotAirOut.XiDry) annotation (Line(points={{-131,120},{-108,
           120},{-108,50},{-101,50}}, color={0,0,127}));
   connect(datRea.y[17], boundary.m_flow_in) annotation (Line(points={{-131,120},
           {-108,120},{-108,16},{-50,16},{-50,-2}}, color={0,0,127}));
   connect(TConIn_K.Kelvin, boundary.T_in) annotation (Line(points={{-79,-10.2},{
           -60,-10.2},{-60,-6},{-50,-6}}, color={0,0,127}));
-  connect(toTotAir2.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-79,
+  connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-79,
           -50},{-60,-50},{-60,-14},{-50,-14}}, color={0,0,127}));
   connect(datRea.y[5], TConIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
           120},{-108,-10.4},{-102,-10.4}}, color={0,0,127}));
-  connect(datRea.y[6], toTotAir2.XiDry) annotation (Line(points={{-131,120},{-108,
+  connect(datRea.y[6], toTotAirIn.XiDry) annotation (Line(points={{-131,120},{-108,
           120},{-108,-50},{-101,-50}}, color={0,0,127}));
   connect(boundary.ports[1], sinSpeDX.port_a) annotation (Line(points={{-28,-10},
           {-18,-10},{-18,10},{-10,10}}, color={0,127,255}));
   connect(datRea.y[7], TOutEPlu.u) annotation (Line(points={{-131,120},{-108,120},
           {-108,-30},{-10,-30},{-10,-60},{-2,-60}}, color={0,0,127}));
-  connect(datRea.y[8], toTotAir1.XiDry) annotation (Line(points={{-131,120},{-108,
-          120},{-108,-30},{-10,-30},{-10,-130},{-1,-130}}, color={0,0,127}));
+  connect(datRea.y[8], toTotAirEPlu.XiDry) annotation (Line(points={{-131,120},{
+          -108,120},{-108,-30},{-10,-30},{-10,-130},{-1,-130}}, color={0,0,127}));
   connect(datRea.y[3], PEPlu.u) annotation (Line(points={{-131,120},{-108,120},{
           -108,-30},{-10,-30},{-10,-108},{-74,-108},{-74,-130},{-70,-130}},
         color={0,0,127}));
@@ -200,8 +253,11 @@ equation
             Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</a> with the 
+defrost time fraction calculation <code>datDef.defTri</code> set to 
+<code>DefrostTimeMethods.onDemand</code> and the defrost operation type 
+<code>datDef.defOpe</code> set to <code>DefrostOperation.reverseCycle</code>.
 </p>
 <p>
 The difference in results of
@@ -214,54 +270,27 @@ are equal to the state variables of the model.
 </p>
 <p>
 The EnergyPlus results were generated using the example file <code>DXCoilSystemAuto.idf</code>
-from EnergyPlus 7.1.
-<p>
-The EnergyPlus results were generated using the example file
-<code>DXCoilSystemAuto.idf</code> from EnergyPlus 7.1.
-On the summer design day, the PLR is below 1.
-A similar effect has been achieved in this example by turning on the coil only for the period
-during which it run in EnergyPlus.
-This results in on-off cycle and fluctuating results.
-To compare the results, the Modelica outputs are averaged over <i>3600</i> seconds,
-and the EnergyPlus outputs are used with a zero order delay to avoid the time shift in results.
+from EnergyPlus 22.2. The results were then used to set-up the boundary conditions 
+for the model as well as the input signals. To compare the results, 
+the Modelica outputs are averaged over <i>3600</i> seconds, and the EnergyPlus 
+outputs are used with a zero order delay to avoid the time shift in results.
 </p>
 <p>
-Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor per mass of dry air,
-whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus values
-are corrected by dividing them by
-<code>1+X</code>.
+Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor 
+per mass of dry air, whereas Modelica uses the total mass as a reference. Also, 
+the temperatures in Modelica are in Kelvin whereas they are in Celsius in EnergyPlus.
+Hence, the EnergyPlus values are corrected by using the appropriate conversion blocks.
+</p>
+<p>
+The plots compare the outlet temperature and humidity ratio between Modelica and 
+EnergyPlus. They also compare the power consumption by the coil compressor as well
+as the heat transfer from the airloop.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-January 22, 2016, by Michael Wetter:<br/>
-Corrected type declaration of pressure difference.
-This is
-for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/404\">#404</a>.
-</li>
-<li>
-September 24, 2015 by Michael Wetter:<br/>
-Implemented <code>UnitDelay</code> to avoid a translation warning
-because <code>UnitDelay.firstTrigger</code> does not set the <code>fixed</code>
-attribute in MSL 3.2.1.
-</li>
-<li>
-June 9, 2015, by Michael Wetter:<br/>
-Corrected wrong link to run script.
-</li>
-<li>
-December 22, 2014 by Michael Wetter:<br/>
-Removed <code>Modelica.Fluid.System</code>
-to address issue
-<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/311\">#311</a>.
-</li>
-<li>
-September 4, 2012 by Michael Wetter:<br/>
-Modified example to avoid having to access protected data.
-</li>
-<li>
-August 20, 2012 by Kaustubh Phalak:<br/>
+April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
 </li>
 </ul>
