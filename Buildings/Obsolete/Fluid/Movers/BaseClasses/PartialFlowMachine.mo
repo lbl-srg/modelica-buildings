@@ -14,7 +14,7 @@ partial model PartialFlowMachine
       h_outflow(start=h_outflow_start)));
 
   replaceable parameter Buildings.Obsolete.Fluid.Movers.Data.Generic per
-    constrainedby Buildings.Fluid.Movers.Data.Generic
+    constrainedby Buildings.Obsolete.Fluid.Movers.Data.Generic
     "Record with performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{52,60},{72,80}})));
