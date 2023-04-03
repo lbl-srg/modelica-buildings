@@ -230,8 +230,8 @@ cap<sub>FF </sub> accounts for a performance change due to different air flow ra
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity
 to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate.
-See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityAirCooled</a>.
+See<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
 <p>
 The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >

@@ -1,5 +1,5 @@
-﻿within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-block CoilCapacityAirCooled
+within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
+block CoilCapacityAirSource
   "Calculates cooling capacity at given temperature and flow fraction for air source coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(
@@ -70,4 +70,4 @@ First implementation.
 </ul>
 
 </html>"));
-end CoilCapacityAirCooled;
+end CoilCapacityAirSource;

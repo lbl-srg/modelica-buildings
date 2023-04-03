@@ -11,7 +11,7 @@ extends Modelica.Icons.Example;
     datCoi=datCoi,
     variableSpeedCoil=true,
     redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
       coiCap,
     use_mCon_flow=false) "Performs calculation for dry coil condition"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));

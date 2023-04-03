@@ -11,7 +11,7 @@ model WetCoil "Test model for WetCoil"
     variableSpeedCoil=true,
     use_mCon_flow=false,
     redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
       coiCap) "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant TConIn(

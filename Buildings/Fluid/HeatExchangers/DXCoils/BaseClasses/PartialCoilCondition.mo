@@ -8,7 +8,7 @@ partial block PartialCoilCondition
     "Flag, set to true for coil with variable speed";
 
   replaceable
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
     coiCap constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(sta=
         datCoi.sta, nSta=datCoi.nSta) "Performance data"

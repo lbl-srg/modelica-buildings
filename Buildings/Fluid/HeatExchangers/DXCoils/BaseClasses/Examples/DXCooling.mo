@@ -15,10 +15,10 @@ model DXCooling "Test model for DXCooling"
    variableSpeedCoil=true,
    use_mCon_flow=false,
    wetCoi(redeclare
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
         coiCap),
     dryCoi(redeclare
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
         coiCap))
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.IntegerStep onOff(

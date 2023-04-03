@@ -5,10 +5,10 @@ model SingleSpeedCooling "Single speed DX cooling coil"
     dxCoi(
       final variableSpeedCoil=false,
       wetCoi(redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
           coiCap),
       dryCoi(redeclare
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirCooled
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
           coiCap)),
     redeclare
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil

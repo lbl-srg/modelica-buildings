@@ -1,6 +1,7 @@
 ApparatusDewPoint
 ApparatusDryPoint
-CoilCapacityAirCooled
+CoilCapacityAirSource
+CoilDefrostCapacity
 CoilDefrostTimeCalculations
 Condensation
 CoolingCapacityWaterCooled
@@ -24,6 +25,5 @@ SpeedShift
 UACp
 WetCoil
 Functions
-Examples
 Types
-CoilDefrostCapacity
+Examples
