@@ -77,9 +77,7 @@ Enumeration that defines the type of pump.
       MassFlowRate
       "Pump with ideally controlled mass flow rate as input",
       SpeedFractional
-      "Pump with ideally controlled normalized speed as input",
-      SpeedRotational
-      "Pump with ideally controlled rotational speed as input")
+      "Pump with ideally controlled normalized speed as input")
     "Enumeration to specify the type of pump model" annotation (Documentation(
         info="<html>
 <p>
@@ -94,8 +92,6 @@ Enumeration that defines the type of pump model.
     <td>Pump with ideally controlled mass flow rate as input</td></tr>
 <tr><td>SpeedFractional</td>
     <td>Pump with ideally controlled normalized speed as input</td></tr>
-<tr><td>SpeedRotational</td>
-    <td>Pump with ideally controlled rotational speed as input</td></tr>
 </table>
 </html>"));
   type Valve = enumeration(
