@@ -1,13 +1,10 @@
 ApparatusDewPoint
 ApparatusDryPoint
 CoilCapacityAirCooled
-CoilDefrostCapacity
 CoilDefrostTimeCalculations
 Condensation
 CoolingCapacityWaterCooled
 DXCooling
-DefrostOperation
-DefrostTimeMethods
 DryCoil
 DryWetSelector
 EssentialParameters
@@ -28,3 +25,5 @@ UACp
 WetCoil
 Functions
 Examples
+Types
+CoilDefrostCapacity

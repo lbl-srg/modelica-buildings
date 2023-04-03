@@ -123,13 +123,15 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
   //   Assuming fixed default start value for the discrete non-states:
   //     PEPlu.firstTrigger(start = false)
   //     ...
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
-    final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
-    final defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.onDemand,
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+    datDef(
+    final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
+    final defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.onDemand,
     final QDefResCap=10500,
     final QCraCap=200,
     final defEIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
-    final PLFraFunPLR={1}) "Defrost data"
+    final PLFraFunPLR={1})
+    "Defrost data"
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
