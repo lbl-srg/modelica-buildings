@@ -20,7 +20,7 @@ model Pump "Container class for circulating pumps"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typMod=
-    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Type of pump model"
     annotation(Dialog(group="Configuration",
     enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
@@ -154,7 +154,7 @@ model Pump "Container class for circulating pumps"
     final init=init,
     final per=per)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Pump with ideally controlled normalized speed as input"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
