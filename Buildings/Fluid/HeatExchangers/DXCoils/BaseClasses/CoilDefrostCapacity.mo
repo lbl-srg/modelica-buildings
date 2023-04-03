@@ -3,20 +3,27 @@ block CoilDefrostCapacity
   "Calculates defrost curve value at given temperature and mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
-    "Type of method to trigger the defrost cycle";
-
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation
-    defOpe = Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive
-    "Type of defrost method";
+  replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
+    annotation (__Dymola_choicesAllMatching=true);
 
   parameter Real tDefRun(
     final unit="1",
     displayUnit="1") = 0.5
     "Time period for which defrost cycle is run"
-    annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed));
+    annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
+
+  parameter Modelica.Units.SI.Power QDefResCap = defCur.QDefResCap
+    "Capacity of resistive defrost element";
+
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
+    "Type of method to trigger the defrost cycle";
+
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
+    "Type of defrost method";
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
@@ -28,21 +35,21 @@ block CoilDefrostCapacity
     final unit="1",
     displayUnit="1") "Defrost time period fraction"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
-      iconTransformation(extent={{-120,80},{-100,100}})));
+      iconTransformation(extent={{-120,100},{-100,120}})));
 
   Modelica.Blocks.Interfaces.RealInput heaCapMul(
     final unit="1",
     displayUnit="1")
     "Heating capacity multiplier"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}}),
-      iconTransformation(extent={{-120,50},{-100,70}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Blocks.Interfaces.RealInput inpPowMul(
     final unit="1",
     displayUnit="1")
     "Input power multiplier"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}}),
-      iconTransformation(extent={{-120,20},{-100,40}})));
+      iconTransformation(extent={{-120,40},{-100,60}})));
 
   Modelica.Blocks.Interfaces.RealInput TConIn(
     final unit="K",
@@ -50,7 +57,7 @@ block CoilDefrostCapacity
     final quantity="ThermodynamicTemperature")
     "Temperature of air entering indoor condenser unit"
     annotation (Placement(transformation(extent={{-120,0},{-100,20}}),
-      iconTransformation(extent={{-120,-10},{-100,10}})));
+      iconTransformation(extent={{-120,10},{-100,30}})));
 
   Modelica.Blocks.Interfaces.RealInput XConIn(
     final unit="kg/kg",
@@ -58,7 +65,7 @@ block CoilDefrostCapacity
     final quantity="MassFraction")
     "Humidity ratio of air entering indoor condenser coil"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
-      iconTransformation(extent={{-120,-40},{-100,-20}})));
+      iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Modelica.Blocks.Interfaces.RealInput pIn(
     final unit="Pa",
@@ -66,14 +73,36 @@ block CoilDefrostCapacity
     final quantity="Pressure")
     "Pressure of air entering indoor condenser coil"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}}),
-      iconTransformation(extent={{-120,-70},{-100,-50}})));
+      iconTransformation(extent={{-120,-60},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     final displayUnit="K",
     final quantity="ThermodynamicTemperature") "Temperature of outdoor air"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}}),
-      iconTransformation(extent={{-120,-100},{-100,-80}})));
+      iconTransformation(extent={{-120,-90},{-100,-70}})));
+
+  Modelica.Blocks.Interfaces.RealInput QTot(
+    final unit="W",
+    final displayUnit="W",
+    final quantity="Power")
+    "Total heating capacity from heating coil curve calculations"
+    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}}),
+      iconTransformation(extent={{-120,-150},{-100,-130}})));
+
+  Modelica.Blocks.Interfaces.RealInput EIR(
+    final unit="1",
+    final displayUnit="1")
+    "Total energy input ratio from heating coil curve calculations"
+    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}}),
+      iconTransformation(extent={{-120,-120},{-100,-100}})));
+
+  Modelica.Blocks.Interfaces.RealInput uSpe(
+    final unit="1",
+    displayUnit="1")
+    "Input speed signal"
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}}),
+      iconTransformation(extent={{-120,130},{-100,150}})));
 
   Modelica.Blocks.Interfaces.RealOutput QDef(
     final unit="W",
@@ -90,6 +119,30 @@ block CoilDefrostCapacity
     "Power input required for running defrost operation"
     annotation (Placement(transformation(extent={{100,50},{120,70}}),
       iconTransformation(extent={{100,-10},{120,10}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PTot(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power")
+    "Total power input required for running heating coil with defrost operation"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
+      iconTransformation(extent={{100,30},{120,50}})));
+
+  Modelica.Blocks.Interfaces.RealOutput QTotDef(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power")
+    "Total heat added to airloop after defrost"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
+      iconTransformation(extent={{100,-90},{120,-70}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PCra(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power")
+    "Crankcase heater power consumption"
+    annotation (Placement(transformation(extent={{100,70},{120,90}}),
+      iconTransformation(extent={{100,70},{120,90}})));
 
   Real defMod_T
     "Defrost modifier curve value";
@@ -116,54 +169,6 @@ block CoilDefrostCapacity
     redeclare package Medium = MediumA)
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-  replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
-
-  Modelica.Blocks.Interfaces.RealInput QTot(
-    final unit="W",
-    final displayUnit="W",
-    final quantity="Power")
-    "Total heating capacity from heating coil curve calculations"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}}),
-      iconTransformation(extent={{-120,-170},{-100,-150}})));
-
-  parameter Modelica.Units.SI.Power QDefResCap = defCur.QDefResCap
-    "Capacity of resistive defrost element";
-
-  Modelica.Blocks.Interfaces.RealInput EIR(
-    final unit="1",
-    final displayUnit="1")
-    "Total energy input ratio from heating coil curve calculations"
-    annotation (Placement(transformation(extent={{-120,-130},{-100,-110}}),
-      iconTransformation(extent={{-120,-130},{-100,-110}})));
-
-  Modelica.Blocks.Interfaces.RealOutput PTot(
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power")
-    "Total power input required for running heating coil with defrost operation"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
-      iconTransformation(extent={{100,30},{120,50}})));
-
-  Modelica.Blocks.Interfaces.RealOutput QTotDef(
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power") "Total heat added to airloop after defrost"
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}}),
-      iconTransformation(extent={{100,-90},{120,-70}})));
-
-  Modelica.Blocks.Interfaces.RealOutput PCra(
-    final unit="W",
-    displayUnit="W",
-    final quantity="Power") "Crankcase heater power consumption" annotation (
-      Placement(transformation(extent={{100,70},{120,90}}), iconTransformation(
-          extent={{100,70},{120,90}})));
-
-  Modelica.Blocks.Interfaces.RealInput uSpe(final unit="1", displayUnit="1")
-    "Input speed signal" annotation (Placement(transformation(extent={{-120,110},
-            {-100,130}}), iconTransformation(extent={{-120,110},{-100,130}})));
-//algorithm
-//  PLR:= min(1, (PLR+(QDef/QTotDef)));
 equation
   TConInWetBul=wetBul.TWetBul
     "Find wet-bulb temperature of inlet air";
@@ -176,7 +181,8 @@ equation
       deltaX=0.0001)
       "Cooling capacity modification factor as function of temperature";
   PLR = uSpe;
-  if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive then
+  if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
+       then
     QDef = 0;
     PDef = QDefResCap * tFracDef * RTF;
   else
@@ -184,13 +190,6 @@ equation
     PDef = defMod_T * QTot * tFracDef * RTF/1.01667;
   end if;
   QTotDef = QTot * heaCapMul;
-// when (PLR+(QDef/QTotDef)) < 1 then
-//   PLR =  pre(PLR)+(QDef/QTotDef);
-// end when;
-  //if (PLR+(QDef/QTotDef)) < 1 then
-    //PLR=1;
-  //end if;
-  //PLR = min(1, (pre(PLR)+(QDef/QTotDef)));
   PLFra = Buildings.Fluid.Utilities.extendedPolynomial(
       x=PLR,
       c=defCur.PLFraFunPLR,
@@ -219,52 +218,43 @@ equation
           textStyle={TextStyle.Italic},
           textString="f(To,Xo)")}),
           Documentation(info="<html>
-          <p>
-          Block to calculate defrost cycling time.
+<p>
+Block to calculate heat transfered to airloop <code>QTotDef</code>, as well as 
+the total heating power consumption of the component <code>PTot</code>, as defined 
+in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2 
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
+document. It also calculates the defrost input power consumption <code>PDef</code>
+and the crankcase heater input power consumption <code>PCra</code>.<br/>
+The inputs are as follows:
+<ul>
+<li>
+the defrost cycle time fraction <code>tFracDef</code>, the heating capacity multiplier 
+<code>heaCapMul</code> and the input power multiplier <code>inpPowMul</code> 
+calculated by <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations</a>.
+</li>
+<li>
+the total heat transfer <code>QTot</code> and energy input ratio <code>EIR</code>
+calculated by <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>.
+</li>
+<li>
+the measured temperature <code>TConIn</code>, humidity ratio (total air) 
+<code>XConIn</code> and pressure <code>pIn</code> of the indoor coil inlet air 
+temperature.
+</li>
+<li>
+the measured outdoor air temperature <code>TOut</code>.
+</li>
+</ul>
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-November 8, 2022, by Michael Wetter:<br/>
-Corrected calculation of performance which used the wrong upper bound.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\">issue 3146</a>.
-</li>
-<li>
-October 21, 2019, by Michael Wetter:<br/>
-Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
-</li>
-<li>
-February 27, 2017 by Yangyang Fu:<br/>
-Revised the documentation.
-</li>
-<li>
-December 18, 2012 by Michael Wetter:<br/>
-Added warning if the evaporator or condenser inlet temperature of the current stage
-cross the minimum and maximum allowed values.
-</li>
-<li>
-September 20, 2012 by Michael Wetter:<br/>
-Revised model and documentation.
-</li>
-<li>
-May 18, 2012 by Kaustubh Phalak:<br/>
-Combined cooling capacity and EIR modifier function together to avoid repeatation of same variable calculations.
-Added heaviside function.
-</li>
-<li>
-April 20, 2012 by Michael Wetter:<br/>
-Added unit conversion directly to function calls to avoid doing
-the conversion when the coil is switched off.
-</li>
-<li>
-April 6, 2012 by Kaustubh Phalak:<br/>
+April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end CoilDefrostCapacity;

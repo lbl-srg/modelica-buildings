@@ -4,15 +4,15 @@ block CoilDefrostTimeCalculations
   extends Modelica.Blocks.Icons.Block;
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method to trigger the defrost cycle";
 
   parameter Real tDefRun(
     final unit="1",
     displayUnit="1") = 0.5
     "Time period for which defrost cycle is run"
-    annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed));
+    annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim
     "Maximum temperature at which defrost operation is activated";
@@ -72,7 +72,7 @@ equation
   // ratio at estimated outdoor coil temperature
   delta_XCoilOut = max(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)));
   if TOut < TDefLim then
-    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
+    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
          then
       tFracDef = tDefRun;
       heaCapMul = 0.909 - 107.33*delta_XCoilOut;
@@ -88,7 +88,7 @@ equation
     inpPowMul = 1;
   end if;
   annotation (
-    defaultComponentName="cooCap",
+    defaultComponentName="defTimFra",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                     graphics={
         Text(
@@ -97,52 +97,22 @@ equation
           textStyle={TextStyle.Italic},
           textString="f(To,Xo)")}),
           Documentation(info="<html>
-          <p>
-          Block to calculate defrost cycling time.
+<p>
+Block to calculate defrost cycling time fraction <code>tFracDef</code> as defined 
+in section 15.2.11.4 in the the EnergyPlus 22.2 
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
+document. It also calculates the heating capacity multiplier <code>heaCapMul</code>
+and the input power multiplier <code>inpPowMul</code>. The inputs are the measured
+temperature <code>TOut</code> and humidity ratio (total air) <code>XOut</code> 
+of the outdoor air.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-November 8, 2022, by Michael Wetter:<br/>
-Corrected calculation of performance which used the wrong upper bound.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\">issue 3146</a>.
-</li>
-<li>
-October 21, 2019, by Michael Wetter:<br/>
-Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>
-This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
-</li>
-<li>
-February 27, 2017 by Yangyang Fu:<br/>
-Revised the documentation.
-</li>
-<li>
-December 18, 2012 by Michael Wetter:<br/>
-Added warning if the evaporator or condenser inlet temperature of the current stage
-cross the minimum and maximum allowed values.
-</li>
-<li>
-September 20, 2012 by Michael Wetter:<br/>
-Revised model and documentation.
-</li>
-<li>
-May 18, 2012 by Kaustubh Phalak:<br/>
-Combined cooling capacity and EIR modifier function together to avoid repeatation of same variable calculations.
-Added heaviside function.
-</li>
-<li>
-April 20, 2012 by Michael Wetter:<br/>
-Added unit conversion directly to function calls to avoid doing
-the conversion when the coil is switched off.
-</li>
-<li>
-April 6, 2012 by Kaustubh Phalak:<br/>
+April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end CoilDefrostTimeCalculations;
