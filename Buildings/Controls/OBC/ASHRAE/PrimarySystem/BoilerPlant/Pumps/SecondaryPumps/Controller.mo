@@ -427,7 +427,7 @@ protected
     annotation (Placement(transformation(extent={{-250,-166},{-230,-146}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt1(
-    final nin=nPumPri) if    not have_varSecPum
+    final nin=nPumPri)    if not have_varSecPum
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
@@ -729,8 +729,9 @@ equation
           0},{274,-264},{-74,-264},{-74,-326},{-62,-326}}, color={255,0,255}));
   connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{214,0},{274,
           0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
-  connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},{
-          -216,-156},{-216,-156},{-202,-156}},     color={255,127,0}));
+  connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},
+          {-216,-156},{-216,-154.25},{-202,-154.25}},
+                                                   color={255,127,0}));
   connect(min.y, yPumSpe)
     annotation (Line(points={{182,-400},{300,-400}}, color={0,0,127}));
   connect(addInt.y, zerStaIndCor.uInd)
