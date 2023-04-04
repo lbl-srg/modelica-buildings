@@ -28,16 +28,16 @@ block Proof "Verify two boolean inputs"
 
 protected
   Buildings.Controls.OBC.CDL.Logical.Or valInp
-    "Check if the input becomes valid after the delay time"
+    "Output true if the input becomes stable after the delay time"
     annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Logical.And invInp
-    "Debounce time has passed and there is still no stable input"
-    annotation (Placement(transformation(extent={{40,170},{60,190}})));
+    "Output true if debounce time has passed and there is still no stable input"
+    annotation (Placement(transformation(extent={{0,170},{20,190}})));
   Buildings.Controls.OBC.CDL.Logical.Or pasDel
-    "Check if the feedback checking time is passed"
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
+    "Output true if the feedback checking time has passed"
+    annotation (Placement(transformation(extent={{-142,-10},{-122,10}})));
   Buildings.Controls.OBC.CDL.Logical.Or cheDif
-    "Check if the measured input is valid, or the feedback checking time is passed"
+    "fixme: Is this correct? Output true if the measured input is stable, or the feedback checking time has passed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Controls.OBC.CDL.Logical.And botTru
     "Check if both valid measured input and the setpoint input are true"
@@ -49,7 +49,7 @@ protected
     final delayTime=debounce) "Valid measured input change from false to true"
     annotation (Placement(transformation(extent={{-240,170},{-220,190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch valFal
-    "Valid measured input change from true to false"
+    "Output false if measured input is stable and changed from true to false"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch cheDif1
     "Check if it should check the difference"
@@ -64,14 +64,14 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not notBotFal "Not both false inputs"
     annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
-    annotation (Placement(transformation(extent={{-220,-60},{-200,-40}})));
+    annotation (Placement(transformation(extent={{-220,-50},{-200,-30}})));
   Buildings.Controls.OBC.CDL.Logical.And falTru
     "Setpoint input is false but the valid measured input is true"
     annotation (Placement(transformation(extent={{80,-200},{100,-180}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delChe1(
     final delayTime=feedbackDelay + debounce)
     "Delay the difference check"
-    annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
+    annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Convert boolean input to integer output"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
@@ -90,7 +90,7 @@ protected
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Input is invalid"
-    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch locFal
     "Output if the measured input is locked to false"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
@@ -101,7 +101,7 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(
     final k=false)
     "False constant"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{30,80},{50,100}})));
   Buildings.Controls.OBC.CDL.Logical.Not notBotTru
     "Not both true inputs"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
@@ -109,12 +109,12 @@ protected
     "Check if it should check the difference"
     annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch locTru
-    "Output if the measured input is locked to false"
+    "fixme: Not clear, output what? Output if the measured input is locked to false"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(
     final t=debounce)
     "Check if the debounce time has passed"
-    annotation (Placement(transformation(extent={{0,130},{20,150}})));
+    annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.Controls.OBC.CDL.Logical.Latch holTru
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,170},{220,190}})));
@@ -122,7 +122,7 @@ protected
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Or equInp
-    "Check if both true inputs or both false inputs"
+    "fixme: Seems wrong as an 'or' block outputs different y under these 2 conditions: Check if both true inputs or both false inputs"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg1
     "True: same inputs"
@@ -152,25 +152,28 @@ equation
   connect(conTru.y, valFal.u3) annotation (Line(points={{-178,210},{-170,210},{-170,
           102},{-142,102}}, color={255,0,255}));
   connect(valInp.y, not3.u)
-    annotation (Line(points={{-118,180},{-42,180}}, color={255,0,255}));
+    annotation (Line(points={{-118,180},{-82,180}}, color={255,0,255}));
   connect(not3.y, invInp.u1)
-    annotation (Line(points={{-18,180},{38,180}},color={255,0,255}));
+    annotation (Line(points={{-58,180},{-2,180}},color={255,0,255}));
   connect(conTru.y, locFal.u1) annotation (Line(points={{-178,210},{110,210},{110,
           188},{158,188}}, color={255,0,255}));
-  connect(u_s, not2.u) annotation (Line(points={{-280,0},{-240,0},{-240,-50},{-222,
-          -50}}, color={255,0,255}));
+  connect(u_s, not2.u) annotation (Line(points={{-280,0},{-240,0},{-240,-40},{
+          -222,-40}},
+                 color={255,0,255}));
   connect(not2.y, delChe1.u)
-    annotation (Line(points={{-198,-50},{-182,-50}}, color={255,0,255}));
+    annotation (Line(points={{-198,-40},{-182,-40}}, color={255,0,255}));
   connect(u_s, delChe2.u)
     annotation (Line(points={{-280,0},{-222,0}}, color={255,0,255}));
   connect(delChe2.y, pasDel.u1)
-    annotation (Line(points={{-198,0},{-102,0}},color={255,0,255}));
-  connect(delChe1.y, pasDel.u2) annotation (Line(points={{-158,-50},{-120,-50},{
-          -120,-8},{-102,-8}},color={255,0,255}));
-  connect(valInp.y, cheDif.u2) annotation (Line(points={{-118,180},{-60,180},{-60,
-          -8},{-2,-8}}, color={255,0,255}));
+    annotation (Line(points={{-198,0},{-144,0}},color={255,0,255}));
+  connect(delChe1.y, pasDel.u2) annotation (Line(points={{-158,-40},{-154,-40},
+          {-154,-8},{-144,-8}},
+                              color={255,0,255}));
+  connect(valInp.y, cheDif.u2) annotation (Line(points={{-118,180},{-100,180},{
+          -100,-8},{-2,-8}},
+                        color={255,0,255}));
   connect(pasDel.y, cheDif.u1)
-    annotation (Line(points={{-78,0},{-2,0}}, color={255,0,255}));
+    annotation (Line(points={{-120,0},{-2,0}},color={255,0,255}));
   connect(cheDif.y, cheDif1.u2) annotation (Line(points={{22,0},{90,0},{90,110},
           {118,110}}, color={255,0,255}));
   connect(botTru.y, notBotTru.u)
@@ -189,16 +192,18 @@ equation
     annotation (Line(points={{-78,-130},{-62,-130}}, color={255,127,0}));
   connect(booToInt1.y, equSta.u2) annotation (Line(points={{-78,-170},{-70,-170},
           {-70,-138},{-62,-138}}, color={255,127,0}));
-  connect(not2.y, botFal.u1) annotation (Line(points={{-198,-50},{-190,-50},{-190,
-          -150},{-2,-150}}, color={255,0,255}));
+  connect(not2.y, botFal.u1) annotation (Line(points={{-198,-40},{-190,-40},{
+          -190,-150},{-2,-150}},
+                            color={255,0,255}));
   connect(equSta.y, botFal.u2) annotation (Line(points={{-38,-130},{-10,-130},{-10,
           -158},{-2,-158}}, color={255,0,255}));
   connect(botFal.y, notBotFal.u)
     annotation (Line(points={{22,-150},{38,-150}}, color={255,0,255}));
   connect(notBotFal.y, falTru.u1) annotation (Line(points={{62,-150},{70,-150},{
           70,-190},{78,-190}}, color={255,0,255}));
-  connect(not2.y, falTru.u2) annotation (Line(points={{-198,-50},{-190,-50},{-190,
-          -198},{78,-198}}, color={255,0,255}));
+  connect(not2.y, falTru.u2) annotation (Line(points={{-198,-40},{-190,-40},{
+          -190,-198},{78,-198}},
+                            color={255,0,255}));
   connect(cheDif1.y, locFal.u3) annotation (Line(points={{142,110},{150,110},{150,
           172},{158,172}}, color={255,0,255}));
   connect(cheDif.y, cheDif2.u2) annotation (Line(points={{22,0},{90,0},{90,-130},
@@ -207,9 +212,9 @@ equation
           150,-68},{158,-68}}, color={255,0,255}));
   connect(conTru.y, locTru.u1) annotation (Line(points={{-178,210},{110,210},{110,
           -52},{158,-52}}, color={255,0,255}));
-  connect(conFal.y, cheDif1.u3) annotation (Line(points={{22,90},{100,90},{100,
+  connect(conFal.y, cheDif1.u3) annotation (Line(points={{52,90},{100,90},{100,
           102},{118,102}}, color={255,0,255}));
-  connect(conFal.y, cheDif2.u3) annotation (Line(points={{22,90},{100,90},{100,
+  connect(conFal.y, cheDif2.u3) annotation (Line(points={{52,90},{100,90},{100,
           -138},{118,-138}}, color={255,0,255}));
   connect(falTru.y, cheDif2.u1) annotation (Line(points={{102,-190},{110,-190},{
           110,-122},{118,-122}}, color={255,0,255}));
@@ -236,53 +241,60 @@ equation
   connect(edg1.y,holTru1. clr) annotation (Line(points={{182,60},{190,60},{190,-66},
           {198,-66}}, color={255,0,255}));
   connect(invInp.y, locFal.u2)
-    annotation (Line(points={{62,180},{158,180}}, color={255,0,255}));
-  connect(invInp.y, locTru.u2) annotation (Line(points={{62,180},{80,180},{80,-60},
-          {158,-60}}, color={255,0,255}));
-  connect(not3.y, pasDeb.u) annotation (Line(points={{-18,180},{-10,180},{-10,140},
-          {-2,140}}, color={255,0,255}));
-  connect(pasDeb.passed, invInp.u2) annotation (Line(points={{22,132},{30,132},{
-          30,172},{38,172}}, color={255,0,255}));
+    annotation (Line(points={{22,180},{158,180}}, color={255,0,255}));
+  connect(invInp.y, locTru.u2) annotation (Line(points={{22,180},{80,180},{80,
+          -60},{158,-60}},
+                      color={255,0,255}));
+  connect(not3.y, pasDeb.u) annotation (Line(points={{-58,180},{-50,180},{-50,
+          150},{-42,150}},
+                     color={255,0,255}));
+  connect(pasDeb.passed, invInp.u2) annotation (Line(points={{-18,142},{-10,142},
+          {-10,172},{-2,172}},
+                             color={255,0,255}));
 annotation (
     defaultComponentName="pro",
     Diagram(
       coordinateSystem(extent={{-260,-240},{240,240}}), graphics={
         Rectangle(
-          extent={{-258,238},{58,42}},
+          extent={{-258,236},{28,42}},
           lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-258,38},{58,-58}},
+          extent={{-258,38},{-114,-58}},
           lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-258,-62},{58,-198}},
+          extent={{-116,-62},{66,-198}},
           lineColor={215,215,215},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-248,60},{-44,46}},
+          extent={{-248,38},{-174,20}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if there is valid measured input"),
+          fontSize=12,
+          textString="Output true if u_s has passed
+the feedback delay"),
         Text(
-          extent={{-114,-40},{52,-58}},
+          extent={{-90,-182},{-4,-196}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if it has passed the feedback delay"),
+          textString="Check if the inputs are different",
+          fontSize=12),
         Text(
-          extent={{-86,-180},{62,-194}},
+          extent={{-252,236},{-130,224}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if the inputs are different")}),
+          textString="Check if there is a stable measured input u_m",
+          fontSize=12)}),
     Icon(
       coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
