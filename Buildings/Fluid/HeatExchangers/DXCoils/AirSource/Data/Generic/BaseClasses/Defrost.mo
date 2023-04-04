@@ -3,12 +3,12 @@ record Defrost
   "Data record for defrost nominal capacities and performance curve"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
     "Defrost operation type";
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method used to calculate defrost time fraction";
 
   parameter Real tDefRun(
