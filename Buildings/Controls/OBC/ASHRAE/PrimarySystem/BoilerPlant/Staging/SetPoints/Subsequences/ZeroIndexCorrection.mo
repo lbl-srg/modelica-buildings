@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences;
-block ZeroStageIndexCorrection
+block ZeroIndexCorrection
   "Block to pass the correct capacity details when index signal is zero, while avoiding assert errors"
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uInd
@@ -131,4 +131,4 @@ equation
       </li>
       </ul>
       </html>"));
-end ZeroStageIndexCorrection;
+end ZeroIndexCorrection;

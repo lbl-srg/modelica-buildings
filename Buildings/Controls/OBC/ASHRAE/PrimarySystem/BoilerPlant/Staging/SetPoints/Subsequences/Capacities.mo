@@ -89,23 +89,23 @@ protected
   final parameter Real larGai = 10
     "Large gain";
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection zerStaIndCor
     "Modify real extractor inputs and outputs"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor1
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection zerStaIndCor1
     "Modify real extractor inputs and outputs"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor2
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection zerStaIndCor2
     "Modify real extractor inputs and outputs"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor3
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection zerStaIndCor3
     "Modify real extractor inputs and outputs"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor4
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection zerStaIndCor4
     "Modify real extractor inputs and outputs"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
 

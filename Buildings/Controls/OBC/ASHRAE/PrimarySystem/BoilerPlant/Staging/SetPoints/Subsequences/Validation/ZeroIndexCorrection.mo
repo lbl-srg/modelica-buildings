@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation;
-model ZeroStageIndexCorrection
+model ZeroIndexCorrection
   "Validation model for zero stage index correction block"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection
     zerStaIndCor
     "Validation instance with zero index signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection
     zerStaIndCor1
     "Validation instance with index signal one"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -44,8 +44,8 @@ annotation (
   Documentation(info="<html>
     <p>
     This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection\">
-    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection</a>.
+    <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection\">
+    Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroIndexCorrection</a>.
     </p>
     <p>
     It contains two instances:
@@ -81,4 +81,4 @@ annotation (
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-100,-100},{100,100}})));
-end ZeroStageIndexCorrection;
+end ZeroIndexCorrection;
