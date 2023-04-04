@@ -95,6 +95,16 @@ block EfficiencyCondition
       iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer(
+    final p=1e-6)
+    "Add small vcalue to input signal to prevent divide by zero"
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer1(
+    final p=1e-6)
+    "Add small vcalue to input signal to prevent divide by zero"
+    annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Divider to get relative value of required heating capacity"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
@@ -187,11 +197,6 @@ protected
     annotation (Placement(transformation(extent={{-40,-190},{-20,-170}})));
 
 equation
-  connect(div.u2,uCapUpMin)
-    annotation (Line(points={{-82,24},{-110,24},{-110,20},{-140,20}},
-      color={0,0,127}));
-  connect(div1.u2, uCapDes) annotation (Line(points={{-82,64},{-90,64},{-90,70},
-          {-114,70},{-114,100},{-140,100}}, color={0,0,127}));
   connect(sub1.u1, VHotWat_flow) annotation (Line(points={{-82,-34},{-110,-34},{
           -110,-20},{-140,-20}},  color={0,0,127}));
   connect(sub1.u2, VUpMinSet_flow) annotation (Line(points={{-82,-46},{-110,-46},
@@ -268,6 +273,14 @@ equation
           {-110,-70},{-82,-70}}, color={0,0,127}));
   connect(addPar.y, div2.u2) annotation (Line(points={{-58,-70},{-50,-70},{-50,-56},
           {-42,-56}}, color={0,0,127}));
+  connect(uCapDes, addParDivZer.u)
+    annotation (Line(points={{-140,100},{-112,100}}, color={0,0,127}));
+  connect(addParDivZer.y, div1.u2) annotation (Line(points={{-88,100},{-86,100},
+          {-86,64},{-82,64}}, color={0,0,127}));
+  connect(uCapUpMin, addParDivZer1.u)
+    annotation (Line(points={{-140,20},{-114,20}}, color={0,0,127}));
+  connect(addParDivZer1.y, div.u2) annotation (Line(points={{-90,20},{-86,20},{-86,
+          24},{-82,24}}, color={0,0,127}));
 annotation (
   defaultComponentName = "effCon",
   Icon(
