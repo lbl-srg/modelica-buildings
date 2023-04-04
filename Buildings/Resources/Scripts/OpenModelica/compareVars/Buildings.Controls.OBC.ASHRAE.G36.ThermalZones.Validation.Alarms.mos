@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "zonAla.TZon",
+    "zonAla.TCooSet",
+    "zonAla.THeaSet",
+    "zonAla.u1ResSet",
+    "zonAla.yTemAla",
+    "zonAla.uOpeMod",
+    "zonAla.ppmCO2",
+    "zonAla.CO2Set",
+    "zonAla.yCO2Ala"
+  };

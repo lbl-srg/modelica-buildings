@@ -139,7 +139,8 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumEva(
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
-    final allowFlowReversal=allowFlowReversal2)
+    final allowFlowReversal=allowFlowReversal2,
+    dp_nominal=dp2_nominal)
     "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
@@ -309,13 +310,13 @@ The heat pump model is described in
 <a href=\"modelica://Buildings.Fluid.HeatPumps.Carnot_TCon\">
 Buildings.Fluid.HeatPumps.Carnot_TCon</a>.
 By default variable speed pumps are considered.
-Constant speed pumps may also be represented by setting <code>have_varFloEva</code> 
+Constant speed pumps may also be represented by setting <code>have_varFloEva</code>
 and <code>have_varFloCon</code> to <code>false</code>.
 </p>
 <h4>Controls</h4>
 <p>
-The system is enabled when the input control signal <code>uEna</code> switches to 
-<code>true</code>. 
+The system is enabled when the input control signal <code>uEna</code> switches to
+<code>true</code>.
 When enabled,
 </p>
 <ul>
@@ -327,11 +328,15 @@ or the nominal mass flow rate in the case of constant speed pumps,
 <li>
 the heat pump is commanded on when the evaporator and optionally the condenser water pump
 are proven on. When enabled, the heat pump controller—idealized in this model—tracks the
-supply temperature set point at the condenser outlet. 
+supply temperature set point at the condenser outlet.
 </li>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Set <code>pumEva.dp_nominal</code> to correct value.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 First implementation.

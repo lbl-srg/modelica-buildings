@@ -253,11 +253,11 @@ using colored lines over the pump data sheet.
 The resulting figures are shown below.
 </p>
 <p>Pump heads:</p>
-<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationHead.png\"
+<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/PumpValidationHead.png\"
 alt=\"Pump head.\"/>
 </p>
 <p>Pump electrical power:</p>
-<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Examples/PumpValidationPower.png\"
+<p><img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/PumpValidationPower.png\"
 alt=\"Pump power.\"/></p>
 <p>The figures are adapted from the
 <a href=\"http://productfinder.wilo.com/en/COM/product/0000001700017d670001003a/fc_product_datasheet\">

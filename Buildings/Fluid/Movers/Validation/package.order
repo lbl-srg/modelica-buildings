@@ -3,6 +3,7 @@ ControlledFlowMachineDynamic
 FlowControlled_dp
 FlowControlled_dpSystem
 FlowControlled_m_flow
+PowerEuler
 PowerExact
 PowerSimplified
 PumpCurveConstruction

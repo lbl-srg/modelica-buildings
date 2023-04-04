@@ -1,45 +1,26 @@
 within Buildings.Controls.OBC.CDL.Routing;
 block RealExtractor
-  "Extract scalar signal out of signal vector dependent on Integer input index"
-  parameter Boolean allowOutOfRange=false
-    "Index may be out of range";
+  "Extract scalar signal out of real signal vector dependent on integer input index"
   parameter Integer nin=1
     "Number of inputs";
-  parameter Real outOfRangeValue=1e10
-    "Output signal if index is out of range";
   Interfaces.IntegerInput index
     "Index of input vector element to be extracted out"
     annotation (Placement(transformation(origin={0,-120},extent={{-20,-20},{20,20}},rotation=90)));
   Interfaces.RealInput u[nin]
-    "Connector of Real input signals"
+    "Real input signals"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Interfaces.RealOutput y
-    "Connector of Real output signal"
+    "Real signal extracted from input vector, u[index]"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-protected
-  Real k[nin]
-    "Indicator used to extract the signal";
-
-initial equation
-  pre(index)=0;
-
 equation
-  when {initial(),change(index)} then
-    for i in 1:nin loop
-      k[i]=
-        if index == i then
-          1
-        else
-          0;
-    end for;
-  end when;
-  y=if not allowOutOfRange or index > 0 and index <= nin then
-      k*u
-    else
-      outOfRangeValue;
-  annotation (
-    defaultComponentName="extIndSig",
+  assert(
+     index > 0 and index <= nin,
+     "In " + getInstanceName() + ": The extract index is out of the range.",
+     AssertionLevel.warning);
+  y = u[min(nin, max(1, index))];
+
+annotation (defaultComponentName="extIndRea",
     Icon(
       coordinateSystem(
         preserveAspectRatio=true,
@@ -133,22 +114,35 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           textColor={0,0,255},
-          extent={{-150,110},{150,150}},
+          extent={{-100,100},{100,140}},
           textString="%name")}),
     Documentation(
       info="<html>
 <p>
-Block that extracts a scalar output signal out the
-vector of input signals dependent on the Integer
-value of the input <code>index</code>:</p>
-<pre>    y = u [ index ] ;
+Block that returns
+</p>
+<pre>    y = u[index];
 </pre>
 <p>
-where index is an additional Integer input signal.
+where <code>u</code> is a vector-valued <code>Real</code> input signal and
+<code>index</code> is an <code>Integer</code> input signal. When the <code>index</code>
+is out of range,
 </p>
-</html>",
-      revisions="<html>
 <ul>
+<li>
+then <code>y = u[nin]</code> if <code>index &gt; nin</code>, and
+</li>
+<li>
+<code>y = u[1]</code> if <code>index &lt; 1</code>.
+</li>
+</ul>
+</html>",
+revisions="<html>
+<ul>
+<li>
+October 14, 2022, by Jianjun Hu:<br/>
+Changed output from a specified value to the element with the nearest valid index when the index input is out of range.
+</li>
 <li>
 July 19, 2018, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

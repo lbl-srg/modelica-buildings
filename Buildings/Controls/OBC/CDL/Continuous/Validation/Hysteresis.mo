@@ -28,18 +28,19 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sin sin1
     "Block that outputs the sine of the input"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain1(final k=2.5)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gain1(
+    final k=2.5)
     "Block that outputs the product of a gain value with the input signal"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     final amplitude=1,
-    final period=0.1)
-    "Pulse signal"
+    final freqHz=10)
+    "Sine signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
     final amplitude=1,
-    final period=0.1)
-    "Pulse signal"
+    final freqHz=5)
+    "Sine signal"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
 
 equation
@@ -49,9 +50,9 @@ equation
     annotation (Line(points={{-8,40},{8,40}},color={0,0,127}));
   connect(gain1.y,hysteresis.u)
     annotation (Line(points={{32,40},{48,40}},color={0,0,127}));
-  connect(hysteresis2.u,pul1.y)
+  connect(hysteresis2.u,sin2.y)
     annotation (Line(points={{18,-40},{-18,-40}},color={0,0,127}));
-  connect(pul.y,hysteresis1.u)
+  connect(sin.y,hysteresis1.u)
     annotation (Line(points={{-18,0},{18,0}},color={0,0,127}));
   annotation (
     experiment(
@@ -69,6 +70,13 @@ Buildings.Controls.OBC.CDL.Continuous.Hysteresis</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 14, 2023, by Jianjun Hu:<br/>
+Changed the greater block input to avoid near zero crossing.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3294\">
+issue 3294</a>.
+</li> 
 <li>
 April 1, 2017, by Jianjun Hu:<br/>
 First implementation.

@@ -1,0 +1,7 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.MultiZone.VAV.SetPoints.Validation.SupplyTemperature", method="Cvode", stopTime=86400, tolerance=1e-06, resultFile="conTSupSet");
+createPlot(id=1, position={10, 10, 490, 700}, subPlot=1, y={"conTSupSet.uZonTemResReq"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 490, 700}, subPlot=2, y={"conTSupSet.uSupFan"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=1, position={10, 10, 490, 700}, subPlot=3, y={"conTSupSet.uOpeMod"}, range={0.0, 1200.0, 0.4, 0.9}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={510, 10, 490, 700}, subPlot=1, y={"conTSupSet.maxSupTemRes.y"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={510, 10, 490, 700}, subPlot=2, y={"conTSupSet.TOut"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});
+createPlot(id=2, position={510, 10, 490, 700}, subPlot=3, y={"conTSupSet.TSupSet"}, range={0.0, 1200.0, 0.0, 0.8}, grid=true, colors={{238,46,47}});

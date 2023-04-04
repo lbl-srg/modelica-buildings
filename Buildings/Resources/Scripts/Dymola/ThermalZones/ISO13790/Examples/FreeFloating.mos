@@ -1,0 +1,12 @@
+simulateModel("Buildings.ThermalZones.ISO13790.Examples.FreeFloating", tolerance=1e-6, startTime=8640000, stopTime=9504000, method="CVode", resultFile="FreeFloating");
+createPlot(id = 1,
+ position = {55, 50, 697, 502},
+ x = "time",
+ y = {"zon5R1C.TAir"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ leftTitleType = 1,
+ bottomTitleType = 1);

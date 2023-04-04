@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves;
-record Curve_I_WaterCooled "Curve_I for water-cooled DX coils"
+record Curve_I_WaterCooled "Curve_I for water source DX coils"
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.PerformanceCurve(
+    Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.PerformanceCurve(
     capFunT={0.476428,0.0401147000,0.0002264110,-0.0008271360,-0.0000073224,
         -0.0004462780},
     capFunFF={0.47278589,1.2433415,-1.0387055,0.32257813},

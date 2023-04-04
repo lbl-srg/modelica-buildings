@@ -67,6 +67,13 @@ and ceilings of different surface area.
   revisions="<html>
 <ul>
 <li>
+December 10, 2022, by Michael Wetter:<br/>
+Corrected annotation to avoid comparison for equality
+using real-valued parameter.<br/>
+See also
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1671\">IBPSA, #1671</a>.
+</li>
+<li>
 March 1, 2016, by Michael Wetter:<br/>
 Removed test for equality of <code>Real</code> variables.
 This is for
@@ -109,19 +116,19 @@ First implementation.
             textColor={0,0,0},
             textString="U=%U"),
           Rectangle(
-            visible=(c == 0),
+            visible=(c > 0),
             extent={{0,0},{100,-100}},
             lineColor={0,0,0},
             fillColor={255,170,170},
             fillPattern=FillPattern.Solid),
           Line(points={{-100,-50},{100,-50}}, color={0,0,0}),
           Text(
-            visible=not (c == 0),
+            visible=not (c > 0),
             extent={{8,-8},{86,-40}},
             lineColor={0,0,0},
             textString="d=%d"),
           Text(
-            visible=not (c == 0),
+            visible=not (c > 0),
             extent={{10,-56},{88,-88}},
             lineColor={0,0,0},
             textString="c=%c")}));
