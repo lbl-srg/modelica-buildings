@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic;
 block ZeroIndexCorrection
   "Block to pass the correct capacity details when index signal is zero, while avoiding assert errors"
 
