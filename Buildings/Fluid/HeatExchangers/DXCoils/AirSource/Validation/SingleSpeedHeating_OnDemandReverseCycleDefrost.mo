@@ -151,7 +151,7 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=ModelicaServices.ExternalReferences.loadResource("modelice://Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandReverseCycleDefrost/DXCoilSystemAuto.dat"),
+    final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandReverseCycleDefrost/DXCoilSystemAuto.dat"),
     final columns=2:18,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
