@@ -130,5 +130,6 @@ equation
       First implementation.
       </li>
       </ul>
-      </html>"));
+      </html>"),
+    experiment(Tolerance=1e-6));
 end ZeroIndexCorrection;
