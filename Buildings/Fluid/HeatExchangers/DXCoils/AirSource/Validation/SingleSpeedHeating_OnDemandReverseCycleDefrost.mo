@@ -117,12 +117,6 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
     "Outlet air humidity ratio from EnergyPlus"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
-  // The UnitDelay is reimplemented to avoid in Dymola 2016 the translation warning
-  //   The initial conditions for variables of type Boolean are not fully specified.
-  //   Dymola has selected default initial conditions.
-  //   Assuming fixed default start value for the discrete non-states:
-  //     PEPlu.firstTrigger(start = false)
-  //     ...
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
     datDef(
     final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.reverseCycle,
