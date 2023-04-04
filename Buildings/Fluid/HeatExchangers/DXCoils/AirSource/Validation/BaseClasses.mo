@@ -175,7 +175,7 @@ input signal for the part-load ratio, and then comparing the enabled time result
 against required calculated values.
 </p>
 </html>"),
-        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/Baseclasses/PLRToPulse.mos"
+        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/Baseclasses/Validation/PLRToPulse.mos"
             "Simulate and plot"));
     end PLRToPulse;
   annotation (preferredView="info", Documentation(info="<html>
