@@ -4,7 +4,7 @@ block CoilDefrostCapacity
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+    "Fluid medium package";
 
   parameter Real tDefRun(
     final unit="1",
@@ -181,8 +181,7 @@ equation
       deltaX=0.0001)
       "Cooling capacity modification factor as function of temperature";
   PLR = uSpe;
-  if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
-       then
+  if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive then
     QDef = 0;
     PDef = QDefResCap * tFracDef * RTF;
   else

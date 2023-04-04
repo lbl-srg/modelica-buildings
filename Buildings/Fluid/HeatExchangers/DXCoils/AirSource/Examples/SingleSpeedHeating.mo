@@ -122,8 +122,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
             Documentation(info="<html>
 <p>
 This is an example model for
