@@ -37,7 +37,7 @@ equation
           40}}, color={0,0,127}));
   connect(samPLR.y, gaiTim.u)
     annotation (Line(points={{12,40},{38,40}}, color={0,0,127}));
-  annotation (Documentation(preferredView="info", info="<html>
+  annotation (experiment(Tolerance=1e-6),Documentation(preferredView="info", info="<html>
 <p>
 This model validates the PLR to pulse converter by providing it a time-varying 
 input signal for the part-load ratio, and then comparing the enabled time results 
