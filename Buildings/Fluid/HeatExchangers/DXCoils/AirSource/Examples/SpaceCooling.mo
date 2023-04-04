@@ -55,7 +55,7 @@ model SpaceCooling "Space cooling with DX coils"
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
     TDryBul=TOut_nominal,
-    filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    filNam=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
     TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
     "Weather data reader"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
@@ -662,7 +662,7 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Updated instance classes for <code>sinSpeDX</code> and </code>varSpeDX</code>.
+Updated instance classes for <code>sinSpeDX</code> and <code>varSpeDX</code>.
 </li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>
