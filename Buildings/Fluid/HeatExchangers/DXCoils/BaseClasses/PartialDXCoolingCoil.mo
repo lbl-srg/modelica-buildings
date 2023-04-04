@@ -13,9 +13,10 @@ partial model PartialDXCoolingCoil "Partial model for DX cooling coil"
     "Latent heat flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
         iconTransformation(extent={{116,20},{136,40}})));
-  Evaporation eva(
+
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation eva(
     redeclare package Medium = Medium,
-    final nomVal=datCoi.sta[nSta].nomVal,
+    nomVal=datCoi.sta[nSta].nomVal,
     final computeReevaporation=computeReevaporation) if   activate_CooCoi
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
