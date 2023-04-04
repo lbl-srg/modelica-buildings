@@ -1,12 +1,14 @@
 simulateModel("Buildings.Controls.OBC.CDL.Logical.Validation.Proof", stopTime=10.0, method="Cvode", tolerance=1e-06, resultFile="Proof");
-createPlot(id=1, position={5, 17, 508, 1298}, y={"pro.uMea", "pro.uCom"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=1, position={5, 17, 508, 1298}, y={"pro.yProTru", "pro.yProFal"}, range={0.0, 10.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=2, position={519, 21, 490, 1296}, y={"pro1.uMea", "pro1.uCom"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=2, position={519, 21, 490, 1296}, y={"pro1.yProTru", "pro1.yProFal"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=3, position={1017, 23, 510, 1296}, y={"pro2.uMea", "pro2.uCom"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=3, position={1017, 23, 510, 1296}, y={"pro2.yProTru", "pro2.yProFal"}, range={0.0, 10.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=4, position={1535, 31, 526, 1280}, y={"pro3.uMea", "pro3.uCom"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=4, position={1535, 31, 526, 1280}, y={"pro3.yProTru", "pro3.yProFal"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=5, position={2067, 29, 554, 1280}, y={"pro4.uMea", "pro4.uCom"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
-createPlot(id=5, position={2067, 29, 554, 1280}, y={"pro4.yProTru", "pro4.yProFal"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={5, 20, 450, 1300}, y={"pro.u_m", "pro.u_s"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=1, position={5, 20, 450, 1300}, y={"pro.yLocFal", "pro.yLocTru"}, range={0.0, 10.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={465, 20, 450, 1300}, y={"pro1.u_m", "pro1.u_s"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=2, position={465, 20, 450, 1300}, y={"pro1.yLocFal", "pro1.yLocTru"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={925, 20, 450, 1300}, y={"pro2.u_m", "pro2.u_s"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=3, position={925, 20, 450, 1300}, y={"pro2.yLocFal", "pro2.yLocTru"}, range={0.0, 10.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=4, position={1385, 20, 450, 1300}, y={"pro3.u_m", "pro3.u_s"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=4, position={1385, 20, 450, 1300}, y={"pro3.yLocFal", "pro3.yLocTru"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=5, position={1845, 20, 450, 1300}, y={"pro4.u_m", "pro4.u_s"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=5, position={1845, 20, 450, 1300}, y={"pro4.yLocFal", "pro4.yLocTru"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=6, position={2295, 20, 450, 1300}, y={"pro5.u_m", "pro5.u_s"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+createPlot(id=6, position={2295, 20, 450, 1300}, y={"pro5.yLocFal", "pro5.yLocTru"}, range={0.0, 10.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
 
