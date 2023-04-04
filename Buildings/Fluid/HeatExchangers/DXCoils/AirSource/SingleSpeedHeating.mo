@@ -6,9 +6,6 @@ model SingleSpeedHeating "Single speed DX heating coil"
         Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
         coiCap),
     computeReevaporation=false,
-    redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-      datCoi,
     use_mCon_flow=false);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
@@ -44,11 +41,11 @@ equation
   connect(senMasFra.port, port_a) annotation (Line(points={{-50,6},{-80,6},{-80,
           0},{-100,0}}, color={0,127,255}));
   connect(senMasFra.X, defCap.XConIn) annotation (Line(points={{-39,16},{26,16},
-          {26,-55},{59,-55}}, color={0,0,127}));
+          {26,-54},{59,-54}}, color={0,0,127}));
   connect(on, booToRea.u) annotation (Line(points={{-110,80},{-94,80},{-94,-90},
           {-62,-90}}, color={255,0,255}));
-  connect(booToRea.y, defCap.uSpe) annotation (Line(points={{-38,-90},{56,-90},
-          {56,-40},{59,-40}}, color={0,0,127}));
+  connect(booToRea.y, defCap.uSpe) annotation (Line(points={{-38,-90},{56,-90},{
+          56,-38},{59,-38}},  color={0,0,127}));
   annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
 <p>
 This model can be used to simulate an air-source DX heating coil with single speed compressor.

@@ -46,7 +46,10 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
-    final datCoi=datCoi,
+    datCoi(
+      final nSta=datCoi.nSta,
+      final minSpeRat=datCoi.minSpeRat,
+      final sta=datCoi.sta),
     final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     final from_dp=true,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
