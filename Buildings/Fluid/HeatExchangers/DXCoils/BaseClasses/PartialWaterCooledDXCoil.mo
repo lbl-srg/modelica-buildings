@@ -148,11 +148,11 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
    constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
     dxCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-          wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+          wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled coiCap,
                  redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
                  appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
                          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.NominalValues per))),
-          dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
+          dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled coiCap,
                  redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi)),
     redeclare final package Medium = MediumEva,
     final use_mCon_flow=true,
@@ -276,8 +276,9 @@ equation
         color={0,0,127}));
   connect(eva.QSen_flow, QEvaSen_flow) annotation (Line(points={{11,7},{44,7},{44,
           60},{110,60}},     color={0,0,127}));
-  connect(eva.QLat_flow, QEvaLat_flow) annotation (Line(points={{11,5},{48,5},{48,
-          30},{110,30}},   color={0,0,127}));
+  connect(eva.QLat_flow, QEvaLat_flow) annotation (Line(points={{12.6,3},{48,3},
+          {48,30},{110,30}},
+                           color={0,0,127}));
   connect(watCooCon.port_a, senMasFloCon.port_b)
     annotation (Line(points={{-20,-80},{20,-80}},color={0,127,255}));
   connect(senMasFloCon.m_flow, eva.mCon_flow) annotation (Line(points={{30,-69},

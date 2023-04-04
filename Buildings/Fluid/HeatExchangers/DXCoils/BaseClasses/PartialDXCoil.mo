@@ -44,7 +44,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoi(
-    final datCoi=datCoi,
+    datCoi=datCoi,
     final use_mCon_flow=use_mCon_flow)
     "DX coil"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));

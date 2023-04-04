@@ -44,9 +44,12 @@ model SingleSpeedHeating_TimedResistiveDefrost
     annotation (Placement(transformation(extent={{40,-20},{20,0}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
+    datCoi(
+      final nSta=datCoi.nSta,
+      final minSpeRat=datCoi.minSpeRat,
+      final sta=datCoi.sta),
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
-    final datCoi=datCoi,
     final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     final from_dp=true,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -117,12 +120,6 @@ model SingleSpeedHeating_TimedResistiveDefrost
     "Outlet air humidity ratio from EnergyPlus"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
-  // The UnitDelay is reimplemented to avoid in Dymola 2016 the translation warning
-  //   The initial conditions for variables of type Boolean are not fully specified.
-  //   Dymola has selected default initial conditions.
-  //   Assuming fixed default start value for the discrete non-states:
-  //     PEPlu.firstTrigger(start = false)
-  //     ...
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
     datDef(
     final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,

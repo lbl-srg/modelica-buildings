@@ -8,9 +8,12 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
     "Pressure drop at m_flow_nominal";
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
+    datCoi(
+      final nSta=datCoi.nSta,
+      final minSpeRat=datCoi.minSpeRat,
+      final sta=datCoi.sta),
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
-    final datCoi=datCoi,
     final T_start=datCoi.sta[1].nomVal.TConIn_nominal,
     final show_T=true,
     final from_dp=true,
@@ -80,12 +83,13 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
     annotation (Placement(transformation(extent={{60,34},{80,54}})));
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed,
-    tDefRun=1/6,
-    TDefLim=273.65,
-    QDefResCap=10500,
-    QCraCap=200) "Heating coil defrost data"
+    final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
+    final defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed,
+    final tDefRun=1/6,
+    final TDefLim=273.65,
+    final QDefResCap=10500,
+    final QCraCap=200)
+    "Heating coil defrost data"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
 equation
