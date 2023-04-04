@@ -19,5 +19,9 @@ compareVars :=
     "pro4.u_m",
     "pro4.u_s",
     "pro4.yLocFal",
-    "pro4.yLocTru"
+    "pro4.yLocTru",
+    "pro5.u_m",
+    "pro5.u_s",
+    "pro5.yLocFal",
+    "pro5.yLocTru"
   };
