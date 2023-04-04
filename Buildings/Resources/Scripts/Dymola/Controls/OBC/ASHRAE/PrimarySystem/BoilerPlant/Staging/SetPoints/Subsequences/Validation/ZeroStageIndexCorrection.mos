@@ -1,0 +1,8 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.ZeroStageIndexCorrection", method="cvode", stopTime=10, tolerance=1e-06, resultFile="ZeroStageIndexCorrection");
+
+createPlot(id=1, position={95, 95, 534, 336}, y={"zerStaIndCor.uInd"}, range={0.0, 10.0, -1.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={95, 95, 534, 108}, y={"zerStaIndCor.yIndMod"}, range={0.0, 10.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={95, 95, 534, 109}, y={"zerStaIndCor.yCapMod"}, range={0.0, 10.0, -1.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 971, 830}, y={"zerStaIndCor1.uInd"}, range={0.0, 10.0, 0.8500000000000001, 1.1500000000000001}, grid=true, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 971, 274}, y={"zerStaIndCor1.yIndMod"}, range={0.0, 10.0, 0.8500000000000001, 1.1500000000000001}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 971, 273}, y={"zerStaIndCor1.yCapMod"}, range={0.0, 10.0, 8.5, 11.5}, grid=true, subPlot=3, colors={{28,108,200}});

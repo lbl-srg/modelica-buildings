@@ -89,6 +89,26 @@ protected
   final parameter Real larGai = 10
     "Large gain";
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor
+    "Modify real extractor inputs and outputs"
+    annotation (Placement(transformation(extent={{-120,110},{-100,130}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor1
+    "Modify real extractor inputs and outputs"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor2
+    "Modify real extractor inputs and outputs"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor3
+    "Modify real extractor inputs and outputs"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.ZeroStageIndexCorrection zerStaIndCor4
+    "Modify real extractor inputs and outputs"
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+
   Buildings.Controls.OBC.CDL.Routing.RealExtractor cap(
     final nin=nSta)
     "Extracts the design capacity at the current stage"
@@ -135,17 +155,9 @@ protected
 
 equation
   connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
-  connect(upCap.y, swi2.u3) annotation (
-    Line(points={{22,80},{80,80},{80,52},{158,52}}, color={0,0,127}));
   connect(yMin, yMin)
     annotation (Line(points={{220,-20},{220,-20}}, color={0,0,127}));
-  connect(upCapMin.y, swi4.u3) annotation (Line(points={{22,-30},{40,-30},{40,-98},
-          {158,-98}}, color={0,0,127}));
   connect(swi4.y, yUpMin) annotation (Line(points={{182,-90},{220,-90}}, color={0,0,127}));
-  connect(capMin.y, yMin) annotation (Line(points={{22,-70},{80,-70},{80,-20},{220,
-          -20}},      color={0,0,127}));
-  connect(dowCap.y, swi1.u3) annotation (Line(points={{-78,80},{-40,80},{-40,12},
-          {98,12}}, color={0,0,127}));
   connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-120,-180},
           {-120,-30},{-2,-30}}, color={0,0,127}));
   connect(uMinCap, capMin.u) annotation (Line(points={{-220,-180},{-120,-180},{-120,
@@ -162,30 +174,58 @@ equation
           {158,60}}, color={255,0,255}));
   connect(uHig, swi4.u2) annotation (Line(points={{-220,-120},{140,-120},{140,-90},
           {158,-90}}, color={255,0,255}));
-  connect(cap.y, gai.u) annotation (Line(points={{-78,150},{-70,150},{-70,120},{
-          -62,120}}, color={0,0,127}));
   connect(gai.y, swi2.u1) annotation (Line(points={{-38,120},{100,120},{100,68},
           {158,68}}, color={0,0,127}));
   connect(gai.y, swi4.u1) annotation (Line(points={{-38,120},{60,120},{60,-82},{
           158,-82}}, color={0,0,127}));
   connect(swi1.y, yDowDes) annotation (Line(points={{122,20},{220,20}}, color={0,0,127}));
-  connect(u, cap.index) annotation (Line(points={{-220,120},{-90,120},{-90,138}},
-                 color={255,127,0}));
-  connect(uDown, dowCap.index) annotation (Line(points={{-220,0},{-90,0},{-90,68}},
-          color={255,127,0}));
-  connect(uUp, upCap.index) annotation (Line(points={{-220,60},{10,60},{10,68}},
-          color={255,127,0}));
-  connect(uUp, upCapMin.index) annotation (Line(points={{-220,60},{-60,60},{-60,
-          -50},{10,-50},{10,-42}}, color={255,127,0}));
-  connect(cap.y, yDes) annotation (Line(points={{-78,150},{220,150}},
-          color={0,0,127}));
-  connect(capMin.y, swi1.u1) annotation (Line(points={{22,-70},{80,-70},{80,28},
-          {98,28}},color={0,0,127}));
-  connect(u, capMin.index) annotation (Line(points={{-220,120},{-160,120},{-160,
-          -90},{10,-90},{10,-82}}, color={255,127,0}));
   connect(yUpMin, yUpMin)
     annotation (Line(points={{220,-90},{220,-90}}, color={0,0,127}));
 
+  connect(u, zerStaIndCor.uInd) annotation (Line(points={{-220,120},{-160,120},{
+          -160,124},{-122,124}}, color={255,127,0}));
+  connect(zerStaIndCor.yIndMod, cap.index) annotation (Line(points={{-98,124},{-90,
+          124},{-90,138}}, color={255,127,0}));
+  connect(cap.y, zerStaIndCor.uCap) annotation (Line(points={{-78,150},{-74,150},
+          {-74,172},{-130,172},{-130,116},{-122,116}}, color={0,0,127}));
+  connect(zerStaIndCor.yCapMod, gai.u) annotation (Line(points={{-98,116},{-70,116},
+          {-70,120},{-62,120}}, color={0,0,127}));
+  connect(zerStaIndCor.yCapMod, yDes) annotation (Line(points={{-98,116},{-70,116},
+          {-70,150},{220,150}}, color={0,0,127}));
+  connect(zerStaIndCor1.yIndMod, upCap.index)
+    annotation (Line(points={{2,54},{10,54},{10,68}}, color={255,127,0}));
+  connect(uUp, zerStaIndCor1.uInd) annotation (Line(points={{-220,60},{-60,60},{
+          -60,54},{-22,54}}, color={255,127,0}));
+  connect(upCap.y, zerStaIndCor1.uCap) annotation (Line(points={{22,80},{30,80},
+          {30,100},{-30,100},{-30,46},{-22,46}}, color={0,0,127}));
+  connect(zerStaIndCor1.yCapMod, swi2.u3) annotation (Line(points={{2,46},{20,46},
+          {20,52},{158,52}}, color={0,0,127}));
+  connect(uDown, zerStaIndCor2.uInd) annotation (Line(points={{-220,0},{-128,0},
+          {-128,4},{-122,4}}, color={255,127,0}));
+  connect(zerStaIndCor2.yIndMod, dowCap.index)
+    annotation (Line(points={{-98,4},{-90,4},{-90,68}}, color={255,127,0}));
+  connect(dowCap.y, zerStaIndCor2.uCap) annotation (Line(points={{-78,80},{-70,80},
+          {-70,100},{-132,100},{-132,-4},{-122,-4}}, color={0,0,127}));
+  connect(zerStaIndCor2.yCapMod, swi1.u3) annotation (Line(points={{-98,-4},{-80,
+          -4},{-80,12},{98,12}}, color={0,0,127}));
+  connect(uUp, zerStaIndCor3.uInd) annotation (Line(points={{-220,60},{-60,60},{
+          -60,-46},{-42,-46}}, color={255,127,0}));
+  connect(zerStaIndCor3.yIndMod, upCapMin.index) annotation (Line(points={{-18,-46},
+          {-10,-46},{-10,-50},{10,-50},{10,-42}}, color={255,127,0}));
+  connect(upCapMin.y, zerStaIndCor3.uCap) annotation (Line(points={{22,-30},{30,
+          -30},{30,-10},{-50,-10},{-50,-54},{-42,-54}}, color={0,0,127}));
+  connect(zerStaIndCor3.yCapMod, swi4.u3) annotation (Line(points={{-18,-54},{40,
+          -54},{40,-98},{158,-98}}, color={0,0,127}));
+  connect(u, zerStaIndCor4.uInd) annotation (Line(points={{-220,120},{-160,120},
+          {-160,-86},{-42,-86}}, color={255,127,0}));
+  connect(zerStaIndCor4.yIndMod, capMin.index)
+    annotation (Line(points={{-18,-86},{10,-86},{10,-82}}, color={255,127,0}));
+  connect(zerStaIndCor4.yCapMod, swi1.u1) annotation (Line(points={{-18,-94},{70,
+          -94},{70,28},{98,28}}, color={0,0,127}));
+  connect(zerStaIndCor4.yCapMod, yMin) annotation (Line(points={{-18,-94},{70,-94},
+          {70,-20},{220,-20}}, color={0,0,127}));
+  connect(capMin.y, zerStaIndCor4.uCap) annotation (Line(points={{22,-70},{30,-70},
+          {30,-110},{-50,-110},{-50,-94},{-42,-94}}, color={0,0,127}));
 annotation (defaultComponentName = "cap",
         Icon(graphics={
         Rectangle(
