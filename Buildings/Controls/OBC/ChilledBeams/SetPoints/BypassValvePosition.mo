@@ -132,10 +132,6 @@ protected
     "Offset for maximum dp chilled water"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div
-    "Divide difference by max setpoint to normalize measurement signal"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
-
 equation
   connect(uPumSta, mulOr.u[1:nPum]) annotation (Line(points={{-120,60},{-82,60}},
                              color={255,0,255}));
@@ -185,12 +181,8 @@ equation
                                      color={0,0,127}));
   connect(offSetdPChiWatMax.y, subDpChiWatMax.u2) annotation (Line(points={{-68,
           -80},{-64,-80},{-64,-46},{-62,-46}}, color={0,0,127}));
-  connect(subDpChiWatMax.y, div.u1) annotation (Line(points={{-38,-40},{-36,-40},
-          {-36,-44},{-32,-44}}, color={0,0,127}));
-  connect(offSetdPChiWatMax.y, div.u2) annotation (Line(points={{-68,-80},{-36,-80},
-          {-36,-56},{-32,-56}}, color={0,0,127}));
-  connect(div.y, conPID.u_m) annotation (Line(points={{-8,-50},{0,-50},{0,-70},{
-          30,-70},{30,-62}}, color={0,0,127}));
+  connect(subDpChiWatMax.y, conPID.u_m) annotation (Line(points={{-38,-40},{0,
+          -40},{0,-80},{30,-80},{30,-62}}, color={0,0,127}));
   annotation (defaultComponentName="bypValPos",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
