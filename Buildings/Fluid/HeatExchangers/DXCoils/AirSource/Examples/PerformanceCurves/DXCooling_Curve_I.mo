@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves;
-record Curve_I "Performance curve I"
+record DXCooling_Curve_I "Performance curve I"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
     capFunT={0.942587793,0.009543347,0.000683770,-0.011042676,0.000005249,
@@ -38,4 +38,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Curve_I;
+end DXCooling_Curve_I;

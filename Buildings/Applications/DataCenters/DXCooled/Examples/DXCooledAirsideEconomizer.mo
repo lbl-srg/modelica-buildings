@@ -103,7 +103,7 @@ model DXCooledAirsideEconomizer
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.Curve_I()),
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
         nomVal=
@@ -114,7 +114,7 @@ model DXCooledAirsideEconomizer
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.Curve_I()),
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
@@ -125,7 +125,7 @@ model DXCooledAirsideEconomizer
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.Curve_II()),
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II()),
      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
         nomVal=
@@ -136,7 +136,7 @@ model DXCooledAirsideEconomizer
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.Curve_III())})
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_III())})
         "Coil data"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(

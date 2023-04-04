@@ -59,7 +59,7 @@ model SingleSpeedCooling "Test model for single speed cooling DX coil"
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.Curve_II())},
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II())},
       nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
