@@ -19,22 +19,18 @@ block Ramp "Limit the changing rate of the input"
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput active
-    "Set to false to disable rate limiter"
+    "Set to true to enable rate limiter"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LimitSlewRate ramLim(
-    final raisingSlewRate=raisingSlewRate,
-    final fallingSlewRate=fallingSlewRate,
-    final Td=Td)
-    "Limit the input change"
-    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
-    "Switch to limit the input change"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+protected
+  Real thr=(u-y)/Td
+    "Approximation to derivative between input and output";
+  Real y_internal
+    "Internal variable to track the slew limited value";
 
 initial equation
   assert(
@@ -43,17 +39,23 @@ initial equation
   assert(
     fallingSlewRate < 0,
     "fallingSlewRate must be less than zero.");
+  y_internal = u;
 
 equation
-  connect(active, swi.u2) annotation (Line(points={{-120,-80},{40,-80},{40,0},{
-          58,0}},  color={255,0,255}));
-  connect(u, swi.u3) annotation (Line(points={{-120,0},{-80,0},{-80,-8},{58,-8}},
-        color={0,0,127}));
-  connect(ramLim.y, swi.u1) annotation (Line(points={{12,40},{40,40},{40,8},{58,
-          8}}, color={0,0,127}));
-  connect(swi.y, y) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
-  connect(u, ramLim.u) annotation (Line(points={{-120,0},{-80,0},{-80,40},{-12,40}},
-                color={0,0,127}));
+  when active then
+    reinit(y_internal, u);
+  end when;
+  der(y_internal)=smooth(1,
+      noEvent(
+        if thr < fallingSlewRate then
+          fallingSlewRate
+        else
+          if thr > raisingSlewRate then
+            raisingSlewRate
+          else
+            thr));
+  y = if active then y_internal else u;
+
 annotation (defaultComponentName="ram",
   Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={
@@ -118,14 +120,16 @@ otherwise, <code>dy/dt = thr</code>.
 </li>
 </ul>
 <p>
-Note that when the output <code>activate</code> switches to <code>false</code>,
-the output <code>y</code> can have a jump.
+A smaller time constant <code>Td</code> means a higher accuracy for the derivative approximation.
+</p>
+<p>
+Note that when the input <code>activate</code> switches to <code>false</code>,
+the output <code>y</code> can have a discontinuity.
 </p>
 <h4>Implementation</h4>
 <p>
 For the block to work with arbitrary inputs and in order to produce a differentiable output,
 the input is numerically differentiated with derivative time constant <code>Td</code>.
-Smaller time constant <code>Td</code> means nearer ideal derivative.
 </p>
 </html>",
 revisions="<html>
