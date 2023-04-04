@@ -3,68 +3,88 @@ model Proof "Validation model for the Proof block"
   Buildings.Controls.OBC.CDL.Logical.Proof pro(
     final debounce=0.5,
     final feedbackDelay=0.75) "Both inputs change at the same time"
-    annotation (Placement(transformation(extent={{20,70},{40,90}})));
+    annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro1(
     final debounce=0.5,
     final feedbackDelay=0.75)
     "Commanded input changes from true to false earlier than measured input"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro2(
     final debounce=0.5,
     final feedbackDelay=0.75)
     "Measured input changes from true to false earlier than commanded input"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro3(
     final debounce=0.5,
     final feedbackDelay=0.5)
     "Shorter delay to valid input"
-    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro4(
     final debounce=0.5,
     final feedbackDelay=0.5)
     "Shorter delay to valid input"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Proof pro5(
+    final debounce=2,
+    final feedbackDelay=2)
+    "Both inputs change at the same time"
+    annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp(
     final width=0.2,
     final period=10,
     shift=1)
     "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp1(
     final width=0.2,
     final period=10,
     shift=1)
     "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp2(
     final width=0.1,
     final period=10,
     shift=1)
     "Block that outputs cyclic on and off"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp3(
+    final width=0.5,
+    final period=2,
+    shift=1)
+    "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp4(
+    final width=0.9,
+    final period=12,
+    shift=0.5)
+    "Block that outputs cyclic on and off"
+    annotation (Placement(transformation(extent={{20,70},{40,90}})));
 equation
-  connect(latInp1.y, pro.u_s) annotation (Line(points={{-18,20},{10,20},{10,80},
-          {18,80}}, color={255,0,255}));
-  connect(latInp2.y, pro1.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,40},
-          {18,40}}, color={255,0,255}));
-  connect(latInp1.y, pro2.u_s) annotation (Line(points={{-18,20},{10,20},{10,0},
-          {18,0}},  color={255,0,255}));
-  connect(latInp2.y, pro4.u_s) annotation (Line(points={{-18,-50},{0,-50},{0,-80},
-          {18,-80}}, color={255,0,255}));
-  connect(latInp1.y, pro3.u_s) annotation (Line(points={{-18,20},{10,20},{10,-40},
-          {18,-40}}, color={255,0,255}));
-  connect(latInp.y, pro.u_m) annotation (Line(points={{-18,80},{0,80},{0,64},{30,
-          64},{30,68}}, color={255,0,255}));
-  connect(latInp1.y, pro4.u_m) annotation (Line(points={{-18,20},{10,20},{10,-96},
-          {30,-96},{30,-92}}, color={255,0,255}));
-  connect(latInp2.y, pro3.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,-56},
-          {30,-56},{30,-52}}, color={255,0,255}));
-  connect(latInp2.y, pro2.u_m) annotation (Line(points={{-18,-50},{0,-50},{0,-16},
-          {30,-16},{30,-12}}, color={255,0,255}));
-  connect(latInp1.y, pro1.u_m) annotation (Line(points={{-18,20},{10,20},{10,24},
-          {30,24},{30,28}}, color={255,0,255}));
+  connect(latInp1.y, pro.u_s) annotation (Line(points={{-58,20},{-30,20},{-30,80},
+          {-22,80}},color={255,0,255}));
+  connect(latInp2.y, pro1.u_s) annotation (Line(points={{-58,-50},{-40,-50},{-40,
+          40},{-22,40}}, color={255,0,255}));
+  connect(latInp1.y, pro2.u_s) annotation (Line(points={{-58,20},{-30,20},{-30,0},
+          {-22,0}}, color={255,0,255}));
+  connect(latInp2.y, pro4.u_s) annotation (Line(points={{-58,-50},{-40,-50},{-40,
+          -80},{-22,-80}}, color={255,0,255}));
+  connect(latInp1.y, pro3.u_s) annotation (Line(points={{-58,20},{-30,20},{-30,-40},
+          {-22,-40}},color={255,0,255}));
+  connect(latInp.y, pro.u_m) annotation (Line(points={{-58,64},{-10,64},{-10,68}},
+          color={255,0,255}));
+  connect(latInp1.y, pro4.u_m) annotation (Line(points={{-58,20},{-30,20},{-30,-96},
+          {-10,-96},{-10,-92}}, color={255,0,255}));
+  connect(latInp2.y, pro3.u_m) annotation (Line(points={{-58,-50},{-40,-50},{-40,
+          -56},{-10,-56},{-10,-52}}, color={255,0,255}));
+  connect(latInp2.y, pro2.u_m) annotation (Line(points={{-58,-50},{-40,-50},{-40,
+          -16},{-10,-16},{-10,-12}}, color={255,0,255}));
+  connect(latInp1.y, pro1.u_m) annotation (Line(points={{-58,20},{-30,20},{-30,24},
+          {-10,24},{-10,28}}, color={255,0,255}));
+  connect(latInp3.y, pro5.u_m)
+    annotation (Line(points={{62,40},{70,40},{70,68}}, color={255,0,255}));
+  connect(latInp4.y, pro5.u_s)
+    annotation (Line(points={{42,80},{58,80}}, color={255,0,255}));
 annotation (
     experiment(StopTime=10.0, Tolerance=1e-06),
     __Dymola_Commands(
@@ -83,7 +103,7 @@ If both boolean inputs change simultaneously, both outputs will be
 </li>
 <li>
 Both the inputs change from <code>true</code> to <code>false</code>. However,
-after the input <code>uMea</code> changes, the input <code>uCom</code> remains
+after the input <code>u_m</code> changes, the input <code>u_s</code> remains
 <code>true</code> for a time that is longer than
 <code>feedbackDelay</code>. The output <code>yProTru</code> will be <code>true</code>.
 This is tested through instances <code>pro2</code> and <code>pro3</code>, with
@@ -91,11 +111,15 @@ different delay <code>feedbackDelay</code> for checking the input difference.
 </li>
 <li>
 Both the inputs change from <code>true</code> to <code>false</code>. However,
-after the input <code>uCom</code> changes, the input <code>uMea</code> remains
+after the input <code>u_s</code> changes, the input <code>u_m</code> remains
 <code>true</code> for a time that is longer than
 <code>feedbackDelay</code>. The output <code>yProFal</code> will be <code>true</code>.
 This is tested through instances <code>pro1</code> and <code>pro4</code>, with
 different delay <code>feedbackDelay</code> for checking the inputs.
+</li>
+<li>
+It also tests the case when the measured input <code>u_m</code> cannot stay stable
+for the debounce time. In this case, both the outputs will be <code>true</code>.
 </li>
 </ul>
 </html>",

@@ -29,23 +29,10 @@ block Proof "Verify two boolean inputs"
 protected
   Buildings.Controls.OBC.CDL.Logical.Or valInp
     "Check if the input becomes valid after the delay time"
-    annotation (Placement(transformation(extent={{-100,170},{-80,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Change chaMeaInp
-    "Output rising edge when measured input changes"
-    annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=debounce)
-    "Check if it has passed the debounce time since the first input change"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch holCha
-    "Hold the true output when the input changes to true"
-    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
+    annotation (Placement(transformation(extent={{-140,170},{-120,190}})));
   Buildings.Controls.OBC.CDL.Logical.And invInp
     "Debounce time has passed and there is still no stable input"
     annotation (Placement(transformation(extent={{40,170},{60,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg
-    "True: the measured input becomes valid"
-    annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Controls.OBC.CDL.Logical.Or pasDel
     "Check if the feedback checking time is passed"
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
@@ -103,7 +90,7 @@ protected
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Input is invalid"
-    annotation (Placement(transformation(extent={{0,170},{20,190}})));
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   Buildings.Controls.OBC.CDL.Logical.Switch locFal
     "Output if the measured input is locked to false"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
@@ -114,28 +101,32 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conFal(
     final k=false)
     "False constant"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    annotation (Placement(transformation(extent={{0,80},{20,100}})));
   Buildings.Controls.OBC.CDL.Logical.Not notBotTru
     "Not both true inputs"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Switch cheDif2
     "Check if it should check the difference"
-    annotation (Placement(transformation(extent={{120,-130},{140,-110}})));
+    annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
   Buildings.Controls.OBC.CDL.Logical.Switch locTru
     "Output if the measured input is locked to false"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch holCha1
+  Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(
+    final t=debounce)
+    "Check if the debounce time has passed"
+    annotation (Placement(transformation(extent={{0,130},{20,150}})));
+  Buildings.Controls.OBC.CDL.Logical.Latch holTru
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,170},{220,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch holCha2
+  Buildings.Controls.OBC.CDL.Logical.Latch holTru1
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2
-    "Convert boolean input to integer output"
-    annotation (Placement(transformation(extent={{40,-230},{60,-210}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal equSta1
-    "Check if both status are the same"
-    annotation (Placement(transformation(extent={{140,-180},{160,-160}})));
+  Buildings.Controls.OBC.CDL.Logical.Or equInp
+    "Check if both true inputs or both false inputs"
+    annotation (Placement(transformation(extent={{120,50},{140,70}})));
+  Buildings.Controls.OBC.CDL.Logical.Edge edg1
+    "True: same inputs"
+    annotation (Placement(transformation(extent={{160,50},{180,70}})));
 
 initial equation
   assert(
@@ -145,41 +136,27 @@ initial equation
 
 equation
   connect(u_m, valTru.u) annotation (Line(points={{0,-260},{0,-220},{-250,-220},
-          {-250,180},{-242,180}},   color={255,0,255}));
+          {-250,180},{-242,180}}, color={255,0,255}));
   connect(u_m, not1.u) annotation (Line(points={{0,-260},{0,-220},{-250,-220},{-250,
-          140},{-242,140}},        color={255,0,255}));
+          140},{-242,140}}, color={255,0,255}));
   connect(not1.y, truDel1.u)
-    annotation (Line(points={{-218,140},{-202,140}},   color={255,0,255}));
+    annotation (Line(points={{-218,140},{-202,140}}, color={255,0,255}));
   connect(valTru.y, valInp.u1)
-    annotation (Line(points={{-218,180},{-102,180}},color={255,0,255}));
+    annotation (Line(points={{-218,180},{-142,180}},color={255,0,255}));
   connect(truDel1.y, valInp.u2) annotation (Line(points={{-178,140},{-160,140},{
-          -160,172},{-102,172}},color={255,0,255}));
+          -160,172},{-142,172}},color={255,0,255}));
   connect(truDel1.y, valFal.u2) annotation (Line(points={{-178,140},{-160,140},{
           -160,110},{-142,110}}, color={255,0,255}));
   connect(u_m, valFal.u1) annotation (Line(points={{0,-260},{0,-220},{-250,-220},
           {-250,118},{-142,118}}, color={255,0,255}));
   connect(conTru.y, valFal.u3) annotation (Line(points={{-178,210},{-170,210},{-170,
           102},{-142,102}}, color={255,0,255}));
-  connect(u_m, chaMeaInp.u) annotation (Line(points={{0,-260},{0,-220},{-250,-220},
-          {-250,90},{-102,90}},color={255,0,255}));
-  connect(chaMeaInp.y, holCha.u)
-    annotation (Line(points={{-78,90},{-62,90}}, color={255,0,255}));
-  connect(holCha.y, tim.u)
-    annotation (Line(points={{-38,90},{-2,90}}, color={255,0,255}));
   connect(valInp.y, not3.u)
-    annotation (Line(points={{-78,180},{-2,180}}, color={255,0,255}));
+    annotation (Line(points={{-118,180},{-42,180}}, color={255,0,255}));
   connect(not3.y, invInp.u1)
-    annotation (Line(points={{22,180},{38,180}}, color={255,0,255}));
-  connect(tim.passed, invInp.u2) annotation (Line(points={{22,82},{30,82},{30,172},
-          {38,172}}, color={255,0,255}));
-  connect(invInp.y, locFal.u2)
-    annotation (Line(points={{62,180},{158,180}}, color={255,0,255}));
+    annotation (Line(points={{-18,180},{38,180}},color={255,0,255}));
   connect(conTru.y, locFal.u1) annotation (Line(points={{-178,210},{110,210},{110,
           188},{158,188}}, color={255,0,255}));
-  connect(valInp.y, edg.u) annotation (Line(points={{-78,180},{-20,180},{-20,50},
-          {-2,50}}, color={255,0,255}));
-  connect(edg.y, holCha.clr) annotation (Line(points={{22,50},{30,50},{30,70},{-70,
-          70},{-70,84},{-62,84}}, color={255,0,255}));
   connect(u_s, not2.u) annotation (Line(points={{-280,0},{-240,0},{-240,-50},{-222,
           -50}}, color={255,0,255}));
   connect(not2.y, delChe1.u)
@@ -190,7 +167,7 @@ equation
     annotation (Line(points={{-198,0},{-102,0}},color={255,0,255}));
   connect(delChe1.y, pasDel.u2) annotation (Line(points={{-158,-50},{-120,-50},{
           -120,-8},{-102,-8}},color={255,0,255}));
-  connect(valInp.y, cheDif.u2) annotation (Line(points={{-78,180},{-20,180},{-20,
+  connect(valInp.y, cheDif.u2) annotation (Line(points={{-118,180},{-60,180},{-60,
           -8},{-2,-8}}, color={255,0,255}));
   connect(pasDel.y, cheDif.u1)
     annotation (Line(points={{-78,0},{-2,0}}, color={255,0,255}));
@@ -214,7 +191,7 @@ equation
           {-70,-138},{-62,-138}}, color={255,127,0}));
   connect(not2.y, botFal.u1) annotation (Line(points={{-198,-50},{-190,-50},{-190,
           -150},{-2,-150}}, color={255,0,255}));
-  connect(equSta.y, botFal.u2) annotation (Line(points={{-38,-130},{-20,-130},{-20,
+  connect(equSta.y, botFal.u2) annotation (Line(points={{-38,-130},{-10,-130},{-10,
           -158},{-2,-158}}, color={255,0,255}));
   connect(botFal.y, notBotFal.u)
     annotation (Line(points={{22,-150},{38,-150}}, color={255,0,255}));
@@ -224,42 +201,48 @@ equation
           -198},{78,-198}}, color={255,0,255}));
   connect(cheDif1.y, locFal.u3) annotation (Line(points={{142,110},{150,110},{150,
           172},{158,172}}, color={255,0,255}));
-  connect(cheDif.y, cheDif2.u2) annotation (Line(points={{22,0},{90,0},{90,-120},
-          {118,-120}}, color={255,0,255}));
-  connect(cheDif2.y, locTru.u3) annotation (Line(points={{142,-120},{150,-120},{
+  connect(cheDif.y, cheDif2.u2) annotation (Line(points={{22,0},{90,0},{90,-130},
+          {118,-130}}, color={255,0,255}));
+  connect(cheDif2.y, locTru.u3) annotation (Line(points={{142,-130},{150,-130},{
           150,-68},{158,-68}}, color={255,0,255}));
-  connect(invInp.y, locTru.u2) annotation (Line(points={{62,180},{80,180},{80,-60},
-          {158,-60}},      color={255,0,255}));
   connect(conTru.y, locTru.u1) annotation (Line(points={{-178,210},{110,210},{110,
           -52},{158,-52}}, color={255,0,255}));
-  connect(conFal.y, cheDif1.u3) annotation (Line(points={{-38,30},{100,30},{100,
+  connect(conFal.y, cheDif1.u3) annotation (Line(points={{22,90},{100,90},{100,
           102},{118,102}}, color={255,0,255}));
-  connect(conFal.y, cheDif2.u3) annotation (Line(points={{-38,30},{100,30},{100,
-          -128},{118,-128}}, color={255,0,255}));
+  connect(conFal.y, cheDif2.u3) annotation (Line(points={{22,90},{100,90},{100,
+          -138},{118,-138}}, color={255,0,255}));
   connect(falTru.y, cheDif2.u1) annotation (Line(points={{102,-190},{110,-190},{
-          110,-112},{118,-112}}, color={255,0,255}));
+          110,-122},{118,-122}}, color={255,0,255}));
   connect(truFal.y, cheDif1.u1) annotation (Line(points={{22,-100},{60,-100},{60,
           118},{118,118}}, color={255,0,255}));
   connect(u_s, botTru.u2) annotation (Line(points={{-280,0},{-240,0},{-240,-88},
           {-102,-88}}, color={255,0,255}));
-  connect(locFal.y, holCha1.u)
+  connect(locFal.y, holTru.u)
     annotation (Line(points={{182,180},{198,180}}, color={255,0,255}));
-  connect(holCha1.y, yLocFal)
-    annotation (Line(points={{222,180},{260,180}}, color={255,0,255}));
-  connect(locTru.y, holCha2.u)
+  connect(locTru.y,holTru1. u)
     annotation (Line(points={{182,-60},{198,-60}}, color={255,0,255}));
-  connect(holCha2.y, yLocTru)
+  connect(holTru.y, yLocFal)
+    annotation (Line(points={{222,180},{260,180}}, color={255,0,255}));
+  connect(holTru1.y, yLocTru)
     annotation (Line(points={{222,-60},{260,-60}}, color={255,0,255}));
-  connect(u_m, booToInt2.u)
-    annotation (Line(points={{0,-260},{0,-220},{38,-220}}, color={255,0,255}));
-  connect(booToInt2.y, equSta1.u2) annotation (Line(points={{62,-220},{130,-220},
-          {130,-178},{138,-178}}, color={255,127,0}));
-  connect(booToInt1.y, equSta1.u1)
-    annotation (Line(points={{-78,-170},{138,-170}}, color={255,127,0}));
-  connect(equSta1.y, holCha2.clr) annotation (Line(points={{162,-170},{190,-170},
-          {190,-66},{198,-66}}, color={255,0,255}));
-  connect(equSta1.y, holCha1.clr) annotation (Line(points={{162,-170},{190,-170},
-          {190,174},{198,174}}, color={255,0,255}));
+  connect(botTru.y, equInp.u1) annotation (Line(points={{-78,-80},{-70,-80},{-70,
+          60},{118,60}}, color={255,0,255}));
+  connect(equSta.y, equInp.u2) annotation (Line(points={{-38,-130},{-10,-130},{-10,
+          52},{118,52}}, color={255,0,255}));
+  connect(equInp.y, edg1.u)
+    annotation (Line(points={{142,60},{158,60}}, color={255,0,255}));
+  connect(edg1.y, holTru.clr) annotation (Line(points={{182,60},{190,60},{190,
+          174},{198,174}}, color={255,0,255}));
+  connect(edg1.y,holTru1. clr) annotation (Line(points={{182,60},{190,60},{190,-66},
+          {198,-66}}, color={255,0,255}));
+  connect(invInp.y, locFal.u2)
+    annotation (Line(points={{62,180},{158,180}}, color={255,0,255}));
+  connect(invInp.y, locTru.u2) annotation (Line(points={{62,180},{80,180},{80,-60},
+          {158,-60}}, color={255,0,255}));
+  connect(not3.y, pasDeb.u) annotation (Line(points={{-18,180},{-10,180},{-10,140},
+          {-2,140}}, color={255,0,255}));
+  connect(pasDeb.passed, invInp.u2) annotation (Line(points={{22,132},{30,132},{
+          30,172},{38,172}}, color={255,0,255}));
 annotation (
     defaultComponentName="pro",
     Diagram(
@@ -280,26 +263,26 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-242,58},{-38,44}},
+          extent={{-248,60},{-44,46}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Check if there is valid measured input"),
         Text(
-          extent={{-104,-42},{106,-54}},
+          extent={{-114,-40},{52,-58}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
           textString="Check if it has passed the feedback delay"),
         Text(
-          extent={{-240,-176},{46,-200}},
+          extent={{-86,-180},{62,-194}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if there is difference between setpoint and the measured inputs")}),
+          textString="Check if the inputs are different")}),
     Icon(
       coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
@@ -310,30 +293,30 @@ annotation (
           borderPattern=BorderPattern.Raised),
         Ellipse(
           extent={{-73,67},{-87,53}},
-          lineColor=DynamicSelect({235,235,235}, if uMea then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if u_m then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if uMea then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if u_m then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-73,-53},{-87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if uCom then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if u_s then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if uCom then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if u_s then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{73,67},{87,53}},
-          lineColor=DynamicSelect({235,235,235}, if yProTru then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if yLocFal then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if yProTru then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if yLocFal then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{73,-53},{87,-67}},
-          lineColor=DynamicSelect({235,235,235}, if yProFal then {0,255,0} else {235,
+          lineColor=DynamicSelect({235,235,235}, if yLocTru then {0,255,0} else {235,
               235,235}),
-          fillColor=DynamicSelect({235,235,235}, if yProFal then {0,255,0} else {235,
+          fillColor=DynamicSelect({235,235,235}, if yLocTru then {0,255,0} else {235,
               235,235}),
           fillPattern=FillPattern.Solid),
         Text(
