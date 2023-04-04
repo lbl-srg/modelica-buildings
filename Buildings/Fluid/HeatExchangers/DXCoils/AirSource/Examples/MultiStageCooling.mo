@@ -126,7 +126,7 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Updated model name and instance class for </code>mulStaDX</code>.
+Updated model name and instance class for <code>mulStaDX</code>.
 </li>
 <li>
 January 22, 2016, by Michael Wetter:<br/>

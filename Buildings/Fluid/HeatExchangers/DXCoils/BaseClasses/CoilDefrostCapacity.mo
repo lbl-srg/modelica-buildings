@@ -217,7 +217,6 @@ equation
           textStyle={TextStyle.Italic},
           textString="f(To,Xo)")}),
           Documentation(info="<html>
-<p>
 Block to calculate heat transfered to airloop <code>QTotDef</code>, as well as 
 the total heating power consumption of the component <code>PTot</code>, as defined 
 in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2 
@@ -246,7 +245,6 @@ temperature.
 the measured outdoor air temperature <code>TOut</code>.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
