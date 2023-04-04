@@ -21,14 +21,14 @@ record Defrost
 
   parameter Modelica.Units.SI.Power QDefResCap
     "Heating capacity of resistive defrost element"
-    annotation(Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive));
+    annotation(Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive));
 
   parameter Modelica.Units.SI.Power QCraCap
     "Crankcase heater capacity";
 //-----------------------------Performance curves-----------------------------//
   parameter Real  defEIRFunT[6] = fill(0,6)
     "Biquadratic coefficients for defrost capacity function of temperature"
-    annotation (Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.reverseCycle));
+    annotation (Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.reverseCycle));
   parameter Real PLFraFunPLR[:] = {1}
     "Quadratic/cubic equation for part load fraction as a function of part-load ratio";
 
