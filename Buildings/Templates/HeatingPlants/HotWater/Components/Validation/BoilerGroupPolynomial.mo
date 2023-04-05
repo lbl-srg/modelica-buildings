@@ -39,11 +39,10 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"));
 
-  replaceable BoilerGroups.BoilerGroupPolynomial boi
-    constrainedby
-    Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup(
+  Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup boi(
     redeclare final package Medium=Medium,
     final nBoi=nBoi,
+    typMod=Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial,
     final is_con=true,
     typArrPumHeaWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final dat=datBoi,
@@ -111,13 +110,16 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     final have_varPumHeaWatPri=pumHeaWatPri.have_var,
     final typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
     have_valHeaWatMinByp=false,
-    dat(THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup))
+    dat(
+      THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup,
+      sta={fill(0, nBoi)}))
     "Controller"
     annotation (Placement(transformation(extent={{-10,150},{10,170}})));
 
   Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus busPla
-    "Plant control bus" annotation (Placement(transformation(extent={{-100,100},
-            {-60,140}}),  iconTransformation(extent={{-310,60},{-270,100}})));
+    "Plant control bus"
+    annotation (Placement(transformation(extent={{-100,100},
+     {-60,140}}),  iconTransformation(extent={{-310,60},{-270,100}})));
 
 equation
   connect(inlPumHeaWatPri.ports_b, pumHeaWatPri.ports_a)

@@ -1,8 +1,7 @@
 within Buildings.Templates.HeatingPlants.HotWater.Components.Validation;
 model BoilerGroupTable "Validation model for boiler group"
-  extends
-    Buildings.Templates.HeatingPlants.HotWater.Components.Validation.BoilerGroupPolynomial(
-    redeclare Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupTable boi);
+  extends Buildings.Templates.HeatingPlants.HotWater.Components.Validation.BoilerGroupPolynomial(
+    boi(typMod=Buildings.Templates.Components.Types.ModelBoilerHotWater.Table));
   annotation (
   Diagram(coordinateSystem(extent={{-220,-220},{220,220}})),
   experiment(

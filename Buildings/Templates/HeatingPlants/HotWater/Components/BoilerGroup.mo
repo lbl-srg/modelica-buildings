@@ -9,7 +9,7 @@ model BoilerGroup "Boiler group"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
     "Type of boiler model"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true);
   parameter Boolean is_con
     "Set to true for condensing boiler, false for non-condensing boiler"
     annotation (Evaluate=true, Dialog(group="Configuration"));
@@ -154,7 +154,7 @@ equation
   connect(pas.port_b, ports_bHeaWat) annotation (Line(points={{170,100},{180,
           100},{180,120},{200,120}}, color={0,127,255}));
   connect(boiPol.port_b, pas.port_a) annotation (Line(points={{10,0},{20,0},{20,
-          120},{140,120},{140,100},{150,100}}, color={0,127,255}));
+          100},{150,100}},                     color={0,127,255}));
   connect(busBoiCon, boiPol.bus) annotation (Line(
       points={{-40,160},{-40,-40},{0,-40},{0,10}},
       color={255,204,51},
@@ -190,9 +190,10 @@ equation
   connect(ports_aHeaWat, boiTab.port_a) annotation (Line(points={{200,-100},{-20,
           -100},{-20,-50},{-10,-50}}, color={0,127,255}));
   connect(boiTab.port_b, pas.port_a) annotation (Line(points={{10,-50},{20,-50},
-          {20,72},{150,72},{150,100}}, color={0,127,255}));
-  connect(boiTab.port_b, valBoiIso.port_a) annotation (Line(points={{10,-50},{36,
-          -50},{36,120},{150,120}}, color={0,127,255}));
+          {20,100},{150,100}},         color={0,127,255}));
+  connect(boiTab.port_b, valBoiIso.port_a) annotation (Line(points={{10,-50},{
+          20,-50},{20,120},{150,120}},
+                                    color={0,127,255}));
   connect(busBoiCon, boiTab.bus) annotation (Line(
       points={{-40,160},{-40,10},{0,10},{0,-40}},
       color={255,204,51},
