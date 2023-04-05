@@ -729,8 +729,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(rooMulSpe.TRoo, mulSpeCon.u) annotation (Line(
-      points={{200.933,52.3077},{220,52.3077},{220,-100},{-70,-100},{-70,
-          -134.633},{-60.65,-134.633}},
+      points={{200.933,52.3077},{220,52.3077},{220,-100},{-70,-100},{-70,-134.633},
+          {-60.65,-134.633}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooSetPoi.y, conVarSpe.u_s) annotation (Line(

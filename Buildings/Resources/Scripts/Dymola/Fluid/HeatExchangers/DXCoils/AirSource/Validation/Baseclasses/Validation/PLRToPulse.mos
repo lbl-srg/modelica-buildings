@@ -2,6 +2,6 @@
 // Plot commands
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.BaseClasses.Validation.PLRToPulse", stopTime=7200, tolerance=1e-06, resultFile="PLRToPulse");
 
-createPlot(id=1, position={0, 0, 851, 828}, y={"plrToPul.uPLR"}, range={0.0, 7500.0, -0.2, 1.2000000000000002}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 851, 272}, y={"plrToPul.yEna"}, range={0.0, 7500.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 851, 273}, y={"gaiTim.y", "timEna.y"}, range={0.0, 7500.0, -200.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 851, 828}, y={"plrToPul.uPLR"}, range={0.0, 7200.0, -0.2, 1.2}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 851, 272}, y={"plrToPul.yEna"}, range={0.0, 7200.0, -0.2, 1.2}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 851, 273}, y={"gaiTim.y", "timEna.y"}, range={0.0, 7200.0, -200.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});

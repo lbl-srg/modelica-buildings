@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
-package BaseClasses
+package BaseClasses "Baseclasses for validation models"
   extends Modelica.Icons.BasesPackage;
 
 

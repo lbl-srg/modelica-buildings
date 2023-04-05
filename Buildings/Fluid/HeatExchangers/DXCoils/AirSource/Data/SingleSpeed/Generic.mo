@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.SingleSpeed;
 record Generic "Generic data record for SingleSpeed DXCoils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil(
       final nSta=1);
   annotation (
     defaultComponentName="datCoi",

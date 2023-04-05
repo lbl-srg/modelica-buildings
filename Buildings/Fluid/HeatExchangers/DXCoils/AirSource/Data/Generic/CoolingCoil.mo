@@ -3,7 +3,8 @@ record CoolingCoil
   "Performance record for a DX Cooling Coil with one or multiple stages"
   extends Modelica.Icons.Record;
 
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
     final is_CooCoi=true);
 
 annotation (preferredView="info",
