@@ -52,7 +52,7 @@ model SingleSpeed "Test model for single speed DX coil"
         nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
           COP_nominal=3,
-          SHR_nominal=0.89,
+          SHR_nominal=0.8,
           m_flow_nominal=1.5),
         perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.Curve_II())}, nSta=1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
