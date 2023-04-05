@@ -174,6 +174,10 @@ for an explanation of the model.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu:<br/>
+Connect statements with references to <code>cooCap</code> changed to <code>coiCap</code>.
+</li>
+<li>
 April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>

@@ -147,6 +147,12 @@ if stage > 0 then
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu:<br/>
+Updated class being extended from <code>PartialCoolingCapacity</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity</a>.
+</li>
+<li>
 November 8, 2022, by Michael Wetter:<br/>
 Corrected calculation of performance which used the wrong upper bound, and
 which used <code>ff</code> instead of <code>ffCon</code> for calculating <code>cap_FFCon</code>.<br/>

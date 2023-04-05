@@ -72,6 +72,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect</a>.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023 by Xing Lu:<br/>
+Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to 
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
+</li>
+<li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements
 to be parameters does not imply that the whole record has the variability of a parameter.

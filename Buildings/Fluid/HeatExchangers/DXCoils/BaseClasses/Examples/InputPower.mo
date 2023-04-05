@@ -14,7 +14,7 @@ extends Modelica.Icons.Example;
     startTime=0) "Energy input ratio"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr(
-      activate_CooCoi=true)
+      is_CooCoi=true)
     "Calculates electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp Q_flow(
@@ -24,7 +24,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
 equation
   connect(EIR.y, pwr.EIR) annotation (Line(
-      points={{-19,50},{-12,50},{-12,16},{-2,16}},
+      points={{-19,50},{-12,50},{-12,16.6},{-2,16.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Q_flow.y, pwr.Q_flow) annotation (Line(
@@ -47,6 +47,10 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Xing Lu:<br/>
+Added parameter value for <code>is_CooCoi</code> to instance <code>pwr</code>.
+</li>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br/>
 First implementation.

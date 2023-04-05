@@ -11,7 +11,7 @@ block CoilDefrostTimeCalculations
   parameter Real tDefRun(
     final unit="1",
     displayUnit="1") = 0.5
-    "Time period for which defrost cycle is run"
+    "Time period fraction for which defrost cycle is run"
     annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim
@@ -20,37 +20,39 @@ block CoilDefrostTimeCalculations
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
-    final quantity="ThermodynamicTemperature") "Humidity ratio of outdoor air"
+    final quantity="ThermodynamicTemperature")
+    "Humidity ratio of outdoor air"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
 
   Modelica.Blocks.Interfaces.RealInput XOut(
     final unit="kg/kg",
     displayUnit="kg/kg",
-    final quantity="MassFraction") "Humidity ratio of outdoor air"
+    final quantity="MassFraction")
+    "Humidity ratio of outdoor air"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
 
-  Modelica.Blocks.Interfaces.RealOutput tFracDef(
+  Modelica.Blocks.Interfaces.RealOutput tDefFra(
     final unit="1",
     displayUnit="1")
     "Defrost time period fraction"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
-        iconTransformation(extent={{100,30},{120,50}})));
+      iconTransformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput heaCapMul(
     final unit="1",
     displayUnit="1")
     "Heating capacity multiplier"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+      iconTransformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput inpPowMul(
     final unit="1",
     displayUnit="1")
     "Input power multiplier"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
-        iconTransformation(extent={{100,-50},{120,-30}})));
+      iconTransformation(extent={{100,-50},{120,-30}})));
 
   Modelica.Units.SI.MassFraction delta_XCoilOut
     "Difference between outdoor air humidity ratio and the saturated air humidity 
@@ -59,10 +61,13 @@ block CoilDefrostTimeCalculations
   Modelica.Units.SI.ThermodynamicTemperature TCoiOut
     "Outdoor coil temperature";
 
-  Modelica.Units.SI.MassFraction XOutDryAir;
+  Modelica.Units.SI.MassFraction XOutDryAir
+    "Outdoor air humidity ratio (total air)";
 
   Buildings.Utilities.Psychrometrics.ToDryAir toDryAir
+    "Convert outdoor air humidity ratio from total air to dry air"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
 equation
   // Outdoor coil surface temperature
   TCoiOut = Modelica.Units.Conversions.from_degC(0.82*Modelica.Units.Conversions.to_degC(TOut) - 8.589);
@@ -72,18 +77,17 @@ equation
   // ratio at estimated outdoor coil temperature
   delta_XCoilOut = max(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)));
   if TOut < TDefLim then
-    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
-         then
-      tFracDef = tDefRun;
+    if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed then
+      tDefFra = tDefRun;
       heaCapMul = 0.909 - 107.33*delta_XCoilOut;
       inpPowMul = 0.9 - 36.45*delta_XCoilOut;
     else
-      tFracDef = 1/(1+(0.01446/delta_XCoilOut));
-      heaCapMul = 0.875*(1 - tFracDef);
-      inpPowMul = 0.954*(1 - tFracDef);
+      tDefFra = 1/(1 + (0.01446/delta_XCoilOut));
+      heaCapMul =0.875*(1 - tDefFra);
+      inpPowMul =0.954*(1 - tDefFra);
     end if;
   else
-    tFracDef = 0;
+    tDefFra = 0;
     heaCapMul = 1;
     inpPowMul = 1;
   end if;
@@ -98,7 +102,7 @@ equation
           textString="f(To,Xo)")}),
           Documentation(info="<html>
 <p>
-Block to calculate defrost cycling time fraction <code>tFracDef</code> as defined 
+Block to calculate defrost cycling time fraction <code>tDefFra</code> as defined 
 in section 15.2.11.4 in the the EnergyPlus 22.2 
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
 document. It also calculates the heating capacity multiplier <code>heaCapMul</code>
@@ -110,7 +114,7 @@ of the outdoor air.
 revisions="<html>
 <ul>
 <li>
-April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
+April 2, 2023, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

@@ -162,7 +162,11 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023, by Xing Lu and Karthik Devaprasad:<br/>
-Changed baseclass to create common version for both heating and cooling coils. Renamed <code>TConIn</code> to <code>TOut</code>. Added conditional enable to <code>QLat_flow</code> and <code>eva</code>.
+Changed baseclass to create common version for both heating and cooling coils.<br/>
+Renamed <code>TConIn</code> to <code>TOut</code>.<br/> 
+Moved instances <code>QLat_flow</code> and <code>eva</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil</a>.
 </li>
 <li>
 June 19, 2017, by Michael Wetter:<br/>
