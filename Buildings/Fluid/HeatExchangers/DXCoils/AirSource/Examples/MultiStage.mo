@@ -69,7 +69,7 @@ model MultiStage "Test model for multi stage DX coil"
         nomVal=Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-30000,
           COP_nominal=3,
-          SHR_nominal=0.8,
+          SHR_nominal=0.83,
           m_flow_nominal=1.8),
         perCur=PerformanceCurves.Curve_III())}) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
