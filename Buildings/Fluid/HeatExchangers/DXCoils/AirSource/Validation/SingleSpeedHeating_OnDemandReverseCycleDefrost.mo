@@ -17,12 +17,12 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
     datCoi(
-      activate_CooCoi=false,
+    is_CooCoi=false,
       sta={Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
+          is_CooCoi=false,
           Q_flow_nominal=15000,
           COP_nominal=2.75,
           SHR_nominal=1,

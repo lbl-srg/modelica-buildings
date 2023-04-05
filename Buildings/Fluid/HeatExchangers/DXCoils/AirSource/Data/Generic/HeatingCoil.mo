@@ -4,14 +4,16 @@ record HeatingCoil
   extends Modelica.Icons.Record;
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datCoi(
-    final activate_CooCoi=false)
+    final is_CooCoi=false)
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    "Instance of coil performance data record"
     annotation (choicesAllMatching=true);
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+    "Instance of defrost performance data record"
     annotation(choicesAllMatching=true);
 
 annotation (preferredView="info",

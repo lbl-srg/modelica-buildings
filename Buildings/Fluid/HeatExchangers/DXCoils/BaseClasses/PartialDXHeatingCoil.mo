@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXHeatingCoil "Partial model for DX heating coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    final activate_CooCoi=false,
+    final is_CooCoi=false,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dxCoi(
       redeclare package Medium = Medium),
-    datCoi(final activate_CooCoi=false));
+    datCoi(final is_CooCoi=false));
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
     "Record for defrost data";

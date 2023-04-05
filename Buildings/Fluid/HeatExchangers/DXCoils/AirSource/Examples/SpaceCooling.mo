@@ -1,22 +1,27 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
 model SpaceCooling "Space cooling with DX coils"
   extends Modelica.Icons.Example;
-  replaceable package Medium =
-      Buildings.Media.Air;
+  replaceable package Medium = Buildings.Media.Air
+    "Fluid medium for the model";
 
-  parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
+  parameter Modelica.Units.SI.Volume V=6*10*3
+    "Room volume";
   //////////////////////////////////////////////////////////
   // Heat recovery effectiveness
-  parameter Real eps = 0.8 "Heat recovery effectiveness";
+  parameter Real eps = 0.8
+    "Heat recovery effectiveness";
 
   /////////////////////////////////////////////////////////
   // Air temperatures at design conditions
   parameter Modelica.Units.SI.Temperature TASup_nominal=273.15 + 18
     "Nominal air temperature supplied to room";
+
   parameter Modelica.Units.SI.Temperature TRooSet=273.15 + 24
     "Nominal room air temperature";
+
   parameter Modelica.Units.SI.Temperature TOut_nominal=273.15 + 30
     "Design outlet air temperature";
+
   parameter Modelica.Units.SI.Temperature THeaRecLvg=TOut_nominal - eps*(
       TOut_nominal - TRooSet) "Air temperature leaving the heat recovery";
 
@@ -24,206 +29,271 @@ model SpaceCooling "Space cooling with DX coils"
   // Cooling loads and air mass flow rates
   parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow=1000
     "Internal heat gains of the room";
-  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=-QRooInt_flow -
-      10E3/30*(TOut_nominal - TRooSet) "Nominal cooling load of the room";
-  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=1.3*
-      QRooC_flow_nominal/1006/(TASup_nominal - TRooSet)
+
+  parameter Modelica.Units.SI.HeatFlowRate QRooC_flow_nominal=
+     -QRooInt_flow - 10E3/30*(TOut_nominal - TRooSet)
+    "Nominal cooling load of the room";
+  parameter Modelica.Units.SI.MassFlowRate mA_flow_nominal=
+     1.3*QRooC_flow_nominal/1006/(TASup_nominal - TRooSet)
     "Nominal air mass flow rate, increased by factor 1.3 to allow for recovery after temperature setback";
+
   parameter Modelica.Units.SI.TemperatureDifference dTFan=2
     "Estimated temperature raise across fan that needs to be made up by the cooling coil";
-  parameter Modelica.Units.SI.HeatFlowRate QCoiC_flow_nominal=(
-      QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal - THeaRecLvg - dTFan)
-      *1006)
+
+  parameter Modelica.Units.SI.HeatFlowRate QCoiC_flow_nominal=
+    (QRooC_flow_nominal + mA_flow_nominal*(TASup_nominal - THeaRecLvg - dTFan)*1006)
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
-
-  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
-    annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
-    m1_flow_nominal=mA_flow_nominal,
-    m2_flow_nominal=mA_flow_nominal,
-    dp1_nominal=200,
-    dp2_nominal=200,
-    eps=eps) "Heat recovery"
-    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
-  Buildings.Fluid.Sources.Outside out(nPorts=6, redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-174,-76},{-154,-56}})));
-  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
-    TDryBul=TOut_nominal,
-    filNam=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
-    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
-    "Weather data reader"
-    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
-  BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-138,60},{-118,80}})));
-  Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
-    "Fan air flow rate"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut(redeclare package
-      Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
-    "Temperature sensor for heat recovery outlet on supply side"
-    annotation (Placement(transformation(extent={{-76,-70},{-64,-58}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(redeclare package
-      Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
-    "Temperature sensor for supply air"
-    annotation (Placement(transformation(extent={{66,-70},{78,-58}})));
-  Modelica.Blocks.Logical.OnOffController con(bandwidth=1, pre_y_start=true)
-    "Controller for coil water flow rate"
-    annotation (Placement(transformation(extent={{-72,2},{-52,22}})));
-  Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
-    "Room temperature set point"
-    annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
-    sinSpeDX(
-    redeclare package Medium = Medium,
-    datCoi=datCoi,
-    dp_nominal=400,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    annotation (Placement(transformation(extent={{-2,-74},{18,-54}})));
-
-  SimpleRoom rooSinSpe(
-    redeclare package Medium = Medium,
-    nPorts=2,
-    QRooInt_flow=QRooInt_flow,
-    mA_flow_nominal=mA_flow_nominal)
-    "Room model connected to single speed coil"
-                                     annotation (Placement(transformation(
-          extent={{120,40},{140,60}})));
-  Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
-    annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
-  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex1(
-    redeclare package Medium1 = Medium,
-    redeclare package Medium2 = Medium,
-    m1_flow_nominal=mA_flow_nominal,
-    m2_flow_nominal=mA_flow_nominal,
-    dp1_nominal=200,
-    dp2_nominal=200,
-    eps=eps) "Heat recovery"
-    annotation (Placement(transformation(extent={{-110,-180},{-90,-160}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal)
-    "Temperature sensor for heat recovery outlet on supply side"
-    annotation (Placement(transformation(extent={{-76,-170},{-64,-158}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir1(
-    redeclare package Medium = Medium,
-     m_flow_nominal=mA_flow_nominal)
-    "Temperature sensor for supply air"
-    annotation (Placement(transformation(extent={{66,-170},{78,-158}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling mulStaDX(
-    redeclare package Medium = Medium,
-    dp_nominal=400,
-    datCoi=datCoiMulSpe,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Multi-speed DX coil"
-    annotation (Placement(transformation(extent={{-2,-174},{18,-154}})));
-  SimpleRoom rooMulSpe(
-    redeclare package Medium = Medium,
-    nPorts=2,
-    QRooInt_flow=QRooInt_flow,
-    mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
-     annotation (Placement(transformation(extent={{180,40},{200,60}})));
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCoi(sta={Data.Generic.BaseClasses.Stage(
+    datCoi(
+      sta={Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.7,
           m_flow_nominal=mA_flow_nominal),
-        perCur=PerformanceCurves.Curve_I())}, nSta=1)
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I())},
+      nSta=1)
+    "Data record for single-speed coil"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCoiMulSpe(nSta=2, sta={Data.Generic.BaseClasses.Stage(
+    datCoiMulSpe(
+      nSta=2,
+      sta={
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*900/2400,
           COP_nominal=3,
           SHR_nominal=0.7,
           m_flow_nominal=mA_flow_nominal*900/2400),
-        perCur=PerformanceCurves.Curve_I()),Data.Generic.BaseClasses.Stage(
+        perCur=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.7,
           m_flow_nominal=mA_flow_nominal),
-        perCur=PerformanceCurves.Curve_III())}) "Coil data"
+        perCur=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I())})
+    "Coil data multi-stage and variable speed cooling coils"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  ControllerTwoStage mulSpeCon "Controller for multi-stage coil"
-                               annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Supply air fan"
+    annotation (Placement(transformation(extent={{100,-74},{120,-54}})));
+
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    final m1_flow_nominal=mA_flow_nominal,
+    final m2_flow_nominal=mA_flow_nominal,
+    final dp1_nominal=200,
+    final dp2_nominal=200,
+    final eps=eps)
+    "Heat recovery"
+    annotation (Placement(transformation(extent={{-110,-80},{-90,-60}})));
+
+  Buildings.Fluid.Sources.Outside out(
+    final nPorts=6,
+    redeclare package Medium = Medium)
+    "Source for outdoor air"
+    annotation (Placement(transformation(extent={{-174,-76},{-154,-56}})));
+
+  BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    final pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter,
+    final TDryBul=TOut_nominal,
+    final filNam=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"),
+    final TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File)
+    "Weather data reader"
+    annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
+
+  BoundaryConditions.WeatherData.Bus weaBus
+    "Weather bus"
+    annotation (Placement(transformation(extent={{-138,60},{-118,80}})));
+
+  Modelica.Blocks.Sources.Constant mAir_flow(
+    final k=mA_flow_nominal)
+    "Fan air flow rate"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal)
+    "Temperature sensor for heat recovery outlet on supply side"
+    annotation (Placement(transformation(extent={{-76,-70},{-64,-58}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal)
+    "Temperature sensor for supply air"
+    annotation (Placement(transformation(extent={{66,-70},{78,-58}})));
+
+  Modelica.Blocks.Logical.OnOffController con(
+    final bandwidth=1,
+    final pre_y_start=true)
+    "Controller to enable component when measurement falls below setpoint"
+    annotation (Placement(transformation(extent={{-72,2},{-52,22}})));
+
+  Modelica.Blocks.Sources.Constant TRooSetPoi(
+    final k=TRooSet)
+    "Room temperature set point"
+    annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
+    sinSpeDX(
+    redeclare package Medium = Medium,
+    final datCoi=datCoi,
+    final dp_nominal=400,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single-speed DX cooling coil"
+    annotation (Placement(transformation(extent={{-2,-74},{18,-54}})));
+
+  SimpleRoom rooSinSpe(
+    redeclare package Medium = Medium,
+    final nPorts=2,
+    final QRooInt_flow=QRooInt_flow,
+    final mA_flow_nominal=mA_flow_nominal)
+    "Room model connected to single speed coil"
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
+
+  Buildings.Fluid.Movers.FlowControlled_m_flow fan1(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Supply air fan"
+    annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
+
+  Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex1(
+    redeclare package Medium1 = Medium,
+    redeclare package Medium2 = Medium,
+    final m1_flow_nominal=mA_flow_nominal,
+    final m2_flow_nominal=mA_flow_nominal,
+    final dp1_nominal=200,
+    final dp2_nominal=200,
+    final eps=eps)
+    "Heat recovery"
+    annotation (Placement(transformation(extent={{-110,-180},{-90,-160}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut1(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal)
+    "Temperature sensor for heat recovery outlet on supply side"
+    annotation (Placement(transformation(extent={{-76,-170},{-64,-158}})));
+
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir1(
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal)
+    "Temperature sensor for supply air"
+    annotation (Placement(transformation(extent={{66,-170},{78,-158}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling mulStaDX(
+    redeclare package Medium = Medium,
+    final dp_nominal=400,
+    final datCoi=datCoiMulSpe,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Multi-speed DX coil"
+    annotation (Placement(transformation(extent={{-2,-174},{18,-154}})));
+
+  SimpleRoom rooMulSpe(
+    redeclare package Medium = Medium,
+    final nPorts=2,
+    final QRooInt_flow=QRooInt_flow,
+    final mA_flow_nominal=mA_flow_nominal)
+    "Room model connected to multi stage coil"
+    annotation (Placement(transformation(extent={{180,40},{200,60}})));
+
+  ControllerTwoStage
+    mulSpeCon
+    "Controller for multi-stage coil"
+    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
+
   SimpleRoom rooVarSpe(
     redeclare package Medium = Medium,
-    nPorts=2,
-    QRooInt_flow=QRooInt_flow,
-    mA_flow_nominal=mA_flow_nominal)
+    final nPorts=2,
+    final QRooInt_flow=QRooInt_flow,
+    final mA_flow_nominal=mA_flow_nominal)
     "Room model connected to variable speed coil"
-                                     annotation (Placement(transformation(
-          extent={{240,40},{260,60}})));
+    annotation (Placement(transformation(extent={{240,40},{260,60}})));
+
   Buildings.Fluid.Movers.FlowControlled_m_flow fan2(
     redeclare package Medium = Medium,
-    m_flow_nominal=mA_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Supply air fan"
+    final m_flow_nominal=mA_flow_nominal,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Supply air fan"
     annotation (Placement(transformation(extent={{98,-250},{118,-230}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemSupAir2(
-                                                redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{64,-246},{76,-234}})));
+
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling
     varSpeDX(
     redeclare package Medium = Medium,
-    dp_nominal=400,
-    datCoi=datCoiMulSpe,
-    minSpeRat=0.2,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final dp_nominal=400,
+    final datCoi=datCoiMulSpe,
+    final minSpeRat=0.2,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Variable-speed DX coil"
     annotation (Placement(transformation(extent={{-4,-250},{16,-230}})));
+
   Buildings.Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut2(
-                                               redeclare package Medium =
-        Medium, m_flow_nominal=mA_flow_nominal)
+    redeclare package Medium = Medium,
+    final m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-78,-246},{-66,-234}})));
+
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex2(
     redeclare package Medium1 = Medium,
     redeclare package Medium2 = Medium,
-    m1_flow_nominal=mA_flow_nominal,
-    m2_flow_nominal=mA_flow_nominal,
-    dp1_nominal=200,
-    dp2_nominal=200,
-    eps=eps) "Heat recovery"
+    final m1_flow_nominal=mA_flow_nominal,
+    final m2_flow_nominal=mA_flow_nominal,
+    final dp1_nominal=200,
+    final dp2_nominal=200,
+    final eps=eps)
+    "Heat recovery"
     annotation (Placement(transformation(extent={{-112,-256},{-92,-236}})));
-  Modelica.Blocks.Continuous.Integrator sinSpePow(y(unit="J"))
+
+  Modelica.Blocks.Continuous.Integrator sinSpePow(
+    y(final unit="J"))
     "Power consumed by single speed coil"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-  Modelica.Blocks.Continuous.Integrator mulSpePow(y(unit="J"))
+
+  Modelica.Blocks.Continuous.Integrator mulSpePow(
+    y(final unit="J"))
     "Power consumed by multi-stage coil"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Modelica.Blocks.Continuous.Integrator varSpePow(y(unit="J"))
+
+  Modelica.Blocks.Continuous.Integrator varSpePow(
+    y(final unit="J"))
     "Power consumed by multi-stage coil"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
+
   Modelica.Blocks.Logical.Not not1
+    "Turn on DX coil when measured temperature is above setpoint"
     annotation (Placement(transformation(extent={{-38,2},{-18,22}})));
+
   Buildings.Controls.Continuous.LimPID conVarSpe(
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    Ti=1,
-    Td=1,
-    reverseActing=false) "Controller for variable speed DX coil"
+    final controllerType=Modelica.Blocks.Types.SimpleController.P,
+    final Ti=1,
+    final Td=1,
+    final reverseActing=false)
+    "Controller for variable speed DX coil"
     annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
+
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
       points={{-154,-62.6667},{-125,-62.6667},{-125,-64},{-110,-64}},
@@ -268,40 +338,22 @@ equation
       points={{18,-64},{66,-64}},
       color={0,127,255},
       smooth=Smooth.None));
+
 public
-  model SimpleRoom "Simple model of a room"
+  model SimpleRoom
+    "Simple model of a room"
 
-    replaceable package Medium =
-          Modelica.Media.Interfaces.PartialMedium "Medium in the room"
-          annotation (choicesAllMatching = true);
+    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+      "Medium in the room"
+      annotation (choicesAllMatching = true);
 
-    Buildings.Fluid.MixingVolumes.MixingVolume vol(
-      redeclare package Medium = Medium,
-      m_flow_nominal=mA_flow_nominal,
-      V=V,
-      nPorts=2,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-      annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
-    Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
-      G=10000/30,
-      port_a(T(start=Medium.T_default))) "Thermal conductance with the ambient"
-      annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
-    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut(
-      port(T(start=Medium.T_default))) "Outside temperature"
-      annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-    Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
-      Q_flow=QRooInt_flow) "Prescribed heat flow"
-      annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
-    Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
-      "Room temperature sensor"
-      annotation (Placement(transformation(extent={{0,30},{20,50}})));
-    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(C=2*V*1.2*1006)
-      "Heat capacity for furniture and walls"
-      annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-
-    parameter Integer nPorts=0 "Number of ports"
+    parameter Integer nPorts=0
+      "Number of ports"
       annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-    final parameter Modelica.Units.SI.Volume V=6*10*3 "Room volume";
+
+    final parameter Modelica.Units.SI.Volume V=6*10*3
+      "Room volume";
+
     parameter Modelica.Units.SI.HeatFlowRate QRooInt_flow
       "Internal heat gains of the room";
 
@@ -311,11 +363,52 @@ public
     Modelica.Blocks.Interfaces.RealInput TOutDryBul
       "Outdoor drybulb temperature"
       annotation (Placement(transformation(extent={{-209,-13},{-179,13}})));
-    Modelica.Blocks.Interfaces.RealOutput TRoo(unit="K") "Room temperature"
+
+    Modelica.Blocks.Interfaces.RealOutput TRoo(
+      final unit="K")
+      "Room temperature"
       annotation (Placement(transformation(extent={{119,-13},{149,13}})));
-    Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](redeclare
-        each package Medium =
-                         Medium) annotation (Placement(transformation(extent={{-50,-170},{47,-147}})));
+
+    Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
+      redeclare each package Medium = Medium)
+      "Port for inlet air into and exhaust air from the zone"
+      annotation (Placement(transformation(extent={{-50,-170},{47,-147}})));
+
+    Buildings.Fluid.MixingVolumes.MixingVolume vol(
+      redeclare package Medium = Medium,
+      final m_flow_nominal=mA_flow_nominal,
+      final V=V,
+      final nPorts=2,
+      final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+      "Mixed air volume representing air in the zone"
+      annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+
+    Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(
+      final G=10000/30,
+      final port_a(T(start=Medium.T_default)))
+      "Thermal conductance with the ambient"
+      annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
+
+    Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut(
+      port(
+        T(final start=Medium.T_default)))
+      "Outside temperature"
+      annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
+
+    Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow preHea(
+      final Q_flow=QRooInt_flow)
+      "Prescribed heat flow"
+      annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
+
+    Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemRoo
+      "Room temperature sensor"
+      annotation (Placement(transformation(extent={{0,30},{20,50}})));
+
+    Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap(
+      final C=2*V*1.2*1006)
+      "Heat capacity for furniture and walls"
+      annotation (Placement(transformation(extent={{-10,10},{10,30}})));
+
   equation
     connect(theCon.port_b,vol. heatPort) annotation (Line(
         points={{-38,-10},{-10,-10}},
@@ -337,9 +430,8 @@ public
         points={{6.10623e-16,10},{-20,10},{-20,-10},{-10,-10}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(TRoo, senTemRoo.T) annotation (Line(points={{134,4.44089e-16},{35,
-            4.44089e-16},{35,40},{20,40}},
-                              color={0,0,127}));
+    connect(TRoo, senTemRoo.T) annotation (Line(points={{134,4.44089e-16},{35,4.44089e-16},
+            {35,40},{21,40}}, color={0,0,127}));
     connect(ports, vol.ports) annotation (Line(points={{-1.5,-158.5},{-21,
             -158.5},{-21,-20},{7.77156e-16,-20}},
                                           color={0,127,255}));
@@ -406,39 +498,69 @@ equation
       points={{179.067,52.3077},{164,52.3077},{164,70},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
+
 public
-  model ControllerTwoStage "Controller for two stage coil"
-    parameter Real bandwidth=1 "Bandwidth around reference signal";
+  model ControllerTwoStage
+    "Controller for two stage coil"
     extends Buildings.BaseClasses.BaseIcon;
-    Modelica.Blocks.Logical.OnOffController con1(bandwidth=bandwidth/2,
-        pre_y_start=true) "Controller for coil water flow rate"
+
+    parameter Real bandwidth=1
+      "Bandwidth around reference signal";
+
+    Modelica.Blocks.Logical.OnOffController con1(
+      final bandwidth=bandwidth/2,
+      final pre_y_start=true)
+      "Controller for second stage"
       annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-    Modelica.Blocks.Logical.OnOffController con2(bandwidth=bandwidth/2,
-        pre_y_start=true) "Controller for coil water flow rate"
+
+    Modelica.Blocks.Logical.OnOffController con2(
+      final bandwidth=bandwidth/2,
+      final pre_y_start=true)
+      "Controller for first stage"
       annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
-    Modelica.Blocks.Interfaces.RealInput u annotation (Placement(transformation(
-            extent={{-206,-133},{-180,-106}})));
+
+    Modelica.Blocks.Interfaces.RealInput u
+      "Measured signal"
+      annotation (Placement(transformation(extent={{-206,-133},{-180,-106}})));
+
     Modelica.Blocks.Interfaces.RealInput reference
       "Connector of Real input signal used as reference signal"
       annotation (Placement(transformation(extent={{-220,20},{-180,60}})));
-    Modelica.Blocks.Math.Add add(k2=-1)
+
+    Modelica.Blocks.Math.Add add(
+      final k2=-1)
+      "Calculate value to turn on the second stage"
       annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-    Modelica.Blocks.Sources.Constant const(k=bandwidth/2)
+
+    Modelica.Blocks.Sources.Constant const(
+      final k=bandwidth/2)
+      "Constant bandwidth-value source"
       annotation (Placement(transformation(extent={{-160,-160},{-140,-140}})));
 
     Modelica.Blocks.Math.Add add1
+      "Calculate value to turn on the first stage"
       annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
+
     Modelica.Blocks.MathInteger.MultiSwitch multiSwitch1(
-      expr={2,1},
-      y_default=0,
-      use_pre_as_default=false,
-      nu=2) annotation (Placement(transformation(extent={{140,-50},{180,-30}})));
-    Modelica.Blocks.Interfaces.IntegerOutput stage "Coil stage control signal"
+      final expr={2,1},
+      final y_default=0,
+      final use_pre_as_default=false,
+      final nu=2)
+      "Switch on appropriate stage based on Boolean signals received"
+      annotation (Placement(transformation(extent={{140,-50},{180,-30}})));
+
+    Modelica.Blocks.Interfaces.IntegerOutput stage
+      "Coil stage control signal"
       annotation (Placement(transformation(extent={{218,-50},{238,-30}})));
+
     Modelica.Blocks.Logical.Not not1
+      "Turn on second stage when measurement exceeds higher temperature limit"
       annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+
     Modelica.Blocks.Logical.Not not2
+      "Enable first stage when measurement exceeds lower temperature limit"
       annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
+
   equation
     connect(con1.reference, reference) annotation (Line(
         points={{-22,-104},{-40,-104},{-40,40},{-200,40}},
@@ -662,7 +784,12 @@ Buildings.Examples.Tutorial.SpaceCooling.System3</a>.
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Updated instance classes for <code>sinSpeDX</code> and <code>varSpeDX</code>.
+Updated instance classes for <code>sinSpeDX</code>, <code>mulStaDX</code>, 
+<code>varSpeDX</code>, and <code>datCoiMulSpe</code>.<br/>
+Updated connection statements to reflect change in input instance from 
+<code>TConIn</code> to <code>TOut</code> in <code>sinSpeDX</code>, <code>mulStaDX</code> 
+and <code>varSpeDX</code>.<br/>
+Updated comments and formatting for ease of understanding and readability.
 </li>
 <li>
 September 24, 2015 by Michael Wetter:<br/>

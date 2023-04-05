@@ -1,14 +1,14 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block InputPower "Electrical power consumed by the unit"
   extends Modelica.Blocks.Icons.Block;
-  parameter Boolean activate_CooCoi "= false, if DX coil is in the heating operation";
+  parameter Boolean is_CooCoi "= false, if DX coil is in the heating operation";
    Modelica.Blocks.Interfaces.RealInput Q_flow(
     quantity="Power",
     unit="W") "Cooling capacity of the coil"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput EIR "Energy input ratio"
     annotation (Placement(transformation(extent={{-140,46},{-100,86}})));
-  Modelica.Blocks.Interfaces.RealInput SHR(min=0, max=1) if activate_CooCoi "Sensible heat ratio"
+  Modelica.Blocks.Interfaces.RealInput SHR(min=0, max=1) if is_CooCoi "Sensible heat ratio"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
@@ -18,21 +18,21 @@ block InputPower "Electrical power consumed by the unit"
   Modelica.Blocks.Interfaces.RealOutput QSen_flow(quantity="Power", unit="W")
     "Sensible heat flow rate"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput QLat_flow( quantity="Power", unit="W") if activate_CooCoi
+  Modelica.Blocks.Interfaces.RealOutput QLat_flow( quantity="Power", unit="W") if is_CooCoi
     "Latent heat flow rate"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Math.Product proQ if
-                                      activate_CooCoi
+                                      is_CooCoi
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Math.Add add(k1=-1) if activate_CooCoi
+  Modelica.Blocks.Math.Add add(k1=-1) if is_CooCoi
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Math.Product proP
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
 
-  Modelica.Blocks.Math.Gain gain(k=if activate_CooCoi then -1 else 1)
+  Modelica.Blocks.Math.Gain gain(k=if is_CooCoi then -1 else 1)
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
 equation
-  if activate_CooCoi then
+  if is_CooCoi then
     connect(SHR, proQ.u2) annotation (Line(points={{-120,-60},{-40,-60},{-40,-6},
             {-12,-6}}, color={0,0,127}));
     connect(Q_flow, proQ.u1) annotation (Line(points={{-120,0},{-66,0},{-66,6},{-12,

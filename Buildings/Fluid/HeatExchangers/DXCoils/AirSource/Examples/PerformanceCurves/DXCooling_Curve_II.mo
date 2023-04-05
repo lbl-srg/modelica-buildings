@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves;
-record DXCooling_Curve_II "Performance curve II"
+record DXCooling_Curve_II "DX cooling coil performance curve II"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
     capFunT={0.766956,0.0107756,-0.0000414703,0.00134961,-0.000261144,
@@ -23,6 +23,10 @@ It has been obtained from the EnergyPlus 7.1 example file
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 4, 2023, by Karthik Devaprasad:<br/>
+Added prefix <code>DXCooling_</code> to record class name.
+</li>
 <li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>
