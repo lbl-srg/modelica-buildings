@@ -1,14 +1,5 @@
 compareVars :=
   {
-    "dam.VActMin_flow",
-    "dam.VActCooMax_flow",
-    "dam.VSet_flow",
-    "dam.TSup",
-    "dam.TZon",
-    "dam.uCoo",
-    "dam.uZonSta",
-    "dam.yDam",
-    "dam.oveFloSet",
     "dam1.VActMin_flow",
     "dam1.VActCooMax_flow",
     "dam1.VSet_flow",

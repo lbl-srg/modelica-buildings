@@ -4,15 +4,13 @@ partial model PartialFlowMachine
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final massDynamics=energyDynamics,
     final mSenFac=1);
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal(final min=Modelica.Constants.small),
-    show_T=false,
+  extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(
+      p(start=Medium.p_default),
       h_outflow(start=h_outflow_start)),
     port_b(
-      h_outflow(start=h_outflow_start),
       p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
+      h_outflow(start=h_outflow_start)));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -102,7 +100,62 @@ partial model PartialFlowMachine
   Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
   // Quantity to control
+
+  // Copied from Fluid.Interfaces.PartialTwoPortInterface
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    _m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation (
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
+
+  Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
+    "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
+
+  Modelica.Units.SI.PressureDifference dp(
+    start=_dp_start,
+    displayUnit="Pa") = port_a.p - port_b.p
+    "Pressure difference between port_a and port_b";
+
+  Medium.ThermodynamicState sta_a=
+    if allowFlowReversal then
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow)))
+    else
+      Medium.setState_phX(port_a.p,
+                          noEvent(inStream(port_a.h_outflow)),
+                          noEvent(inStream(port_a.Xi_outflow)))
+      if show_T "Medium properties in port_a";
+
+  Medium.ThermodynamicState sta_b=
+    if allowFlowReversal then
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow)))
+    else
+      Medium.setState_phX(port_b.p,
+                          noEvent(port_b.h_outflow),
+                          noEvent(port_b.Xi_outflow))
+       if show_T "Medium properties in port_b";
+  // - Copy continues in protected section
+
 protected
+  parameter Modelica.Units.SI.MassFlowRate _m_flow_nominal=
+    max(eff.per.pressure.V_flow)*rho_default
+    "Nominal mass flow rate";
+
+  // Copied from Fluid.Interfaces.PartialTwoPortInterface
+  final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
+    "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.Units.SI.PressureDifference _dp_start(displayUnit=
+        "Pa") = 0
+    "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+  // - End of copy
+
   final parameter Modelica.Units.SI.VolumeFlowRate _VMachine_flow=0
     "Start value for VMachine_flow, used to avoid a warning if not specified";
 
@@ -172,7 +225,7 @@ protected
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=_m_flow_nominal,
     final m_flow_small=m_flow_small,
     final p_start=p_start,
     final prescribedHeatFlowRate=true,
@@ -251,7 +304,7 @@ protected
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    r_V(start=m_flow_nominal/rho_default),
+    r_V(start=_m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
@@ -334,12 +387,6 @@ protected
             fillColor={255,128,0},
             fillPattern=FillPattern.Solid)}));
   end Extractor;
-
-initial equation
-  // Check incorrect value of m_flow_nominal
-  assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
-  ": The value of parameter m_flow_nominal should be greater or equal than " +
-  String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
 
 initial algorithm
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
@@ -577,9 +624,44 @@ The setting <code>addPowerToMedium=false</code> is physically incorrect
 the enthalpy of the medium), but this setting does in some cases lead to simpler equations
 and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
+<p>
+In the previous implementation, this model extends from
+<a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
+Now it copies much of the code instead.
+This is to resolve a potential circular parameter binding that occurs when
+<a href=\"Modelica://Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y\">
+Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y</a>
+extends from
+<a href=\"Modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
+The former uses the nominal flow rate provided by user to construct
+the pressure curve, whilst the latter uses the user-provided pressure curve
+to determine the nominal flow rate. The new implementation removes the
+original declaration of nominal flow rate from
+<a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>
+and hides it (<code>protected _m_flow_nominal</code>) from the user.
+This way, A higher-level model (e.g.
+<a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>),
+can still provide a default but not the other way around.
+See discussions in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Instead of extending
+<a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>,
+this model now has its code copied, then rewrote <code>m_flow_nominal</code>
+as <code>protected _m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
 <li>
 May 6, 2022, by Hongxiang Fu:<br/>
 <ul>

@@ -1,10 +1,19 @@
 compareVars :=
   {
-    "vavBoxCon.TRooHeaSet",
-    "vavBoxCon.TRooCooSet",
-    "vavBoxCon.TRoo",
-    "vavBoxCon.conHea.y",
-    "vavBoxCon.conCoo.y",
-    "vavBoxCon.yDam",
-    "vavBoxCon.yVal"
+    "boxWitExpDam.TRooHeaSet",
+    "boxWitExpDam.TRooCooSet",
+    "boxWitExpDam.TRoo",
+    "boxWitExpDam.conHea.y",
+    "boxWitExpDam.conCoo.y",
+    "boxWitExpDam.yDam",
+    "boxWitExpDam.yVal",
+    "boxWitExpDam.conDam.u_s",
+    "boxWitExpDam.conDam.u_m",
+    "boxWitPreIndDam.TRooHeaSet",
+    "boxWitPreIndDam.TRooCooSet",
+    "boxWitPreIndDam.TRoo",
+    "boxWitPreIndDam.conHea.y",
+    "boxWitPreIndDam.conCoo.y",
+    "boxWitPreIndDam.yDam",
+    "boxWitPreIndDam.yVal"
   };
