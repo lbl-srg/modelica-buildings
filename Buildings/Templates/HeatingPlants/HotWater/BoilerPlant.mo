@@ -4,38 +4,35 @@ model BoilerPlant "Boiler plant"
     Buildings.Templates.HeatingPlants.HotWater.Interfaces.PartialBoilerPlant(
     final typCtl=ctl.typ,
     dat(
-      typModBoiCon=boiCon.typMod,
-      typModBoiNon=boiNon.typMod,
       have_senDpHeaWatLoc=ctl.have_senDpHeaWatLoc,
       nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
       have_senVHeaWatSec=ctl.have_senVHeaWatSec));
 
-  replaceable
-    Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupPolynomial
-    boiCon if have_boiCon constrainedby
-    Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.BoilerGroup(
+  Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup boiCon(
     redeclare final package Medium = Medium,
+    final typMod=typMod,
     final nBoi=nBoiCon,
     final is_con=true,
     final typArrPumHeaWatPri=typArrPumHeaWatPriCon,
     final dat=dat.boiCon,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
+    if have_boiCon
     "Condensing boilers"
     annotation (
      Dialog(group="Boilers"),
      Placement(transformation(extent={{-190,-260},{-110,-140}})));
 
-  replaceable Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupPolynomial boiNon
-    if have_boiNon constrainedby
-    Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.BoilerGroup(
+  Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup boiNon(
     redeclare final package Medium=Medium,
+    final typMod=typMod,
     final nBoi=nBoiNon,
     final is_con=false,
     final typArrPumHeaWatPri=typArrPumHeaWatPriNon,
     final dat=dat.boiNon,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal)
+    if have_boiNon
     "Non-condensing boilers"
     annotation (
     Dialog(group="Boilers"),

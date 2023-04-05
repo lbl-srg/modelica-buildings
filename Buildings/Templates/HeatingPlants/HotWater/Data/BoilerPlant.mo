@@ -14,11 +14,8 @@ record BoilerPlant "Record for HW plant model"
   parameter Integer nBoiNon
     "Number of non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typModBoiCon
-    "Type of boiler model for condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typModBoiNon
-    "Type of boiler model for non-condensing boilers"
+  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+    "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec
     "Type of secondary HW pumps"
@@ -84,7 +81,7 @@ record BoilerPlant "Record for HW plant model"
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.BoilerGroup boiCon(
     final nBoi=nBoiCon,
-    final typMod=typModBoiCon,
+    final typMod=typMod,
     capBoi_nominal=ctl.capBoiCon_nominal,
     THeaWatBoiSup_nominal=fill(if have_boiCon and have_boiNon then ctl.THeaWatConSup_nominal
      else ctl.THeaWatSup_nominal, nBoiCon))
@@ -93,7 +90,7 @@ record BoilerPlant "Record for HW plant model"
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.BoilerGroup boiNon(
     final nBoi=nBoiNon,
-    final typMod=typModBoiNon,
+    final typMod=typMod,
     capBoi_nominal=ctl.capBoiNon_nominal,
     THeaWatBoiSup_nominal=fill(ctl.THeaWatSup_nominal, nBoiNon))
     "Non-condensing boilers"
@@ -135,8 +132,8 @@ record BoilerPlant "Record for HW plant model"
 
   annotation (Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-HW plant models that can be found within 
+This record provides the set of sizing and operating parameters for
+HW plant models that can be found within
 <a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater\">
 Buildings.Templates.HeatingPlants.HotWater</a>.
 </p>
@@ -146,10 +143,10 @@ dedicated to the controller.
 All parameters that are also needed to parameterize other plant
 components are propagated from the controller sub-record
 to the corresponding equipment sub-records.
-Note that those parameter bindings are not final so they may be 
-overwritten in case a component is parameterized at nominal 
-conditions that differ from the design conditions specified 
-in the controller sub-record.  
+Note that those parameter bindings are not final so they may be
+overwritten in case a component is parameterized at nominal
+conditions that differ from the design conditions specified
+in the controller sub-record.
 </p>
 </html>"));
 

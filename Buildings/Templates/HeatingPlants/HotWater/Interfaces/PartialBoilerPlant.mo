@@ -8,6 +8,10 @@ partial model PartialBoilerPlant
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler typ
     "Type of boilers"
     annotation (Evaluate=true, Dialog(group="Boilers"));
+  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod=
+    Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial
+    "Type of boiler model"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   final parameter Boolean have_boiCon =
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Condensing
@@ -130,6 +134,7 @@ partial model PartialBoilerPlant
     final have_boiNon=have_boiNon,
     final nBoiCon=nBoiCon,
     final nBoiNon=nBoiNon,
+    final typMod=typMod,
     final typPumHeaWatSec=typPumHeaWatSec,
     final nPumHeaWatPriCon=nPumHeaWatPriCon,
     final nPumHeaWatPriNon=nPumHeaWatPriNon,

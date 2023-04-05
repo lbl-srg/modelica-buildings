@@ -41,7 +41,7 @@ model BoilerGroupPolynomial "Validation model for boiler group"
 
   replaceable BoilerGroups.BoilerGroupPolynomial boi
     constrainedby
-    Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.BoilerGroup(
+    Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup(
     redeclare final package Medium=Medium,
     final nBoi=nBoi,
     final is_con=true,

@@ -1,4 +1,4 @@
-within Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces;
+within Buildings.Templates.HeatingPlants.HotWater.Components;
 model BoilerGroup "Boiler group"
   replaceable package Medium = Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
@@ -92,15 +92,25 @@ model BoilerGroup "Boiler group"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
     iconTransformation(extent={{-20,580},{20,620}})));
 
-  replaceable Buildings.Templates.Components.Interfaces.BoilerHotWater boi[nBoi]
-    constrainedby Buildings.Templates.Components.Interfaces.BoilerHotWater(
-    redeclare each final package Medium=Medium,
+  Buildings.Templates.Components.Boilers.HotWaterPolynomial boiPol[nBoi](
+    redeclare each final package Medium = Medium,
     each final is_con=is_con,
     final dat=datBoi,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics)
-    "Boiler"
+    if typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial
+    "Boiler - Polynomial"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Buildings.Templates.Components.Boilers.HotWaterPolynomial boiTab[nBoi](
+    redeclare each final package Medium = Medium,
+    each final is_con=is_con,
+    final dat=datBoi,
+    each final allowFlowReversal=allowFlowReversal,
+    each final energyDynamics=energyDynamics)
+    if typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Table
+    "Boiler - Table"
+    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+
   Buildings.Templates.Components.Valves.TwoWayTwoPosition valBoiIso[nBoi](
     redeclare each final package Medium=Medium,
     final dat=datValBoiIso,
@@ -113,18 +123,18 @@ model BoilerGroup "Boiler group"
     if typValBoiIso==Buildings.Templates.Components.Types.Valve.None
     "No boiler isolation valve"
     annotation (Placement(transformation(extent={{150,90},{170,110}})));
+
 protected
   Buildings.Templates.Components.Interfaces.Bus busBoiCon[nBoi] if is_con
     "Boiler control bus - Condensing boilers"
     annotation (Placement(
-        transformation(extent={{-20,140},{20,180}}), iconTransformation(extent={
+        transformation(extent={{-60,140},{-20,180}}),iconTransformation(extent={
             {-350,6},{-310,46}})));
   Buildings.Templates.Components.Interfaces.Bus busBoiNon[nBoi] if not is_con
     "Boiler control bus - Non-condensing boilers"
     annotation (Placement(
-        transformation(extent={{-100,140},{-60,180}}),
-                                                     iconTransformation(extent={
-            {-350,6},{-310,46}})));
+      transformation(extent={{-100,140},{-60,180}}),
+      iconTransformation(extent={{-350,6},{-310,46}})));
   Buildings.Templates.Components.Interfaces.Bus busValBoiNonIso[nBoi]
     if not is_con "Boiler isolation valve control bus - Non-condensing boilers"
     annotation (Placement(transformation(extent={{80,140},{120,180}}),
@@ -135,29 +145,29 @@ protected
       Placement(transformation(extent={{140,140},{180,180}}),
         iconTransformation(extent={{-350,6},{-310,46}})));
 equation
-  connect(ports_aHeaWat, boi.port_a) annotation (Line(points={{200,-100},{-20,
+  connect(ports_aHeaWat, boiPol.port_a) annotation (Line(points={{200,-100},{-20,
           -100},{-20,0},{-10,0}}, color={0,127,255}));
-  connect(boi.port_b, valBoiIso.port_a) annotation (Line(points={{10,0},{20,0},
+  connect(boiPol.port_b, valBoiIso.port_a) annotation (Line(points={{10,0},{20,0},
           {20,120},{150,120}}, color={0,127,255}));
   connect(valBoiIso.port_b, ports_bHeaWat)
     annotation (Line(points={{170,120},{200,120}}, color={0,127,255}));
   connect(pas.port_b, ports_bHeaWat) annotation (Line(points={{170,100},{180,
           100},{180,120},{200,120}}, color={0,127,255}));
-  connect(boi.port_b, pas.port_a) annotation (Line(points={{10,0},{20,0},{20,
+  connect(boiPol.port_b, pas.port_a) annotation (Line(points={{10,0},{20,0},{20,
           120},{140,120},{140,100},{150,100}}, color={0,127,255}));
-  connect(busBoiCon, boi.bus) annotation (Line(
-      points={{0,160},{0,10}},
+  connect(busBoiCon, boiPol.bus) annotation (Line(
+      points={{-40,160},{-40,-40},{0,-40},{0,10}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.boiCon, busBoiCon) annotation (Line(
-      points={{0,200},{0,160}},
+      points={{0,200},{0,180},{-40,180},{-40,160}},
       color={255,204,51},
       thickness=0.5));
   connect(bus.boiNon, busBoiNon) annotation (Line(
       points={{0,200},{0,180},{-80,180},{-80,160}},
       color={255,204,51},
       thickness=0.5));
-  connect(busBoiNon, boi.bus) annotation (Line(
+  connect(busBoiNon, boiPol.bus) annotation (Line(
       points={{-80,160},{-80,10},{0,10}},
       color={255,204,51},
       thickness=0.5));
@@ -175,6 +185,24 @@ equation
       thickness=0.5));
   connect(bus.valBoiConIso, busValBoiConIso) annotation (Line(
       points={{0,200},{4,200},{4,184},{160,184},{160,160}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(ports_aHeaWat, boiTab.port_a) annotation (Line(points={{200,-100},{-20,
+          -100},{-20,-50},{-10,-50}}, color={0,127,255}));
+  connect(boiTab.port_b, pas.port_a) annotation (Line(points={{10,-50},{20,-50},
+          {20,72},{150,72},{150,100}}, color={0,127,255}));
+  connect(boiTab.port_b, valBoiIso.port_a) annotation (Line(points={{10,-50},{36,
+          -50},{36,120},{150,120}}, color={0,127,255}));
+  connect(busBoiCon, boiTab.bus) annotation (Line(
+      points={{-40,160},{-40,10},{0,10},{0,-40}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,6},{-3,6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(busBoiNon, boiTab.bus) annotation (Line(
+      points={{-80,160},{-80,-40},{0,-40}},
       color={255,204,51},
       thickness=0.5));
   annotation (
