@@ -2,7 +2,8 @@ within Buildings.Applications.DataCenters.DXCooled.Examples;
 model DXCooledAirsideEconomizer
   "Example that illustrates the use of Buildings.Fluid.HeatExchanger.DXCoil in a data center room"
   extends Modelica.Icons.Example;
-  extends Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
+  extends
+    Buildings.Applications.DataCenters.ChillerCooled.Examples.BaseClasses.PostProcess(
     fulMecCooSig(
       y=if cooModCon.y == Integer(Buildings.Applications.DataCenters.Types.CoolingModes.FullMechanical)
       then 1 else 0),
@@ -47,7 +48,7 @@ model DXCooledAirsideEconomizer
     m_flow_nominal=mA_flow_nominal,
     nPorts=2) "Simplified data center room"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed varSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoi,
@@ -90,7 +91,7 @@ model DXCooledAirsideEconomizer
   Modelica.Blocks.Sources.Constant SATSetPoi(k=TAirSupSet)
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi(
     nSta=4,
     sta={
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
@@ -293,14 +294,6 @@ equation
   connect(roo.TRooAir, cooModCon.TRet)
     annotation (Line(points={{61,-110},{90,-110},{90,-88},{-180,-88},{-180,65},
           {-172,65}},                                      color={0,0,127}));
-  connect(weaBus.TDryBul, varSpeDX.TConIn)
-    annotation (Line(
-      points={{-240,70},{-240,-40},{-60,-40},{-60,-57},{-21,-57}},
-      color={255,204,51},
-      thickness=0.5), Text(
-      textString="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(cooModCon.y, sigCha.u)
     annotation (Line(
       points={{-149,70},{-142,70},{-142,160},{178,160}},
@@ -329,6 +322,14 @@ equation
     annotation (Line(
       points={{-39,-10},{-28,-10},{-28,-52},{-21,-52}},
       color={0,0,127}));
+  connect(weaBus.TDryBul, varSpeDX.TOut) annotation (Line(
+      points={{-240,70},{-240,-40},{-40,-40},{-40,-57},{-21,-57}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false,
     extent={{-280,-200},{320,220}})),
     __Dymola_Commands(file=
@@ -374,6 +375,12 @@ The room temperature is maintained at 24&deg;C by adjusting the speed of the sup
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2023, by Karthik Devaprasad:<br/>
+Updated classes used in the coil data record <code>datCoi</code> as per the changed
+class names.<br/>
+Updated class used for variable speed DX cooling coil <code>varSpeDX</code>.
+</li>
 <li>
 August 16, 2017 by Yangyang Fu:<br/>
 First implementation.
