@@ -36,6 +36,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or pasDel
     "Output true if the feedback checking time has passed"
     annotation (Placement(transformation(extent={{-142,-10},{-122,10}})));
+  // The cheDif instance below has two inputs, one from pasDel and another one from valInp.
+  // The instance pasDel will give true output when the feedback+debounce time passed.
+  // The instance valInp will give true output when the debounce time passed and the u_m is stable
   Buildings.Controls.OBC.CDL.Logical.Or cheDif
     "fixme: Is this correct? Output true if the measured input is stable, or the feedback checking time has passed"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
@@ -91,8 +94,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Not not3
     "Input is invalid"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch locFal
-    "Output if the measured input is locked to false"
+  Buildings.Controls.OBC.CDL.Logical.Switch cheStaMea
+    "Output true if there is no stable measured input"
     annotation (Placement(transformation(extent={{160,170},{180,190}})));
   Buildings.Controls.OBC.CDL.Logical.TrueDelay delChe2(
     final delayTime=feedbackDelay + debounce)
@@ -108,8 +111,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch cheDif2
     "Check if it should check the difference"
     annotation (Placement(transformation(extent={{120,-140},{140,-120}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch locTru
-    "fixme: Not clear, output what? Output if the measured input is locked to false"
+  Buildings.Controls.OBC.CDL.Logical.Switch cheStaMea1
+    "Output true if there is no stable measured input"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(
     final t=debounce)
@@ -121,6 +124,9 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch holTru1
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
+  // The instance equInp below has two inputs, one from borTru and another one from equSta.
+  // The borTru will be true if both the u_s and the stable u_m are true.
+  // The equSta will be true if both the u_s and the stable u_m are false.
   Buildings.Controls.OBC.CDL.Logical.Or equInp
     "fixme: Seems wrong as an 'or' block outputs different y under these 2 conditions: Check if both true inputs or both false inputs"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
@@ -155,11 +161,10 @@ equation
     annotation (Line(points={{-118,180},{-82,180}}, color={255,0,255}));
   connect(not3.y, invInp.u1)
     annotation (Line(points={{-58,180},{-2,180}},color={255,0,255}));
-  connect(conTru.y, locFal.u1) annotation (Line(points={{-178,210},{110,210},{110,
-          188},{158,188}}, color={255,0,255}));
+  connect(conTru.y, cheStaMea.u1) annotation (Line(points={{-178,210},{110,210},
+          {110,188},{158,188}}, color={255,0,255}));
   connect(u_s, not2.u) annotation (Line(points={{-280,0},{-240,0},{-240,-40},{
-          -222,-40}},
-                 color={255,0,255}));
+          -222,-40}}, color={255,0,255}));
   connect(not2.y, delChe1.u)
     annotation (Line(points={{-198,-40},{-182,-40}}, color={255,0,255}));
   connect(u_s, delChe2.u)
@@ -167,11 +172,9 @@ equation
   connect(delChe2.y, pasDel.u1)
     annotation (Line(points={{-198,0},{-144,0}},color={255,0,255}));
   connect(delChe1.y, pasDel.u2) annotation (Line(points={{-158,-40},{-154,-40},
-          {-154,-8},{-144,-8}},
-                              color={255,0,255}));
+          {-154,-8},{-144,-8}}, color={255,0,255}));
   connect(valInp.y, cheDif.u2) annotation (Line(points={{-118,180},{-100,180},{
-          -100,-8},{-2,-8}},
-                        color={255,0,255}));
+          -100,-8},{-2,-8}}, color={255,0,255}));
   connect(pasDel.y, cheDif.u1)
     annotation (Line(points={{-120,0},{-2,0}},color={255,0,255}));
   connect(cheDif.y, cheDif1.u2) annotation (Line(points={{22,0},{90,0},{90,110},
@@ -193,8 +196,7 @@ equation
   connect(booToInt1.y, equSta.u2) annotation (Line(points={{-78,-170},{-70,-170},
           {-70,-138},{-62,-138}}, color={255,127,0}));
   connect(not2.y, botFal.u1) annotation (Line(points={{-198,-40},{-190,-40},{
-          -190,-150},{-2,-150}},
-                            color={255,0,255}));
+          -190,-150},{-2,-150}}, color={255,0,255}));
   connect(equSta.y, botFal.u2) annotation (Line(points={{-38,-130},{-10,-130},{-10,
           -158},{-2,-158}}, color={255,0,255}));
   connect(botFal.y, notBotFal.u)
@@ -202,16 +204,15 @@ equation
   connect(notBotFal.y, falTru.u1) annotation (Line(points={{62,-150},{70,-150},{
           70,-190},{78,-190}}, color={255,0,255}));
   connect(not2.y, falTru.u2) annotation (Line(points={{-198,-40},{-190,-40},{
-          -190,-198},{78,-198}},
-                            color={255,0,255}));
-  connect(cheDif1.y, locFal.u3) annotation (Line(points={{142,110},{150,110},{150,
-          172},{158,172}}, color={255,0,255}));
+          -190,-198},{78,-198}}, color={255,0,255}));
+  connect(cheDif1.y, cheStaMea.u3) annotation (Line(points={{142,110},{150,110},
+          {150,172},{158,172}}, color={255,0,255}));
   connect(cheDif.y, cheDif2.u2) annotation (Line(points={{22,0},{90,0},{90,-130},
           {118,-130}}, color={255,0,255}));
-  connect(cheDif2.y, locTru.u3) annotation (Line(points={{142,-130},{150,-130},{
-          150,-68},{158,-68}}, color={255,0,255}));
-  connect(conTru.y, locTru.u1) annotation (Line(points={{-178,210},{110,210},{110,
-          -52},{158,-52}}, color={255,0,255}));
+  connect(cheDif2.y, cheStaMea1.u3) annotation (Line(points={{142,-130},{150,-130},
+          {150,-68},{158,-68}}, color={255,0,255}));
+  connect(conTru.y, cheStaMea1.u1) annotation (Line(points={{-178,210},{110,210},
+          {110,-52},{158,-52}}, color={255,0,255}));
   connect(conFal.y, cheDif1.u3) annotation (Line(points={{52,90},{100,90},{100,
           102},{118,102}}, color={255,0,255}));
   connect(conFal.y, cheDif2.u3) annotation (Line(points={{52,90},{100,90},{100,
@@ -222,9 +223,9 @@ equation
           118},{118,118}}, color={255,0,255}));
   connect(u_s, botTru.u2) annotation (Line(points={{-280,0},{-240,0},{-240,-88},
           {-102,-88}}, color={255,0,255}));
-  connect(locFal.y, holTru.u)
+  connect(cheStaMea.y, holTru.u)
     annotation (Line(points={{182,180},{198,180}}, color={255,0,255}));
-  connect(locTru.y,holTru1. u)
+  connect(cheStaMea1.y, holTru1.u)
     annotation (Line(points={{182,-60},{198,-60}}, color={255,0,255}));
   connect(holTru.y, yLocFal)
     annotation (Line(points={{222,180},{260,180}}, color={255,0,255}));
@@ -240,17 +241,14 @@ equation
           174},{198,174}}, color={255,0,255}));
   connect(edg1.y,holTru1. clr) annotation (Line(points={{182,60},{190,60},{190,-66},
           {198,-66}}, color={255,0,255}));
-  connect(invInp.y, locFal.u2)
+  connect(invInp.y, cheStaMea.u2)
     annotation (Line(points={{22,180},{158,180}}, color={255,0,255}));
-  connect(invInp.y, locTru.u2) annotation (Line(points={{22,180},{80,180},{80,
-          -60},{158,-60}},
-                      color={255,0,255}));
+  connect(invInp.y, cheStaMea1.u2) annotation (Line(points={{22,180},{80,180},{80,
+          -60},{158,-60}}, color={255,0,255}));
   connect(not3.y, pasDeb.u) annotation (Line(points={{-58,180},{-50,180},{-50,
-          150},{-42,150}},
-                     color={255,0,255}));
+          150},{-42,150}}, color={255,0,255}));
   connect(pasDeb.passed, invInp.u2) annotation (Line(points={{-18,142},{-10,142},
-          {-10,172},{-2,172}},
-                             color={255,0,255}));
+          {-10,172},{-2,172}}, color={255,0,255}));
 annotation (
     defaultComponentName="pro",
     Diagram(
