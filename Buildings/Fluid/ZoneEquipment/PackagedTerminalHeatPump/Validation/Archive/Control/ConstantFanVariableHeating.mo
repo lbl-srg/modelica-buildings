@@ -1,12 +1,13 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.Validation;
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive.Control;
 model ConstantFanVariableHeating
   "Validation model for controller with variable heating and constant speed fan"
 
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.ConstantFanCyclingCooling
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive.Control.ConstantFanCyclingCooling
     conVarWatConFan(
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+
     final tFanEnaDel=2,
     final tFanEna=5)
     "Instance of controller with variable fan speed and constant water flowrate"

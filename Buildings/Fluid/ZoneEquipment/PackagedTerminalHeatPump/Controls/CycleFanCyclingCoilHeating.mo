@@ -45,76 +45,85 @@ model CycleFanCyclingCoilHeating
     "Minimum duration for which fan is enabled"
     annotation(Dialog(group="System parameters"));
 
-  parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
-    "Temperature difference used for enabling cooling and heating mode"
-    annotation(Dialog(tab="Advanced"));
+  parameter Modelica.Units.SI.TemperatureDifference dTHys
+    "Temperature difference used for enabling cooling and heating mode";
 
-  BaseClasses.HeatingCooling conHea(conMod=true, tCoiEna=tCoiEna)
-    annotation (Placement(transformation(extent={{-10,60},{10,80}})));
+  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHea(
+    dTHys=dTHys,                                                  conMod=true, tCoiEna=tFanEna)
+    annotation (Placement(transformation(extent={{-12,30},{8,50}})));
 
-  BaseClasses.CyclingFan conFanCyc(tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
-    annotation (Placement(transformation(extent={{72,-80},{100,-52}})));
+  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
+    annotation (Placement(transformation(extent={{72,-132},{100,-104}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature") "Measured supply temperature"
     annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
-        iconTransformation(extent={{-220,-270},{-180,-230}})));
-  parameter Modelica.Units.SI.Time tCoiEna=180
-    "enable hold duration for DX coil";
-  BaseClasses.HeatingCooling conCoo(conMod=false, tCoiEna=tCoiEna)
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+        iconTransformation(extent={{-220,-162},{-180,-122}})));
+  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCoo(dTHys=dTHys,conMod=false, tCoiEna=tFanEna)
+    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "Enable fan when eithor cooling or heating mode is enabled"
+    annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
+  Modelica.Blocks.Interfaces.BooleanOutput yHeaMod if not has_varHea and
+    has_hea "Heating enable signal" annotation (Placement(transformation(extent=
+           {{140,-160},{180,-120}}), iconTransformation(extent={{182,-162},{222,
+            -122}})));
 equation
 
   connect(uFan, conHea.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
-          75.7143},{-11.4286,75.7143}}, color={255,0,255}));
+          45.7143},{-13.4286,45.7143}}, color={255,0,255}));
   connect(TZon, conHea.TZon) annotation (Line(points={{-160,60},{-50,60},{-50,
-          70},{-11.4286,70}}, color={0,0,127}));
-  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
-          -54},{70,-54}},     color={255,0,255}));
-  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-60},{-60,-60},{-60,
-          -70},{70,-70}},     color={255,0,255}));
-  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-100},{
-          -60,-100},{-60,-78},{70,-78}},  color={255,0,255}));
-  connect(conFanCyc.yFan, yFan) annotation (Line(points={{102,-70},{120,-70},{120,
-          -100},{160,-100}},   color={255,0,255}));
-  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{102,-62},{110,-62},
-          {110,-60},{160,-60}},      color={0,0,127}));
+          40},{-13.4286,40}}, color={0,0,127}));
+  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,100},{-60,100},{
+          -60,-106},{70,-106}},
+                              color={255,0,255}));
+  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-60},{-60,-60},{
+          -60,-122},{70,-122}},
+                              color={255,0,255}));
+  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-100},
+          {-46,-100},{-46,-130},{70,-130}},
+                                          color={255,0,255}));
+  connect(conFanCyc.yFan, yFan) annotation (Line(points={{102,-122},{132,-122},
+          {132,-100},{160,-100}},
+                               color={255,0,255}));
+  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{102,-114},{122,
+          -114},{122,-60},{160,-60}},color={0,0,127}));
   connect(TSup, conHea.TSup) annotation (Line(points={{-160,-140},{-40,-140},{
-          -40,60},{-11.4286,60}}, color={0,0,127}));
-  connect(conHea.yMod, conFanCyc.heaCooOpe) annotation (Line(points={{11.4286,
-          64.2857},{40,64.2857},{40,-62},{70,-62}}, color={255,0,255}));
+          -40,30},{-13.4286,30}}, color={0,0,127}));
   connect(THeaSet, conHea.TZonSet) annotation (Line(points={{-160,-20},{-30,-20},
-          {-30,64.2857},{-11.4286,64.2857}}, color={0,0,127}));
-  connect(conHea.yEna, yHeaEna) annotation (Line(points={{11.4286,70},{64,70},{
-          64,60},{160,60}}, color={255,0,255}));
+          {-30,34.2857},{-13.4286,34.2857}}, color={0,0,127}));
   connect(TZon, conCoo.TZon) annotation (Line(points={{-160,60},{-48,60},{-48,
-          -10},{-11.4286,-10}}, color={0,0,127}));
+          -80},{-11.4286,-80}}, color={0,0,127}));
   connect(uFan, conCoo.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
-          -4.28571},{-11.4286,-4.28571}}, color={255,0,255}));
+          -74.2857},{-11.4286,-74.2857}}, color={255,0,255}));
   connect(TCooSet, conCoo.TZonSet) annotation (Line(points={{-160,20},{-22,20},
-          {-22,-15.7143},{-11.4286,-15.7143}}, color={0,0,127}));
+          {-22,-85.7143},{-11.4286,-85.7143}}, color={0,0,127}));
   connect(TSup, conCoo.TSup) annotation (Line(points={{-160,-140},{-22,-140},{
-          -22,-20},{-11.4286,-20}}, color={0,0,127}));
-  connect(conCoo.yEna, yCooEna) annotation (Line(points={{11.4286,-10},{100,-10},
+          -22,-90},{-11.4286,-90}}, color={0,0,127}));
+  connect(conCoo.yEna, yCooEna) annotation (Line(points={{11.4286,-80},{100,-80},
           {100,100},{160,100}}, color={255,0,255}));
-  connect(conHea.y, yHea) annotation (Line(points={{11.4286,75.7143},{92,
-          75.7143},{92,-20},{160,-20}}, color={0,0,127}));
-  connect(conCoo.y, yCoo) annotation (Line(points={{11.4286,-4.28571},{80,
-          -4.28571},{80,20},{160,20}}, color={0,0,127}));
+  connect(conHea.y, yHea) annotation (Line(points={{9.42857,45.7143},{92,
+          45.7143},{92,-20},{160,-20}}, color={0,0,127}));
+  connect(conCoo.y, yCoo) annotation (Line(points={{11.4286,-74.2857},{80,
+          -74.2857},{80,20},{160,20}}, color={0,0,127}));
+  connect(conHea.yMod, or2.u1) annotation (Line(points={{9.42857,34.2857},{20,
+          34.2857},{20,-50},{28,-50}},
+                            color={255,0,255}));
+  connect(conCoo.yMod, or2.u2) annotation (Line(points={{11.4286,-85.7143},{20,
+          -85.7143},{20,-58},{28,-58}},
+                            color={255,0,255}));
+  connect(or2.y, conFanCyc.heaCooOpe) annotation (Line(points={{52,-50},{56,-50},
+          {56,-114},{70,-114}},
+                             color={255,0,255}));
+  connect(conHea.yEna, yHeaEna) annotation (Line(points={{9.42857,40},{78,40},{
+          78,60},{160,60}}, color={255,0,255}));
+  connect(conHea.yMod, yHeaMod) annotation (Line(points={{9.42857,34.2857},{18,
+          34.2857},{18,-140},{160,-140}}, color={255,0,255}));
   annotation (defaultComponentName="conVarWatConFan",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{180,240}}),
-        graphics={Rectangle(
-          extent={{-180,240},{180,-240}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-180,240},{180,280}},
-          textString="%name",
-          textColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-120},{
-            140,120}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,220}})),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,
+            120}})),
     Documentation(info="<html>
       <p>
       This is a control module for the unit heater system model designed as an 

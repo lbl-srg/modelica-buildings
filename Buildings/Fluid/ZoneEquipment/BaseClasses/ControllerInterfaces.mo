@@ -21,28 +21,28 @@ partial model ControllerInterfaces
 
   Modelica.Blocks.Interfaces.BooleanOutput yFan "Fan enable signal"
     annotation (Placement(transformation(extent={{140,-120},{180,-80}}),
-      iconTransformation(extent={{180,-220},{220,-180}})));
+      iconTransformation(extent={{182,-120},{222,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput yFanSpe(
     final unit="1",
     displayUnit="1")
     "Fan speed signal"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
-      iconTransformation(extent={{180,-140},{220,-100}})));
+      iconTransformation(extent={{182,-60},{222,-20}})));
 
   Modelica.Blocks.Interfaces.RealOutput yCoo(
     final unit="1",
     displayUnit="1") if has_coo and has_varCoo
     "Cooling signal"
     annotation (Placement(transformation(extent={{140,0},{180,40}}),
-      iconTransformation(extent={{180,20},{220,60}})));
+      iconTransformation(extent={{182,60},{222,100}})));
 
   Modelica.Blocks.Interfaces.RealOutput yHea(
     final unit="1",
     displayUnit="1") if has_hea and has_varHea
     "Heating signal"
     annotation (Placement(transformation(extent={{140,-40},{180,0}}),
-      iconTransformation(extent={{180,-60},{220,-20}})));
+      iconTransformation(extent={{182,0},{222,40}})));
 
   Modelica.Blocks.Interfaces.BooleanInput uFan
     "Fan proven on signal"
@@ -55,7 +55,7 @@ partial model ControllerInterfaces
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,40},{-140,80}}),
-      iconTransformation(extent={{-220,100},{-180,140}})));
+      iconTransformation(extent={{-220,120},{-180,160}})));
 
   Modelica.Blocks.Interfaces.RealInput TCooSet(
     final unit="K",
@@ -63,7 +63,7 @@ partial model ControllerInterfaces
     final quantity="ThermodynamicTemperature") if has_coo
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-180,0},{-140,40}}),
-      iconTransformation(extent={{-220,20},{-180,60}})));
+      iconTransformation(extent={{-220,60},{-180,100}})));
 
   Modelica.Blocks.Interfaces.RealInput THeaSet(
     final unit="K",
@@ -71,25 +71,25 @@ partial model ControllerInterfaces
     final quantity="ThermodynamicTemperature") if has_hea
     "Zone heating temperature setpoint"
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
-      iconTransformation(extent={{-220,-60},{-180,-20}})));
+      iconTransformation(extent={{-220,0},{-180,40}})));
 
   Modelica.Blocks.Interfaces.BooleanInput uAva
     "Availability signal"
     annotation (Placement(transformation(extent={{-180,-80},{-140,-40}}),
-      iconTransformation(extent={{-220,-140},{-180,-100}})));
+      iconTransformation(extent={{-220,-60},{-180,-20}})));
 
   Modelica.Blocks.Interfaces.BooleanInput fanOpeMod if has_fanOpeMod
     "Supply fan operating mode signal" annotation (Placement(transformation(
-          extent={{-180,-120},{-140,-80}}), iconTransformation(extent={{-220,-220},
-            {-180,-180}})));
+          extent={{-180,-120},{-140,-80}}), iconTransformation(extent={{-220,
+            -120},{-180,-80}})));
   Modelica.Blocks.Interfaces.BooleanOutput yCooEna if not has_varCoo and
     has_coo                                        "Cooling enable signal"
     annotation (Placement(transformation(extent={{140,80},{180,120}}),
-        iconTransformation(extent={{180,180},{220,220}})));
+        iconTransformation(extent={{182,180},{222,220}})));
   Modelica.Blocks.Interfaces.BooleanOutput yHeaEna if not has_varHea and
-    has_hea
-    "Heating enable signal" annotation (Placement(transformation(extent={{140,40},
-            {180,80}}), iconTransformation(extent={{180,100},{220,140}})));
+    has_hea "Heating enable signal"
+                            annotation (Placement(transformation(extent={{140,40},
+            {180,80}}), iconTransformation(extent={{182,118},{222,158}})));
 protected
   final parameter Boolean has_hea=(sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.fcu)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.ptac)
@@ -124,13 +124,14 @@ protected
     "Does the zone equipment have variable cooling?";
 
   annotation (defaultComponentName = "fanCoiUni",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{180,240}}),            graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,
+            220}}),                                                                              graphics={
         Text(
-          extent={{-180,240},{180,280}},
+          extent={{-178,240},{182,280}},
           textString="%name",
           textColor={0,0,255}),
                   Rectangle(
-          extent={{-180,240},{180,-240}},
+          extent={{-180,220},{182,-160}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),

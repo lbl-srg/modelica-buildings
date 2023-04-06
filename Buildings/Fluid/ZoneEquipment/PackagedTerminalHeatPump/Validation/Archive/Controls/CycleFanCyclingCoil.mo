@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive.Controls;
 model CycleFanCyclingCoil
   "Controller for window AC with cycle fan and cycle coil"
 

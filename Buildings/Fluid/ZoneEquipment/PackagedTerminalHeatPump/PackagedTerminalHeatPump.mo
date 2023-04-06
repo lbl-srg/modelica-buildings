@@ -86,7 +86,7 @@ model PackagedTerminalHeatPump
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=datCooCoi.sta[1].nomVal.TEvaIn_nominal)
     "Single speed DX cooling coil"
-    annotation (Placement(transformation(extent={{-50,-8},{-30,12}})));
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Sensors.TemperatureTwoPort TAirCooCoi(redeclare final package Medium =
         MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Cooling coil outlet air temperature sensor"
@@ -129,16 +129,13 @@ equation
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
   connect(vAirMix.port_b, CooCoi.port_a)
-    annotation (Line(points={{-80,0},{-66,0},{-66,2},{-50,2}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-80,0},{-50,0}}, color={0,127,255}));
   connect(CooCoi.port_b, TAirCooCoi.port_a)
-    annotation (Line(points={{-30,2},{-18,2},{-18,0},{-6,0}},
-                                              color={0,127,255}));
+    annotation (Line(points={{-30,0},{-6,0}}, color={0,127,255}));
   connect(TAirCooCoi.port_b, HeaCoi.port_a)
     annotation (Line(points={{14,0},{46,0}}, color={0,127,255}));
   connect(uCooEna, CooCoi.on) annotation (Line(points={{-380,-120},{-74,-120},{
-          -74,10},{-51,10}},
-                           color={255,0,255}));
+          -74,8},{-51,8}}, color={255,0,255}));
   connect(uHeaEna, HeaCoi.on) annotation (Line(points={{-380,-160},{-94,-160},{
           -94,-48},{30,-48},{30,8},{45,8}}, color={255,0,255}));
   connect(uSupHea, SupHeaCoi.u) annotation (Line(points={{-380,-10},{-338,-10},
@@ -146,7 +143,7 @@ equation
   connect(TOut.y, reaScaRep.u) annotation (Line(points={{-239,-40},{-231.5,-40},
           {-231.5,-40},{-226,-40}}, color={0,0,127}));
   connect(reaScaRep.y[1], CooCoi.TOut) annotation (Line(points={{-202,-41},{-62,
-          -41},{-62,5},{-51,5}}, color={0,0,127}));
+          -41},{-62,3},{-51,3}}, color={0,0,127}));
   connect(reaScaRep.y[2], HeaCoi.TOut) annotation (Line(points={{-202,-39},{26,
           -39},{26,3},{45,3}}, color={0,0,127}));
   connect(TAirHeaCoi.port_b, fan.port_a)
@@ -164,5 +161,8 @@ equation
           extent={{-100,200},{100,240}},
           textString="%name",
           textColor={0,0,255})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false)));
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Examples/PackagedTerminalHeatPump.mos"
+        "Simulate and Plot"));
 end PackagedTerminalHeatPump;

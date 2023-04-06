@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.WindowAC.Controls;
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive.Control;
 model CycleFanCyclingCoil
   "Controller for window AC with cycle fan and cycle coil"
 
@@ -53,7 +53,7 @@ model CycleFanCyclingCoil
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
   BaseClasses.CyclingFan conFanCyc(tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
-    annotation (Placement(transformation(extent={{68,-80},{96,-52}})));
+    annotation (Placement(transformation(extent={{72,-80},{100,-52}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="K",
@@ -70,17 +70,16 @@ equation
   connect(TZon, conOpeMod.TZon) annotation (Line(points={{-160,60},{-50,60},{
           -50,70},{-11.4286,70}},
                              color={0,0,127}));
-  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,100},{-60,100},{
-          -60,-54},{66,-54}}, color={255,0,255}));
-  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-60},{-60,-60},{
-          -60,-70},{66,-70}}, color={255,0,255}));
-  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-100},
-          {-60,-100},{-60,-78},{66,-78}}, color={255,0,255}));
-  connect(conFanCyc.yFan, yFan) annotation (Line(points={{98,-70},{120,-70},{
-          120,-100},{160,-100}},
-                               color={255,0,255}));
-  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{98,-62},{110,
-          -62},{110,-60},{160,-60}}, color={0,0,127}));
+  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
+          -54},{70,-54}},     color={255,0,255}));
+  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-60},{-60,-60},{-60,
+          -70},{70,-70}},     color={255,0,255}));
+  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-100},{
+          -60,-100},{-60,-78},{70,-78}},  color={255,0,255}));
+  connect(conFanCyc.yFan, yFan) annotation (Line(points={{102,-70},{120,-70},{120,
+          -100},{160,-100}},   color={255,0,255}));
+  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{102,-62},{110,-62},
+          {110,-60},{160,-60}},      color={0,0,127}));
   connect(conOpeMod.yEna, yCooEna) annotation (Line(points={{11.4286,70},{100,
           70},{100,100},{160,100}},
                                color={255,0,255}));
@@ -92,7 +91,7 @@ equation
   connect(TSup, conOpeMod.TSup) annotation (Line(points={{-160,-140},{-40,-140},
           {-40,60},{-11.4286,60}}, color={0,0,127}));
   connect(conOpeMod.yMod, conFanCyc.heaCooOpe) annotation (Line(points={{11.4286,
-          64.2857},{26,64.2857},{26,-62},{66,-62}},         color={255,0,255}));
+          64.2857},{40,64.2857},{40,-62},{70,-62}},         color={255,0,255}));
   annotation (defaultComponentName="conVarWatConFan",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{180,240}}),
         graphics={Rectangle(

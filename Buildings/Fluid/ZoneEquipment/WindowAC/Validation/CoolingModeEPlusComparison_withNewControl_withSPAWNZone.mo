@@ -80,7 +80,7 @@ model CoolingModeEPlusComparison_withNewControl_withSPAWNZone
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Controls.CycleFanCyclingCoil       conVarWatConFan(tFanEna=60,
-                                                     tCooCoiEna=60)
+                                                     tCoiEna=60)
     annotation (Placement(transformation(extent={{-76,-68},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
     "Availability signal"

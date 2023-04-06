@@ -31,9 +31,9 @@ def main():
     "ZONE1PTHP:Zone Packaged Terminal Heat Pump Electricity Rate [W](TimeStep)",#17
     "ZONE1PTHP:Zone Packaged Terminal Heat Pump Fan Part Load Ratio [](TimeStep)",#18
     "ZONE1PTHP:Zone Packaged Terminal Heat Pump Compressor Part Load Ratio [](TimeStep)",#19
-    "ZONE1PTHPAIRINLETNODE:System Node Temperature [C](TimeStep)",#20
-    "ZONE1PTHPAIRINLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",#21
-    "ZONE1PTHPAIRINLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)",#22
+    "ZONE1PTHPOAMIXEROUTLETNODE:System Node Temperature [C](TimeStep)",#20
+    "ZONE1PTHPOAMIXEROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",#21
+    "ZONE1PTHPOAMIXEROUTLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)",#22
     "ZONE1PTHPAIROUTLETNODE:System Node Temperature [C](TimeStep)",#23
     "ZONE1PTHPAIROUTLETNODE:System Node Mass Flow Rate [kg/s](TimeStep)",#24
     "ZONE1PTHPAIROUTLETNODE:System Node Humidity Ratio [kgWater/kgDryAir](TimeStep)",#25

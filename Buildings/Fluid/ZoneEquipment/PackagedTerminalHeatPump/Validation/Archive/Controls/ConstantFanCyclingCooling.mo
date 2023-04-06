@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive.Controls;
 model ConstantFanCyclingCooling
   "Controller for unit heater system with variable heating rate and fixed speed fan"
 

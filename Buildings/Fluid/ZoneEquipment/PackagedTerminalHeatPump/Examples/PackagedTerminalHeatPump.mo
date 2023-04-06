@@ -1,6 +1,6 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation;
-model HeatingModeSimpleInput
-  "Validation model for heating mode operation of window AC system"
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Examples;
+model PackagedTerminalHeatPump
+  "Example model for heating mode operation of packaged terminal heat pump"
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -47,7 +47,6 @@ model HeatingModeSimpleInput
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())},
       nSta=1) "Heating coil data"
     annotation (Placement(transformation(extent={{60,64},{80,84}})));
-
 
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
@@ -136,11 +135,8 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,140}})),
+            -100},{100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,140}})),
-    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeSimpleInput.mos"
-        "Simulate and Plot"));
-end HeatingModeSimpleInput;
+    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"));
+end PackagedTerminalHeatPump;

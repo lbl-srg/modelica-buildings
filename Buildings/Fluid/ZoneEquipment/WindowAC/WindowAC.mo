@@ -88,7 +88,7 @@ equation
       index=-1,
       extent={{-3,-6},{-3,-6}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TOut.y, sinSpeDX.TConIn) annotation (Line(points={{-239,-40},{60,-40},
+  connect(TOut.y, sinSpeDX.TOut) annotation (Line(points={{-239,-40},{60,-40},
           {60,3},{89,3}},             color={0,0,127}));
   connect(uCooEna, sinSpeDX.on) annotation (Line(points={{-380,-120},{-80,-120},
           {-80,-60},{40,-60},{40,8},{89,8}}, color={255,0,255}));

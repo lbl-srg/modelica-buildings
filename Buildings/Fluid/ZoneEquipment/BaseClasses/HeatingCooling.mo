@@ -26,9 +26,13 @@ model HeatingCooling
       controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
-    "Temperature difference used for enabling cooling and heating mode"
-    annotation(Dialog(tab="Advanced"));
-
+    "Temperature difference used for enabling cooling and heating mode";
+  parameter Real TSupDew(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=273.15 + 12
+    "Supply air temperature limit under which will cause condensation"
+    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
   Modelica.Blocks.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="K",
@@ -75,8 +79,8 @@ model HeatingCooling
     "Find difference between zone temperature and setpoint"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysModCoo(final uLow=-dTHys,
-      final uHigh=0) if not conMod
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysModCoo(final uLow=-dTHys, final
+      uHigh=dTHys) if   not conMod
     "Enable cooling mode when zone temperature is not at setpoint"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
@@ -94,14 +98,15 @@ model HeatingCooling
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   Controls.OBC.CDL.Continuous.Hysteresis hysModHea(final uLow=-dTHys, final
-      uHigh=0) if conMod
+      uHigh=dTHys) if
+                  conMod
     "Enable heating mode when zone temperature is not at setpoint"
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Controls.OBC.CDL.Logical.Not notHea if conMod
     "Pass tru for heating mode signal when hysteresis becomes false"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
-  Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(trueHoldDuration=tCoiEna,
-      falseHoldDuration=0)
+  Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(final trueHoldDuration=0,
+      final falseHoldDuration=0)
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
@@ -109,12 +114,13 @@ model HeatingCooling
     final quantity="ThermodynamicTemperature") "Measured supply temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
         iconTransformation(extent={{-180,-160},{-140,-120}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=273.15 + 15)
+  Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=TSupDew)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Controls.OBC.CDL.Logical.And andTSupLow
     "Enable heating/cooling component only when measured supply temperature is above dew point at thermal comfort level"
     annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
   parameter Modelica.Units.SI.Time tCoiEna "true hold duration";
+
 equation
 
   connect(TSub.y, hysModCoo.u) annotation (Line(points={{-38,-20},{-10,-20},{
@@ -158,8 +164,8 @@ equation
   connect(uFan, andHeaCooEna.u1) annotation (Line(points={{-120,40},{-80,40},{
           -80,0},{38,0}},
                       color={255,0,255}));
-  connect(truFalHol.y, yEna) annotation (Line(points={{92,0},{100,0},{100,0},{
-          120,0}}, color={255,0,255}));
+  connect(truFalHol.y, yEna) annotation (Line(points={{92,0},{120,0}},
+                   color={255,0,255}));
   connect(TSup, greThr.u) annotation (Line(points={{-120,-80},{-90,-80},{-90,
           -70},{-82,-70}}, color={0,0,127}));
   connect(greThr.y, andTSupLow.u2) annotation (Line(points={{-58,-70},{10,-70},

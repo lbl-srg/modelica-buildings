@@ -1,4 +1,4 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation;
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive;
 model HeatingModeEPlusComparison
   "Validation model for heating mode operation of window AC system"
   extends Modelica.Icons.Example;

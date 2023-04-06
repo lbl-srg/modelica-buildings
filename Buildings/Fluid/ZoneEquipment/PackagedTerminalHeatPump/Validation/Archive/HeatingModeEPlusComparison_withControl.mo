@@ -1,6 +1,6 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation;
-model HeatingModeEPlusComparison_withControl_withSPAWNZone
-  "Validation model for heating mode operation of PTHP system"
+within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Archive;
+model HeatingModeEPlusComparison_withControl
+  "Validation model for heating mode operation of PTHP"
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -13,16 +13,16 @@ model HeatingModeEPlusComparison_withControl_withSPAWNZone
     "Time-step used to average out Modelica results for comparison with EPlus results. Same val;ue is also applied to unit delay shift on EPlus power value";
 
   parameter HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-9365,
           COP_nominal=3.5,
           SHR_nominal=0.8,
           m_flow_nominal=1.2*0.56578),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve(
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
           capFunT={0.942587793,0.009543347,0.00068377,-0.011042676,0.000005249,-0.00000972},
           capFunFF={0.8,0.2,0},
           EIRFunT={0.342414409,0.034885008,-0.0006237,0.004977216,0.000437951,-0.000728028},
@@ -42,6 +42,9 @@ model HeatingModeEPlusComparison_withControl_withSPAWNZone
         Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data.SizingData
+    PTHPSizing "Sizing parameters for PTHP"
+    annotation (Placement(transformation(extent={{60,72},{80,92}})));
   Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.PackagedTerminalHeatPump
     PTHP(
     redeclare package MediumA = MediumA,
@@ -83,7 +86,7 @@ model HeatingModeEPlusComparison_withControl_withSPAWNZone
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis fanProOn(uLow=0.04, uHigh=
         0.05) "Check if fan is proven on based off of measured fan speed"
-    annotation (Placement(transformation(extent={{30,6},{50,26}})));
+    annotation (Placement(transformation(extent={{34,6},{54,26}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
@@ -92,11 +95,12 @@ model HeatingModeEPlusComparison_withControl_withSPAWNZone
     redeclare package Medium = MediumA,
     T_start=303.15,
     m_flow_nominal=PTHPSizing.mAir_flow_nominal,
-    V=113.27) annotation (Placement(transformation(extent={{-8,60},{12,80}})));
+    V=113.27,
+    nPorts=3) annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=100)
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Sensors.Temperature senTem(redeclare package Medium = MediumA)
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+    annotation (Placement(transformation(extent={{30,50},{50,70}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=PTHP.fan.P + PTHP.SupHeaCoi.P)
     annotation (Placement(transformation(extent={{32,-70},{52,-50}})));
   Modelica.Blocks.Math.Mean powMod(f=1/averagingTimestep)
@@ -104,18 +108,11 @@ model HeatingModeEPlusComparison_withControl_withSPAWNZone
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay powEP(samplePeriod=
         averagingTimestep)
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.idf"),
-    epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
-    annotation (Placement(transformation(extent={{30,110},{50,130}})));
 
-  ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
-    zoneName="West Zone",
-    redeclare package Medium = MediumA,
-    nPorts=3) annotation (Placement(transformation(extent={{60,22},{100,62}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[3](k=fill(0, 3))
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
+  HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    annotation (Placement(transformation(extent={{-8,70},{12,90}})));
 equation
   connect(damPos.y, PTHP.uEco) annotation (Line(points={{-98,0},{-40,0},{-40,18},
           {-22,18}}, color={0,0,127}));
@@ -133,8 +130,8 @@ equation
   connect(fanOpeMod.y, conVarWatConFan.fanOpeMod) annotation (Line(points={{
           -108,-80},{-100,-80},{-100,-64},{-78,-64}}, color={255,0,255}));
   connect(PTHP.yFan_actual, fanProOn.u)
-    annotation (Line(points={{21,16},{28,16}}, color={0,0,127}));
-  connect(fanProOn.y, conVarWatConFan.uFan) annotation (Line(points={{52,16},{
+    annotation (Line(points={{21,16},{32,16}}, color={0,0,127}));
+  connect(fanProOn.y, conVarWatConFan.uFan) annotation (Line(points={{56,16},{
           100,16},{100,-80},{-86,-80},{-86,-24},{-78,-24}}, color={255,0,255}));
   connect(conVarWatConFan.yFan, booToRea.u)
     annotation (Line(points={{-38,-64},{-32,-64}}, color={255,0,255}));
@@ -154,25 +151,26 @@ equation
     annotation (Line(points={{53,-60},{68,-60}}, color={0,0,127}));
   connect(datRea.y[3], powEP.u) annotation (Line(points={{-99,40},{-94,40},{-94,
           58},{-130,58},{-130,70},{-122,70}}, color={0,0,127}));
-  connect(building.weaBus, PTHP.weaBus) annotation (Line(
-      points={{50,120},{54,120},{54,88},{-15.8,88},{-15.8,18}},
-      color={255,204,51},
-      thickness=0.5));
   connect(K2C[2].y, conVarWatConFan.TCooSet) annotation (Line(points={{-58,80},{
           -44,80},{-44,-10},{-96,-10},{-96,-40},{-78,-40}}, color={0,0,127}));
-  connect(PTHP.port_Air_a2, zon.ports[1]) annotation (Line(points={{20,4},{
-          77.3333,4},{77.3333,22.9}}, color={0,127,255}));
-  connect(PTHP.port_Air_b2, zon.ports[2])
-    annotation (Line(points={{20,-4},{80,-4},{80,22.9}}, color={0,127,255}));
-  connect(con1.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,52},
-          {58,52}}, color={0,0,127}));
-  connect(zon.TAir, conVarWatConFan.TZon) annotation (Line(points={{101,60},{110,
-          60},{110,-90},{-90,-90},{-90,-32},{-78,-32}}, color={0,0,127}));
-  connect(senTem.port, zon.ports[3]) annotation (Line(points={{30,60},{56,60},{
-          56,22.9},{82.6667,22.9}},
-                                 color={0,127,255}));
   connect(PTHP.TAirSup, conVarWatConFan.TSup) annotation (Line(points={{21,10},
           {30,10},{30,-86},{-84,-86},{-84,-69},{-78,-69}}, color={0,0,127}));
+  connect(PTHP.port_Air_a2, vol.ports[1]) annotation (Line(points={{20,4},{
+          87.3333,4},{87.3333,40}}, color={0,127,255}));
+  connect(PTHP.port_Air_b2, vol.ports[2])
+    annotation (Line(points={{20,-4},{90,-4},{90,40}}, color={0,127,255}));
+  connect(senTem.port, vol.ports[3]) annotation (Line(points={{40,50},{40,40},{
+          92.6667,40}}, color={0,127,255}));
+  connect(senTem.T, conVarWatConFan.TZon) annotation (Line(points={{47,60},{60,
+          60},{60,-94},{-92,-94},{-92,-32},{-78,-32}}, color={0,0,127}));
+  connect(weaDat.weaBus, PTHP.weaBus) annotation (Line(
+      points={{-60,120},{-15.8,120},{-15.8,18}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(preHeaFlo.port, vol.heatPort) annotation (Line(points={{12,80},{54,80},
+          {54,50},{80,50}}, color={191,0,0}));
+  connect(datRea.y[3], preHeaFlo.Q_flow) annotation (Line(points={{-99,40},{-94,
+          40},{-94,100},{-20,100},{-20,80},{-8,80}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},
             {120,140}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{120,
@@ -182,6 +180,6 @@ equation
       StopTime=18230400,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeEPlusComparison_withControl_withSPAWNZone.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeEPlusComparison_withControl.mos"
         "Simulate and Plot"));
-end HeatingModeEPlusComparison_withControl_withSPAWNZone;
+end HeatingModeEPlusComparison_withControl;
