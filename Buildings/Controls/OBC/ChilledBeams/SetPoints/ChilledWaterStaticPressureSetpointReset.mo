@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block ChilledWaterStaticPressureSetpointReset
   "Sequence to generate static pressure setpoint for chilled water loop"
 
-  parameter Integer nVal = 3
+  parameter Integer nVal(min=1)
     "Number of chilled water control valves on chilled beam manifolds";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Number of chilled water pumps in chilled beam system";
 
   parameter Real valPosLowClo(

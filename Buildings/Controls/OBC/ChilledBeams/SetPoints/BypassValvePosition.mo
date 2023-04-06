@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block BypassValvePosition
   "Block with sequences for calculating bypass valve position"
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Number of pumps in the chilled water loop";
 
   parameter Real minPumSpe(

@@ -2,11 +2,11 @@ within Buildings.Controls.OBC.ChilledBeams.System;
 block Controller
   "Main chilled beam system controller"
 
-  parameter Integer nPum=2
+  parameter Integer nPum(min=1)
     "Number of chilled water pumps"
     annotation (Dialog(group="System parameters"));
 
-  parameter Integer nVal = 3
+  parameter Integer nVal(min=1)
     "Total number of chilled water control valves on chilled beams"
     annotation (Dialog(group="System parameters"));
 
@@ -373,8 +373,8 @@ protected
 equation
   connect(chiWatStaPreSetRes.yStaPreSetPoi, secPumCon.dpChiWatSet) annotation (
       Line(points={{-18,-60},{-10,-60},{-10,22},{-2,22}}, color={0,0,127}));
-  connect(uPumSta, bypValPos.uPumSta) annotation (Line(points={{-120,60},{-50,
-          60},{-50,-26},{38,-26}},
+  connect(uPumSta, bypValPos.uPumSta) annotation (Line(points={{-120,60},{-50,60},
+          {-50,-24},{38,-24}},
                             color={255,0,255}));
   connect(uPumSta, secPumCon.uChiWatPum) annotation (Line(points={{-120,60},{
           -50,60},{-50,34},{-2,34}}, color={255,0,255}));
@@ -386,7 +386,7 @@ equation
           {30,28},{30,-30},{38,-30}},
                                     color={0,0,127}));
   connect(dPChiWatLoo, bypValPos.dpChiWatLoo) annotation (Line(points={{-120,0},
-          {-90,0},{-90,-34},{38,-34}},color={0,0,127}));
+          {-90,0},{-90,-36},{38,-36}},color={0,0,127}));
   connect(uValPos, secPumCon.uValPos) annotation (Line(points={{-120,-60},{-60,
           -60},{-60,30},{-2,30}},              color={0,0,127}));
   connect(uValPos, chiWatStaPreSetRes.uValPos) annotation (Line(points={{-120,
