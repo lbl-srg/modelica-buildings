@@ -274,7 +274,6 @@ annotation (
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          fontSize=12,
           textString="Output true if u_s has passed
 the feedback delay"),
         Text(
@@ -283,16 +282,14 @@ the feedback delay"),
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if the inputs are different",
-          fontSize=12),
+          textString="Check if the inputs are different"),
         Text(
           extent={{-252,236},{-130,224}},
           textColor={0,0,255},
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
           horizontalAlignment=TextAlignment.Left,
-          textString="Check if there is a stable measured input u_m",
-          fontSize=12)}),
+          textString="Check if there is a stable measured input u_m")}),
     Icon(
       coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
