@@ -60,35 +60,38 @@ model MultiStageCooling
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
     datCoi(
       nSta=4,
-      sta={Data.Generic.BaseClasses.Stage(
+      sta={Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-12000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=0.9),
-        perCur=PerformanceCurves.Curve_I()),Data.Generic.BaseClasses.Stage(
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-18000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.2),
-        perCur=PerformanceCurves.Curve_I()),Data.Generic.BaseClasses.Stage(
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
-        perCur=PerformanceCurves.Curve_II()),Data.Generic.BaseClasses.Stage(
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II()),
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-30000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.8),
-        perCur=PerformanceCurves.Curve_III())})
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

@@ -38,7 +38,7 @@ equation
           40}}, color={0,0,127}));
   connect(samPLR.y, gaiTim.u)
     annotation (Line(points={{12,40},{38,40}}, color={0,0,127}));
-  annotation (experiment(Tolerance=1e-6, stopTime=7200),Documentation(info="<html>
+  annotation (experiment(Tolerance=1e-6),Documentation(info="<html>
 <p>
 This model validates 
 <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.BaseClasses.PLRToPulse\">
