@@ -66,7 +66,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
-    "Gnerate True signal for occupied mode and False otherwise"
+    "Generate True signal for occupied mode and False otherwise"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
