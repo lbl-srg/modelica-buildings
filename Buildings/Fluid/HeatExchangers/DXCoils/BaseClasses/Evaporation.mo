@@ -543,8 +543,8 @@ This is implemented by replacing for <i>|m&#775;<sub>a</sub>(t)| &lt; &delta;</i
 the equation for the evaporation mass flow rate by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- m&#775;<sub>wat</sub>(t) = C m m&#775;<sub>a</sub><sup>2</sup>(t)
- (x<sub>wb,nom</sub>-x<sub>nom</sub>),
+ m&#775;<sub>wat</sub>(t) = -C m m&#775;<sub>a</sub><sup>2</sup>(t)
+ (x<sub>nom</sub>-x<sub>wb,nom</sub>),
 </p>
 <p>
 where
