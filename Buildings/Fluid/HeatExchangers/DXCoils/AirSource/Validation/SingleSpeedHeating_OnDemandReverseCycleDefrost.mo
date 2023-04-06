@@ -17,12 +17,12 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
     datCoi(
-      activate_CooCoi=false,
+    is_CooCoi=false,
       sta={Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
+          is_CooCoi=false,
           Q_flow_nominal=15000,
           COP_nominal=2.75,
           SHR_nominal=1,
@@ -110,13 +110,12 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TOutEPlu(
-    final samplePeriod=3600,
-    final y_start=29.34948133)
+    final samplePeriod=3600)
     "Outlet temperature from EnergyPlus"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay XConOutEPlu(
-    final samplePeriod=1)
+    final samplePeriod=3600)
     "Outlet air humidity ratio from EnergyPlus"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
@@ -140,7 +139,7 @@ model SingleSpeedHeating_OnDemandReverseCycleDefrost
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay PDefEPlu(
-    final samplePeriod=1)
+    final samplePeriod=3600)
     "Defrost power from EnergyPlus"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 

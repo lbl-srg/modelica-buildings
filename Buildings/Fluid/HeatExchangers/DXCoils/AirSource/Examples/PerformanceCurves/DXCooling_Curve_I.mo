@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves;
-record Curve_I "Performance curve I"
+record DXCooling_Curve_I "DX cooling coil performance curve I"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
     capFunT={0.942587793,0.009543347,0.000683770,-0.011042676,0.000005249,
@@ -24,6 +24,10 @@ It has been obtained from the EnergyPlus 7.1 example file
 revisions="<html>
 <ul>
 <li>
+April 4, 2023, by Karthik Devaprasad:<br/>
+Added prefix <code>DXCooling_</code> to record class name.
+</li>
+<li>
 April 9, 2021, by Michael Wetter:<br/>
 Corrected placement of <code>each</code> keyword.<br/>
 See <a href=\"https://github.com/lbl-srg/modelica-buildings/pull/2440\">Buildings, PR #2440</a>.
@@ -38,4 +42,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Curve_I;
+end DXCooling_Curve_I;

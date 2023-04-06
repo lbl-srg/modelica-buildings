@@ -88,6 +88,13 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+Changed instance <code>cooCap</code> with class <code>CoolingCapacityAirCooled</code>
+to instance <code>coiCap</code> with class 
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
+</li>
+<li>
 April 13, 2017, by Michael Wetter:<br/>
 Removed connectors that are no longer needed.
 </li>

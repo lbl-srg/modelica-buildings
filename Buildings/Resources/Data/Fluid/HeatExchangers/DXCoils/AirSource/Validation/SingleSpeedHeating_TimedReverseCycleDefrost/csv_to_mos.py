@@ -36,7 +36,7 @@ def main():
     output_list = output_list,
     dat_file_name=dat_fil,
     step_size=3600,
-    final_time=7776000)
+    final_time=172800)
 
 if __name__ == '__main__':
     main()

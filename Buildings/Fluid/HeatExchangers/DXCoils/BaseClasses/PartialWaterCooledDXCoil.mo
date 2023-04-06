@@ -354,6 +354,12 @@ for an explanation of the model.
 </html>", revisions="<html>
 <ul>
 <li>
+April 5 , 2023, by Xing Lu:<br/>
+Changed instance name <code>dxCoo</code> in instance <code>eva</code> to 
+<code>dxCoi</code>.<br/>
+Connect statements with references to <code>TConIn</code> changed to <code>TOut</code>.
+</li>
+<li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and
 added assertion for correct combination of energy and mass dynamics.<br/>

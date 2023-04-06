@@ -40,10 +40,11 @@ protected
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Output a true signal from start of currrent timestep, until the required run-time is achieved"
+    "Output a true signal from start of currrent timestep, until the required 
+    run-time is achieved"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
     "Pre block for looping back latch reset signal"
     annotation (Placement(transformation(extent={{50,20},{70,40}})));
 
@@ -55,7 +56,8 @@ protected
     "Check if the latch signal is being reset"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=1e-6)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    final delayTime=1e-6)
     "Delay the enable sugnal by 1e-6 seconds, which is also the duration for 
     which the pulse signal is held. Required when PLR input is zero"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
@@ -71,8 +73,10 @@ equation
     annotation (Line(points={{2,40},{10,40},{10,42},{18,42}}, color={0,0,127}));
   connect(lat.y, tim.u)
     annotation (Line(points={{-28,40},{-22,40}}, color={255,0,255}));
-  connect(les.y, pre.u)
-    annotation (Line(points={{42,50},{46,50},{46,30},{48,30}}, color={255,0,255}));                                                                                                                          connect(pre.y, lat.clr) annotation (Line(points={{72,30},{76,30},{76,10},{-60,          10},{-60,34},{-52,34}}, color={255,0,255}));
+  connect(les.y, pre1.u) annotation (Line(points={{42,50},{46,50},{46,30},{48,
+          30}}, color={255,0,255}));
+  connect(pre1.y, lat.clr) annotation (Line(points={{72,30},{76,30},{76,10},{-60,
+          10},{-60,34},{-52,34}}, color={255,0,255}));
   connect(booPul.y, andRes.u1)
     annotation (Line(points={{-38,-40},{-22,-40}}, color={255,0,255}));
   connect(andRes.y, triSam.trigger)
@@ -84,9 +88,8 @@ equation
   connect(notRes.y, andRes.u2)
     annotation (Line(points={{-38,-70},{-30,-70},{-30,-48},{-22,-48}},
       color={255,0,255}));
-  connect(pre.y, notRes.u)
-    annotation (Line(points={{72,30},{76,30},{76,-90},{-70,-90},{-70,-70},{-62,-70}},
-      color={255,0,255}));
+  connect(pre1.y, notRes.u) annotation (Line(points={{72,30},{76,30},{76,-90},{
+          -70,-90},{-70,-70},{-62,-70}}, color={255,0,255}));
   connect(lat.y, truDel.u)
     annotation (Line(points={{-28,40},{-26,40},{-26,-10},{38,-10}},
       color={255,0,255}));
@@ -106,11 +109,11 @@ annotation (Icon(
   coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
-This block calculates the time duration for which the DX coil needs to be kept on
+This block calculates the time duration for which the DX coil needs to be kept enabled
 based on the part-load ratio input signal <code>uPLR</code> for the timestep 
 <code>tPer</code>, and then generates an output enable signal <code>yEna</code> 
 for that duration. Once the component has been kept enabled for the calculated 
-duration, the component is disabled.
+duration, the component is disabled till the start of the next timestep.
 </p>
 </html>",
 revisions="<html>

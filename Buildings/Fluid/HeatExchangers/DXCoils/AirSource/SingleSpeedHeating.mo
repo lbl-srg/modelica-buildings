@@ -1,28 +1,41 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
-model SingleSpeedHeating "Single speed DX heating coil"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil(
-    dxCoi(final variableSpeedCoil=false, redeclare
-        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
-        coiCap),
+model SingleSpeedHeating
+  "Single speed DX heating coil"
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil(
+    dxCoi(final variableSpeedCoil=false,
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
+      coiCap),
     computeReevaporation=false,
     use_mCon_flow=false);
-  Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
+
+  Modelica.Blocks.Sources.Constant speRat(
+    final k=1)
+    "Speed ratio 1 constant source"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
+
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
-  Sensors.MassFraction senMasFra(redeclare package Medium = Medium)
+
+  Buildings.Fluid.Sensors.MassFraction senMasFra(
+    redeclare package Medium = Medium)
+    "Mass fraction sensor for detecting humidity ratio of inlet air"
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
-  Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
 protected
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaOn
+    "Convert Boolean enable signal to Real value 1, disable to Real value 0"
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
-    final integerFalse=0) "On/off switch"
+    final integerFalse=0)
+    "On/off switch"
     annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
+
 initial equation
   assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
+
 equation
   connect(speRat.y,dxCoi.speRat)  annotation (Line(
       points={{-43.4,64},{-40,64},{-40,59.6},{-21,59.6}},
@@ -42,13 +55,19 @@ equation
           0},{-100,0}}, color={0,127,255}));
   connect(senMasFra.X, defCap.XConIn) annotation (Line(points={{-39,16},{26,16},
           {26,-54},{59,-54}}, color={0,0,127}));
-  connect(on, booToRea.u) annotation (Line(points={{-110,80},{-94,80},{-94,-90},
+  connect(on, booToReaOn.u) annotation (Line(points={{-110,80},{-94,80},{-94,-90},
           {-62,-90}}, color={255,0,255}));
-  connect(booToRea.y, defCap.uSpe) annotation (Line(points={{-38,-90},{56,-90},{
-          56,-38},{59,-38}},  color={0,0,127}));
-  annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
+  connect(booToReaOn.y, defCap.uSpe) annotation (Line(points={{-38,-90},{56,-90},
+          {56,-38},{59,-38}}, color={0,0,127}));
+  annotation (defaultComponentName="sinSpeDXHea", Documentation(info="<html>
 <p>
 This model can be used to simulate an air-source DX heating coil with single speed compressor.
+</p>
+<p>
+See
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
+Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
+for an explanation of the model.
 </p>
 </html>",
 revisions="<html>

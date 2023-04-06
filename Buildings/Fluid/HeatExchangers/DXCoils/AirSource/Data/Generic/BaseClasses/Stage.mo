@@ -2,16 +2,16 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses
 record Stage "Generic data record for a stage of a air source DX coil"
   extends Modelica.Icons.Record;
 
+  parameter Boolean is_CooCoi = true
+    "=false, for heating coil";
+
   parameter Modelica.Units.SI.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
-
-  parameter Boolean activate_CooCoi = true
-    "=false, for heating coil";
 
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
     nomVal(
-    final activate_CooCoi=activate_CooCoi)
+    final is_CooCoi=is_CooCoi)
     "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -25,13 +25,20 @@ record Stage "Generic data record for a stage of a air source DX coil"
 annotation (defaultComponentName="per",
               preferredView="info",
   Documentation(info="<html>
-<p>This is the base record for air source DX cooling coil model at a compressor speed.
+  <p>This is the base record for air source DX coil model at a particular compressor 
+  speed.
 See the information section of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil</a> for a description of the data. </p>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a> for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 4, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+Added Boolean parameter <code>is_CooCoi</code> and propogated it in instance 
+<code>nomVal</code>.<br/>
+Updated information section.
+</li>
 <li>
 September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.

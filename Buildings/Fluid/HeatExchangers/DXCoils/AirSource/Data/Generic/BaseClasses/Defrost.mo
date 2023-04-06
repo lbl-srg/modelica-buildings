@@ -14,7 +14,8 @@ record Defrost
   parameter Real tDefRun(
     final unit="1",
     displayUnit="1")=0.5
-    "Time period fraction for which defrost cycle is run";
+    "Time period fraction for which defrost cycle is run"
+    annotation(Dialog(enable = defTri==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=273.65
     "Maximum temperature at which defrost operation is activated";
@@ -29,6 +30,7 @@ record Defrost
   parameter Real  defEIRFunT[6] = fill(0,6)
     "Biquadratic coefficients for defrost capacity function of temperature"
     annotation (Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.reverseCycle));
+
   parameter Real PLFraFunPLR[:] = {1}
     "Quadratic/cubic equation for part load fraction as a function of part-load ratio";
 
@@ -39,19 +41,15 @@ air source DX heating coils.
 </p>
 <p>
  See the information section of
- <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil\">
- Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil</a>
+ <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil\">
+ Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil</a>
  for a description of the data.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 25, 2012 by Michael Wetter:<br/>
-Revised documentation.
-</li>
-<li>
-August 15, 2012 by Kaustubh Phalak:<br/>
+April 4, 2023 by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

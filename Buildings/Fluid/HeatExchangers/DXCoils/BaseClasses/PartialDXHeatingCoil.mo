@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXHeatingCoil "Partial model for DX heating coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    final activate_CooCoi=false,
+    final is_CooCoi=false,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dxCoi(
       redeclare package Medium = Medium),
-    datCoi(final activate_CooCoi=false));
+    datCoi(final is_CooCoi=false));
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
     "Record for defrost data";
@@ -47,7 +47,7 @@ equation
           {-21,57}}, color={0,0,127}));
   connect(TOut, defTimFra.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,
           -38},{29,-38}}, color={0,0,127}));
-  connect(defTimFra.tFracDef, defCap.tFracDef) annotation (Line(points={{51,-36},
+  connect(defTimFra.tDefFra, defCap.tDefFra) annotation (Line(points={{51,-36},
           {54.5,-36},{54.5,-41},{59,-41}}, color={0,0,127}));
   connect(defTimFra.heaCapMul, defCap.heaCapMul) annotation (Line(points={{51,
           -40},{54,-40},{54,-44},{59,-44}}, color={0,0,127}));

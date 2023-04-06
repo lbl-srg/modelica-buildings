@@ -65,9 +65,12 @@ revisions="<html>
 <ul>
 <li>
 April 3, 2023 by Karthik Devaprasad and Xing Lu:<br/>
-Updated class name from CoolingCapacityAirCooled to CoilCapacityAirSource, since
+Updated class name from <code>CoolingCapacityAirCooled</code> to <code>CoilCapacityAirSource</code>, since
 the class is used in both heating coil and cooling coil calculations for air-source
-DX coils.
+DX coils.<br/>
+Updated class being extended from <code>PartialCoolingCapacity</code> to 
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity</a>.
 </li>
 <li>
 February 17, 2017 by Yangyang Fu:<br/>

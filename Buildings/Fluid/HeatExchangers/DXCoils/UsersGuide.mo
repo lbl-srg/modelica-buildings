@@ -4,10 +4,10 @@ package UsersGuide "User's Guide"
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models for direct evaporation cooling coils (DX coils).
+This package contains models for direct evaporation (DX) cooling and heating coils.
 </p>
 <p>
-The following six DX coil models are available:
+The following seven DX coil models are available:
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves;
-record DXHeating_DefrostCurve "Defrost curve DX heating coil"
+record DXHeating_DefrostCurve "DX heating coil defrost curve"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost(
     defEIRFunT={0.9135970355,0.0127860478,0.0000527533,-0.0005917719,0.000136017,

@@ -400,6 +400,11 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu:<br/>
+Changed class name from <code>PartialCoolingCapacity</code> to
+<code>PartialCoilCapacity</code>.
+</li>
+<li>
 November 8, 2022, by Michael Wetter:<br/>
 Corrected calculation of performance which used the wrong upper bound.<br/>
 This is for
