@@ -1,5 +1,5 @@
-within Buildings.Experimental.DHC.Plants.Combined.Validation;
-model AllElectricCWStorageLoads
+within Buildings.Experimental.DHC.Plants.Combined.Examples;
+model AllElectricCWStorage
   "Validation of all-electric plant model with buildings loads"
   extends Modelica.Icons.Example;
 
@@ -141,8 +141,6 @@ model AllElectricCWStorageLoads
       y(final unit="K", displayUnit="degC"))
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-190,40},{-170,60}})));
-  Modelica.Blocks.Sources.BooleanConstant ena "Always enabled"
-    annotation (Placement(transformation(extent={{-220,80},{-200,100}})));
   Buildings.Controls.OBC.CDL.Logical.Not
                                onPla "On signal for the plant"
     annotation (Placement(transformation(extent={{-64,146},{-44,166}})));
@@ -248,25 +246,21 @@ equation
           {30,-64},{30,-46},{-40,-46},{-40,-4},{-30,-4}}, color={0,127,255}));
   annotation (
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Validation/AllElectricCWStorageLoads.mos"
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Examples/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StopTime=31536000,
-      Interval=25920000,
+      StartTime=4320000,
+      StopTime=5184000,
       Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      __Dymola_Algorithm="Radau"),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
     Documentation(info="<html>
 <p>
-This model validates
+This model uses
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage\">
 Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage</a>
-over a four-day simulation period where the load profile is characterized by
-high cooling loads and low heating loads during the first day,
-concomitant high cooling and heating loads during the second day,
-low cooling loads and high heating loads during the third day,
-and no cooling loads (cooling disabled) and high heating loads 
-during the last day. 
+to provide heating and cooling to a building with heating and cooling
+loads provided as time series.
 </p>
 </html>"));
-end AllElectricCWStorageLoads;
+end AllElectricCWStorage;
