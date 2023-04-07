@@ -10,7 +10,8 @@ model AllElectricCWStorage
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Medium in cooler circuit";
 
-  parameter String filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"
+  parameter String filNam[2]={"modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos",
+                              "modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/MediumOffice-90.1-2010-5A.mos"}
     "Path to file with timeseries loads";
   parameter Modelica.Units.SI.Temperature TSetDisSupHea = 273.15+60 "District heating supply temperature set point";
   parameter Modelica.Units.SI.Temperature TSetDisSupCoo = 273.15+6 "District cooling supply temperature set point";
@@ -21,7 +22,7 @@ model AllElectricCWStorage
       capFunT={0.0387084662, 0.2305017927, 0.0004779504, 0.0178244359, -8.48808e-05, -0.0032406711},
       EIRFunPLR={0.4304252832, -0.0144718912, 5.12039e-05, -0.7562386674, 0.5661683373,
         0.0406987748, 3.0278e-06, -0.3413411197, -0.000469572, 0.0055009208},
-    QEva_flow_nominal=loaCoo.QCoo_flow_nominal/2,
+    QEva_flow_nominal=sum(loaCoo.QCoo_flow_nominal)/pla.nChi,
       COP_nominal=2.5,
     mEva_flow_nominal=-datChi.QEva_flow_nominal/5/4186,
       mCon_flow_nominal=-datChi.QEva_flow_nominal * (1 + 1/datChi.COP_nominal) / 10 / 4186,
@@ -49,7 +50,7 @@ model AllElectricCWStorage
     hea(
       mLoa_flow=datHeaPum.hea.Q_flow/10/4186,
       mSou_flow=1E-4*datHeaPum.hea.Q_flow,
-      Q_flow=loaHea.QHea_flow_nominal/2,
+      Q_flow=sum(loaHea.QHea_flow_nominal)/pla.nHeaPum,
       P=datHeaPum.hea.Q_flow/2.2,
       coeQ={-5.64420084,1.95212447,9.96663913,0.23316322,-5.64420084},
       coeP={-3.96682255,6.8419453,1.99606939,0.01393387,-3.96682255},
@@ -124,21 +125,19 @@ model AllElectricCWStorage
         rotation=0,
         origin={-210,120})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet(k=pla.TChiWatRet_nominal,
-              y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet[2](each k=pla.TChiWatRet_nominal)
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-190,-110},{-170,-90}})));
-  Loads.Heating.BuildingTimeSeriesWithETS loaHea(THeaWatSup_nominal=pla.THeaWatSup_nominal,
+  Loads.Heating.BuildingTimeSeriesWithETS loaHea[2](each THeaWatSup_nominal=pla.THeaWatSup_nominal,
       filNam=filNam) "Building heating load"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
-  Loads.Cooling.BuildingTimeSeriesWithETS loaCoo(
-      TChiWatSup_nominal=pla.TChiWatSup_nominal,
-      filNam=filNam,
-      ets(dpCheVal_nominal=120000),
-      bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
+  Loads.Cooling.BuildingTimeSeriesWithETS loaCoo[2](
+    each TChiWatSup_nominal=pla.TChiWatSup_nominal,
+    filNam=filNam,
+    each ets(dpCheVal_nominal=120000),
+    each bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
     annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet(k=pla.THeaWatRet_nominal,
-      y(final unit="K", displayUnit="degC"))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet[2](each k=pla.THeaWatRet_nominal)
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-190,40},{-170,60}})));
   Buildings.Controls.OBC.CDL.Logical.Not
@@ -147,10 +146,10 @@ model AllElectricCWStorage
   Buildings.Controls.OBC.CDL.Logical.Timer
                                  tim(t=3600)
     annotation (Placement(transformation(extent={{-104,154},{-84,174}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold offCoo(t=1e-4)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold offHea(t=1e-4)
     "Threshold comparison to disable the plant"
     annotation (Placement(transformation(extent={{-144,154},{-124,174}})));
-  Modelica.Blocks.Math.Gain norQFloHea(k=1/loaHea.QHea_flow_nominal)
+  Modelica.Blocks.Math.Gain norQFloHea(k=1/sum(loaHea.QHea_flow_nominal))
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{-184,154},{-164,174}})));
   Buildings.Controls.OBC.CDL.Logical.Not
@@ -163,27 +162,35 @@ model AllElectricCWStorage
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold offCoo1(t=1e-4)
     "Threshold comparison to disable the plant"
     annotation (Placement(transformation(extent={{-106,-190},{-86,-170}})));
-  Modelica.Blocks.Math.Gain norQFloCoo(k=1/loaCoo.QCoo_flow_nominal)
+  Modelica.Blocks.Math.Gain norQFloCoo(k=1/sum(loaCoo.QCoo_flow_nominal))
     "Normalized Q_flow"
     annotation (Placement(transformation(extent={{-146,-190},{-126,-170}})));
   Networks.Distribution2Pipe disHea(
     redeclare final package Medium = Medium,
-    nCon=1,
+    nCon=2,
     allowFlowReversal=false,
-    mDis_flow_nominal=loaHea.mBui_flow_nominal,
-    mCon_flow_nominal={loaHea.mBui_flow_nominal},
-    dpDis_nominal(displayUnit="Pa") = {200000})
+    mDis_flow_nominal=sum(loaHea.mBui_flow_nominal),
+    mCon_flow_nominal={loaHea[1].mBui_flow_nominal,loaHea[2].mBui_flow_nominal},
+    dpDis_nominal(displayUnit="Pa") = {200000,100000})
     "Distribution network for district heating system"
     annotation (Placement(transformation(extent={{20,62},{-20,82}})));
+
   Networks.Distribution2Pipe disCoo(
     redeclare final package Medium = Medium,
-    nCon=1,
+    nCon=2,
     allowFlowReversal=false,
-    mDis_flow_nominal=loaCoo.mBui_flow_nominal,
-    mCon_flow_nominal={loaCoo.mBui_flow_nominal},
-    dpDis_nominal(displayUnit="Pa") = {20e4})
+    mDis_flow_nominal=sum(loaCoo.mBui_flow_nominal),
+    mCon_flow_nominal={loaCoo[1].mBui_flow_nominal,loaCoo[2].mBui_flow_nominal},
+    dpDis_nominal(displayUnit="Pa") = {20e4,10e4})
     "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-60},{-20,-80}})));
+
+  Modelica.Blocks.Math.Sum QTotHea_flow(nin=2)
+    "Total heating flow rate for all buildings "
+    annotation (Placement(transformation(extent={{-60,120},{-80,140}})));
+  Modelica.Blocks.Math.Sum QTotCoo_flow(nin=2)
+    "Total cooling flow rate for all buildings "
+    annotation (Placement(transformation(extent={{-82,-150},{-102,-130}})));
 equation
   connect(TChiWatSupSet.y, pla.TChiWatSupSet) annotation (Line(points={{-198,20},
           {-34,20}},                   color={0,0,127}));
@@ -198,23 +205,14 @@ equation
       points={{-200,120},{-100,120},{-100,40},{0,40},{0,30}},
       color={255,204,51},
       thickness=0.5));
-  connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
-          {16,-100},{16,-113},{11,-113}},
-                                        color={0,0,127}));
-  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-42,
-          50},{-42,126},{16,126},{16,117},{11,117}},
-                                                 color={0,0,127}));
-  connect(norQFloHea.y, offCoo.u)
+  connect(norQFloHea.y,offHea. u)
     annotation (Line(points={{-163,164},{-146,164}}, color={0,0,127}));
-  connect(offCoo.y, tim.u)
+  connect(offHea.y, tim.u)
     annotation (Line(points={{-122,164},{-106,164}}, color={255,0,255}));
   connect(tim.passed, onPla.u)
     annotation (Line(points={{-82,156},{-66,156}}, color={255,0,255}));
   connect(onPla.y, pla.u1Hea) annotation (Line(points={{-42,156},{-38,156},{-38,
           24},{-34,24}},                     color={255,0,255}));
-  connect(loaHea.QHea_flow, norQFloHea.u) annotation (Line(points={{-5,98},{-4,98},
-          {-4,94},{-20,94},{-20,130},{-192,130},{-192,164},{-186,164}}, color={0,
-          0,127}));
   connect(tim1.passed, onPla1.u)
     annotation (Line(points={{-44,-188},{-40,-188},{-40,-190},{-36,-190},{-36,-188},
           {-28,-188}},                               color={255,0,255}));
@@ -224,26 +222,36 @@ equation
   connect(norQFloCoo.y, offCoo1.u)
     annotation (Line(points={{-125,-180},{-120,-180},{-120,-182},{-116,-182},{-116,
           -180},{-108,-180}},                          color={0,0,127}));
-  connect(loaCoo.QCoo_flow, norQFloCoo.u) annotation (Line(points={{-7,-132},{-7,
-          -164},{-156,-164},{-156,-180},{-148,-180}},          color={0,0,127}));
   connect(onPla1.y, pla.u1Coo) annotation (Line(points={{-4,-188},{8,-188},{8,-150},
           {-54,-150},{-54,28},{-34,28}}, color={255,0,255}));
   connect(pla.port_bSerHea, disHea.port_aDisSup) annotation (Line(points={{30,0},
           {40,0},{40,72},{20,72}}, color={0,127,255}));
   connect(disHea.port_bDisRet, pla.port_aSerHea) annotation (Line(points={{20,66},
           {30,66},{30,50},{-40,50},{-40,0},{-30,0}}, color={0,127,255}));
-  connect(disHea.ports_aCon[1], loaHea.port_bSerHea) annotation (Line(points={{-12,
-          82},{-12,90},{-30,90},{-30,106},{-10,106}}, color={0,127,255}));
-  connect(loaHea.port_aSerHea, disHea.ports_bCon[1]) annotation (Line(points={{10,
-          106},{30,106},{30,90},{12,90},{12,82}}, color={0,127,255}));
-  connect(disCoo.ports_bCon[1], loaCoo.port_aSerCoo) annotation (Line(points={{12,
-          -80},{12,-92},{30,-92},{30,-128},{10,-128}}, color={0,127,255}));
-  connect(loaCoo.port_bSerCoo, disCoo.ports_aCon[1]) annotation (Line(points={{-10,
-          -128},{-30,-128},{-30,-92},{-12,-92},{-12,-80}}, color={0,127,255}));
   connect(disCoo.port_aDisSup, pla.port_bSerCoo) annotation (Line(points={{20,-70},
           {40,-70},{40,-4},{30,-4}}, color={0,127,255}));
   connect(disCoo.port_bDisRet, pla.port_aSerCoo) annotation (Line(points={{20,-64},
           {30,-64},{30,-46},{-40,-46},{-40,-4},{-30,-4}}, color={0,127,255}));
+  connect(disCoo.ports_aCon, loaCoo.port_bSerCoo) annotation (Line(points={{-12,
+          -80},{-12,-92},{-32,-92},{-32,-128},{-10,-128}}, color={0,127,255}));
+  connect(disCoo.ports_bCon, loaCoo.port_aSerCoo) annotation (Line(points={{12,-80},
+          {12,-92},{30,-92},{30,-128},{10,-128}}, color={0,127,255}));
+  connect(disHea.ports_bCon, loaHea.port_aSerHea) annotation (Line(points={{12,82},
+          {12,92},{32,92},{32,106},{10,106}}, color={0,127,255}));
+  connect(loaHea.port_bSerHea, disHea.ports_aCon) annotation (Line(points={{-10,
+          106},{-32,106},{-32,90},{-12,90},{-12,82}}, color={0,127,255}));
+  connect(QTotHea_flow.y, norQFloHea.u) annotation (Line(points={{-81,130},{-194,
+          130},{-194,164},{-186,164}}, color={0,0,127}));
+  connect(loaCoo.QCoo_flow, QTotCoo_flow.u) annotation (Line(points={{-7,-132},{
+          -8,-132},{-8,-140},{-80,-140}}, color={0,0,127}));
+  connect(QTotCoo_flow.y, norQFloCoo.u) annotation (Line(points={{-103,-140},{-160,
+          -140},{-160,-180},{-148,-180}}, color={0,0,127}));
+  connect(loaHea.QHea_flow, QTotHea_flow.u) annotation (Line(points={{-5,98},{-4,
+          98},{-4,94},{-50,94},{-50,130},{-58,130}}, color={0,0,127}));
+  connect(TChiWatRet.y, loaCoo.TSetDisRet) annotation (Line(points={{-168,-100},
+          {20,-100},{20,-113},{11,-113}}, color={0,0,127}));
+  connect(THeaWatRet.y, loaHea.TSetDisRet) annotation (Line(points={{-168,50},{-44,
+          50},{-44,126},{20,126},{20,117},{11,117}}, color={0,0,127}));
   annotation (
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Examples/AllElectricCWStorage.mos"
