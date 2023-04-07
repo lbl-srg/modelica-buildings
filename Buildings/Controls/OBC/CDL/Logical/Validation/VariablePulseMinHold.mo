@@ -8,7 +8,7 @@ model VariablePulseMinHold
     "Variable pulse with constantly changing pulse width "
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse conPul1(
-    final amplitude=0.1,
+    final amplitude=0.4,
     final width=0.4,
     final period=4,
     final shift=1.6,

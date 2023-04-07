@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
-model VariablePulse "Validation model for producing boolean pulse output"
+model VariablePulse
+  "Validation model for producing boolean pulse output"
 
   Buildings.Controls.OBC.CDL.Logical.VariablePulse conTru(
     final period=900) "Variable pulse with constant pulse width"
