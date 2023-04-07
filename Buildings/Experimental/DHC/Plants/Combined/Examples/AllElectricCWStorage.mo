@@ -137,6 +137,7 @@ model AllElectricCWStorage
     each ets(dpCheVal_nominal=120000),
     each bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
     annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
+    // dpCheVal_nominal to avoid freezing in building waterr supply due to problem of temperature drop in Dymola
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatRet[2](each k=pla.THeaWatRet_nominal)
     "Source signal for HW return temperature"
     annotation (Placement(transformation(extent={{-190,40},{-170,60}})));
