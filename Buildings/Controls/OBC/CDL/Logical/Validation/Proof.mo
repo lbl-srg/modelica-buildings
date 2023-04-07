@@ -1,62 +1,62 @@
 within Buildings.Controls.OBC.CDL.Logical.Validation;
 model Proof "Validation model for the Proof block"
   Buildings.Controls.OBC.CDL.Logical.Proof pro(
-    final debounce=0.5,
-    final feedbackDelay=0.75) "Both inputs change at the same time"
+    debounce=0.5,
+    feedbackDelay=0.75) "Both inputs change at the same time"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro1(
-    final debounce=0.5,
-    final feedbackDelay=0.75)
+    debounce=0.5,
+    feedbackDelay=0.75)
     "Commanded input changes from true to false earlier than measured input"
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro2(
-    final debounce=0.5,
-    final feedbackDelay=0.75)
+    debounce=0.5,
+    feedbackDelay=0.75)
     "Measured input changes from true to false earlier than commanded input"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro3(
-    final debounce=0.5,
-    final feedbackDelay=0.5)
+    debounce=0.5,
+    feedbackDelay=0.5)
     "Shorter delay to valid input"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro4(
-    final debounce=0.5,
-    final feedbackDelay=0.5)
+    debounce=0.5,
+    feedbackDelay=0.5)
     "Shorter delay to valid input"
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Proof pro5(
-    final debounce=2,
-    final feedbackDelay=2)
+    debounce=2,
+    feedbackDelay=2)
     "Both inputs change at the same time"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp(
-    final width=0.2,
-    final period=10,
+    width=0.2,
+    period=10,
     shift=1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp1(
-    final width=0.2,
-    final period=10,
+    width=0.2,
+    period=10,
     shift=1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp2(
-    final width=0.1,
-    final period=10,
+    width=0.1,
+    period=10,
     shift=1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp3(
-    final width=0.5,
-    final period=2,
+    width=0.5,
+    period=2,
     shift=1)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse latInp4(
-    final width=0.9,
-    final period=12,
+    width=0.9,
+    period=12,
     shift=0.5)
     "Block that outputs cyclic on and off"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
