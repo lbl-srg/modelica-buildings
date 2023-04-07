@@ -26,3 +26,5 @@ VariablePulse
 VariablePulseMinHold
 Xor
 ZeroCrossing
+VariablePulse_new
+VariablePulseMinHold_new
