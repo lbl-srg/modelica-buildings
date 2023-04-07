@@ -28,3 +28,9 @@ convertModifiers("Buildings.Controls.OBC.CDL.Routing.RealExtractor",
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1",
              "Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1");
+             
+// Conversion for https://github.com/lbl-srg/modelica-buildings/pull/3321
+convertClass("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm");
+convertClass("Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm");
