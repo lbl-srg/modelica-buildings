@@ -77,7 +77,7 @@ equation
           {38,-34}}, color={0,0,127}));
   connect(uCap, mul.u2) annotation (Line(points={{-120,-40},{30,-40},{30,-46},{38,
           -46}}, color={0,0,127}));
-  annotation (defaultComponentName="zerStaIndCor",
+  annotation (defaultComponentName="zerIndCor",
     Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={
           Rectangle(
