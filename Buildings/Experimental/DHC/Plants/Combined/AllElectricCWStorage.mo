@@ -929,8 +929,8 @@ model AllElectricCWStorage
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-120,-320})));
-  Fluid.Sensors.MassFlowRate mConWatOutTan_flow(redeclare final package Medium
-      = Medium, final allowFlowReversal=allowFlowReversal)
+  Fluid.Sensors.MassFlowRate mConWatOutTan_flow(redeclare final package Medium =
+        Medium, final allowFlowReversal=allowFlowReversal)
     "Mass flow rate out of lower port of TES tank (>0 when charging)"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -1059,8 +1059,8 @@ protected
     MediumConWatCoo.specificHeatCapacityCp(staConWatCoo_default)
     "Specific heat capacity of the fluid";
 public
-  Fluid.Sensors.MassFlowRate mConWatHexCoo_flow(redeclare final package Medium
-      = Medium, final allowFlowReversal=allowFlowReversal)
+  Fluid.Sensors.MassFlowRate mConWatHexCoo_flow(redeclare final package Medium =
+        Medium, final allowFlowReversal=allowFlowReversal)
     "CW mass flow rate through secondary (plant) side of HX" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -1629,5 +1629,12 @@ Solving the large building all-electric heating problem</a>.<br/>
 ASHRAE Journal, October 2021.
 </p>
 
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end AllElectricCWStorage;

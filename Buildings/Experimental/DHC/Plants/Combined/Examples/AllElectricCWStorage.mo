@@ -271,5 +271,12 @@ Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage</a>
 to provide heating and cooling to a building with heating and cooling
 loads provided as time series.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 7, 2023, by David Blum:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end AllElectricCWStorage;
