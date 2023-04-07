@@ -1,6 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation;
-model PackagedTerminalHeatPump
-  "Validation model for heating and cooling mode operation of packaged terminal heat pump"
+model HeatingMode
+  "Validation model for heating mode operation of packaged terminal heat pump"
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -52,7 +52,11 @@ model PackagedTerminalHeatPump
         4)) "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,116},{-60,136}})));
 
-  Controls.CycleFanCyclingCoilHeating conVarWatConFan(tFanEna=60, dTHys=0.1)
+  Controls.CyclingFanCyclingCoil cycFanCycCoi(
+    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.heaPum,
+    tFanEna=60,
+    dTHys=0.1)
     annotation (Placement(transformation(extent={{-86,-78},{-50,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
     "Availability signal"
@@ -235,12 +239,10 @@ equation
   connect(totMasAir.y, div1.u2) annotation (Line(points={{-58,64},{-56,64},{-56,
           82},{-88,82},{-88,90},{-82,90}},
                          color={0,0,127}));
-  connect(ava.y, conVarWatConFan.uAva) annotation (Line(points={{-108,-50},{
-          -100,-50},{-100,-66.7059},{-88,-66.7059}},
-                                           color={255,0,255}));
-  connect(fanOpeMod.y, conVarWatConFan.fanOpeMod) annotation (Line(points={{-108,
-          -80},{-100,-80},{-100,-75.1765},{-88,-75.1765}},
-                                                      color={255,0,255}));
+  connect(ava.y, cycFanCycCoi.uAva) annotation (Line(points={{-108,-50},{-100,
+          -50},{-100,-66.7059},{-88,-66.7059}}, color={255,0,255}));
+  connect(fanOpeMod.y, cycFanCycCoi.fanOpeMod) annotation (Line(points={{-108,
+          -80},{-100,-80},{-100,-75.1765},{-88,-75.1765}}, color={255,0,255}));
   connect(PTHP.yFan_actual, fanProOn.u) annotation (Line(points={{25,10},{32,10}},
                             color={0,0,127}));
   connect(datRea.y[20], K2C[1].u) annotation (Line(points={{-99,86},{-94,86},{-94,
@@ -255,12 +257,10 @@ equation
   connect(datRea.y[28], K2C[4].u) annotation (Line(points={{-99,86},{-94,86},{-94,
           126},{-82,126}},
                          color={0,0,127}));
-  connect(conVarWatConFan.THeaSet, K2C[2].y) annotation (Line(points={{-88,-58.2353},
-          {-96,-58.2353},{-96,34},{-42,34},{-42,126},{-58,126}},
-                                                            color={0,0,127}));
-  connect(K2C[3].y, conVarWatConFan.TCooSet) annotation (Line(points={{-58,126},
-          {-46,126},{-46,36},{-98,36},{-98,-49.7647},{-88,-49.7647}},
-                                                            color={0,0,127}));
+  connect(cycFanCycCoi.THeaSet, K2C[2].y) annotation (Line(points={{-88,-58.2353},
+          {-96,-58.2353},{-96,34},{-42,34},{-42,126},{-58,126}}, color={0,0,127}));
+  connect(K2C[3].y, cycFanCycCoi.TCooSet) annotation (Line(points={{-58,126},{-46,
+          126},{-46,36},{-98,36},{-98,-49.7647},{-88,-49.7647}}, color={0,0,127}));
   connect(PTHP.port_Air_a2, zon.ports[1])
     annotation (Line(points={{24,-2},{76,-2},{76,30.9}},
                                                        color={0,127,255}));
@@ -269,12 +269,10 @@ equation
                                                          color={0,127,255}));
   connect(con.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,60},
           {56,60}}, color={0,0,127}));
-  connect(zon.TAir, conVarWatConFan.TZon) annotation (Line(points={{99,68},{108,
-          68},{108,-98},{-100,-98},{-100,-41.2941},{-88,-41.2941}},
-                                                        color={0,0,127}));
-  connect(PTHP.TAirSup, conVarWatConFan.TSup) annotation (Line(points={{25,4},{
-          30,4},{30,-88},{-96,-88},{-96,-81.1059},{-88,-81.1059}},
-                                                         color={0,0,127}));
+  connect(zon.TAir, cycFanCycCoi.TZon) annotation (Line(points={{99,68},{108,68},
+          {108,-98},{-100,-98},{-100,-41.2941},{-88,-41.2941}}, color={0,0,127}));
+  connect(PTHP.TAirSup, cycFanCycCoi.TSup) annotation (Line(points={{25,4},{30,
+          4},{30,-88},{-96,-88},{-96,-81.1059},{-88,-81.1059}}, color={0,0,127}));
   connect(realExpression.y,powHeaCoiMod. u)
     annotation (Line(points={{141,-82},{154,-82}},
                                                  color={0,0,127}));
@@ -309,11 +307,10 @@ equation
 
   connect(realExpression13.y, QLoaMod.u)
     annotation (Line(points={{141,10},{154,10}}, color={0,0,127}));
-  connect(conVarWatConFan.yCooEna, PTHP.uCooEna) annotation (Line(points={{-47.8,
+  connect(cycFanCycCoi.yCooEna, PTHP.uCooEna) annotation (Line(points={{-47.8,
           -32.8235},{-36,-32.8235},{-36,-15.8},{-18,-15.8}}, color={255,0,255}));
-  connect(fanProOn.y, conVarWatConFan.uFan) annotation (Line(points={{56,10},{
-          60,10},{60,-94},{-102,-94},{-102,-32.8235},{-88,-32.8235}},
-                                                                   color={255,0,
+  connect(fanProOn.y, cycFanCycCoi.uFan) annotation (Line(points={{56,10},{60,
+          10},{60,-94},{-102,-94},{-102,-32.8235},{-88,-32.8235}}, color={255,0,
           255}));
   connect(realExpression14.y, TAirLvgEP.u)
     annotation (Line(points={{221,94},{232,94}}, color={0,0,127}));
@@ -359,20 +356,19 @@ equation
     annotation (Line(points={{221,-130},{232,-130}}, color={0,0,127}));
   connect(uSupHea.yHeaEna, PTHP.uHeaEna) annotation (Line(points={{-59,-9},{-38,
           -9},{-38,-23.8},{-18,-23.8}}, color={255,0,255}));
-  connect(conVarWatConFan.yHeaEna, uSupHea.uHeaEna) annotation (Line(points={{-47.8,
-          -41.5765},{-44,-41.5765},{-44,-20},{-92,-20},{-92,-5},{-81,-5}},
+  connect(cycFanCycCoi.yHeaEna, uSupHea.uHeaEna) annotation (Line(points={{
+          -47.8,-41.5765},{-44,-41.5765},{-44,-20},{-92,-20},{-92,-5},{-81,-5}},
         color={255,0,255}));
-  connect(conVarWatConFan.yHeaMod, uSupHea.uHeaMod) annotation (Line(points={{-47.8,
-          -81.1059},{-42,-81.1059},{-42,-18},{-90,-18},{-90,-8},{-81,-8}},
+  connect(cycFanCycCoi.yHeaMod, uSupHea.uHeaMod) annotation (Line(points={{
+          -47.8,-81.1059},{-42,-81.1059},{-42,-18},{-90,-18},{-90,-8},{-81,-8}},
         color={255,0,255}));
   connect(realExpression19.y, powSupHeaMod.u)
     annotation (Line(points={{-19,-130},{-2,-130}}, color={0,0,127}));
   connect(realExpression20.y, powSupHeaEP.u)
     annotation (Line(points={{61,-130},{78,-130}}, color={0,0,127}));
-  connect(conVarWatConFan.yFan, uSupHea.uFan) annotation (Line(points={{-47.8,
+  connect(cycFanCycCoi.yFan, uSupHea.uFan) annotation (Line(points={{-47.8,
           -75.1765},{-34,-75.1765},{-34,-16},{-88,-16},{-88,-11},{-81,-11}},
-                                                                   color={255,0,
-          255}));
+        color={255,0,255}));
   connect(uSupHea.yFan, PTHP.uFan) annotation (Line(points={{-58,-4},{-38,-4},{-38,
           4},{-18,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -387,7 +383,17 @@ equation
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Validation/HeatingMode.mos"
-        "Heating Mode", file=
-          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Validation/CoolingMode.mos"
-        "Cooling Mode"));
-end PackagedTerminalHeatPump;
+        "Heating Mode"),
+    Documentation(info="<html>
+<p>This is an example model for the PTHP system model under heating code demonstrating use-case with a cycling fan cycling coil (AUTO Fan) controller 
+and a supplementary heating controller. It consists of: </p>
+<ul>
+<li>an instance of the PTHP system model <span style=\"font-family: Courier New;\">fanCoiUni</span>. </li>
+<li>thermal zone model <span style=\"font-family: Courier New;\">zon</span> of class <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. </li>
+<li>PTHP controller <span style=\"font-family: Courier New;\">cycFanCycCoi</span> of class <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil\">
+Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil</a>. </li>
+<li>zone temperature setpoint controller <span style=\"font-family: Courier New;\">TZonSet</span>. </li>
+</ul>
+<p>The simulation model provides a closed-loop example of <span style=\"font-family: Courier New;\">PTHP</span> that is operated by <span style=\"font-family: Courier New;\">cycFanCycCoi</span> and regulates the zone temperature in <span style=\"font-family: Courier New;\">zon</span> at the setpoint generated by <span style=\"font-family: Courier New;\">TZonSet</span>. </p>
+</html>"));
+end HeatingMode;

@@ -1,16 +1,16 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.Validation;
-model CycleFanCyclingCoilHeating
+model CyclingFanCyclingCoil
   "Validation model for controller with variable heating and constant speed fan"
-
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CycleFanCyclingCoilHeating
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil
     conVarWatConFan(
+    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
     final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
     final tFanEnaDel=0,
     final tFanEna=0,
-    tCoiEna=0)
-    "Instance of controller with variable fan speed and constant water flowrate"
+    dTHys=0.2) "Instance of controller with cycling fan and cyling coil"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=0)
@@ -44,37 +44,29 @@ protected
     annotation (Placement(transformation(extent={{-40,-108},{-20,-88}})));
 equation
   connect(heaSetPoi.y, conVarWatConFan.THeaSet) annotation (Line(points={{-18,20},
-          {-10,20},{-10,-1.66667},{8.88889,-1.66667}},
+          {-10,20},{-10,-1.76471},{8.88889,-1.76471}},
                                   color={0,0,127}));
   connect(TZon.y, conVarWatConFan.TZon)
-    annotation (Line(points={{-18,60},{0,60},{0,5},{8.88889,5}},
+    annotation (Line(points={{-18,60},{0,60},{0,5.29412},{8.88889,5.29412}},
                                                            color={0,0,127}));
   connect(supFanOpeMod.y, conVarWatConFan.fanOpeMod) annotation (Line(points={{-18,-60},
-          {0,-60},{0,-8.33333},{8.88889,-8.33333}},      color={255,0,255}));
+          {0,-60},{0,-8.82353},{8.88889,-8.82353}},      color={255,0,255}));
   connect(uAva.y, conVarWatConFan.uAva) annotation (Line(points={{-18,-20},{-10,
-          -20},{-10,-5},{8.88889,-5}},             color={255,0,255}));
-  connect(conVarWatConFan.yFan, truDel.u) annotation (Line(points={{31.1111,
-          -8.33333},{40.5555,-8.33333},{40.5555,0},{48,0}}, color={255,0,255}));
+          -20},{-10,-5.29412},{8.88889,-5.29412}}, color={255,0,255}));
+  connect(conVarWatConFan.yFan, truDel.u) annotation (Line(points={{31.2222,
+          -8.82353},{40.5555,-8.82353},{40.5555,0},{48,0}}, color={255,0,255}));
   connect(truDel.y, conVarWatConFan.uFan) annotation (Line(points={{72,0},{80,0},
-          {80,20},{4,20},{4,8.33333},{8.88889,8.33333}}, color={255,0,255}));
-  connect(cooSetPoi.y, conVarWatConFan.TCooSet) annotation (Line(points={{-18,
-          96},{-4,96},{-4,1.66667},{8.88889,1.66667}}, color={0,0,127}));
+          {80,20},{4,20},{4,8.82353},{8.88889,8.82353}}, color={255,0,255}));
+  connect(cooSetPoi.y, conVarWatConFan.TCooSet) annotation (Line(points={{-18,96},
+          {-4,96},{-4,1.76471},{8.88889,1.76471}},     color={0,0,127}));
   connect(TSup.y, conVarWatConFan.TSup) annotation (Line(points={{-18,-98},{4,
-          -98},{4,-10.4167},{8.88889,-10.4167}}, color={0,0,127}));
+          -98},{4,-11.2941},{8.88889,-11.2941}}, color={0,0,127}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file= "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/UnitHeater/Controls/Validation/ConstantFanVariableHeating.mos"
-      "Simulate and plot"),
     Documentation(info="<html>
       <p>
-      This simulation model is used to validate <a href=\"modelica://Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFan_VariableWaterFlowrate\">
-      Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.ConstantFan_VariableWaterFlowrate</a>.
-      
-      The instance <code>conVarWatConFan</code> is set-up with parameters and a
-      time-varying input signal for measured zone temperature <code>conVarWatConFan.TZon</code> to 
-      replicate the output values for fan enable status <code>yFan</code>, fan speed
-      <code>yFanSpe</code>, cooling coil signal signal <code>yCoo</code> and heating
-      coil signal <code>yHea</code> as seen in the logic chart below.
+      This simulation model is used to validate <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil\">
+      Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil</a>.
       </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFanVariableFlowrate.png\"/>
@@ -92,4 +84,4 @@ equation
       StopTime=86400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
-end CycleFanCyclingCoilHeating;
+end CyclingFanCyclingCoil;

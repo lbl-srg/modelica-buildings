@@ -164,5 +164,17 @@ equation
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Examples/PackagedTerminalHeatPump.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+<p>This is a packaged terminal heat pump system model. The system consists of an outdoor air mixer, a signle-speed direct expansion (DX) cooling coil, 
+a signle-speed DX heating coil, constant speed supply air fan, and a supplemental heating coil. </p>
+<p>The control modules for the system are implemented separately in <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls\">
+Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls</a>: </p>
+<ul>
+<li><a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil\">CyclingFanCyclingCoil</a>: 
+Cycle the DX cooling coil, DX heating coil, electric supplementaty heating coil, and fan to regulate the zone temperature based on the heating and cooling setpoints. </li>
+<li><a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementaryHeating\">SupplementaryHeating</a>: 
+Turn on/off the supplementary heating based on the minimum outdoor air drybulb temperature limit.</li>
+</ul>
+</html>"));
 end PackagedTerminalHeatPump;

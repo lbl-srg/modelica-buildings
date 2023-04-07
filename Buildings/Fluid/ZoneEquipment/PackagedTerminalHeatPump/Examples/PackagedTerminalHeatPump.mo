@@ -138,5 +138,8 @@ equation
             -100},{100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,140}})),
-    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"));
+    experiment(StopTime=86400, __Dymola_Algorithm="Cvode"),
+    Documentation(info="<html>
+<p>This is an example model for the PTHP model in one heating day with simple inputs.</p>
+</html>"));
 end PackagedTerminalHeatPump;

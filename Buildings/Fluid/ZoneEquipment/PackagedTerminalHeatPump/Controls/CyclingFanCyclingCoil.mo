@@ -1,6 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
-model CycleFanCyclingCoilHeating
-  "Controller for PTHPwith cycle fan and cycle coil"
+model CyclingFanCyclingCoil "Controller for PTHPwith cycle fan and cycle coil"
 
   extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces(
     final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp,
@@ -125,37 +124,13 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,
             120}})),
     Documentation(info="<html>
-      <p>
-      This is a control module for the unit heater system model designed as an 
-      analogue to the control logic in EnergyPlus. The components are operated 
-      as follows.
-      <br>
-      <ul>
-      <li>
-      
-      </li>
-      <li>
-      When <code>TZon</code> is below the heating setpoint temperature
-      <code>THeaSet</code>, the FCU enters heating mode operation. The fan is 
-      enabled (<code>yFan = True</code>) and is run at the maximum speed
-      (<code>yFanSpe = 1</code>). The heating signal <code>yHea</code> is used to
-      regulate <code>TZon</code> at <code>THeaSet</code>.
-      </li>
-      <li>
-      When the zone temperature <code>TZon</code> is between <code>THeaSet</code>
-      and <code>TCooSet</code>, the FCU enters deadband mode. If the zone is occupied 
-      as per the occupancy schedule (<code>conVarWatConFan.timTabOccSch.y = 1</code>),
-      the fan is enabled (<code>yFan = True</code>) and is run at the minimum speed
-      (<code>yFanSpe = minFanSpe</code>). <code>yHea</code> and <code>yCoo</code> are set 
-      to <code>zero</code>.
-      </li>
-      </ul>
-      </p>
-      <p align=\"center\">
-      <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFanVariableFlowrate.png\"/>
-      </p>
-      </html>
-      ", revisions="<html>
+<p><br>This is a control module for the PTHP system model designed as an analogue to the control logic in EnergyPlus. The components are operated as follows. </p>
+<ul>
+<li>When <span style=\"font-family: Courier New;\">TZon</span> is below the heating setpoint temperature <span style=\"font-family: Courier New;\">THeaSet</span>, the PTHP enters heating mode operation (<span style=\"font-family: Courier New;\">yHeaMod = True</span>). The constant fan is enabled (<span style=\"font-family: Courier New;\">yFan = True</span>) and DX heating coil is enabled (<span style=\"font-family: Courier New;\">yHeaEna = True</span>). Otherwise, the fan and DX heating coil are disabled. </li>
+<li>When <span style=\"font-family: Courier New;\">TZon</span> is below the cooling setpoint temperature <span style=\"font-family: Courier New;\">TCooSet</span>, the PTHP enters cooling mode operation (<span style=\"font-family: Courier New;\">yCooMod = True</span>). The constant fan is enabled (<span style=\"font-family: Courier New;\">yFan = True</span>) and DX cooling coil is enabled (<span style=\"font-family: Courier New;\">yCooEna = True</span>). Otherwise, the fan and DX cooling coil are disabled. </li>
+</ul>
+<p><span style=\"font-family: Courier New;\">dTHys</span> is the hysteresis temperature difference for enabling/disabling the cooling/heating mode. </p>
+</html>",revisions="<html>
       <ul>
       <li>
       August 03, 2022 by Karthik Devaprasad:<br/>
@@ -163,4 +138,4 @@ equation
       </li>
       </ul>
       </html>"));
-end CycleFanCyclingCoilHeating;
+end CyclingFanCyclingCoil;

@@ -5,7 +5,6 @@ package Data "Sizing data used for validation models"
 
 
   annotation(Documentation(info="<html>
-  This package contains data records with sizing data and fan performance data 
-  for fan coil validation models.
-  </html>"));
+<p>This package contains data records with PTHP performance data for PTHP models. </p>
+</html>"));
 end Data;

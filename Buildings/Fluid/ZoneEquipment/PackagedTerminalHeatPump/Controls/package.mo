@@ -36,6 +36,6 @@ package Controls "Package with unit heater control modules"
           fillPattern=FillPattern.Solid,
           extent={{-80.0,0.0},{-20.0,60.0}})}),
     Documentation(info="<html>
-      This package contains control modules for the four-pipe fan coil unit.
-      </html>"));
+<p>This package contains control modules for the PHTP. </p>
+</html>"));
 end Controls;

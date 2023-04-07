@@ -33,5 +33,11 @@ package PackagedTerminalHeatPump
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}), Documentation(info="<html>
+  This package contains models for the packaged terminal heat pump unit, including the system model
+  <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.PackagedTerminalHeatPump\">
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.PackagedTerminalHeatPump</a> and the package of control modules
+  <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls\">
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls</a>. 
+</html>"));
 end PackagedTerminalHeatPump;
