@@ -3,16 +3,16 @@ model VariablePulseMinHold
   "Validation model for producing boolean pulse output"
 
   Buildings.Controls.OBC.CDL.Logical.VariablePulse conChaWid(
-    final period=3,
-    final minTruFalHol=1)
+    period=3,
+    minTruFalHol=1)
     "Variable pulse with constantly changing pulse width "
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse conPul1(
-    final amplitude=0.4,
-    final width=0.4,
-    final period=4,
-    final shift=1.6,
-    final offset=0.5)
+    amplitude=0.4,
+    width=0.4,
+    period=4,
+    shift=1.6,
+    offset=0.5)
     "Continuous pulse signal"
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 equation

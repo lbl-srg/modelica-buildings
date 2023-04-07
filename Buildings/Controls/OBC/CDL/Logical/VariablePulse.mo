@@ -1,58 +1,61 @@
 within Buildings.Controls.OBC.CDL.Logical;
 block VariablePulse "Generate boolean pulse with the width specified by input"
 
-  parameter Real period(unit="s")
+  parameter Real period(
+    final quantity="Time",
+    final unit="s")
     "Time for one pulse period";
   parameter Real minTruFalHol(
     final quantity="Time",
     final unit="s",
     final min=Constants.small)=1
     "Minimum time to hold true or false";
-  final parameter Real uMin=minTruFalHol/period
-    "Minimum value of the input below which the output remains always false"
-    annotation (Dialog(tab="Advanced"));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
     final min=0,
     final max=1,
     final unit="1")
     "Ratio of the period that the output should be true"
-    annotation (Placement(transformation(extent={{-220,-20},{-180,20}}),
+    annotation (Placement(transformation(extent={{-160,-20},{-120,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean pulse when the input is greater than zero"
-    annotation (Placement(transformation(extent={{180,-40},{220,0}}),
+    annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
+  parameter Real uMin=minTruFalHol/period
+    "Minimum value of the input below which the output remains always false";
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample the input when there is value change"
-    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Output the difference before and after sampling"
-    annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs1
     "Output the absolute value change"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(final t=uMin,
-      final h=0.5*uMin)
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=uMin,
+    final h=0.5*uMin)
     "Check if there is input value change"
-    annotation (Placement(transformation(extent={{20,30},{40,50}})));
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
     "Rising edge when there is width change"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preBre
     "Break loop"
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Cycle cycOut(
     final period=period,
     final minTruFalHol=minTruFalHol)
     "Produce boolean pulse output"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
+    annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
     final trueHoldDuration=minTruFalHol,
     final falseHoldDuration=minTruFalHol)
     "Ensure the minimum holding time"
-    annotation (Placement(transformation(extent={{140,-30},{160,-10}})));
+    annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
   block Cycle
     "Generate boolean pulse with the width specified by input"
@@ -133,30 +136,30 @@ initial equation
       "In " + getInstanceName() + ": The pulse period must be greater than 2 times of the minimum true and false holding time.");
 
 equation
-  connect(u, triSam.u) annotation (Line(points={{-200,0},{-170,0},{-170,100},{-162,
-          100}}, color={0,0,127}));
-  connect(triSam.y, sub.u1) annotation (Line(points={{-138,100},{-130,100},{-130,
-          66},{-102,66}}, color={0,0,127}));
-  connect(u, sub.u2) annotation (Line(points={{-200,0},{-170,0},{-170,54},{-102,
-          54}},  color={0,0,127}));
+  connect(u, triSam.u) annotation (Line(points={{-140,0},{-110,0},{-110,70},{-102,
+          70}},  color={0,0,127}));
+  connect(triSam.y, sub.u1) annotation (Line(points={{-78,70},{-70,70},{-70,36},
+          {-62,36}},  color={0,0,127}));
+  connect(u, sub.u2) annotation (Line(points={{-140,0},{-110,0},{-110,24},{-62,24}},
+          color={0,0,127}));
   connect(sub.y, abs1.u)
-    annotation (Line(points={{-78,60},{-62,60}}, color={0,0,127}));
-  connect(greThr.y, edg2.u) annotation (Line(points={{42,40},{50,40},{50,0},{-40,
-          0},{-40,-50},{-22,-50}}, color={255,0,255}));
+    annotation (Line(points={{-38,30},{-22,30}}, color={0,0,127}));
+  connect(greThr.y, edg2.u) annotation (Line(points={{42,30},{50,30},{50,0},{58,
+          0}},  color={255,0,255}));
   connect(greThr.y, preBre.u)
-    annotation (Line(points={{42,40},{78,40}},   color={255,0,255}));
-  connect(preBre.y, triSam.trigger) annotation (Line(points={{102,40},{120,40},{
-          120,80},{-150,80},{-150,88}},   color={255,0,255}));
-  connect(u, cycOut.u) annotation (Line(points={{-200,0},{-170,0},{-170,-20},{98,
-          -20}},     color={0,0,127}));
+    annotation (Line(points={{42,30},{58,30}}, color={255,0,255}));
+  connect(preBre.y, triSam.trigger) annotation (Line(points={{82,30},{90,30},{90,
+          50},{-90,50},{-90,58}}, color={255,0,255}));
+  connect(u, cycOut.u) annotation (Line(points={{-140,0},{-110,0},{-110,-60},{38,
+          -60}}, color={0,0,127}));
   connect(cycOut.y, truFalHol.u)
-    annotation (Line(points={{122,-20},{138,-20}}, color={255,0,255}));
+    annotation (Line(points={{62,-60},{78,-60}}, color={255,0,255}));
   connect(truFalHol.y, y)
-    annotation (Line(points={{162,-20},{200,-20}}, color={255,0,255}));
-  connect(abs1.y, greThr.u) annotation (Line(points={{-38,60},{0,60},{0,40},{18,
-          40}}, color={0,0,127}));
-  connect(edg2.y, cycOut.go) annotation (Line(points={{2,-50},{80,-50},{80,-28},
-          {98,-28}}, color={255,0,255}));
+    annotation (Line(points={{102,-60},{140,-60}}, color={255,0,255}));
+  connect(abs1.y, greThr.u) annotation (Line(points={{2,30},{18,30}},
+         color={0,0,127}));
+  connect(edg2.y, cycOut.go) annotation (Line(points={{82,0},{90,0},{90,-20},{30,
+          -20},{30,-68},{38,-68}}, color={255,0,255}));
 annotation (
     defaultComponentName="varPul",
     Icon(
@@ -299,5 +302,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(extent={{-180,-120},{180,120}})));
+    Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));
 end VariablePulse;

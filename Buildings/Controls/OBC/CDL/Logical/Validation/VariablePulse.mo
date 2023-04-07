@@ -3,69 +3,69 @@ model VariablePulse
   "Validation model for producing boolean pulse output"
 
   Buildings.Controls.OBC.CDL.Logical.VariablePulse conTru(
-    final period=900) "Variable pulse with constant pulse width"
+    period=900) "Variable pulse with constant pulse width"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse fal(
-    final period=900)
+    period=900)
     "Variable pulse with the zero width input"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse truFal(
-    final period=900)
+    period=900)
     "Variable pulse with width input changing from positive value to zero"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse falTru(
-    final period=900)
+    period=900)
     "Variable pulse with width input changing from zero to positive value"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse tru(
-    final period=900)
+    period=900)
     "Variable pulse with the constant width input"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse falTru1(
-    final period=900)
+    period=900)
     "Variable pulse with width input changing between different positive values"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse conPul(
-    final amplitude=0.65,
-    final width=0.8,
-    final period=4000)
+    amplitude=0.65,
+    width=0.8,
+    period=4000)
     "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0.75)
+    k=0.75)
     "Constant"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=0)
+    k=0)
     "Constant value"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse conPul1(
-    final amplitude=0.65,
-    final width=0.85,
-    final period=3600,
-    final shift=360)
+    amplitude=0.65,
+    width=0.85,
+    period=3600,
+    shift=360)
     "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con2(
-    final k=1)
+    k=1)
     "Constant value"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse conPul2(
-    final amplitude=0.5,
-    final width=0.5,
-    final period=3600,
-    final shift=360,
-    final offset=0.3)
+    amplitude=0.5,
+    width=0.5,
+    period=3600,
+    shift=360,
+    offset=0.3)
     "Continuous pulse signal"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
   Buildings.Controls.OBC.CDL.Logical.VariablePulse conChaWid(
-    final period=900)
+    period=900)
     "Variable pulse with constantly changing pulse width "
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    final height=0.8,
-    final duration=900,
-    final startTime=300)
+    height=0.8,
+    duration=900,
+    startTime=300)
     "Ramp input"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 equation
