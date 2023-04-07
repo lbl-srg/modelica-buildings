@@ -25,7 +25,7 @@ partial model ControllerInterfaces
 
   Modelica.Blocks.Interfaces.RealOutput yFanSpe(
     final unit="1",
-    displayUnit="1")
+    displayUnit="1") if has_varFan
     "Fan speed signal"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
       iconTransformation(extent={{182,-60},{222,-20}})));
@@ -122,6 +122,13 @@ protected
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
     "Does the zone equipment have variable cooling?";
+
+  final parameter Boolean has_varFan = (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.fcu)
+    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitHeater)
+    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
+    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
+    "Does the zone equipment have variable speed fan?";
+
 
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-160},{180,

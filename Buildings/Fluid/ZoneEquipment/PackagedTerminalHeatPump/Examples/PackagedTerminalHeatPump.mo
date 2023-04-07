@@ -141,5 +141,12 @@ equation
     experiment(StopTime=86400, __Dymola_Algorithm="Cvode"),
     Documentation(info="<html>
 <p>This is an example model for the PTHP model in one heating day with simple inputs.</p>
-</html>"));
+", revisions="<html>
+    <ul>
+    <li>
+    Mar 30, 2023 by Karthik Devaprasad, Xing Lu:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end PackagedTerminalHeatPump;

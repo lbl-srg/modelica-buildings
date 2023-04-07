@@ -5,37 +5,6 @@ model CyclingFanCyclingCoil "Controller for PTHPwith cycle fan and cycle coil"
     final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp,
     final has_fanOpeMod=true);
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of heating loop controller"
-    annotation(Dialog(group="Heating mode control"));
-
-  parameter Real kHea(
-    final unit="1",
-    displayUnit="1",
-    final min=0)=1
-    "Gain of heating loop controller"
-    annotation(Dialog(group="Heating mode control"));
-
-  parameter Modelica.Units.SI.Time TiHea=0.5
-    "Time constant of heating loop integrator block"
-    annotation(Dialog(group="Heating mode control",
-      enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
-      controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-  parameter Modelica.Units.SI.Time TdHea=0.1
-    "Time constant of heating loop derivative block"
-    annotation(Dialog(group="Heating mode control",
-      enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
-      controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-
-  parameter Real minFanSpe(
-    final unit="1",
-    displayUnit="1",
-    final min=0,
-    final max=1) = 0.4
-    "Minimum allowed fan speed"
-    annotation(Dialog(group="System parameters"));
-
   parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
     annotation(Dialog(group="System parameters"));
@@ -47,11 +16,12 @@ model CyclingFanCyclingCoil "Controller for PTHPwith cycle fan and cycle coil"
   parameter Modelica.Units.SI.TemperatureDifference dTHys
     "Temperature difference used for enabling cooling and heating mode";
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHea(
-    dTHys=dTHys,                                                  conMod=true, tCoiEna=tFanEna)
+  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHea(dTHys=dTHys,
+  conMod=true, tCoiEna=tFanEna)
     annotation (Placement(transformation(extent={{-12,30},{8,50}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
+  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(
+                         tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
     annotation (Placement(transformation(extent={{72,-132},{100,-104}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
@@ -69,7 +39,6 @@ model CyclingFanCyclingCoil "Controller for PTHPwith cycle fan and cycle coil"
            {{140,-160},{180,-120}}), iconTransformation(extent={{182,-162},{222,
             -122}})));
 equation
-
   connect(uFan, conHea.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
           45.7143},{-13.4286,45.7143}}, color={255,0,255}));
   connect(TZon, conHea.TZon) annotation (Line(points={{-160,60},{-50,60},{-50,
@@ -130,12 +99,15 @@ equation
 <li>When <span style=\"font-family: Courier New;\">TZon</span> is below the cooling setpoint temperature <span style=\"font-family: Courier New;\">TCooSet</span>, the PTHP enters cooling mode operation (<span style=\"font-family: Courier New;\">yCooMod = True</span>). The constant fan is enabled (<span style=\"font-family: Courier New;\">yFan = True</span>) and DX cooling coil is enabled (<span style=\"font-family: Courier New;\">yCooEna = True</span>). Otherwise, the fan and DX cooling coil are disabled. </li>
 </ul>
 <p><span style=\"font-family: Courier New;\">dTHys</span> is the hysteresis temperature difference for enabling/disabling the cooling/heating mode. </p>
-</html>",revisions="<html>
-      <ul>
-      <li>
-      August 03, 2022 by Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"));
+</html>
+", revisions="<html>
+    <ul>
+    <li>
+    Mar 30, 2023 by Karthik Devaprasad, Xing Lu:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"),
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Controls/Validation/CyclingFanCyclingCoil.mos"
+        "Simulate and Plot"));
 end CyclingFanCyclingCoil;

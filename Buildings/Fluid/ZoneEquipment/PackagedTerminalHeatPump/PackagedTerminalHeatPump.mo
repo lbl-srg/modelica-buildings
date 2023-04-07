@@ -150,7 +150,7 @@ equation
     annotation (Line(points={{100,0},{122,0}}, color={0,127,255}));
   connect(TAirHeaCoi.port_a, HeaCoi.port_b)
     annotation (Line(points={{80,0},{74,0},{74,0},{66,0}}, color={0,127,255}));
-  annotation (defaultComponentName = "winAC",
+  annotation (defaultComponentName = "PTHP",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(
           extent={{-200,200},{200,-200}},
@@ -166,15 +166,19 @@ equation
           "Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Examples/PackagedTerminalHeatPump.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
-<p>This is a packaged terminal heat pump system model. The system consists of an outdoor air mixer, a signle-speed direct expansion (DX) cooling coil, 
-a signle-speed DX heating coil, constant speed supply air fan, and a supplemental heating coil. </p>
-<p>The control modules for the system are implemented separately in <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls\">
-Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls</a>: </p>
+<p>This is a packaged terminal heat pump system model. The system consists of an outdoor air mixer, a signle-speed direct expansion (DX) cooling coil, a signle-speed DX heating coil, constant speed supply air fan, and a supplemental heating coil. </p>
+<p>The control modules for the system are implemented separately in <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls\">Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls</a>: </p>
 <ul>
-<li><a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil\">CyclingFanCyclingCoil</a>: 
-Cycle the DX cooling coil, DX heating coil, electric supplementaty heating coil, and fan to regulate the zone temperature based on the heating and cooling setpoints. </li>
-<li><a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementaryHeating\">SupplementaryHeating</a>: 
-Turn on/off the supplementary heating based on the minimum outdoor air drybulb temperature limit.</li>
+<li><a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil\">CyclingFanCyclingCoil</a>: Cycle the DX cooling coil, DX heating coil, electric supplementaty heating coil, and fan to regulate the zone temperature based on the heating and cooling setpoints. </li>
+<li><a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating\">SupplementalHeating</a>: Turn on/off the supplemental heating based on the minimum outdoor air drybulb temperature limit.</li>
 </ul>
-</html>"));
+</html>
+", revisions="<html>
+    <ul>
+    <li>
+    Mar 30, 2023 by Karthik Devaprasad, Xing Lu:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end PackagedTerminalHeatPump;

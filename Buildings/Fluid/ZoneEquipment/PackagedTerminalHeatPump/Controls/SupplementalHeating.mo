@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
-block SupplementaryHeating "Activation of supplementary heating"
+block SupplementalHeating "Activation of supplemental heating"
 
   parameter Real TDryCom_min(
     final unit="K",
@@ -10,7 +10,6 @@ block SupplementaryHeating "Activation of supplementary heating"
   annotation (Dialog(group="Controller"));
   parameter Modelica.Units.SI.Time Ti=120 "Time constant of Integrator block"
   annotation (Dialog(group="Controller"));
-
 
   Modelica.Blocks.Interfaces.BooleanInput uHeaMod
     "When heating mode is enabled"
@@ -95,8 +94,8 @@ equation
   connect(TOut,lesThr. u)
     annotation (Line(points={{-180,-10},{-140,-10},{-140,0},{-102,0}},
                                                      color={0,0,127}));
-  connect(lesThr.y, and2.u1) annotation (Line(points={{-78,0},{-68,0},{-68,-8},
-          {-62,-8}},  color={255,0,255}));
+  connect(lesThr.y, and2.u1) annotation (Line(points={{-78,0},{-68,0},{-68,-8},{
+          -62,-8}},   color={255,0,255}));
   connect(and2.y, swi.u2) annotation (Line(points={{-38,-8},{-24,-8},{-24,0},{
           18,0}}, color={255,0,255}));
   connect(con.y, swi.u3) annotation (Line(points={{-78,-38},{-20,-38},{-20,-8},
@@ -148,10 +147,22 @@ annotation (defaultComponentName="uSupHea",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-140},{160,100}})),
 Documentation(info="<html>
+<p><br>This is a control module for enabling/disabling PTHP supplemental heating. The components are operated as follows. </p>
+<ul>
+<li>When <span style=\"font-family: Courier New;\">TOut</span> is below the minimum dry bulb temperature <span style=\"font-family: Courier New;\">TDryCom_min</span> and the PTHP is in the heating mode (<span style=\"font-family: Courier New;\">uHeaMod = True</span>), the PTHP enables the supplemental heating that tracks the zone air temperature setpoint and disables the DX heating coil (<span style=\"font-family: Courier New;\">yHeaEna = False</span>). The constant fan is enabled continously in the the supplemental heating period as an analogue to the control logic in EnergyPlus. </li>
+<li>When <span style=\"font-family: Courier New;\">TOut</span> is above the minimum dry bulb temperature <span style=\"font-family: Courier New;\">TDryCom_min</span> and the PTHP is in the heating mode (<span style=\"font-family: Courier New;\">uHeaMod = True</span>), the PTHP disables the supplemental heating (<span style=\"font-family: Courier New;\">ySupHea = 0</span>). The PTHP cycles the constant fan and DX heating coil. </li>
+</ul>
 </html>",revisions="<html>
 <ul>
 <li>
 </li>
 </ul>
-</html>"));
-end SupplementaryHeating;
+", revisions="<html>
+    <ul>
+    <li>
+    Mar 30, 2023 by Karthik Devaprasad, Xing Lu:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
+end SupplementalHeating;
