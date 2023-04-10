@@ -37,6 +37,12 @@ for an explanation of the model.
 </html>", revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu:<br/>
+Updated air-source cooling coil class being extended from <code>VariableSpeed</code>
+to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a>.
+</li>
+<li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>
 This is for

@@ -106,6 +106,12 @@ a quadratic function.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu:<br/>
+Updated class being extended from <code>DXCoil</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
+</li>
+<li>
 February 17, 2017, by Yangyang Fu:<br/>
 Revised documentation for water source DX coils.
 </li>

@@ -3,8 +3,9 @@ record CoolingCoil
   "Performance record for a DX Cooling Coil with one or multiple stages"
   extends Modelica.Icons.Record;
 
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
-    final activate_CooCoi=true);
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
+    final is_CooCoi=true);
 
 annotation (preferredView="info",
 defaultComponentName="datCoi",
@@ -99,6 +100,10 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 4, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+Updated record class name from <code>DXCoil</code> to <code>CoolingCoil</code>.
+</li>
 <li>
 May 30, 2014, by Michael Wetter:<br/>
 Removed undesirable annotation <code>Evaluate=true</code>.

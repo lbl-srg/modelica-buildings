@@ -15,20 +15,34 @@ model VariableSpeedCooling "Variable speed DX cooling coil"
       datCoi,
     use_mCon_flow=false);
 
-  parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
-  parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
-  Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
+  parameter Real minSpeRat(
+    final min=0,
+    final max=1)
+    "Minimum speed ratio";
+
+  parameter Real speRatDeaBan= 0.05
+    "Deadband for minimum speed ratio";
+
+  Modelica.Blocks.Interfaces.RealInput speRat(
+    final unit="1",
+    displayUnit="1")
+    "Speed ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
+      iconTransformation(extent={{-120,70},{-100,90}})));
+
 protected
   Modelica.Blocks.Logical.Hysteresis deaBan(
-     uLow=minSpeRat - speRatDeaBan/2,
-     uHigh=minSpeRat + speRatDeaBan/2) "Speed ratio deadband"
+    final uLow=minSpeRat - speRatDeaBan/2,
+    final uHigh=minSpeRat + speRatDeaBan/2)
+    "Speed ratio deadband"
     annotation (Placement(transformation(extent={{-64,64},{-52,76}})));
+
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
-    final integerFalse=0) "On/off switch"
+    final integerFalse=0)
+    "On/off switch"
     annotation (Placement(transformation(extent={{-42,64},{-30,76}})));
+
 equation
   connect(speRat,dxCoi.speRat)  annotation (Line(
       points={{-110,80},{-90,80},{-90,59.6},{-21,59.6}},
@@ -51,9 +65,10 @@ equation
       points={{-51.4,70},{-43.2,70}},
       color={255,0,255},
       smooth=Smooth.None));
-  annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
+  annotation (defaultComponentName="varSpeDXCoo", Documentation(info="<html>
 <p>
-This model can be used to simulate an air source DX cooling coil with continuously variable speed compressors.
+This model can be used to simulate an air source DX cooling coil with continuously 
+variable speed compressors.
 The control input is the speed ratio.
 The coil will switch off if the speed ratio is below a minimum value.
 </p>
@@ -68,7 +83,10 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Renamed class to <code>VariableSpeedDXCooling</code> to differentiate it from DX heating coils.
+Renamed class to <code>VariableSpeedDXCooling</code> to differentiate it from DX heating coils.<br/>
+Updated connect statement to reflect name change of instance from <code>dxCoo</code>
+to <code>dxCoi</code>.<br/>
+Updated formatting. 
 </li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>

@@ -17,12 +17,12 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
     datCoi(
-      activate_CooCoi=false,
+    is_CooCoi=false,
       sta={Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
+          is_CooCoi=false,
           Q_flow_nominal=15000,
           COP_nominal=2.75,
           SHR_nominal=1,
@@ -46,7 +46,10 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
-    final datCoi=datCoi,
+    datCoi(
+      final nSta=datCoi.nSta,
+      final minSpeRat=datCoi.minSpeRat,
+      final sta=datCoi.sta),
     final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     final from_dp=true,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -107,22 +110,15 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
     annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TOutEPlu(
-    final samplePeriod=3600,
-    final y_start=29.34948133)
+    final samplePeriod=3600)
     "Outlet temperature from EnergyPlus"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay XConOutEPlu(
-    final samplePeriod=1)
+    final samplePeriod=3600)
     "Outlet air humidity ratio from EnergyPlus"
     annotation (Placement(transformation(extent={{30,-140},{50,-120}})));
 
-  // The UnitDelay is reimplemented to avoid in Dymola 2016 the translation warning
-  //   The initial conditions for variables of type Boolean are not fully specified.
-  //   Dymola has selected default initial conditions.
-  //   Assuming fixed default start value for the discrete non-states:
-  //     PEPlu.firstTrigger(start = false)
-  //     ...
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
     datDef(
     final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
@@ -143,7 +139,7 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay PDefEPlu(
-    final samplePeriod=1)
+    final samplePeriod=3600)
     "Defrost power from EnergyPlus"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 

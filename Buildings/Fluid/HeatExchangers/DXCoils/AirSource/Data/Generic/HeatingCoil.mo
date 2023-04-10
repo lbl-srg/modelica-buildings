@@ -4,14 +4,16 @@ record HeatingCoil
   extends Modelica.Icons.Record;
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datCoi(
-    final activate_CooCoi=false)
+    final is_CooCoi=false)
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    "Instance of coil performance data record"
     annotation (choicesAllMatching=true);
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+    "Instance of defrost performance data record"
     annotation(choicesAllMatching=true);
 
 annotation (preferredView="info",
@@ -24,6 +26,7 @@ The performance data are structured as follows:
 </p>
 <p>
 The coil data <code>datCoi</code> consists of the following fields:
+</p>
 <pre>
   nSta      - Number of stages. Set to 1 for single speed coil,
               2 for dual-speed (or dual stage coils), etc.
@@ -71,7 +74,6 @@ Each element of the array <code>per</code> has the following data.
                   for which the performance curves are valid.
                   Outside this range, they will be linearly extrapolated.
                   </pre>
-                  </p>
 <p>
 There can be an arbitrary number of polynomial coefficients for the record
 <code>capFunFF</code> and <code>EIRFunFF</code>.
@@ -83,6 +85,7 @@ a quadratic function.
 <p>
 It also contains the data record <code>datDef</code> for settings and performance 
 curves for defrost operation and overall performance modifiers:
+</p>
 <pre>
   defEIRFunT  - Coefficients of biquadratic polynomial for EIR for defrost as a 
                 function of temperature.
@@ -95,7 +98,6 @@ curves for defrost operation and overall performance modifiers:
   tDefRun     - Fraction of time for which defrost is run if timed fraction calculation is used.
   TDefLim     - Maximum temperature at which the defrost operation may be run.
 </pre>
-</p>
 </html>",
 revisions="<html>
 <ul>

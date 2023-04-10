@@ -21,6 +21,12 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>
+Updated class of data record <code>datCoi</code> from <code>DXCoil</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer</a>.
+</li>
+<li>
 February 17, 2017 by Yangyang Fu:<br/>
 Added prefix <code>replaceable</code> for the parameter <code>datCoi</code>.
 </li>

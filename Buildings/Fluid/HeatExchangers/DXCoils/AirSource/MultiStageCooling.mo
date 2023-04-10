@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
-model MultiStageCooling "Multi-stage DX cooling coil"
+model MultiStageCooling
+  "Multi-stage DX cooling coil"
 
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
@@ -19,12 +20,18 @@ model MultiStageCooling "Multi-stage DX cooling coil"
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
-        iconTransformation(extent={{-120,70},{-100,90}})));
-  BaseClasses.SpeedSelect speSel(nSta=datCoi.nSta, speSet=datCoi.sta.spe)
+      iconTransformation(extent={{-120,70},{-100,90}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect speSel(
+    final nSta=datCoi.nSta, speSet=datCoi.sta.spe)
+    "Normalize the speed signal based on the compressor stage input"
     annotation (Placement(transformation(extent={{-80,60},{-68,72}})));
-  Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
+
+  Modelica.Blocks.Math.IntegerToBoolean onSwi(
+    final threshold=1)
     "On/off switch"
     annotation (Placement(transformation(extent={{-56,-68},{-44,-56}})));
+
 equation
   connect(onSwi.y, eva.on) annotation (Line(
       points={{-43.4,-62},{-26,-62},{-26,-54},{-12,-54}},
@@ -46,7 +53,7 @@ equation
       points={{-110,80},{-30,80},{-30,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
+  annotation (defaultComponentName="mulStaDXCoo", Documentation(info="<html>
 <p>
 This model can be used to simulate an air source DX cooling coil with multiple
 operating stages. Depending on the used performance curves, each
@@ -64,7 +71,13 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Renamed class to <code>MultiStageDXCooling</code> to differentiate it from DX heating coils.
+Renamed class to <code>MultiStageCooling</code> to differentiate it from DX 
+heating coils.<br/>
+Extended class changed to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil</a>.<br/>
+Updated connection statements because of coil capacity block instance being 
+renamed from <code>dxCoo</code> to <code>dxCoi</code>.<br/>
+Updated formatting for readability.
 </li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>

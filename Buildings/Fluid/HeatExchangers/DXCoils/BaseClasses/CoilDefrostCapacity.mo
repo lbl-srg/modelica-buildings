@@ -4,7 +4,7 @@ block CoilDefrostCapacity
   extends Modelica.Blocks.Icons.Block;
 
   replaceable package MediumA = Modelica.Media.Interfaces.PartialMedium
-    annotation (__Dymola_choicesAllMatching=true);
+    "Fluid medium package";
 
   parameter Real tDefRun(
     final unit="1",
@@ -31,11 +31,10 @@ block CoilDefrostCapacity
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
     "Defrost curve parameter record";
 
-  Modelica.Blocks.Interfaces.RealInput tFracDef(
-    final unit="1",
-    displayUnit="1") "Defrost time period fraction"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
-      iconTransformation(extent={{-120,100},{-100,120}})));
+  Modelica.Blocks.Interfaces.RealInput tDefFra(final unit="1", displayUnit="1")
+    "Defrost time period fraction" annotation (Placement(transformation(extent={
+            {-120,90},{-100,110}}), iconTransformation(extent={{-120,100},{-100,
+            120}})));
 
   Modelica.Blocks.Interfaces.RealInput heaCapMul(
     final unit="1",
@@ -181,14 +180,14 @@ equation
       deltaX=0.0001)
       "Cooling capacity modification factor as function of temperature";
   PLR = uSpe;
-  if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
-       then
+  if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive then
     QDef = 0;
-    PDef = QDefResCap * tFracDef * RTF;
+    PDef =QDefResCap*tDefFra*RTF;
   else
-    QDef = 0.01 * tFracDef * (7.222 - Modelica.Units.Conversions.to_degC(TOut)) * QTot/1.01667;
-    PDef = defMod_T * QTot * tFracDef * RTF/1.01667;
-  end if;
+    QDef =0.01*tDefFra*(7.222 - Modelica.Units.Conversions.to_degC(TOut))*QTot/1.01667;
+    PDef =defMod_T*QTot*tDefFra*RTF/1.01667;
+  end if
+  "Power and heat transfer calculations from EPlus engineering reference";
   QTotDef = QTot * heaCapMul;
   PLFra = Buildings.Fluid.Utilities.extendedPolynomial(
       x=PLR,
@@ -218,7 +217,6 @@ equation
           textStyle={TextStyle.Italic},
           textString="f(To,Xo)")}),
           Documentation(info="<html>
-<p>
 Block to calculate heat transfered to airloop <code>QTotDef</code>, as well as 
 the total heating power consumption of the component <code>PTot</code>, as defined 
 in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2 
@@ -228,7 +226,7 @@ and the crankcase heater input power consumption <code>PCra</code>.<br/>
 The inputs are as follows:
 <ul>
 <li>
-the defrost cycle time fraction <code>tFracDef</code>, the heating capacity multiplier 
+the defrost cycle time fraction <code>tDefFra</code>, the heating capacity multiplier 
 <code>heaCapMul</code> and the input power multiplier <code>inpPowMul</code> 
 calculated by <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations</a>.
@@ -247,12 +245,11 @@ temperature.
 the measured outdoor air temperature <code>TOut</code>.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
+April 2, 2023, by Karthik Devaprasad:<br/>
 First implementation.
 </li>
 </ul>

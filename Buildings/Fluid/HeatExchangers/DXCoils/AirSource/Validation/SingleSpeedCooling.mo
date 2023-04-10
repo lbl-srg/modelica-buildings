@@ -2,52 +2,65 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation;
 model SingleSpeedCooling
   "Validation model for single speed DX coil with PLR=1"
   extends Modelica.Icons.Example;
-  package Medium = Buildings.Media.Air "Medium model";
+
+  package Medium = Buildings.Media.Air
+    "Medium model";
 
   parameter Modelica.Units.SI.Power Q_flow_nominal=datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
+
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1141
     "Pressure drop at m_flow_nominal";
-  Buildings.Fluid.Sources.Boundary_pT sin(
-    redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325,
-    nPorts=1,
-    T=303.15) "Sink"
-    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
-  Buildings.Fluid.Sources.Boundary_pT sou(
-    redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325 + dp_nominal,
-    use_T_in=true,
-    nPorts=1,
-    use_p_in=true,
-    use_X_in=true,
-    T=299.85) "Source"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
-    sinSpeDX(
-    redeclare package Medium = Medium,
-    dp_nominal=dp_nominal,
-    datCoi=datCoi,
-    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
-    from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-    "Single speed DX coil"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCoi(nSta=1, sta={Data.Generic.BaseClasses.Stage(
+    datCoi(nSta=1,
+      sta={
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
-        nomVal=Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-10500,
           COP_nominal=3,
           SHR_nominal=0.798655,
           m_flow_nominal=1.72),
-        perCur=Examples.PerformanceCurves.Curve_II())}) "Coil data"
+        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II())})
+    "Coil data"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
-  Modelica.Blocks.Sources.TimeTable plr_onOff(table=[0,0; 3600,0; 3600,0; 7200,0;
+
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
+    final p(displayUnit="Pa") = 101325,
+    final nPorts=1,
+    final T=303.15)
+    "Sink"
+    annotation (Placement(transformation(extent={{40,-20},{20,0}})));
+
+  Buildings.Fluid.Sources.Boundary_pT sou(
+    redeclare package Medium = Medium,
+    final p(displayUnit="Pa") = 101325 + dp_nominal,
+    final use_T_in=true,
+    final nPorts=1,
+    final use_p_in=true,
+    final use_X_in=true,
+    final T=299.85)
+    "Source"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling
+    sinSpeDX(
+    redeclare package Medium = Medium,
+    final dp_nominal=dp_nominal,
+    final datCoi=datCoi,
+    final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
+    final from_dp=true,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Single speed DX coil"
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+
+  Modelica.Blocks.Sources.TimeTable plr_onOff(final table=[0,0; 3600,0; 3600,0; 7200,0;
         7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0; 21600,
         0; 25200,0; 25200,1; 28800,1; 28800,1; 32400,1; 32400,1; 36000,1; 36000,
         1; 39600,1; 39600,1; 43200,1; 43200,1; 46800,1; 46800,1; 50400,1; 50400,
@@ -56,7 +69,8 @@ model SingleSpeedCooling
         0; 82800,0; 82800,0; 86400,0])
     "EnergyPlus PLR converted into on-off signal for this model"
     annotation (Placement(transformation(extent={{-140,100},{-120,120}})));
-  Modelica.Blocks.Sources.TimeTable TCIn(table=[0,21.1; 3600,21.1; 3600,
+
+  Modelica.Blocks.Sources.TimeTable TCIn(final table=[0,21.1; 3600,21.1; 3600,
         20.80833333; 7200,20.80833333; 7200,20.89166667; 10800,20.89166667;
         10800,21.1; 14400,21.1; 14400,20.80833333; 18000,20.80833333; 18000,
         20.6; 21600,20.6; 21600,20.89166667; 25200,20.89166667; 25200,21.45;
@@ -70,7 +84,8 @@ model SingleSpeedCooling
         21.35; 82800,21.35; 82800,21.1; 86400,21.1])
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Modelica.Blocks.Sources.TimeTable TEvaIn(table=[0,31.29534707; 3600,31.29534707;
+
+  Modelica.Blocks.Sources.TimeTable TEvaIn(final table=[0,31.29534707; 3600,31.29534707;
         3600,30.89999423; 7200,30.89999423; 7200,30.58355581; 10800,30.58355581;
         10800,30.30108174; 14400,30.30108174; 14400,30.01393253; 18000,30.01393253;
         18000,29.75672215; 21600,29.75672215; 21600,29.66076742; 25200,29.66076742;
@@ -82,9 +97,11 @@ model SingleSpeedCooling
         61200,38.68278429; 64800,38.68278429; 64800,35.75595795; 68400,35.75595795;
         68400,33.29770237; 72000,33.29770237; 72000,32.78839302; 75600,32.78839302;
         75600,32.3989099; 79200,32.3989099; 79200,32.00270417; 82800,32.00270417;
-        82800,31.66453096; 86400,31.66453096]) "Coil inlet temperature"
+        82800,31.66453096; 86400,31.66453096])
+    "Coil inlet temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Modelica.Blocks.Sources.TimeTable XEvaIn(table=[0,0.010526598; 3600,0.010526598;
+
+  Modelica.Blocks.Sources.TimeTable XEvaIn(final table=[0,0.010526598; 3600,0.010526598;
         3600,0.010526598; 7200,0.010526598; 7200,0.010526598; 10800,0.010526598;
         10800,0.010526598; 14400,0.010526598; 14400,0.010526598; 18000,
         0.010526598; 18000,0.010526598; 21600,0.010526598; 21600,0.010631087;
@@ -100,36 +117,73 @@ model SingleSpeedCooling
         0.010537961; 82800,0.010537961; 82800,0.010537961; 86400,0.010537961])
     "Water fraction of moist air"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
+
   Modelica.Blocks.Math.RealToBoolean onOff
+    "Enable the DX coil when input is greater than 0.5"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
-  Modelica.Blocks.Routing.Multiplex2 mux "Converts in an array"
+
+  Modelica.Blocks.Routing.Multiplex2 mux
+    "Converts in an array"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Utilities.IO.BCVTB.From_degC TCIn_K "Converts degC to K"
+
+  Buildings.Utilities.IO.BCVTB.From_degC TCIn_K
+    "Converts degC to K"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
+
+  Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K
+    "Converts degC to K"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Modelica.Blocks.Math.Mean TOutMea(f=1/3600)
+
+  Modelica.Blocks.Math.Mean TOutMea(
+    final f=1/3600)
+    "Average out value over one hour"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
+
   Buildings.Utilities.IO.BCVTB.To_degC TOutDegC
+    "Convert to degree Celsius"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Modelica.Blocks.Sources.RealExpression TOut(y=sinSpeDX.vol.T)
+
+  Modelica.Blocks.Sources.RealExpression TOut(
+    final y=sinSpeDX.vol.T)
+    "Measured outlet air temperature from model"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Modelica.Blocks.Math.Mean XEvaOutMea(f=1/3600)
+
+  Modelica.Blocks.Math.Mean XEvaOutMea(
+    final f=1/3600)
+    "Average out value over one hour"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Modelica.Blocks.Sources.RealExpression XEvaOut(y=sum(sinSpeDX.vol.Xi))
+
+  Modelica.Blocks.Sources.RealExpression XEvaOut(
+    final y=sum(sinSpeDX.vol.Xi))
+    "Measured outlet air humidity ratio (total air)"
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
-  Modelica.Blocks.Math.Mean Q_flowMea(f=1/3600) "Mean of cooling rate"
+
+  Modelica.Blocks.Math.Mean Q_flowMea(
+    final f=1/3600)
+    "Mean of cooling rate"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Math.Mean Q_flowSenMea(f=1/3600)
+
+  Modelica.Blocks.Math.Mean Q_flowSenMea(
+    final f=1/3600)
     "Mean of sensible cooling rate"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Modelica.Blocks.Math.Mean PMea(f=1/3600) "Mean of power"
+
+  Modelica.Blocks.Math.Mean PMea(
+    final f=1/3600)
+    "Mean of power"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
-  Modelica.Blocks.Math.Add add(k1=-1)
+
+  Modelica.Blocks.Math.Add add(
+    final k1=-1)
+    "Convert humidity ratio (dry air) to humidity ratio (total air)"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Sources.Constant XEvaInMoiAir(k=1.0) "Moist air fraction = 1"
+
+  Modelica.Blocks.Sources.Constant XEvaInMoiAir(
+    final k=1.0)
+    "Moist air fraction = 1"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
-  Modelica.Blocks.Sources.TimeTable TOutEPlu(table=[0,31.29534707; 3600,31.29534707;
+
+  Modelica.Blocks.Sources.TimeTable TOutEPlu(final table=[0,31.29534707; 3600,31.29534707;
         3600,30.89999423; 7200,30.89999423; 7200,30.58355581; 10800,30.58355581;
         10800,30.30108174; 14400,30.30108174; 14400,30.01393253; 18000,30.01393253;
         18000,29.75672215; 21600,29.75672215; 21600,29.66076742; 25200,29.66076742;
@@ -144,7 +198,8 @@ model SingleSpeedCooling
         82800,31.66453096; 86400,31.66453096])
     "EnergyPlus result: outlet temperature"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Modelica.Blocks.Sources.TimeTable Q_flowEPlu(table=[0,-1e-07; 3600,-1e-07; 3600,
+
+  Modelica.Blocks.Sources.TimeTable Q_flowEPlu(final table=[0,-1e-07; 3600,-1e-07; 3600,
         -1e-07; 7200,-1e-07; 7200,-1e-07; 10800,-1e-07; 10800,-1e-07; 14400,-1e-07;
         14400,-1e-07; 18000,-1e-07; 18000,-1e-07; 21600,-1e-07; 21600,-1e-07; 25200,
         -1e-07; 25200,-10983.1144101; 28800,-10983.1144101; 28800,-10855.9768001;
@@ -155,9 +210,11 @@ model SingleSpeedCooling
         57600,-11121.6278701; 57600,-11185.7466001; 61200,-11185.7466001; 61200,
         -1e-07; 64800,-1e-07; 64800,-1e-07; 68400,-1e-07; 68400,-1e-07; 72000,-1e-07;
         72000,-1e-07; 75600,-1e-07; 75600,-1e-07; 79200,-1e-07; 79200,-1e-07; 82800,
-        -1e-07; 82800,-1e-07; 86400,-1e-07]) "EnergyPlus result: heat flow"
+        -1e-07; 82800,-1e-07; 86400,-1e-07])
+    "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Modelica.Blocks.Sources.TimeTable Q_flowSenEPlu(table=[0,0; 3600,0; 3600,0; 7200,
+
+  Modelica.Blocks.Sources.TimeTable Q_flowSenEPlu(final table=[0,0; 3600,0; 3600,0; 7200,
         0; 7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0;
         21600,0; 25200,0; 25200,-8537.795206; 28800,-8537.795206; 28800,-9298.755552;
         32400,-9298.755552; 32400,-9643.742602; 36000,-9643.742602; 36000,-9835.115234;
@@ -168,9 +225,12 @@ model SingleSpeedCooling
         72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
     "EnergyPlus result: sensible heat flow "
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Modelica.Blocks.Math.Division shrEPlu "EnergyPlus result: SHR"
+
+  Modelica.Blocks.Math.Division shrEPlu
+    "EnergyPlus result: SHR"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
-  Modelica.Blocks.Sources.TimeTable XEvaOutEPlu(table=[0,0.010526598; 3600,0.010526598;
+
+  Modelica.Blocks.Sources.TimeTable XEvaOutEPlu(final table=[0,0.010526598; 3600,0.010526598;
         3600,0.010526598; 7200,0.010526598; 7200,0.010526598; 10800,0.010526598;
         10800,0.010526598; 14400,0.010526598; 14400,0.010526598; 18000,0.010526598;
         18000,0.010526598; 21600,0.010526598; 21600,0.010631087; 25200,0.010631087;
@@ -185,7 +245,8 @@ model SingleSpeedCooling
         82800,0.010537961; 86400,0.010537961])
     "EnergyPlus result: outlet water mass fraction"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  Modelica.Blocks.Sources.TimeTable PEPlu(table=[0,0; 3600,0; 3600,0; 7200,0; 7200,
+
+  Modelica.Blocks.Sources.TimeTable PEPlu(final table=[0,0; 3600,0; 3600,0; 7200,0; 7200,
         0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0; 21600,
         0; 25200,0; 25200,2947.546668; 28800,2947.546668; 28800,2966.686535; 32400,
         2966.686535; 32400,2999.864072; 36000,2999.864072; 36000,3087.801241; 39600,
@@ -196,22 +257,31 @@ model SingleSpeedCooling
         0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
     "EnergyPlus result: electric power"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+
   Modelica.Blocks.Sources.Pulse p(
-    nperiod=1,
-    offset=101325,
-    amplitude=1141,
-    width=100,
-    period=36000,
-    startTime=25200) "Pressure"
+    final nperiod=1,
+    final offset=101325,
+    final amplitude=1141,
+    final width=100,
+    final period=36000,
+    final startTime=25200)
+    "Pressure"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Modelica.Blocks.Sources.RealExpression XEvaInMod(y=XEvaIn.y/(1 + XEvaIn.y))
+
+  Modelica.Blocks.Sources.RealExpression XEvaInMod(
+    final y=XEvaIn.y/(1 + XEvaIn.y))
     "Modified XEvaIn"
     annotation (Placement(transformation(extent={{-140,-54},{-120,-34}})));
-  Modelica.Blocks.Sources.RealExpression XEvaOutEPluMod(y=XEvaOutEPlu.y/(1 + XEvaOutEPlu.y))
+
+  Modelica.Blocks.Sources.RealExpression XEvaOutEPluMod(
+    final y=XEvaOutEPlu.y/(1 + XEvaOutEPlu.y))
     "Modified XEvaOut of energyPlus to comapre with the model results"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Modelica.Blocks.Math.Add QCoo_flow "Total cooling heat flow rate"
+
+  Modelica.Blocks.Math.Add QCoo_flow
+    "Total cooling heat flow rate"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+
 equation
   connect(sou.ports[1], sinSpeDX.port_a)
                                         annotation (Line(
@@ -312,7 +382,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.QLat_flow, QCoo_flow.u2) annotation (Line(
-      points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
+      points={{12.6,13},{20,13},{20,32},{-48,32},{-48,84},{-42,84}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
@@ -352,6 +422,13 @@ are corrected by dividing them by
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>
+Updated model name to differentiate from heating coil validation models.<br/>
+Updated connection statements to reflect change in input instance on <code>sinSpeDX</code>
+from <code>TConIn</code> to <code>TOut</code>.<br/>
+Updated formatting for readability.
+</li>
+<li>
 January 22, 2016, by Michael Wetter:<br/>
 Corrected type declaration of pressure difference.
 This is
@@ -372,6 +449,5 @@ August 20, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end SingleSpeedCooling;

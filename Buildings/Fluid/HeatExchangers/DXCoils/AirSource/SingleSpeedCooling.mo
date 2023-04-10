@@ -14,18 +14,26 @@ model SingleSpeedCooling "Single speed DX cooling coil"
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
       datCoi,
     use_mCon_flow=false);
-  Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
+
+  Modelica.Blocks.Sources.Constant speRat(
+    final k=1)
+    "Speed ratio"
     annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
+
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
+
 protected
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
-    final integerFalse=0) "On/off switch"
+    final integerFalse=0)
+    "On/off switch"
     annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
+
 initial equation
   assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
+
 equation
   connect(speRat.y,dxCoi.speRat)  annotation (Line(
       points={{-43.4,64},{-40,64},{-40,59.6},{-21,59.6}},
@@ -43,7 +51,7 @@ equation
       points={{-43.4,80},{-34,80},{-34,62},{-21,62}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
+annotation (defaultComponentName="sinSpeDXCoo", Documentation(info="<html>
 <p>
 This model can be used to simulate an air source DX cooling coil with single speed compressor.
 </p>
@@ -58,7 +66,11 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Renamed class to <code>SingleSpeedDXCooling</code> to differentiate it from DX heating coils.
+Renamed class to <code>SingleSpeedDXCooling</code> to differentiate it from DX 
+heating coils.<br/>
+Updated connection statements to reflect change in instance name from <code>dxCoo</code>
+to <code>dxCoi</code>.<br/>
+Updated formatting for readability.
 </li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>

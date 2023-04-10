@@ -32,8 +32,11 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
-  parameter AirSource.Data.Generic.CoolingCoil datCoi(sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datCoi(
+    is_CooCoi=true,
+    sta={
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
@@ -43,7 +46,7 @@ extends Modelica.Icons.Example;
           m_flow_nominal=0.9),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
@@ -53,7 +56,7 @@ extends Modelica.Icons.Example;
           m_flow_nominal=1.2),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
@@ -63,7 +66,7 @@ extends Modelica.Icons.Example;
           m_flow_nominal=1.5),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_II_AirCooled()),
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
@@ -73,7 +76,8 @@ extends Modelica.Icons.Example;
           m_flow_nominal=1.8),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_AirCooled())},
-      nSta=4) "Coil data"
+      nSta=4)
+    "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(TConIn.y, dryCoi.TConIn)  annotation (Line(
@@ -108,6 +112,16 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>
+Changed instance from <code>cooCap</code> with class <code>CoolingCapacityAirCooled</code>
+to <code>coiCap</code> with class <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
+<br/>
+Updated class for data record <code>datCoi</code> from <code>DXCoil</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

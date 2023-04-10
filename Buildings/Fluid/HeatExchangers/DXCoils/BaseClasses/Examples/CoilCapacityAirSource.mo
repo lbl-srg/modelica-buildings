@@ -63,6 +63,14 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+Updated name of class from <code>CoolingCapacityAirCooled</code> to 
+<code>CoilCapacityAirSource</code>.<br/>
+Updated class for <code>cooCap</code> from <code>CoolingCapacityAirCooled</code>
+to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
+</li>
+<li>
 February 28, 2017 by Yangyang Fu:<br/>
 First implementation.
 </li>

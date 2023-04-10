@@ -9,7 +9,7 @@ partial model PartialDXCoil "Partial model for DX coil"
   constant Boolean use_mCon_flow
     "Set to true to enable connector for the condenser mass flow rate";
 
-  parameter Boolean activate_CooCoi
+  parameter Boolean is_CooCoi
     "= false, if DX coil is in the heating operation";
 
   parameter Boolean computeReevaporation=true
@@ -44,7 +44,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
   replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoi(
-    final datCoi=datCoi,
+    datCoi=datCoi,
     final use_mCon_flow=use_mCon_flow)
     "DX coil"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));
@@ -76,7 +76,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr(
-    final activate_CooCoi=activate_CooCoi)
+    final is_CooCoi=is_CooCoi)
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 
@@ -143,7 +143,7 @@ equation
   connect(mCon_flow,dxCoi. mCon_flow) annotation (Line(points={{-110,-30},{-24,
           -30},{-24,42},{-21,42}}, color={0,0,127}));
 
-  if activate_CooCoi then
+  if is_CooCoi then
 
   end if;
 
@@ -162,7 +162,11 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023, by Xing Lu and Karthik Devaprasad:<br/>
-Changed baseclass to create common version for both heating and cooling coils. Renamed <code>TConIn</code> to <code>TOut</code>. Added conditional enable to <code>QLat_flow</code> and <code>eva</code>.
+Changed baseclass to create common version for both heating and cooling coils.<br/>
+Renamed <code>TConIn</code> to <code>TOut</code>.<br/> 
+Moved instances <code>QLat_flow</code> and <code>eva</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil</a>.
 </li>
 <li>
 June 19, 2017, by Michael Wetter:<br/>

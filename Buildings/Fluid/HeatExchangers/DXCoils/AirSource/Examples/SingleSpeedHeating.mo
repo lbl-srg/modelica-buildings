@@ -1,16 +1,58 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples;
 model SingleSpeedHeating "Test model for single speed DX heating coil"
-  package Medium = Buildings.Media.Air;
   extends Modelica.Icons.Example;
+
+  package Medium = Buildings.Media.Air
+    "Fluid medium for the model";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=datCoi.sta[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
+
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1000
     "Pressure drop at m_flow_nominal";
 
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    datCoi(
+    is_CooCoi=false,
+    nSta=1,
+    minSpeRat=0.2,
+    sta={
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      spe=1800/60,
+      nomVal=
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Q_flow_nominal=16381.47714,
+        COP_nominal=3.90494,
+        SHR_nominal=1,
+        m_flow_nominal=2,
+        TEvaIn_nominal=273.15 - 5,
+        TConIn_nominal=273.15 + 21),
+    perCur=
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())})
+    "Coil heat transfer data record"
+    annotation (Placement(transformation(extent={{60,34},{80,54}})));
+
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+    datDef(
+    final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
+    final defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed,
+    final tDefRun=1/6,
+    final TDefLim=273.65,
+    final QDefResCap=10500,
+    final QCraCap=200)
+    "Heating coil defrost data"
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+
+
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
+    datCoi(
+      final nSta=datCoi.nSta,
+      final minSpeRat=datCoi.minSpeRat,
+      final sta=datCoi.sta),
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
-    final datCoi=datCoi,
     final T_start=datCoi.sta[1].nomVal.TConIn_nominal,
     final show_T=true,
     final from_dp=true,
@@ -21,72 +63,50 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
 
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
-    p(displayUnit="Pa") = 101325,
-    T=303.15,
-    nPorts=1)
+    final p(displayUnit="Pa") = 101325,
+    final T=303.15,
+    final nPorts=1)
     "Sink"
     annotation (Placement(transformation(extent={{68,-30},{48,-10}})));
 
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
-    use_T_in=true,
-    use_p_in=true,
-    nPorts=1)      "Source"
+    final use_T_in=true,
+    final use_p_in=true,
+    final nPorts=1)
+    "Source"
     annotation (Placement(transformation(extent={{-12,-30},{8,-10}})));
-  Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
+
+  Modelica.Blocks.Sources.BooleanStep onOff(
+    final startTime=600)
     "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+
   Modelica.Blocks.Sources.Ramp TConIn(
-    duration=600,
-    startTime=2400,
-    height=-3,
-    offset=273.15 + 23) "Temperature"
+    final duration=600,
+    final startTime=2400,
+    final height=-3,
+    final offset=273.15 + 23)
+    "Temperature"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 
   Modelica.Blocks.Sources.Ramp p(
-    duration=600,
-    startTime=600,
-    height=dp_nominal,
-    offset=101325) "Pressure"
+    final duration=600,
+    final startTime=600,
+    final height=dp_nominal,
+    final offset=101325)
+    "Pressure"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
-  Modelica.Blocks.Sources.Constant TEvaIn(k=273.15 + 0)
+  Modelica.Blocks.Sources.Constant TEvaIn(
+    final k=273.15 + 0)
     "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Sources.Constant XEvaIn(k=0.001/1.001)
+
+  Modelica.Blocks.Sources.Constant XEvaIn(
+    final k=0.001/1.001)
     "Evaporator inlet humidity ratio"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
-    datCoi(
-    activate_CooCoi=false,
-    nSta=1,
-    minSpeRat=0.2,
-    sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
-        spe=1800/60,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          Q_flow_nominal=16381.47714,
-          COP_nominal=3.90494,
-          SHR_nominal=1,
-          m_flow_nominal=2,
-          TEvaIn_nominal=273.15 - 5,
-          TConIn_nominal=273.15 + 21),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())})
-                "Coil heat transfer data record"
-    annotation (Placement(transformation(extent={{60,34},{80,54}})));
-
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef(
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostOperation.resistive,
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DefrostTimeMethods.timed,
-    tDefRun=1/6,
-    TDefLim=273.65,
-    QDefResCap=10500,
-    QCraCap=200) "Heating coil defrost data"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
 equation
   connect(TConIn.y, sou.T_in) annotation (Line(
@@ -118,8 +138,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
             Documentation(info="<html>
 <p>
 This is an example model for
