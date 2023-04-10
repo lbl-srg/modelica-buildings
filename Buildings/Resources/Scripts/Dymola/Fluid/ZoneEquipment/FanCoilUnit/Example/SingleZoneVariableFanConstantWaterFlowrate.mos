@@ -1,0 +1,13 @@
+simulateModel("Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.SingleZoneVariableFanConstantWaterFlowrate", method="Cvode", tolerance=1e-6,startTime=15724800, stopTime=16588800, resultFile="FanCoilExample", outputInterval = 60);
+
+createPlot(id=1, position={0, 0, 1666, 976}, y={"occSch.occupied"}, range={262000.0, 276500.0, -0.5, 1.5}, autoscale=false, grid=true, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=1, position={0, 0, 1666, 158}, y={"conZonHVACSys.TZon", "conZonHVACSys.TCooSet", "conZonHVACSys.THeaSet", "building.weaBus.TDryBul"}, range={262000.0, 276500.0, 10.0, 40.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="min", displayUnits={"degC", "degC", "degC", "degC"});
+createPlot(id=1, position={0, 0, 1666, 159}, y={"conZonHVACSys.yFan"}, range={262000.0, 276500.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=1, position={0, 0, 1666, 158}, y={"conZonHVACSys.yFanSpe"}, range={262000.0, 276500.0, 0.0, 1.5}, autoscale=false, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=1, position={0, 0, 1666, 159}, y={"conZonHVACSys.yCoo"}, range={262000.0, 276500.0, -0.5, 1.5}, autoscale=false, grid=true, subPlot=5, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=1, position={0, 0, 1666, 158}, y={"conZonHVACSys.yHea"}, range={262000.0, 276500.0, -2.0, 2.0}, autoscale=false, grid=true, subPlot=6, colors={{28,108,200}}, timeUnit="min");
+
+createPlot(id=2, position={834, 0, 816, 230}, y={"conZonHVACSys.yFan"}, range={15720000.0, 16600000.0, -0.2, 1.2000000000000002}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="min");
+createPlot(id=2, position={834, 0, 816, 937}, y={"zonHVACSys.uFan", "zonHVACSys.yFan_actual"}, range={262000.0, 276500.0, -2.0, 8.0}, grid=true, colors={{28,108,200}, {238,46,47}}, subPlot=2, timeUnit="min");
+createPlot(id=2, position={834, 0, 816, 230}, y={"conZonHVACSys.yCoo", "zonHVACSys.valCHW.y_actual"}, range={262000.0, 276500.0, -0.2, 1.2000000000000002}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="min");
+createPlot(id=2, position={834, 0, 816, 231}, y={"conZonHVACSys.yHea", "zonHVACSys.valHW.y_actual"}, range={262000.0, 276500.0, -0.2, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, timeUnit="min");
