@@ -92,7 +92,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
       <p>
-      This block has been iomplemented to overcome the zero-index errors being 
+      This block has been implemented to overcome the zero-index errors being 
       reported in the block 
       <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities\">
       Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Capacities</a>.
@@ -103,7 +103,7 @@ equation
       RealExtractor</a> block.
       </p>
       <p>
-      To overcome, this the block accepts input signals <code>uInd</code> for the
+      To overcome this, the block accepts input signals <code>uInd</code> for the
       current index value, and <code>uCap</code> for the current capacity signal. 
       It outputs a modified index signal <code>yIndMod</code> and a modified 
       capacity signal <code>yCapMod</code>.
