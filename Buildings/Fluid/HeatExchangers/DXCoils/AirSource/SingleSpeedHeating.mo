@@ -51,6 +51,7 @@ equation
           {56,-40},{59,-40}}, color={0,0,127}));
   annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
 <p>
+
 This model can be used to simulate an air-source DX heating coil with single speed compressor.
 </p>
 </html>",

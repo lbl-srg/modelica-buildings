@@ -1,0 +1,11 @@
+compareVars :=
+  {
+    "conVarWatConFan.TZon",
+    "conVarWatConFan.TCooSet",
+    "conVarWatConFan.THeaSet",
+    "conVarWatConFan.uOcc",
+    "conVarWatConFan.yCoo",
+    "conVarWatConFan.yHea",
+    "conVarWatConFan.yFan",
+    "conVarWatConFan.yFanSpe"
+  };
