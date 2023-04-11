@@ -575,7 +575,7 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 <ul>
 <li>
 April 5, 2023, by Jianjun Hu:<br/>
-Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the dcocumentation.<br/>
+Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3322\">#3322</a>.
 </li>
