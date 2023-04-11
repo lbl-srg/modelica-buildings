@@ -7,7 +7,7 @@ model Evaporation
      annotation (choicesAllMatching=true);
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
     nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -174,7 +174,7 @@ initial equation
     This means that the coil is not dehumidifying air at the nominal conditions.
     Check nominal parameters.
     " +
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
+      Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
       nomVal),
     AssertionLevel.warning);
 
@@ -206,7 +206,7 @@ initial equation
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
    " +
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
+    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
     nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 
