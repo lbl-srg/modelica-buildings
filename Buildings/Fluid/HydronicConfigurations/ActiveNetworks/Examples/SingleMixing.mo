@@ -7,7 +7,7 @@ model SingleMixing
     dpPum_nominal=10e4,
     del1(nPorts=2),
     pum(typ=Buildings.Fluid.HydronicConfigurations.Types.Pump.NoVariableInput,
-        typMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional));
+        typMod=Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed));
 
   parameter Boolean is_bal=true
     "Set to true for balanced primary branch"
