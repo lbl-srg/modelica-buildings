@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
-block SupplementalHeating "Activation of supplemental heating"
+block SupplementalHeating "Supplemental heating controller"
 
   parameter Real TLocOut(
     final unit="K",
@@ -40,20 +40,20 @@ block SupplementalHeating "Activation of supplemental heating"
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaMod
     "When heating mode is enabled"
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}}),
-      iconTransformation(extent={{-160,-40},{-120,0}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaEna
     "DX heating coil enable signal"
     annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
-      iconTransformation(extent={{-160,-80},{-120,-40}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-200,50},{-160,90}}),
-      iconTransformation(extent={{-160,80},{-120,120}})));
+      iconTransformation(extent={{-140,60},{-100,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
@@ -61,7 +61,7 @@ block SupplementalHeating "Activation of supplemental heating"
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-200,10},{-160,50}}),
-      iconTransformation(extent={{-160,40},{-120,80}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -69,12 +69,12 @@ block SupplementalHeating "Activation of supplemental heating"
     final quantity="ThermodynamicTemperature")
     "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-200,-30},{-160,10}}),
-      iconTransformation(extent={{-160,0},{-120,40}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaEna
     "DX heating coil enable signal"
     annotation (Placement(transformation(extent={{160,-70},{200,-30}}),
-      iconTransformation(extent={{120,-20},{160,20}})));
+      iconTransformation(extent={{100,-40},{140,0}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupHea(
     final min=0,
@@ -82,7 +82,7 @@ block SupplementalHeating "Activation of supplemental heating"
     final unit="1")
     "Supplementary heating control signal"
     annotation (Placement(transformation(extent={{160,40},{200,80}}),
-      iconTransformation(extent={{120,20},{160,60}})));
+      iconTransformation(extent={{100,0},{140,40}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrLocOut(
@@ -96,9 +96,9 @@ protected
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 
   Buildings.Controls.Continuous.LimPID conPIHeaHig(
-    controllerType=controllerType,
+    final controllerType=controllerType,
     final k=k,
-    Td=Td,
+    final Td=Td,
     final yMax=1,
     final yMin=0,
     final Ti=Ti)
@@ -167,11 +167,11 @@ equation
           -58},{38,-58}}, color={255,0,255}));
   connect(andLocOut.y, booToReaSupHeaLocOut.u) annotation (Line(points={{-58,-10},
           {-50,-10},{-50,100},{-42,100}}, color={255,0,255}));
-  connect(THeaSet, addParHeaSet.u)
+  connect(TSetHea, addParHeaSet.u)
     annotation (Line(points={{-180,70},{-42,70}},  color={0,0,127}));
   connect(addParHeaSet.y, conPIHeaHig.u_s)
     annotation (Line(points={{-18,70},{-2,70}}, color={0,0,127}));
-  connect(THeaSet, conPIHeaLocOut.u_s) annotation (Line(points={{-180,70},{-140,
+  connect(TSetHea, conPIHeaLocOut.u_s) annotation (Line(points={{-180,70},{-140,
           70},{-140,120},{-102,120}}, color={0,0,127}));
   connect(TZon, conPIHeaLocOut.u_m)
     annotation (Line(points={{-180,30},{-90,30},{-90,108}}, color={0,0,127}));
@@ -191,11 +191,11 @@ equation
           {80,94},{98,94}}, color={0,0,127}));
   connect(maxSupHea.y, ySupHea) annotation (Line(points={{122,100},{140,100},{140,
           60},{180,60}}, color={0,0,127}));
-annotation (defaultComponentName="uSupHea",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-160,-140},{160,140}}),
+annotation (defaultComponentName="conSupHea",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
        graphics={
         Rectangle(
-        extent={{-120,-120},{120,120}},
+        extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),

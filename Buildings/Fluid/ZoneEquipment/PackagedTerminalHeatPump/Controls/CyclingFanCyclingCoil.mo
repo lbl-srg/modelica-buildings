@@ -138,7 +138,7 @@ equation
           100},{160,100}}, color={255,0,255}));
   connect(conCoo.yMod, yCooMod) annotation (Line(points={{14,-84},{30,-84},{30,
           140},{160,140}}, color={255,0,255}));
-  annotation (defaultComponentName="conVarWatConFan",
+  annotation (defaultComponentName="conCycFanCycCoi",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,
             140}})),

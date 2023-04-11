@@ -65,15 +65,20 @@ First implementation.
       "Enumeration for the OA port types"
       annotation (Documentation(info="<html>
 <p>
-Enumeration for the type of heating coil used in the zone equipment.
+Enumeration for the type of OA ports used in the zone equipment.
 The possible values are
 </p>
 <ol>
 <li>
-ele - Electric resistance heating coil
+oaMix - Equipment has an in-built OA mixer.
 </li>
 <li>
-hotWat - Hot-water heating coil
+oaPorts - Equipment has a mixed air inlet and a return air outlet that can be 
+connected to an OA mixer externally.
+</li>
+<li>
+noOA - Equipment directly connects the return port to the supply fan inlet port, 
+wih 100% return air.
 </li>
 </ol>
 </html>",
@@ -86,25 +91,40 @@ First implementation.
 </ul>
 </html>"));
   type SystemTypes = enumeration(
-      fcu,
-      ptac,
-      pthp,
-      windowAC,
-      unitHeater,
-      zoneOAUnit,
-      unitVentilator)
+      fcu "Fan coil unit",
+      ptac "Packaged terminal air conditioner",
+      pthp "Packaged terminal heat pump",
+      windowAC "Window AC",
+      unitHeater "Unit heater",
+      zoneOAUnit "Zone OA unit",
+      unitVentilator "Unit ventilator")
       "Enumeration for the zonal HVAC system types"
       annotation (Documentation(info="<html>
 <p>
-Enumeration for the type of heating coil used in the zone equipment.
+Enumeration for the zone equipment system types.
 The possible values are
 </p>
 <ol>
 <li>
-ele - Electric resistance heating coil
+fcu - Fan coil unit
 </li>
 <li>
-hotWat - Hot-water heating coil
+ptac - Packaged terminal air conditioner
+</li>
+<li>
+pthp - Packaged terminal heat pump
+</li>
+<li>
+windowAC - Window AC
+</li>
+<li>
+unitHeater - Unit heater
+</li>
+<li>
+zoneOAUnit - Zone OA unit
+</li>
+<li>
+unitVentilator - Unit ventilator
 </li>
 </ol>
 </html>",
@@ -117,6 +137,6 @@ First implementation.
 </ul>
 </html>"));
 annotation (Documentation(info="<html>
-This package contains type definitions for fan coil units.
+This package contains type definitions for zone HVAC equipment.
   </html>"));
 end Types;

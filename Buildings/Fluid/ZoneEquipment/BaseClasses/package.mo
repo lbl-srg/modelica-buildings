@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment;
-package BaseClasses
+package BaseClasses "Baseclasses used for zone equipment system models"
+
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -17,6 +18,7 @@ annotation (Icon(graphics={
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
-  This package contains baseclasses used in the example model.
+  This package contains baseclasses used for constructing the zone equipment system 
+  models as well as their associated controllers.
     </html>"));
 end BaseClasses;

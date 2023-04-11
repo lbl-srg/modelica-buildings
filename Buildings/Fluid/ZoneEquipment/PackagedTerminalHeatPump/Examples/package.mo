@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump;
-package Examples
+package Examples "Package with example model for the packaged terminal heat pump"
     extends Modelica.Icons.ExamplesPackage;
 
 annotation (Documentation(info="<html>
