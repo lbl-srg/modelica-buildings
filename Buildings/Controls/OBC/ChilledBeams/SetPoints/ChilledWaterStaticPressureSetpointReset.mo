@@ -35,14 +35,14 @@ block ChilledWaterStaticPressureSetpointReset
   parameter Real chiWatStaPreMax(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 30000
+    final quantity="Pressure")
     "Maximum chilled water loop static pressure setpoint"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
   parameter Real chiWatStaPreMin(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 20000
+    final quantity="Pressure")
     "Minimum chilled water loop static pressure setpoint"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 

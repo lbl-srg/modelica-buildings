@@ -136,7 +136,7 @@ block Controller
   parameter Real dPChiWatMax(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") = 50000
+    final quantity="PressureDifference")
     "Maximum allowed differential pressure in the chilled water loop"
     annotation(Dialog(group="System parameters"));
 
