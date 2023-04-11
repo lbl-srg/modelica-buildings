@@ -87,12 +87,12 @@ equation
         Ellipse(
           extent={{-73,-53},{-87,-67}},
           lineColor=DynamicSelect({235,235,235},
-            if u0 then
+            if clr then
               {0,255,0}
             else
               {235,235,235}),
           fillColor=DynamicSelect({235,235,235},
-            if u0 then
+            if clr then
               {0,255,0}
             else
               {235,235,235}),
