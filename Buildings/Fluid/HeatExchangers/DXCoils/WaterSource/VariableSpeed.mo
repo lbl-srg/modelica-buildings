@@ -1,10 +1,15 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model VariableSpeed "Variable speed water source DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed eva(
-        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-        final minSpeRat = minSpeRat,
-        final speRatDeaBan = speRatDeaBan));
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
+      redeclare final
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling
+      eva(
+      redeclare final
+        Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil
+        datCoi=datCoi,
+      final minSpeRat=minSpeRat,
+      final speRatDeaBan=speRatDeaBan));
 
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
@@ -17,7 +22,8 @@ model VariableSpeed "Variable speed water source DX coils"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
 
 equation
-  connect(speRat, eva.speRat) annotation (Line(points={{-112,80},{-90,80},{-90,
+
+  connect(speRat, eva.speRat) annotation (Line(points={{-112,80},{-16,80},{-16,
           8},{-11,8}},
                      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
@@ -34,6 +40,12 @@ for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Xing Lu:<br/>
+Updated air-source cooling coil class being extended from <code>VariableSpeed</code>
+to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

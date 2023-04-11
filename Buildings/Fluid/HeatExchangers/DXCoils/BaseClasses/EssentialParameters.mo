@@ -2,11 +2,12 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block EssentialParameters "A partial block for essential parameters"
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    datCoi constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
+
 protected
   parameter Integer nSta=datCoi.nSta "Number of stages";
   annotation ( Documentation(info="<html>
@@ -20,6 +21,12 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 revisions="<html>
 <ul>
 <li>
+April 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>
+Updated class of data record <code>datCoi</code> from <code>DXCoil</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer</a>.
+</li>
+<li>
 February 17, 2017 by Yangyang Fu:<br/>
 Added prefix <code>replaceable</code> for the parameter <code>datCoi</code>.
 </li>
@@ -32,6 +39,5 @@ August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end EssentialParameters;

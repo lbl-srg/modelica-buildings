@@ -1,6 +1,7 @@
-MultiStage
-SingleSpeed
-VariableSpeed
+MultiStageCooling
+SingleSpeedCooling
+SingleSpeedHeating
+VariableSpeedCooling
 Data
 Examples
 Validation
