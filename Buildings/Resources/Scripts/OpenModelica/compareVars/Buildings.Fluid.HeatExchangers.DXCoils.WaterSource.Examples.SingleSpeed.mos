@@ -6,9 +6,9 @@ compareVars :=
     "sinSpeDX.sta_b2.T",
     "sinSpeDX.sta_a1.X[1]",
     "sinSpeDX.eva.vol.X_w",
-    "sinSpeDX.eva.dxCoo.mWat_flow",
+    "sinSpeDX.eva.dxCoi.mWat_flow",
     "onOff.y",
     "sinSpeDX.P",
-    "sinSpeDX.eva.dxCoo.Q_flow",
+    "sinSpeDX.eva.dxCoi.Q_flow",
     "sinSpeDX.watCooCon.Q_flow"
   };

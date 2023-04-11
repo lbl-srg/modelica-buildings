@@ -3,13 +3,19 @@ record NominalValues "Data record of nominal values"
   extends Modelica.Icons.Record;
 
 //-----------------------------Nominal conditions-----------------------------//
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(max=0)
-    "Nominal cooling capacity (negative number)"
+  parameter Boolean is_CooCoi = true
+    "= false, if DX coil is in the heating operation";
+
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
+    "Nominal capacity (negative number for the DX cooling coil, and positive number for the DX heating coil)"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Real COP_nominal "Nominal coefficient of performance"
     annotation (Dialog(group="Nominal condition"));
+
   parameter Real SHR_nominal "Nominal sensible heat ratio"
-    annotation (Dialog(group="Nominal condition"));
+    annotation (Dialog(group="Nominal condition", enable = is_CooCoi));
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate at evaporators"
     annotation (Dialog(group="Nominal condition"));
@@ -24,16 +30,19 @@ record NominalValues "Data record of nominal values"
 
   parameter Real phiIn_nominal=0.5
     "Relative humidity of entering air at nominal condition"
-      annotation(Dialog(tab="General",group="Nominal"));
-  parameter Modelica.Units.SI.Pressure p_nominal=101325 "Atmospheric pressure"
+    annotation(Dialog(tab="General",group="Nominal"));
+
+  parameter Modelica.Units.SI.Pressure p_nominal=101325
+    "Atmospheric pressure"
     annotation (Dialog(tab="General", group="Nominal condition"));
 
   parameter Modelica.Units.SI.Time tWet=1400
     "Time until moisture drips from coil when a dry coil is switched on"
-    annotation (Dialog(tab="General", group="Re-evaporation data"));
+    annotation (Dialog(tab="General", group="Re-evaporation data", enable = is_CooCoi));
+
   parameter Real gamma(min=0) = 1.5
     "Ratio of evaporation heat transfer divided by latent heat transfer at nominal conditions"
-     annotation(Dialog(tab="General",group="Re-evaporation data"));
+    annotation(Dialog(tab="General",group="Re-evaporation data", enable = is_CooCoi));
 
 annotation (defaultComponentName="nomVal",
               preferredView="info",
@@ -46,6 +55,10 @@ for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
+Added Boolean conditional for cooling mode operation. Added conditional enable to parameters for SHR_nominal, tWet and gamma.
+</li>
 <li>
 September 25, 2012 by Michael Wetter:<br/>
 Revised documentation.

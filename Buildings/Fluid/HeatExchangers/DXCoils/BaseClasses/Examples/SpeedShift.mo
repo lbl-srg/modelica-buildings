@@ -11,7 +11,7 @@ model SpeedShift "Test model for SpeedShift block"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.25; 900,0.50; 1800,0.50;
         2700,0.75; 3600,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
-  parameter AirSource.Data.Generic.DXCoil datCoi(nSta=4, sta={
+  parameter AirSource.Data.Generic.CoolingCoil datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
@@ -91,6 +91,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2023 by Xing Lu:<br/>
+Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to 
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

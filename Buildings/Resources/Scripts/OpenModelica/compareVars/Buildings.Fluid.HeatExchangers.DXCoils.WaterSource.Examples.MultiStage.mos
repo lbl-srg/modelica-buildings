@@ -6,9 +6,9 @@ compareVars :=
     "mulSpeDX.sta_b2.T",
     "mulSpeDX.sta_a1.X[1]",
     "mulSpeDX.eva.vol.X_w",
-    "mulSpeDX.eva.dxCoo.mWat_flow",
+    "mulSpeDX.eva.dxCoi.mWat_flow",
     "mulSpeDX.stage",
     "mulSpeDX.P",
-    "mulSpeDX.eva.dxCoo.Q_flow",
+    "mulSpeDX.eva.dxCoi.Q_flow",
     "mulSpeDX.watCooCon.Q_flow"
   };
