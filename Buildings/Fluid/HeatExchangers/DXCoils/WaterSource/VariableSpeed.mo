@@ -14,7 +14,11 @@ model VariableSpeed "Variable speed water source DX coils"
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
 
-  Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
+  Modelica.Blocks.Interfaces.RealInput speRat(
+   min=0,
+   max=1,
+   final unit="1")
+   "Speed ratio"
     annotation (Placement(transformation(extent={{-124,68},{-100,92}})));
 
 equation

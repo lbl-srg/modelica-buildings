@@ -2,7 +2,6 @@ within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record VeroLine50slash150dash4slash2
   "Pump data for a Wilo Veroline IP-E 50/150-4/2 pump"
   extends Generic(
-    speed_rpm_nominal=2900,
     final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={       0.0, 0.00277777, 0.00555555, 0.00833333, 0.01111111,
@@ -22,6 +21,12 @@ Documentation(info="<html>
 <p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6</a>for more information about how the data is derived.</p>
 </html>",   revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>

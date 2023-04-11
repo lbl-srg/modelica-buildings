@@ -39,6 +39,5 @@ August 1, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>
 </ul>
-
 </html>"));
 end EssentialParameters;

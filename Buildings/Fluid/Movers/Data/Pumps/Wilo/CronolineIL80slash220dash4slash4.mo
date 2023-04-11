@@ -4,7 +4,6 @@ record CronolineIL80slash220dash4slash4
   extends Generic(
     final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
-    speed_rpm_nominal=1450,
     power(V_flow={0.00303454715219, 0.00578898225957, 0.00863678804855,
                    0.0113912231559,  0.0146125116713,  0.0181605975724,
                    0.0214285714286,  0.0248366013072,  0.0274042950514,
@@ -29,6 +28,12 @@ Documentation(info="<html>
 <p>See <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6 </a>for more information about how the data is derived. </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>
