@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model MultiStage "Multi speed water source DX coils"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStage eva(
+      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling eva(
         redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi));
 
   Modelica.Blocks.Interfaces.IntegerInput stage
@@ -17,7 +17,13 @@ equation
           textColor={0,0,127},
           textString="P"), Line(points={{-100,80},{-68,80},{-68,20}}, color={
               255,128,0})}),    Documentation(revisions="<html>
-<ul>
+              <ul>
+<li>
+April 5, 2023, by Xing Lu:<br/>
+Updated air-source cooling coil class being extended from <code>MultiStage</code>
+to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

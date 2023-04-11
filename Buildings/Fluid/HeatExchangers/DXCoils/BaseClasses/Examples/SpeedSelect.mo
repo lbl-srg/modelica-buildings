@@ -6,8 +6,8 @@ model SpeedSelect "Test model for speed select"
     speSet=datCoi.sta.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCoi(
-      nSta=4, sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
+    datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
@@ -71,6 +71,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2023 by Xing Lu:<br/>
+Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to 
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
+</li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>
 Declared the parameter record to be a parameter, as declaring its elements

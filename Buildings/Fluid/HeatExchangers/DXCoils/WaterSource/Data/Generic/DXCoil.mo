@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic;
 record DXCoil
   "Performance record for a DX Cooling Coil with one or multiple stages"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil(
+  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil(
   redeclare parameter Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
 annotation (preferredView="info",
 defaultComponentName="datCoi",
@@ -105,6 +105,12 @@ a quadratic function.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Xing Lu:<br/>
+Updated class being extended from <code>DXCoil</code> to
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
+</li>
 <li>
 February 17, 2017, by Yangyang Fu:<br/>
 Revised documentation for water source DX coils.

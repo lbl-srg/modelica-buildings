@@ -142,7 +142,7 @@ equation
       points={{-21.2,6},{-68,6},{-68,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(wetBul.TWetBul, cooCap.TEvaIn) annotation (Line(
+  connect(wetBul.TWetBul,coiCap.TEvaIn)  annotation (Line(
       points={{-47.4,26},{-32,26},{-32,45.2},{-15,45.2}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -154,7 +154,7 @@ equation
       points={{-31,-40},{-68,-40},{-68,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(mCon_flow, cooCap.mCon_flow) annotation (Line(points={{-110,-100},{-92,
+  connect(mCon_flow,coiCap.mCon_flow)  annotation (Line(points={{-110,-100},{-92,
           -100},{-92,40},{-15,40}}, color={0,0,127}));
   annotation (defaultComponentName="wetCoi", Documentation(info="<html>
 <p>
@@ -173,6 +173,10 @@ for an explanation of the model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Xing Lu:<br/>
+Connect statements with references to <code>cooCap</code> changed to <code>coiCap</code>.
+</li>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br/>
 First implementation.
