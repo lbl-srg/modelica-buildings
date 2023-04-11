@@ -19,7 +19,7 @@ model VariableSpeed "Variable speed water source DX coils"
 
 equation
 
-  connect(speRat, eva.speRat) annotation (Line(points={{-112,80},{-90,80},{-90,
+  connect(speRat, eva.speRat) annotation (Line(points={{-112,80},{-16,80},{-16,
           8},{-11,8}},
                      color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(

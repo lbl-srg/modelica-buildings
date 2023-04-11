@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model MultiStage "Multi speed water source DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
       redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling eva(
         redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi));
 
@@ -10,7 +11,7 @@ model MultiStage "Multi speed water source DX coils"
 
 equation
   connect(eva.stage, stage)
-   annotation (Line(points={{-11,8},{-90,8},{-90,80},{-112,80}},    color={255,127,0}));
+   annotation (Line(points={{-11,8},{-16,8},{-16,80},{-112,80}},    color={255,127,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Text(
           extent={{54,100},{98,80}},

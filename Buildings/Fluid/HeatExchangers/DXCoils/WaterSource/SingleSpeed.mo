@@ -1,16 +1,17 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model SingleSpeed "Single speed water source DX coils"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling eva(
       redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi));
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-124,66},{-100,90}}),
+    annotation (Placement(transformation(extent={{-124,68},{-100,92}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
 equation
-  connect(eva.on, on) annotation (Line(points={{-11,8},{-11,68},{-88,68},{-88,
-          78},{-112,78}},       color={255,0,255}));
+  connect(eva.on, on) annotation (Line(points={{-11,8},{-16,8},{-16,80},{-112,
+          80}},                 color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
             points={{-100,80},{-68,80},{-68,20}}, color={255,85,170})}),
     Documentation(info="<html>
