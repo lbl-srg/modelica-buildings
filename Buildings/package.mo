@@ -366,13 +366,15 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+  </td>
 </tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
+  </td>
+  <td valign=\"top\">Corrected assertion for the condition <code>dX_nominal&lt;0</code>
+                     and the documentation.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3322\">issue 3322</a>.
+  </td>
 </tr>
 </table>
 <p>
