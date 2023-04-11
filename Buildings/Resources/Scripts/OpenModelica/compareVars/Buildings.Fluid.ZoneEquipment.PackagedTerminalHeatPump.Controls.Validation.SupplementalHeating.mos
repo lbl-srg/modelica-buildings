@@ -1,0 +1,10 @@
+compareVars :=
+  {
+    "conSupHea.TOut",
+    "conSupHea.TLocOut",
+    "conSupHea.TZon",
+    "conSupHea.TSetHea",
+    "conSupHea.uHeaEna",
+    "conSupHea.yHeaEna",
+    "conSupHea.ySupHea"
+  };

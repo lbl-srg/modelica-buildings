@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "pthp.HeaCoi.P",
+    "pthp.HeaCoi.QSen_flow",
+    "pthp.TAirMix.T",
+    "pthp.TAirLvg.T"
+  };
