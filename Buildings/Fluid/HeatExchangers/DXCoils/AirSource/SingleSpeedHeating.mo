@@ -25,7 +25,7 @@ model SingleSpeedHeating
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaOn
     "Convert Boolean enable signal to Real value 1, disable to Real value 0"
-    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
@@ -55,9 +55,10 @@ equation
           0},{-100,0}}, color={0,127,255}));
   connect(senMasFra.X, defCap.XConIn) annotation (Line(points={{-39,16},{26,16},
           {26,-54},{59,-54}}, color={0,0,127}));
-  connect(on, booToReaOn.u) annotation (Line(points={{-110,80},{-94,80},{-94,-90},
-          {-62,-90}}, color={255,0,255}));
-  connect(booToReaOn.y, defCap.uSpe) annotation (Line(points={{-38,-90},{56,-90},
+  connect(on, booToReaOn.u) annotation (Line(points={{-110,80},{-94,80},{-94,
+          -80},{-22,-80}},
+                      color={255,0,255}));
+  connect(booToReaOn.y, defCap.uSpe) annotation (Line(points={{2,-80},{56,-80},
           {56,-38},{59,-38}}, color={0,0,127}));
   annotation (defaultComponentName="sinSpeDXHea", Documentation(info="<html>
 <p>
