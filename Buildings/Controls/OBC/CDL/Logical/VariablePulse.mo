@@ -5,10 +5,16 @@ block VariablePulse "Generate boolean pulse with the width specified by input"
     final quantity="Time",
     final unit="s")
     "Time for one pulse period";
+
+  parameter Real deltaU(
+    min = 0.001,
+    max = 0.5,
+    final unit="1") = 0.01 "Increment of u that triggers recomputation of output";
+
   parameter Real minTruFalHol(
     final quantity="Time",
     final unit="s",
-    final min=Constants.small)=1
+    final min=Constants.small)=0.01*period
     "Minimum time to hold true or false";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u(
@@ -20,12 +26,15 @@ block VariablePulse "Generate boolean pulse with the width specified by input"
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y
     "Boolean pulse when the input is greater than zero"
-    annotation (Placement(transformation(extent={{120,-80},{160,-40}}),
+    annotation (Placement(transformation(extent={{120,-20},{160,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
 protected
-  parameter Real uMin=minTruFalHol/period
-    "Minimum value of the input below which the output remains always false";
+  parameter Real adjustedPeriod(
+    final quantity="Time",
+    final unit="s") = max(period, minTruFalHol*2.02)
+    "Time for one pulse period";
+
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler triSam
     "Sample the input when there is value change"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
@@ -36,18 +45,18 @@ protected
     "Output the absolute value change"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=uMin,
-    final h=0.5*uMin)
-    "Check if there is input value change"
+    final t=deltaU,
+    final h=0)
+    "Check if there is a sufficiently large change in input value"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg2
-    "Rising edge when there is width change"
+    "Rising edge when there is a width change"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Logical.Pre preBre
     "Break loop"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Cycle cycOut(
-    final period=period,
+    final period=adjustedPeriod,
     final minTruFalHol=minTruFalHol)
     "Produce boolean pulse output"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
@@ -58,7 +67,7 @@ protected
     annotation (Placement(transformation(extent={{80,-70},{100,-50}})));
 
   block Cycle
-    "Generate boolean pulse with the width specified by input"
+    "Generate boolean pulse with the width specified by the input"
     parameter Real period(
       final quantity="Time",
       final unit="s",
@@ -106,15 +115,12 @@ protected
       t0 = time;
     end when;
 
-    t_sta = Buildings.Utilities.Math.Functions.round(
-      x=integer((time-t0)/period)*period, n=6)+t0;
+    t_sta = t0 + Buildings.Utilities.Math.Functions.round(
+      x=integer((time-t0)/period)*period,
+      n=6);
     t_end = t_sta + u*period;
 
-    if ((time>=t_sta) and (time<t_end)) then
-        y = true;
-    else
-        y = false;
-    end if;
+    y = ((time>=t_sta) and (time<t_end));
 
   annotation (Icon(
         graphics={
@@ -133,7 +139,8 @@ protected
 
 initial equation
   assert(period >= minTruFalHol*2,
-      "In " + getInstanceName() + ": The pulse period must be greater than 2 times of the minimum true and false holding time.");
+      "In " + getInstanceName() + ": The pulse period must be greater than 2 times of the minimum true and false holding time. Increasing period to " + String(adjustedPeriod) + ".",
+      level = AssertionLevel.warning);
 
 equation
   connect(u, triSam.u) annotation (Line(points={{-140,0},{-110,0},{-110,70},{-102,
@@ -155,7 +162,8 @@ equation
   connect(cycOut.y, truFalHol.u)
     annotation (Line(points={{62,-60},{78,-60}}, color={255,0,255}));
   connect(truFalHol.y, y)
-    annotation (Line(points={{102,-60},{140,-60}}, color={255,0,255}));
+    annotation (Line(points={{102,-60},{110,-60},{110,0},{140,0}},
+                                                   color={255,0,255}));
   connect(abs1.y, greThr.u) annotation (Line(points={{2,30},{18,30}},
          color={0,0,127}));
   connect(edg2.y, cycOut.go) annotation (Line(points={{82,0},{90,0},{90,-20},{30,
@@ -264,8 +272,8 @@ Block that outputs a boolean pulse.
 </p>
 <p>
 The output of this block is a pulse with a constant period
-and a width as obtained from the input connector <code>u</code>.
-The input <code>0 &le; u &le; 1</code> is the width relative to the period.
+and a width as obtained from the input <code>0 &le; u &le; 1</code>,
+which is the width relative to the period.
 </p>
 <p>
 The block produces the following ouputs:
@@ -277,17 +285,17 @@ If <code>u = 0</code>, the output <code>y</code> remains <code>false</code>.
 <li>
 If <code>0 &lt; u &lt; 1</code>, the output <code>y</code> will be
 a boolean pulse with the period specified by the parameter <code>period</code> and
-the width set to <code>u period</code>.
+the width set to <code>u*period</code>.
 </li>
 <li>
 If <code>u = 1</code>, the output <code>y</code> remains <code>true</code>.
 </li>
 </ul>
 <p>
-When the input <code>u</code> changes by more than <code>chaWidThr</code> and the output
+When the input <code>u</code> changes by more than <code>deltaU</code> and the output
 has been holding constant for more than minimum holding time
-<code>minTruFalHol</code>, the output will change to a new pulse with the
-width specified by the new value of <code>u</code>.
+<code>minTruFalHol</code>, the output will change to a new pulse with
+width equal to <code>u*period</code>.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Logical/VariablePulse.png\"
