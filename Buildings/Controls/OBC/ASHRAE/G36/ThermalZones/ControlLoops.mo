@@ -53,8 +53,6 @@ block ControlLoops "Heating and cooling control loops"
     final unit="1") "Heating control signal"
     annotation (Placement(transformation(extent={{160,-90},{200,-50}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-
-protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCon(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kCooCon,
@@ -62,6 +60,13 @@ protected
     final reverseActing=false)
     "Cooling controller"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaCon(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final k=kHeaCon,
+    final Ti=TiHeaCon) "Heating controller"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
+protected
   Buildings.Controls.OBC.CDL.Continuous.Less enaHeaLoo(
     final h=dTHys)
     "Check if heating control loop should be enabled"
@@ -85,11 +90,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Multiply cooConSig
     "Cooling control loop signal"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaCon(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kHeaCon,
-    final Ti=TiHeaCon) "Heating controller"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not holZon
     "Check if the zone temperature is higher than the heating setpoint"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));

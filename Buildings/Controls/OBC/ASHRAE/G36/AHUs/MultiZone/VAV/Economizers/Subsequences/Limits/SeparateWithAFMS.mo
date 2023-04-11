@@ -140,6 +140,16 @@ block SeparateWithAFMS
     annotation (Placement(transformation(extent={{220,-310},{260,-270}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset minOACon(
+    final controllerType=minOAConTyp,
+    final k=kMinOA,
+    final Ti=TiMinOA,
+    final Td=TdMinOA,
+    final yMax=minOutDamPhy_max,
+    final yMin=minOutDamPhy_min)
+    "Minimum outdoor air flow control"
+    annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
@@ -151,15 +161,6 @@ protected
   Buildings.Controls.OBC.CDL.Logical.And enaMinCon
     "Check if the minimum outdoor air control loop should be enabled"
     annotation (Placement(transformation(extent={{-80,150},{-60,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset minOACon(
-    final controllerType=minOAConTyp,
-    final k=kMinOA,
-    final Ti=TiMinOA,
-    final Td=TdMinOA,
-    final yMax=minOutDamPhy_max,
-    final yMin=minOutDamPhy_min)
-    "Minimum outdoor air flow control"
-    annotation (Placement(transformation(extent={{-40,230},{-20,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(
     final k=0) "Constant"
     annotation (Placement(transformation(extent={{120,260},{140,280}})));

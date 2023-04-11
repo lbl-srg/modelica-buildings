@@ -42,6 +42,15 @@ block CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
+    final controllerType=controllerTypeCooCoi,
+    final k=kCooCoi,
+    final Ti=TiCooCoi,
+    final Td=TdCooCoi,
+    final reverseActing=false)
+    "Cooling coil control signal"
+    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Logical block to check if zone is in cooling state"
@@ -50,14 +59,6 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.ZoneStates.cooling)
     "Cooling state value"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
-    final controllerType=controllerTypeCooCoi,
-    final k=kCooCoi,
-    final Ti=TiCooCoi,
-    final Td=TdCooCoi,
-    final reverseActing=false)
-                       "Cooling coil control signal"
-    annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch switch "Switch to assign cooling coil control signal"
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(k=0) "Cooling off mode"
