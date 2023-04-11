@@ -114,8 +114,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch cheStaMea1
     "Output true if there is no stable measured input"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(
-    final t=debounce)
+  Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(final t=feedbackDelay +
+        debounce)
     "Check if the debounce time has passed"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.Controls.OBC.CDL.Logical.Latch holTru
@@ -402,10 +402,10 @@ a measured signal <code>u_m</code> and produces two outputs
 that may be used to raise alarms about malfunctioning equipment.
 </p>
 <p>
-The block sets the output <code>yLocTru = true</code> if
+The block sets the output <code>yLocFal = true</code> if
 the set point is <code>u_s = true</code> but the measured signal is locked
 at <code>false</code>, i.e., <code>u_m = false</code>.
-Similarly, the block sets the output <code>yLocFal = true</code>
+Similarly, the block sets the output <code>yLocTru = true</code>
 if the set point is <code>u_s = false</code> but the measured signal is locked
 at <code>true</code>, i.e., <code>u_m = true</code>.
 Hence, any output being <code>true</code> indicates an operational
