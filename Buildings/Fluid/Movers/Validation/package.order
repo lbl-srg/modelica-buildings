@@ -8,9 +8,8 @@ PowerExact
 PowerSimplified
 PumpCurveConstruction
 PumpCurveDerivatives
-Pump_Nrpm_stratos
 Pump_stratos
-SpeedControlled_Nrpm
+Pump_y_stratos
 SpeedControlled_y
 SpeedControlled_y_linear
 BaseClasses

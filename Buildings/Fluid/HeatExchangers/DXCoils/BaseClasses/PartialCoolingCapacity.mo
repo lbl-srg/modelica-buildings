@@ -35,9 +35,9 @@ partial block PartialCoolingCapacity
     annotation(Evaluate=true);
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
      constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
      "Performance data for this stage";
   output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flow rate";
@@ -307,13 +307,13 @@ is
 <h4>Obtaining the polynomial coefficients</h4>
 <p>
 The package
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves</a>
 contains performance curves.
 Alternatively, users can enter their own performance curves by
 making an instance of a curve in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves</a>
 and specifying custom coefficients for the above polynomials.
 The polynomial coefficients can be obtained by doing a curve fit that fits the
 polynomials to a set of data.
@@ -325,14 +325,14 @@ If a coil has multiple stages, then the fit need to be done for each stage.
 For variable frequency coils, multiple fits need to be done for user selected
 compressor speeds. For intermediate speeds, the performance data will be interpolated
 by the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</a>.
 </p>
 <p>
 The table below shows the polynomials explained above,
 the name of the polynomial coefficients in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">

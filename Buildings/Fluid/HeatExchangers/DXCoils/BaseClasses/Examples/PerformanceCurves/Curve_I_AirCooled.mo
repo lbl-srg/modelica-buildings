@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves;
-record Curve_I_AirCooled "Curve_I for air-cooled DX coils"
+record Curve_I_AirCooled "Curve_I for air source DX coils"
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.PerformanceCurve(
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
     capFunT={0.942587793,0.009543347,0.000683770,-0.011042676,0.000005249,
         -0.000009720},
     capFunFF={0.8,0.2,0,0},

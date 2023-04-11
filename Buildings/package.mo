@@ -224,6 +224,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
+    </td>
+    <td valign=\"top\">Package that contains models for standard connection 
+                       configurations used in hydronic circuits for heating or cooling applications.
+    </td>
+    </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -328,10 +334,9 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
     </td>
     <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
+                       Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
-    <td valign=\"top\">Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.
-    </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
     </td>
@@ -729,7 +734,77 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed control that enables the heating system.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXCoils</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXCoils.AirCooled<br/>
+                       Buildings.Fluid.DXCoils.WaterCooled
+    </td>
+    <td valign=\"top\">Renamed packages to <code>AirSource</code> and <code>WaterSource</code>
+                       as DX coils for heating are added, and hence cooled is not an appropriate package name.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3288\">issue 3288</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+    </td>
+    <td valign=\"top\">Removed the block that was used to support fan or pump models with an rpm input.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                       Buildings.Fluid.Movers.Data.Generic<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW16<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW18<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS25slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash5<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash7<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2<br/>
+                       Buildings.Fluid.Movers.Examples.MoverContinuous<br/>
+                       Buildings.Fluid.Movers.Examples.MoverParameter<br/>
+                       Buildings.Fluid.Movers.Examples.MoverStages<br/>
+                       Buildings.Fluid.Movers.Preconfigured.Validation.ControlledFlowMachinePreconfigured<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow<br/>
+                       Buildings.Fluid.Movers.Validation.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic<br/>
+                       Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
+                       Buildings.Fluid.Movers.Validation.PumpCurveDerivatives<br/>
+                       Buildings.Fluid.Movers.Validation.Pump_stratos<br/>
+                       Buildings.Fluid.Movers.Validation.Pump_y_stratos
+    </td>
+    <td valign=\"top\">Removed or replaced parameters, blocks, and components that were
+                       used to support fan or pump models with an rpm input.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
@@ -907,6 +982,18 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Corrected outdoor temperature in instance <code>TOutSwi</code> at which system switches on and off.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
     </td>
+</tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+  </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect
+  </td>
+  <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
+                     by changing from <code>true</code> to <code>false</code>.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3299\">
+                     issue 3299</a>.
+  </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
@@ -5681,7 +5768,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
    The package <code>Buildings.Controls.OBC.CDL</code> has been added.
    This package provides elementary blocks to implemented control sequences.
    The blocks conform to the Control Description Language specification
-   published at <a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>.
+   published at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
    </li>
    <li>
    The package <code>Buildings.Controls.OBC.ASHRAE.G36_PR1</code> has been added.
@@ -5715,7 +5802,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
        </td>
        <td valign=\"top\">Library with basic control blocks and ready-to-use control sequences
                           from the OpenBuildingControl project
-                          (<a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>).<br/>
+                          (<a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>).<br/>
                           The subpackage <code>Buildings.Controls.OBC.ASHRAE</code>
                           contains control sequences
                           for HVAC systems as described in ASHRAE Guideline 36.<br/>
