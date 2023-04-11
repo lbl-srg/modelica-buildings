@@ -31,11 +31,13 @@ model HeatingMode
     redeclare
       Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data.FanData
       fanPer,
-    datCooCoi=datCooCoi)
+    datCooCoi=datCooCoi,
+    datDef=datDef)
     annotation (Placement(transformation(extent={{-16,-26},{24,14}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.dat"),
+    final fileName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.dat"),
     final columns=2:32,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -52,12 +54,14 @@ model HeatingMode
         4)) "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,116},{-60,136}})));
 
-  Controls.CyclingFanCyclingCoil cycFanCycCoi(
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
-    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.heaPum,
-    tFanEna=60,
-    dTHys=0.1)
-    annotation (Placement(transformation(extent={{-86,-78},{-50,-30}})));
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil conCycFanCycCoi(
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.heaPum,
+    final tFanEna=60,
+    final dTHys=0.1)
+    "Cycling fan-cycling coil controller"
+    annotation (Placement(transformation(extent={{-80,-78},{-60,-50}})));
+
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
     "Availability signal"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
@@ -73,9 +77,12 @@ model HeatingMode
         delayTimestep)
     annotation (Placement(transformation(extent={{234,-90},{254,-70}})));
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.idf"),
-    epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    idfName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.idf"),
+    epwName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    weaName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
   ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
@@ -132,12 +139,12 @@ model HeatingMode
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay QHeaCoiEP(samplePeriod=
         delayTimestep)
     annotation (Placement(transformation(extent={{234,28},{254,48}})));
-   parameter HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil                 datHeaCoi(sta={
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datHeaCoi(
+    is_CooCoi=false,                                                                                             sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
           Q_flow_nominal=7144.01,
           COP_nominal=2.75,
           SHR_nominal=1,
@@ -150,12 +157,11 @@ model HeatingMode
               "Heating coil data"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   parameter
-    HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCooCoi(sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCooCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=true,
           Q_flow_nominal=-7144.01,
           COP_nominal=3.0,
           SHR_nominal=0.8,
@@ -187,8 +193,11 @@ model HeatingMode
     annotation (Placement(transformation(extent={{234,56},{254,76}})));
   Modelica.Blocks.Sources.RealExpression realExpression15(y=datRea.y[20])
     annotation (Placement(transformation(extent={{200,56},{220,76}})));
-  Controls.SupplementalHeating uSupHea(k=0.1) "Supplementary heat signal"
-    annotation (Placement(transformation(extent={{-80,-12},{-60,8}})));
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating conSupHea(
+    final k=0.1)
+    "Supplementary heating controller"
+    annotation (Placement(transformation(extent={{-84,-12},{-60,12}})));
+
   BoundaryConditions.WeatherData.Bus weaBus "if not has_extOAPor and has_ven"
     annotation (Placement(transformation(extent={{18,110},{58,150}}),
       iconTransformation(extent={{-168,170},{-148,190}})));
@@ -230,6 +239,17 @@ model HeatingMode
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay powSupHeaEP(samplePeriod=
         delayTimestep)
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
+  HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_DefrostCurve
+    datDef(
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed,
+    tDefRun=0.1666,
+    QDefResCap=10500,
+    QCraCap=200)
+    annotation (Placement(transformation(extent={{-20,94},{0,114}})));
+
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 equation
   connect(datRea.y[22], div1.u1) annotation (Line(points={{-99,86},{-94,86},{-94,
           102},{-82,102}},
@@ -239,10 +259,10 @@ equation
   connect(totMasAir.y, div1.u2) annotation (Line(points={{-58,64},{-56,64},{-56,
           82},{-88,82},{-88,90},{-82,90}},
                          color={0,0,127}));
-  connect(ava.y, cycFanCycCoi.uAva) annotation (Line(points={{-108,-50},{-100,
-          -50},{-100,-66.7059},{-88,-66.7059}}, color={255,0,255}));
-  connect(fanOpeMod.y, cycFanCycCoi.fanOpeMod) annotation (Line(points={{-108,
-          -80},{-100,-80},{-100,-75.1765},{-88,-75.1765}}, color={255,0,255}));
+  connect(ava.y, conCycFanCycCoi.uAva) annotation (Line(points={{-108,-50},{
+          -100,-50},{-100,-68},{-82,-68}},      color={255,0,255}));
+  connect(fanOpeMod.y, conCycFanCycCoi.fanOpeMod) annotation (Line(points={{-108,
+          -80},{-100,-80},{-100,-72},{-82,-72}},           color={255,0,255}));
   connect(PTHP.yFan_actual, fanProOn.u) annotation (Line(points={{25,10},{32,10}},
                             color={0,0,127}));
   connect(datRea.y[20], K2C[1].u) annotation (Line(points={{-99,86},{-94,86},{-94,
@@ -257,10 +277,11 @@ equation
   connect(datRea.y[28], K2C[4].u) annotation (Line(points={{-99,86},{-94,86},{-94,
           126},{-82,126}},
                          color={0,0,127}));
-  connect(cycFanCycCoi.THeaSet, K2C[2].y) annotation (Line(points={{-88,-58.2353},
-          {-96,-58.2353},{-96,34},{-42,34},{-42,126},{-58,126}}, color={0,0,127}));
-  connect(K2C[3].y, cycFanCycCoi.TCooSet) annotation (Line(points={{-58,126},{-46,
-          126},{-46,36},{-98,36},{-98,-49.7647},{-88,-49.7647}}, color={0,0,127}));
+  connect(conCycFanCycCoi.THeaSet, K2C[2].y) annotation (Line(points={{-82,-64},
+          {-96,-64},{-96,34},{-42,34},{-42,126},{-58,126}},      color={0,0,127}));
+  connect(K2C[3].y, conCycFanCycCoi.TCooSet) annotation (Line(points={{-58,126},
+          {-46,126},{-46,36},{-98,36},{-98,-60},{-82,-60}},           color={0,0,
+          127}));
   connect(PTHP.port_Air_a2, zon.ports[1])
     annotation (Line(points={{24,-2},{76,-2},{76,30.9}},
                                                        color={0,127,255}));
@@ -269,10 +290,10 @@ equation
                                                          color={0,127,255}));
   connect(con.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,60},
           {56,60}}, color={0,0,127}));
-  connect(zon.TAir, cycFanCycCoi.TZon) annotation (Line(points={{99,68},{108,68},
-          {108,-98},{-100,-98},{-100,-41.2941},{-88,-41.2941}}, color={0,0,127}));
-  connect(PTHP.TAirSup, cycFanCycCoi.TSup) annotation (Line(points={{25,4},{30,
-          4},{30,-88},{-96,-88},{-96,-81.1059},{-88,-81.1059}}, color={0,0,127}));
+  connect(zon.TAir, conCycFanCycCoi.TZon) annotation (Line(points={{99,68},{108,
+          68},{108,-98},{-100,-98},{-100,-56},{-82,-56}},           color={0,0,127}));
+  connect(PTHP.TAirSup, conCycFanCycCoi.TSup) annotation (Line(points={{25,4},{
+          30,4},{30,-88},{-96,-88},{-96,-76},{-82,-76}},        color={0,0,127}));
   connect(realExpression.y,powHeaCoiMod. u)
     annotation (Line(points={{141,-82},{154,-82}},
                                                  color={0,0,127}));
@@ -307,21 +328,23 @@ equation
 
   connect(realExpression13.y, QLoaMod.u)
     annotation (Line(points={{141,10},{154,10}}, color={0,0,127}));
-  connect(cycFanCycCoi.yCooEna, PTHP.uCooEna) annotation (Line(points={{-47.8,
-          -32.8235},{-36,-32.8235},{-36,-15.8},{-18,-15.8}}, color={255,0,255}));
-  connect(fanProOn.y, cycFanCycCoi.uFan) annotation (Line(points={{56,10},{60,
-          10},{60,-94},{-102,-94},{-102,-32.8235},{-88,-32.8235}}, color={255,0,
+  connect(conCycFanCycCoi.yCooEna, PTHP.uCooEna) annotation (Line(points={{-58,-54},
+          {-28,-54},{-28,-15.8},{-18,-15.8}},                color={255,0,255}));
+  connect(fanProOn.y, conCycFanCycCoi.uFan) annotation (Line(points={{56,10},{
+          60,10},{60,-94},{-102,-94},{-102,-52},{-82,-52}},        color={255,0,
           255}));
   connect(realExpression14.y, TAirLvgEP.u)
     annotation (Line(points={{221,94},{232,94}}, color={0,0,127}));
   connect(realExpression15.y, TAirMixEP.u)
     annotation (Line(points={{221,66},{232,66}}, color={0,0,127}));
-  connect(uSupHea.ySupHea, PTHP.uSupHea) annotation (Line(points={{-58,2},{-40,2},
-          {-40,-20},{-18,-20}}, color={0,0,127}));
-  connect(zon.TAir, uSupHea.TZon) annotation (Line(points={{99,68},{108,68},{108,
-          -98},{-100,-98},{-100,6},{-82,6}}, color={0,0,127}));
-  connect(uSupHea.THeaSet, K2C[2].y) annotation (Line(points={{-82,2},{-94,2},{-94,
-          32},{-38,32},{-38,126},{-58,126}}, color={0,0,127}));
+  connect(conSupHea.ySupHea, PTHP.uSupHea) annotation (Line(points={{-61.5,
+          3.42857},{-40,3.42857},{-40,-20},{-18,-20}},
+                                              color={0,0,127}));
+  connect(zon.TAir, conSupHea.TZon) annotation (Line(points={{99,68},{108,68},{
+          108,-98},{-100,-98},{-100,5.14286},{-82.5,5.14286}},
+                                                  color={0,0,127}));
+  connect(conSupHea.THeaSet, K2C[2].y) annotation (Line(points={{-82.5,8.57143},
+          {-94,8.57143},{-94,32},{-38,32},{-38,126},{-58,126}}, color={0,0,127}));
   connect(building.weaBus, PTHP.weaBus) annotation (Line(
       points={{0,130},{14,130},{14,66},{-11.8,66},{-11.8,12}},
       color={255,204,51},
@@ -342,8 +365,9 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(TOut.y, uSupHea.TOut) annotation (Line(points={{81,130},{100,130},{100,
-          86},{-36,86},{-36,30},{-92,30},{-92,-2},{-82,-2}}, color={0,0,127}));
+  connect(TOut.y, conSupHea.TOut) annotation (Line(points={{81,130},{100,130},{
+          100,86},{-36,86},{-36,30},{-92,30},{-92,1.71429},{-82.5,1.71429}},
+        color={0,0,127}));
   connect(realExpression16.y, powHeaCoiEP1.u)
     annotation (Line(points={{221,-50},{232,-50}}, color={0,0,127}));
   connect(realExpression17.y, powHeaCoiMod1.u)
@@ -354,23 +378,23 @@ equation
     annotation (Line(points={{221,-104},{232,-104}}, color={0,0,127}));
   connect(realExpression18.y, powFanEP.u)
     annotation (Line(points={{221,-130},{232,-130}}, color={0,0,127}));
-  connect(uSupHea.yHeaEna, PTHP.uHeaEna) annotation (Line(points={{-59,-9},{-38,
-          -9},{-38,-23.8},{-18,-23.8}}, color={255,0,255}));
-  connect(cycFanCycCoi.yHeaEna, uSupHea.uHeaEna) annotation (Line(points={{-47.8,
-          -41.5765},{-44,-41.5765},{-44,-20},{-92,-20},{-92,-5},{-81,-5}},
-        color={255,0,255}));
-  connect(cycFanCycCoi.yHeaMod, uSupHea.uHeaMod) annotation (Line(points={{-47.8,
-          -81.1059},{-42,-81.1059},{-42,-18},{-90,-18},{-90,-8},{-81,-8}},
-        color={255,0,255}));
+  connect(conSupHea.yHeaEna, PTHP.uHeaEna) annotation (Line(points={{-61.5,0},{
+          -42,0},{-42,-24},{-30,-24},{-30,-23.8},{-18,-23.8}},
+                                             color={255,0,255}));
+  connect(conCycFanCycCoi.yHeaEna, conSupHea.uHeaEna) annotation (Line(points={{-58,-58},
+          {-56,-58},{-56,-20},{-92,-20},{-92,-5.14286},{-82.5,-5.14286}},
+                color={255,0,255}));
   connect(realExpression19.y, powSupHeaMod.u)
     annotation (Line(points={{-19,-130},{-2,-130}}, color={0,0,127}));
   connect(realExpression20.y, powSupHeaEP.u)
     annotation (Line(points={{61,-130},{78,-130}}, color={0,0,127}));
-  connect(cycFanCycCoi.yFan, uSupHea.uFan) annotation (Line(points={{-47.8,
-          -75.1765},{-34,-75.1765},{-34,-16},{-88,-16},{-88,-11},{-81,-11}},
-        color={255,0,255}));
-  connect(uSupHea.yFan, PTHP.uFan) annotation (Line(points={{-58,-4},{-38,-4},{-38,
-          4},{-18,4}}, color={0,0,127}));
+  connect(conCycFanCycCoi.yHeaMod, conSupHea.uHeaMod) annotation (Line(points={
+          {-58,-77},{-50,-77},{-50,-24},{-88,-24},{-88,-1.71429},{-82.5,
+          -1.71429}}, color={255,0,255}));
+  connect(conCycFanCycCoi.yFan, booToRea.u) annotation (Line(points={{-58,-74},
+          {-48,-74},{-48,-70},{-42,-70}}, color={255,0,255}));
+  connect(booToRea.y, PTHP.uFan) annotation (Line(points={{-18,-70},{-10,-70},{
+          -10,-40},{-34,-40},{-34,4},{-18,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{260,

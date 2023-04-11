@@ -26,7 +26,7 @@ model PackagedTerminalHeatPump
       Dialog(group="Fan parameters"));
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCooCoi(nSta=1)
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCooCoi(nSta=1)
     "DX cooling coil data"
     annotation (Placement(transformation(extent={{2,100},{22,120}})));
 
@@ -67,17 +67,18 @@ model PackagedTerminalHeatPump
       displayUnit="degC",
       min=0))
     annotation (Placement(transformation(extent={{-260,-50},{-240,-30}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXHeating HeaCoi(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating HeaCoi(
     redeclare final package Medium = MediumA,
     show_T=true,
     dp_nominal=dpHeaDX_nominal,
     datCoi=datHeaCoi,
     from_dp=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=datCooCoi.sta[1].nomVal.TEvaIn_nominal)
+    T_start=datCooCoi.sta[1].nomVal.TEvaIn_nominal,
+    datDef=datDef)
     "Single speed DX heating coil"
     annotation (Placement(transformation(extent={{46,-10},{66,10}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedDXCooling CooCoi(
+  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling CooCoi(
     redeclare final package Medium = MediumA,
     show_T=true,
     dp_nominal=dpCooDX_nominal,
@@ -91,7 +92,7 @@ model PackagedTerminalHeatPump
         MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Cooling coil outlet air temperature sensor"
     annotation (Placement(transformation(extent={{-6,-10},{14,10}})));
-  replaceable parameter HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datHeaCoi(nSta=1)
+  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datHeaCoi(nSta=1)
     "DX heating coil data"
     annotation (Placement(transformation(extent={{42,100},{62,120}})));
   Modelica.Blocks.Interfaces.RealInput uSupHea(final unit="1") if has_hea
@@ -104,6 +105,11 @@ model PackagedTerminalHeatPump
         MediumA, final m_flow_nominal=mAir_flow_nominal)
     "Heating coil outlet air temperature sensor"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
+  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
+    "DX heating coil defrost data"
+    annotation (Placement(transformation(extent={{140,120},{160,140}})));
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi
+    annotation (Placement(transformation(extent={{-260,-90},{-240,-70}})));
 equation
   connect(gai.y, fan.m_flow_in)
     annotation (Line(points={{-1,80},{132,80},{132,12}},
@@ -150,6 +156,32 @@ equation
     annotation (Line(points={{100,0},{122,0}}, color={0,127,255}));
   connect(TAirHeaCoi.port_a, HeaCoi.port_b)
     annotation (Line(points={{80,0},{74,0},{74,0},{66,0}}, color={0,127,255}));
+  connect(weaBus.pAtm, x_pTphi.p_in) annotation (Line(
+      points={{-330,30},{-310,30},{-310,-74},{-262,-74}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBus.TDryBul, x_pTphi.T) annotation (Line(
+      points={{-330,30},{-310,30},{-310,-80},{-262,-80}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(weaBus.relHum, x_pTphi.phi) annotation (Line(
+      points={{-330,30},{-310,30},{-310,-86},{-262,-86}},
+      color={255,204,51},
+      thickness=0.5), Text(
+      string="%first",
+      index=-1,
+      extent={{-3,-6},{-3,-6}},
+      horizontalAlignment=TextAlignment.Right));
+  connect(x_pTphi.X[1], HeaCoi.XOut) annotation (Line(points={{-239,-80},{-70,
+          -80},{-70,-60},{40,-60},{40,-9},{45,-9}}, color={0,0,127}));
   annotation (defaultComponentName = "PTHP",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

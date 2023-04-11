@@ -28,7 +28,8 @@ model CoolingMode
       rotation=90,origin={-40,-80})));
 
   Buildings.Fluid.ZoneEquipment.UnitHeater.UnitHeater fanCoiUni(
-    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.HeaSou.hotWat,
+
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,

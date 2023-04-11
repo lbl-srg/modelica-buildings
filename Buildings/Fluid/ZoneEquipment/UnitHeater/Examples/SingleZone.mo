@@ -4,17 +4,20 @@ model SingleZone
 
   extends Modelica.Icons.Example;
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.ExampleTestbed(
-    redeclare Buildings.Fluid.ZoneEquipment.UnitHeater.Controls.ConstantFanVariableHeating
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses1.ExampleTestbed(
+    redeclare
+      Buildings.Fluid.ZoneEquipment.UnitHeater.Controls.ConstantFanVariableHeating
       conZonHVACSys(
       final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+
       final kHea=0.5,
       final minFanSpe=0.15,
       final tFanEnaDel=60,
       final tFanEna=600,
       final dTHys=0.5),
     redeclare Buildings.Fluid.ZoneEquipment.UnitHeater.UnitHeater zonHVACSys(
-      final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele,
+      final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.HeaSou.ele,
+
       final dpAir_nominal(displayUnit="Pa") = 100,
       final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
       redeclare package MediumA = MediumA,
@@ -31,8 +34,13 @@ model SingleZone
     building(
       final idfName=Modelica.Utilities.Files.loadResource(
           "./Buildings/Resources/Data/Fluid/ZoneEquipment/UnitHeater/UnitHeaterAuto.idf"),
-      final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-      final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
+
+      final epwName=Modelica.Utilities.Files.loadResource(
+          "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+
+      final weaName=Modelica.Utilities.Files.loadResource(
+          "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
+
     zon(final zoneName="West Zone", final nPorts=2));
 
   replaceable package MediumA = Buildings.Media.Air

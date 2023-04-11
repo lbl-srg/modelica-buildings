@@ -2,9 +2,9 @@ within Buildings.Fluid.ZoneEquipment.FanCoilUnit;
 model FourPipe_corrected
   "System model for a four-pipe fan coil unit"
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
-    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat,
-    final oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix);
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses1.EquipmentInterfaces(final
+      cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.CooSou.chiWat,
+      final oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.OAPorts.oaMix);
 
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)

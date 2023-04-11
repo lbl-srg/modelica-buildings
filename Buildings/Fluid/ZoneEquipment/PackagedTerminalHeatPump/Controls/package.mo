@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump;
-package Controls "Package with unit heater control modules"
+package Controls "Package with PTHP control modules"
 
   annotation (Icon(graphics={
         Rectangle(

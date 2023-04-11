@@ -94,68 +94,87 @@ model ModularController
     "Constant false signal if heating mode is not available"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
 equation
-  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-100},{
-          -40,-100},{-40,-32},{14,-32}}, color={255,0,255}));
+  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-80},{
+          -40,-80},{-40,-28.4},{13.2,-28.4}},
+                                         color={255,0,255}));
   connect(fanOpeMod, conMulSpeFanConWat.fanOpeMod) annotation (Line(points={{-160,
-          -100},{-40,-100},{-40,-132},{14,-132}}, color={255,0,255}));
-  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-60},{-60,-60},{-60,
-          -24},{14,-24}}, color={255,0,255}));
-  connect(uAva, conVarFanConWat.uAva) annotation (Line(points={{-160,-60},{-60,-60},
-          {-60,-72},{14,-72}}, color={255,0,255}));
-  connect(uAva, conMulSpeFanConWat.uAva) annotation (Line(points={{-160,-60},{-60,
-          -60},{-60,-126},{14,-126}}, color={255,0,255}));
-  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{46,-16},{100,-16},
-          {100,-60},{160,-60}}, color={0,0,127}));
+          -80},{-40,-80},{-40,-132},{14,-132}},   color={255,0,255}));
+  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-40},{-60,-40},{
+          -60,-22.8},{13.2,-22.8}},
+                          color={255,0,255}));
+  connect(uAva, conVarFanConWat.uAva) annotation (Line(points={{-160,-40},{-60,
+          -40},{-60,-72},{14,-72}},
+                               color={255,0,255}));
+  connect(uAva, conMulSpeFanConWat.uAva) annotation (Line(points={{-160,-40},{
+          -60,-40},{-60,-126},{14,-126}},
+                                      color={255,0,255}));
+  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{46.8,-17.2},{
+          100,-17.2},{100,-60},{160,-60}},
+                                color={0,0,127}));
   connect(conVarFanConWat.yFanSpe, yFanSpe) annotation (Line(points={{46,-56},{100,
           -56},{100,-60},{160,-60}}, color={0,0,127}));
   connect(conMulSpeFanConWat.yFanSpe, yFanSpe) annotation (Line(points={{46,-116},
           {100,-116},{100,-60},{160,-60}}, color={0,0,127}));
-  connect(conFanCyc.yFan, yFan) annotation (Line(points={{46,-24},{120,-24},{120,
-          -100},{160,-100}}, color={255,0,255}));
+  connect(conFanCyc.yFan, yFan) annotation (Line(points={{46.8,-22.8},{120,
+          -22.8},{120,-100},{160,-100}},
+                             color={255,0,255}));
   connect(conVarFanConWat.yFan, yFan) annotation (Line(points={{46,-64},{120,-64},
           {120,-100},{160,-100}}, color={255,0,255}));
   connect(conMulSpeFanConWat.yFan, yFan) annotation (Line(points={{46,-124},{120,
           -124},{120,-100},{160,-100}}, color={255,0,255}));
-  connect(TZon, conVarFanConWat.TZon) annotation (Line(points={{-160,60},{-100,60},
-          {-100,-48},{14,-48}}, color={0,0,127}));
-  connect(TZon, conMulSpeFanConWat.TZon) annotation (Line(points={{-160,60},{-100,
-          60},{-100,-108},{14,-108}}, color={0,0,127}));
-  connect(TCooSet, conVarFanConWat.TCooSet) annotation (Line(points={{-160,20},{
-          -110,20},{-110,-56},{14,-56}}, color={0,0,127}));
-  connect(TCooSet, conMulSpeFanConWat.TCooSet) annotation (Line(points={{-160,20},
-          {-110,20},{-110,-114},{14,-114}}, color={0,0,127}));
-  connect(THeaSet, conVarFanConWat.THeaSet) annotation (Line(points={{-160,-20},
-          {-120,-20},{-120,-64},{14,-64}}, color={0,0,127}));
-  connect(THeaSet, conMulSpeFanConWat.THeaSet) annotation (Line(points={{-160,-20},
-          {-120,-20},{-120,-120},{14,-120}}, color={0,0,127}));
-  connect(uFan, conCooMod.uFan) annotation (Line(points={{-160,100},{-130,100},{
-          -130,128},{-86,128}}, color={255,0,255}));
-  connect(uFan, conHeaMod.uFan) annotation (Line(points={{-160,100},{-130,100},{
-          -130,88},{-86,88}}, color={255,0,255}));
-  connect(TZon, conCooMod.TZon) annotation (Line(points={{-160,60},{-100,60},{-100,
-          120},{-86,120}}, color={0,0,127}));
-  connect(TZon, conHeaMod.TZon) annotation (Line(points={{-160,60},{-100,60},{-100,
-          80},{-86,80}}, color={0,0,127}));
-  connect(TCooSet, conCooMod.TZonSet) annotation (Line(points={{-160,20},{-110,20},
-          {-110,112},{-86,112}}, color={0,0,127}));
-  connect(THeaSet, conHeaMod.TZonSet) annotation (Line(points={{-160,-20},{-120,
-          -20},{-120,72},{-86,72}}, color={0,0,127}));
-  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,100},{-130,100},{
-          -130,-8},{14,-8}}, color={255,0,255}));
-  connect(conCooMod.yEna, yCooEna) annotation (Line(points={{-54,120},{120,120},
-          {120,100},{160,100}}, color={255,0,255}));
-  connect(conHeaMod.yEna, yHeaEna) annotation (Line(points={{-54,80},{120,80},{120,
-          60},{160,60}}, color={255,0,255}));
-  connect(conCooMod.y, yCoo) annotation (Line(points={{-54,128},{130,128},{130,20},
-          {160,20}}, color={0,0,127}));
-  connect(conHeaMod.y, yHea) annotation (Line(points={{-54,88},{110,88},{110,-20},
-          {160,-20}}, color={0,0,127}));
-  connect(conCooMod.yMod, orFanEna.u1) annotation (Line(points={{-54,112},{-40,112},
-          {-40,40},{-30,40}}, color={255,0,255}));
-  connect(conHeaMod.yMod, orFanEna.u2) annotation (Line(points={{-54,72},{-48,72},
-          {-48,32},{-30,32}}, color={255,0,255}));
-  connect(orFanEna.y, conFanCyc.heaCooOpe) annotation (Line(points={{-6,40},{0,40},
-          {0,-16},{14,-16}}, color={255,0,255}));
+  connect(TZon, conVarFanConWat.TZon) annotation (Line(points={{-160,80},{-100,
+          80},{-100,-48},{14,-48}},
+                                color={0,0,127}));
+  connect(TZon, conMulSpeFanConWat.TZon) annotation (Line(points={{-160,80},{
+          -100,80},{-100,-108},{14,-108}},
+                                      color={0,0,127}));
+  connect(TCooSet, conVarFanConWat.TCooSet) annotation (Line(points={{-160,40},
+          {-110,40},{-110,-56},{14,-56}},color={0,0,127}));
+  connect(TCooSet, conMulSpeFanConWat.TCooSet) annotation (Line(points={{-160,40},
+          {-110,40},{-110,-114},{14,-114}}, color={0,0,127}));
+  connect(THeaSet, conVarFanConWat.THeaSet) annotation (Line(points={{-160,0},{
+          -120,0},{-120,-64},{14,-64}},    color={0,0,127}));
+  connect(THeaSet, conMulSpeFanConWat.THeaSet) annotation (Line(points={{-160,0},
+          {-120,0},{-120,-120},{14,-120}},   color={0,0,127}));
+  connect(uFan, conCooMod.uFan) annotation (Line(points={{-160,120},{-130,120},
+          {-130,128.4},{-86.8,128.4}},
+                                color={255,0,255}));
+  connect(uFan, conHeaMod.uFan) annotation (Line(points={{-160,120},{-130,120},
+          {-130,88.4},{-86.8,88.4}},
+                              color={255,0,255}));
+  connect(TZon, conCooMod.TZon) annotation (Line(points={{-160,80},{-100,80},{
+          -100,122.8},{-86.8,122.8}},
+                           color={0,0,127}));
+  connect(TZon, conHeaMod.TZon) annotation (Line(points={{-160,80},{-100,80},{
+          -100,82.8},{-86.8,82.8}},
+                         color={0,0,127}));
+  connect(TCooSet, conCooMod.TZonSet) annotation (Line(points={{-160,40},{-110,
+          40},{-110,117.2},{-86.8,117.2}},
+                                 color={0,0,127}));
+  connect(THeaSet, conHeaMod.TZonSet) annotation (Line(points={{-160,0},{-120,0},
+          {-120,77.2},{-86.8,77.2}},color={0,0,127}));
+  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,120},{-130,120},
+          {-130,-11.6},{13.2,-11.6}},
+                             color={255,0,255}));
+  connect(conCooMod.yEna, yCooEna) annotation (Line(points={{-53.2,120},{120,
+          120},{120,100},{160,100}},
+                                color={255,0,255}));
+  connect(conHeaMod.yEna, yHeaEna) annotation (Line(points={{-53.2,80},{120,80},
+          {120,60},{160,60}},
+                         color={255,0,255}));
+  connect(conCooMod.yCoi, yCoo) annotation (Line(points={{-53.2,125.6},{130,
+          125.6},{130,20},{160,20}}, color={0,0,127}));
+  connect(conHeaMod.yCoi, yHea) annotation (Line(points={{-53.2,85.6},{110,85.6},
+          {110,-20},{160,-20}}, color={0,0,127}));
+  connect(conCooMod.yMod, orFanEna.u1) annotation (Line(points={{-53.2,114.4},{
+          -40,114.4},{-40,40},{-30,40}},
+                              color={255,0,255}));
+  connect(conHeaMod.yMod, orFanEna.u2) annotation (Line(points={{-53.2,74.4},{
+          -48,74.4},{-48,32},{-30,32}},
+                              color={255,0,255}));
+  connect(orFanEna.y, conFanCyc.heaCooOpe) annotation (Line(points={{-6,40},{0,
+          40},{0,-17.2},{13.2,-17.2}},
+                             color={255,0,255}));
   connect(conCoo.y, orFanEna.u1)
     annotation (Line(points={{-68,40},{-30,40}}, color={255,0,255}));
   connect(conHea.y, orFanEna.u2) annotation (Line(points={{-68,10},{-48,10},{-48,

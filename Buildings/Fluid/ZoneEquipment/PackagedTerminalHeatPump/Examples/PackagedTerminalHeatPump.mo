@@ -8,12 +8,12 @@ model PackagedTerminalHeatPump
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=75
     "Pressure drop at m_flow_nominal";
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCooCoi(sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCooCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=true,
+          is_CooCoi=true,
           Q_flow_nominal=-9365,
           COP_nominal=3.5,
           SHR_nominal=0.8,
@@ -31,12 +31,13 @@ model PackagedTerminalHeatPump
           ffMin=0.875,
           ffMax=1.125))}, nSta=1)
     annotation (Placement(transformation(extent={{60,92},{80,112}})));
-   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datHeaCoi(sta={
+   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datHeaCoi(
+    is_CooCoi=false,                                                                                              sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
+          is_CooCoi=false,
           Q_flow_nominal=15000,
           COP_nominal=2.75,
           SHR_nominal=1,
@@ -88,7 +89,8 @@ model PackagedTerminalHeatPump
     redeclare
       Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data.FanData
       fanPer,
-    datCooCoi=datCooCoi)
+    datCooCoi=datCooCoi,
+    datDef=datDef)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onFanCoil(final k=1)
     "on off signal for fan and DX coil"
@@ -110,6 +112,15 @@ model PackagedTerminalHeatPump
     annotation (Placement(transformation(extent={{-90,-52},{-70,-32}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant fal(k=false)
     annotation (Placement(transformation(extent={{-90,-80},{-70,-60}})));
+  HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_DefrostCurve
+    datDef(
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed,
+    tDefRun=0.1666,
+    QDefResCap=10500,
+    QCraCap=200) "Defrost data"
+    annotation (Placement(transformation(extent={{60,114},{80,134}})));
+
 equation
   connect(souAir.ports[1], PTHP.port_Air_a2) annotation (Line(points={{72,36},{78,
           36},{78,4},{20,4}}, color={0,127,255}));

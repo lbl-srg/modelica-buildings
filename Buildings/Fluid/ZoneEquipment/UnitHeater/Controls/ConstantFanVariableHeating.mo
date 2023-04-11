@@ -2,9 +2,9 @@ within Buildings.Fluid.ZoneEquipment.UnitHeater.Controls;
 model ConstantFanVariableHeating
   "Controller for unit heater system with variable heating rate and fixed speed fan"
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces(
-    final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitHeater,
-    final has_fanOpeMod=true);
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses1.ControllerInterfaces(
+      final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.SystemTypes.unitHeater,
+      final has_fanOpeMod=true);
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating loop controller"
@@ -49,10 +49,10 @@ model ConstantFanVariableHeating
     "Temperature difference used for enabling cooling and heating mode"
     annotation(Dialog(tab="Advanced"));
 
-  BaseClasses.HeatingCooling conOpeMod(conMod=true)
+  BaseClasses1.HeatingCooling conOpeMod(conMod=true)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
-  BaseClasses.CyclingFan conFanCyc
+  BaseClasses1.CyclingFan conFanCyc
     annotation (Placement(transformation(extent={{72,-80},{100,-52}})));
 equation
 
@@ -74,8 +74,8 @@ equation
           -100},{160,-100}},   color={255,0,255}));
   connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{102,-62},{110,-62},
           {110,-60},{160,-60}},      color={0,0,127}));
-  connect(conOpeMod.y, yHea) annotation (Line(points={{12,74},{60,74},{60,-20},{
-          160,-20}},color={0,0,127}));
+  connect(conOpeMod.yCoi, yHea) annotation (Line(points={{12,74},{60,74},{60,-20},
+          {160,-20}}, color={0,0,127}));
   annotation (defaultComponentName="conVarWatConFan",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-240},{180,240}}),
         graphics={Rectangle(

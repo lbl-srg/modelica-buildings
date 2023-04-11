@@ -4,21 +4,27 @@ model SingleZoneVariableFanConstantWaterFlowrate
 
   extends Modelica.Icons.Example;
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.ExampleTestbed(
-     redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate conZonHVACSys(
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses1.ExampleTestbed(
+    redeclare
+      Buildings.Fluid.ZoneEquipment.FanCoilUnit.Controls.VariableFanConstantWaterFlowrate
+      conZonHVACSys(
       final controllerTypeCoo=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+
       final kCoo=0.5,
       final TiCoo=300,
       final TdCoo=0.5,
       final controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.P,
+
       final kHea=0.5,
       final minFanSpe=0.15,
       final tFanEnaDel=60,
       final tFanEna=600,
       final dTHys=0.5),
-    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe_corrected zonHVACSys(
-      final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
-      oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
+    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe_corrected
+      zonHVACSys(
+      final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.HeaSou.hotWat,
+
+      oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.OAPorts.oaMix,
       final dpAir_nominal(displayUnit="Pa") = 100,
       final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
       redeclare package MediumA = MediumA,
@@ -30,14 +36,19 @@ model SingleZoneVariableFanConstantWaterFlowrate
       final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
       final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
       final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-      redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData fanPer),
+      redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData
+        fanPer),
     building(
-      final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
-      final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-      final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
-    zon(
-      final zoneName="West Zone",
-      final nPorts=2));
+      final idfName=Modelica.Utilities.Files.loadResource(
+          "./Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilUnit/FanCoilAutoSize_ConstantFlowVariableFan.idf"),
+
+      final epwName=Modelica.Utilities.Files.loadResource(
+          "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+
+      final weaName=Modelica.Utilities.Files.loadResource(
+          "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")),
+
+    zon(final zoneName="West Zone", final nPorts=2));
 
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases

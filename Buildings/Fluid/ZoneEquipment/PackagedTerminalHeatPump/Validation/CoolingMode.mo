@@ -31,7 +31,8 @@ model CoolingMode
     redeclare
       Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Validation.Data.FanData
       fanPer,
-    datCooCoi=datCooCoi)
+    datCooCoi=datCooCoi,
+    datDef=datDef)
     annotation (Placement(transformation(extent={{-16,-26},{24,14}})));
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
@@ -73,9 +74,14 @@ model CoolingMode
         delayTimestep)
     annotation (Placement(transformation(extent={{234,-90},{254,-70}})));
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.idf"),
-    epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    idfName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.idf"),
+
+    epwName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+
+    weaName=Modelica.Utilities.Files.loadResource(
+        "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
 
   ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
@@ -132,12 +138,11 @@ model CoolingMode
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay QHeaCoiEP(samplePeriod=
         delayTimestep)
     annotation (Placement(transformation(extent={{234,28},{254,48}})));
-   parameter HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil                 datHeaCoi(sta={
+   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datHeaCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=false,
           Q_flow_nominal=7144.01,
           COP_nominal=2.75,
           SHR_nominal=1,
@@ -150,12 +155,11 @@ model CoolingMode
               "Heating coil data"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
   parameter
-    HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil datCooCoi(sta={
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCooCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          activate_CooCoi=true,
           Q_flow_nominal=-7144.01,
           COP_nominal=3.0,
           SHR_nominal=0.8,
@@ -230,6 +234,15 @@ model CoolingMode
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay powSupHeaEP(samplePeriod=
         delayTimestep)
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
+  HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_DefrostCurve
+    datDef(
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed,
+    tDefRun=0.1666,
+    QDefResCap=10500,
+    QCraCap=200)
+    annotation (Placement(transformation(extent={{-20,94},{0,114}})));
+
 equation
   connect(datRea.y[22], div1.u1) annotation (Line(points={{-99,86},{-94,86},{-94,
           102},{-82,102}},

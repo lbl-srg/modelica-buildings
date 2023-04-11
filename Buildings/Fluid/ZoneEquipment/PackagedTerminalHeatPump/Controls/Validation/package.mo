@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
-package Validation "Validation models for FCU control modules"
+package Validation "Validation models for PTHP control modules"
 
   extends Modelica.Icons.ExamplesPackage;
 

@@ -2,9 +2,9 @@ within Buildings.Fluid.ZoneEquipment.WindowAC.Controls;
 model CycleFanCyclingCoil
   "Controller for window AC with cycle fan and cycle coil"
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces(
-    final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.windowAC,
-    final has_fanOpeMod=true);
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses1.ControllerInterfaces(
+      final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.SystemTypes.windowAC,
+      final has_fanOpeMod=true);
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of heating loop controller"
@@ -49,10 +49,10 @@ model CycleFanCyclingCoil
     "Temperature difference used for enabling cooling and heating mode"
     annotation(Dialog(tab="Advanced"));
 
-  BaseClasses.HeatingCooling conOpeMod(conMod=false, tCoiEna=tCoiEna)
+  BaseClasses1.HeatingCooling conOpeMod(conMod=false, tCoiEna=tCoiEna)
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
-  BaseClasses.CyclingFan conFanCyc(tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
+  BaseClasses1.CyclingFan conFanCyc(tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
     annotation (Placement(transformation(extent={{68,-80},{96,-52}})));
   Modelica.Blocks.Interfaces.RealInput TSup(
     final unit="K",
@@ -84,9 +84,8 @@ equation
   connect(conOpeMod.yEna, yCooEna) annotation (Line(points={{11.4286,70},{100,
           70},{100,100},{160,100}},
                                color={255,0,255}));
-  connect(conOpeMod.y, yCoo) annotation (Line(points={{11.4286,75.7143},{80,
-          75.7143},{80,20},{160,20}},
-                    color={0,0,127}));
+  connect(conOpeMod.yCoi, yCoo) annotation (Line(points={{11.4286,75.7143},{80,
+          75.7143},{80,20},{160,20}}, color={0,0,127}));
   connect(TCooSet, conOpeMod.TZonSet) annotation (Line(points={{-160,20},{-20,
           20},{-20,64.2857},{-11.4286,64.2857}}, color={0,0,127}));
   connect(TSup, conOpeMod.TSup) annotation (Line(points={{-160,-140},{-40,-140},

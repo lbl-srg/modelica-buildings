@@ -23,8 +23,9 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
       rotation=90,origin={40,-100})));
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.FourPipe fanCoiUni(
-    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.HeaSou.hotWat,
+
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.OAPorts.oaMix,
     final dpAir_nominal(displayUnit="Pa") = 100,
     final mAirOut_flow_nominal=FCUSizing.mAirOut_flow_nominal,
     redeclare package MediumA = MediumA,
@@ -36,8 +37,8 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     final UAHeaCoi_nominal=FCUSizing.UAHeaCoi_nominal,
     final mChiWat_flow_nominal=FCUSizing.mChiWat_flow_nominal,
     final UACooCoi_nominal=FCUSizing.UACooCoiTot_nominal,
-    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData fanPer)
-    "Fan coil system model"
+    redeclare Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.FanData
+      fanPer) "Fan coil system model"
     annotation (Placement(transformation(extent={{70,-20},{110,20}})));
 
   Buildings.Fluid.ZoneEquipment.FanCoilUnit.Examples.Data.SizingData FCUSizing
@@ -64,7 +65,7 @@ model SingleZoneVariableFanConstantWaterFlowrate_backup
     "Occupancy schedule"
     annotation (Placement(transformation(extent={{-150,-20},{-130,0}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.ZoneTemperatureSetpoint TZonSet
+  Buildings.Fluid.ZoneEquipment.BaseClasses1.ZoneTemperatureSetpoint TZonSet
     "Zone temperature setpoint controller"
     annotation (Placement(transformation(extent={{-110,10},{-90,30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaFan

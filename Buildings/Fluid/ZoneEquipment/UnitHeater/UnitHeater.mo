@@ -1,9 +1,9 @@
 within Buildings.Fluid.ZoneEquipment.UnitHeater;
 model UnitHeater "System model for a zonal unit heater"
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
-    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.noCoo,
-    final oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.noOA);
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses1.EquipmentInterfaces(final
+      cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.CooSou.noCoo,
+      final oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.OAPorts.noOA);
 
   parameter Modelica.Units.SI.HeatFlowRate QHeaCoi_flow_nominal(
     final min = 0)

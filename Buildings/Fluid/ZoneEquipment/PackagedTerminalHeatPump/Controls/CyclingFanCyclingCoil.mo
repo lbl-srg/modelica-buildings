@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
-model CyclingFanCyclingCoil "Controller for PTHPwith cycle fan and cycle coil"
+model CyclingFanCyclingCoil
+  "Controller for PTHP with cycling fan and cycling coil"
 
   extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces(
     final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp,
@@ -14,96 +15,162 @@ model CyclingFanCyclingCoil "Controller for PTHPwith cycle fan and cycle coil"
     annotation(Dialog(group="System parameters"));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys
-    "Temperature difference used for enabling cooling and heating mode";
+    "Temperature difference used for enabling cooling and heating mode"
+    annotation(Dialog(tab="Advanced"));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHea(dTHys=dTHys,
-  conMod=true, tCoiEna=tFanEna)
-    annotation (Placement(transformation(extent={{-12,30},{8,50}})));
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for heating"
+    annotation(Dialog(group="Heating control"));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(
-                         tFanEnaDel=tFanEnaDel, tFanEna=tFanEna)
-    annotation (Placement(transformation(extent={{72,-132},{100,-104}})));
-  Modelica.Blocks.Interfaces.RealInput TSup(
+  parameter Real kHea=1
+    "Gain of controller for heating"
+    annotation(Dialog(group="Heating control"));
+
+  parameter Modelica.Units.SI.Time TiHea=0.5
+    "Time constant of integrator block for heating"
+    annotation(Dialog(group="Heating control"));
+
+  parameter Modelica.Units.SI.Time TdHea=0.1
+    "Time constant of derivative block for heating"
+    annotation(Dialog(group="Heating control"));
+
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCoo=
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller for cooling"
+    annotation(Dialog(group="Cooling control"));
+
+  parameter Real kCoo=1
+    "Gain of controller for cooling"
+    annotation(Dialog(group="Cooling control"));
+
+  parameter Modelica.Units.SI.Time TiCoo=0.5
+    "Time constant of integrator block for cooling"
+    annotation(Dialog(group="Cooling control"));
+
+  parameter Modelica.Units.SI.Time TdCoo=0.1
+    "Time constant of derivative block for cooling"
+    annotation(Dialog(group="Cooling control"));
+
+  parameter Real TSupDew(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") "Measured supply temperature"
-    annotation (Placement(transformation(extent={{-180,-160},{-140,-120}}),
-        iconTransformation(extent={{-220,-162},{-180,-122}})));
-  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCoo(dTHys=dTHys,conMod=false, tCoiEna=tFanEna)
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
+    final quantity="ThermodynamicTemperature")=273.15 + 12
+    "Supply air temperature limit under which condensation will be caused"
+    annotation(Dialog(tab="Advanced"));
+
+protected
+  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHea(
+    final controllerType=controllerTypeHea,
+    final k=kHea,
+    final TSupDew=TSupDew,
+    final Ti=TiHea,
+    final Td=TdHea,
+    final dTHys=dTHys,
+    final conMod=true,
+    final tCoiEna=tFanEna)
+    "Heating coil control"
+    annotation (Placement(transformation(extent={{-12,50},{8,70}})));
+
+  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(
+    final tFanEnaDel=tFanEnaDel,
+    final tFanEna=tFanEna)
+    "Cycling fan control"
+    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
+
+  Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCoo(
+    final controllerType=controllerTypeCoo,
+    final k=kCoo,
+    final Ti=TiCoo,
+    final Td=TdCoo,
+    final dTHys=dTHys,
+    final conMod=false,
+    final tCoiEna=tFanEna)
+    "Cooling coil control"
+    annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
+
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Enable fan when eithor cooling or heating mode is enabled"
-    annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
-  Modelica.Blocks.Interfaces.BooleanOutput yHeaMod if not has_varHea and
-    has_hea "Heating enable signal" annotation (Placement(transformation(extent=
-           {{140,-160},{180,-120}}), iconTransformation(extent={{182,-162},{222,
-            -122}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
 equation
-  connect(uFan, conHea.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
-          45.7143},{-13.4286,45.7143}}, color={255,0,255}));
-  connect(TZon, conHea.TZon) annotation (Line(points={{-160,60},{-50,60},{-50,
-          40},{-13.4286,40}}, color={0,0,127}));
-  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,100},{-60,100},{
-          -60,-106},{70,-106}},
-                              color={255,0,255}));
-  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-60},{-60,-60},{
-          -60,-122},{70,-122}},
-                              color={255,0,255}));
-  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-100},
-          {-46,-100},{-46,-130},{70,-130}},
-                                          color={255,0,255}));
-  connect(conFanCyc.yFan, yFan) annotation (Line(points={{102,-122},{132,-122},
-          {132,-100},{160,-100}},
+  connect(uFan, conHea.uFan) annotation (Line(points={{-160,120},{-60,120},{-60,
+          66},{-14,66}},                color={255,0,255}));
+  connect(TZon, conHea.TZon) annotation (Line(points={{-160,80},{-48,80},{-48,62},
+          {-14,62}},          color={0,0,127}));
+  connect(uFan, conFanCyc.uFan) annotation (Line(points={{-160,120},{-60,120},{-60,
+          -104},{78,-104}},   color={255,0,255}));
+  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-40},{-80,-40},{-80,
+          -112},{78,-112}},   color={255,0,255}));
+  connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-80},{-70,
+          -80},{-70,-116},{78,-116}},     color={255,0,255}));
+  connect(conFanCyc.yFan, yFan) annotation (Line(points={{102,-112},{132,-112},
+          {132,-140},{160,-140}},
                                color={255,0,255}));
-  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{102,-114},{122,
-          -114},{122,-60},{160,-60}},color={0,0,127}));
-  connect(TSup, conHea.TSup) annotation (Line(points={{-160,-140},{-40,-140},{
-          -40,30},{-13.4286,30}}, color={0,0,127}));
-  connect(THeaSet, conHea.TZonSet) annotation (Line(points={{-160,-20},{-30,-20},
-          {-30,34.2857},{-13.4286,34.2857}}, color={0,0,127}));
-  connect(TZon, conCoo.TZon) annotation (Line(points={{-160,60},{-48,60},{-48,
-          -80},{-11.4286,-80}}, color={0,0,127}));
-  connect(uFan, conCoo.uFan) annotation (Line(points={{-160,100},{-60,100},{-60,
-          -74.2857},{-11.4286,-74.2857}}, color={255,0,255}));
-  connect(TCooSet, conCoo.TZonSet) annotation (Line(points={{-160,20},{-22,20},
-          {-22,-85.7143},{-11.4286,-85.7143}}, color={0,0,127}));
-  connect(TSup, conCoo.TSup) annotation (Line(points={{-160,-140},{-22,-140},{
-          -22,-90},{-11.4286,-90}}, color={0,0,127}));
-  connect(conCoo.yEna, yCooEna) annotation (Line(points={{11.4286,-80},{100,-80},
-          {100,100},{160,100}}, color={255,0,255}));
-  connect(conHea.y, yHea) annotation (Line(points={{9.42857,45.7143},{92,
-          45.7143},{92,-20},{160,-20}}, color={0,0,127}));
-  connect(conCoo.y, yCoo) annotation (Line(points={{11.4286,-74.2857},{80,
-          -74.2857},{80,20},{160,20}}, color={0,0,127}));
-  connect(conHea.yMod, or2.u1) annotation (Line(points={{9.42857,34.2857},{20,
-          34.2857},{20,-50},{28,-50}},
-                            color={255,0,255}));
-  connect(conCoo.yMod, or2.u2) annotation (Line(points={{11.4286,-85.7143},{20,
-          -85.7143},{20,-58},{28,-58}},
-                            color={255,0,255}));
-  connect(or2.y, conFanCyc.heaCooOpe) annotation (Line(points={{52,-50},{56,-50},
-          {56,-114},{70,-114}},
+  connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{102,-108},{122,
+          -108},{122,-100},{160,-100}},
+                                     color={0,0,127}));
+  connect(TSup, conHea.TSup) annotation (Line(points={{-160,-120},{-40,-120},{-40,
+          54},{-14,54}},          color={0,0,127}));
+  connect(THeaSet, conHea.TZonSet) annotation (Line(points={{-160,0},{-30,0},{-30,
+          58},{-14,58}},                     color={0,0,127}));
+  connect(TZon, conCoo.TZon) annotation (Line(points={{-160,80},{-48,80},{-48,-78},
+          {-10,-78}},           color={0,0,127}));
+  connect(uFan, conCoo.uFan) annotation (Line(points={{-160,120},{-60,120},{-60,
+          -74},{-10,-74}},                color={255,0,255}));
+  connect(TCooSet, conCoo.TZonSet) annotation (Line(points={{-160,40},{-20,40},{
+          -20,-82},{-10,-82}},                 color={0,0,127}));
+  connect(TSup, conCoo.TSup) annotation (Line(points={{-160,-120},{-20,-120},{-20,
+          -86},{-10,-86}},          color={0,0,127}));
+  connect(conCoo.yEna, yCooEna) annotation (Line(points={{14,-80},{100,-80},{
+          100,60},{160,60}},    color={255,0,255}));
+  connect(conHea.yCoi, yHea) annotation (Line(points={{10,64},{90,64},{90,-60},
+          {160,-60}},color={0,0,127}));
+  connect(conCoo.yCoi, yCoo) annotation (Line(points={{14,-76},{80,-76},{80,-20},
+          {160,-20}},color={0,0,127}));
+  connect(conHea.yMod, or2.u1) annotation (Line(points={{10,56},{20,56},{20,-50},
+          {38,-50}},        color={255,0,255}));
+  connect(conCoo.yMod, or2.u2) annotation (Line(points={{14,-84},{30,-84},{30,-58},
+          {38,-58}},        color={255,0,255}));
+  connect(or2.y, conFanCyc.heaCooOpe) annotation (Line(points={{62,-50},{70,-50},
+          {70,-108},{78,-108}},
                              color={255,0,255}));
-  connect(conHea.yEna, yHeaEna) annotation (Line(points={{9.42857,40},{78,40},{
-          78,60},{160,60}}, color={255,0,255}));
-  connect(conHea.yMod, yHeaMod) annotation (Line(points={{9.42857,34.2857},{18,
-          34.2857},{18,-140},{160,-140}}, color={255,0,255}));
+  connect(conHea.yEna, yHeaEna) annotation (Line(points={{10,60},{86,60},{86,20},
+          {160,20}},        color={255,0,255}));
+  connect(conHea.yMod, yHeaMod) annotation (Line(points={{10,56},{20,56},{20,
+          100},{160,100}}, color={255,0,255}));
+  connect(conCoo.yMod, yCooMod) annotation (Line(points={{14,-84},{30,-84},{30,
+          140},{160,140}}, color={255,0,255}));
   annotation (defaultComponentName="conVarWatConFan",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-180,-120},{180,220}})),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,140}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-160},{140,
-            120}})),
+            140}})),
     Documentation(info="<html>
-<p><br>This is a control module for the PTHP system model designed as an analogue to the control logic in EnergyPlus. The components are operated as follows. </p>
-<ul>
-<li>When <span style=\"font-family: Courier New;\">TZon</span> is below the heating setpoint temperature <span style=\"font-family: Courier New;\">THeaSet</span>, the PTHP enters heating mode operation (<span style=\"font-family: Courier New;\">yHeaMod = True</span>). The constant fan is enabled (<span style=\"font-family: Courier New;\">yFan = True</span>) and DX heating coil is enabled (<span style=\"font-family: Courier New;\">yHeaEna = True</span>). Otherwise, the fan and DX heating coil are disabled. </li>
-<li>When <span style=\"font-family: Courier New;\">TZon</span> is below the cooling setpoint temperature <span style=\"font-family: Courier New;\">TCooSet</span>, the PTHP enters cooling mode operation (<span style=\"font-family: Courier New;\">yCooMod = True</span>). The constant fan is enabled (<span style=\"font-family: Courier New;\">yFan = True</span>) and DX cooling coil is enabled (<span style=\"font-family: Courier New;\">yCooEna = True</span>). Otherwise, the fan and DX cooling coil are disabled. </li>
-</ul>
-<p><span style=\"font-family: Courier New;\">dTHys</span> is the hysteresis temperature difference for enabling/disabling the cooling/heating mode. </p>
-</html>
+    <p>
+    This is a control module for the PTHP system model designed as an analogue 
+    to the control logic in EnergyPlus. The components are as follows:
+    <ul>
+    <li>
+    Heating coil controller <code>conHea</code>: 
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>
+    </li>
+    <li>
+    Cooling coil controller <code>conCoo</code>:
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>
+    </li>
+    <li>
+    Cycling fan controller <code>conFanCyc</code>:
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan</a>
+    </li>
+    </ul>
+    </html>
 ", revisions="<html>
     <ul>
     <li>
-    Mar 30, 2023 by Karthik Devaprasad, Xing Lu:<br/>
+    April 10, 2023 by Karthik Devaprasad and Xing Lu:<br/>
     First implementation.
     </li>
     </ul>

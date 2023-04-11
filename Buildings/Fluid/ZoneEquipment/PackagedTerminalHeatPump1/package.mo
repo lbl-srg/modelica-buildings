@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment;
-package PackagedTerminalHeatPump
+package PackagedTerminalHeatPump1
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -40,4 +40,4 @@ package PackagedTerminalHeatPump
   <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls\">
   Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls</a>. 
 </html>"));
-end PackagedTerminalHeatPump;
+end PackagedTerminalHeatPump1;

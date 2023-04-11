@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment;
-package BaseClasses
+package BaseClasses1
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -19,4 +19,4 @@ annotation (Icon(graphics={
   Documentation(info="<html>
   This package contains baseclasses used in the example model.
     </html>"));
-end BaseClasses;
+end BaseClasses1;

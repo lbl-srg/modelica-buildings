@@ -63,10 +63,11 @@ model CoolingModeSimpleInput
     redeclare package MediumA = MediumA,
     mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
     mAir_flow_nominal=winACSizing.mAir_flow_nominal,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
+    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses1.Types.OAPorts.oaMix,
     dpAir_nominal(displayUnit="Pa") = dpAir_nominal,
     dpDX_nominal(displayUnit="Pa") = dpDX_nominal,
-    redeclare Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.FanData fanPer,
+    redeclare Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.FanData
+      fanPer,
     datCoi=datCoi)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onFanCoil(final k=1)

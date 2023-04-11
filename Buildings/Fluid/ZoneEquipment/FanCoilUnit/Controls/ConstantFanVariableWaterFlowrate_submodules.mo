@@ -112,14 +112,14 @@ block ConstantFanVariableWaterFlowrate_submodules
     annotation (Placement(transformation(extent={{140,0},{180,40}}),
       iconTransformation(extent={{120,0},{160,40}})));
 
-  BaseClasses.HeatingCooling cooMod(
+  BaseClasses1.HeatingCooling cooMod(
     controllerType=controllerTypeCoo,
     k=kCoo,
     Ti=TiCoo,
     Td=TdCoo,
     dTHys=dTHys) "Cooling mode controller"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  BaseClasses.HeatingCooling heaMod(
+  BaseClasses1.HeatingCooling heaMod(
     controllerType=controllerTypeHea,
     k=kHea,
     Ti=TiHea,
@@ -128,7 +128,7 @@ block ConstantFanVariableWaterFlowrate_submodules
     conMod=true) "Heating mode controller"
     annotation (Placement(transformation(extent={{-70,20},{-50,40}})));
 
-  BaseClasses.CyclingFan conFan(
+  BaseClasses1.CyclingFan conFan(
     minFanSpe=minFanSpe,
     tFanEnaDel=tFanEnaDel,
     tFanEna=tFanEna) "Fan controller"
@@ -156,10 +156,10 @@ equation
           -30},{-100,62},{-82,62}}, color={0,0,127}));
   connect(THeaSet, heaMod.TZonSet) annotation (Line(points={{-140,-70},{-80,-70},
           {-80,22},{-72,22}}, color={0,0,127}));
-  connect(cooMod.y, yCoo) annotation (Line(points={{-58,74},{80,74},{80,60},{
-          160,60}}, color={0,0,127}));
-  connect(heaMod.y, yHea) annotation (Line(points={{-48,34},{80,34},{80,20},{
-          160,20}}, color={0,0,127}));
+  connect(cooMod.yCoi, yCoo) annotation (Line(points={{-58,74},{80,74},{80,60},
+          {160,60}}, color={0,0,127}));
+  connect(heaMod.yCoi, yHea) annotation (Line(points={{-48,34},{80,34},{80,20},
+          {160,20}}, color={0,0,127}));
   connect(cooMod.yMod, orHeaCoo.u1) annotation (Line(points={{-58,66},{-40,66},
           {-40,50},{-22,50}}, color={255,0,255}));
   connect(heaMod.yMod, orHeaCoo.u2) annotation (Line(points={{-48,26},{-40,26},
