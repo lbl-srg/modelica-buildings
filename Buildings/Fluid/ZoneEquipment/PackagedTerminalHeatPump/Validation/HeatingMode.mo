@@ -140,7 +140,6 @@ model HeatingMode
   Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
     zoneName="West Zone",
     redeclare package Medium = MediumA,
-    final T_start=295.15,
     final nPorts=2)
     "Thermal zone model"
     annotation (Placement(transformation(extent={{58,30},{98,70}})));
