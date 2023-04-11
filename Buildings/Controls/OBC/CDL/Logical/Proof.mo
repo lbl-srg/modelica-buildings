@@ -36,11 +36,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Or pasDel
     "Output true if the feedback checking time has passed"
     annotation (Placement(transformation(extent={{-142,-10},{-122,10}})));
-  // The cheDif instance below has two inputs, one from pasDel and another one from valInp.
-  // The instance pasDel will give true output when the feedback+debounce time passed.
-  // The instance valInp will give true output when the debounce time passed and the u_m is stable
   Buildings.Controls.OBC.CDL.Logical.Or cheDif
-    "fixme: Is this correct? Output true if the measured input is stable, or the feedback checking time has passed"
+    "Output true if the measured input is stable, or the feedback checking time has passed"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.And botTru
     "Output true if both valid measured input and the setpoint input are true"
@@ -114,8 +111,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Switch cheStaMea1
     "Output true if there is no stable measured input"
     annotation (Placement(transformation(extent={{160,-70},{180,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(final t=feedbackDelay +
-        debounce)
+  Buildings.Controls.OBC.CDL.Logical.Timer pasDeb(
+    final t=feedbackDelay + debounce)
     "Check if the debounce time has passed"
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.Controls.OBC.CDL.Logical.Latch holTru
@@ -124,11 +121,8 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Latch holTru1
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
-  // The instance equInp below has two inputs, one from borTru and another one from equSta.
-  // The borTru will be true if both the u_s and the stable u_m are true.
-  // The equSta will be true if both the u_s and the stable u_m are false.
   Buildings.Controls.OBC.CDL.Logical.Or equInp
-    "fixme: Seems wrong as an 'or' block outputs different y under these 2 conditions: Check if both true inputs or both false inputs"
+    "Output true if the measured input is valid and equal to the set point"
     annotation (Placement(transformation(extent={{120,50},{140,70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge samInpEdg
     "Output a rising edge when both inputs are same"
@@ -421,8 +415,8 @@ Set the parameter <code>debounce &ge; 0</code>
 to specify how long the measured
 signal <code>u_m</code> need to remain constant for it to be considered
 stable.
-Connect the set point to <code>u_s</code> and
-the measured signal to <code>u_m</code>.
+Connect the inputs for the set point <code>u_s</code> and
+the measured signal <code>u_m</code> to the output signals that need to be checked.
 If either output is <code>true</code>, raise an alarm, such as by
 connecting instances of
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Utilities.Assert\">
