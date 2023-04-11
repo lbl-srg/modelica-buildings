@@ -1,11 +1,14 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump;
 model PackagedTerminalHeatPump
-    extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
     final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
+
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+
     oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
-    redeclare final package MediumHW =Modelica.Media.Interfaces.PartialMedium,
-    redeclare final package MediumCHW =Modelica.Media.Interfaces.PartialMedium);
+    redeclare final package MediumHW = Modelica.Media.Interfaces.PartialMedium,
+
+    redeclare final package MediumCHW = Modelica.Media.Interfaces.PartialMedium);
   parameter Modelica.Units.SI.HeatFlowRate QSup_flow_nominal
     "Heat flow rate for supplementary heating";
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal

@@ -6,7 +6,9 @@ model CyclingFanCyclingCoil
   Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil
     conVarWatConFan(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+
     final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
+
     final tFanEnaDel=0,
     final tFanEna=0,
     dTHys=0.2) "Instance of controller with cycling fan and cyling coil"

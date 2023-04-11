@@ -17,31 +17,26 @@ partial model EquipmentInterfaces
 
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal = 0.1
     "Nominal mass flow rate of chilled water"
-    annotation(Dialog(enable=cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat, group="Cooling coil parameters"));
+    annotation(Dialog(enable=cooCoiTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat,group="Cooling coil parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
     "Nominal mass flow rate of outdoor air"
-    annotation(Dialog(enable=((oaPorTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix) or
-    (oaPorTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts)), group="System parameters"));
+    annotation(Dialog(enable=((oaPorTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix)
+           or (oaPorTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts)),
+                                                                                   group="System parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Nominal mass flow rate of supply air"
     annotation(Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
-    "Type of heating coil used"
-    annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
+    "Type of heating coil used" annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou
-    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
-    "Type of cooling coil used"
-    annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
+    "Type of cooling coil used" annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts
-    "Type of OA port"
-    annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts
+    "Type of OA port" annotation (Dialog(group="System parameters"));
 
   Modelica.Blocks.Interfaces.RealInput uHea(
     final unit="1") if has_varHea and has_hea "Heating loop signal"

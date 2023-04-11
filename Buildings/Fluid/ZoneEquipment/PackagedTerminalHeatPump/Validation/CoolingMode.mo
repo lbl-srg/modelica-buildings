@@ -76,10 +76,8 @@ model CoolingMode
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
     idfName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalHeatPump/1ZonePTHP.idf"),
-
     epwName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-
     weaName=Modelica.Utilities.Files.loadResource(
         "./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));

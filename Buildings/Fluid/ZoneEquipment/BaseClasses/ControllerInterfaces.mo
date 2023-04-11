@@ -6,15 +6,11 @@ partial model ControllerInterfaces
     "Select zonal HVAC system type"
     annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
-    "Type of heating coil used"
-    annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
+    "Type of heating coil used" annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou
-    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
-    "Type of cooling coil used"
-    annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
+    "Type of cooling coil used" annotation (Dialog(group="System parameters"));
 
   parameter Boolean has_fanOpeMod = true
     "Does the controller need a fan operating mode signal interface?";
@@ -154,7 +150,6 @@ protected
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
     or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
     "Does the zone equipment have variable speed fan?";
-
 
 equation
   connect(yHeaMod, yHeaMod)

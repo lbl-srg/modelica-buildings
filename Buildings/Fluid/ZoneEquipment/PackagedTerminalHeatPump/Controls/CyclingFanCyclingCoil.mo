@@ -2,9 +2,9 @@ within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls;
 model CyclingFanCyclingCoil
   "Controller for PTHP with cycling fan and cycling coil"
 
-  extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces(
-    final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp,
-    final has_fanOpeMod=true);
+  extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces(final
+      sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp,
+      final has_fanOpeMod=true);
 
   parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
@@ -68,14 +68,11 @@ protected
     final Td=TdHea,
     final dTHys=dTHys,
     final conMod=true,
-    final tCoiEna=tFanEna)
-    "Heating coil control"
+    final tCoiEna=tFanEna) "Heating coil control"
     annotation (Placement(transformation(extent={{-12,50},{8,70}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(
-    final tFanEnaDel=tFanEnaDel,
-    final tFanEna=tFanEna)
-    "Cycling fan control"
+  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(final
+      tFanEnaDel=tFanEnaDel, final tFanEna=tFanEna) "Cycling fan control"
     annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCoo(

@@ -5,7 +5,7 @@ model SupplementalHeating
 
   Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating
     uSupHea(TDryCom_min=271.15)
-               "Instance of controller with cycling fan and cyling coil"
+    "Instance of controller with cycling fan and cyling coil"
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaMod(k=true)

@@ -54,12 +54,14 @@ model HeatingMode
         4)) "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,116},{-60,136}})));
 
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil conCycFanCycCoi(
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil
+    conCycFanCycCoi(
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+
     final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.heaPum,
+
     final tFanEna=60,
-    final dTHys=0.1)
-    "Cycling fan-cycling coil controller"
+    final dTHys=0.1) "Cycling fan-cycling coil controller"
     annotation (Placement(transformation(extent={{-80,-78},{-60,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
@@ -193,9 +195,8 @@ model HeatingMode
     annotation (Placement(transformation(extent={{234,56},{254,76}})));
   Modelica.Blocks.Sources.RealExpression realExpression15(y=datRea.y[20])
     annotation (Placement(transformation(extent={{200,56},{220,76}})));
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating conSupHea(
-    final k=0.1)
-    "Supplementary heating controller"
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating
+    conSupHea(final k=0.1) "Supplementary heating controller"
     annotation (Placement(transformation(extent={{-84,-12},{-60,12}})));
 
   BoundaryConditions.WeatherData.Bus weaBus "if not has_extOAPor and has_ven"
