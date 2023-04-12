@@ -98,24 +98,24 @@ Buildings.Controls.OBC.CDL.Logical.Proof</a>. The following tests are implemente
 </p>
 <ul>
 <li>
-If both boolean inputs change simultaneously, both outputs will be
-<code>false</code>. It is tested through instance <code>pro</code>.
+The instance <code>pro</code> tests the case in which
+both boolean inputs change simultaneously, and hence both outputs will be
+<code>false</code>.
 </li>
 <li>
-Both the inputs change from <code>true</code> to <code>false</code>. However,
+The instances <code>pro2</code> and <code>pro3</code> use a different value
+for <code>feedbackDelay</code>. They test the case in which
+both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>u_m</code> changes, the input <code>u_s</code> remains
 <code>true</code> for a time that is longer than
 <code>feedbackDelay</code>. The output <code>yProTru</code> will be <code>true</code>.
-This is tested through instances <code>pro2</code> and <code>pro3</code>, with
-different delay <code>feedbackDelay</code> for checking the input difference.
 </li>
 <li>
-Both the inputs change from <code>true</code> to <code>false</code>. However,
+The instances <code>pro1</code> and <code>pro4</code> use a different value
+for <code>feedbackDelay</code>. They test the case in which
+both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>u_s</code> changes, the input <code>u_m</code> remains
 <code>true</code> for a time that is longer than
-<code>feedbackDelay</code>. The output <code>yProFal</code> will be <code>true</code>.
-This is tested through instances <code>pro1</code> and <code>pro4</code>, with
-different delay <code>feedbackDelay</code> for checking the inputs.
 </li>
 <li>
 It also tests the case when the measured input <code>u_m</code> cannot stay stable
