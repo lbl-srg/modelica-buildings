@@ -122,7 +122,7 @@ after the input <code>u_s</code> changes, the input <code>u_m</code> remains
 </li>
 <li>
 The instance <code>pro5</code> tests the case in which
-the measured input <code>u_m</code> cannot stay stable for the debounce time,
+the measured input <code>u_m</code> does not stabilize during the debounce time,
 and hence both outputs will be <code>true</code>.
 </li>
 </ul>
