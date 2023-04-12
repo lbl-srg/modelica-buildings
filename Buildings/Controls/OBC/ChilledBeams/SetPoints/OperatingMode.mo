@@ -99,7 +99,17 @@ equation
               lineColor={28,108,200},
               fillColor={255,255,255},
               fillPattern=FillPattern.None,
-          textString="sysOpeMod")}),                             Diagram(
+          textString="sysOpeMod"),
+        Text(
+          extent={{-98,8},{-62,-8}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uDetOcc"),
+        Text(
+          extent={{60,8},{98,-10}},
+          textColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="yOpeMod")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
         <p>

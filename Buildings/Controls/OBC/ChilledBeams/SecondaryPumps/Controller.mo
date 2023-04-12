@@ -540,7 +540,41 @@ annotation (defaultComponentName="secPumCon",
           points={{-80,60},{-14,4},{-80,-60},{-80,60}},
           lineColor={175,175,175},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-96,90},{-50,68}},
+          textColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="uPumLeaLag"),
+        Text(
+          extent={{-96,48},{-52,30}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uChiWatPum"),
+        Text(
+          extent={{-96,6},{-66,-6}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uValPos"),
+        Text(
+          extent={{-96,-32},{-40,-50}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpChiWat_remote"),
+        Text(
+          extent={{-96,-72},{-56,-88}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpChiWatSet"),
+        Text(
+          extent={{64,-14},{98,-28}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yPumSpe"),
+        Text(
+          extent={{52,36},{98,4}},
+          textColor={255,85,255},
+          textString="yChiWatPum")}),
   Documentation(info="<html>
 <p>
 Pump control sequences for chilled beam systems. It consists of:

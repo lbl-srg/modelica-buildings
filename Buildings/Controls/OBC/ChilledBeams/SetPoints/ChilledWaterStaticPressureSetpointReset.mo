@@ -233,11 +233,26 @@ annotation(defaultComponentName="chiWatStaPreSetRes",
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
             Text(
-              extent={{-50,20},{50,-20}},
+              extent={{-50,34},{50,-6}},
               lineColor={28,108,200},
               fillColor={255,255,255},
               fillPattern=FillPattern.None,
-      textString="chiWatStaPreSetRes")}),
+      textString="chiWatStaPreSetRes"),
+        Text(
+          extent={{-96,58},{-60,42}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uPumSta"),
+        Text(
+          extent={{-96,-42},{-60,-58}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uValPos"),
+        Text(
+          extent={{44,16},{98,-14}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yStaPreSetPoi")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

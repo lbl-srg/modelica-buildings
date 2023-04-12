@@ -240,11 +240,11 @@ annotation (
         lineColor={0,0,255},
         textString="%name"),
         Text(
-          extent={{-94,16},{-60,-12}},
+          extent={{-94,14},{-60,-14}},
           textColor={0,0,127},
           textString="uPumSpe"),
         Text(
-          extent={{68,54},{92,30}},
+          extent={{76,50},{94,30}},
           textColor={255,85,255},
           textString="yUp"),
         Text(

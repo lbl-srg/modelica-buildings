@@ -124,7 +124,22 @@ annotation(defaultComponentName="TZonSet",
               extent={{-100,100},{100,-100}},
               lineColor={28,108,200},
               fillColor={255,255,255},
-              fillPattern=FillPattern.Solid)}),
+              fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-96,8},{-66,-6}},
+          textColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod"),
+        Text(
+          extent={{58,68},{96,50}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZonHeaSet"),
+        Text(
+          extent={{58,-50},{96,-68}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZonCooSet")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

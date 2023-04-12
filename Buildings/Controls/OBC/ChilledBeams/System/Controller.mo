@@ -412,7 +412,36 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),              Diagram(
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-96,70},{-56,52}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uPumSta"),
+        Text(
+          extent={{-94,12},{-36,-12}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dPChiWatLoo"),
+        Text(
+          extent={{-96,-50},{-56,-68}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uValPos"),
+        Text(
+          extent={{50,76},{96,44}},
+          textColor={255,85,255},
+          textString="yChiWatPum"),
+        Text(
+          extent={{62,6},{96,-8}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yPumSpe"),
+        Text(
+          extent={{56,-50},{96,-70}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yBypValPos")}),                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

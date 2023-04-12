@@ -359,7 +359,57 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),              Diagram(
+        fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-98,88},{-62,72}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uDetOcc"),
+        Text(
+          extent={{-96,48},{-60,32}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uConSen"),
+        Text(
+          extent={{-100,4},{-76,-6}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-98,-32},{-62,-48}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VDis_flow"),
+        Text(
+          extent={{-98,-74},{-68,-86}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uChiVal"),
+        Text(
+          extent={{74,86},{100,76}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yReh"),
+        Text(
+          extent={{70,46},{98,34}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yChiVal"),
+        Text(
+          extent={{74,6},{98,-4}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yDam"),
+        Text(
+          extent={{42,-24},{98,-56}},
+          textColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="yChiWatSupReq"),
+        Text(
+          extent={{54,-70},{98,-90}},
+          textColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="TChiWatReq")}),                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

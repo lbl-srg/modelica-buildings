@@ -403,7 +403,42 @@ annotation (defaultComponentName="zonRegCon",
         Text(
           extent={{-120,160},{114,108}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Text(
+          extent={{-98,64},{-74,54}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-98,-14},{-66,-26}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VDis_flow"),
+        Text(
+          extent={{-98,-54},{-68,-68}},
+          textColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod"),
+        Text(
+          extent={{74,44},{98,34}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yReh"),
+        Text(
+          extent={{72,6},{98,-6}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yChiVal"),
+        Text(
+          extent={{74,-34},{98,-44}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yDam"),
+        Text(
+          extent={{-96,28},{-60,12}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uConSen")}),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>

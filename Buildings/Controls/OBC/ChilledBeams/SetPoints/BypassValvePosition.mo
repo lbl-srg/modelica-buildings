@@ -200,7 +200,27 @@ equation
               lineColor={28,108,200},
               fillColor={255,255,255},
               fillPattern=FillPattern.None,
-          textString="sysOpeMod")}),
+          textString="sysOpeMod"),
+        Text(
+          extent={{-96,68},{-56,50}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uPumSta"),
+        Text(
+          extent={{-96,8},{-56,-10}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uPumSpe"),
+        Text(
+          extent={{-96,-50},{-46,-72}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="dpChiWatLoo"),
+        Text(
+          extent={{70,6},{98,-6}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yDam")}),
       Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
       Documentation(info="<html>
