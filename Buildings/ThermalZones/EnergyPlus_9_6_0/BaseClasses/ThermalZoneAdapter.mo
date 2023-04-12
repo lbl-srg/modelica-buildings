@@ -224,12 +224,17 @@ equation
       "If usePrecompiledFMU = true, must set parameter fmuName");
   end if;
   when {initial(),time >= pre(tNext)} then
+    // The assertions below are inside an if-clause to work around an issue in OPTIMICA,
+    // see https://github.com/lbl-srg/modelica-buildings/issues/3319#issuecomment-1494960744
+    if (p >= pMax or p <= pMin) then
     // Monitor pressure to catch cases where a user may forget to add a flow path for exhaust air
     assert(p < pMax,
-      "In " + getInstanceName() + ": Air pressure exceeds physically reasonable limit. Model seems to have fresh air supply but no flow path for exhaust air or exfiltration.");
+      "In " + getInstanceName() + ": Air pressure is above physically reasonable limit.
+  Require " + String(pMin) + " < p < " + String(pMax) + ", but p = " + String(p) + " Pa. Model seems to have fresh air supply but no exhaust air or exfiltration.");
     assert(p > pMin,
-      "In " + getInstanceName() + ": Air pressure is below physically reasonable limit. Model seems to have exhaust air put no supply air or infiltration.");
-
+      "In " + getInstanceName() + ": Air pressure is below physically reasonable limit.
+  Require " + String(pMin) + " < p < " + String(pMax) + ", but p = " + String(p) + " Pa. Model seems to have exhaust air but no supply air or infiltration.");
+    end if;
     // Initialization of output variables.
     TRooLast=T;
     dtLast=time-pre(tLast);
