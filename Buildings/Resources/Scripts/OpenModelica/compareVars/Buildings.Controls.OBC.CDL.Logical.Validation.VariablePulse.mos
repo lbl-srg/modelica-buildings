@@ -1,0 +1,17 @@
+compareVars :=
+  {
+    "fal.u",
+    "fal.y",
+    "tru.u",
+    "tru.y",
+    "conTru.u",
+    "conTru.y",
+    "truFal.u",
+    "truFal.y",
+    "falTru.u",
+    "falTru.y",
+    "falTru1.u",
+    "falTru1.y",
+    "conChaWid.u",
+    "conChaWid.y"
+  };
