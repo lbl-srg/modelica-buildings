@@ -22,5 +22,7 @@ TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
+VariablePulse
+VariablePulseMinHold
 Xor
 ZeroCrossing
