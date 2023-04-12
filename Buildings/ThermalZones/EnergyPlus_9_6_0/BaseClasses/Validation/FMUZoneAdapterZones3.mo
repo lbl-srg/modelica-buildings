@@ -106,7 +106,7 @@ model FMUZoneAdapterZones3
     "Zone air temperature"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
-  Modelica.Blocks.Sources.RealExpression p(each y=101325) "Fluid pressure"
+  Modelica.Blocks.Sources.RealExpression p(y=101325) "Fluid pressure"
     annotation (Placement(visible=true, transformation(extent={{-90,-30},{-70,
             -10}}, rotation=0)));
 equation
