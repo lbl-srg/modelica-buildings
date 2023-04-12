@@ -42,7 +42,7 @@ block CoolingCoil "Controller for cooling coil valve"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCoiPI(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conCoi(
     final controllerType=controllerTypeCooCoi,
     final k=kCooCoi,
     final Ti=TiCooCoi,
@@ -69,25 +69,23 @@ protected
 equation
   connect(const.y, switch.u3) annotation (Line(points={{42,-40},{60,-40},{60,-8},
           {70,-8}}, color={0,0,127}));
-  connect(cooCoiPI.trigger, u1SupFan)
+  connect(conCoi.trigger, u1SupFan)
     annotation (Line(points={{-6,68},{-6,-80},{-120,-80}}, color={255,0,255}));
-  connect(cooCoiPI.u_s, TSupCooSet)
+  connect(conCoi.u_s, TSupCooSet)
     annotation (Line(points={{-12,80},{-120,80}}, color={0,0,127}));
-  connect(cooCoiPI.u_m, TAirSup)
+  connect(conCoi.u_m, TAirSup)
     annotation (Line(points={{0,68},{0,40},{-120,40}}, color={0,0,127}));
   connect(switch.y, yCooCoi)
     annotation (Line(points={{94,0},{120,0}}, color={0,0,127}));
-  connect(intEqu.y, and2.u1) annotation (Line(points={{-18,0},{-2,0}},
-                    color={255,0,255}));
+  connect(intEqu.y, and2.u1) annotation (Line(points={{-18,0},{-2,0}}, color={255,0,255}));
   connect(and2.u2, u1SupFan) annotation (Line(points={{-2,-8},{-6,-8},{-6,-80},
           {-120,-80}}, color={255,0,255}));
-  connect(and2.y, switch.u2) annotation (Line(points={{22,0},{70,0}},
-                  color={255,0,255}));
+  connect(and2.y, switch.u2) annotation (Line(points={{22,0},{70,0}}, color={255,0,255}));
   connect(conInt.y, intEqu.u1)
     annotation (Line(points={{-58,0},{-42,0}},     color={255,127,0}));
   connect(uZonSta, intEqu.u2) annotation (Line(points={{-120,-20},{-50,-20},{
           -50,-8},{-42,-8}},   color={255,127,0}));
-  connect(cooCoiPI.y, switch.u1)
+  connect(conCoi.y, switch.u1)
     annotation (Line(points={{12,80},{60,80},{60,8},{70,8}}, color={0,0,127}));
 annotation (defaultComponentName="cooCoi",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

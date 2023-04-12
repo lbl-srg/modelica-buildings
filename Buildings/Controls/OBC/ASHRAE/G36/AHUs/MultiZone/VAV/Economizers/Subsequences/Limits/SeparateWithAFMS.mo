@@ -140,7 +140,7 @@ block SeparateWithAFMS
     annotation (Placement(transformation(extent={{220,-310},{260,-270}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset minOACon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conMinOA(
     final controllerType=minOAConTyp,
     final k=kMinOA,
     final Ti=TiMinOA,
@@ -267,15 +267,15 @@ equation
           72},{-162,72}}, color={255,127,0}));
   connect(intEqu.y, enaMinCon.u2) annotation (Line(points={{-138,80},{-90,80},{-90,
           152},{-82,152}}, color={255,0,255}));
-  connect(VOutMinSet_flow_normalized, minOACon.u_s)
+  connect(VOutMinSet_flow_normalized,conMinOA. u_s)
     annotation (Line(points={{-240,240},{-42,240}}, color={0,0,127}));
-  connect(VOut_flow_normalized, minOACon.u_m) annotation (Line(points={{-240,200},
+  connect(VOut_flow_normalized,conMinOA. u_m) annotation (Line(points={{-240,200},
           {-30,200},{-30,228}}, color={0,0,127}));
-  connect(enaMinCon.y, minOACon.trigger) annotation (Line(points={{-58,160},{-36,
+  connect(enaMinCon.y,conMinOA. trigger) annotation (Line(points={{-58,160},{-36,
           160},{-36,228}}, color={255,0,255}));
   connect(zer.y, minOutDamPos.x1) annotation (Line(points={{142,270},{150,270},{
           150,248},{158,248}}, color={0,0,127}));
-  connect(minOACon.y, minOutDamPos.u)
+  connect(conMinOA.y, minOutDamPos.u)
     annotation (Line(points={{-18,240},{158,240}},color={0,0,127}));
   connect(minOutDamPhyPosMinSig.y, minOutDamPos.f1) annotation (Line(points={{102,270},
           {110,270},{110,244},{158,244}},   color={0,0,127}));
@@ -349,7 +349,7 @@ equation
           -240},{90,-240},{90,-96},{98,-96}}, color={0,0,127}));
   connect(retDamPhyPosMaxSig.y, retDamPosMinSwi.u3) annotation (Line(points={{-178,
           -240},{90,-240},{90,-208},{178,-208}}, color={0,0,127}));
-  connect(minOACon.y, maxRetDamPos.u) annotation (Line(points={{-18,240},{50,240},
+  connect(conMinOA.y, maxRetDamPos.u) annotation (Line(points={{-18,240},{50,240},
           {50,-100},{98,-100}}, color={0,0,127}));
   connect(minOutDamPos.y, yMinOutDam)
     annotation (Line(points={{182,240},{240,240}}, color={0,0,127}));
