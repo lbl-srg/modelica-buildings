@@ -20,7 +20,7 @@ model Pump "Container class for circulating pumps"
     annotation(Dialog(group="Configuration"), Evaluate=true);
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typMod=
-    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Type of pump model"
     annotation(Dialog(group="Configuration",
     enable=typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),
@@ -135,7 +135,7 @@ model Pump "Container class for circulating pumps"
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Head
     "Pump with ideally controlled head as input signal"
-    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
+    annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
   Movers.SpeedControlled_y pumSpe(
     redeclare final package Medium = Medium,
@@ -154,30 +154,10 @@ model Pump "Container class for circulating pumps"
     final init=init,
     final per=per)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Pump with ideally controlled normalized speed as input"
-    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
+    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
-  Movers.SpeedControlled_Nrpm pumRot(
-    redeclare final package Medium = Medium,
-    final energyDynamics=energyDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final m_flow_small=m_flow_small,
-    final show_T=show_T,
-    final inputType=Buildings.Fluid.Types.InputType.Continuous,
-    final addPowerToMedium=addPowerToMedium,
-    final use_inputFilter=use_inputFilter,
-    final riseTime=riseTime,
-    final init=init,
-    final per=per)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedRotational
-    "Pump with ideally controlled rotational speed as input"
-    annotation (Placement(transformation(extent={{10,-50},{30,-30}})));
   Movers.FlowControlled_m_flow pumFlo(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -198,7 +178,7 @@ model Pump "Container class for circulating pumps"
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     and typMod==Buildings.Fluid.HydronicConfigurations.Types.PumpModel.MassFlowRate
     "Pump with ideally controlled mass flow rate as input"
-    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
+    annotation (Placement(transformation(extent={{50,-50},{70,-30}})));
   Sensors.VolumeFlowRate V_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
@@ -210,14 +190,14 @@ model Pump "Container class for circulating pumps"
     "Scale control input to design head" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-60,30})));
+        origin={-20,30})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaSpe(
     final k=per.speed_nominal)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
     "Scale control input to design speed" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
-        origin={-20,30})));
+        origin={20,30})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaFlo(
     final k=m_flow_nominal)
     if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
@@ -226,13 +206,6 @@ model Pump "Container class for circulating pumps"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,30})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter scaRot(
-    final k=per.speed_rpm_nominal)
-    if typ<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None
-    "Scale control input to design speed" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={20,30})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0.0)
                "Zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
@@ -270,59 +243,52 @@ protected
       Medium.specificEnthalpy(sta_start) "Start value for outflowing enthalpy";
 
 equation
-  connect(pumDp.port_b, port_b) annotation (Line(points={{-50,0},{100,0}},
+  connect(pumDp.port_b, port_b) annotation (Line(points={{-10,0},{100,0}},
                     color={0,127,255}));
   connect(pumSpe.port_b, port_b)
-    annotation (Line(points={{-10,-20},{46,-20},{46,0},{100,0}},
+    annotation (Line(points={{30,-20},{80,-20},{80,0},{100,0}},
                                                color={0,127,255}));
-  connect(pumDp.heatPort, heatPort) annotation (Line(points={{-60,-6.8},{-60,-96},
-          {0,-96},{0,-100}}, color={191,0,0}));
-  connect(pumSpe.heatPort, heatPort) annotation (Line(points={{-20,-26.8},{-20,-96},
-          {0,-96},{0,-100}}, color={191,0,0}));
-  connect(pumRot.port_b, port_b) annotation (Line(points={{30,-40},{80,-40},{80,
+  connect(pumDp.heatPort, heatPort) annotation (Line(points={{-20,-6.8},{-20,
+          -96},{0,-96},{0,-100}},
+                             color={191,0,0}));
+  connect(pumSpe.heatPort, heatPort) annotation (Line(points={{20,-26.8},{20,
+          -96},{0,-96},{0,-100}},
+                             color={191,0,0}));
+  connect(pumFlo.heatPort, heatPort) annotation (Line(points={{60,-46.8},{60,
+          -114},{-14,-114},{-14,-100},{0,-100}},
+                             color={191,0,0}));
+  connect(pumFlo.port_b, port_b) annotation (Line(points={{70,-40},{80,-40},{80,
           0},{100,0}}, color={0,127,255}));
-  connect(pumRot.heatPort, heatPort) annotation (Line(points={{20,-46.8},{20,-96},
-          {0,-96},{0,-100}}, color={191,0,0}));
-  connect(pumFlo.heatPort, heatPort) annotation (Line(points={{60,-66.8},{60,-96},
-          {0,-96},{0,-100}}, color={191,0,0}));
-  connect(pumFlo.port_b, port_b) annotation (Line(points={{70,-60},{80,-60},{80,
-          0},{100,0}}, color={0,127,255}));
-  connect(pumDp.P, P) annotation (Line(points={{-49,9},{86,9},{86,90},{120,90}},
+  connect(pumDp.P, P) annotation (Line(points={{-9,9},{86,9},{86,90},{120,90}},
         color={0,0,127}));
-  connect(pumDp.y_actual, y_actual) annotation (Line(points={{-49,7},{90,7},{90,
+  connect(pumDp.y_actual, y_actual) annotation (Line(points={{-9,7},{88,7},{88,
           70},{120,70}},    color={0,0,127}));
-  connect(pumSpe.P, P) annotation (Line(points={{-9,-11},{86,-11},{86,90},{120,90}},
+  connect(pumSpe.P, P) annotation (Line(points={{31,-11},{86,-11},{86,90},{120,
+          90}},
         color={0,0,127}));
-  connect(pumSpe.y_actual, y_actual) annotation (Line(points={{-9,-13},{90,-13},
-          {90,70},{120,70}},
+  connect(pumSpe.y_actual, y_actual) annotation (Line(points={{31,-13},{88,-13},
+          {88,70},{120,70}},
                          color={0,0,127}));
-  connect(pumRot.P, P) annotation (Line(points={{31,-31},{86,-31},{86,90},{120,90}},
-                color={0,0,127}));
-  connect(pumRot.y_actual, y_actual) annotation (Line(points={{31,-33},{90,-33},
-          {90,70},{120,70}}, color={0,0,127}));
-  connect(pumFlo.P, P) annotation (Line(points={{71,-51},{86,-51},{86,90},{120,90}},
-                color={0,0,127}));
-  connect(pumFlo.y_actual, y_actual) annotation (Line(points={{71,-53},{90,-53},
-          {90,70},{120,70}}, color={0,0,127}));
+  connect(pumFlo.P, P) annotation (Line(points={{71,-31},{86,-31},{86,90},{120,
+          90}}, color={0,0,127}));
+  connect(pumFlo.y_actual, y_actual) annotation (Line(points={{71,-33},{88,-33},
+          {88,70},{120,70}}, color={0,0,127}));
   connect(port_a, V_flow.port_a)
     annotation (Line(points={{-100,0},{-90,0}}, color={0,127,255}));
   connect(V_flow.port_b, pumSpe.port_a)
-    annotation (Line(points={{-70,0},{-70,-20},{-30,-20}},
+    annotation (Line(points={{-70,0},{-60,0},{-60,-20},{10,-20}},
                                                color={0,127,255}));
   connect(V_flow.port_b, pumDp.port_a)
-    annotation (Line(points={{-70,0},{-70,0}},  color={0,127,255}));
-  connect(V_flow.port_b, pumRot.port_a)
-    annotation (Line(points={{-70,0},{-70,-40},{10,-40}}, color={0,127,255}));
+    annotation (Line(points={{-70,0},{-30,0}},  color={0,127,255}));
   connect(V_flow.port_b, pumFlo.port_a)
-    annotation (Line(points={{-70,0},{-70,-60},{50,-60}}, color={0,127,255}));
+    annotation (Line(points={{-70,0},{-60,0},{-60,-40},{50,-40}},
+                                                          color={0,127,255}));
   connect(scaHea.y, pumDp.dp_in)
-    annotation (Line(points={{-60,18},{-60,12}}, color={0,0,127}));
+    annotation (Line(points={{-20,18},{-20,12}}, color={0,0,127}));
   connect(scaSpe.y, pumSpe.y)
-    annotation (Line(points={{-20,18},{-20,-8}}, color={0,0,127}));
+    annotation (Line(points={{20,18},{20,-8}},   color={0,0,127}));
   connect(scaFlo.y, pumFlo.m_flow_in)
-    annotation (Line(points={{60,18},{60,-48}}, color={0,0,127}));
-  connect(scaRot.y, pumRot.Nrpm)
-    annotation (Line(points={{20,18},{20,-28}},color={0,0,127}));
+    annotation (Line(points={{60,18},{60,-28}}, color={0,0,127}));
   connect(zer.y, swi.u3) annotation (Line(points={{-38,80},{-8,80},{-8,72}},
                 color={0,0,127}));
   connect(y, swi.u1)
@@ -330,18 +296,19 @@ equation
   connect(y1, swi.u2) annotation (Line(points={{-120,60},{-20,60},{-20,74},{0,
           74},{0,72}},
                    color={255,0,255}));
-  connect(swi.y, scaHea.u) annotation (Line(points={{0,48},{0,46},{-60,46},{-60,
-          42}}, color={0,0,127}));
-  connect(swi.y, scaSpe.u) annotation (Line(points={{0,48},{0,46},{-20,46},{-20,
-          42}}, color={0,0,127}));
-  connect(swi.y, scaRot.u)
-    annotation (Line(points={{0,48},{0,46},{20,46},{20,42}}, color={0,0,127}));
+  connect(swi.y, scaHea.u) annotation (Line(points={{-2.22045e-15,48},{
+          -2.22045e-15,46},{-20,46},{-20,42}},
+                color={0,0,127}));
+  connect(swi.y, scaSpe.u) annotation (Line(points={{-2.22045e-15,48},{
+          -2.22045e-15,46},{20,46},{20,42}},
+                color={0,0,127}));
   connect(swi.y, scaFlo.u)
     annotation (Line(points={{0,48},{0,46},{60,46},{60,42}}, color={0,0,127}));
   connect(One.y, swi.u1)
     annotation (Line(points={{38,80},{8,80},{8,72}}, color={0,0,127}));
   connect(V_flow.port_b, noPum.port_a)
-    annotation (Line(points={{-70,0},{-70,-80},{-10,-80}}, color={0,127,255}));
+    annotation (Line(points={{-70,0},{-60,0},{-60,-80},{-10,-80}},
+                                                           color={0,127,255}));
   connect(noPum.port_b, port_b) annotation (Line(points={{10,-80},{80,-80},{80,0},
           {100,0}}, color={0,127,255}));
   annotation (
@@ -461,6 +428,12 @@ to the parameter <code>typ</code>.</p>
 </table>
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2023, by Hongxiang Fu:<br/>
+Deleted the mover with <code>Nrpm</code> signal.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 June 30, 2022, by Antoine Gautier:<br/>
 First implementation.

@@ -223,13 +223,13 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        based on a thermal network consisting of five resistances and one capacity.
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
-    </tr>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
     </td>
-    <td valign=\"top\">Package that contains models for standard connection 
+    <td valign=\"top\">Package that contains models for standard connection
                        configurations used in hydronic circuits for heating or cooling applications.
     </td>
-    </tr>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -245,6 +245,10 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3256\">issue 3256</a>.
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.VariablePulse
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3042\">issue 3042</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Ramp
@@ -258,8 +262,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231P committee.<br/>
                        This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">
-                       issue 3103</a>.
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">issue 3103</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
@@ -723,7 +726,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
     </td>
-</tr>    
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
     </td>
     <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
@@ -753,6 +756,65 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+    </td>
+    <td valign=\"top\">Removed the block that was used to support fan or pump models with an rpm input.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                       Buildings.Fluid.Movers.Data.Generic<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW16<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW18<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS25slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash5<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash7<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2<br/>
+                       Buildings.Fluid.Movers.Examples.MoverContinuous<br/>
+                       Buildings.Fluid.Movers.Examples.MoverParameter<br/>
+                       Buildings.Fluid.Movers.Examples.MoverStages<br/>
+                       Buildings.Fluid.Movers.Preconfigured.Validation.ControlledFlowMachinePreconfigured<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow<br/>
+                       Buildings.Fluid.Movers.Validation.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic<br/>
+                       Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
+                       Buildings.Fluid.Movers.Validation.PumpCurveDerivatives<br/>
+                       Buildings.Fluid.Movers.Validation.Pump_stratos<br/>
+                       Buildings.Fluid.Movers.Validation.Pump_y_stratos
+    </td>
+    <td valign=\"top\">Removed or replaced parameters, blocks, and components that were
+                       used to support fan or pump models with an rpm input.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
@@ -1000,12 +1062,13 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3322\">issue 3322</a>.
     </td>
 </tr>
 </table>
