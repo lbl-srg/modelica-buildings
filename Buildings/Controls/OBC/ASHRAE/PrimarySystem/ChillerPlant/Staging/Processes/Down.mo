@@ -123,7 +123,7 @@ block Down
     annotation (Placement(transformation(extent={{-320,170},{-280,210}}),
       iconTransformation(extent={{-140,50},{-100,90}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Current chiller stage, it would the same as chiller stage setpoint when it is not in staging process"
+    "Current chiller stage, it would be the same as chiller stage setpoint when it is not in staging process"
     annotation (Placement(transformation(extent={{-320,140},{-280,180}}),
       iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiHeaCon[nChi]

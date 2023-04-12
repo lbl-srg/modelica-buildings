@@ -97,11 +97,11 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.And disPla
     "Disable chiller plant"
-    annotation (Placement(transformation(extent={{40,-20},{60,0}})));
+    annotation (Placement(transformation(extent={{100,-28},{120,-8}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch plaSta
     "Chiller plant enabling status"
-    annotation (Placement(transformation(extent={{100,70},{120,90}})));
+    annotation (Placement(transformation(extent={{140,70},{160,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
     final uLow=0,
@@ -111,7 +111,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Or3 disPlaCon
     "Disable chiller plant conditions"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{40,-88},{60,-68}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not3 "Logical not"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
@@ -152,19 +152,20 @@ equation
     annotation (Line(points={{-78,50},{-40,50},{-40,-50},{-22,-50}},
       color={255,0,255}));
   connect(enaPla.y, plaSta.u)
-    annotation (Line(points={{62,80},{98,80}}, color={255,0,255}));
+    annotation (Line(points={{62,80},{138,80}},color={255,0,255}));
   connect(plaSta.y, yPla)
-    annotation (Line(points={{122,80},{210,80}}, color={255,0,255}));
-  connect(disPlaCon.y, disPla.u2) annotation (Line(points={{62,-70},{80,-70},{80,
-          -30},{20,-30},{20,-18},{38,-18}}, color={255,0,255}));
-  connect(not2.y, disPlaCon.u1) annotation (Line(points={{2,-50},{20,-50},{20,-62},
-          {38,-62}}, color={255,0,255}));
+    annotation (Line(points={{162,80},{210,80}}, color={255,0,255}));
+  connect(disPlaCon.y, disPla.u2) annotation (Line(points={{62,-78},{80,-78},{
+          80,-26},{98,-26}},                color={255,0,255}));
+  connect(not2.y, disPlaCon.u1) annotation (Line(points={{2,-50},{20,-50},{20,
+          -70},{38,-70}},
+                     color={255,0,255}));
   connect(hasReq.y, not3.u)
     annotation (Line(points={{-118,90},{-20,90},{-20,70},{-180,70},{-180,-70},{-142,
           -70}},   color={255,0,255}));
   connect(not3.y, enaTim1.u)
     annotation (Line(points={{-118,-70},{-102,-70}}, color={255,0,255}));
-  connect(plaSta.y, pre1.u) annotation (Line(points={{122,80},{140,80},{140,140},
+  connect(plaSta.y, pre1.u) annotation (Line(points={{162,80},{180,80},{180,140},
           {-190,140},{-190,120},{-182,120}}, color={255,0,255}));
   connect(pre1.y, not1.u)
     annotation (Line(points={{-158,120},{-142,120}}, color={255,0,255}));
@@ -179,18 +180,20 @@ equation
       color={0,0,127}));
   connect(sub1.y, hys.u)
     annotation (Line(points={{-118,-130},{-102,-130}}, color={0,0,127}));
-  connect(hys.y, disPlaCon.u3) annotation (Line(points={{-78,-130},{20,-130},{20,
-          -78},{38,-78}}, color={255,0,255}));
+  connect(hys.y, disPlaCon.u3) annotation (Line(points={{-78,-130},{-60,-130},{
+          -60,-86},{38,-86}},
+                          color={255,0,255}));
   connect(hys.y, notLoc.u) annotation (Line(points={{-78,-130},{-60,-130},{-60,10},
           {-22,10}}, color={255,0,255}));
   connect(notLoc.y, enaPla.u[4]) annotation (Line(points={{2,10},{20,10},{20,82.625},
           {38,82.625}},color={255,0,255}));
-  connect(disPla.y, plaSta.clr) annotation (Line(points={{62,-10},{80,-10},{80,74},
-          {98,74}}, color={255,0,255}));
-  connect(enaTim1.passed, disPlaCon.u2) annotation (Line(points={{-78,-78},{-20,
-          -78},{-20,-70},{38,-70}}, color={255,0,255}));
-  connect(enaTim.passed, disPla.u1) annotation (Line(points={{-118,-18},{-80,-18},
-          {-80,-10},{38,-10}}, color={255,0,255}));
+  connect(disPla.y, plaSta.clr) annotation (Line(points={{122,-18},{130,-18},{
+          130,74},{138,74}},
+                    color={255,0,255}));
+  connect(enaTim1.passed, disPlaCon.u2) annotation (Line(points={{-78,-78},{38,
+          -78}},                    color={255,0,255}));
+  connect(enaTim.passed, disPla.u1) annotation (Line(points={{-118,-18},{98,-18}},
+                               color={255,0,255}));
 
 annotation (
   defaultComponentName = "plaEna",

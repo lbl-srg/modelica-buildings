@@ -80,11 +80,11 @@ block EnableDevices
     final k=1)
     "Stage 1, meaning it stages in chiller mode"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Equal intEqu
-    "Check if initial stage is 0"
+  Buildings.Controls.OBC.CDL.Integers.Equal intChiMod
+    "Output true if it is enabled in chiller mode"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Logical.And and1
-    "Logical andEnsures the stage is changed at high load increases/decreases where a stage up or a stage down signal is uninterrupted after a single stage change as an another one is needed right away"
+    "Enabled devices associate with chiller mode operation"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
     final nin=nChiWatPum)
@@ -124,11 +124,11 @@ equation
           {180,-60}}, color={255,0,255}));
   connect(ecoMod.y,yLeaTowCel)  annotation (Line(points={{62,100},{80,100},{80,-90},
           {180,-90}},  color={255,0,255}));
-  connect(conInt.y, intEqu.u2) annotation (Line(points={{-98,0},{-60,0},{-60,22},
-          {-42,22}},   color={255,127,0}));
-  connect(uIni, intEqu.u1) annotation (Line(points={{-180,60},{-120,60},{-120,30},
-          {-42,30}}, color={255,127,0}));
-  connect(intEqu.y, and1.u1)
+  connect(conInt.y, intChiMod.u2) annotation (Line(points={{-98,0},{-60,0},{-60,
+          22},{-42,22}}, color={255,127,0}));
+  connect(uIni, intChiMod.u1) annotation (Line(points={{-180,60},{-120,60},{-120,
+          30},{-42,30}}, color={255,127,0}));
+  connect(intChiMod.y, and1.u1)
     annotation (Line(points={{-18,30},{98,30}}, color={255,0,255}));
   connect(ecoMod.y, and1.u2) annotation (Line(points={{62,100},{80,100},{80,22},
           {98,22}}, color={255,0,255}));

@@ -116,7 +116,7 @@ block Up "Sequence for control devices when there is stage-up command"
     annotation (Placement(transformation(extent={{-280,-10},{-240,30}}),
       iconTransformation(extent={{-140,30},{-100,70}})));
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uChiSta
-    "Current chiller stage, it would the same as chiller stage setpoint when it is not in staging process"
+    "Current chiller stage, it would be the same as chiller stage setpoint when it is not in staging process"
     annotation (Placement(transformation(extent={{-280,-30},{-240,10}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uEnaPlaConPum

@@ -1453,7 +1453,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{380,310},{400,330}})));
 
   Buildings.Controls.OBC.CDL.Logical.Pre pre2 "Stage cooling tower"
-    annotation (Placement(transformation(extent={{80,-450},{100,-430}})));
+    annotation (Placement(transformation(extent={{100,-450},{120,-430}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt[nChiWatPum] if have_heaChiWatPum
     "Convert boolean to integer"
@@ -1835,10 +1835,11 @@ equation
           {-880,440},{-880,328},{-704,328}}, color={0,0,127}));
   connect(TOutWet, wseSta.TOutWet) annotation (Line(points={{-920,360},{-870,360},
           {-870,340},{-704,340}},      color={0,0,127}));
-  connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{102,-440},{120,-440},
-          {120,-510},{-320,-510},{-320,-692},{-268,-692}}, color={255,0,255}));
-  connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{590,
-          -400},{60,-400},{60,-440},{78,-440}},        color={255,0,255}));
+  connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-440},{180,
+          -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}},
+                                                           color={255,0,255}));
+  connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
+          590,-400},{80,-400},{80,-440},{98,-440}},    color={255,0,255}));
   connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
           -684},{-100,-580},{-62,-580}},
                                    color={0,0,127}));
