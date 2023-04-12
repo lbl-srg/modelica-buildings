@@ -16,9 +16,9 @@ model IdealUser "Ideal user model"
 
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare final package Medium = Medium,
-    use_inputFilter=true,
+    final use_inputFilter=true,
     final dpValve_nominal=dp_nominal/2,
-    init=Modelica.Blocks.Types.Init.SteadyState,
+    final init=Modelica.Blocks.Types.Init.InitialState,
     final dpFixed_nominal=dp_nominal/2,
     final m_flow_nominal=m_flow_nominal,
     y_start=0) "User control valve"
