@@ -195,8 +195,7 @@ record Controller "Record for plant controller"
   // FIXME: How are interchangeable units (lead/lag alternated) specified?
   parameter Integer sta[:, nBoiCon + nBoiNon](
     each final min=0,
-    each final max=1,
-    start={fill(0, nBoiCon + nBoiNon)})
+    each final max=1)
     "Staging matrix with plant stage as row index and boiler as column index (starting with condensing boilers): 0 for disabled, 1 for enabled"
     annotation (Dialog(group="Plant staging"));
   final parameter Integer nSta(start=1) = size(sta, 1)

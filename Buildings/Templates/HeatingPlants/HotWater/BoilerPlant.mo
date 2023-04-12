@@ -41,14 +41,14 @@ model BoilerPlant "Boiler plant"
   // Primary HW loop
   Buildings.Templates.Components.Sensors.Temperature THeaWatIntSup(
     redeclare final package Medium = Medium,
-    final have_sen=typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid,
+    final have_sen=typ == Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
-    "Intermediate HW supply temperature"
-    annotation (Placement(transformation(
+    "Intermediate HW supply temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-130})));
+
   Buildings.Templates.Components.Routing.SingleToMultiple inlBoiCon(
     redeclare final package Medium = Medium,
     final nPorts=nBoiCon,
@@ -288,16 +288,15 @@ model BoilerPlant "Boiler plant"
         rotation=90,
         origin={0,-20})));
   Buildings.Templates.Components.Routing.PassThroughFluid bypBoiCon(redeclare
-      final package Medium = Medium) if typ == Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid
-     or typ == Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.NonCondensing
+      final package Medium = Medium) if typ == Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid
+     or typ == Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing
     "Condensing boiler bypass" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-200})));
   Buildings.Templates.Components.Routing.PassThroughFluid bypBoiNon(
-    redeclare final package Medium = Medium)
-    if typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid
-      or typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Condensing
+    redeclare final package Medium = Medium) if typ == Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid
+     or typ == Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing
     "Condensing boiler bypass"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -410,7 +409,7 @@ model BoilerPlant "Boiler plant"
         origin={260,0})));
 
   // Controls
-  replaceable Buildings.Templates.HeatingPlants.HotWater.Components.Controls.OpenLoop ctl
+  replaceable Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36 ctl
     constrainedby
     Buildings.Templates.HeatingPlants.HotWater.Components.Interfaces.PartialController(
       final dat=dat.ctl,

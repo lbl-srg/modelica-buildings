@@ -5,22 +5,21 @@ partial model PartialBoilerPlant
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HW medium";
 
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler typ
-    "Type of boilers"
-    annotation (Evaluate=true, Dialog(group="Boilers"));
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.Boiler typ
+    "Type of boilers" annotation (Evaluate=true, Dialog(group="Boilers"));
   parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod=
     Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial
     "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
   final parameter Boolean have_boiCon =
-    typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Condensing
-    or typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing
+    or typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid
     "Set to true if the plant includes condensing boilers"
     annotation (Evaluate=true);
   final parameter Boolean have_boiNon=
-    typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.NonCondensing
-    or typ==Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing
+    or typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid
     "Set to true if the plant includes non-condensing boilers"
     annotation (Evaluate=true);
 

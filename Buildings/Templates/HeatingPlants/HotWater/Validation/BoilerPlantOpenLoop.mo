@@ -22,7 +22,8 @@ model BoilerPlantOpenLoop
 
   inner Buildings.Templates.HeatingPlants.HotWater.BoilerPlant BOI(
     redeclare final package Medium = Medium,
-    typ=Buildings.Templates.HeatingPlants.HotWater.Types.PlantBoiler.Hybrid,
+    redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.OpenLoop ctl,
+    typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
     nBoiCon=2,
     nBoiNon=2,
     typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
@@ -78,12 +79,9 @@ equation
     annotation (Line(points={{60,-40},{70,-40},{70,-19}}, color={0,127,255}));
   annotation (
   experiment(
-    StartTime=19612800,
-    StopTime=19615000,
+    StartTime=0,
+    StopTime=2000,
     Tolerance=1e-06),
-  __Dymola_Commands(file=
-  "modelica://Buildings/Resources/Scripts/Dymola/Templates/ChilledWaterPlants/Validation/WaterCooledOpenLoop.mos"
-  "Simulate and plot"),
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

@@ -1,12 +1,21 @@
 within Buildings.Templates.HeatingPlants.HotWater.Validation;
-model BoilerPlantG36
+model BoilerPlant
   "Validation of boiler plant template with G36 controls"
   extends
     Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
-    BOI(nAirHan=1, redeclare
-        Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36
-        ctl(typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
-          have_senDpHeaWatLoc=false)));
+    BOI(
+      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
+      nAirHan=1,
+      nBoiCon=2,
+      nBoiNon=2,
+      typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
+      typArrPumHeaWatPriCon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typArrPumHeaWatPriNon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
+      ctl(
+        typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
+        have_senDpHeaWatLoc=false)));
 
   UserProject.AirHandlerControlPoints sigAirHan[BOI.nAirHan]
     "AHU control points"
@@ -29,4 +38,9 @@ equation
       points={{-70,-20},{-60,-20},{-60,0}},
       color={255,204,51},
       thickness=0.5));
-end BoilerPlantG36;
+annotation (
+  experiment(
+    StartTime=0,
+    StopTime=2000,
+    Tolerance=1e-06));
+end BoilerPlant;
