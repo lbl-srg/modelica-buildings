@@ -86,7 +86,9 @@ equation
   connect(latInp4.y, pro5.u_s)
     annotation (Line(points={{42,80},{58,80}}, color={255,0,255}));
 annotation (
-    experiment(StopTime=10.0, Tolerance=1e-06),
+    experiment(
+      StopTime=10,
+      Tolerance=1e-06),
     __Dymola_Commands(
       file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Logical/Validation/Proof.mos" "Simulate and plot"),
     Documentation(
@@ -108,7 +110,7 @@ for <code>feedbackDelay</code>. They test the case in which
 both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>u_m</code> changes, the input <code>u_s</code> remains
 <code>true</code> for a time that is longer than
-<code>feedbackDelay</code>. The output <code>yProTru</code> will be <code>true</code>.
+<code>feedbackDelay</code>. The output <code>yLocFal</code> will be <code>true</code>.
 </li>
 <li>
 The instances <code>pro1</code> and <code>pro4</code> use a different value
@@ -116,10 +118,12 @@ for <code>feedbackDelay</code>. They test the case in which
 both the inputs change from <code>true</code> to <code>false</code>. However,
 after the input <code>u_s</code> changes, the input <code>u_m</code> remains
 <code>true</code> for a time that is longer than
+<code>feedbackDelay</code>. The output <code>yLocTru</code> will be <code>true</code>.
 </li>
 <li>
-It also tests the case when the measured input <code>u_m</code> cannot stay stable
-for the debounce time. In this case, both the outputs will be <code>true</code>.
+The instance <code>pro5</code> tests the case in which
+the measured input <code>u_m</code> cannot stay stable for the debounce time,
+and hence both outputs will be <code>true</code>.
 </li>
 </ul>
 </html>",

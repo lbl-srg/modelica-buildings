@@ -122,11 +122,14 @@ protected
     "Hold the true output when the input changes to true"
     annotation (Placement(transformation(extent={{200,-130},{220,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Or equInp
-    "Output true if the measured input is valid and equal to the set point"
-    annotation (Placement(transformation(extent={{120,20},{140,40}})));
+    "Output true if the measured input equal to the set point"
+    annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Buildings.Controls.OBC.CDL.Logical.Edge samInpEdg
     "Output a rising edge when both inputs are same"
-    annotation (Placement(transformation(extent={{160,20},{180,40}})));
+    annotation (Placement(transformation(extent={{160,-30},{180,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.And valEqu
+    "Output true if the measured input is valid and equal to the set point"
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
 
 initial equation
   assert(
@@ -204,57 +207,49 @@ equation
   connect(cheDif.y, cheDif2.u2) annotation (Line(points={{-38,0},{90,0},{90,-80},
           {118,-80}},  color={255,0,255}));
   connect(cheDif2.y, cheStaMea1.u3) annotation (Line(points={{142,-80},{150,-80},
-          {150,-128},{158,-128}},
-                                color={255,0,255}));
+          {150,-128},{158,-128}}, color={255,0,255}));
   connect(conTru.y, cheStaMea1.u1) annotation (Line(points={{-178,210},{110,210},
-          {110,-112},{158,-112}},
-                                color={255,0,255}));
+          {110,-112},{158,-112}}, color={255,0,255}));
   connect(conFal.y, cheDif1.u3) annotation (Line(points={{62,142},{118,142}},
                       color={255,0,255}));
   connect(conFal.y, cheDif2.u3) annotation (Line(points={{62,142},{100,142},{
-          100,-88},{118,-88}},
-                       color={255,0,255}));
+          100,-88},{118,-88}}, color={255,0,255}));
   connect(falTru.y, cheDif2.u1) annotation (Line(points={{102,-190},{114,-190},
           {114,-72},{118,-72}},  color={255,0,255}));
   connect(truFal.y, cheDif1.u1) annotation (Line(points={{22,-100},{70,-100},{
-          70,158},{118,158}},
-                           color={255,0,255}));
+          70,158},{118,158}}, color={255,0,255}));
   connect(u_s, botTru.u2) annotation (Line(points={{-280,0},{-240,0},{-240,-88},
           {-102,-88}}, color={255,0,255}));
   connect(cheStaMea.y, holTru.u)
     annotation (Line(points={{182,120},{198,120}}, color={255,0,255}));
   connect(cheStaMea1.y, holTru1.u)
-    annotation (Line(points={{182,-120},{198,-120}},
-                                                   color={255,0,255}));
+    annotation (Line(points={{182,-120},{198,-120}},  color={255,0,255}));
   connect(holTru.y, yLocFal)
     annotation (Line(points={{222,120},{260,120}}, color={255,0,255}));
   connect(holTru1.y, yLocTru)
-    annotation (Line(points={{222,-120},{260,-120}},
-                                                   color={255,0,255}));
-  connect(botTru.y, equInp.u1) annotation (Line(points={{-78,-80},{-70,-80},{
-          -70,30},{118,30}},
-                         color={255,0,255}));
-  connect(equSta.y, equInp.u2) annotation (Line(points={{-38,-130},{-10,-130},{
-          -10,22},{118,22}},
-                         color={255,0,255}));
-  connect(equInp.y, samInpEdg.u)
-    annotation (Line(points={{142,30},{158,30}}, color={255,0,255}));
-  connect(samInpEdg.y, holTru.clr) annotation (Line(points={{182,30},{190,30},{
-          190,114},{198,114}},
-                           color={255,0,255}));
-  connect(samInpEdg.y, holTru1.clr) annotation (Line(points={{182,30},{190,30},
-          {190,-126},{198,-126}},
-                               color={255,0,255}));
+    annotation (Line(points={{222,-120},{260,-120}}, color={255,0,255}));
+  connect(botTru.y, equInp.u1) annotation (Line(points={{-78,-80},{-70,-80},{-70,
+          20},{18,20}},  color={255,0,255}));
+  connect(equSta.y, equInp.u2) annotation (Line(points={{-38,-130},{-10,-130},{-10,
+          12},{18,12}},  color={255,0,255}));
+  connect(samInpEdg.y, holTru.clr) annotation (Line(points={{182,-20},{190,-20},
+          {190,114},{198,114}}, color={255,0,255}));
+  connect(samInpEdg.y, holTru1.clr) annotation (Line(points={{182,-20},{190,-20},
+          {190,-126},{198,-126}}, color={255,0,255}));
   connect(invInp.y, cheStaMea.u2)
-    annotation (Line(points={{22,180},{80,180},{80,120},{158,120}},
-                                                  color={255,0,255}));
+    annotation (Line(points={{22,180},{80,180},{80,120},{158,120}}, color={255,0,255}));
   connect(invInp.y, cheStaMea1.u2) annotation (Line(points={{22,180},{80,180},{
-          80,-120},{158,-120}},
-                           color={255,0,255}));
+          80,-120},{158,-120}}, color={255,0,255}));
   connect(not3.y, pasDeb.u) annotation (Line(points={{-58,180},{-50,180},{-50,
           150},{-42,150}}, color={255,0,255}));
   connect(pasDeb.passed, invInp.u2) annotation (Line(points={{-18,142},{-10,142},
           {-10,172},{-2,172}}, color={255,0,255}));
+  connect(equInp.y, valEqu.u1) annotation (Line(points={{42,20},{60,20},{60,-20},
+          {118,-20}}, color={255,0,255}));
+  connect(valEqu.y, samInpEdg.u)
+    annotation (Line(points={{142,-20},{158,-20}}, color={255,0,255}));
+  connect(valInp.y, valEqu.u2) annotation (Line(points={{-118,180},{-100,180},{-100,
+          -28},{118,-28}}, color={255,0,255}));
 annotation (
     defaultComponentName="pro",
     Diagram(
