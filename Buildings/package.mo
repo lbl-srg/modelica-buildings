@@ -729,6 +729,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        <code>Buildings.Controls.OBC.CDL.Continuous.Sin</code>.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>.<br/>
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
