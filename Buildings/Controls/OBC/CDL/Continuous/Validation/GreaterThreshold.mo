@@ -7,7 +7,7 @@ model GreaterThreshold
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greHys(t=2, h=1)
     "Greater block, with hysteresis"
     annotation (Placement(transformation(extent={{40,-30},{60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     amplitude=8,
     freqHz=1/10,
     offset=-2,

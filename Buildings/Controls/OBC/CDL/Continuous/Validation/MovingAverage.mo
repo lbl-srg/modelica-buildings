@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model MovingAverage "Validation model for the MovingAverage block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sinInpNoDel(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sinInpNoDel(
     freqHz=1/80) "Start from zero second"
     annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve1(delta=100)
@@ -18,7 +18,7 @@ model MovingAverage "Validation model for the MovingAverage block"
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve5(delta=500)
     "Moving average with 500 s sliding window"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sinInp50sDel(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sinInp50sDel(
     freqHz=1/80,
     startTime=50)
     "Start from 50 seconds"
@@ -29,7 +29,7 @@ model MovingAverage "Validation model for the MovingAverage block"
   Buildings.Controls.OBC.CDL.Continuous.MovingAverage movAve7(delta=200)
     "Moving average with 200 s sliding window"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sinInp100sDel(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sinInp100sDel(
     freqHz=1/80,
     startTime=100)
     "Start from 100 seconds"

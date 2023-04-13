@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources;
-block Sine
+block Sin
   "Generate sine signal"
   parameter Real amplitude=1
     "Amplitude of sine wave";
@@ -81,12 +81,21 @@ equation
 Block that outputs a <code>sine</code>.
 </p>
 <p>
-<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Sine.png\"
+<img src=\"modelica://Buildings/Resources/Images/Controls/OBC/CDL/Continuous/Sources/Sin.png\"
      alt=\"Sine.png\"/>
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+April 13, 2023, by Michael Wetter:<br/>
+Renamed block from <code>Sine</code> to <code>Sin</code>
+to use consistent naming with
+<a href=\"Buildings.Controls.OBC.CDL.Continuous.Sin\">
+Buildings.Controls.OBC.CDL.Continuous.Sin</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>
+</li>
 <li>
 November 12, 2020, by Michael Wetter:<br/>
 Reformulated to remove dependency to <code>Modelica.Units.SI</code>.<br/>
@@ -103,4 +112,4 @@ First CDL implementation.
 </li>
 </ul>
 </html>"));
-end Sine;
+end Sin;

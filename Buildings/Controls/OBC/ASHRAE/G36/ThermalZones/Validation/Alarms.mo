@@ -26,7 +26,7 @@ model Alarms "Validate block for generating alarms"
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine zonTem(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin zonTem(
     final amplitude=8,
     final freqHz=1/7200,
     final offset=273.15 + 15) "Zone temperature"
@@ -36,7 +36,7 @@ model Alarms "Validate block for generating alarms"
     final width=0.05)
     "Generate signal indicating suppressing status"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin CO2(
     final amplitude=500,
     final freqHz=1/7200,
     final offset=600) "CO2 concentration"
