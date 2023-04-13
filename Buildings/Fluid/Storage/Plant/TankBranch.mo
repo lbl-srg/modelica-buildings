@@ -9,12 +9,18 @@ model TankBranch
     "Nominal values";
 
   // Storage tank parameters
-  parameter Modelica.Units.SI.Volume VTan "Tank volume";
-  parameter Modelica.Units.SI.Length hTan "Height of tank (without insulation)";
-  parameter Modelica.Units.SI.Length dIns "Thickness of insulation";
+  parameter Modelica.Units.SI.Volume VTan "Tank volume"
+    annotation(Dialog(group="Tank"));
+  parameter Modelica.Units.SI.Length hTan
+    "Height of tank (without insulation)"
+    annotation(Dialog(group="Tank"));
+  parameter Modelica.Units.SI.Length dIns "Thickness of insulation"
+    annotation(Dialog(group="Tank"));
   parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
-    "Specific heat conductivity of insulation";
-  parameter Integer nSeg(min=2) = 2 "Number of volume segments";
+    "Specific heat conductivity of insulation"
+    annotation(Dialog(group="Tank"));
+  parameter Integer nSeg(min=2) = 2 "Number of volume segments"
+    annotation(Dialog(group="Tank"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
     "Formulation of energy balance"
@@ -28,7 +34,8 @@ model TankBranch
   parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
     "Initial temperature of the tank segments, with TFlu_start[1] being the top segment"
     annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing";
+  parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing"
+    annotation(Dialog(group="Tank"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aRetNet(
     redeclare final package Medium = Medium,
