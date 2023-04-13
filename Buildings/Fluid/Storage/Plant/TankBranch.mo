@@ -84,12 +84,11 @@ model TankBranch
         origin={-50,-30})));
   Modelica.Blocks.Interfaces.RealOutput mTan_flow(
     final quantity="MassFlowRate",
-    final unit="kg/s")
-    "Mass flow rate of the tank"
+    final unit="kg/s") "Mass flow rate of the tank"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={110,80}), iconTransformation(
+        origin={110,90}), iconTransformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={110,100})));
@@ -103,19 +102,19 @@ model TankBranch
         origin={110,0})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorTop
     "Heat port tank top (outside insulation)"
-    annotation (Placement(transformation(extent={{14,22},{26,34}}),
+    annotation (Placement(transformation(extent={{-16,34},{-4,46}}),
         iconTransformation(extent={{14,34},{26,46}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorSid
     "Heat port tank side (outside insulation)"
-    annotation (Placement(transformation(extent={{34,-36},{46,-24}}),
+    annotation (Placement(transformation(extent={{4,-26},{16,-14}}),
         iconTransformation(extent={{26,-6},{38,6}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorBot
     "Heat port tank bottom (outside insulation). Leave unconnected for adiabatic condition"
-    annotation (Placement(transformation(extent={{14,-56},{26,-44}}),
+    annotation (Placement(transformation(extent={{-16,-46},{-4,-34}}),
         iconTransformation(extent={{14,-46},{26,-34}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[tan.nSeg] heaPorVol
     "Heat port that connects to the control volumes of the tank"
-    annotation (Placement(transformation(extent={{-26,-36},{-14,-24}}),
+    annotation (Placement(transformation(extent={{-26,-26},{-14,-14}}),
         iconTransformation(extent={{-6,-6},{6,6}})));
   Buildings.Fluid.FixedResistances.Junction junSup(
     redeclare final package Medium = Medium,
@@ -136,20 +135,37 @@ model TankBranch
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,-60})));
+  Modelica.Blocks.Interfaces.RealOutput TTan[2](
+    each final quantity="Temperature",
+    each displayUnit="C") "Temperatures at the tank 1: top and 2: bottom"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,-90}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,-100})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemTop
+    "Temperature sensor for tank top"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemBot
+    "Temperature sensor for tank bottom"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(senFlo.m_flow, mTan_flow) annotation (Line(points={{-61,-30},{-66,-30},
-          {-66,80},{110,80}},         color={0,0,127}));
+          {-66,90},{110,90}},         color={0,0,127}));
   connect(tan.Ql_flow, Ql_flow)
     annotation (Line(points={{11,7.2},{11,10},{110,10}},
                                                        color={0,0,127}));
-  connect(tan.heaPorTop, heaPorTop) annotation (Line(points={{2,7.4},{2,16},{20,
-          16},{20,28}}, color={191,0,0}));
-  connect(tan.heaPorSid, heaPorSid) annotation (Line(points={{5.6,0},{6,0},{6,
-          -30},{40,-30}},   color={191,0,0}));
+  connect(tan.heaPorTop, heaPorTop) annotation (Line(points={{2,7.4},{2,30},{-10,
+          30},{-10,40}},color={191,0,0}));
+  connect(tan.heaPorSid, heaPorSid) annotation (Line(points={{5.6,0},{5.6,-4},{10,
+          -4},{10,-20}},    color={191,0,0}));
   connect(tan.heaPorBot, heaPorBot)
-    annotation (Line(points={{2,-7.4},{2,-50},{20,-50}}, color={191,0,0}));
-  connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-30},{-8,-30},
-          {-8,-4},{0,-4},{0,0}}, color={191,0,0}));
+    annotation (Line(points={{2,-7.4},{2,-30},{-10,-30},{-10,-40}},
+                                                         color={191,0,0}));
+  connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-20},{-20,-4},
+          {0,-4},{0,0}},         color={191,0,0}));
   connect(port_aSupChi, junSup.port_1)
     annotation (Line(points={{-100,60},{40,60}}, color={0,127,255}));
   connect(junSup.port_2, port_bSupNet)
@@ -164,6 +180,14 @@ equation
     annotation (Line(points={{-50,-20},{-50,0},{-10,0}}, color={0,127,255}));
   connect(tan.port_b, junSup.port_3)
     annotation (Line(points={{10,0},{50,0},{50,50}}, color={0,127,255}));
+  connect(tan.heaPorTop, senTemTop.port)
+    annotation (Line(points={{2,7.4},{2,30},{20,30}}, color={191,0,0}));
+  connect(tan.heaPorBot, senTemBot.port)
+    annotation (Line(points={{2,-7.4},{2,-30},{20,-30}}, color={191,0,0}));
+  connect(senTemTop.T, TTan[1]) annotation (Line(points={{41,30},{70,30},{70,-90},
+          {110,-90},{110,-92.5}}, color={0,0,127}));
+  connect(senTemBot.T, TTan[2]) annotation (Line(points={{41,-30},{70,-30},{70,-87.5},
+          {110,-87.5}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
                                Rectangle(

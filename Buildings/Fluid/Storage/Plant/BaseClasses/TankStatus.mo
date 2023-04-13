@@ -11,14 +11,17 @@ model TankStatus
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 1
     "Deadband for hysteresis";
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b tanTop
-    "Heat port for temperature at tank top" annotation (Placement(
-        transformation(extent={{-110,50},{-90,70}}), iconTransformation(extent={{-110,50},
-            {-90,70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b tanBot
-    "Heat port for temperature at tank bottom" annotation (Placement(
-        transformation(extent={{-110,-70},{-90,-50}}), iconTransformation(
-          extent={{-110,-68},{-90,-48}})));
+  Modelica.Blocks.Interfaces.RealInput TTan[2](
+    each final quantity="Temperature",
+    each displayUnit="C")
+    "Temperatures at the tank 1: top and 2: bottom" annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,0}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,0})));
   Modelica.Blocks.Interfaces.BooleanOutput isFul "Tank is full" annotation (
       Placement(transformation(extent={{100,50},{120,70}}), iconTransformation(
           extent={{100,50},{120,70}})));
@@ -35,28 +38,18 @@ model TankStatus
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not block"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
-protected
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemTop
-    "Temperature sensor for tank top"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemBot
-    "Temperature sensor for tank bottom"
-    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
 equation
-  connect(tanTop, senTemTop.port)
-    annotation (Line(points={{-100,60},{-60,60}}, color={191,0,0}));
-  connect(tanBot, senTemBot.port)
-    annotation (Line(points={{-100,-60},{-60,-60}}, color={191,0,0}));
-  connect(senTemTop.T, hysFul.u)
-    annotation (Line(points={{-39,60},{-2,60}}, color={0,0,127}));
-  connect(senTemBot.T, hysDep.u)
-    annotation (Line(points={{-39,-60},{-2,-60}}, color={0,0,127}));
   connect(hysFul.y, not1.u)
     annotation (Line(points={{22,60},{38,60}}, color={255,0,255}));
   connect(not1.y, isFul)
     annotation (Line(points={{62,60},{110,60}}, color={255,0,255}));
   connect(hysDep.y, isDep)
     annotation (Line(points={{22,-60},{110,-60}}, color={255,0,255}));
+  connect(TTan[1], hysFul.u) annotation (Line(points={{-110,-2.5},{-12,-2.5},{
+          -12,60},{-2,60}}, color={0,0,127}));
+  connect(TTan[2], hysDep.u) annotation (Line(points={{-110,2.5},{-12,2.5},{-12,
+          -60},{-2,-60}},
+                     color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                 Rectangle(
         extent={{-100,-100},{100,100}},
@@ -84,7 +77,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}),
                                Diagram(coordinateSystem(preserveAspectRatio=false)),
-  defaultComponentName="TanSta",
+  defaultComponentName="tanSta",
    Documentation(info="<html>
 <p>
 This model outputs tank status signals using the temperatures

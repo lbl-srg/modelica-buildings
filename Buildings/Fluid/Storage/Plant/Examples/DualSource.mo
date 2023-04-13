@@ -285,7 +285,7 @@ model DualSource
         6000,2; 6500,1])
     "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
     annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.TankStatus TanSta(
+  Buildings.Fluid.Storage.Plant.BaseClasses.TankStatus tanSta(
     TLow=nom.T_CHWS_nominal,
     THig=nom.T_CHWR_nominal) "Tank status"
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
@@ -397,13 +397,9 @@ equation
         color={0,0,127}));
   connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-199,10},{-172,10},
           {-172,-24},{-161,-24}}, color={255,127,0}));
-  connect(tanBra.heaPorTop, TanSta.tanTop) annotation (Line(points={{-88,-86},{
-          -88,-74},{-66,-74},{-66,-144},{-60,-144}}, color={191,0,0}));
-  connect(tanBra.heaPorBot, TanSta.tanBot) annotation (Line(points={{-88,-94},{
-          -88,-155.8},{-60,-155.8}}, color={191,0,0}));
-  connect(TanSta.isFul, floCon.tanIsFul) annotation (Line(points={{-39,-144},{-36,
+  connect(tanSta.isFul, floCon.tanIsFul) annotation (Line(points={{-39,-144},{-36,
           -144},{-36,-136},{-168,-136},{-168,-28},{-161,-28}}, color={255,0,255}));
-  connect(TanSta.isDep, floCon.tanIsDep) annotation (Line(points={{-39,-156},{-32,
+  connect(tanSta.isDep, floCon.tanIsDep) annotation (Line(points={{-39,-156},{-32,
           -156},{-32,-132},{-164,-132},{-164,-32},{-161,-32}}, color={255,0,255}));
   connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-199,-30},{-172,
           -30},{-172,-36},{-161,-36}}, color={255,0,255}));
@@ -438,6 +434,8 @@ equation
           -36},{-32,-86},{-21,-86}}, color={0,0,127}));
   connect(bou2.ports[1], revCon.port_a) annotation (Line(points={{-60,10},{-40,
           10},{-40,-80},{-20,-80}}, color={0,127,255}));
+  connect(tanBra.TTan, tanSta.TTan) annotation (Line(points={{-79,-100},{-70,
+          -100},{-70,-150},{-61,-150}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
