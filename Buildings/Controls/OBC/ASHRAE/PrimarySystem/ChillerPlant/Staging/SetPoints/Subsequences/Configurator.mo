@@ -201,8 +201,9 @@ equation
     annotation (Line(points={{-78,-120},{-62,-120}}, color={0,0,127}));
   connect(reaToInt.y, yTyp) annotation (Line(points={{-38,-120},{240,-120}},
                       color={255,127,0}));
-  connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-38,-120},{-28,-120},
-          {-28,-170},{-22,-170}},color={255,127,0}));
+  connect(reaToInt.y, intToRea1.u) annotation (Line(points={{-38,-120},{-30,
+          -120},{-30,-170},{-22,-170}},
+                                 color={255,127,0}));
   connect(intToRea1.y, sort.u)
     annotation (Line(points={{2,-170},{18,-170}},  color={0,0,127}));
   connect(sort.y, reaToInt1.u)

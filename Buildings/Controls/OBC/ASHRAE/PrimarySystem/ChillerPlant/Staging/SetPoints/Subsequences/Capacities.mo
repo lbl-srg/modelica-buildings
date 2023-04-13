@@ -48,7 +48,7 @@ block Capacities
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDes(
     final unit="W",
     final quantity="HeatFlowRate") "Design capacity of the current stage"
-    annotation (Placement(transformation(extent={{200,130},{240,170}}),
+    annotation (Placement(transformation(extent={{200,160},{240,200}}),
         iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDowDes(
@@ -178,8 +178,8 @@ equation
   connect(gai.y, swi4.u1) annotation (Line(points={{102,120},{120,120},{120,-82},
           {158,-82}},color={0,0,127}));
   connect(swi1.y, yDowDes) annotation (Line(points={{182,20},{220,20}}, color={0,0,127}));
-  connect(cap.y, yDes) annotation (Line(points={{12,180},{122,180},{122,150},{220,
-          150}}, color={0,0,127}));
+  connect(cap.y, yDes) annotation (Line(points={{12,180},{220,180}},
+                 color={0,0,127}));
   connect(yUpMin, yUpMin)
     annotation (Line(points={{220,-90},{220,-90}}, color={0,0,127}));
   connect(intGreEquThr.y, and2.u1)

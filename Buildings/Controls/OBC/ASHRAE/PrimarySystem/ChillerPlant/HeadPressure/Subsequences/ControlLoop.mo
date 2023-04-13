@@ -4,8 +4,7 @@ block ControlLoop
   parameter Real minChiLif(
     final min=1e-5,
     final unit="K",
-    final quantity="TemperatureDifference",
-    displayUnit="degC") = 10
+    final quantity="TemperatureDifference") = 10
       "Minimum allowable lift at minimum load for chiller";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI

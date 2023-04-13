@@ -61,9 +61,9 @@ block Controller "Cooling tower controller"
 
   // Fan speed control: controlling condenser return water temperature when WSE is not enabled
   parameter Real LIFT_min[nChi](
-    unit="K",
-    displayUnit="degC")={12,12}            "Minimum LIFT of each chiller"
-      annotation (Dialog(tab="Fan speed", group="Return temperature control"));
+    unit="K")={12,12}
+    "Minimum LIFT of each chiller"
+     annotation (Dialog(tab="Fan speed", group="Return temperature control"));
   parameter Real TConWatSup_nominal[nChi](
     unit="K",
     displayUnit="degC")={293.15,293.15}

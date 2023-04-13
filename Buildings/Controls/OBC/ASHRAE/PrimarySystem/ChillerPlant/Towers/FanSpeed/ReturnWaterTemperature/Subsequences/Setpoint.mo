@@ -4,8 +4,7 @@ block Setpoint "Calculate condener return water temperature setpoint"
   parameter Integer nChi = 2 "Total number of chillers";
   parameter Real LIFT_min[nChi](
     final unit=fill("K",nChi),
-    final quantity=fill("TemperatureDifference",nChi),
-    displayUnit=fill("degC",nChi))={12, 12}
+    final quantity=fill("TemperatureDifference",nChi))={12, 12}
       "Minimum LIFT of each chiller"
       annotation (Evaluate=true);
   parameter Real TConWatRet_nominal[nChi](

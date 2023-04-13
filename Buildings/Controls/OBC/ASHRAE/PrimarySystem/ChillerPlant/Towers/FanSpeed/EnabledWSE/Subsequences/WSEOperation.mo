@@ -36,7 +36,7 @@ block WSEOperation
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uFanSpe(
     final unit="1") "Measured tower fan speed"
-    annotation (Placement(transformation(extent={{-180,80},{-140,120}}),
+    annotation (Placement(transformation(extent={{-180,86},{-140,126}}),
       iconTransformation(extent={{-140,60},{-100,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TChiWatSup(
     final unit="K",
@@ -147,18 +147,14 @@ protected
 
 equation
   connect(uFanSpe, dFanSpe.u1)
-    annotation (Line(points={{-160,100},{-126,100},{-126,106},{-92,106}},
-                                                    color={0,0,127}));
+    annotation (Line(points={{-160,106},{-92,106}}, color={0,0,127}));
   connect(dFanSpe.y, hys2.u)
     annotation (Line(points={{-68,100},{-42,100}}, color={0,0,127}));
   connect(hys2.y, not2.u)
     annotation (Line(points={{-18,100},{-2,100}}, color={255,0,255}));
   connect(TChiWatSup, dTChiSup.u1)
-    annotation (Line(points={{-160,-40},{-136,-40},{-136,-34},{-112,-34}},
+    annotation (Line(points={{-160,-40},{-130,-40},{-130,-34},{-112,-34}},
                                                      color={0,0,127}));
-  connect(TChiWatSupSet, dTChiSup.u2)
-    annotation (Line(points={{-160,-120},{-112,-120},{-112,-46}},
-      color={0,0,127}));
   connect(hys1.y, not1.u)
     annotation (Line(points={{-18,140},{-2,140}}, color={255,0,255}));
   connect(dTChiSup.y, hys1.u)
@@ -226,7 +222,9 @@ equation
   connect(TChiWatSupSet, chiWatTemCon.u_s)
     annotation (Line(points={{-160,-120},{-62,-120}}, color={0,0,127}));
   connect(TChiWatSup, chiWatTemCon.u_m) annotation (Line(points={{-160,-40},{
-          -110,-40},{-110,-152},{-50,-152},{-50,-132}}, color={0,0,127}));
+          -130,-40},{-130,-152},{-50,-152},{-50,-132}}, color={0,0,127}));
+  connect(TChiWatSupSet, dTChiSup.u2) annotation (Line(points={{-160,-120},{
+          -120,-120},{-120,-46},{-112,-46}}, color={0,0,127}));
 annotation (
   defaultComponentName="wseTowSpeWSEOpe",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

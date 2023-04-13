@@ -13,8 +13,7 @@ block Controller
   parameter Real fanSpeMin=0.1 "Minimum tower fan speed";
   parameter Real LIFT_min[nChi](
     final unit=fill("K",nChi),
-    final quantity=fill("TemperatureDifference",nChi),
-    displayUnit=fill("degC",nChi))={12,12} "Minimum LIFT of each chiller"
+    final quantity=fill("TemperatureDifference",nChi))={12,12} "Minimum LIFT of each chiller"
       annotation (Dialog(tab="Setpoint"));
   parameter Real TConWatSup_nominal[nChi](
     final unit=fill("K",nChi),
