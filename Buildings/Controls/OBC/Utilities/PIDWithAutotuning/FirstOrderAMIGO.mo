@@ -56,10 +56,10 @@ block FirstOrderAMIGO
   final parameter Real yRef(min=1E-6) = 0.8
     "Reference output for the tuning process";
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
-    "Setpoint"
+    "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
-    "Connector for measurement input signal"
+    "Connector of measurement input signal"
     annotation (Placement(transformation(origin={30,-120}, extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput tri
@@ -72,8 +72,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
     final yHig=yHig,
     final yLow=yLow,
-    final deaBan=deaBan)
-    "A relay controller"
+    final deaBan=deaBan) "Relay controller"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
     final controllerType=controllerType,
@@ -85,8 +84,7 @@ block FirstOrderAMIGO
     final xi_start=xi_start,
     final yd_start=yd_start,
     final reverseActing=reverseActing,
-    final y_reset=xi_start)
-     "A PID controller"
+    final y_reset=xi_start) "PID controller with the gains as inputs"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a PID controller and a relay controller"
@@ -104,7 +102,8 @@ block FirstOrderAMIGO
     conProMod(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow,
-    final deaBan=deaBan) "A block to approximate the control process"
+    final deaBan=deaBan)
+    "Calculates the parameters of a first-order time-delayed model"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI PIPar
     if not with_D "Parameters of a PI controller"
@@ -115,7 +114,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow)
-    "A block to process the response from the relay controller"
+    "Identify the On and Off period length, the half period ratio, and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
@@ -161,25 +160,27 @@ equation
   connect(rel.yErr, conProMod.u) annotation (Line(points={{42,10},{48,10},{48,58},
           {-18,58}}, color={0,0,127}));
   connect(PIDPar.kp, conProMod.k)
-    annotation (Line(points={{-58,56},{-50,56},{-50,56.1},{-42,56.1}}, color={0,0,127}));
+    annotation (Line(points={{-58,56},{-50,56},{-50,56},{-42,56}},     color={0,0,127}));
   connect(PIDPar.T, conProMod.T)
     annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
-  connect(PIDPar.L, conProMod.L) annotation (Line(points={{-58,44},{-54,44},{-54,
-          42},{-42,42}}, color={0,0,127}));
+  connect(PIDPar.L, conProMod.L) annotation (Line(points={{-58,44},{-54,44},{
+          -54,44},{-42,44}},
+                         color={0,0,127}));
   connect(PIDPar.k, samk.u) annotation (Line(points={{-82,57},{-94,57},{-94,-20},
           {-42,-20}}, color={0,0,127}));
   connect(PIDPar.Ti, samTi.u) annotation (Line(points={{-82,50},{-90,50},{-90,-50},
           {-82,-50}}, color={0,0,127}));
   connect(PIPar.kp, conProMod.k) annotation (Line(points={{-58,86},{-46,86},{
-          -46,56.1},{-42,56.1}}, color={0,0,127}));
+          -46,56},{-42,56}},     color={0,0,127}));
   connect(PIPar.T, conProMod.T) annotation (Line(points={{-58,80},{-50,80},{-50,
           50},{-42,50}}, color={0,0,127}));
   connect(PIPar.L, conProMod.L) annotation (Line(points={{-58,74},{-54,74},{-54,
-          42},{-42,42}}, color={0,0,127}));
+          44},{-42,44}}, color={0,0,127}));
   connect(PIPar.k, samk.u) annotation (Line(points={{-82,86},{-94,86},{-94,-20},
           {-42,-20}}, color={0,0,127}));
-  connect(PIPar.Ti, samTi.u) annotation (Line(points={{-82,77},{-90,77},{-90,-50},
-          {-82,-50}}, color={0,0,127}));
+  connect(PIPar.Ti, samTi.u) annotation (Line(points={{-82,74},{-90,74},{-90,
+          -50},{-82,-50}},
+                      color={0,0,127}));
   connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{-2,32},{-36,
           32},{-36,38}}, color={255,0,255}));
   connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{-2,36},{-24,
@@ -248,7 +249,7 @@ First implementation<br/>
         defaultComponentName = "PIDWitTun",
         Icon(graphics={
         Text(
-          extent={{-158,144},{142,104}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255}),
         Rectangle(

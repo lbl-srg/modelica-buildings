@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIIntegralTime "Identify the integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
@@ -29,7 +29,7 @@ block PIIntegralTime "Identify the integral time of a PI controller"
     annotation (Placement(transformation(extent={{60,-12},{80,8}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3
     "Calculate the sum of the output of add1 and the output of mul2"
-    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+    annotation (Placement(transformation(extent={{60,-54},{80,-34}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of gai3 divided by the output of add3"
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
@@ -85,11 +85,11 @@ equation
                     color={0,0,127}));
   connect(mul1.y, add1.u2) annotation (Line(points={{-18,30},{-10,30},{-10,48},
           {-2,48}}, color={0,0,127}));
-  connect(mul2.y, add3.u2) annotation (Line(points={{22,-50},{30,-50},{30,-76},
-          {38,-76}}, color={0,0,127}));
-  connect(add3.u1, add1.y) annotation (Line(points={{38,-64},{32,-64},{32,54},{
+  connect(mul2.y, add3.u2) annotation (Line(points={{22,-50},{58,-50}},
+                     color={0,0,127}));
+  connect(add3.u1, add1.y) annotation (Line(points={{58,-38},{32,-38},{32,54},{
           22,54}}, color={0,0,127}));
-  connect(add3.y, div.u2) annotation (Line(points={{62,-70},{80,-70},{80,-24},{
+  connect(add3.y, div.u2) annotation (Line(points={{82,-44},{90,-44},{90,-24},{
           -8,-24},{-8,-2},{-2,-2}},
                                  color={0,0,127}));
   connect(div.y, add2.u1)

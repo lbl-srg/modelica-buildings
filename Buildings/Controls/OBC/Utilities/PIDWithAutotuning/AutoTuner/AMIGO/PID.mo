@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
-block PID "Identify the parameters of a PID controller"
+block PID "Identify control gain, integral time, and derivative time of the PID model"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
     final min=1E-6)
     "Gain of a first order time-delayed model"
@@ -87,7 +87,8 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block calculates the control gain, the integral time, and the derivative time of a PID model.
+This block calculates the control gain, the integral time, and the
+derivative time of a PID model.
 </p>
 <p>Please refer to the following block for detailed information:</p>
 <ul>

@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIGain "Identify the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
     final min=1E-6)
@@ -57,7 +57,7 @@ block PIGain "Identify the control gain of a PI controller"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
     "Calculate the difference between 0.35 and the output of div2"
-    annotation (Placement(transformation(extent={{50,-60},{70,-40}})));
+    annotation (Placement(transformation(extent={{60,-54},{80,-34}})));
 
 equation
   connect(div1.u2, kp) annotation (Line(points={{-42,44},{-80,44},{-80,60},{
@@ -97,11 +97,11 @@ equation
           16},{48,0},{42,0}}, color={0,0,127}));
   connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
         color={0,0,127}));
-  connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{44,-50},{44,-56},{
-          48,-56}}, color={0,0,127}));
-  connect(const1.y, sub.u1) annotation (Line(points={{22,-80},{46,-80},{46,-44},
-          {48,-44}}, color={0,0,127}));
-  connect(sub.y, mul3.u2) annotation (Line(points={{72,-50},{80,-50},{80,-22},{
+  connect(div2.y, sub.u2) annotation (Line(points={{42,-50},{58,-50}},
+                    color={0,0,127}));
+  connect(const1.y, sub.u1) annotation (Line(points={{22,-80},{50,-80},{50,-38},
+          {58,-38}}, color={0,0,127}));
+  connect(sub.y, mul3.u2) annotation (Line(points={{82,-44},{90,-44},{90,-22},{
           10,-22},{10,-6},{18,-6}}, color={0,0,127}));
   annotation (defaultComponentName = "PIGai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -18,9 +18,9 @@ model HalfPeriodRatio "Test model for HalfPeriodRatio"
 
 equation
   connect(tOn.y[1], halPerRat.tOn) annotation (Line(points={{-38,30},{-20,30},{
-          -20,6},{-10.2222,6}}, color={0,0,127}));
+          -20,6},{-10,6}},      color={0,0,127}));
   connect(tOff.y[1], halPerRat.tOff) annotation (Line(points={{-38,-30},{-20,
-          -30},{-20,-6},{-10.2222,-6}}, color={0,0,127}));
+          -30},{-20,-6},{-10,-6}},      color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

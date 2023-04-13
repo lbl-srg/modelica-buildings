@@ -6,29 +6,29 @@ block HalfPeriodRatio
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the On period"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the Off period"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rho
     "Real signal of the half period ratio"
     annotation (Placement(transformation(extent={{100,60},{140,100}}),
-        iconTransformation(extent={{100,50},{120,70}})));
+        iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
     "A boolean signal, true if the tuning starts"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
     "A boolean signal, true if the tuning completes"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+        iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Min tmin
-    "Minimum value of the length for the On period and the length for the off period "
+    "Minimum value of the length for the On and Off period "
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretOntOff
     "Check if both the length for the On period and the length for the off period are larger than 0"
@@ -77,16 +77,16 @@ block HalfPeriodRatio
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 
 equation
-  connect(tmin.u1, tOn) annotation (Line(points={{-82,46},{-94,46},{-94,60},{
-          -120,60}}, color={0,0,127}));
-  connect(tmin.u2, tOff) annotation (Line(points={{-82,34},{-88,34},{-88,-60},{
-          -120,-60}}, color={0,0,127}));
+  connect(tmin.u1, tOn) annotation (Line(points={{-82,46},{-94,46},{-94,80},{-120,
+          80}},      color={0,0,127}));
+  connect(tmin.u2, tOff) annotation (Line(points={{-82,34},{-88,34},{-88,-70},{-120,
+          -70}},      color={0,0,127}));
   connect(minLen.y, gretOntOff.u2) annotation (Line(points={{-58,10},{-40,10},{
           -40,48},{-22,48}},color={0,0,127}));
   connect(tOnSample.u, tOn)
-    annotation (Line(points={{-82,80},{-94,80},{-94,60},{-120,60}}, color={0,0,127}));
-  connect(tOffSample.u, tOff) annotation (Line(points={{-82,-70},{-88,-70},{-88,
-          -60},{-120,-60}}, color={0,0,127}));
+    annotation (Line(points={{-82,80},{-120,80}},                   color={0,0,127}));
+  connect(tOffSample.u, tOff) annotation (Line(points={{-82,-70},{-120,-70}},
+                            color={0,0,127}));
   connect(samAddtOntOff.y, tIncrease.u2) annotation (Line(points={{42,20},{60,
           20},{60,-6},{18,-6},{18,-38},{28,-38}},   color={0,0,127}));
   connect(gretOntOff.y, samAddtOntOff.trigger) annotation (Line(points={{2,40},{
@@ -103,10 +103,10 @@ equation
           {14,-70},{2,-70}}, color={0,0,127}));
   connect(halPerRat.y, rho) annotation (Line(points={{82,80},{120,80}},
                 color={0,0,127}));
-  connect(AddtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-88,-36},{
-          -88,-60},{-120,-60}}, color={0,0,127}));
+  connect(AddtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-88,-36},{-88,
+          -70},{-120,-70}},     color={0,0,127}));
   connect(AddtOntOff.u1, tOn) annotation (Line(points={{-82,-24},{-94,-24},{-94,
-          60},{-120,60}}, color={0,0,127}));
+          80},{-120,80}}, color={0,0,127}));
   connect(gretmaxtOntOff.y, triSta)
     annotation (Line(points={{2,0},{120,0}},  color={255,0,255}));
   connect(tChanges.u1, tIncrease.y)
@@ -143,7 +143,7 @@ equation
         Diagram(
            coordinateSystem(
            extent={{-100,-100},{100,100}})),
-        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{80,
+        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),                                      graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},
@@ -151,7 +151,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-154,148},{146,108}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255})}),
     Documentation(revisions="<html>
@@ -172,8 +172,9 @@ where <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code> are the
 length of the On period and the Off period, respectively.
 </p>
 <p>
-An On period is defined as the period when the switch output of the relay controller is True;
-Likewise, an Off period is defined as the period when the switch output is False.
+An On period is defined as the period when the switch output of the relay controller is
+<code>true</code>;
+Likewise, an Off period is defined as the period when the switch output is <code>false</code>.
 See details of the switch output in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </p>

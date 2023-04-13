@@ -18,13 +18,13 @@ block NormalizedTimeDelay
     final p=0.65)
     "Calculate the sum of the output of gai and 0.65"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant asymmetryLevel(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant asyLev(
     final k=gamma)
     "Asymmetry level of the relay controller"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div "Calculate the normalized time delay"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Subtract subGammaRho
+  Buildings.Controls.OBC.CDL.Continuous.Subtract subGamRho
     "Calculate the difference between the asymmetry level of the relay controller and the half period ratio"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
@@ -40,17 +40,17 @@ block NormalizedTimeDelay
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(
     final h=1e-6)
-    "Check if the asymmetry level is greater than the half period ratio"
+    "Output true if the asymmetry level is greater than the half period ratio"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
 equation
-  connect(subGammaRho.u1, asymmetryLevel.y) annotation (Line(points={{-2,26},{-52,
-          26},{-52,80},{-58,80}}, color={0,0,127}));
-  connect(subGammaRho.u2, rho) annotation (Line(points={{-2,14},{-42,14},{-42,
-          20},{-94,20},{-94,0},{-120,0}}, color={0,0,127}));
+  connect(subGamRho.u1, asyLev.y) annotation (Line(points={{-2,26},{-52,26},{-52,
+          80},{-58,80}}, color={0,0,127}));
+  connect(subGamRho.u2, rho) annotation (Line(points={{-2,14},{-42,14},{-42,20},
+          {-94,20},{-94,0},{-120,0}}, color={0,0,127}));
   connect(gai.u, rho) annotation (Line(points={{-82,-60},{-94,-60},{-94,0},{-120,
           0}}, color={0,0,127}));
-  connect(div.u1, subGammaRho.y)
+  connect(div.u1, subGamRho.y)
     annotation (Line(points={{38,6},{30,6},{30,20},{22,20}}, color={0,0,127}));
   connect(div.u2, mul.y) annotation (Line(points={{38,-6},{30,-6},{30,-38},{22,-38}},
         color={0,0,127}));
@@ -60,12 +60,12 @@ equation
     annotation (Line(points={{-58,-60},{-42,-60}}, color={0,0,127}));
   connect(addPar2.y, mul.u2) annotation (Line(points={{-18,-60},{-10,-60},{-10,-44},
           {-2,-44}}, color={0,0,127}));
-  connect(addPar1.u, asymmetryLevel.y) annotation (Line(points={{-42,-10},{-52,-10},
-          {-52,80},{-58,80}}, color={0,0,127}));
+  connect(addPar1.u, asyLev.y) annotation (Line(points={{-42,-10},{-52,-10},{-52,
+          80},{-58,80}}, color={0,0,127}));
   connect(addPar1.y, mul.u1) annotation (Line(points={{-18,-10},{-10,-10},{-10,-32},
           {-2,-32}}, color={0,0,127}));
-  connect(asymmetryLevel.y, gre.u1) annotation (Line(points={{-58,80},{-52,80},{
-          -52,60},{-22,60}}, color={0,0,127}));
+  connect(asyLev.y, gre.u1) annotation (Line(points={{-58,80},{-52,80},{-52,60},
+          {-22,60}}, color={0,0,127}));
   connect(rho, gre.u2) annotation (Line(points={{-120,0},{-94,0},{-94,52},{-22,52}},
         color={0,0,127}));
   connect(gre.y, assMes.u)
@@ -79,7 +79,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-154,148},{146,108}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

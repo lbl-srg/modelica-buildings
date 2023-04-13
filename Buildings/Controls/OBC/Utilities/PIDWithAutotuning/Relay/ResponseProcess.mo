@@ -35,39 +35,40 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "A real signal of the normalized time delay"
-    annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-10},{140,30}}),
+        iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
     "Calculate the length of the On period and the Off period"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRatio
-    "Calculat the half period ratio"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    "Calculate the half period ratio"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(
      final gamma=max(yHig, yLow)/min(yLow, yHig))
-    "calculate the normalized time delay"
+    "Calculate the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 equation
-  connect(onOffPer.On, On) annotation (Line(points={{-62,4},{-94,4},{-94,-60},{
+  connect(onOffPer.On, On) annotation (Line(points={{-82,4},{-90,4},{-90,-60},{
           -120,-60}}, color={255,0,255}));
-  connect(onOffPer.tim, tim) annotation (Line(points={{-62,16},{-94,16},{-94,60},
+  connect(onOffPer.tim, tim) annotation (Line(points={{-82,16},{-90,16},{-90,60},
           {-120,60}}, color={0,0,127}));
-  connect(onOffPer.tOn, halPerRatio.tOn) annotation (Line(points={{-38,14},{-20,
-          14},{-20,16},{-2.22222,16}}, color={0,0,127}));
-  connect(onOffPer.tOff, halPerRatio.tOff) annotation (Line(points={{-37.8,6},{
-          -8,6},{-8,4},{-2.22222,4}}, color={0,0,127}));
-  connect(halPerRatio.rho, norTimDel.rho) annotation (Line(points={{23.3333,16},
-          {36,16},{36,10},{38,10}}, color={0,0,127}));
-  connect(tOn, halPerRatio.tOn) annotation (Line(points={{120,80},{-20,80},{-20,
-          16},{-2.22222,16}}, color={0,0,127}));
-  connect(tOff, halPerRatio.tOff) annotation (Line(points={{120,40},{-8,40},{-8,
-          4},{-2.22222,4}}, color={0,0,127}));
-  connect(norTimDel.tau, tau) annotation (Line(points={{62,10},{94,10},{94,0},{
-          120,0}}, color={0,0,127}));
-  connect(triEnd, halPerRatio.triEnd) annotation (Line(points={{120,-80},{26,
-          -80},{26,4},{23.3333,4}}, color={255,0,255}));
-  connect(triSta, halPerRatio.triSta) annotation (Line(points={{120,-40},{34,
-          -40},{34,10},{23.3333,10}}, color={255,0,255}));
+  connect(onOffPer.tOn, halPerRatio.tOn) annotation (Line(points={{-58,14},{-40,
+          14},{-40,16},{-22,16}},      color={0,0,127}));
+  connect(onOffPer.tOff, halPerRatio.tOff) annotation (Line(points={{-57.8,6},{
+          -30,6},{-30,4},{-22,4}},    color={0,0,127}));
+  connect(halPerRatio.rho, norTimDel.rho) annotation (Line(points={{2,16},{30,
+          16},{30,10},{38,10}},     color={0,0,127}));
+  connect(tOn, halPerRatio.tOn) annotation (Line(points={{120,80},{-40,80},{-40,
+          16},{-22,16}},      color={0,0,127}));
+  connect(tOff, halPerRatio.tOff) annotation (Line(points={{120,40},{-30,40},{
+          -30,4},{-22,4}},  color={0,0,127}));
+  connect(norTimDel.tau, tau) annotation (Line(points={{62,10},{120,10}},
+                   color={0,0,127}));
+  connect(triEnd, halPerRatio.triEnd) annotation (Line(points={{120,-80},{10,
+          -80},{10,4},{2,4}},       color={255,0,255}));
+  connect(triSta, halPerRatio.triSta) annotation (Line(points={{120,-40},{20,
+          -40},{20,10},{2,10}},       color={255,0,255}));
   annotation (
         defaultComponentName = "resPro",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
@@ -77,7 +78,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-154,148},{146,108}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

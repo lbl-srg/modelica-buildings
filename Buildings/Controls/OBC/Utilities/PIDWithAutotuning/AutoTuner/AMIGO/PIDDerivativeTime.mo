@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDDerivativeTime "Identify the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
@@ -21,10 +21,12 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
     "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-16},{140,24}}),
         iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=0.3)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+    final k=0.3)
     "Calculate the product of 0.3 and the time delay"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=0.5)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+    final k=0.5)
     "Calculate the product of 0.5 and the input time constant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
@@ -63,7 +65,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-154,148},{146,108}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

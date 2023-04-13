@@ -23,7 +23,7 @@ block Controller
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
     "Control error"
-    annotation (Placement(transformation(extent={{100,10},{140,50}}),
+    annotation (Placement(transformation(extent={{100,0},{140,40}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Logical.OnOffController greMeaSet(
     final bandwidth=deaBan*2,
@@ -33,11 +33,11 @@ block Controller
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a higher value and a lower value"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yHigSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant higVal(
     final k=yHig)
     "Higher value for the output"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yLowSig(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant lowVal(
     final k=-yLow)
     "Lower value for the output"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -48,7 +48,8 @@ block Controller
 initial equation
   assert(
     yHig-yLow>1E-6,
-    "The absulte values of the higher value for the relay output should be larger than that of the lower value. Check parameters.");
+    "In " + getInstanceName() + "The higher value for the relay output should
+    be larger than that of the lower value.");
 
 equation
   connect(swi.y, y)
@@ -58,14 +59,14 @@ equation
   connect(greMeaSet.u, u_m)
     annotation (Line(points={{-22,-6},{-70,-6},{-70,-94},{0,-94},{0,-120}},
          color={0,0,127}));
-  connect(yHigSig.y, swi.u1)
+  connect(higVal.y, swi.u1)
     annotation (Line(points={{2,60},{20,60},{20,8},{58,8}}, color={0,0,127}));
-  connect(yLowSig.y, swi.u3)
-    annotation (Line(points={{2,-40},{20,-40},{20,-8},{58,-8}}, color={0,0,127}));
+  connect(lowVal.y, swi.u3) annotation (Line(points={{2,-40},{20,-40},{20,-8},{58,
+          -8}}, color={0,0,127}));
   connect(yOn, swi.u2) annotation (Line(points={{120,-60},{40,-60},{40,0},{58,0}},
         color={255,0,255}));
-  connect(conErr.y, yErr) annotation (Line(points={{-38,20},{40,20},{40,30},{
-          120,30}}, color={0,0,127}));
+  connect(conErr.y, yErr) annotation (Line(points={{-38,20},{120,20}},
+                    color={0,0,127}));
   connect(greMeaSet.y, swi.u2)
     annotation (Line(points={{2,0},{58,0}}, color={255,0,255}));
   connect(conErr.u1, u_m) annotation (Line(points={{-62,26},{-70,26},{-70,-94},
@@ -80,30 +81,30 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-148,154},{152,114}},
+          extent={{-100,140},{100,100}},
           textString="%name",
           textColor={0,0,255})}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
-This block grenerates a real control output, <code>y</code>, and a
-boolean control switch output, <code>y<sub>On</sub></code>, as described below:
+This block grenerates a real control output <code>y</code>, a
+boolean control switch output <code>y<sub>On</sub></code>, and the control error
+<code>yErr</code>. They are calcuated as below:
 </p>
 <ul>
 <li>
-if <code>e(t) &lt; - &delta;</code>, then <code>y(t) = y<sub>hig</sub>, y<sub>On</sub>(t) = true</code>,
+<code>yErr = u<sub>s</sub>(t) - u<sub>m</sub>(t)</code>,
 </li>
 <li>
-if <code>e(t) &gt; &delta;</code>, then <code>y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</code>,
+if <code>yErr &lt; - &delta;</code>, then <code>y(t) = y<sub>hig</sub>, y<sub>On</sub>(t) = true</code>,
 </li>
 <li>
-otherwise, <code>y(t) = y(t-&Delta;t)</code>, <code>y<sub>On</sub>(t) = y<sub>On</sub>(t-&Delta;t)</code>
+if <code>yErr &gt; &delta;</code>, then <code>y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</code>,
 </li>
 </ul>
-<p>where <code>&delta;</code> is a dead band, <code>e(t) = u<sub>s</sub>(t) - u<sub>m</sub>(t)</code>
-is the control error, <code>y<sub>hig</sub></code> and <code>y<sub>low</sub></code>
-are the higher value and the lower value of the output <code>y</code>,
-and <code>t-&Delta;t</code> is the previous time step.
+<p>where <code>&delta;</code> is a dead band, <code>y<sub>hig</sub></code>
+and <code>y<sub>low</sub></code>
+are the higher value and the lower value of the output <code>y</code>.
 </p>
 <p>
 Note that this block generates an asymmetric output, meaning <code>y<sub>hig</sub> &ne; y<sub>low</sub></code>.
