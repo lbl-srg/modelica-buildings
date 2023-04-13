@@ -139,6 +139,12 @@ block SeparateWithDP
   Buildings.Controls.OBC.CDL.Continuous.Multiply minDp if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Minimum pressure difference setpoint when complying with ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset maxRetDam(
+    final controllerType=dpCon,
+    final k=kDp,
+    final Ti=TiDp,
+    final Td=TdDp) "Maximum return air damper position"
+    annotation (Placement(transformation(extent={{120,160},{140,180}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
@@ -176,12 +182,6 @@ protected
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not disMinDam "Check if the minimum outdoor air damper is closed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset maxRetDam(
-    final controllerType=dpCon,
-    final k=kDp,
-    final Ti=TiDp,
-    final Td=TdDp) "Maximum return air damper position"
-    annotation (Placement(transformation(extent={{120,160},{140,180}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode index"
