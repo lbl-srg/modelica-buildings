@@ -1,6 +1,6 @@
-within Buildings.Fluid.Movers.Preconfigured;
+within Buildings.Obsolete.Fluid.Movers.Preconfigured;
 model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as input signal and pre-configured parameters"
-  extends Buildings.Fluid.Movers.SpeedControlled_Nrpm(
+  extends Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm(
     final per(
             pressure(
               V_flow=m_flow_nominal/rho_default*{0, 1, 2},
@@ -30,13 +30,20 @@ model SpeedControlled_Nrpm "Fan or pump with ideally controlled speed Nrpm as in
 
 annotation (
 defaultComponentName="mov",
+obsolete = "Obsolete model - use Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y instead",
 Documentation(info="<html>
 <p>
 This model is the preconfigured version for
-<a href=\"Modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+<a href=\"Modelica://Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm\">
+Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2023, by Hongxiang Fu:<br/>
+Moved this model to the Obsolete package.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">#1704</a>.
+</li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Refactored the model with a new declaration for

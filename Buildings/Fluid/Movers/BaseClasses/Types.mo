@@ -37,7 +37,7 @@ First implementation. This is for
         "Not provided, computed from other efficiency terms",
       Efficiency_VolumeFlowRate "Array of efficiency vs. volumetric flow rate",
       Efficiency_MotorPartLoadRatio
-        "Rated input and array of efficiency vs. motor part load ratio yMot=PEle/PEle_nominal",
+        "Rated input and array of efficiency vs. motor part load ratio yMot=WHyd/WMot_nominal",
       GenericCurve
         "Rated input and maximum efficiency to be used for generic curves")
     "Enumeration to choose the computation method for motor efficiency"
