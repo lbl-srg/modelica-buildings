@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
-model StateOfCharge
-  "Returns the state of charge from tank temperature sensors"
+model TankStatus
+  "Returns the tank status from its temperature sensors"
 
   parameter Modelica.Units.SI.Temperature TLow
     "Lower threshold to consider the tank full";
@@ -84,12 +84,12 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}),
                                Diagram(coordinateSystem(preserveAspectRatio=false)),
-  defaultComponentName="SOC",
+  defaultComponentName="TanSta",
    Documentation(info="<html>
 <p>
-This model outputs state of charge (SOC) signals using the temperatures
+This model outputs tank status signals using the temperatures
 at the CHW tank top and the tank bottom as input.
-The SOC has two separate boolean signals indicating whether the tank is full
+The status has two separate boolean signals indicating whether the tank is full
 or depleted. The tank can be neither full nor depleted, but never both.
 </p>
 <p>
@@ -112,4 +112,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end StateOfCharge;
+end TankStatus;
