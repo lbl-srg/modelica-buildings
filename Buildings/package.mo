@@ -217,6 +217,13 @@ Version 10.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithAutotuning
+    </td>
+    <td valign=\"top\">Package that contains components for the PID controller that can
+                       autotune the control gain and time constants.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
     <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
