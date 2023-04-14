@@ -16,8 +16,6 @@ block Controller
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
     annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
-  parameter Real aveTimRan(unit="s")=5
-    "Time horizon over which the outdoor air flow measurement is averaged";
 
   // Limits
   parameter Real minSpe(unit="1")=0.1

@@ -30,9 +30,6 @@ block Controller "Multizone VAV air handling unit controller"
     Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
     "Economizer high limit control device"
     annotation (Dialog(group="Economizer design"));
-  parameter Real aveTimRan(unit="s")=5
-    "Time horizon over which the outdoor air flow measurement is averaged"
-    annotation (Dialog(group="Economizer design"));
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has hot water heating coil"
     annotation (Dialog(group="System and building parameters"));
@@ -805,7 +802,6 @@ block Controller "Multizone VAV air handling unit controller"
     final ecoHigLimCon=ecoHigLimCon,
     final ashCliZon=ashCliZon,
     final tit24CliZon=tit24CliZon,
-    final aveTimRan=aveTimRan,
     final minSpe=supFanSpe_min,
     final minOAConTyp=minOAConTyp,
     final kMinOA=kMinOA,
