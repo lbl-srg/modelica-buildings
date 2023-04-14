@@ -226,7 +226,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
     </td>
-    <td valign=\"top\">Package that contains models for standard connection 
+    <td valign=\"top\">Package that contains models for standard connection
                        configurations used in hydronic circuits for heating or cooling applications.
     </td>
 </tr>
@@ -240,6 +240,11 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Proof
+    </td>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3256\">issue 3256</a>.
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.VariablePulse
     <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
                        This is for
@@ -721,7 +726,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
     </td>
-</tr>    
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
     </td>
     <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
