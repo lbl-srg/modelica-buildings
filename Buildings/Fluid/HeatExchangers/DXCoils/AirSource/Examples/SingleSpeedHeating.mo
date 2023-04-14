@@ -75,7 +75,7 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
     final use_p_in=true,
     final nPorts=1)
     "Source"
-    annotation (Placement(transformation(extent={{-12,-30},{8,-10}})));
+    annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
 
   Modelica.Blocks.Sources.BooleanStep onOff(
     final startTime=600)
@@ -110,7 +110,7 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
 
 equation
   connect(TConIn.y, sou.T_in) annotation (Line(
-      points={{-59,-50},{-30,-50},{-30,-16},{-14,-16}},
+      points={{-59,-50},{-30,-50},{-30,-24},{-22,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
@@ -119,11 +119,11 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
-      points={{-59,-20},{-40,-20},{-40,-12},{-14,-12}},
+      points={{-59,-20},{-22,-20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.port_a, sou.ports[1]) annotation (Line(
-      points={{20,0},{12,0},{12,-20},{8,-20}},
+      points={{20,0},{12,0},{12,-28},{0,-28}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-59,40},{-10,40},{-10,

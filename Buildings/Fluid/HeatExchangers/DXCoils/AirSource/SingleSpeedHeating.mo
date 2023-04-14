@@ -34,7 +34,7 @@ protected
     annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
 
 initial equation
-  assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data");
+  assert(datCoi.nSta == 1, "Must have one stage only for single speed performance data.");
 
 equation
   connect(speRat.y,dxCoi.speRat)  annotation (Line(
