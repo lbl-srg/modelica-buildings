@@ -2,7 +2,7 @@ within Buildings.Fluid.Storage.Ice.Examples.BaseClasses;
 block ControlLowPowerMode
   "Closed loop control for ice storage plant in low power mode"
   extends PartialControlMode;
-  Controls.OBC.CDL.Integers.GreaterThreshold higDem(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.Normal))
+  Controls.OBC.CDL.Integers.GreaterThreshold higDem(t=Integer(Buildings.Fluid.Storage.Ice.Examples.BaseClasses.DemandLevels.None))
     "Outputs true if operated in high demand"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Controls.OBC.CDL.Logical.And andPumSto "Output true to enable storage pump"
@@ -61,8 +61,8 @@ equation
     annotation (Line(points={{-144,178},{-128,178}}, color={255,0,255}));
   connect(not1.y, yWatChi) annotation (Line(points={{-104,178},{102,178},{102,
           20},{260,20}}, color={255,0,255}));
-  connect(yPumWatChi, yWatChi) annotation (Line(points={{260,-240},{102,-240},{
-          102,20},{260,20}}, color={255,0,255}));
+  connect(yPumWatChi, yWatChi) annotation (Line(points={{260,-240},{104,-240},{
+          104,20},{260,20}}, color={255,0,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
             240}}),                                                                          graphics={  Rectangle(fillColor = {255, 255, 255}, fillPattern = FillPattern.Solid, extent={{-240,

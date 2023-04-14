@@ -125,7 +125,7 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
     annotation (Placement(transformation(extent={{-220,20},{-200,40}})));
   Controls.OBC.CDL.Continuous.AddParameter addPar(p=0.5)
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=2.75)
+  Controls.OBC.CDL.Continuous.AddParameter addPar1(p=-7)
     annotation (Placement(transformation(extent={{-168,200},{-148,220}})));
   Controls.OBC.CDL.Continuous.Switch swi2
     annotation (Placement(transformation(extent={{160,190},{180,210}})));
@@ -139,6 +139,13 @@ block ControlClosedLoop "Closed loop control for ice storage plant"
   Controls.OBC.CDL.Logical.And andPumSto2
                                          "Output true to enable storage pump"
     annotation (Placement(transformation(extent={{150,-124},{170,-104}})));
+  Controls.OBC.CDL.Continuous.Switch swi3
+    annotation (Placement(transformation(extent={{28,164},{48,184}})));
+  Controls.OBC.CDL.Continuous.Sources.Constant TsetChillSto(k(
+      final unit="K",
+      displayUnit="degC") = 268.15)
+    "Set point for chiller when charging storage"
+    annotation (Placement(transformation(extent={{-20,180},{0,200}})));
 equation
   connect(ConMod.yWatChi, yWatChi) annotation (Line(points={{38,108},{178,108},
           {178,20},{260,20}}, color={255,0,255}));
@@ -189,10 +196,6 @@ equation
   connect(chiGlyTSet.f2, chiGlyTSetMin.y) annotation (Line(points={{-102,168},{
           -130,168},{-130,160},{-178,160}},
                                        color={0,0,127}));
-  connect(stoPumGlyHex.u3, yDemLev2) annotation (Line(points={{98,-160},{-120,
-          -160},{-120,100},{-260,100}}, color={0,0,127}));
-  connect(swiPumSto.u1, yDemLev2) annotation (Line(points={{178,-72},{-120,-72},
-          {-120,100},{-260,100}}, color={0,0,127}));
   connect(chiGlyTSet.u, yDemLev2) annotation (Line(points={{-102,176},{-154,176},
           {-154,100},{-260,100}}, color={0,0,127}));
   connect(chiWatTSetMin.y, chiWatTSet.f2) annotation (Line(points={{-198,30},{
@@ -218,8 +221,6 @@ equation
                                 color={255,0,255}));
   connect(swi2.y, TChiWatSet)
     annotation (Line(points={{182,200},{260,200}}, color={0,0,127}));
-  connect(swi.u1, chiGlyTSet.y)
-    annotation (Line(points={{158,176},{-78,176}}, color={0,0,127}));
   connect(chiWatTSet.y, swi2.u1) annotation (Line(points={{-78,30},{-60,30},{
           -60,208},{158,208}}, color={0,0,127}));
   connect(swi2.u3, TSetChiOff.y) annotation (Line(points={{158,192},{90,192},{
@@ -253,6 +254,18 @@ equation
           -122},{68,-96},{-4,-96},{-4,-126},{2,-126}}, color={255,0,255}));
   connect(powMod, ConMod.powMod) annotation (Line(points={{-260,60},{-234,60},{
           -234,104},{-22,104},{-22,112},{-14,112}}, color={255,127,0}));
+  connect(yDemLev1, swiPumSto.u1) annotation (Line(points={{-260,140},{-94,140},
+          {-94,-72},{178,-72}}, color={0,0,127}));
+  connect(yDemLev1, stoPumGlyHex.u3) annotation (Line(points={{-260,140},{-188,
+          140},{-188,144},{-112,144},{-112,-160},{98,-160}}, color={0,0,127}));
+  connect(chiGlyTSet.y, swi3.u3) annotation (Line(points={{-78,176},{-40,176},{
+          -40,166},{26,166}}, color={0,0,127}));
+  connect(ConMod.yStoByp, swi3.u2) annotation (Line(points={{38,114},{40,114},{
+          40,160},{4,160},{4,174},{26,174}}, color={255,0,255}));
+  connect(TsetChillSto.y, swi3.u1) annotation (Line(points={{2,190},{18,190},{
+          18,182},{26,182}}, color={0,0,127}));
+  connect(swi3.y, swi.u1) annotation (Line(points={{50,174},{150,174},{150,176},
+          {158,176}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio = false, extent={{-240,-260},{240,
             240}}),

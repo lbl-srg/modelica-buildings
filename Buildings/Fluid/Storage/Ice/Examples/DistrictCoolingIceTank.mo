@@ -23,7 +23,7 @@ model DistrictCoolingIceTank
   final parameter Modelica.Units.SI.HeatFlowRate QWatChi_flow_nominal = 0.66*QDis_flow_nominal "Water chiller size";
   final parameter Modelica.Units.SI.HeatFlowRate QGly_flow_nominal = 0.66*QDis_flow_nominal "Glycol chiller size, assumed 66% of design day peak load";
 
-  parameter Modelica.Units.SI.Time tSto = 6*3600 "Time for a full discharge of the storage at design load if storage serves all load";
+  parameter Modelica.Units.SI.Time tSto = 2*6*3600 "Time for a full discharge of the storage at design load if storage serves all load";
   parameter Modelica.Units.SI.Mass mIceTan = -QDis_flow_nominal*tSto/Hf
     "Mass of ice in single storage tank";
 
@@ -61,7 +61,7 @@ model DistrictCoolingIceTank
     redeclare package Medium = MediumGly,
     m_flow_nominal=mGly_flow_nominal,
     dp_nominal=10000,
-    SOC_start=3/4,
+    SOC_start=0.1,
     per=perIceTan,
     energyDynamicsHex=Modelica.Fluid.Types.Dynamics.FixedInitial)
                    "Ice tank" annotation (Placement(transformation(
@@ -129,6 +129,7 @@ model DistrictCoolingIceTank
     m_flow_nominal=mDis_flow_nominal,
     show_T=true,
     dp_nominal=16000+500*2*200,
+    tau=3600,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Q_flow_nominal=-QDis_flow_nominal)
     "District cooling coil, with dp for 500 m district (supply and return) at 200 Pa/m each" annotation (Placement(transformation(
@@ -158,7 +159,7 @@ model DistrictCoolingIceTank
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-190,-100})));
+        origin={-190,-98})));
 
   Movers.FlowControlled_m_flow pumHexPri(
     redeclare package Medium = MediumGly,
@@ -438,7 +439,7 @@ equation
           {-100,-6},{-76,-6},{-76,-1.77636e-15}},
                                 color={0,127,255}));
   connect(pumSto.port_a, valStoCha.port_b) annotation (Line(points={{-240,-60},{
-          -240,-100},{-200,-100}},color={0,127,255}));
+          -240,-98},{-200,-98}},  color={0,127,255}));
   connect(pumChiWat.port_b, chiWat.port_a2)
     annotation (Line(points={{160,-40},{160,-20},{186,-20},{186,-1.77636e-15}},
                                                  color={0,127,255}));
@@ -466,7 +467,7 @@ equation
   connect(jun8.port_1, jun.port_3)
     annotation (Line(points={{-100,60},{-100,90}}, color={0,127,255}));
   connect(jun8.port_3, valStoCha.port_a) annotation (Line(points={{-110,50},{-160,
-          50},{-160,-100},{-180,-100}},    color={0,127,255}));
+          50},{-160,-98},{-180,-98}},      color={0,127,255}));
   connect(valStoDis.port_a, jun3.port_1) annotation (Line(points={{-240,-140},{-240,
           -180},{-110,-180}},      color={0,127,255}));
   connect(jun3.port_3, pumChiGly.port_a)
@@ -513,7 +514,7 @@ equation
           -340,239.28},{-340,-130},{-252,-130}},                        color={
           0,0,127}));
   connect(con.yStoByp, valStoCha.y) annotation (Line(points={{-403.333,237.04},
-          {-346,237.04},{-346,-80},{-190,-80},{-190,-88}},
+          {-346,237.04},{-346,-80},{-190,-80},{-190,-86}},
         color={0,0,127}));
   connect(gaiPumSec.y, pumLoa.m_flow_in)
     annotation (Line(points={{358,-50},{332,-50}}, color={0,0,127}));
