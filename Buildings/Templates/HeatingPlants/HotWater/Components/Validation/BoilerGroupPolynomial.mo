@@ -107,9 +107,11 @@ model BoilerGroupPolynomial "Validation model for boiler group"
     final nBoiCon=nBoi,
     final nBoiNon=0,
     final typArrPumHeaWatPriCon=boi.typArrPumHeaWatPri,
-    final have_varPumHeaWatPri=pumHeaWatPri.have_var,
+    final have_varPumHeaWatPriCon=pumHeaWatPri.have_var,
+    final have_varPumHeaWatPriNon=false,
     final typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
-    have_valHeaWatMinByp=false,
+    have_valHeaWatMinBypCon=false,
+    have_valHeaWatMinBypNon=false,
     dat(
       THeaWatSup_nominal=Buildings.Templates.Data.Defaults.THeaWatSup,
       sta={fill(0, nBoi)}))
@@ -162,8 +164,8 @@ equation
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-FIXME: Bug in Dymola #SR01004314-01. 
-The parameters inside pumHeaWatPri.dat are left unassigned and the start value 
+FIXME: Bug in Dymola #SR01004314-01.
+The parameters inside pumHeaWatPri.dat are left unassigned and the start value
 is used instead without any warning being issued.
 OCT properly propagates the parameter values from the composite component binding.
 </p>

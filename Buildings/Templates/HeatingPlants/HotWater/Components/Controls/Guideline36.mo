@@ -15,7 +15,7 @@ block Guideline36 "Guideline 36 controller"
     "True: Headered primary hot water pumps;
      False: Dedicated primary hot water pumps";
 
-  final parameter Boolean have_varPriPum = have_varPumHeaWatPri
+  final parameter Boolean have_varPriPum = have_varPumHeaWatPriCon or have_varPumHeaWatPriNon
     "True: Variable-speed primary pumps;
      False: Fixed-speed primary pumps";
 
@@ -23,7 +23,7 @@ block Guideline36 "Guideline 36 controller"
     "True: Flowrate sensor in secondary loop;
     False: Flowrate sensor in decoupler";
 
-  final parameter Boolean have_priSecTemSen = have_senTHeaWatPriSup
+  final parameter Boolean have_priSecTemSen = have_senTHeaWatPriSupCon or have_senTHeaWatPriSupNon
     "True: Temperature sensors in primary and secondary loops;
     False: Temperature sensors in boiler supply and secondary loop";
 
@@ -118,7 +118,8 @@ block Guideline36 "Guideline 36 controller"
     "Minimum pump speed";
 
   // FIXME: Missing enable condition: only required for primary-only plants with headered variable speed pumps using differential pressure pump speed control, see G36 3.1.8.4.
-  final parameter Real VHotWatPri_flow_nominal = dat.VHeaWatPri_flow_nominal
+  final parameter Real VHotWatPri_flow_nominal =
+    max(dat.VHeaWatPriCon_flow_nominal, dat.VHeaWatPriNon_flow_nominal)
     "Plant design hot water flow rate thorugh primary loop";
 
   // FIXME: Missing enable condition: only required for primary-only hot water plants with a minimum flow bypass valve, see G36 3.1.8.2.
@@ -234,26 +235,26 @@ block Guideline36 "Guideline 36 controller"
     annotation (Placement(transformation(extent={{-118,350},{-98,370}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uBoiAva[nBoi](each
       k=true) "Not an input point per G36 4.11.1: this should be removed."
-    annotation (Placement(transformation(extent={{-118,310},{-98,330}})));
+    annotation (Placement(transformation(extent={{-100,310},{-80,330}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TSupPri(k=
         Buildings.Templates.Data.Defaults.THeaWatSup)
-    "Which sensor is that: primary loop or secondary loop? Missing Boolean condition"
-    annotation (Placement(transformation(extent={{-118,270},{-98,290}})));
+    "Which sensor is that: primary loop or secondary loop? Missing Boolean condition & support for hybrid plants"
+    annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_TRetPri(k=
         Buildings.Templates.Data.Defaults.THeaWatRet)
-    "Missing Boolean condition"
-    annotation (Placement(transformation(extent={{-118,230},{-98,250}})));
+    "Missing Boolean condition & support for hybrid plants"
+    annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_VHotWatPri_flow(k=1E-2)
-    "Missing Boolean condition"
-    annotation (Placement(transformation(extent={{-118,190},{-98,210}})));
+    "Missing Boolean condition & support for hybrid plants"
+    annotation (Placement(transformation(extent={{-100,190},{-80,210}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uHotWatIsoVal[nBoi](each k=1)
     "This point should be optional. If present, there should rather be 2 Boolean input points (DI)."
-    annotation (Placement(transformation(extent={{-118,150},{-98,170}})));
+    annotation (Placement(transformation(extent={{-100,150},{-80,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uBypValPos(k=0) "Not an input point per G36 4.11.1: this should be removed.
-" annotation (Placement(transformation(extent={{-118,110},{-98,130}})));
+" annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_uPriPumSpe[nPumPri](
       each k=0.5) "Not an input point per G36 4.11.1: this should be removed.
-" annotation (Placement(transformation(extent={{-118,70},{-98,90}})));
+" annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold FIXME_yHotWatIsoValCon[nBoiCon](
     each t=1E-2, each h=5E-3)
     if have_boiCon and
@@ -308,13 +309,13 @@ equation
   connect(ctl.yPriPumSpe, busPumHeaWatPriNon.y);
   connect(ctl.ySecPum, busPumHeaWatSec.y1);
   connect(ctl.ySecPumSpe, busPumHeaWatSec.y);
-  connect(ctl.yBypValPos, busValHeaWatMinByp.y);
+  connect(ctl.yBypValPos, busValHeaWatMinBypCon.y);
+  connect(ctl.yBypValPos, busValHeaWatMinBypNon.y);
   connect(ctl.TBoiHotWatSupSet[1:nBoiCon], busBoiCon.THeaWatSupSet);
   connect(ctl.TBoiHotWatSupSet[(nBoiCon+1):(nBoiCon+nBoiNon)], busBoiNon.THeaWatSupSet);
 
   connect(FIXME_yHotWatIsoValCon.y, busValBoiConIso.y1);
-  connect(FIXME_yHotWatIsoValNon.y,
-    busValBoiNonIso.y1);
+  connect(FIXME_yHotWatIsoValNon.y, busValBoiNonIso.y1);
   /* Control point connection - stop */
 
   connect(reqHeaWatResAirHan.y, reqHeaWatRes.u1) annotation (Line(points={{-58,0},

@@ -69,7 +69,7 @@ block OpenLoop
     "Primary HW pump Enable signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,70},{-140,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumHeaWatPriCon(
-    y(final unit="1"), k=1) if have_boiCon and have_varPumHeaWatPri
+    y(final unit="1"), k=1) if have_boiCon and have_varPumHeaWatPriCon
     "Primary HW pump speed signal - Condensing Boilers"
     annotation (Placement(transformation(extent={{-120,30},{-140,50}})));
 
@@ -81,7 +81,7 @@ block OpenLoop
     "Primary HW pump Enable signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumHeaWatPriNon(
-    y(final unit="1"), k=1) if have_boiNon and have_varPumHeaWatPri
+    y(final unit="1"), k=1) if have_boiNon and have_varPumHeaWatPriNon
     "Primary HW pump speed signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
 
@@ -99,7 +99,7 @@ block OpenLoop
     annotation (Placement(transformation(extent={{-120,-90},{-140,-70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yValHeaWatMinByp(
-    y(final unit="1"), k=0) if have_valHeaWatMinByp
+    y(final unit="1"), k=0) if have_valHeaWatMinBypCon or have_valHeaWatMinBypNon
     "HW minimum flow bypass valve opening signal"
     annotation (Placement(transformation(extent={{-120,-10},{-140,10}})));
 equation
@@ -133,8 +133,11 @@ equation
           160},{-180,140}}, color={255,0,255}));
   connect(y1ValBoiConIso.y[1], busValBoiConIso.y1) annotation (Line(points={{-142,
           120},{-240,120},{-240,100}}, color={255,0,255}));
-  connect(yValHeaWatMinByp.y, busValHeaWatMinByp.y) annotation (Line(points={{-142,
-          0},{-170,0},{-170,20},{-240,20}}, color={0,0,127}));
+  connect(yValHeaWatMinByp.y, busValHeaWatMinBypCon.y) annotation (Line(points={{-142,0},
+          {-180,0},{-180,8},{-240,8},{-240,20}},
+                                            color={0,0,127}));
+  connect(yValHeaWatMinByp.y, busValHeaWatMinBypNon.y)
+    annotation (Line(points={{-142,0},{-180,0},{-180,20}}, color={0,0,127}));
   annotation (
   defaultComponentName="ctl");
 end OpenLoop;

@@ -23,8 +23,11 @@ record Controller "Record for plant controller"
   parameter Integer nPumHeaWatPriNon
     "Number of primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_varPumHeaWatPri
-    "Set to true for variable speed primary HW pumps"
+  parameter Boolean have_varPumHeaWatPriCon
+    "Set to true for variable speed primary HW pumps - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_varPumHeaWatPriNon
+    "Set to true for variable speed primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec
     "Type of secondary HW pumps"
@@ -32,8 +35,11 @@ record Controller "Record for plant controller"
   parameter Integer nPumHeaWatSec
     "Number of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_valHeaWatMinByp
-    "Set to true if the plant has a HW minimum flow bypass valve"
+  parameter Boolean have_valHeaWatMinBypCon
+    "Set to true if the plant has a HW minimum flow bypass valve - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_valHeaWatMinBypNon
+    "Set to true if the plant has a HW minimum flow bypass valve - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_senDpHeaWatLoc
     "Set to true for local HW differential pressure sensor hardwired to plant controller"
@@ -77,7 +83,7 @@ record Controller "Record for plant controller"
     "Design HW volume flow rate - Each condensing boiler"
     annotation(Dialog(group="Boiler flow setpoints", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    have_boiCon and have_valHeaWatMinByp));
+    have_boiCon and have_valHeaWatMinBypCon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiCon_flow_min[nBoiCon](
     start=fill(0.1, nBoiCon),
     displayUnit=fill("L/s", nBoiCon),
@@ -94,7 +100,7 @@ record Controller "Record for plant controller"
     annotation(Dialog(group="Boiler flow setpoints", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_boiNon
-    and have_valHeaWatMinByp));
+    and have_valHeaWatMinBypNon));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatBoiNon_flow_min[nBoiNon](
     start=fill(0.1, nBoiNon),
     displayUnit=fill("L/s", nBoiNon),
@@ -129,15 +135,26 @@ record Controller "Record for plant controller"
     "Design capacity - Each non-condensing boiler"
     annotation(Dialog(group="Capacity", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
-  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPri_flow_nominal(
+  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPriCon_flow_nominal(
     start=0.01,
     displayUnit="L/s",
     final min=0)
-    "Design primary HW volume flow rate"
+    "Design primary HW volume flow rate - Condensing boilers"
     annotation(Dialog(group="Capacity", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
+    have_boiCon and
     typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None and
-    have_varPumHeaWatPri and typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
+    have_varPumHeaWatPriCon and typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
+  parameter Modelica.Units.SI.VolumeFlowRate VHeaWatPriNon_flow_nominal(
+    start=0.01,
+    displayUnit="L/s",
+    final min=0)
+    "Design primary HW volume flow rate - Non-condensing boilers"
+    annotation(Dialog(group="Capacity", enable=
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
+    have_boiNon and
+    typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None and
+    have_varPumHeaWatPriNon and typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
   parameter Modelica.Units.SI.VolumeFlowRate VHeaWatSec_flow_nominal(
     start=0.01,
     displayUnit="L/s",
@@ -155,7 +172,8 @@ record Controller "Record for plant controller"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    (have_varPumHeaWatPri and typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None or
+    ((have_varPumHeaWatPriCon or have_varPumHeaWatPriNon) and
+    typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None or
     typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)));
   parameter Modelica.Units.SI.PressureDifference dpHeaWatLocSet_nominal(
     start=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
@@ -171,7 +189,7 @@ record Controller "Record for plant controller"
     "Primary HW pump minimum speed"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    have_varPumHeaWatPri and
+    (have_varPumHeaWatPriCon or have_varPumHeaWatPriNon) and
     typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
   parameter Real yPumHeaWatSec_min(
     final unit="1",
@@ -189,7 +207,7 @@ record Controller "Record for plant controller"
     "Primary HW pump speed delivering minimum flow through boilers - Each plant stage"
     annotation(Dialog(group="Information provided by testing, adjusting, and balancing contractor",
     enable=typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    have_varPumHeaWatPri and
+    (have_varPumHeaWatPriCon or have_varPumHeaWatPriNon) and
     typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
 
   // FIXME: How are interchangeable units (lead/lag alternated) specified?
@@ -206,13 +224,13 @@ record Controller "Record for plant controller"
   defaultComponentName="datCtl",
   Documentation(info="<html>
 <p>
-This record provides the set of sizing and operating parameters for 
-HW plant controllers that can be found within 
+This record provides the set of sizing and operating parameters for
+HW plant controllers that can be found within
 <a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.Controls\">
 Buildings.Templates.HeatingPlants.HotWater.Components.Controls</a>.
 </p>
 <p>
-For hybrid plants, units shall be indexed so that condensing boilers have the 
+For hybrid plants, units shall be indexed so that condensing boilers have the
 lowest indices and non-condensing boilers have the highest indices.
 </p>
 </html>"));

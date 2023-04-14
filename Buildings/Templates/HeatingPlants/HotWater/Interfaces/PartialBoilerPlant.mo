@@ -6,11 +6,12 @@ partial model PartialBoilerPlant
     "HW medium";
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Boiler typ
-    "Type of boilers" annotation (Evaluate=true, Dialog(group="Boilers"));
+    "Type of boilers"
+    annotation (Evaluate=true, Dialog(group="Boilers"));
   parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod=
     Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial
     "Type of boiler model"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+    annotation (Evaluate=true, Dialog(group="Boilers"));
 
   final parameter Boolean have_boiCon =
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing
@@ -23,74 +24,112 @@ partial model PartialBoilerPlant
     "Set to true if the plant includes non-condensing boilers"
     annotation (Evaluate=true);
 
-  parameter Integer nBoiCon
+  parameter Integer nBoiCon_select(start=0)
     "Number of condensing boilers"
     annotation (Evaluate=true, Dialog(group="Boilers",
     enable=have_boiCon));
-  parameter Integer nBoiNon
+  parameter Integer nBoiNon_select(start=0)
     "Number of non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Boilers",
     enable=have_boiNon));
+  final parameter Integer nBoiCon = if have_boiCon then nBoiCon_select else 0
+    "Number of condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Boilers"));
+  final parameter Integer nBoiNon = if have_boiNon then nBoiNon_select else 0
+    "Number of non-condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Boilers"));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary typPumHeaWatPriCon(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable)
-    "Type of primary HW pumps - Condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop",
+    "Type of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers",
     enable=have_boiCon));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary typPumHeaWatPriNon(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable)
-    "Type of primary HW pumps - Non-condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop",
+    "Type of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers",
     enable=have_boiNon));
 
-  final parameter Boolean have_bypHeaWatFix=
+  final parameter Boolean have_bypHeaWatFixCon=
+    if typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing then
     typPumHeaWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
-    "Set to true if the plant has a fixed HW bypass"
-    annotation(Evaluate=true, Dialog(group="Primary HW loop"));
-  final parameter Boolean have_valHeaWatMinByp=
-    (have_boiCon and have_varPumHeaWatPri or have_boiNon and have_varPumHeaWatPriNon) and
+    else true
+    "Set to true if the condensing boiler group has a fixed HW bypass"
+    annotation(Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
+  final parameter Boolean have_bypHeaWatFixNon=
+    if typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing then
+    typPumHeaWatSec <> Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
+    else true
+    "Set to true if the non-condensing boiler group has a fixed HW bypass"
+    annotation(Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
+  // FIXME: Add condition for boilers with non-zero minimum flow.
+  final parameter Boolean have_valHeaWatMinBypCon=
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing and
+    have_varPumHeaWatPriCon and
     typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
-    "Set to true if the plant has a HW minimum flow bypass valve"
-    annotation(Evaluate=true, Dialog(group="Primary HW loop"));
+    "Set to true if the condensing boiler group has a HW minimum flow bypass valve"
+    annotation(Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
+  // FIXME: Add condition for boilers with non-zero minimum flow.
+  final parameter Boolean have_valHeaWatMinBypNon=
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing and
+    have_varPumHeaWatPriNon and
+    typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
+    "Set to true if the non-condensing boiler group has a HW minimum flow bypass valve"
+    annotation(Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
 
-  parameter Integer nPumHeaWatPriCon(
-    start=1,
-    final min=0)=if have_boiCon then nBoiCon else 0
-    "Number of primary HW pumps - Condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop",
+  parameter Integer nPumHeaWatPriCon_select(
+    start=0,
+    final min=0)=nBoiCon
+    "Number of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers",
     enable=have_boiCon and
     typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon
-    "Type of primary HW pump arrangement - Condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_boiCon));
+  final parameter Integer nPumHeaWatPriCon=
+    if have_boiCon then (
+      if typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        then nPumHeaWatPriCon_select
+      else nBoiCon)
+    else 0
+    "Number of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon(
+    start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    "Type of primary HW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers",
+    enable=have_boiCon));
   final parameter Boolean have_varPumHeaWatPriCon=
-    have_boiCon and
-    (typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
-    typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable)
-    "Set to true for variable speed primary HW pumps - Condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop"));
+    typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
+    typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable
+    "Set to true for variable speed primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
 
-  parameter Integer nPumHeaWatPriNon(
-    start=1,
-    final min=0)=if have_boiNon then nBoiNon else 0
-    "Number of primary HW pumps - Non-condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop",
+  parameter Integer nPumHeaWatPriNon_select(
+    start=0,
+    final min=0)=nBoiNon
+    "Number of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers",
     enable=have_boiNon and
     typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon
-    "Type of primary HW pump arrangement - Non-condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop", enable=have_boiNon));
+  final parameter Integer nPumHeaWatPriNon=
+    if have_boiNon then (
+      if typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        then nPumHeaWatPriNon_select
+      else nBoiNon)
+    else 0
+    "Number of primary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers",
+    enable=have_boiNon and
+    typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon(
+    start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
+    "Type of primary HW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers",
+    enable=have_boiNon));
   final parameter Boolean have_varPumHeaWatPriNon=
-    have_boiNon and
-    (typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
-    typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable)
-    "Set to true for variable speed primary HW pumps - Non-condensing boilers"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop"));
-
-  final parameter Boolean have_varPumHeaWatPri=
-    have_varPumHeaWatPriCon or have_varPumHeaWatPriNon
+    typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
+    typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable
     "Set to true for variable speed primary HW pumps"
-    annotation (Evaluate=true, Dialog(group="Primary HW loop"));
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)
@@ -138,33 +177,33 @@ partial model PartialBoilerPlant
     final nPumHeaWatPriCon=nPumHeaWatPriCon,
     final nPumHeaWatPriNon=nPumHeaWatPriNon,
     final nPumHeaWatSec=nPumHeaWatSec,
-    final have_valHeaWatMinByp=have_valHeaWatMinByp,
+    final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
+    final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
     final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
     final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
-    final have_varPumHeaWatPri=have_varPumHeaWatPri,
+    final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
+    final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
     final typCtl=typCtl,
     final rho_default=rho_default)
     "Design and operating parameters";
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPriCon_flow_nominal=
     sum(dat.pumHeaWatPriCon.m_flow_nominal)
-    "Primary HW mass flow rate - All condensing boilers";
+    "Primary HW mass flow rate - Condensing boilers";
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPriNon_flow_nominal=
     sum(dat.pumHeaWatPriNon.m_flow_nominal)
-    "Primary HW mass flow rate - All non-condensing boilers";
-  final parameter Modelica.Units.SI.MassFlowRate mHeaWatPri_flow_nominal=
-    max(mHeaWatPriCon_flow_nominal, mHeaWatPriNon_flow_nominal)
-    "Primary HW mass flow rate";
+    "Primary HW mass flow rate - Non-condensing boilers";
   // FIXME: How to assign HW flow in case of distributed secondary pumps?
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal=
     if typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
-      then mHeaWatPri_flow_nominal
+      then (if have_boiCon then mHeaWatPriCon_flow_nominal else mHeaWatPriNon_flow_nominal)
     elseif typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
       then sum(dat.pumHeaWatSec.m_flow_nominal)
-    else mHeaWatPri_flow_nominal
+    else max(mHeaWatPriCon_flow_nominal, mHeaWatPriNon_flow_nominal)
     "HW mass flow rate (total, distributed to consumers)";
   final parameter Modelica.Units.SI.HeatFlowRate cap_nominal=
-    sum(dat.boiCon.capBoi_nominal) + sum(dat.boiNon.capBoi_nominal)
+    (if have_boiCon then sum(dat.boiCon.capBoi_nominal) else 0) +
+    (if have_boiNon then sum(dat.boiNon.capBoi_nominal) else 0)
     "Heating capacity (total)";
   final parameter Modelica.Units.SI.Temperature THeaWatSup_nominal=
     dat.ctl.THeaWatSup_nominal

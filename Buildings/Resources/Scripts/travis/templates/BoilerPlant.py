@@ -9,6 +9,8 @@
 # - Generate all possible combinations of class modifications based on a set of
 #   parameter bindings and redeclare statements provided in `MODIF_GRID`.
 # - Exclude the combinations based on a match with the patterns provided in `EXCLUDE`.
+# - Exclude the class modifications based on a match with the patterns provided in `REMOVE_MODIF`,
+#   and prune the resulting duplicated combinations.
 # - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
 # The script returns
 # - 0 if all simulations succeed,
@@ -31,7 +33,7 @@ except IndexError:
     SIMULATOR = 'Dymola'
 
 MODELS = [
-    'Buildings.Templates.HeatingPlants.HotWater.BoilerPlant',
+    'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant',
 ]
 
 CRED = '\033[91m'
@@ -39,17 +41,17 @@ CGREEN = '\033[92m'
 CEND = '\033[0m'
 
 MODIF_GRID = {
-    'Buildings.Templates.HeatingPlants.HotWater.BoilerPlant':
+    'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant':
         dict(
             BOI__typ=[
-                'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
-                'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
+                # 'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
+                # 'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
             ],
-            BOI__nBoiCon=[
+            BOI__nBoiCon_select=[
                 '2',
             ],
-            BOI__nBoiNon=[
+            BOI__nBoiNon_select=[
                 '2',
             ],
             BOI__typPumHeaWatPriCon=[
@@ -75,7 +77,7 @@ MODIF_GRID = {
             BOI__typPumHeaWatSec=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized',
                 # 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed',
-                # 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
+                'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
             ],
             BOI__ctl__typMeaCtlHeaWatPri=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler',
@@ -87,11 +89,11 @@ MODIF_GRID = {
                 'true',
                 'false',
             ],
-            BOI__ctl__locSenFloHeaWatPri=[
+            BOI__ctl__locSenVHeaWatPri=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return',
             ],
-            BOI__ctl__locSenFloHeaWatSec=[
+            BOI__ctl__locSenVHeaWatSec=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return',
             ],
@@ -104,7 +106,7 @@ MODIF_GRID = {
 #   - return true if all strings from the item of EXCLUDE are found in the concatenation product.
 #   - (re patterns are supported: for instance negative lookahead assertion using (?!pattern).)
 EXCLUDE = {
-    'Buildings.Templates.HeatingPlants.HotWater.BoilerPlant': [[
+    'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [[
         'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
         'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
     ],],
@@ -118,14 +120,14 @@ EXCLUDE = {
 # Removing the class modifications this way yields duplicate sets of class modifications.
 # Those are pruned afterwards.
 REMOVE_MODIF = {
-    'Buildings.Templates.HeatingPlants.HotWater.BoilerPlant': [
+    'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         [
             [
                 'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
             ],
             [
                 'typMeaCtlHeaWatPri',
-                'locSenFloHeaWatSec',
+                'locSenVHeaWatSec',
             ],
         ],
         [
@@ -134,18 +136,51 @@ REMOVE_MODIF = {
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [
-                'locSenFloHeaWatSec',
+                'locSenVHeaWatSec',
             ],
         ],
         [
             [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
                 'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
-                'typPumHeaWatPri(Con|Non)=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Constant|' +\
-                'typPumHeaWatPri(Con|Non)=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
+                'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Constant',
+            ],
+            [
+                'typMeaCtlHeaWatPri',
+                'locSenVHeaWatPri',
+            ],
+        ],
+        [
+            [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
+                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Constant',
+            ],
+            [
+                'typMeaCtlHeaWatPri',
+                'locSenVHeaWatPri',
+            ],
+        ],
+        [
+            [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
+                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [
-                'locSenFloHeaWatPri',
+                'locSenVHeaWatPri',
+            ],
+        ],
+        [
+            [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
+                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
+                'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
+            ],
+            [
+                'locSenVHeaWatPri',
             ],
         ],
         [
@@ -154,7 +189,7 @@ REMOVE_MODIF = {
             ],
             [
                 'typArrPumHeaWatPriNon',
-                'nBoiNon',
+                'nBoiNon_select',
                 'typPumHeaWatPriNon',
             ],
         ],
@@ -164,7 +199,7 @@ REMOVE_MODIF = {
             ],
             [
                 'typArrPumHeaWatPriCon',
-                'nBoiCon',
+                'nBoiCon_select',
                 'typPumHeaWatPriCon',
             ],
         ],
@@ -242,7 +277,7 @@ def simulateCase(arg, simulator):
                 toreturn = 0
             else:
                 toreturn = 1
-    except FileNotFoundError as e:
+    except (FileNotFoundError, IndexError) as e:
         toreturn = 3
         print(e)
     finally:
@@ -368,33 +403,36 @@ if __name__ == '__main__':
         args[i].append(str(i))
         print(i, '\n', arg)
 
-    # # Simulate cases.
-    # results = simulate_cases(args, asy=False)
+    # TMP
+    args = args[:5]
 
-    # try:
-    #     os.unlink('tmp_func.py')
-    #     os.unlink('unitTestsTemplates.log')
-    # except FileNotFoundError:
-    #     pass
+    # Simulate cases.
+    results = simulate_cases(args, asy=False)
 
-    # df = pd.DataFrame(
-    #     dict(
-    #         model=[el[0] for el in args],
-    #         tag=[el[2] for el in args],
-    #         modif=[el[1] for el in args],
-    #         result=results,
-    #     ))
+    try:
+        os.unlink('tmp_func.py')
+        os.unlink('unitTestsTemplates.log')
+    except FileNotFoundError:
+        pass
 
-    # for idx in df[df.result != 0].index:
-    #     with open('unitTestsTemplates.log', 'w') as FH:
-    #         FH.writelines([
-    #             f'*** Simulation failed for {df.iloc[idx].model} with the following class modifications:\n',
-    #             ', \n'.join(df.iloc[idx].modif), '\n'
-    #         ])
+    df = pd.DataFrame(
+        dict(
+            model=[el[0] for el in args],
+            tag=[el[2] for el in args],
+            modif=[el[1] for el in args],
+            result=results,
+        ))
 
-    # if df.result.abs().sum() != 0:
-    #     print(CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n')
-    #     sys.exit(1)
-    # else:
-    #     print(CGREEN + 'All simulations succeeded.\n' + CEND)
-    #     sys.exit(0)
+    for idx in df[df.result != 0].index:
+        with open('unitTestsTemplates.log', 'w') as FH:
+            FH.writelines([
+                f'*** Simulation failed for {df.iloc[idx].model} with the following class modifications:\n',
+                ', \n'.join(df.iloc[idx].modif), '\n'
+            ])
+
+    if df.result.abs().sum() != 0:
+        print(CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n')
+        sys.exit(1)
+    else:
+        print(CGREEN + 'All simulations succeeded.\n' + CEND)
+        sys.exit(0)

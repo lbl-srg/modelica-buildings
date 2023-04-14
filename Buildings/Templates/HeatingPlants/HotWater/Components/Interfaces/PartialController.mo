@@ -15,8 +15,11 @@ block PartialController
   parameter Integer nBoiNon(start=0, final min=0)
     "Number of non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_boiNon));
-  parameter Boolean have_varPumHeaWatPri
-    "Set to true for variable speed primary HW pumps"
+  parameter Boolean have_varPumHeaWatPriCon
+    "Set to true for variable speed primary HW pumps - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_varPumHeaWatPriNon
+    "Set to true for variable speed primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec
     "Type of secondary HW pumps"
@@ -39,8 +42,11 @@ block PartialController
     "Number of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration",
     enable=typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
-  parameter Boolean have_valHeaWatMinByp
-    "Set to true if the plant has a HW minimum flow bypass valve"
+  parameter Boolean have_valHeaWatMinBypCon
+    "Set to true if the plant has a HW minimum flow bypass valve - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Boolean have_valHeaWatMinBypNon
+    "Set to true if the plant has a HW minimum flow bypass valve - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement typMeaCtlHeaWatPri(
@@ -48,43 +54,64 @@ block PartialController
     "Type of sensors for variable speed primary pumps control in primary-secondary plants"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    have_varPumHeaWatPri and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None));
+    typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None and
+    (have_varPumHeaWatPriCon or have_varPumHeaWatPriNon)));
 
-  final parameter Boolean have_senVHeaWatPri=
-    if have_varPumHeaWatPri and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
+  final parameter Boolean have_senVHeaWatPriCon=
+    have_boiCon and (
+    if have_varPumHeaWatPriCon and
+    typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
-    else typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
-    "Set to true for primary HW flow sensor"
+    else typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)
+    "Set to true for primary HW flow sensor - Condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation locSenFloHeaWatPri=
+  final parameter Boolean have_senVHeaWatPriNon=
+    have_boiNon and (
+    if have_varPumHeaWatPriNon and
+    typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
+    typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
+    else typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)
+    "Set to true for primary HW flow sensor - Non-condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation locSenVHeaWatPri=
     Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return
     "Location of primary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
-    have_senVHeaWatPri));
+    have_senVHeaWatPriCon or have_senVHeaWatPriNon));
   final parameter Boolean have_senVHeaWatSec=
     typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None and
     typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference
     "Set to true for secondary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation locSenFloHeaWatSec=
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation locSenVHeaWatSec=
     Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return
     "Location of secondary HW flow sensor"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
     have_senVHeaWatSec));
 
-  final parameter Boolean have_senTHeaWatPriSup=
+  final parameter Boolean have_senTHeaWatPriSupCon=
+    have_boiCon and (
     if typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
     typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
-    else have_varPumHeaWatPri
-    "Set to true for primary HW supply temperature sensor"
+    else have_varPumHeaWatPriCon)
+    "Set to true for primary HW supply temperature sensor - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_senTHeaWatPriSupNon=
+    have_boiNon and (
+    if typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
+    typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor
+    else have_varPumHeaWatPriNon)
+    "Set to true for primary HW supply temperature sensor - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  final parameter Boolean have_senTHeaWatPlaRet=
-    if typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None then
-      have_boiNon else true
-    "Set to true for plant HW return temperature sensor"
+  final parameter Boolean have_senTHeaWatPlaRetCon=
+    have_boiCon and typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
+    "Set to true for plant HW return temperature sensor - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration"));
+  final parameter Boolean have_senTHeaWatPlaRetNon=have_boiNon
+    "Set to true for plant HW return temperature sensor - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   final parameter Boolean have_senTHeaWatSecSup=
@@ -127,14 +154,16 @@ block PartialController
     final have_boiNon=have_boiNon,
     final nBoiCon=nBoiCon,
     final nBoiNon=nBoiNon,
-    final have_varPumHeaWatPri=have_varPumHeaWatPri,
+    final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
+    final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
     final typArrPumHeaWatPriCon=typArrPumHeaWatPriCon,
     final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
     final typPumHeaWatSec=typPumHeaWatSec,
     final nPumHeaWatPriCon=nPumHeaWatPriCon,
     final nPumHeaWatPriNon=nPumHeaWatPriNon,
     final nPumHeaWatSec=nPumHeaWatSec,
-    final have_valHeaWatMinByp=have_valHeaWatMinByp,
+    final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
+    final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
     final have_senDpHeaWatLoc=have_senDpHeaWatLoc,
     final nSenDpHeaWatRem=nSenDpHeaWatRem,
     final have_senVHeaWatSec=have_senVHeaWatSec)
@@ -196,9 +225,17 @@ protected
     "Secondary HW pump control bus"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinByp if have_valHeaWatMinByp
-    "HW minimum flow bypass valve control bus" annotation (
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinBypCon
+    if have_valHeaWatMinBypCon
+    "HW minimum flow bypass valve control bus - Condensing boilers"
+    annotation (
       Placement(transformation(extent={{-260,0},{-220,40}}), iconTransformation(
+          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinBypNon
+    if have_valHeaWatMinBypNon
+    "HW minimum flow bypass valve control bus - Non-condensing boilers"
+    annotation (
+      Placement(transformation(extent={{-200,0},{-160,40}}), iconTransformation(
           extent={{-466,50},{-426,90}})));
 equation
   connect(busBoiCon, bus.boiCon) annotation (Line(
@@ -218,19 +255,23 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(busPumHeaWatPriNon, bus.pumHeaWatPriNon) annotation (Line(
-      points={{-180,60},{-180,0},{-260,0}},
+      points={{-180,60},{-200,60},{-200,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValBoiNonIso, bus.valBoiNonIso) annotation (Line(
-      points={{-180,100},{-180,0},{-260,0}},
+      points={{-180,100},{-200,100},{-200,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busBoiNon, bus.boiNon) annotation (Line(
-      points={{-180,140},{-180,0},{-260,0}},
+      points={{-180,140},{-200,140},{-200,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busValHeaWatMinByp, bus.valHeaWatMinByp) annotation (Line(
+  connect(busValHeaWatMinBypCon, bus.valHeaWatMinBypCon) annotation (Line(
       points={{-240,20},{-240,0},{-260,0}},
+      color={255,204,51},
+      thickness=0.5));
+  connect(busValHeaWatMinBypNon, bus.valHeaWatMinBypNon) annotation (Line(
+      points={{-180,20},{-200,20},{-200,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

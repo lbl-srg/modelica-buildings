@@ -16,21 +16,25 @@ class AllSystems
     final nPumHeaWatPriCon=BOI.nPumHeaWatPriCon,
     final nPumHeaWatPriNon=BOI.nPumHeaWatPriNon,
     final nPumHeaWatSec=BOI.nPumHeaWatSec,
-    final have_valHeaWatMinByp=BOI.have_valHeaWatMinByp,
+    final have_valHeaWatMinBypCon=BOI.have_valHeaWatMinBypCon,
+    final have_valHeaWatMinBypNon=BOI.have_valHeaWatMinBypNon,
     final have_senDpHeaWatLoc=BOI.ctl.have_senDpHeaWatLoc,
     final nSenDpHeaWatRem=BOI.ctl.nSenDpHeaWatRem,
     final have_senVHeaWatSec=BOI.ctl.have_senVHeaWatSec,
     final typArrPumHeaWatPriCon=BOI.typArrPumHeaWatPriCon,
     final typArrPumHeaWatPriNon=BOI.typArrPumHeaWatPriNon,
-    final have_varPumHeaWatPri=BOI.have_varPumHeaWatPri,
+    final have_varPumHeaWatPriCon=BOI.have_varPumHeaWatPriCon,
+    final have_varPumHeaWatPriNon=BOI.have_varPumHeaWatPriNon,
     final typCtl=BOI.typCtl,
     final rho_default=BOI.rho_default,
     boiCon(
-      dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, _BOI.nBoiCon),
+      fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
+      dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, BOI.nBoiCon),
       mHeaWatBoi_flow_nominal=_BOI.ctl.capBoiCon_nominal /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
         (_BOI.ctl.THeaWatConSup_nominal - Buildings.Templates.Data.Defaults.THeaWatRet)),
     boiNon(
+      fue=Buildings.Fluid.Data.Fuels.NaturalGasHigherHeatingValue(),
       dpHeaWatBoi_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatBoi, BOI.nBoiNon),
       mHeaWatBoi_flow_nominal=_BOI.ctl.capBoiNon_nominal /
         Buildings.Utilities.Psychrometrics.Constants.cpWatLiq ./
@@ -45,19 +49,21 @@ class AllSystems
       VHeaWatBoiNon_flow_nominal=_BOI.boiNon.mHeaWatBoi_flow_nominal /
         _BOI.rho_default,
       VHeaWatBoiNon_flow_min=0.1 * _BOI.ctl.VHeaWatBoiNon_flow_nominal,
-      ratFirBoiCon_min=fill(0.2, _BOI.nBoiCon),
-      ratFirBoiNon_min=fill(0.2, _BOI.nBoiNon),
-      capBoiCon_nominal=fill(1E6, _BOI.nBoiCon),
-      capBoiNon_nominal=fill(1E6, _BOI.nBoiNon),
-      VHeaWatPri_flow_nominal=max(
-        sum(_BOI.ctl.VHeaWatBoiCon_flow_nominal), sum(_BOI.ctl.VHeaWatBoiNon_flow_nominal)),
-      VHeaWatSec_flow_nominal=_BOI.ctl.VHeaWatPri_flow_nominal / 1.1,
+      ratFirBoiCon_min=fill(0.2, BOI.nBoiCon),
+      ratFirBoiNon_min=fill(0.2, BOI.nBoiNon),
+      capBoiCon_nominal=fill(1E6, BOI.nBoiCon),
+      capBoiNon_nominal=fill(1E6, BOI.nBoiNon),
+      VHeaWatPriCon_flow_nominal=sum(_BOI.ctl.VHeaWatBoiCon_flow_nominal),
+      VHeaWatPriNon_flow_nominal=sum(_BOI.ctl.VHeaWatBoiNon_flow_nominal),
+      VHeaWatSec_flow_nominal=
+        max(_BOI.ctl.VHeaWatPriCon_flow_nominal, _BOI.ctl.VHeaWatPriNon_flow_nominal) / 1.1,
       dpHeaWatLocSet_nominal=Buildings.Templates.Data.Defaults.dpHeaWatLocSet_max,
-      dpHeaWatRemSet_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatSet_max, _BOI.nSenDpHeaWatRem),
+      dpHeaWatRemSet_nominal=fill(Buildings.Templates.Data.Defaults.dpHeaWatSet_max,
+        BOI.ctl.nSenDpHeaWatRem),
       yPumHeaWatPri_min=0.1,
       yPumHeaWatSec_min=0.1,
       yPumHeaWatPriSta_min=fill(0.1, size(_BOI.ctl.sta, 1)),
-      sta=if _BOI.have_boiCon and _BOI.have_boiNon then
+      sta=if BOI.have_boiCon and BOI.have_boiNon then
         [0,0,0,0; 1,0,1,0; 1,1,1,1] else [0,0; 1,0; 1,1]),
     pumHeaWatPriCon(
       dp_nominal=fill(max(_BOI.boiCon.dpHeaWatBoi_nominal) * 1.5, BOI.nPumHeaWatPriCon) +

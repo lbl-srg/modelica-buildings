@@ -1,20 +1,17 @@
 within Buildings.Templates.HeatingPlants.HotWater.Validation;
 model BoilerPlant
   "Validation of boiler plant template with G36 controls"
-  extends
-    Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
+  extends Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
     BOI(
-      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
+      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing,
       nAirHan=1,
       nBoiCon=2,
-      nBoiNon=2,
       typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
-      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
       typArrPumHeaWatPriCon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      typArrPumHeaWatPriNon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
       ctl(
         typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
+        locSenVHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
         have_senDpHeaWatLoc=false)));
 
   UserProject.AirHandlerControlPoints sigAirHan[BOI.nAirHan]

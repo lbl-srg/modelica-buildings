@@ -29,8 +29,11 @@ record BoilerPlant "Record for HW plant model"
   parameter Integer nPumHeaWatSec
     "Number of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_valHeaWatMinByp
-    "Set to true if the plant has a HW minimum flow bypass valve"
+  parameter Boolean have_valHeaWatMinBypCon
+    "Set to true if the condensing boiler group has a HW minimum flow bypass valve"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_valHeaWatMinBypNon
+    "Set to true if the non-condensing boiler group has a HW minimum flow bypass valve"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Boolean have_senDpHeaWatLoc
     "Set to true for local HW differential pressure sensor hardwired to plant controller"
@@ -47,8 +50,11 @@ record BoilerPlant "Record for HW plant model"
   parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon
     "Type of primary HW pump arrangement - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Boolean have_varPumHeaWatPri
-    "Set to true for variable speed primary HW pumps"
+  parameter Boolean have_varPumHeaWatPriCon
+    "Set to true for variable speed primary HW pumps - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
+  parameter Boolean have_varPumHeaWatPriNon
+    "Set to true for variable speed primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Controller typCtl
     "Type of controller"
@@ -67,10 +73,12 @@ record BoilerPlant "Record for HW plant model"
     final nBoiNon=nBoiNon,
     final nPumHeaWatPriCon=nPumHeaWatPriCon,
     final nPumHeaWatPriNon=nPumHeaWatPriNon,
-    final have_varPumHeaWatPri=have_varPumHeaWatPri,
+    final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
+    final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
     final typPumHeaWatSec=typPumHeaWatSec,
     final nPumHeaWatSec=nPumHeaWatSec,
-    final have_valHeaWatMinByp=have_valHeaWatMinByp,
+    final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
+    final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
     final have_senDpHeaWatLoc=have_senDpHeaWatLoc,
     final nSenDpHeaWatRem=nSenDpHeaWatRem,
     final have_senVHeaWatSec=have_senVHeaWatSec,
@@ -101,7 +109,8 @@ record BoilerPlant "Record for HW plant model"
     final rho_default=rho_default,
     final typ=if have_boiCon then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
-    m_flow_nominal=boiCon.mHeaWatBoi_flow_nominal)
+    m_flow_nominal=fill(if have_boiCon then sum(boiCon.mHeaWatBoi_flow_nominal) /
+      max(nPumHeaWatPriCon, 1) else 0, nPumHeaWatPriCon))
     "Primary HW pumps - Condensing boilers"
     annotation(Dialog(group="Primary HW loop", enable=have_boiCon));
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatPriNon(
@@ -109,16 +118,22 @@ record BoilerPlant "Record for HW plant model"
     final rho_default=rho_default,
     final typ=if have_boiNon then Buildings.Templates.Components.Types.Pump.Multiple
       else Buildings.Templates.Components.Types.Pump.None,
-    m_flow_nominal=boiNon.mHeaWatBoi_flow_nominal)
+    m_flow_nominal=fill(if have_boiNon then sum(boiNon.mHeaWatBoi_flow_nominal) /
+      max(nPumHeaWatPriNon, 1) else 0, nPumHeaWatPriNon))
     "Primary HW pumps - Non-condensing boilers"
     annotation(Dialog(group="Primary HW loop", enable=have_boiNon));
-  parameter Buildings.Templates.Components.Data.Valve valHeaWatMinByp(
+  parameter Buildings.Templates.Components.Data.Valve valHeaWatMinBypCon(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=(if have_boiCon then max(ctl.VHeaWatBoiCon_flow_min)
-      else max(ctl.VHeaWatBoiNon_flow_min)) * rho_default,
+    m_flow_nominal=max(ctl.VHeaWatBoiCon_flow_min) * rho_default,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
-    "HW minimum flow bypass valve"
-    annotation(Dialog(group="Primary HW loop", enable=have_valHeaWatMinByp));
+    "HW minimum flow bypass valve - Condensing boilers"
+    annotation(Dialog(group="Primary HW loop", enable=have_valHeaWatMinBypCon));
+  parameter Buildings.Templates.Components.Data.Valve valHeaWatMinBypNon(
+    final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
+    m_flow_nominal=max(ctl.VHeaWatBoiNon_flow_min) * rho_default,
+    dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
+    "HW minimum flow bypass valve - Non-condensing boilers"
+    annotation(Dialog(group="Primary HW loop", enable=have_valHeaWatMinBypNon));
 
   parameter Buildings.Templates.Components.Data.PumpMultiple pumHeaWatSec(
     final nPum=nPumHeaWatSec,
