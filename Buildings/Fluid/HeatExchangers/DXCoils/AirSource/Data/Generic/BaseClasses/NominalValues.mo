@@ -10,17 +10,17 @@ record NominalValues "Data record of nominal values"
     "Nominal capacity (negative number for the DX cooling coil, and positive number for the DX heating coil)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Real COP_nominal "Nominal coefficient of performance"
+  parameter Real COP_nominal(final unit="1") "Nominal coefficient of performance"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Real SHR_nominal "Nominal sensible heat ratio"
+  parameter Real SHR_nominal(final unit="1") "Nominal sensible heat ratio"
     annotation (Dialog(group="Nominal condition", enable = is_CooCoi));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate at evaporators"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Temperature TEvaIn_nominal=273.15 + 19.4
+  parameter Modelica.Units.SI.Temperature TEvaIn_nominal=292.55
     "Evaporator entering air wet-bulb temperature at rating condition"
     annotation (Dialog(tab="General", group="Nominal condition"));
 
@@ -28,7 +28,7 @@ record NominalValues "Data record of nominal values"
     "Condenser entering temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb for air cooled)"
     annotation (Dialog(tab="General", group="Nominal condition"));
 
-  parameter Real phiIn_nominal=0.5
+  parameter Real phiIn_nominal(final unit="1")=0.5
     "Relative humidity of entering air at nominal condition"
     annotation(Dialog(tab="General",group="Nominal"));
 
