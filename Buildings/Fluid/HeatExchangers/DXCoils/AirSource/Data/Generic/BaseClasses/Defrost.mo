@@ -20,14 +20,14 @@ record Defrost
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=273.65
     "Maximum temperature at which defrost operation is activated";
 
-  parameter Modelica.Units.SI.Power QDefResCap
+  parameter Modelica.Units.SI.HeatFlowRate QDefResCap(min=0)
     "Heating capacity of resistive defrost element"
     annotation(Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive));
 
-  parameter Modelica.Units.SI.Power QCraCap
+  parameter Modelica.Units.SI.HeatFlowRate QCraCap(min=0)
     "Crankcase heater capacity";
 //-----------------------------Performance curves-----------------------------//
-  parameter Real  defEIRFunT[6] = fill(0,6)
+  parameter Real defEIRFunT[6] = fill(0,6)
     "Biquadratic coefficients for defrost capacity function of temperature"
     annotation (Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.reverseCycle));
 
