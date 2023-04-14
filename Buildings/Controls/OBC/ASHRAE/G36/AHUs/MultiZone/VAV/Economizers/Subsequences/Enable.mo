@@ -3,29 +3,34 @@ block Enable "Multi zone VAV AHU economizer enable/disable switch"
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
-    annotation(Dialog(group="Conditional"));
+    annotation(__cdl(ValueInReference=False),
+                Dialog(group="Conditional"));
   parameter Real delTOutHis(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Dialog(tab="Advanced", group="Hysteresis"));
+    annotation(__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real delEntHis(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation(__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real retDamFulOpeTim(
     final unit="s",
     final quantity="Time")=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
-    annotation(Dialog(tab="Advanced", group="Delays at disable"));
+    annotation(__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Delays at disable"));
   parameter Real disDel(
     final unit="s",
     final quantity="Time")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation(Dialog(tab="Advanced", group="Delays at disable"));
+    annotation(__cdl(ValueInReference=True),
+               Dialog(tab="Advanced", group="Delays at disable"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",

@@ -6,24 +6,28 @@ block Reliefs
     final max=0,
     final unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Controller"));
   parameter Real uMax(
     final min=0,
     final unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Controller"));
   parameter Real uOutDamMax(
     final min=-1,
     final max=1,
     final unit="1") = (uMin + uMax)/2
     "Maximum loop signal for the OA damper to be fully open"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Controller"));
   parameter Real uRetDamMin(
     final min=-1,
     final max=1,
     final unit="1") = (uMin + uMax)/2
     "Minimum loop signal for the RA damper to be fully open"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(final unit="1")
     "Signal for supply air temperature control (T Sup Control Loop Signal in diagram)"

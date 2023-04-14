@@ -3,13 +3,16 @@ block ReliefFanGroup
   "Sequence for controlling relief fan group"
 
   parameter Integer nSupFan = 2
-    "Total number of AHU supply fans that are serving the same common space";
+    "Total number of AHU supply fans that are serving the same common space"
+    annotation (__cdl(ValueInReference=False));
   parameter Integer nRelFan = 4
-    "Total number of relief fans that are serving the same common space";
+    "Total number of relief fans that are serving the same common space"
+    annotation (__cdl(ValueInReference=False));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
-    "Relief fan minimum speed";
+    "Relief fan minimum speed"
+    annotation (__cdl(ValueInReference=False));
   parameter Integer staVec[nRelFan] = {2,3,1,4}
     "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
   parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
@@ -18,14 +21,17 @@ block ReliefFanGroup
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
-    "Building static pressure difference relative to ambient (positive to pressurize the building)";
+    "Building static pressure difference relative to ambient (positive to pressurize the building)"
+    annotation (__cdl(ValueInReference=True));
   parameter Real k(
     final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (Dialog(group="Pressure controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan[nSupFan]
     "AHU supply fan proven on status"
@@ -636,7 +642,9 @@ equation
   connect(xor.y, not5.u) annotation (Line(points={{102,-210},{110,-210},{110,-228},
           {-20,-228},{-20,-248},{-2,-248}}, color={255,0,255}));
 
-annotation (defaultComponentName="relFanGroCon",
+    annotation (__cdl(ValueInReference=False),
+                __cdl(ValueInReference=False),
+            defaultComponentName="relFanGroCon",
  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={
         Text(extent={{-100,140},{100,100}},

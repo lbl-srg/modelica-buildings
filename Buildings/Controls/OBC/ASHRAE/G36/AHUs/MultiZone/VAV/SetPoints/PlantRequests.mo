@@ -2,13 +2,16 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block PlantRequests "Output plant requests for multizone air handling unit"
 
   parameter Boolean have_hotWatCoi = true
-    "True: the AHU has hot water coil";
+    "True: the AHU has hot water coil"
+    annotation (__cdl(ValueInReference=False));
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=False),
+                Dialog(tab="Advanced"));
   parameter Real posHys = 0.05
     "Hysteresis for checking valve position difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation(__cdl(ValueInReference=False),
+                Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",

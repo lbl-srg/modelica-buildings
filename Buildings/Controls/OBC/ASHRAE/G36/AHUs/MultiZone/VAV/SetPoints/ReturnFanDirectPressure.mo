@@ -6,19 +6,22 @@ block ReturnFanDirectPressure
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
-    "Building static pressure difference relative to ambient (positive to pressurize the building)";
+    "Building static pressure difference relative to ambient (positive to pressurize the building)"
+    annotation (__cdl(ValueInReference=True));
   parameter Real p_rel_RetFan_min(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 2.4
-    "Return fan discharge static pressure difference minimum setpoint,no less than 2.4 Pa";
+    "Return fan discharge static pressure difference minimum setpoint,no less than 2.4 Pa"
+    annotation (__cdl(ValueInReference=False));
   parameter Real p_rel_RetFan_max(
     final unit="Pa",
     final quantity="PressureDifference",
     final min=0,
     final max=1000) = 40
-    "Return fan discharge static pressure maximum setpoint";
+    "Return fan discharge static pressure maximum setpoint"
+    annotation (__cdl(ValueInReference=False));
   parameter Real disSpe_min(
     final unit="1",
     final min=0,
@@ -32,22 +35,26 @@ block ReturnFanDirectPressure
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(group="Pressure controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Pressure controller"));
   parameter Real k(final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (Dialog(group="Pressure controller"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Pressure controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(group="Pressure controller",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Pressure controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real Td(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="Pressure controller",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Pressure controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
