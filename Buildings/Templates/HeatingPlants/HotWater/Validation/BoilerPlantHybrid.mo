@@ -1,13 +1,17 @@
 within Buildings.Templates.HeatingPlants.HotWater.Validation;
-model BoilerPlant
+model BoilerPlantHybrid
   "Validation of boiler plant template with G36 controls"
-  extends Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
+  extends
+    Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
     BOI(
-      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing,
+      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
       nAirHan=1,
       nBoiCon_select=2,
+      nBoiNon_select=2,
       typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
       typArrPumHeaWatPriCon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
+      typArrPumHeaWatPriNon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
       ctl(
         typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
@@ -40,4 +44,4 @@ annotation (
     StartTime=0,
     StopTime=2000,
     Tolerance=1e-06));
-end BoilerPlant;
+end BoilerPlantHybrid;
