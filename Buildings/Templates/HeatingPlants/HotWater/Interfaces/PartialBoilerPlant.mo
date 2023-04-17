@@ -92,11 +92,21 @@ partial model PartialBoilerPlant
     else 0
     "Number of primary HW pumps"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon(
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon_select(
     start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers",
-    enable=have_boiCon));
+    enable=have_boiCon and
+    typPumHeaWatPriCon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable and
+    typPumHeaWatPriCon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant));
+  final parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriCon=
+    if have_boiCon and
+    typPumHeaWatPriCon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable and
+    typPumHeaWatPriCon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant
+    then typArrPumHeaWatPriCon_select else
+    Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    "Type of primary HW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Condensing boilers"));
   final parameter Boolean have_varPumHeaWatPriCon=
     typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
     typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable
@@ -120,11 +130,20 @@ partial model PartialBoilerPlant
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers",
     enable=have_boiNon and
     typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered));
-  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon(
+  parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon_select(
     start=Buildings.Templates.Components.Types.PumpArrangement.Headered)
     "Type of primary HW pump arrangement"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers",
-    enable=have_boiNon));
+    enable=have_boiNon and
+    typPumHeaWatPriNon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable and
+    typPumHeaWatPriNon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant));
+  final parameter Buildings.Templates.Components.Types.PumpArrangement typArrPumHeaWatPriNon=
+    if have_boiNon and
+    typPumHeaWatPriNon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable and
+    typPumHeaWatPriNon<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant then
+    typArrPumHeaWatPriNon_select else Buildings.Templates.Components.Types.PumpArrangement.Dedicated
+    "Type of primary HW pump arrangement"
+    annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
   final parameter Boolean have_varPumHeaWatPriNon=
     typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
     typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable

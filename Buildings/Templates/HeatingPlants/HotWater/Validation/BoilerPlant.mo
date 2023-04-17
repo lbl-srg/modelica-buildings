@@ -3,11 +3,14 @@ model BoilerPlant
   "Validation of boiler plant template with G36 controls"
   extends Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
     BOI(
-      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing,
+      typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
       nAirHan=1,
+      nBoiCon_select=2,
       nBoiNon_select=2,
-      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
-      typArrPumHeaWatPriNon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
+      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
+      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
       redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36 ctl(
         typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,

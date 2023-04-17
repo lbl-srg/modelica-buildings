@@ -198,80 +198,69 @@ block PartialController
 protected
   Buildings.Templates.Components.Interfaces.Bus busBoiCon[nBoiCon]
     if have_boiCon "Boiler control bus - Condensing boilers" annotation (
-      Placement(transformation(extent={{-260,120},{-220,160}}),
+      Placement(transformation(extent={{-260,140},{-220,180}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busBoiNon[nBoiNon] if have_boiNon
     "Boiler control bus - Non-condensing boilers"
-    annotation (Placement(transformation(extent={{-200,120},{-160,160}}),
+    annotation (Placement(transformation(extent={{-180,140},{-140,180}}),
                     iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValBoiConIso[nBoiCon]
     if have_boiCon "Boiler isolation valve control bus - Condensing boilers"
-    annotation (Placement(transformation(extent={{-260,80},{-220,120}}),
+    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busValBoiNonIso[nBoiNon] if have_boiNon
     "Boiler isolation valve control bus - Non-condensing boilers"
-    annotation (Placement(transformation(extent={{-200,80},{-160,120}}),
+    annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPriCon
     if have_boiCon "Primary HW pump control bus - Condensing boilers"
-    annotation (Placement(transformation(extent={{-260,40},{-220,80}}),
+    annotation (Placement(transformation(extent={{-260,60},{-220,100}}),
         iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatPriNon if have_boiNon
     "Primary HW pump control bus - Condensing boilers"
-    annotation (Placement(transformation(extent={{-200,40},{-160,80}}),
+    annotation (Placement(transformation(extent={{-180,60},{-140,100}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
   Buildings.Templates.Components.Interfaces.Bus busPumHeaWatSec
     if typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump control bus"
-    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+    annotation (Placement(transformation(extent={{-220,-60},{-180,-20}}),
     iconTransformation(extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinBypCon
-    if have_valHeaWatMinBypCon
-    "HW minimum flow bypass valve control bus - Condensing boilers"
-    annotation (
-      Placement(transformation(extent={{-260,0},{-220,40}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
-  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinBypNon
-    if have_valHeaWatMinBypNon
-    "HW minimum flow bypass valve control bus - Non-condensing boilers"
-    annotation (
-      Placement(transformation(extent={{-200,0},{-160,40}}), iconTransformation(
-          extent={{-466,50},{-426,90}})));
+  Buildings.Templates.Components.Interfaces.Bus busValHeaWatMinByp
+    if have_valHeaWatMinBypCon or have_valHeaWatMinBypNon
+    "HW minimum flow bypass valve control bus"
+    annotation (Placement(transformation(extent={{-220,20},{-180,60}}),
+        iconTransformation(extent={{-466,50},{-426,90}})));
 equation
   connect(busBoiCon, bus.boiCon) annotation (Line(
-      points={{-240,140},{-220,140},{-220,0},{-260,0}},
+      points={{-240,160},{-220,160},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValBoiConIso, bus.valBoiConIso) annotation (Line(
-      points={{-240,100},{-220,100},{-220,0},{-260,0}},
+      points={{-240,120},{-220,120},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busPumHeaWatPriCon, bus.pumHeaWatPriCon) annotation (Line(
-      points={{-240,60},{-220,60},{-220,0},{-260,0}},
+      points={{-240,80},{-220,80},{-220,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busPumHeaWatSec, bus.pumHeaWatSec) annotation (Line(
-      points={{-220,-40},{-220,0},{-260,0}},
+      points={{-200,-40},{-200,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busPumHeaWatPriNon, bus.pumHeaWatPriNon) annotation (Line(
-      points={{-180,60},{-200,60},{-200,0},{-260,0}},
+      points={{-160,80},{-180,80},{-180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busValBoiNonIso, bus.valBoiNonIso) annotation (Line(
-      points={{-180,100},{-200,100},{-200,0},{-260,0}},
+      points={{-160,120},{-180,120},{-180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   connect(busBoiNon, bus.boiNon) annotation (Line(
-      points={{-180,140},{-200,140},{-200,0},{-260,0}},
+      points={{-160,160},{-180,160},{-180,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
-  connect(busValHeaWatMinBypCon, bus.valHeaWatMinBypCon) annotation (Line(
-      points={{-240,20},{-240,0},{-260,0}},
-      color={255,204,51},
-      thickness=0.5));
-  connect(busValHeaWatMinBypNon, bus.valHeaWatMinBypNon) annotation (Line(
-      points={{-180,20},{-200,20},{-200,0},{-260,0}},
+  connect(busValHeaWatMinByp, bus.valHeaWatMinByp) annotation (Line(
+      points={{-200,40},{-200,0},{-260,0}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

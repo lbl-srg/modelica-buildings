@@ -9,8 +9,12 @@
 # - Generate all possible combinations of class modifications based on a set of
 #   parameter bindings and redeclare statements provided in `MODIF_GRID`.
 # - Exclude the combinations based on a match with the patterns provided in `EXCLUDE`.
+#   - This allows excluding unsupported configurations.
 # - Exclude the class modifications based on a match with the patterns provided in `REMOVE_MODIF`,
 #   and prune the resulting duplicated combinations.
+#   - This allows reducing the number of simulations by excluding class modifications that
+#     yield the same model, i.e., modifications to parameters that are not used (disabled) in
+#     the given configuration.
 # - For the remaining combinations: run the corresponding simulations for the models in `MODELS`.
 # The script returns
 # - 0 if all simulations succeed,
@@ -66,11 +70,11 @@ MODIF_GRID = {
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant',
             ],
-            BOI__typArrPumHeaWatPriCon=[
+            BOI__typArrPumHeaWatPriCon_select=[
                 'Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
                 'Buildings.Templates.Components.Types.PumpArrangement.Headered',
             ],
-            BOI__typArrPumHeaWatPriNon=[
+            BOI__typArrPumHeaWatPriNon_select=[
                 'Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
                 'Buildings.Templates.Components.Types.PumpArrangement.Headered',
             ],
@@ -188,7 +192,7 @@ REMOVE_MODIF = {
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
             ],
             [
-                'typArrPumHeaWatPriNon',
+                'typArrPumHeaWatPriNon_select',
                 'nBoiNon_select',
                 'typPumHeaWatPriNon',
             ],
@@ -198,9 +202,25 @@ REMOVE_MODIF = {
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
             ],
             [
-                'typArrPumHeaWatPriCon',
+                'typArrPumHeaWatPriCon_select',
                 'nBoiCon_select',
                 'typPumHeaWatPriCon',
+            ],
+        ],
+        [
+            [
+                'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Factory'
+            ],
+            [
+                'typArrPumHeaWatPriCon_select',
+            ],
+        ],
+        [
+            [
+                'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Factory'
+            ],
+            [
+                'typArrPumHeaWatPriNon_select',
             ],
         ],
     ],
@@ -239,28 +259,35 @@ def simulateCase(arg, simulator):
     output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
     package_relpath = os.path.join('Buildings', 'package.mo')
 
+    if simulator == 'Dymola' or simulator == 'Optimica':
+        s = Simulator(arg[0], output_dir_path)
+    else:
+        print(f'Unsupported simulation tool: {simulator}.')
+        return 4
+    if simulator == 'Dymola':
+        s = Simulator(arg[0], output_dir_path)
+        s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
+        s.addPreProcessingStatement(fr'openModel("{package_relpath}");')
+        s.addPreProcessingStatement(fr'cd("{output_dir_path}");')
+    elif simulator == 'Optimica':
+        # Set MODELICAPATH (only in child process, so this won't affect main process).
+        os.environ['MODELICAPATH'] = os.path.abspath(os.curdir)
+
+    for modif in arg[1]:
+        s.addModelModifier(modif)
+
+    s.setSolver("CVode")
+    s.setTolerance(1e-6)
+    s.printModelAndTime()
+
     try:
-        if simulator == 'Dymola':
-            s = Simulator(arg[0], output_dir_path)
-            s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-            s.addPreProcessingStatement(fr'openModel("{package_relpath}");')
-            s.addPreProcessingStatement(fr'cd("{output_dir_path}");')
-        elif simulator == 'Optimica':
-            s = Simulator(arg[0], output_dir_path)
-        else:
-            print(f'Unsupported simulation tool: {simulator}.')
-            return 4
-        for modif in arg[1]:
-            s.addModelModifier(modif)
-        s.setSolver("CVode")
-        s.setTolerance(1e-6)
-        s.printModelAndTime()
         s.simulate()
     except Exception as e:
         toreturn = 2
         print(e)
     finally:
         os.chdir(cwd)
+
     # Test if simulation succeeded.
     try:
         if simulator == 'Dymola':
@@ -279,7 +306,6 @@ def simulateCase(arg, simulator):
                 toreturn = 1
     except (FileNotFoundError, IndexError) as e:
         toreturn = 3
-        print(e)
     finally:
         shutil.rmtree(output_dir_path, ignore_errors=True)
 
@@ -361,8 +387,6 @@ if __name__ == '__main__':
         for el in modif_dict:
             args.append([model, generate_modif_list(el)])
 
-    print(f'Number of cases to be simulated without exclusions: {len(args)}.\n')
-
     # Remove class modifications.
     indices_to_pop = []
     for i, arg in enumerate(args):
@@ -387,8 +411,6 @@ if __name__ == '__main__':
                 indices_to_pop.append(j)
     remove_items_by_indices(args, indices_to_pop)
 
-    print(f'Number of cases to be simulated after removing modifications: {len(args)}.\n')
-
     # Exclude cases.
     ## (We iterate over a copy of the `args` list to allow removing items of `args` during iteration.)
     for arg in args.copy():
@@ -396,15 +418,12 @@ if __name__ == '__main__':
             modif_concat = ''.join(arg[1])
             if any(all(re.search(el, modif_concat) for el in ell) for ell in EXCLUDE[arg[0]]):
                 args.remove(arg)
+
     print(f'Number of cases to be simulated with {SIMULATOR}: {len(args)}.\n')
 
     # Change tag for shorter length (simply use list index).
     for i, arg in enumerate(args):
         args[i].append(str(i))
-        print(i, '\n', arg)
-
-    # TMP
-    args = args[:5]
 
     # Simulate cases.
     results = simulate_cases(args, asy=False)

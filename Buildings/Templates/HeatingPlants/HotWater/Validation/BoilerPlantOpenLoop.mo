@@ -26,8 +26,8 @@ model BoilerPlantOpenLoop
     typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing,
     nBoiNon_select=2,
     typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
-    typArrPumHeaWatPriNon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
+    typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=datAll._BOI)

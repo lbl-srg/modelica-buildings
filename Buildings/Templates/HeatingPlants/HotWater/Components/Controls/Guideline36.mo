@@ -7,11 +7,14 @@ block Guideline36 "Guideline 36 controller"
   // FIXME: Are primary-only non-condensing boiler systems supported?
   final parameter Boolean have_priOnl =
     typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
-    and have_boiCon
     "Is the boiler plant a primary-only, condensing boiler plant?";
 
+  // FIXME: How are the following configurations supported?
+  // Hybrid plant with dedicated non-condensing boiler pumps and headered condensing boiler pumps (see for instance Figure A-27 in G36)
+  // Dedicated pump provided with boiler with factory controls
   final parameter Boolean have_heaPriPum =
-    typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered
+    typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered or
+    typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "True: Headered primary hot water pumps;
      False: Dedicated primary hot water pumps";
 
@@ -232,7 +235,7 @@ block Guideline36 "Guideline 36 controller"
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uBoi[nBoi](each k=true)
     "Not an input point per G36 4.11.1: this should be removed."
-    annotation (Placement(transformation(extent={{-118,350},{-98,370}})));
+    annotation (Placement(transformation(extent={{-100,350},{-80,370}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_uBoiAva[nBoi](each
       k=true) "Not an input point per G36 4.11.1: this should be removed."
     annotation (Placement(transformation(extent={{-100,310},{-80,330}})));
@@ -309,8 +312,8 @@ equation
   connect(ctl.yPriPumSpe, busPumHeaWatPriNon.y);
   connect(ctl.ySecPum, busPumHeaWatSec.y1);
   connect(ctl.ySecPumSpe, busPumHeaWatSec.y);
-  connect(ctl.yBypValPos, busValHeaWatMinBypCon.y);
-  connect(ctl.yBypValPos, busValHeaWatMinBypNon.y);
+  connect(ctl.yBypValPos, busValHeaWatMinByp.y);
+  connect(ctl.yBypValPos, busValHeaWatMinByp.y);
   connect(ctl.TBoiHotWatSupSet[1:nBoiCon], busBoiCon.THeaWatSupSet);
   connect(ctl.TBoiHotWatSupSet[(nBoiCon+1):(nBoiCon+nBoiNon)], busBoiNon.THeaWatSupSet);
 

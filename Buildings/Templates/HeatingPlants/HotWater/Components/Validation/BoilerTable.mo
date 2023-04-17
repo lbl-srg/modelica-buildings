@@ -15,24 +15,22 @@ model BoilerTable
     THeaWatSup_nominal=333.15)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-    //,redeclare Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500 per
+    //redeclare Buildings.Fluid.Boilers.Data.Lochinvar.KnightXL.KBXdash0500 per,
   Buildings.Templates.Components.Boilers.HotWaterTable boi(
     redeclare final package Medium = Medium,
     final dat=datBoi,
     is_con=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Fluid.Sources.Boundary_pT retHeaWat(redeclare final package Medium =
-        Medium,
+  Fluid.Sources.Boundary_pT retHeaWat(redeclare final package Medium=Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_min + boi.dpHeaWat_nominal,
     use_T_in=true,
     T=datBoi.THeaWatSup_nominal - 15,
-                nPorts=1)
+    nPorts=1)
     "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Fluid.Sources.Boundary_pT supHeaWat(redeclare final package Medium =
-        Medium,
+  Fluid.Sources.Boundary_pT supHeaWat(redeclare final package Medium =Medium,
     p=Buildings.Templates.Data.Defaults.pHeaWat_rel_min,
-                nPorts=1)
+    nPorts=1)
     "Boundary conditions for HW distribution system"
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
   Fluid.Sensors.TemperatureTwoPort THeaWatSup(
@@ -84,8 +82,7 @@ equation
   connect(THeaWatSupSet.y, bus.THeaWatSupSet)
     annotation (Line(points={{-58,40},{0,40}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-  /* FIXME: The example yields a final overriding message for fue with Dymola
-  when redeclaring per. Open ticket at DS.
-  */
+FIXME: The example yields a final overriding message for fue with Dymola
+when redeclaring per inside datBoi. Open ticket at DS.
 </html>"));
 end BoilerTable;
