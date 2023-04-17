@@ -3,13 +3,14 @@ block PlantRequests
   "Output plant requests for single zone air handling unit"
 
   parameter Boolean have_hotWatCoi = true
-    "True: the AHU has hot water heating coil";
+    "True: the AHU has hot water heating coil"
+    annotation (__cdl(ValueInReference=False));
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real posHys = 0.05
     "Hysteresis for checking valve position difference"
-    annotation(Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",

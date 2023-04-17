@@ -3,24 +3,31 @@ block Setpoints
     "Specify zone minimum outdoor air and minimum airflow set points for compliance with ASHRAE standard 62.1"
 
   parameter Boolean have_winSen=false
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_occSen=false
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_CO2Sen=false
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV and not have_parFanPowUni));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not have_SZVAV and not have_parFanPowUni));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV and not have_typTerUni));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not have_SZVAV and not have_typTerUni));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not have_parFanPowUni and not have_typTerUni));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not have_parFanPowUni and not have_typTerUni));
 
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation(Dialog(enable=have_occSen));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_occSen));
   parameter Real VAreBreZon_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -30,28 +37,32 @@ block Setpoints
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design population component of the breathing zone outdoor airflow"
-    annotation(Dialog(group="Design conditions"));
+    annotation (Dialog(group="Design conditions"));
   parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint"
-    annotation(Dialog(enable=not have_SZVAV, group="Design conditions"));
+    annotation (Dialog(enable=not have_SZVAV, group="Design conditions"));
   parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV, group="Design conditions"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not have_SZVAV, group="Design conditions"));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
-    annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Distribution effectiveness"));
   parameter Real zonDisEff_heat=0.8
     "Zone heating air distribution effectiveness"
-    annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Distribution effectiveness"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, normally closed (true), when windows open, it becomes false"

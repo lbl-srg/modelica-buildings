@@ -2,24 +2,28 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequ
 block Modulation "Outdoor and return air damper position modulation sequence for single zone VAV AHU"
 
   parameter Boolean have_heaCoi = true
-    "True if the air handling unit has heating coil";
+    "True if the air handling unit has heating coil"
+    annotation (__cdl(ValueInReference=False));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation (__cdl(ValueInReference=False));
   parameter Real k(
     final unit="1/K") = 1 "Gain of controller";
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=300
     "Time constant of modulation controller integrator block"
-    annotation (Dialog(
+    annotation (__cdl(ValueInReference=False),
+                Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real Td(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(
+    annotation (__cdl(ValueInReference=False),
+                Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -27,12 +31,14 @@ block Modulation "Outdoor and return air damper position modulation sequence for
     final min=0.1,
     final max=0.9,
     final unit="1") = 0.1
-    "Lower limit of controller output uTSup at which the dampers are at their limits";
+    "Lower limit of controller output uTSup at which the dampers are at their limits"
+    annotation (__cdl(ValueInReference=False));
   parameter Real uMax(
     final min=0.1,
     final max=1,
     final unit="1") = 0.9
-    "Upper limit of controller output uTSup at which the dampers are at their limits";
+    "Upper limit of controller output uTSup at which the dampers are at their limits"
+    annotation (__cdl(ValueInReference=False));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",

@@ -4,30 +4,35 @@ block Enable
 
   parameter Boolean use_enthalpy = true
     "Set to true to evaluate outdoor air (OA) enthalpy in addition to temperature"
-    annotation(Dialog(group="Conditional"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Conditional"));
   parameter Real delTOutHys(
     final unit="K",
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation(Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real delEntHys(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis", enable = use_enthalpy));
   parameter Real retDamPhy_max(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",

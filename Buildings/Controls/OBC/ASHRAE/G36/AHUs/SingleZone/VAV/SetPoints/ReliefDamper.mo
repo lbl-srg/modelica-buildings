@@ -8,7 +8,7 @@ block ReliefDamper
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum";
   parameter Real posHys=0.05
     "Hysteresis for damper position check"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDam_min(
     final min=0,

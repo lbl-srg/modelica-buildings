@@ -3,20 +3,26 @@ block Setpoints
   "Specify zone minimum outdoor air and minimum airflow set points for compliance with California Title 24"
 
   parameter Boolean have_winSen=false
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_occSen=false
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_CO2Sen=false
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_SZVAV or have_parFanPowUni)));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not (have_SZVAV or have_parFanPowUni)));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_SZVAV or have_typTerUni)));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not (have_SZVAV or have_typTerUni)));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_parFanPowUni or have_typTerUni)));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and not (have_parFanPowUni or have_typTerUni)));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
     annotation(Dialog(group="Design conditions"));
@@ -28,7 +34,8 @@ block Setpoints
     annotation(Dialog(enable=not (have_CO2Sen and have_SZVAV), group="Design conditions"));
   parameter Real VCooMax_flow(unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
     "Window status, normally closed (true), when windows open, it becomes false"

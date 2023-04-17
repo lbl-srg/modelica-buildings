@@ -3,22 +3,25 @@ block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer nBuiZon(
     final min=1)=5
-    "Total number of zones in building";
+    "Total number of zones in building"
+    annotation (__cdl(ValueInReference=False));
   parameter Integer nGroZon(
     final min=1)=nBuiZon
-    "Total number of zones in the group";
+    "Total number of zones in the group"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean zonGroMsk[nBuiZon]=fill(true, nBuiZon)
-    "Boolean array mask of zones included in group";
+    "Boolean array mask of zones included in group"
+    annotation (__cdl(ValueInReference=False));
   parameter Real uLow(
     final unit="K",
     final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real uHigh(
     final unit="K",
     final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[nBuiZon]
     "True when the zone is set to be occupied due to the override"

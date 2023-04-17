@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
+﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block Supply "Supply air set point for single zone VAV system"
 
   parameter Real TSup_max(
@@ -25,13 +25,13 @@ block Supply "Supply air set point for single zone VAV system"
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
     "Minimum supply temperature when it is in deadband state"
-    annotation (Dialog(group="Temperatures"));
+    annotation (__cdl(ValueInReference=True), Dialog(group="Temperatures"));
   parameter Real TSupDea_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=297.15
     "Maximum supply temperature when it is in deadband state"
-    annotation (Dialog(group="Temperatures"));
+    annotation (__cdl(ValueInReference=True), Dialog(group="Temperatures"));
   parameter Real maxHeaSpe(
     final min=0,
     final max=1,
@@ -53,55 +53,63 @@ block Supply "Supply air set point for single zone VAV system"
   parameter Real looHys(
     final unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real temPoiOne(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 1 on x-axis of control map for temperature control, when it is in heating state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real temPoiTwo(
     final unit="1",
     final min=0,
     final max=1)=0.25
     "Point 2 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real temPoiThr(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 3 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real temPoiFou(
     final unit="1",
     final min=0,
     final max=1)=0.75
     "Point 4 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Temperatures"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Temperatures"));
   parameter Real spePoiOne(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 1 on x-axis of control map for speed control, when it is in heating state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Speed"));
   parameter Real spePoiTwo(
     final unit="1",
     final min=0,
     final max=1)=0.25
     "Point 2 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Speed"));
   parameter Real spePoiThr(
     final unit="1",
     final min=0,
     final max=1)=0.5
     "Point 3 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Speed"));
   parameter Real spePoiFou(
     final unit="1",
     final min=0,
     final max=1)=0.75
     "Point 4 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Advanced", group="Speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Speed"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"

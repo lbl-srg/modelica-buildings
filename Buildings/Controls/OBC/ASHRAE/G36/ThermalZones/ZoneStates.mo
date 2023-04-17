@@ -3,10 +3,12 @@ block ZoneStates "Select the zone state"
 
   parameter Real uLow(
     final unit = "1") = 0.01
-    "Hysteresis parameter uLow for heating and cooling control signals to avoid chattering";
+    "Hysteresis parameter uLow for heating and cooling control signals to avoid chattering"
+    annotation (__cdl(ValueInReference=False));
   parameter Real uHigh(
     final unit = "1") = 0.05
-    "Hysteresis parameter uHigh for heating and cooling control signals to avoid chattering";
+    "Hysteresis parameter uHigh for heating and cooling control signals to avoid chattering"
+    annotation (__cdl(ValueInReference=False));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uHea "Heating control signal"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),

@@ -5,36 +5,42 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 1 "Maximum supply fan operation speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamMinFloMinSpe(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") = 0.4
     "OA damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamMinFloMaxSpe(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") = 0.3
     "OA damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamDesFloMinSpe(
     final min=outDamMinFloMinSpe,
     final max=outDamPhy_max,
     final unit="1") = 0.9
     "OA damper position to supply design outdoor airflow at minimum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamDesFloMaxSpe(
     final min=outDamMinFloMaxSpe,
     final max=outDamPhy_max,
     final unit="1") = 0.8
     "OA damper position to supply design outdoor airflow at maximum fan speed"
-    annotation(Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real VOutMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate") "Calculated minimum outdoor airflow rate"
@@ -49,18 +55,21 @@ block Limits "Single zone VAV AHU minimum outdoor air control - damper position 
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation(Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real floHys(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=0.01
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Commissioning", group="Advanced"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Commissioning", group="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,

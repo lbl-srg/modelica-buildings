@@ -1,8 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups;
 block ZoneStatusDuplicator "Duplicate zone status output"
 
-  parameter Integer nZon(final min=1)=1 "Number of zones in input";
-  parameter Integer nZonGro(final min=1)=1 "Number of groups in output";
+  parameter Integer nZon(final min=1)=1
+    "Number of zones in input"
+    annotation (__cdl(ValueInReference=False));
+  parameter Integer nZonGro(final min=1)=1
+    "Number of groups in output"
+    annotation (__cdl(ValueInReference=False));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[nZon]
     "True when the zone is set to be occupied due to the override"

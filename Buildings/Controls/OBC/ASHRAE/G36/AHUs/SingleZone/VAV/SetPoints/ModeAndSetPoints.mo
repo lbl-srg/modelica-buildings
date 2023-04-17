@@ -2,8 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block ModeAndSetPoints
   "Output zone setpoint with operation mode selection"
 
-  parameter Boolean have_winSen "Check if the zone has window status sensor";
-  parameter Boolean have_occSen "Check if the zone has occupancy sensor";
+  parameter Boolean have_winSen
+    "Check if the zone has window status sensor";
+  parameter Boolean have_occSen
+    "Check if the zone has occupancy sensor";
   parameter Boolean have_locAdj
     "True: the zone has local setpoint adjustment knob"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
@@ -17,72 +19,90 @@ block ModeAndSetPoints
     unit="K",
     displayUnit="degC")=300.15
     "Maximum active cooling setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActCoo_min(
     unit="K",
     displayUnit="degC")=295.15
     "Minimum active cooling setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActHea_max(
     unit="K",
     displayUnit="degC")=295.15
     "Maximum active heating setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActHea_min(
     unit="K",
     displayUnit="degC")=291.15
     "Minimum active heating setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TWinOpeCooSet(
     unit="K",
     displayUnit="degC")=322.15
     "Cooling setpoint when window is open"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TWinOpeHeaSet(
     unit="K",
     displayUnit="degC")=277.15
     "Heating setpoint when window is open"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_2=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_3=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_1=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_2=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_3=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real bouLim=1
     "Threshold of temperature difference for indicating the end of setback or setup mode"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced"));
   parameter Real uLow=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced"));
   parameter Real uHigh=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced"));
   parameter Real preWarCooTim(unit="s")=10800
     "Maximum cool-down or warm-up time"
-    annotation (Dialog(tab="Advanced", group="Operating mode"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Operating mode"));
   parameter Real TZonFreProOn(
     unit="K",
     displayUnit="degC")=277.15
     "Threshold temperature to activate the freeze protection mode"
-    annotation (Dialog(tab="Advanced", group="Operating mode"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Operating mode"));
   parameter Real TZonFreProOff(
     unit="K",
     displayUnit="degC")=280.15
     "Threshold temperature to end the freeze protection mode"
-    annotation (Dialog(tab="Advanced", group="Operating mode"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Operating mode"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",

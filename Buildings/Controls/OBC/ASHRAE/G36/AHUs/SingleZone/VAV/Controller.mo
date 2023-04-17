@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
+﻿within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV;
 block Controller
   "Single Zone AHU controller that composes subsequences for controlling fan speed, economizer, and supply air temperature"
 
@@ -7,157 +7,199 @@ block Controller
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
-    "Economizer high limit control device";
+    "Economizer high limit control device"
+    annotation (__cdl(ValueInReference=False));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Boolean have_frePro=true
-    "True: enable freeze protection";
+    "True: enable freeze protection"
+    annotation (__cdl(ValueInReference=False));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
-    annotation (Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=False), Dialog(enable=have_frePro));
 
   parameter Boolean have_winSen=false
-    "Check if the zone has window status sensor";
+    "Check if the zone has window status sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_occSen=false
-    "Check if the zone has occupancy sensor";
+    "Check if the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_hotWatCoi=true
-    "True: the AHU has hot water heating coil";
+    "True: the AHU has hot water heating coil"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_eleHeaCoi=false
-    "True: the AHU has electric heating coil";
+    "True: the AHU has electric heating coil"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_CO2Sen=true
-    "True: the zone has CO2 sensor";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
-       BarometricRelief
-    "Type of building pressure control system";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=False));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=
+    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief
+    "Type of building pressure control system"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
-    annotation (Dialog(enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Real VAreBreZon_flow(unit="m3/s")=0
     "Design area component of the breathing zone outdoor airflow"
-    annotation(Dialog(group="Design conditions",
-                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Design conditions",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VPopBreZon_flow(unit="m3/s")=0
     "Design population component of the breathing zone outdoor airflow"
-    annotation(Dialog(group="Design conditions",
-                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(group="Design conditions",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   // ----------- parameters for setpoint adjustment -----------
   parameter Boolean have_locAdj=true
     "True: the zone has local setpoint adjustment knob"
-    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
   parameter Boolean sepAdj=true
     "True: cooling and heating setpoint can be adjusted separately"
-    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings", enable=have_locAdj));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Setpoints adjustment", group="Adjustable settings", enable=have_locAdj));
   parameter Boolean ignDemLim=true
     "Flag, set to true to exempt individual zone from demand limit setpoint adjustment"
-    annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
   parameter Real TActCoo_max(
     unit="K",
     displayUnit="degC")=300.15
     "Maximum cooling setpoint during on"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActCoo_min(
     unit="K",
     displayUnit="degC")=295.15
     "Minimum cooling setpoint during on"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActHea_max(
     unit="K",
     displayUnit="degC")=295.15
     "Maximum heating setpoint during on"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActHea_min(
     unit="K",
     displayUnit="degC")=291.15
     "Minimum heating setpoint during on"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TWinOpeCooSet(
     unit="K",
     displayUnit="degC")=322.15
     "Cooling setpoint when window is open"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TWinOpeHeaSet(
     unit="K",
     displayUnit="degC")=277.15
     "Heating setpoint when window is open"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1(unit="K")=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_2(unit="K")=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_3(unit="K")=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_1(unit="K")=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_2(unit="K")=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_3(unit="K")=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real preWarCooTim(unit="s")=10800
     "Maximum cool-down or warm-up time"
-    annotation (Dialog(tab="Setpoints adjustment", group="Operation mode"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Operation mode"));
   parameter Real TZonFreProOn(
     unit="K",
     displayUnit="degC")=277.15
     "Threshold temperature to activate the freeze protection mode"
-    annotation (Dialog(tab="Setpoints adjustment", group="Operation mode"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Operation mode"));
   parameter Real TZonFreProOff(
     unit="K",
     displayUnit="degC")=280.15
     "Threshold temperature to end the freeze protection mode"
-    annotation (Dialog(tab="Setpoints adjustment", group="Operation mode"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Operation mode"));
   parameter Real bouLim=1
     "Threshold of temperature difference for indicating the end of setback or setup mode"
-    annotation (Dialog(tab="Setpoints adjustment", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Setpoints adjustment", group="Hysteresis"));
   parameter Real uLow=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Setpoints adjustment", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Setpoints adjustment", group="Hysteresis"));
   parameter Real uHigh=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Setpoints adjustment", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Setpoints adjustment", group="Hysteresis"));
 
   // ----------- parameters for cooling and heating loop -----------
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooLooCon=
      Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Cooling loop controller type"
-    annotation (Dialog(tab="Loops control", group="Cooling loop"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Cooling loop"));
   parameter Real kCoo(unit="1/K")=0.1
     "Gain for cooling control loop signal"
-    annotation(Dialog(tab="Loops control", group="Cooling loop"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Cooling loop"));
   parameter Real TiCoo(unit="s")=900
     "Time constant of integrator block for cooling control loop signal"
-    annotation(Dialog(tab="Loops control", group="Cooling loop",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Cooling loop",
       enable=cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCoo(unit="s")=0.1
     "Time constant of derivative block for cooling control loop signal"
-    annotation (Dialog(tab="Loops control", group="Cooling loop",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Cooling loop",
       enable=cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or cooLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaLooCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating loop controller type"
-    annotation(Dialog(tab="Loops control", group="Heating loop"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Heating loop"));
   parameter Real kHea(unit="1/K")=0.1
     "Gain for heating control loop signal"
-    annotation(Dialog(tab="Loops control", group="Heating loop"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Heating loop"));
   parameter Real TiHea(unit="s")=900
     "Time constant of integrator block for heating control loop signal"
-    annotation(Dialog(tab="Loops control", group="Heating loop",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Heating loop",
       enable=heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdHea(unit="s")=0.1
     "Time constant of derivative block for heating control loop signal"
-    annotation (Dialog(tab="Loops control", group="Heating loop",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Loops control", group="Heating loop",
       enable=heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or heaLooCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -166,254 +208,303 @@ block Controller
     unit="K",
     displayUnit="degC")=303.15
     "Maximum supply air temperature for heating"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSup_min(
     unit="K",
     displayUnit="degC")=291.15
     "Minimum supply air temperature for cooling"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSupDew_max(
     unit="K",
     displayUnit="degC")=290.15
     "Maximum supply air dew-point temperature. It's typically only needed in humid type “A” climates. A typical value is 17°C.
     For mild and dry climates, a high set point (e.g. 24°C) should be entered for maximum efficiency"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSupDea_min(
     unit="K",
     displayUnit="degC")=294.15
     "Minimum supply temperature when it is in deadband state"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real TSupDea_max(
     unit="K",
     displayUnit="degC")=297.15
     "Maximum supply temperature when it is in deadband state"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real temPoiOne=0.5
     "Point 1 on x-axis of control map for temperature control, when it is in heating state"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real temPoiTwo=0.25
     "Point 2 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real temPoiThr=0.5
     "Point 3 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real temPoiFou=0.75
     "Point 4 on x-axis of control map for temperature control, when it is in cooling state"
-    annotation (Dialog(tab="Supply setpoints", group="Temperature"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Temperature"));
   parameter Real maxHeaSpe(unit="1")=1
     "Maximum fan speed for heating"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real maxCooSpe(unit="1")=1
     "Maximum fan speed for cooling"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real minSpe(unit="1")=0.1
     "Minimum fan speed"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real spePoiOne=0.5
     "Point 1 on x-axis of control map for speed control, when it is in heating state"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real spePoiTwo=0.25
     "Point 2 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real spePoiThr=0.5
     "Point 3 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real spePoiFou=0.75
     "Point 4 on x-axis of control map for speed control, when it is in cooling state"
-    annotation (Dialog(tab="Supply setpoints", group="Fan speed"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Supply setpoints", group="Fan speed"));
   parameter Real looHys=0.05
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Supply setpoints", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Supply setpoints", group="Hysteresis"));
 
   // ----------- parameters for minimum outdoor airflow setpoints -----------
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
                               and have_occSen));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real zonDisEff_heat=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Outdoor airflow", group="ASHRAE62.1",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VOccMin_flow=0
     "Zone minimum outdoor airflow for occupants"
-    annotation (Dialog(tab="Outdoor airflow", group="Title 24",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Outdoor airflow", group="Title 24",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VAreMin_flow=0
     "Zone minimum outdoor airflow for building area"
-    annotation (Dialog(tab="Outdoor airflow", group="Title 24",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Outdoor airflow", group="Title 24",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VZonMin_flow=0
     "Design zone minimum airflow setpoint"
-    annotation (Dialog(tab="Outdoor airflow", group="Title 24",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Outdoor airflow", group="Title 24",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
 
   // ----------- parameters for economizer control -----------
   parameter Real uMin(unit="1")=0.1
     "Lower limit of controller output at which the dampers are at their limits"
-    annotation (Dialog(tab="Economizer"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer"));
   parameter Real uMax(unit="1")=0.9
     "Upper limit of controller output at which the dampers are at their limits"
-    annotation (Dialog(tab="Economizer"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController ecoModCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Economizer", group="Modulation"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer", group="Modulation"));
   parameter Real kMod=1 "Gain of modulation controller"
-    annotation (Dialog(tab="Economizer", group="Modulation"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer", group="Modulation"));
   parameter Real TiMod(unit="s")=300
     "Time constant of modulation controller integrator block"
-    annotation (Dialog(tab="Economizer", group="Modulation",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer", group="Modulation",
       enable=ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdMod(unit="s")=0.1
     "Time constant of derivative block for modulation controller"
-    annotation (Dialog(tab="Economizer", group="Modulation",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer", group="Modulation",
       enable=ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or ecoModCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real supFanSpe_min(unit="1")=0.1
     "Minimum supply fan operation speed"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Economizer", group="Commissioning"));
   parameter Real supFanSpe_max(unit="1")=0.9
     "Maximum supply fan operation speed"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real VOutMin_flow(unit="m3/s")=1.0
     "Calculated minimum outdoor airflow rate"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real VOutDes_flow(unit="m3/s")=2.0
     "Calculated design outdoor airflow rate"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamMinFloMinSpe(unit="1")=0.4
     "Outdoor air damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamMinFloMaxSpe(unit="1")=0.3
     "Outdoor air damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamDesFloMinSpe(unit="1")=0.9
     "Outdoor air damper position to supply design outdoor airflow at minimum fan speed"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamDesFloMaxSpe(unit="1")=0.8
     "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
-    annotation (Dialog(tab="Economizer", group="Commissioning"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Commissioning"));
   parameter Real delTOutHys(
     unit="K",
     displayUnit="K")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Economizer", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Economizer", group="Hysteresis"));
 
   // ----------- parameters for cooling coil control -----------
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController cooCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(tab="Cooling coil"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Cooling coil"));
   parameter Real kCooCoi(unit="1/K")=0.1
     "Gain for cooling coil control loop signal"
-    annotation (Dialog(tab="Cooling coil"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Cooling coil"));
   parameter Real TiCooCoi(unit="s")=900
     "Time constant of integrator block for cooling coil control loop signal"
-    annotation (Dialog(tab="Cooling coil",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Cooling coil",
       enable=cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoi(unit="s")=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (Dialog(tab="Cooling coil",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Cooling coil",
       enable=cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or cooCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   // ----------- parameters for freeze protection -----------
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation (Dialog(tab="Freeze protection", enable=have_frePro));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Freeze protection", enable=have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController freHeaCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=have_hotWatCoi and have_frePro));
   parameter Real kFreHea=1 "Gain of coil controller"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=have_hotWatCoi and have_frePro));
   parameter Real TiFreHea(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Freeze protection", group="Heating coil control",
       enable=have_hotWatCoi and have_frePro and
             (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
              or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFreHea(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Freeze protection", group="Heating coil control",
       enable=have_hotWatCoi and have_frePro and
              (freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or freHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFreHea=1
     "Upper limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=have_hotWatCoi and have_frePro));
   parameter Real yMinFreHea=0
     "Lower limit of output"
-    annotation (Dialog(tab="Freeze protection", group="Heating coil control",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Freeze protection", group="Heating coil control",
                        enable=have_hotWatCoi and have_frePro));
 
   // ----------- parameters for building pressure control -----------
   parameter Real relDam_min(unit="1")=0.1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is positioned to provide minimum outdoor air while the supply fan is at minimum speed"
-    annotation (Dialog(tab="Pressure control", group="Relief damper",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Pressure control", group="Relief damper",
                        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
   parameter Real relDam_max(unit="1")=1
     "Relief-damper position that maintains a building pressure of 12 Pa while the economizer damper is fully open and the fan speed is at cooling maximum"
-    annotation (Dialog(tab="Pressure control", group="Relief damper",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Pressure control", group="Relief damper",
                        enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure"
-    annotation (Dialog(tab="Pressure control", group="Return fan",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Pressure control", group="Return fan",
                        enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                             or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
   parameter Real dpBuiSet(
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
-    annotation (Dialog(tab="Pressure control",
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Pressure control",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed"
-    annotation (Dialog(tab="Pressure control", group="Relief fan",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Pressure control", group="Relief fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
   parameter Real kRelFan(unit="1")=1
     "Gain of relief fan controller, normalized using dpBuiSet"
-    annotation (Dialog(tab="Pressure control", group="Relief fan",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Pressure control", group="Relief fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
 
   // ----------- Advanced -----------
   parameter Real posHys=0.01 "Hysteresis for damper position check"
-    annotation (Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis"));
   parameter Real delEntHys(unit="J/kg")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation(Dialog(tab="Advanced", group="Hysteresis",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis",
                       enable = (ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                              or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb)));
   parameter Real floHys(unit="m3/s")=0.01*VOutMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Advanced", group="Hysteresis"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",

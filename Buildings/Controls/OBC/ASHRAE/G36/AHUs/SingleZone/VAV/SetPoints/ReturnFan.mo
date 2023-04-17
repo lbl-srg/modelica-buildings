@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block ReturnFan "Return fan control for single zone AHU"
 
   parameter Real speDif=-0.1
-    "Speed difference between supply and return fan to maintain building pressure at desired pressure";
+    "Speed difference between supply and return fan to maintain building pressure at desired pressure"
+    annotation (__cdl(ValueInReference=False));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,
