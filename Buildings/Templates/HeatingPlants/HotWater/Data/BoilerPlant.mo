@@ -124,13 +124,17 @@ record BoilerPlant "Record for HW plant model"
     annotation(Dialog(group="Primary HW loop", enable=have_boiNon));
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinBypCon(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=max(ctl.VHeaWatBoiCon_flow_min) * rho_default,
+    m_flow_nominal=
+      if have_valHeaWatMinBypCon then max(ctl.VHeaWatBoiCon_flow_min) * rho_default
+      else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve - Condensing boilers"
     annotation(Dialog(group="Primary HW loop", enable=have_valHeaWatMinBypCon));
   parameter Buildings.Templates.Components.Data.Valve valHeaWatMinBypNon(
     final typ=Buildings.Templates.Components.Types.Valve.TwoWayModulating,
-    m_flow_nominal=max(ctl.VHeaWatBoiNon_flow_min) * rho_default,
+    m_flow_nominal=
+      if have_valHeaWatMinBypNon then max(ctl.VHeaWatBoiNon_flow_min) * rho_default
+      else 0,
     dpValve_nominal=Buildings.Templates.Data.Defaults.dpValBypMin)
     "HW minimum flow bypass valve - Non-condensing boilers"
     annotation(Dialog(group="Primary HW loop", enable=have_valHeaWatMinBypNon));
