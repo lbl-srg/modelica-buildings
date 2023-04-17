@@ -29,12 +29,6 @@ block FlowControl
     "Secondary pump normalised speed" annotation (Placement(transformation(
           extent={{580,-20},{600,0}}), iconTransformation(extent={{100,-10},{
             120,10}})));
-  Modelica.Blocks.Interfaces.BooleanInput tanIsFul "Tank is full" annotation (
-      Placement(transformation(extent={{-120,10},{-100,30}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
-  Modelica.Blocks.Interfaces.BooleanInput tanIsDep "Tank is depleted"
-    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{420,80},{440,100}})));
   Modelica.StateGraph.InitialStep allOff(nOut=1, nIn=1) "Initial step, all off"
@@ -59,7 +53,7 @@ block FlowControl
          or (not traChiOff.condition)) "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
   Modelica.StateGraph.Transition traChiOut(condition=hasLoa and ((not tanCom
-         == 3) or tanIsDep) and chiIsOnl)
+         == 3) or tanSta[1]) and chiIsOnl)
     "Transition: District has load, tank is unavailable but chiller is available"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
   Modelica.StateGraph.Step steChiOut(nIn=1, nOut=1) "Step: Chiller output"
@@ -68,7 +62,7 @@ block FlowControl
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{260,-80},{280,-60}})));
   Modelica.StateGraph.Transition traTanOut(condition=hasLoa and tanCom == 3
-         and (not tanIsDep))
+         and (not tanSta[1]))
     "Transition: District has load, tank commanded to discharge and is not depleted"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
   Modelica.StateGraph.Step steTanOut(nIn=1, nOut=1) "Step: Tank output"
@@ -91,8 +85,8 @@ block FlowControl
   Modelica.StateGraph.Alternative altTanCha(nBranches=2)
     "Alternative: Tank charging locally or remotely"
     annotation (Placement(transformation(extent={{142,10},{318,90}})));
-  Modelica.StateGraph.Transition traChaTan(condition=tanCom == 1 and not
-        tanIsFul) "Transition: Tank commanded to charge and is not full"
+  Modelica.StateGraph.Transition traChaTan(condition=tanCom == 1 and not tanSta[
+        2])       "Transition: Tank commanded to charge and is not full"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.StateGraph.Step steChaTan(nIn=1, nOut=1) "Step: Charge tank"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
@@ -119,6 +113,10 @@ block FlowControl
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiVal(realTrue=
         mTan_flow_nominal, realFalse=0) "Switch for valve flow"
     annotation (Placement(transformation(extent={{460,-80},{480,-60}})));
+  Modelica.Blocks.Interfaces.BooleanInput tanSta[3]
+    "Tank status - 1: is depleted; 2: is cooled; 3: is overcooled" annotation (
+      Placement(transformation(extent={{-120,-10},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
 equation
   connect(traChiOnl.outPort, steLocCha.inPort[1])
     annotation (Line(points={{191.5,70},{219,70}}, color={0,0,0}));

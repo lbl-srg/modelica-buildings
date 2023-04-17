@@ -27,10 +27,11 @@ block TankStatus "Block that returns the status of the tank"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.StateGraph.InitialStep iniSte(nOut=1, nIn=1) "Initial step"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Modelica.StateGraph.Transition traDep(condition=TTan[1] > THig - dTUnc)
+  Modelica.StateGraph.Transition traDep(condition=TTan[2] > THig - dTUnc)
     "Transition: Tank is depleted"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.StateGraph.Transition traCoo(condition=TTan[2] < TLow - dTHys)
+  Modelica.StateGraph.Transition traCoo(condition=TTan[1] < TLow + dTHys -
+        dTUnc)
     "Transition: Tank is cooled"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.StateGraph.StepWithSignal steDep(nIn=1, nOut=1)
@@ -45,19 +46,20 @@ block TankStatus "Block that returns the status of the tank"
   Modelica.StateGraph.Alternative altOveCoo(nBranches=2)
     "Alternative: Reset or tank is overcooled"
     annotation (Placement(transformation(extent={{112,-100},{276,0}})));
-  Modelica.StateGraph.Transition traRes1(condition=TTan[1] < THig - dTHys)
+  Modelica.StateGraph.Transition traRes1(condition=TTan[2] < THig - dTHys)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{180,20},{200,40}})));
-  Modelica.StateGraph.Transition traCoo2(condition=TTan[2] < TLow + dTUnc)
+  Modelica.StateGraph.Transition traCoo2(condition=TTan[1] < TLow + dTUnc)
     "Transition: Tank is cooled"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
-  Modelica.StateGraph.Transition traRes2(condition=TTan[2] > TLow + dTHys)
+  Modelica.StateGraph.Transition traRes2(condition=TTan[1] > TLow + dTHys +
+        dTUnc)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
   Modelica.StateGraph.StepWithSignal steOveCoo(nIn=1, nOut=1)
     "Step: Tank is overcooled"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
-  Modelica.StateGraph.Transition traRes3(condition=TTan[2] > TLow + dTHys)
+  Modelica.StateGraph.Transition traRes3(condition=traRes2.condition)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[3]

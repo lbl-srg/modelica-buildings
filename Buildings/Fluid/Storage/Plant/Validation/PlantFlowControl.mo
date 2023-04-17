@@ -23,8 +23,7 @@ model PlantFlowControl
     final nom=nom,
     VTan=0.2,
     hTan=1,
-    dIns=0.3,
-    nSeg=3)
+    dIns=0.3)
     "Tank branch, tank can be charged remotely" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -37,7 +36,7 @@ model PlantFlowControl
     T_CHWS_nominal=280.15,
     T_CHWR_nominal=285.15) "Nominal values of the storage plant"
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.TankStatus tanSta(
+  Buildings.Fluid.Storage.Plant.Controls.TankStatus tanSta(
     TLow=nom.T_CHWS_nominal,
     THig=nom.T_CHWR_nominal) "Tank status"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
@@ -102,10 +101,6 @@ equation
           -16},{-88,10},{-80,10}}, color={0,127,255}));
   connect(bouRet.ports[1], tanBra.port_aRetNet) annotation (Line(points={{80,-30},
           {20,-30},{20,-16},{10,-16}},      color={0,127,255}));
-  connect(tanSta.isFul, floCon.tanIsFul) annotation (Line(points={{61,-44},{68,
-          -44},{68,-68},{-96,-68},{-96,52},{-81,52}}, color={255,0,255}));
-  connect(tanSta.isDep, floCon.tanIsDep) annotation (Line(points={{61,-56},{64,
-          -56},{64,-64},{-92,-64},{-92,48},{-81,48}}, color={255,0,255}));
   connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-119,50},{-100,50},
           {-100,56},{-81,56}},
                              color={255,127,0}));
@@ -130,6 +125,8 @@ equation
           28},{-36,28},{-36,18}}, color={0,0,127}));
   connect(tanBra.TTan, tanSta.TTan) annotation (Line(points={{11,-20},{16,-20},
           {16,-50},{39,-50}}, color={0,0,127}));
+  connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-50},{64,-50},{
+          64,-66},{-94,-66},{-94,50},{-81,50}}, color={255,0,255}));
     annotation(experiment(Tolerance=1e-06, StopTime=3000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/PlantFlowControl.mos"
         "Simulate and plot"),

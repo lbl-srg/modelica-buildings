@@ -19,7 +19,7 @@ model TankBranch
   parameter Modelica.Units.SI.ThermalConductivity kIns=0.04
     "Specific heat conductivity of insulation"
     annotation(Dialog(group="Tank"));
-  parameter Integer nSeg(min=2) = 2 "Number of volume segments"
+  parameter Integer nSeg(min=2) = 5 "Number of volume segments"
     annotation(Dialog(group="Tank"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.FixedInitial
