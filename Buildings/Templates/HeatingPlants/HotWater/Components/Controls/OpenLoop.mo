@@ -85,11 +85,11 @@ block OpenLoop
     "Primary HW pump speed signal - Non-condensing Boilers"
     annotation (Placement(transformation(extent={{-60,10},{-80,30}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[
-    nPumHeaWatSec](
-    table=y1Con_default.table,
-    timeScale=y1Con_default.timeScale,
-    period=y1Con_default.period) if typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
+  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable y1PumHeaWatSec[nPumHeaWatSec](
+    each table=[0,0; 1,1; 2,0],
+    each timeScale=1000,
+    each period=2000)
+    if typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
     "Secondary HW pump Enable signal"
     annotation (Placement(transformation(extent={{-120,-50},{-140,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yPumHeaWatSec(

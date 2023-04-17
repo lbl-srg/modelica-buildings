@@ -44,8 +44,8 @@ MODIF_GRID = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant':
         dict(
             BOI__typ=[
-                # 'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
-                # 'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
+                'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
+                'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
             ],
             BOI__nBoiCon_select=[

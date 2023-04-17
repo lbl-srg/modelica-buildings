@@ -22,11 +22,11 @@ model BoilerPlantOpenLoop
 
   inner Buildings.Templates.HeatingPlants.HotWater.BoilerPlant BOI(
     redeclare final package Medium = Medium,
-    redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.OpenLoop ctl,
-    typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing,
-    nBoiCon_select=2,
-    typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
-    typArrPumHeaWatPriCon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+    redeclare replaceable Buildings.Templates.HeatingPlants.HotWater.Components.Controls.OpenLoop ctl,
+    typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing,
+    nBoiNon_select=2,
+    typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
+    typArrPumHeaWatPriNon=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
     typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
     final energyDynamics=energyDynamics,
     final tau=tau,
