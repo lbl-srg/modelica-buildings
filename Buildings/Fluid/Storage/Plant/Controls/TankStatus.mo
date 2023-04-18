@@ -30,8 +30,7 @@ block TankStatus "Block that returns the status of the tank"
   Modelica.StateGraph.Transition traDep(condition=TTan[2] > THig - dTUnc)
     "Transition: Tank is depleted"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
-  Modelica.StateGraph.Transition traCoo(condition=TTan[1] < TLow + dTHys -
-        dTUnc)
+  Modelica.StateGraph.Transition traCoo(condition=TTan[1] < TLow + dTHys)
     "Transition: Tank is cooled"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Modelica.StateGraph.StepWithSignal steDep(nIn=1, nOut=1)
@@ -52,8 +51,7 @@ block TankStatus "Block that returns the status of the tank"
   Modelica.StateGraph.Transition traCoo2(condition=TTan[1] < TLow + dTUnc)
     "Transition: Tank is cooled"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
-  Modelica.StateGraph.Transition traRes2(condition=TTan[1] > TLow + dTHys +
-        dTUnc)
+  Modelica.StateGraph.Transition traRes2(condition=TTan[1] > TLow + dTHys*2)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
   Modelica.StateGraph.StepWithSignal steOveCoo(nIn=1, nOut=1)

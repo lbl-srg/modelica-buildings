@@ -52,8 +52,8 @@ block FlowControl
   Modelica.StateGraph.Transition traRes2(condition=(not traChaTan.condition)
          or (not traChiOff.condition)) "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
-  Modelica.StateGraph.Transition traChiOut(condition=hasLoa and ((not tanCom
-         == 3) or tanSta[1]) and chiIsOnl)
+  Modelica.StateGraph.Transition traChiOut(condition=hasLoa and (((tanCom <> 3
+         or tanSta[1]) and chiIsOnl) and not tanSta[3]))
     "Transition: District has load, tank is unavailable but chiller is available"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
   Modelica.StateGraph.Step steChiOut(nIn=1, nOut=1) "Step: Chiller output"
@@ -61,8 +61,8 @@ block FlowControl
   Modelica.StateGraph.Transition traRes4(condition=not traChiOut.condition)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{260,-80},{280,-60}})));
-  Modelica.StateGraph.Transition traTanOut(condition=hasLoa and tanCom == 3
-         and (not tanSta[1]))
+  Modelica.StateGraph.Transition traTanOut(condition=hasLoa and (tanCom == 3
+         and (not tanSta[1]) or tanSta[3]))
     "Transition: District has load, tank commanded to discharge and is not depleted"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
   Modelica.StateGraph.Step steTanOut(nIn=1, nOut=1) "Step: Tank output"

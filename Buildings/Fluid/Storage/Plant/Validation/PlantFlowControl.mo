@@ -63,17 +63,15 @@ model PlantFlowControl
     mTan_flow_nominal=nom.mTan_flow_nominal)
     "Block for primary and secondary pump and valve flow control"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(
-    table=[0,2; 200,1; 1000,2; 1200,3; 2000,2; 2200,1])
+  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 100,1; 1000,2; 1500,3;
+        2300,2; 2500,1])
     "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-  Modelica.Blocks.Sources.BooleanTable chiOnl(
-    table={0,2000},
+  Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,2300},
     startValue=false)
     "Chiller is online"
     annotation (Placement(transformation(extent={{-140,0},{-120,20}})));
-  Modelica.Blocks.Sources.BooleanTable hasLoa(
-    table={1000,2000},
+  Modelica.Blocks.Sources.BooleanTable hasLoa(table={600,2200},
     startValue=false) "The system has load"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
   Buildings.Fluid.Storage.Plant.ReversibleConnection revCon(
@@ -81,8 +79,6 @@ model PlantFlowControl
      final nom=nom)
                    "Reversible connection"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Modelica.Blocks.Sources.Constant y(k=1) "Constant pump speed"
-    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     u_nominal=nom.m_flow_nominal,
     final n=2,
@@ -91,6 +87,9 @@ model PlantFlowControl
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final y_start=0)       "Second order filter to improve numerics"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Modelica.Blocks.Sources.TimeTable y(table=[0,0.96; 1400,0.96; 1400,1; 3000,1])
+    "Speed of the secondary pump"
+    annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 equation
   connect(chi.port_b, pumPri.port_a)
     annotation (Line(points={{-60,10},{-40,10}}, color={0,127,255}));
@@ -117,8 +116,6 @@ equation
           {34,16},{39,16}}, color={0,0,127}));
   connect(floCon.yVal, revCon.yVal) annotation (Line(points={{-59,44},{24,44},{24,
           4},{39,4}}, color={0,0,127}));
-  connect(y.y, floCon.yPum) annotation (Line(points={{-119,90},{-100,90},{-100,60},
-          {-81,60}}, color={0,0,127}));
   connect(floCon.mPriPum_flow, fil.u) annotation (Line(points={{-59,56},{-52,56},
           {-52,90},{-42,90}}, color={0,0,127}));
   connect(fil.y, pumPri.m_flow_in) annotation (Line(points={{-19,90},{-16,90},{-16,
@@ -127,11 +124,14 @@ equation
           {16,-50},{39,-50}}, color={0,0,127}));
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-50},{64,-50},{
           64,-66},{-94,-66},{-94,50},{-81,50}}, color={255,0,255}));
+  connect(y.y, floCon.yPum) annotation (Line(points={{-119,90},{-100,90},{-100,60},
+          {-81,60}}, color={0,0,127}));
     annotation(experiment(Tolerance=1e-06, StopTime=3000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/PlantFlowControl.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
+[fixme: update documentation]
 This model validates the flow control of the storage plant.
 The time table blocks implement the following schedule for the system:
 </p>
