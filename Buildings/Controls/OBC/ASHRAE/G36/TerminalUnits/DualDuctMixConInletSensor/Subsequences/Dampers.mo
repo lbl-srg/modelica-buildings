@@ -12,32 +12,36 @@ block Dampers
     "Design zone heating maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation (__cdl(ValueInReference=False));
   parameter Real kDam(final unit="1")=0.5
-    "Gain of controller for damper control";
+    "Gain of controller for damper control"
+    annotation (__cdl(ValueInReference=False));
   parameter Real TiDam(
     final unit="s",
     final quantity="Time")=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(
+    annotation(__cdl(ValueInReference=False),
+               Dialog(
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(
+    annotation (__cdl(ValueInReference=False),
+                Dialog(
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real looHys(
     final unit="1") = 0.05
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCoo(
     final min=0,
