@@ -727,6 +727,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Sin
+    </td>
+    <td valign=\"top\">Renamed block from <code>Sine</code> to <code>Sin</code>
+                       to use consistent naming with
+                       <code>Buildings.Controls.OBC.CDL.Continuous.Sin</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>.<br/>
+                       This change is supported in the conversion script.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
     </td>
     <td valign=\"top\">Removed parameter <code>allowOutOfRange</code> and <code>outOfRangeValue</code> and output the element with the nearest valid index
@@ -3324,7 +3334,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Sources.Sine<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Sin<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable<br/>
                        Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
                        Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold<br/>

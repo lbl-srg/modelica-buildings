@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Continuous.Sources.Validation;
-model Sine
-  "Validation model for Sine"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+model Sin
+  "Validation model for Sin"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     amplitude=5,
     freqHz=1/60,
     phase=0,
@@ -14,7 +14,7 @@ model Sine
       StopTime=130.0,
       Tolerance=1e-06),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Sources/Validation/Sine.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/CDL/Continuous/Sources/Validation/Sin.mos" "Simulate and plot"),
     Documentation(
       info="<html>
 <p>
@@ -44,4 +44,4 @@ First CDL implementation.
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           points={{-36,60},{64,0},{-36,-60},{-36,60}})}));
-end Sine;
+end Sin;
