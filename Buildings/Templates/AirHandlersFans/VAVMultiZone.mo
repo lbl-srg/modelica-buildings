@@ -54,10 +54,8 @@ model VAVMultiZone "Multiple-zone VAV"
   Hence, no choices annotation, but still replaceable to access parameter
   dialog box of the component.
   */
-  inner replaceable
-    Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
-    secOutRel constrainedby
-    Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+  inner Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.MixedAirWithDamper
+    secOutRel(
     redeclare final package MediumAir = MediumAir,
     final typCtlFanRet=ctl.typCtlFanRet,
     final typCtlEco=ctl.typCtlEco,
@@ -69,7 +67,8 @@ model VAVMultiZone "Multiple-zone VAV"
       final damRet=dat.damRet,
       final fanRel=dat.fanRel,
       final fanRet=dat.fanRet))
-     "Outdoor/relief/return air section" annotation (
+     "Outdoor/relief/return air section"
+     annotation (
      Dialog(group="Configuration"), Placement(transformation(extent={{-280,-220},
             {-120,-60}})));
 
