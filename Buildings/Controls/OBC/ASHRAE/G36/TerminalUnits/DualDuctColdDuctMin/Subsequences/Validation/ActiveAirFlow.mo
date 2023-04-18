@@ -6,7 +6,7 @@ model ActiveAirFlow
     final VHeaMax_flow=0.4,
     final floHys=0.01) "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin minFlo(
     final amplitude=0.3,
     final freqHz=1/3600,
     final offset=0.2) "Occupied zone minimum flow"

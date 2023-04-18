@@ -20,14 +20,14 @@ model RoomVAV "Test model for the room VAV controller"
     duration=3600,
     offset=-4) "Ramp source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     amplitude=1,
     freqHz=1/3600,
     offset=273.15 + 23.5) "Sine source"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add rooTem "Room temperature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine disFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin disFlo(
     amplitude=0.1,
     freqHz=1/3600,
     offset=0.2) "Discharge airflow rate"

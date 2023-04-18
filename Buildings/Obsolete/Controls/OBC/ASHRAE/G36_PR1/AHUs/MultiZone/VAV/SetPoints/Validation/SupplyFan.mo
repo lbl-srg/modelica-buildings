@@ -36,12 +36,12 @@ protected
     duration=28800,
     height=6) "Ramp signal for generating operation mode"
     annotation (Placement(transformation(extent={{-200,100},{-180,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
     freqHz=1/14400,
     offset=3,
     amplitude=2)    "Generate sine signal "
     annotation (Placement(transformation(extent={{-200,-10},{-180,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine1(
     freqHz=1/14400,
     offset=200,
     amplitude=150) "Generate sine signal"
