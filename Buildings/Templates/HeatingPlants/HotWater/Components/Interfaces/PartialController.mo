@@ -48,6 +48,12 @@ block PartialController
   parameter Boolean have_valHeaWatMinBypNon
     "Set to true if the plant has a HW minimum flow bypass valve - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
+  parameter Integer nAirHan
+    "Number of air handling units served by the plant"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
+  parameter Integer nEquZon
+    "Number of terminal units (zone equipment) served by the plant"
+    annotation(Dialog(group="Configuration"), Evaluate=true);
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement typMeaCtlHeaWatPri(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor)
@@ -134,19 +140,6 @@ block PartialController
     "Number of remote HW differential pressure sensors used for HW pump speed control"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
-
-  parameter Integer nAirHan(
-    final min=0)=0
-    "Number of air handling units served by the plant"
-    annotation(Dialog(group="Configuration", enable=
-    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36),
-    Evaluate=true);
-  parameter Integer nEquZon(
-    final min=0)=0
-    "Number of terminal units (zone equipment) served by the plant"
-    annotation(Dialog(group="Configuration", enable=
-    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36),
-    Evaluate=true);
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.Controller dat(
     final typ=typ,

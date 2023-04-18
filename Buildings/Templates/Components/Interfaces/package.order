@@ -4,5 +4,8 @@ PartialBoilerHotWater
 PartialCoil
 PartialDamper
 PartialFan
+PartialPump
+PartialPumpMultiple
+PartialPumpSingle
 PartialSensor
 PartialValve
