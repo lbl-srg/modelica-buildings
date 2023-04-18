@@ -36,7 +36,7 @@ model OptimalStartHeating
     realTrue=6)
     "Convert Boolean to Real signal"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOut(
     amplitude=10,
     freqHz=1/86400,
     phase=3.1415926535898,

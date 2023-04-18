@@ -68,7 +68,6 @@ block SupplySignals
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
@@ -80,6 +79,8 @@ protected
     final y_reset=0)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
+protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));

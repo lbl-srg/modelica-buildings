@@ -77,17 +77,6 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
-  type Pump = enumeration(
-      None
-      "No pump",
-      Single
-      "Single pump",
-      Multiple
-      "Multiple pumps in parallel")
-    "Enumeration to configure the pump";
-  type PumpArrangement = enumeration(
-      Dedicated "Dedicated pumps",
-      Headered "Headered pumps") "Enumeration to specify the pump arrangement";
   type Sensor = enumeration(
       DifferentialPressure
       "Differential pressure",

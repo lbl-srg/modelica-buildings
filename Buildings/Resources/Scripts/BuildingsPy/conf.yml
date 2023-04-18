@@ -379,6 +379,18 @@
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2235
     translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Airflow
+  optimica:
+    comment: >
+      Array size mismatch in modification of the attribute quantity for the variable TZon.
+      This is a bug in OCT tracked under Modelon#2023022839000276.
+    translate: false
+- model_name: Buildings.Templates.AirHandlersFans.Validation.VAVMZControlG36Pressure
+  optimica:
+    comment: >
+      Array size mismatch in modification of the attribute quantity for the variable TZon.
+      This is a bug in OCT tracked under Modelon#2023022839000276.
+    translate: false
 - model_name: Buildings.ThermalZones.Detailed.Examples.FFD.ForcedConvection
   optimica:
     comment: See https://github.com/lbl-srg/modelica-buildings/issues/2231

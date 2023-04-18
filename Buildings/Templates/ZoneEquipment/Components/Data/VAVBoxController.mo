@@ -56,49 +56,19 @@ record VAVBoxController "Record for VAV terminal unit controller"
     enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
     typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly) and
     stdVen==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
-
-  parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
-    final min=273.15,
-    displayUnit="degC")=21+273.15
-    "Zone occupied heating temperature setpoint"
-    annotation(Dialog(group="Temperature",
-    enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
-    typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
-  parameter Modelica.Units.SI.Temperature TZonHeaUnoSet(
-    final min=273.15,
-    displayUnit="degC")=16+273.15
-    "Zone unoccupied heating temperature setpoint"
-    annotation(Dialog(group="Temperature",
-    enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
-    typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
-  parameter Modelica.Units.SI.Temperature TZonCooOccSet(
-    final min=273.15,
-    displayUnit="degC")=24+273.15
-    "Zone occupied cooling temperature setpoint"
-    annotation(Dialog(group="Temperature",
-    enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
-    typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
-  parameter Modelica.Units.SI.Temperature TZonCooUnoSet(
-    final min=273.15,
-    displayUnit="degC")=32+273.15
-    "Zone unoccupied cooling temperature setpoint"
-    annotation(Dialog(group="Temperature",
-    enable=(typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
-    typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly)));
   parameter Modelica.Units.SI.TemperatureDifference dTAirDisHea_max(
     final min=0,
     displayUnit="K")=11
     "Zone maximum discharge air temperature above heating setpoint"
     annotation (Dialog(group="Temperature",
     enable=typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat));
-
   parameter Modelica.Units.SI.VolumeFlowRate VAirCooSet_flow_max(
     final min=0,
     start=1)
     "Zone maximum cooling airflow setpoint"
     annotation (Dialog(group="Airflow"));
 
-  /* FIXME #1913: This should be an optional entry. If no value is scheduled,
+  /* RFE #1913: This should be an optional entry. If no value is scheduled,
   Vmin should be calculated automatically and dynamically to meet ventilation requirements.
   */
   parameter Modelica.Units.SI.VolumeFlowRate VAirSet_flow_min(

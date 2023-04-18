@@ -8,7 +8,7 @@ model SupplyTemperature
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setZonTem(
     k=22.5 + 273.15) "Average of heating and cooling setpoint"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTem(
     amplitude=5,
     freqHz=1/86400,
     offset=18 + 273.15) "Outdoor air temperature"
@@ -24,7 +24,7 @@ model SupplyTemperature
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
     amplitude=6, freqHz=1/86400)
     "Block generates sine signal"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));

@@ -217,12 +217,12 @@ block G36VAVMultiZone
     "Sum up signals"
     annotation (Placement(transformation(extent={{-140,50},{-120,70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1FreSta(k=false)
-    "FIXME #1913: How to deal with that?"
-    annotation (Placement(transformation(extent={{-280,50},{-260,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant FIXME_u1SofSwiRes(k=false)
-    "FIXME #1913: How to deal with that?"
-    annotation (Placement(transformation(extent={{-280,10},{-260,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1FreSta(k=false)
+    "RFE: Freezestat and freezestat reset are currently not modeled"
+    annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant u1SofSwiRes(k=false)
+    "RFE: Freezestat and freezestat reset are currently not modeled"
+    annotation (Placement(transformation(extent={{-140,-130},{-120,-110}})));
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator y1FanSup_actual(
     final nout=nZon)
     "Pass signal to terminal unit bus"
@@ -330,10 +330,6 @@ equation
   connect(TAirSupSet.y, busTer.TAirSupSet);
   connect(TAirSup.y, busTer.TAirSup);
   connect(y1FanSup_actual.y, busTer.y1FanSup_actual);
-
-  // FIXME #1913: connect statements to be updated when FIXME tags above are addressed.
-  connect(FIXME_u1FreSta.y, ctl.u1FreSta);
-  connect(FIXME_u1SofSwiRes.y, ctl.u1SofSwiRes);
 
   /* Control point connection - stop */
 
@@ -456,6 +452,10 @@ equation
   connect(ahuMod.yAhuOpeMod, ctl.uAhuOpeMod) annotation (Line(points={{-68,80},
           {-60,80},{-60,70.3636},{-44,70.3636}},color={255,127,0}));
 
+  connect(u1FreSta.y, ctl.u1FreSta) annotation (Line(points={{-118,-80},{-60,
+          -80},{-60,-26.1818},{-44,-26.1818}}, color={255,0,255}));
+  connect(u1SofSwiRes.y, ctl.u1SofSwiRes) annotation (Line(points={{-118,-120},
+          {-56,-120},{-56,-32.7273},{-44,-32.7273}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

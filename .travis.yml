@@ -40,7 +40,7 @@ env:
 
   jobs:
     - TEST_ARG="make test-cdl-conformance"
-    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-openmodelica-spawn-spaces" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
+    - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-openmodelica-spawn-spaces test-openmodelica-cdl" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
     - TEST_ARG="make test-bestest"
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.{Air,Examples}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.{Air,Examples}\""
@@ -96,6 +96,8 @@ env:
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Utilities\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Utilities\""
+    - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Templates\""
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Templates\""
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

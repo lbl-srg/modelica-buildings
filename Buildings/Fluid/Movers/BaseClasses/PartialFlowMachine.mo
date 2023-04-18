@@ -241,12 +241,6 @@ protected
     "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
     annotation (Placement(transformation(extent={{20,61},{40,80}})));
 
-  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
- if inputType == Buildings.Fluid.Types.InputType.Continuous and
-    speedIsInput
-    "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
-    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
-
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
     final m_flow_small=m_flow_small,
@@ -652,6 +646,12 @@ See discussions in
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Removed the gain block that normalised the speed input
+because it is no longer needed. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 March 1, 2023, by Hongxiang Fu:<br/>
 Instead of extending

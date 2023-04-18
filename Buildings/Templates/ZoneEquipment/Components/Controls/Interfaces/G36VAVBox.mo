@@ -72,27 +72,6 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
      dat.effAirDisCoo
     "Zone air distribution effectiveness during cooling";
 
-  // FIXME #1913: should be inputs such as in Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints
-  final parameter Modelica.Units.SI.Temperature TZonHeaOccSet(
-    displayUnit="degC")=
-    dat.TZonHeaOccSet
-    "Zone occupied heating setpoint";
-
-  final parameter Modelica.Units.SI.Temperature TZonHeaUnoSet(
-    displayUnit="degC")=
-    dat.TZonHeaUnoSet
-    "Zone unoccupied heating setpoint";
-
-  final parameter Modelica.Units.SI.Temperature TZonCooOccSet(
-    displayUnit="degC")=
-    dat.TZonCooOccSet
-    "Zone occupied cooling setpoint";
-
-  final parameter Modelica.Units.SI.Temperature TZonCooUnoSet(
-    displayUnit="degC")=
-    dat.TZonCooUnoSet
-    "Zone unoccupied cooling setpoint";
-
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller ctlReh(
     final venStd=stdVen,
     final have_winSen=have_winSen,
@@ -135,16 +114,14 @@ block G36VAVBox "Guideline 36 controller for VAV terminal unit"
     "Compute zone temperature setpoints"
     annotation (Placement(transformation(extent={{-60,-20},{-40,20}})));
 
-  // FIXME #1913: occDen should not be exposed.
-
   Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus zonSta(
     final have_winSen=have_winSen)
     "Evaluate zone temperature status"
-    annotation (Placement(transformation(extent={{-10,-120},{10,-92}})));
+    annotation (Placement(transformation(extent={{0,-120},{20,-92}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant FIXME_cooDowWarUpTim(k=1800)
-    "FIXME #1913: Optimal start using global outdoor air temperature not associated with any AHU"
-    annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowWarUpTim(k=3600)
+    "RFE: Optimal start (using global OA temperature not associated with any AHU) not implemented"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant setAdj(k=0)
     "RFE: Setpoint adjustment by the occupant is not implemented in the template"
     annotation (Placement(transformation(extent={{-160,170},{-140,190}})));
@@ -181,7 +158,6 @@ equation
   connect(bus.yOveDamPos, ctlReh.oveDamPos);
   connect(bus.y1OveHeaOff, ctlReh.uHeaOff);
 
-
   connect(bus.TZon, ctlCoo.TZon);
   connect(bus.y1Win, ctlCoo.u1Win);
   connect(bus.y1Occ, ctlCoo.u1Occ);
@@ -197,9 +173,6 @@ equation
 
   connect(bus.y1Occ, TZonSet.u1Occ);
   connect(bus.y1Win, TZonSet.u1Win);
-
-  // FIXME: add point to bus
-  connect(bus.ppmCO2Set, ctlReh.ppmCO2Set);
 
   connect(bus.y1Win, zonSta.u1Win);
   connect(bus.TZon, zonSta.TZon);
@@ -251,10 +224,6 @@ equation
   connect(zonSta.yHigUnoCoo, bus.yHigUnoCoo);
   connect(zonSta.yEndSetUp, bus.yEndSetUp);
 
-  // FIXME
-  connect(FIXME_cooDowWarUpTim.y, zonSta.cooDowTim);
-  connect(FIXME_cooDowWarUpTim.y, zonSta.warUpTim);
-
   /* Control point connection - end */
 
   connect(TZonSet.TCooSet, ctlReh.TCooSet) annotation (Line(points={{-38,8},{-22,
@@ -275,6 +244,10 @@ equation
           8},{-22,76},{-2,76}}, color={0,0,127}));
   connect(TZonSet.THeaSet, ctlCoo.THeaSet) annotation (Line(points={{-38,0},{-20,
           0},{-20,74},{-2,74}}, color={0,0,127}));
+  connect(cooDowWarUpTim.y, zonSta.cooDowTim) annotation (Line(points={{-38,-100},
+          {-20,-100},{-20,-95},{-2,-95}}, color={0,0,127}));
+  connect(cooDowWarUpTim.y, zonSta.warUpTim) annotation (Line(points={{-38,-100},
+          {-20,-100},{-20,-98},{-2,-98}}, color={0,0,127}));
   annotation (
     defaultComponentName="ctl",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

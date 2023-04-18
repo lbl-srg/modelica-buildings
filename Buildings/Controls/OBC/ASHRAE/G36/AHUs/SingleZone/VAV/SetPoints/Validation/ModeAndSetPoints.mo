@@ -11,10 +11,10 @@ model ModeAndSetPoints
     ignDemLim=false) "Operating mode and temperature setpoints"
     annotation (Placement(transformation(extent={{80,40},{100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
     final freqHz=1/28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"

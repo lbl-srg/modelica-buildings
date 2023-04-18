@@ -18,14 +18,14 @@ block BASControlPoints "Emulation of control points from the BAS"
     "Scheduled occupancy"
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Controls.OBC.CDL.Integers.Sources.Constant yOveFloSet[nZon](each k=0)
-    "FIXME #1913: Testing and commissioning overrides should be Booleans"
+    "Override flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum; 4: set to heating maximum"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Controls.OBC.CDL.Logical.Sources.Constant y1OveHeaOff[nZon](
     each k=false)
-    "Testing and commissioning override - Heating coil"
+    "Override heating coil valve position, true: close valve"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Controls.OBC.CDL.Integers.Sources.Constant yOveDamPos[nZon](each k=0)
-    "FIXME #1913: Testing and commissioning overrides should be Booleans"
+    "Override damper position, 1: set to close; 2: set to open"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Controls.OBC.CDL.Continuous.Sources.Constant TZonHeaOccSet[nZon](
     each k=293.15)
