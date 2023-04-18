@@ -24,7 +24,7 @@ block TankStatus "Block that returns the status of the tank"
         origin={-110,0})));
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.StateGraph.InitialStep iniSte(nOut=1, nIn=1) "Initial step"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.StateGraph.Transition traDep(condition=TTan[2] > THig - dTUnc)
