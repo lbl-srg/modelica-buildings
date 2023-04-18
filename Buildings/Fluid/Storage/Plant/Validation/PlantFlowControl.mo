@@ -29,7 +29,7 @@ model PlantFlowControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,-10})));
-  final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
+  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     mTan_flow_nominal=1,
     mChi_flow_nominal=1,
     dp_nominal = 300000,
@@ -63,7 +63,7 @@ model PlantFlowControl
     mTan_flow_nominal=nom.mTan_flow_nominal)
     "Block for primary and secondary pump and valve flow control"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 100,1; 1000,2; 1500,3;
+  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 100,1; 600,2; 1800,3;
         2300,2; 2500,1])
     "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
@@ -87,7 +87,7 @@ model PlantFlowControl
     final initType=Modelica.Blocks.Types.Init.InitialOutput,
     final y_start=0)       "Second order filter to improve numerics"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Sources.TimeTable y(table=[0,0.96; 1400,0.96; 1400,1; 3000,1])
+  Modelica.Blocks.Sources.TimeTable y(table=[0,0.96; 1600,0.96; 1500,1; 3000,1])
     "Speed of the secondary pump"
     annotation (Placement(transformation(extent={{-140,80},{-120,100}})));
 equation
@@ -131,7 +131,6 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Stor
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-[fixme: update documentation]
 This model validates the flow control of the storage plant.
 The time table blocks implement the following schedule for the system:
 </p>
@@ -140,29 +139,52 @@ The time table blocks implement the following schedule for the system:
 At <code>time = 0</code>, the system is all off.
 </li>
 <li>
-At <code>time = 200</code>, the tank is commanded to charge. The chiller is
-available and charges the tank locally.
-After some time, the charging stops when the tank becomes full.
+At <code>time = 100</code>, the system receives the command to charge the
+tank. The chiller is online and charges the tank locally.
+After some time, the charging stops when the tank reaches the \"cooled\"
+status. Note that at this point the tank is not yet full.
 </li>
 <li>
-At <code>time = 1000</code>, the district system has load and the storage
-plant starts to output CHW to the system. Currently the tank is commanded
-to hold. Therefore, the CHW is supplied by the chiller.
+At <code>time = 600</code>, load appears in the district network and
+the storage plant starts producing CHW to the system.
+<ul>
+<li>
+At first, the chiller takes priority in CHW production
+as the plant is commanded to hold the tank.
+Becasue the chiller and the constant-speed primary pump produces more CHW
+than needed by the district, the overflow continues to charge the tank.
 </li>
 <li>
-At <code>time = 1200</code>, the tank is commanded to output.
-It takes priority over the chiller.
-After some time, the outputting stops when the tank is depleted.
-Now the CHW is produced by the chiller instead.
+After some time, the tank is charged to the \"overcooled\" status.
+It then overrides the chiller's production priority
+until it is no longer overcooled, at which point the tank returns the
+production priority to the chiller.
 </li>
 <li>
-At <code>time = 2000</code>, there is no longer load in the district system.
+The chiller and the tank exchanges the production priority until the system
+reaches another state.
+</li>
+</ul>
+</li>
+<li>
+At <code>time = 1500</code>, the load in the district system increases.
+The storage plant primarily uses CHW produced by the chiller, but also uses
+the CHW from the tank to make up to the flow needed.
+</li>
+<li>
+At <code>time = 1800</code>, the system is commanded to produce CHW from the
+tank. It hence takes priority over the chiller.
+After some time, the CHW in the tank is depleted.
+The chiller is then turned on and takes over.
+</li>
+<li>
+At <code>time = 2200</code>, there is no longer load in the district system.
 The system is back to the all-off state.
 </li>
 <li>
-At <code>time = 2200</code>, the tank is once again commanded to charge.
-But the chiller is offline at this time. The tank is therefore charged
-remotely by the district.
+At <code>time = 2500</code>, the system receives the command to charge
+the tank. But the chiller is offline at this time.
+The tank is therefore charged remotely by the district.
 </li>
 </ul>
 </html>", revisions="<html>
