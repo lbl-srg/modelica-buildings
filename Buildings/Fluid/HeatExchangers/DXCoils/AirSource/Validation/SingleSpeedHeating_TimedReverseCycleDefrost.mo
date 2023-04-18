@@ -244,8 +244,8 @@ equation
           {-108,-30},{-10,-30},{-10,-40},{98,-40}}, color={0,0,127}));
   connect(datRea.y[16], PCraEPlu.u) annotation (Line(points={{-131,120},{-108,120},
           {-108,-80},{98,-80}}, color={0,0,127}));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
-            {160,140}})),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},
+            {180,160}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_TimedReverseCycleDefrost.mos"
         "Simulate and Plot"),
     experiment(Tolerance=1e-6, StopTime=86400),
@@ -293,5 +293,6 @@ April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Icon(coordinateSystem(extent={{-100,-100},{100,100}})));
 end SingleSpeedHeating_TimedReverseCycleDefrost;
