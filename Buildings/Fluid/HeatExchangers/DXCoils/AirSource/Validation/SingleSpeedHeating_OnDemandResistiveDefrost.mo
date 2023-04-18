@@ -81,7 +81,7 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
 
   Modelica.Blocks.Math.Mean XConOutMea(
     final f=1/3600)
-    "Mean of measured outlet air humidity ratio (Total air)"
+    "Mean of measured outlet air humidity ratio per kg total air"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
 
   Modelica.Blocks.Sources.RealExpression XConOut(
@@ -131,11 +131,11 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
     annotation (Placement(transformation(extent={{80,-6},{100,14}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
-    "Convert humidity ratio (dry air) to humidity ratio (total air) for outdoor air"
+    "Convert humidity ratio per kg dry air to humidity ratio per kg total air for outdoor air"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirEPlu
-    "Convert humidity ratio (dry air) from EnergyPlus to humidity ratio (total air)"
+    "Convert humidity ratio per kg dry air from EnergyPlus to humidity ratio per kg total air"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay PDefEPlu(
@@ -173,7 +173,7 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
     annotation (Placement(transformation(extent={{-48,-20},{-28,0}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirIn
-    "Convert humidity ratio (dry air) to humidity ratio (total air) for coil inlet air"
+    "Convert humidity ratio per kg dry air to humidity ratio per kg total air for coil inlet air"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
 equation
