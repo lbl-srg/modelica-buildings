@@ -4,22 +4,22 @@ block TimeSuppression
 
   parameter Real chaRat(final unit="s/K")=540
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC. For cooling or heating request, it should be 540 seconds, for temperature alarms, it should be 1080 seconds"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real maxTim(
     final unit="s",
     final quantity="Time")=1800
     "Maximum suppression time. For cooling or heating request, it should be 1800 seconds, for temperature alarms, it should be 7200 seconds"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSet(
     final unit="K",

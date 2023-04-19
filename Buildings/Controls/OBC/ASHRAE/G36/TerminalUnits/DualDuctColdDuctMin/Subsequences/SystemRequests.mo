@@ -5,27 +5,27 @@ block SystemRequests "Output system requests for dual-duct unit with cold-duct m
     final unit="K",
     final quantity="TemperatureDifference")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real twoTemDif(
     final unit="K",
     final quantity="TemperatureDifference")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real durTimTem(
     final unit="s",
     final quantity="Time")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (__cdl(ValueInReference=True), Dialog(group="Duration times"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Duration times"));
   parameter Real durTimFlo(
     final unit="s",
     final quantity="Time")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (__cdl(ValueInReference=True), Dialog(group="Duration times"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Duration times"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real floHys(
     final quantity="VolumeFlowRate",
     final unit="m3/s")

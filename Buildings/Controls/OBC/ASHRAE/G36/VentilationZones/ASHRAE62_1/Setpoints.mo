@@ -4,29 +4,29 @@ block Setpoints
 
   parameter Boolean have_winSen=false
     "True: the zone has window sensor"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=false
     "True: the zone has occupancy sensor"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=false
     "True: the zone has CO2 sensor"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_CO2Sen and not have_SZVAV and not have_parFanPowUni));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_CO2Sen and not have_SZVAV and not have_typTerUni));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_CO2Sen and not have_parFanPowUni and not have_typTerUni));
 
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_occSen));
   parameter Real VAreBreZon_flow(
     final quantity="VolumeFlowRate",
@@ -47,21 +47,21 @@ block Setpoints
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_CO2Sen and not have_SZVAV, group="Design conditions"));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Advanced", group="Distribution effectiveness"));
   parameter Real zonDisEff_heat=0.8
     "Zone heating air distribution effectiveness"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Advanced", group="Distribution effectiveness"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen

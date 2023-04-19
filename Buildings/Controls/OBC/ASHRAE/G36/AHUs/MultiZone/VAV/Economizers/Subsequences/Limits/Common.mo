@@ -5,19 +5,19 @@ block Common
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Controller"));
 
   parameter Real k(
     final unit="1")=0.05 "Gain of damper limit controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Controller"));
 
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=120
     "Time constant of damper limit controller integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -26,7 +26,7 @@ block Common
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of damper limit controller derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -36,7 +36,7 @@ block Common
     final max=yMax,
     final unit="1") = 0.5
     "Loop signal value to start decreasing the maximum return air damper position"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Controller"));
 
   parameter Real retDamPhy_max(
@@ -44,28 +44,28 @@ block Common
     final max=1,
     final unit="1") = 1.0
     "Physically fixed maximum position of the return air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0.0
     "Physically fixed minimum position of the return air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_max(
     final min=0,
     final max=1,
     final unit="1") = 1.0
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0.0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(

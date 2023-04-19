@@ -3,19 +3,19 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
 
   parameter Boolean have_perZonRehBox = false
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation(__cdl(ValueInReference=False),
+    annotation(__cdl(ValueInReference=false),
                 Dialog(group="System configuration"));
   parameter Real iniSet(
     final unit="Pa",
     final quantity="PressureDifference") = 120
     "Initial setpoint"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real minSet(
     final unit="Pa",
     final quantity="PressureDifference") = 25
     "Minimum setpoint"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real maxSet(
     final unit="Pa",
@@ -26,49 +26,49 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final unit="s",
     final quantity="Time")= 600
    "Delay time after which trim and respond is activated"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time") = 120  "Sample period"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Integer numIgnReq = 2
     "Number of ignored requests"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real triAmo(
     final unit="Pa",
     final quantity="PressureDifference") = -12.0
     "Trim amount"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real resAmo(
     final unit="Pa",
     final quantity="PressureDifference") = 15
     "Respond amount (must be opposite in to triAmo)"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Real maxRes(
     final unit="Pa",
     final quantity="PressureDifference") = 32
     "Maximum response per time interval (same sign as resAmo)"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond for pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController
     controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller"));
   parameter Real k(final unit="1")=0.1
     "Gain of controller, normalized using maxSet"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time",
     min=0)=60
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or  controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -77,17 +77,17 @@ block SupplyFan  "Block to control multi zone VAV AHU supply fan"
     final quantity="Time",
     final min=0) = 0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller",
       enable=controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerType==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real maxSpe(min=0.1, max=1, unit="1") = 1
     "Maximum allowed fan speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller"));
   parameter Real minSpe(min=0.1, max=1, unit="1") = 0.1
     "Lowest allowed fan speed if fan is on"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Fan PID controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod

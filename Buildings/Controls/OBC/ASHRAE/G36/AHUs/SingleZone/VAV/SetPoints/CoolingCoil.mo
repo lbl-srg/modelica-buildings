@@ -4,21 +4,21 @@ block CoolingCoil "Controller for cooling coil valve"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeCooCoi=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Cooling coil loop signal"));
   parameter Real kCooCoi(final unit="1/K")=0.1
     "Gain for cooling coil control loop signal"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Cooling coil loop signal"));
   parameter Real TiCooCoi(final unit="s")=900
     "Time constant of integrator block for cooling coil control loop signal"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Cooling coil loop signal",
     enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdCooCoi(final unit="s")=0.1
     "Time constant of derivative block for cooling coil control loop signal"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Cooling coil loop signal",
       enable=controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeCooCoi == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));

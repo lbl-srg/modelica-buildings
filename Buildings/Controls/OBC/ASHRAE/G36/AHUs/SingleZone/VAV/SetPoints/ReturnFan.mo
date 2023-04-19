@@ -3,7 +3,7 @@ block ReturnFan "Return fan control for single zone AHU"
 
   parameter Real speDif=-0.1
     "Speed difference between supply and return fan to maintain building pressure at desired pressure"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uSupFan_actual(
     final min=0,

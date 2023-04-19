@@ -4,18 +4,18 @@ block ReturnFan
 
   parameter Boolean have_dirCon=true
     "True: the building have direct pressure control"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Real uMin(
     final max=0,
     final unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Controller"));
   parameter Real uMax(
     final min=0,
     final unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uTSup(

@@ -6,7 +6,7 @@ block DamperValves
     final unit="K",
     final quantity="TemperatureDifference")=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real maxRat(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
@@ -22,15 +22,15 @@ block DamperValves
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (__cdl(ValueInReference=False), Dialog(group="Valve"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
   parameter Real kVal(final unit="1/K")=0.5
     "Gain of controller for valve control"
-    annotation (__cdl(ValueInReference=False), Dialog(group="Valve"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
   parameter Real TiVal(
     final unit="s",
     final quantity="Time")=300
     "Time constant of integrator block for valve control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -38,22 +38,22 @@ block DamperValves
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for valve control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (__cdl(ValueInReference=False), Dialog(group="Damper"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
   parameter Real kDam(final unit="1")=0.5
     "Gain of controller for damper control"
-    annotation (__cdl(ValueInReference=False), Dialog(group="Damper"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
   parameter Real TiDam(
     final unit="s",
     final quantity="Time")=300
     "Time constant of integrator block for damper control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Damper",
     enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -61,7 +61,7 @@ block DamperValves
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for damper control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
@@ -69,19 +69,19 @@ block DamperValves
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(
     final unit="1") = 0.05
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real floHys(
     final unit="m3/s") = 0.01
     "Hysteresis for checking airflow rate"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(
     final unit="m3/s") = 0.05
     "Hysteresis for checking damper position"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"

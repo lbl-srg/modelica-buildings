@@ -12,26 +12,26 @@ block Alarms
     final unit="s",
     final quantity="Time")=300
     "Threshold time to check low flow rate"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real fanOffTim(
     final unit="s",
     final quantity="Time")=600
     "Threshold time to check fan off"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real leaFloTim(
     final unit="s",
     final quantity="Time")=600
     "Threshold time to check damper leaking airflow"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real floHys(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.05
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(
     final unit="1")=0.05
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,

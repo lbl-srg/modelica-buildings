@@ -7,39 +7,39 @@ block Controller "Single zone VAV AHU economizer control sequence"
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Boolean have_heaCoi=true
     "True if the air handling unit has heating coil"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Real uMin(
     final min=0.1,
     final max=0.9,
     final unit="1") = 0.1
     "Lower limit of controller output at which the dampers are at their limits"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Real uMax(
     final min=0.1,
     final max=1,
     final unit="1") = 0.9
     "Upper limit of controller output at which the dampers are at their limits"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeMod=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (__cdl(ValueInReference=False), Dialog(group="Modulation"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Modulation"));
   parameter Real kMod(final unit="1/K")=1
     "Gain of modulation controller"
-    annotation (__cdl(ValueInReference=False), Dialog(group="Modulation"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Modulation"));
   parameter Real TiMod(
     final unit="s",
     final quantity="Time")=300
     "Time constant of modulation controller integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -47,7 +47,7 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for modulation controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Modulation",
       enable=controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeMod == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
@@ -57,14 +57,14 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final displayUnit="K",
     final quantity="TemperatureDifference")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis"));
 
   parameter Real delEntHys(
     final unit="J/kg",
     final quantity="SpecificEnergy")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced", group="Hysteresis",
                        enable = ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                                 or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb));
@@ -72,45 +72,45 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final unit="m3/s",
     final quantity="VolumeFlowRate")=0.01
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced", group="Hysteresis"));
 
   parameter Real supFanSpe_min(
     final min=0,
     final max=1,
     final unit="1") = 0.1 "Minimum supply fan operation speed"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Commissioning", group="Damper position limits"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real supFanSpe_max(
     final min=0,
     final max=1,
     final unit="1") = 0.9
     "Maximum supply fan operation speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real VOutMin_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=1.0
     "Calculated minimum outdoor airflow rate"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real VOutDes_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")=2.0
     "Calculated design outdoor airflow rate"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamMinFloMinSpe(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") = 0.4
     "Outdoor air damper position to supply minimum outdoor airflow at minimum fan speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamMinFloMaxSpe(
     final min=outDamPhy_min,
     final max=outDamPhy_max,
     final unit="1") = 0.3
     "Outdoor air damper position to supply minimum outdoor airflow at maximum fan speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamDesFloMinSpe(
     final min=outDamMinFloMinSpe,
@@ -123,35 +123,35 @@ block Controller "Single zone VAV AHU economizer control sequence"
     final max=outDamPhy_max,
     final unit="1") = 0.8
     "Outdoor air damper position to supply design outdoor airflow at maximum fan speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Damper position limits"));
   parameter Real outDamPhy_max(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_max(
     final min=0,
     final max=1,
     final unit="1") = 1
     "Physically fixed maximum position of the return air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(
     final min=0,
     final max=1,
     final unit="1") = 0
     "Physically fixed minimum position of the return air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(

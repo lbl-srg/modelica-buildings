@@ -7,68 +7,68 @@ block Controller "Multizone VAV air handling unit controller"
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
   parameter Boolean have_frePro=true
     "True: enable freeze protection"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(enable=have_frePro));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
     "Type of outdoor air section"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Economizer design"));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.BarometricRelief
     "Type of building pressure control system"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Economizer design"));
   parameter Boolean have_ahuRelFan=true
     "True: relief fan is part of AHU; False: the relief fans group that may associate multiple AHUs"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Economizer design",
                        enable=buiPreCon==Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer ecoHigLimCon=
     Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedDryBulb
     "Economizer high limit control device"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Economizer design"));
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has hot water heating coil"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="System and building parameters"));
   parameter Boolean have_eleHeaCoi=false
     "True: the AHU has electric heating coil"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="System and building parameters"));
   parameter Boolean have_perZonRehBox=false
     "Check if there is any VAV-reheat boxes on perimeter zones"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="System and building parameters"));
 
   parameter Real VUncDesOutAir_flow(unit="m3/s")=0
     "Uncorrected design outdoor airflow rate, including diversity where applicable. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VDesTotOutAir_flow(unit="m3/s")=0
     "Design total outdoor airflow rate. It can be determined using the 62MZCalc spreadsheet from ASHRAE 62.1 User's Manual"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VAbsOutAir_flow(unit="m3/s")=0
     "Design outdoor airflow rate when all zones with CO2 sensors or occupancy sensors are unpopulated. Needed when complying with Title 24 requirements"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VDesOutAir_flow(unit="m3/s")=0
     "Design minimum outdoor airflow rate with the areas served by the system are occupied at their design population, including diversity where applicable. Needed when complying with Title 24 requirements"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Minimum outdoor air setpoint",
                        enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   // ----------- parameters for fan speed control  -----------
@@ -76,77 +76,77 @@ block Controller "Multizone VAV air handling unit controller"
     unit="Pa",
     displayUnit="Pa")=120
     "Initial pressure setpoint for fan speed control"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMinSet(
     unit="Pa",
     displayUnit="Pa")=25
     "Minimum pressure setpoint for fan speed control"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMaxSet(
     unit="Pa",
     displayUnit="Pa")=1000
     "Duct design maximum static pressure. It is the Max_DSP shown in Section 3.2.1.1 of Guideline 36"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pDelTim(unit="s")=600
     "Delay time after which trim and respond is activated"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pSamplePeriod(unit="s")=120
     "Sample period"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed",group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Integer pNumIgnReq=2
     "Number of ignored requests"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pTriAmo(
     unit="Pa",
     displayUnit="Pa")=-12.0
     "Trim amount"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pResAmo(
     unit="Pa",
     displayUnit="Pa")=15
     "Respond amount (must be opposite in to trim amount)"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Real pMaxRes(
     unit="Pa",
     displayUnit="Pa")=32
     "Maximum response per time interval (same sign as respond amount)"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Fan speed", group="Trim and respond for reseting duct static pressure setpoint"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController fanSpeCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Supply fan speed PID controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller"));
   parameter Real kFanSpe(unit="1")=0.1
     "Gain of supply fan speed PID controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller"));
   parameter Real TiFanSpe(unit="s")=60
     "Time constant of integrator block for supply fan speed PID controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdFanSpe(unit="s")=0.1
     "Time constant of derivative block for supply fan speed PID controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller",
       enable=fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or fanSpeCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   final parameter Real supFanSpe_max=1
     "Maximum allowed supply fan speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller"));
   parameter Real supFanSpe_min=0.1
     "Lowest allowed supply fan speed if fan is on"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Fan speed", group="PID controller"));
 
   // ----------- parameters for supply air temperature control  -----------
@@ -154,92 +154,92 @@ block Controller "Multizone VAV air handling unit controller"
     unit="K",
     displayUnit="degC")=285.15
     "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the higher value of the reset range and above"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TSupCoo_max(
     unit="K",
     displayUnit="degC")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF)
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TOut_min(
     unit="K",
     displayUnit="degC")=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TOut_max(
     unit="K",
     displayUnit="degC")=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real TSupWarUpSetBac(
     unit="K",
     displayUnit="degC")=308.15
     "Supply temperature in warm up and set back mode"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Temperature limits"));
   parameter Real delTimSupTem(unit="s")=600
     "Delay timer"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real samPerSupTem(unit="s")=120
     "Sample period of component"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Integer ignReqSupTem=2
     "Number of ignorable requests for TrimResponse logic"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real triAmoSupTem(
     unit="K",
     displayUnit="K")=0.1
     "Trim amount"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real resAmoSupTem(
     unit="K",
     displayUnit="K")=-0.2
     "Response amount"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
   parameter Real maxResSupTem(
     unit="K",
     displayUnit="K")=-0.6
     "Maximum response per time interval"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Supply air temperature", group="Trim and respond for reseting supply air temperature setpoint"));
 
   // ----------- parameters for heating and cooling coil control  -----------
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController valCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for coil valves control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Coils", group="Valves PID controller"));
   parameter Real kVal(unit="1")=0.05
     "Gain of controller for valve control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Coils", group="Valves PID controller"));
   parameter Real TiVal(unit="s")=600
     "Time constant of integrator block for valve control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Coils", group="Valves PID controller",
       enable=valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Coils", group="Valves PID controller",
       enable=valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or valCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uHeaCoi_max=-0.25
     "Upper limit of controller signal when heating coil is off. Require -1 < uHea_max < uCoo_min < 1."
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Coils", group="Limits"));
   parameter Real uCooCoi_min=0.25
     "Lower limit of controller signal when cooling coil is off. Require -1 < uHea_max < uCoo_min < 1."
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Coils", group="Limits"));
 
   // ----------- parameters for economizer control  -----------
@@ -247,19 +247,19 @@ block Controller "Multizone VAV air handling unit controller"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real kMinOA(unit="1")=0.03
     "Gain of controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real TiMinOA(unit="s")=120
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
@@ -267,7 +267,7 @@ block Controller "Multizone VAV air handling unit controller"
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdMinOA(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
@@ -275,49 +275,49 @@ block Controller "Multizone VAV air handling unit controller"
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Boolean have_CO2Sen=false
     "True: some zones have CO2 sensor"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24)));
   parameter Real dpAbsMinOutDam=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
            and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)));
   parameter Real dpDesMinOutDam(unit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real kDp(unit="1")=1
     "Gain of controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, separated with DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uRetDam_min(unit="1")=0.5
     "Loop signal value to start decreasing the maximum return air damper position"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Limits, Common",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   // Enable
@@ -325,97 +325,97 @@ block Controller "Multizone VAV air handling unit controller"
     unit="K",
     displayUnit="K")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Enable"));
   parameter Real delEntHis(unit="J/kg")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Enable",
                        enable=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                            or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb));
   parameter Real retDamFulOpeTim(unit="s")=180
     "Time period to keep return air damper fully open before releasing it for minimum outdoor airflow control
     at disable to avoid pressure fluctuations"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Economizer", group="Enable"));
   parameter Real disDel(unit="s")=15
     "Short time delay before closing the outdoor air damper at disable to avoid pressure fluctuations"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Economizer", group="Enable"));
   // Commissioning
   parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, limits"));
   parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, limits"));
   parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, limits"));
   parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, limits"));
   parameter Real minOutDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the minimum outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real minOutDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the minimum outdoor air damper"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real uHeaMax(unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, modulation"));
   parameter Real uCooMin(unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Economizer", group="Commissioning, modulation"));
 
   // ----------- parameters for freeze protection -----------
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Freeze protection", enable=have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController freProHeaCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Freeze protection heating coil controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
   parameter Real kFrePro(unit="1")=0.05
     "Gain of coil controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
   parameter Real TiFrePro(unit="s")=120
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil PID Controller",
       enable=have_frePro and
              (freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
               or freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdFrePro(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil PID Controller",
       enable=have_frePro and
              (freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
               or freProHeaCoiCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMaxFrePro=1
     "Upper limit of output"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
   parameter Real yMinFrePro=0
     "Lower limit of output"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Freeze protection", group="Heating coil PID Controller",
                        enable=have_frePro));
 
@@ -424,14 +424,14 @@ block Controller "Multizone VAV air handling unit controller"
     unit="Pa",
     displayUnit="Pa")=12
     "Building static pressure difference relative to ambient (positive to pressurize the building)"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(tab="Pressure control",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRelDam(unit="1")=0.5
     "Gain, applied to building pressure control error normalized with dpBuiSet"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief damper",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper));
 //   parameter Real kRelFan(unit="1")=1
@@ -444,24 +444,24 @@ block Controller "Multizone VAV air handling unit controller"
 //       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Real difFloSet(unit="m3/s")=0.1
     "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController retFanCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller for return fan"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real kRetFan(unit="1")=1
     "Gain, normalized using dpBuiSet"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real TiRetFan(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
@@ -469,7 +469,7 @@ block Controller "Multizone VAV air handling unit controller"
               or retFanCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdRetFan(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
@@ -482,7 +482,7 @@ block Controller "Multizone VAV air handling unit controller"
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
   parameter Real retFanSpe_min=0.1
     "Minimum return fan speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)));
@@ -491,40 +491,40 @@ block Controller "Multizone VAV air handling unit controller"
     unit="Pa",
     displayUnit="Pa")=2.4
     "Minimum return fan discharge static pressure difference setpoint"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real p_rel_RetFan_max(
     unit="Pa",
     displayUnit="Pa")=40
     "Maximum return fan discharge static pressure difference setpoint"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Return fan",
         enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
     "Relief fan minimum speed"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
   parameter Real kRelFan(unit="1")=1
     "Gain of relief fan controller, normalized using dpBuiSet"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Pressure control", group="Relief fan",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan and have_ahuRelFan));
 
   // ----------- Advanced parameters -----------
   parameter Real Thys=0.25 "Hysteresis for checking temperature difference"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
   parameter Real posHys=0.01
     "Hysteresis for checking valve position difference"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
   parameter Real hys = 0.005
     "Hysteresis for checking the relief fan controller output value"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uAhuOpeMod

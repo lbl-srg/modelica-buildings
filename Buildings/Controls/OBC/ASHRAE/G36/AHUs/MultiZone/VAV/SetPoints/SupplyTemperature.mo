@@ -8,7 +8,7 @@ block SupplyTemperature
     final quantity="ThermodynamicTemperature")=285.15
     "Lowest cooling supply air temperature setpoint when the outdoor air temperature is at the
     higher value of the reset range and above"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Temperatures"));
   parameter Real TSupCoo_max(
     final unit="K",
@@ -16,66 +16,66 @@ block SupplyTemperature
     final quantity="ThermodynamicTemperature")=291.15
     "Highest cooling supply air temperature setpoint. It is typically 18 degC (65 degF) 
     in mild and dry climates, 16 degC (60 degF) or lower in humid climates"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Temperatures"));
   parameter Real TOut_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=289.15
     "Lower value of the outdoor air temperature reset range. Typically value is 16 degC (60 degF)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Temperatures"));
   parameter Real TOut_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=294.15
     "Higher value of the outdoor air temperature reset range. Typically value is 21 degC (70 degF)"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Temperatures"));
   parameter Real TSupWarUpSetBac(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=308.15
     "Supply temperature in warm up and set back mode"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Temperatures"));
   parameter Real delTim(
     final unit="s",
     final quantity="Time") = 600
     "Delay timer"
-    annotation(__cdl(ValueInReference=True),
+    annotation(__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond logic"));
   parameter Real samplePeriod(
     final unit="s",
     final quantity="Time",
     final min=1E-3) = 120
     "Sample period of component"
-    annotation(__cdl(ValueInReference=True),
+    annotation(__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond logic"));
   parameter Integer numIgnReq = 2
     "Number of ignorable requests for TrimResponse logic"
-    annotation(__cdl(ValueInReference=True),
+    annotation(__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond logic"));
   parameter Real triAmo(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = 0.1
     "Trim amount"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond logic"));
   parameter Real resAmo(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = -0.2
     "Response amount"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond logic"));
   parameter Real maxRes(
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = -0.6
     "Maximum response per time interval"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(group="Trim and respond logic"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(

@@ -4,54 +4,54 @@ block FreezeProtection
 
   parameter Boolean have_frePro=true
     "True: enable freeze protection"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
     "Type of building pressure control system"
-    annotation (__cdl(ValueInReference=False), Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
     "Type of freeze stat"
-    annotation (__cdl(ValueInReference=False), Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
   parameter Boolean have_hotWatCoi=true
     "True: the AHU has hot water heating coil"
-    annotation (__cdl(ValueInReference=False), Dialog(enable=have_frePro));
+    annotation (__cdl(ValueInReference=false), Dialog(enable=have_frePro));
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation (__cdl(ValueInReference=True),
+    annotation (__cdl(ValueInReference=true),
                 Dialog(enable=have_hotWatCoi and have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real k(unit="1")=1
     "Gain of coil controller"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
                        enable=have_hotWatCoi and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller",
                        enable=have_hotWatCoi and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
-    annotation (__cdl(ValueInReference=False),
+    annotation (__cdl(ValueInReference=false),
                 Dialog(tab="Advanced", enable=have_frePro));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(

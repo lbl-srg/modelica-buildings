@@ -6,19 +6,19 @@ block OperationMode "Block that outputs the operation mode"
     final unit="s",
     final quantity="Time") = 10800
     "Maximum cool-down or warm-up time"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real TZonFreProOn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
     "Threshold temperature to activate the freeze protection mode"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
   parameter Real TZonFreProOff(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=280.15
     "Threshold temperature to end the freeze protection mode"
-    annotation (__cdl(ValueInReference=True));
+    annotation (__cdl(ValueInReference=true));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ
     "True: zone scheduled to be occupied"

@@ -4,13 +4,13 @@ block PlantRequests
 
   parameter Boolean have_hotWatCoi = true
     "True: the AHU has hot water heating coil"
-    annotation (__cdl(ValueInReference=False));
+    annotation (__cdl(ValueInReference=false));
   parameter Real Thys = 0.1
     "Hysteresis for checking temperature difference"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real posHys = 0.05
     "Hysteresis for checking valve position difference"
-    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
