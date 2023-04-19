@@ -42,7 +42,7 @@ model DamperValves
     final height=0.06)
     "Discharge airflow rate"
     annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     final offset=273.15 + 13,
     final amplitude=1,
     final freqHz=1/3600)
@@ -52,7 +52,7 @@ model DamperValves
     final k=273.15 + 20)
     "Zone heating setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TDis(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TDis(
     final offset=273.15 + 13,
     final amplitude=1.2,
     final freqHz=1/3600) "Measured discharge air temperature"

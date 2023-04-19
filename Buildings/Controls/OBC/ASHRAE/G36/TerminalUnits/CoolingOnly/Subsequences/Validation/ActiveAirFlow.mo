@@ -4,7 +4,7 @@ model ActiveAirFlow
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.ActiveAirFlow actAirSet(final
       VCooMax_flow=0.5) "Output the active airflow setpoint for terminal unit"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine minFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin minFlo(
     final amplitude=0.3,
     final freqHz=1/3600,
     final offset=0.2) "Occupied zone minimum flow"
