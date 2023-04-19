@@ -77,6 +77,15 @@ This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Controller\">
 Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Controller</a>.
 </p>
+<p>
+It consists of an open-loop setup for controller <code>pumCon</code>, with
+a constant integer input block <code>conInt1</code> that generates a constant output value of {2,1} to indicate order of pump enabled, 
+a pulse real input block <code>pull</code> that generates a pulse signal to simulate chilled water control valve position, 
+a sine input block <code>sin2</code> that generates a sine signal to simulate chilled water differential static pressure from remote sensor, 
+and a constant real input block <code>con3</code> that generates a constant output value of 1 to simulate chilled water differential static pressure setpoint. 
+A logical pre block <code>pre2</code> is used to capture the chilled water pump enable output signal <code>pumCon.yChiWatPum</code> and provide it 
+back as an input to the pump operating status signal <code>pumCon.uChiWatPum</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

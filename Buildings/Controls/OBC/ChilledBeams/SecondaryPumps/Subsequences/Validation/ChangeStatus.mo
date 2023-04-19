@@ -64,7 +64,7 @@ equation
     annotation (Line(points={{-86.8,0},{-82,0}}, color={255,127,0}));
 
   connect(onCouInt.y, chaPumSta.uNexLagPum) annotation (Line(points={{-86.8,0},{
-          -84,0},{-84,-20},{20,-20},{20,-4},{58,-4}},  color={255,127,0}));
+          -84,0},{-84,-20},{20,-20},{20,-4},{57.8,-4}},color={255,127,0}));
 
   connect(samTri.y, logSwi1.u1) annotation (Line(points={{-108,0},{-106,0},{-106,
           28},{-42,28}}, color={255,0,255}));
@@ -88,22 +88,25 @@ equation
     annotation (Line(points={{-18,20},{-12,20}}, color={255,0,255}));
 
   connect(not1.y, chaPumSta.uLasLagPumSta) annotation (Line(points={{12,20},{30,
-          20},{30,5},{58,5}}, color={255,0,255}));
+          20},{30,4},{57.8,4}},
+                              color={255,0,255}));
 
   connect(logSwi.y, chaPumSta.uNexLagPumSta) annotation (Line(points={{-18,50},{
-          50,50},{50,8},{58,8}},  color={255,0,255}));
+          50,50},{50,8},{57.8,8}},color={255,0,255}));
 
   connect(subInt.y, chaPumSta.uLasLagPum) annotation (Line(points={{-18,-40},{52,
-          -40},{52,-8},{58,-8}},    color={255,127,0}));
+          -40},{52,-8},{57.8,-8}},  color={255,127,0}));
 
   connect(con.y, onCouInt.reset) annotation (Line(points={{-108,80},{-104,80},{-104,
           -14},{-94,-14},{-94,-7.2}}, color={255,0,255}));
 
   connect(pre.y, chaPumSta.uChiWatPum) annotation (Line(points={{112,0},{120,0},
-          {120,20},{40,20},{40,0},{58,0}}, color={255,0,255}));
+          {120,20},{40,20},{40,0},{57.8,0}},
+                                           color={255,0,255}));
 
   connect(chaPumSta.yChiWatPum, pre.u)
-    annotation (Line(points={{82,0},{88,0}}, color={255,0,255}));
+    annotation (Line(points={{84.2,0},{88,0}},
+                                             color={255,0,255}));
 
   connect(conInt.y,subInt. u1) annotation (Line(points={{-78,-50},{-60,-50},{-60,
           -34},{-42,-34}}, color={255,127,0}));
@@ -118,6 +121,41 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.ChangeStatus\">
 Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.ChangeStatus</a>.
+<p>
+It consists of an open-loop setup for block <code>chaPumSta</code> that changes the status of pumps, with
+a constant Boolean input <code>con</code> that generates constant Boolean false signal, a sample trigger input block <code>samTri</code> 
+that generates a sample trigger signal with a period of 5 seconds and a shift time of 1 second, 
+and a constant integer input <code>conInt</code> that generates a constant output value of 7. 
+A logical pre block <code>pre</code> is used to capture the pump enable output signal <code>chaPumSta.yChiWatPum</code> and provide it 
+back as an input to the pump status signal <code>chaPumSta.uChiWatPum</code>.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+The lead pump enable signal <code>chaPumSta.yChiWatPum[1]</code> becomes </code>true</code>
+when <code>chaPumSta.uNexLagPum</code> changes from <code>0</code> to <code>1</code> and 
+<code>chaPumSta.uLasLagPum</code> changes from <code>7</code> to <code>6</code>. 
+It becomes <code>false</code>
+when <code>chaPumSta.uNexLagPum</code> changes from <code>5</code> to <code>6</code> and
+<code>chaPumSta.uLasLagPum</code> changes from <code>2</code> to <code>1</code>.
+</li>
+<li>
+The lag pump enable signal <code>chaPumSta.yChiWatPum[2]</code> becomes <code>true</code>  
+when <code>chaPumSta.uNexLagPum</code> changes from <code>1</code> to <code>2</code> and 
+<code>chaPumSta.uLasLagPum</code> changes from <code>6</code> to <code>5</code>. 
+It becomes <code>false</code>
+when <code>chaPumSta.uNexLagPum</code> changes from <code>4</code> to <code>5</code> and
+<code>chaPumSta.uLasLagPum</code> changes from <code>3</code> to <code>2</code>.
+</li>
+<li>
+The lag pump enable signal <code>chaPumSta.yChiWatPum[3]</code> becomes <code>true</code>  
+when <code>chaPumSta.uNexLagPum</code> changes from <code>2</code> to <code>3</code> and 
+<code>chaPumSta.uLasLagPum</code> changes from <code>5</code> to <code>4</code>. 
+It becomes <code>false</code>
+when <code>chaPumSta.uNexLagPum</code> changes from <code>3</code> to <code>4</code> and
+<code>chaPumSta.uLasLagPum</code> changes from <code>4</code> to <code>3</code>.
+</li>
 </p>
 </html>", revisions="<html>
 <ul>

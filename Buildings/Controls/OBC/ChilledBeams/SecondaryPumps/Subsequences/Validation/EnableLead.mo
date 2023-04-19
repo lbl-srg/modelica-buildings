@@ -32,6 +32,29 @@ annotation (
     <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLead\">
     Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLead</a>.
     </p>
+    <p>
+    It consists of an open-loop setup for block <code>enaLeaPum</code> with
+    a pulse input signal <code>pull</code> that is used to generate valve positions for chilled beam mainfolds.
+    </p>
+    <p>
+    The following observations should be apparent from the simulation plots:
+    <ol>
+    <li>
+    The block <code>enaLeaPum</code> outputs lead pump status signal <code>enaLeaPum.yLea</code> 
+    that enables lead pump <code>enaLeaPum.yLea = true</code> when
+    any of the chilled beam control valves are continuously open 
+    (<code>enaLeaPum.uValPos[1] &gt; 0.1 </code> or <code>enaLeaPum.uValPos[2] &gt; 0.1 </code>) 
+    for 30 seconds. 
+    </li>
+    <li>
+    The block <code>enaLeaPum</code> outputs lead pump status signal <code>enaLeaPum.yLea</code> 
+    that disables lead pump <code>enaLeaPum.yLea = false</code> when 
+    all the chilled beam control valves
+    are continuously closed 
+    (<code>enaLeaPum.uValPos[1] &lt; 0.05 </code> or <code>enaLeaPum.uValPos[2] &lt; 0.05 </code>) 
+    for 60 seconds.
+    </li>
+    </p>
     </html>", revisions="<html>
     <ul>
     <li>

@@ -4,7 +4,10 @@ model ChilledWaterStaticPressureSetpointReset
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterStaticPressureSetpointReset
     chiWatStaPreSetRes(
-    final nVal=2)
+    final nVal=2,
+    nPum=2,
+    chiWatStaPreMax=400000,
+    chiWatStaPreMin=200000)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
@@ -39,6 +42,30 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterStaticPressureSetpointReset\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterStaticPressureSetpointReset</a>.
+</p>
+<p>
+It consists of an open-loop setup for block <code>chiWatStaPreSetRes</code> with
+a Boolean pulse signal <code>booPul</code> that is used to simulate pump proven on signal
+and a sine signal <code>sin2</code> that is used to simulate chilled water control valve position on chilled beams. 
+The block determines the pump static pressure setpoint <code>chiWatStaPreSetRes.yStaPreSetPoi</code>
+based on a trim-and-respond logic, which is activated if any of the chilled water control valves 
+<code>uValPos</code> are open greater than <code>valPosOpe</code> and deactivated
+if less than <code>valPosClo</code>.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+The block <code>chiWatStaPreSetRes</code> generates requests to reset pump static pressure setpoints
+(<code>chiWatStaPreSetRes.yStaPreSetPoi</code>) when pump proven on signal is true
+(<code>chiWatStaPreSetRes.uPumSta[1]=true</code>) and chilled water control valve is open greater than 
+<code>chiWatStaPreSetRes.valPosLowOpe</code> for <code>chiWatStaPreSetRes.thrTimLow</code> continuously.
+</li>
+<li>
+The block <code>chiWatStaPreSetRes</code> generates zero request when pump proven on signal is false
+(<code>chiWatStaPreSetRes.uPumSta[1]=false</code>).
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>
