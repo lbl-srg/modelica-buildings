@@ -3,9 +3,9 @@ block TankStatus "Block that returns the status of the tank"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Modelica.Units.SI.Temperature TLow
-    "Lower threshold to consider the tank full";
+    "Lower temperature threshold";
   parameter Modelica.Units.SI.Temperature THig
-    "Higher threshold to consider the tank depleted";
+    "Higher temperature threshold";
   parameter Modelica.Units.SI.TemperatureDifference dTUnc = 0.1
     "Temperature sensor uncertainty";
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 1
@@ -25,7 +25,8 @@ block TankStatus "Block that returns the status of the tank"
 
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Modelica.StateGraph.InitialStep iniSte(nOut=1, nIn=1) "Initial step"
+  Modelica.StateGraph.InitialStep iniSte(nOut=1, nIn=1)
+    "Initial step, also active when none of the other steps apply"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.StateGraph.Transition traDep(condition=TTan[2] > THig - dTUnc)
     "Transition: Tank is depleted"
@@ -55,7 +56,7 @@ block TankStatus "Block that returns the status of the tank"
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
   Modelica.StateGraph.StepWithSignal steOveCoo(nIn=1, nOut=1)
-    "Step: Tank is overcooled"
+    "Step: Tank is overcooled (and is still cooled)"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
   Modelica.StateGraph.Transition traRes3(condition=traRes2.condition)
     "Transition: Reset to initial step"
@@ -131,5 +132,64 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}), Diagram(coordinateSystem(extent={{-100,-140},
             {440,100}})),
-    defaultComponentName="tanSta");
+    defaultComponentName="tanSta",
+    Documentation(info="<html>
+<p>
+This block outputs tank status signals using the temperature signals
+from the storage tank top (<i>T<sub>1</sub></i>) and the bottom
+(<i>T<sub>2</sub></i>). The status is output as an array of three boolean
+signals indicating whether the tank is (1) depleted, (2) cooled, and
+(3) overcooled.
+</p>
+<p>
+This block is implemented as a state graph with transition conditions
+listed in the table below. Note that when the \"overcooled\" step is active,
+the tank is considered both \"cooled\" and \"overcooled\".
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th>Step</th>
+    <th>Description</th>
+    <th>Transition in</th>
+    <th>Transition out</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>Initial Step</td>
+    <td>Initial step of the system or when none of the other steps apply</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Depleted</td>
+    <td>The chill in the tank is depleted. The tank is warm.</td>
+    <td><i>T<sub>2</sub> &gt; T<sub>Hig</sub> - &Delta; T<sub>Unc</sub></i></td>
+    <td><i>T<sub>2</sub> &lt; T<sub>Hig</sub> - &Delta; T<sub>Hys</sub></i></td>
+  </tr>
+  <tr>
+    <td>Cooled</td>
+    <td>The tank is cooled, but there is still capacity left for further chilling.</td>
+    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta; T<sub>Hys</sub></i></td>
+    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta; T<sub>Hys</sub>*2</i></td>
+  </tr>
+  <tr>
+    <td>Overcooled</td>
+    <td>The tank is cooled to the maximum of its capacity.</td>
+    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta; T<sub>Unc</sub></i></td>
+    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta; T<sub>Hys</sub>*2</i></td>
+  </tr>
+</tbody>
+</table>
+</html>"),
+revisions="<html>
+<ul>
+<li>
+April 19, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>");
 end TankStatus;
