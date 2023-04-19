@@ -272,20 +272,20 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{58,-40},{28,-24},{28,-56},{58,-40}},
+          points={{58,-40},{40,-20},{40,-60},{58,-40}},
           lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None),
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{-60,-20},{-20,-60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-22,-40},{-52,-24},{-52,-56},{-22,-40}},
+          points={{-22,-40},{-40,-20},{-40,-60},{-22,-40}},
           lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None),
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-2,-42},{2,-80}},
           fillColor={0,0,0},
@@ -294,49 +294,81 @@ equation
           lineColor={0,0,0})}),
 Documentation(info="<html>
 <p>
-This block implements a finite state machine to control the flows of the
-storage plant.
+This block implements a state graph to control the flows of the storage plant.
 The system transitions among the following states:
 </p>
-<ul>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th>Step</th>
+    <th>Description</th>
+    <th>Transition in</th>
+    <th>Transition out</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>All Off<br>(Initial Step)</td>
+    <td>All off. This is the initial step.</td>
+    <td>-</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>Local Charging</td>
+    <td>Charge the tank with the local chiller.</td>
+    <td>\"Charge tank\" command<br>AND tank is not cooled yet<br>AND chiller is online.<br>This transition takes priority<br>over the one below.<sup>1</sup></td>
+    <td>The in-transition condition becomes false.</td>
+  </tr>
+  <tr>
+    <td>Remote Charging</td>
+    <td>Charge the tank with the remote chiller.</td>
+    <td>Same as above except that<br>the chiller is offline.</td>
+    <td>The in-transition condition becomes false.</td>
+  </tr>
+  <tr>
+    <td>Secondary Pump On</td>
+    <td>Turn on the secondary pump.<br>This step is in parallel with the two below.<sup>2</sup></td>
+    <td>The district has load AND<br>the additional conditions of<br>either step below become true.</td>
+    <td>Implicit, when both steps below are no longer active.</td>
+  </tr>
+  <tr>
+    <td rowspan=\"2\">Tank Producing</td>
+    <td rowspan=\"2\">The tank produces CHW to the district.<br>This step is in parallel with \"secondary pump on\".</td>
+    <td rowspan=\"2\">The district has load AND<br>any one of:<br>(a) \"Tank produce\" command<br>AND tank not depleted;<br>(b) Tank is overcooled.<br>This transition takes priority<br>over the one below.</td>
+    <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.<br>This transition takes priority over the one below.</td>
+  </tr>
+  <tr>
+    <td>To \"chiller producing\": Chiller is online AND any one of:<br>(a) Tank is depleted;<br>(b) No \"tank produce\" command AND tank not overcooled.</td>
+  </tr>
+  <tr>
+    <td rowspan=\"2\">Chiller Producing</td>
+    <td rowspan=\"2\">The chiller produces CHW to the district.<br>This step is in parallel with \"secondary pump on\".</td>
+    <td rowspan=\"2\">The district has load AND<br>the chiller is online.</td>
+    <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.<br>This transition takes priority over the one below.</td>
+  </tr>
+  <tr>
+    <td>To \"tank producing\": The condition for in-transition of<br>\"tank producing\" becomes true.</td>
+  </tr>
+</tbody>
+</table>
+<p>
+Notes:
+</p>
+<ol>
 <li>
-All Off - The system is off. No flow rate at the primary pump,
-the secondary pump, or the tank.
+Out-transitions from the same step have priorities. When the conditions of
+more than one of them become true, the transition connected by a connector
+with the lowest index in the array fires.
+For example, even when the in-transition condition of \"chiller producing\"
+becomes true, as long as the in-transition condition of \"tank producing\"
+is also true, it will not fire because of priority.
 </li>
 <li>
-Charge Tank - The tank is ready to be charged.
-The transition into this state fires when the tank receives a charge command
-AND the tank is not full.
-<ul>
-<li>
-Local Charging - The local chiller charges the tank.
-The transition into this state fires when the local chiller is available.
-Its outward transition fires when the condition of either of the two prior
-transitions becomes false.
+Steps that are in parallel are active at the same time.
+When \"secondary pump on\" is active, either \"tank producing\"
+or \"chiller producing\" is also active.
 </li>
-<li>
-Remote Charging - The tank is charged by the district network while
-the local chiller is shut off.
-The transition into this state fires when the local chiller is offline.
-Its outward transition fires when the condition of either of the two prior
-transitions becomes false.
-</li>
-</ul>
-</li>
-<li>
-Tank Output - The tank outputs CHW to the district network.
-The transition into this state fires when the district network has sufficient
-load AND the tank receives a discharge command AND the tank is not depleted.
-Its outward transition fires when the condition above becomes false.
-</li>
-<li>
-Chiller Output - The chiller outputs CHW to the district network.
-The transition into this state fires when the district network has sufficient
-load AND the tank is unavailable (no discharge command OR is depleted)
-AND the chiller is available.
-Its outward transition fires when the condition above becomes false.
-</li>
-</ul>
+</ol>
 </html>", revisions="<html>
 <ul>
 <li>
