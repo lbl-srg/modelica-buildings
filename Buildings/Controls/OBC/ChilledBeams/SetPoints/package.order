@@ -3,4 +3,5 @@ ChilledWaterStaticPressureSetpointReset
 ChilledWaterSupplyReset
 OperatingMode
 ZoneRegulation
+ZeroIndexCorrection
 Validation

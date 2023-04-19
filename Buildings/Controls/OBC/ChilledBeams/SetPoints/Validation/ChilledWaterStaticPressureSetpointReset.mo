@@ -6,8 +6,8 @@ model ChilledWaterStaticPressureSetpointReset
     chiWatStaPreSetRes(
     final nVal=2,
     nPum=2,
-    chiWatStaPreMax=400000,
-    chiWatStaPreMin=200000)
+    chiWatStaPreMax=30000,
+    chiWatStaPreMin=20000)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
