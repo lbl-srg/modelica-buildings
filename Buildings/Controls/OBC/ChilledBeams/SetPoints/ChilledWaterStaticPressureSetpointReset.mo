@@ -166,7 +166,7 @@ protected
     "Find maximum integer output"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
     final iniSet=chiWatStaPreMax,
     final minSet=chiWatStaPreMin,
     final maxSet=chiWatStaPreMax,
