@@ -153,40 +153,49 @@ block CoilDefrostCapacity
     "Calculate wetbulb temperature of condensor inlet air";
 
 equation
-  TConInWetBul=wetBul.TWetBul
-    "Find wet-bulb temperature of inlet air";
+  //  Find wet-bulb temperature of inlet air
+  pIn = wetBul.p;
+  XConIn = wetBul.Xi[1];
+  TConIn = wetBul.TDryBul;
+  TConInWetBul=wetBul.TWetBul;
+
+  // Calculate modifying factor for defrost operation power consumption
   defMod_T =Buildings.Utilities.Math.Functions.smoothMax(
     x1=Buildings.Utilities.Math.Functions.biquadratic(
       a=defCur.defEIRFunT,
       x1=Modelica.Units.Conversions.to_degC(TConInWetBul),
       x2=Modelica.Units.Conversions.to_degC(TOut)),
       x2=0.001,
-      deltaX=0.0001)
-      "Cooling capacity modification factor as function of temperature";
+      deltaX=0.0001);
+
   PLR = uSpe;
+
+  //  Calculate heat transferred from airflow to outdoor coil, and power consumed by
+  //  compressor for defrost operation.
   if defOpe == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive then
     QDef_flow = 0;
     PDef =QDefResCap*tDefFra*RTF;
   else
+    //  All coefficients are empirical values valid only for temperature in degree
+    //  Celsius and heat flow rate in Watts.
     QDef_flow = 0.01*tDefFra*(7.222 - Modelica.Units.Conversions.to_degC(TOut))*
       QTot_flow/1.01667;
     PDef =defMod_T*QTot_flow*tDefFra*RTF/1.01667;
-  end if
-  "Power and heat transfer calculations from EPlus engineering reference";
+  end if;
   QTotDef_flow = QTot_flow*heaCapMul;
+
+  // Partload fraction for heating coil
   PLFra = Buildings.Fluid.Utilities.extendedPolynomial(
       x=PLR,
       c=defCur.PLFraFunPLR,
       xMin=0,
-      xMax=1)
-    "Part load fraction for heating coil";
+      xMax=1);
+
+  //  Calculate total power consumption, run-time fraction and crankcase heater
+  //  power consumption.
   PTot =QTot_flow*EIR*PLR*inpPowMul/PLFra;
   RTF = PLR/PLFra;
   PCra = defCur.QCraCap * (1 - RTF);
-
-  pIn = wetBul.p;
-  XConIn = wetBul.Xi[1];
-  TConIn = wetBul.TDryBul;
 
    annotation (
     defaultComponentName="defCap",
