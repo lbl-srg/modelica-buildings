@@ -104,7 +104,7 @@ model DualSource
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=0.6*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
@@ -114,7 +114,7 @@ model DualSource
         origin={90,150})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
@@ -124,7 +124,7 @@ model DualSource
         origin={90,-10})));
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
     final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
@@ -142,16 +142,16 @@ model DualSource
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-130,170})));
-  Modelica.Blocks.Sources.TimeTable mLoa1_flow(table=[0,0; 3000,0; 3000,ideUse1.m_flow_nominal;
-        6000,ideUse1.m_flow_nominal; 6000,0; 9000,0])
+  Modelica.Blocks.Sources.TimeTable mLoa1_flow(table=[0,0; 1800,0; 1800,ideUse1.m_flow_nominal;
+        7000,ideUse1.m_flow_nominal; 7000,0; 9000,0])
     "Cooling load of user 1 represented by flow rate"
     annotation (Placement(transformation(extent={{100,180},{80,200}})));
   Modelica.Blocks.Sources.TimeTable mLoa2_flow(table=[0,0; 3500,0; 3500,ideUse2.m_flow_nominal;
-        5500,ideUse2.m_flow_nominal; 5500,0; 9000,0])
+        6500,ideUse2.m_flow_nominal; 6500,0; 9000,0])
     "Cooling load of user 2 represented by flow rate"
     annotation (Placement(transformation(extent={{100,20},{80,40}})));
-  Modelica.Blocks.Sources.TimeTable mLoa3_flow(table=[0,0; 4000,0; 4000,ideUse3.m_flow_nominal;
-        5000,ideUse3.m_flow_nominal; 5000,0; 9000,0])
+  Modelica.Blocks.Sources.TimeTable mLoa3_flow(table=[0,0; 4500,0; 4500,ideUse3.m_flow_nominal;
+        6000,ideUse3.m_flow_nominal; 6000,0; 9000,0])
     "Cooling load of user 3 represented by flow rate"
     annotation (Placement(transformation(extent={{100,-140},{80,-120}})));
   Modelica.Blocks.Math.Gain gaiUse1(final k=1/ideUse1.dp_nominal)
@@ -280,8 +280,8 @@ model DualSource
     final use_outFil=true)
     "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 500,1; 3000,2; 3750,3;
-        6000,2; 6500,1])
+  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 200,1; 3000,2; 4000,3;
+        6000,2; 7500,1])
     "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
     annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
   Buildings.Fluid.Storage.Plant.Controls.TankStatus tanSta(
@@ -454,29 +454,53 @@ simulation:
 At <code>time = 0</code>, the system is all off.
 </li>
 <li>
-At <code>time = 500</code>, the tank is commanded to charge. The chiller is
-available and charges the tank locally.
-After some time, the charging stops when the tank becomes full.
+At <code>time = 200</code>, the system is commanded to charge the tank.
+The chiller is available and charges the tank locally.
+After some time, the charging stops when the tank is cooled.
+Note that at this point the tank still has capacity.
 </li>
 <li>
-At <code>time = 3000</code>, the district system has load and the storage
-plant starts to output CHW to the system. Currently the tank is commanded
-to hold. Therefore, the CHW is supplied by the chiller.
+At <code>time = 1800</code>, load appears at the district network.
+The storage plant starts producing CHW to the system.
+Currently the system is commanded to hold the tank and
+therefore the CHW is supplied by the chiller.
+<ul>
+<li>
+Because the CHW flow needed at the storage plant is lower than that is
+produced by the chiller and the constant-speed pump, the tank continues
+to be charged by the overflow.
 </li>
 <li>
-At <code>time = 3750</code>, the tank is commanded to output.
-It takes priority over the chiller.
-After some time, the outputting stops when the tank is depleted.
-Now the CHW is produced by the chiller instead.
+After some time, the tank reaches the overcooled status.
+It then overrides the production priority of the chiller to produce CHW
+for the network instead. This continues until the tank is no longer
+overcooled, at which point the production priority is handed back to
+the chiller.
 </li>
 <li>
-At <code>time = 6000</code>, there is no longer load in the district system.
+The chiller and the tank continue to exchange the production priority
+based on whether the tank is overcooled.
+</li>
+</ul>
+</li>
+<li>
+At <code>time = 3500</code>, the load increases and there is no more overflow
+to charge the tank.
+</li>
+<li>
+At <code>time = 4000</code>, the system is commanded to have the tank take
+priority over CHW production. After some time, the chill in the tank is
+depleted and the tank stops producing. Now the chiller takes over.
+</li>
+<li>
+At <code>time = 7000</code>, there is no longer load in the district system.
 The system is back to the all-off state.
 </li>
 <li>
-At <code>time = 6500</code>, the tank is once again commanded to charge.
-But the chiller is offline at this time. The tank is therefore charged
-remotely by the district. It stops when the tank is full.
+At <code>time = 7500</code>, the system in once again commanded to charge
+the tank, But the chiller in the storage plantis offline.
+The tank is therefore charged remotely by the district.
+This stops once the tank is cooled.
 </li>
 </ul>
 </html>", revisions="<html>
