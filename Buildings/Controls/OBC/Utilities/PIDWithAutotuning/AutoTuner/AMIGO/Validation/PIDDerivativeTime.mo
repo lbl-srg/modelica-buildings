@@ -52,8 +52,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDerivativeTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDerivativeTime</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime</a>.
 </p>
 <p>
 The reference data is imported from a raw data that is generated with a Python implementation of this block.
