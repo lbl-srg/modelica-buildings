@@ -4,16 +4,21 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_occSen=true
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_CO2Sen=true
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean have_hotWatCoi=true
-    "True: the unit has the hot water coil";
+    "True: the unit has the hot water coil"
+    annotation (__cdl(ValueInReference=False));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+    annotation (__cdl(ValueInReference=False),
+                Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
                               and have_occSen));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
@@ -39,135 +44,154 @@ block Controller "Controller for constant-volume series fan-powered terminal uni
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Control loops", group="Cooling"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Control loops", group="Heating"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
   parameter Real dTDisZonSetMax(unit="K")=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Dialog(tab="Damper and valve control"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Damper and valve control"));
   parameter CDL.Types.SimpleController controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
                                                          "Type of controller"
-    annotation (Dialog(tab="Damper and valve control", group="Valve"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real kVal=0.5
     "Gain of controller for valve control"
-    annotation (Dialog(tab="Damper and valve control", group="Valve"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
-    annotation (Dialog(tab="Damper and valve control", group="Valve",
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (Dialog(tab="Damper and valve control", group="Valve",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Damper and valve control", group="Damper"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Damper and valve control", group="Damper"));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation (Dialog(tab="Damper and valve control", group="Damper",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Damper and valve control", group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(tab="Damper and valve control", group="Damper",
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Damper and valve control", group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="System requests"));
   parameter Real twoTemDif(unit="K")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="System requests"));
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8.3
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Alarms"));
   parameter Real hotWatRes=1
     "Importance multiplier for the hot water reset control loop"
-    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=False),
+                Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Alarms"));
   parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real comChaTim(unit="s")=15
     "Threshold time after fan command change"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Alarms"));
   parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Alarms"));
   parameter Real leaFloTim(unit="s")=600
     "Threshold time to check damper leaking airflow"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Alarms"));
   parameter Real valCloTim(unit="s")=900
     "Threshold time to check valve leaking water flow"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Time-based suppresion"));
   parameter Real chaRat=540
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
-                                "Maximum suppression time"
-    annotation (Dialog(tab="Time-based suppresion"));
+    "Maximum suppression time"
+    annotation (__cdl(ValueInReference=True), Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real valPosHys(unit="1")=0.005
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
-    annotation (Dialog(tab="Advanced", group="Control loops"));
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+    annotation (__cdl(ValueInReference=True),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(

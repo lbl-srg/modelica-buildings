@@ -16,24 +16,27 @@ block Alarms "Generate alarms of snap-acting controlled dual-duct terminal unit"
   parameter Real lowFloTim(
     final unit="s",
     final quantity="Time")=300
-    "Threshold time to check low flow rate";
+    "Threshold time to check low flow rate"
+    annotation (__cdl(ValueInReference=True));
   parameter Real fanOffTim(
     final unit="s",
     final quantity="Time")=600
-    "Threshold time to check fan off";
+    "Threshold time to check fan off"
+    annotation (__cdl(ValueInReference=True));
   parameter Real leaFloTim(
     final unit="s",
     final quantity="Time")=600
-    "Threshold time to check damper leaking airflow";
+    "Threshold time to check damper leaking airflow"
+    annotation (__cdl(ValueInReference=True));
   parameter Real floHys(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.05
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
   parameter Real damPosHys(
     final unit="1")=0.05
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=False), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final min=0,
