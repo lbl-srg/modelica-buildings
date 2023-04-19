@@ -434,4 +434,52 @@ def extract_data(outFile):
     return data
 
 def write_incon():
-    fin
+    fwriteIncon = open('writeincon.inp')
+    fsave = open('SAVE')
+    fincon = open('temp1', 'wt')
+    finFile = open('INFILE')
+    fnewInFile = open ('temp3', 'wt')
+    fgener = open('GENER', 'wt')
+
+    T_Bor = []
+    Q_Bor = []
+
+    count = 0
+    for line in fwriteIncon:
+        count += 1
+        # number of grid blocks with borehole temperatures from Modelica
+        if count == 2:
+            nModGri = int(line.strip())
+        # total number of grid blocks
+        elif count == 4:
+            nGri = int(line.strip())
+        # initial time for TOUGH step (sec)
+        elif count == 6:
+            t_init = float(line.strip())
+        # final time for TOUGH step (sec)
+        elif count == 8:
+            t_final = float(line.strip())
+            if t_final > 999999999.0:
+                print(' ERROR t_final= {} is too big '.format(t_final))
+                print(' Max allowable t_final=99999999. STOP')
+                exit()
+        # initial borehole temperatures (C) form Modelica (top to bottom)
+        elif (count > 9 and count <= 9 + nModGri):
+            T_Bor.append(float(line.strip()))
+        # borehole heat fluxes (W) from Modelica (top to bottom)
+        elif ((count > 10 + nModGri) and (count <= 10 + 2*nModGri)):
+            Q_Bor.append(float(line.strip()))
+        elif (count == 12 + 2*nModGri):
+            T_sur = float(line.strip())
+    
+    # update the initial condition
+    count = 0
+    for saveLine in fsave:
+        count += 1
+        if count == 1:
+            fincon.write(saveLine + os.linesep)
+
+
+
+
+        
