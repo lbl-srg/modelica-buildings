@@ -17,11 +17,15 @@ block CoilDefrostTimeCalculations
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim
     "Maximum temperature at which defrost operation is activated";
 
+  parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.5
+    "Temperature comparison hysteresis difference"
+    annotation(Dialog(tab="Advanced"));
+
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
-    "Humidity ratio of outdoor air"
+    "Temperature of outdoor air"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}}),
       iconTransformation(extent={{-120,10},{-100,30}})));
 
@@ -62,30 +66,52 @@ block CoilDefrostTimeCalculations
     "Outdoor coil temperature";
 
   Modelica.Units.SI.MassFraction XOutDryAir
-    "Outdoor air humidity ratio (total air)";
+    "Outdoor air humidity ratio per kg total air";
 
   Buildings.Utilities.Psychrometrics.ToDryAir toDryAir
-    "Convert outdoor air humidity ratio from total air to dry air"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+    "Convert outdoor air humidity ratio from total air to dry air";
+
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysTOut(
+    final uLow=-dTHys,
+    final uHigh=dTHys)
+    "Check if outdoor air temperature is below maximum limit for defrost operation";
 
 equation
-  // Outdoor coil surface temperature
+  // Estimated outdoor coil surface temperature, based on outdoor air temperature.
+  // 0.82 and 8.589 are empirical coefficients for this conversion, that are valid
+  // only when outdoor air temperature is in degree Celsius.
   TCoiOut = Modelica.Units.Conversions.from_degC(0.82*Modelica.Units.Conversions.to_degC(TOut) - 8.589);
-  connect(XOut, toDryAir.XiTotalAir);
+
+  // Provide outdoor air as input to conversion block
+  XOut = toDryAir.XiTotalAir;
+
+  // Get outdoor air humidity ratio per kg of dry air
   XOutDryAir = toDryAir.XiDry;
+
   // Calculate difference between outdoor air humidity ratio and saturated air humidity
-  // ratio at estimated outdoor coil temperature
-  delta_XCoilOut = max(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)));
-  if TOut < TDefLim then
+  // ratio at estimated outdoor coil surface temperature, which will indicate frost formation
+  delta_XCoilOut = Buildings.Utilities.Math.Functions.smoothMax(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)), (0.5*1e-6));
+
+  //  Use hysteresis block for comparison of outdoor air temperature with max limit
+  //  for defrost operation
+  hysTOut.u = TOut - TDefLim;
+
+  // Check if defrost operation is allowed
+  if not hysTOut.y then
     if defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed then
       tDefFra = tDefRun;
+      // Empirical coefficients for calculating multipliers valid only for humidity
+      // ratio difference per kg of dry air
       heaCapMul = 0.909 - 107.33*delta_XCoilOut;
       inpPowMul = 0.9 - 36.45*delta_XCoilOut;
     else
+      // Empirical coefficients for calculating multipliers valid only for humidity
+      // ratio per kg of dry air
       tDefFra = 1/(1 + (0.01446/delta_XCoilOut));
       heaCapMul =0.875*(1 - tDefFra);
       inpPowMul =0.954*(1 - tDefFra);
     end if;
+  // Condition for when defrost is not operated
   else
     tDefFra = 0;
     heaCapMul = 1;
@@ -107,7 +133,7 @@ in section 15.2.11.4 in the the EnergyPlus 22.2
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
 document. It also calculates the heating capacity multiplier <code>heaCapMul</code>
 and the input power multiplier <code>inpPowMul</code>. The inputs are the measured
-temperature <code>TOut</code> and humidity ratio (total air) <code>XOut</code> 
+temperature <code>TOut</code> and humidity ratio per kg total air <code>XOut</code> 
 of the outdoor air.
 </p>
 </html>",
