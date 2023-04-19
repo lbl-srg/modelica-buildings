@@ -138,5 +138,13 @@ equation
   connect(yValHeaWatMinByp.y, busValHeaWatMinByp.y) annotation (Line(points={{
           -142,20},{-194,20},{-194,40},{-200,40}}, color={0,0,127}));
   annotation (
-  defaultComponentName="ctl");
+  defaultComponentName="ctl", Documentation(info="<html>
+<p>
+This is an open loop controller providing control inputs
+for the plant model
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.BoilerPlant\">
+Buildings.Templates.HeatingPlants.HotWater.BoilerPlant</a>.
+It is only used for testing purposes.
+</p>
+</html>"));
 end OpenLoop;

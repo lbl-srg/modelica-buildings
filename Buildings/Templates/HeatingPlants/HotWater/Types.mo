@@ -25,7 +25,7 @@ type PumpsPrimary = enumeration(
     Variable "Variable speed pump")
     "Enumeration to specify the type of primary HW pumps";
 type PumpsSecondary = enumeration(
-    None "No secondary pump (primary-only)",
+    None "No secondary pumps (primary-only)",
     Centralized "Variable secondary centralized",
     Distributed "Variable secondary distributed")
     "Enumeration to specify the type of secondary HW pumps";
@@ -33,4 +33,9 @@ type SensorLocation = enumeration(
     Return "Sensor in the return line",
     Supply "Sensor in the supply line")
     "Enumeration to specify the sensor location";
+  annotation (Documentation(info="<html>
+<p>
+This package contains type definitions.
+</p>
+</html>"));
 end Types;

@@ -42,7 +42,7 @@ model BoilerGroupPolynomial "Validation model for boiler group"
   Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup boi(
     redeclare final package Medium=Medium,
     final nBoi=nBoi,
-    typMod=Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial,
+    typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial,
     final is_con=true,
     typArrPumHeaWatPri=Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final dat=datBoi,

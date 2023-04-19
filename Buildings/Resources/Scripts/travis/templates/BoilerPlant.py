@@ -78,10 +78,14 @@ MODIF_GRID = {
                 'Buildings.Templates.Components.Types.PumpArrangement.Dedicated',
                 'Buildings.Templates.Components.Types.PumpArrangement.Headered',
             ],
-            BOI__typPumHeaWatSec=[
+            BOI__typPumHeaWatSec1_select=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized',
                 # 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
+            ],
+            BOI__typPumHeaWatSec2_select=[
+                'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized',
+                # 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed',
             ],
             BOI__ctl__typMeaCtlHeaWatPri=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler',
@@ -127,7 +131,23 @@ REMOVE_MODIF = {
     'Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlant': [
         [
             [
-                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
+            ],
+            [
+                'typPumHeaWatSec1_select',
+            ],
+        ],
+        [
+            [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.(?!Hybrid)',
+            ],
+            [
+                'typPumHeaWatSec2_select',
+            ],
+        ],
+        [
+            [
+                'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
             ],
             [
                 'typMeaCtlHeaWatPri',
@@ -136,7 +156,7 @@ REMOVE_MODIF = {
         ],
         [
             [
-                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatSec(1|2)_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [
@@ -146,7 +166,7 @@ REMOVE_MODIF = {
         [
             [
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
-                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
                 'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Constant',
             ],
             [
@@ -157,7 +177,7 @@ REMOVE_MODIF = {
         [
             [
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
-                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
                 'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Constant',
             ],
             [
@@ -168,7 +188,7 @@ REMOVE_MODIF = {
         [
             [
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
-                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
                 'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
@@ -179,7 +199,7 @@ REMOVE_MODIF = {
         [
             [
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
-                'typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
                 'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
@@ -307,7 +327,8 @@ def simulateCase(arg, simulator):
     except (FileNotFoundError, IndexError) as e:
         toreturn = 3
     finally:
-        shutil.rmtree(output_dir_path, ignore_errors=True)
+        if toreturn == 0:
+            shutil.rmtree(output_dir_path, ignore_errors=True)
 
     return toreturn
 
@@ -442,8 +463,8 @@ if __name__ == '__main__':
             result=results,
         ))
 
-    for idx in df[df.result != 0].index:
-        with open('unitTestsTemplates.log', 'w') as FH:
+    with open('unitTestsTemplates.log', 'w') as FH:
+        for idx in df[df.result != 0].index:
             FH.writelines([
                 f'*** Simulation failed for {df.iloc[idx].model} with the following class modifications:\n',
                 ', \n'.join(df.iloc[idx].modif), '\n'

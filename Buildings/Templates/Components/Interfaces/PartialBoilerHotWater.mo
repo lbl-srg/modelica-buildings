@@ -3,7 +3,7 @@ partial model PartialBoilerHotWater "Interface class for chiller models"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=mHeaWat_flow_nominal);
 
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod
     "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 

@@ -2,7 +2,7 @@ within Buildings.Templates.Components.Data;
 record BoilerHotWater "Data for hot water boilers"
   extends Modelica.Icons.Record;
 
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod
     "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
@@ -41,22 +41,22 @@ record BoilerHotWater "Data for hot water boilers"
       dp_nominal=dpHeaWat_nominal)
     "Boiler performance data"
     annotation (
-    Dialog(enable=typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Table),
+    Dialog(enable=typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Table),
     choicesAllMatching=true);
 
   parameter Buildings.Fluid.Types.EfficiencyCurves effCur=
     Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency"
     annotation (Dialog(enable=
-    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial));
+    typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial));
   parameter Real a[:] = {0.9}
     "Coefficients for efficiency curve"
     annotation (Dialog(enable=
-    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial));
+    typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial));
   parameter Modelica.Units.SI.Temperature T_nominal=THeaWatSup_nominal
     "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)"
     annotation (Dialog(enable=
-    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial and
+    typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial and
     (effCur==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear)));
 
     annotation (Dialog(enable=

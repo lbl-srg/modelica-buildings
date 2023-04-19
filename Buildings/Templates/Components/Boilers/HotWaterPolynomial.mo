@@ -1,7 +1,7 @@
 within Buildings.Templates.Components.Boilers;
 model HotWaterPolynomial "Hot water boiler"
   extends Buildings.Templates.Components.Interfaces.BoilerHotWater(
-    final typMod=Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial,
+    final typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial,
     redeclare Buildings.Fluid.Boilers.BoilerPolynomial boi(
       final Q_flow_nominal = dat.cap_nominal,
       final m_flow_nominal=dat.mHeaWat_flow_nominal,

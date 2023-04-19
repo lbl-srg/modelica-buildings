@@ -24,10 +24,5 @@ equation
 This class generates signals typically provided by the BAS.
 It is aimed for validation purposes only.
 </p>
-<p>
-The outdoor air temperature used for optimum start, plant lockout, and other global sequences shall
-be the average of all valid sensor readings. If there are four or more valid outdoor air temperature
-sensors, discard the highest and lowest temperature readings.
-</p>
 </html>"));
 end BASControlPoints;

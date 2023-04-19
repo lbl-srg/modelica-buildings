@@ -8,8 +8,7 @@ partial model PartialBoilerPlant
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Boiler typ
     "Type of boilers"
     annotation (Evaluate=true, Dialog(group="Boilers"));
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod=
-    Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial
     "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Boilers"));
 
@@ -150,8 +149,24 @@ partial model PartialBoilerPlant
     "Set to true for variable speed primary HW pumps"
     annotation (Evaluate=true, Dialog(group="Primary HW loop - Non-condensing boilers"));
 
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec(
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec1_select(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)
+    "Type of secondary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Secondary HW loop", enable=
+    typ<>Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid));
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec2_select(
+    start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized)
+    "Type of secondary HW pumps"
+    annotation (Evaluate=true, Dialog(group="Secondary HW loop", enable=
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid),
+    choices(
+    choice=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
+      "Variable secondary centralized",
+    choice=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed
+      "Variable secondary distributed"));
+  final parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec=
+    if typ<>Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid then typPumHeaWatSec1_select
+    else typPumHeaWatSec2_select
     "Type of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop"));
   final parameter Boolean have_pumHeaWatSec=
@@ -166,24 +181,18 @@ partial model PartialBoilerPlant
     enable=have_pumHeaWatSec));
   parameter Integer nLooHeaWatSec=1
     "Number of secondary HW loops for distributed secondary distribution"
-    annotation (Evaluate=true, Dialog(group="Secondary HW loop",
-    enable=typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed));
+    annotation (Evaluate=true, Dialog(group="Secondary HW loop", enable=
+    typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Controller typCtl
     "Type of controller"
-    annotation (Evaluate=true, Dialog(group="Controls", enable=false));
-  parameter Integer nAirHan(
-    final min=0)=0
+    annotation (Evaluate=true, Dialog(group="Controls"));
+  parameter Integer nAirHan
     "Number of air handling units served by the plant"
-    annotation(Evaluate=true,
-    Dialog(group="Controls",
-    enable=typCtl==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
-  parameter Integer nEquZon(
-    final min=0)=0
+    annotation(Evaluate=true, Dialog(group="Controls"));
+  parameter Integer nEquZon
     "Number of terminal units (zone equipment) served by the plant"
-    annotation(Evaluate=true,
-    Dialog(group="Controls",
-    enable=typCtl==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
+    annotation(Evaluate=true, Dialog(group="Controls"));
 
   // See derived class for additional bindings of parameters not defined at top-level.
   parameter Buildings.Templates.HeatingPlants.HotWater.Data.BoilerPlant dat(
@@ -204,7 +213,8 @@ partial model PartialBoilerPlant
     final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
     final typCtl=typCtl,
     final rho_default=rho_default)
-    "Design and operating parameters";
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{-280,240},{-260,260}})));
 
   final parameter Modelica.Units.SI.MassFlowRate mHeaWatPriCon_flow_nominal=
     sum(dat.pumHeaWatPriCon.m_flow_nominal)

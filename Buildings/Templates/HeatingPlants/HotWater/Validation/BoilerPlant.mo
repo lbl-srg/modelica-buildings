@@ -1,19 +1,21 @@
 within Buildings.Templates.HeatingPlants.HotWater.Validation;
 model BoilerPlant
   "Validation of boiler plant template with G36 controls"
-  extends Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
+  extends
+    Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
     BOI(
       typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
-      nAirHan=1,
       nBoiCon_select=2,
       nBoiNon_select=2,
-      typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
-      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
-      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
+      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant,
+      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-      typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
-      redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36 ctl(
-        typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
+      typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
+      redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36
+        ctl(
+        nAirHan=1,
+        typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureBoilerSensor,
         locSenVHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
         have_senDpHeaWatLoc=false)));
 
@@ -42,5 +44,19 @@ annotation (
   experiment(
     StartTime=0,
     StopTime=2000,
-    Tolerance=1e-06));
+    Tolerance=1e-06), Documentation(info="<html>
+<p>
+This is a validation model for the boiler plant model
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.BoilerPlant\">
+Buildings.Templates.HeatingPlants.HotWater.BoilerPlant</a>
+with closed-loop controls as implemented within
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36\">
+Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36</a>.
+</p>
+<p>
+A Python script is provided with this model to test all supported system
+configurations, see
+<code>Buildings/Resources/Scripts/travis/templates/BoilerPlant.py</code>.
+</p>
+</html>"));
 end BoilerPlant;

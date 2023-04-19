@@ -51,6 +51,11 @@ partial model PartialPumpMultiple
      annotation (Placement(
         transformation(extent={{90,-40},{110,40}}), iconTransformation(extent={{90,-40},
             {110,40}})));
+
+  parameter Integer icon_dy = 250
+    "Distance in y-direction between each unit in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+
   annotation (Documentation(info="<html>
 <p>
 This partial class provides a standard interface for models
@@ -66,5 +71,52 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+    Line(
+      visible=nPum>=2,
+      points={{-100,icon_dy},{100,icon_dy}},
+      color={0,0,0},
+      thickness=1),
+    Line(
+      points={{-100,0},{100,0}},
+      color={0,0,0},
+      thickness=1),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None,
+        extent={{-100,-70},{0,30}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe,
+        extent={{26,-22},{100,28}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and nPum>=2,
+        extent={{-100,icon_dy-70},{0,icon_dy+30}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_valChe and nPum>=2,
+        extent={{26,icon_dy-22},{100,icon_dy+28}},
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+        Text(
+          extent={{-149,-114},{151,-154}},
+          textColor={0,0,255},
+          textString="%name"),
+    Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None,
+          points={{-50,60},{-50,22}},
+          color={0,0,0},
+          thickness=0.5),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var,
+        extent={{-100,60},{0,160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
+    Line( visible=typ<>Buildings.Templates.Components.Types.Pump.None,
+          points={{-50,310},{-50,272}},
+          color={0,0,0},
+          thickness=0.5),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var,
+        extent={{-100,310},{0,410}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg")}));
 end PartialPumpMultiple;

@@ -1,7 +1,7 @@
 within Buildings.Templates.Components;
 package Types "Package with type definitions"
   extends Modelica.Icons.TypesPackage;
-  type ModelBoilerHotWater = enumeration(
+  type BoilerHotWaterModel = enumeration(
       Polynomial
       "Efficiency described by a polynomial",
       Table

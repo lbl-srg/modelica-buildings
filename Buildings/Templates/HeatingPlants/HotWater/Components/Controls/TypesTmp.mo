@@ -52,4 +52,10 @@ package TypesTmp
       localDP "Pump speed regulated to maintain local differential pressure setpoint",
       remoteDP "Pump speed regulated to maintain remote differential pressure setpoint")
     "Definitions for secondary pump speed control types";
+  annotation (Documentation(info="<html>
+<p>
+FIXME: Temporary files to be deleted when merging
+issue2180_BoilerPlant_MainController_oct_2021.
+</p>
+</html>"));
 end TypesTmp;

@@ -3,6 +3,8 @@ model BoilerPlant "Boiler plant"
   extends
     Buildings.Templates.HeatingPlants.HotWater.Interfaces.PartialBoilerPlant(
     final typCtl=ctl.typ,
+    final nAirHan=ctl.nAirHan,
+    final nEquZon=ctl.nEquZon,
     dat(
       have_senDpHeaWatLoc=ctl.have_senDpHeaWatLoc,
       nSenDpHeaWatRem=ctl.nSenDpHeaWatRem,
@@ -62,7 +64,8 @@ model BoilerPlant "Boiler plant"
     final have_varCom=true,
     final dat=dat.pumHeaWatPriCon,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) if have_boiCon
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=-200) if have_boiCon
     "Primary HW pumps - Condensing boilers"
     annotation (Placement(transformation(extent={{-130,-150},{-110,-130}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatPriCon(
@@ -219,7 +222,8 @@ model BoilerPlant "Boiler plant"
     final have_varCom=true,
     final dat=dat.pumHeaWatPriNon,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal) if have_boiNon
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=-200) if have_boiNon
     "Primary HW pumps - Non-condensing boilers"
     annotation (Placement(transformation(extent={{-130,-30},{-110,-10}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outPumHeaWatPriNon(
@@ -441,8 +445,8 @@ model BoilerPlant "Boiler plant"
       final have_boiNon=have_boiNon,
       final nBoiCon=nBoiCon,
       final nBoiNon=nBoiNon,
-      final have_varPumHeaWatPriCon=have_varPumHeaWatPriCon,
-      final have_varPumHeaWatPriNon=have_varPumHeaWatPriNon,
+      final typPumHeaWatPriCon=typPumHeaWatPriCon,
+      final typPumHeaWatPriNon=typPumHeaWatPriNon,
       final typPumHeaWatSec=typPumHeaWatSec,
       final nPumHeaWatPriCon=nPumHeaWatPriCon,
       final nPumHeaWatPriNon=nPumHeaWatPriNon,
@@ -450,9 +454,7 @@ model BoilerPlant "Boiler plant"
       final typArrPumHeaWatPriNon=typArrPumHeaWatPriNon,
       final nPumHeaWatSec=nPumHeaWatSec,
       final have_valHeaWatMinBypCon=have_valHeaWatMinBypCon,
-      final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon,
-      final nAirHan=nAirHan,
-      final nEquZon=nEquZon)
+      final have_valHeaWatMinBypNon=have_valHeaWatMinBypNon)
     "Plant controller"
     annotation (
     Dialog(group="Controls"),
@@ -600,9 +602,83 @@ equation
     annotation (Line(points={{60,-70},{60,-90}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-The outdoor air temperature used for optimum start, plant lockout, and other global sequences shall
+This template represents a hot water plant with boilers.
+</p>
+<p>
+The possible equipment configurations are enumerated in the table below.
+If any default is provided, it is displayed in bold characters.
+The user may refer to ASHRAE (2021) for further details.
+</p>
+<table summary=\"summary\" border=\"1\">
+<tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
+<tr><td>Type of boiler</td>
+<td>
+Condensing</b><br/>
+Non-condensing</b><br/>
+Hybrid (both condensing and non-condensing boilers)
+</td>
+<td></td>
+</tr>
+<tr><td>Type of primary HW pumps</td>
+<td>
+Constant speed<br/>
+Variable speed<br/>
+Constant speed, provided with boiler with factory controls<br/>
+Variable speed, provided with boiler with factory controls
+</td>
+<td>
+In case of hybrid plants, the type of primary HW pumps is specified
+separately for the condensing boiler group and the non-condensing boiler group.
+</td>
+</tr>
+<tr><td>Type of primary HW pump arrangement</td>
+<td>
+Headered<br/>
+Dedicated
+</td>
+<td>
+If the primary HW pumps are provided with the boilers, they are necessarily 
+configured in a dedicated arrangement and this option is not available.
+</td>
+</tr>
+<tr><td>Type of secondary HW pumps</td>
+<td>
+None (primary-only)<br/>
+Variable speed, centralized<br/>
+Variable speed, distributed
+</td>
+<td>
+Constant speed secondary pumps are not supported as they are generally not 
+advisable on any boiler system (see section 5.21.7.11 in ASHRAE, 2021 for 
+further explanations).<br/>
+In case of hybrid plants, the primary-only option is not available.<br/>
+Centralized secondary pumps refers to configurations with a single group 
+of secondary pumps that is typically integrated into the plant.<br/>
+Distributed secondary pumps refers to configurations with multiple secondary 
+loops, each loop being served by a dedicated group of secondary pumps.
+</td>
+</tr>
+<tr><td>Controller</td>
+<td>
+<b>ASHRAE Guideline 36 controller</b>
+</td>
+<td>An open loop controller is also available for validation purposes only.</td>
+</tr>
+</table>
+<h4>Controls</h4>
+<p>
+<p>
+FIXME: The outdoor air temperature used for optimum start, plant lockout, and other global sequences shall
 be the average of all valid sensor readings. If there are four or more valid outdoor air temperature
 sensors, discard the highest and lowest temperature readings.
 </p>
+</p>
+<h4>References</h4>
+<ul>
+<li id=\"ASHRAE2021\">
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end BoilerPlant;

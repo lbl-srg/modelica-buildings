@@ -5,7 +5,7 @@ record BoilerGroup "Record for boiler group model"
   parameter Integer nBoi(final min=0)
     "Number of boilers (as installed)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod
     "Type of boiler model (same model for all boilers)"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
@@ -41,22 +41,22 @@ record BoilerGroup "Record for boiler group model"
       dp_nominal=if nBoi>0 then dpHeaWatBoi_nominal else {0})
     "Boiler performance data - Each boiler"
     annotation (
-    Dialog(enable=typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Table),
+    Dialog(enable=typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Table),
     choicesAllMatching=true);
 
   parameter Buildings.Fluid.Types.EfficiencyCurves effCur=
     Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency (same curve type for all boilers)"
     annotation (Dialog(enable=
-    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial));
+    typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial));
   parameter Real a[nBoi, :] = fill({0.9}, nBoi)
     "Coefficients for efficiency curve - Each boiler"
     annotation (Dialog(enable=
-    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial));
+    typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial));
   parameter Modelica.Units.SI.Temperature T_nominal[nBoi]=THeaWatBoiSup_nominal
     "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature) - Each boiler"
     annotation (Dialog(enable=
-    typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial and
+    typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial and
     (effCur==Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear)));
 
   annotation (

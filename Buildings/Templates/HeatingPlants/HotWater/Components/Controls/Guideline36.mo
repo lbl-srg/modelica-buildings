@@ -10,8 +10,8 @@ block Guideline36 "Guideline 36 controller"
     "Is the boiler plant a primary-only, condensing boiler plant?";
 
   // FIXME: How are the following configurations supported?
-  // Hybrid plant with dedicated non-condensing boiler pumps and headered condensing boiler pumps (see for instance Figure A-27 in G36)
-  // Dedicated pump provided with boiler with factory controls
+  // - Hybrid plant with dedicated non-condensing boiler pumps and headered condensing boiler pumps (see for instance Figure A-27 in G36)
+  // - Dedicated pump provided with boiler with factory controls
   final parameter Boolean have_heaPriPum =
     typArrPumHeaWatPriCon==Buildings.Templates.Components.Types.PumpArrangement.Headered or
     typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered
@@ -51,8 +51,15 @@ block Guideline36 "Guideline 36 controller"
   final parameter Integer staMat[:, nBoi] = dat.sta
     "Staging matrix with stage as row index and boiler as column index";
 
-  // FIXME: For hybrid plants, how to specify the number of pumps for condensing and non-condensing boilers?
-  final parameter Integer nPumPri = nPumHeaWatPriCon + nPumHeaWatPriNon
+  /* FIXME: For hybrid plants, how to specify the number of pumps for condensing and non-condensing boilers?
+  To support integrated pumps with factory controls in the template, I suggest 
+  to use the same control logic as implemented here but maybe with separate 
+  dedicated output connectors. 
+  This would make it clear that those are not AO/DO points of the controller 
+  but only used for simulation purposes.
+  */
+  final parameter Integer nPumPri =
+    nPumHeaWatPriCon + nPumHeaWatPriNon
     "Number of primary pumps in the boiler plant loop";
 
   final parameter Integer nSenPri = nSenDpHeaWatRem
@@ -270,6 +277,13 @@ block Guideline36 "Guideline 36 controller"
     typArrPumHeaWatPriNon==Buildings.Templates.Components.Types.PumpArrangement.Headered
     "Should be a DO point (Boolean)"
     annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
+
+initial equation
+  assert(nAirHan + nEquZon > 0,
+   "In "+ getInstanceName() + ": "+
+   "The plant model requires at least one air handler or one zone equipment " +
+   "generating HW plant requests and HW reset requests.");
+
 equation
   /* Control point connection - start */
 
@@ -347,5 +361,24 @@ lowest indices and non-condensing boilers have the highest indices.
 Distributed secondary pumps are currently not supported.
 This limitation stems from the G36 controller implementation.
 </p>
+<h4>Description</h4>
+<p>
+This is an implementation of the control sequence specified in ASHRAE (2021)
+for chilled water plants.
+It is based on
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
+</p>
+<h4>Details</h4>
+<p>
+To be updated.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
+for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
 </html>"));
 end Guideline36;

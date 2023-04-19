@@ -27,7 +27,7 @@ model BoilerPlantOpenLoop
     nBoiNon_select=2,
     typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
     typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-    typPumHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
+    typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None,
     final energyDynamics=energyDynamics,
     final tau=tau,
     final dat=datAll._BOI)
@@ -91,17 +91,16 @@ First implementation.
 </ul>
 </html>", info="<html>
 <p>
-This is a validation model for the water-cooled chiller plant model
-<a href=\"modelica://Buildings.Templates.ChilledWaterPlants.WaterCooled\">
-Buildings.Templates.ChilledWaterPlants.WaterCooled</a>
+This is a validation model for the boiler plant model
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.BoilerPlant\">
+Buildings.Templates.HeatingPlants.HotWater.BoilerPlant</a>
 with open-loop controls.
 </p>
 <p>
 It is intended to check that the plant model is well-defined for
 various plant configurations.
 However, due to the open-loop controls a correct physical behavior
-is not expected. For instance, the coolers are commanded at maximum
-speed which may yield freezing conditions in the CW loop.
+is not expected.
 </p>
 </html>"));
 end BoilerPlantOpenLoop;

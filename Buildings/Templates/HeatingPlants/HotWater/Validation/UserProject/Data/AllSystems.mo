@@ -82,7 +82,7 @@ class AllSystems
   annotation (Documentation(info="<html>
 <p>
 This class provides system parameters for the validation
-of air-cooled chiller plant models.
+of the boiler plant model.
 </p>
 </html>"));
 end AllSystems;

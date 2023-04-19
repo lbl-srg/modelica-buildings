@@ -129,6 +129,13 @@ with optional check valves (depending on the value of the parameter
 <code>have_valChe</code>).
 </p>
 <p>
+Note that the inlet and outlet manifolds are not included in this model.
+The manifolds may be modeled with 
+<a href=\"modelica://Buildings.Templates.Components.Routing.MultipleToMultiple\">
+Buildings.Templates.Components.Routing.MultipleToMultiple</a>.
+This allows representing both headered and dedicated arrangements.
+</p>
+<p>
 By default, variable speed pumps are modeled.
 Constant speed pumps can be modeled by setting the parameter 
 <code>have_var</code> to <code>false</code>.
@@ -162,6 +169,22 @@ or current switch) <code>y1_actual</code>:
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
+<h4>Pump characteristics</h4>
+<p>
+To support dedicated arrangements where the pumps may not be equally
+sized, the design flow rate and pressure drop, as well as the
+pump curves must be specified for each unit (as Modelica arrays).
+A default pump characteristic is provided, which goes through the design 
+operating point and spans over <i>0</i> and twice the design flow rate at maximum speed. 
+This default characteristic is based on a least squares polynomial fit of the 
+characteristics from 
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
+Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
+The user may refer to the documentation of 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters\">
+Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters</a>
+for further details.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -7,7 +7,7 @@ model BoilerGroup "Boiler group"
   parameter Integer nBoi(final min=0)
     "Number of boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod
     "Type of boiler model"
     annotation (Evaluate=true);
   parameter Boolean is_con
@@ -26,7 +26,8 @@ model BoilerGroup "Boiler group"
   parameter Buildings.Templates.HeatingPlants.HotWater.Components.Data.BoilerGroup dat(
     final nBoi=nBoi,
     final typMod=typMod)
-    "Parameter record for boiler group";
+    "Parameter record for boiler group"
+    annotation (Placement(transformation(extent={{-180,160},{-160,180}})));
   final parameter Buildings.Templates.Components.Data.BoilerHotWater datBoi[nBoi](
     final typMod=fill(typMod, nBoi),
     each final fue=dat.fue,
@@ -98,7 +99,7 @@ model BoilerGroup "Boiler group"
     final dat=datBoi,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics)
-    if typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Polynomial
+    if typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial
     "Boiler - Polynomial"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Templates.Components.Boilers.HotWaterPolynomial boiTab[nBoi](
@@ -107,7 +108,7 @@ model BoilerGroup "Boiler group"
     final dat=datBoi,
     each final allowFlowReversal=allowFlowReversal,
     each final energyDynamics=energyDynamics)
-    if typMod==Buildings.Templates.Components.Types.ModelBoilerHotWater.Table
+    if typMod==Buildings.Templates.Components.Types.BoilerHotWaterModel.Table
     "Boiler - Table"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 
@@ -213,5 +214,81 @@ equation
           extent={{-149,-610},{151,-650}},
           textColor={0,0,255},
           textString="%name")}),
-  Diagram(coordinateSystem(extent={{-200,-180},{200,200}})));
+  Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
+    Documentation(info="<html>
+<p>
+This model represents a group of hot water boilers.
+</p>
+<p>
+Modeling features and limitations:
+</p>
+<ul>
+<li>
+All units are either condensing boilers or non-condensing boilers,
+depending on the value of the Boolean parameter <code>is_con</code>.
+In order to represent a hybrid plant with both condensing and non-condensing
+boilers, two instance of this model must be used.
+</li>
+<li>
+All units are modeled based on the same boiler model, specified with the parameter
+<code>typMod</code> which is based on the enumeration
+<a href=\"modelica://Buildings.Templates.Components.Types.BoilerHotWaterModel\">
+Buildings.Templates.Components.Types.BoilerHotWaterModel</a>.
+However, the boiler characteristics such as the design capacity 
+and HW flow rate may be different from one unit to another.
+</li>
+<li>
+Two-way two-position boiler isolation valves are automatically
+included in case of headered primary HW pumps, as specified with the parameter
+<code>typArrPumHeaWatPri</code> .
+</li>
+</ul>
+<h4>Control points</h4>
+<p>
+The following input and output points are available.
+</p>
+<ul>
+<li>
+Sub-bus <code>boiCon[:]</code> (resp. <code>boiNon[:]</code>) storing all signals 
+dedicated to each condensing boiler (resp. non-condensing boiler), with a 
+dimensionality of one
+<ul>
+<li>
+Boiler Enable signal <code>boi(Con|Non)[:].y1</code> : 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Boiler HW supply temperature setpoint <code>boi(Con|Non)[:].THeaWatSupSet</code>:
+AO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Boiler firing rate <code>boi(Con|Non)[:].y_actual</code>:
+AI signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Boiler HW supply temperature <code>boi(Con|Non)[:].THeaWatSup</code>:
+AI signal dedicated to each unit, with a dimensionality of one
+</li>
+</ul>
+<li>
+Sub-bus <code>valBoiConIso[:]</code> (resp. <code>valBoiNonIso[:]</code>) 
+storing all signals dedicated to each condensing boiler (resp. non-condensing boiler)
+isolation valve (if any), with a dimensionality of one
+<ul>
+<li>
+Valve opening command <code>valBoi(Con|Non)Iso[:].y1</code> : 
+DO signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Valve open end switch status <code>valBoi(Con|Non)Iso[:].y1_actual</code> : 
+DI signal dedicated to each unit, with a dimensionality of one
+</li>
+<li>
+Valve closed end switch status <code>valBoi(Con|Non)Iso[:].y0_actual</code> : 
+DI signal dedicated to each unit, with a dimensionality of one
+</li>
+</ul>
+</li>
+</ul>
+</html>"));
 end BoilerGroup;

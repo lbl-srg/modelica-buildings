@@ -14,7 +14,7 @@ record BoilerPlant "Record for HW plant model"
   parameter Integer nBoiNon
     "Number of non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
-  parameter Buildings.Templates.Components.Types.ModelBoilerHotWater typMod
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod
     "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec
@@ -149,12 +149,14 @@ record BoilerPlant "Record for HW plant model"
     annotation(Dialog(group="Secondary HW loop",
     enable=typPumHeaWatSec==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized));
 
-  annotation (Documentation(info="<html>
+  annotation (
+  defaultComponentName="dat",
+  Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for
-HW plant models that can be found within
-<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater\">
-Buildings.Templates.HeatingPlants.HotWater</a>.
+the boiler plant model
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.BoilerPlant\">
+Buildings.Templates.HeatingPlants.HotWater.BoilerPlant</a>.
 </p>
 <p>
 Most of the parameters should be assigned through the sub-record

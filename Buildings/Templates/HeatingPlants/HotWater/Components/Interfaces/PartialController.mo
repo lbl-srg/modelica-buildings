@@ -15,10 +15,22 @@ block PartialController
   parameter Integer nBoiNon(start=0, final min=0)
     "Number of non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=have_boiNon));
-  parameter Boolean have_varPumHeaWatPriCon
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary typPumHeaWatPriCon(
+    start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable)
+    "Type of primary HW pumps - Condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_boiCon));
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary typPumHeaWatPriNon(
+    start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable)
+    "Type of primary HW pumps - Non-condensing boilers"
+    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_boiNon));
+  final parameter Boolean have_varPumHeaWatPriCon=
+    typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
+    typPumHeaWatPriCon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable
     "Set to true for variable speed primary HW pumps - Condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_varPumHeaWatPriNon
+  final parameter Boolean have_varPumHeaWatPriNon=
+    typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable or
+    typPumHeaWatPriNon==Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable
     "Set to true for variable speed primary HW pumps - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec
@@ -48,12 +60,21 @@ block PartialController
   parameter Boolean have_valHeaWatMinBypNon
     "Set to true if the plant has a HW minimum flow bypass valve - Non-condensing boilers"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nAirHan
+
+  parameter Integer nAirHan(
+    final min=if typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36
+    and nEquZon==0 then 1 else 0,
+    start=0)
     "Number of air handling units served by the plant"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
-  parameter Integer nEquZon
+    annotation(Evaluate=true, Dialog(group="Configuration", enable=
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
+  parameter Integer nEquZon(
+    final min=if typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36 and
+    nAirHan==0 then 1 else 0,
+    start=0)
     "Number of terminal units (zone equipment) served by the plant"
-    annotation(Dialog(group="Configuration"), Evaluate=true);
+    annotation(Evaluate=true, Dialog(group="Configuration", enable=
+    typ==Buildings.Templates.HeatingPlants.HotWater.Types.Controller.Guideline36));
 
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement typMeaCtlHeaWatPri(
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureSupplySensor)
