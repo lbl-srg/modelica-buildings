@@ -15,10 +15,10 @@ model MultipleToMultiple
   parameter Integer nPorts_a
     "Number of inlet ports"
     annotation(Evaluate=true, Dialog(group="Configuration"));
-  parameter Integer nPorts_b=nPorts_a
+  parameter Integer nPorts_b = nPorts_a
     "Number of outlet ports"
-    annotation(Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_comLeg=false
+    annotation(Evaluate=true, Dialog(group="Configuration", enable=not have_comLeg));
+  parameter Boolean have_comLeg = false
     "Set to true for common leg between inlet and outlet ports (headered connection)"
     annotation(Evaluate=true, Dialog(group="Configuration"));
 
@@ -41,6 +41,16 @@ model MultipleToMultiple
     "Set to true if actual temperature at port is computed"
     annotation (
       Dialog(tab="Advanced", group="Diagnostics"), HideResult=true);
+
+  parameter Integer icon_extend = 0
+    "Extend lines by this amount in x-direction in icon layer: >0 at outlet, <0 at inlet"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Integer icon_dy = 100
+    "Distance in y-direction between each branch in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Boolean icon_dash = false
+    "Set to true for a dashed line (return line), false for a solid line"
+    annotation(Dialog(tab="Graphics", enable=false));
 
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts_a](
     redeclare each final package Medium = Medium,
@@ -100,6 +110,7 @@ model MultipleToMultiple
     if have_comLeg and not have_controlVolume
     "Fluid pass-through in lieu of control volume - Case with common leg"
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
+
 protected
   parameter Boolean have_controlVolume=
     energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
@@ -145,22 +156,49 @@ equation
   annotation (
     defaultComponentName="rou",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-    Line(visible=mod(nPorts_a,2)==1,
-          points={{100,0},{-100,0}},
-          color={0,0,0},
-          thickness=1),
-    Line( visible=nPorts_a == 2,
-          points={{0,-50},{-100,-50}},
-          color={0,0,0},
-          thickness=1),
-    Line( visible=nPorts_a == 2,
-          points={{0,50},{-100,50}},
-          color={0,0,0},
-          thickness=1),
-        Text(
-          extent={{-149,-114},{151,-154}},
+    Text( extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+    Line( points={{-100 + min(0,icon_extend), 0}, {100 + max(0, icon_extend),0}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts_a>=2,
+          points=if have_comLeg then
+            {{-100 + min(0,icon_extend), icon_dy}, {-40,icon_dy}, {-40, 0}}
+            else {{-100 + min(0,icon_extend),icon_dy}, {100 + max(0, icon_extend),icon_dy}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts_a>=3,
+          points=if have_comLeg then
+            {{-100 + min(0,icon_extend), 2*icon_dy}, {-40, 2*icon_dy}, {-40, icon_dy}}
+            else {{-100 + min(0,icon_extend),2*icon_dy}, {100 + max(0, icon_extend),2*icon_dy}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts_a>=4,
+          points=if have_comLeg then
+            {{-100 + min(0,icon_extend), 3*icon_dy}, {-40, 3*icon_dy}, {-40, 2*icon_dy}}
+            else {{-100 + min(0,icon_extend),3*icon_dy}, {100 + max(0, icon_extend),3*icon_dy}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts_b>=2 and have_comLeg,
+          points={{40, 0}, {40, icon_dy}, {100 + max(0, icon_extend), icon_dy}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts_b>=3 and have_comLeg,
+          points={{40, icon_dy}, {40, 2*icon_dy}, {100 + max(0, icon_extend), 2*icon_dy}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts_b>=4 and have_comLeg,
+          points={{40, 2*icon_dy}, {40, 3*icon_dy}, {100 + max(0, icon_extend), 3*icon_dy}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid)}),
     Diagram(
     coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

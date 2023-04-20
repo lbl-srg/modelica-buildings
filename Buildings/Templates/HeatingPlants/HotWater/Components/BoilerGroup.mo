@@ -77,7 +77,7 @@ model BoilerGroup "Boiler group"
         iconTransformation(
         extent={{-10,-40},{10,40}},
         rotation=0,
-        origin={400,400})));
+        origin={400,500})));
   Modelica.Fluid.Interfaces.FluidPorts_a ports_aHeaWat[nBoi](
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -87,11 +87,11 @@ model BoilerGroup "Boiler group"
         iconTransformation(
         extent={{-10,-40},{10,40}},
         rotation=0,
-        origin={400,-400})));
+        origin={400,-500})));
   Buildings.Templates.HeatingPlants.HotWater.Interfaces.Bus bus
     "Plant control bus"
     annotation (Placement(transformation(extent={{-20,180},{20,220}}),
-    iconTransformation(extent={{-20,580},{20,620}})));
+    iconTransformation(extent={{-20,680},{20,720}})));
 
   Buildings.Templates.Components.Boilers.HotWaterPolynomial boiPol[nBoi](
     redeclare each final package Medium = Medium,
@@ -209,11 +209,187 @@ equation
       thickness=0.5));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
-    extent={{-400,-600},{400,600}}), graphics={
-        Text(
-          extent={{-149,-610},{151,-650}},
-          textColor={0,0,255},
-          textString="%name")}),
+    extent={{-400,-700},{400,700}}), graphics={
+    Text(
+      extent={{-151,-712},{149,-752}},
+      textColor={0,0,255},
+      textString="%name"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=1,
+      extent={{-280,400},{-160,500}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=1,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,500}),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=1,
+      extent={{260,560},{340,640}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=2,
+      extent={{-280,100},{-160,200}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=2,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+          origin={300,200}),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=2,
+      extent={{260,260},{340,340}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=3,
+      extent={{-280,-200},{-160,-100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=3,
+      extent={{260,-40},{340,40}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=3,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,-100}),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=4,
+      extent={{-280,-500},{-160,-400}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+    Bitmap(
+      visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi >= 4,
+      extent={{-100,-100},{100,100}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/TwoWay.svg",
+      rotation=-90,
+      origin={300,-400}),
+    Bitmap(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
+        and nBoi>=4,
+      extent={{260,-340},{340,-260}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+    Rectangle(
+      extent={{200,540},{-160,360}},
+      lineColor={0,0,0},
+      lineThickness=1),
+    Text(
+      visible=is_con,
+      extent={{-160,520},{200,480}},
+      textColor={0,0,0},
+      textString="CON"),
+    Text(
+      extent={{-160,420},{200,380}},
+      textColor={0,0,0},
+      textString="BOI-1"),
+    Line(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,500},{400,500}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
+    Line(
+      points={{200,400},{400,400}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=1),
+    Rectangle(
+      extent={{200,240},{-160,60}},
+      lineColor={0,0,0},
+      lineThickness=1,
+      visible=nBoi >= 2),
+    Text(
+      visible=nBoi >= 2 and is_con,
+      extent={{-160,220},{200,180}},
+      textColor={0,0,0},
+      textString="CON"),
+    Text(
+      visible=nBoi >= 2,
+      extent={{-160,120},{200,80}},
+      textColor={0,0,0},
+      textString="BOI-2"),
+    Line(
+      visible=nBoi >= 2,
+      points={{200,100},{400,100}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=1),
+    Line(
+      visible=nBoi >= 2 and
+      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,200},{400,200}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
+    Rectangle(
+      extent={{200,-60},{-160,-240}},
+      lineColor={0,0,0},
+      lineThickness=1,
+      visible=nBoi >= 3),
+    Text(
+      visible=nBoi >= 3 and is_con,
+      extent={{-160,-80},{200,-120}},
+      textColor={0,0,0},
+      textString="CON"),
+    Text(
+      visible=nBoi >= 3,
+      extent={{-160,-180},{200,-220}},
+      textColor={0,0,0},
+      textString="BOI-3"),
+    Line(
+      points={{200,-200},{400,-200}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=1,
+      visible=nBoi >= 3),
+    Line(
+      visible=nBoi >= 3 and
+      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,-100},{400,-100}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
+    Rectangle(
+      visible=nBoi >= 4,
+      extent={{200,-360},{-160,-540}},
+      lineColor={0,0,0},
+      lineThickness=1),
+    Text(
+      visible=nBoi >= 4 and is_con,
+      extent={{-160,-380},{200,-420}},
+      textColor={0,0,0},
+      textString="CON"),
+    Text(
+      visible=nBoi >= 4,
+      extent={{-160,-480},{200,-520}},
+      textColor={0,0,0},
+      textString="BOI-4"),
+    Line(
+      points={{200,-500},{400,-500}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=1,
+      visible=nBoi >= 4),
+    Line(
+      visible=nBoi >= 4 and
+      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,-400},{400,-400}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1)}),
   Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
     Documentation(info="<html>
 <p>
