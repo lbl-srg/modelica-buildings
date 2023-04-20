@@ -128,9 +128,12 @@ model AllElectricCWStorage
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TChiWatRet[2](each k=pla.TChiWatRet_nominal)
     "Source signal for CHW return temperature"
     annotation (Placement(transformation(extent={{-190,-110},{-170,-90}})));
-  Loads.Heating.BuildingTimeSeriesWithETS loaHea[2](each THeaWatSup_nominal=pla.THeaWatSup_nominal,
-      filNam=filNam) "Building heating load"
+  Loads.Heating.BuildingTimeSeriesWithETS loaHea[2](
+    each THeaWatSup_nominal=pla.THeaWatSup_nominal,
+    filNam=filNam,
+    each ets(dpCheVal_nominal=120000)) "Building heating load"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
+    // dpCheVal_nominal to avoid too hot water in building waterr supply due to problem of temperature drop in Dymola
   Loads.Cooling.BuildingTimeSeriesWithETS loaCoo[2](
     each TChiWatSup_nominal=pla.TChiWatSup_nominal,
     filNam=filNam,
