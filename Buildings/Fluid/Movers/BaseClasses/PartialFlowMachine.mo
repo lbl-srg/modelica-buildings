@@ -389,12 +389,10 @@ initial algorithm
   assert(nominalValuesDefineDefaultPressureCurve or
          per.havePressureCurve or
          (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve.
-             This leads to approximate calculations of the electrical power
-             consumption. Add the correct pressure curve in the record per
-             to obtain an accurate computation.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in " + getInstanceName() +
+": Mover is flow or pressure controlled and uses default pressure curve.
+This leads to an approximate power consumption.
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
          level=AssertionLevel.warning);
 
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
@@ -409,15 +407,11 @@ initial algorithm
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
          per.etaHydMet<>
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve with per.etaHydMet set to
-             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
-             Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead
-             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided." +
-             "See the user guide to see what assumptions are made in this setting
-             or provide other information to the model.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in " + getInstanceName() +
+": Mover is flow or pressure controlled, uses default pressure curve and
+has per.etaHydMet=.Power_VolumeFlowRate.
+As this can cause wrong power consumption, the model overrides this setting by using per.etaHydMet=.NotProvided.
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or
@@ -425,11 +419,10 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
             or per.etaHydMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
-             This requires that per.pressure be provided.
-             Because it is not,
-             the model will override this setting and use .NotProvided instead.",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaHydMet=.Power_VolumeFlowRate or per.etaHydMet=.EulerNumber.
+This requires per.pressure to be provided.
+Because it is not, the model overrides this setting by using per.etaHydMet=.NotProvided.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
@@ -437,12 +430,10 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve. This requires that per.WMot_nominal be provided
-             or at least per.pressure be provided so that per.WMot_nominal can
-             be estimated. Because neither is provided,
-             the model will override this setting and use .NotProvided instead.",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve.
+This requires per.WMot_nominal or per.pressure to be provided. Because neither is provided,
+the model overrides this setting and by using per.etaMotMet=.NotProvided.",
          level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or
@@ -450,12 +441,11 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve while information is provided for total electric
-             power instead of hydraulic power. This forms an algebraic loop
-             and may cause the simulation to not converge
-             (see the \"Motor efficiency\" section in usersguide).",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve
+and provides information for total electric power instead of hydraulic power.
+This forms an algebraic loop. If simulation fails to converge,
+see the \"Motor efficiency\" section in the users guide for how to correct it.",
          level=AssertionLevel.warning);
 
 equation
@@ -683,7 +673,7 @@ Added an <code>assert()</code> warning when the model has to make an unreliable
 guess for efficiency computation using <code>.EulerNumber</code>.
 </li>
 <li>
-Added an <code>assert()</code> warning when the model has to overwrite
+Added an <code>assert()</code> warning when the model has to override
 <code>per.etaMotMet</code>.
 </li>
 </ul>
