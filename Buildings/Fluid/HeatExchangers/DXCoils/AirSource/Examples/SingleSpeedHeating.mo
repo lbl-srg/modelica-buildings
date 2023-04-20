@@ -12,52 +12,44 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
     "Pressure drop at m_flow_nominal";
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil
     datCoi(
-    is_CooCoi=false,
     nSta=1,
     minSpeRat=0.2,
     sta={
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
-      spe=1800/60,
-      nomVal=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=16381.47714,
-        COP_nominal=3.90494,
-        SHR_nominal=1,
-        m_flow_nominal=2,
-        TEvaIn_nominal=273.15 - 5,
-        TConIn_nominal=273.15 + 21),
-    perCur=
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_II())})
-    "Coil heat transfer data record"
-    annotation (Placement(transformation(extent={{60,34},{80,54}})));
-
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
-    datDef(
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        is_CooCoi=false,
+        spe=1800/60,
+        nomVal=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          is_CooCoi=false,
+          Q_flow_nominal=16381.47714,
+          COP_nominal=3.90494,
+          SHR_nominal=1,
+          m_flow_nominal=2,
+          TEvaIn_nominal=273.15 - 5,
+          TConIn_nominal=273.15 + 21),
+        perCur=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXHeating_Curve_I())},
     final defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive,
     final defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed,
     final tDefRun=1/6,
     final TDefLim=273.65,
     final QDefResCap=10500,
     final QCraCap=200)
-    "Heating coil defrost data"
-    annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    "DX heating coil data record"
+    annotation (Placement(transformation(extent={{60,34},{80,54}})));
 
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating sinSpeDX(
-    datCoi(
-      final nSta=datCoi.nSta,
-      final minSpeRat=datCoi.minSpeRat,
-      final sta=datCoi.sta),
+    final datCoi=datCoi,
     redeclare package Medium = Medium,
     final dp_nominal=dp_nominal,
     final T_start=datCoi.sta[1].nomVal.TConIn_nominal,
     final show_T=true,
     final from_dp=true,
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    final datDef=datDef)
+    final dTHys=1e-6)
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
@@ -115,7 +107,7 @@ equation
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-19,60},{0,60},{0,8},{19,8}},
+      points={{-19,60},{0,60},{0,11},{19,11}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
@@ -133,8 +125,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(XEvaIn.y, sinSpeDX.XOut) annotation (Line(points={{-59,10},{-20,10},{-20,
-          -9},{19,-9}},color={0,0,127}));
-  annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedHeating.mos"
+          7},{19,7}},  color={0,0,127}));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Examples/SingleSpeedHeating.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,

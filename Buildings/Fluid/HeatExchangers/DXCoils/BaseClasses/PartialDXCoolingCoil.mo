@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoolingCoil
   "Partial model for DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    final is_CooCoi=true,
+    final is_CooCoi=datCoi.is_CooCoi,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling
       dxCoi(redeclare package Medium = Medium),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(

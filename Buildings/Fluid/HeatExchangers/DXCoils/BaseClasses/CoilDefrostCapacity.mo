@@ -23,7 +23,7 @@ block CoilDefrostCapacity
     defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
     "Type of defrost method";
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil
     defCur
     "Defrost curve parameter record";
 

@@ -2,7 +2,8 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
 model SingleSpeedHeating
   "Single speed DX heating coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil(
-    dxCoi(final variableSpeedCoil=false,
+    dxCoi(
+    final variableSpeedCoil=false,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
       coiCap),
     computeReevaporation=false,

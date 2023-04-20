@@ -2,14 +2,16 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXHeatingCoil
   "Partial model for DX heating coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    final is_CooCoi=false,
+    final is_CooCoi=datCoi.is_CooCoi,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dxCoi(
-      redeclare package Medium = Medium),
-    datCoi(final is_CooCoi=false));
+      redeclare package Medium = Medium,
+      redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil datCoi),
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil datCoi);
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
-    "Record for defrost data"
-    annotation (Placement(transformation(extent={{-84,-52},{-72,-40}})));
+  parameter Modelica.Units.SI.TemperatureDifference dTHys(
+    final min=0)=0.5
+    "Temperature comparison hysteresis difference"
+    annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealInput XOut(
     final unit="kg/kg",
@@ -21,21 +23,23 @@ partial model PartialDXHeatingCoil
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations
     defTimFra(
-    final defTri=datDef.defTri,
-    final tDefRun=datDef.tDefRun,
-    final TDefLim=datDef.TDefLim)
+    final defTri=datCoi.defTri,
+    final tDefRun=datCoi.tDefRun,
+    final TDefLim=datCoi.TDefLim,
+    dTHys=dTHys)
     "Block to compute defrost time fraction, heat transfer multiplier and input power multiplier"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostCapacity defCap(
-    final defTri=datDef.defTri,
-    final defOpe=datDef.defOpe,
-    final tDefRun=datDef.tDefRun,
-    final defCur=datDef,
+    final defTri=datCoi.defTri,
+    final defOpe=datCoi.defOpe,
+    final tDefRun=datCoi.tDefRun,
+    final defCur=datCoi,
     redeclare package MediumA = Medium,
-    final QDefResCap=datDef.QDefResCap)
+    final QDefResCap=datCoi.QDefResCap)
     "Block to compute actual heat transferred to medium and power input after accounting for defrost"
     annotation (Placement(transformation(extent={{62,76},{82,96}})));
+
 
 protected
   Modelica.Blocks.Sources.RealExpression p_in(
