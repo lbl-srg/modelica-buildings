@@ -268,7 +268,7 @@ equation
 This model uses
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage\">
 Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage</a>
-to provide heating and cooling to a building with heating and cooling
+to provide heating and cooling to two identical buildings with heating and cooling
 loads provided as time series.
 </p>
 </html>", revisions="<html>
