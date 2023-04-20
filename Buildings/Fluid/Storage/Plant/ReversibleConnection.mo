@@ -138,10 +138,10 @@ First implementation. This is for
           visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
                or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
         Polygon(
-          points={{60,40},{30,56},{30,24},{60,40}},
+          points={{60,40},{40,60},{40,20},{60,40}},
           lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.None),
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
         Line(points={{80,0},{100,0}},     color={28,108,200}),
         Polygon(
           points={{-6,2},{2.74617e-16,-16},{-12,-16},{-6,2}},
