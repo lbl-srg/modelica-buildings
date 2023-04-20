@@ -8,7 +8,8 @@ partial model PartialDXHeatingCoil
     datCoi(final is_CooCoi=false));
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
-    "Record for defrost data";
+    "Record for defrost data"
+    annotation (Placement(transformation(extent={{-84,-52},{-72,-40}})));
 
   Modelica.Blocks.Interfaces.RealInput XOut(
     final unit="kg/kg",
@@ -45,16 +46,16 @@ protected
   Modelica.Blocks.Sources.RealExpression X(
     final y=XIn[i_x])
     "Inlet air mass fraction"
-    annotation (Placement(transformation(extent={{-90,98},{-70,118}})));
+    annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
 
 equation
   connect(TOut,dxCoi.TEvaIn)  annotation (Line(points={{-110,30},{-92,30},{-92,62},
           {-46,62},{-46,52},{-21,52}},
                          color={0,0,127}));
-  connect(T.y,dxCoi.TConIn)  annotation (Line(points={{-69,28},{-60,28},{-60,57},
+  connect(T.y,dxCoi.TConIn)  annotation (Line(points={{-69,28},{-40,28},{-40,57},
           {-21,57}}, color={0,0,127}));
   connect(TOut, defTimFra.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,
-          78},{-20,78},{-20,102},{-1,102}},
+          62},{-46,62},{-46,102},{-1,102}},
                           color={0,0,127}));
   connect(defTimFra.tDefFra, defCap.tDefFra) annotation (Line(points={{21,104},{
           40,104},{40,97},{61,97}},        color={0,0,127}));
@@ -62,7 +63,7 @@ equation
           {34,100},{34,94},{61,94}},        color={0,0,127}));
   connect(defTimFra.inpPowMul, defCap.inpPowMul) annotation (Line(points={{21,96},
           {28,96},{28,91},{61,91}},         color={0,0,127}));
-  connect(T.y, defCap.TConIn) annotation (Line(points={{-69,28},{-34,28},{-34,88},
+  connect(T.y, defCap.TConIn) annotation (Line(points={{-69,28},{-40,28},{-40,88},
           {61,88}},  color={0,0,127}));
   connect(XOut, defTimFra.XOut) annotation (Line(points={{-110,70},{-52,70},{-52,
           98},{-1,98}},   color={0,0,127}));
@@ -70,8 +71,9 @@ equation
           {22,72},{61,72}},       color={0,0,127}));
   connect(dxCoi.EIR, defCap.EIR) annotation (Line(points={{1,60},{18,60},{18,75},
           {61,75}},       color={0,0,127}));
-  connect(TOut, defCap.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,78},
-          {61,78}},  color={0,0,127}));
+  connect(TOut, defCap.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,62},
+          {-46,62},{-46,78},{61,78}},
+                     color={0,0,127}));
   connect(defCap.QTotDef_flow, q.Q_flow) annotation (Line(points={{83,78},{94,78},
           {94,10},{32,10},{32,54},{42,54}},      color={0,0,127}));
   connect(defCap.QTotDef_flow, QSen_flow) annotation (Line(points={{83,78},{98,78},
@@ -80,8 +82,8 @@ equation
                 color={0,0,127}));
   connect(p_in.y, defCap.pIn) annotation (Line(points={{-69,-20},{-30,-20},{-30,
           81},{61,81}},   color={0,0,127}));
-  connect(X.y, defCap.XConIn) annotation (Line(points={{-69,108},{-12,108},{-12,
-          84},{61,84}},   color={0,0,127}));
+  connect(X.y, defCap.XConIn) annotation (Line(points={{-69,12},{-36,12},{-36,84},
+          {61,84}},       color={0,0,127}));
   annotation (
 defaultComponentName="dxCoi",
 Documentation(info="<html>

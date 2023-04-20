@@ -3,18 +3,39 @@ record HeatingCoil
   "Performance record for a DX Heating Coil with one or multiple stages"
   extends Modelica.Icons.Record;
 
-  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datCoi(
-    final is_CooCoi=false)
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
-    "Instance of coil performance data record"
-    annotation (choicesAllMatching=true);
+  extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
+    final is_CooCoi=false);
 
-  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost datDef
-    constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Defrost
-    "Instance of defrost performance data record"
-    annotation(choicesAllMatching=true);
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
+    "Defrost operation type";
+
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
+    "Type of method used to calculate defrost time fraction";
+
+  parameter Real tDefRun(
+    final unit="1",
+    displayUnit="1")=0.166
+    "Time period fraction for which defrost cycle is run"
+    annotation(Dialog(enable = defTri==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
+
+  parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=273.65
+    "Maximum temperature at which defrost operation is activated";
+
+  parameter Modelica.Units.SI.HeatFlowRate QDefResCap(min=0)
+    "Heating capacity of resistive defrost element"
+    annotation(Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive));
+
+  parameter Modelica.Units.SI.HeatFlowRate QCraCap(min=0)
+    "Crankcase heater capacity";
+//-----------------------------Performance curves-----------------------------//
+  parameter Real defEIRFunT[6] = fill(0,6)
+    "Biquadratic coefficients for defrost capacity function of temperature"
+    annotation (Dialog(enable = defOpe==Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.reverseCycle));
+
+  parameter Real PLFraFunPLR[:] = {1}
+    "Quadratic/cubic equation for part load fraction as a function of part-load ratio";
 
 annotation (preferredView="info",
 defaultComponentName="datCoi",
@@ -25,7 +46,7 @@ This record declares the performance data for the air source DX heating coil mod
 The performance data are structured as follows:
 </p>
 <p>
-The coil data <code>datCoi</code> consists of the following fields:
+It consists of the following fields:
 </p>
 <pre>
   nSta      - Number of stages. Set to 1 for single speed coil,
@@ -83,8 +104,8 @@ quadratic function is used for stage one, then stage two must also use
 a quadratic function.
 </p>
 <p>
-It also contains the data record <code>datDef</code> for settings and performance 
-curves for defrost operation and overall performance modifiers:
+It also contains settings and performance curves for defrost operation and overall 
+performance modifiers:
 </p>
 <pre>
   defEIRFunT  - Coefficients of biquadratic polynomial for EIR for defrost as a 

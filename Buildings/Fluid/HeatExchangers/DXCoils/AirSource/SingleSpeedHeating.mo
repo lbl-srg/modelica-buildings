@@ -11,12 +11,12 @@ model SingleSpeedHeating
   Modelica.Blocks.Sources.Constant speRat(
     final k=1)
     "Speed ratio 1 constant source"
-    annotation (Placement(transformation(extent={{-86,8},{-74,20}})));
+    annotation (Placement(transformation(extent={{-86,100},{-74,112}})));
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-120,110},{-100,130}}),
-        iconTransformation(extent={{-120,100},{-100,120}})));
+      iconTransformation(extent={{-120,100},{-100,120}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaOn
@@ -34,7 +34,7 @@ initial equation
 
 equation
   connect(speRat.y,dxCoi.speRat)  annotation (Line(
-      points={{-73.4,14},{-40,14},{-40,59.6},{-21,59.6}},
+      points={{-73.4,106},{-60,106},{-60,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(on, onSwi.u) annotation (Line(
@@ -75,5 +75,5 @@ Initial implementation.
           extent={{-140,142},{-100,122}},
           textColor={0,0,255},
           textString="on")}),
-    Diagram(coordinateSystem(extent={{-100,-40},{100,160}})));
+    Diagram(coordinateSystem(extent={{-100,-60},{100,160}})));
 end SingleSpeedHeating;

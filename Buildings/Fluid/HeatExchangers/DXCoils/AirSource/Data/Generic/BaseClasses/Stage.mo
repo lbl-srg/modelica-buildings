@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses
 record Stage "Generic data record for a stage of a air source DX coil"
   extends Modelica.Icons.Record;
 
-  parameter Boolean is_CooCoi = true
+  parameter Boolean is_CooCoi
     "=false, for heating coil";
 
   parameter Modelica.Units.SI.AngularVelocity spe(displayUnit="1/min")
