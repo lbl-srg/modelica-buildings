@@ -85,6 +85,7 @@ def doStep(dblInp, state):
             # previous TOUGH call and we can use `writeincon` to generate TOUGH input
             # files.
             else:
+                # create_test_directory()
                 # Delete old TOUGH input files
                 if os.path.exists('GENER'):
                     os.remove('GENER')
@@ -101,6 +102,7 @@ def doStep(dblInp, state):
 
                 # Generate TOUGH input files
                 os.system("./writeincon < writeincon.inp")
+                # write_incon()
                 if os.path.exists('INFILE'):
                     os.remove('INFILE')
                 os.rename('newINFILE', 'INFILE')
@@ -118,6 +120,7 @@ def doStep(dblInp, state):
 
             # Extract borehole wall temperature
             os.system("./readsave < readsave.inp > out.txt")
+            # readsave()
             data = extract_data('out.txt')
             T_tough = data['T_Bor']
             # Output to Modelica simulation
@@ -142,6 +145,12 @@ def doStep(dblInp, state):
             shutil.rmtree(wor_dir)
 
     return [ToModelica, state]
+
+def create_test_directory():
+    import tempfile
+    import getpass
+    worDir = tempfile.mkdtemp(prefix='tmp-test-' + getpass.getuser())
+    return worDir
 
 
 ''' Imitate TOUGH simulation. It will copy the SAVE file and update the temperature of the 33 elements
@@ -422,9 +431,9 @@ def extract_data(outFile):
             T_Bor.append(float(line.strip())+273.15)
         if (count > 34 and count <= 44):
             temp = line.split()
-            p_Int.append(float(temp[2].replace('D', 'E').strip()))
-            x_Int.append(float(temp[3].replace('D', 'E').strip()))
-            T_Int.append(float(temp[4].replace('D', 'E').strip())+273.15)
+            p_Int.append(float(temp[2].strip()))
+            x_Int.append(float(temp[3].strip()))
+            T_Int.append(float(temp[4].strip())+273.15)
     data = {
         'T_Bor': T_Bor,
         'p_Int': p_Int,
@@ -433,51 +442,164 @@ def extract_data(outFile):
     }
     return data
 
-def write_incon():
-    fwriteIncon = open('writeincon.inp')
-    fsave = open('SAVE')
-    fincon = open('temp1', 'wt')
-    finFile = open('INFILE')
-    fnewInFile = open ('temp3', 'wt')
-    fgener = open('GENER', 'wt')
+# def write_incon():
+#     fwriteIncon = open('writeincon.inp')
+#     fsave = open('SAVE')
+#     fincon = open('temp1', 'wt')
+#     finFile = open('INFILE')
+#     fnewInFile = open ('temp2', 'wt')
+#     fgener = open('GENER', 'wt')
 
-    T_Bor = []
-    Q_Bor = []
+#     T_Bor = []
+#     Q_Bor = []
 
-    count = 0
-    for line in fwriteIncon:
-        count += 1
-        # number of grid blocks with borehole temperatures from Modelica
-        if count == 2:
-            nModGri = int(line.strip())
-        # total number of grid blocks
-        elif count == 4:
-            nGri = int(line.strip())
-        # initial time for TOUGH step (sec)
-        elif count == 6:
-            t_init = float(line.strip())
-        # final time for TOUGH step (sec)
-        elif count == 8:
-            t_final = float(line.strip())
-            if t_final > 999999999.0:
-                print(' ERROR t_final= {} is too big '.format(t_final))
-                print(' Max allowable t_final=99999999. STOP')
-                exit()
-        # initial borehole temperatures (C) form Modelica (top to bottom)
-        elif (count > 9 and count <= 9 + nModGri):
-            T_Bor.append(float(line.strip()))
-        # borehole heat fluxes (W) from Modelica (top to bottom)
-        elif ((count > 10 + nModGri) and (count <= 10 + 2*nModGri)):
-            Q_Bor.append(float(line.strip()))
-        elif (count == 12 + 2*nModGri):
-            T_sur = float(line.strip())
+#     count = 0
+#     for line in fwriteIncon:
+#         count += 1
+#         # number of grid blocks with borehole temperatures from Modelica
+#         if count == 2:
+#             nModGri = int(line.strip())
+#         # total number of grid blocks
+#         elif count == 4:
+#             nGri = int(line.strip())
+#         # initial time for TOUGH step (sec)
+#         elif count == 6:
+#             t_init = float(line.strip())
+#         # final time for TOUGH step (sec)
+#         elif count == 8:
+#             t_final = float(line.strip())
+#             if t_final > 999999999.0:
+#                 print(' ERROR t_final= {} is too big '.format(t_final))
+#                 print(' Max allowable t_final=99999999. STOP')
+#                 exit()
+#         # initial borehole temperatures (C) form Modelica (top to bottom)
+#         elif (count > 9 and count <= 9 + nModGri):
+#             T_Bor.append(float(line.strip()))
+#         # borehole heat fluxes (W) from Modelica (top to bottom)
+#         elif ((count > 10 + nModGri) and (count <= 10 + 2*nModGri)):
+#             Q_Bor.append(float(line.strip()))
+#         elif (count == 12 + 2*nModGri):
+#             T_sur = float(line.strip())
     
-    # update the initial condition
-    count = 0
-    for saveLine in fsave:
-        count += 1
-        if count == 1:
-            fincon.write(saveLine + os.linesep)
+#     # update the initial condition
+#     count = 0
+#     gridInd = []
+#     for saveLine in fsave:
+#         if '+++' in saveLine:
+#             break
+#         count += 1
+#         if count == 1:
+#             fincon.write(saveLine + os.linesep)
+#         elif (count > 1 and count <= 1 + 2*nModGri):
+#             if (count % 2 == 0):
+#                 fincon.write(saveLine + os.linesep)
+#                 gridInd.append(saveLine[0:5])
+#             else:
+#                 # find the last space
+#                 spaceIndex = saveLine.rfind(' ')
+#                 borTemp = '%20.12e' % T_Bor[int(count/2+1)]
+#                 newLine = saveLine[0:spaceIndex] + borTemp
+#                 fincon.write(newLine + os.linesep)
+#         else:
+#             fincon.write(saveLine + os.linesep)
+#     fincon.write(' '*5 + os.linesep)
+#     fincon.write('INCON updated from SAVE with Modelica T and t')
+    
+#     # update the GENER file
+#     fgener.write('GENER' + os.linesep)
+#     for i in range(nModGri):
+#         if (abs(Q_Bor[i]) <= 99999.999 and abs(Q_Bor[i]) >= 0.1):
+#             fgener.write(gridInd[i] + 'sou' + '%2d' % i + ' '*25 + 'HEAT' + '%10.3f' % Q_Bor[i] + os.linesep)
+#         else:
+#             fgener.write(gridInd[i] + 'sou' + '%2d' % i + ' '*25 + 'HEAT' + '%10.3e' % Q_Bor[i] + os.linesep)
+#     fgener.write(' '*5)
+
+#     # update infile
+#     count = 0
+#     paramSec = -1
+#     # assumes 10 substeps
+#     stepSize = (t_final-t_init) / 10
+#     if (stepSize <= 0):
+#         print(' ERROR in timestepping, tfinal=tinitial.  STOP ')
+#         exit()
+#     for infileLine in finFile:
+#         count += 1
+#         # identify the line that stores the simulation start and stop time
+#         if (infileLine[0:4] == 'PARAM'):
+#             paramSec = count + 2
+#         if (paramSec == count):
+#             fnewInFile.write('%10.0f%10.0f%10.4f' % (t_init, t_final, stepSize) + infileLine[30:] + os.linesep)
+#         else:
+#             fnewInFile.write(infileLine + os.linesep)
+    
+#     # rename files
+#     os.rename('temp1', 'INCON')
+#     os.rename('temp2', 'newINFILE')
+
+
+# def readsave():
+#     freadsave = open('readsave.inp')
+#     fsave = open('SAVE')
+#     fout = open('out.txt', 'wt')
+
+#     # read the readsave.inp file
+#     count = 0
+#     for line in freadsave:
+#         count += 1
+#         if count == 2:
+#             nModGri = int(line.strip())
+#         elif count == 4:
+#             nGri = int(line.strip())
+#         elif count == 6:
+#             nIntPoi = int(line.strip())
+    
+#     T_Bor = []
+#     outIntPoi = []
+#     # read SAVE file
+#     count = 0
+#     recordLine = -1
+#     for lineSave in fsave:
+#         count += 1
+#         if (count > 1 and count <= 1 + 2*nModGri):
+#             if (count % 2 != 0):
+#                 T_Bor.append(float(lineSave[40:].strip()))
+#         elif (count == 1 + 2*nModGri + 2):
+#             T_amb = float(lineSave[40:].strip())
+#         elif (count > 1 + 2*nModGri + 2 and count <= 1 + 2*nModGri + 2 + 2*nIntPoi):
+#             if (count % 2 ==0):
+#                 eleInd = lineSave[0:4]
+#             else:
+#                 p = float(lineSave[0:20].strip())
+#                 x = float(lineSave[20:30].strip())
+#                 T = float(lineSave[30:].strip())
+#             outIntPoi.append(eleInd + ' '*5 + '%20.12e' % p + ' '*5 + '%20.12e' % x + ' '*5 + '%20.12e' % T)
+
+#         if '+++' in lineSave:
+#             recordLine = count + 1
+#         if (recordLine == count):
+#             i1 = lineSave[0:4]
+#             i2 = lineSave[4:8]
+#             tfinal = lineSave[30:]
+    
+#     # write the data to output file out.txt
+#     for i in range(nModGri):
+#         fout.write('%12.5f' % T_Bor[i] + os.linesep)
+#     fout.write(' Surface T=' + '%12.5f' % T_amb + os.linesep)
+#     for i in range(nIntPoi):
+#         fout.write(outIntPoi + os.linesep)
+#     fout.write(' Number steps' + i1 + ' Number iterations ' + i2 + ' Final time' + tfinal)
+
+
+
+        
+                            
+
+
+    
+
+
+
+
 
 
 
