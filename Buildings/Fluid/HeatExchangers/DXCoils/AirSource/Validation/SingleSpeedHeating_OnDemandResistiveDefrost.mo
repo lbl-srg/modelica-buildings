@@ -59,7 +59,7 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
 
   Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K
     "Converts degC to K"
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   Buildings.Utilities.IO.BCVTB.From_degC TConIn_K
     "Converts degC to K"
@@ -132,7 +132,7 @@ model SingleSpeedHeating_OnDemandResistiveDefrost
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirOut
     "Convert humidity ratio per kg dry air to humidity ratio per kg total air for outdoor air"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 
   Buildings.Utilities.Psychrometrics.ToTotalAir toTotAirEPlu
     "Convert humidity ratio per kg dry air from EnergyPlus to humidity ratio per kg total air"
@@ -183,7 +183,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TEvaIn_K.Kelvin, sinSpeDX.TOut) annotation (Line(
-      points={{-79,79.8},{-66.5,79.8},{-66.5,13},{-11,13}},
+      points={{-79,49.8},{-70,49.8},{-70,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, TOutMea.u)
@@ -203,22 +203,27 @@ equation
       smooth=Smooth.None));
   connect(sinSpeDX.QSen_flow, Q_flowMea.u) annotation (Line(points={{11,17},{20,
           17},{20,54},{-10,54},{-10,90},{-2,90}}, color={0,0,127}));
-  connect(toTotAirOut.XiTotalAir, sinSpeDX.XOut) annotation (Line(points={{-79,50},
-          {-20,50},{-20,1},{-11,1}}, color={0,0,127}));
+  connect(toTotAirOut.XiTotalAir, sinSpeDX.XOut) annotation (Line(points={{-79,80},
+          {-40,80},{-40,17},{-11,17}},
+                                     color={0,0,127}));
   connect(toTotAirEPlu.XiTotalAir, XConOutEPlu.u)
     annotation (Line(points={{21,-130},{28,-130}}, color={0,0,127}));
   connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{25.5,19},{25.5,20},
           {38,20}}, color={0,0,127}));
   connect(datRea.y[14], plrToPul.uPLR)
     annotation (Line(points={{-131,120},{-82,120}}, color={0,0,127}));
-  connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-26,120},
-          {-26,18},{-11,18}}, color={255,0,255}));
-  connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
-          120},{-108,79.6},{-102,79.6}}, color={0,0,127}));
-  connect(datRea.y[9], toTotAirOut.XiDry) annotation (Line(points={{-131,120},{-108,
-          120},{-108,50},{-101,50}}, color={0,0,127}));
+  connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-30,
+          120},{-30,21},{-11,21}},
+                              color={255,0,255}));
+  connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{
+          -108,120},{-108,49.6},{-102,49.6}},
+                                         color={0,0,127}));
+  connect(datRea.y[9], toTotAirOut.XiDry) annotation (Line(points={{-131,120},{
+          -108,120},{-108,80},{-101,80}},
+                                     color={0,0,127}));
   connect(datRea.y[17], boundary.m_flow_in) annotation (Line(points={{-131,120},
-          {-108,120},{-108,16},{-50,16},{-50,-2}}, color={0,0,127}));
+          {-108,120},{-108,16},{-74,16},{-74,-2},{-50,-2}},
+                                                   color={0,0,127}));
   connect(TConIn_K.Kelvin, boundary.T_in) annotation (Line(points={{-79,-10.2},{
           -60,-10.2},{-60,-6},{-50,-6}}, color={0,0,127}));
   connect(toTotAirIn.XiTotalAir, boundary.Xi_in[1]) annotation (Line(points={{-79,
