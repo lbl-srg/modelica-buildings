@@ -75,11 +75,6 @@ partial model PartialDXCoil "Partial model for DX coil"
     final y=port_a.m_flow) "Inlet air mass flow rate"
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr(
-    final is_CooCoi=is_CooCoi)
-    "Electrical power consumed by the unit"
-    annotation (Placement(transformation(extent={{20,60},{40,80}})));
-
 protected
   parameter Integer i_x(fixed=false)
     "Index of substance";
@@ -119,15 +114,6 @@ initial algorithm
 equation
   connect(m.y,dxCoi. m_flow) annotation (Line(
       points={{-69,44},{-66,44},{-66,54.4},{-21,54.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(dxCoi.EIR, pwr.EIR) annotation (Line(
-      points={{1,60},{6,60},{6,76.6},{18,76.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoi.Q_flow, pwr.Q_flow) annotation (Line(
-      points={{1,56},{10,56},{10,70},{18,70}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -212,17 +198,21 @@ First implementation.
 </ul>
 
 </html>"),
-    Icon(graphics={Text(
-          extent={{-138,64},{-80,46}},
-          textColor={0,0,127},
-          textString="TConIn"), Text(
+    Icon(graphics={             Text(
           extent={{58,98},{102,78}},
           textColor={0,0,127},
-          textString="P"),      Text(
-          extent={{54,60},{98,40}},
-          textColor={0,0,127},
-          textString="QLat"),   Text(
+          textString="P"),
+          Text(
           extent={{54,80},{98,60}},
           textColor={0,0,127},
-          textString="QSen")}));
+          textString="QSen"),
+                   Text(
+          extent={{-158,56},{-100,38}},
+          textColor={0,0,127},
+          textString="TOut"),
+                   Text(
+          extent={{-158,-2},{-100,-20}},
+          textColor={0,0,127},
+          textString="mCon_flow",
+          visible = use_mCon_flow)}));
 end PartialDXCoil;

@@ -14,7 +14,7 @@ partial model PartialDXCoolingCoil
     final unit="W")
     "Latent heat flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
-      iconTransformation(extent={{116,20},{136,40}})));
+      iconTransformation(extent={{100,40},{120,60}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation eva(
     redeclare package Medium = Medium,
@@ -104,17 +104,14 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={Text(
-          extent={{-138,64},{-80,46}},
-          textColor={0,0,127},
-          textString="TConIn"), Text(
+    Icon(graphics={             Text(
           extent={{58,98},{102,78}},
           textColor={0,0,127},
           textString="P"),      Text(
-          extent={{54,60},{98,40}},
-          textColor={0,0,127},
-          textString="QLat"),   Text(
           extent={{54,80},{98,60}},
           textColor={0,0,127},
-          textString="QSen")}));
+          textString="QSen"),   Text(
+          extent={{56,62},{100,42}},
+          textColor={0,0,127},
+          textString="QLat")}));
 end PartialDXCoolingCoil;
