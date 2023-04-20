@@ -3,7 +3,7 @@ record CoilHeatTransfer
   "Heat transfer performance record for a DX coil with one or multiple stages"
   extends Modelica.Icons.Record;
 
-  parameter Boolean is_CooCoi
+  parameter Boolean is_cooCoi
     "=true, if cooling coil; =false, if heating coil";
 
   final parameter Boolean sinStaOpe = nSta == 1
@@ -24,7 +24,7 @@ record CoilHeatTransfer
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
     sta[nSta](
-    is_CooCoi=fill(is_CooCoi,nSta))
+    is_cooCoi=fill(is_cooCoi,nSta))
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
     "Data record for coil performance at each stage";

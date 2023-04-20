@@ -4,11 +4,11 @@ record SingleSpeedHeating
   extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil(
     sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
-        is_CooCoi=false,
+        is_cooCoi=false,
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          is_CooCoi=false,
+          is_cooCoi=false,
           Q_flow_nominal=15000,
           COP_nominal=2.75,
           SHR_nominal=1,

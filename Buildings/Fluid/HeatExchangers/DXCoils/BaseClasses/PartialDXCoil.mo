@@ -9,7 +9,7 @@ partial model PartialDXCoil "Partial model for DX coil"
   constant Boolean use_mCon_flow
     "Set to true to enable connector for the condenser mass flow rate";
 
-  parameter Boolean is_CooCoi
+  parameter Boolean is_cooCoi
     "= false, if DX coil is in the heating operation";
 
   parameter Boolean computeReevaporation=true
@@ -129,7 +129,7 @@ equation
   connect(mCon_flow,dxCoi. mCon_flow) annotation (Line(points={{-110,-30},{-24,
           -30},{-24,42},{-21,42}}, color={0,0,127}));
 
-  if is_CooCoi then
+  if is_cooCoi then
 
   end if;
 

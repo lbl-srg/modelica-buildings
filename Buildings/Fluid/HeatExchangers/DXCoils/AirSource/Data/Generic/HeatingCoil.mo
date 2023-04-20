@@ -4,7 +4,7 @@ record HeatingCoil
   extends Modelica.Icons.Record;
 
   extends Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
-    final is_CooCoi=false);
+    final is_cooCoi=false);
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation
     defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive

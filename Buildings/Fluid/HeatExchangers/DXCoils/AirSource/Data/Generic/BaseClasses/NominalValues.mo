@@ -3,7 +3,7 @@ record NominalValues "Data record of nominal values"
   extends Modelica.Icons.Record;
 
 //-----------------------------Nominal conditions-----------------------------//
-  parameter Boolean is_CooCoi = true
+  parameter Boolean is_cooCoi = true
     "= false, if DX coil is in the heating operation";
 
   parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal
@@ -14,7 +14,7 @@ record NominalValues "Data record of nominal values"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Real SHR_nominal(final unit="1") "Nominal sensible heat ratio"
-    annotation (Dialog(group="Nominal condition", enable = is_CooCoi));
+    annotation (Dialog(group="Nominal condition", enable = is_cooCoi));
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate at evaporators"
@@ -38,11 +38,11 @@ record NominalValues "Data record of nominal values"
 
   parameter Modelica.Units.SI.Time tWet=1400
     "Time until moisture drips from coil when a dry coil is switched on"
-    annotation (Dialog(tab="General", group="Re-evaporation data", enable = is_CooCoi));
+    annotation (Dialog(tab="General", group="Re-evaporation data", enable = is_cooCoi));
 
   parameter Real gamma(min=0) = 1.5
     "Ratio of evaporation heat transfer divided by latent heat transfer at nominal conditions"
-    annotation(Dialog(tab="General",group="Re-evaporation data", enable = is_CooCoi));
+    annotation(Dialog(tab="General",group="Re-evaporation data", enable = is_cooCoi));
 
 annotation (defaultComponentName="nomVal",
               preferredView="info",

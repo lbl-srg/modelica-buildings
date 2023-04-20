@@ -17,16 +17,18 @@ model SingleSpeedCooling
 
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCoi(nSta=1,
-      sta={
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+    datCoi(nSta=1, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        is_cooCoi=true,
         spe=1800/60,
-        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        nomVal=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-10500,
           COP_nominal=3,
           SHR_nominal=0.798655,
           m_flow_nominal=1.72),
-        perCur=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II())})
+        perCur=
+          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II())})
     "Coil data"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
 
@@ -382,7 +384,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.QLat_flow, QCoo_flow.u2) annotation (Line(
-      points={{12.6,13},{20,13},{20,32},{-48,32},{-48,84},{-42,84}},
+      points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
