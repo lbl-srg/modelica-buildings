@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-partial model PartialDXCoolingCoil "Partial model for DX cooling coil"
+partial model PartialDXCoolingCoil
+  "Partial model for DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
     final is_CooCoi=true,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling
@@ -8,40 +9,51 @@ partial model PartialDXCoolingCoil "Partial model for DX cooling coil"
       prescribedHeatFlowRate=true),
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi);
 
-  Modelica.Blocks.Interfaces.RealOutput QLat_flow(final quantity="Power",
-      final unit="W")
+  Modelica.Blocks.Interfaces.RealOutput QLat_flow(
+    final quantity="Power",
+    final unit="W")
     "Latent heat flow rate"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
-        iconTransformation(extent={{116,20},{136,40}})));
+      iconTransformation(extent={{116,20},{136,40}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation eva(
     redeclare package Medium = Medium,
-    nomVal=datCoi.sta[nSta].nomVal,
-    final computeReevaporation=computeReevaporation) if   is_CooCoi
+    final nomVal=datCoi.sta[nSta].nomVal,
+    final computeReevaporation=computeReevaporation) if is_CooCoi
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
+
 protected
-  Modelica.Blocks.Sources.RealExpression X(final y=XIn[i_x])
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower pwr
+    "Electrical power consumed by the unit"
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
+  Modelica.Blocks.Sources.RealExpression X(
+    final y=XIn[i_x])
     "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-56,24},{-36,44}})));
-  Modelica.Blocks.Sources.RealExpression h(final y=hIn)
+
+  Modelica.Blocks.Sources.RealExpression h(
+    final y=hIn)
     "Inlet air specific enthalpy"
     annotation (Placement(transformation(extent={{-56,10},{-36,30}})));
-  Modelica.Blocks.Sources.RealExpression p(final y=port_a.p)
+
+  Modelica.Blocks.Sources.RealExpression p(
+    final y=port_a.p)
     "Inlet air pressure"
     annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
+
 equation
   connect(p.y,dxCoi.p)  annotation (Line(points={{-69,12},{-58,12},{-58,49.6},{
           -21,49.6}}, color={0,0,127}));
-  connect(dxCoi.SHR, pwr.SHR) annotation (Line(points={{1,52},{12,52},{12,64},{
-          18,64}}, color={0,0,127}));
+  connect(dxCoi.SHR, pwr.SHR) annotation (Line(points={{1,52},{12,52},{12,64},{18,
+          64}},    color={0,0,127}));
   connect(dxCoi.mWat_flow, eva.mWat_flow) annotation (Line(
       points={{1,44},{8,44},{8,8},{-22,8},{-22,-60},{-12,-60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pwr.QLat_flow, QLat_flow) annotation (Line(points={{41,64},{80,64},{
-          80,50},{110,50}},
-                         color={0,0,127}));
+  connect(pwr.QLat_flow, QLat_flow) annotation (Line(points={{41,64},{80,64},{80,
+          50},{110,50}}, color={0,0,127}));
   connect(X.y,dxCoi.XEvaIn)  annotation (Line(points={{-35,34},{-32,34},{-32,47},
           {-21,47}}, color={0,0,127}));
   connect(h.y,dxCoi.hEvaIn)  annotation (Line(points={{-35,20},{-28,20},{-28,
@@ -59,14 +71,18 @@ equation
                                                         color={0,0,127}));
   connect(pwr.P, P) annotation (Line(points={{41,76},{74,76},{74,90},{110,90}},
         color={0,0,127}));
-  connect(pwr.QSen_flow, QSen_flow) annotation (Line(points={{41,70},{74,70},{
-          74,70},{110,70}}, color={0,0,127}));
+  connect(pwr.QSen_flow, QSen_flow) annotation (Line(points={{41,70},{110,70}},
+                            color={0,0,127}));
   connect(dxCoi.Q_flow, q.Q_flow) annotation (Line(points={{1,56},{22,56},{22,
           54},{42,54}}, color={0,0,127}));
   connect(T.y, eva.TEvaOut) annotation (Line(points={{-69,28},{-64,28},{-64,-88},
           {6,-88},{6,-72}}, color={0,0,127}));
   connect(m.y, eva.mAir_flow) annotation (Line(points={{-69,44},{-66,44},{-66,
           -66},{-12,-66}}, color={0,0,127}));
+  connect(dxCoi.EIR, pwr.EIR) annotation (Line(points={{1,60},{6,60},{6,76.6},{18,
+          76.6}}, color={0,0,127}));
+  connect(dxCoi.Q_flow, pwr.Q_flow) annotation (Line(points={{1,56},{10,56},{10,
+          70},{18,70}}, color={0,0,127}));
   annotation (
 defaultComponentName="dxCoi",
 Documentation(info="<html>
