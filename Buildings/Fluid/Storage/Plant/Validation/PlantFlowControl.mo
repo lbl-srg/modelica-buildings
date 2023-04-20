@@ -63,9 +63,9 @@ model PlantFlowControl
     mTan_flow_nominal=nom.mTan_flow_nominal)
     "Block for primary and secondary pump and valve flow control"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 100,1; 600,2; 1800,3;
+  Modelica.Blocks.Sources.IntegerTable com(table=[0,2; 100,1; 600,2; 1800,3;
         2300,2; 2500,1])
-    "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
+    "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,2300},
     startValue=false)
@@ -100,13 +100,13 @@ equation
           -16},{-88,10},{-80,10}}, color={0,127,255}));
   connect(bouRet.ports[1], tanBra.port_aRetNet) annotation (Line(points={{80,-30},
           {20,-30},{20,-16},{10,-16}},      color={0,127,255}));
-  connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-119,50},{-100,50},
-          {-100,56},{-81,56}},
-                             color={255,127,0}));
-  connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-119,10},{-104,10},
-          {-104,44},{-81,44}},color={255,0,255}));
-  connect(hasLoa.y, floCon.hasLoa) annotation (Line(points={{-119,-30},{-100,-30},
-          {-100,40},{-81,40}},
+  connect(com.y, floCon.com) annotation (Line(points={{-119,50},{-100,50},{-100,
+          54},{-81,54}}, color={255,127,0}));
+  connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-119,10},{-104,
+          10},{-104,46},{-81,46}},
+                              color={255,0,255}));
+  connect(hasLoa.y, floCon.hasLoa) annotation (Line(points={{-119,-30},{-100,
+          -30},{-100,42},{-81,42}},
                              color={255,0,255}));
   connect(tanBra.port_bSupNet, revCon.port_a) annotation (Line(points={{10,-4},{
           20,-4},{20,10},{40,10}}, color={0,127,255}));
@@ -124,8 +124,9 @@ equation
           {16,-50},{39,-50}}, color={0,0,127}));
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-50},{64,-50},{
           64,-66},{-94,-66},{-94,50},{-81,50}}, color={255,0,255}));
-  connect(y.y, floCon.yPum) annotation (Line(points={{-119,90},{-100,90},{-100,60},
-          {-81,60}}, color={0,0,127}));
+  connect(y.y, floCon.yPum) annotation (Line(points={{-119,90},{-100,90},{-100,
+          58},{-81,58}},
+                     color={0,0,127}));
     annotation(experiment(Tolerance=1e-06, StopTime=3000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Validation/PlantFlowControl.mos"
         "Simulate and plot"),

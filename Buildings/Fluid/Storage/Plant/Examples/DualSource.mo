@@ -280,9 +280,9 @@ model DualSource
     final use_outFil=true)
     "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Modelica.Blocks.Sources.IntegerTable tanCom(table=[0,2; 200,1; 3000,2; 4000,3;
+  Modelica.Blocks.Sources.IntegerTable com(table=[0,2; 200,1; 3000,2; 4000,3;
         6000,2; 7500,1])
-    "Command for tank: 1 = charge, 2 = hold, 3 = discharge"
+    "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
     annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
   Buildings.Fluid.Storage.Plant.Controls.TankStatus tanSta(
     TLow=nom.T_CHWS_nominal,
@@ -394,14 +394,14 @@ equation
   connect(ideUse3.yVal_actual, muxVal.u[3]) annotation (Line(points={{101,-162},
           {106,-162},{106,-170},{162,-170},{162,-167.667},{180,-167.667}},
         color={0,0,127}));
-  connect(tanCom.y, floCon.tanCom) annotation (Line(points={{-199,10},{-172,10},
-          {-172,-24},{-161,-24}}, color={255,127,0}));
+  connect(com.y, floCon.com) annotation (Line(points={{-199,10},{-172,10},{-172,
+          -26},{-161,-26}}, color={255,127,0}));
   connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-199,-30},{-172,
-          -30},{-172,-36},{-161,-36}}, color={255,0,255}));
+          -30},{-172,-34},{-161,-34}}, color={255,0,255}));
   connect(mulMax_yVal_actual.y, hys_yVal_actual.u)
     annotation (Line(points={{-238,-70},{-222,-70}}, color={0,0,127}));
   connect(hys_yVal_actual.y, floCon.hasLoa) annotation (Line(points={{-198,-70},
-          {-172,-70},{-172,-40},{-161,-40}}, color={255,0,255}));
+          {-172,-70},{-172,-38},{-161,-38}}, color={255,0,255}));
   connect(muxVal.y, mulMax_yVal_actual.u[1:3]) annotation (Line(points={{201,
           -170},{210,-170},{210,-230},{-270,-230},{-270,-69.3333},{-262,
           -69.3333}}, color={0,0,127}));
@@ -418,7 +418,7 @@ equation
   connect(conPI_pumChi1.y, pumSup1.y)
     annotation (Line(points={{-81,170},{-10,170},{-10,102}}, color={0,0,127}));
   connect(conPI_pumChi1.y, floCon.yPum) annotation (Line(points={{-81,170},{-76,
-          170},{-76,26},{-168,26},{-168,-20},{-161,-20}}, color={0,0,127}));
+          170},{-76,26},{-168,26},{-168,-22},{-161,-22}}, color={0,0,127}));
   connect(revCon.port_b, parJunPla2.port_c1) annotation (Line(points={{0,-80},{
           34,-80},{34,-84},{40,-84}}, color={0,127,255}));
   connect(tanBra.port_bSupNet, revCon.port_a) annotation (Line(points={{-80,-84},
