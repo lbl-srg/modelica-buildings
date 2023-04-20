@@ -1,13 +1,13 @@
 ﻿simulateModel("Buildings.Experimental.DHC.Plants.Combined.Examples.AllElectricCWStorage",
     method="Radau",
     tolerance=1e-6,
-    startTime=4.32e+06,
-    stopTime=5.184e+06,
+    startTime=3024000,
+    stopTime=3888000,
     resultFile="AllElectricCWStorage");
 // Plot commands
 createPlot(id=1, position={413, 4, 775, 634}, y={"loaHea[1].bui.QReqHea_flow", "loaHea[1].bui.QHea_flow", "loaHea[2].bui.QReqHea_flow",
- "loaHea[2].bui.QHea_flow"}, range={50.0, 60.0, -500000.0, 1000000.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
+ "loaHea[2].bui.QHea_flow"}, range={35, 45, -500000.0, 1000000.0}, autoscale=false, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
 createPlot(id=1, position={413, 4, 775, 634}, y={"loaCoo[1].bui.QReqCoo_flow", "loaCoo[1].bui.QCoo_flow", "loaCoo[2].bui.QReqCoo_flow",
- "loaCoo[2].bui.QCoo_flow"}, range={50.0, 60.0, -40000.0, 20000.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
-createPlot(id=1, position={413, 4, 775, 634}, y={"pla.PHea", "pla.PCoo", "pla.PFan", "pla.PPum"}, range={50.0, 60.0, -500000.0, 1000000.0}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
-createPlot(id=1, position={413, 4, 775, 634}, y={"pla.THeaWatSup.T", "pla.THeaWatPriRet.T", "pla.TChiWatSup.T", "pla.TChiWatPriRet.T"}, range={50.0, 60.0, 0.0, 100.0}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC"});
+ "loaCoo[2].bui.QCoo_flow"}, range={35, 45, -40000.0, 20000.0}, autoscale=false, grid=true, subPlot=102, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
+createPlot(id=1, position={413, 4, 775, 634}, y={"pla.PHea", "pla.PCoo", "pla.PFan", "pla.PPum"}, range={35, 45, -500000.0, 1000000.0}, autoscale=false, grid=true, subPlot=103, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"W", "W", "W", "W"});
+createPlot(id=1, position={413, 4, 775, 634}, y={"pla.THeaWatSup.T", "pla.THeaWatPriRet.T", "pla.TChiWatSup.T", "pla.TChiWatPriRet.T"}, range={35, 45, 0.0, 100.0}, autoscale=false, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}}, timeUnit="d", displayUnits={"degC", "degC", "degC", "degC"});

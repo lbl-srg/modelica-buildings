@@ -261,8 +261,8 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Combined/Examples/AllElectricCWStorage.mos"
       "Simulate and plot"),
     experiment(
-      StartTime=4320000,
-      StopTime=5184000,
+      StartTime=3024000,
+      StopTime=3888000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Radau"),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
