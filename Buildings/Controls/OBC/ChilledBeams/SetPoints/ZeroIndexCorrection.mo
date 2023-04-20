@@ -1,6 +1,9 @@
 within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block ZeroIndexCorrection
-  "Block to pass the correct the number of pump enable details when index signal is zero, while avoiding assert errors"
+  "Block to pass the correct index when index signal is zero, while avoiding assert errors"
+
+  parameter Integer yMax
+    "Maximum allowed integer signal output";
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uInd
     "Index signal"
@@ -8,9 +11,9 @@ block ZeroIndexCorrection
       iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u
-    "Real input signal" annotation (Placement(
-        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
-          extent={{-140,-60},{-100,-20}})));
+    "Input signal" annotation (Placement(transformation(
+          extent={{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},
+            {-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yIndMod
     "Modified index value to avoid assert errors"
@@ -18,11 +21,21 @@ block ZeroIndexCorrection
       iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMod
-    "Modified value" annotation (Placement(
-        transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent=
+    "Modified input value"
+    annotation (Placement(
+      transformation(extent={{100,-60},{140,-20}}), iconTransformation(extent=
            {{100,-60},{140,-20}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=yMax)
+    "Output constant integer signal at max allowed index value"
+    annotation (Placement(transformation(extent={{40,30},{60,50}})));
+
+  Buildings.Controls.OBC.CDL.Integers.Min minInt
+    "Limit signal below or at max allowed index value"
+    annotation (Placement(transformation(extent={{72,30},{92,50}})));
+
   Buildings.Controls.OBC.CDL.Integers.Equal intEqu
     "Check if the index signal is zero"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
@@ -35,7 +48,7 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea(
     final realTrue=0,
     final realFalse=1)
-    "Pass a zero multiplication signal to the number of pump enable modfier"
+    "Pass a zero multiplication signal to the capacity modfier"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt
@@ -63,14 +76,18 @@ equation
           60},{-2,60}}, color={255,0,255}));
   connect(booToInt1.y, addInt.u2) annotation (Line(points={{22,60},{30,60},{30,74},
           {38,74}}, color={255,127,0}));
-  connect(addInt.y, yIndMod) annotation (Line(points={{62,80},{80,80},{80,40},{120,
-          40}}, color={255,127,0}));
   connect(mul.y, yMod)
     annotation (Line(points={{62,-40},{120,-40}}, color={0,0,127}));
   connect(booToRea.y, mul.u1) annotation (Line(points={{22,20},{30,20},{30,-34},
           {38,-34}}, color={0,0,127}));
   connect(u, mul.u2) annotation (Line(points={{-120,-40},{30,-40},{30,-46},{38,-46}},
         color={0,0,127}));
+  connect(addInt.y, minInt.u1) annotation (Line(points={{62,80},{66,80},{66,46},
+          {70,46}}, color={255,127,0}));
+  connect(conInt.y, minInt.u2) annotation (Line(points={{62,40},{66,40},{66,34},
+          {70,34}}, color={255,127,0}));
+  connect(minInt.y, yIndMod)
+    annotation (Line(points={{94,40},{120,40}}, color={255,127,0}));
   annotation (defaultComponentName="zerStaIndCor",
     Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={

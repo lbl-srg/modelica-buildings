@@ -204,11 +204,11 @@ block Controller
     "Enable and disable lag pumps using pump speed"
     annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
 
-  SetPoints.ZeroIndexCorrection zerStaIndCor
+  SetPoints.ZeroIndexCorrection zerStaIndCor(yMax=nPum)
     annotation (Placement(transformation(extent={{-86,-134},{-66,-114}})));
-  SetPoints.ZeroIndexCorrection zerStaIndCor1
+  SetPoints.ZeroIndexCorrection zerStaIndCor1(yMax=nPum)
     annotation (Placement(transformation(extent={{-86,-80},{-66,-60}})));
-protected
+// protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
 
@@ -458,20 +458,20 @@ equation
           -300,-160},{-34,-160},{-34,-190},{-22,-190}}, color={0,0,127}));
   connect(mulSumInt.y, zerStaIndCor.uInd)
     annotation (Line(points={{-178,-120},{-88,-120}}, color={255,127,0}));
-  connect(zerStaIndCor.yIndMod, lasLagPum.index) annotation (Line(points={{-64,
-          -120},{-50,-120},{-50,-114}}, color={255,127,0}));
-  connect(zerStaIndCor.yMod, reaToInt2.u) annotation (Line(points={{-64,-128},{
-          -16,-128},{-16,-100},{-8,-100}}, color={0,0,127}));
+  connect(zerStaIndCor.yIndMod, lasLagPum.index) annotation (Line(points={{-64,-120},
+          {-50,-120},{-50,-114}}, color={255,127,0}));
   connect(lasLagPum.y, zerStaIndCor.u) annotation (Line(points={{-38,-102},{-38,
           -86},{-116,-86},{-116,-128},{-88,-128}}, color={0,0,127}));
   connect(addInt.y, zerStaIndCor1.uInd)
     annotation (Line(points={{-96,-66},{-88,-66}}, color={255,127,0}));
   connect(zerStaIndCor1.yIndMod, nexLagPum.index) annotation (Line(points={{-64,
           -66},{-52,-66},{-52,-58}}, color={255,127,0}));
-  connect(zerStaIndCor1.yMod, reaToInt1.u) annotation (Line(points={{-64,-74},{
-          -16,-74},{-16,-46},{-10,-46}}, color={0,0,127}));
   connect(nexLagPum.y, zerStaIndCor1.u) annotation (Line(points={{-40,-46},{-40,
           -30},{-92,-30},{-92,-74},{-88,-74}}, color={0,0,127}));
+  connect(zerStaIndCor1.yCapMod, reaToInt1.u) annotation (Line(points={{-64,-74},
+          {-28,-74},{-28,-46},{-10,-46}}, color={0,0,127}));
+  connect(zerStaIndCor.yCapMod, reaToInt2.u) annotation (Line(points={{-64,-128},
+          {-26,-128},{-26,-100},{-8,-100}}, color={0,0,127}));
 annotation (defaultComponentName="secPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-240},{280,200}}),
