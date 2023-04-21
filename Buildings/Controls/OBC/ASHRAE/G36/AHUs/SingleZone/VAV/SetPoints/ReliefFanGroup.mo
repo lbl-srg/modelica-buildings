@@ -3,29 +3,35 @@ block ReliefFanGroup
   "Sequence for relief fans control for AHUs using actuated relief dampers with relief fan(s)"
 
   parameter Integer nSupFan = 2
-    "Total number of AHU supply fans that are serving the same common space";
+    "Total number of AHU supply fans that are serving the same common space"
+    annotation (__cdl(ValueInReference=false));
   parameter Integer nRelFan = 4
-    "Total number of relief fans that are serving the same common space";
+    "Total number of relief fans that are serving the same common space"
+    annotation (__cdl(ValueInReference=false));
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
-    "Relief fan minimum speed";
+    "Relief fan minimum speed"
+    annotation (__cdl(ValueInReference=false));
   parameter Integer staVec[nRelFan] = {2,3,1,4}
-    "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up";
+    "Vector of the order for staging up relief fan, i.e. the 1st element means the 1st relief fan and its value showing its sequence when staging up"
+    annotation (__cdl(ValueInReference=false));
   parameter Integer relFanMat[nRelFan, nSupFan] = {{1,0},{1,0},{0,1},{0,1}}
-    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It flags which relief fan is associated with which supply fan";
+    "Relief fan matrix with relief fan as row index and AHU supply fan as column index. It flags which relief fan is associated with which supply fan"
+    annotation (__cdl(ValueInReference=false));
   parameter Real dpBuiSet(
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
-    "Building static pressure difference relative to ambient (positive to pressurize the building)";
+    "Building static pressure difference relative to ambient (positive to pressurize the building)"
+    annotation (__cdl(ValueInReference=true));
   parameter Real k(
     final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (Dialog(group="Pressure controller"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SupFan[nSupFan]
     "AHU supply fan proven on status"
