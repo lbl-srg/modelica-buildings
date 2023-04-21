@@ -9,7 +9,7 @@ record Generic "Generic data record for movers"
     dp =     {0, 0}) "Volume flow rate vs. total pressure rise"
     annotation(Evaluate=true,
                Dialog(group="Pressure curve"));
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
+  final parameter Modelica.Units.SI.VolumeFlowRate V_flow_max=
     if havePressureCurve
       then (pressure.V_flow[end]
                 -(pressure.V_flow[end] - pressure.V_flow[end - 1])
@@ -17,7 +17,8 @@ record Generic "Generic data record for movers"
                 * pressure.dp[end])
     else 0
       "Volume flow rate on the curve when pressure rise is zero";
-  parameter Modelica.Units.SI.PressureDifference dpMax=
+  final parameter Modelica.Units.SI.PressureDifference dpMax(
+    displayUnit="Pa")=
     if havePressureCurve
       then (pressure.dp[1]
                 -(pressure.dp[1] - pressure.dp[2])
