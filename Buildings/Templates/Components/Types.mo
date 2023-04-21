@@ -76,8 +76,6 @@ package Types "Package with type definitions"
       "Differential pressure",
       HumidityRatio
       "Humidity ratio",
-      None
-      "None",
       PPM
       "PPM",
       RelativeHumidity
@@ -100,8 +98,6 @@ package Types "Package with type definitions"
   type SensorVolumeFlowRate = enumeration(
       AFMS
       "Airflow measuring station",
-      FlowCross
-      "Averaging sensor",
       FlowMeter
       "Flow meter")
     "Enumeration to specify the type of volume flow rate sensor";

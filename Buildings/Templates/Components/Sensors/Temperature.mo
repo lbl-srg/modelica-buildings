@@ -7,7 +7,7 @@ model Temperature "Temperature sensor"
   parameter Buildings.Templates.Components.Types.SensorTemperature typ=
     Buildings.Templates.Components.Types.SensorTemperature.Standard
     "Type of temperature sensor"
-    annotation(Dialog(enable=false), Evaluate=true);
+    annotation(Dialog(enable=false));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,

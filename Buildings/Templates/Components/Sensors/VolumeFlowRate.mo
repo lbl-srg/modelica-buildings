@@ -6,7 +6,7 @@ model VolumeFlowRate "Volume flow rate sensor"
 
   parameter Buildings.Templates.Components.Types.SensorVolumeFlowRate typ
     "Type of volume flow rate sensor"
-    annotation(Dialog(enable=false), Evaluate=true);
+    annotation(Dialog(enable=false));
 
   Buildings.Fluid.Sensors.VolumeFlowRate senVolFlo(
     redeclare final package Medium=Medium,
@@ -34,14 +34,6 @@ equation
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        extent={{-34,-160},{34,100}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateFlowCross.svg"),
-      Bitmap(
-        extent={{-100,-60},{100,60}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRatePipe.svg"),
-      Bitmap(
         extent=if text_flip then {{40,-20},{-40,20}} else {{-40,-20},{40,20}},
         rotation=text_rotation,
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
@@ -49,8 +41,7 @@ equation
       Bitmap(
         extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
         rotation=text_rotation,
-        visible=have_sen and (typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross or
-          typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS),
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
