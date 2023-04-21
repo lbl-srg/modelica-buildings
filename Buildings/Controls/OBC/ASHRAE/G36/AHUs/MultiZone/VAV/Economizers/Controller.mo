@@ -12,86 +12,100 @@ block Controller
     "Economizer high limit control device";
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified
     "ASHRAE climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1));
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone tit24CliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.Title24ClimateZone.Not_Specified
     "California Title 24 climate zone"
-    annotation (Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
-  parameter Real aveTimRan(unit="s")=5
-    "Time horizon over which the outdoor air flow measurement is averaged";
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=eneStd==Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.California_Title_24));
 
   // Limits
   parameter Real minSpe(unit="1")=0.1
     "Minimum supply fan speed"
-    annotation (Dialog(tab="Limits",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController minOAConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of minimum outdoor air controller"
-    annotation (Dialog(tab="Limits", group="With AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real kMinOA(unit="1")=1
     "Gain of controller"
-    annotation (Dialog(tab="Limits", group="With AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With AFMS",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
   parameter Real TiMinOA(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Limits", group="With AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdMinOA(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Limits", group="With AFMS",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With AFMS",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
            or minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper)
            and (minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or minOAConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Ventilation standard, ASHRAE 62.1 or Title 24"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Boolean have_CO2Sen=false
     "True: some zones have CO2 sensor"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
            and venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24)));
   parameter Real dpAbsMinOutDam=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=(venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
            and minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)));
   parameter Real dpDesMinOutDam(unit="Pa")=20
     "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpConTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PID
     "Type of differential pressure setpoint controller"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real kDp(unit="1")=1
     "Gain of controller"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(tab="Limits", group="With DP",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="With DP",
       enable=(minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)
            and (dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or dpConTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real uRetDam_min(unit="1")=0.5
     "Loop signal value to start decreasing the maximum return air damper position"
-    annotation (Dialog(tab="Limits", group="Common",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Limits", group="Common",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper));
 
   // Enable
@@ -99,54 +113,68 @@ block Controller
     unit="K",
     displayUnit="K")=1
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Enable", group="Hysteresis"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Enable", group="Hysteresis"));
   parameter Real delEntHis(unit="J/kg")=1000
     "Delta between the enthalpy hysteresis high and low limits"
-    annotation (Dialog(tab="Enable", group="Hysteresis",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Enable", group="Hysteresis",
                        enable=ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb
                            or ecoHigLimCon == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb));
   parameter Real retDamFulOpeTim(unit="s")=180
     "Time period to keep RA damper fully open before releasing it for minimum outdoor airflow control at disable to avoid pressure fluctuations"
-    annotation (Dialog(tab="Enable", group="Delays"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Enable", group="Delays"));
   parameter Real disDel(unit="s")=15
     "Short time delay before closing the OA damper at disable to avoid pressure fluctuations"
-    annotation (Dialog(tab="Enable", group="Delays"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Enable", group="Delays"));
 
   // Commissioning
   parameter Real retDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the return air damper"
-    annotation (Dialog(tab="Commissioning", group="Limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Limits"));
   parameter Real retDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the return air damper"
-    annotation (Dialog(tab="Commissioning", group="Limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Limits"));
   parameter Real outDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Limits"));
   parameter Real outDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Limits"));
   parameter Real minOutDamPhy_max(unit="1")=1.0
     "Physically fixed maximum position of the minimum outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Limits",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real minOutDamPhy_min(unit="1")=0.0
     "Physically fixed minimum position of the minimum outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Limits",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Limits",
       enable=minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow));
   parameter Real uHeaMax(unit="1")=-0.25
     "Lower limit of controller input when outdoor damper opens (see diagram)"
-    annotation (Dialog(tab="Commissioning", group="Modulation"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Modulation"));
   parameter Real uCooMin(unit="1")=+0.25
     "Upper limit of controller input when return damper is closed (see diagram)"
-    annotation (Dialog(tab="Commissioning", group="Modulation"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Modulation"));
   parameter Real uOutDamMax(unit="1")=(uHeaMax + uCooMin)/2
     "Maximum loop signal for the OA damper to be fully open"
-    annotation (Dialog(tab="Commissioning", group="Modulation",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Modulation",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
   parameter Real uRetDamMin(unit="1")=(uHeaMax + uCooMin)/2
     "Minimum loop signal for the RA damper to be fully open"
-    annotation (Dialog(tab="Commissioning", group="Modulation",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Modulation",
       enable=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
              or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan));
 
