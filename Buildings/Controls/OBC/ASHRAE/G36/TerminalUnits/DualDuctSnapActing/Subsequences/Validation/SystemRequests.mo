@@ -8,7 +8,7 @@ model SystemRequests
     final looHys=0.01,
     final damPosHys=0.01) "Block outputs system requests"
     annotation (Placement(transformation(extent={{60,-20},{80,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
     final freqHz=1/7200,
     final offset=296.15)
     "Generate data for setpoint"
@@ -16,7 +16,7 @@ model SystemRequests
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonCooSet(
     final samplePeriod=1800) "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-20,120},{0,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon(
     final freqHz=1/7200,
     final amplitude=2,
     final offset=299.15)
@@ -51,7 +51,7 @@ model SystemRequests
     annotation (Placement(transformation(extent={{-60,150},{-40,170}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
     annotation (Placement(transformation(extent={{-20,150},{0,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine1(
     final freqHz=1/7200,
     final offset=293.15)
     "Generate data for setpoint"

@@ -5,7 +5,6 @@ model SpeedControlled_y
     final preVar=Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed,
     final nominalValuesDefineDefaultPressureCurve=false,
     final computePowerUsingSimilarityLaws=true,
-    m_flow_nominal = max(per.pressure.V_flow)*rho_default,
     final stageInputs(each final unit="1") = per.speeds,
     final constInput(final unit="1") =       per.constantSpeed,
     filter(
@@ -16,9 +15,7 @@ model SpeedControlled_y
       per(final pressure = per.pressure,
           final etaHydMet = per.etaHydMet,
           final etaMotMet = per.etaMotMet),
-          r_N(start=y_start)),
-    gaiSpe(u(final unit="1"),
-           final k=1/per.speed_nominal));
+      r_N(start=y_start)));
 
   parameter Real y_start(min=0, max=1, unit="1")=0 "Initial value of speed"
     annotation(Dialog(tab="Dynamics", group="Filtered speed", enable=use_inputFilter));
@@ -45,10 +42,8 @@ initial equation
    "SpeedControlled_y requires to set the pressure vs. flow rate curve in record 'per'.");
 
 equation
-  connect(gaiSpe.u, y)
-    annotation (Line(points={{-2.8,80},{0,80},{0,120}}, color={0,0,127}));
-  connect(gaiSpe.y, inputSwitch.u) annotation (Line(points={{-16.6,80},{-26,80},
-          {-26,50},{-22,50}}, color={0,0,127}));
+  connect(inputSwitch.u, y) annotation (Line(points={{-22,50},{-26,50},{-26,80},
+          {0,80},{0,120}}, color={0,0,127}));
   connect(eff.dp, gain.u)
     annotation (Line(points={{-11,-50},{-6,-50},{-6,-42},{-10,-42},{-10,-32}},
                                                            color={0,0,127}));
@@ -90,6 +85,18 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Removed the modification that normalised the speed input
+because it is no longer needed. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Removed the modification of <code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
 <li>
 March 8, 2022, by Hongxiang Fu:<br/>
 Refactored the model by replacing <code>not use_powerCharacteristic</code>

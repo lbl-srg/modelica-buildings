@@ -1,5 +1,10 @@
 simulateModel("Buildings.Examples.VAVReheat.BaseClasses.Controls.Examples.RoomVAV", stopTime=3600, method="CVode", tolerance=1e-6, resultFile="roomVAVCon");
-createPlot(id=1, position={10, 10, 1500, 1000}, y={"vavBoxCon.TRooHeaSet", "vavBoxCon.TRooCooSet", "vavBoxCon.TRoo"}, range={0.0, 3600.0, 18.0, 24.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
-createPlot(id=1, position={10, 10, 1500, 1000}, y={"vavBoxCon.conHea.y", "vavBoxCon.conCoo.y"}, range={0.0, 3600.0, -0.2, 0.6}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={10, 10, 1500, 1000}, y={"vavBoxCon.yDam", "vavBoxCon.yVal"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"boxWitExpDam.TRooHeaSet", "boxWitExpDam.TRooCooSet", "boxWitExpDam.TRoo"}, range={0.0, 3600.0, 18.0, 24.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"boxWitExpDam.conHea.y", "boxWitExpDam.conCoo.y"}, range={0.0, 3600.0, -0.2, 0.6}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"boxWitExpDam.yDam", "boxWitExpDam.yVal"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"boxWitExpDam.conDam.u_s", "boxWitExpDam.conDam.u_m"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}});
+
+createPlot(id=2, position={920, 10, 900, 1200}, y={"boxWitPreIndDam.TRooHeaSet", "boxWitPreIndDam.TRooCooSet", "boxWitPreIndDam.TRoo"}, range={0.0, 3600.0, 18.0, 24.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=2, position={920, 10, 900, 1200}, y={"boxWitPreIndDam.conHea.y", "boxWitPreIndDam.conCoo.y"}, range={0.0, 3600.0, -0.2, 0.6}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={920, 10, 900, 1200}, y={"boxWitPreIndDam.yDam", "boxWitPreIndDam.yVal"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
 

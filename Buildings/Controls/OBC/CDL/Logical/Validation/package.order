@@ -12,6 +12,7 @@ Not
 OnOffController
 Or
 Or3
+Proof
 Switch
 Timer
 TimerAccumulating
@@ -22,5 +23,7 @@ TriggeredTrapezoid
 TrueDelay
 TrueFalseHold
 TrueHoldWithReset
+VariablePulse
+VariablePulseMinHold
 Xor
 ZeroCrossing

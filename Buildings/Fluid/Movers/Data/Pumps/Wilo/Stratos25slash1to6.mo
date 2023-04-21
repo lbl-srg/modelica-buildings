@@ -1,7 +1,6 @@
 within Buildings.Fluid.Movers.Data.Pumps.Wilo;
 record Stratos25slash1to6 "Pump data for a Wilo Stratos 25/1-6 pump"
   extends Generic(
-    speed_rpm_nominal=2540,
     final powerOrEfficiencyIsHydraulic=false,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
     power(V_flow={8.4618254914e-06, 0.000274485730449, 0.000555832400486,
@@ -25,17 +24,13 @@ Documentation(info="<html>
 http://productfinder.wilo.com/en/COM/product/00000018000028040002003a/fc_product_datasheet</a>
 </p>
 <p>
-The nominal rpm is arbitrarily chosen as the rpm of the pump curve
-in the data sheet that has the highest rpm,
-without being limited by the maximum power limitation
-(see dotted curve on figure below).
 Pump curves (H(m_flow) and P(m_flow)) from the data sheets
 are digitized using
 <a href=\"https://automeris.io/WebPlotDigitizer/\">web plot digitizer</a>.
 </p>
 <h4>Limitations:</h4>
 <ul>
-<li>The pump curve cap at high rpm that can be seen is not enforced
+<li>The pump curve cap at high speed that can be seen is not enforced
 by the model.
 </li>
 <li>
@@ -49,6 +44,12 @@ The figure below illustrates a digitized pump curve.
 <img alt=\"Pump curve\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Data/stratoscurve.png\"/></p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Deleted angular speed parameters with the unit rpm.
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
 <li>
 October 14, 2021, by Hongxiang Fu:<br/>
 Rewrote the statements using <code>use_powerCharacteristic</code>

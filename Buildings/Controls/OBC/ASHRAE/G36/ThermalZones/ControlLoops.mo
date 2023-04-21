@@ -53,15 +53,21 @@ block ControlLoops "Heating and cooling control loops"
     final unit="1") "Heating control signal"
     annotation (Placement(transformation(extent={{160,-90},{200,-50}}),
       iconTransformation(extent={{100,-80},{140,-40}})));
-
-protected
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset cooCon(
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conCoo(
     final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
     final k=kCooCon,
     final Ti=TiCooCon,
     final reverseActing=false)
     "Cooling controller"
     annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conHea(
+    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
+    final k=kHeaCon,
+    final Ti=TiHeaCon)
+    "Heating controller"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
+protected
   Buildings.Controls.OBC.CDL.Continuous.Less enaHeaLoo(
     final h=dTHys)
     "Check if heating control loop should be enabled"
@@ -85,11 +91,6 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Multiply cooConSig
     "Cooling control loop signal"
     annotation (Placement(transformation(extent={{120,60},{140,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset heaCon(
-    final controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final k=kHeaCon,
-    final Ti=TiHeaCon) "Heating controller"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not holZon
     "Check if the zone temperature is higher than the heating setpoint"
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
@@ -129,31 +130,31 @@ equation
           {-122,12}}, color={0,0,127}));
   connect(TCooSet, enaCooLoo.u1) annotation (Line(points={{-180,80},{-140,80},{-140,
           20},{-122,20}}, color={0,0,127}));
-  connect(TCooSet, cooCon.u_s) annotation (Line(points={{-180,80},{-140,80},{-140,
+  connect(TCooSet,conCoo. u_s) annotation (Line(points={{-180,80},{-140,80},{-140,
           100},{-82,100}}, color={0,0,127}));
-  connect(TZon, cooCon.u_m)
+  connect(TZon,conCoo. u_m)
     annotation (Line(points={{-180,0},{-70,0},{-70,88}}, color={0,0,127}));
-  connect(enaCooLoo.y, cooCon.trigger)
+  connect(enaCooLoo.y,conCoo. trigger)
     annotation (Line(points={{-98,20},{-76,20},{-76,88}}, color={255,0,255}));
   connect(enaCooLoo.y, colZon.u)
     annotation (Line(points={{-98,20},{-42,20}}, color={255,0,255}));
-  connect(cooCon.y, cooConSig.u1) annotation (Line(points={{-58,100},{110,100},{
+  connect(conCoo.y, cooConSig.u1) annotation (Line(points={{-58,100},{110,100},{
           110,76},{118,76}}, color={0,0,127}));
-  connect(THeaSet, heaCon.u_s) annotation (Line(points={{-180,-80},{-150,-80},{-150,
+  connect(THeaSet,conHea. u_s) annotation (Line(points={{-180,-80},{-150,-80},{-150,
           -40},{-82,-40}}, color={0,0,127}));
-  connect(TZon, heaCon.u_m) annotation (Line(points={{-180,0},{-140,0},{-140,-60},
+  connect(TZon,conHea. u_m) annotation (Line(points={{-180,0},{-140,0},{-140,-60},
           {-70,-60},{-70,-52}}, color={0,0,127}));
   connect(enaHeaLoo.y, holZon.u)
     annotation (Line(points={{-98,-120},{-42,-120}}, color={255,0,255}));
-  connect(enaHeaLoo.y, heaCon.trigger) annotation (Line(points={{-98,-120},{-76,
+  connect(enaHeaLoo.y,conHea. trigger) annotation (Line(points={{-98,-120},{-76,
           -120},{-76,-52}}, color={255,0,255}));
-  connect(heaCon.y, heaConSig.u1) annotation (Line(points={{-58,-40},{110,-40},{
+  connect(conHea.y, heaConSig.u1) annotation (Line(points={{-58,-40},{110,-40},{
           110,-64},{118,-64}}, color={0,0,127}));
   connect(zerCon.y, disCoo.u)
     annotation (Line(points={{-18,60},{-2,60}}, color={255,0,255}));
-  connect(cooCon.y, zerCon.u) annotation (Line(points={{-58,100},{-50,100},{-50,
+  connect(conCoo.y, zerCon.u) annotation (Line(points={{-58,100},{-50,100},{-50,
           60},{-42,60}}, color={0,0,127}));
-  connect(heaCon.y, zerCon1.u) annotation (Line(points={{-58,-40},{-50,-40},{-50,
+  connect(conHea.y, zerCon1.u) annotation (Line(points={{-58,-40},{-50,-40},{-50,
           -80},{-42,-80}}, color={0,0,127}));
   connect(zerCon1.y, disHea.u)
     annotation (Line(points={{-18,-80},{-2,-80}}, color={255,0,255}));

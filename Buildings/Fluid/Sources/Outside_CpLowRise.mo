@@ -153,6 +153,12 @@ Gaithersburg, MD.
 revisions="<html>
 <ul>
 <li>
+April 4, 2023, by Michael Wetter:<br/>
+Removed use of non-existent parameter in annotation.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1724\">IBPSA, #1724</a>.
+</li>
+<li>
 February 2, 2022, by Michael Wetter:<br/>
 Revised implementation.<br/>
 This is for
@@ -173,11 +179,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={Text(
-          visible=use_Cp_in,
-          extent={{-140,92},{-92,62}},
-          textColor={0,0,255},
-          textString="C_p"),
+    Icon(graphics={
           Text(
           visible=use_C_in,
           extent={{-154,-28},{-102,-62}},

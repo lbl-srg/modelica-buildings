@@ -262,32 +262,32 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=samplePeriod) "Sample period time"
     annotation (Placement(transformation(extent={{-140,370},{-120,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(
-    final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conZer(final k=0.0)
+               "Constant zero"
     annotation (Placement(transformation(extent={{-20,370},{0,390}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrCooResReq(
-    final k=3) "Constant 3"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrCooResReq(final k=
+        3.0)   "Constant 3"
     annotation (Placement(transformation(extent={{40,220},{60,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoCooResReq(
-    final k=2) "Constant 2"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoCooResReq(final k=
+        2.0)   "Constant 2"
     annotation (Placement(transformation(extent={{40,160},{60,180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCooResReq(
-    final k=1) "Constant 1"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneCooResReq(final k=1.0)
+               "Constant 1"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCooReq(
-    final k=0) "Constant 0"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerCooReq(final k=0.0)
+               "Constant 0"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrPreResReq(
-    final k=3) "Constant 3"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrPreResReq(final k=
+        3.0)   "Constant 3"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoPreResReq(
-    final k=2) "Constant 2"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant twoPreResReq(final k=
+        2.0)   "Constant 2"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPreResReq(
-    final k=0) "Constant 0"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerPreResReq(final k=
+        0.0)   "Constant 0"
     annotation (Placement(transformation(extent={{40,-180},{60,-160}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onePreResReq(
-    final k=1) "Constant 1"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onePreResReq(final k=
+        1.0)   "Constant 1"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant thrHeaResReq(
     final k=3) if have_heaWatCoi
@@ -297,21 +297,21 @@ protected
     final k=2) if have_heaWatCoi
     "Constant 2"
     annotation (Placement(transformation(extent={{40,-280},{60,-260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneHeaResReq(
-    final k=1) if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneHeaResReq(final k=
+        1.0)   if have_heaWatCoi
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-340},{60,-320}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerHeaResReq(
-    final k=0) if have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerHeaResReq(final k=
+        0.0)   if have_heaWatCoi
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-380},{60,-360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerBoiPlaReq(
-    final k=0) if (have_heaWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerBoiPlaReq(final k=
+        0.0)   if (have_heaWatCoi
      and have_heaPla)
     "Constant 0"
     annotation (Placement(transformation(extent={{40,-460},{60,-440}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneBoiPlaReq(
-    final k=1) if (have_heaWatCoi and have_heaPla)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant oneBoiPlaReq(final k=
+        1.0)   if (have_heaWatCoi and have_heaPla)
     "Constant 1"
     annotation (Placement(transformation(extent={{40,-420},{60,-400}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant maxSupTim(k=1800)
@@ -411,7 +411,7 @@ equation
   connect(lat.y, tim.u)
     annotation (Line(points={{-38,340},{-2,340}}, color={255,0,255}));
   connect(edg.y, triSam.trigger)
-    annotation (Line(points={{-38,300},{-20,300},{-20,264},{-110,264},{-110,268.2}},
+    annotation (Line(points={{-38,300},{-20,300},{-20,264},{-110,264},{-110,268}},
       color={255,0,255}));
   connect(lat.y, edg.u)
     annotation (Line(points={{-38,340},{-20,340},{-20,318},{-80,318},{-80,300},
@@ -921,6 +921,12 @@ sampled, as sampling were to change the dynamic response.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 September 13, 2017, by Jianjun Hu:<br/>
 First implementation.

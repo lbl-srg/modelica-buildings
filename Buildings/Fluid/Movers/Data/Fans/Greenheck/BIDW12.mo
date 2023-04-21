@@ -3,7 +3,6 @@ record BIDW12 "Fan data for Greenheck 12 BIDW fan"
   extends Generic(
     final powerOrEfficiencyIsHydraulic=true,
     etaHydMet=Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
-    speed_rpm_nominal=4250,
     power(V_flow={0.941802252816019, 1.41392017800028, 1.88603810318454,
                    2.36058962592129, 2.82784035600056, 3.30239187873731,
                    3.77450980392156, 4.17118620497844},

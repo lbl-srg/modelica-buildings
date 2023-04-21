@@ -219,11 +219,17 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
-    <td valign=\"top\">Package that contains models for reduced building physics of thermal zones 
-                       based on a thermal network consisting of five resistances and one capacitance. 
+    <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
+                       based on a thermal network consisting of five resistances and one capacity.
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
-    </tr>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
+    </td>
+    <td valign=\"top\">Package that contains models for standard connection
+                       configurations used in hydronic circuits for heating or cooling applications.
+    </td>
+</tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
@@ -231,6 +237,34 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.Proof
+    </td>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3256\">issue 3256</a>.
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Logical.VariablePulse
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3042\">issue 3042</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Ramp
+    </td>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231p committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3141\">issue 3141</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Integers.Stage
+    </td>
+    <td valign=\"top\">Added new CDL blocks as suggested by ASHRAE 231P committee.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3103\">issue 3103</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
     </td>
 </tr>
@@ -284,6 +318,8 @@ to <b style=\"color:blue\">existing</b> libraries:
     Added preconfigured versions for the mover models that only require the user
     to provide nominal conditions.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
     </td>
 </tr>
@@ -302,6 +338,30 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
+    </td>
+    <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
+                       Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
+    </td>
+    <td valign=\"top\">Changed the pressure independent damper to exponential damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV
+    </td>
+    <td valign=\"top\">Added flag to choose different damper type and added control for the boxes with the exponential damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
     </td>
 </tr>
@@ -311,7 +371,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added flag to disable freeze protection.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Switch
+    </td>
+    <td valign=\"top\">Added <code>smoothOrder(0, ...)</code> as this is required for some solvers
+                     that assume otherwise the output of the block to be differentiable.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractSignal
@@ -435,6 +503,21 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                         Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
+                         Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+    </td>
+    <td valign=\"top\">Changed the way the nominal flow rate is declared
+                       so that it can be modified in <code>PartialFlowMachine</code>
+                       by a higher-level model, but not the other way around.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">IBPSA, #1705</a>.
     </td>
   </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
@@ -585,17 +668,28 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">issue 2668</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.FreezeProtection
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctColdDuctMin.Subsequences.Dampers<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConDischargeSensor.Subsequences.Dampers<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctMixConInletSensor.Subsequences.Dampers<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersDualSensors<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.DualDuctSnapActing.Subsequences.DampersSingleSensors<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanCVF.Subsequences.DamperValves<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.ParallelFanVVF.Subsequences.DamperValves<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanCVF.Subsequences.DamperValves<br/>
+                       Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Subsequences.DamperValves<br/>
     </td>
-    <td valign=\"top\">Added flag to disable freeze protection.<br/>
+    <td valign=\"top\">Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
     </td>
 </tr>
-
-
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints</b>
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.Types</b>
     </td>
 </tr>
@@ -611,10 +705,36 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
     </td>
 </tr>
-
-
-
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Acos<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Asin<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Atan<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Atan2
+    </td>
+    <td valign=\"top\">Added unit <code>rad</code> to the output.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Cos<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sin<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Tan
+    </td>
+    <td valign=\"top\">Added unit <code>rad</code> to the input.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">#3277</a>.<br/>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Continuous.Sources.Sin
+    </td>
+    <td valign=\"top\">Renamed block from <code>Sine</code> to <code>Sin</code>
+                       to use consistent naming with
+                       <code>Buildings.Controls.OBC.CDL.Continuous.Sin</code>.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>.<br/>
+                       This change is supported in the conversion script.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Controls.OBC.CDL.Routing.RealExtractor
@@ -626,7 +746,85 @@ have been <b style=\"color:blue\">improved</b> in a
                        This change is supported in the conversion script.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
+    </td>
+    <td valign=\"top\">Changed control that enables the heating system.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.DXCoils</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.DXCoils.AirCooled<br/>
+                       Buildings.Fluid.DXCoils.WaterCooled
+    </td>
+    <td valign=\"top\">Renamed packages to <code>AirSource</code> and <code>WaterSource</code>
+                       as DX coils for heating are added, and hence cooled is not an appropriate package name.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3288\">issue 3288</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
+    </td>
+    <td valign=\"top\">Removed the block that was used to support fan or pump models with an rpm input.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine<br/>
+                       Buildings.Fluid.Movers.Data.Generic<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW12<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW13<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW15<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW16<br/>
+                       Buildings.Fluid.Movers.Data.Fans.Greenheck.BIDW18<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to4<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos30slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos32slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos40slash1to8<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos50slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos80slash1to12<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS25slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS30slash5<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash10<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.TopS40slash7<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2<br/>
+                       Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine80slash115dash2comma2slash2<br/>
+                       Buildings.Fluid.Movers.Examples.MoverContinuous<br/>
+                       Buildings.Fluid.Movers.Examples.MoverParameter<br/>
+                       Buildings.Fluid.Movers.Examples.MoverStages<br/>
+                       Buildings.Fluid.Movers.Preconfigured.Validation.ControlledFlowMachinePreconfigured<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_y<br/>
+                       Buildings.Fluid.Movers.Validation.BaseClasses.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.Validation.BaseClasses.FlowMachine_ZeroFlow<br/>
+                       Buildings.Fluid.Movers.Validation.ControlledFlowMachine<br/>
+                       Buildings.Fluid.Movers.Validation.ControlledFlowMachineDynamic<br/>
+                       Buildings.Fluid.Movers.Validation.PowerSimplified<br/>
+                       Buildings.Fluid.Movers.Validation.PumpCurveDerivatives<br/>
+                       Buildings.Fluid.Movers.Validation.Pump_stratos<br/>
+                       Buildings.Fluid.Movers.Validation.Pump_y_stratos
+    </td>
+    <td valign=\"top\">Removed or replaced parameters, blocks, and components that were
+                       used to support fan or pump models with an rpm input.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+                       Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                       Buildings.Fluid.Movers.Validation.SpeedControlled_Nrpm
+    </td>
+    <td valign=\"top\">Moved to the <code>Obsolete</code> package.
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, issue 1704</a>.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface<br/>
@@ -805,6 +1003,18 @@ that can lead to wrong simulation results):
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3059\">issue 3059</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
+    </td>
+  </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect
+  </td>
+  <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
+                     by changing from <code>true</code> to <code>false</code>.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3299\">
+                     issue 3299</a>.
+  </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
@@ -862,12 +1072,13 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3322\">issue 3322</a>.
     </td>
 </tr>
 </table>
@@ -3123,7 +3334,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Controls.OBC.CDL.Continuous.Sources.CalendarTime<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp<br/>
-                       Buildings.Controls.OBC.CDL.Continuous.Sources.Sine<br/>
+                       Buildings.Controls.OBC.CDL.Continuous.Sources.Sin<br/>
                        Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable<br/>
                        Buildings.Controls.OBC.CDL.Discrete.DayType<br/>
                        Buildings.Controls.OBC.CDL.Discrete.FirstOrderHold<br/>
@@ -5578,7 +5789,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
    The package <code>Buildings.Controls.OBC.CDL</code> has been added.
    This package provides elementary blocks to implemented control sequences.
    The blocks conform to the Control Description Language specification
-   published at <a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>.
+   published at <a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>.
    </li>
    <li>
    The package <code>Buildings.Controls.OBC.ASHRAE.G36_PR1</code> has been added.
@@ -5612,7 +5823,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
        </td>
        <td valign=\"top\">Library with basic control blocks and ready-to-use control sequences
                           from the OpenBuildingControl project
-                          (<a href=\"http://obc.lbl.gov\">http://obc.lbl.gov</a>).<br/>
+                          (<a href=\"https://obc.lbl.gov\">https://obc.lbl.gov</a>).<br/>
                           The subpackage <code>Buildings.Controls.OBC.ASHRAE</code>
                           contains control sequences
                           for HVAC systems as described in ASHRAE Guideline 36.<br/>

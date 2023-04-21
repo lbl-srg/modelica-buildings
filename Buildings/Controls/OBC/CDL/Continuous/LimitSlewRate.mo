@@ -27,6 +27,13 @@ protected
     "Approximation to derivative between input and output";
 
 initial equation
+  assert(
+    raisingSlewRate > 0,
+    "raisingSlewRate must be larger than zero.");
+  assert(
+    fallingSlewRate < 0,
+    "fallingSlewRate must be less than zero.");
+
   y=u;
 
 equation
@@ -50,20 +57,26 @@ equation
       info="<html>
 <p>
 The block limits the rate of change of the input by a ramp.
+</p>
+<p>
 This block computes a threshold for the rate of change between
 input <code>u</code> and output <code>y</code> as
 <code>thr = (u-y)/Td</code>, where <code>Td &gt; 0</code> is  parameter.
 The output <code>y</code> is computed as follows:
-<br/>
+<ul>
+<li>
 If <code>thr &lt; fallingSlewRate</code>, then <code>dy/dt = fallingSlewRate</code>,
-<br/>
+</li>
+<li>
 if <code>thr &gt; raisingSlewRate</code>, then <code>dy/dt = raisingSlewRate</code>,
-<br/>
+</li>
+<li>
 otherwise, <code>dy/dt = thr</code>.
-</p>
+</li>
+</ul>
 <h4>Implementation</h4>
 <p>
-For the block to work with arbitrary inputs and in order to produce a differential output,
+For the block to work with arbitrary inputs and in order to produce a differentiable output,
 the input is numerically differentiated with derivative time constant <code>Td</code>.
 Smaller time constant <code>Td</code> means nearer ideal derivative.
 </p>

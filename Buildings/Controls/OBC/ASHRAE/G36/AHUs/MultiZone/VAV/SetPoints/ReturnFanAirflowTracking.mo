@@ -59,6 +59,16 @@ block ReturnFanAirflowTracking
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+    final controllerType=conTyp,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=maxSpe,
+    final yMin=minSpe)
+    "Building static pressure controller"
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if relief damper should be enabled"
@@ -69,15 +79,6 @@ protected
     y(final unit="m3/s", displayUnit="m3/s"))
     "Control error"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
-    final controllerType=conTyp,
-    final k=k,
-    final Ti=Ti,
-    final Td=Td,
-    final yMax=maxSpe,
-    final yMin=minSpe)
-    "Building static pressure controller"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(
     final k=0) "Disable return fan"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
