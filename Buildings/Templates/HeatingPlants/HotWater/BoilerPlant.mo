@@ -369,7 +369,7 @@ model BoilerPlant "Boiler plant"
     final m_flow_nominal=mHeaWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final allowFlowReversal=allowFlowReversal,
-    icon_dy=300)
+    icon_dy=-300)
     if have_pumHeaWatSec
     "Secondary HW pumps inlet manifold"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -380,7 +380,8 @@ model BoilerPlant "Boiler plant"
     final have_varCom=true,
     final dat=dat.pumHeaWatSec,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=-300)
     if have_pumHeaWatSec
     "Secondary HW pumps"
     annotation (Placement(transformation(extent={{120,-10},{140,10}})));
@@ -391,7 +392,7 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_dy=300)
+    icon_dy=-300)
     if have_pumHeaWatSec
     "Secondary HW pumps outlet manifold"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
@@ -400,7 +401,7 @@ model BoilerPlant "Boiler plant"
     final allowFlowReversal=allowFlowReversal)
     if not have_pumHeaWatSec
     "HW supply line - Without secondary HW pumps"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+    annotation (Placement(transformation(extent={{120,10},{140,30}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpHeaWatLoc(
     redeclare final package Medium=Medium,
     final have_sen=ctl.have_senDpHeaWatLoc,
@@ -552,7 +553,7 @@ equation
   connect(THeaWatPlaRetCon.port_b, VHeaWatPriRetCon_flow.port_a)
     annotation (Line(points={{0,-240},{-20,-240}}, color={0,127,255}));
   connect(supHeaWat.port_b, VHeaWatSecSup_flow.port_a)
-    annotation (Line(points={{140,-40},{160,-40},{160,0},{180,0}}, color={0,127,255}));
+    annotation (Line(points={{140,20},{160,20},{160,0},{180,0}},   color={0,127,255}));
   connect(busAirHan, ctl.busAirHan) annotation (Line(
       points={{300,180},{280,180},{280,146},{10,146}},
       color={255,204,51},
@@ -583,7 +584,7 @@ equation
   connect(junOutBoiNon.port_2, inlPumHeaWatSec.port_a)
     annotation (Line(points={{60,0},{100,0}},          color={0,127,255}));
   connect(junOutBoiNon.port_2, supHeaWat.port_a) annotation (Line(points={{60,0},{
-          100,0},{100,-40},{120,-40}},         color={0,127,255}));
+          100,0},{100,20},{120,20}},           color={0,127,255}));
   connect(THeaWatPriSupCon.port_b, junOutBoiCon.port_3)
     annotation (Line(points={{20,-140},{50,-140}}, color={0,127,255}));
   connect(outPumHeaWatPriCon.port_b, VHeaWatPriSupCon_flow.port_a)
@@ -597,8 +598,7 @@ equation
   connect(VHeaWatPriSupNon_flow.port_b, THeaWatPriSupNon.port_a)
     annotation (Line(points={{-20,0},{0,0}},     color={0,127,255}));
   connect(THeaWatPriSupNon.port_b, junOutBoiNon.port_3)
-    annotation (Line(points={{20,0},{40,0},{40,-10},{50,-10}},
-                                                 color={0,127,255}));
+    annotation (Line(points={{20,0},{40,0},{40,-10},{50,-10}}, color={0,127,255}));
   connect(junInlBoiNon.port_3, THeaWatPlaRetNon.port_a)
     annotation (Line(points={{50,-100},{20,-100}}, color={0,127,255}));
   connect(THeaWatPlaRetNon.port_b, VHeaWatPriRetNon_flow.port_a)

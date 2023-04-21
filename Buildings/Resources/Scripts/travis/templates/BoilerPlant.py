@@ -456,6 +456,9 @@ if __name__ == '__main__':
     for i, arg in enumerate(args):
         args[i].append(str(i))
 
+    # FIXME
+    args = args[:2]
+
     # Simulate cases.
     results = simulate_cases(args, asy=False)
 

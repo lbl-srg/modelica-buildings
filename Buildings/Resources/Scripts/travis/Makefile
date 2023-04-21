@@ -160,3 +160,9 @@ test-optimica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
 	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool optimica --skip-verification)
+
+test-templates-optimica:
+	cd $(ROOT) && ./Buildings/Resources/Scripts/travis/templates/checkandrun.sh Optimica
+
+# test-templates-dymola:
+# 	cd $(ROOT) && ./Buildings/Resources/Scripts/travis/templates/checkandrun.sh Dymola

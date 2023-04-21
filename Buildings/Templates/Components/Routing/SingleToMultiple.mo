@@ -119,14 +119,18 @@ equation
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
     Line( visible=nPorts>=2,
           points=if icon_offset*icon_dy>=0 then
-            {{0,icon_offset},{0,icon_offset+icon_dy},{100,icon_offset+icon_dy}}
-            else {{0,icon_offset+icon_dy},{100,icon_offset+icon_dy}},
+            {{0, icon_offset}, {0,icon_offset+icon_dy}, {100,icon_offset+icon_dy}}
+            elseif icon_offset>0 and icon_offset+icon_dy<0 or icon_offset<0 and icon_offset+icon_dy>0 then
+            {{0, 0}, {0, icon_offset+icon_dy}, {100, icon_offset+icon_dy}}
+            else {{0, icon_offset+icon_dy}, {100, icon_offset+icon_dy}},
           color={0,0,0},
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
           thickness=1),
     Line( visible=nPorts>=3,
           points=if icon_offset*icon_dy>=0 then
             {{0, icon_offset+icon_dy},{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}}
+            elseif icon_offset>0 and icon_offset+2*icon_dy<0 or icon_offset<0 and icon_offset+2*icon_dy>0 then
+            {{0, 0},{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}}
             else {{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}},
           color={0,0,0},
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
@@ -134,6 +138,8 @@ equation
     Line( visible=nPorts>=4,
           points=if icon_offset*icon_dy>=0 then
             {{0, icon_offset+2*icon_dy},{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}}
+            elseif icon_offset>0 and icon_offset+3*icon_dy<0 or icon_offset<0 and icon_offset+3*icon_dy>0 then
+            {{0, 0},{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}}
             else {{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}},
           color={0,0,0},
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,

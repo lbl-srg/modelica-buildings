@@ -20,7 +20,10 @@ if [[ $CHECKSUM == $(cat ./Buildings/Resources/Scripts/travis/templates/checksum
 else
     echo "Computed checksum does not match stored checksum: running further checks."
     # Launch simulations (typically several thousands).
-    ./Buildings/Resources/Scripts/travis/templates/ChilledWaterPlants.py $1
+    r=
+    ./Buildings/Resources/Scripts/travis/templates/BoilerPlant.py $1
+    r=$r$?
+    (($r==0))
     if [[ $? == 0 ]]; then
         echo "Simulations succeded: overwriting stored checksum with computed checksum."
         find ./Buildings/Templates/. -type f -name *.mo -exec md5sum {} \; | sort -k 2 | md5sum | awk '{ print $1; }' > \
