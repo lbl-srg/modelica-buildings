@@ -47,10 +47,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is a model for a humidity ratio (in kg/kg dry air) sensor that can be 
+This is a model for a humidity ratio (in kg/kg dry air) sensor that can be
 enabled or disabled with the Boolean parameter <code>have_sen</code>.
 If disabled, the control input variable <code>y</code> is removed
-and the model is a direct fluid pass-through. 
+and the model is a direct fluid pass-through.
 </p>
 </html>"));
 end HumidityRatio;

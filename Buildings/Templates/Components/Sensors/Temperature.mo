@@ -7,7 +7,7 @@ model Temperature "Temperature sensor"
   parameter Buildings.Templates.Components.Types.SensorTemperature typ=
     Buildings.Templates.Components.Types.SensorTemperature.Standard
     "Type of temperature sensor"
-    annotation(Dialog(enable=false), Evaluate=true);
+    annotation(Dialog(enable=false));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium=Medium,
@@ -55,10 +55,10 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
-This is a model for a dry bulb temperature sensor that can be 
+This is a model for a dry bulb temperature sensor that can be
 enabled or disabled with the Boolean parameter <code>have_sen</code>.
 If disabled, the control input variable <code>y</code> is removed
-and the model is a direct fluid pass-through. 
+and the model is a direct fluid pass-through.
 </p>
 </html>"));
 end Temperature;

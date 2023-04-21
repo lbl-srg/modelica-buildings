@@ -137,6 +137,19 @@ or current switch) <code>y1_actual</code>:
 DI signal
 </li>
 </ul>
+<h4>Pump characteristics</h4>
+<p>
+A default pump characteristic is provided, which goes through the design 
+operating point and spans over <i>0</i> and twice the design flow rate at maximum speed. 
+This default characteristic is based on a least squares polynomial fit of the 
+characteristics from 
+<a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
+Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
+The user may refer to the documentation of 
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters\">
+Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters</a>
+for further details.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

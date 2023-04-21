@@ -34,6 +34,14 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
     annotation (
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
+
+  parameter Integer icon_dy = 100
+    "Distance in y-direction between each branch in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Boolean icon_dash = false
+    "Set to true for a dashed line (return line), false for a solid line"
+    annotation(Dialog(tab="Graphics", enable=false));
+
   Modelica.Fluid.Interfaces.FluidPorts_a ports_a[nPorts](
     redeclare each final package Medium = Medium,
     each m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -97,21 +105,28 @@ equation
   annotation (
     defaultComponentName="rou",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-    Line( points={{100,0},{0,0}},
-          color={0,0,0},
-          thickness=1),
-    Line( visible=nPorts <= 1,
-          points={{0,0},{-100,0}},
-          color={0,0,0},
-          thickness=1),
-        Line(visible=nPorts==2,
-          points={{-100,50},{0,50},{0,-50},{-100,-50}},
-          color={0,0,0},
-          thickness=1),
-        Text(
-          extent={{-149,-114},{151,-154}},
+    Text( extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+    Line( points={{-100,0},{100,0}},
+          color={0,0,0},
+          thickness=1,
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+    Line( visible=nPorts>=2,
+          points={{-100,icon_dy},{0,icon_dy},{0,0}},
+          color={0,0,0},
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
+          thickness=1),
+    Line( visible=nPorts>=3,
+          points={{-100, 2*icon_dy},{0, 2*icon_dy},{0, icon_dy}},
+          color={0,0,0},
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
+          thickness=1),
+    Line( visible=nPorts>=4,
+          points={{-100, 3*icon_dy}, {0, 3*icon_dy}, {0, 2*icon_dy}},
+          color={0,0,0},
+          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
+          thickness=1)}),
     Diagram(
       coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
@@ -121,5 +136,12 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
+</html>", info="<html>
+<p>
+This is a model of a many-to-one fluid connector with an
+optional control volume.
+It is typically used to represent an outlet manifold or
+multiple junctions converging into a single pipe.
+</p>
 </html>"));
 end MultipleToSingle;
