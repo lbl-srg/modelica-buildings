@@ -29,8 +29,8 @@ or throttle water from the pressurised network to charge the tank.
 </li>
 </ul>
 <p align=\"center\">
-<img alt=\"DualSource\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/DualSource.png\"/>
+<img alt=\"SystemConcept\"
+src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/SystemConcept.png\"/>
 </p>
 <p>
 The plants are controlled as follows:
@@ -78,7 +78,7 @@ Otherwise, the connection cuts off flow on both branches.
 </li>
 </ul>
 <p align=\"center\">
-<img alt=\"DualSource\"
+<img alt=\"ControlSignals\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/ControlSignals.png\"/>
 </p>
 </html>"));
