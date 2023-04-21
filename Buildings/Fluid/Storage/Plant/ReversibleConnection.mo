@@ -43,7 +43,7 @@ model ReversibleConnection
   Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent val(
     redeclare final package Medium = Medium,
     final m_flow_nominal=nom.mTan_flow_nominal,
-    final dpValve_nominal=0.1*nom.dp_nominal,
+    final dpValve_nominal=nom.dp_nominal,
     y_start=0)
     "Valve that throttles CHW from the supply line to the tank"
     annotation (Placement(transformation(extent={{20,-40},{0,-20}})));
