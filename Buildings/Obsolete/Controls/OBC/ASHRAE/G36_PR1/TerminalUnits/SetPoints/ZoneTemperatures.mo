@@ -1140,13 +1140,13 @@ annotation (
           textString="uHeaDemLimLev"),
         Text(
           extent={{-19.5,6},{19.5,-6}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           origin={-77.5,-110},
           textString="uOccSen"),
         Text(
           extent={{-19,8.5},{19,-8.5}},
-          lineColor={255,0,255},
+          textColor={255,0,255},
           pattern=LinePattern.Dash,
           origin={-79,-129.5},
           textString="uWinSta"),
