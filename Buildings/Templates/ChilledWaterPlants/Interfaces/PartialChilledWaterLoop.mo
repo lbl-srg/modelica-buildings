@@ -382,8 +382,7 @@ equation
   connect(inlConChi.ports_b[1:nChi], chi.ports_aCon)
     annotation (Line(points={{-80,-180},{-60,-180}}, color={0,127,255}));
   connect(inlConChi.ports_b[nChi + 1], eco.port_aConWat) annotation (Line(
-        points={{-80,-180},{-68,-180},{-68,-210},{-49,-210}},
-                                                   color={0,127,255}));
+        points={{-80,-180},{-80,-210},{-49,-210}}, color={0,127,255}));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
         points={{-49,-230},{-60,-230},{-60,0}},         color={0,127,255}));
   connect(dpChiWatLoc.port_a, port_b)

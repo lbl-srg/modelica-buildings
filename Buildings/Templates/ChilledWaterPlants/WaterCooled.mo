@@ -54,7 +54,7 @@ model WaterCooled "Water-cooled chiller plant"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
-        origin={-160,-230})));
+        origin={-140,-220})));
   Buildings.Templates.Components.Sensors.Temperature TConWatSup(
     redeclare final package Medium = MediumCon,
     final have_sen=
@@ -94,8 +94,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(inlPumConWat.port_a, bouConWat.ports[1])
-    annotation (Line(points={{-140,-180},{-140,-200},{-160,-200},{-160,-220}},
-                                                       color={0,127,255}));
+    annotation (Line(points={{-140,-180},{-140,-210}}, color={0,127,255}));
   connect(pumConWat.ports_b, inlConChi.ports_a)
     annotation (Line(points={{-100,-180},{-100,-180}}, color={0,127,255}));
   connect(outConChi.port_b, TConWatSup.port_b)

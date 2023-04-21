@@ -35,6 +35,9 @@ model MultipleToSingle "Multiple inlet port, single outlet ports"
       Dialog(tab="Advanced", group="Diagnostics"),
       HideResult=true);
 
+  parameter Integer icon_offset = 0
+    "Offset in y-direction between inlet and outlet in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
   parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -108,22 +111,34 @@ equation
     Text( extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
           textString="%name"),
-    Line( points={{-100,0},{100,0}},
+    Line( points={{-100, icon_offset}, {0, icon_offset}, {0,0}, {100,0}},
           color={0,0,0},
           thickness=1,
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
     Line( visible=nPorts>=2,
-          points={{-100,icon_dy},{0,icon_dy},{0,0}},
+          points=if icon_offset*icon_dy>=0 then
+            {{0,icon_offset},{0,icon_offset+icon_dy},{-100,icon_offset+icon_dy}}
+            elseif icon_offset>0 and icon_offset+icon_dy<0 or icon_offset<0 and icon_offset+icon_dy>0 then
+            {{0,0},{0,icon_offset+icon_dy},{-100,icon_offset+icon_dy}}
+            else {{0,icon_offset+icon_dy},{-100,icon_offset+icon_dy}},
           color={0,0,0},
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
           thickness=1),
     Line( visible=nPorts>=3,
-          points={{-100, 2*icon_dy},{0, 2*icon_dy},{0, icon_dy}},
+          points=if icon_offset*icon_dy>=0 then
+            {{0, icon_offset+icon_dy},{0, icon_offset+2*icon_dy},{-100, icon_offset+2*icon_dy}}
+            elseif icon_offset>0 and icon_offset+2*icon_dy<0 or icon_offset<0 and icon_offset+2*icon_dy>0 then
+            {{0, 0},{0, icon_offset+2*icon_dy},{-100, icon_offset+2*icon_dy}}
+            else {{0, icon_offset+2*icon_dy},{-100, icon_offset+2*icon_dy}},
           color={0,0,0},
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
           thickness=1),
     Line( visible=nPorts>=4,
-          points={{-100, 3*icon_dy}, {0, 3*icon_dy}, {0, 2*icon_dy}},
+          points=if icon_offset*icon_dy>=0 then
+            {{0, icon_offset+2*icon_dy},{0, icon_offset+3*icon_dy},{-100, icon_offset+3*icon_dy}}
+            elseif icon_offset>0 and icon_offset+3*icon_dy<0 or icon_offset<0 and icon_offset+3*icon_dy>0 then
+            {{0, 0},{0, icon_offset+3*icon_dy},{-100, icon_offset+3*icon_dy}}
+            else {{0, icon_offset+3*icon_dy},{-100, icon_offset+3*icon_dy}},
           color={0,0,0},
           pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
           thickness=1)}),
