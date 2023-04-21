@@ -353,25 +353,24 @@ equation
     FIXME_yHotWatIsoValNon.u) annotation (Line(points={{82,2},{100,2},{100,-20},
           {118,-20}}, color={0,0,127}));
   annotation (Documentation(info="<html>
-<p>
-For hybrid plants, units shall be indexed so that condensing boilers have the 
-lowest indices and non-condensing boilers have the highest indices.
-</p>
-<p>
-Distributed secondary pumps are currently not supported.
-This limitation stems from the G36 controller implementation.
-</p>
 <h4>Description</h4>
 <p>
 This is an implementation of the control sequence specified in ASHRAE (2021)
-for chilled water plants.
+for hot water plants.
 It is based on
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 </p>
 <h4>Details</h4>
 <p>
-To be updated.
+For hybrid plants, units shall be indexed so that condensing boilers have the 
+lowest indices and non-condensing boilers have the highest indices.
+</p>
+<p>
+Distributed secondary pumps are currently not supported.
+This limitation stems from the Guideline 36 controller implementation in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 </p>
 <h4>References</h4>
 <ul>

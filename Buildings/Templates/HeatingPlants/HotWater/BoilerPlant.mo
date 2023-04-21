@@ -659,8 +659,7 @@ configured in a dedicated arrangement and this option is not available.
 <tr><td>Type of secondary HW pumps</td>
 <td>
 None (primary-only)<br/>
-Variable speed, centralized<br/>
-Variable speed, distributed
+Variable speed, centralized
 </td>
 <td>
 Constant speed secondary pumps are not supported as they are generally not 
@@ -669,8 +668,11 @@ further explanations).<br/>
 In case of hybrid plants, the primary-only option is not available.<br/>
 Centralized secondary pumps refers to configurations with a single group 
 of secondary pumps that is typically integrated into the plant.<br/>
-Distributed secondary pumps refers to configurations with multiple secondary 
-loops, each loop being served by a dedicated group of secondary pumps.
+Distributed secondary pumps with multiple secondary 
+loops served by dedicated secondary pumps are currently not supported.
+This limitation stems from the Guideline 36 controller implementation in
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 </td>
 </tr>
 <tr><td>Controller</td>

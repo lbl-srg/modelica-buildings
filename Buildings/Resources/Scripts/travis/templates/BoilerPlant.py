@@ -80,12 +80,10 @@ MODIF_GRID = {
             ],
             BOI__typPumHeaWatSec1_select=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized',
-                # 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed',
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
             ],
             BOI__typPumHeaWatSec2_select=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized',
-                # 'Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed',
             ],
             BOI__ctl__typMeaCtlHeaWatPri=[
                 'Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler',

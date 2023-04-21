@@ -278,5 +278,10 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-260,-380},{260,380}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-260,-380},{260,380}})),
+    Documentation(info="<html>
+<p>
+This partial class provides a standard interface for boiler plant controllers.
+</p>
+</html>"));
 end PartialController;
