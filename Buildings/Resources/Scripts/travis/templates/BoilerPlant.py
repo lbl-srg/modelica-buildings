@@ -147,6 +147,7 @@ REMOVE_MODIF = {
         ],
         [
             [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.(?!Hybrid)',
                 'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None',
             ],
             [
@@ -189,7 +190,7 @@ REMOVE_MODIF = {
             [
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Condensing',
                 'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
-                'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
+                'typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable',
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [
@@ -200,7 +201,18 @@ REMOVE_MODIF = {
             [
                 'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.NonCondensing',
                 'typPumHeaWatSec1_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
-                'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable.*' +\
+                'typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable',
+                'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
+            ],
+            [
+                'locSenVHeaWatPri',
+            ],
+        ],
+        [
+            [
+                'typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid',
+                'typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.(?!None)',
+                'typPumHeaWatPri(Con|Non)=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.(Factory)?Variable',
                 'typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.(?!FlowDifference)',
             ],
             [

@@ -5,18 +5,18 @@ model BoilerPlant
     Buildings.Templates.HeatingPlants.HotWater.Validation.BoilerPlantOpenLoop(
     BOI(
       typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
-      nBoiCon_select=2,
-      nBoiNon_select=2,
+      nBoiCon_select=3,
+      nBoiNon_select=1,
       typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
-      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryConstant,
-      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
-      typArrPumHeaWatPriNon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
+      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable,
+      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
       redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36
         ctl(
         nAirHan=1,
-        typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.TemperatureBoilerSensor,
+        typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
         locSenVHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
+        locSenVHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
         have_senDpHeaWatLoc=false)));
 
   UserProject.AirHandlerControlPoints sigAirHan[BOI.nAirHan]

@@ -215,10 +215,10 @@ equation
       textColor={0,0,255},
       textString="%name"),
     Bitmap(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and nBoi>=1,
-      extent={{-280,400},{-160,500}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+          visible=nBoi >= 1,
+          extent={{-280,400},{-160,500}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
       visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
         and nBoi>=1,
@@ -232,10 +232,10 @@ equation
       extent={{260,560},{340,640}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and nBoi>=2,
-      extent={{-280,100},{-160,200}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+          visible=nBoi >= 2,
+          extent={{-280,100},{-160,200}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
       visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
         and nBoi>=2,
@@ -249,10 +249,10 @@ equation
       extent={{260,260},{340,340}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and nBoi>=3,
-      extent={{-280,-200},{-160,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+          visible=nBoi >= 3,
+          extent={{-280,-200},{-160,-100}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
       visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
         and nBoi>=3,
@@ -266,10 +266,10 @@ equation
       rotation=-90,
       origin={300,-100}),
     Bitmap(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and nBoi>=4,
-      extent={{-280,-500},{-160,-400}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
+          visible=nBoi >= 4,
+          extent={{-280,-500},{-160,-400}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
       visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
         and nBoi >= 4,
