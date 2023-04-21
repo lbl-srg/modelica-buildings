@@ -65,7 +65,8 @@ partial model PartialChilledWaterLoop
     final have_varCom=have_varComPumChiWatPri,
     final dat=dat.pumChiWatPri,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=-300)
     "Primary CHW pumps"
     annotation (
     Placement(transformation(extent={{40,-10},{60,10}})));
@@ -75,7 +76,8 @@ partial model PartialChilledWaterLoop
     final m_flow_nominal=mChiWatPri_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=-300)
     "Primary CHW pumps outlet manifold"
     annotation (
     Placement(transformation(extent={{60,-10},{80,10}})));
@@ -167,7 +169,9 @@ partial model PartialChilledWaterLoop
          and typArrPumConWat == Buildings.Templates.Components.Types.PumpArrangement.Headered,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_extend=200,
+    icon_dy=300)
     "Chiller group condenser fluid inlet"
     annotation (Placement(transformation(extent={{-100,-190},{-80,-170}})));
   Buildings.Templates.Components.Routing.MultipleToSingle outConChi(
@@ -178,9 +182,11 @@ partial model PartialChilledWaterLoop
     final m_flow_nominal=mCon_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dash=true,
+    icon_dy=-300)
     "Chiller group condenser fluid outlet"
-    annotation (Placement(transformation(extent={{-80,-10},{-100,10}})));
+    annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
 
   // Secondary CHW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumChiWatSec(
@@ -188,7 +194,8 @@ partial model PartialChilledWaterLoop
     final nPorts=nPumChiWatSec,
     final m_flow_nominal=mChiWat_flow_nominal,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=300)
     if have_pumChiWatSec
     "Secondary CHW pumps inlet manifold"
     annotation (Placement(transformation(extent={{160,-10},{180,10}})));
@@ -209,7 +216,8 @@ partial model PartialChilledWaterLoop
     final m_flow_nominal=mChiWat_flow_nominal,
     final energyDynamics=energyDynamics,
     final tau=tau,
-    final allowFlowReversal=allowFlowReversal)
+    final allowFlowReversal=allowFlowReversal,
+    icon_dy=300)
     if have_pumChiWatSec
     "Secondary CHW pumps outlet manifold"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
@@ -356,8 +364,7 @@ equation
   connect(intChi.ports_bSup, pumChiWatPri.ports_a)
     annotation (Line(points={{40,0},{40,0}}, color={0,127,255}));
   connect(chi.ports_bCon, outConChi.ports_a[1:nChi])
-    annotation (Line(points={{-60,0},{-70,0},{-70,0},{-80,0}},
-                                               color={0,127,255}));
+    annotation (Line(points={{-60,0},{-60,0}}, color={0,127,255}));
   connect(pumChiWatPri.ports_b, outPumChiWatPri.ports_a)
     annotation (Line(points={{60,0},{60,0}},      color={0,127,255}));
   connect(inlPumChiWatSec.ports_b, pumChiWatSec.ports_a)
@@ -378,7 +385,7 @@ equation
         points={{-80,-180},{-68,-180},{-68,-210},{-49,-210}},
                                                    color={0,127,255}));
   connect(eco.port_bConWat, outConChi.ports_a[nChi + 1]) annotation (Line(
-        points={{-49,-230},{-74,-230},{-74,0},{-80,0}}, color={0,127,255}));
+        points={{-49,-230},{-60,-230},{-60,0}},         color={0,127,255}));
   connect(dpChiWatLoc.port_a, port_b)
     annotation (Line(points={{280,-110},{280,0},{300,0}},color={0,127,255}));
   connect(dpChiWatLoc.port_b, port_a) annotation (Line(points={{280,-130},{280,
