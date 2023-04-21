@@ -34,7 +34,7 @@ equation
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
       Bitmap(
-        extent=if text_flip then {{40,-20},{-40,20}} else {{-40,-20},{40,20}},
+        extent=if text_flip then {{100,-100},{-100,100}} else {{-100,-100},{100,100}},
         rotation=text_rotation,
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateFlowMeter.svg"),
