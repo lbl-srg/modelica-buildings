@@ -4,6 +4,7 @@ package UsersGuide "User's Guide"
 
   annotation (preferredView="info",
   Documentation(info="<html>
+<h4>System Concept</h4>
 <p>
 This package implements models for a storage plant with a chiller and a tank.
 The tank in this plant can be charged by its local chiller or by a remote
@@ -17,9 +18,8 @@ Shown in the schematic below, it has two CHW plants and three users.
 </p>
 <ul>
 <li>
-Plant 1 is a simplified CHW plant with only a chiller and a supply pump.
-This supply pump is controlled to ensure that all users have enough
-pressure head.
+Plant 1 only has a chiller. The supply pump is controlled to ensure that
+all users have enough pressure head.
 </li>
 <li>
 Plant 2 has a chiller and a stratified CHW tank.
@@ -32,36 +32,36 @@ or throttle water from the pressurised network to charge the tank.
 <img alt=\"SystemConcept\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/SystemConcept.png\"/>
 </p>
+<h4>Control Signals</h4>
 <p>
 The plants are controlled as follows:
 </p>
 <ul>
 <li>
-In plant 1, the chiller and the pump are always on. The speed-controlled pump
+In plant 1, the ideal chiller is always on. The speed-controlled pump
 ensures that the users have enough pressure head at all times.
 </li>
 <li>
-For plant 2, the control is implemented as a state graph in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.FlowControl\">
-Buildings.Fluid.Storage.Plant.Controls.FlowControl</a>.
+For plant 2:
 <ul>
 <li>
 In the chiller loop, chiller 2 and its primary pump P<sub>pri</sub>
-are on whenever needed (for charging the tank or outputting CHW to the
-network), unless it is commanded offline.
+are on whenever needed (for charging the tank or producing CHW to the
+network), unless it is commanded off.
 </li>
 <li>
-The tank receives commands to charge, hold, or discharge. It also returns two
-state of charge (SOC) signals indicating whether it is full or depleted
-(or in between when neither, but never both). When the tank is commanded to
-discharge and output CHW to the network, it takes priority over chiller 2.
+The system receives a command to charge, hold, or discharge the storage tank.
+The tank returns status signals indicating whether it is depleted, cooled, or
+overcooled. The command is not necessarily enforced. For example, if the
+chill in the storage tank is depleted, the discharge command will not be
+executed. See the Implementation section for details.
 </li>
 <li>
-The reversible connection (where the secondary pump P<sub>sec</sub> and
-the return valve are) is maintains the flow rate needed by plant 2.
+The reversible connection between plant 2 and the district network
+modulates the flow rate needed by plant 2.
 <ul>
 <li>
-When the storage plant outputs CHW, P<sub>sec</sub> receives a speed control
+When the storage plant produces CHW, P<sub>sec</sub> receives a speed control
 signal from the same PI controller as P1 in plant 1.
 </li>
 <li>
@@ -70,7 +70,8 @@ is controlled to maintain a constant flow from the pressurised network
 to the storage tank.
 </li>
 <li>
-Otherwise, the connection cuts off flow on both branches.
+Otherwise, the connection cuts off flow on both sides and isolates plant 2
+from the district network.
 </li>
 </ul>
 </li>
@@ -80,6 +81,23 @@ Otherwise, the connection cuts off flow on both branches.
 <p align=\"center\">
 <img alt=\"ControlSignals\"
 src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/ControlSignals.png\"/>
+</p>
+<h4>Implementation</h4>
+<p>
+The chiller is implemented as an ideal temperature source where the outlet
+temperature is always at the prescribed value in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource\">
+Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource</a>.
+</p>
+<p>
+The control of the storage plant is implemented as a state graph in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.FlowControl\">
+Buildings.Fluid.Storage.Plant.Controls.FlowControl</a>.
+</p>
+<p>
+The status of tank is also implemented as a state graph in
+<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.TankStatus\">
+Buildings.Fluid.Storage.Plant.Controls.TankStatus</a>.
 </p>
 </html>"));
 end UsersGuide;
