@@ -18,8 +18,20 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m=26.3
     "Complex component of the magnetizing reactance";
-  parameter Boolean use_PID = true
+  parameter Boolean have_controller = true
     "Set to true for enableing PID control";
+
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
+    "Type of controller"
+    annotation (Dialog(tab="Advanced", enable=have_controller));
+  parameter Real k=0.1 "Gain of controller"
+    annotation (Dialog(tab="Advanced", enable=have_controller));
+  parameter Modelica.Units.SI.Time Ti=60 "Time constant of Integrator block"
+    annotation (Dialog(tab="Advanced",
+                       enable=have_controller and controllerType==Modelica.Blocks.Types.SimpleController.PID or Modelica.Blocks.Types.SimpleController.PI));
+  parameter Modelica.Units.SI.Time Td=0.1 "Time constant of Derivative block";
+  parameter Real yMax=1 "Upper limit of output";
+  parameter Real yMin=0.2 "Lower limit of output";
 
   Real s(min=0,max=1) "Motor slip";
   Real v_rms "RMS voltage";
@@ -46,12 +58,13 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   final Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.Continuous.LimPID VFD(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    yMax=1,
-    yMin=0.2,
-    k=0.1,
-    Ti=60,
-    reverseActing=true) if use_PID
+    controllerType=controllerType,
+    Td=Td,
+    yMax=yMax,
+    yMin=yMin,
+    k=k,
+    Ti=Ti,
+    reverseActing=true) if have_controller
     "PI controller as variable frequency drive"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
@@ -59,7 +72,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Math.Product VFDfre "Controlled frequency"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  final Modelica.Blocks.Sources.RealExpression NorCoe(y=1) if not use_PID
+  final Modelica.Blocks.Sources.RealExpression NorCoe(y=1) if not have_controller
     "Coefficient used in uncontrolled case"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Modelica.Mechanics.Rotational.Sources.Speed speed(exact=true) "Speed connector"
@@ -78,7 +91,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   Modelica.Blocks.Math.Product VFDvol "Controlled voltage"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Modelica.Blocks.Interfaces.RealInput setPoi if use_PID "Set point of control target"
+  Modelica.Blocks.Interfaces.RealInput setPoi if have_controller "Set point of control target"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -87,7 +100,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
         extent={{-20,-20},{20,20}},
         rotation=0,
         origin={-120,80})));
-  Modelica.Blocks.Interfaces.RealInput mea if use_PID "Measured value of control target"
+  Modelica.Blocks.Interfaces.RealInput mea if have_controller "Measured value of control target"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=0,
@@ -114,6 +127,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     "Reactive power"
     annotation (Placement(transformation(extent={{100,20},{140,60}}),
         iconTransformation(extent={{100,20},{140,60}})));
+
 
 initial equation
   omega_r=0;
