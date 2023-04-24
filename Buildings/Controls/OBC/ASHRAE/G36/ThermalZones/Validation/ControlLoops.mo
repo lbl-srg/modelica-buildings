@@ -12,7 +12,7 @@ model ControlLoops
     final k=293.15)
     "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine zonTem(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin zonTem(
     final amplitude=8,
     final freqHz=1/7200,
     final offset=273.15 + 18) "Zone temperature"

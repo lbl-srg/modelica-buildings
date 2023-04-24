@@ -11,7 +11,7 @@ model OptimalStartNoHeatingNoCooling
     y_start=19+273.15)
     "Room air temperature"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutBase(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOutBase(
     amplitude=5,
     freqHz=1/86400,
     offset=15+273.15,

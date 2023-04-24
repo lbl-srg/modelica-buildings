@@ -31,7 +31,7 @@ model Dampers
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VDis_flow(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)  "Discharge airflow rate"
