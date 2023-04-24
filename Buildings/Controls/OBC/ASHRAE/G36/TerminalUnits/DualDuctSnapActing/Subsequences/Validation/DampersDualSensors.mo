@@ -30,7 +30,7 @@ model DampersDualSensors
     final k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VColDuc(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VColDuc(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)
@@ -62,7 +62,7 @@ model DampersDualSensors
     final shift=5000)
     "Hot air handling unit status"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VHotDuc(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VHotDuc(
     final offset=0.015,
     final amplitude=0.002,
     final freqHz=1/3600)

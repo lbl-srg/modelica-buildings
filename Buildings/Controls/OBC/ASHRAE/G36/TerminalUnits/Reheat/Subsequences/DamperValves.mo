@@ -3,11 +3,13 @@ block DamperValves
   "Output signals for controlling VAV reheat box damper and valve position"
 
   parameter Real dTDisZonSetMax(unit="K")=11
-    "Zone maximum discharge air temperature above heating setpoint";
+    "Zone maximum discharge air temperature above heating setpoint"
+    annotation (__cdl(ValueInReference=true));
   parameter Real TDisMin(
     unit="K",
     displayUnit="degC")=283.15
-    "Lowest discharge air temperature";
+    "Lowest discharge air temperature"
+    annotation (__cdl(ValueInReference=true));
   parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint";
   parameter Real VCooMax_flow(unit="m3/s")
@@ -17,43 +19,47 @@ block DamperValves
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Valve"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
   parameter Real kVal(unit="1/K")=0.5
     "Gain of controller for valve control"
-    annotation(Dialog(group="Valve"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
   parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
-    annotation(Dialog(group="Valve",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (Dialog(group="Valve",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Damper"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
   parameter Real kDam(unit="1")=0.5
     "Gain of controller for damper control"
-    annotation(Dialog(group="Damper"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Damper",
     enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
          or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(group="Damper",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Damper",
       enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
            or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dTHys(unit="K")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"

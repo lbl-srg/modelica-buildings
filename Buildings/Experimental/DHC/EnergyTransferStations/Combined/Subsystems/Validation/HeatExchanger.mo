@@ -139,7 +139,7 @@ model HeatExchanger
         0)
     "Evaporator loop isolation valve opening"
     annotation (Placement(transformation(extent={{-190,30},{-170,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
     amplitude=0.5,
     freqHz=1e-3,
     offset=0.5)

@@ -6,46 +6,58 @@ block SeparateWithDP
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_CO2Sen=false
     "True: some zones have CO2 sensor"
-    annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real dpAbsMinOutDam(
     unit="Pa",
     displayUnit="Pa")=5
     "Absolute minimum pressure difference across the minimum outdoor air damper. It provides the absolute minimum outdoor airflow"
-    annotation (Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=venStd==Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real dpDesMinOutDam(
     unit="Pa",
     displayUnit="Pa")=20
-    "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow";
+    "Design minimum pressure difference across the minimum outdoor air damper. It provides the design minimum outdoor airflow"
+    annotation (__cdl(ValueInReference=false));
   parameter Real minSpe(unit="1")
-     "Minimum supply fan speed";
+     "Minimum supply fan speed"
+     annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController dpCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of differential pressure setpoint controller"
-    annotation (Dialog(group="DP control"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="DP control"));
   parameter Real kDp(unit="1")=1 "Gain of controller"
-    annotation (Dialog(group="DP control"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="DP control"));
   parameter Real TiDp(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(group="DP control",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="DP control",
       enable=dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
              dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdDp(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="DP control",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="DP control",
       enable=dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
              dpCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real retDamPhy_max(unit="1")=1
     "Physically fixed maximum position of the return air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(unit="1")=0
     "Physically fixed minimum position of the return air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_max(unit="1")=1
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(unit="1")=0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput effAbsOutAir_normalized(
     final unit="1")
@@ -139,6 +151,12 @@ block SeparateWithDP
   Buildings.Controls.OBC.CDL.Continuous.Multiply minDp if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Minimum pressure difference setpoint when complying with ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-120,160},{-100,180}})));
+  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset maxRetDam(
+    final controllerType=dpCon,
+    final k=kDp,
+    final Ti=TiDp,
+    final Td=TdDp) "Maximum return air damper position"
+    annotation (Placement(transformation(extent={{120,160},{140,180}})));
 
 protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minDesDp(
@@ -176,12 +194,6 @@ protected
     annotation (Placement(transformation(extent={{40,-70},{60,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Not disMinDam "Check if the minimum outdoor air damper is closed"
     annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.PIDWithReset maxRetDam(
-    final controllerType=dpCon,
-    final k=kDp,
-    final Ti=TiDp,
-    final Td=TdDp) "Maximum return air damper position"
-    annotation (Placement(transformation(extent={{120,160},{140,180}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode index"
