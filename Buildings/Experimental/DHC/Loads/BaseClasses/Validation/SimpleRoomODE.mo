@@ -52,9 +52,9 @@ model SimpleRoomODE
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{82,70},{62,90}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeHea(
-    TOutHea_nominal=273.15,
-    TIndHea_nominal=293.15,
-    QHea_flow_nominal=QHea_flow_nominal,
+    dTEnv_nominal=20,
+    TAir_start=293.15,
+    QEnv_flow_nominal=QHea_flow_nominal,
     tau=tau)
     "ODE heated room model"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -74,9 +74,9 @@ model SimpleRoomODE
         QCoo_flow_nominal) "Scaling"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE rooOdeCoo(
-    TOutHea_nominal=273.15,
-    TIndHea_nominal=293.15,
-    QHea_flow_nominal=QHea_flow_nominal,
+    dTEnv_nominal=20,
+    TAir_start=293.15,
+    QEnv_flow_nominal=QHea_flow_nominal,
     tau=tau)
     "ODE cooled room model"
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
@@ -183,6 +183,10 @@ one requiring heating, and the second requiring cooling.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 26, 2023, by Michael Wetter:<br/>
+Updated parameter names.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

@@ -1,0 +1,17 @@
+simulateModel("Buildings.Controls.OBC.CDL.Routing.Validation.BooleanExtractor", method="Cvode", tolerance=1e-6, stopTime=1.0, resultFile="BooleanExtractor");
+
+createPlot(id=1, position={15, 15, 730, 1276}, y={"extIndBoo.u[1]"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 730, 1276}, y={"extIndBoo.u[2]"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 730, 1276}, y={"extIndBoo.u[3]"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=1, position={15, 15, 730, 1276}, y={"extIndBoo.u[4]"}, range={0.0, 1.0, 3.0, 5.0}, grid=true, subPlot=4, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={757, 15, 678, 400}, y={"extIndBoo.index"}, range={0.0, 1.0, 1.5, 2.5}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={757, 15, 678, 400}, y={"extIndBoo.y"}, range={0.0, 1.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={757, 449, 686, 406}, y={"extIndBoo1.index"}, range={0.0, 1.0, 5.0, 7.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=3, position={757, 449, 686, 406}, y={"extIndBoo1.y"}, range={0.0, 1.0, 3.5, 4.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=4, position={755, 897, 694, 394}, y={"extIndBoo2.index"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=4, position={755, 897, 694, 394}, y={"extIndBoo2.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=5, position={1455, 19, 832, 660}, y={"extIndBoo3.index"}, range={0.0, 1.0, -2.0, 3.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=5, position={1455, 19, 832, 660}, y={"extIndBoo3.y"}, range={0.0, 1.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=6, position={1459, 709, 830, 578}, y={"extIndBoo4.index"}, range={0.0, 1.0, -1.0, 4.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=6, position={1459, 709, 830, 578}, y={"extIndBoo4.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+

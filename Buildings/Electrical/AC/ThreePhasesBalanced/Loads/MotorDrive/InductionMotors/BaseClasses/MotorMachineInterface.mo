@@ -9,6 +9,9 @@ model MotorMachineInterface
   parameter Modelica.Units.SI.Reactance X_s=0.14 "Complex component of the impedance of stator";
   parameter Modelica.Units.SI.Reactance X_r=0.12 "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m=2.4 "Complex component of the magnetizing reactance";
+  parameter Modelica.Units.SI.AngularVelocity omegaHys = 0.01
+    "Hysteresis for checking if the angular velocity is greater than zero"
+    annotation (Dialog(tab="Advanced"));
 
   Real s(min=0,max=1) "Motor slip";
   Modelica.Units.SI.AngularVelocity omega_s "Synchronous angular velocity";
@@ -53,12 +56,17 @@ model MotorMachineInterface
 protected
   Real ratio "Intermediate value used in calculation";
 
+  Boolean y_internal "True: the angular velocity is greater than zero";
+
 equation
+  // check if omega_s > 0 with hysteresis
+  y_internal = noEvent(not pre(y_internal) and omega_s > omegaHys
+                        or pre(y_internal) and omega >= (omegaHys-0.5*omegaHys));
 
   omega_s = 4*Modelica.Constants.pi*f/pole;
-  s = if noEvent(omega_s>0) then 1-omega_r/omega_s else 0;
+  s = if y_internal then 1-omega_r/omega_s else 0;
   ratio = X_m/(X_m+X_s);
-  tau_e = if noEvent(omega_s>0)
+  tau_e = if y_internal
   then n*R_r*s*(V_rms*ratio)^2/(omega_s*(((s*R_s*ratio^2+R_r)^2)+s^2*(X_s+X_r)^2))
   else 0;
 

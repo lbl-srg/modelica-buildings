@@ -1,4 +1,4 @@
-last-generated=2021-09-17
+last-generated=2022-12-20
 statistics-fmu-dependencies=
 {
   "Derivatives": {
@@ -106,10 +106,6 @@ statistics-fmu-dependencies=
       "fluPor[1,1].backward.X_w",
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.per.hydraulicEfficiency.V_flow[1]",
-      "fan.per.hydraulicEfficiency.eta[1]",
-      "fan.per.motorEfficiency.V_flow[1]",
-      "fan.per.motorEfficiency.eta[1]",
       "fan.per.motorCooledByFluid",
       "fan.m_flow_start",
       "cooCoi.eps",
@@ -162,10 +158,6 @@ statistics-fmu-dependencies=
       "fluPor[1,1].backward.X_w",
       "fluPor[2,1].backward.T",
       "fluPor[2,1].backward.X_w",
-      "fan.per.hydraulicEfficiency.V_flow[1]",
-      "fan.per.hydraulicEfficiency.eta[1]",
-      "fan.per.motorEfficiency.V_flow[1]",
-      "fan.per.motorEfficiency.eta[1]",
       "fan.per.motorCooledByFluid",
       "fan.m_flow_start",
       "cooCoi.eps",

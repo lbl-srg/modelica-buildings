@@ -15,10 +15,10 @@ compareVars :=
     "hvac.VAVBox[3].vav.m_flow",
     "hvac.VAVBox[4].vav.m_flow",
     "hvac.VAVBox[5].vav.m_flow_turbulent",
-    "hvac.conAHU.VEffOutAir_flow",
-    "hvac.conAHU.VOut_flow",
-    "hvac.conAHU.yOutDamPos",
-    "hvac.conAHU.eco.mod.uOutDamPosMin",
-    "hvac.conAHU.eco.mod.uOutDamPosMax",
-    "hvac.conAHU.yRetDamPos"
+    "hvac.conAHU.VEffAirOut_flow_min",
+    "hvac.conAHU.VAirOut_flow",
+    "hvac.conAHU.yOutDam",
+    "hvac.conAHU.ecoCon.modRel.uOutDam_min",
+    "hvac.conAHU.ecoCon.modRel.uOutDam_max",
+    "hvac.conAHU.yRetDam"
   };

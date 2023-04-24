@@ -65,13 +65,31 @@ model ElectricChillerParallel
   parameter Modelica.Units.SI.Pressure dpCWPumVal_nominal
     "Nominal pressure drop of condenser water pump valve"
     annotation (Dialog(group="Pump"));
+  parameter Modelica.Units.SI.Time tau=1
+    "Pump time constant at nominal flow (if energyDynamics <> SteadyState)"
+    annotation (Dialog(tab="Dynamics", group="Pump"));
+  parameter Boolean use_inputFilter=false
+    "= true, if pump speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Pump"));
+  parameter Modelica.Units.SI.Time riseTimePump=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      group="Pump",
+      enable=use_inputFilter));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization for pumps (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+  parameter Real[numChi] yCHWP_start=fill(0,numChi)
+    "Initial value of CHW pump signals"
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
+  parameter Real[numChi] yCWP_start=fill(0,numChi)
+    "Initial value of CW pump signals"
+    annotation(Dialog(tab="Dynamics", group="Pump",enable=use_inputFilter));
   parameter Modelica.Units.SI.PressureDifference dpCooTowVal_nominal
     "Nominal pressure difference of the cooling tower valve";
   // control settings
   parameter Modelica.Units.SI.Time tWai "Waiting time"
-    annotation (Dialog(group="Control Settings"));
-  parameter Modelica.Units.SI.PressureDifference dpSetPoi(displayUnit="Pa")
-    "Demand side pressure difference setpoint"
     annotation (Dialog(group="Control Settings"));
   // dynamics
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
@@ -91,20 +109,15 @@ model ElectricChillerParallel
     "Set point for chilled water supply temperature"
     annotation (Placement(transformation(extent={{-340,100},{-300,140}}),
    iconTransformation(extent={{-340,138},{-300,178}})));
-  Modelica.Blocks.Interfaces.RealInput dpMea(
-    final unit="Pa")
-    "Measured pressure difference"
-    annotation (Placement(transformation(extent={{-340,60},{-300,100}}),
-   iconTransformation(extent={{-340,78},{-300,118}})));
   Buildings.Applications.BaseClasses.Equipment.ElectricChillerParallel mulChiSys(
-    use_inputFilter=false,
+    final use_inputFilter=use_inputFilter,
     final per=fill(
       perChi,
       numChi),
-    final m1_flow_nominal=mCHW_flow_nominal,
-    final m2_flow_nominal=mCW_flow_nominal,
-    final dp1_nominal=dpCHW_nominal,
-    final dp2_nominal=dpCW_nominal,
+    final m1_flow_nominal=mCW_flow_nominal,
+    final m2_flow_nominal=mCHW_flow_nominal,
+    final dp1_nominal=dpCW_nominal/2,
+    final dp2_nominal=dpCHW_nominal,
     final num=numChi,
     redeclare final package Medium1=Medium,
     redeclare final package Medium2=Medium)
@@ -114,7 +127,8 @@ model ElectricChillerParallel
     redeclare final package Medium=Medium,
     final num=numChi,
     final m_flow_nominal=mCW_flow_nominal,
-    final dp_nominal=dpCW_nominal,
+    final use_inputFilter=use_inputFilter,
+    final dp_nominal=dpCW_nominal/2,
     final dpValve_nominal = dpCooTowVal_nominal,
     final TAirInWB_nominal=TAirInWB_nominal,
     final TWatIn_nominal=TCW_nominal,
@@ -129,10 +143,14 @@ model ElectricChillerParallel
     final per=fill(
       perCHWPum,
       numChi),
-    use_inputFilter=false,
     yValve_start=fill(
       1,
       numChi),
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTimePump=riseTimePump,
+    final init=init,
+    final yPump_start=yCHWP_start,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCHW_flow_nominal,
     final dpValve_nominal=dpCHWPumVal_nominal,
@@ -144,6 +162,11 @@ model ElectricChillerParallel
     final per=fill(
       perCWPum,
       numChi),
+    final tau=tau,
+    final use_inputFilter=use_inputFilter,
+    final riseTimePump=riseTimePump,
+    final init=init,
+    final yPump_start=yCWP_start,
     final energyDynamics=energyDynamics,
     final m_flow_nominal=mCW_flow_nominal,
     final dpValve_nominal=dpCWPumVal_nominal,
@@ -153,26 +176,18 @@ model ElectricChillerParallel
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare final package Medium=Medium,
     final allowFlowReversal=false,
-    final m_flow_nominal=mCHW_flow_nominal*0.05,
-    final dpValve_nominal=dpCHW_nominal)
+    final m_flow_nominal=mCHW_flow_nominal,
+    final dpValve_nominal=dpCHWPumVal_nominal,
+    final use_inputFilter=true,
+    riseTime=60)
     "Chilled water bypass valve"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
       rotation=0,origin={-30,-70})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFloByp(
-    redeclare final package Medium=Medium)
-    "Chilled water bypass valve mass flow meter"
-    annotation (Placement(transformation(extent={{70,-60},{50,-80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTCHWSup(
     redeclare final package Medium=Medium,
     final m_flow_nominal=mCHW_flow_nominal)
     "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{140,-30},{160,-50}})));
-  Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterPumpSpeed chiWatPumCon(
-    tWai=0,
-    final m_flow_nominal=mCHW_flow_nominal,
-    final dpSetPoi=dpSetPoi)
-    "Chilled water pump controller"
-    annotation (Placement(transformation(extent={{-120,58},{-100,38}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage chiStaCon(
     final tWai=tWai,
     final QChi_nominal=QChi_nominal)
@@ -185,17 +200,21 @@ model ElectricChillerParallel
     annotation (Placement(transformation(extent={{-270,-50},{-250,-30}})));
   Buildings.Fluid.Sources.Boundary_pT expTanCW(
     redeclare final package Medium=Medium,
+    p=300000,
     nPorts=1)
     "Condenser water expansion tank"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,142})));
   Buildings.Fluid.Sources.Boundary_pT expTanCHW(
-    redeclare final package Medium=Medium, nPorts=1)
+    redeclare final package Medium=Medium,
+    p=300000,
+    nPorts=1)
     "Chilled water expansion tank"
     annotation (Placement(transformation(extent={{-108,-26},{-88,-6}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
-    redeclare final package Medium=Medium) "Chilled water return mass flow"
+    redeclare final package Medium=Medium)
+    "Chilled water return mass flow"
     annotation (Placement(transformation(extent={{-230,-50},{-210,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal chiOn[numChi]
     "Convert chiller on signal from boolean to real"
@@ -230,15 +249,19 @@ model ElectricChillerParallel
       rotation=90,origin={120,-42})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterBypass chiBypCon(
     final numChi=numChi,
-    final mMin_flow=mMin_flow)
+    final mMin_flow=mMin_flow,
+    k=1,
+    Ti=120)
     "Chilled water bypass control"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
-  Fluid.Sensors.MassFlowRate senMasFloCHW(redeclare final package Medium =
-        Medium) "Total chilled water pump mass flow rate" annotation (Placement(
+  Fluid.Sensors.MassFlowRate senMasFloCHW(
+    redeclare final package Medium = Medium)
+    "Total chilled water pump mass flow rate"
+    annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-80,10})));
+        origin={120,20})));
 protected
   final parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
     T=Medium.T_default,
@@ -256,18 +279,11 @@ initial equation
          ": energyDynamics is selected as steady state, and therefore massDynamics must also be steady-state.");
 
 equation
-  connect(senMasFloByp.port_b,valByp.port_a)
-    annotation (Line(points={{50,-70},{-20,-70}},color={0,127,255}));
   connect(cooTowWitByp.port_b,pumCW.port_a)
     annotation (Line(points={{-20,170},{60,170}},color={0,127,255}));
   connect(on,chiStaCon.on)
     annotation (Line(points={{-320,240},{-280,240},{-280,213.75},{-201.25,213.75}},
       color={255,0,255}));
-  connect(chiWatPumCon.dpMea,dpMea)
-    annotation (Line(points={{-122,52},{-140,52},{-140,80},{-320,80}},
-      color={0,0,127}));
-  connect(chiWatPumCon.y,pumCHW.u)
-    annotation (Line(points={{-99,48},{-54,48}}, color={0,0,127}));
   connect(pumCHW.port_b,mulChiSys.port_a2)
     annotation (Line(points={{-32,44},{40,44}}, color={0,127,255}));
   connect(pumCW.port_b,mulChiSys.port_a1)
@@ -306,26 +322,23 @@ equation
   connect(totPPum.y,PPum)
     annotation (Line(points={{282,160},{320,160}},color={0,0,127}));
   connect(pumCW.P,totPPum.u[1:2])
-    annotation (Line(points={{81,174},{240,174},{240,160.5},{258,160.5}},color={0,0,127}));
+    annotation (Line(points={{81,174},{240,174},{240,159.75},{258,159.75}},
+                                                                         color={0,0,127}));
   connect(pumCHW.P,totPPum.u[3:4])
-    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,158.5},{258,158.5}},
+    annotation (Line(points={{-31,48},{0,48},{0,0},{240,0},{240,160.75},{258,160.75}},
       color={0,0,127}));
   connect(totPFan.y,PFan)
     annotation (Line(points={{282,200},{320,200}},color={0,0,127}));
   connect(cooTowWitByp.PFan,totPFan.u[1:2])
-    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,199}},
+    annotation (Line(points={{-19,176},{-20,176},{-20,200},{258,200},{258,200.5}},
       color={0,0,127}));
   connect(totPCoo.y,PCoo)
     annotation (Line(points={{282,240},{320,240}},color={0,0,127}));
   connect(mulChiSys.P,totPCoo.u[1:2])
-    annotation (Line(points={{39,52},{20,52},{20,239},{258,239}},
+    annotation (Line(points={{39,52},{20,52},{20,240.5},{258,240.5}},
       color={0,0,127}));
-  connect(mulChiSys.port_b2,splCHWSup.port_1)
-    annotation (Line(points={{60,44},{120,44},{120,-32}},color={0,127,255}));
   connect(splCHWSup.port_3,senTCHWSup.port_a)
     annotation (Line(points={{130,-42},{130,-40},{140,-40}},color={0,127,255}));
-  connect(splCHWSup.port_2,senMasFloByp.port_a)
-    annotation (Line(points={{120,-52},{120,-70},{70,-70}},color={0,127,255}));
   connect(senTCHWRet.T,chiStaCon.TChiWatRet)
     annotation (Line(points={{-260,-29},{-260,209.75},{-201.25,209.75}},
       color={0,0,127}));
@@ -335,11 +348,6 @@ equation
   connect(senMasFlo.m_flow,chiStaCon.mFloChiWat)
     annotation (Line(points={{-220,-29},{-220,205.25},{-201.25,205.25}},
       color={0,0,127}));
-  connect(chiBypCon.y,valByp.y)
-    annotation (Line(points={{-99,-150},{-30,-150},{-30,-82}}, color={0,0,127}));
-  connect(senMasFloByp.m_flow,chiBypCon.mFloByp)
-    annotation (Line(points={{60,-81},{60,-180},{-140,-180},{-140,-155},{-122,-155}},
-      color={0,0,127}));
   connect(chiStaCon.y,chiBypCon.chiOn)
     annotation (Line(points={{-179.375,210},{-160,210},{-160,-145},{-122,-145}},
       color={255,0,255}));
@@ -347,19 +355,27 @@ equation
     annotation (Line(points={{-210,-40},{-90,-40}}, color={0,127,255}));
   connect(valByp.port_b, joiCHWRet.port_1)
     annotation (Line(points={{-40,-70},{-80,-70},{-80,-50}}, color={0,127,255}));
-  connect(joiCHWRet.port_2, senMasFloCHW.port_a)
-    annotation (Line(points={{-80,-30},{-80,0}}, color={0,127,255}));
-  connect(senMasFloCHW.port_b, pumCHW.port_a)
-    annotation (Line(points={{-80,20},{-80,44},{-52,44}}, color={0,127,255}));
-  connect(expTanCHW.ports[1], senMasFloCHW.port_a)
-    annotation (Line(points={{-88,-16},{-80,-16},{-80,0}}, color={0,127,255}));
-  connect(senMasFloCHW.m_flow, chiWatPumCon.masFloPum) annotation (Line(points={{-91,10},
-          {-140,10},{-140,44},{-122,44}},color={0,0,127}));
+  connect(senMasFloCHW.m_flow, chiBypCon.mFloChi) annotation (Line(points={{109,
+          20},{-140,20},{-140,-155},{-122,-155}}, color={0,0,127}));
+  connect(valByp.port_a, splCHWSup.port_2) annotation (Line(points={{-20,-70},{
+          120,-70},{120,-52}}, color={0,127,255}));
+  connect(joiCHWRet.port_2, pumCHW.port_a)
+    annotation (Line(points={{-80,-30},{-80,44},{-52,44}}, color={0,127,255}));
+  connect(expTanCHW.ports[1], pumCHW.port_a) annotation (Line(points={{-88,-16},
+          {-80,-16},{-80,44},{-52,44}}, color={0,127,255}));
+  connect(mulChiSys.port_b2, senMasFloCHW.port_a)
+    annotation (Line(points={{60,44},{120,44},{120,30}}, color={0,127,255}));
+  connect(senMasFloCHW.port_b, splCHWSup.port_1)
+    annotation (Line(points={{120,10},{120,-32}}, color={0,127,255}));
+  connect(chiBypCon.y, valByp.y) annotation (Line(points={{-99,-150},{-30,-150},
+          {-30,-82}}, color={0,0,127}));
+  connect(chiOn.y, pumCHW.u) annotation (Line(points={{-98,210},{-90,210},{-90,48},
+          {-54,48}}, color={0,0,127}));
   annotation (
     defaultComponentName="pla",
     Documentation(
       info="<html>
-<p>This model showcases a generic district central cooling plant as illustrated
+<p>This model implements a generic district central cooling plant as illustrated
 in the schematics below. </p>
 <ul>
 <li>The cooling is provided by two parallel chillers instantiated from
@@ -371,9 +387,8 @@ chilled water running through the chillers all the time. </li>
 loop. See <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass\">
 Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersWithBypass</a>
 for the details of the modeling of the cooling towers. </li>
-<li>The chilled water loop is equipped with two parallel variable speed pumps,
-which are controlled to maitain a use-determined pressure difference setpoint at
-the demand side. The condenser water pumps are constant speed with prescribed
+<li>The chilled water loop is equipped with two parallel constant speed pumps,
+which run one-and-one with each chiller. The condenser water pumps are constant speed with prescribed
 mass flow rates. </li>
 <li>The plant operates when it receives an <code>on</code> signal from the
 external control. </li>
@@ -382,10 +397,29 @@ external control. </li>
 <p>See <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage\">
 Buildings.Experimental.DHC.Plants.Cooling.Controls.ChillerStage</a> for
 the detailed control logic. </p>
-<p><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.png\" alt=\"System schematics\"/>. </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/ElectricChillerParallel.png\" alt=\"System schematics\"/>. </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Revised chilled water pump control to be constant speed and running 1-and-1 with chillers.
+</li>
+<li>
+December 14, 2022, by Kathryn Hinkelman:<br/>
+Corrected <code>chiBypCon</code> to control mass flow rate through the chillers.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">issue 2912</a>.
+</li>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Corrected wrong assignments for chiller system <code>mulChiSys</code> which assigned chilled water
+to condenser water parameters and vice versa.<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps.
+</li>
+<li>
+September 15, 2022, by Kathryn Hinkelman:<br/>
+Propagated dynamics and initialization parameters for pumps.
+</li>
 <li>
 March 3, 2022, by Michael Wetter:<br/>
 Moved <code>massDynamics</code> to <code>Advanced</code> tab and

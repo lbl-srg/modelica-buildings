@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.CDL.Integers;
 block MultiSum
-  "Sum of Reals, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
+  "Sum of Integers, y = k[1]*u[1] + k[2]*u[2] + ... + k[n]*u[n]"
   parameter Integer nin(
     min=0)=0
     "Number of input connections"

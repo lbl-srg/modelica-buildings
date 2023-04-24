@@ -148,7 +148,7 @@ equation
         Text(
           extent={{-190,124},{-152,100}},
           pattern=LinePattern.None,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Simplified model of
 an HVAC system
@@ -157,7 +157,7 @@ be exposed as an FMU"),
         Text(
           extent={{90,118},{128,94}},
           pattern=LinePattern.None,
-          lineColor={0,0,127},
+          textColor={0,0,127},
           horizontalAlignment=TextAlignment.Left,
           textString="Simplified model of
 a thermal zone that

@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.Economizers.Subsequences.Validation.Enable_FreProSta_ZonSta", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Enable_FreProSta_ZonSta_SingleZone");
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=1, y={"enaDis.yOutDam_max", "enaDis.yRetDam_min", "enaDis.yRetDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 1200, 650}, subPlot=2, y={"enaDis.andEnaDis.y", "enaDis.truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=1, y={"enaDis1.yOutDam_max", "enaDis1.yRetDam_min", "enaDis1.yRetDam_max"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={20, 10, 1200, 650}, subPlot=2, y={"enaDis1.andEnaDis.y", "enaDis1.truFalHol.y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});

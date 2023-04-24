@@ -1,10 +1,10 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacityWaterCooled
-  "Calculates cooling capacity at given temperature and flow fraction for water-cooled DX coils"
+  "Calculates cooling capacity at given temperature and flow fraction for water source DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity(
   final use_mCon_flow=true,
-  redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.Stage sta[nSta]);
+  redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
 
 protected
   Real[nSta] ffCon(each min=0)
@@ -28,7 +28,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.capFunFFCon,
          xMin=sta[iSta].perCur.ffConMin,
-         xMax=sta[iSta].perCur.ffConMin),
+         xMax=sta[iSta].perCur.ffConMax),
          msg="Capacity as a function of normalized water mass flow rate at the condenser",
          curveName="sta[" + String(iSta) + "].perCur.capFunFFCon");
 
@@ -37,7 +37,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.EIRFunFF,
          xMin=sta[iSta].perCur.ffConMin,
-         xMax=sta[iSta].perCur.ffConMin),
+         xMax=sta[iSta].perCur.ffConMax),
          msg="EIR as a function of normalized water mass flow rate at the condenser",
          curveName="sta[" + String(iSta) + "].perCur.EIRFunFFCon");
    end for;
@@ -65,21 +65,21 @@ if stage > 0 then
   //-------------------------Cooling capacity modifiers----------------------------//
 
     cap_FFCon[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
-      x=ff[iSta],
+      x=ffCon[iSta],
       c=sta[iSta].perCur.capFunFFCon,
       xMin=sta[iSta].perCur.ffConMin,
-      xMax=sta[iSta].perCur.ffConMin);
+      xMax=sta[iSta].perCur.ffConMax);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_FFCon[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
-       x=ff[iSta],
+       x=ffCon[iSta],
        c=sta[iSta].perCur.EIRFunFFCon,
        xMin=sta[iSta].perCur.ffConMin,
-       xMax=sta[iSta].perCur.ffConMin)
+       xMax=sta[iSta].perCur.ffConMax)
         "Cooling capacity modification factor as function of flow fraction";
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFacCon[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ffCon[iSta] - sta[iSta].perCur.ffConMin/4,
-       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffConMin/4));
+       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffConMin/8));
 
     Q_flow[iSta] = corFac[iSta]*corFacCon[iSta]*cap_T[iSta]*cap_FF[iSta]*cap_FFCon[iSta]*sta[iSta].nomVal.Q_flow_nominal;
     EIR[iSta]    = corFac[iSta]*corFacCon[iSta]*EIR_T[iSta]*EIR_FF[iSta]*EIR_FFCon[iSta]/sta[iSta].nomVal.COP_nominal;
@@ -103,14 +103,14 @@ if stage > 0 then
           textString="f(T,m)")}),
           Documentation(info="<html>
 <p>
-  This model calculates cooling capacity and EIR at off-designed conditions for water-cooled DX coils.
-  The difference between air-cooled and water-cooled DX coils is that water-cooled DX coils require
+  This model calculates cooling capacity and EIR at off-designed conditions for water source DX coils.
+  The difference between air source and water source DX coils is that water source DX coils require
   two additional modifer curves for total cooling capacity and EIR
   as a function of water mass flowrate at the condensers.
 </p>
 <h4>Total Cooling Capacity</h4>
 <p>
-  The total cooling capacity at off-designed conditions for water-cooled DX coils is calculated as:
+  The total cooling capacity at off-designed conditions for water source DX coils is calculated as:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
      Q̇(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) cap<sub>FF</sub>(ff) cap<sub>FFCon</sub>(ffCon) Q̇<sub>nom</sub>
@@ -147,14 +147,21 @@ if stage > 0 then
 revisions="<html>
 <ul>
 <li>
-February 17, 2017 by Yangyang Fu:<br/>
-First implementation.
+November 8, 2022, by Michael Wetter:<br/>
+Corrected calculation of performance which used the wrong upper bound, and
+which used <code>ff</code> instead of <code>ffCon</code> for calculating <code>cap_FFCon</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\">issue 3146</a>.
 </li>
 <li>
 October 21, 2019, by Michael Wetter:<br/>
 Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>
 This is for
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1202\">issue 1202</a>.
+</li>
+<li>
+February 17, 2017 by Yangyang Fu:<br/>
+First implementation.
 </li>
 </ul>
 

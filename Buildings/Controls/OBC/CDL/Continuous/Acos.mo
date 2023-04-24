@@ -3,7 +3,7 @@ block Acos "Output the arc cosine of the input"
   Interfaces.RealInput u
     "Connector of Real input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Interfaces.RealOutput y
+  Interfaces.RealOutput y(unit="rad")
     "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 equation
@@ -58,6 +58,12 @@ Block that outputs <code>y = acos(u)</code>, where <code>u</code> is an input.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 7, 2023, by Jianjun Hu:<br/>
+Added unit <code>rad</code> to the output.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3277\">issue 3277</a>.
+</li>
 <li>
 January 28, 2022, by Jianjun Hu:<br/>
 First implementation, based on the implementation of the

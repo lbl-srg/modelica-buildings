@@ -46,6 +46,7 @@ model CalendarTime
         iconTransformation(extent={{100,-50},{120,-30}})));
 
 protected
+  final constant Real eps_time(final unit="s") = 1 "Small value for time";
   final constant Integer firstYear = 2010
     "First year that is supported, i.e. the first year in timeStampsNewYear[:]";
   final constant Integer lastYear = firstYear + size(timeStampsNewYear,1) - 1;
@@ -221,25 +222,6 @@ equation
   // compute unix time step based on found offset
   unixTimeStampLocal = time + offset + timOff;
 
-  // update the year when passing the epoch time stamp of the next year
-  when unixTimeStampLocal >= timeStampsNewYear[pre(yearIndex)+1] then
-    yearIndex=pre(yearIndex)+1;
-    assert(yearIndex<=size(timeStampsNewYear,1),
-      "Index out of range for epoch vector: timeStampsNewYear needs to be extended beyond the year "
-        + String(firstYear+size(timeStampsNewYear,1)));
-    year = pre(year) + 1;
-  end when;
-
-  // update the month when passing the last day of the current month
-  when unixTimeStampLocal >= pre(epochLastMonth) +
-      (if pre(month)==2 and isLeapYear[yearIndex]
-        then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 then
-    month = if pre(month) == 12 then 1 else pre(month) + 1;
-    epochLastMonth = pre(epochLastMonth) +
-      (if pre(month)==2 and isLeapYear[yearIndex]
-        then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24;
-  end when;
-
   // compute other variables that can be computed without using when() statements
   hourSampleTrigger =sample(hourSampleStart, 3600);
   when hourSampleTrigger then
@@ -261,6 +243,31 @@ equation
       daysSinceEpoch = pre(daysSinceEpoch) + 1;
       weekDay = if (pre(weekDay) == 7) then 1 else (pre(weekDay) + 1);
     end if;
+
+    // update the year when passing the epoch time stamp of the next year
+    if unixTimeStampLocal - timeStampsNewYear[pre(yearIndex)+1] > -eps_time then
+      yearIndex=pre(yearIndex)+1;
+      year = pre(year) + 1;
+    else
+      yearIndex = pre(yearIndex);
+      year = pre(year);
+    end if;
+    assert(yearIndex<=size(timeStampsNewYear,1),
+      "Index out of range for epoch vector: timeStampsNewYear needs to be extended beyond the year "
+        + String(firstYear+size(timeStampsNewYear,1)));
+
+    // update the month when passing the last day of the current month
+    if unixTimeStampLocal - ( pre(epochLastMonth) + (if pre(month)==2 and isLeapYear[yearIndex] then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24 ) > -eps_time then
+      month = if pre(month) == 12 then 1 else pre(month) + 1;
+      // Use floor(0.1 + ...) to avoid floating point errors when accumulating epochLastMonth.
+      epochLastMonth = floor(0.1 + pre(epochLastMonth) +
+        (if pre(month)==2 and isLeapYear[yearIndex]
+          then 1 + dayInMonth[pre(month)] else dayInMonth[pre(month)])*3600*24);
+    else
+      month = pre(month);
+      epochLastMonth = pre(epochLastMonth);
+    end if;
+
     day = integer(1+floor((unixTimeStampLocal-epochLastMonth)/3600/24));
 
     firstDaySampling = false;
@@ -273,6 +280,13 @@ equation
     defaultComponentName="calTim",
   Documentation(revisions="<html>
 <ul>
+<li>
+December 19, 2022, by Michael Wetter:<br/>
+Refactored implementation to avoid wrong day number due to rounding errors that caused simultaneous events
+to not be triggered at the same time.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3199\">Buildings, #3199</a>.
+</li>
 <li>
 November 6, 2019, by Milica Grahovac:<br/>
 Extended functionality to year 2030.

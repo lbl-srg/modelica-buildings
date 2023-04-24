@@ -12,23 +12,22 @@ model PowerInterface
   parameter Modelica.Units.SI.VolumeFlowRate delta_V_flow
     "Factor used for setting heat input into medium to zero at very small flows";
 
-  Modelica.Blocks.Interfaces.RealInput etaHyd(
-    final quantity="Efficiency",
-    final unit="1") "Hydraulic efficiency"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
-        iconTransformation(extent={{-140,80},{-100,120}})));
-
   Modelica.Blocks.Interfaces.RealInput V_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s") "Volume flow rate"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+        iconTransformation(extent={{-140,80},{-100,120}})));
 
   Modelica.Blocks.Interfaces.RealInput WFlo(
     final quantity="Power",
     final unit="W") "Flow work"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Modelica.Blocks.Interfaces.RealInput WHyd(final quantity="Power", final unit="W")
+    "Hydraulic work (converted to flow work and heat)" annotation (Placement(
+        transformation(extent={{-140,-60},{-100,-20}}), iconTransformation(
+          extent={{-140,-60},{-100,-20}})));
 
   Modelica.Blocks.Interfaces.RealInput PEle(
     final quantity="Power",
@@ -40,12 +39,12 @@ model PowerInterface
     final unit="W") "Heat input from fan or pump to medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  Modelica.Units.SI.Power WHyd
-    "Hydraulic power input (converted to flow work and heat)";
-
 protected
   Modelica.Units.SI.HeatFlowRate QThe_flow
     "Heat input from fan or pump to medium";
+
+  Modelica.Units.SI.Efficiency etaHyd
+    "Hydraulic efficiency";
 
 initial equation
   assert(homotopyInitialization, "In " + getInstanceName() +
@@ -54,7 +53,8 @@ initial equation
 
 equation
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
-  etaHyd * WHyd   = WFlo;
+  etaHyd = WFlo / Buildings.Utilities.Math.Functions.smoothMax(
+                     x1=WHyd, x2=1E-5, deltaX=1E-6);
   // Heat input into medium
   QThe_flow +  WFlo = if motorCooledByFluid then PEle else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
@@ -121,6 +121,15 @@ Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 8, 2022, by Hongxiang Fu:<br/>
+This model no longer computes <code>WHyd</code>.
+It now takes <code>WHyd</code> instead of <code>etaHyd</code> as an input from
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
 <li>
 April 14, 2020, by Michael Wetter:<br/>
 Changed <code>homotopyInitialization</code> to a constant.<br/>

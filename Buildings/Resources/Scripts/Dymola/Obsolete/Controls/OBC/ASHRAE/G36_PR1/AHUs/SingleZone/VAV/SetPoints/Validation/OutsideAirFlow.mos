@@ -1,0 +1,5 @@
+simulateModel("Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1.AHUs.SingleZone.VAV.SetPoints.Validation.OutsideAirFlow", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="OutsideAirFlow_SingleZone");
+createPlot(id=1, position={20, 10, 1200, 1100}, y={"numOfOcc.y"}, range={0.0, 3600.0, -2.0, 6.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={20, 10, 1200, 272}, y={"outAirSet_SinZon.TZon", "outAirSet_SinZon.TDis"}, range={0.0, 3600.0, 16.0, 24.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={20, 10, 1200, 272}, y={"outAirSet_SinZon.VOutMinSet_flow", "outAirSet_SinZon_noOccSen.VOutMinSet_flow"}, range={0.0, 3600.0, 0.01, 0.025}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 1200, 272}, y={"outAirSet_SinZon.uOpeMod", "outAirSet_SinZon.uSupFan"}, range={0.0, 3600.0, 0.8, 1.2000000000000002}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}});
