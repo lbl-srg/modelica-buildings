@@ -5,7 +5,7 @@ model Controller "Test model for Control"
     yLow=0.5,
     deaBan=0.4) "A relay controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(freqHz=2) "Measured value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(freqHz=2) "Measured value"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
