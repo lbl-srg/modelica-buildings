@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="264.58334mm"
-   height="139.41315mm"
-   viewBox="0 0 264.58334 139.41315"
+   width="100"
+   height="100"
+   viewBox="0 0 26.458332 26.458334"
    version="1.1"
    id="svg6459"
    sodipodi:docname="VolumeFlowRateFlowMeter.svg"
@@ -23,29 +23,39 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     showgrid="false"
-     inkscape:zoom="0.45219477"
-     inkscape:cx="238.83514"
-     inkscape:cy="89.563177"
+     showgrid="true"
+     inkscape:zoom="4"
+     inkscape:cx="43.75"
+     inkscape:cy="24.625"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
      inkscape:window-y="-6"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6459" />
+     inkscape:current-layer="svg6459">
+    <inkscape:grid
+       type="xygrid"
+       id="grid23302" />
+  </sodipodi:namedview>
   <defs
      id="defs6456">
     <rect
+       x="325.25"
+       y="12.25"
+       width="87.75"
+       height="29.75"
+       id="rect22135" />
+    <rect
        x="165.85773"
-       y="75.18884"
+       y="75.188843"
        width="707.65967"
        height="360.46414"
        id="rect245" />
     <rect
-       x="287.7248"
-       y="153.24473"
-       width="406.56765"
-       height="215.7936"
+       x="287.72479"
+       y="153.24474"
+       width="406.56766"
+       height="215.79359"
        id="rect239" />
     <rect
        x="-725.72443"
@@ -56,46 +66,48 @@
   </defs>
   <g
      id="layer1"
-     transform="translate(-72.222528,-231.90884)">
-    <polyline
-       points="538.494,560.626 541.812,560.626 "
-       id="polyline698"
-       style="fill:none;stroke:#000000;stroke-width:0.132061;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="matrix(19.933951,0,0,20.136506,-10463.648,-10987.433)" />
-    <polyline
-       points="528.539,560.626 531.857,560.626 "
-       id="polyline700"
-       style="fill:none;stroke:#000000;stroke-width:0.132061;stroke-miterlimit:4;stroke-dasharray:none"
-       transform="matrix(19.933951,0,0,20.136506,-10463.648,-10987.433)" />
+     transform="matrix(0.12960267,0,0,0.09531337,-13.276424,-15.518815)"
+     style="stroke-width:2.38056;stroke-dasharray:none">
     <g
        id="g15302"
-       style="stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none">
+       style="fill:#ffffff;stroke-width:2.38056;stroke-miterlimit:4;stroke-dasharray:none">
       <path
          d="m 138.36344,368.42815 c 38.07298,-32.9392 94.22861,-32.9392 132.30159,0 V 234.80267 c -38.07298,32.9392 -94.22861,32.9392 -132.30159,0 z"
          id="path702"
-         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:#ffffff;stroke:#000000;stroke-width:2.38056;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
   </g>
   <text
      xml:space="preserve"
-     transform="scale(0.26458333)"
+     transform="matrix(0.02031763,0,0,0.01473444,61.061883,2.7326749)"
      id="text237"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-orientation:upright;white-space:pre;shape-inside:url(#rect239);display:inline;fill:#000000;stroke-width:10;stop-color:#000000"><tspan
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:200px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-orientation:upright;white-space:pre;shape-inside:url(#rect239);display:inline;fill:#000000;stroke-width:15.2918;stroke-dasharray:none;stop-color:#000000"><tspan
        x="287.72461"
        y="551.50513"
-       id="tspan450"><tspan
+       id="tspan23977"><tspan
          dx="0 114.94141"
-         id="tspan448">FM</tspan></tspan></text>
+         id="tspan23975">FM</tspan></tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:52.9167px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-orientation:upright;fill:#ffffff;stroke-width:0.264583;stroke-dasharray:none;stop-color:#000000"
+     x="67.303383"
+     y="5.2255206"
+     id="text22131"><tspan
+       sodipodi:role="line"
+       id="tspan22129"
+       style="stroke-width:0.264583"
+       x="67.303383"
+       y="5.2255206" /></text>
   <g
      aria-label="FM"
-     transform="matrix(0.26458333,0,0,0.26458333,50.904393,20.771771)"
-     id="text243"
-     style="font-size:200px;-inkscape-font-specification:'sans-serif, Normal';text-orientation:upright;white-space:pre;shape-inside:url(#rect245);display:inline;stroke-width:10;stop-color:#000000">
+     transform="matrix(0.26458333,0,0,0.26458333,-76.576977,7.0839282)"
+     id="text22133"
+     style="font-size:20px;-inkscape-font-specification:'sans-serif, Normal';text-orientation:upright;white-space:pre;shape-inside:url(#rect22135);stop-color:#000000">
     <path
-       d="m 278.25977,129.43286 h -73.53516 v 41.01563 h 63.18359 v 17.1875 h -63.18359 v 70.01953 H 185.38867 V 112.24536 h 92.8711 z"
-       id="path427" />
+       d="m 336.49023,17.674341 h -7.35351 v 4.101562 h 6.31836 v 1.71875 h -6.31836 v 7.001953 h -1.9336 V 15.955591 h 9.28711 z"
+       id="path22139" />
     <path
-       d="M 429.82227,257.65552 H 410.48633 V 132.36255 l -40.42969,85.2539 H 358.5332 l -40.13672,-85.2539 v 125.29297 h -18.0664 V 112.24536 h 26.36719 l 38.76953,80.95703 37.5,-80.95703 h 26.85547 z"
-       id="path429" />
+       d="m 351.64648,30.496606 h -1.93359 V 17.967309 l -4.04297,8.525391 h -1.15234 l -4.01367,-8.525391 v 12.529297 h -1.80664 V 15.955591 h 2.63671 l 3.87696,8.095703 3.75,-8.095703 h 2.68554 z"
+       id="path22141" />
   </g>
 </svg>

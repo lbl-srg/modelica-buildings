@@ -111,7 +111,7 @@ initial equation
       visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling or
        typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
        typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed,
-      extent={{-53,-100},{53,100}},
+      extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Cooling.svg"),
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling,
@@ -120,17 +120,33 @@ initial equation
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating or
         typ==Buildings.Templates.Components.Types.Coil.ElectricHeating,
-      extent={{-53,-100},{53,100}},
+      extent={{-100,-100},{100,100}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/Heating.svg"),
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
       extent={{-100,-500},{100,-300}},
       fileName="modelica://Buildings/Resources/Images/Templates/Components/Coils/HotWaterSupplyReturn.svg"),
-    Bitmap(
+    Line(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
-        typVal==Buildings.Templates.Components.Types.Valve.None,
-      extent={{-150,-300},{50,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg"),
+        typVal<>Buildings.Templates.Components.Types.Valve.None,
+      points={{-110,-200},{-50,-200}}, color={0,0,0}),
+    Line(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None,
+      points={{-50,-100},{-50,-320}},
+      color={0,0,0},
+      thickness=1),
+    Line(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None,
+      points={{50,-100},{50,-320}},
+      color={0,0,0},
+      thickness=1),
+    Line(
+      visible=typ<>Buildings.Templates.Components.Types.Coil.None and
+        (typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating or
+        typVal==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition),
+      points={{-50,-200},{50,-200}},
+      color={0,0,0},
+      thickness=1),
     Bitmap(
       visible=typ<>Buildings.Templates.Components.Types.Coil.None and
         typVal==Buildings.Templates.Components.Types.Valve.TwoWayModulating,
@@ -146,11 +162,7 @@ initial equation
         (typVal==Buildings.Templates.Components.Types.Valve.TwoWayModulating or
         typVal==Buildings.Templates.Components.Types.Valve.ThreeWayModulating),
       extent={{-190,-240},{-110,-160}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
-    Bitmap(
-      visible=typ<>Buildings.Templates.Components.Types.Coil.None,
-      extent={{-50,-300},{150,-100}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/None.svg")},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg")},
     coordinateSystem(preserveAspectRatio=false)),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),

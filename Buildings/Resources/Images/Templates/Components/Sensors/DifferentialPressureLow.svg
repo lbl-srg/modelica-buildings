@@ -2,13 +2,37 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="105.84606mm"
-   height="105.83334mm"
-   viewBox="0 0 105.84606 105.83333"
+   width="40"
+   height="40"
+   viewBox="0 0 10.583333 10.583332"
    version="1.1"
    id="svg2869"
+   sodipodi:docname="DifferentialPressureLow.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview12342"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="2.1174998"
+     inkscape:cx="135.5372"
+     inkscape:cy="200.47227"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g6351-3" />
   <defs
      id="defs2866" />
   <g
@@ -22,54 +46,54 @@
       <g
          id="g12097-8-8"
          transform="matrix(32.612783,0,0,32.612966,47881.298,111107.86)"
-         style="stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none;stroke:none">
+         style="stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
         <path
            d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
            id="path1112-2-5"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
         <path
            d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
            id="path1114-9-6"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
         <path
            d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
            id="path1116-9-1"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
         <polyline
            points="538.271,375.944 533.181,375.944 "
            id="polyline1118-6-1"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <polyline
            points="533.181,368.309 538.271,368.309 "
            id="polyline1120-0-5"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <polyline
            points="531.908,374.672 531.908,369.582 "
            id="polyline1122-2-9"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <polyline
            points="539.544,369.582 539.544,374.672 "
            id="polyline1124-7-8"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <path
            d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
            id="path1126-6-4"
-           style="fill:none;stroke:none;stroke-width:0.19576998;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:none;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
       </g>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
-         x="270.17288"
-         y="1284.5665"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.7692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
+         x="192.11923"
+         y="1127.7413"
          id="text44048-8"><tspan
            id="tspan7300-1"
-           x="270.17288"
-           y="1284.5665"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:127.692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">L</tspan></text>
+           x="192.11923"
+           y="1127.7413"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.7692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">L</tspan></text>
     </g>
   </g>
 </svg>

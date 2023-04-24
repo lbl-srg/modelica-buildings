@@ -57,17 +57,17 @@ partial model PartialDamper "Interface class for damper"
         rotation=text_rotation,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
      Bitmap(
-        extent={{-40,-160},{40,100}},
+        extent={{-130,-160},{130,100}},
+        visible=typ<>Buildings.Templates.Components.Types.Damper.None and
+          typBla==Buildings.Templates.Components.Types.DamperBlades.Opposed,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesOpposed.svg"),
+     Bitmap(
+        extent={{-130,-160},{130,100}},
         visible=typ<>Buildings.Templates.Components.Types.Damper.None and
           typBla==Buildings.Templates.Components.Types.DamperBlades.Parallel,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesParallel.svg"),
      Bitmap(
-        extent={{-40,-160},{40,100}},
-        visible=typ<>Buildings.Templates.Components.Types.Damper.None and
-          typBla==Buildings.Templates.Components.Types.DamperBlades.Opposed,
-          fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesOpposed.svg"),
-     Bitmap(
-        extent={{-60,-160},{60,100}},
+        extent={{-130,-160},{130,100}},
         visible=typ<>Buildings.Templates.Components.Types.Damper.None and
           typBla==Buildings.Templates.Components.Types.DamperBlades.VAV,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesVAV.svg")},

@@ -2,13 +2,37 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="105.84606mm"
-   height="105.83334mm"
-   viewBox="0 0 105.84607 105.83333"
+   width="40"
+   height="40"
+   viewBox="0 0 10.583334 10.583332"
    version="1.1"
    id="svg19564"
+   sodipodi:docname="TwoPosition.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1560"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.0587499"
+     inkscape:cx="193.62458"
+     inkscape:cy="210.1535"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19564" />
   <defs
      id="defs19561">
     <clipPath
@@ -20,8 +44,8 @@
   </defs>
   <g
      id="layer1"
-     transform="matrix(1.6249967,0,0,1.625,-473.82488,-159.31203)"
-     style="stroke-width:0.615385">
+     transform="matrix(0.16250015,0,0,0.16249999,-47.38328,-15.931202)"
+     style="stroke-width:1.6282;stroke-dasharray:none">
     <g
        id="g12097-8"
        transform="matrix(8.3169156,0,0,8.3169606,12455.366,28149.615)"

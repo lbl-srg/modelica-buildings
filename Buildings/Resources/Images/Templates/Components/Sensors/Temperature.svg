@@ -2,18 +2,43 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="105.84607mm"
-   height="105.83334mm"
-   viewBox="0 0 105.84607 105.83334"
+   width="40"
+   height="40"
+   viewBox="0 0 10.583333 10.583333"
    version="1.1"
    id="svg3180"
+   sodipodi:docname="Temperature.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview17319"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.74864923"
+     inkscape:cx="-33.393476"
+     inkscape:cy="154.27786"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3180" />
   <defs
      id="defs3177" />
   <g
      id="layer1"
-     transform="translate(-35.887364,-95.788571)">
+     transform="matrix(0.1000003,0,0,0.1,-3.5893998,-9.5788573)"
+     style="stroke-width:2.64583;stroke-dasharray:none">
     <g
        id="g12097-8-8"
        transform="matrix(13.514961,0,0,13.515061,19801.992,45679.601)"

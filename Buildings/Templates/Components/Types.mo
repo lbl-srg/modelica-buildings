@@ -98,6 +98,8 @@ package Types "Package with type definitions"
   type SensorVolumeFlowRate = enumeration(
       AFMS
       "Airflow measuring station",
+      FlowCross
+      "Flow cross",
       FlowMeter
       "Flow meter")
     "Enumeration to specify the type of volume flow rate sensor";

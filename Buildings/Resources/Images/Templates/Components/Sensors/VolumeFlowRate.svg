@@ -2,13 +2,37 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="105.84606mm"
-   height="105.83334mm"
-   viewBox="0 0 105.84605 105.83332"
+   width="40"
+   height="40"
+   viewBox="0 0 10.583332 10.583331"
    version="1.1"
    id="svg1642"
+   sodipodi:docname="VolumeFlowRate.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview18559"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.74864923"
+     inkscape:cx="134.90964"
+     inkscape:cy="211.71464"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1642" />
   <defs
      id="defs1639">
     <rect
@@ -20,7 +44,7 @@
   </defs>
   <g
      id="g6351"
-     transform="matrix(0.25502011,0,0,0.25502006,23.8346,-123.79128)"
+     transform="matrix(0.02550209,0,0,0.02550201,2.3828145,-12.379131)"
      style="stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none">
     <g
        id="g19584"
@@ -75,12 +99,13 @@
          id="text44048"><tspan
            id="tspan1670"
            x="403.70407"
-           y="783.80707">FR</tspan></text>
+           y="783.80707"
+           style="stroke-width:10.375;stroke-dasharray:none">FR</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(1.0374999,0,0,1.0375001,335.13658,500.67327)"
          id="text3652"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3654);fill:#000000;fill-opacity:1;stroke:none" />
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3654);fill:#000000;fill-opacity:1;stroke:none;stroke-width:9.99999;stroke-dasharray:none" />
     </g>
   </g>
 </svg>

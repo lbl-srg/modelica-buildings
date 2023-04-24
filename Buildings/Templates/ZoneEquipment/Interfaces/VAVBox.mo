@@ -34,8 +34,7 @@ model VAVBox "Interface class for VAV terminal unit"
     Placement(transformation(extent={{-10,-210},{10,-190}})));
 
   inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
-    constrainedby
-    Buildings.Templates.Components.Interfaces.PartialDamper(
+    constrainedby Buildings.Templates.Components.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
       final dat=datDamVAV)
     "VAV damper"
@@ -120,10 +119,8 @@ equation
   connect(VAirDis_flow.port_b, damVAV.port_a)
     annotation (Line(points={{-180,-200},{-130,-200}}, color={0,127,255}));
   annotation (Diagram(graphics={
-        Line(points={{300,-190},{-300,-190}},
-                                            color={0,0,0}),
-        Line(points={{300,-210},{-300,-210}},
-                                            color={0,0,0})}),
+        Line(points={{300,-190},{-300,-190}}, color={0,0,0}),
+        Line(points={{300,-210},{-300,-210}}, color={0,0,0})}),
   defaultComponentName="VAVBox",
     Documentation(info="<html>
 <p>

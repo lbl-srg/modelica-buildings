@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100"
+   height="100.00011"
+   viewBox="0 0 26.458333 26.458361"
+   version="1.1"
+   id="svg2325"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="VolumeFlowRateFlowCross.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2327"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="6.0364197"
+     inkscape:cx="5.3011555"
+     inkscape:cy="50.609469"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2467"
+       originx="-87.136721"
+       originy="-116.28484" />
+  </sodipodi:namedview>
+  <defs
+     id="defs2322" />
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-87.136724,-116.28485)">
+    <g
+       id="g2472"
+       transform="matrix(4.5712186,0,0,4.5383732,-304.8604,-411.92519)"
+       style="stroke-width:0.0580894;stroke-dasharray:none">
+      <ellipse
+         rx="2.8859162"
+         ry="0.86946845"
+         transform="rotate(90)"
+         id="ellipse686"
+         cx="119.30249"
+         cy="-88.647324"
+         style="fill:none;stroke:#000000;stroke-width:0.0580894;stroke-dasharray:none" />
+      <polyline
+         points="535.267,522.767 535.267,547.108 "
+         id="polyline688"
+         style="fill:none;stroke:#000000;stroke-width:0.231916;stroke-dasharray:none"
+         transform="matrix(0.26458333,0,0,0.23712008,-52.975402,-7.5418846)" />
+      <polyline
+         points="531.981,533.674 538.553,533.674 "
+         id="polyline690"
+         style="fill:none;stroke:#000000;stroke-width:0.21955;stroke-dasharray:none"
+         transform="matrix(0.26458333,0,0,0.26458333,-52.975402,-21.898767)" />
+    </g>
+  </g>
+</svg>
