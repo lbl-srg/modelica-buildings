@@ -2,13 +2,37 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="264.56946mm"
-   height="264.66656mm"
-   viewBox="0 0 264.56946 264.66656"
+   width="100"
+   height="100"
+   viewBox="0 0 26.458334 26.458333"
    version="1.1"
    id="svg1671"
+   sodipodi:docname="Generic.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview4982"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.42336682"
+     inkscape:cx="146.44511"
+     inkscape:cy="468.86055"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1671" />
   <defs
      id="defs1668">
     <clipPath
@@ -20,8 +44,8 @@
   </defs>
   <g
      id="layer1"
-     transform="translate(-97.008525,-130.27788)"
-     style="stroke:#000000;stroke-opacity:1;fill:none">
+     transform="matrix(0.09996789,0,0,0.09996823,-9.6927956,-13.023607)"
+     style="fill:none;stroke:#000000;stroke-width:2.64668;stroke-dasharray:none;stroke-opacity:1">
     <g
        clip-path="url(#clipId0)"
        fill="none"
@@ -29,15 +53,15 @@
        stroke-width="0.00208226"
        id="g716"
        transform="matrix(12.065225,0,0,11.324734,-6319.2584,-2178.1239)"
-       style="stroke:#000000;stroke-width:0.22635;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
+       style="fill:none;stroke:#000000;stroke-width:0.226422;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
       <path
          id="polyline710"
-         style="stroke-width:9.99999;stroke:#000000;stroke-opacity:1;fill:none"
+         style="fill:none;stroke:#000000;stroke-width:10.0032;stroke-dasharray:none;stroke-opacity:1"
          d="M 1361.5938,497.38867 371.64648,1487.7031 Z"
          transform="matrix(0.02192942,0,0,0.02336332,523.75802,192.33334)" />
       <path
          id="polyline712"
-         style="stroke-width:9.99999;stroke:#000000;stroke-opacity:1;fill:none"
+         style="fill:none;stroke:#000000;stroke-width:10.0032;stroke-dasharray:none;stroke-opacity:1"
          d="M 371.64648,497.38867 V 1487.7031 H 1361.5938 V 497.38867 Z"
          transform="matrix(0.02192942,0,0,0.02336332,523.75802,192.33334)" />
     </g>

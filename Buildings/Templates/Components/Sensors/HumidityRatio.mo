@@ -36,7 +36,7 @@ equation
     annotation (Line(points={{0,41},{0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
-        extent={{-20,-160},{20,40}},
+        extent={{-100,-160},{100,40}},
         visible=have_sen,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(

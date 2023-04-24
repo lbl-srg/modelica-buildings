@@ -31,18 +31,6 @@ equation
     annotation (Line(points={{0,11},{0,11},{0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
-        extent={{-20,-160},{20,40}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
-      Bitmap(
-        extent={{-60,-40},{60,160}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg"),
-      Bitmap(
-        extent={{-6,-160},{40,40}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeAveraging.svg"),
-      Bitmap(
         extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
         rotation=text_rotation,
         visible=have_sen and typ<>Buildings.Templates.Components.Types.SensorTemperature.InWell,
@@ -51,7 +39,16 @@ equation
         extent=if text_flip then {{40,160},{-40,240}} else {{-40,160},{40,240}},
         rotation=text_rotation,
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
+      Bitmap(extent={{-100,-160},{100,40}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeAveraging.svg"),
+      Bitmap(extent={{-100,-160},{100,40}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
+      Bitmap(extent={{-100,-40},{100,160}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

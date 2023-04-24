@@ -4,9 +4,7 @@ model VAVMZCoilWaterHeating3WVReheat "Validation model for multiple-zone VAV"
     datAll(
       redeclare model VAV =
         UserProject.AirHandlersFans.VAVMZCoilWaterHeating3WVReheat),
-    redeclare
-      UserProject.AirHandlersFans.VAVMZCoilWaterHeating3WVReheat VAV_1(coiHeaReh(
-        val(val(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)))));
+    redeclare UserProject.AirHandlersFans.VAVMZCoilWaterHeating3WVReheat VAV_1);
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>

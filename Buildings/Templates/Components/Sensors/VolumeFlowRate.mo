@@ -30,10 +30,6 @@ equation
     annotation (Line(points={{0,11},{0,120}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
       Bitmap(
-        extent={{-60,-160},{60,100}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
-      Bitmap(
         extent=if text_flip then {{100,-100},{-100,100}} else {{-100,-100},{100,100}},
         rotation=text_rotation,
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
@@ -42,7 +38,28 @@ equation
         extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
         rotation=text_rotation,
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRate.svg"),
+      Line(
+          visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
+          points={{0,-100},{0,-160}},
+          color={0,0,0}),
+      Bitmap(
+        extent={{-100,-100},{100,100}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
+      Bitmap(
+        extent={{-100,-100},{100,100}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateFlowCross.svg"),
+      Bitmap(
+        extent=if text_flip then {{40,-240},{-40,-160}} else {{-40,-240},{40,-160}},
+        rotation=text_rotation,
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
+      Rectangle(
+          visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
+          extent={{-2,-99},{2,-161}},
+          lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

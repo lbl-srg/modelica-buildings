@@ -1,5 +1,11 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV"
+  Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
+    redeclare final package Medium = MediumAir,
+    final have_sen=true)
+    "Duct static pressure sensor"
+    annotation (
+      Placement(transformation(extent={{250,-230},{270,-210}})));
 /*
   HACK: In Dymola only (ticket SR00860858-01), bindings for the parameter record
   cannot be made final if propagation from a top-level record (whole building)
@@ -147,13 +153,6 @@ model VAVMultiZone "Multiple-zone VAV"
     "Supply air temperature sensor"
     annotation (Placement(
         transformation(extent={{210,-210},{230,-190}})));
-
-  Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
-    redeclare final package Medium = MediumAir,
-    final have_sen=true)
-    "Duct static pressure sensor"
-    annotation (
-      Placement(transformation(extent={{250,-230},{270,-210}})));
 
   Buildings.Templates.Components.Sensors.DifferentialPressure pBui_rel(
     redeclare final package Medium = MediumAir,
@@ -409,24 +408,8 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
       graphics={
-        Line(
-          points={{250,-206},{250,-220},{256,-220}},
-          color={0,0,0},
-          thickness=1),
-        Line(
-          points={{264,-220},{270,-220}},
-          color={0,0,0},
-          thickness=1),
-        Bitmap(extent={{-84,-210},{-76,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
+        Bitmap(extent={{-90,-210},{-70,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
         Bitmap(extent={{-84,-224},{-76,-216}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
-        Line(
-          points={{-90,-206},{-90,-220},{-84,-220}},
-          color={0,0,0},
-          thickness=1),
-        Line(
-          points={{-70,-206},{-70,-220},{-76,-220}},
-          color={0,0,0},
-          thickness=1),
         Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
         Line(points={{300,-90},{-120,-90}}, color={0,0,0}),
         Line(points={{300,-210},{-120,-210}}, color={0,0,0}),
@@ -454,7 +437,14 @@ equation
           textColor={0,0,0},
           horizontalAlignment=TextAlignment.Right,
           fontName="sans-serif",
-          textString="REFERENCE OUTSIDE BUILDING")}),
+          textString="REFERENCE OUTSIDE BUILDING"),
+        Polygon(points={{-89,-220},{-89,-206},{-90,-206},{-90,-221},{-84,-221},{
+              -84,-220},{-89,-220}}, lineColor={0,0,0}),
+        Polygon(points={{-71,-220},{-71,-206},{-70,-206},{-70,-221},{-76,-221},{
+              -76,-220},{-71,-220}}, lineColor={0,0,0}),
+        Polygon(points={{251,-220},{251,-206},{250,-206},{250,-221},{256,-221},{
+              256,-220},{251,-220}}, lineColor={0,0,0}),
+        Rectangle(extent={{264,-220},{270,-221}}, lineColor={0,0,0})}),
     Documentation(info="<html>
 <h4>Description</h4>
 <p>

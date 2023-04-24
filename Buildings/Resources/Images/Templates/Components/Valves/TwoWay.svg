@@ -2,13 +2,36 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="1000"
-   height="1000"
-   viewBox="0 0 264.58333 264.58331"
+   width="100"
+   height="100"
+   viewBox="0 0 26.458333 26.458331"
    version="1.1"
    id="svg1985"
+   sodipodi:docname="TwoWay.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview32397"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="3.388"
+     inkscape:cx="116.2928"
+     inkscape:cy="59.179457"
+     inkscape:window-width="1920"
+     inkscape:window-height="1028"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1985" />
   <defs
      id="defs1982">
     <filter
@@ -40,31 +63,16 @@
        height="1297.1672"
        id="rect5225" />
   </defs>
-  <path
-     style="fill:none;stroke:#000000;stroke-width:2.64582;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 52.916668,132.29167 H 132.29167"
-     id="path3986-4-3" />
   <g
-     id="g839">
-    <g
-       id="g1031"
-       transform="translate(11.680859)">
-      <path
-         id="polyline218"
-         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 96.157347,83.643053 120.61081,132.29167 145.07462,83.643053 Z" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 120.61598,1e-6 v 83.64305"
-         id="path3986-4" />
-      <path
-         id="polyline218-5"
-         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-miterlimit:4;stroke-dasharray:none"
-         d="M 145.06427,180.94028 120.61081,132.29167 96.146995,180.94028 Z" />
-      <path
-         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         d="m 120.60563,180.94028 v 83.64305"
-         id="path3986-4-90" />
-    </g>
+     id="g33616"
+     transform="translate(0,-0.2945172)">
+    <path
+       id="polyline218"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none"
+       d="m 10.6794,8.3643084 2.549206,5.1593756 2.550286,-5.1593756 z" />
+    <path
+       id="polyline218-5"
+       style="fill:#ffffff;stroke:#000000;stroke-width:0.264583;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 15.778932,18.683058 13.229725,13.523684 10.67944,18.683058 Z" />
   </g>
 </svg>
