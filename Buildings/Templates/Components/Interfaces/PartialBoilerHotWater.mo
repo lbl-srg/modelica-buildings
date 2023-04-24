@@ -49,5 +49,15 @@ March 31, 2023, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+    Rectangle(
+          extent={{100,60},{-100,-60}},
+          lineColor={0,0,0},
+          lineThickness=1),
+    Text(
+          extent={{-60,20},{60,-20}},
+          textColor={0,0,0},
+          textString="BOI"),
+    Bitmap(extent={{-20,60},{20,100}}, fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg")}));
 end PartialBoilerHotWater;

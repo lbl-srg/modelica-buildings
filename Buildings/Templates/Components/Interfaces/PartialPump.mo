@@ -68,5 +68,31 @@ November 18, 2022, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+    Line(
+      points={{-100,0},{100,0}},
+      color={0,0,0},
+      thickness=1),
+    Bitmap(
+      visible=typ <> Buildings.Templates.Components.Types.Pump.None and
+          have_valChe,
+      extent={{20,-40},{100,40}},
+      fileName="modelica://Buildings/Resources/Images/Templates/Components/Valves/Check.svg"),
+    Bitmap(
+          visible=typ <> Buildings.Templates.Components.Types.Pump.None,
+          extent={{-100,-70},{0,30}},
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Pumps/Single.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and have_var,
+        extent={{-100,60},{0,160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
+    Bitmap(
+      visible=typ<>Buildings.Templates.Components.Types.Pump.None and not have_var,
+        extent={{-100,60},{0,160}},
+        rotation=text_rotation,
+          fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/MotorStarter.svg"),
+    Line( visible=typ <> Buildings.Templates.Components.Types.Pump.None,
+          points={{-50,60},{-50,22}},
+          color={0,0,0})}));
 end PartialPump;

@@ -210,13 +210,40 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-400,-700},{400,700}}), graphics={
+    Line(
+      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,500},{400,500}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
+    Line(
+      visible=nBoi >= 2 and
+      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,200},{400,200}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
+    Line(
+      visible=nBoi >= 3 and
+      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,-100},{400,-100}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
+    Line(
+      visible=nBoi >= 4 and
+      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      points={{200,-400},{400,-400}},
+      color={0,0,0},
+      pattern=LinePattern.Solid,
+      thickness=1),
     Text(
       extent={{-151,-712},{149,-752}},
       textColor={0,0,255},
       textString="%name"),
     Bitmap(
           visible=nBoi >= 1,
-          extent={{-280,400},{-160,500}},
+          extent={{-280,390},{-160,510}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
@@ -227,13 +254,14 @@ equation
       rotation=-90,
       origin={300,500}),
     Bitmap(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and nBoi>=1,
-      extent={{260,560},{340,640}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+          visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nBoi >= 1,
+          extent={{260,560},{340,640}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
           visible=nBoi >= 2,
-          extent={{-280,100},{-160,200}},
+          extent={{-280,90},{-160,212}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
@@ -244,13 +272,14 @@ equation
       rotation=-90,
           origin={300,200}),
     Bitmap(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Headered
-        and nBoi>=2,
-      extent={{260,260},{340,340}},
-      fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
+          visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nBoi >= 2,
+          extent={{260,260},{340,340}},
+          fileName=
+              "modelica://Buildings/Resources/Images/Templates/Components/Actuators/TwoPosition.svg"),
     Bitmap(
           visible=nBoi >= 3,
-          extent={{-280,-200},{-160,-100}},
+          extent={{-280,-212},{-160,-92}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
@@ -267,7 +296,7 @@ equation
       origin={300,-100}),
     Bitmap(
           visible=nBoi >= 4,
-          extent={{-280,-500},{-160,-400}},
+          extent={{-280,-510},{-160,-390}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Boilers/ControllerOnboard.svg"),
     Bitmap(
@@ -296,12 +325,6 @@ equation
       textColor={0,0,0},
       textString="BOI-1"),
     Line(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      points={{200,500},{400,500}},
-      color={0,0,0},
-      pattern=LinePattern.Solid,
-      thickness=1),
-    Line(
       points={{200,400},{400,400}},
       color={0,0,0},
       pattern=LinePattern.Dash,
@@ -327,13 +350,6 @@ equation
       color={0,0,0},
       pattern=LinePattern.Dash,
       thickness=1),
-    Line(
-      visible=nBoi >= 2 and
-      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      points={{200,200},{400,200}},
-      color={0,0,0},
-      pattern=LinePattern.Solid,
-      thickness=1),
     Rectangle(
       extent={{200,-60},{-160,-240}},
       lineColor={0,0,0},
@@ -355,13 +371,6 @@ equation
       pattern=LinePattern.Dash,
       thickness=1,
       visible=nBoi >= 3),
-    Line(
-      visible=nBoi >= 3 and
-      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      points={{200,-100},{400,-100}},
-      color={0,0,0},
-      pattern=LinePattern.Solid,
-      thickness=1),
     Rectangle(
       visible=nBoi >= 4,
       extent={{200,-360},{-160,-540}},
@@ -383,13 +392,26 @@ equation
       pattern=LinePattern.Dash,
       thickness=1,
       visible=nBoi >= 4),
-    Line(
-      visible=nBoi >= 4 and
-      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
-      points={{200,-400},{400,-400}},
-      color={0,0,0},
-      pattern=LinePattern.Solid,
-      thickness=1)}),
+        Line(
+          points={{300,562},{300,500}},
+          color={0,0,0},
+          visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nBoi >= 1),
+        Line(
+          points={{300,262},{300,200}},
+          color={0,0,0},
+          visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nBoi >= 2),
+        Line(
+          points={{300,-38},{300,-100}},
+          color={0,0,0},
+          visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nBoi >= 3),
+        Line(
+          points={{300,-338},{300,-400}},
+          color={0,0,0},
+          visible=typArrPumHeaWatPri == Buildings.Templates.Components.Types.PumpArrangement.Headered
+               and nBoi >= 4)}),
   Diagram(coordinateSystem(extent={{-200,-180},{200,200}})),
     Documentation(info="<html>
 <p>

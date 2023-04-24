@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="132.29419mm"
-   height="111.66269mm"
-   viewBox="0 0 132.29419 111.66269"
+   width="50"
+   height="50"
+   viewBox="0 0 13.229166 13.229167"
    version="1.1"
    id="svg1536"
    sodipodi:docname="Single.svg"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.26677458"
-     inkscape:cx="1102.054"
-     inkscape:cy="691.59512"
+     inkscape:zoom="3.0182098"
+     inkscape:cx="28.493711"
+     inkscape:cy="88.960018"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
@@ -46,25 +46,25 @@
        style="fill:none;stroke:#000000">
       <g
          id="g15452"
-         transform="matrix(0.41712471,0,0,0.41620877,-27.374297,132.29204)"
-         style="fill:#ffffff;fill-opacity:1;stroke-width:24;stroke-dasharray:none">
+         transform="matrix(0.04171102,0,0,0.04147783,-49.505964,216.68338)"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:24.0417;stroke-dasharray:none">
         <path
            d="M 447.66037,226.60848 C 247.60776,226.60471 67.250304,347.20662 -9.3039227,532.1724 -85.857993,717.13779 -43.531312,930.03766 97.926635,1071.6068 239.38458,1213.176 452.11721,1255.5359 636.93731,1178.9217 821.75778,1102.3073 942.26496,921.80801 942.26283,721.59814 l 185.48857,2e-5 V 226.6085 H 447.66365"
            id="path568"
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:24;stroke-dasharray:none"
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:24.0417;stroke-dasharray:none"
            sodipodi:nodetypes="cssscccc" />
         <path
            d="m 460.10226,790.17317 a 76.090642,76.150462 0 1 0 0,-152.30092"
            id="path578"
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:24;stroke-dasharray:none" />
+           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:24.0417;stroke-dasharray:none" />
         <path
            id="polyline580"
-           style="fill:#ffffff;fill-opacity:1;stroke-width:0.515025;stroke-dasharray:none"
+           style="fill:#ffffff;fill-opacity:1;stroke-width:0.51592;stroke-dasharray:none"
            transform="matrix(46.581354,0,0,46.617975,-18024.871,-14820.555)"
            d="m 396.832,331.598 h -1.145" />
         <path
            id="polyline582"
-           style="fill:#ffffff;fill-opacity:1;stroke-width:0.515025;stroke-dasharray:none"
+           style="fill:#ffffff;fill-opacity:1;stroke-width:0.51592;stroke-dasharray:none"
            transform="matrix(46.581354,0,0,46.617975,-18024.871,-14820.555)"
            d="m 396.832,334.865 h -1.145" />
       </g>
