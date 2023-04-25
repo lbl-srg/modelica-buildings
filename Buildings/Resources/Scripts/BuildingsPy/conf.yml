@@ -301,6 +301,9 @@
   openmodelica:
     comment: 'Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image.'
     simulate: false
+  optimica:
+    comment: 'FMUException: Enter Initialize returned with an error (works locally)'
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones2
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
@@ -308,12 +311,18 @@
   openmodelica:
     comment: 'Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image.'
     simulate: false
+  optimica:
+    comment: 'FMUException: Enter Initialize returned with an error (works locally)'
+    simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.BaseClasses.Validation.FMUZoneAdapterZones3
   dymola:
     comment: Requires docker update to Ubuntu 22.04 due to libgc.
     simulate: false
   openmodelica:
     comment: 'Simulation requires /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.34. To be updated in docker image.'
+    simulate: false
+  optimica:
+    comment: 'FMUException: Enter Initialize returned with an error (works locally)'
     simulate: false
 - model_name: Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SmallOffice.ASHRAE2006Spring
   openmodelica:
