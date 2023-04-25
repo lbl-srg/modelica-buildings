@@ -70,9 +70,9 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={
     Line(
-      points={{-100,0},{100,0}},
-      color={0,0,0},
-      thickness=1),
+          points={{-100,0},{100,0}},
+          color={0,0,0},
+          thickness=5),
     Bitmap(
       visible=typ <> Buildings.Templates.Components.Types.Pump.None and
           have_valChe,

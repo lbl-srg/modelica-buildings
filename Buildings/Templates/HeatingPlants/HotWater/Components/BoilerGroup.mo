@@ -211,32 +211,28 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-400,-700},{400,700}}), graphics={
     Line(
-      visible=typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
       points={{200,500},{400,500}},
       color={0,0,0},
       pattern=LinePattern.Solid,
-      thickness=1),
+      thickness=5),
     Line(
-      visible=nBoi >= 2 and
-      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      visible=nBoi >= 2,
       points={{200,200},{400,200}},
       color={0,0,0},
       pattern=LinePattern.Solid,
-      thickness=1),
+      thickness=5),
     Line(
-      visible=nBoi >= 3 and
-      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      visible=nBoi >= 3,
       points={{200,-100},{400,-100}},
       color={0,0,0},
       pattern=LinePattern.Solid,
-      thickness=1),
+      thickness=5),
     Line(
-      visible=nBoi >= 4 and
-      typArrPumHeaWatPri==Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      visible=nBoi >= 4,
       points={{200,-400},{400,-400}},
       color={0,0,0},
       pattern=LinePattern.Solid,
-      thickness=1),
+      thickness=5),
     Text(
       extent={{-151,-712},{149,-752}},
       textColor={0,0,255},
@@ -328,7 +324,7 @@ equation
       points={{200,400},{400,400}},
       color={0,0,0},
       pattern=LinePattern.Dash,
-      thickness=1),
+      thickness=5),
     Rectangle(
       extent={{200,240},{-160,60}},
       lineColor={0,0,0},
@@ -349,7 +345,7 @@ equation
       points={{200,100},{400,100}},
       color={0,0,0},
       pattern=LinePattern.Dash,
-      thickness=1),
+      thickness=5),
     Rectangle(
       extent={{200,-60},{-160,-240}},
       lineColor={0,0,0},
@@ -369,7 +365,7 @@ equation
       points={{200,-200},{400,-200}},
       color={0,0,0},
       pattern=LinePattern.Dash,
-      thickness=1,
+      thickness=5,
       visible=nBoi >= 3),
     Rectangle(
       visible=nBoi >= 4,
@@ -390,7 +386,7 @@ equation
       points={{200,-500},{400,-500}},
       color={0,0,0},
       pattern=LinePattern.Dash,
-      thickness=1,
+      thickness=5,
       visible=nBoi >= 4),
         Line(
           points={{300,562},{300,500}},

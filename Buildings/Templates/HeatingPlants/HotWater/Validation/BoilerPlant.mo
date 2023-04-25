@@ -9,7 +9,7 @@ model BoilerPlant
       nBoiNon_select=1,
       typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
       typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable,
-      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Dedicated,
+      typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
       redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36
         ctl(
