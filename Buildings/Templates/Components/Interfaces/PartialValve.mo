@@ -50,18 +50,21 @@ partial model PartialValve "Interface class for valve"
         rotation=0,
         origin={0,100})));
   annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false),
-  graphics={
+  Icon(graphics={
     Line(
-      points={{-100,0},{100,0}},
+      points={{-100,0},{-40,0}},
       color={0,0,0},
-      thickness=1),
+      thickness=5),
+    Line(
+      points={{40,0},{100,0}},
+      color={0,0,0},
+      thickness=5),
     Line(
       visible=typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition or
         typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
-      points={{0,-100},{0,0}},
+      points={{0,-100},{0,-40}},
       color={0,0,0},
-      thickness=1),
+      thickness=5),
     Bitmap(
       visible=typ==Buildings.Templates.Components.Types.Valve.TwoWayModulating or
         typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating,
@@ -88,9 +91,7 @@ partial model PartialValve "Interface class for valve"
           rotation=-90),
     Line(
       visible=typ<>Buildings.Templates.Components.Types.Valve.None,
-      points={{0,60},{0,2}}, color={0,0,0})}),
-    Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+      points={{0,60},{0,0}}, color={0,0,0})}),
     Documentation(info="<html>
 <p>
 This partial class provides a standard interface for valve models.

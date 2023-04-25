@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="130"
-   height="130"
-   viewBox="0 0 34.395833 34.395833"
+   width="260mm"
+   height="260mm"
+   viewBox="0 0 260 260"
    version="1.1"
    id="svg2869"
    sodipodi:docname="BladesParallel.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="2.3956777"
-     inkscape:cx="15.444482"
-     inkscape:cy="158.82771"
+     inkscape:zoom="0.84699997"
+     inkscape:cx="167.06022"
+     inkscape:cy="501.18065"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
@@ -37,37 +37,37 @@
      id="defs2866" />
   <g
      id="layer1"
-     transform="matrix(0.12464616,0,0,0.13,3.6046408,-17.570711)"
-     style="stroke-width:2.07851;stroke-dasharray:none">
+     transform="matrix(1.0915874,0,0,0.98267716,10.957034,-132.81797)"
+     style="stroke-width:0.965529;stroke-dasharray:none">
     <polyline
        points="385.909,549.896 389.393,553.38 "
        id="polyline508"
-       style="fill:none;stroke:#000000;stroke-width:0.238193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.110648;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(8.8030747,0,0,-8.6499063,-3303.4658,5084.8779)" />
     <polyline
        points="389.393,557.816 385.909,554.332 "
        id="polyline510"
-       style="fill:none;stroke:#000000;stroke-width:0.238193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.110648;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(8.8030747,0,0,-8.6499063,-3303.4658,5084.8779)" />
     <polyline
        points="385.909,558.606 389.393,562.09 "
        id="polyline512"
-       style="fill:none;stroke:#000000;stroke-width:0.238193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.110648;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(8.8030747,0,0,-8.6499063,-3303.4658,5084.8779)" />
     <polyline
        points="389.393,566.526 385.909,563.042 "
        id="polyline514"
-       style="fill:none;stroke:#000000;stroke-width:0.238193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.110648;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(8.8030747,0,0,-8.6499063,-3303.4658,5084.8779)" />
     <polyline
        points="385.909,567.317 389.393,570.801 "
        id="polyline516"
-       style="fill:none;stroke:#000000;stroke-width:0.238193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.110648;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(8.8030747,0,0,-8.6499063,-3303.4658,5084.8779)" />
     <polyline
        points="387.651,572.228 387.651,541.64 "
        id="polyline518"
-       style="fill:none;stroke:#000000;stroke-width:0.238193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.110648;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(8.8030747,0,0,-8.6499063,-3303.4658,5084.8779)" />
   </g>
 </svg>

@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="100"
-   height="100"
-   viewBox="0 0 26.458333 26.458334"
+   width="200mm"
+   height="200mm"
+   viewBox="0 0 200 200.00001"
    version="1.1"
    id="svg1653"
    sodipodi:docname="Filter.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="6.7757106"
-     inkscape:cx="25.08962"
-     inkscape:cy="42.430974"
+     inkscape:zoom="0.84696383"
+     inkscape:cx="206.03005"
+     inkscape:cy="255.61895"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
@@ -37,37 +37,37 @@
      id="defs1650" />
   <g
      id="layer1"
-     transform="matrix(0.09790233,0,0,0.09999568,2.1195865,-10.507633)"
-     style="stroke-width:2.67409;stroke-dasharray:none">
+     transform="matrix(0.79905306,0,0,0.75964982,9.3265295,-80.324349)"
+     style="stroke-width:1.28353;stroke-dasharray:none">
     <path
        id="polyline424"
-       style="fill:none;stroke:#000000;stroke-width:2.67408;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.28353;stroke-dasharray:none"
        d="M 73.848164,368.35266 V 106.40385 h 79.255986 v 261.94881 z" />
     <path
        id="polyline432"
-       style="fill:none;stroke:#000000;stroke-width:2.67408;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.28353;stroke-dasharray:none"
        d="m 133.66982,182.10839 -53.221748,-56.06234 6.599907,-6.54363 52.844931,55.6661" />
     <polyline
        points="391.693,424.396 387.065,429.602 "
        id="polyline438"
-       style="fill:none;stroke:#000000;stroke-width:0.235193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.11289;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(11.418525,0,0,11.321152,-4332.6634,-4629.4831)" />
     <path
        id="polyline440"
-       style="fill:none;stroke:#000000;stroke-width:2.67408;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.28353;stroke-dasharray:none"
        d="m 87.047979,234.10644 -6.599907,6.54363 53.027628,59.15302" />
     <path
        id="polyline444"
-       style="fill:none;stroke:#000000;stroke-width:2.67408;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.28353;stroke-dasharray:none"
        d="m 139.89291,175.16852 6.59991,6.54363 -53.198908,59.34548" />
     <path
        id="polyline448"
-       style="fill:none;stroke:#000000;stroke-width:2.67408;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:1.28353;stroke-dasharray:none"
        d="m 139.89291,293.03304 6.59991,6.55494 -52.833515,55.66611 -6.611326,-6.55495 52.844931,-55.6661" />
     <polyline
        points="391.693,434.807 387.065,429.602 "
        id="polyline456"
-       style="fill:none;stroke:#000000;stroke-width:0.235193;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:0.11289;stroke-miterlimit:4;stroke-dasharray:none"
        transform="matrix(11.418525,0,0,11.321152,-4332.6634,-4629.4831)" />
   </g>
 </svg>

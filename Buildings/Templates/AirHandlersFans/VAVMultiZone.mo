@@ -325,7 +325,7 @@ equation
           75,-268},{60,-268},{60,-280}},
                                       color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
-      points={{0,280},{0,100},{74,100},{74,-190}},
+      points={{0,280},{0,100},{74.5,100},{74.5,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TAirMix.port_b, fanSupBlo.port_a)
@@ -408,8 +408,6 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
       graphics={
-        Bitmap(extent={{-90,-210},{-70,-190}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Filters/Filter.svg"),
-        Bitmap(extent={{-84,-224},{-76,-216}}, fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
         Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
         Line(points={{300,-90},{-120,-90}}, color={0,0,0}),
         Line(points={{300,-210},{-120,-210}}, color={0,0,0}),
@@ -438,10 +436,6 @@ equation
           horizontalAlignment=TextAlignment.Right,
           fontName="sans-serif",
           textString="REFERENCE OUTSIDE BUILDING"),
-        Polygon(points={{-89,-220},{-89,-206},{-90,-206},{-90,-221},{-84,-221},{
-              -84,-220},{-89,-220}}, lineColor={0,0,0}),
-        Polygon(points={{-71,-220},{-71,-206},{-70,-206},{-70,-221},{-76,-221},{
-              -76,-220},{-71,-220}}, lineColor={0,0,0}),
         Polygon(points={{251,-220},{251,-206},{250,-206},{250,-221},{256,-221},{
               256,-220},{251,-220}}, lineColor={0,0,0}),
         Rectangle(extent={{264,-220},{270,-221}}, lineColor={0,0,0})}),

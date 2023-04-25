@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="40"
-   height="40"
-   viewBox="0 0 10.583334 10.583332"
+   width="80mm"
+   height="80mm"
+   viewBox="0 0 80.000005 79.999992"
    version="1.1"
    id="svg19564"
    sodipodi:docname="TwoPosition.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.0587499"
-     inkscape:cx="193.62458"
-     inkscape:cy="210.1535"
+     inkscape:zoom="2.1174998"
+     inkscape:cx="27.626921"
+     inkscape:cy="106.02126"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
@@ -44,57 +44,57 @@
   </defs>
   <g
      id="layer1"
-     transform="matrix(0.16250015,0,0,0.16249999,-47.38328,-15.931202)"
-     style="stroke-width:1.6282;stroke-dasharray:none">
+     transform="matrix(1.2440833,0,0,1.2440945,-363.27361,-122.48157)"
+     style="stroke-width:0.803801;stroke-dasharray:none">
     <g
        id="g12097-8"
        transform="matrix(8.3169156,0,0,8.3169606,12455.366,28149.615)"
-       style="stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
+       style="stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none">
       <path
          d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
          id="path1112-2"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
       <path
          d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
          id="path1114-9"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
       <path
          d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
          id="path1116-9"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
       <polyline
          points="538.271,375.944 533.181,375.944 "
          id="polyline1118-6"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
          transform="translate(-1994.3452,-3741.027)" />
       <polyline
          points="533.181,368.309 538.271,368.309 "
          id="polyline1120-0"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
          transform="translate(-1994.3452,-3741.027)" />
       <polyline
          points="531.908,374.672 531.908,369.582 "
          id="polyline1122-2"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
          transform="translate(-1994.3452,-3741.027)" />
       <polyline
          points="539.544,369.582 539.544,374.672 "
          id="polyline1124-7"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
          transform="translate(-1994.3452,-3741.027)" />
       <path
          d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
          id="path1126-6"
-         style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+         style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.0026px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.62821;stroke-miterlimit:4;stroke-dasharray:none"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.0026px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.803801;stroke-miterlimit:4;stroke-dasharray:none"
        x="299.77786"
        y="142.68661"
        id="text44048"><tspan
          id="tspan44046"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32.5641px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:1.62821;stroke-miterlimit:4;stroke-dasharray:none"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32.5641px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.803801;stroke-miterlimit:4;stroke-dasharray:none"
          x="299.77786"
          y="142.68661">M2</tspan></text>
   </g>
