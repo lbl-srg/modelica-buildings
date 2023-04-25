@@ -6,10 +6,15 @@ block IdentifyStage
     "Staging matrix with chiller stage as row index and chiller as column index"
     annotation (Dialog(tab="General", group="Staging configuration"));
 
-  CDL.Interfaces.BooleanInput                        uChi[nChi]
+  CDL.Interfaces.BooleanInput uChi[nChi]
     "Vector of chiller proven on status: true=ON"
     annotation(Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,180},{-100,220}})));
+
+protected
+  final parameter Integer chiInd[nChi]={i for i in 1:nChi}
+    "Chiller index, {1,2,...,n}";
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
         extent={{-100,-100},{100,100}},
