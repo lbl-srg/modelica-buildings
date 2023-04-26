@@ -174,14 +174,14 @@ block Guideline36Plugin
   parameter Real fraNonConBoi(
     final unit="1",
     displayUnit="1") = 0.9
-    "Fraction of current stage design capacity at which efficiency condition is 
+    "Fraction of current stage design capacity at which efficiency condition is
     satisfied for non-condensing boilers"
     annotation(Dialog(tab="Staging setpoint parameters", group="Efficiency condition parameters"));
 
   parameter Real fraConBoi(
     final unit="1",
     displayUnit="1") = 1.5
-    "Fraction of higher stage design capacity at which efficiency condition is 
+    "Fraction of higher stage design capacity at which efficiency condition is
     satisfied for condensing boilers"
     annotation(Dialog(tab="Staging setpoint parameters", group="Efficiency condition parameters"));
 
@@ -344,7 +344,7 @@ block Guideline36Plugin
     final unit="K",
     displayUnit="K",
     final quantity="TemperatureDifference") = -10
-    "The offset for hot water setpoint temperature for condensing boilers in 
+    "The offset for hot water setpoint temperature for condensing boilers in
     non-condensing stage type"
     annotation(Dialog(tab="Supply temperature reset parameters", group="General parameters"));
 
@@ -508,7 +508,7 @@ block Guideline36Plugin
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
-    "Plant design hot water flow rate thorugh primary loop"
+    "Plant design hot water flow rate through  primary loop"
     annotation (Dialog(group="Boiler plant configuration parameters"));
 
   parameter Real boiDesFlo[nBoi](
@@ -973,7 +973,7 @@ block Guideline36Plugin
     displayUnit=fill("degC", nBoi),
     final quantity=fill("ThermodynamicTemperature", nBoi)) if not have_priOnl
      and have_varPriPum and have_temRegPri and not have_priSecTemSen
-    "Measured hot water supply temperatureat boiler outlets"
+    "Measured hot water supply temperature at boiler outlets"
     annotation (Placement(transformation(extent={{-440,-190},{-400,-150}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
 

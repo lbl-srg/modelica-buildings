@@ -421,14 +421,14 @@ Modeling features and limitations:
 All units are either condensing boilers or non-condensing boilers,
 depending on the value of the Boolean parameter <code>is_con</code>.
 In order to represent a hybrid plant with both condensing and non-condensing
-boilers, two instance of this model must be used.
+boilers, two instances of this model must be used.
 </li>
 <li>
 All units are modeled based on the same boiler model, specified with the parameter
 <code>typMod</code> which is based on the enumeration
 <a href=\"modelica://Buildings.Templates.Components.Types.BoilerHotWaterModel\">
 Buildings.Templates.Components.Types.BoilerHotWaterModel</a>.
-However, the boiler characteristics such as the design capacity 
+However, the boiler characteristics such as the design capacity
 and HW flow rate may be different from one unit to another.
 </li>
 <li>
@@ -443,12 +443,12 @@ The following input and output points are available.
 </p>
 <ul>
 <li>
-Sub-bus <code>boiCon[:]</code> (resp. <code>boiNon[:]</code>) storing all signals 
-dedicated to each condensing boiler (resp. non-condensing boiler), with a 
+Sub-bus <code>boiCon[:]</code> (resp. <code>boiNon[:]</code>) storing all signals
+dedicated to each condensing boiler (resp. non-condensing boiler), with a
 dimensionality of one
 <ul>
 <li>
-Boiler Enable signal <code>boi(Con|Non)[:].y1</code> : 
+Boiler Enable signal <code>boi(Con|Non)[:].y1</code> :
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
@@ -465,20 +465,20 @@ AI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
 <li>
-Sub-bus <code>valBoiConIso[:]</code> (resp. <code>valBoiNonIso[:]</code>) 
+Sub-bus <code>valBoiConIso[:]</code> (resp. <code>valBoiNonIso[:]</code>)
 storing all signals dedicated to each condensing boiler (resp. non-condensing boiler)
 isolation valve (if any), with a dimensionality of one
 <ul>
 <li>
-Valve opening command <code>valBoi(Con|Non)Iso[:].y1</code> : 
+Valve opening command <code>valBoi(Con|Non)Iso[:].y1</code> :
 DO signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Valve open end switch status <code>valBoi(Con|Non)Iso[:].y1_actual</code> : 
+Valve open end switch status <code>valBoi(Con|Non)Iso[:].y1_actual</code> :
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 <li>
-Valve closed end switch status <code>valBoi(Con|Non)Iso[:].y0_actual</code> : 
+Valve closed end switch status <code>valBoi(Con|Non)Iso[:].y0_actual</code> :
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>

@@ -52,10 +52,10 @@ block Guideline36 "Guideline 36 controller"
     "Staging matrix with stage as row index and boiler as column index";
 
   /* FIXME: For hybrid plants, how to specify the number of pumps for condensing and non-condensing boilers?
-  To support integrated pumps with factory controls in the template, I suggest 
-  to use the same control logic as implemented here but maybe with separate 
-  dedicated output connectors. 
-  This would make it clear that those are not AO/DO points of the controller 
+  To support integrated pumps with factory controls in the template, I suggest
+  to use the same control logic as implemented here but maybe with separate
+  dedicated output connectors.
+  This would make it clear that those are not AO/DO points of the controller
   but only used for simulation purposes.
   */
   final parameter Integer nPumPri =
@@ -130,7 +130,7 @@ block Guideline36 "Guideline 36 controller"
   // FIXME: Missing enable condition: only required for primary-only plants with headered variable speed pumps using differential pressure pump speed control, see G36 3.1.8.4.
   final parameter Real VHotWatPri_flow_nominal =
     max(dat.VHeaWatPriCon_flow_nominal, dat.VHeaWatPriNon_flow_nominal)
-    "Plant design hot water flow rate thorugh primary loop";
+    "Plant design hot water flow rate through  primary loop";
 
   // FIXME: Missing enable condition: only required for primary-only hot water plants with a minimum flow bypass valve, see G36 3.1.8.2.
   final parameter Real boiDesFlo[nBoi] = {
@@ -363,7 +363,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 </p>
 <h4>Details</h4>
 <p>
-For hybrid plants, units shall be indexed so that condensing boilers have the 
+For hybrid plants, units shall be indexed so that condensing boilers have the
 lowest indices and non-condensing boilers have the highest indices.
 </p>
 <p>
