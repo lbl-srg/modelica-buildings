@@ -169,21 +169,13 @@ or current switch) <code>y1_actual</code>:
 DI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
-<h4>Pump characteristics</h4>
+<h4>Model parameters</h4>
 <p>
-To support dedicated arrangements where the pumps may not be equally
-sized, the design flow rate and pressure drop, as well as the
-pump curves must be specified for each unit (as Modelica arrays).
-A default pump characteristic is provided, which goes through the design 
-operating point and spans over <i>0</i> and twice the design flow rate at maximum speed. 
-This default characteristic is based on a least squares polynomial fit of the 
-characteristics from 
-<a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo\">
-Buildings.Fluid.Movers.Data.Pumps.Wilo</a>.
-The user may refer to the documentation of 
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters\">
-Buildings.Fluid.HydronicConfigurations.UsersGuide.ModelParameters</a>
-for further details.
+The design parameters and the pump characteristics are specified with an instance of
+<a href=\"modelica://Buildings.Templates.Components.Data.PumpMultiple\">
+Buildings.Templates.Components.Data.PumpMultiple</a>.
+The documentation of this record class provides further details on how to 
+properly parameterize the model.
 </p>
 </html>", revisions="<html>
 <ul>

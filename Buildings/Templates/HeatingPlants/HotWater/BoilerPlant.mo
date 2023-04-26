@@ -682,19 +682,25 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 <td>An open loop controller is also available for validation purposes only.</td>
 </tr>
 </table>
-<h4>Controls</h4>
+<h4>Control points</h4>
 <p>
-<p>
-FIXME: The outdoor air temperature used for optimum start, plant lockout, and other global sequences shall
-be the average of all valid sensor readings. If there are four or more valid outdoor air temperature
-sensors, discard the highest and lowest temperature readings.
-</p>
+Some input control points are required in addition to the ones already connected
+inside this model, see the documentation of 
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36\">
+Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36</a>.
 </p>
 <h4>References</h4>
 <ul>
 <li id=\"ASHRAE2021\">
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+April 28, 2023, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

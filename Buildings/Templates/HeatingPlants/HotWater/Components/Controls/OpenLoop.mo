@@ -146,5 +146,12 @@ for the plant model
 Buildings.Templates.HeatingPlants.HotWater.BoilerPlant</a>.
 It is only used for testing purposes.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 28, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end OpenLoop;

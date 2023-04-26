@@ -372,11 +372,43 @@ This limitation stems from the Guideline 36 controller implementation in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 </p>
+<h4>Control points</h4>
+<p>
+The Guideline 36 control sequence requires the following input points in
+addition to the ones from the HW plant model.
+</p>
+<ul>
+<li>Outdoor air temperature <code>TOut</code>: 
+AI signal with a dimensionality of zero</li>
+<li>HW differential pressure from remote sensor(s) <code>dpHeaWatRem</code>: 
+AI signal with a dimensionality of one, the number of remote 
+sensors is specified by the parameter <code>nSenDpHeaWatRem</code>.</li>
+<li>
+Inside the sub-bus <code>busAirHan[:]</code> (resp. <code>busEquZon[:]</code>), 
+with a dimensionality of one
+<ul>
+<li>HW plant requests yielded by the air handler or zone
+equipment controller <code>bus(AirHan|EquZon)[:].reqHeaWatPla</code>:
+AI signal (Integer), with a dimensionality of one 
+</li>
+<li>HW reset requests yielded by the air handler or zone
+equipment controller <code>bus(AirHan|EquZon)[:].reqHeaWatRes</code>:
+AI signal (Integer), with a dimensionality of one</li>
+</ul>
+</li>
+</ul>
 <h4>References</h4>
 <ul>
 <li>
 ASHRAE, 2021. Guideline 36-2021, High-Performance Sequences of Operation
 for HVAC Systems. Atlanta, GA.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+April 28, 2023, by Antoine Gautier:<br/>
+First implementation.
 </li>
 </ul>
 </html>"));

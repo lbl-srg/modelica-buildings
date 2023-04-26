@@ -1,0 +1,21 @@
+simulateModel("Buildings.Templates.Components.Validation.BoilerHotWater",
+  method="cvode",
+  tolerance=1e-6,
+  stopTime=2000.0,
+  resultFile="BoilerHotWater");
+createPlot(id=1,
+  position={19, 10, 474, 390},
+  y={"THeaWatRet.y", "THeaWatSupSet.y", "boiTab.bus.THeaWatSup", "boiPol.bus.THeaWatSup"},
+  subPlot=1,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"boiTab.boi.Q_flow_nominal", "boiPol.boi.Q_flow_nominal", "boiTab.boi.QWat_flow", "boiPol.boi.QWat_flow"},
+  subPlot=2,
+  autoscale=true,
+  grid=true);
+createPlot(id=1,
+  y={"boiTab.boi.m_flow_nominal", "boiPol.boi.m_flow_nominal", "boiTab.boi.m_flow", "boiPol.boi.m_flow"},
+  subPlot=3,
+  autoscale=true,
+  grid=true);

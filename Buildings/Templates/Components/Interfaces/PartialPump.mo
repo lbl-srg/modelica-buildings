@@ -64,13 +64,12 @@ This partial class provides a standard interface for pump models.
 </html>", revisions="<html>
 <ul>
 <li>
-November 18, 2022, by Antoine Gautier:<br/>
+April 28, 2023, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
 </html>"), Icon(graphics={
-    Line(
-          points={{-100,0},{100,0}},
+    Line( points={{-100,0},{100,0}},
           color={0,0,0},
           thickness=5),
     Bitmap(

@@ -1169,5 +1169,14 @@ equation
   connect(THeaWatSup.y, TPlaHotWatSupSet)
     annotation (Line(points={{302,260},{420,260}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-400,-600},{400,600}})), Icon(
-        coordinateSystem(extent={{-100,-340},{100,340}})));
+        coordinateSystem(extent={{-100,-340},{100,340}})),
+    Documentation(info="<html>
+<p>
+FIXME: This class is for temporary use only.
+It aims at providing the outside connectors and parameters of the 
+G36 controller while the comments at
+
+are being addressed.
+</p>
+</html>"));
 end Guideline36Plugin;

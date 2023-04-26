@@ -54,8 +54,8 @@ package TypesTmp
     "Definitions for secondary pump speed control types";
   annotation (Documentation(info="<html>
 <p>
-FIXME: Temporary files to be deleted when merging
-issue2180_BoilerPlant_MainController_oct_2021.
+FIXME: Temporary files to be deleted after merging
+<code>issue2180_BoilerPlant_MainController_oct_2021</code>.
 </p>
 </html>"));
 end TypesTmp;

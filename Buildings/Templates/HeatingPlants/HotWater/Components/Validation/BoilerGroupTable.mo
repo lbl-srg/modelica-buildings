@@ -12,15 +12,20 @@ model BoilerGroupTable "Validation model for boiler group"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
-FIXME: Bug in Dymola #SR01004314-01. 
-The parameters inside pumHeaWatPri.dat are left unassigned and the start value 
-is used instead without any warning being issued.
-OCT properly propagates the parameter values from the composite component binding.
+This model validates the boiler group model
+<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup\">
+Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroup</a>
+in the case where a lookup table is used to represent the boiler efficiency.
+The HW supply temperature setpoint, the HW return temperature and the 
+primary HW pump speed are fixed at their design value when the boilers are
+enabled.
 </p>
 <p>
-This model validates the boiler group model
-<a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupTable\">
-Buildings.Templates.HeatingPlants.HotWater.Components.BoilerGroups.BoilerGroupTable</a>.
+The model illustrates a bug in Dymola (#SR01004314-01).
+The parameter bindings for <code>pumHeaWatPri.dat</code> are not properly interpreted
+and the start value is used for all those parameters without any warning being issued.
+Hence, the total HW flow rate differs from its design value.
+OCT properly propagates the parameter values from the composite component binding.
 </p>
 </html>"));
 

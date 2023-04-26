@@ -8,7 +8,8 @@ partial model PartialBoilerPlant
   parameter Buildings.Templates.HeatingPlants.HotWater.Types.Boiler typ
     "Type of boilers"
     annotation (Evaluate=true, Dialog(group="Boilers"));
-  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod=Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial
+  parameter Buildings.Templates.Components.Types.BoilerHotWaterModel typMod=
+    Buildings.Templates.Components.Types.BoilerHotWaterModel.Polynomial
     "Type of boiler model"
     annotation (Evaluate=true, Dialog(group="Boilers"));
 
@@ -362,15 +363,114 @@ initial equation
     extent={{-200,-200},{200,200}}),
     graphics={
       Rectangle(
-        extent={{-200,200},{202,-200}},
+        extent={{-200,198},{202,-202}},
         lineColor={0,0,255},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
+        Line(
+          points={{-60,-60},{50,-60},{50,0}},
+          color={28,108,200},
+          thickness=5),
+        Ellipse(
+          extent={{-40,-40},{0,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Line(
+          points={{-60,100},{50,100},{50,0},{200,0}},
+          color={28,108,200},
+          thickness=5),
+        Rectangle(
+          extent={{-180,-40},{-60,-120}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,-214},{151,-254}},
           textColor={0,0,255},
-          textString="%name")}),
+          textString="%name"),
+        Polygon(
+          points={{-121,-90},{-133,-108},{-107,-108},{-121,-90}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={255,255,0},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-180,120},{-60,40}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-121,70},{-133,52},{-107,52},{-121,70}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={255,255,0},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Ellipse(
+          extent={{130,20},{170,-20}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199},
+          startAngle=0,
+          endAngle=360,
+          visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
+        Polygon(
+          points={{150,20},{150,-20},{170,0},{150,20}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255},
+          visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
+
+        Line(
+          points={{200,-100},{-60,-100}},
+          color={28,108,200},
+          pattern=LinePattern.Dash,
+          thickness=5),
+        Ellipse(
+          extent={{-40,120},{0,80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199}),
+        Polygon(
+          points={{-20,120},{-20,80},{0,100},{-20,120}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Line(
+          points={{-60,60},{20,60},{20,-98}},
+          color={28,108,200},
+          thickness=5,
+          pattern=LinePattern.Dash),
+        Line(
+          points={{102,-2},{102,-102}},
+          color={28,108,200},
+          thickness=5),
+        Polygon(
+          points={{-20,-40},{-20,-80},{0,-60},{-20,-40}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255})}),
    Diagram(coordinateSystem(
       preserveAspectRatio=false,
-      extent={{-300,-280},{300,280}})));
+      extent={{-300,-280},{300,280}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+April 28, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This partial class provides a standard interface for hot water boiler
+plant models.
+</p>
+</html>"));
 end PartialBoilerPlant;
