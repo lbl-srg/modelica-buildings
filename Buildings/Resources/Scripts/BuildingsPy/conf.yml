@@ -18,9 +18,6 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
-  optimica:
-    comment: 'FMUException: Failed to update the events at time: 1.652787E+07.'
-    simulate: false
 - model_name: Buildings.Air.Systems.SingleZone.VAV.Examples.OptimalStart.Guideline36Winter
   openmodelica:
     comment: simulation terminated by an assertion at initialization
