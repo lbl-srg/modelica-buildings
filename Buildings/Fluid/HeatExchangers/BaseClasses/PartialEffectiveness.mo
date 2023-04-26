@@ -107,14 +107,16 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
-<li>April 26, 2023, by Michael Wetter:<br/>
+<li>
+April 26, 2023, by Michael Wetter:<br/>
 Set nominal and min attributes for capacity flow rates.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3360\">#3360</a>.
+</li>
 <li>
 February 21, 2019, by Filip Jorissen:<br/>
 Revised implementation of all equations
-such that a binding equation is used. 
+such that a binding equation is used.
 I.e. we set the variable value at the variable definition
 instead of using the equation section.
 This allows overwriting the equation
@@ -124,7 +126,7 @@ See
 </li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
-Set <code>prescribedHeatFlowRate1=true</code> and 
+Set <code>prescribedHeatFlowRate1=true</code> and
 <code>prescribedHeatFlowRate2=true</code>.<br/>
 See
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/907\">#907</a>.
