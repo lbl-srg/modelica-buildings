@@ -36,6 +36,9 @@ if $TRAVISRUN; then
     DIFFCHECKSUM="$(git diff --name-only HEAD | grep 'Buildings/Resources/Scripts/travis/templates/checksum')"
 
     if [[ $? == 0 ]]; then
+        git show HEAD:Buildings/Resources/Scripts/travis/templates/checksum
+        echo $CHECKSUM
+        echo $DIFFCHECKSUM
         echo "Computed checksum does not match checksum on HEAD: please commit updated checksum for Buildings/Templates."
         exit 1
     fi

@@ -1,7 +1,7 @@
 simulateModel("Buildings.Templates.Components.Validation.PumpMultipleRecord",
   method="cvode",
   tolerance=1e-6,
-  stopTime=2000.0,
+  stopTime=1.0,
   resultFile="PumpMultipleRecord");
 createPlot(id=1,
   position={19, 10, 476, 550},
