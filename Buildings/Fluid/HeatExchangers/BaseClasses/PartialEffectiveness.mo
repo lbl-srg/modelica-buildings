@@ -35,11 +35,20 @@ partial model PartialEffectiveness
 protected
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default =
+    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      Medium1.p_default,
+      Medium1.T_default,
+      Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default =
+    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      Medium2.p_default,
+      Medium2.T_default,
+      Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
-  parameter Modelica.Units.SI.ThermalConductance CMin_flow_small(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance CMin_flow_small =
+    min(m1_flow_small*cp1_default, m2_flow_small*cp2_default)
     "Small value for smoothing of minimum heat capacity flow rate";
   Real fra_a1(min=0, max=1) = if allowFlowReversal1
     then Modelica.Fluid.Utilities.regStep(
@@ -65,16 +74,6 @@ protected
     then 1-fra_a2
     else 0
     "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
-initial equation
-  cp1_default = Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-    Medium1.p_default,
-    Medium1.T_default,
-    Medium1.X_default));
-  cp2_default = Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-    Medium2.p_default,
-    Medium2.T_default,
-    Medium2.X_default));
-  CMin_flow_small = min(m1_flow_small*cp1_default, m2_flow_small*cp2_default);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -108,8 +107,10 @@ and <code>QMax_flow &gt; 0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
-April 26, 2023, by Michael Wetter:<br/>
+April 27, 2023, by Michael Wetter:<br/>
 Set nominal and min attributes for capacity flow rates.<br/>
+Moved assignments from <code>initial equation</code> to parameter declaration.
+This avoids a warning in Dymola 2023x about non-literal nominal values.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3360\">#3360</a>.
 </li>
