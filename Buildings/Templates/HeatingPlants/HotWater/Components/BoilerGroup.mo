@@ -464,6 +464,7 @@ Boiler HW supply temperature <code>boi(Con|Non)[:].THeaWatSup</code>:
 AI signal dedicated to each unit, with a dimensionality of one
 </li>
 </ul>
+</li>
 <li>
 Sub-bus <code>valBoiConIso[:]</code> (resp. <code>valBoiNonIso[:]</code>)
 storing all signals dedicated to each condensing boiler (resp. non-condensing boiler)

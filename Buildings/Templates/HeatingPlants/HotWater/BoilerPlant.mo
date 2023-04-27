@@ -628,8 +628,8 @@ The user may refer to ASHRAE (2021) for further details.
 <tr><th>Configuration parameter</th><th>Options</th><th>Notes</th></tr>
 <tr><td>Type of boiler</td>
 <td>
-Condensing</b><br/>
-Non-condensing</b><br/>
+Condensing<br/>
+Non-condensing<br/>
 Hybrid (both condensing and non-condensing boilers)
 </td>
 <td></td>
@@ -652,7 +652,7 @@ Headered<br/>
 Dedicated
 </td>
 <td>
-If the primary HW pumps are provided with the boilers, they are necessarily 
+If the primary HW pumps are provided with the boilers, they are necessarily
 configured in a dedicated arrangement and this option is not available.
 </td>
 </tr>
@@ -662,13 +662,13 @@ None (primary-only)<br/>
 Variable speed, centralized
 </td>
 <td>
-Constant speed secondary pumps are not supported as they are generally not 
-advisable on any boiler system (see section 5.21.7.11 in ASHRAE, 2021 for 
+Constant speed secondary pumps are not supported as they are generally not
+advisable on any boiler system (see section 5.21.7.11 in ASHRAE, 2021 for
 further explanations).<br/>
 In case of hybrid plants, the primary-only option is not available.<br/>
-Centralized secondary pumps refers to configurations with a single group 
+Centralized secondary pumps refers to configurations with a single group
 of secondary pumps that is typically integrated into the plant.<br/>
-Distributed secondary pumps with multiple secondary 
+Distributed secondary pumps with multiple secondary
 loops served by dedicated secondary pumps are currently not supported.
 This limitation stems from the Guideline 36 controller implementation in
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller\">
@@ -685,7 +685,7 @@ Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Controller</a>.
 <h4>Control points</h4>
 <p>
 Some input control points are required in addition to the ones already connected
-inside this model, see the documentation of 
+inside this model, see the documentation of
 <a href=\"modelica://Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36\">
 Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36</a>.
 </p>
