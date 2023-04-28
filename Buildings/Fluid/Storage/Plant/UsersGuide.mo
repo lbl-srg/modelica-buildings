@@ -38,7 +38,7 @@ The plants are controlled as follows:
 </p>
 <ul>
 <li>
-In plant 1, the ideal chiller is always on. The speed-controlled pump
+In plant 1, the chiller is always on. The speed-controlled pump
 ensures that the users have enough pressure head at all times.
 </li>
 <li>
@@ -47,14 +47,14 @@ For plant 2:
 <li>
 In the chiller loop, chiller 2 and its primary pump P<sub>pri</sub>
 are on whenever needed (for charging the tank or producing CHW to the
-network), unless it is commanded off.
+network). Otherwise, they are commanded off.
 </li>
 <li>
 The system receives a command to charge, hold, or discharge the storage tank.
-The tank returns status signals indicating whether it is depleted, cooled, or
-overcooled. The command is not necessarily enforced. For example, if the
-chill in the storage tank is depleted, the discharge command will not be
-executed. See the Implementation section for details.
+The tank controller returns status signals indicating whether it is depleted,
+cooled, or overcooled. The command is not necessarily enforced. For example,
+if the chill in the storage tank is depleted, the discharge command will not
+be executed. See the Implementation section for details.
 </li>
 <li>
 The reversible connection between plant 2 and the district network
@@ -70,8 +70,8 @@ is controlled to maintain a constant flow from the pressurised network
 to the storage tank.
 </li>
 <li>
-Otherwise, the connection cuts off flow on both sides and isolates plant 2
-from the district network.
+Otherwise, the connection cuts off flow isolates plant 2 from
+the district network.
 </li>
 </ul>
 </li>
