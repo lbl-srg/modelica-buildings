@@ -46,60 +46,24 @@ model DualSource
         origin={-92,170})));
 
 // Second source: chiller and tank
-  Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource chi2(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.mChi_flow_nominal,
-    final TSet=T_CHWS_nominal)
-    "Chiller 2 represented by an ideal temperature source" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-150,-90})));
   final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
     mTan_flow_nominal=m_flow_nominal,
     mChi_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWR_nominal) "Nominal values for the second plant"
-    annotation (Placement(transformation(extent={{-40,-200},{-20,-180}})));
-  Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumChi2(
+    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+  Buildings.Fluid.Storage.Plant.StoragePlant stoPla(
     redeclare final package Medium = Medium,
-    final addPowerToMedium=false,
-    final m_flow_nominal=nom.mChi_flow_nominal,
-    final dp_nominal=chi2PreDro.dp_nominal) "Primary CHW pump for plant 2"
-    annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
-    redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.mChi_flow_nominal,
-    dp_nominal=0.1*nom.dp_nominal)
-    "Pressure drop of the chiller branch in plant 2"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={-130,-110})));
-  Buildings.Fluid.Storage.Plant.TankBranch tanBra(
-    redeclare final package Medium = Medium,
-    final nom=nom,
-    VTan=0.8,
-    hTan=3,
-    dIns=0.3)
-    "Tank branch, tank can be charged remotely" annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-90,-90})));
-  Buildings.Fluid.Storage.Plant.ReversibleConnection revCon(
-    redeclare final package Medium = Medium,
-    final nom=nom) "Reversible connection"
-    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
-
-  Buildings.Fluid.Sources.Boundary_pT bou2(
+    final nom=nom) annotation (Placement(transformation(
+          rotation=0, extent={{-20,-100},{0,-80}})));
+  Buildings.Fluid.Sources.Boundary_pT bou(
     p(final displayUnit="Pa") = 101325 + dp_nominal,
     redeclare final package Medium = Medium,
     nPorts=1) "Pressure boundary" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,10})));
+        origin={-10,-130})));
 
 // Users
   Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
@@ -262,33 +226,23 @@ model DualSource
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
   Modelica.Blocks.Routing.Multiplex muxVal(n=3) "Multiplexer block for routing"
     annotation (Placement(transformation(extent={{180,-180},{200,-160}})));
-  Buildings.Fluid.Storage.Plant.Controls.FlowControl floCon(
-    final mChi_flow_nominal=nom.mChi_flow_nominal,
-    final mTan_flow_nominal=nom.mTan_flow_nominal,
-    final use_outFil=true)
-    "Control block for storage plant flows"
-    annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
   Modelica.Blocks.Sources.IntegerTable com(table=[0,2; 200,1; 3000,2; 4000,3;
         6000,2; 7500,1])
     "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
-    annotation (Placement(transformation(extent={{-220,0},{-200,20}})));
-  Buildings.Fluid.Storage.Plant.Controls.TankStatus tanSta(
-    TLow=nom.T_CHWS_nominal,
-    THig=nom.T_CHWR_nominal) "Tank status"
-    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
+    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,6000}, startValue=false)
     "Chiller is online"
-    annotation (Placement(transformation(extent={{-220,-40},{-200,-20}})));
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys_yVal_actual(uLow=0.05,
       uHigh=0.5) "Hysteresis for user control valve position"
-    annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
+    annotation (Placement(transformation(extent={{-100,-120},{-80,-100}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiMax mulMax_yVal_actual(nin=3)
     "Position of the most open user control valve"
-    annotation (Placement(transformation(extent={{-260,-80},{-240,-60}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
 equation
-  connect(tanBra.port_aRetNet, parJunPla2.port_c2)
-    annotation (Line(points={{-80,-96},{40,-96}}, color={0,127,255}));
+  connect(stoPla.port_a, parJunPla2.port_c2)
+    annotation (Line(points={{0,-96},{40,-96}}, color={0,127,255}));
   connect(set_dpUse.y,conPI_pumChi1.u_s)
     annotation (Line(points={{-119,170},{-104,170}},
                                                    color={0,0,127}));
@@ -351,12 +305,8 @@ equation
     annotation (Line(points={{56,-140},{56,-160}}, color={0,127,255}));
   connect(parJunUse3.port_a2, parPipS2U3.port_b2)
     annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
-  connect(tanBra.port_bRetChi, chi2PreDro.port_a) annotation (Line(points={{-100,
-          -96},{-110,-96},{-110,-110},{-120,-110}}, color={0,127,255}));
   connect(chi1.port_a, parJunPla1.port_c2) annotation (Line(points={{-50,60},{
           -50,54},{20,54},{20,64},{40,64}}, color={0,127,255}));
-  connect(chi2PreDro.port_b, chi2.port_a) annotation (Line(points={{-140,-110},
-          {-150,-110},{-150,-100}}, color={0,127,255}));
   connect(gaiUse1.y, muxDp.u[1]) annotation (Line(points={{141,170},{160,170},{
           160,147.667},{180,147.667}},
                                    color={0,0,127}));
@@ -365,8 +315,8 @@ equation
                            color={0,0,127}));
   connect(gaiUse3.y, muxDp.u[3]) annotation (Line(points={{141,-150},{160,-150},
           {160,152.333},{180,152.333}}, color={0,0,127}));
-  connect(muxDp.y[:], mulMin_dpUse.u[:]) annotation (Line(points={{201,150},{
-          206,150},{206,206},{-152,206},{-152,130},{-142,130}},     color={0,0,127}));
+  connect(muxDp.y[:], mulMin_dpUse.u[:]) annotation (Line(points={{201,150},{206,
+          150},{206,210},{-150,210},{-150,130},{-142,130}},         color={0,0,127}));
   connect(ideUse1.yVal_actual, muxVal.u[1]) annotation (Line(points={{101,158},
           {106,158},{106,-172.333},{180,-172.333}}, color={0,0,127}));
   connect(ideUse2.yVal_actual, muxVal.u[2]) annotation (Line(points={{101,-2},{
@@ -374,51 +324,36 @@ equation
   connect(ideUse3.yVal_actual, muxVal.u[3]) annotation (Line(points={{101,-162},
           {106,-162},{106,-170},{162,-170},{162,-167.667},{180,-167.667}},
         color={0,0,127}));
-  connect(com.y, floCon.com) annotation (Line(points={{-199,10},{-172,10},{-172,
-          -26},{-161,-26}}, color={255,127,0}));
-  connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-199,-30},{-172,
-          -30},{-172,-34},{-161,-34}}, color={255,0,255}));
+  connect(com.y, stoPla.com) annotation (Line(points={{-79,-30},{-70,-30},{-70,-88},
+          {-21,-88}}, color={255,127,0}));
+  connect(chiOnl.y, stoPla.chiIsOnl) annotation (Line(points={{-79,-70},{-74,-70},
+          {-74,-92},{-21,-92}}, color={255,0,255}));
   connect(mulMax_yVal_actual.y, hys_yVal_actual.u)
-    annotation (Line(points={{-238,-70},{-222,-70}}, color={0,0,127}));
-  connect(hys_yVal_actual.y, floCon.hasLoa) annotation (Line(points={{-198,-70},
-          {-172,-70},{-172,-38},{-161,-38}}, color={255,0,255}));
+    annotation (Line(points={{-118,-110},{-102,-110}},
+                                                     color={0,0,127}));
+  connect(hys_yVal_actual.y, stoPla.hasLoa) annotation (Line(points={{-78,-110},
+          {-74,-110},{-74,-96},{-21,-96}}, color={255,0,255}));
   connect(muxVal.y, mulMax_yVal_actual.u[1:3]) annotation (Line(points={{201,
-          -170},{210,-170},{210,-230},{-270,-230},{-270,-69.3333},{-262,
-          -69.3333}}, color={0,0,127}));
-  connect(chi2.port_b, pumChi2.port_a) annotation (Line(points={{-150,-80},{-150,
-          -70},{-140,-70}}, color={0,127,255}));
-  connect(pumChi2.port_b, tanBra.port_aSupChi) annotation (Line(points={{-120,-70},
-          {-110,-70},{-110,-84},{-100,-84}}, color={0,127,255}));
-  connect(floCon.mPriPum_flow, pumChi2.m_flow_in) annotation (Line(points={{-139,
-          -24},{-130,-24},{-130,-58}}, color={0,0,127}));
+          -170},{206,-170},{206,-190},{-150,-190},{-150,-109.333},{-142,
+          -109.333}}, color={0,0,127}));
   connect(pumSup1.port_a, chi1.port_b)
     annotation (Line(points={{-20,90},{-50,90},{-50,80}}, color={0,127,255}));
   connect(pumSup1.port_b, parJunPla1.port_c1) annotation (Line(points={{0,90},{20,
           90},{20,76},{40,76}}, color={0,127,255}));
   connect(conPI_pumChi1.y, pumSup1.y)
     annotation (Line(points={{-81,170},{-10,170},{-10,102}}, color={0,0,127}));
-  connect(conPI_pumChi1.y, floCon.yPum) annotation (Line(points={{-81,170},{-76,
-          170},{-76,26},{-168,26},{-168,-22},{-161,-22}}, color={0,0,127}));
-  connect(revCon.port_b, parJunPla2.port_c1) annotation (Line(points={{0,-80},{
-          34,-80},{34,-84},{40,-84}}, color={0,127,255}));
-  connect(tanBra.port_bSupNet, revCon.port_a) annotation (Line(points={{-80,-84},
-          {-40,-84},{-40,-80},{-20,-80}}, color={0,127,255}));
-  connect(floCon.ySecPum, revCon.yPum) annotation (Line(points={{-139,-30},{-26,
-          -30},{-26,-74},{-21,-74}}, color={0,0,127}));
-  connect(floCon.yVal, revCon.yVal) annotation (Line(points={{-139,-36},{-32,
-          -36},{-32,-86},{-21,-86}}, color={0,0,127}));
-  connect(bou2.ports[1], revCon.port_a) annotation (Line(points={{-60,10},{-40,
-          10},{-40,-80},{-20,-80}}, color={0,127,255}));
-  connect(tanBra.TTan, tanSta.TTan) annotation (Line(points={{-79,-100},{-70,
-          -100},{-70,-150},{-61,-150}}, color={0,0,127}));
-  connect(tanSta.y, floCon.tanSta) annotation (Line(points={{-39,-150},{-34,
-          -150},{-34,-166},{-166,-166},{-166,-30},{-161,-30}}, color={255,0,255}));
+  connect(conPI_pumChi1.y, stoPla.yPum) annotation (Line(points={{-81,170},{-66,
+          170},{-66,-84},{-21,-84}}, color={0,0,127}));
+  connect(stoPla.port_b, parJunPla2.port_c1)
+    annotation (Line(points={{0,-84},{40,-84}}, color={0,127,255}));
+  connect(stoPla.port_a, bou.ports[1]) annotation (Line(points={{0,-96},{6,-96},
+          {6,-130},{0,-130}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),                                             Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-280,-240},{220,220}})),
+        coordinateSystem(preserveAspectRatio=false, extent={{-160,-200},{220,220}})),
         Documentation(info="<html>
 <p>
 The modelled system is described in

@@ -1,6 +1,5 @@
-within Buildings.Fluid.Storage.Plant;
-model TankBranch
-  "Model of the tank branch of a storage plant"
+within Buildings.Fluid.Storage.Plant.BaseClasses;
+model TankBranch "Model of the tank branch of a storage plant"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";

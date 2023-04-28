@@ -19,8 +19,8 @@ block FlowControl
     annotation (Placement(transformation(extent={{-120,50},{-100,70}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.BooleanInput chiIsOnl "Chiller is online"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
+        iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput mPriPum_flow
     "Primary pump mass flow rate"
     annotation (Placement(transformation(extent={{780,40},{800,60}}),
@@ -34,8 +34,8 @@ block FlowControl
   Modelica.StateGraph.InitialStep allOff(nOut=1, nIn=1) "Initial step, all off"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput hasLoa "True: Has load"
-    annotation (Placement(transformation(extent={{-120,-110},{-100,-90}}),
-        iconTransformation(extent={{-120,-90},{-100,-70}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.StateGraph.Transition traChaLoc(condition=com == 1 and (not tanSta[2])
          and chiIsOnl)
     "Transition: Charge tank command AND tank not cooled AND chiller is online"
@@ -110,8 +110,8 @@ block FlowControl
     annotation (Placement(transformation(extent={{740,-80},{760,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput tanSta[3]
     "Tank status - 1: is depleted; 2: is cooled; 3: is overcooled" annotation (
-      Placement(transformation(extent={{-120,-10},{-100,10}}),
-        iconTransformation(extent={{-120,-10},{-100,10}})));
+      Placement(transformation(extent={{-120,-130},{-100,-110}}),
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
   Modelica.StateGraph.Step stePumSecOn(nOut=1, nIn=1) "Step: Secondary pump on"
     annotation (Placement(transformation(extent={{300,-40},{320,-20}})));
   Modelica.StateGraph.Transition traPro(condition=hasLoa and (traProTan.condition

@@ -18,13 +18,12 @@ model PlantFlowControl
     final control_m_flow=true,
     final control_dp=false) "Ideal flow source representing the primary pump"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Fluid.Storage.Plant.TankBranch tanBra(
+  Buildings.Fluid.Storage.Plant.BaseClasses.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final nom=nom,
     VTan=0.2,
     hTan=1,
-    dIns=0.3)
-    "Tank branch, tank can be charged remotely" annotation (Placement(
+    dIns=0.3) "Tank branch, tank can be charged remotely" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -74,10 +73,10 @@ model PlantFlowControl
   Modelica.Blocks.Sources.BooleanTable hasLoa(table={600,2200},
     startValue=false) "The system has load"
     annotation (Placement(transformation(extent={{-140,-40},{-120,-20}})));
-  Buildings.Fluid.Storage.Plant.ReversibleConnection revCon(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ReversibleConnection revCon(
     redeclare final package Medium = Medium,
-     final nom=nom)
-                   "Reversible connection"
+    final nom=nom)
+    "Reversible connection"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.BaseClasses.ActuatorFilter fil(
     u_nominal=nom.m_flow_nominal,
@@ -103,10 +102,10 @@ equation
   connect(com.y, floCon.com) annotation (Line(points={{-119,50},{-100,50},{-100,
           54},{-81,54}}, color={255,127,0}));
   connect(chiOnl.y, floCon.chiIsOnl) annotation (Line(points={{-119,10},{-104,
-          10},{-104,46},{-81,46}},
+          10},{-104,50},{-81,50}},
                               color={255,0,255}));
   connect(hasLoa.y, floCon.hasLoa) annotation (Line(points={{-119,-30},{-100,
-          -30},{-100,42},{-81,42}},
+          -30},{-100,46},{-81,46}},
                              color={255,0,255}));
   connect(tanBra.port_bSupNet, revCon.port_a) annotation (Line(points={{10,-4},{
           20,-4},{20,10},{40,10}}, color={0,127,255}));
@@ -123,7 +122,7 @@ equation
   connect(tanBra.TTan, tanSta.TTan) annotation (Line(points={{11,-20},{16,-20},
           {16,-50},{39,-50}}, color={0,0,127}));
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-50},{64,-50},{
-          64,-66},{-94,-66},{-94,50},{-81,50}}, color={255,0,255}));
+          64,-66},{-94,-66},{-94,42},{-81,42}}, color={255,0,255}));
   connect(y.y, floCon.yPum) annotation (Line(points={{-119,90},{-100,90},{-100,
           58},{-81,58}},
                      color={0,0,127}));

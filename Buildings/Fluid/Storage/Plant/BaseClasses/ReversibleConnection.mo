@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant;
+within Buildings.Fluid.Storage.Plant.BaseClasses;
 model ReversibleConnection
   "A connection that supports reversible flow with a pump and a valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
