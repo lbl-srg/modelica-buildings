@@ -26,7 +26,8 @@ type PumpsPrimary = enumeration(
     "Enumeration to specify the type of primary HW pumps";
 type PumpsSecondary = enumeration(
     None "No secondary pumps (primary-only)",
-    Centralized "Variable secondary centralized")
+    Centralized "Variable secondary centralized",
+    Distributed "Variable secondary distributed")
     "Enumeration to specify the type of secondary HW pumps";
 type SensorLocation = enumeration(
     Return "Sensor in the return line",

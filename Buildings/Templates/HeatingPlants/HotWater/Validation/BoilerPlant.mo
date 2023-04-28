@@ -11,12 +11,17 @@ model BoilerPlant
       typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable,
       typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
-      redeclare Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36
+      redeclare
+        Buildings.Templates.HeatingPlants.HotWater.Components.Controls.Guideline36
         ctl(
         nAirHan=1,
+        nEquZon=0,
         typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
+
         locSenVHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
+
         locSenVHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
+
         have_senDpHeaWatLoc=false)));
 
   UserProject.AirHandlerControlPoints sigAirHan[BOI.nAirHan]

@@ -154,17 +154,20 @@ partial model PartialBoilerPlant
     start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None)
     "Type of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop", enable=
-    typ<>Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid));
-  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec2_select(
-    start=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized)
+    typ<>Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid),
+    choices(
+    choice=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
+      "No secondary pumps (primary-only)",
+    choice=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
+      "Variable secondary centralized"));
+  parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec2_select=
+    Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
     "Type of secondary HW pumps"
     annotation (Evaluate=true, Dialog(group="Secondary HW loop", enable=
     typ==Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid),
     choices(
     choice=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized
-      "Variable secondary centralized",
-    choice=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Distributed
-      "Variable secondary distributed"));
+      "Variable secondary centralized"));
   final parameter Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary typPumHeaWatSec=
     if typ<>Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid then typPumHeaWatSec1_select
     else typPumHeaWatSec2_select
@@ -425,7 +428,6 @@ initial equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255},
           visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
-
         Line(
           points={{200,-100},{-60,-100}},
           color={28,108,200},

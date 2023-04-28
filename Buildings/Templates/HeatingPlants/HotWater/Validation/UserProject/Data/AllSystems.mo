@@ -1,7 +1,13 @@
 within Buildings.Templates.HeatingPlants.HotWater.Validation.UserProject.Data;
 class AllSystems
   "Design and operating parameters for testing purposes"
-  extends Buildings.Templates.Data.AllSystems;
+  extends Buildings.Templates.Data.AllSystems(
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Not_Specified,
+
+    stdVen=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
+
+    stdEne=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    sysUni=Buildings.Templates.Types.Units.SI);
 
   // The following instance name matches the system tag.
   outer Buildings.Templates.HeatingPlants.HotWater.BoilerPlant BOI;
