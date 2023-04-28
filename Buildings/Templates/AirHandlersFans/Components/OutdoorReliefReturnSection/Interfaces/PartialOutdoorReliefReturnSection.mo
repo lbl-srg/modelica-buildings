@@ -7,6 +7,24 @@ partial model PartialOutdoorReliefReturnSection
     "Air medium"
     annotation(__Linkage(enable=false));
 
+  replaceable model OutdoorSection_MAWD =
+    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
+    constrainedby Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
+      redeclare final package MediumAir = MediumAir,
+      final dat=dat)
+    "Outdoor air section"
+    annotation(choices(
+      choice(redeclare replaceable model OutdoorSection_MAWD =
+        Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
+        "Single damper for ventilation and economizer, with airflow measurement station"),
+      choice(redeclare replaceable model OutdoorSection_MAWD =
+        Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow
+        "Separate dampers for ventilation and economizer, with airflow measurement station"),
+      choice(redeclare replaceable model OutdoorSection_MAWD =
+        Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure
+        "Separate dampers for ventilation and economizer, with differential pressure sensor")),
+    Dialog(enable=typ==Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirWithDamper));
+
   parameter Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection typ
     "Outdoor/relief/return air section type"
     annotation (Evaluate=true, Dialog(group="Configuration"));

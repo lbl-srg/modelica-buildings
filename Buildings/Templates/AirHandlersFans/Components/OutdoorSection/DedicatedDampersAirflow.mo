@@ -7,6 +7,9 @@ model DedicatedDampersAirflow
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
+  parameter Integer test = 0
+    "FIXME: test parameter";
+
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
     final dat=dat.damOut)

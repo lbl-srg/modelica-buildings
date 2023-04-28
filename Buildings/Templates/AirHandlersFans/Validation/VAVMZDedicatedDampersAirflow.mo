@@ -5,7 +5,10 @@ model VAVMZDedicatedDampersAirflow "Validation model for multiple-zone VAV"
       redeclare model VAV =
         UserProject.AirHandlersFans.VAVMZDedicatedDampersAirflow),
     redeclare
-      UserProject.AirHandlersFans.VAVMZDedicatedDampersAirflow VAV_1);
+      UserProject.AirHandlersFans.VAVMZDedicatedDampersAirflow VAV_1(secOutRel(
+          redeclare model OutdoorSection_MAWD =
+            Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow
+            (test=1))));
 
   annotation (
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>

@@ -14,23 +14,11 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     final have_eco=true,
     final have_recHea=recHea.typ<>Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None);
 
-  replaceable
-    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
-    secOut constrainedby
-    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
-      redeclare final package MediumAir = MediumAir,
-      final dat=dat)
+  // No replaceable keyword, nor any Dialog() annotation to avoid any entry in the parmeter dialog.
+  // Parameter propagation is done through the replaceable class OutdoorSection_MAWD (not the component secOut).
+  OutdoorSection_MAWD secOut
     "Outdoor air section"
-    annotation (
-    choices(
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper secOut
-        "Single damper for ventilation and economizer, with airflow measurement station"),
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersAirflow secOut
-        "Separate dampers for ventilation and economizer, with airflow measurement station"),
-      choice(redeclare replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorSection.DedicatedDampersPressure secOut
-        "Separate dampers for ventilation and economizer, with differential pressure sensor")),
-    Dialog(group="Configuration"),
-    Placement(transformation(extent={{-58,-94},{-22,-66}})));
+    annotation (Placement(transformation(extent={{-58,-94},{-22,-66}})));
 
   replaceable
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
