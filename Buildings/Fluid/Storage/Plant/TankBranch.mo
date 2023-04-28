@@ -76,8 +76,9 @@ model TankBranch
     final m_flow_nominal=nom.mTan_flow_nominal,
     show_T=true) "Tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Fluid.Sensors.MassFlowRate senFlo(redeclare final package Medium =
-        Medium, final allowFlowReversal=true) "Flow rate sensor for the tank,"
+  Buildings.Fluid.Sensors.MassFlowRate senFlo(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=true) "Flow rate sensor for the tank,"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
