@@ -257,18 +257,6 @@ model DualSource
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,-130})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PipeEnd pipEnd1(
-    redeclare final package Medium = Medium)
-    "End of distribution pipe lines" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={50,190})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.PipeEnd pipEnd2(
-    redeclare final package Medium = Medium)
-    "End of distribution pipe lines" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={50,-210})));
 
   Modelica.Blocks.Routing.Multiplex muxDp(n=3) "Multiplexer block for routing"
     annotation (Placement(transformation(extent={{180,140},{200,160}})));
@@ -319,10 +307,6 @@ equation
           {110,-150},{118,-150}}, color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-118,130},{-92,130},{-92,158}},color={0,0,127}));
-  connect(parJunUse1.port_a2, pipEnd1.port_a)
-    annotation (Line(points={{44,160},{44,180}}, color={0,127,255}));
-  connect(pipEnd1.port_b, parJunUse1.port_b1)
-    annotation (Line(points={{56,180},{56,160}}, color={0,127,255}));
   connect(parJunUse1.port_c2, ideUse1.port_a) annotation (Line(points={{60,156},
           {80,156}},                          color={0,127,255}));
   connect(parJunUse1.port_c1, ideUse1.port_b) annotation (Line(points={{60,144},
@@ -331,10 +315,6 @@ equation
           {80,-4}},                     color={0,127,255}));
   connect(ideUse2.port_b,parJunUse2.port_c1)  annotation (Line(points={{80,-16},
           {60,-16}},                            color={0,127,255}));
-  connect(parJunUse3.port_a1, pipEnd2.port_a)
-    annotation (Line(points={{56,-180},{56,-200}}, color={0,127,255}));
-  connect(pipEnd2.port_b, parJunUse3.port_b2)
-    annotation (Line(points={{44,-200},{44,-180}}, color={0,127,255}));
   connect(parJunUse3.port_c2, ideUse3.port_a) annotation (Line(points={{60,-164},
           {80,-164}},                               color={0,127,255}));
   connect(ideUse3.port_b,parJunUse3.port_c1)  annotation (Line(points={{80,-176},
