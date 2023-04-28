@@ -56,12 +56,12 @@ partial model PartialCoil "Interface class for coil"
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare package Medium = MediumSou) if have_sou
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{30,-110},{40,-90}}),
+    annotation (Placement(transformation(extent={{30,-110},{50,-90}}),
         iconTransformation(extent={{40,-110},{60,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
     redeclare package Medium = MediumSou) if have_sou
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-30,-110},{-40,-90}}),
+    annotation (Placement(transformation(extent={{-30,-110},{-50,-90}}),
         iconTransformation(extent={{-40,-110},{-60,-90}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea if have_weaBus
     "Weather bus"
@@ -140,13 +140,11 @@ initial equation
       points={{-40,-240},{-40,-320}},
       color={0,0,0},
       thickness=5),
-    Line(
-          visible=typ <> Buildings.Templates.Components.Types.Coil.None,
+    Line( visible=typ <> Buildings.Templates.Components.Types.Coil.None,
           points={{-40,-160},{-40,-100}},
           color={0,0,0},
           thickness=5),
-    Line(
-          visible=typ <> Buildings.Templates.Components.Types.Coil.None and
+    Line( visible=typ <> Buildings.Templates.Components.Types.Coil.None and
               typVal == Buildings.Templates.Components.Types.Valve.None,
           points={{-40,-160},{-40,-240}},
           color={0,0,0},

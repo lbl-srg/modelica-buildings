@@ -96,40 +96,38 @@ or a terminal unit (refer to
 Buildings.Templates.UsersGuide.Conventions</a>
 for the definition of a system).
 A template is a self-contained model that can be reconfigured
-by redeclaring some of its components or modifying some of its
+by redeclaring some of its components or modifying some 
 structural parameters.
-Such configuration does not require any other modification
+Such configuration does not require any further modification
 of the template.
-Particularly, all connect clauses between
-replaceable components are resolved internally,
-without any need for user intervention.
-The same holds true for sensors required by a specific control
-option which are conditionally instantiated if that option is
-selected.
+In particular, all connect clauses between replaceable components 
+are resolved internally without user intervention.
+The same applies to sensors that are required for a specific control
+option and instantiated only when that option is selected.
 </p>
-<h4>Simulation model assembly</h4>
+<h4>Creation of a simulation model</h4>
 <p>
-There is currently no template representing a complete HVAC system,
-from the plant to the terminal unit.
-To build a simulation model representing a complete HVAC system,
-one needs to
+Currently, there is no template that represents a complete HVAC system
+from the plant to the zone equipment.
+In order to create a simulation model for a complete HVAC system,
+one must
 </p>
 <ol>
 <li>
-instantiate the templates (or any derived class representing a specific
-configuration) of the different subsystems (such as the CHW and HHW plants,
-the air handlers and the terminal units),
+instantiate the templates (or any derived class representing a particular
+configuration) of the different subsystems (e.g., the CHW and HHW plants,
+the air handlers and the terminal equipment),
 </li>
 <li>
-if needed, configure those instances to represent project-specific
-system configurations if those configurations differ from the default
+if necessary, configure these instances to represent project-specific
+system configurations if these configurations differ from the default
 configuration proposed for each template,
 </li>
 <li>
-connect the fluid connectors of the different instances together,
+connect the fluid ports of the different instances together,
 </li>
 <li>
-connect the signal buses of the different instances together,
+connect the signal busses of the different instances to each other,
 </li>
 <li>
 fill in the parameter records of the different instances with
@@ -138,16 +136,59 @@ proper design and operating parameter values.
 </ol>
 <p>
 When assembling a model for a complete HVAC system,
-it is the user's responsibility to ensure that the control
+the user must ensure that the control
 sequence selected for one subsystem is compatible
-with the one selected for another subsystem.
-For instance the AHU controller may require reset requests
-yielded by the zone equipment controller.
+with that selected for another subsystem.
+For example, the AHU controller may require reset requests
+that originate from the zone equipment controller.
 If the controller selected for the zone equipment does not
 generate such requests, the simulation model will be singular.
-Selecting controllers from the same reference&mdash;such as
-ASHRAE (2021)&mdash;is the safest way
-to ensure consistency across the whole HVAC system model.
+Selecting controllers from the same reference&mdash;e.g.,
+ASHRAE (2021)&mdash;is the safest way 
+to ensure consistency throughout the HVAC system model.
+</p>
+<h4>Model parameters</h4>
+<p>
+Each template contains an instance <code>dat</code> of a record class that 
+contains all design and operating parameters for parameterizing
+the subcomponents of the template.
+For example, the multiple-zone VAV template 
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.VAVMultiZone\">
+Buildings.Templates.AirHandlersFans.VAVMultiZone</a>
+contains an instance of the record class
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Data.VAVMultiZone\">
+Buildings.Templates.AirHandlersFans.Data.VAVMultiZone</a>
+which contains the parameters for configuring the heating coil component,
+as an instance of the record class  
+<a href=\"modelica://Buildings.Templates.Components.Data.Coil\">
+Buildings.Templates.Components.Data.Coil</a>.
+All design and operating parameters should be assigned through this record instance
+and are propagated down to each subcomponent.
+</p>
+<p>
+In addition to these parameters, the record class also contains the configuration
+parameters that define the system layout and control options.
+These configuration parameters are bound to the values that are assigned via
+the template's parameter dialog.
+In this way, only the set of parameters needed for the particular system layout 
+for which the template is configured is displayed in the parameter dialog.
+Note that these configuration parameters are disabled in the record class
+to avoid any modification by the user and preserve the bindings with the 
+template parameters.
+</p>
+<p>
+When creating a model for a complete HVAC system with multiple instances of 
+different templates, the class
+<a href=\"modelica://Buildings.Templates.Data.AllSystems\">
+Buildings.Templates.Data.AllSystems</a>.
+can be used at the top level of the model to assign all design and operating parameters.
+This class allows the use of Modelica outer components to retrieve the configuration 
+parameter values for each template instance based on the instance name.
+Thus, it is the avatar in the modeling environment of an HVAC project datasheet.
+The validation models within 
+<a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation\">
+Buildings.Templates.AirHandlersFans.Validation</a>
+illustrate the use of this class.
 </p>
 <h4>References</h4>
 <ul>
