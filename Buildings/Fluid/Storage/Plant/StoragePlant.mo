@@ -67,11 +67,13 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   Modelica.Blocks.Interfaces.RealInput yPum(final unit="1") annotation (
       Placement(transformation(rotation=0, extent={{-120,80},{-100,100}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare final package Medium =
-        Medium) annotation (Placement(transformation(rotation=0, extent={{90,30},
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(
+    redeclare final package Medium = Medium)
+    annotation (Placement(transformation(rotation=0, extent={{90,30},
             {110,50}}), iconTransformation(extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare final package Medium =
-        Medium) annotation (Placement(transformation(rotation=0, extent={{90,-70},
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+    redeclare final package Medium = Medium)
+    annotation (Placement(transformation(rotation=0, extent={{90,-70},
             {110,-50}}), iconTransformation(extent={{90,-70},{110,-50}})));
 equation
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-70},{70,-70},{70,
@@ -114,7 +116,81 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}),
+        fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-60,62},{100,58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-60,-58},{100,-62}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{-60,58},{-56,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Ellipse(
+          extent={{40,80},{80,40}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Polygon(
+          points={{80,60},{60,80},{60,40},{80,60}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-40,80},{0,40}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Polygon(
+          points={{0,60},{-20,80},{-20,40},{0,60}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-78,22},{-38,-18}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
+        Line(
+          points={{-62,22},{-74,-10}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{-54,22},{-42,-10}},
+          color={0,0,0},
+          thickness=0.5),
+        Rectangle(
+          extent={{18,58},{22,-58}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          lineColor={0,0,0}),
+        Rectangle(
+          extent={{0,22},{40,-18}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{6,16},{34,16}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{6,-12},{34,-12}},
+          color={0,0,0},
+          thickness=0.5)}),
         defaultComponentName="stoPla",
     Documentation(info="<html>
 <p>

@@ -270,7 +270,8 @@ equation
           extent={{20,-20},{60,-60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
         Polygon(
           points={{58,-40},{40,-20},{40,-60},{58,-40}},
           lineColor={0,0,0},
@@ -280,7 +281,8 @@ equation
           extent={{-60,-20},{-20,-60}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5),
         Polygon(
           points={{-22,-40},{-40,-20},{-40,-60},{-22,-40}},
           lineColor={0,0,0},
