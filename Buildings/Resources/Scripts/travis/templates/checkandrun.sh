@@ -28,7 +28,7 @@ done
 shift "$(( OPTIND - 1 ))"
 SIMULATOR=${1:-Dymola}
 
-CHECKSUM="$(find ./Buildings/Templates/. -type f -name *.mo -exec md5sum {} \; | sort -k 2 | md5sum | awk '{ print $1; }')"
+CHECKSUM="$(find ./Buildings/Templates/. -type f -name *.mo -exec md5sum {} \; | sort -k 2 | awk '{ print $1; }' | md5sum | awk '{ print $1; }')"
 echo $CHECKSUM > ./Buildings/Resources/Scripts/travis/templates/checksum
 
 # Diff / HEAD
