@@ -114,5 +114,32 @@ equation
         extent={{-100,-100},{100,100}},
         lineColor={0,0,127},
         fillColor={255,255,255},
-        fillPattern=FillPattern.Solid)}));
+        fillPattern=FillPattern.Solid)}),
+        defaultComponentName="stoPla",
+    Documentation(info="<html>
+<p>
+This model encompasses the components of the storage plant.
+It includes the chiller, the flow-controlled primary pump, the stratefied
+storage tank, and the reversible connection.
+</p>
+<ul>
+<li>
+When the plant produces CHW, the pump activates and the valve on the parallel
+branch is closed off.
+</li>
+<li>
+When the storage tank in the plant is being charged remotely by a chiller
+else where in the district system, the valve is open to throttle water
+from the district network to the tank.
+</li>
+</ul>
+</html>", revisions="<html>
+<ul>
+<li>
+April 28, 2023 by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2859\">#2859</a>.
+</li>
+</ul>
+</html>"));
 end StoragePlant;

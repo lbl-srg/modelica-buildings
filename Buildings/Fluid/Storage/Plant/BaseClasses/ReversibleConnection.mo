@@ -104,17 +104,6 @@ equation
 This model implements the reversible connection between the storage plant
 and the district network.
 </p>
-<ul>
-<li>
-When the plant produces CHW, the pump activates and the valve on the parallel
-branch is closed off.
-</li>
-<li>
-When the storage tank in the plant is being charged remotely by a chiller
-else where in the district system, the valve is open to throttle water
-from the district network to the tank.
-</li>
-</ul>
 </html>", revisions="<html>
 <ul>
 <li>
