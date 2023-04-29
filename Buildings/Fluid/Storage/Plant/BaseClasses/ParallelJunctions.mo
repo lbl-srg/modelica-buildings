@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
+within Buildings.Fluid.Storage.Plant.BaseClasses;
 model ParallelJunctions "A pair of junctions in parallel"
 
   replaceable package Medium =

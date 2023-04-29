@@ -66,7 +66,7 @@ model DualSource
         origin={-10,-130})));
 
 // Users
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse1(
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.6*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
@@ -76,7 +76,7 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,150})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse2(
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
@@ -86,7 +86,7 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,-10})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.IdealUser ideUse3(
+  Buildings.Fluid.Storage.Plant.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
@@ -135,8 +135,7 @@ model DualSource
         origin={130,-150})));
 
 // District pipe network
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
-    parJunUse1(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunUse1(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
@@ -145,8 +144,7 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={50,150})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
-    parJunPla1(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunPla1(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWS_nominal,
     T2_start=nom.T_CHWR_nominal)
@@ -155,8 +153,7 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={50,70})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
-    parJunUse2(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunUse2(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
@@ -165,8 +162,7 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={50,-10})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
-    parJunPla2(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunPla2(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWS_nominal,
     T2_start=nom.T_CHWR_nominal)
@@ -175,8 +171,7 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={50,-90})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelJunctions
-    parJunUse3(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunUse3(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
@@ -185,38 +180,34 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={50,-170})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS1U1(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS1U1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.15*dp_nominal)
-                               "Parallel pipes" annotation (Placement(
+    dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,110})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS1U2(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS1U2(
     redeclare package Medium = Medium,
     m_flow_nominal=2*m_flow_nominal,
-    dp_nominal=0.15*dp_nominal)
-                               "Parallel pipes" annotation (Placement(
+    dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,30})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS2U2(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS2U2(
     redeclare package Medium = Medium,
     m_flow_nominal=2*m_flow_nominal,
-    dp_nominal=0.15*dp_nominal)
-                               "Parallel pipes" annotation (Placement(
+    dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,-50})));
-  Buildings.Fluid.Storage.Plant.Examples.BaseClasses.ParallelPipes parPipS2U3(
+  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS2U3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.15*dp_nominal)
-                               "Parallel pipes" annotation (Placement(
+    dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,

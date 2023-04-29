@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Examples.BaseClasses;
+within Buildings.Fluid.Storage.Plant.BaseClasses;
 model IdealUser "Ideal user model"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
