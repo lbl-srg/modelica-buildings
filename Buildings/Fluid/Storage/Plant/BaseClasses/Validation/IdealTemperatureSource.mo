@@ -55,6 +55,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/BaseClasses/Validation/IdealTemperatureSource.mos"
         "Simulate and plot"),
+experiment(Tolerance=1e-06, StopTime=1),
    Documentation(info="<html>
 <p>
 This model validates
