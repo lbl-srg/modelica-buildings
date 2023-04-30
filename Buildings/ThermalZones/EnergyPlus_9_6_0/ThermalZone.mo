@@ -192,7 +192,7 @@ protected
   Modelica.Blocks.Sources.RealExpression pFlu(
     y=vol.medium.p)
     "Air pressure"
-    annotation (Placement(transformation(extent={{122,2},{142,22}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Utilities.Psychrometrics.Phi_pTX relHum
     "Relative humidity"
     annotation (Placement(transformation(extent={{156,12},{176,32}})));
@@ -215,7 +215,7 @@ equation
   connect(fmuZon.TRad,TRad)
     annotation (Line(points={{103,-44},{180,-44},{180,-40},{210,-40}},color={0,0,127}));
   connect(heaGai.QRad_flow,fmuZon.QGaiRad_flow)
-    annotation (Line(points={{-158,106},{74,106},{74,-58},{80,-58}},color={0,0,127}));
+    annotation (Line(points={{-158,106},{74,106},{74,-60},{80,-60}},color={0,0,127}));
   connect(QGaiSenLat_flow.u1,QConSen_flow.y)
     annotation (Line(points={{-82,46},{-90,46},{-90,62},{-99,62}},color={0,0,127}));
   connect(QGaiSenLat_flow.u2, QLat_flow.y) annotation (Line(points={{-82,34},{-90,
@@ -236,12 +236,12 @@ equation
     connect(ports[i],senMasFlo[i].port_a)
       annotation (Line(points={{0,-150},{0,-110}},color={0,127,255}));
     connect(fmuZon.m_flow[i],senMasFlo[i].m_flow)
-      annotation (Line(points={{80,-50},{30,-50},{30,-100},{11,-100}},color={0,0,127}));
+      annotation (Line(points={{80,-48},{30,-48},{30,-100},{11,-100}},color={0,0,127}));
     connect(senMasFlo[i].port_b,vol.ports[i])
       annotation (Line(points={{5.55112e-16,-90},{0,-90},{0,-52}},color={0,127,255}));
   end for;
   connect(fmuZon.TInlet,TAirIn.y)
-    annotation (Line(points={{80,-54},{64,-54},{64,-70},{61,-70}},color={0,0,127}));
+    annotation (Line(points={{80,-52},{64,-52},{64,-70},{61,-70}},color={0,0,127}));
   connect(TFlu.y,preTem.T)
     annotation (Line(points={{41,0},{50,0},{50,18},{-90,18},{-90,-10},{-82,-10}},color={0,0,127}));
   connect(heaFloSen.port_b,preTem.port)
@@ -249,13 +249,13 @@ equation
   connect(heaFloSen.port_a,heaPorAir)
     annotation (Line(points={{-20,-10},{-10,-10},{-10,0},{0,0}},color={191,0,0}));
   connect(TFlu.y,fmuZon.T)
-    annotation (Line(points={{41,0},{70,0},{70,-42},{80,-42}},color={0,0,127}));
+    annotation (Line(points={{41,0},{70,0},{70,-40},{80,-40}},color={0,0,127}));
   connect(TFlu.y,TAir)
     annotation (Line(points={{41,0},{210,0}},color={0,0,127}));
   connect(heaFloSen.Q_flow,vol.Q_flow)
     annotation (Line(points={{-30,-21},{-30,-36},{-12,-36}},color={0,0,127}));
   connect(vol.XiOut[1],fmuZon.X_w)
-    annotation (Line(points={{0,-31},{0,-24},{30,-24},{30,-46},{80,-46}},color={0,0,127}));
+    annotation (Line(points={{0,-31},{0,-24},{30,-24},{30,-44},{80,-44}},color={0,0,127}));
   connect(X_w.y,relHum.X_w)
     annotation (Line(points={{62,-22},{64,-22},{64,22},{155,22}},color={0,0,127}));
   connect(vol.mXiOut[1],X_w.u1)
@@ -265,7 +265,7 @@ equation
   connect(TFlu.y,relHum.T)
     annotation (Line(points={{41,0},{120,0},{120,30},{155,30}},color={0,0,127}));
   connect(pFlu.y,relHum.p)
-    annotation (Line(points={{143,12},{150,12},{150,14},{155,14}},color={0,0,127}));
+    annotation (Line(points={{41,40},{150,40},{150,14},{155,14}}, color={0,0,127}));
   connect(relHum.phi,phi)
     annotation (Line(points={{177,22},{192,22},{192,-120},{210,-120}},color={0,0,127}));
   connect(QPeaRep.y,CTot_flow.u2)
@@ -280,6 +280,8 @@ equation
           -52},{114,84},{-140,84},{-140,36},{-122,36}}, color={0,0,127}));
   connect(heaGai.QLat_flow, QLat_flow.u2) annotation (Line(points={{-158,94},{-144,
           94},{-144,24},{-122,24}}, color={0,0,127}));
+  connect(pFlu.y, fmuZon.p) annotation (Line(points={{41,40},{68,40},{68,-56},{80,
+          -56}}, color={0,0,127}));
   annotation (
     defaultComponentName="zon",
     Icon(
@@ -448,6 +450,12 @@ by people.)
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 30, 2023, by Michael Wetter:<br/>
+Added check for air pressure to be within reasonable limits.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3319\">#3319</a>.
+</li>
 <li>
 November 22, 2019, by Michael Wetter:<br/>
 Replaced volume with dynamic balance.<br/>
