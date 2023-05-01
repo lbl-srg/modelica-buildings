@@ -182,6 +182,7 @@ Buildings/BoundaryConditions/WeatherData/BaseClasses/LimiterTotalSkyCover.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/LimiterWindDirection.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/LimiterWindSpeed.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/LocalCivilTime.mo
+Buildings/BoundaryConditions/WeatherData/BaseClasses/PartialConvertTime.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/PartialLimiter.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/PartialLimiterMin.mo
 Buildings/BoundaryConditions/WeatherData/BaseClasses/SolarTime.mo
