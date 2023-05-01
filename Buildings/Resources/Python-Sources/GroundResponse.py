@@ -118,8 +118,8 @@ def doStep(dblInp, state):
             # tough_avatar(Q_toTough, T_out)
 
             # Extract borehole wall temperature
-            os.system("./readsave < readsave.inp > out.txt")
-            # readsave()
+            # os.system("./readsave < readsave.inp > out.txt")
+            readsave()
             data = extract_data('out.txt')
             T_tough = data['T_Bor']
             # Output to Modelica simulation
@@ -586,8 +586,8 @@ def readsave():
             recordLine = count + 1
             continue
         if (recordLine == count):
-            i1 = lineSave[0:4]
-            i2 = lineSave[4:8]
+            i1 = lineSave[0:5]
+            i2 = lineSave[5:10]
             tfinal = lineSave[30:]
     fsave.close()
     # write the data to output file out.txt
