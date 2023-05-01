@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "chiBra.m_flow",
-    "tanBra.mTan_flow",
-    "netCon.pumSup.m_flow",
-    "ideUse.yVal_actual"
-  };
