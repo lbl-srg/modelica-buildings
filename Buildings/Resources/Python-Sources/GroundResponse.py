@@ -112,14 +112,14 @@ def doStep(dblInp, state):
             #   -- the INFILE for specifying the ground properties and the initial and end simulation time,
             #   -- the GENER file for the heat flux bounday condition at the borehole wall
             # The simulation will generate a SAVE file.
-            # os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
+            os.system("/opt/esd-tough/tough3-serial/tough3-install/bin/tough3-eos3")
             # Dummy code to imitate the TOUGH simulation. It is to demonstrate the
             # Modelica-TOUGH coupling process
-            tough_avatar(Q_toTough, T_out)
+            # tough_avatar(Q_toTough, T_out)
 
             # Extract borehole wall temperature
-            # os.system("./readsave < readsave.inp > out.txt")
-            readsave()
+            os.system("./readsave < readsave.inp > out.txt")
+            # readsave()
             data = extract_data('out.txt')
             T_tough = data['T_Bor']
             # Output to Modelica simulation
@@ -482,18 +482,25 @@ def write_incon():
         if '+++' in saveLine:
             break
         count += 1
-        if (count > 1 and count <= 1 + 2*nModGri):
+        if count == 1:
+            fincon.write(saveLine)
+        else:
             if (count % 2 == 0):
                 fincon.write(saveLine)
-                gridInd.append(saveLine[0:5])
+                if (count <= 1 + 2*nModGri):
+                    gridInd.append(saveLine[0:5])
             else:
-                # find the last space
-                spaceIndex = saveLine.rfind(' ')
-                borTemp = '%20.12e' % T_Bor[int(count/2)-1]
-                newLine = saveLine[0:spaceIndex] + borTemp
+                eleInd = saveLine.split(' ')
+                eleIndNoEmp = ' '.join(eleInd).split()
+                borTemp = fortranstyle('%20.12e' % (float(eleIndNoEmp[2]))) 
+                if (count <= 1 + 2*nModGri):
+                    borTemp = fortranstyle('%20.12e' % T_Bor[int(count/2)-1])
+                if (count == 1 + 2*nModGri + 2):
+                    borTemp = fortranstyle('%20.12e' % T_sur)
+                newLine = fortranstyle('%20.12e' % (float(eleIndNoEmp[0]))) \
+                            + fortranstyle('%20.12e' % (float(eleIndNoEmp[1]))) \
+                            + borTemp
                 fincon.write(newLine + os.linesep)
-        else:
-            fincon.write(saveLine)
     fsave.close()
     fincon.write(' '*5 + os.linesep)
     fincon.write('INCON updated from SAVE with Modelica T and t')
@@ -503,9 +510,10 @@ def write_incon():
     fgener.write('GENER' + os.linesep)
     for i in range(nModGri):
         if (abs(Q_Bor[i]) <= 99999.999 and abs(Q_Bor[i]) >= 0.1):
-            fgener.write(gridInd[i] + 'sou' + '%2d' % i + ' '*25 + 'HEAT' + '%10.3f' % Q_Bor[i] + os.linesep)
+            fgener.write(gridInd[i] + 'sou' + '%2d' % (i+1) + ' '*25 + 'HEAT' + ' ' + '%10.3f' % Q_Bor[i] + os.linesep)
         else:
-            fgener.write(gridInd[i] + 'sou' + '%2d' % i + ' '*25 + 'HEAT' + '%10.3e' % Q_Bor[i] + os.linesep)
+            fgener.write(gridInd[i] + 'sou' + '%2d' % (i+1) + ' '*25 + 'HEAT' + ' ' + ('%10.3e' % Q_Bor[i]).replace('e', 'E') + os.linesep)
+            # fgener.write(gridInd[i] + 'sou' + '%2d' % (i+1) + ' '*25 + 'HEAT' + ' ' + '%10.3e' % Q_Bor[i] + os.linesep)
     fgener.write(' '*5)
     fgener.close()
 
@@ -523,12 +531,19 @@ def write_incon():
         if (infileLine[0:5] == 'PARAM'):
             paramSec = count + 2
         if (paramSec == count):
-            fnewInFile.write('%10.0f%10.0f%10.4f' % (t_init, t_final, stepSize) + infileLine[30:] + os.linesep)
+            # fnewInFile.write('%10.0f%10.0f%10.4f' % (t_init, t_final, stepSize) + infileLine[30:])
+            fnewInFile.write(fortranFloat(t_init) + fortranFloat(t_final) + '%10.4f' % stepSize + infileLine[30:])
         else:
             fnewInFile.write(infileLine)
     finFile.close()
     fnewInFile.close()
-    
+
+def fortranFloat(val):
+    tempVal = '%10.0f' % val
+    if '.' in tempVal:
+        return tempVal
+    else:
+        return tempVal[1:]+'.'
 
 def readsave():
     freadsave = open('readsave.inp')
@@ -580,6 +595,57 @@ def readsave():
         fout.write('%12.5f' % T_Bor[i] + os.linesep)
     fout.write(' Surface T=' + '%12.5f' % T_amb + os.linesep)
     for i in range(nIntPoi):
-        fout.write(intEle[i] + ' '*5 + '%20.12e'%p_int[i] + ' '*5 + '%20.12e'%x_int[i] + ' '*5 + '%20.12e'%T_int[i] + os.linesep)
+        fout.write(intEle[i] + ' '*5 + fortranstyle('%20.12e'%p_int[i]) \
+                   + ' '*5 + fortranstyle('%20.12e'%x_int[i]) \
+                   + ' '*5 + fortranstyle('%20.12e'%T_int[i]) + os.linesep)
+        # fout.write(intEle[i] + ' '*5 + '%20.12e'%p_int[i] \
+        #            + ' '*5 + '%20.12e'%x_int[i] \
+        #            + ' '*5 + '%20.12e'%T_int[i] + os.linesep)
     fout.write(' Number steps' + i1 + ' Number iterations ' + i2 + ' Final time' + tfinal)
     fout.close()
+
+def fortranstyle(sciFor):
+    totalLen = len(sciFor)
+    lastSpe = sciFor.rfind(' ')
+    value = sciFor
+    if (lastSpe) >= 0:
+        value = sciFor[lastSpe+1:]
+    if value[0] == '0' or value[0:1] == '-0':
+        return sciFor
+    else:
+        minus = ''
+        posVal = value
+        if (value[0]) == '-':
+            minus = '-'
+            posVal = value[1:]
+        # find the position index of 'E'
+        exp = posVal.find('e')
+        # find the value before the 'E'
+        leadValue = posVal[:exp]
+        # log the total length
+        valueLen = len(leadValue)
+        # remove decimal point
+        pureNum = leadValue.replace('.', '')
+        # find the new value
+        newVal = str(int(pureNum) + 5)[:(valueLen-2)]
+        # after 'E'
+        expPar = posVal[exp+2:]
+        newExpPar = (int(expPar) + 1) if (posVal[exp+1] == '+') else (int(expPar) - 1)
+        tempStr = str(newExpPar)
+        newExpStr = expPar
+        if (len(tempStr) != len(expPar)):
+            newExpStr = '0' + tempStr
+        else:
+            newExpStr = tempStr
+        newValStr = minus + '0.' + newVal + 'D' + posVal[exp+1:exp+2] + newExpStr
+        newStrLen = len(newValStr)
+        
+        return sciFor[:(totalLen - newStrLen)] + newValStr
+        
+
+
+# def flag_working_directory(flag):
+#     import tempfile
+#     import getpass
+#     worDir = tempfile.mkdtemp(prefix=flag+'-' + getpass.getuser())
+#     return worDir
