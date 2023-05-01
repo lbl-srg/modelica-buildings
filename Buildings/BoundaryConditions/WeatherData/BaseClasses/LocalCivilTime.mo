@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block LocalCivilTime "Converts the clock time to local civil time."
-  extends Modelica.Blocks.Icons.Block;
+  extends PartialConvertTime;
   Modelica.Blocks.Interfaces.RealInput cloTim(
     final quantity="Time",
     final unit="s") "Clock time"
@@ -15,7 +15,8 @@ protected
   final parameter Modelica.Units.SI.Time diff=-timZon + lon*43200/Modelica.Constants.pi
     "Difference between local and clock time";
 equation
-  locTim = cloTim + diff;
+  modTimAux = cloTim;
+  locTim = calTimAux + diff;
 
   annotation (
     defaultComponentName="locTim",
@@ -33,6 +34,11 @@ The formula is based on Michael Wetter's thesis (A4.1):
 </pre>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2023, by Ettore Zanetti:<br/>
+Updated to use partial class for conversion from simulation time to calendar time.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA #1716</a>.
+</li>
 <li>
 November 14, 2015, by Michael Wetter:<br/>
 Introduced <code>diff</code>.
