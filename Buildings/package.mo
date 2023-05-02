@@ -310,7 +310,6 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">
         Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp<br/>
         Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow<br/>
-        Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
         Buildings.Fluid.Movers.Preconfigured.Validation.ControlledFlowMachinePreconfigured
     </td>
@@ -497,7 +496,6 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Buildings.Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
@@ -507,9 +505,7 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Buildings.Fluid.Movers.SpeedControlled_y<br/>
-                         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
                          Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
                          Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
     </td>
@@ -544,7 +540,6 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
                          Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
@@ -576,7 +571,6 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
                          Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
@@ -859,7 +853,6 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                        Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
                        Buildings.Fluid.Movers.SpeedControlled_y<br/>
                        Buildings.Fluid.Movers.Data.Generic<br/>
                        Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>
