@@ -18,11 +18,11 @@ model SingleSpeedHeating "Test model for single speed DX heating coil"
     minSpeRat=0.2,
     sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
-        is_CooCoi=false,
+        is_cooCoi=false,
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          is_CooCoi=false,
+          is_cooCoi=false,
           Q_flow_nominal=16381.47714,
           COP_nominal=3.90494,
           SHR_nominal=1,
