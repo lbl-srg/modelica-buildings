@@ -784,7 +784,7 @@ the transient response of the control.
 When changing the value of <code>use_inputFilter</code>, the control gains
 may need to be retuned.
 We now present values control parameters that seem to work in most cases.
-Suppose there is a closed loop control with a PI-contr" + "oller
+Suppose there is a closed loop control with a PI-controller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
 and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.
