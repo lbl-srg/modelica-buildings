@@ -28,6 +28,9 @@ done
 shift "$(( OPTIND - 1 ))"
 SIMULATOR=${1:-Dymola}
 
+DEBUG="$(find ./Buildings/Templates/. -type f -name *.mo -exec md5sum {} \; | sort -k 2)"
+echo $DEBUG
+
 CHECKSUM="$(find ./Buildings/Templates/. -type f -name *.mo -exec md5sum {} \; | sort -k 2 | awk '{ print $1; }' | md5sum | awk '{ print $1; }')"
 echo $CHECKSUM > ./Buildings/Resources/Scripts/travis/templates/checksum
 
