@@ -219,12 +219,12 @@ and inherits all the parameters of the latter. However, through the parameter
 <code>controllerType</code>, the controller can only be configured as PI or
 PID controller.
 </p>
-<h4>Breif guidance</h4>
+<h4>Brief guidance</h4>
 <p>
 To use this block, connect it to the control loop. 
 It will start the PID tuning process once the simulation starts.
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
-The PID tuning process will ends automatically based on the algorithm defined
+The PID tuning process will end automatically based on the algorithm defined
 in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
 Starting from then, the control loop is controlled by a PI or PID controller.
@@ -235,7 +235,8 @@ Note that the output of this block is limited from 0 to 1.
 <h4>References</h4>
 <p>
 J. Berner (2017).
-<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
 Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>

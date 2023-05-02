@@ -93,7 +93,7 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example is to compare the output of a PID controller (<code>PIDWitTun</code>)
+This example compares the output of a PID controller (<code>PIDWitTun</code>)
 with an autotuning feature to that of another PID controller (<code>PID</code>)
 with arbitary gains.
 </p>
