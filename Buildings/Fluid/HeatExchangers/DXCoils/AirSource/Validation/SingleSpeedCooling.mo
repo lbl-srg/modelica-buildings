@@ -396,8 +396,8 @@ equation
     Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</a>.
 </p>
 <p>
 The difference in results of

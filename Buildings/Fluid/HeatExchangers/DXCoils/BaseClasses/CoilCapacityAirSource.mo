@@ -30,7 +30,8 @@ equation
 <p>
 This model calculates cooling capacity and EIR for air source DX coils in off-designed conditions based on
 performance modifers calculated in partial model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity</a>.
 </p>
 <h4>Cooling capacity</h4>
 <p>

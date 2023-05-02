@@ -141,7 +141,8 @@ if stage > 0 then
 </p>
 <p>
   where the six coefficients are obtained from the coil performance data record.
-  See <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity\">Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoolingCapacity</a> for more information.
+  See <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity\">
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity</a> for more information.
 </p>
 </html>",
 revisions="<html>

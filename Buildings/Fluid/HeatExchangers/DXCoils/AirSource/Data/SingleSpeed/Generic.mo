@@ -11,8 +11,8 @@ record Generic "Generic data record for SingleSpeed DXCoils"
 <p>
 This record is used as a template for performance data
 for SingleSpeed DX cooling coils in
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed</a>.
+<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</a>.
 </p>
 </html>",
         revisions="<html>

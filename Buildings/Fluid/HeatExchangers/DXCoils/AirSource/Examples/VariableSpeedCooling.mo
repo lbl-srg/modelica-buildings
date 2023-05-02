@@ -153,8 +153,8 @@ equation
             Documentation(info="<html>
 <p>
 This is a test model for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a>.
 The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
