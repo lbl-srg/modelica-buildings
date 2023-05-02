@@ -199,7 +199,11 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
-
+<p>
+See <a href=\"modelica://Buildings.Fluid.Movers.Validation.PressureCurve\">
+Buildings.Fluid.Movers.Validation.PressureCurve</a>
+for a small example that validates the pressure curve specification.
+</p>
 <h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
@@ -780,7 +784,7 @@ the transient response of the control.
 When changing the value of <code>use_inputFilter</code>, the control gains
 may need to be retuned.
 We now present values control parameters that seem to work in most cases.
-Suppose there is a closed loop control with a PI-controller
+Suppose there is a closed loop control with a PI-contr" + "oller
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
 Buildings.Controls.Continuous.LimPID</a>
 and a fan or pump, configured with <code>use_inputFilter=true</code> and <code>riseTime=30</code> seconds.

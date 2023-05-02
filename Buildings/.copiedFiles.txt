@@ -1132,6 +1132,7 @@ Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Validation/PowerEuler.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
+Buildings/Fluid/Movers/Validation/PressureCurve.mo
 Buildings/Fluid/Movers/Validation/PumpCurveConstruction.mo
 Buildings/Fluid/Movers/Validation/PumpCurveDerivatives.mo
 Buildings/Fluid/Movers/Validation/Pump_stratos.mo
@@ -1565,6 +1566,7 @@ Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png
 Buildings/Resources/Images/Utilities/Math/Functions/SmoothExponentialXPower.png
 Buildings/Resources/Images/Utilities/Math/int.pdf
 Buildings/Resources/Images/Utilities/Math/int.png
+Buildings/Resources/ReferenceResults/Dymola/Buildings_Fluid_Movers_Validation_PressureCurve.txt
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/Interpolate.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLaw.mos
 Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos
@@ -1949,6 +1951,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerEuler.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PressureCurve.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_stratos.mos
