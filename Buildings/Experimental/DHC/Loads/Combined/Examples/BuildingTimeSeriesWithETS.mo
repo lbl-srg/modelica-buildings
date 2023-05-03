@@ -76,9 +76,7 @@ equation
       file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
     experiment(
       StopTime=864000,
-      Interval=599.999616,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     Documentation(info="<html>
 <p>
 Example model of a building with loads provided as time series for heat 
