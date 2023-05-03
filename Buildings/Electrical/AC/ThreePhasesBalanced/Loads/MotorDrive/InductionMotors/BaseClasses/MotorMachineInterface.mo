@@ -3,7 +3,6 @@ model MotorMachineInterface
   "Calculates the electromagnetic torque based on voltage and frequency"
 
   parameter Integer pole=2 "Number of pole pairs";
-  parameter Integer n=3 "Number of phases";
   parameter Modelica.Units.SI.Resistance R_s=0.013 "Electric resistance of stator";
   parameter Modelica.Units.SI.Resistance R_r=0.009 "Electric resistance of rotor";
   parameter Modelica.Units.SI.Reactance X_s=0.14 "Complex component of the impedance of stator";
@@ -61,13 +60,13 @@ protected
 equation
   // check if omega_s > 0 with hysteresis
   y_internal = noEvent(not pre(y_internal) and omega_s > omegaHys
-                        or pre(y_internal) and omega >= (omegaHys-0.5*omegaHys));
+                        or pre(y_internal) and omega_s >= (omegaHys-0.5*omegaHys));
 
   omega_s = 4*Modelica.Constants.pi*f/pole;
   s = if y_internal then 1-omega_r/omega_s else 0;
   ratio = X_m/(X_m+X_s);
   tau_e = if y_internal
-  then n*R_r*s*(V_rms*ratio)^2/(omega_s*(((s*R_s*ratio^2+R_r)^2)+s^2*(X_s+X_r)^2))
+  then 3*R_r*s*(V_rms*ratio)^2/(omega_s*(((s*R_s*ratio^2+R_r)^2)+s^2*(X_s+X_r)^2))
   else 0;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true), graphics={
