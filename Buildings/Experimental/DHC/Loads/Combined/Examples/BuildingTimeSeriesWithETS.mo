@@ -73,22 +73,22 @@ equation
         coordinateSystem(
         preserveAspectRatio=false)),
     __Dymola_Commands(
-      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Cooling/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
+      file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Loads/Combined/Examples/BuildingTimeSeriesWithETS.mos" "Simulate and plot"),
     experiment(
-      StopTime=31536000,
+      StopTime=864000,
       Interval=599.999616,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"),
     Documentation(info="<html>
 <p>
-This model provides an example for a building with loads provided
-as time series and connected to a direct ETS for cooling with the
-return chilled water temperature controlled above a minimum threshold.
+Example model of a building with loads provided as time series for heat 
+pump space heating, heat pump domestic hot water heating,
+and free cooling in an ambient district network.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-March 20, 2022, by Chengnan Shi:<br/>
+May 3, 2023, by David Blum:<br/>
 First implementation.
 </li>
 </ul>
