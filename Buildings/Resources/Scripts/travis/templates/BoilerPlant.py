@@ -28,7 +28,6 @@ import sys
 # For CPU- and I/O-heavy jobs, we prefer multiprocessing.Pool because it provides better process isolation.
 from multiprocessing import Pool
 
-import numpy as np
 import pandas as pd
 
 try:
