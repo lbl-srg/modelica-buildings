@@ -128,9 +128,6 @@ model HeatPump "Motor coupled heat pump"
     annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
         iconTransformation(extent={{100,-40},{120,-20}})));
 
-initial equation
-  assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be negative.");
-
 protected
   constant Boolean COP_is_for_cooling = false
     "Set to true if the specified COP is for cooling";
