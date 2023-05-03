@@ -102,11 +102,11 @@ env:
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - if [[ "$TEST_ARG" == *test-dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
+  - if [[ "$TEST_ARG" == *test-*dymola* || "$TEST_ARG" == *test-bestest* || "$TEST_ARG" == *spawn-portability* ]]; then
        docker pull "$DOCKER_USERNAME"/${DYMOLA_VERSION};
        cp Buildings/Resources/Scripts/travis/dymola/dymola $HOME/bin/;
     fi;
-  - if [[ "$TEST_ARG" == *test-optimica* ]]; then
+  - if [[ "$TEST_ARG" == *test-*optimica* ]]; then
        docker pull "$DOCKER_USERNAME"/${OPTIMICA_VERSION};
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
@@ -127,7 +127,7 @@ before_install:
       cd -;
       echo "Installed modelica-json in ${MODELICA_JSON_HOME}";
     fi;
-  - if [[ "$TEST_ARG" == *test-openmodelica* ]]; then
+  - if [[ "$TEST_ARG" == *test-*openmodelica* ]]; then
        docker pull "$DOCKER_USERNAME"/${OMC_VERSION};
        cp Buildings/Resources/Scripts/travis/omc/omc $HOME/bin/omc;
     fi;
