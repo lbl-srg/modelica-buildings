@@ -59,7 +59,7 @@ protected
 
 equation
   // check if omega_s > 0 with hysteresis
-  y_internal = noEvent(not pre(y_internal) and omega_s > omegaHys
+  y_internal = (not pre(y_internal) and omega_s > omegaHys
                         or pre(y_internal) and omega_s >= (omegaHys-0.5*omegaHys));
 
   omega_s = 4*Modelica.Constants.pi*f/pole;
