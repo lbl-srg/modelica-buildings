@@ -5,7 +5,6 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
     redeclare replaceable Interfaces.Terminal_n terminal);
 
   parameter Integer pole=4 "Number of pole pairs";
-  parameter Integer n=3 "Number of phases";
   parameter Modelica.Units.SI.Inertia J(min=0)=2
     "Moment of inertia";
   parameter Modelica.Units.SI.Resistance R_s=0.641
@@ -51,7 +50,6 @@ model SquirrelCage "Squirrel cage type induction motor with electrical interface
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(
-    final n=n,
     final pole=pole,
     final R_s=R_s,
     final R_r=R_r,
@@ -100,8 +98,8 @@ equation
   Req = R_s + R_r*s*X_m^2/(R_r^2+(s^2)*(X_r+X_m)^2);
   Xeq = X_s + X_m*(R_r^2+(s*X_r)^2+(s^2)*X_r*X_m)/(R_r^2+(s^2)*(X_r+X_m)^2);
 
-  P = if noEvent(torSpe.omega_s>0) then n*v_rms^2*Req/(Req^2+Xeq^2) else 0;
-  Q = if noEvent(torSpe.omega_s>0) then n*v_rms^2*Xeq/(Req^2+Xeq^2) else 0;
+  P = if noEvent(torSpe.omega_s>0) then 3*v_rms^2*Req/(Req^2+Xeq^2) else 0;
+  Q = if noEvent(torSpe.omega_s>0) then 3*v_rms^2*Xeq/(Req^2+Xeq^2) else 0;
 
   // Equations to calculate current
   i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
