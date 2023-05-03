@@ -93,7 +93,7 @@ protected
     final k=1) "Current chiller stage"
     annotation (Placement(transformation(extent={{-420,180},{-400,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq3(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=9e5,
@@ -131,7 +131,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-200,180},{-180,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq1(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=14e5,
@@ -154,7 +154,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{20,180},{40,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq2(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=19e5,
@@ -176,7 +176,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{260,180},{280,200}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq4(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq4(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=5e5,
@@ -199,7 +199,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-420,-310},{-400,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq5(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq5(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=9e5,
@@ -236,7 +236,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{-200,-310},{-180,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq6(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq6(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=14e5,
@@ -259,7 +259,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq7(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq7(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=19e5,
@@ -282,7 +282,7 @@ protected
     "Current chiller stage"
     annotation (Placement(transformation(extent={{260,-310},{280,-290}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine capReq8(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin capReq8(
     final amplitude=6e5,
     final freqHz=1/1800,
     final offset=5e5,

@@ -44,20 +44,20 @@ protected
     final k=65*6895) "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TCWSup(
     final amplitude=3,
     final freqHz=1/3600,
     final offset=273.15 + 16) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpChiWat(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin dpChiWat(
     final amplitude=6895,
     final startTime=300,
     final freqHz=1/1200,
     final offset=63*6895) "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine Ope(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin Ope(
     final phase(displayUnit="rad"),
     final startTime=0,
     final offset=0.85,
@@ -79,14 +79,14 @@ protected
    "Chilled water differential pressure setpoint"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TCWSup1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TCWSup1(
     final amplitude=3,
     final offset=273.15 + 15.5,
     final freqHz=1/3600)
                         "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpChiWat1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin dpChiWat1(
     final amplitude=6895,
     phase=-0.78539816339745,
     final startTime=300,
@@ -94,7 +94,7 @@ protected
     final offset=63*6895) "Chilled water differential pressure"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine Ope1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin Ope1(
     final amplitude=0.1,
     final phase(displayUnit="rad"),
     final startTime=0,

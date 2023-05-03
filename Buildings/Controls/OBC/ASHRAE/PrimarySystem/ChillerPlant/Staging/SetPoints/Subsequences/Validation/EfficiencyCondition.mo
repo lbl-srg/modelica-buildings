@@ -7,7 +7,7 @@ model EfficiencyCondition "Validate efficiency condition sequence"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine oplr(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin oplr(
     final amplitude=0.1,
     final phase(displayUnit="rad"),
     final startTime=0,

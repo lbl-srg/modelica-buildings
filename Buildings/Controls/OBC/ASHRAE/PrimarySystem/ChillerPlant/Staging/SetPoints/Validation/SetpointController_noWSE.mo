@@ -60,14 +60,14 @@ protected
     "False hold to visualize the stage change initiation"
     annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,140},{-180,160}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)
@@ -104,14 +104,14 @@ protected
     final delayOnInit=true) "True delay"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet1(
     final amplitude=7,
     final offset=273.15 + 15,
     final freqHz=1/21600)
     "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-200,-100},{-180,-80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow1(
     final offset=0,
     final freqHz=1/21600,
     final amplitude=0.037)

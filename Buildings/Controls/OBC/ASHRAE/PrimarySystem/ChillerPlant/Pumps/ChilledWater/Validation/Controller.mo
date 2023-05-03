@@ -31,17 +31,17 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=true)
     "Constant true"
     annotation (Placement(transformation(extent={{-20,130},{0,150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlo(
     final amplitude=0.25,
     final freqHz=1/3600,
     final offset=0.25) "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen1(
     final offset=8.4*6894.75,
     final freqHz=1/3600,
     final amplitude=0.2*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen2(
     final offset=8.5*6894.75,
     final freqHz=1/3600,
     final startTime=2,
@@ -51,7 +51,7 @@ protected
     final k=8.5*6894.75)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine locPreSen(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin locPreSen(
     final offset=8.5*6894.75,
     final freqHz=1/3600,
     final startTime=2,

@@ -6,7 +6,7 @@ model LessCoupled
     lesCouTowSpe
     "Tower fan speed control based on the condenser water return temperature control for close coupled plants"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conRet(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 32) "Condenser water return temperature"
@@ -41,7 +41,7 @@ model LessCoupled
     final duration=3600,
     final offset=0.9) "Maximum tower speed reset based on the partial load"
     annotation (Placement(transformation(extent={{50,-140},{70,-120}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conSup(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 29) "Condenser water supply temperature"

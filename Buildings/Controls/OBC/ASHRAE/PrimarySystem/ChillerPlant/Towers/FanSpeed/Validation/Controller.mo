@@ -25,7 +25,7 @@ protected
     final duration=3600,
     final offset=1e5) "Real operating chiller plant capacity"
     annotation (Placement(transformation(extent={{-360,10},{-340,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conSup(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 29) "Condenser water supply temperature"
@@ -42,7 +42,7 @@ protected
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-200},{-340,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conRet2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conRet2(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 28) "Condenser water return temperature"
@@ -90,13 +90,13 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(final k=0)
     "Zero constant"
     annotation (Placement(transformation(extent={{-360,240},{-340,260}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=0.2*1e4,
     final freqHz=1/1200,
     final offset=1.1*1e4,
     final startTime=180) "Chiller load"
     annotation (Placement(transformation(extent={{-360,280},{-340,300}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiSup(
     final amplitude=0.5,
     final freqHz=1/1800,
     final offset=273.15 + 7.1) "Chilled water supply temperature"

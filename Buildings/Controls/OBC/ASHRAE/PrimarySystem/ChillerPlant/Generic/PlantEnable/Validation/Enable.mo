@@ -58,7 +58,7 @@ protected
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTem1(
     final amplitude=7.5,
     final freqHz=1/(24*3600),
     final offset=280.15) "Outdoor temperature"

@@ -23,12 +23,12 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(final k=false)
     "Constant false"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=0.25,
     final freqHz=1/3600,
     final offset=0.25) "Measured chilled water flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
     final freqHz=1/3600) "Generate sine wave"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 

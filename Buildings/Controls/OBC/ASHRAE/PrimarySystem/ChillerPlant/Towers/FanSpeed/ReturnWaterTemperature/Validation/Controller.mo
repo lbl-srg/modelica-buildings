@@ -30,7 +30,7 @@ protected
     final duration=3600,
     final offset=1e5) "Real operating chiller plant capacity"
     annotation (Placement(transformation(extent={{-360,20},{-340,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conSup(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 29) "Condenser water supply temperature"
@@ -47,7 +47,7 @@ protected
     final duration=3600,
     final startTime=1500) "Ramp"
     annotation (Placement(transformation(extent={{-360,-200},{-340,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conRet2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conRet2(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 28) "Condenser water return temperature"

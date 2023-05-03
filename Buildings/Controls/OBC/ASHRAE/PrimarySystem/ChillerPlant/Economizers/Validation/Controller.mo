@@ -22,7 +22,7 @@ model Controller
     "Waterside economizer enable status sequence"
     annotation (Placement(transformation(extent={{240,40},{260,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine dpWSE(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin dpWSE(
     final amplitude=3000,
     freqHz=1/3600,
     final offset=4500)
@@ -100,7 +100,7 @@ protected
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-150,70},{-130,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRetDow1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRetDow1(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)
@@ -128,7 +128,7 @@ protected
     "Chilled water return temperature upstream of WSE"
     annotation (Placement(transformation(extent={{-30,70},{-10,90}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRetDow3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRetDow3(
     final offset=TWseOut,
     final freqHz=1/1800,
     final amplitude=4)

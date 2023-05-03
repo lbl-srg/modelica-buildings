@@ -17,18 +17,18 @@ protected
     final k=8.5*6894.75)
     "Pressure difference setpoint"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen1(
     final offset=8.5*6894.75,
     final freqHz=1/10,
     final amplitude=1.5*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine remPreSen2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin remPreSen2(
     final offset=8.5*6894.75,
     final freqHz=1/10,
     final startTime=2,
     final amplitude=1*6894.75) "Remote pressure difference sensor reading"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine locPreSen(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin locPreSen(
     final freqHz=1/5,
     final amplitude=1*6894.75,
     final offset=8.5*6894.75)  "Local pressure difference sensor reading"

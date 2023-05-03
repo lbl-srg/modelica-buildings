@@ -36,13 +36,13 @@ protected
     final k=TChiWatSupSet) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-140,10},{-120,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
@@ -56,13 +56,13 @@ protected
     final k=TChiWatSupSet) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet1(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow1(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"
@@ -78,13 +78,13 @@ protected
     final k= TChiWatSupSet) "Chilled water supply temperature"
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatRet2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatRet2(
     final amplitude=2,
     final freqHz=1/300,
     final offset=aveTChiWatRet) "Chilled water return temeprature"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine chiWatFlow2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin chiWatFlow2(
     final freqHz=1/600,
     final offset=aveVChiWat_flow,
     final amplitude=0.01) "Chilled water flow"

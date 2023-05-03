@@ -23,12 +23,12 @@ protected
     final period=5,
     final shift=0.5) "Head pressure control enabling status"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TConWatRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TConWatRet(
     final amplitude=-11,
     final freqHz=2/10,
     final offset=273.15 + 27) "Measured condenser water return temperature"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TChiWatSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TChiWatSup(
     final amplitude=1,
     final freqHz=1/5,
     final offset=273.15 + 6) "Measured chilled water supply temperature"

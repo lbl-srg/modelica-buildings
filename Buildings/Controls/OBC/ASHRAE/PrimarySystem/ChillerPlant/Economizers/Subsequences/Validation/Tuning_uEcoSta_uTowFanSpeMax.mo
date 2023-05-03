@@ -65,7 +65,7 @@ protected
     "Water side economizer enable/disable status"
     annotation (Placement(transformation(extent={{20,200},{40,220}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooTowFanSta1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooTowFanSta1(
     final amplitude=0.2,
     final offset=1.1,
     final freqHz=1/(80*60),

@@ -9,7 +9,7 @@ model WaterLevel
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine watLev(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin watLev(
     final amplitude=1,
     final freqHz=1/7200,
     final offset=0.3) "Measured water level"

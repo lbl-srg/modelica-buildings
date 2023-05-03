@@ -16,7 +16,7 @@ protected
     "Lowest chiller stage that is available "
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTemHot(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTemHot(
     final amplitude=8,
     final freqHz=1/(24*3600),
     final phase=-1.5707963267949,
@@ -24,7 +24,7 @@ protected
     "Measured outdoor air wet bulb temperature on a hot day"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTemCol(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTemCol(
     final amplitude=8,
     final freqHz=1/(24*3600),
     final phase=-1.5707963267949,

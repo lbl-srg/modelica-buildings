@@ -56,7 +56,7 @@ protected
     "Staging down part load ratio"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine oplrDown(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin oplrDown(
     final amplitude=0.1,
     final startTime=0,
     final freqHz=1/4800,
@@ -103,7 +103,7 @@ protected
     "Maximum cooling tower speed signal"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TWsePre1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TWsePre1(
     final amplitude=4,
     final freqHz=1/2100,
     final offset=273.15 + 12.5)

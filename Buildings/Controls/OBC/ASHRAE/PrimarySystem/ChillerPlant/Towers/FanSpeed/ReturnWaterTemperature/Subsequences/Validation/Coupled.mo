@@ -6,7 +6,7 @@ model Coupled
     couTowSpe
     "Tower fan speed control based on the condenser water return temperature control for close coupled plants"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine conRet(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin conRet(
     final amplitude=2,
     final freqHz=1/1800,
     final offset=273.15 + 32) "Condenser water return temperature"
