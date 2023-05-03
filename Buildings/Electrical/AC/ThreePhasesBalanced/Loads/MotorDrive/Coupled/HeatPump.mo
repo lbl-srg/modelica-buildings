@@ -63,7 +63,6 @@ model HeatPump "Motor coupled heat pump"
 
   //Motor parameters
   parameter Integer pole=4 "Number of pole pairs";
-  parameter Integer n=3 "Number of phases";
   parameter Modelica.Units.SI.Resistance R_s=0.641
     "Electric resistance of stator";
   parameter Modelica.Units.SI.Resistance R_r=0.332
@@ -102,7 +101,6 @@ model HeatPump "Motor coupled heat pump"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.SquirrelCageDrive simMot(
     final pole=pole,
-    final n=n,
     final J=JMotor,
     final R_s=R_s,
     final R_r=R_r,
