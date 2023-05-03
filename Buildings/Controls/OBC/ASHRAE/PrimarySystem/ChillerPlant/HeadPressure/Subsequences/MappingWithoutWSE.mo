@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.HeadPressure.Subsequences;
 block MappingWithoutWSE
   "Equipment setpoints when chiller head pressure control is enabled, for plants without waterside economizer"
   parameter Boolean have_fixSpeConWatPum = true
