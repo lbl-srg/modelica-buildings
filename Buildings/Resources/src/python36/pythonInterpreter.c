@@ -55,7 +55,7 @@ static void saveAppendModelica(
 /* Create the structure and initialize its pointer to NULL. */
 void* initPythonMemory()
 {
-	pythonPtr* ptr = malloc(sizeof(pythonPtr));
+	pythonPtr* ptr = (pythonPtr*) malloc(sizeof(pythonPtr));
 	/* Set ptr to null as pythonExchangeValuesNoModelica is checking for this */
 	ptr->ptr = NULL;
 	ptr->isInitialized = 0;
@@ -95,7 +95,7 @@ void pythonExchangeValuesNoModelica(const char * moduleName,
 
 	if (ptrMemory->pythonPath == NULL) {
 		/* Construct the python path */
-		ptrMemory->pythonPath = malloc(sizeof(char) * (lenPath + 1));
+		ptrMemory->pythonPath = (char*) malloc(sizeof(char) * (lenPath + 1));
 		if (ptrMemory->pythonPath == NULL) {
 			ModelicaFormatError("Failed to allocate memory for PYTHONPATH in pythonExchangeValuesNoModelica for %s.", moduleName);
 		}
