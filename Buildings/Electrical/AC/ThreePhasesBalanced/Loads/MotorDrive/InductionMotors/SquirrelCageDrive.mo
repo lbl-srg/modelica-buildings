@@ -5,7 +5,6 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     redeclare replaceable Interfaces.Terminal_n terminal);
 
   parameter Integer pole=4 "Number of pole pairs";
-  parameter Integer n=3 "Number of phases";
   parameter Modelica.Units.SI.Inertia J(min=0)=2
     "Moment of inertia";
   parameter Modelica.Units.SI.Resistance R_s=0.641
@@ -80,7 +79,6 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft "Mechanical connector"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.InductionMotors.BaseClasses.MotorMachineInterface torSpe(
-    final n=n,
     final pole=pole,
     final R_s=R_s,
     final R_r=R_r,
@@ -88,6 +86,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
     final X_r=X_r,
     final X_m=X_m) "Motor machine interface"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Modelica.Blocks.Math.Product VFDvol "Controlled voltage"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
@@ -129,10 +128,10 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
         iconTransformation(extent={{100,20},{140,60}})));
 
 
-initial equation
+initial equation 
   omega_r=0;
 
-equation
+equation 
   // Assign values for motor model calculation from electrical interface
   theta_s = PhaseSystem.thetaRef(terminal.theta);
   omega = der(theta_s);
@@ -148,8 +147,8 @@ equation
   Req = R_s + R_r*s*X_m^2/(R_r^2+(s^2)*(X_r+X_m)^2);
   Xeq = X_s + X_m*(R_r^2+(s*X_r)^2+(s^2)*X_r*X_m)/(R_r^2+(s^2)*(X_r+X_m)^2);
 
-  P = if noEvent(torSpe.omega_s>0) then n*v_rms^2*Req/(Req^2+Xeq^2) else 0;
-  Q = if noEvent(torSpe.omega_s>0) then n*v_rms^2*Xeq/(Req^2+Xeq^2) else 0;
+  P = if noEvent(torSpe.omega_s>0) then 3*v_rms^2*Req/(Req^2+Xeq^2) else 0;
+  Q = if noEvent(torSpe.omega_s>0) then 3*v_rms^2*Xeq/(Req^2+Xeq^2) else 0;
 
   // Equations to calculate current
   i[1] = (v[2]*Q + v[1]*P)/(v[1]^2 + v[2]^2);
