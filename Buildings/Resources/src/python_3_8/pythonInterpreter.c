@@ -41,7 +41,7 @@ static void saveAppendModelica(
 	/* reallocate memory if needed */
 	if (*bufLen < nNewCha + nBufCha + 1) {
 		*bufLen = *bufLen + nNewCha + minInc + 1;
-		*buffer = realloc(*buffer, *bufLen);
+		*buffer = (char *) realloc(*buffer, *bufLen * sizeof(char));
 		if (*buffer == NULL) {
 			ModelicaFormatError("Realloc failed in saveAppendModelica %s.", moduleName);
 		}
