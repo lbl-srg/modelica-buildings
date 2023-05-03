@@ -395,8 +395,8 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(trueHoldDuration=15*
@@ -460,11 +460,11 @@ equation
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
   connect(pum1HexChi.P, PPumCooTot.u[1]) annotation (Line(points={{89,-331},{84,
           -331},{84,-322},{180,-322},{180,380},{188,380}}, color={0,0,127}));
-  connect(PPumHeaTot.y, PPumTot.u[1]) annotation (Line(points={{212,420},{216,
-          420},{216,399.5},{218,399.5}},
+  connect(PPumHeaTot.y, PPumTot.u[1]) annotation (Line(points={{212,420},{216,420},
+          {216,399.5},{218,399.5}},
                                 color={0,0,127}));
-  connect(PPumCooTot.y, PPumTot.u[2]) annotation (Line(points={{212,380},{216,
-          380},{216,400.5},{218,400.5}},
+  connect(PPumCooTot.y, PPumTot.u[2]) annotation (Line(points={{212,380},{216,380},
+          {216,400.5},{218,400.5}},
                                 color={0,0,127}));
   connect(pum1HexChi.port_b, hexChi.port_a1) annotation (Line(points={{90,-340},
           {10,-340}},                              color={0,127,255}));
@@ -513,8 +513,8 @@ equation
   connect(THeaWatSupSet, proHeaWat.TSupSet) annotation (Line(points={{-320,40},{
           -200,40},{-200,217},{-12,217}},
                                         color={0,0,127}));
-  connect(proHeaWat.PPum, PPumHeaTot.u[1]) annotation (Line(points={{12,214},{
-          172,214},{172,419.5},{188,419.5}},
+  connect(proHeaWat.PPum, PPumHeaTot.u[1]) annotation (Line(points={{12,214},{172,
+          214},{172,419.5},{188,419.5}},
                                      color={0,0,127}));
   connect(volMix_a.ports[4], proHotWat.port_a2) annotation (Line(points={{-260,
           -360},{-258,-360},{-258,20},{14,20},{14,28},{10,28}}, color={0,127,
@@ -539,14 +539,14 @@ equation
   connect(zer.y, masFloHeaTot.u[2]) annotation (Line(points={{161,360},{216,360},
           {216,-144},{268,-144},{268,-139.5}},
                                             color={0,0,127}));
-  connect(proHotWat.PPum, PPumHeaTot.u[2]) annotation (Line(points={{12,34},{
-          176,34},{176,420},{188,420},{188,420.5}},
+  connect(proHotWat.PPum, PPumHeaTot.u[2]) annotation (Line(points={{12,34},{176,
+          34},{176,420},{188,420},{188,420.5}},
                                               color={0,0,127}));
   connect(proHeaWat.mEva_flow, masFloHeaTot.u[1]) annotation (Line(points={{12,211},
           {220,211},{220,-140.5},{268,-140.5}},
                                             color={0,0,127}));
-  connect(zer.y, PPumHeaTot.u[2]) annotation (Line(points={{161,360},{174,360},
-          {174,418},{188,418},{188,420.5}},
+  connect(zer.y, PPumHeaTot.u[2]) annotation (Line(points={{161,360},{174,360},{
+          174,418},{188,418},{188,420.5}},
                                          color={0,0,127}));
   connect(senMasFloHeaWat.port_b, senTHeaWatRet.port_a) annotation (Line(points={{-230,
           260},{-220,260},{-220,300},{10,300}},        color={0,127,255}));
@@ -605,13 +605,13 @@ equation
           20,211},{20,-246},{6,-246},{6,-252}}, color={0,0,127}));
   connect(masFloHea.y, swiFlo.mPos_flow) annotation (Line(points={{0,-276},{0,
           -320},{-16,-320},{-16,-376},{-12,-376}}, color={0,0,127}));
-  connect(proHeaWat.PHea, PHeaTot.u[1]) annotation (Line(points={{12,217},{240,
-          217},{240,79.5},{268,79.5}},  color={0,0,127}));
-  connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{12,37},{240,
-          37},{240,80.5},{268,80.5}},
+  connect(proHeaWat.PHea, PHeaTot.u[1]) annotation (Line(points={{12,217},{240,217},
+          {240,79.5},{268,79.5}},       color={0,0,127}));
+  connect(proHotWat.PHea, PHeaTot.u[2]) annotation (Line(points={{12,37},{240,37},
+          {240,80.5},{268,80.5}},
                               color={0,0,127}));
-  connect(zer.y, PHeaTot.u[2]) annotation (Line(points={{161,360},{242,360},{
-          242,78},{268,78},{268,80.5}},color={0,0,127}));
+  connect(zer.y, PHeaTot.u[2]) annotation (Line(points={{161,360},{242,360},{242,
+          78},{268,78},{268,80.5}},    color={0,0,127}));
   connect(PHeaTot.y, PHea)
     annotation (Line(points={{292,80},{320,80}}, color={0,0,127}));
   connect(loaSHW, heaFloEvaSHW.u1) annotation (Line(points={{-320,-120},{-288,
@@ -740,6 +740,13 @@ Energy, Volume 199, 15 May 2020, 117418.
 </html>",
   revisions="<html>
 <ul>
+<li>
+May 3, 2023, by David Blum:<br/>
+Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+issue 3379</a>.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with subsystem models and partial ETS base class.<br/>

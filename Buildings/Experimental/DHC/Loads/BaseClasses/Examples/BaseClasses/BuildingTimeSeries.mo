@@ -363,8 +363,8 @@ equation
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
   connect(mulQReqHot_flow.y, QReqHotWat_flow)
     annotation (Line(points={{292,-120},{320,-120}}, color={0,0,127}));
-  connect(mulQReqHot_flow.u, loa.y[3]) annotation (Line(points={{268,-120},{40,
-          -120},{40,0},{-259,0}}, color={0,0,127}));
+  connect(mulQReqHot_flow.u, loa.y[3]) annotation (Line(points={{268,-120},{40,-120},
+          {40,0},{-259,0}}, color={0,0,127}));
 annotation (
     Documentation(
       info="<html>
@@ -463,6 +463,13 @@ as specified in the \"Advanced\" tab.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 3, 2023, by David Blum:<br/>
+Applied <code>facMul</code> to domestic hot water load.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+issue 3379</a>.
+</li>
 <li>
 November 21, 2022, by David Blum:<br/>
 Scale <code>facMulHea</code> and <code>facMulCoo</code> with peak load.<br/>

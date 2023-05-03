@@ -335,6 +335,13 @@ supply temperature set point at the condenser outlet.
 </html>", revisions="<html>
 <ul>
 <li>
+May 3, 2023, by David Blum:<br/>
+Assigned dp_nominal to condenser and evaporator pumps.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+issue 3379</a>.
+</li>
+<li>
 November 16, 2022, by Michael Wetter:<br/>
 Set <code>pumEva.dp_nominal</code> to correct value.
 </li>
