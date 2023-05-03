@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
 block Controller "Chiller plant controller"
 
   parameter Boolean closeCoupledPlant=false
@@ -271,7 +271,8 @@ block Controller "Chiller plant controller"
     annotation(Dialog(enable= (not ((not have_WSE) and (not have_fixSpeConWatPum))), tab="Head pressure", group="Limits"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHeaPre=
-    Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
+    Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+    "Type of controller"
     annotation(Dialog(tab="Head pressure", group="Loop signal", enable=not have_heaPreConSig));
 
   parameter Real kHeaPreCon=1
@@ -318,11 +319,11 @@ block Controller "Chiller plant controller"
                                controllerTypeMinFloByp==Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Real yMaxFloBypCon(unit="1")=1
-                      "Upper limit of output"
+    "Upper limit of output"
     annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
   parameter Real yMinFloBypCon(unit="1")=0.1
-                        "Lower limit of output"
+    "Lower limit of output"
     annotation (Dialog(tab="Minimum flow bypass", group="Controller"));
 
   // ---- Chilled water pumps ----
@@ -374,15 +375,15 @@ block Controller "Chiller plant controller"
     annotation(Dialog(tab="Plant Reset"));
 
   parameter Real iniSet(unit="1")=0
-                        "Initial setpoint"
+    "Initial setpoint"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
 
   parameter Real minSet(unit="1")=0
-                        "Minimum plant reset value"
+    "Minimum plant reset value"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
 
   parameter Real maxSet(unit="1")=1
-                        "Maximum plant reset value"
+    "Maximum plant reset value"
     annotation (Dialog(tab="Plant Reset", group="Trim and respond"));
 
   parameter Real delTim(unit="s")=900
@@ -545,11 +546,11 @@ block Controller "Chiller plant controller"
   // ---- Cooling tower: fan speed ----
 
   parameter Real fanSpeMin(unit="1")=0.1
-                        "Minimum tower fan speed"
+    "Minimum tower fan speed"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
 
   parameter Real fanSpeMax(unit="1")=1
-                      "Maximum tower fan speed"
+    "Maximum tower fan speed"
     annotation (Dialog(tab="Cooling Towers", group="Fan speed"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController intOpeCon=
@@ -987,7 +988,7 @@ block Controller "Chiller plant controller"
         iconTransformation(extent={{100,260},{140,300}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatPum[nChiWatPum]
-  if have_heaChiWatPum
+    if have_heaChiWatPum
     "Chilled water pump status setpoint"
     annotation(Placement(transformation(extent={{920,500},{960,540}}),
       iconTransformation(extent={{100,230},{140,270}})));
@@ -1116,7 +1117,7 @@ block Controller "Chiller plant controller"
     "Waterside economizer (WSE) enable/disable status"
     annotation(Placement(transformation(extent={{-700,300},{-660,340}})));
 
-  Generic.PlantEnable.Enable plaEna(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable plaEna(
     final have_WSE=have_WSE,
     final schTab=schTab,
     final TChiLocOut=TChiLocOut,
@@ -1350,24 +1351,13 @@ block Controller "Chiller plant controller"
   Buildings.Controls.OBC.CDL.Logical.Or chaProUpDown "Either in staging up or in staging down process"
     annotation(Placement(transformation(extent={{380,-90},{400,-70}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler staSam
-    "Samples stage index after each staging process is finished"
-    annotation(Placement(transformation(extent={{-20,-20},{0,0}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt1
-    "Real to integer"
-    annotation(Placement(transformation(extent={{20,-20},{40,0}})));
-
-  Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea
-    "Integer to real"
-    annotation(Placement(transformation(extent={{-100,-20},{-80,0}})));
-
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
     "Check if stage change is finished"
     annotation(Placement(transformation(extent={{480,-90},{500,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    final nin=nChiWatPum) "Check if there is any chilled water pump is enabled"
+    final nin=nChiWatPum)
+    "Check if there is any chilled water pump is enabled"
     annotation(Placement(transformation(extent={{-740,-134},{-720,-114}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMax conWatPumSpe(
@@ -1430,7 +1420,8 @@ block Controller "Chiller plant controller"
     "Lead condenser water pump status from previous step"
     annotation (Placement(transformation(extent={{480,-260},{500,-240}})));
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot if have_heaChiWatPum
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.EquipmentRotation.ControllerTwo equRot
+    if have_heaChiWatPum
     "Rotates two pumps or groups of pumps"
     annotation (Placement(transformation(extent={{260,570},{280,590}})));
 
@@ -1515,11 +1506,6 @@ block Controller "Chiller plant controller"
     "Chilled water pump status previous value"
     annotation (Placement(transformation(extent={{540,550},{560,570}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol(
-    final samplePeriod=1)
-    "Zero order hold"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
     final k=fixConWatPumSpe)
     if have_fixSpeConWatPum "Speed of constant speed condenser water pump"
@@ -1603,6 +1589,11 @@ block Controller "Chiller plant controller"
     "Tower cell fan speed setpoint"
     annotation (Placement(transformation(extent={{880,-710},{900,-690}})));
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.IdentifyStage ideSta(
+    final nSta=nSta,
+    final nChi=nChi,
+    final staMat=staMat) "Identify stage index"
+    annotation (Placement(transformation(extent={{-520,120},{-500,140}})));
 protected
   final parameter Boolean have_serChi = not have_parChi
     "true = series chillers plant; false = parallel chillers plant"
@@ -1662,14 +1653,6 @@ equation
           {340,-144},{340,-88},{378,-88}},       color={255,0,255}));
   connect(uChi, dowProCon.uChi) annotation(Line(points={{-920,400},{-800,400},{-800,
           -184},{172,-184}}, color={255,0,255}));
-  connect(staSam.y, reaToInt1.u)
-    annotation(Line(points={{2,-10},{18,-10}}, color={0,0,127}));
-  connect(staSetCon.ySta, intToRea.u) annotation(Line(points={{-172,-24},{-140,-24},
-          {-140,-10},{-102,-10}}, color={255,127,0}));
-  connect(reaToInt1.y, dowProCon.uChiSta) annotation(Line(points={{42,-10},{60,-10},
-          {60,-204},{172,-204}},         color={255,127,0}));
-  connect(reaToInt1.y, staSetCon.uSta) annotation(Line(points={{42,-10},{60,-10},
-          {60,-208},{-460,-208},{-460,60},{-268,60}},       color={255,127,0}));
   connect(mulMax.y, wseSta.uTowFanSpeMax) annotation(Line(points={{-38,-580},{0,
           -580},{0,-360},{-780,-360},{-780,324},{-704,324}},       color={0,0,127}));
   connect(towCon.yMakUp, yMakUp) annotation(Line(points={{-172,-708},{-140,-708},
@@ -1740,10 +1723,6 @@ equation
           {-640,332},{-640,-28},{-268,-28}},         color={0,0,127}));
   connect(TChiWatRet, wseSta.TChiWatRet) annotation (Line(points={{-920,280},{-860,
           280},{-860,336},{-704,336}},     color={0,0,127}));
-  connect(reaToInt1.y, upProCon.uChiSta) annotation (Line(points={{42,-10},{60,-10},
-          {60,372},{172,372}},       color={255,127,0}));
-  connect(reaToInt1.y, towCon.uChiSta) annotation (Line(points={{42,-10},{60,-10},
-          {60,-208},{-340,-208},{-340,-676},{-268,-676}},  color={255,127,0}));
   connect(upProCon.yTowStaUp, staCooTow.u1) annotation (Line(points={{268,388},{
           310,388},{310,-120},{478,-120}}, color={255,0,255}));
   connect(dowProCon.yTowStaDow, staCooTow.u2) annotation (Line(points={{268,-220},
@@ -1778,8 +1757,6 @@ equation
           210},{-840,204},{-682,204}}, color={0,0,127}));
   connect(chiWatSupTem.y, heaPreCon.TChiWatSup) annotation (Line(points={{-658,204},
           {-524,204}},                            color={0,0,127}));
-  connect(falEdg.y, staSam.trigger) annotation (Line(points={{502,-80},{590,-80},
-          {590,-40},{-10,-40},{-10,-22}}, color={255,0,255}));
   connect(upProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u1) annotation (Line(
         points={{268,356},{360,356},{360,208},{478,208}}, color={0,0,127}));
   connect(dowProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u3) annotation (Line(
@@ -1932,10 +1909,6 @@ equation
           255}));
   connect(preChaPro.y, staSetCon.chaPro) annotation (Line(points={{462,-80},{470,
           -80},{470,-330},{-320,-330},{-320,88},{-268,88}}, color={255,0,255}));
-  connect(staSam.u, zerOrdHol.y)
-    annotation (Line(points={{-22,-10},{-38,-10}}, color={0,0,127}));
-  connect(zerOrdHol.u, intToRea.y)
-    annotation (Line(points={{-62,-10},{-78,-10}}, color={0,0,127}));
   connect(leaChiWatPum.y, booToInt.u)
     annotation (Line(points={{562,560},{578,560}}, color={255,0,255}));
   connect(chiWatPumCon.yChiWatPum, leaChiWatPum.u) annotation (Line(points={{506,510},
@@ -2088,6 +2061,16 @@ equation
           {878,-708}}, color={0,0,127}));
   connect(towCon.ySpeSet, swi1.u1) annotation (Line(points={{-172,-684},{-100,-684},
           {-100,-692},{878,-692}}, color={0,0,127}));
+  connect(uChi, ideSta.uChi) annotation (Line(points={{-920,400},{-800,400},{-800,
+          130},{-522,130}}, color={255,0,255}));
+  connect(ideSta.ySta, staSetCon.uSta) annotation (Line(points={{-498,130},{-340,
+          130},{-340,60},{-268,60}}, color={255,127,0}));
+  connect(ideSta.ySta, towCon.uChiSta) annotation (Line(points={{-498,130},{-340,
+          130},{-340,-676},{-268,-676}}, color={255,127,0}));
+  connect(ideSta.ySta, dowProCon.uChiSta) annotation (Line(points={{-498,130},{-340,
+          130},{-340,-204},{172,-204}}, color={255,127,0}));
+  connect(ideSta.ySta, upProCon.uChiSta) annotation (Line(points={{-498,130},{-340,
+          130},{-340,372},{172,372}}, color={255,127,0}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),

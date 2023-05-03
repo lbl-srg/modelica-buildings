@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Processes.Subsequences;
 block HeadControl
   "Sequences for enabling or disabling head pressure control for the chiller being enabled or disabled"
 
