@@ -59,7 +59,8 @@ if [[ $? == 0 ]]; then
         echo "Simulations succeded."
         exit 0
     else
-        echo "Some simulations failed."
+        echo "Some simulations failed. Below are the contents of the log file `unitTestsTemplates.log`:"
+        cat unitTestsTemplates.log
         exit 1
     fi
 else
