@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
+within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Pumps;
 package CondenserWater "Sequences for condenser water pump control"
 
 annotation (preferredView="info", Documentation(info="<html>
