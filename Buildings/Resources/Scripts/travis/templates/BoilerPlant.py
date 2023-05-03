@@ -339,7 +339,8 @@ def simulateCase(arg, simulator):
         if toreturn == 0:
             shutil.rmtree(output_dir_path, ignore_errors=True)
         else:
-            print(f'Simulation failed in {output_dir_path} with the following class modifications:\n{arg[1]}\n')
+            print(f'Simulation failed in {output_dir_path} with the following class modifications:\n',
+                  '\n'.join(arg[1]), '\n')
 
     return toreturn
 
@@ -481,7 +482,7 @@ if __name__ == '__main__':
         for idx in df[df.result != 0].index:
             FH.writelines([
                 f'*** Simulation failed for {df.iloc[idx].model} with the following class modifications:\n',
-                ', \n'.join(df.iloc[idx].modif), '\n'
+                ',\n'.join(df.iloc[idx].modif), '\n'
             ])
 
     if df.result.abs().sum() != 0:
