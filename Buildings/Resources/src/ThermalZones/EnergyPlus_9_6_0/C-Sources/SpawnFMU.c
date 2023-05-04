@@ -217,7 +217,7 @@ void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
       bui->time, bui->modelicaNameBuilding, nExcObj, ptrSpaObj->modelicaName);
 
   if (nExcObj == 0){
-    bui->exchange = (SpawnObject **)malloc(sizeof(SpawnObject *));
+    bui->exchange = (void**)((SpawnObject **)malloc(sizeof(SpawnObject *)));
     if ( bui->exchange== NULL )
       SpawnError("Not enough memory in SpawnFMU.c. to allocate exc.");
   }
@@ -225,7 +225,7 @@ void AddSpawnObjectToBuilding(SpawnObject* ptrSpaObj, const int logLevel){
     /* We already have nExcObj > 0 exc */
 
     /* Increment size of vector that contains the exc. */
-    bui->exchange = (SpawnObject **)realloc(bui->exchange, (nExcObj + 1) * sizeof(SpawnObject*));
+    bui->exchange = (void**)((SpawnObject **)realloc(bui->exchange, (nExcObj + 1) * sizeof(SpawnObject*)));
     if (bui->exchange == NULL){
       SpawnError("Not enough memory in SpawnFMU.c. to allocate memory for bld->exc.");
     }
