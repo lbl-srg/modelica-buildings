@@ -37,7 +37,7 @@ model HeatPump "This example shows how to use the motor coupled heat pump model"
     T=291.15,
     nPorts=1) "Water source 2"
     annotation (Placement(transformation(extent={{60,-20},{40,0}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid Sou(f=60, V=480)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumW,
