@@ -295,6 +295,8 @@ def simulateCase(arg, simulator):
         return 4
     if simulator == 'Dymola':
         s = Simulator(arg[0], output_dir_path)
+        # DEBUG
+        print(f'CWD: {os.getcwd()} contains: {os.listdir()}')
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
         s.addPreProcessingStatement(fr'openModel("{package_relpath}");')
         s.addPreProcessingStatement(fr'cd("{output_dir_path}");')
