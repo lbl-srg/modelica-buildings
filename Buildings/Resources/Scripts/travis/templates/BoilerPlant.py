@@ -339,10 +339,10 @@ def simulateCase(arg, simulator):
         if toreturn == 0:
             shutil.rmtree(output_dir_path, ignore_errors=True)
         else:
-            print(f'Simulation failed in {output_dir_path} with the following class modifications:\n',
-                  '\n'.join(arg[1]), '\n')
+            print(f'Simulation failed in {output_dir_path} with the following class modifications:\n' +\
+                  ',\n'.join(arg[1]) + '\n')
 
-    return toreturn
+    return toreturn, log
 
 
 def simulate_cases(args, simulator=SIMULATOR, asy=True):
@@ -475,17 +475,19 @@ if __name__ == '__main__':
             model=[el[0] for el in args],
             tag=[el[2] for el in args],
             modif=[el[1] for el in args],
-            result=results,
+            errorcode=[r[0] for r in results],
+            errorlog=[r[1] for r in results],
         ))
 
     with open('unitTestsTemplates.log', 'w') as FH:
-        for idx in df[df.result != 0].index:
-            FH.writelines([
-                f'*** Simulation failed for {df.iloc[idx].model} with the following class modifications:\n',
-                ',\n'.join(df.iloc[idx].modif), '\n'
-            ])
+        for idx in df[df.errorcode != 0].index:
+            FH.write(
+                f'*** Simulation failed for {df.iloc[idx].model} with the error code {df.iloc[idx].errorcode} ' +\
+                'and the following class modifications and error log.\n\n' +\
+                ',\n'.join(df.iloc[idx].modif) + f'\n\n{df.iloc[idx].errorlog}\n\n'
+            )
 
-    if df.result.abs().sum() != 0:
+    if df.errorcode.abs().sum() != 0:
         print(CRED + 'Some simulations failed: ' + CEND + 'see the file `unitTestsTemplates.log`.\n')
         sys.exit(1)
     else:
