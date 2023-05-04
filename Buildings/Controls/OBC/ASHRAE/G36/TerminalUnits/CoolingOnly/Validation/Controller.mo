@@ -15,7 +15,7 @@ model Controller
     final VOccMin_flow=0,
     final VAreMin_flow=0) "Cooling only unit controller"
     annotation (Placement(transformation(extent={{100,-10},{120,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
@@ -61,7 +61,7 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin CO2(
     final amplitude=400,
     final freqHz=1/28800,
     final offset=600) "CO2 concentration"
@@ -72,7 +72,7 @@ model Controller
     final offset=273.15 + 14)
     "Supply air temperature from air handling unit"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VDis_flow(
     final offset=1.2,
     final amplitude=0.6,
     final freqHz=1/28800) "Discharge airflow rate"

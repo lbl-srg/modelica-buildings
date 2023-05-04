@@ -22,10 +22,10 @@ model Setpoints "Validate block for zone set point"
     final k=287.15)
     "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
     final freqHz=1/28800) "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"

@@ -85,7 +85,7 @@ model Setpoints "Validate the outdoor airflow setpoint according to the Title 24
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin parFanFlo(
     final amplitude=0.01,
     final freqHz=1/7200,
     final offset=0.008) "Parallel fan flow rate"

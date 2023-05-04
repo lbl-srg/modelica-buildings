@@ -9,7 +9,7 @@ model TimeSuppression
     final chaRat=1080,
     final maxTim=7200) "Time suppression for temperature alarm"
     annotation (Placement(transformation(extent={{40,-90},{60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine zonTem(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin zonTem(
     final amplitude=2,
     final freqHz=1/7200,
     final offset=298.15)

@@ -13,31 +13,35 @@ model Ramp "Validation model for the Ramp block"
     final raisingSlewRate=1/5)
     "Limit the increase and decrease of the input if the active is true"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow1(final
-      raisingSlewRate=1/5, final fallingSlewRate=-1/2)
+  Buildings.Controls.OBC.CDL.Continuous.Ramp ramUpDow1(
+    final raisingSlewRate=1/5,
+    final fallingSlewRate=-1/2)
     "Different increase and decrease slew rate limits"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul1(
     final width=0.9,
     final period=12,
-    final shift=1) "Boolean pulse"
+    final shift=1)
+    "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
     final width=0.8,
     final period=12.0,
     final shift=2.0)
-                   "Boolean pulse"
+    "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
     final width=0.9,
     final period=12,
-    final shift=2) "Boolean pulse"
+    final shift=2)
+    "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul1(
     final width=0.2,
     final period=12.0,
-    final shift=1.5) "Boolean pulse"
+    final shift=1.5)
+    "Boolean pulse"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul2(
     final width=0.3,
@@ -48,7 +52,8 @@ model Ramp "Validation model for the Ramp block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul5(
     final width=0.9,
     final period=12,
-    final shift=1) "Boolean pulse"
+    final shift=1)
+    "Boolean pulse"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 equation
   connect(booPul2.y, ramUpDow.active) annotation (Line(points={{-78,-90},{-60,-90},

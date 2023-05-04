@@ -231,7 +231,7 @@ equation
           textStyle={TextStyle.Bold},
           pattern=LinePattern.None,
           textString="WET",
-          lineColor={0,0,0}),
+          textColor={0,0,0}),
         Line(
           points={{20,0},{120,0}},
           color={28,108,200},

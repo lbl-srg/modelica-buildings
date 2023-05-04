@@ -116,7 +116,7 @@ protected
     final offset=yFanMin,
     final height=yFanMax - yFanMin) "Supply fan speed signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
     amplitude=20,
     freqHz=1/1800,
     offset=272.15,

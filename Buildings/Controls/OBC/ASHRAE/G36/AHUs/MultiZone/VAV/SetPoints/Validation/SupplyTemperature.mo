@@ -5,7 +5,7 @@ model SupplyTemperature
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.SupplyTemperature conTSupSet
     "Supply air temperature setpoint for multi zone system"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine outTem(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin outTem(
     final amplitude=5,
     final freqHz=1/86400,
     final offset=18 + 273.15) "Outdoor air temperature"
@@ -22,7 +22,7 @@ model SupplyTemperature
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
     final amplitude=6,
     final freqHz=1/86400)
     "Block generates sine signal"

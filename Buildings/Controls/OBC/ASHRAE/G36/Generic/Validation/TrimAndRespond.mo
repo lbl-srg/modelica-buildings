@@ -36,14 +36,14 @@ model TrimAndRespond "Model validates the trim and respond block"
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
     final k=true) "Logic true indicating device ON"
     annotation (Placement(transformation(extent={{20,80},{40,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine(
     final amplitude=6,
     final freqHz=1/5400) "Block generates sine signal"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Abs abs
     "Block generates absolute value of input"
     annotation (Placement(transformation(extent={{-52,40},{-32,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine1(
     final amplitude=6,
     freqHz=1/5400) "Block generates sine signal"
     annotation (Placement(transformation(extent={{-88,-90},{-68,-70}})));
