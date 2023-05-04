@@ -59,7 +59,7 @@ model Chiller "This example shows how to use the motor coupled chiller model"
     X_r=0.464,
     X_m=26.3) "Chiller" annotation (Placement(transformation(
     extent={{-10,-10},{10,10}})));
-  Buildings.Electrical.AC.OnePhase.Sources.Grid Sou(f=60, V=120)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid Sou(f=60, V=480)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium = MediumW,
