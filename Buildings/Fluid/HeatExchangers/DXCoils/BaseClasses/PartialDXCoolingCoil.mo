@@ -18,8 +18,8 @@ partial model PartialDXCoolingCoil
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation eva(
     redeclare package Medium = Medium,
-    final nomVal=datCoi.sta[nSta].nomVal,
-    final computeReevaporation=computeReevaporation) if is_cooCoi
+     nomVal=datCoi.sta[nSta].nomVal,
+     computeReevaporation=computeReevaporation) if is_cooCoi
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 

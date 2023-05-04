@@ -207,7 +207,7 @@ equation
           textStyle={TextStyle.Italic},
           textString="f(To,Xo)")}),
           Documentation(info="<html>
-          <p>
+<p>
 Block to calculate heat transfered to airloop <code>QTotDef_flow</code>, as well as 
 the total heating power consumption of the component <code>PTot</code>, as defined 
 in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2 
@@ -215,6 +215,7 @@ in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2
 document. It also calculates the defrost input power consumption <code>PDef</code>
 and the crankcase heater input power consumption <code>PCra</code>.<br/>
 The inputs are as follows:
+</p>
 <ul>
 <li>
 the defrost cycle time fraction <code>tDefFra</code>, the heating capacity multiplier 
@@ -236,7 +237,6 @@ temperature.
 the measured outdoor air temperature <code>TOut</code>.
 </li>
 </ul>
-</p>
 </html>",
 revisions="<html>
 <ul>
