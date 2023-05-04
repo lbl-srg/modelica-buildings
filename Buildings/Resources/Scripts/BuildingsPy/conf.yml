@@ -170,8 +170,7 @@
     comment: timed out after 300 seconds
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.SingleBuriedPipe
-  open
-  modelica:
+  openmodelica:
     comment: Simulation terminated at time 4.59003e+07.
     simulate: false
 - model_name: Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes
