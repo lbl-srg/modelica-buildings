@@ -8,7 +8,7 @@ model SquirrelCageDrive "This example shows how to use the squirrel cage inducti
   parameter Modelica.Units.SI.Reactance X_r=0.464 "Complex component of the impedance of rotor";
   parameter Modelica.Units.SI.Reactance X_m=26.3 "Complex component of the magnetizing reactance";
 
-  Buildings.Electrical.AC.OnePhase.Sources.Grid sou(f=60, V=120)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid sou(f=60, V=480)
     "Voltage source"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Modelica.Blocks.Sources.RealExpression tau_m(y=0.002*simMot.omega_r*simMot.omega_r)
