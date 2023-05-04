@@ -124,6 +124,10 @@
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
+- model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.Validation.StagingPlant
   openmodelica:
     comment: Internal error BackendDAETransform.analyseStrongComponentBlock failed (Purely discrete algebraic loops cannot be solved by iterative processes. Try to break them open using the delay() operator.)
@@ -132,10 +136,6 @@
   openmodelica:
     comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate \u20181.0 / pla.chiHea.COPCasCoo_nominal\u2018"
     translate: false
-- model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
-  openmodelica:
-    comment: simulation terminated by an assertion at initialization
-    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
