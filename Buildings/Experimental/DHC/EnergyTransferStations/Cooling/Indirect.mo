@@ -1,7 +1,7 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Cooling;
 model Indirect
   "Indirect cooling energy transfer station for district energy systems"
-  extends 
+  extends
     Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
     QChiWat_flow_nominal=-Q_flow_nominal,
     final typ=DHC.Types.DistrictSystemType.Cooling,
@@ -202,11 +202,58 @@ equation
     annotation (Line(points={{-300,200},{-218,200}}, color={0,127,255}));
   connect(port_aSerCoo, senTDisSup.port_a)
     annotation (Line(points={{-300,-280},{-220,-280}}, color={0,127,255}));
+  connect(senTDisSup.port_b, senMasFlo.port_a)
+    annotation (Line(points={{-200,-280},{-160,-280}}, color={0,127,255}));
+  connect(senMasFlo.port_b, conVal.port_a)
+    annotation (Line(points={{-140,-280},{-100,-280}}, color={0,127,255}));
+  connect(conVal.port_b, hex.port_a1)
+    annotation (Line(points={{-80,-280},{-10,-280},{-10,-216},{0,-216}},
+                                color={0,127,255}));
+  connect(hex.port_b1, senTDisRet.port_a)
+    annotation (Line(points={{20,-216},{60,
+          -216},{60,-280},{180,-280}}, color={0,127,255}));
   connect(senTDisRet.port_b, port_bSerCoo)
     annotation (Line(points={{200,-280},{300,-280}}, color={0,127,255}));
-  connect(senTBuiSup.port_b, ports_bChiWat[1]) annotation (Line(points={{-36,
-          -204},{-60,-204},{-60,180},{240,180},{240,200},{300,200}}, color={0,
-          127,255}));
+  connect(senTBuiRet.port_b, hex.port_a2)
+    annotation (Line(points={{-198,200},{60,
+          200},{60,-204},{20,-204}}, color={0,127,255}));
+  connect(hex.port_b2, senTBuiSup.port_a)
+    annotation (Line(points={{0,-204},{-16,-204}},        color={0,127,255}));
+  connect(senTBuiSup.port_b, ports_bChiWat[1])
+    annotation (Line(points={{-36,-204},{-60,-204},{-60,180},{280,180},{280,200},
+          {300,200}},                              color={0,127,255}));
+  connect(senTBuiSup.T, con.u_m)
+    annotation (Line(points={{-26,-193},{-26,-180},{-140,-180},{-140,-240},{-120,
+          -240},{-120,-232}},
+                          color={0,0,127}));
+  connect(TSetBuiSup, con.u_s)
+    annotation (Line(points={{-320,0},{-240,0},{-240,-220},{-132,-220}},
+                                                 color={0,0,127}));
+  connect(con.y, conVal.y)
+    annotation (Line(points={{-108,-220},{-90,-220},{-90,-268}},
+                                                           color={0,0,127}));
+  connect(senTDisSup.T,dTDis. u2)
+    annotation (Line(points={{-210,-269},{-210,-120},{18,-120}},
+                      color={0,0,127}));
+  connect(senTBuiRet.T,dTDis. u1)
+    annotation (Line(points={{-208,211},{-208,240},{0,240},{0,-108},{18,-108}},
+                                  color={0,0,127}));
+  connect(senMasFlo.m_flow, pro.u2)
+    annotation (Line(points={{-150,-269},{-150,-140},{100,-140},{100,-126},{118,
+          -126}},                                        color={0,0,127}));
+  connect(dTDis.y, pro.u1)
+    annotation (Line(points={{41,-114},{118,-114}},
+                       color={0,0,127}));
+  connect(pro.y, cp.u)
+    annotation (Line(points={{141,-120},{178,-120}}, color={0,0,127}));
+  connect(cp.y, Q_flow)
+    annotation (Line(points={{201,-120},{320,-120}}, color={0,0,127}));
+  connect(cp.y, int.u)
+    annotation (Line(points={{201,-120},{228,-120},{228,-160},{238,-160}},
+                       color={0,0,127}));
+  connect(int.y, Q)
+    annotation (Line(points={{261,-160},{320,-160}},
+                       color={0,0,127}));
   annotation (
     defaultComponentName="etsCoo",
     Documentation(info="<html>
