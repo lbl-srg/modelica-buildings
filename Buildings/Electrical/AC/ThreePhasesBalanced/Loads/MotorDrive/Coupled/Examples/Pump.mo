@@ -26,7 +26,7 @@ model Pump "This example shows how to use the motor coupled pump model"
     reverseActing=true))) "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
-  Buildings.Electrical.AC.OnePhase.Sources.Grid gri(f=60, V=120)
+  Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(f=60, V=480)
     "Voltage source"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = MediumW)
