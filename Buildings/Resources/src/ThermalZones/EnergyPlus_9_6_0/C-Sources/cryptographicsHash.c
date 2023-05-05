@@ -299,7 +299,7 @@ const char* cryptographicsHash(const char* str, void (*SpawnError)(const char *s
 {
   char result[21];
   size_t offset;
-  char* hexresult = malloc(41*sizeof(char));
+  char* hexresult = (char *)malloc(41*sizeof(char));
 
   if (!hexresult){
     SpawnError("Failed to allocate memory in cryptographicHash.");
