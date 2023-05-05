@@ -134,8 +134,15 @@
     translate: false
 - model_name: Buildings.Experimental.DHC.Plants.Combined.Validation.AllElectricCWStorage
   openmodelica:
-    comment: "Internal error NFCeval.evalBinaryDiv failed to evaluate \u20181.0 / pla.chiHea.COPCasCoo_nominal\u2018"
+    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
     translate: false
+- model_name: Buildings.Experimental.DHC.Plants.Combined.Examples.AllElectricCWStorage
+  openmodelica:
+    comment: Internal error NFCeval.evalBinaryMul failed to evaluate {0.0, 0.03359309597916374, 0.06718619195832748, 0.09151222697772191}[pressure.n] * 0.0
+    translate: false
+  optimica:
+    comment: pyfmi.fmi.FMUException Failed to update the events at time 3.024307E+06
+    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
