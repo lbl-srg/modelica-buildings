@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Heating.Examples.Direct", tolerance=1e-6, stopTime=86400, numberOfIntervals=500, resultFile="Direct");
 // Plot commands
 createPlot(id=1, 

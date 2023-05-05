@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.EnergyTransferStations.Heating.Examples.Indirect", 
     stopTime=86400, 
     tolerance=1e-06, 
