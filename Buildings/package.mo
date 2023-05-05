@@ -564,14 +564,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
     </td>
-  </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
-                         Fluid.Movers.SpeedControlled_y
+  <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                         Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
                        This is for
