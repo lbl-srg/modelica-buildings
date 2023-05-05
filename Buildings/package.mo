@@ -300,6 +300,16 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Examples.BaseClasses.PartialProperties
+    </td>
+    <td valign=\"top\">Removed a self-dependent default binding of a function input.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3384\">#3384</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
