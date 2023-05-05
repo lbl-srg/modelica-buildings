@@ -542,18 +542,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_y
-    </td>
-    <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
-    </td>
-  </tr>
   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
   </tr>
@@ -572,18 +560,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
-  </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_y
-    </td>
-    <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
-    </td>
   </tr>
   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
