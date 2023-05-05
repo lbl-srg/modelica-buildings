@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.CDL.Discrete.Examples;
 model TriggeredMovingMean
   "Validation model for the TriggeredMovingMean block"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     freqHz=1/8,
     phase=0.5235987755983,
     startTime=-0.5)

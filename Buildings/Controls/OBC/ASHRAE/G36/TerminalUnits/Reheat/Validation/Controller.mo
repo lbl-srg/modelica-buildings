@@ -21,7 +21,7 @@ model Controller
     final VAreMin_flow=0)
     "Reheat unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
@@ -67,12 +67,12 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin CO2(
     final amplitude=400,
     final freqHz=1/28800,
     final offset=600) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin parFanFlo(
     final offset=1.2,
     final amplitude=0.6,
     final freqHz=1/28800) "Parallel fan flow"
@@ -102,7 +102,7 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     final offset=273.15 + 13,
     final amplitude=1,
     final freqHz=1/28800) "Supply air temperature from air handling unit"
@@ -129,7 +129,7 @@ model Controller
     final k=273.15 + 13)
     "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine disFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin disFlo(
     final offset=1.3,
     final amplitude=0.6,
     final freqHz=1/28800) "Discharge airflow rate"

@@ -1111,7 +1111,6 @@ Buildings/Fluid/Movers/FlowControlled_dp.mo
 Buildings/Fluid/Movers/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Preconfigured/FlowControlled_dp.mo
 Buildings/Fluid/Movers/Preconfigured/FlowControlled_m_flow.mo
-Buildings/Fluid/Movers/Preconfigured/SpeedControlled_Nrpm.mo
 Buildings/Fluid/Movers/Preconfigured/SpeedControlled_y.mo
 Buildings/Fluid/Movers/Preconfigured/UsersGuide.mo
 Buildings/Fluid/Movers/Preconfigured/Validation/ControlledFlowMachinePreconfigured.mo
@@ -1119,7 +1118,6 @@ Buildings/Fluid/Movers/Preconfigured/Validation/package.mo
 Buildings/Fluid/Movers/Preconfigured/Validation/package.order
 Buildings/Fluid/Movers/Preconfigured/package.mo
 Buildings/Fluid/Movers/Preconfigured/package.order
-Buildings/Fluid/Movers/SpeedControlled_Nrpm.mo
 Buildings/Fluid/Movers/SpeedControlled_y.mo
 Buildings/Fluid/Movers/UsersGuide.mo
 Buildings/Fluid/Movers/Validation/BaseClasses/ControlledFlowMachine.mo
@@ -1134,11 +1132,11 @@ Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Validation/PowerEuler.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
+Buildings/Fluid/Movers/Validation/PressureCurve.mo
 Buildings/Fluid/Movers/Validation/PumpCurveConstruction.mo
 Buildings/Fluid/Movers/Validation/PumpCurveDerivatives.mo
-Buildings/Fluid/Movers/Validation/Pump_Nrpm_stratos.mo
 Buildings/Fluid/Movers/Validation/Pump_stratos.mo
-Buildings/Fluid/Movers/Validation/SpeedControlled_Nrpm.mo
+Buildings/Fluid/Movers/Validation/Pump_y_stratos.mo
 Buildings/Fluid/Movers/Validation/SpeedControlled_y.mo
 Buildings/Fluid/Movers/Validation/SpeedControlled_y_linear.mo
 Buildings/Fluid/Movers/Validation/package.mo
@@ -1952,11 +1950,11 @@ Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerEuler.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PressureCurve.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_Nrpm_stratos.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_stratos.mos
-Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_Nrpm.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_y_stratos.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_y.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/SpeedControlled_y_linear.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos

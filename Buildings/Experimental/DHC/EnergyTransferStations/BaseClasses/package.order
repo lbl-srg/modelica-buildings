@@ -6,3 +6,5 @@ Pump_m_flow
 StratifiedTank
 computeCoordinates
 Validation
+PartialDirect
+PartialIndirect

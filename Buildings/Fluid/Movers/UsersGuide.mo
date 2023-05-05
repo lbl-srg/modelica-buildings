@@ -146,13 +146,11 @@ contains different data records.
 </p>
 <h5>Models that use performance curves for pressure rise</h5>
 <p>
-The models
+The model
 <a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
-Buildings.Fluid.Movers.SpeedControlled_y</a> and
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>
-take as an input either a control signal between <i>0</i> and <i>1</i>, or the
-rotational speed in units of <i>[1/min]</i>. From this input and the current flow rate,
+Buildings.Fluid.Movers.SpeedControlled_y</a>
+takes as an input a control signal between <i>0</i> and <i>1</i>.
+From this input and the current flow rate,
 they compute the pressure rise.
 This pressure rise is computed using a user-provided list of operating points that
 defines the fan or pump curve at full speed.
@@ -201,7 +199,11 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
-
+<p>
+See <a href=\"modelica://Buildings.Fluid.Movers.Validation.PressureCurve\">
+Buildings.Fluid.Movers.Validation.PressureCurve</a>
+for a small example that validates the pressure curve specification.
+</p>
 <h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
@@ -735,8 +737,8 @@ parameter affects the fan output as follows:
 </p>
 <ol>
 <li>
-If <code>use_inputFilter=false</code>, then the input signal <code>y</code> (or
-<code>Nrpm</code>, <code>m_flow_in</code>, or <code>dp_in</code>)
+If <code>use_inputFilter=false</code>, then the input signal <code>y</code>
+(or <code>m_flow_in</code>, or <code>dp_in</code>)
 is equal to the fan speed (or the mass flow rate or pressure rise).
 Thus, a step change in the input signal causes a step change in the fan speed (or mass flow rate or pressure rise).
 </li>

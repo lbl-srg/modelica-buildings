@@ -4,19 +4,23 @@ block ReliefFan "Sequence for control of relief fan in AHU"
   parameter Real relFanSpe_min(
     final min=0,
     final max=1)= 0.1
-    "Relief fan minimum speed";
+    "Relief fan minimum speed"
+    annotation (__cdl(ValueInReference=false));
   parameter Real dpBuiSet(
     final unit="Pa",
     final quantity="PressureDifference",
     final max=30) = 12
-    "Building static pressure difference relative to ambient (positive to pressurize the building)";
+    "Building static pressure difference relative to ambient (positive to pressurize the building)"
+    annotation (__cdl(ValueInReference=true));
   parameter Real k(
     final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (Dialog(group="Pressure controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Pressure controller"));
   parameter Real hys = 0.005
     "Hysteresis for checking the controller output value"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     displayUnit="Pa",

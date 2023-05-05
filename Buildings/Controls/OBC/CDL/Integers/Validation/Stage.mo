@@ -29,7 +29,7 @@ model Stage
     final startTime=1)
     "Block that generates ramp signal"
     annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=0.5,
     final freqHz=1/5,
     final offset=0.5)

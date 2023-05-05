@@ -35,8 +35,8 @@ Buildings.Fluid.Movers.BaseClasses.Euler</a>.
 </p>
 <p>
 The figure below shows the approximation error for the
-power calculation where the speed <i>N<sub>rpm</sub></i> differs from
-the nominal speed <i>N<sub>nominal</sub></i>.
+power calculation where the speed <i>y</i> differs from
+the nominal speed <i>y<sub>nominal</sub></i>.
 </p>
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/Validation/PowerEuler.png\"/>

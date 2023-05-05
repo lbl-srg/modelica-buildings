@@ -1629,5 +1629,12 @@ Solving the large building all-electric heating problem</a>.<br/>
 ASHRAE Journal, October 2021.
 </p>
 
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end AllElectricCWStorage;

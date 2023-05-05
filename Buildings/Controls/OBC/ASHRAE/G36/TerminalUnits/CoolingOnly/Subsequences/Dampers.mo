@@ -8,22 +8,26 @@ block Dampers
     "Design zone cooling maximum airflow rate";
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController damCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller";
+    "Type of controller"
+    annotation (__cdl(ValueInReference=false));
   parameter Real kDam(unit="1")=0.5
-    "Gain of controller for damper control";
+    "Gain of controller for damper control"
+    annotation (__cdl(ValueInReference=false));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(
+    annotation(__cdl(ValueInReference=false),
+               Dialog(
       enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
            or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(
+    annotation (__cdl(ValueInReference=false),
+                Dialog(
        enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
             or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VActMin_flow(
     final min=0,
