@@ -39,10 +39,10 @@ void plotRegister(const char* fileName){
   /* This is a new plot file */
   /* Reallocate memory for the new array */
   if (nPlotFileNames == 0){
-    plotFileNames = malloc(sizeof(char*));
-    plotFileNames[0] = malloc((strlen(fileName)+1) * sizeof(char));
+    plotFileNames = (char **)malloc(sizeof(char*));
+    plotFileNames[0] = (char *)malloc((strlen(fileName)+1) * sizeof(char));
     strcpy(plotFileNames[0], fileName);
-    nPlotsInFiles = malloc(sizeof(size_t));
+    nPlotsInFiles = (size_t *)malloc(sizeof(size_t));
     nPlotsInFiles[0] = 1;
   }
   else{
@@ -51,7 +51,7 @@ void plotRegister(const char* fileName){
     if (plotFileNames == NULL){
       ModelicaError("Failed to allocate memory for plotFileNames.");
     }
-    plotFileNames[nPlotFileNames] = malloc((strlen(fileName)+1) * sizeof(char));
+    plotFileNames[nPlotFileNames] = (char *)malloc((strlen(fileName)+1) * sizeof(char));
     if (plotFileNames[nPlotFileNames] == NULL){
       ModelicaError("Failed to allocate memory for plotFileNames.");
     }
@@ -77,7 +77,7 @@ void* plotInit(const char* fileName,
   int i;
   const size_t nStr = 100; /* Initial string size */
   const size_t nRow = 50; /* Initial double size */
-  PlotObjectStructure* plt = malloc(sizeof(PlotObjectStructure));
+  PlotObjectStructure* plt = (PlotObjectStructure *)malloc(sizeof(PlotObjectStructure));
   if ( plt == NULL )
     ModelicaError("Not enough memory in plotInit.c.");
 
@@ -96,13 +96,13 @@ void* plotInit(const char* fileName,
   plt->iStrTer = 1;
 
   /* Allocate file name */
-  plt->fileName = malloc((strlen(fileName)+1) * sizeof(char));
+  plt->fileName = (char *)malloc((strlen(fileName)+1) * sizeof(char));
   if (plt->fileName == NULL){
     ModelicaError("Failed to allocate memory for plt->fileName in plotInit.c");
   }
   strcpy(plt->fileName, fileName);
   /* Allocate instance name */
-  plt->instanceName = malloc((strlen(instanceName)+1) * sizeof(char));
+  plt->instanceName = (char *)malloc((strlen(instanceName)+1) * sizeof(char));
   if (plt->instanceName == NULL){
     ModelicaError("Failed to allocate memory for plt->instanceName in plotInit.c");
   }

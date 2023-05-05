@@ -1132,6 +1132,7 @@ Buildings/Fluid/Movers/Validation/FlowControlled_m_flow.mo
 Buildings/Fluid/Movers/Validation/PowerEuler.mo
 Buildings/Fluid/Movers/Validation/PowerExact.mo
 Buildings/Fluid/Movers/Validation/PowerSimplified.mo
+Buildings/Fluid/Movers/Validation/PressureCurve.mo
 Buildings/Fluid/Movers/Validation/PumpCurveConstruction.mo
 Buildings/Fluid/Movers/Validation/PumpCurveDerivatives.mo
 Buildings/Fluid/Movers/Validation/Pump_stratos.mo
@@ -1949,6 +1950,7 @@ Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/FlowControlled_m_flow
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerEuler.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerExact.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PowerSimplified.mos
+Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PressureCurve.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveConstruction.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/PumpCurveDerivatives.mos
 Buildings/Resources/Scripts/Dymola/Fluid/Movers/Validation/Pump_stratos.mos
