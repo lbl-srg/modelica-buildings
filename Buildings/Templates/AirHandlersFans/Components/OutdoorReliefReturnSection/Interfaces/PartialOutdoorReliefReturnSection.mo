@@ -144,6 +144,14 @@ partial model PartialOutdoorReliefReturnSection
   annotation (Icon(coordinateSystem(preserveAspectRatio=false,
     extent={{-800,-800}, {800,800}}),
     graphics={
+      Line(
+          visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None,
+          points={{440,440},{440,576}},
+          color={0,0,0}),
+      Line(
+          visible=typFanRel <> Buildings.Templates.Components.Types.Fan.None,
+          points={{-240,440},{-240,570}},
+          color={0,0,0}),
       Text(
           extent={{-149,-834},{151,-874}},
           textColor={0,0,255},
@@ -160,10 +168,6 @@ partial model PartialOutdoorReliefReturnSection
         visible=typFanRet<>Buildings.Templates.Components.Types.Fan.None,
         extent={{358,280},{520,440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-      Line(
-          visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None,
-          points={{440,440},{440,500}},
-          color={0,0,0}),
       Bitmap(
         visible=typDamRel==Buildings.Templates.Components.Types.Damper.TwoPosition,
         extent={{-680,360},{-600,440}},
@@ -188,10 +192,6 @@ partial model PartialOutdoorReliefReturnSection
         visible=typFanRel<>Buildings.Templates.Components.Types.Fan.None,
         extent={{-320,278},{-158,440}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-      Line(
-          visible=typFanRel <> Buildings.Templates.Components.Types.Fan.None,
-          points={{-240,440},{-240,500}},
-          color={0,0,0}),
       Bitmap(
         visible=typ<>Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.HundredPctOutdoorAir,
         extent={{-240,-40},{-160,40}},
@@ -215,7 +215,7 @@ partial model PartialOutdoorReliefReturnSection
         extent={{-680,-840},{-600,-760}},
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/Modulating.svg"),
       Bitmap(
-        extent={{-770,-240},{-510,-500}},
+        extent={{-510,-240},{-770,-500}},
         visible=typDamOutMin<>Buildings.Templates.Components.Types.Damper.None,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Dampers/BladesParallel.svg"),
       Bitmap(
@@ -274,7 +274,6 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Bitmap(
           visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
-
           extent={{-260,-500},{-60,-300}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
@@ -294,7 +293,6 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
       Bitmap(
           visible=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None,
-
           extent={{-400,-240},{-200,-440}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
@@ -308,7 +306,6 @@ partial model PartialOutdoorReliefReturnSection
           visible=typDamOutMin <> Buildings.Templates.Components.Types.Damper.None
                and (typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
                or typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
-
           extent={{-520,-240},{-320,-440}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
@@ -318,7 +315,6 @@ partial model PartialOutdoorReliefReturnSection
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/Temperature.svg"),
       Bitmap(
           visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None,
-
           extent={{-400,-760},{-200,-560}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
@@ -332,13 +328,11 @@ partial model PartialOutdoorReliefReturnSection
           visible=typDamOutMin == Buildings.Templates.Components.Types.Damper.None
                and (typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
                or typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb),
-
           extent={{-520,-760},{-320,-560}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(
           visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper,
-
           extent={{-260,-700},{-60,-500}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/VolumeFlowRateAFMS.svg"),
@@ -349,50 +343,42 @@ partial model PartialOutdoorReliefReturnSection
       Bitmap(
           visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
                and typCtlFanRet == Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure,
-
           extent={{260,760},{340,840}},
           fileName=
               "modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
-
         Line(
           points={{-160,-700},{-160,-760}},
           color={0,0,0},
           visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.SingleDamper),
-
         Line(
           points={{-160,-238},{-160,-300}},
           color={0,0,0},
           visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow),
-
         Polygon(
-          points={{-600,-96},{-556,-96},{-556,-340},{-564,-340},{-564,-104},{
-              -600,-104},{-600,-96}},
-          lineColor={0,0,0},
-          visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
-
-        Polygon(
-          points={{260,802},{220,802},{220,660},{224,660},{224,798},{260,798},{
-              260,802}},
+          points={{260,805},{220,805},{220,660},{230,660},{230,795},{260,795},{
+              260,805}},
           lineColor={0,0,0},
           visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
                and typCtlFanRet == Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure),
-
         Polygon(
-          points={{492,604},{624,604},{624,440},{616,440},{616,596},{492,596},{
-              492,604}},
+          points={{492,605},{625,605},{625,440},{615,440},{615,595},{492,595},{
+              492,605}},
           lineColor={0,0,0},
           visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
                and typCtlFanRet == Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured),
-
         Rectangle(
-          extent={{340,802},{380,798}},
+          extent={{340,805},{380,795}},
           lineColor={0,0,0},
           visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
                and typCtlFanRet == Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.BuildingPressure),
-
         Polygon(
-          points={{-680,-96},{-724,-96},{-724,-340},{-716,-340},{-716,-104},{
-              -680,-104},{-680,-96}},
+          points={{-680,-95},{-725,-95},{-725,-340},{-715,-340},{-715,-105},{-680,
+              -105},{-680,-95}},
+          lineColor={0,0,0},
+          visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure),
+        Polygon(
+          points={{-600,-95},{-555,-95},{-555,-340},{-565,-340},{-565,-105},{-600,
+              -105},{-600,-95}},
           lineColor={0,0,0},
           visible=typSecOut == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure)}),
    Diagram(
@@ -418,4 +404,5 @@ the relief or return fan.
 </li>
 </ul>
 </html>"));
+
 end PartialOutdoorReliefReturnSection;

@@ -97,14 +97,9 @@ equation
         extent=if text_flip then {{100,-360},{-100,-160}} else {{-100,-360},{100,-160}},
         rotation=text_rotation,
           fileName="modelica://Buildings/Resources/Images/Templates/Components/Actuators/VFD.svg"),
-    Line(
-      visible=have_senFlo and typ==Buildings.Templates.Components.Types.Fan.ArrayVariable,
-          points={{-100,0},{0,0}},
-          color={0,0,0},
-          thickness=1),
         Polygon(
-          points={{-184,-160},{-184,4},{-100,4},{-100,-4},{-176,-4},{-176,-160},
-              {-184,-160}},
+          points={{-185,-160},{-185,5},{-100,5},{-100,-5},{-175,-5},{-175,-160},
+              {-185,-160}},
           lineColor={0,0,0},
           visible=have_senFlo and typ <> Buildings.Templates.Components.Types.Fan.None)}),
     Diagram(

@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="40"
-   height="40"
-   viewBox="0 0 10.583332 10.583331"
+   width="80mm"
+   height="80mm"
+   viewBox="0 0 79.99999 79.999985"
    version="1.1"
    id="svg1642"
    sodipodi:docname="VolumeFlowRate.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.74864923"
-     inkscape:cx="134.90964"
-     inkscape:cy="211.71464"
+     inkscape:cx="-58.104648"
+     inkscape:cy="213.05038"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
@@ -44,68 +44,68 @@
   </defs>
   <g
      id="g6351"
-     transform="matrix(0.02550209,0,0,0.02550201,2.3828145,-12.379131)"
-     style="stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none">
+     transform="matrix(0.19524115,0,0,0.1952425,17.730153,-95.287008)"
+     style="stroke-width:5.12185;stroke-miterlimit:4;stroke-dasharray:none">
     <g
        id="g19584"
        transform="translate(-428.59823,-15.255456)"
-       style="stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none">
+       style="stroke-width:5.12185;stroke-miterlimit:4;stroke-dasharray:none">
       <g
          id="g12097-8"
          transform="matrix(52.995665,0,0,52.99607,77843.156,179246.66)"
-         style="stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none">
+         style="stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none">
         <path
            d="m -1461.1642,-3372.718 a 1.27256,1.27256 0 0 0 -1.273,1.273"
            id="path1112-2"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
         <path
            d="m -1462.4372,-3366.355 a 1.27256,1.27256 0 0 0 1.273,1.272"
            id="path1114-9"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
         <path
            d="m -1456.0742,-3365.083 a 1.27256,1.27256 0 0 0 1.273,-1.272"
            id="path1116-9"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
         <polyline
            points="538.271,375.944 533.181,375.944 "
            id="polyline1118-6"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <polyline
            points="533.181,368.309 538.271,368.309 "
            id="polyline1120-0"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <polyline
            points="531.908,374.672 531.908,369.582 "
            id="polyline1122-2"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <polyline
            points="539.544,369.582 539.544,374.672 "
            id="polyline1124-7"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none"
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none"
            transform="translate(-1994.3452,-3741.027)" />
         <path
            d="m -1454.8012,-3371.445 a 1.27256,1.27256 0 0 0 -1.273,-1.273"
            id="path1126-6"
-           style="fill:none;stroke:#000000;stroke-width:0.19577;stroke-miterlimit:4;stroke-dasharray:none" />
+           style="fill:none;stroke:#000000;stroke-width:0.0966463;stroke-miterlimit:4;stroke-dasharray:none" />
       </g>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:207.499px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:10.375;stroke-miterlimit:4;stroke-dasharray:none"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:207.499px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:5.12185;stroke-miterlimit:4;stroke-dasharray:none"
          x="403.70407"
          y="783.80707"
          id="text44048"><tspan
            id="tspan1670"
            x="403.70407"
            y="783.80707"
-           style="stroke-width:10.375;stroke-dasharray:none">FR</tspan></text>
+           style="stroke-width:5.12185;stroke-dasharray:none">FR</tspan></text>
       <text
          xml:space="preserve"
          transform="matrix(1.0374999,0,0,1.0375001,335.13658,500.67327)"
          id="text3652"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3654);fill:#000000;fill-opacity:1;stroke:none;stroke-width:9.99999;stroke-dasharray:none" />
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect3654);fill:#000000;fill-opacity:1;stroke:none;stroke-width:4.93672;stroke-dasharray:none" />
     </g>
   </g>
 </svg>

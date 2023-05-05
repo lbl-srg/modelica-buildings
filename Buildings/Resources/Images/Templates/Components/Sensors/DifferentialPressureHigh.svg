@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="40"
-   height="40"
-   viewBox="0 0 10.583333 10.583332"
+   width="80mm"
+   height="80mm"
+   viewBox="0 0 79.999997 79.999992"
    version="1.1"
    id="svg2869"
    sodipodi:docname="DifferentialPressureHigh.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.4972985"
-     inkscape:cx="90.830254"
-     inkscape:cy="204.70201"
+     inkscape:cx="-5.0090212"
+     inkscape:cy="205.36987"
      inkscape:window-width="1920"
      inkscape:window-height="1028"
      inkscape:window-x="-6"
@@ -86,14 +86,14 @@
       </g>
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.7692px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
-         x="191.50508"
-         y="1127.7413"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96.2511px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none"
+         x="243.89247"
+         y="1241.8433"
          id="text44048-8"><tspan
            id="tspan7300-1"
-           x="191.50508"
-           y="1127.7413"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.7692px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">H</tspan></text>
+           x="243.89247"
+           y="1241.8433"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96.2511px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke:none;stroke-width:6.38462;stroke-miterlimit:4;stroke-dasharray:none">H</tspan></text>
     </g>
   </g>
 </svg>

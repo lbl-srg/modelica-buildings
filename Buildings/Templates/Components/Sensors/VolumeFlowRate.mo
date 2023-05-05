@@ -57,8 +57,9 @@ equation
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/DifferentialPressure.svg"),
       Rectangle(
-          visible=have_sen and typ==Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
-          extent={{-2,-99},{2,-161}},
+          visible=have_sen and typ == Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowCross,
+
+          extent={{-5,-100},{5,-160}},
           lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

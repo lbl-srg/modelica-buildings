@@ -298,9 +298,8 @@ to <b style=\"color:blue\">existing</b> libraries:
         Buildings.Fluid.Movers.BaseClasses.Validation.TotalEfficiencyMethods
     </td>
     <td valign=\"top\">
-    Added package that allows certain efficiency and power variables to be computed
-    using the Euler number, its example and validation models, and relevant data
-    records.<br/>
+    Added package that enables the Euler number method for efficiency computation,
+    as well as example models, validation models, and data records to support it.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
     </td>
 </tr>
@@ -319,7 +318,6 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">
         Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp<br/>
         Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow<br/>
-        Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
         Buildings.Fluid.Movers.Preconfigured.Validation.ControlledFlowMachinePreconfigured
     </td>
@@ -327,6 +325,14 @@ to <b style=\"color:blue\">existing</b> libraries:
     Added preconfigured versions for the mover models that only require the user
     to provide nominal conditions.<br/>
     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+        Buildings.Fluid.Movers.Validation.PressureCurve
+    </td>
+    <td valign=\"top\">
+    Added a validation model that displays the pressure curve.<br/>
+    This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3371\">#3371</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b>
@@ -506,7 +512,6 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Buildings.Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
@@ -516,9 +521,7 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                          Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Buildings.Fluid.Movers.SpeedControlled_y<br/>
-                         Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm<br/>
                          Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y<br/>
                          Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
     </td>
@@ -553,7 +556,6 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
                          Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
@@ -585,7 +587,6 @@ have been <b style=\"color:blue\">improved</b> in a
   </tr>
   <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
                          Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
                          Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
@@ -858,7 +859,6 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
                        Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
-                       Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
                        Buildings.Fluid.Movers.SpeedControlled_y<br/>
                        Buildings.Fluid.Movers.Data.Generic<br/>
                        Buildings.Fluid.Movers.Data.Pumps.Wilo.CronolineIL80slash220dash4slash4<br/>

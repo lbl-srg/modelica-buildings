@@ -14,12 +14,16 @@ partial model PartialEffectiveness
     fra_a2 * Medium2.temperature(state_a2_inflow) + fra_b2 * Medium2.temperature(state_b2_inflow) else
     Medium2.temperature(state_a2_inflow)
     "Inlet temperature medium 2";
-  Modelica.Units.SI.ThermalConductance C1_flow=abs(m1_flow)*(if
+  Modelica.Units.SI.ThermalConductance C1_flow(
+    min=0,
+    nominal=m1_flow_nominal*cp1_default)=abs(m1_flow)*(if
       allowFlowReversal1 then fra_a1*Medium1.specificHeatCapacityCp(
       state_a1_inflow) + fra_b1*Medium1.specificHeatCapacityCp(state_b1_inflow)
        else Medium1.specificHeatCapacityCp(state_a1_inflow))
     "Heat capacity flow rate medium 1";
-  Modelica.Units.SI.ThermalConductance C2_flow=abs(m2_flow)*(if
+  Modelica.Units.SI.ThermalConductance C2_flow(
+    min=0,
+    nominal=m2_flow_nominal*cp2_default)=abs(m2_flow)*(if
       allowFlowReversal2 then fra_a2*Medium2.specificHeatCapacityCp(
       state_a2_inflow) + fra_b2*Medium2.specificHeatCapacityCp(state_b2_inflow)
        else Medium2.specificHeatCapacityCp(state_a2_inflow))
@@ -31,11 +35,20 @@ partial model PartialEffectiveness
 protected
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp1_default =
+    Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+      Medium1.p_default,
+      Medium1.T_default,
+      Medium1.X_default))
     "Specific heat capacity of medium 1 at default medium state";
-  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default(fixed=false)
+  parameter Modelica.Units.SI.SpecificHeatCapacity cp2_default =
+    Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+      Medium2.p_default,
+      Medium2.T_default,
+      Medium2.X_default))
     "Specific heat capacity of medium 2 at default medium state";
-  parameter Modelica.Units.SI.ThermalConductance CMin_flow_small(fixed=false)
+  parameter Modelica.Units.SI.ThermalConductance CMin_flow_small =
+    min(m1_flow_small*cp1_default, m2_flow_small*cp2_default)
     "Small value for smoothing of minimum heat capacity flow rate";
   Real fra_a1(min=0, max=1) = if allowFlowReversal1
     then Modelica.Fluid.Utilities.regStep(
@@ -61,16 +74,6 @@ protected
     then 1-fra_a2
     else 0
     "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
-initial equation
-  cp1_default = Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
-    Medium1.p_default,
-    Medium1.T_default,
-    Medium1.X_default));
-  cp2_default = Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
-    Medium2.p_default,
-    Medium2.T_default,
-    Medium2.X_default));
-  CMin_flow_small = min(m1_flow_small*cp1_default, m2_flow_small*cp2_default);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -104,9 +107,17 @@ and <code>QMax_flow &gt; 0</code>.
 </html>", revisions="<html>
 <ul>
 <li>
+April 27, 2023, by Michael Wetter:<br/>
+Set nominal and min attributes for capacity flow rates.<br/>
+Moved assignments from <code>initial equation</code> to parameter declaration.
+This avoids a warning in Dymola 2023x about non-literal nominal values.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3360\">#3360</a>.
+</li>
+<li>
 February 21, 2019, by Filip Jorissen:<br/>
 Revised implementation of all equations
-such that a binding equation is used. 
+such that a binding equation is used.
 I.e. we set the variable value at the variable definition
 instead of using the equation section.
 This allows overwriting the equation
@@ -116,7 +127,7 @@ See
 </li>
 <li>
 April 30, 2018, by Filip Jorissen:<br/>
-Set <code>prescribedHeatFlowRate1=true</code> and 
+Set <code>prescribedHeatFlowRate1=true</code> and
 <code>prescribedHeatFlowRate2=true</code>.<br/>
 See
 <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/907\">#907</a>.
