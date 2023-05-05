@@ -26,7 +26,7 @@ block MappingWithoutWSE
       iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaPreEna
     "Status of head pressure control: true = ON, false = OFF"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
+    annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yMaxTowSpeSet(
     final unit="1",
@@ -38,13 +38,13 @@ block MappingWithoutWSE
     final unit="1",
     final min=0,
     final max=1) if have_fixSpeConWatPum "Head pressure control valve position"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+    annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yConWatPumSpeSet(
     final unit="1",
     final min=0,
     final max=1) if not have_fixSpeConWatPum "Condenser water pump speed setpoint"
-    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+    annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
       iconTransformation(extent={{100,-100},{140,-60}})));
 
 protected
@@ -79,18 +79,22 @@ protected
     final k=minHeaPreValPos) if have_fixSpeConWatPum
     "Minimum head pressure control valve position"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer2(final k=0)
-    "Constant value"
-    annotation (Placement(transformation(extent={{-40,-110},{-20,-90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi "Logical switch"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minPumSpe(
     final k=minConWatPumSpe) if not have_fixSpeConWatPum
     "Minimum condenser water pump speed"
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1 "Logical switch"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zero(final k=0)
+    if have_fixSpeConWatPum
+    "Constant zero"
+    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
+    final k=1) if not have_fixSpeConWatPum
+    "Dummy gain so can disable the connection"
+    annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 equation
   connect(zer.y, maxCooTowSpeSet.x1)
     annotation (Line(points={{22,80},{30,80},{30,68},{38,68}},color={0,0,127}));
@@ -116,25 +120,22 @@ equation
     annotation (Line(points={{-120,60},{-60,60},{-60,-20},{38,-20}},
       color={0,0,127}));
   connect(uHeaPreEna, swi.u2)
-    annotation (Line(points={{-120,-80},{58,-80}}, color={255,0,255}));
+    annotation (Line(points={{-120,-70},{58,-70}}, color={255,0,255}));
   connect(lin.y, swi.u1)
-    annotation (Line(points={{62,-20},{80,-20},{80,-40},{40,-40},{40,-72},
-      {58,-72}}, color={0,0,127}));
-  connect(zer2.y, swi.u3)
-    annotation (Line(points={{-18,-100},{40,-100},{40,-88},{58,-88}},
-      color={0,0,127}));
+    annotation (Line(points={{62,-20},{80,-20},{80,-40},{40,-40},{40,-62},{58,-62}},
+                 color={0,0,127}));
   connect(swi.y, yConWatPumSpeSet)
-    annotation (Line(points={{82,-80},{120,-80}}, color={0,0,127}));
+    annotation (Line(points={{82,-70},{120,-70}}, color={0,0,127}));
   connect(desConWatPumSpe, lin.f1)
-    annotation (Line(points={{-120,0},{-80,0},{-80,-16},{38,-16}},
+    annotation (Line(points={{-120,0},{-84,0},{-84,-16},{38,-16}},
       color={0,0,127}));
   connect(minPumSpe.y, lin.f2)
     annotation (Line(points={{-18,-50},{-10,-50},{-10,-28},{38,-28}},
       color={0,0,127}));
   connect(swi.y, yHeaPreConVal)
-    annotation (Line(points={{82,-80},{90,-80},{90,-40},{120,-40}}, color={0,0,127}));
+    annotation (Line(points={{82,-70},{90,-70},{90,-30},{120,-30}}, color={0,0,127}));
   connect(uHeaPreEna, swi1.u2)
-    annotation (Line(points={{-120,-80},{-90,-80},{-90,100},{58,100}},
+    annotation (Line(points={{-120,-70},{-90,-70},{-90,100},{58,100}},
       color={255,0,255}));
   connect(maxCooTowSpeSet.y, swi1.u1)
     annotation (Line(points={{62,60},{70,60},{70,80},{40,80},{40,108},{58,108}},
@@ -144,6 +145,12 @@ equation
   connect(one.y, swi1.u3)
     annotation (Line(points={{-18,80},{-10,80},{-10,92},{58,92}}, color={0,0,127}));
 
+  connect(zero.y, swi.u3) annotation (Line(points={{22,-100},{40,-100},{40,-78},
+          {58,-78}}, color={0,0,127}));
+  connect(desConWatPumSpe, gai.u) annotation (Line(points={{-120,0},{-84,0},{-84,
+          -100},{-62,-100}}, color={0,0,127}));
+  connect(gai.y, swi.u3) annotation (Line(points={{-38,-100},{-20,-100},{-20,-78},
+          {58,-78}}, color={0,0,127}));
 annotation (
   defaultComponentName= "heaPreConEqu",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

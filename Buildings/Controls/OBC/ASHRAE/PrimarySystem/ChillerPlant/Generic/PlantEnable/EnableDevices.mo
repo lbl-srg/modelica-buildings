@@ -38,23 +38,23 @@ block EnableDevices
     annotation (Placement(transformation(extent={{160,80},{200,120}}),
         iconTransformation(extent={{100,70},{140,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yChiWatIsoVal
-    "Lead chiller chilled water isolation valve  commanded open"
+    "Lead chiller chilled water isolation valve commanded open"
     annotation (Placement(transformation(extent={{160,10},{200,50}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yConWatIsoVal
-    "Lead chiller condenser water isolation valve  commanded open"
+    "Lead chiller condenser water isolation valve commanded open"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaPriChiPum
-    "Lead primary chilled water pump  commanded on"
+    "Lead primary chilled water pump commanded on"
     annotation (Placement(transformation(extent={{160,-50},{200,-10}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaConPum
-    "Lead condenser water pump  commanded on"
+    "Lead condenser water pump commanded on"
     annotation (Placement(transformation(extent={{160,-80},{200,-40}}),
         iconTransformation(extent={{100,-50},{140,-10}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaTowCel
-    "Lead cooling tower cell  commanded on"
+    "Lead cooling tower cell commanded on"
     annotation (Placement(transformation(extent={{160,-110},{200,-70}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yLeaChi

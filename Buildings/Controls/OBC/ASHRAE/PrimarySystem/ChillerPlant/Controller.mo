@@ -1392,10 +1392,9 @@ block Controller "Chiller plant controller"
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{480,190},{500,210}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator repDesConTem(
-    final nout=nChi)
-    if not have_fixSpeConWatPum
-    "Replicate design condenser water temperature"
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator desConPumSpe(final
+      nout=nChi) if not have_fixSpeConWatPum
+    "Replicate design condenser water pump speed"
     annotation (Placement(transformation(extent={{540,190},{560,210}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiMin mulMin(
@@ -1525,7 +1524,7 @@ block Controller "Chiller plant controller"
     annotation (Placement(transformation(extent={{640,470},{660,490}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro1[nChiWatPum]
-    "Chilled water pump speed setpoint"
+    "Condenser water pump speed setpoint"
     annotation (Placement(transformation(extent={{660,140},{680,160}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator conWatPumSpe1(
@@ -1761,8 +1760,9 @@ equation
         points={{268,356},{360,356},{360,208},{478,208}}, color={0,0,127}));
   connect(dowProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u3) annotation (Line(
         points={{268,-264},{360,-264},{360,192},{478,192}}, color={0,0,127}));
-  connect(repDesConTem.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{562,200},
-          {580,200},{580,240},{-532,240},{-532,196},{-524,196}}, color={0,0,127}));
+  connect(desConPumSpe.y, heaPreCon.desConWatPumSpe) annotation (Line(points={{
+          562,200},{580,200},{580,240},{-532,240},{-532,196},{-524,196}}, color
+        ={0,0,127}));
   connect(heaPreCon.uHeaPreCon, uHeaPreCon) annotation (Line(points={{-524,180},
           {-920,180}},                       color={0,0,127}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet) annotation (Line(
@@ -1878,7 +1878,7 @@ equation
           {140,-410},{140,308},{172,308}}, color={255,0,255}));
   connect(uConWatPum, dowProCon.uConWatPum) annotation (Line(points={{-920,-410},
           {140,-410},{140,-296},{172,-296}}, color={255,0,255}));
-  connect(desConWatPumSpeSwi.y, repDesConTem.u)
+  connect(desConWatPumSpeSwi.y, desConPumSpe.u)
     annotation (Line(points={{502,200},{538,200}}, color={0,0,127}));
   connect(dowProCon.yReaDemLim, relDem.u3) annotation (Line(points={{268,-188},{
           390,-188},{390,-218},{478,-218}}, color={255,0,255}));
@@ -1965,8 +1965,9 @@ equation
           -16},{-150,272},{-750,272},{-750,316},{-704,316}}, color={255,127,0}));
   connect(plaEna.yPla, wseSta.uPla) annotation (Line(points={{-658,-520},{-580,-520},
           {-580,72},{-760,72},{-760,320},{-704,320}}, color={255,0,255}));
-  connect(staSetCon.ySta, wseSta.uChiSta) annotation (Line(points={{-172,-24},{-140,
-          -24},{-140,280},{-740,280},{-740,312},{-704,312}},color={255,127,0}));
+  connect(staSetCon.ySta, wseSta.uChiSta) annotation (Line(points={{-172,-24},{
+          -140,-24},{-140,278},{-740,278},{-740,312},{-704,312}},
+                                                            color={255,127,0}));
   connect(dpChiWat, wseSta.dpChiWat) annotation (Line(points={{-920,110},{-730,110},
           {-730,308},{-704,308}}, color={0,0,127}));
   connect(uEcoPum, wseSta.uPum) annotation (Line(points={{-920,50},{-720,50},{-720,

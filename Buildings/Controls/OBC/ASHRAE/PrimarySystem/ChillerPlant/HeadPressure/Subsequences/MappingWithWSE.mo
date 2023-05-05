@@ -180,8 +180,8 @@ equation
     annotation (Line(points={{-140,0},{-100,0},{-100,180},{-82,180}},
       color={255,0,255}));
   connect(not1.y, or2.u2)
-    annotation (Line(points={{-78,-140},{-60,-140},{-60,-120},{-96,-120},
-      {-96,172},{-82,172}}, color={255,0,255}));
+    annotation (Line(points={{-78,-140},{-60,-140},{-60,-120},{-90,-120},{-90,
+          172},{-82,172}},  color={255,0,255}));
   connect(or2.y, swi.u2)
     annotation (Line(points={{-58,180},{78,180}}, color={255,0,255}));
   connect(or2.y, swi1.u2)

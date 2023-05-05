@@ -181,15 +181,41 @@ annotation (defaultComponentName = "iniSta",
           textString="At Enable")}),
         Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-240,-140},{240,140}})),
-          Documentation(info="<html>
-<p>This subsequence is not directly specified in 1711 as it provides a side calculation pertaining to generalization of the staging sequences for any number of chillers and stages provided by the user. </p>
-<p>Determines the initial stage upon plant startup for both plants with and without a WSE. Implemented according to section 5.2.4.15. 1711 March 2020 Draft, under 8. (primary-only) and 15. (primary-secondary) plants. </p>
-<p>The initial stage <span style=\"font-family: monospace;\">yIni</span> is defined as: </p>
-<p>When the plant is enabled and the plant has no waterside economizer (<span style=\"font-family: monospace;\">have_WSE</span>=false), the initial stage will be the lowest available stage <span style=\"font-family: monospace;\">uUp</span>.</p>
-<p>When the plant is enabled and the plant has waterside economizer (<span style=\"font-family: monospace;\">have_WSE</span>=true), the initial stage will be: </p>
+Documentation(info="<html>
+<p>
+This subsequence is not directly specified in 1711 as it provides a side
+calculation pertaining to generalization of the staging sequences for any
+number of chillers and stages provided by the user.
+</p>
+<p>
+Determines the initial stage upon plant startup for both plants with and
+without a WSE. Implemented according to section 5.2.4.15. 1711 March 2020
+Draft, under 8. (primary-only) and 15. (primary-secondary) plants.
+</p>
+<p>
+The initial stage <code>yIni</code> is defined as:
+</p>
+<p>
+When the plant is enabled and the plant has no waterside economizer
+(<code>have_WSE</code>=false), the initial stage will be the lowest available
+stage <code>uUp</code>.
+</p>
+<p>
+When the plant is enabled and the plant has waterside economizer
+(<code>have_WSE</code>=true), the initial stage will be:
+</p>
 <ul>
-<li>If predicted waterside economizer outlet temperature calculated using <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature\">Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature</a> with predicted heat exchanger part load ratio <span style=\"font-family: monospace;\">PLRHeaExc</span> set to 1 is at least <span style=\"font-family: monospace;\">wseDt</span> below the chilled water supply temperature setpoint <span style=\"font-family: monospace;\">TChiWatSupSet</span>, then the initial stage will be 0, meaning that the plant initiates in a waterside economizer only mode. </li>
-<li>Otherwise, the initial stage will be the lowest available stage <span style=\"font-family: monospace;\">uUp</span>. </li>
+<li>If predicted waterside economizer outlet temperature calculated using
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.PredictedOutletTemperature</a>
+with predicted heat exchanger part load ratio <code>PLRHeaExc</code> set to 1
+is at least <code>wseDt</code> below the chilled water supply temperature
+setpoint <code>TChiWatSupSet</code>, then the initial stage will be 0, meaning
+that the plant initiates in a waterside economizer only mode.
+</li>
+<li>
+Otherwise, the initial stage will be the lowest available stage <code>uUp</code>.
+</li>
 </ul>
 <p>
 The following state machine chart illustrates the initial stage selection for plants with a waterside economizer:
