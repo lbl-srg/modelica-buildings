@@ -262,8 +262,7 @@ equation
     experiment(
       StartTime=3024000,
       StopTime=3888000,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Radau"),
+      Tolerance=1e-06),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
     Documentation(info="<html>
 <p>
