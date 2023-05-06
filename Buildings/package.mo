@@ -1015,6 +1015,12 @@ that can lead to wrong simulation results):
                      issue 3299</a>.
   </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct
+  </td>
+  <td valign=\"top\">Removed assignment of check valve <code>allowFlowReversal=false</code>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
+  </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
