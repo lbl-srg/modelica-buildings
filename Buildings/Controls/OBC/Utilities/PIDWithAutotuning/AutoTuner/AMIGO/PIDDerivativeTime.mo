@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIDDerivativeTime "Identify the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
@@ -19,7 +19,7 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant signal for the derivative term"
-    annotation (Placement(transformation(extent={{100,-16},{140,24}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.3)
@@ -37,10 +37,10 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
     annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of mul divided by the output of add"
-    annotation (Placement(transformation(extent={{20,-6},{40,14}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
-  connect(div.y, Td) annotation (Line(points={{42,4},{120,4}}, color={0,0,127}));
+  connect(div.y, Td) annotation (Line(points={{42,0},{120,0}}, color={0,0,127}));
   connect(gai1.u, L) annotation (Line(points={{-82,-60},{-96,-60},{-96,-60},{-120,
           -60}},      color={0,0,127}));
   connect(gai1.y, add.u2) annotation (Line(points={{-58,-60},{-42,-60}},
@@ -53,9 +53,9 @@ equation
           -60}}, color={0,0,127}));
   connect(gai2.y, mul.u1) annotation (Line(points={{-58,40},{-52,40},{-52,16},{
           -42,16}}, color={0,0,127}));
-  connect(mul.y, div.u1) annotation (Line(points={{-18,10},{18,10}},
+  connect(mul.y, div.u1) annotation (Line(points={{-18,10},{2,10},{2,6},{18,6}},
         color={0,0,127}));
-  connect(div.u2, add.y) annotation (Line(points={{18,-2},{12,-2},{12,-54},{-18,
+  connect(div.u2, add.y) annotation (Line(points={{18,-6},{12,-6},{12,-54},{-18,
           -54}}, color={0,0,127}));
   annotation (defaultComponentName = "PIDDerTim",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
