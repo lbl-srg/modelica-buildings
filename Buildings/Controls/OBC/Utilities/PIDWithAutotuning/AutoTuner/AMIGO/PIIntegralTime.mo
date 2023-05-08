@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 block PIIntegralTime "Identify the integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",
@@ -19,20 +19,20 @@ block PIIntegralTime "Identify the integral time of a PI controller"
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Time constant for the integral term"
-    annotation (Placement(transformation(extent={{100,-22},{140,18}}),
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculate the sum of the output of mul3 and the output of gai1"
     annotation (Placement(transformation(extent={{0,44},{20,64}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Calculate the sum of 0.35 and the output of div"
-    annotation (Placement(transformation(extent={{60,-12},{80,8}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3
     "Calculate the sum of the output of add1 and the output of mul2"
     annotation (Placement(transformation(extent={{60,-54},{80,-34}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Calculate the output of gai3 divided by the output of add3"
-    annotation (Placement(transformation(extent={{0,-6},{20,14}})));
+    annotation (Placement(transformation(extent={{0,-4},{20,16}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=12)
     "Mutiple the time delay by 12"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
@@ -56,11 +56,11 @@ block PIIntegralTime "Identify the integral time of a PI controller"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
     "Calculate the product of the output of the gai3 and the time delay"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
 
 equation
   connect(add2.y, Ti)
-    annotation (Line(points={{82,-2},{120,-2}}, color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}},   color={0,0,127}));
   connect(gai4.u, L) annotation (Line(points={{-82,-20},{-92,-20},{-92,-60},{-120,
           -60}},      color={0,0,127}));
   connect(mul3.u1, T) annotation (Line(points={{-62,66},{-90,66},{-90,60},{-120,
@@ -90,17 +90,16 @@ equation
   connect(add3.u1, add1.y) annotation (Line(points={{58,-38},{32,-38},{32,54},{
           22,54}}, color={0,0,127}));
   connect(add3.y, div.u2) annotation (Line(points={{82,-44},{90,-44},{90,-24},{
-          -8,-24},{-8,-2},{-2,-2}},
-                                 color={0,0,127}));
+          -8,-24},{-8,0},{-2,0}},color={0,0,127}));
   connect(div.y, add2.u1)
-    annotation (Line(points={{22,4},{58,4}},                 color={0,0,127}));
-  connect(add2.u2, gai4.y) annotation (Line(points={{58,-8},{48,-8},{48,-20},{
+    annotation (Line(points={{22,6},{58,6}},                 color={0,0,127}));
+  connect(add2.u2, gai4.y) annotation (Line(points={{58,-6},{48,-6},{48,-20},{
           -58,-20}}, color={0,0,127}));
-  connect(mul4.u2, L) annotation (Line(points={{-82,4},{-92,4},{-92,-60},{-120,-60}},
-                 color={0,0,127}));
-  connect(gai3.y, mul4.u1) annotation (Line(points={{-42,80},{-94,80},{-94,16},{
-          -82,16}},                    color={0,0,127}));
-  connect(mul4.y, div.u1) annotation (Line(points={{-58,10},{-2,10}},
+  connect(mul4.u2, L) annotation (Line(points={{-82,6},{-92,6},{-92,-60},{-120,
+          -60}}, color={0,0,127}));
+  connect(gai3.y, mul4.u1) annotation (Line(points={{-42,80},{-94,80},{-94,18},
+          {-82,18}},                   color={0,0,127}));
+  connect(mul4.y, div.u1) annotation (Line(points={{-58,12},{-2,12}},
                 color={0,0,127}));
   annotation (defaultComponentName = "PIIntTim",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
