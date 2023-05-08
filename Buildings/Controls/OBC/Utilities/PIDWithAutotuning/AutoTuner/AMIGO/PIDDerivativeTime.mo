@@ -49,7 +49,7 @@ equation
           -120,60}}, color={0,0,127}));
   connect(gai2.u, T) annotation (Line(points={{-82,40},{-90,40},{-90,60},{-120,
           60}}, color={0,0,127}));
-  connect(mul.u2, L) annotation (Line(points={{-42,4},{-96,4},{-96,-60},{-120,
+  connect(mul.u2, L) annotation (Line(points={{-42,4},{-90,4},{-90,-60},{-120,
           -60}}, color={0,0,127}));
   connect(gai2.y, mul.u1) annotation (Line(points={{-58,40},{-52,40},{-52,16},{
           -42,16}}, color={0,0,127}));
