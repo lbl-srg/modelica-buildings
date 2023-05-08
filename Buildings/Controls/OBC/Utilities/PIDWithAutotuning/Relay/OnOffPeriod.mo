@@ -25,10 +25,10 @@ block OnOffPeriod
     "Length for the on period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
-    "Simulation time when the input signal becomes On (True)"
+    "Simulation time when the input signal becomes on (True)"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOff
-    "Simulation time when the input signal becomesss Off (False)"
+    "Simulation time when the input signal becomes off (False)"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Not Off
     "Relay switch off"

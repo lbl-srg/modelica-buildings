@@ -114,7 +114,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow)
-    "Identify the On and off period length, the half period ratio, and the moments when the tuning starts and ends"
+    "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
