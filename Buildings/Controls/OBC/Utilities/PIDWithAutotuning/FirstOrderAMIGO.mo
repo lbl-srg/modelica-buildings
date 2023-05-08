@@ -114,7 +114,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow)
-    "Identify the On and Off period length, the half period ratio, and the moments when the tuning starts and ends"
+    "Identify the On and off period length, the half period ratio, and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
@@ -223,7 +223,7 @@ PID controller.
 </p>
 <h4>Brief guidance</h4>
 <p>
-To use this block, connect it to the control loop. 
+To use this block, connect it to the control loop.
 It will start the PID tuning process once the simulation starts.
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
 The PID tuning process will end automatically based on the algorithm defined

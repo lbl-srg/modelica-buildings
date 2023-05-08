@@ -5,14 +5,14 @@ block HalfPeriodRatio
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
     iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput rho
@@ -31,7 +31,7 @@ block HalfPeriodRatio
     "Minimum value of the length for the on and off period "
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretOntOff
-    "Check if both the length for the On period and the length for the off period are larger than 0"
+    "Check if both the length for the on period and the length for the off period are larger than 0"
     annotation (Placement(transformation(extent={{-20,50},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(
      final k=0)
@@ -49,13 +49,13 @@ block HalfPeriodRatio
     "Sample the tmin when tmin is larger than 0"
     annotation (Placement(transformation(extent={{20,30},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater tInc
-    "Check if either the length for the On period or the length for the off period increases after they both becomes positive"
+    "Check if either the length for the on period or the length for the off period increases after they both becomes positive"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Min mintOntOff
-    "Find the smaller one between the length for the On period and the length for the off period"
+    "Find the smaller one between the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxtOntOff
-    "Find the larger one between the length for the On period and the length for the off period"
+    "Find the larger one between the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide halPerRat
     "Calculate the half period ratio"
@@ -64,16 +64,16 @@ block HalfPeriodRatio
     "Calculate the sum of the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Detect if the the length for the On period or the length for the off period changes after both of them are larger than 0"
+    "Detect if the the length for the on period or the length for the off period changes after both of them are larger than 0"
     annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretmaxtOntOff
-    "Check if either the length for the On period or the length for the off period is larger than 0"
+    "Check if either the length for the on period or the length for the off period is larger than 0"
     annotation (Placement(transformation(extent={{-20,10},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less tDec
-    "Check if either the length for the On period or the length for the off period decreases after they both becomes positive"
+    "Check if either the length for the on period or the length for the off period decreases after they both becomes positive"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha
-    "Check if the length for the On period or the length for the off period changes"
+    "Check if the length for the on period or the length for the off period changes"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 
 equation
@@ -162,18 +162,20 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the half-period ratio of the output from a relay controller.</p>
+<p>
+This block calculates the half-period ratio of the output from a relay controller.
+</p>
 <h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
 &rho; = max(t<sub>on</sub>,t<sub>off</sub>)/ min(t<sub>on</sub>,t<sub>off</sub>),
 </p>
 <p>
 where <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code> are the
-length of the On period and the Off period, respectively.
+lengths of the on period and the off period, respectively.
 </p>
 <p>
-An On period is defined as the period when the switch output of the relay controller is
-<code>true</code>;
+An on period is defined as the period when the switch output of the relay controller is
+<code>true</code>.
 Likewise, an off period is defined as the period when the switch output is <code>false</code>.
 See details of the switch output in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.

@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model ResponseProcess "Test model for ResponseProcess"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(yHig=1,
-      yLow=0.2) "Calculate the length of the On period and the Off period"
+      yLow=0.2) "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable relRes(table=[0,1; 0.1,0;
         0.3,0; 0.7,1; 0.83,0; 0.85,1], period=2)

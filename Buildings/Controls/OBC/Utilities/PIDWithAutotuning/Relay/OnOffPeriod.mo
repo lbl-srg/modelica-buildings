@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block OnOffPeriod
-  "Calculate the lengths of the On period and the Off period"
+  "Calculate the lengths of the on period and the off period"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s")
@@ -15,14 +15,14 @@ block OnOffPeriod
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{102,-60},{142,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
     "Simulation time when the input signal becomes On (True)"
@@ -34,25 +34,25 @@ block OnOffPeriod
     "Relay switch off"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOffCal
-    "Calculate the horizon length for the Off period"
+    "Calculate the horizon length for the off period"
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOnCal
-    "Calculate the horizon length for the On period"
+    "Calculate the horizon length for the on period"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOff
-    "Trigger the action to record the horizon length for the Off period"
+    "Trigger the action to record the horizon length for the off period"
     annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOn
-    "Trigger the action to record the horizon length for the On period"
+    "Trigger the action to record the horizon length for the on period"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOffRec
-    "Record the horizon length for the Off period"
+    "Record the horizon length for the off period"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOnRec
-    "Record the horizon length for the On period"
+    "Record the horizon length for the on period"
     annotation (Placement(transformation(extent={{70,50},{90,30}})));
 
 equation
@@ -118,8 +118,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 This block processes a relay swtich output signal and calculates the length of
-the On period (when the relay switch signal becomes <code>true</code>),
-and the length of the Off period (when the relay switch signal becomes
+the on period (when the relay switch signal becomes <code>true</code>),
+and the length of the off period (when the relay switch signal becomes
 <code>false</code>), respectively.
 <h4>References</h4>
 <p>

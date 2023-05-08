@@ -15,14 +15,14 @@ block ControlProcessModel
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
     iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau(
@@ -90,7 +90,7 @@ block ControlProcessModel
     annotation (Placement(transformation(extent={{-54,10},{-34,30}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtOn(
     final y_start=1)
-    "Sample the length of the On period when the tuning period ends"
+    "Sample the length of the on period when the tuning period ends"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=-1)

@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Calculate the lengths of the On period and the Off period, the half period ratio, as well as the times when the tuning starts and ends"
+  "Calculate the lengths of the on period and the off period, the half period ratio, as well as the times when the tuning starts and ends"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
@@ -19,13 +19,13 @@ block ResponseProcess
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "length for the Off period"
+    "length for the off period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
     "A boolean signal, true if the tuning starts"
@@ -38,7 +38,7 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{100,-10},{140,30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
-    "Calculate the length of the On period and the Off period"
+    "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRatio
     "Calculate the half period ratio"
@@ -94,10 +94,10 @@ This block processes a relay swtich output signall and calculates:
 </p>
 <ol>
 <li>
-the length of the On period (when the relay switch signal becomes <code>true</code>);
+the length of the on period (when the relay switch signal becomes <code>true</code>);
 </li>
 <li>
-the length of the Off period (when the relay switch signal becomes <code>false</code>);
+the length of the off period (when the relay switch signal becomes <code>false</code>);
 </li>
 <li>
 the normalized time delay of the responses;

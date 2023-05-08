@@ -7,13 +7,13 @@ model Gain "Test model for Gain"
     table=[0,0; 0.1,0.1; 0.3,0.1; 0.7,0.1; 0.83,0.1; 0.9,0.07],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "The length of the On period"
+    "The length of the on period"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOff(
     table=[0,0; 0.1,0; 0.3,0; 0.7,0; 0.83,0.73; 0.85,0.73],
     smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
     extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "The length of the Off period"
+    "The length of the off period"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable u(
     table=[0,1; 0.1,0.5; 0.3,0.5; 0.7,0.5; 0.83,1; 0.9,0.5],
