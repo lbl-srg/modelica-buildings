@@ -68,7 +68,7 @@ block FirstOrderAMIGO
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}), iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
     final yHig=yHig,
     final yLow=yLow,
@@ -201,7 +201,8 @@ equation
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{-82,43},{-86,43},{-86,-70},
           {-42,-70}}, color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{82,-20},{120,-20}}, color={0,0,127}));
+    annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}},
+                                                  color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
   annotation (Documentation(info="<html>
