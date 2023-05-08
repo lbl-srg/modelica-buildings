@@ -78,8 +78,11 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the derivative time of a PID model.</p>
 <h4>Main equations</h4>
+<p>
+The main equations is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
-T<sub>d</sub> = 0.5LT/(0.3L+T),
+T<sub>d</sub> = 0.5 L T/(0.3 L + T),
 </p>
 <p>
 where <code>T</code> is the time constant of the first-order time-delayed model

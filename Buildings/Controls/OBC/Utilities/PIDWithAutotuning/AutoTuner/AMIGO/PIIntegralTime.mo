@@ -122,8 +122,11 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the integral time of a PI model</p>
 <h4>Main equations</h4>
+<p>
+The main equations is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
-T<sub>i</sub> = 0.35L + 13LT<sup>2</sup>/(T<sup>2</sup> + 12LT + 7L<sup>2</sup>),
+T<sub>i</sub> = 0.35 L + 13 L T<sup>2</sup>/(T<sup>2</sup> + 12 L T + 7 L<sup>2</sup>),
 </p>
 <p>
 where <code>T</code> is the time constant of the first-order time-delayed model

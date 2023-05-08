@@ -83,8 +83,11 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the control gain of a PID model.</p>
 <h4>Main equations</h4>
+<p>
+The main equations is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
-k = 1/k<sub>p</sub> + (0.2 + 0.45T/L),
+k = 1/k<sub>p</sub> + (0.2 + 0.45 T/L),
 </p>
 <p>
 where <code>k<sub>p</sub></code> is the gain of the first-order time-delayed model,
