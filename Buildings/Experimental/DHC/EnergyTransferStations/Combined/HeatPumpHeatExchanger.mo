@@ -348,11 +348,11 @@ model HeatPumpHeatExchanger
     final dp2_nominal=dp_nominal) if have_hotWat
     "Subsystem for hot water production"
     annotation (Placement(transformation(extent={{-10,24},{10,44}})));
-  Fluid.Sources.Boundary_pT sinSHW(
+  Fluid.Sources.Boundary_pT souDCW(
     redeclare final package Medium = MediumBui,
     use_T_in=true,
-    nPorts=1)  if have_hotWat
-    "Sink for service hot water" annotation (Placement(
+    nPorts=1)  if have_hotWat "Source for domestic cold water"
+                                 annotation (Placement(
       transformation(
       extent={{10,-10},{-10,10}},
       rotation=180,
@@ -388,8 +388,8 @@ model HeatPumpHeatExchanger
   Buildings.Controls.OBC.CDL.Continuous.Subtract delT if have_hotWat
     "Compute DeltaT needed on condenser side"
     annotation (Placement(transformation(extent={{-150,-10},{-130,10}})));
-  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium
-      = MediumBui, final allowFlowReversal=allowFlowReversalBui)
+  Fluid.Sensors.MassFlowRate senMasFloHeaWatPri(redeclare final package Medium =
+        MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(trueHoldDuration=15*
@@ -448,11 +448,10 @@ model HeatPumpHeatExchanger
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
-  Fluid.Sources.MassFlowSource_T souColWat1(
+  Fluid.Sources.MassFlowSource_T sinDHW(
     redeclare final package Medium = MediumBui,
     use_m_flow_in=true,
-    nPorts=1) if have_hotWat
-    "Source for cold water"
+    nPorts=1) if have_hotWat "Sink for domestic hot water"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSin(final k=-1)
     if have_hotWat "Convert to sink"
@@ -645,16 +644,16 @@ equation
     annotation (Line(points={{-118,280},{-102,280}}, color={0,0,127}));
   connect(loaHHW.y, heaFloEvaHHW.u1) annotation (Line(points={{-118,280},{-110,
           280},{-110,246},{-102,246}}, color={0,0,127}));
-  connect(toSin.y, souColWat1.m_flow_in) annotation (Line(points={{-76,60},{-72,
-          60},{-72,68},{-62,68}}, color={0,0,127}));
+  connect(toSin.y, sinDHW.m_flow_in) annotation (Line(points={{-76,60},{-72,60},
+          {-72,68},{-62,68}}, color={0,0,127}));
   connect(div1.y, toSin.u) annotation (Line(points={{-78,-40},{-70,-40},{-70,32},
           {-108,32},{-108,60},{-100,60}}, color={0,0,127}));
-  connect(sinSHW.T_in, delT.u2) annotation (Line(points={{-52,-14},{-60,-14},{
+  connect(souDCW.T_in, delT.u2) annotation (Line(points={{-52,-14},{-60,-14},{
           -60,-80},{-156,-80},{-156,-6},{-152,-6}}, color={0,0,127}));
-  connect(sinSHW.ports[1], proHotWat.port_a1) annotation (Line(points={{-30,-10},
+  connect(souDCW.ports[1], proHotWat.port_a1) annotation (Line(points={{-30,-10},
           {-20,-10},{-20,28},{-10,28}}, color={0,127,255}));
-  connect(souColWat1.ports[1], proHotWat.port_b1) annotation (Line(points={{-40,
-          60},{-20,60},{-20,40},{-10,40}}, color={0,127,255}));
+  connect(sinDHW.ports[1], proHotWat.port_b1) annotation (Line(points={{-40,60},
+          {-20,60},{-20,40},{-10,40}}, color={0,127,255}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
