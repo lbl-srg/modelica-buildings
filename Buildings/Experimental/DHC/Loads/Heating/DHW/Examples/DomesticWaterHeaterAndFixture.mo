@@ -92,7 +92,7 @@ equation
     annotation (Line(points={{61,3},{74,3},{74,30},{79,30}}, color={0,0,127}));
   connect(genDHW.port_b2, sinDHw.ports[1])
     annotation (Line(points={{-40,-6},{-70,-6},{-70,-40}}, color={0,127,255}));
-  connect(genDHW.PEle, PEle) annotation (Line(points={{-19,0},{-10,0},{-10,80},{
+  connect(genDHW.PHea, PEle) annotation (Line(points={{-19,0},{-10,0},{-10,80},{
           110,80}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>

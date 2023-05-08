@@ -16,6 +16,8 @@ record GenericHeatPumpWaterHeater
   parameter Modelica.Units.SI.Temperature THex_nominal = 333.15 "Temperature of fluid inside the heat exchanger at nominal heat transfer conditions";
   parameter Modelica.Units.SI.TemperatureDifference dTEva_nominal = -5 "Temperature difference evaporator inlet-outlet";
   parameter Modelica.Units.SI.TemperatureDifference dTCon_nominal = 10 "Temperature difference condenser outlet-inlet";
+  parameter Modelica.Units.SI.PressureDifference dp1_nominal = 5000 "Pressure drop across condenser";
+  parameter Modelica.Units.SI.PressureDifference dp2_nominal = 5000 "Pressure drop across evaporator";
   parameter Integer nSeg(min=4) = 5 "Number of volume segments";
 
   annotation (preferredView="info",Documentation(info="<html>

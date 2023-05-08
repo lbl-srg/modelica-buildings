@@ -3,7 +3,11 @@ model HeatPumpWaterHeaterWithTank
   "A model for domestic water heating served by heat pump water heater and local storage tank"
   extends
     Buildings.Experimental.DHC.Loads.Heating.DHW.BaseClasses.PartialFourPortDHW(
-      final have_PEle = true);
+     final have_PEle = true,
+     mDH_flow_nominal = heaPum.QEva_flow_nominal/cp2_default/heaPum.dTEva_nominal);
+  constant Modelica.Units.SI.SpecificHeatCapacity cp2_default=
+      Medium.specificHeatCapacityCp(Medium.setState_pTX(p=Medium.p_default,
+      T=Medium.T_default)) "Specific heat capacity of the fluid";
   parameter Buildings.Experimental.DHC.Loads.Heating.DHW.Data.GenericHeatPumpWaterHeater datWatHea
     "Performance data"
     annotation (Placement(transformation(extent={{-96,-96},{-84,-84}})));
@@ -19,11 +23,12 @@ model HeatPumpWaterHeaterWithTank
     m2_flow_nominal=mDH_flow_nominal,
     dTEva_nominal=datWatHea.dTEva_nominal,
     dTCon_nominal=datWatHea.dTCon_nominal,
+    use_eta_Carnot_nominal=true,
     etaCarnot_nominal=0.3,
     QCon_flow_max = datWatHea.QCon_flow_max,
     QCon_flow_nominal=datWatHea.QCon_flow_nominal,
-    dp1_nominal=5000,
-    dp2_nominal=5000)
+    dp1_nominal=datWatHea.dp1_nominal,
+    dp2_nominal=datWatHea.dp2_nominal)
               "Domestic hot water heater"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Fluid.Sensors.TemperatureTwoPort senTemHPOut(redeclare package Medium =
@@ -47,7 +52,9 @@ model HeatPumpWaterHeaterWithTank
     "Pump with m_flow input"
     annotation (Placement(transformation(extent={{60,30},{40,50}})));
   Fluid.Storage.StratifiedEnhancedInternalHex
-    tanSte(energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
+    tanSte(
+    T_start=datWatHea.TTan_nominal,
+           energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare package Medium = Medium,
     redeclare package MediumHex = Medium,
     hTan=datWatHea.hTan,
@@ -78,6 +85,9 @@ model HeatPumpWaterHeaterWithTank
     k=k,
     Ti=Ti)
     annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+  Modelica.Blocks.Interfaces.RealOutput PPum(unit="W")
+    "Electric power required for pumping equipment"
+    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
 equation
   connect(heaPum.port_b1, senTemHPOut.port_a)
     annotation (Line(points={{10,6},{40,6}},              color={0,127,255}));
@@ -86,7 +96,7 @@ equation
                                                 color={0,127,255}));
   connect(port_b2, heaPum.port_b2) annotation (Line(points={{-100,-60},{-10,-60},
           {-10,-6}},                   color={0,127,255}));
-  connect(heaPum.P, PEle) annotation (Line(points={{11,0},{24,0},{24,-14},{76,-14},
+  connect(heaPum.P,PHea)  annotation (Line(points={{11,0},{24,0},{24,-14},{76,-14},
           {76,0},{110,0}},          color={0,0,127}));
   connect(TSetHw, add.u1) annotation (Line(points={{-110,0},{-80,0},{-80,6},{-72,
           6}}, color={0,0,127}));
@@ -119,6 +129,8 @@ equation
           70},{0,70},{0,78}}, color={0,0,127}));
   connect(tanTemSen.port, tanSte.heaPorVol[4]) annotation (Line(points={{-40,72},
           {-46,72},{-46,50},{-50,50}},       color={191,0,0}));
+  connect(pumHex.P, PPum) annotation (Line(points={{39,49},{32,49},{32,-20},{110,
+          -20}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
 This model is an example of a domestic hot water (DHW) substation for an  

@@ -79,7 +79,7 @@ equation
     annotation (Line(points={{10,6},{30,6},{30,20}}, color={0,127,255}));
   connect(TDis.y, souDHw.T_in) annotation (Line(points={{50,-79},{50,-48},{26,-48},
           {26,-42}}, color={0,0,127}));
-  connect(genDHW.PEle, PEle)
+  connect(genDHW.PHea, PEle)
     annotation (Line(points={{11,0},{110,0}}, color={0,0,127}));
   annotation (preferredView="info",Documentation(info="<html>
 <p>
