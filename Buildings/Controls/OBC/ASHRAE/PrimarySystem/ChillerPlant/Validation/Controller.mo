@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model Controller "Validation head pressure controller"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
+  Buildings.Controls.OBC.Controller chiPlaCon(
     final closeCoupledPlant=false,
     final nChi=2,
     final have_parChi=true,
@@ -33,7 +33,7 @@ model Controller "Validation head pressure controller"
     final chiDesCap={200,200},
     final chiMinCap={20,20},
     final chiTyp={Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement,
-                  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement})
+        Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Types.ChillerAndStageTypes.positiveDisplacement})
     "Chiller plant controller"
     annotation (Placement(transformation(extent={{-20,-180},{80,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uChiWatPum[2](
@@ -70,8 +70,7 @@ model Controller "Validation head pressure controller"
     "Outdoor wet bulb temperatur"
     annotation (Placement(transformation(extent={{-280,30},{-260,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
-    final k=313.15)
-    "Outdoor dry bulb temperature"
+    final k=313.15) "Outdoor dry bulb temperature"
     annotation (Placement(transformation(extent={{-260,-190},{-240,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TChiWatRet(
     final height=5,
@@ -159,6 +158,9 @@ model Controller "Validation head pressure controller"
     final offset=273.15 + 14)
     "Chilled water temperature entering heat exchanger"
     annotation (Placement(transformation(extent={{-280,-40},{-260,-20}})));
+  CDL.Discrete.ZeroOrderHold zerOrdHol3(final samplePeriod=5)
+    "Output the input signal with a zero order hold"
+    annotation (Placement(transformation(extent={{148,-150},{168,-130}})));
 equation
   connect(chiPlaCon.uChiWatPum, uChiWatPum.y) annotation (Line(points={{-30,180},
           {-190,180},{-190,132},{-238,132}}, color={255,0,255}));
@@ -190,8 +192,6 @@ equation
           {-134,-240},{-134,70},{-30,70}},         color={0,0,127}));
   connect(TConWatSup.y, chiPlaCon.TConWatSup) annotation (Line(points={{-238,-220},
           {-120,-220},{-120,-140},{-30,-140}},       color={0,0,127}));
-  connect(max1.y, chiPlaCon.uFanSpe) annotation (Line(points={{142,-140},{170,-140},
-          {170,-200},{-60,-200},{-60,-130},{-30,-130}},      color={0,0,127}));
   connect(watLev.y, chiPlaCon.watLev) annotation (Line(points={{-238,-260},{-90,
           -260},{-90,-160},{-30,-160}}, color={0,0,127}));
   connect(chiPlaCon.yTowFanSpe[2], max1.u2) annotation (Line(points={{90,-97.5},
@@ -206,8 +206,8 @@ equation
           255}));
   connect(chiPlaCon.yTowCelIsoVal, zerOrdHol.u) annotation (Line(points={{90,-70},
           {100,-70},{100,-110},{118,-110}},    color={0,0,127}));
-  connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-110},{180,
-          -110},{180,-210},{-70,-210},{-70,-150},{-30,-150}},    color={0,0,127}));
+  connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-110},{
+          190,-110},{190,-210},{-70,-210},{-70,-150},{-30,-150}},color={0,0,127}));
   connect(chiPlaCon.yConWatPum, conWatPum.u) annotation (Line(points={{90,20},{108,
           20},{108,-40},{118,-40}}, color={255,0,255}));
   connect(conWatPum.y, chiPlaCon.uConWatPum) annotation (Line(points={{142,-40},
@@ -227,7 +227,7 @@ equation
   connect(chiPlaCon.yChiWatIsoVal, zerOrdHol2.u) annotation (Line(points={{90,-15},
           {100,-15},{100,-70},{118,-70}},      color={0,0,127}));
   connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-70},
-          {190,-70},{190,-220},{-80,-220},{-80,-40},{-30,-40}},      color={0,0,
+          {200,-70},{200,-220},{-80,-220},{-80,-40},{-30,-40}},      color={0,0,
           127}));
   connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,70},
           {-180,70},{-180,140},{-30,140}},          color={0,0,127}));
@@ -295,6 +295,11 @@ equation
           {270,260},{-250,260},{-250,170},{-242,170}}, color={255,0,255}));
   connect(truDel1.y, booToRea1[2].u) annotation (Line(points={{262,20},{280,20},
           {280,266},{-260,266},{-260,170},{-242,170}}, color={255,0,255}));
+  connect(max1.y, zerOrdHol3.u)
+    annotation (Line(points={{142,-140},{146,-140}}, color={0,0,127}));
+  connect(zerOrdHol3.y, chiPlaCon.uFanSpe) annotation (Line(points={{170,-140},
+          {180,-140},{180,-200},{-60,-200},{-60,-130},{-30,-130}}, color={0,0,
+          127}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/Controller.mos"
@@ -302,7 +307,7 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates composed chiller plant controller
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
+<a href=\"modelica://Buildings.Controls.OBC.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>. It shows the
 process of enabling plant, enabling waterside economizer and staging up one chiller.
 </p>

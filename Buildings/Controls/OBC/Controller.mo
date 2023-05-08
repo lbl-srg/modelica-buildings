@@ -1,4 +1,4 @@
-within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
+within Buildings.Controls.OBC;
 block Controller "Chiller plant controller"
 
   parameter Boolean closeCoupledPlant=false
