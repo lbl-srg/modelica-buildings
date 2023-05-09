@@ -4,8 +4,7 @@ model ValveSelfActing
   extends Modelica.Icons.Example;
   package MediumSte = Buildings.Media.Steam(p_default=400000,
     T_default=273.15+143.61,
-    h_default=2738100)
-                      "Medium model";
+    h_default=2738100) "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
@@ -74,10 +73,11 @@ equation
     experiment(StopTime=15, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This example model demonstrates the performance of self-acting steam pressure regulator 
-with a noisy/varying inlet pressure signal. The inlet 
-pressure conditions are selected to demonstrate how the downstream pressure is maintained 
-at the setpoint, unless the inlet pressure drops below the setpoint (pressure drop is then zero).
+This example model demonstrates the performance of self-acting steam pressure 
+regulator with a noisy/varying inlet pressure signal. The inlet pressure 
+conditions are selected to demonstrate how the downstream pressure is maintained 
+at the setpoint, unless the inlet pressure drops below the setpoint 
+(pressure drop is then zero).
 </p>
 </html>",revisions="<html>
 <ul>

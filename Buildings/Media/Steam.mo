@@ -919,6 +919,15 @@ properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 12
 </p>
 </html>", revisions="<html>
 <ul>
+
+<li>
+March 10, 2023, by Saranya Anbarasu:<br/>
+Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
+from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
+<code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
+assertion erros during initilization.
+</li>
+
 <li>
 May 9, 2022, by David Blum:<br/>
 In function <code>rho_pT</code>, created and used new function extending
