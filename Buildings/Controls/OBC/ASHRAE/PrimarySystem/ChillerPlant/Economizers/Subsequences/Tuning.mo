@@ -225,7 +225,6 @@ equation
     annotation (Line(points={{58,150},{-78,150}},color={255,127,0}));
   connect(and2.y, disCou.trigger)
     annotation (Line(points={{-118,150},{-102,150}}, color={255,0,255}));
-  connect(y, y) annotation (Line(points={{330,0},{330,0}},  color={0,0,127}));
   connect(disCou1.y, intToRea1.u)
     annotation (Line(points={{-78,10},{58,10}}, color={255,127,0}));
   connect(truHol.y, and2.u1)

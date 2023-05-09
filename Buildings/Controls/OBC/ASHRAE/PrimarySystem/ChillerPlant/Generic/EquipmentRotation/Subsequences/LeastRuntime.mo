@@ -84,8 +84,6 @@ equation
           30},{-22,30}}, color={0,0,127}));
   connect(uDevSta, edg.u) annotation (Line(points={{-180,60},{-120,60},{-120,-10},
           {-102,-10}}, color={255,0,255}));
-  connect(yRot, yRot)
-    annotation (Line(points={{180,0},{180,0}}, color={255,0,255}));
   connect(longer2.y, not2.u)
     annotation (Line(points={{2,30},{18,30}}, color={255,0,255}));
   connect(longer1.y, not1.u)
