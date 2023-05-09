@@ -121,7 +121,6 @@ model PartialDirect
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=MediumSer,
-    final allowFlowReversal=false,
     final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpCheVal_nominal)
     "Check valve (backflow preventer)"

@@ -44,6 +44,11 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>
+May 5, 2023, by David Blum:<br/>
+Removed assignment of check valve <code>allowFlowReversal=false</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
+</li>
+<li>
 January 11, 2023, by Michael Wetter:<br/>
 Changed controls to use CDL. Changed PID to PI as default for controller.
 </li>
