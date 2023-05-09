@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Validation;
 model Controller "Validation head pressure controller"
 
-  Buildings.Controls.OBC.Controller chiPlaCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
     final closeCoupledPlant=false,
     final nChi=2,
     final have_parChi=true,

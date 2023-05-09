@@ -26,11 +26,15 @@ block SetpointController
     "Number of chillers"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Real chiDesCap[nChi](unit="W", displayUnit="W")
+  parameter Real chiDesCap[nChi](
+    final unit=fill("W",nChi),
+    displayUnit=fill("W",nChi))
     "Design chiller capacities vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
-  parameter Real chiMinCap[nChi](unit="W", displayUnit="W")
+  parameter Real chiMinCap[nChi](
+    final unit=fill("W",nChi),
+    displayUnit=fill("W",nChi))
     "Chiller minimum cycling loads vector"
     annotation (Dialog(tab="General", group="Chiller configuration parameters"));
 
@@ -415,9 +419,9 @@ protected
     annotation (Placement(transformation(extent={{-20,-180},{0,-160}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.ChillerIndices chiInd(
-    nSta=nSta,
-    nChi=nChi,
-    staMat=staMat) "Calculates chiller status setpoint vector"
+    final nSta=nSta,
+    final nChi=nChi,
+    final staMat=staMat) "Calculates chiller status setpoint vector"
     annotation (Placement(transformation(extent={{40,-240},{60,-220}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Subtract lift if anyVsdCen

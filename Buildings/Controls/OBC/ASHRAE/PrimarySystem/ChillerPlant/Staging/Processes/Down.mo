@@ -66,15 +66,15 @@ block Down
     "Time to reset minimum by-pass flow"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real minFloSet[nChi](
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    displayUnit="m3/s")
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))
     "Minimum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real maxFloSet[nChi](
-    final unit="m3/s",
-    final quantity="VolumeFlowRate",
-    displayUnit="m3/s")
+    final unit=fill("m3/s",nChi),
+    final quantity=fill("VolumeFlowRate",nChi),
+    displayUnit=fill("m3/s",nChi))
     "Maximum chilled water flow through each chiller"
     annotation (Dialog(group="Reset CHW minimum flow setpoint"));
   parameter Real aftByPasSetTim(
@@ -300,13 +300,15 @@ protected
     final relFloDif=relFloDif)
     "Check if minium bypass has been reset"
     annotation (Placement(transformation(extent={{100,-380},{120,-360}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(final k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con(
+    final k=false)
     "False constant"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea1[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-240,-20},{-220,0}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi(
+    final nin=nChi)
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr(
@@ -319,7 +321,8 @@ protected
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Controls.OBC.CDL.Logical.And and1 "Logical and"
     annotation (Placement(transformation(extent={{140,10},{160,30}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep4(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{40,70},{60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi[nChi]
@@ -328,7 +331,8 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea2[nChi]
     "Convert boolean input to real output"
     annotation (Placement(transformation(extent={{-240,-130},{-220,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi1(final nin=nChi)
+  Buildings.Controls.OBC.CDL.Routing.RealExtractor curDisChi1(
+    final nin=nChi)
     "Current disabling chiller"
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesEquThr1(
@@ -337,13 +341,15 @@ protected
     annotation (Placement(transformation(extent={{-40,-130},{-20,-110}})));
   Buildings.Controls.OBC.CDL.Logical.And3 and5 "Logical and"
     annotation (Placement(transformation(extent={{60,-130},{80,-110}})));
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(final nout=nChi)
+  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booRep1(
+    final nout=nChi)
     "Replicate boolean input"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi [nChi]
     "Chillers head pressure control status"
     annotation (Placement(transformation(extent={{140,-80},{160,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.MultiOr  mulOr(final nin=nChi) "Multiple or"
+  Buildings.Controls.OBC.CDL.Logical.MultiOr  mulOr(
+    final nin=nChi) "Multiple or"
     annotation (Placement(transformation(extent={{-80,-210},{-60,-190}})));
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr1(final nin=nChi) "Multiple or"
     annotation (Placement(transformation(extent={{-40,-230},{-20,-210}})));

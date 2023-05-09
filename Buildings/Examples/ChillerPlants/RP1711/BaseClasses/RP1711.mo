@@ -22,7 +22,7 @@ model RP1711 "Chiller plant model with RP1711 controller"
     annotation (Placement(transformation(extent={{-600,-180},{-560,-140}}),
         iconTransformation(extent={{-200,-150},{-160,-110}})));
 
-  Buildings.Controls.OBC.Controller chiPlaCon(
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller chiPlaCon(
     final desCap=2*chiDesCap,
     final chiDesCap={chiDesCap,chiDesCap},
     final chiMinCap={chiDesCap*0.1,chiDesCap*0.1},

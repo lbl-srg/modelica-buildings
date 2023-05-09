@@ -154,8 +154,6 @@ protected
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 equation
   connect(swi2.y, yUpDes) annotation (Line(points={{182,60},{220,60}}, color={0,0,127}));
-  connect(yMin, yMin)
-    annotation (Line(points={{220,-20},{220,-20}}, color={0,0,127}));
   connect(swi4.y, yUpMin) annotation (Line(points={{182,-90},{220,-90}}, color={0,0,127}));
   connect(uMinCap, upCapMin.u) annotation (Line(points={{-220,-180},{-20,-180},{
           -20,-60},{-2,-60}},   color={0,0,127}));
@@ -180,8 +178,6 @@ equation
   connect(swi1.y, yDowDes) annotation (Line(points={{182,20},{220,20}}, color={0,0,127}));
   connect(cap.y, yDes) annotation (Line(points={{12,180},{220,180}},
                  color={0,0,127}));
-  connect(yUpMin, yUpMin)
-    annotation (Line(points={{220,-90},{220,-90}}, color={0,0,127}));
   connect(intGreEquThr.y, and2.u1)
     annotation (Line(points={{-138,80},{-122,80}}, color={255,0,255}));
   connect(intLesEquThr.y, and2.u2) annotation (Line(points={{-138,0},{-130,0},{-130,

@@ -251,8 +251,6 @@ equation
          color={255,0,255}));
   connect(and4.y, intSwi3.u2)
     annotation (Line(points={{242,80},{358,80}}, color={255,0,255}));
-  connect(yAvaUp, yAvaUp)
-    annotation (Line(points={{460,80},{460,80}}, color={255,127,0}));
   connect(uAva, mulOr.u) annotation (Line(points={{-440,-80},{-380,-80},{-380,-40},
           {-362,-40}},  color={255,0,255}));
   connect(mulOr.y, cheStaAva1.u)
