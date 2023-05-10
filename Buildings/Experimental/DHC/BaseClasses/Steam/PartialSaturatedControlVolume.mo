@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.BaseClasses.Steam;
+within Buildings.Experimental.DHC.BaseClasses.Steam;
 partial model PartialSaturatedControlVolume
   "Partial control volume for evaporation/condensation processes"
   extends Buildings.BaseClasses.BaseIcon;

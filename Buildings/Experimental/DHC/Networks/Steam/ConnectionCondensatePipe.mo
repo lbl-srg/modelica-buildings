@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Networks.Steam;
+within Buildings.Experimental.DHC.Networks.Steam;
 model ConnectionCondensatePipe
   "Connection for a steam district heating network featuring the condensate return pipe"
   extends

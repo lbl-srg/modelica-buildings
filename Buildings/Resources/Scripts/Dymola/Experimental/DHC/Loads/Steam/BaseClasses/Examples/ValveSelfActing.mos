@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples.ValveSelfActing", stopTime=15, method="dassl", tolerance=1e-06, resultFile="ValveSelfActing");
 // Plot commands
 removePlots(false);

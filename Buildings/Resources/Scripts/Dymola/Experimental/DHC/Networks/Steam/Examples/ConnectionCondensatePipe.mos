@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Networks.Steam.Examples.ConnectionCondensatePipe", stopTime=86400, tolerance=1e-6, method="dassl", resultFile="ConnectionCondensatePipe");
 // Plot commands
 createPlot(id=1, position={26, 43, 764, 418}, 

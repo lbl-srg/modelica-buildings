@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Loads.Steam.Examples.BuildingTimeSeriesAtETS", startTime=1728000, stopTime=1814400, tolerance=1e-06, method="dassl", resultFile="BuildingTimeSeriesAtETS");
 // Plot commands
 createPlot(id=1, position={15, 10, 624, 496}, 

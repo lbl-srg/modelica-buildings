@@ -1,4 +1,4 @@
-﻿// Simulate
+// Simulate
 simulateModel("Buildings.Experimental.DHC.Examples.Steam.SingleBoiler", stopTime=86400, method="Dassl", tolerance=1e-06, resultFile="SingleBoiler");
 // Plot commands
 createPlot(id=1, position={10, 18, 570, 506}, 
