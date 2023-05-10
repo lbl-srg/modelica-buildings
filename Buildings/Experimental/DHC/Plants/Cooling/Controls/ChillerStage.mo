@@ -111,13 +111,13 @@ equation
   connect(oneToTwo.outPort,twoOn.inPort[1])
     annotation (Line(points={{10,-41.5},{10,-79}},color={0,0,0}));
   connect(twoToOne.outPort,oneOn.inPort[2])
-    annotation (Line(points={{60,-38.5},{60,20},{10.5,20},{10.5,11}},
+    annotation (Line(points={{60,-38.5},{60,20},{9.75,20},{9.75,11}},
       color={0,0,0}));
   connect(oneOn.outPort[2],oneToOff.inPort)
-    annotation (Line(points={{10.25,-10.5},{10.25,-20},{40,-20},{40,56}},
+    annotation (Line(points={{9.875,-10.5},{9.875,-20},{40,-20},{40,56}},
       color={0,0,0}));
   connect(oneOn.outPort[1],oneToTwo.inPort)
-    annotation (Line(points={{9.75,-10.5},{9.75,-36},{10,-36}},
+    annotation (Line(points={{10.125,-10.5},{10.125,-36},{10,-36}},
       color={0,0,0}));
   connect(oneToTwo.condition,thrOneToTwo.y)
     annotation (Line(points={{-2,-40},{-20,-40},{-20,-70},{-38,-70}},
@@ -148,10 +148,10 @@ equation
     annotation (Line(points={{21,-90},{100,-90},{100,22},{118,22}},
       color={255,0,255}));
   connect(Or.y, y[1])
-    annotation (Line(points={{142,30},{144,30},{144,5},{170,5}},
+    annotation (Line(points={{142,30},{144,30},{144,-2.5},{170,-2.5}},
       color={255,0,255}));
   connect(twoOn.active, y[2])
-    annotation (Line(points={{21,-90},{120,-90},{120,-5},{170,-5}},
+    annotation (Line(points={{21,-90},{120,-90},{120,2.5},{170,2.5}},
       color={255,0,255}));
   connect(on, notOn.u)
     annotation (Line(points={{-180,60},{-120,60},{-120,30},{-102,30}},
@@ -160,7 +160,8 @@ equation
     annotation (Line(points={{10,-100.5},{10,-120},{60,-120},{60,-44}},
       color={0,0,0}));
   connect(offToOne.outPort,oneOn.inPort[1])
-    annotation (Line(points={{10,58.5},{10,11},{9.5,11}},color={0,0,0}));
+    annotation (Line(points={{10,58.5},{10,11},{10.25,11}},
+                                                         color={0,0,0}));
   connect(oneToOff.outPort,off.inPort[1])
     annotation (Line(points={{40,61.5},{40,120},{10,120},{10,101}},
       color={0,0,0}));

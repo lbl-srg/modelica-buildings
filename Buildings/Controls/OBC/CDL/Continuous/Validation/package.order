@@ -7,6 +7,7 @@ Atan
 Atan2
 Average
 Cos
+Derivative
 Divide
 Exp
 Greater
@@ -39,6 +40,7 @@ PIDInitialState
 PIDScale
 PIDWithReset
 PIDWithResetScale
+Ramp
 Round
 Sin
 Sort

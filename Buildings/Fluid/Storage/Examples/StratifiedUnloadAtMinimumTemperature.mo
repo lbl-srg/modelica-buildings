@@ -38,18 +38,18 @@ model StratifiedUnloadAtMinimumTemperature
     use_inputFilter=false) "Control valve at top"
     annotation (Placement(transformation(extent={{112,-30},{132,-10}})));
 
-  Buildings.Fluid.Actuators.Valves.TwoWayLinear valMed(
+  Buildings.Fluid.Actuators.Valves.TwoWayLinear valMid(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
-    use_inputFilter=false) "Control valve at top"
+    use_inputFilter=false) "Control valve at middle"
     annotation (Placement(transformation(extent={{132,-70},{152,-50}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valBot(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dpValve_nominal=3000,
-    use_inputFilter=false) "Control valve at top"
+    use_inputFilter=false) "Control valve at bottom"
     annotation (Placement(transformation(extent={{150,-110},{170,-90}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TMid
@@ -114,7 +114,7 @@ equation
   connect(valTop.port_b, senTem.port_a) annotation (Line(points={{132,-20},{182,
           -20},{182,-60},{190,-60}},
                                    color={0,127,255}));
-  connect(valMed.port_b, senTem.port_a)
+  connect(valMid.port_b, senTem.port_a)
     annotation (Line(points={{152,-60},{190,-60}},
                                                  color={0,127,255}));
   connect(valBot.port_b, senTem.port_a) annotation (Line(points={{170,-100},{182,
@@ -125,7 +125,7 @@ equation
                                                  color={0,127,255}));
   connect(valTop.port_a, tan.fluPorVol[1]) annotation (Line(points={{112,-20},{-112.6,
           -20},{-112.6,-120}}, color={0,127,255}));
-  connect(valMed.port_a, tan.fluPorVol[3]) annotation (Line(points={{132,-60},{-112.6,
+  connect(valMid.port_a, tan.fluPorVol[3]) annotation (Line(points={{132,-60},{-112.6,
           -60},{-112.6,-120}},color={0,127,255}));
   connect(valBot.port_a, tan.fluPorVol[5]) annotation (Line(points={{150,-100},{
           -112.6,-100},{-112.6,-120}},
@@ -144,7 +144,7 @@ equation
           {48,112}},color={255,0,255}));
   connect(yTop.y, valTop.y) annotation (Line(points={{101,120},{122,120},{122,-8}},
                                color={0,0,127}));
-  connect(yMid.y, valMed.y) annotation (Line(points={{101,80},{142,80},{142,-48}},
+  connect(yMid.y, valMid.y) annotation (Line(points={{101,80},{142,80},{142,-48}},
                               color={0,0,127}));
   connect(not1.u, onOffBot.y) annotation (Line(points={{-22,60},{-26,60},{-26,40},
           {-29,40}},       color={255,0,255}));

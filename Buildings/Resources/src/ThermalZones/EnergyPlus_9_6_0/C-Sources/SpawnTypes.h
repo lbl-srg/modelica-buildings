@@ -61,7 +61,7 @@ to not export all symbols but only the needed ones */
 #define SEPARATOR "/"
 #endif
 
-typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode} FMUMode;
+typedef enum {instantiationMode, initializationMode, eventMode, continuousTimeMode, terminatedMode} FMUMode;
 
 enum logLevels {ERRORS = 1, WARNINGS = 2, QUIET = 3, MEDIUM = 4, TIMESTEP = 5};
 enum objectTypes {THERMALZONE = 1, SCHEDULE = 2, ACTUATOR = 3, OUTPUT = 4, SURFACE = 5, DETAILEDSURFACE = 6};

@@ -1,0 +1,5 @@
+simulateModel("Buildings.Obsolete.Air.Systems.SingleZone.VAV.Examples.Guideline36", startTime=0, stopTime=864000, numberOfIntervals=0, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="Guideline36_SingleZone_VAV");
+// Plot commands
+removePlots(false);
+createPlot(id=1, position={0, 0, 1532, 791}, y={"con.TZonCooSet", "con.TZonHeaSet", "con.TZon"}, range={103680000.0, 104560000.0, 284.0, 304.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={0, 0, 1532, 393}, y={"con.yFan", "con.yHeaCoi", "con.yCooCoi"}, range={103680000.0, 104560000.0, -0.2, 1.2000000000000002}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}});

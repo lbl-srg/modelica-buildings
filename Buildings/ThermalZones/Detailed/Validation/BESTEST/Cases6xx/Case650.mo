@@ -11,27 +11,27 @@ model Case650
                    24*3600, 273.15+100]),
   staRes(
     annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
-    annualCoo(Min=-4.816*3.6e9, Max=-6.545*3.6e9, Mean=-5.482*3.6e9),
+    annualCoo(Min=-4.186*3.6e9, Max=-4.945*3.6e9, Mean=-4.644*3.6e9),
     peakHea(Min = 0*1000, Max = 0*1000, Mean = 0 * 1000),
-    peakCoo(Min= -5.831*1000, Max = -6.679*1000, Mean= -6.321*1000)),
+    peakCoo(Min= -5.045*1000, Max = -6.290*1000, Mean= -5.813*1000)),
     gaiHea(k=0),
     multiSum(nu=2));
 
-  BaseClasses.DaySchedule vent(table=[      0, -1703.16/3600;
-                                       7*3600, -1703.16/3600;
+  BaseClasses.DaySchedule vent(table=[      0, -1409/3600;
+                                       7*3600, -1409/3600;
                                        7*3600,             0;
                                       18*3600,             0;
-                                      18*3600, -1703.16/3600;
-                                      24*3600, -1703.16/3600])
+                                      18*3600, -1409/3600;
+                                      24*3600, -1409/3600])
     "Ventilation air flow rate"
     annotation (Placement(transformation(extent={{-88,-68},{-80,-60}})));
 equation
   connect(multiSum.u[2], vent.y[1]) annotation (Line(
-      points={{-78,-74},{-76,-74},{-76,-64},{-79.6,-64}},
+      points={{-78,-74},{-76,-74},{-76,-64},{-79.2,-64}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case650.mos"
+annotation (
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case650.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+07,
@@ -39,6 +39,12 @@ equation
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2022, by Jianjun Hu:<br/>
+Changed the ventilation fan capacity from 1703.16 m3/h to 1700 m3/h and consider the adjustment
+for the altitude, eventually to be 1409 m3/h.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3005\">#3005</a>.
+</li>
 <li>
 July 15, 2012, by Michael Wetter:<br/>
 Revised implementation to extend from base case to avoid duplicate code.
@@ -72,8 +78,8 @@ otherwise cool = off.
 From 1800 hours to 0700 hours, cooling is always off.
 </li>
 <li>
-Ventilation fan capacity is 1703.16 standard m<sup>3</sup>/h (in addition to specified
-infiltration rate).
+Ventilation fan capacity is 1700 standard m<sup>3</sup>/h (in addition to specified
+infiltration rate). After adjustment for the altitude, the capacity is 1409 m<sup>3</sup>/h.
 </li>
 <li>
 No waste heat from fan.

@@ -389,7 +389,7 @@ necessary condition for the chiller to be operated at a lower lift, see
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.Reset</a>.
 <br/>
 </p>
-<p>
+<p align=\"center\">
 <img alt=\"System schematics\"
 src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Combined/ChillerBorefield.png\"/>
 </p>

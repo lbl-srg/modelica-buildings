@@ -7,7 +7,10 @@ record FBdash4001 "Specifications for Lochinvar Crest FB-4001 boiler"
     m_flow_nominal = 22.081569,
     dp_nominal = 32579.88);
     // Data of this model are based on 22F of dT instead of 20F.
-  annotation (Documentation(info="<html>
+    annotation (
+  defaultComponentName = "per",
+  defaultComponentPrefixes = "parameter",
+  Documentation(info="<html>
 <p>
 Performance data for boiler model.
 See the documentation of

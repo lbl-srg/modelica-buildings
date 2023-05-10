@@ -199,6 +199,7 @@ where <i>t</i> is the threshold,
 and it switches to <code>false</code> if <i>u &ge; t + h</i>.
 Note that in the special case of <i>h = 0</i>, this produces the output <i>y=u &lt; t</i>.
 </p>
+<h4>Usage</h4>
 <p>
 Enabling hysteresis can avoid frequent switching.
 Adding hysteresis is recommended in real controllers to guard against sensor noise, and

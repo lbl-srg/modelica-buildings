@@ -25,8 +25,8 @@ equation
     <p>
       This component calculates the solar radiation necessary for the fluid
       in the collector to gain heat. It is used in the model
-      <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\">
-      Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>.
+      <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.CollectorPump\">
+      Buildings.Fluid.SolarCollectors.Controls.CollectorPump</a>.
     </p>
     <p>
       The critical solar radiation level is calculated using Equation 6.8.2 in Duffie

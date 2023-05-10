@@ -1,0 +1,13 @@
+compareVars :=
+  {
+    "retFanAirTra.u1SupFan",
+    "retFanAirTra.VAirSup_flow",
+    "retFanAirTra.VAirRet_flow",
+    "retFanAirTra.difFloSet",
+    "retFanAirTra.yRetFan",
+    "retFanAirTra1.u1SupFan",
+    "retFanAirTra1.VAirSup_flow",
+    "retFanAirTra1.VAirRet_flow",
+    "retFanAirTra1.difFloSet",
+    "retFanAirTra1.yRetFan"
+  };

@@ -39,7 +39,7 @@ createPlot(id = 1,
 createPlot(
     id=2,
     position={851, 35, 588, 648},
-    y={"hvac.conAHU.VEffOutAir_flow", "hvac.conAHU.VOut_flow"},
+    y={"hvac.conAHU.VEffAirOut_flow_min", "hvac.conAHU.VAirOut_flow"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,
@@ -47,7 +47,7 @@ createPlot(
     color=true);
 createPlot(
     id=2,
-    y={"hvac.conAHU.yOutDamPos", "hvac.conAHU.eco.mod.uOutDamPosMin", "hvac.conAHU.eco.mod.uOutDamPosMax", "hvac.conAHU.yRetDamPos"},
+    y={"hvac.conAHU.yOutDam", "hvac.conAHU.ecoCon.modRel.uOutDam_min", "hvac.conAHU.ecoCon.modRel.uOutDam_max", "hvac.conAHU.yRetDam"},
     autoscale=true,
     autoerase=true,
     autoreplot=true,

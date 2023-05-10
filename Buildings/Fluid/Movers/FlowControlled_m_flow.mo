@@ -6,6 +6,7 @@ model FlowControlled_m_flow
     final computePowerUsingSimilarityLaws=per.havePressureCurve,
     final stageInputs(each final unit="kg/s")=massFlowRates,
     final constInput(final unit="kg/s")=constantMassFlowRate,
+    final _m_flow_nominal = m_flow_nominal,
     filter(
       final y_start=m_flow_start,
       u(final unit="kg/s"),
@@ -20,13 +21,32 @@ model FlowControlled_m_flow
           Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters(
             V_flow = {i/(nOri-1)*2.0*m_flow_nominal/rho_default for i in 0:(nOri-1)},
             dp =     {i/(nOri-1)*2.0*dp_nominal for i in (nOri-1):-1:0}),
-      final use_powerCharacteristic = if per.havePressureCurve then per.use_powerCharacteristic else false),
+        final etaHydMet=
+          if (per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
+            or per.etaHydMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber)
+            and not per.havePressureCurve then
+              Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided
+          else per.etaHydMet,
+        final etaMotMet=
+          if (per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
+            or per.etaMotMet ==
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve)
+            and (not per.haveWMot_nominal and not per.havePressureCurve) then
+               Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.NotProvided
+          else per.etaMotMet),
       r_N(start=if abs(m_flow_nominal) > 1E-8 then m_flow_start/m_flow_nominal else 0)),
     preSou(m_flow_start=m_flow_start));
 
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
+    final min=Modelica.Constants.small)
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
+
   // For air, we set dp_nominal = 600 as default, for water we set 10000
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
-    min=0,
+    final min=Modelica.Constants.small,
     displayUnit="Pa") = if rho_default < 500 then 500 else 10000
     "Nominal pressure raise, used for default pressure curve if not specified in record per"
     annotation (Dialog(group="Nominal condition"));
@@ -44,6 +64,12 @@ model FlowControlled_m_flow
       i]/per.speeds[end] for i in 1:size(per.speeds, 1)}
     "Vector of mass flow rate set points, used when inputType=Stage"
     annotation (Dialog(enable=inputType == Buildings.Fluid.Types.InputType.Stages));
+
+  parameter Modelica.Units.SI.Pressure dpMax(
+    min=0,
+    displayUnit="Pa") = 2*max(eff.per.pressure.dp)
+   "Maximum pressure allowed to operate the model, if exceeded, the simulation stops with an error"
+   annotation(Dialog(tab="Advanced"));
 
   Modelica.Blocks.Interfaces.RealInput m_flow_in(
     final unit="kg/s",
@@ -64,6 +90,13 @@ model FlowControlled_m_flow
         iconTransformation(extent={{100,40},{120,60}})));
 
 equation
+  assert(-dp <= dpMax,
+    "In " + getInstanceName() + ": Model operates with head -dp = " + String(-dp) + " Pa,
+    exceeding the pressure allowed by the parameter " + getInstanceName() + ".dpMax.
+    This can happen if the model forces a high mass flow rate through a closed actuator,
+    or if the performance record is unreasonable. Please verify your model, and
+    consider using one of the other pump or fan models.");
+
   if use_inputFilter then
     connect(filter.y, m_flow_actual) annotation (Line(
       points={{41,70.5},{44,70.5},{44,50},{110,50}},
@@ -80,12 +113,10 @@ equation
       smooth=Smooth.None));
   end if;
 
-
   connect(inputSwitch.u, m_flow_in) annotation (Line(
       points={{-22,50},{-26,50},{-26,80},{0,80},{0,120}},
       color={0,0,127},
       smooth=Smooth.None));
-
 
   annotation (
       Icon(graphics={
@@ -94,16 +125,18 @@ equation
           textColor={0,0,127},
           visible=inputType == Buildings.Fluid.Types.InputType.Continuous or inputType == Buildings.Fluid.Types.InputType.Stages,
           textString=DynamicSelect("m_flow", if inputType == Buildings.Fluid.Types.InputType.Continuous then String(m_flow_in, leftJustified=false, significantDigits=3) else String(stage)))}),
-  defaultComponentName="fan",
+  defaultComponentName="mov",
   Documentation(
    info="<html>
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
-The efficiency of the device is computed based
-on the efficiency and pressure curves that are defined
-in record <code>per</code>, which is of type
-<a href=\"modelica://Buildings.Fluid.Movers.SpeedControlled_Nrpm\">
-Buildings.Fluid.Movers.SpeedControlled_Nrpm</a>.
+</p>
+<p>
+Note that if the model operates with a head that is larger than <code>dpMax</code>, which by default is
+two times larger than the largest head declared in <code>eff.per.pressure.dp</code>,
+the simulation will stop with an error message.
+This guards against unreasonably high pressure drops and electrical power use,
+which can happen if the model is forcing mass flow rate through a closed actuator.
 </p>
 <p>
 See the
@@ -113,6 +146,30 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Refactored the model with a new declaration for
+<code>m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
+<li>
+April 27, 2022, by Hongxiang Fu:<br/>
+Replaced <code>not use_powerCharacteristic</code> with the enumerations
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod\">
+Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod</a>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+</li>
+<li>
+November 15, 2022, by Michael Wetter:<br/>
+Added assertion if model operates with a pressure higher than <code>dpMax</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">#1659</a>.
+</li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>
 Set <code>final massDynamics=energyDynamics</code>.<br/>

@@ -28,7 +28,9 @@ package PerfectGas "Model for air as a perfect gas"
 
   redeclare replaceable model extends BaseProperties(
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
+    Xi(
+      nominal={0.01},
+      each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     final standardOrderComponents=true)
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
@@ -632,6 +634,12 @@ space dimension</i>. CRC Press. 1998.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 9, 2022, by Michael Wetter:<br/>
+Set nominal attribute for <code>BaseProperties.Xi</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1634\">#1634</a>.
+</li>
 <li>
 October 26, 2018, by Filip Jorissen and Michael Wetter:<br/>
 Now printing different messages if temperature is above or below its limit,

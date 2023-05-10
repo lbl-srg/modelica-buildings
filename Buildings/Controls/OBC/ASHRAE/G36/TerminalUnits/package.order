@@ -1,0 +1,10 @@
+CoolingOnly
+DualDuctColdDuctMin
+DualDuctMixConDischargeSensor
+DualDuctMixConInletSensor
+DualDuctSnapActing
+ParallelFanCVF
+ParallelFanVVF
+Reheat
+SeriesFanCVF
+SeriesFanVVF

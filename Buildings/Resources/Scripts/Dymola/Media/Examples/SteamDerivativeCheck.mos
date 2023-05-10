@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Media.Examples.SteamDerivativeCheck", startTime=0, stopTime=1, tolerance=1E-10, method="dassl", resultFile="MediaExamplesSteamDerivativeCheck");
+simulateModel("Buildings.Media.Examples.SteamDerivativeCheck", startTime=0, stopTime=1, tolerance=1E-10, method="dassl", resultFile="MediaExamplesSteamDerivativeCheck");
 createPlot(id=1, 
   position={34, 26, 626, 458}, 
   y={"der(hVapSym)", "der(hVapCod)"}, 

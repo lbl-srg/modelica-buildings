@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes", stopTime=63072000, method="Cvode", tolerance=1e-06, resultFile="TwoBuriedPipes");
+simulateModel("Buildings.Fluid.Geothermal.BuriedPipes.Examples.TwoBuriedPipes", stopTime=63072000, method="Cvode", tolerance=1e-06, resultFile="TwoBuriedPipes");
 createPlot(id=1, 
   position={0, 0, 1534, 469}, 
   y={"senTemChWIn.T", "senTemChWOut.T", "senTemHotWIn.T", "senTemHotWOut.T", "gro.soi.T"}, 

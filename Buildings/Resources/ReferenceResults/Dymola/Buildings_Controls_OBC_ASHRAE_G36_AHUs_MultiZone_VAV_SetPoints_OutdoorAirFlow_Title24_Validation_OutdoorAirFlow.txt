@@ -1,0 +1,28 @@
+last-generated=2022-05-10
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 3.6e+03]
+zonToAhu.VZonAbsMin_flow[1]=[1.000000014901161e-01, 1.000000014901161e-01]
+zonToAhu.VZonAbsMin_flow[2]=[1.19999997317791e-01, 1.19999997317791e-01]
+zonToAhu.VZonAbsMin_flow[3]=[2.000000029802322e-01, 2.000000029802322e-01]
+zonToAhu.VZonAbsMin_flow[4]=[1.500000059604645e-01, 1.500000059604645e-01]
+zonToAhu.VZonDesMin_flow[1]=[1.500000059604645e-01, 1.500000059604645e-01]
+zonToAhu.VZonDesMin_flow[2]=[2.000000029802322e-01, 2.000000029802322e-01]
+zonToAhu.VZonDesMin_flow[3]=[2.5e-01, 2.5e-01]
+zonToAhu.VZonDesMin_flow[4]=[3.00000011920929e-01, 3.00000011920929e-01]
+zonToAhu.uCO2[1]=[3.00000011920929e-01, 3.00000011920929e-01]
+zonToAhu.uCO2[2]=[2.5e-01, 2.5e-01]
+zonToAhu.uCO2[3]=[4.000000059604645e-01, 4.000000059604645e-01]
+zonToAhu.uCO2[4]=[5e-01, 5e-01]
+zonToAhu.VSumZonAbsMin_flow=[2.199999988079071e-01, 2.199999988079071e-01]
+zonToAhu.VSumZonDesMin_flow=[3.499999940395355e-01, 3.499999940395355e-01]
+zonToAhu.yMaxCO2=[5e-01, 5e-01]
+ahu.VEffAbsOutAir_flow=[2.199999988079071e-01, 2.199999988079071e-01]
+ahu.VEffDesOutAir_flow=[3.499999940395355e-01, 3.499999940395355e-01]
+ahu.effAbsOutAir_normalized=[4.399999976158142e-01, 4.399999976158142e-01]
+ahu.effDesOutAir_normalized=[3.499999940395355e-01, 3.499999940395355e-01]
+ahu.effOutAir_normalized=[2.199999988079071e-01, 2.199999988079071e-01]

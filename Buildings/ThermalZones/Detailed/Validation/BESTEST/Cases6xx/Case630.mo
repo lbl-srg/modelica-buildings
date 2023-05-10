@@ -13,10 +13,10 @@ model Case630 "Case 620, but with added overhang and sidefins"
         each dep=1.0,
         each gap=0.0))),
    staRes(
-    annualHea(Min=5.050*3.6e9, Max=6.469*3.6e9, Mean=5.783*3.6e9),
-    annualCoo(Min=-2.129*3.6e9, Max=-3.701*3.6e9, Mean=-2.832*3.6e9),
-    peakHea(Min=3.592*1000, Max=4.280*1000, Mean=4.006*1000),
-    peakCoo(Min=-3.072*1000, Max=-4.116*1000, Mean=-3.626*1000)));
+    annualHea(Min=4.356*3.6e9, Max=5.139*3.6e9, Mean=4.821*3.6e9),
+    annualCoo(Min=-2.573*3.6e9, Max=-3.074*3.6e9, Mean=-2.814*3.6e9),
+    peakHea(Min=3.039*1000, Max=3.388*1000, Mean=3.203*1000),
+    peakCoo(Min=-3.526*1000, Max=-4.212*1000, Mean=-3.963*1000)));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case630.mos"
         "Simulate and plot"),

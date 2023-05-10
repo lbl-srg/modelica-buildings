@@ -31,6 +31,9 @@ block TWetBul_TDryBulXi
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
 protected
+  constant Real uniCon1(final unit="1/rad") = 1 "Constant to satisfy unit check";
+  constant Real uniConK(final unit="K/rad") = 1 "Constant to satisfy unit check";
+
   Modelica.Units.NonSI.Temperature_degC TDryBul_degC
     "Dry bulb temperature in degree Celsius";
   Real rh_per(min=0) "Relative humidity in percentage";
@@ -55,11 +58,12 @@ equation
          Buildings.Utilities.Psychrometrics.Functions.saturationPressure(TDryBul)
          *Xi[iWat]/(Xi[iWat] +
          Buildings.Utilities.Psychrometrics.Constants.k_mair*(1-Xi[iWat]));
-    TWetBul      = 273.15 + TDryBul_degC
+    TWetBul      = 273.15 + uniCon1 * TDryBul_degC
        * Modelica.Math.atan(0.151977 * sqrt(rh_per + 8.313659))
-       + Modelica.Math.atan(TDryBul_degC + rh_per)
-       - Modelica.Math.atan(rh_per-1.676331)
-       + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per)  - 4.686035;
+       + uniConK * ( Modelica.Math.atan(TDryBul_degC + rh_per)
+         - Modelica.Math.atan(rh_per-1.676331)
+         + 0.00391838 * rh_per^(1.5) * Modelica.Math.atan( 0.023101 * rh_per))
+       - 4.686035;
     XiSat = 0;
     XiSatRefIn=0;
   else
@@ -170,6 +174,12 @@ DOI: 10.1175/JAMC-D-11-0143.1
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 May 1, 2017, by Filip Jorissen:<br/>
 Revised computation of <code>iWat</code>

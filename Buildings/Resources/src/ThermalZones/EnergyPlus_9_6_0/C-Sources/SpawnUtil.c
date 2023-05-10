@@ -13,9 +13,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#ifdef _WIN32 /* Win32 or Win64 */
+#include <windows.h>
+#else
+#include <dirent.h>
+#endif
+
+
 
 void mallocString(const size_t nChar, const char *error_message, char** str, void (*SpawnFormatError)(const char *string, ...)){
-  *str = malloc(nChar * sizeof(char));
+  *str = (char *)malloc(nChar * sizeof(char));
   if ( *str == NULL )
     SpawnFormatError("%s", error_message);
 }
@@ -113,6 +120,8 @@ char* fmuModeToString(FMUMode mode){
     return "event";
   if (mode == continuousTimeMode)
     return "continuous";
+  if (mode == terminatedMode)
+    return "terminated";
   return "unknown mode for FMU";
 }
 
@@ -391,7 +400,7 @@ void saveAppend(char* *buffer, const char *toAdd, size_t *bufLen, void (*SpawnFo
   /* reallocate memory if needed */
   if ( *bufLen < nNewCha + nBufCha + 1){
     *bufLen = *bufLen + nNewCha + minInc + 1;
-    *buffer = realloc(*buffer, *bufLen);
+    *buffer = (char *)realloc(*buffer, *bufLen * sizeof(char));
     if (*buffer == NULL) {
       SpawnFormatError("Realloc failed in saveAppend with bufLen = %lu.", *bufLen);
     }
@@ -586,7 +595,7 @@ void getSimulationTemporaryDirectory(
           "Temporary directories with names longer than %lu characters are not supported in SpawnFMU.c unless you change maxLenCurDir.",
           maxLenCurDir);
       }
-      curDir = realloc(curDir, lenCurDir * sizeof(char));
+      curDir = (char *)realloc(curDir, lenCurDir * sizeof(char));
       if (curDir == NULL)
         SpawnFormatError(
           "Failed to reallocate memory for current working directory in getSimulationTemporaryDirectory for %s.",
@@ -707,13 +716,184 @@ void createDirectory(const char* dirName, void (*SpawnFormatError)(const char *s
   struct _stat64i32 st = {0};
   if (_stat64i32(dirName, &st) == -1) {
     if ( _mkdir(dirName) == -1)
+      SpawnFormatError("Failed to create directory %s", dirName);
+  }
 #else
   struct stat st = {0};
   if (stat(dirName, &st) == -1) {
     if ( mkdir(dirName, 0700) == -1)
-#endif
       SpawnFormatError("Failed to create directory %s", dirName);
   }
+#endif
+}
+
+#ifndef _WIN32 /* Not Win32 or Win64 */
+int isDirectory(const char *path){
+   struct stat statbuf;
+   if (stat(path, &statbuf) != 0)
+       return 0;
+   return S_ISDIR(statbuf.st_mode);
+}
+
+int isRegularFile(const char *path) {
+   struct stat statbuf;
+   if (stat(path, &statbuf) != 0)
+       return 0;
+   return S_ISREG(statbuf.st_mode);
+}
+#endif
+
+
+void remove_files_or_directory(FMUBuilding* bui, const char* directory, const char* wildCard, bool recursive){
+#ifdef _WIN32 /* Win32 or Win64 */
+  WIN32_FIND_DATA fdFile;
+  HANDLE hFind = NULL;
+  size_t lenFilMas;
+  char* filMas;
+#else
+  struct dirent **namelist;
+  int nFil;
+#endif
+
+  size_t lenFil;
+  char* filName;
+
+  void (*SpawnFormatMessage)(const char *string, ...) = bui->SpawnFormatMessage;
+  void (*SpawnFormatError)(const char *string, ...) = bui->SpawnFormatError;
+
+  if (bui->logLevel >= MEDIUM)
+    SpawnFormatMessage("%.3f %s: Entered remove_files_or_directory, directory = '%s', wildCard = '%s'.\n",
+      bui->time, bui->modelicaNameBuilding, directory, wildCard);
+
+#ifdef _WIN32 /* Win32 or Win64 */
+  /* Specify file mask */
+  lenFilMas = strlen(directory) + strlen(wildCard) + 2;
+  mallocString(lenFilMas, "Failed to allocate memory in remove_files_or_directory() for filMas.",
+      &filMas, SpawnFormatError);
+  memset(filMas, '\0', lenFilMas);
+  strcpy(filMas, directory);
+  strcat(filMas, "/");
+  strcat(filMas, wildCard);
+
+  if((hFind = FindFirstFile(filMas, &fdFile)) == INVALID_HANDLE_VALUE)
+  {
+     if (bui->logLevel >= MEDIUM)
+      SpawnFormatMessage("%.3f %s: Did not find old files when searching for '%s'.\n", bui->time, bui->modelicaNameBuilding, filMas);
+    free(filMas);
+    return;
+  }
+  do
+  {
+      //Find first file will always return "."
+      //    and ".." as the first two directories.
+      if(strcmp(fdFile.cFileName, ".") != 0
+              && strcmp(fdFile.cFileName, "..") != 0)
+      {
+          if(fdFile.dwFileAttributes &FILE_ATTRIBUTE_DIRECTORY){
+            /* This is a directory. Call function recursively. */
+            lenFil = lenFilMas + strlen("/") + strlen(fdFile.cFileName);
+
+            mallocString(lenFil, "Failed to allocate memory in remove_files_or_directory() for filName.",
+              &filName, SpawnFormatError);
+            memset(filName, '\0', lenFil);
+            strcpy(filName, directory);
+            strcat(filName, "/");
+            strcat(filName, fdFile.cFileName);
+            remove_files_or_directory(bui, filName, "*", recursive);
+            /* Now the directory is empty, delete it. */
+            _rmdir(filName);
+            free(filName);
+          }
+          else{
+            /* Delete the file */
+            lenFil = lenFilMas + strlen("/") + strlen(fdFile.cFileName);
+
+            mallocString(lenFil, "Failed to allocate memory in remove_files_or_directory() for filName.",
+              &filName, SpawnFormatError);
+            memset(filName, '\0', lenFil);
+            strcpy(filName, directory);
+            strcat(filName, "/");
+            strcat(filName, fdFile.cFileName);
+            if (bui->logLevel >= MEDIUM)
+              SpawnFormatMessage("%.3f %s: Deleting file '%s'.\n", bui->time, bui->modelicaNameBuilding, filName);
+            deleteFile(filName);
+            free(filName);
+          }
+      }
+  }
+  while(FindNextFile(hFind, &fdFile)); /* Find the next file. */
+  FindClose(hFind); /* Close the file handle */
+  free(filMas);
+
+#else
+  /* Scan the directory for files */
+  nFil = scandir(directory, &namelist, NULL, alphasort);
+  if (nFil == -1){
+    /* scandir had an error, this may be if the directory does not exist. */
+     if (bui->logLevel >= MEDIUM)
+      SpawnFormatMessage("%.3f %s: Did not find files in '%s'.\n", bui->time, bui->modelicaNameBuilding, directory);
+    return;
+  }
+  while (nFil--){
+    if ( (strcmp(namelist[nFil]->d_name, "..") == 0) ||
+         (strcmp(namelist[nFil]->d_name, ".")  == 0) ) {
+      /* Skip for ".." and for "." */
+      continue;
+    }
+
+    lenFil = strlen(directory) + strlen("/") + strlen(namelist[nFil]->d_name) + 1;
+    mallocString(lenFil, "Failed to allocate memory in delete_extracted_fmu_files() for filName.",
+      &filName, SpawnFormatError);
+
+    memset(filName, '\0', lenFil);
+    strcpy(filName, directory);
+    strcat(filName, "/");
+    strcat(filName, namelist[nFil]->d_name);
+
+    if (isDirectory(filName) && recursive &&
+       ((strcmp(wildCard, namelist[nFil]->d_name) == 0) || (strcmp(wildCard, "*") == 0))){
+      /* Have directory, and its name matches wildCard, or wildCard is equal to "*" */
+      /* Call method recursively */
+      remove_files_or_directory(bui, filName, "*", recursive);
+      /* Now the directory is empty. Delete it.*/
+      rmdir(filName);
+    }
+    else if (isRegularFile(filName)){
+      if ( (strcmp(wildCard, "*") == 0) ||
+           (strcmp(wildCard, namelist[nFil]->d_name) == 0) ){
+        if (bui->logLevel >= MEDIUM)
+          SpawnFormatMessage("%.3f %s: Deleting file '%s'.\n", bui->time, bui->modelicaNameBuilding, filName);
+        deleteFile(filName);
+      }
+    }
+    else{
+      if (bui->logLevel >= MEDIUM)
+        SpawnFormatMessage("%.3f %s: Skipping removal of '%s', as it is does not match pattern.\n",
+          bui->time, bui->modelicaNameBuilding, filName);
+    }
+    free(filName);
+    free(namelist[nFil]);
+  }
+  free(namelist);
+#endif
+}
+
+void delete_extracted_fmu_files(FMUBuilding* bui){
+  /* Delete old ep* libraries generated by previous simulation, if present.
+   */
+  remove_files_or_directory(bui, bui->tmpDir, "binaries", true);
+  remove_files_or_directory(bui, bui->tmpDir, "resources", true);
+  remove_files_or_directory(bui, bui->tmpDir, "modelDescription.xml", false);
+}
+
+int deleteFile(const char* fileName){
+  /* Remove file if it exists */
+  if (access(fileName, F_OK) == 0) {
+    /* File exists. Delete it. */
+    return remove(fileName);
+  }
+  else
+    return 0;
 }
 
 
@@ -736,8 +916,6 @@ void loadFMU_setupExperiment_enterInitializationMode(FMUBuilding* bui, double st
 
   if (bui->logLevel >= MEDIUM)
     SpawnFormatMessage("%.3f %s: Instantiate building.\n", bui->time, modelicaInstanceName);
-
-  setFMUMode(bui, instantiationMode);
 
   /* This function can only be called once per building FMU */
   if (bui->logLevel >= MEDIUM)

@@ -12,19 +12,24 @@ Instructions for developers are available on the [wiki](https://github.com/lbl-s
 ## Library description
 
 The Modelica Buildings library is a free open-source library with dynamic simulation models for building energy and control systems. The library contains models for
-- air-based HVAC systems,
-- water-based heating systems,
-- controls,
-- heat transfer among rooms and the outside,
-- multizone airflow, including natural ventilation and contaminant transport, and
-- electrical systems.
+
+- HVAC systems,
+- energy storage,
+- controls, including a reference implementation of ASHRAE Standard 231P,
+- heat transfer among rooms and the outside, either
+  - natively in Modelica with a detailed or a reduced order model, or
+  - integrated run-time coupling with EnergyPlus, aka, Spawn of EnergyPlus
+- multizone airflow, including natural ventilation and contaminant transport,
+- single-zone computational fluid dynamics coupled to heat transfer and HVAC systems,
+- data-driven load prediction for demand response applications, and
+- electrical DC and AC systems with two- or three-phases that can be balanced and unbalanced.
 
 
 The main project site is http://simulationresearch.lbl.gov/modelica.
 
 ## Current release
 
-Download [Buildings Library 8.0.0 (2021-06-08)](https://github.com/lbl-srg/modelica-buildings/releases/download/v8.0.0/Buildings-v8.0.0.zip)
+Download [Buildings Library 9.1.0 (2022-12-06)](https://github.com/lbl-srg/modelica-buildings/releases/download/v9.1.0/Buildings-v9.1.0.zip)
 
 ## License
 
@@ -69,8 +74,31 @@ rm -rf build && mkdir build && cd build && \
   cd .. && rm -rf build
 ```
 
-To install the latest build of EnergyPlus that contains the Spawn interface, run
+To install the EnergyPlus binaries for the Spawn interface for the current operating system, run
 ```
-cd Buildings/Resources/src/ThermalZones/EnergyPlus/
-./install.py
+Buildings/Resources/src/ThermalZones/install.py --binaries-for-os-only
+```
+To install the binaries for all operating systems, omit the flag `--binaries-for-os-only`
+
+## Citation
+
+To cite the library, use
+
+Michael Wetter, Wangda Zuo, Thierry S. Nouidui and Xiufeng Pang.
+Modelica Buildings library.
+_Journal of Building Performance Simulation_, 7(4):253-270, 2014.
+
+```
+@Article{WetterZuoNouiduiPang2014,
+  author  =  {Michael Wetter and Wangda Zuo and Thierry S. Nouidui and Xiufeng Pang},
+  title   =  {Modelica {Buildings} library},
+  journal =  {Journal of Building Performance Simulation},
+  volume  =  {7},
+  number  =  {4},
+  pages   =  {253--270},
+  year    =  {2014},
+  doi     =  {10.1080/19401493.2013.765506},
+  url     = "https://doi.org/10.1080/19401493.2013.765506"
+}
+
 ```

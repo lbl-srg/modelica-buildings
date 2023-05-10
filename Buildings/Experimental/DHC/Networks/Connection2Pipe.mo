@@ -7,14 +7,17 @@ model Connection2Pipe
     redeclare model Model_pipDisRet=Fluid.FixedResistances.PressureDrop (
       final dp_nominal=dpDis_nominal),
     redeclare model Model_pipCon=Fluid.FixedResistances.LosslessPipe);
-  parameter Modelica.Units.SI.PressureDifference dpDis_nominal
+  parameter Modelica.Units.SI.PressureDifference dpDis_nominal(
+    displayUnit="Pa")
     "Pressure drop in distribution line (supply only, not counting return line)";
   annotation (
     Documentation(
       info="<html>
 <p>
 This is a model of a connection with a two-pipe distribution network using 
-as pipe model a fixed hydraulic resistance with no heat loss .
+as pipe model a fixed hydraulic resistance with no heat loss.
+The pressure drop of this hydraulic resistance is scaled based on the
+mass flow rate.
 </p>
 </html>",
       revisions="<html>

@@ -12,6 +12,11 @@ model CoolingTowersWithBypass
   parameter Boolean use_inputFilter=true
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation (Dialog(tab="Dynamics",group="Filtered opening"));
+  parameter Modelica.Units.SI.Time riseTime=30
+    "Pump rise time of the filter (time to reach 99.6 % of the speed)" annotation (
+      Dialog(
+      tab="Dynamics",
+      enable=use_inputFilter));
   parameter Modelica.Units.SI.Pressure dp_nominal
     "Nominal pressure difference of the tower"
     annotation (Dialog(group="Nominal condition"));
@@ -70,8 +75,8 @@ model CoolingTowersWithBypass
     "Leaving water temperature"
     annotation (Placement(transformation(extent={{100,20},{120,40}})));
   Buildings.Experimental.DHC.Plants.Cooling.Subsystems.CoolingTowersParallel cooTowSys(
-    final use_inputFilter=use_inputFilter,
     redeclare final package Medium=Medium,
+    final use_inputFilter=false,
     final num=num,
     final show_T=show_T,
     final m_flow_small=m_flow_nominal,
@@ -93,7 +98,7 @@ model CoolingTowersWithBypass
     final m_flow_nominal=m_flow_nominal,
     final show_T=show_T,
     final dpValve_nominal=dpValve_nominal,
-    final dpFixed_nominal=dp_nominal,
+    final riseTime=riseTime,
     final use_inputFilter=use_inputFilter)
     "Condenser water bypass valve"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},origin={0,-40})));
@@ -386,6 +391,18 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+January 2, 2023, by Kathryn Hinkelman:<br/>
+Set <code>dp_fixed = 0</code> for the bypass valve because the pressure drop in this leg
+will be significantly less than the cooling towers.<br/>
+Propagated <code>riseTime</code> for the valve signal filters.
+</li>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Changed rise time of valve to 30 seconds so that it is the same as the one for the pumps,
+and set <code>use_inputFilter = false</code> for shut-off valve in cooling tower.
+This avoids a sharp rise in pressure near <i>t=35</i> seconds.
+</li>
 <li>May 19, 2020 by Jing Wang:<br/>First implementation. </li>
 </ul>
 </html>",

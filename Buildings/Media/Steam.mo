@@ -877,7 +877,7 @@ computational efficiency and provide backward compatability.
 </p>
 <p>
 Detailed functions from <a href=\"modelica://Modelica.Media.Water.WaterIF97_R2pT\">
-Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, expect for
+Modelica.Media.Water.WaterIF97_R2pT</a> are generally used, except for
 <a href=\"modelica://Buildings.Media.Steam.specificEnthalpy\">Buildings.Media.Steam.specificEnthalpy</a> and
 <a href=\"modelica://Buildings.Media.Steam.specificEntropy\">Buildings.Media.Steam.specificEntropy</a>
 (both \"forward\" functions), as well as their \"backward\" inverse functions
@@ -890,7 +890,7 @@ Modelica.Media.Water.WaterIF97_R2pT</a> medium package:
 </p>
 <ol>
 <li>Analytic expressions for the derivatives are provided for all thermodynamic property functions.</li>
-<li>The implementation is generally simplier in order to increase the likelyhood
+<li>The implementation is generally simpler in order to increase the likelihood
 of more efficient simulations. </li>
 </ol>
 <h4>Limitations </h4>

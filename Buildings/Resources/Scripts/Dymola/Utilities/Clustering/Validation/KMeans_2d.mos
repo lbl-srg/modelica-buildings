@@ -1,0 +1,6 @@
+simulateModel("Buildings.Utilities.Clustering.Validation.KMeans_2d", tolerance=1e-6, stopTime=1, method="CVode", resultFile="KMeans_2d");
+createPlot(id = 1,
+ position = {50, 50, 700, 500},
+ x = "time",
+ y = {"cmp"},
+ filename="KMeans_2d.mat");

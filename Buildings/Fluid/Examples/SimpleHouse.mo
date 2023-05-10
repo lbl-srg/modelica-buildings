@@ -144,7 +144,7 @@ model SimpleHouse
     annotation (Placement(transformation(extent={{-16,-144},{4,-124}})));
   Controls.Continuous.LimPID conDam(
       controllerType=Modelica.Blocks.Types.SimpleController.P,
-      yMin=0.1) "Controller for damper"
+      yMin=0.25) "Controller for damper"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Blocks.Sources.Constant TSetRoo(k=273.15 + 24)
     "Room temperature set point for air system"
@@ -288,11 +288,16 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+June 15, 2022, by Hongxiang Fu:<br/>
+Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1624\">IBPSA, #1624</a>.
+</li>
+<li>
 May 8, 2017, by Michael Wetter:<br/>
 Updated heater model.<br/>
 This is for
-<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">
-Buildings, #763</a>.
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/763\">IBPSA, #763</a>.
 </li>
 <li>
 November 10, 2016, by Michael Wetter:<br/>

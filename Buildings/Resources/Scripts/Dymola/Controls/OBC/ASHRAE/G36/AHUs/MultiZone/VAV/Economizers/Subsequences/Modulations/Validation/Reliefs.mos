@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Economizers.Subsequences.Modulations.Validation.Reliefs", method="Cvode", stopTime=1800, tolerance=1e-06, resultFile="Relief");
+createPlot(id=1, position={15, 15, 1200, 900}, y={"mod1.yOutDam", "mod1.yRetDam", "mod1.uTSup"}, range={0.0, 1800.0, -1.2, 1.4}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+

@@ -100,17 +100,10 @@ model FlowDistributionPumpControl
     final dpDis_nominal=dpDis_nominal)
     "Distribution network"
     annotation (Placement(transformation(extent={{40,-180},{80,-160}})));
-  Fluid.Movers.FlowControlled_dp pumCstDp(
+  Buildings.Fluid.Movers.Preconfigured.FlowControlled_dp pumCstDp(
     redeclare package Medium=Medium1,
-    per(
-      final motorCooledByFluid=false),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     m_flow_nominal=m_flow_nominal,
-    addPowerToMedium=false,
-    nominalValuesDefineDefaultPressureCurve=true,
-    use_inputFilter=false,
-    dp_nominal=dp_nominal,
-    prescribeSystemPressure=true)
+    dp_nominal=dp_nominal)
     "Pump controlled to track a pressure drop over the last connected load"
     annotation (Placement(transformation(extent={{-10,-170},{10,-150}})));
   Fluid.MixingVolumes.MixingVolume vol(
@@ -160,15 +153,10 @@ model FlowDistributionPumpControl
     each final have_speVar=false)
     "Heating terminal unit"
     annotation (Placement(transformation(extent={{-10,-22},{10,-2}})));
-  Fluid.Movers.SpeedControlled_y pumCstSpe(
+  Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pumCstSpe(
     redeclare package Medium=Medium1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    per(
-      pressure(
-        V_flow=m_flow_nominal/rho_default .* {0,1,2},
-        dp=dp_nominal .* {1.5,1,0.5})),
-    addPowerToMedium=false,
-    use_inputFilter=false)
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal)
     "Pump controlled at constant speed"
     annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Fluid.Movers.BaseClasses.IdealSource pipPre(
@@ -321,6 +309,13 @@ Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+August 30, 2022, by Hongxiang Fu:<br/>
+Swapped the pump models for preconfigured versions and removed the pump curve
+record <code>per</code>.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>.
+</li>
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

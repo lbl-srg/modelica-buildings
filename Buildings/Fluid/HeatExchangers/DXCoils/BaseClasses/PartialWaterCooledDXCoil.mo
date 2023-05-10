@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
+model PartialWaterCooledDXCoil "Base class for water source DX coils"
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
-          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi);
+          redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi);
 
   replaceable package MediumEva =
       Modelica.Media.Interfaces.PartialMedium "Medium for evaporator"
@@ -164,14 +164,14 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     final X_start=XEva_start,
     final C_start=CEva_start,
     final computeReevaporation=computeReevaporation,
-    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
+    dxCoo(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
           wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
-                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-                 appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi,
-                         uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.BaseClasses.NominalValues per))),
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
+                 appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
+                         uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.NominalValues per))),
           dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled cooCap,
-                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled.Data.Generic.DXCoil datCoi=datCoi)),
-    eva(final nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues(
+                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi)),
+    eva(final nomVal=Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
         Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
         COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
         SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
@@ -202,7 +202,7 @@ model PartialWaterCooledDXCoil "Base class for water-cooled DX coils"
     final T_start=TCon_start,
     final X_start=XCon_start,
     final C_start=CCon_start)
-    "Water-cooled condenser"
+    "Water source condenser"
     annotation (Placement(transformation(extent={{-20,-90},{-40,-70}})));
 
 
@@ -342,7 +342,7 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),    Documentation(info="<html>
 <p>
-This model can be used to simulate a water-cooled DX cooling coil with single speed compressor.
+This model can be used to simulate a water source DX cooling coil with single speed compressor.
 </p>
 <p>
 See

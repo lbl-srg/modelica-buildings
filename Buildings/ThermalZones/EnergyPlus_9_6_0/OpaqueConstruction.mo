@@ -162,7 +162,7 @@ For the front surface, this heat flow rate consists of
 convective heat flow rate,
 </li>
 <li>
-absorbed solar radiation,
+absorbed solar radiation, and
 </li>
 <li>
 absorbed infrared radiation minus emitted infrared radiation.
@@ -188,8 +188,8 @@ then the model
 Buildings.ThermalZones.EnergyPlus_9_6_0.ZoneSurface</a>
 can be used, as shown for the floor slab
 in
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.RadiantHeatingWithGroundHeatTransfer</a>.
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer\">
+Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse.HeatPumpRadiantHeatingGroundHeatTransfer</a>.
 </p>
 <p>
 By convention, if a surface cools the thermal zone,
