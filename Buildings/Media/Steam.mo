@@ -126,8 +126,8 @@ redeclare replaceable function extends specificEnthalpy
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
-    Temperature THat;
+    Modelica.Units.SI.PressureDifference pHat;
+    Modelica.Units.SI.TemperatureDifference THat;
 algorithm
   pHat := (state.p - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
@@ -171,8 +171,8 @@ redeclare replaceable function extends specificEntropy
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
-    Temperature THat;
+    Modelica.Units.SI.PressureDifference pHat;
+    Modelica.Units.SI.TemperatureDifference THat;
 algorithm
   pHat := (state.p - pMean)/pSD;
   THat := (state.T - TMean)/TSD;
@@ -729,7 +729,7 @@ function temperature_ph
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
+    Modelica.Units.SI.PressureDifference pHat;
 algorithm
   pHat := (p - pMean)/pSD;
   T := b[1] + b[2]*pHat + b[3]*h;
@@ -774,8 +774,8 @@ function temperature_ps
     constant Temperature TMean =  4.15555698340926E+02 "Mean temperature";
     constant Real pSD = 1.13236055019318E+05 "Normalization value";
     constant Real TSD = 1.32971013463839E+01 "Normalization value";
-    AbsolutePressure pHat;
-    Temperature THat;
+    Modelica.Units.SI.PressureDifference pHat;
+    Modelica.Units.SI.TemperatureDifference THat;
 algorithm
   pHat := (p - pMean)/pSD;
   THat := (s - a[1] - pHat*(a[2] + a[4]*pHat))/(a[3] + a[5]*pHat);
@@ -919,6 +919,15 @@ properties of water and steam,&rdquo; <i>J. Eng. Gas Turbines Power</i>, vol. 12
 </p>
 </html>", revisions="<html>
 <ul>
+
+<li>
+March 10, 2023, by Saranya Anbarasu:<br/>
+Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
+from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
+<code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
+assertion erros during initilization.
+</li>
+
 <li>
 May 9, 2022, by David Blum:<br/>
 In function <code>rho_pT</code>, created and used new function extending

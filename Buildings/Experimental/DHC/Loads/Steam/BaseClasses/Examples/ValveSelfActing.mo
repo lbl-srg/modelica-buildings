@@ -2,7 +2,9 @@ within Buildings.Experimental.DHC.Loads.Steam.BaseClasses.Examples;
 model ValveSelfActing
   "Example model for self-acting steam valve with a noisy inlet pressure input"
   extends Modelica.Icons.Example;
-  package MediumSte = Buildings.Media.Steam "Medium model";
+  package MediumSte = Buildings.Media.Steam(p_default=400000,
+    T_default=273.15+143.61,
+    h_default=2738100) "Medium model";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate";
 
@@ -33,8 +35,8 @@ model ValveSelfActing
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Modelica.Blocks.Noise.UniformNoise pInSig(
     samplePeriod(displayUnit="s") = 1,
-    y_min=500000 + 300000,
-    y_max=500000 - 300000) "Noisy signal for inlet pressure"
+    y_min=500000 + 200000,
+    y_max=500000 - 200000) "Noisy signal for inlet pressure"
     annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
   Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = MediumSte,
@@ -71,10 +73,11 @@ equation
     experiment(StopTime=15, Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-This example model demonstrates the performance of self-acting steam pressure regulator 
-with a noisy/varying inlet pressure signal. The inlet 
-pressure conditions are selected to demonstrate how the downstream pressure is maintained 
-at the setpoint, unless the inlet pressure drops below the setpoint (pressure drop is then zero).
+This example model demonstrates the performance of self-acting steam pressure 
+regulator with a noisy/varying inlet pressure signal. The inlet pressure 
+conditions are selected to demonstrate how the downstream pressure is maintained 
+at the setpoint, unless the inlet pressure drops below the setpoint 
+(pressure drop is then zero).
 </p>
 </html>",revisions="<html>
 <ul>

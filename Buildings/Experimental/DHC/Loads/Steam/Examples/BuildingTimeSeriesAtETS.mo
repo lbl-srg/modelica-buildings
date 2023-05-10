@@ -3,7 +3,9 @@ model BuildingTimeSeriesAtETS
   "Example model for time series load with external read-in file."
   extends Modelica.Icons.Example;
 
-  package MediumSte = Buildings.Media.Steam "Steam medium";
+  package MediumSte = Buildings.Media.Steam (p_default=400000,
+    T_default=273.15+143.61,
+    h_default=2738100) "Steam medium";
   package MediumWat =
     Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium";
