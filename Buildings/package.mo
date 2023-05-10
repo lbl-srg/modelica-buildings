@@ -353,30 +353,6 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
-    </td>
-    <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
-                       Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
-    </td>
-    <td valign=\"top\">Changed the pressure independent damper to exponential damper.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV
-    </td>
-    <td valign=\"top\">Added flag to choose different damper type and added control for the boxes with the exponential damper.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
     </td>
 </tr>
@@ -414,6 +390,39 @@ have been <b style=\"color:blue\">improved</b> in a
                      issues a warning for this.<br/>
                      This is for
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3236\">#3236</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
+    </td>
+    <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
+  </tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples.VAVReheat</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
+    </td>
+    <td valign=\"top\">Added junction to mix the return and outdoor air.<br/>
+                       Set the value of parameter <code>transferHeat</code> to true for the mixed air temperature sensor.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3230\">#3230</a>.
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.VAVReheatBox
+    </td>
+    <td valign=\"top\">Changed the pressure independent damper to exponential damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.VAVReheat.BaseClasses.Controls.RoomVAV
+    </td>
+    <td valign=\"top\">Added flag to choose different damper type and added control for the boxes with the exponential damper.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
@@ -542,27 +551,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
-    </td>
-    <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
-  </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_y
-    </td>
-    <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
-    </td>
-  </tr>
   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
   </tr>
@@ -573,27 +561,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples.ScalableBenchmarks</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone
-    </td>
-    <td valign=\"top\">Changed <code>fan[].m_flow_nominal</code> from 10 to 0.1.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3067\">#3067</a>
-  </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_y
-    </td>
-    <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1621\">IBPSA, #1621</a>.
-    </td>
-  </tr>
   <tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
 </tr>
@@ -616,6 +583,16 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3111\">#3111</a>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Examples.BaseClasses.PartialProperties
+    </td>
+    <td valign=\"top\">Removed a self-dependent default binding of a function input.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3384\">#3384</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
   </tr>
@@ -624,16 +601,6 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Replaced hysteresis with <code>max</code> function to avoid chattering when the fan switches on.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3106\">#3106</a>.
-    </td>
-  </tr>
-
-  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
-    </td>
-    <td valign=\"top\">Corrected units of protected variables to avoid warning during model check.<br/>
-                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
     </td>
   </tr>
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.EnergyPlus_9_6_0.Examples.SingleFamilyHouse</b>
@@ -645,6 +612,15 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed pipe spacing and insulation of radiant slab.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.ThermalZones.ReducedOrder</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.ThermalZones.ReducedOrder.SolarGain.CorrectionGDoublePane
+    </td>
+    <td valign=\"top\">Corrected units of protected variables to avoid warning during model check.<br/>
+                       This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/pull/1644\">IBPSA, issue #1644</a>.
+    </td>
+  </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b>
     </td>
 </tr>
@@ -697,9 +673,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">#3139</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints</b>
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.Types</b>
     </td>
 </tr>
@@ -749,9 +722,31 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
+                       Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
+                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
+                       Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
+    </td>
+    <td valign=\"top\">Replaced fan and pump models that have simple two-point
+                       pressure curve assignments with preconfigured models.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Examples.HydronicHeating.TwoRoomsWithStorage
     </td>
     <td valign=\"top\">Changed control that enables the heating system.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Loads</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution<br/>
+                       Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
+    </td>
+    <td valign=\"top\">Swapped the pump models for preconfigured versions.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>..
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.DXCoils</b>
@@ -763,6 +758,17 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Renamed packages to <code>AirSource</code> and <code>WaterSource</code>
                        as DX coils for heating are added, and hence cooled is not an appropriate package name.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3288\">issue 3288</a>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Examples.SimpleHouse
+    </td>
+    <td valign=\"top\">Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1624\">
+                       IBPSA, #1624</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
@@ -894,42 +900,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1659\">IBPSA, #1659</a>.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid.Examples</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Examples.SimpleHouse
-    </td>
-    <td valign=\"top\">Changed <code>conDam.yMin</code> from 0.1 to 0.25.<br/>
-                       This is for
-                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1624\">
-                       IBPSA, #1624</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Examples</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.ClosedLoop<br/>
-                       Buildings.Examples.HydronicHeating.TwoRoomsWithStorage<br/>
-                       Buildings.Examples.ScalableBenchmarks.BuildingVAV.Examples.OneFloor_OneZone<br/>
-                       Buildings.Examples.VAVReheat.BaseClasses.PartialHVAC
-    </td>
-    <td valign=\"top\">Replaced fan and pump models that have simple two-point
-                       pressure curve assignments with preconfigured models.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2668\">#2668</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Loads</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution<br/>
-                       Buildings.Experimental.DHC.Loads.BaseClasses.Validation.FlowDistributionPumpControl
-    </td>
-    <td valign=\"top\">Swapped the pump models for preconfigured versions.<br/>
-                       This is for
-                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3099\">#3099</a>..
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.SolarCollectors</b>
     </td>
 </tr><tr><td valign=\"top\">Buildings.Fluid.SolarCollectors.Controls.CollectorPump
@@ -965,6 +935,15 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
+    </td>
+    <td valign=\"top\">Corrected input for enabling freeze protection setback mode.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3084\">issue 3084</a>.
+    </td>
+</tr>
   <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
   </tr>
@@ -982,15 +961,6 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected calculation of power taken from the battery when it is discharged.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3095\">issue 3095</a>.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Controls.OBC</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.OperationMode
-    </td>
-    <td valign=\"top\">Corrected input for enabling freeze protection setback mode.<br/>
-                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3084\">issue 3084</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
@@ -1012,6 +982,12 @@ that can lead to wrong simulation results):
                      This is for
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3299\">
                      issue 3299</a>.
+  </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct
+  </td>
+  <td valign=\"top\">Removed assignment of check valve <code>allowFlowReversal=false</code>.<br/>
+                     This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
   </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
@@ -1267,14 +1243,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        This is for
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1650\">IBPSA, #1650</a>.
     </td>
-  </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Movers</b>
-    </td>
-  </tr>
-  <tr><td valign=\"top\">Fluid.Movers.FlowControlled_dp<br/>
-                         Fluid.Movers.FlowControlled_m_flow<br/>
-                         Fluid.Movers.SpeedControlled_Nrpm<br/>
-                         Fluid.Movers.SpeedControlled_y
+  <tr><td valign=\"top\">Buildings.Fluid.Movers.FlowControlled_dp<br/>
+                         Buildings.Fluid.Movers.FlowControlled_m_flow<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_Nrpm<br/>
+                         Buildings.Fluid.Movers.SpeedControlled_y
     </td>
     <td valign=\"top\">Avoided negative flow work if the flow or pressure is forced in a way that the flow work would be negative.<br/>
                        This is for
