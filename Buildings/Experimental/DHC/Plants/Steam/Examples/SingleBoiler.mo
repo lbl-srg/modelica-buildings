@@ -27,12 +27,12 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
   // pumps
   parameter Buildings.Fluid.Movers.Data.Generic perPumFW(
     pressure(
-      V_flow=m_flow_nominal*1000*{0.4,0.6,0.8,1.0},
+      V_flow=(m_flow_nominal/1000)*{0.4,0.6,0.8,1.0},
       dp=(pSat-101325)*{1.34,1.27,1.17,1.0}))
     "Performance data for feedwater pump";
     parameter Buildings.Fluid.Movers.Data.Generic perPumCNR(
    pressure(
-     V_flow=m_flow_nominal*1000*{0,1,2},
+     V_flow=(m_flow_nominal/1000)*{0,1,2},
      dp=dpPip*{2,1,0}))
     "Performance data for condensate return pumps";
 

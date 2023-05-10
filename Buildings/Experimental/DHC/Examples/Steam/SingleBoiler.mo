@@ -33,7 +33,7 @@ model SingleBoiler "Example model for a complete steam district heating system w
     "Pressure drop in the condensate return pipe";
 
   parameter Buildings.Fluid.Movers.Data.Generic perPumFW(
-   pressure(V_flow=mDis_flow_nominal*1000*{0,1,2},
+   pressure(V_flow=(mDis_flow_nominal/1000)*{0,1,2},
      dp=(pSat-101325)*{2,1,0}))
     "Performance data for feedwater pump at the plant";
 

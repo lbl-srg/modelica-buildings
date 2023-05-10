@@ -53,7 +53,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
       enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Buildings.Fluid.Movers.Data.Generic per(
     pressure(
-      V_flow=m_flow_nominal*1000*{0.4,0.6,0.8,1.0},
+      V_flow=(m_flow_nominal/1000)*{0.4,0.6,0.8,1.0},
       dp=(pSteSet-pTanFW)*{1.34,1.27,1.17,1.0}))
     "Performance data for the feedwater pump";
 
