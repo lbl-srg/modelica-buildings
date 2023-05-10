@@ -129,14 +129,12 @@ model AllElectricCWStorage
     annotation (Placement(transformation(extent={{-190,-110},{-170,-90}})));
   Loads.Heating.BuildingTimeSeriesWithETS loaHea[2](
     each THeaWatSup_nominal=pla.THeaWatSup_nominal,
-    filNam=filNam,
-    each ets(dpCheVal_nominal=120000)) "Building heating load"
+    filNam=filNam)                     "Building heating load"
     annotation (Placement(transformation(extent={{10,100},{-10,120}})));
     // dpCheVal_nominal to avoid too hot water in building waterr supply due to problem of temperature drop in Dymola
   Loads.Cooling.BuildingTimeSeriesWithETS loaCoo[2](
     each TChiWatSup_nominal=pla.TChiWatSup_nominal,
     filNam=filNam,
-    each ets(dpCheVal_nominal=120000),
     each bui(w_aLoaCoo_nominal=0.015)) "Building cooling load"
     annotation (Placement(transformation(extent={{10,-130},{-10,-110}})));
     // dpCheVal_nominal to avoid freezing in building waterr supply due to problem of temperature drop in Dymola
