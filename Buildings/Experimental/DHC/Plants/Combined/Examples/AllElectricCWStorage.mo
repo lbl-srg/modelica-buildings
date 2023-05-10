@@ -172,7 +172,7 @@ model AllElectricCWStorage
     allowFlowReversal=false,
     mDis_flow_nominal=sum(loaHea.mBui_flow_nominal),
     mCon_flow_nominal={loaHea[1].mBui_flow_nominal,loaHea[2].mBui_flow_nominal},
-    dpDis_nominal(displayUnit="Pa") = {200000,100000})
+    dpDis_nominal(each displayUnit="Pa") = {200000,100000})
     "Distribution network for district heating system"
     annotation (Placement(transformation(extent={{20,62},{-20,82}})));
 
@@ -182,7 +182,7 @@ model AllElectricCWStorage
     allowFlowReversal=false,
     mDis_flow_nominal=sum(loaCoo.mBui_flow_nominal),
     mCon_flow_nominal={loaCoo[1].mBui_flow_nominal,loaCoo[2].mBui_flow_nominal},
-    dpDis_nominal(displayUnit="Pa") = {20e4,10e4})
+    dpDis_nominal(each displayUnit="Pa") = {20e4,10e4})
     "Distribution network for district cooling system"
     annotation (Placement(transformation(extent={{20,-60},{-20,-80}})));
 
