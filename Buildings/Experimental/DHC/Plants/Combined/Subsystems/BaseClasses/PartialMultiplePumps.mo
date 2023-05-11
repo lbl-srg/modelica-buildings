@@ -28,10 +28,12 @@ partial model PartialMultiplePumps
   parameter Modelica.Units.SI.MassFlowRate mPum_flow_nominal
     "Design mass flow rate (each pump)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpPum_nominal
+  parameter Modelica.Units.SI.PressureDifference dpPum_nominal(
+    displayUnit="Pa")
     "Design head (each pump)"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.PressureDifference dpValve_nominal=10000
+  parameter Modelica.Units.SI.PressureDifference dpValve_nominal(
+    displayUnit="Pa")=10000
     "Pressure drop of check valve fully open"
     annotation(Dialog(group="Nominal condition", enable=have_valve));
   replaceable parameter Fluid.Movers.Data.Generic per
