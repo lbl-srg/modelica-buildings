@@ -140,13 +140,11 @@ initial equation
       points={{-40,-240},{-40,-320}},
       color={0,0,0},
       thickness=5),
-    Line(
-          visible=typ <> Buildings.Templates.Components.Types.Coil.None,
+    Line( visible=typ <> Buildings.Templates.Components.Types.Coil.None,
           points={{-40,-160},{-40,-100}},
           color={0,0,0},
           thickness=5),
-    Line(
-          visible=typ <> Buildings.Templates.Components.Types.Coil.None and
+    Line( visible=typ <> Buildings.Templates.Components.Types.Coil.None and
               typVal == Buildings.Templates.Components.Types.Valve.None,
           points={{-40,-160},{-40,-240}},
           color={0,0,0},
