@@ -124,7 +124,7 @@ model HeatPumpGroup
     final allowFlowReversal2=false)
     "Heat pump"
     annotation (Placement(transformation(extent={{-10,-16},{10,4}})));
-  Fluid.Movers.SpeedControlled_y     pum(
+  Fluid.Movers.SpeedControlled_y pum(
     redeclare final package Medium = Medium,
     inputType=Buildings.Fluid.Types.InputType.Continuous,
     final tau=tau,
@@ -148,9 +148,8 @@ model HeatPumpGroup
     final nPorts=1)
     "Air flow sink"
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter
-                                                       comFan(final k=
-        mAirUni_flow_nominal)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter comFan(
+    final k=mAirUni_flow_nominal)
     "Convert On/Off command to air flow setpoint"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=-90,
