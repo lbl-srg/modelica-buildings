@@ -50,7 +50,9 @@ model PartialBuildingWithETS
   parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="PID controller"));
-  Modelica.Blocks.Interfaces.RealInput TSetDisRet
+  Modelica.Blocks.Interfaces.RealInput TSetDisRet(
+     final unit="K",
+     displayUnit="degC")
     "Setpoint for the maximum district return temperature"
     annotation (Placement(transformation(extent={{-340,20},{-300,-20}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
@@ -59,16 +61,16 @@ equation
           {-64,-56},{-31.8,-56}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
-This model is composed of a direct controlled energy transfer station model for cooling 
+This model is composed of a direct controlled energy transfer station model for cooling
 <a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct\">
 Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Direct</a>
-connected to a repleacable building load model. 
+connected to a repleacable building load model.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br>
-Revised ETS from direct uncontrolled to direct controlled. 
+Revised ETS from direct uncontrolled to direct controlled.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
 </li>
 </ul>

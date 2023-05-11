@@ -59,7 +59,9 @@ model PartialDirect
     "Bandwidth around reference signal for on/off controller"
     annotation (Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput TSetDisRet
+  Modelica.Blocks.Interfaces.RealInput TSetDisRet(
+     final unit="K",
+     displayUnit="degC")
     "Setpoint for the district return temperature (min for cooling, max for heating)"
     annotation (Placement(transformation(extent={{-338,-20},{-298,20}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
@@ -215,23 +217,23 @@ equation
     defaultComponentName="etsCoo",
     Documentation(info="<html>
 <p>
-Direct cooling energy transfer station (ETS) model with in-building pumping and 
-deltaT control. The design is based on a typical district cooling ETS described 
-in ASHRAE's <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">District Cooling Guide</a>. 
-As shown in the figure below, the district and building piping are hydronically 
-coupled. The control valve ensures that the return temperature to the district 
-cooling network is at or above the minimum specified value. This configuration 
-naturally results in a fluctuating building supply tempearture. 
+Direct cooling energy transfer station (ETS) model with in-building pumping and
+deltaT control. The design is based on a typical district cooling ETS described
+in ASHRAE's <a href=\"https://www.ashrae.org/technical-resources/bookstore/district-heating-and-cooling-guides\">District Cooling Guide</a>.
+As shown in the figure below, the district and building piping are hydronically
+coupled. The control valve ensures that the return temperature to the district
+cooling network is at or above the minimum specified value. This configuration
+naturally results in a fluctuating building supply tempearture.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Direct.PNG\" alt=\"DC ETS Direct\"/> 
+<img src=\"modelica://Buildings/Resources/Images/Experimental/DHC/EnergyTransferStations/Cooling/Direct.PNG\" alt=\"DC ETS Direct\"/>
 </p>
 <h4>
 Reference
 </h4>
-<p>American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2019). 
-Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition and 
-<i>Owner's Guide for Buildings Served by District Cooling</i>. 
+<p>American Society of Heating, Refrigeration and Air-Conditioning Engineers. (2019).
+Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition and
+<i>Owner's Guide for Buildings Served by District Cooling</i>.
 </p>
 </html>",
       revisions="<html>
@@ -250,14 +252,14 @@ Simplified the control implementation for the district return stream. Improved d
 </li>
 <li>
 December 23, 2022, by Kathryn Hinkelman:<br/>
-Removed extraneous <code>m*_flow_nominal</code> parameters because 
+Removed extraneous <code>m*_flow_nominal</code> parameters because
 <code>mBui_flow_nominal</code> can be used across all components.
 This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
-</li> 
+</li>
 <li>
 November 11, 2022, by Michael Wetter:<br/>
 Changed check valve to use version of <code>Buildings</code> library, and hence no outer <code>system</code> is needed.
-</li>      
+</li>
 <li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model and standard PI control.</li>
 <li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
