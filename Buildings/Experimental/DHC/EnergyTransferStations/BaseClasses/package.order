@@ -1,7 +1,9 @@
 CollectorDistributor
 Connection2PipeLossless
 Junction
+PartialDirect
 PartialETS
+PartialIndirect
 Pump_m_flow
 StratifiedTank
 computeCoordinates
