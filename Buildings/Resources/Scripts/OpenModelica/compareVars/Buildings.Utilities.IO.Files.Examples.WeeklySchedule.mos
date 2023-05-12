@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "weeSchFil.y[1]",
+    "weeSchFil.y[2]",
+    "weeSchFil.y[3]",
+    "weeSchFil.y[4]"
+  };
