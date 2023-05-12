@@ -14,9 +14,9 @@ import shutil
 # If true, run simulations and not only the post processing.
 DO_SIMULATIONS = True
 # If true, delete the simulation result files.
-CLEAN_MAT = False
+CLEAN_MAT = True
 # If true, temporary directories will be deleted.
-DelTemDir = False
+DelTemDir = True
 
 CWD = os.getcwd()
 
@@ -143,12 +143,14 @@ def _move_results(resultDirs):
 
     for resultDir in resultDirs:
         haveMat = False
-        for file in os.listdir(resultDir):
+        resultsFolder = os.path.join(resultDir, 'Buildings')
+        for file in os.listdir(resultsFolder):
             if file.endswith('.mat'):
                 haveMat = True
-                source = os.path.join(resultDir, file)
+                source = os.path.join(resultsFolder, file)
                 destination = os.path.join(mat_dir, file)
                 shutil.copyfile(source, destination)
+        
         if not haveMat:
             raise ValueError("*** There is no result file in tmp folder: {}. Check the simulation. ***".format(resultDir))
 
@@ -180,7 +182,7 @@ def _organize_cases(mat_dir):
         for case in CASES:
             temp = {'case': case}
             for matFile in matFiles:
-                tester = '_{}_'.format(case)
+                tester = '{}.'.format(case)
                 if tester in matFile:
                     temp['matFile'] = os.path.join(mat_dir, matFile)
             caseList.append(temp)
