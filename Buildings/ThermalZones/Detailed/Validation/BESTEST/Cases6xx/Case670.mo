@@ -9,7 +9,9 @@ model Case670 "Case 600, but has single pane window with clear glass"
      annualHea(Min=5.300*3.6e9, Max=6.140*3.6e9, Mean=5.681*3.6e9),
      annualCoo(Min=-5.954*3.6e9, Max=-6.623*3.6e9, Mean=-6.402*3.6e9),
      peakHea(Min=3.655*1000, Max=4.221*1000, Mean=3.943*1000),
-     peakCoo(Min=-5.839*1000, Max=-6.925*1000, Mean=-6.445*1000)));
+     peakCoo(Min=-5.839*1000, Max=-6.925*1000, Mean=-6.445*1000)),
+   heaCri(LowerLimit=4*3.6e9, UpperLimit=7.96*3.6e9),
+   cooCri(LowerLimit=-5.05*3.6e9, UpperLimit=-7.67*3.6e9));
 
 annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case670.mos"
@@ -20,6 +22,12 @@ annotation (
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 May 18, 2022, by Jianjun Hu:<br/>
 First implementation.

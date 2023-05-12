@@ -186,7 +186,7 @@ model Case600FF
         meanT(Min=24.3+273.15,  Max=26.1+273.15,  Mean=25.2+273.15))
           constrainedby Modelica.Icons.Record
     "Reference results from ASHRAE/ANSI Standard 140"
-    annotation (Placement(transformation(extent={{82,42},{96,56}})));
+    annotation (Placement(transformation(extent={{42,44},{56,58}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=1)
     "Multi sum for infiltration air flow rate"
     annotation (Placement(transformation(extent={{-78,-80},{-66,-68}})));
@@ -262,7 +262,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-24.5},{39.75,-24.5}},
+      points={{-45,-76},{32,-76},{32,-23.5},{39.75,-23.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -321,8 +321,8 @@ equation
           {-56,-58},{-51,-58}}, color={0,0,127}));
   connect(souInf.ports[1], res.port_a)
     annotation (Line(points={{-12,-28},{0,-28}}, color={0,127,255}));
-  connect(res.port_b, roo.ports[3]) annotation (Line(points={{20,-28},{28,-28},{
-          28,-20.5},{39.75,-20.5}}, color={0,127,255}));
+  connect(res.port_b, roo.ports[3]) annotation (Line(points={{20,-28},{28,-28},
+          {28,-21.5},{39.75,-21.5}},color={0,127,255}));
   annotation (
 experiment(Tolerance=1e-06, StopTime=3.1536e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case600FF.mos"

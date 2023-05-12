@@ -11,7 +11,9 @@ model Case640 "Case 600, but with heating schedule"
     annualHea(Min=2.403*3.6e9, Max=2.682*3.6e9, Mean=2.612*3.6e9),
     annualCoo(Min=-5.237*3.6e9, Max=-5.893*3.6e9, Mean=-5.636*3.6e9),
     peakHea(Min = 4.039*1000, Max = 4.658*1000, Mean = 4.369 * 1000),
-    peakCoo(Min= -5.365*1000, Max = -6.429*1000, Mean= -5.973 * 1000)));
+    peakCoo(Min= -5.365*1000, Max = -6.429*1000, Mean= -5.973 * 1000)),
+   heaCri(LowerLimit=1.58*3.6e9, UpperLimit=3.76*3.6e9),
+   cooCri(LowerLimit=-4.44*3.6e9, UpperLimit=-6.86*3.6e9));
 
     annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case640.mos"
@@ -21,6 +23,12 @@ model Case640 "Case 600, but with heating schedule"
       Interval=3600,
       Tolerance=1e-06),    Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 May 12, 2022, by Jianjun Hu:<br/>
 Changed the heating setpoint schedule.<br/>

@@ -22,7 +22,9 @@ model Case620 "Case 600, but with windows on East and West side walls"
     annualHea(Min=4.094*3.6e9, Max=4.719*3.6e9, Mean=4.413*3.6e9),
     annualCoo(Min=-3.841*3.6e9, Max=-4.404*3.6e9, Mean=-4.090*3.6e9),
     peakHea(Min=3.038*1000, Max=3.385*1000, Mean=3.186*1000),
-    peakCoo(Min=-3.955*1000, Max=-4.797*1000, Mean=-4.527*1000)));
+    peakCoo(Min=-3.955*1000, Max=-4.797*1000, Mean=-4.527*1000)),
+   heaCri(LowerLimit=3.67*3.6e9, UpperLimit=5.38*3.6e9),
+   cooCri(LowerLimit=-2.76*3.6e9, UpperLimit=-5.19*3.6e9));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case620.mos"
         "Simulate and plot"),
@@ -39,6 +41,12 @@ have a window, but there is no window in the south facing wall.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 July 6, 2012, by Michael Wetter:<br/>
 Changed implementation to extend from Case 600, rather

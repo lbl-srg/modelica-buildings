@@ -10,7 +10,9 @@ model Case660
      annualHea(Min=3.574*3.6e9, Max=3.821*3.6e9, Mean=3.713*3.6e9),
      annualCoo(Min=-2.966*3.6e9, Max=-3.340*3.6e9, Mean=-3.172*3.6e9),
      peakHea(Min=2.620*1000, Max=2.955*1000, Mean=2.801*1000),
-     peakCoo(Min=-3.343*1000, Max=-3.933*1000, Mean=-3.565*1000)));
+     peakCoo(Min=-3.343*1000, Max=-3.933*1000, Mean=-3.565*1000)),
+   heaCri(LowerLimit=4.68*3.6e9, UpperLimit=4.82*3.6e9),
+   cooCri(LowerLimit=-1.91*3.6e9, UpperLimit=-4.33*3.6e9));
 
 annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case660.mos"
@@ -21,6 +23,12 @@ annotation (
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 May 18, 2022, by Jianjun Hu:<br/>
 First implementation.
