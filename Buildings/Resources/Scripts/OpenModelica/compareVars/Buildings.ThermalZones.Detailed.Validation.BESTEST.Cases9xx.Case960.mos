@@ -20,5 +20,11 @@ compareVars :=
     "TRooHou.y",
     "TRooAnn.y",
     "TSunSpaHou.y",
-    "TSunSpaAnn.y"
+    "TSunSpaAnn.y",
+    "EHea.y",
+    "ECoo.y",
+    "heaCri.LowerLimit",
+    "heaCri.UpperLimit",
+    "cooCri.LowerLimit",
+    "cooCri.UpperLimit"
   };

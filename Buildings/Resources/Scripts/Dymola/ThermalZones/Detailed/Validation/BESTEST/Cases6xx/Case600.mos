@@ -55,3 +55,6 @@ createPlot(id = 1,
  subPlot = 4,
  leftTitleType = 1,
  bottomTitleType = 1);
+ 
+createPlot(id=2, position={541, 7, 1068, 694}, y={"EHea.y", "ECoo.y", "heaCri.LowerLimit", "heaCri.UpperLimit", "cooCri.LowerLimit", "cooCri.UpperLimit"}, range={0.0, 32000000.0, -8000.0, 6000.0}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {217,67,180}, {0,0,0}, {162,29,33}}, timeUnit="s", displayUnits={"kWh", "kWh", "kWh", "kWh", "kWh", "kWh"});
+
