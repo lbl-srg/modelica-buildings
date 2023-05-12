@@ -65,7 +65,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
   if ( scheduleID == NULL)
     ModelicaFormatError("Failed to allocate memory for scheduleID in WeeklySchedule.c.");
 
-  token = calloc(sizeof(char), bufLen);
+  token = (char*)calloc(sizeof(char), bufLen);
   if ( token == NULL)
     ModelicaFormatError("Failed to allocate memory for token in WeeklySchedule.c.");
 
@@ -123,7 +123,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
       /* Parse a token if needed. */
       if (parseToken == 1 && index > 0) {
         /* shouldn't require an overflow check since token is already checked */
-        buff2 = calloc(sizeof(char), bufLen);
+        buff2 = (char*)calloc(sizeof(char), bufLen);
         if (buff2 == NULL)
           ModelicaFormatError("Failed to allocate memory for buff in WeeklySchedule.c.");
         offset = 0;
@@ -181,7 +181,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
           }
           isHeaderLine = 0;
           foundHeader = 1;
-          rules = calloc(sizeof(TimeDataTuple *), scheduleID->n_rows_in);
+          rules = (TimeDataTuple**)calloc(sizeof(TimeDataTuple *), scheduleID->n_rows_in);
           if ( rules == NULL)
             ModelicaFormatError("Failed to allocate memory for rules in WeeklySchedule.c.");
 
@@ -267,18 +267,18 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
             /* expand the memory if the initially assigned memory block does not suffice*/
             if (rule_i >= n_rulesInMem) {
               n_rulesInMem += scheduleID->n_rows_in;
-              rules = realloc(rules, sizeof(TimeDataTuple*) * n_rulesInMem);
+              rules = (TimeDataTuple**)realloc(rules, sizeof(TimeDataTuple*) * n_rulesInMem);
               if (rules == NULL) {
                 ModelicaFormatError("Failed to reallocate memory when reading weekly schedule '%s'.", name);
               }
             }
 
             time_i = timeStamp + t_day;
-            rules[rule_i] = calloc(sizeof(TimeDataTuple), 1);
+            rules[rule_i] = (TimeDataTuple*)calloc(sizeof(TimeDataTuple), 1);
             if ( rules[rule_i] == NULL)
               ModelicaFormatError("Failed to allocate memory for rules[rule_i] in WeeklySchedule.c.");
             rules[rule_i]->time = time_i;
-            rules[rule_i]->data = calloc(sizeof(double), (scheduleID->n_cols_in - 1));
+            rules[rule_i]->data = (double*)calloc(sizeof(double), (scheduleID->n_cols_in - 1));
             if ( rules[rule_i]->data == NULL)
               ModelicaFormatError("Failed to allocate memory for rules[rule_i]->data in WeeklySchedule.c.");
             rule_i++;
@@ -352,7 +352,7 @@ void* weeklyScheduleInit(const int tableOnFile, const char* name, const double t
 
   {
     /* working vector with zero initial value*/
-    lastData = calloc(sizeof(double), scheduleID->n_cols_in - 1);
+    lastData = (double*)calloc(sizeof(double), scheduleID->n_cols_in - 1);
     if (lastData == NULL)
       ModelicaFormatError("Failed to allocate memory for lastData in WeeklySchedule.c., scheduleID->n_cols_in -1 = %d", scheduleID->n_cols_in - 1);
     memset(lastData, (char)(double)0, scheduleID->n_cols_in - 1); /* set vector to zero initial guess*/
