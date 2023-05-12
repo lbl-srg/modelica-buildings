@@ -12,6 +12,7 @@ LimiterTotalSkyCover
 LimiterWindDirection
 LimiterWindSpeed
 LocalCivilTime
+PartialConvertTime
 PartialLimiter
 PartialLimiterMin
 SolarTime
@@ -26,4 +27,3 @@ getLongitudeTMY3
 getTimeSpanTMY3
 getTimeZoneTMY3
 Examples
-PartialConvertTime
