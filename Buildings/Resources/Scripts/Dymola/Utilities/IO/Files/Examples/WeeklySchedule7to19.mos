@@ -1,0 +1,2 @@
+simulateModel("Buildings.Utilities.IO.Files.Examples.WeeklySchedule7to19", stopTime=1209600, method="Cvode", tolerance=1e-06, resultFile="WeeklySchedule7to19");
+createPlot(id=2, position={55, 55, 1016, 624}, y={"sch.y[1]"}, range={0.0, 14.0, -0.1, 1.1}, grid=true, colors={{28,108,200}}, timeUnit="d");
