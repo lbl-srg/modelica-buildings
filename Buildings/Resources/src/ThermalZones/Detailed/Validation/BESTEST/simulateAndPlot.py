@@ -1000,12 +1000,12 @@ def _generate_load_tables(comDat, allTools, lessTools):
         if setName == 'peak_heating':
             peaHea = ele
     tableText = '''<table border = \\"1\\" summary=\\"Annual load\\">
-<tr><td colspan=\\"8\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
+<tr><td colspan=\\"10\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
     # add annual heating load data
     annHeaLoa = _write_table_content(annHea, True)
     tableText = tableText + annHeaLoa
     # add annual cooling load data
-    tableText = tableText + '''<tr><td colspan=\\"8\\"><b>Annual cooling load (MWh)</b></td></tr>'''
+    tableText = tableText + '''<tr><td colspan=\\"10\\"><b>Annual cooling load (MWh)</b></td></tr>'''
     tableText = tableText + allTools
     annCooLoa = _write_table_content(annCoo, True)
     tableText = tableText + annCooLoa + '''</table>

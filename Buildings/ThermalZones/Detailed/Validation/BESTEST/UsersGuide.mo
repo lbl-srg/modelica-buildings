@@ -87,9 +87,11 @@ in the table after the plots below.
 </p>
 <!-- table start: load data -->
 <table border = \"1\" summary=\"Annual load\">
-<tr><td colspan=\"8\"><b>Annual heating load (MWh)</b></td></tr>
+<tr><td colspan=\"10\"><b>Annual heating load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
+<th>LowerLimits</th>
+<th>UpperLimits</th>
 <th>BSIMAC</th>
 <th>CSE</th>
 <th>DeST</th>
@@ -99,6 +101,8 @@ in the table after the plots below.
 <th>MBL</th>
 </tr><tr>
 <td>Case600</td>
+<td>3.75</td>
+<td>4.98</td>
 <td>4.050</td>
 <td>3.993</td>
 <td>4.047</td>
@@ -109,6 +113,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case610</td>
+<td>3.61</td>
+<td>5.27</td>
 <td>4.163</td>
 <td>4.066</td>
 <td>4.144</td>
@@ -119,6 +125,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case620</td>
+<td>3.67</td>
+<td>5.38</td>
 <td>4.370</td>
 <td>4.094</td>
 <td>4.297</td>
@@ -129,6 +137,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case630</td>
+<td>3.69</td>
+<td>6.12</td>
 <td>4.923</td>
 <td>4.356</td>
 <td>4.677</td>
@@ -139,6 +149,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case640</td>
+<td>1.58</td>
+<td>3.76</td>
 <td>2.682</td>
 <td>2.403</td>
 <td>2.619</td>
@@ -149,6 +161,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case650</td>
+<td>0.00</td>
+<td>0.00</td>
 <td>0.000</td>
 <td>0.000</td>
 <td>0.000</td>
@@ -159,6 +173,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case660</td>
+<td>2.68</td>
+<td>4.82</td>
 <td>3.574</td>
 <td>3.602</td>
 <td>3.821</td>
@@ -169,6 +185,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case670</td>
+<td>4.00</td>
+<td>7.96</td>
 <td>5.484</td>
 <td>5.300</td>
 <td>5.573</td>
@@ -179,6 +197,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case680</td>
+<td>1.21</td>
+<td>3.08</td>
 <td>2.219</td>
 <td>1.786</td>
 <td>1.732</td>
@@ -189,6 +209,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case685</td>
+<td>4.08</td>
+<td>5.75</td>
 <td>4.532</td>
 <td>4.574</td>
 <td>4.646</td>
@@ -199,6 +221,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case695</td>
+<td>1.70</td>
+<td>3.81</td>
 <td>2.709</td>
 <td>2.415</td>
 <td>2.385</td>
@@ -209,6 +233,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case900</td>
+<td>1.04</td>
+<td>2.28</td>
 <td>1.726</td>
 <td>1.379</td>
 <td>1.591</td>
@@ -219,6 +245,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case910</td>
+<td>1.56</td>
+<td>2.30</td>
 <td>2.163</td>
 <td>1.648</td>
 <td>1.860</td>
@@ -229,6 +257,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case920</td>
+<td>2.55</td>
+<td>4.20</td>
 <td>3.500</td>
 <td>2.956</td>
 <td>3.259</td>
@@ -239,6 +269,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case930</td>
+<td>2.75</td>
+<td>5.35</td>
 <td>4.270</td>
 <td>3.524</td>
 <td>3.933</td>
@@ -249,6 +281,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case940</td>
+<td>0.22</td>
+<td>1.91</td>
 <td>1.389</td>
 <td>0.863</td>
 <td>1.149</td>
@@ -259,6 +293,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case950</td>
+<td>0.00</td>
+<td>0.00</td>
 <td>0.000</td>
 <td>0.000</td>
 <td>0.000</td>
@@ -269,6 +305,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case960</td>
+<td>2.00</td>
+<td>3.40</td>
 <td>0.000</td>
 <td>2.522</td>
 <td>2.771</td>
@@ -279,6 +317,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case980</td>
+<td>-0.61</td>
+<td>1.28</td>
 <td>0.720</td>
 <td>0.246</td>
 <td>0.266</td>
@@ -289,6 +329,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case985</td>
+<td>1.68</td>
+<td>3.09</td>
 <td>2.801</td>
 <td>2.120</td>
 <td>2.279</td>
@@ -299,6 +341,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case995</td>
+<td>-0.15</td>
+<td>2.02</td>
 <td>1.330</td>
 <td>0.755</td>
 <td>0.770</td>
@@ -307,9 +351,11 @@ in the table after the plots below.
 <td>1.077</td>
 <td>0.978</td>
 </tr>
-<tr><td colspan=\"8\"><b>Annual cooling load (MWh)</b></td></tr>
+<tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
+<th>LowerLimits</th>
+<th>UpperLimits</th>
 <th>BSIMAC</th>
 <th>CSE</th>
 <th>DeST</th>
@@ -319,6 +365,8 @@ in the table after the plots below.
 <th>MBL</th>
 </tr><tr>
 <td>Case600</td>
+<td>5.00</td>
+<td>6.83</td>
 <td>5.822</td>
 <td>5.913</td>
 <td>5.432</td>
@@ -329,6 +377,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case610</td>
+<td>2.74</td>
+<td>6.03</td>
 <td>4.299</td>
 <td>4.382</td>
 <td>4.173</td>
@@ -339,6 +389,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case620</td>
+<td>2.76</td>
+<td>5.19</td>
 <td>4.404</td>
 <td>4.079</td>
 <td>3.909</td>
@@ -349,6 +401,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case630</td>
+<td>1.08</td>
+<td>4.42</td>
 <td>3.074</td>
 <td>3.020</td>
 <td>2.787</td>
@@ -359,6 +413,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case640</td>
+<td>4.44</td>
+<td>6.86</td>
 <td>5.804</td>
 <td>5.644</td>
 <td>5.237</td>
@@ -369,6 +425,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case650</td>
+<td>3.46</td>
+<td>5.88</td>
 <td>4.629</td>
 <td>4.654</td>
 <td>4.186</td>
@@ -379,6 +437,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case660</td>
+<td>1.91</td>
+<td>4.33</td>
 <td>3.014</td>
 <td>3.340</td>
 <td>3.260</td>
@@ -389,6 +449,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case670</td>
+<td>5.05</td>
+<td>7.67</td>
 <td>6.539</td>
 <td>6.578</td>
 <td>5.954</td>
@@ -399,6 +461,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case680</td>
+<td>5.13</td>
+<td>7.70</td>
 <td>5.938</td>
 <td>6.430</td>
 <td>5.932</td>
@@ -409,6 +473,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case685</td>
+<td>7.70</td>
+<td>10.14</td>
 <td>9.130</td>
 <td>8.859</td>
 <td>8.238</td>
@@ -419,6 +485,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case695</td>
+<td>7.49</td>
+<td>10.58</td>
 <td>8.755</td>
 <td>8.974</td>
 <td>8.386</td>
@@ -429,6 +497,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case900</td>
+<td>2.35</td>
+<td>2.60</td>
 <td>2.714</td>
 <td>2.464</td>
 <td>2.383</td>
@@ -439,6 +509,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case910</td>
+<td>2.00</td>
+<td>0.86</td>
 <td>1.484</td>
 <td>1.415</td>
 <td>1.490</td>
@@ -449,6 +521,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case920</td>
+<td>2.43</td>
+<td>3.08</td>
 <td>3.128</td>
 <td>2.789</td>
 <td>2.706</td>
@@ -459,6 +533,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case930</td>
+<td>1.24</td>
+<td>2.64</td>
 <td>2.161</td>
 <td>2.075</td>
 <td>1.908</td>
@@ -469,6 +545,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case940</td>
+<td>2.24</td>
+<td>3.14</td>
 <td>2.613</td>
 <td>2.397</td>
 <td>2.343</td>
@@ -479,6 +557,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case950</td>
+<td>0.43</td>
+<td>1.52</td>
 <td>0.586</td>
 <td>0.598</td>
 <td>0.618</td>
@@ -489,6 +569,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case960</td>
+<td>0.62</td>
+<td>1.81</td>
 <td>0.000</td>
 <td>0.926</td>
 <td>0.909</td>
@@ -499,6 +581,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case980</td>
+<td>3.52</td>
+<td>4.49</td>
 <td>3.501</td>
 <td>3.995</td>
 <td>3.758</td>
@@ -509,6 +593,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case985</td>
+<td>5.95</td>
+<td>7.26</td>
 <td>7.273</td>
 <td>6.234</td>
 <td>5.880</td>
@@ -519,6 +605,8 @@ in the table after the plots below.
 </tr>
 <tr>
 <td>Case995</td>
+<td>6.58</td>
+<td>8.41</td>
 <td>7.482</td>
 <td>7.202</td>
 <td>6.771</td>
