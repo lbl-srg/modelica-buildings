@@ -51,6 +51,12 @@ The data used for validation are from \"RESULTS5-2A.xlsx\" in folder \"/Sec5-2AF
 of <a href=\"http://www.ashrae.org/140-2020/\">Supplemental Files for ANSI/ASHRAE Standard 140-2020,
 Method of Test for Evaluating Building Performance Simulation Software</a>.
 </p>
+<p>
+For the cases with heating and cooling, the test acceptance criteria ranges are from
+Table A3-1, Table A3-2, Table A3-3 and Table A3-4 of
+<a href=\"https://www.ashrae.org/technical-resources/standards-and-guidelines/standards-addenda\">
+ASHRAE Standard 140-2020 Addendum b</a>.
+</p>
 
 <h5>Heating and cooling cases</h5>
 <p>
@@ -1604,7 +1610,7 @@ To generate the data shown in this user guide, run
 </pre>
 <h4>References</h4>
 <p>
-ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007,
+ANSI/ASHRAE. 2021. ANSI/ASHRAE Standard 140-2020,
 Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
 </p>
 <p>

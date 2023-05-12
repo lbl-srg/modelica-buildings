@@ -14,9 +14,9 @@ import shutil
 # If true, run simulations and not only the post processing.
 DO_SIMULATIONS = True
 # If true, delete the simulation result files.
-CLEAN_MAT = True
+CLEAN_MAT = False
 # If true, temporary directories will be deleted.
-DelTemDir = True
+DelTemDir = False
 
 CWD = os.getcwd()
 
@@ -644,6 +644,9 @@ def _refactor_data_structure(dataList):
         col_5 = list()
         col_6 = list()
         col_7 = list()
+        lowerLimit = list()
+        upperLimit = list()
+        have_limits = False
 
         col_1_hr = list()
         col_2_hr = list()
@@ -660,6 +663,10 @@ def _refactor_data_structure(dataList):
             col_5.append(row['value'][3])
             col_6.append(row['value'][4])
             col_7.append(row['value'][5])
+            if (len(row['value']) > 6):
+                have_limits = True
+                lowerLimit.append(row['value'][6])
+                upperLimit.append(row['value'][7])
             if 'hour' in row:
                 haveHour = True
                 col_1_hr.append(row['hour'][0])
@@ -670,6 +677,9 @@ def _refactor_data_structure(dataList):
                 col_6_hr.append(row['hour'][5])
         ele['data'] = list()
         temp = {'firstCol': col_1}
+        if have_limits:
+            temp['lowerLimits'] = lowerLimit
+            temp['upperLimits'] = upperLimit
         temp['BSIMAC'] = col_2
         temp['CSE'] = col_3
         temp['DeST'] = col_4
@@ -962,11 +972,26 @@ def update_html_tables(comDat):
         f.write(newMoContent)
 
 def _generate_load_tables(comDat, allTools, lessTools):
+    withLimits = '''
+<tr>
+<th>Case</th>
+<th>LowerLimits</th>
+<th>UpperLimits</th>
+<th>BSIMAC</th>
+<th>CSE</th>
+<th>DeST</th>
+<th>EnergyPlus</th>
+<th>ESP-r</th>
+<th>TRNSYS</th>
+<th>MBL</th>
+</tr>'''
     for ele in comDat:
         setName = ele['data_set']
         if setName == 'annual_cooling':
+            allTools = withLimits
             annCoo = ele
         if setName == 'annual_heating':
+            allTools = withLimits
             annHea = ele
         if setName == 'peak_cooling':
             peaCoo = ele
@@ -975,12 +1000,12 @@ def _generate_load_tables(comDat, allTools, lessTools):
     tableText = '''<table border = \\"1\\" summary=\\"Annual load\\">
 <tr><td colspan=\\"8\\"><b>Annual heating load (MWh)</b></td></tr>''' + allTools
     # add annual heating load data
-    annHeaLoa = _write_table_content(annHea)
+    annHeaLoa = _write_table_content(annHea, True)
     tableText = tableText + annHeaLoa
     # add annual cooling load data
     tableText = tableText + '''<tr><td colspan=\\"8\\"><b>Annual cooling load (MWh)</b></td></tr>'''
     tableText = tableText + allTools
-    annCooLoa = _write_table_content(annCoo)
+    annCooLoa = _write_table_content(annCoo, True)
     tableText = tableText + annCooLoa + '''</table>
 <br/>'''
 
@@ -1041,7 +1066,7 @@ def _generate_ff_tables(comDat, lessTools):
 '''
     return tableText
 
-def _write_table_content(dataSet):
+def _write_table_content(dataSet, have_limits=False):
     setName = dataSet['data_set']
     data = dataSet['data'][0]
     tools = dataSet['tools']
@@ -1049,6 +1074,9 @@ def _write_table_content(dataSet):
     for i in range(len(data['firstCol'])):
         temp = "<tr>" + os.linesep
         temp = temp + "<td>{}</td>".format(data['firstCol'][i]) + os.linesep
+        if have_limits:
+            temp = temp + "<td>{}</td>".format(data['lowerLimits'][i]) + os.linesep
+            temp = temp + "<td>{}</td>".format(data['upperLimits'][i]) + os.linesep
         for j in range(len(tools)):
             tool = tools[j]
             temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
