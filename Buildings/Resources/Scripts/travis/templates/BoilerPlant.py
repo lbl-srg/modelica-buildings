@@ -292,6 +292,7 @@ def simulateCase(arg, simulator):
         s = Simulator(modelName=arg[0], outputDirectory=output_dir_path, packagePath=package_path)
         if simulator == 'Dymola':
             s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
+            s.addPreProcessingStatement(fr'openModel("{package_path}");')
     else:
         print(f'Unsupported simulation tool: {simulator}.')
         return 4
