@@ -288,22 +288,17 @@ def simulateCase(arg, simulator):
     output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
     package_relpath = os.path.join('Buildings', 'package.mo')
 
-    if simulator == 'Dymola' or simulator == 'Optimica':
+    if simulator == 'Dymola':
+        s = Simulator(arg[0])
+        s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
+        s.addPreProcessingStatement(fr'openModel("{package_relpath}");')
+        s.addPreProcessingStatement(fr'cd("{output_dir_path}");')
+    elif simulator == 'Optimica':
+        os.environ['MODELICAPATH'] = os.path.abspath(os.curdir)
         s = Simulator(arg[0], output_dir_path)
     else:
         print(f'Unsupported simulation tool: {simulator}.')
         return 4
-    if simulator == 'Dymola':
-        # DEBUG
-        s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-        print(f'CWD: {os.getcwd()} contains: {os.listdir()}')
-        print(f'Directory of package_relpath: {os.path.dirname(package_relpath)} contains: {os.listdir(os.path.dirname(package_relpath))}')
-        s.addPreProcessingStatement('cd')
-        s.addPreProcessingStatement(fr'openModel("{package_relpath}");')
-        s.addPreProcessingStatement(fr'cd("{output_dir_path}");')
-    elif simulator == 'Optimica':
-        # Set MODELICAPATH (only in child process, so this won't affect main process).
-        os.environ['MODELICAPATH'] = os.path.abspath(os.curdir)
 
     for modif in arg[1]:
         s.addModelModifier(modif)
@@ -338,6 +333,7 @@ def simulateCase(arg, simulator):
                 toreturn = 1
     except (FileNotFoundError, IndexError) as e:
         toreturn = 3
+        log = e
     finally:
         if toreturn == 0:
             shutil.rmtree(output_dir_path, ignore_errors=True)
