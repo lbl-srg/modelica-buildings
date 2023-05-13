@@ -286,19 +286,18 @@ def simulateCase(arg, simulator):
     output_dir_prefix = f"{mat_root}_{mat_suffix}"
     cwd = os.getcwd()
     output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
-    package_relpath = os.path.join('Buildings', 'package.mo')
+    package_path = os.path.abspath('Buildings')
 
-    if simulator == 'Dymola':
-        s = Simulator(arg[0])
-        s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-        s.addPreProcessingStatement(fr'openModel("{package_relpath}");')
-        s.addPreProcessingStatement(fr'cd("{output_dir_path}");')
-    elif simulator == 'Optimica':
+    if simulator == 'Dymola' or simulator == 'Optimica':
+        # Set MODELICAPATH (only in child process, so this won't affect main process).
         os.environ['MODELICAPATH'] = os.path.abspath(os.curdir)
-        s = Simulator(arg[0], output_dir_path)
+        s = Simulator(modelName=arg[0], outputDirectory=output_dir_path)
     else:
         print(f'Unsupported simulation tool: {simulator}.')
         return 4
+
+    if simulator == 'Dymola':
+        s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
 
     for modif in arg[1]:
         s.addModelModifier(modif)
