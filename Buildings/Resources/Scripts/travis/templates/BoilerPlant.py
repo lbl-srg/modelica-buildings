@@ -280,22 +280,25 @@ def simulateCase(arg, simulator):
         from buildingspy.simulate.Dymola import Simulator
     elif simulator == 'Optimica':
         from buildingspy.simulate.Optimica import Simulator
+    else:
+        return 4, f'Unsupported simulation tool: {simulator}.'
 
     mat_root = re.split(r"\.", arg[0])[-1]
     mat_suffix = re.sub(r"\.", "_", str(arg[2]))
     output_dir_prefix = f"{mat_root}_{mat_suffix}"
     cwd = os.getcwd()
     output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
-    package_path = os.path.abspath('Buildings')
 
-    if simulator == 'Dymola' or simulator == 'Optimica':
-        s = Simulator(modelName=arg[0], outputDirectory=output_dir_path, packagePath=package_path)
-        if simulator == 'Dymola':
-            s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-            s.addPreProcessingStatement(fr'openModel("{package_path}");')
-    else:
-        print(f'Unsupported simulation tool: {simulator}.')
-        return 4
+    s = Simulator(modelName=arg[0], outputDirectory=output_dir_path)
+
+    if simulator == 'Dymola':
+        package_path = os.path.abspath(os.path.join('Buildings', 'package.mo'))
+        s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
+        s.addPreProcessingStatement(fr'openModel("{package_path}");')
+
+    if simulator == 'Optimica':
+        # Set MODELICAPATH (only in child process, so this won't affect main process).
+        os.environ['MODELICAPATH'] = os.path.abspath(os.curdir)
 
     for modif in arg[1]:
         s.addModelModifier(modif)
