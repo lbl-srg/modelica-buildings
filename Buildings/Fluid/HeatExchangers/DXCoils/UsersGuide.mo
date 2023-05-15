@@ -95,14 +95,14 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
 </p>
 <p>
 For air source DX heating coils, the steady-state total rate of heating and the Energy Input Ratio (EIR)
-are computed using similar polynomials in the air mass flow fraction, condenser air inlet temperature, 
+are computed using similar polynomials in the air mass flow fraction, condenser air inlet temperature,
 and outdoor air temperature, as explained at <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>.
 </p>
 <p>
 For water source DX coils, the steady-state total rate of cooling and the EIR
 are computed using polynimials in the air mass flow fraction (relative to the nominal mass flow rate),
-the water mass flow fraction (relative to the nomina water mass flow rate),
+the water mass flow fraction (relative to the nominal water mass flow rate),
 the evaporator air inelt temperature and the condenser water intet temperature.
 These polynomials are explained at
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled\">
