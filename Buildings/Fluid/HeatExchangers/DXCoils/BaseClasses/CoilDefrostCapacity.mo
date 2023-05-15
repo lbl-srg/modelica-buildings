@@ -15,16 +15,15 @@ block CoilDefrostCapacity
   parameter Modelica.Units.SI.Power QDefResCap = defCur.QDefResCap
     "Capacity of resistive defrost element";
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
-    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods defTri=
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method to trigger the defrost cycle";
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation
-    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation defOpe=
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
     "Type of defrost method";
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil
-    defCur
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil defCur
     "Defrost curve parameter record";
 
   Modelica.Blocks.Interfaces.RealInput tDefFra(
