@@ -205,9 +205,6 @@ equation
           {-108,-80},{98,-80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},
             {180,160}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandResistiveDefrost.mos"
-        "Simulate and Plot"),
-    experiment(Tolerance=1e-6, StopTime=86400),
   Documentation(info="<html>
 <p>
 This is a baseclass component for the following validation models:
