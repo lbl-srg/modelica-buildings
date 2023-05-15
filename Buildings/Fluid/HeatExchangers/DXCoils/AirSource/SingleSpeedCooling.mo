@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource;
 model SingleSpeedCooling "Single speed DX cooling coil"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
       final variableSpeedCoil=false,
       wetCoi(redeclare
@@ -10,9 +9,6 @@ model SingleSpeedCooling "Single speed DX cooling coil"
       dryCoi(redeclare
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
           coiCap)),
-    redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-      datCoi,
     use_mCon_flow=false);
 
   Modelica.Blocks.Sources.Constant speRat(

@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model SingleSpeed "Single speed water source DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling eva(
-      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi));
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling eva);
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"

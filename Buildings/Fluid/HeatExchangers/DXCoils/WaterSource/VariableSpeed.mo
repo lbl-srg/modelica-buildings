@@ -5,11 +5,8 @@ model VariableSpeed "Variable speed water source DX coils"
       redeclare final
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling
       eva(
-      redeclare final
-        Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil
-        datCoi=datCoi,
-      final minSpeRat=minSpeRat,
-      final speRatDeaBan=speRatDeaBan));
+        final minSpeRat=minSpeRat,
+        final speRatDeaBan=speRatDeaBan));
 
   parameter Real minSpeRat(min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";

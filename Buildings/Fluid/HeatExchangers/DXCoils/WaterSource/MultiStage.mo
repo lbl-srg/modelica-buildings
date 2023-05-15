@@ -2,8 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.WaterSource;
 model MultiStage "Multi speed water source DX coils"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
-      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling eva(
-        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.DXCoil datCoi=datCoi));
+      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling eva);
 
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
