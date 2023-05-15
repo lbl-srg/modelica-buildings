@@ -43,12 +43,12 @@ equation
       Bitmap(extent={{-100,-160},{100,40}},
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Averaging,
         fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeAveraging.svg"),
-      Bitmap(extent={{-100,-160},{100,40}},
-        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg"),
       Bitmap(extent={{-100,-40},{100,160}},
         visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.InWell,
-        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg")}),
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeInWell.svg"),
+      Bitmap(extent={{-100,-160},{100,40}},
+        visible=have_sen and typ==Buildings.Templates.Components.Types.SensorTemperature.Standard,
+        fileName="modelica://Buildings/Resources/Images/Templates/Components/Sensors/ProbeStandard.svg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>

@@ -41,8 +41,9 @@ model SingleToMultiple "Single inlet port, multiple outlet ports"
   parameter Integer icon_dy = 100
     "Distance in y-direction between each branch in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
-  parameter Boolean icon_dash = false
-    "Set to true for a dashed line (return line), false for a solid line"
+  parameter Buildings.Templates.Components.Types.IconPipe icon_pipe =
+    Buildings.Templates.Components.Types.IconPipe.Supply
+    "Pipe symbol"
     annotation(Dialog(tab="Graphics", enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
@@ -116,7 +117,8 @@ equation
     Line( points={{-100,0},{0,0},{0,icon_offset},{100,icon_offset}},
           color={0,0,0},
           thickness=5,
-          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid),
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          then LinePattern.Solid else LinePattern.Dash),
     Line( visible=nPorts>=2,
           points=if icon_offset*icon_dy>=0 then
             {{0, icon_offset}, {0,icon_offset+icon_dy}, {100,icon_offset+icon_dy}}
@@ -124,7 +126,8 @@ equation
             {{0, 0}, {0, icon_offset+icon_dy}, {100, icon_offset+icon_dy}}
             else {{0, icon_offset+icon_dy}, {100, icon_offset+icon_dy}},
           color={0,0,0},
-          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          then LinePattern.Solid else LinePattern.Dash,
           thickness=5),
     Line( visible=nPorts>=3,
           points=if icon_offset*icon_dy>=0 then
@@ -133,7 +136,8 @@ equation
             {{0, 0},{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}}
             else {{0, icon_offset+2*icon_dy},{100, icon_offset+2*icon_dy}},
           color={0,0,0},
-          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          then LinePattern.Solid else LinePattern.Dash,
           thickness=5),
     Line( visible=nPorts>=4,
           points=if icon_offset*icon_dy>=0 then
@@ -142,7 +146,8 @@ equation
             {{0, 0},{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}}
             else {{0, icon_offset+3*icon_dy},{100, icon_offset+3*icon_dy}},
           color={0,0,0},
-          pattern=if icon_dash then LinePattern.Dash else LinePattern.Solid,
+          pattern=if icon_pipe==Buildings.Templates.Components.Types.IconPipe.Supply
+          then LinePattern.Solid else LinePattern.Dash,
           thickness=5)}),
     Diagram(
         coordinateSystem(preserveAspectRatio=false)),

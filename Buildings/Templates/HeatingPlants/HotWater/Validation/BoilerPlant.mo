@@ -6,9 +6,10 @@ model BoilerPlant
     BOI(
       typ=Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
       nBoiCon_select=3,
-      nBoiNon_select=1,
-      typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
-      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.FactoryVariable,
+      nBoiNon_select=2,
+      typPumHeaWatPriCon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Variable,
+
+      typPumHeaWatPriNon=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsPrimary.Constant,
       typArrPumHeaWatPriCon_select=Buildings.Templates.Components.Types.PumpArrangement.Headered,
       typPumHeaWatSec2_select=Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized,
       redeclare
@@ -17,12 +18,9 @@ model BoilerPlant
         nAirHan=1,
         nEquZon=0,
         typMeaCtlHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDifference,
-
         locSenVHeaWatPri=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
-
         locSenVHeaWatSec=Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
-
-        have_senDpHeaWatLoc=false)));
+        have_senDpHeaWatLoc=true)));
 
   UserProject.AirHandlerControlPoints sigAirHan[BOI.nAirHan]
     "AHU control points"

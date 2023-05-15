@@ -44,9 +44,9 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_dash=true,
     icon_offset=900,
-    icon_dy=-300) if have_boiCon
+    icon_dy=-300,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return) if have_boiCon
     "Condensing boiler inlet manifold"
     annotation (Placement(transformation(extent={{-120,-250},{-140,-230}})));
   Buildings.Templates.Components.Routing.MultipleToMultiple inlPumHeaWatPriCon(
@@ -93,7 +93,7 @@ model BoilerPlant "Boiler plant"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={60,-180})));
+        origin={60,-190})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatPriSupCon_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWatPriCon_flow_nominal,
@@ -101,7 +101,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senVHeaWatPriCon and ctl.locSenVHeaWatPri ==
         Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply,
     final text_flip=false,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     if have_boiCon
     "Primary HW volume flow rate - Condensing boilers"
     annotation (Placement(transformation(extent={{-40,-150},{-20,-130}})));
@@ -112,7 +113,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senVHeaWatPriCon and ctl.locSenVHeaWatPri ==
         Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
     final text_flip=true,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     if have_boiCon
     "Primary HW volume flow rate - Condensing boilers"
     annotation (Placement(transformation(extent={{-20,-250},{-40,-230}})));
@@ -122,9 +124,11 @@ model BoilerPlant "Boiler plant"
     final text_flip=false,
     final m_flow_nominal=mHeaWatPriCon_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     if have_boiCon
-    "Primary HW supply temperature - Condensing boilers" annotation (Placement(
+    "Primary HW supply temperature - Condensing boilers"
+    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -135,7 +139,8 @@ model BoilerPlant "Boiler plant"
     final text_flip=true,
     final m_flow_nominal=mHeaWatPriCon_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     if have_boiCon
     "Plant HW return temperature - Condensing boilers"
     annotation (Placement(
@@ -150,41 +155,60 @@ model BoilerPlant "Boiler plant"
     final have_sen=have_varPumHeaWatPriCon
       and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
       and ctl.typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.Supply)
     if have_bypHeaWatFixCon
     "Decoupler HW volume flow rate / Fixed HW bypass - Condensing boilers"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={60,-160})));
-  Buildings.Fluid.FixedResistances.Junction junInlBoiCon(
-    redeclare final package Medium = Medium,
-    final tau=tau,
-    final m_flow_nominal=mHeaWat_flow_nominal*{1,1,-1},
-    final energyDynamics=energyDynamics,
-    dp_nominal=fill(1E3, 3),
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
-    final portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    else Modelica.Fluid.Types.PortFlowDirection.Leaving)
-    "Fluid junction"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=-90,
-        origin={60,-230})));
-  Buildings.Fluid.FixedResistances.Junction junOutBoiCon(
+        origin={60,-170})));
+  Buildings.Templates.Components.Routing.Junction junInlBoiCon(
     redeclare final package Medium = Medium,
     final tau=tau,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     final energyDynamics=energyDynamics,
+    dp_nominal=fill(1E3, 3),
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional,
+    icon_pipe1=Buildings.Templates.Components.Types.IconPipe.Return,
+    icon_pipe2=if have_boiCon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.None,
+    icon_pipe3=if have_bypHeaWatFixCon or have_valHeaWatMinBypCon then
+    (if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.Supply) else
+      Buildings.Templates.Components.Types.IconPipe.None)
+    "Fluid junction"
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=0,
+        origin={60,-240})));
+  Buildings.Templates.Components.Routing.Junction junOutBoiCon(
+    redeclare final package Medium = Medium,
+    final tau=tau,
+    final m_flow_nominal=mHeaWat_flow_nominal*{-1,-1,1},
+    final energyDynamics=energyDynamics,
     dp_nominal=fill(0, 3),
     final portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional,
     final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
     final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-    else Modelica.Fluid.Types.PortFlowDirection.Entering)
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    icon_pipe1=if have_bypHeaWatFixCon or have_valHeaWatMinBypCon then
+    (if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.Supply) else
+      Buildings.Templates.Components.Types.IconPipe.None,
+    icon_pipe2=if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.Supply,
+    icon_pipe3=if have_boiCon then Buildings.Templates.Components.Types.IconPipe.Supply
+    else Buildings.Templates.Components.Types.IconPipe.None)
     "Fluid junction"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -196,7 +220,9 @@ model BoilerPlant "Boiler plant"
     final have_sen=typ == Buildings.Templates.HeatingPlants.HotWater.Types.Boiler.Hybrid,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.Supply)
     "Intermediate HW supply temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -211,9 +237,9 @@ model BoilerPlant "Boiler plant"
     final energyDynamics=energyDynamics,
     final tau=tau,
     final allowFlowReversal=allowFlowReversal,
-    icon_dash=true,
     icon_offset=900,
-    icon_dy=-300) if have_boiNon
+    icon_dy=-300,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return) if have_boiNon
     "Non-condensing boiler inlet manifold"
     annotation (Placement(transformation(extent={{-120,-110},{-140,-90}})));
   Buildings.Templates.Components.Routing.MultipleToMultiple inlPumHeaWatPriNon(
@@ -260,7 +286,7 @@ model BoilerPlant "Boiler plant"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={60,-60})));
+        origin={60,-50})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatPriSupNon_flow(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mHeaWatPriNon_flow_nominal,
@@ -268,7 +294,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senVHeaWatPriNon and ctl.locSenVHeaWatPri ==
         Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply,
     final text_flip=false,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     if have_boiNon
     "Primary HW volume flow rate - Non-condensing boilers"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
@@ -279,7 +306,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senVHeaWatPriNon and ctl.locSenVHeaWatPri ==
         Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
     final text_flip=true,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     if have_boiNon
     "Primary HW volume flow rate - Non-condensing boilers"
     annotation (Placement(transformation(extent={{-20,-110},{-40,-90}})));
@@ -289,7 +317,8 @@ model BoilerPlant "Boiler plant"
     final text_flip=false,
     final m_flow_nominal=mHeaWatPriNon_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     if have_boiNon
     "Primary HW supply temperature - Non-condensing boilers" annotation (Placement(
         transformation(
@@ -302,7 +331,8 @@ model BoilerPlant "Boiler plant"
     final text_flip=true,
     final m_flow_nominal=mHeaWatPriNon_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     if have_boiNon
     "Plant HW return temperature - Non-condensing boilers"
     annotation (Placement(
@@ -317,50 +347,70 @@ model BoilerPlant "Boiler plant"
     final have_sen=have_varPumHeaWatPriNon
       and typPumHeaWatSec<>Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.None
       and ctl.typMeaCtlHeaWatPri==Buildings.Templates.HeatingPlants.HotWater.Types.PrimaryOverflowMeasurement.FlowDecoupler,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     if have_bypHeaWatFixNon
     "Decoupler HW volume flow rate / Fixed HW bypass - Non-condensing boilers"
     annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
-        origin={60,-40})));
-
-  Buildings.Fluid.FixedResistances.Junction junInlBoiNon(
+        origin={60,-30})));
+  Buildings.Templates.Components.Routing.Junction junInlBoiNon(
     redeclare final package Medium=Medium,
     final tau=tau,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,1,-1},
     final energyDynamics=energyDynamics,
     dp_nominal=fill(1E3, 3),
-    final portFlowDirection_1=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
     final portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving) "Fluid junction"
-    annotation (
-    Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={60,-100})));
-  Buildings.Fluid.FixedResistances.Junction junOutBoiNon(
-    redeclare final package Medium=Medium,
-    final tau=tau,
-    final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
-    final energyDynamics=energyDynamics,
-    dp_nominal=fill(0, 3),
-    final portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional,
-    final portFlowDirection_2=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Leaving,
-    final portFlowDirection_3=if allowFlowReversal then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
-         else Modelica.Fluid.Types.PortFlowDirection.Entering)
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    icon_pipe1=if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.Supply,
+    icon_pipe2=if have_bypHeaWatFixNon or have_valHeaWatMinBypNon then
+      Buildings.Templates.Components.Types.IconPipe.Supply else
+       Buildings.Templates.Components.Types.IconPipe.None,
+    icon_pipe3=if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Return
+    else Buildings.Templates.Components.Types.IconPipe.None)
     "Fluid junction"
     annotation (
     Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
-        origin={60,-10})));
+        origin={60,-100})));
+  Buildings.Templates.Components.Routing.Junction junOutBoiNon(
+    redeclare final package Medium=Medium,
+    final tau=tau,
+    final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
+    final energyDynamics=energyDynamics,
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversal
+      then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal
+      then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal
+      then Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+    else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    icon_pipe1=if have_boiNon then Buildings.Templates.Components.Types.IconPipe.Supply
+    else Buildings.Templates.Components.Types.IconPipe.None,
+    icon_pipe2=Buildings.Templates.Components.Types.IconPipe.Supply,
+    icon_pipe3=if have_bypHeaWatFixNon or have_valHeaWatMinBypNon then
+    Buildings.Templates.Components.Types.IconPipe.Supply else
+    Buildings.Templates.Components.Types.IconPipe.None)
+    "Fluid junction"
+    annotation (
+    Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={60,0})));
 
   // Secondary HW loop
   Buildings.Templates.Components.Routing.SingleToMultiple inlPumHeaWatSec(
@@ -401,12 +451,12 @@ model BoilerPlant "Boiler plant"
     final allowFlowReversal=allowFlowReversal)
     if not have_pumHeaWatSec
     "HW supply line - Without secondary HW pumps"
-    annotation (Placement(transformation(extent={{120,10},{140,30}})));
+    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure dpHeaWatLoc(
     redeclare final package Medium=Medium,
     final have_sen=ctl.have_senDpHeaWatLoc,
     final allowFlowReversal=allowFlowReversal,
-    final text_rotation=-90)
+    final text_rotation=90)
     "Local HW differential pressure sensor"
     annotation (Placement(
         transformation(
@@ -420,7 +470,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senVHeaWatSec and ctl.locSenVHeaWatSec ==
       Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Supply,
     final text_flip=false,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "Secondary HW volume flow rate"
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VHeaWatSecRet_flow(
@@ -430,7 +481,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senVHeaWatSec and ctl.locSenVHeaWatSec ==
       Buildings.Templates.HeatingPlants.HotWater.Types.SensorLocation.Return,
     final text_flip=true,
-    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter)
+    final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.FlowMeter,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     "Secondary HW volume flow rate"
     annotation (Placement(transformation(extent={{240,-250},{220,-230}})));
   Buildings.Templates.Components.Sensors.Temperature THeaWatSecRet(
@@ -438,7 +490,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senTHeaWatSecRet,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Return)
     "Secondary HW return temperature"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
@@ -448,7 +501,8 @@ model BoilerPlant "Boiler plant"
     final have_sen=ctl.have_senTHeaWatSecSup,
     final m_flow_nominal=mHeaWat_flow_nominal,
     final allowFlowReversal=allowFlowReversal,
-    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell)
+    final typ=Buildings.Templates.Components.Types.SensorTemperature.InWell,
+    icon_pipe=Buildings.Templates.Components.Types.IconPipe.Supply)
     "Secondary HW supply temperature"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -508,22 +562,37 @@ equation
 
   /* Control point connection - stop */
 
-  connect(pumHeaWatPriNon.ports_b, outPumHeaWatPriNon.ports_a) annotation (Line(
+  connect(dpHeaWatLoc.port_b, port_a)
+  annotation (Line(
+      points={{260,-130},{260,-240},{300,-240}},
+      color={0,0,0},
+      visible=ctl.have_senDpHeaWatLoc));
+  connect(pumHeaWatPriNon.ports_b, outPumHeaWatPriNon.ports_a)
+  annotation (Line(
         points={{-70,0},{-70,0}},               color={0,127,255}));
   connect(port_a, VHeaWatSecRet_flow.port_a)
-    annotation (Line(points={{300,-240},{240,-240}}, color={0,127,255}));
+    annotation (Line(points={{300,-240},{240,-240}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(VHeaWatSecRet_flow.port_b, THeaWatSecRet.port_a)
-    annotation (Line(points={{220,-240},{200,-240}}, color={0,127,255}));
+    annotation (Line(points={{220,-240},{200,-240}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(port_b, dpHeaWatLoc.port_a)
-    annotation (Line(points={{300,0},{260,0},{260,-110}}, color={0,127,255}));
-  connect(dpHeaWatLoc.port_b, port_a) annotation (Line(points={{260,-130},{260,-240},
-          {300,-240}}, color={0,127,255}));
+    annotation (Line(
+      points={{300,0},{260,0},{260,-110}},
+      color={0,0,0},
+      visible=ctl.have_senDpHeaWatLoc));
   connect(pumHeaWatPriCon.ports_b, outPumHeaWatPriCon.ports_a)
     annotation (Line(points={{-70,-140},{-70,-140}}, color={0,127,255}));
   connect(inlPumHeaWatPriCon.ports_b, pumHeaWatPriCon.ports_a)
     annotation (Line(points={{-90,-140},{-90,-140}}, color={0,127,255}));
-  connect(boiCon.ports_bHeaWat, inlPumHeaWatPriCon.ports_a);
-    // annotation (Line(points={{-140,-140},{-110,-140}}, color={0,127,255}));
+  connect(boiCon.ports_bHeaWat, inlPumHeaWatPriCon.ports_a)
+  annotation (Line(
+      points={{-140,-140},{-110,-140}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiCon));
   connect(THeaWatIntSup.port_b, junInlBoiNon.port_1)
     annotation (Line(points={{60,-110},{60,-110}}, color={0,127,255}));
   connect(inlBoiNon.ports_b, boiNon.ports_aHeaWat)
@@ -533,27 +602,46 @@ equation
   connect(junOutBoiCon.port_2, THeaWatIntSup.port_a)
     annotation (Line(points={{60,-130},{60,-130}}, color={0,127,255}));
   connect(outPumHeaWatSec.port_b, VHeaWatSecSup_flow.port_a)
-    annotation (Line(points={{160,0},{180,0}}, color={0,127,255}));
+    annotation (Line(
+      points={{160,0},{180,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_pumHeaWatSec));
   connect(pumHeaWatSec.ports_a, inlPumHeaWatSec.ports_b)
     annotation (Line(points={{120,0},{120,0}}, color={0,127,255}));
   connect(pumHeaWatSec.ports_b, outPumHeaWatSec.ports_a)
     annotation (Line(points={{140,0},{140,0}}, color={0,127,255}));
   connect(VHeaWatPriSupCon_flow.port_b, THeaWatPriSupCon.port_a)
-    annotation (Line(points={{-20,-140},{0,-140}}, color={0,127,255}));
+    annotation (Line(
+      points={{-20,-140},{0,-140}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiCon));
   connect(inlPumHeaWatPriNon.ports_b, pumHeaWatPriNon.ports_a)
     annotation (Line(points={{-90,0},{-90,0}},     color={0,127,255}));
   connect(VHeaWatSecSup_flow.port_b, THeaWatSecSup.port_a)
-    annotation (Line(points={{200,0},{218,0}}, color={0,127,255}));
+    annotation (Line(points={{200,0},{218,0}}, color={0,0,0},
+      thickness=0.5));
   connect(THeaWatSecSup.port_b, port_b)
-    annotation (Line(points={{238,0},{300,0}}, color={0,127,255}));
+    annotation (Line(points={{238,0},{300,0}}, color={0,0,0},
+      thickness=0.5));
   connect(bus, ctl.bus) annotation (Line(
       points={{-300,140},{-10,140}},
       color={255,204,51},
       thickness=0.5));
   connect(THeaWatPlaRetCon.port_b, VHeaWatPriRetCon_flow.port_a)
-    annotation (Line(points={{0,-240},{-20,-240}}, color={0,127,255}));
+    annotation (Line(
+      points={{0,-240},{-20,-240}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash,
+      visible=have_boiCon));
   connect(supHeaWat.port_b, VHeaWatSecSup_flow.port_a)
-    annotation (Line(points={{140,20},{160,20},{160,0},{180,0}},   color={0,127,255}));
+    annotation (Line(
+      points={{140,0},{180,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=not have_pumHeaWatSec));
   connect(busAirHan, ctl.busAirHan) annotation (Line(
       points={{300,180},{280,180},{280,146},{10,146}},
       color={255,204,51},
@@ -570,52 +658,143 @@ equation
       index=-1,
       extent={{6,3},{6,3}},
       horizontalAlignment=TextAlignment.Left));
-  connect(junInlBoiCon.port_3, THeaWatPlaRetCon.port_a)
-    annotation (Line(points={{50,-230},{40,-230},{40,-240},{20,-240}},
-                                                   color={0,127,255}));
   connect(VHeaWatPriRetCon_flow.port_b, inlBoiCon.port_a)
-    annotation (Line(points={{-40,-240},{-120,-240}}, color={0,127,255}));
-  connect(junInlBoiCon.port_2, VHeaWatBypCon_flow.port_b)
-    annotation (Line(points={{60,-220},{60,-170}}, color={0,127,255}));
+    annotation (Line(
+      points={{-40,-240},{-120,-240}},
+      color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash,
+      visible=have_boiCon));
   connect(junOutBoiCon.port_1, valHeaWatMinBypCon.port_a)
-    annotation (Line(points={{60,-150},{60,-170}}, color={0,127,255}));
+    annotation (Line(
+      points={{60,-150},{60,-180}},
+      color={0,0,0},
+      visible=have_valHeaWatMinBypCon,
+      pattern=if have_boiNon then LinePattern.Dash else LinePattern.Solid,
+      thickness=0.5));
   connect(THeaWatSecRet.port_b, junInlBoiCon.port_1) annotation (Line(points={{180,
-          -240},{60,-240}}, color={0,127,255}));
+          -240},{70,-240}}, color={0,0,0},
+      thickness=0.5,
+      pattern=LinePattern.Dash));
   connect(junOutBoiNon.port_2, inlPumHeaWatSec.port_a)
-    annotation (Line(points={{60,0},{100,0}},          color={0,127,255}));
-  connect(junOutBoiNon.port_2, supHeaWat.port_a) annotation (Line(points={{60,0},{
-          100,0},{100,20},{120,20}},           color={0,127,255}));
+    annotation (Line(
+      points={{70,0},{100,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_pumHeaWatSec));
+  connect(junOutBoiNon.port_2, supHeaWat.port_a) annotation (Line(
+      points={{70,0},{120,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=not have_pumHeaWatSec));
   connect(THeaWatPriSupCon.port_b, junOutBoiCon.port_3)
-    annotation (Line(points={{20,-140},{50,-140}}, color={0,127,255}));
+    annotation (Line(
+      points={{20,-140},{50,-140}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiCon));
   connect(outPumHeaWatPriCon.port_b, VHeaWatPriSupCon_flow.port_a)
-    annotation (Line(points={{-50,-140},{-40,-140}}, color={0,127,255}));
+    annotation (Line(
+      points={{-50,-140},{-40,-140}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiCon));
   connect(junOutBoiCon.port_1, VHeaWatBypCon_flow.port_a)
-    annotation (Line(points={{60,-150},{60,-150}}, color={0,127,255}));
-  connect(valHeaWatMinBypCon.port_b, junInlBoiCon.port_2)
-    annotation (Line(points={{60,-190},{60,-220}}, color={0,127,255}));
-  connect(outPumHeaWatPriNon.port_b, VHeaWatPriSupNon_flow.port_a) annotation (
-      Line(points={{-50,0},{-40,0}},                         color={0,127,255}));
+    annotation (Line(
+      points={{60,-150},{60,-160}},
+      color={0,0,0},
+      visible=have_bypHeaWatFixCon,
+      pattern=if have_boiNon then LinePattern.Dash else LinePattern.Solid,
+      thickness=0.5));
+  connect(outPumHeaWatPriNon.port_b, VHeaWatPriSupNon_flow.port_a) annotation (Line(
+      points={{-50,0},{-40,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon));
   connect(VHeaWatPriSupNon_flow.port_b, THeaWatPriSupNon.port_a)
-    annotation (Line(points={{-20,0},{0,0}},     color={0,127,255}));
-  connect(THeaWatPriSupNon.port_b, junOutBoiNon.port_3)
-    annotation (Line(points={{20,0},{40,0},{40,-10},{50,-10}}, color={0,127,255}));
+    annotation (Line(
+      points={{-20,0},{0,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon));
   connect(junInlBoiNon.port_3, THeaWatPlaRetNon.port_a)
-    annotation (Line(points={{50,-100},{20,-100}}, color={0,127,255}));
+    annotation (Line(
+      points={{50,-100},{20,-100}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon,
+      pattern=LinePattern.Dash));
   connect(THeaWatPlaRetNon.port_b, VHeaWatPriRetNon_flow.port_a)
-    annotation (Line(points={{0,-100},{-20,-100}}, color={0,127,255}));
+    annotation (Line(
+      points={{0,-100},{-20,-100}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon,
+      pattern=LinePattern.Dash));
   connect(VHeaWatPriRetNon_flow.port_b, inlBoiNon.port_a)
-    annotation (Line(points={{-40,-100},{-120,-100}}, color={0,127,255}));
+    annotation (Line(
+      points={{-40,-100},{-120,-100}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon,
+      pattern=LinePattern.Dash));
   connect(VHeaWatBypNon_flow.port_b, junInlBoiNon.port_2)
-    annotation (Line(points={{60,-50},{60,-90}}, color={0,127,255}));
-  connect(VHeaWatBypNon_flow.port_a, junOutBoiNon.port_1)
-    annotation (Line(points={{60,-30},{60,-20}}, color={0,127,255}));
-  connect(valHeaWatMinBypNon.port_a, junOutBoiNon.port_1)
-    annotation (Line(points={{60,-50},{60,-20}}, color={0,127,255}));
+    annotation (Line(
+      points={{60,-40},{60,-90}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_bypHeaWatFixNon));
   connect(valHeaWatMinBypNon.port_b, junInlBoiNon.port_2)
-    annotation (Line(points={{60,-70},{60,-90}}, color={0,127,255}));
-  connect(boiNon.ports_bHeaWat, inlPumHeaWatPriNon.ports_a);
-    // annotation (Line(points={{-140,0},{-110,0}}, color={0,127,255}));
-  annotation (Documentation(info="<html>
+    annotation (Line(
+      points={{60,-60},{60,-90}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_valHeaWatMinBypNon));
+  connect(junInlBoiCon.port_2, THeaWatPlaRetCon.port_a)
+    annotation (Line(
+      points={{50,-240},{20,-240}},
+      color={0,0,0},
+      pattern=LinePattern.Dash,
+      thickness=0.5,
+      visible=have_boiCon));
+  connect(junInlBoiCon.port_3, valHeaWatMinBypCon.port_b)
+    annotation (Line(
+      points={{60,-230},{60,-200}},
+      color={0,0,0},
+      visible=have_valHeaWatMinBypCon,
+      pattern=if have_boiNon then LinePattern.Dash else LinePattern.Solid,
+      thickness=0.5));
+  connect(junInlBoiCon.port_3, VHeaWatBypCon_flow.port_b) annotation (Line(
+      points={{60,-230},{60,-180}},
+      color={0,0,0},
+      visible=have_bypHeaWatFixCon,
+      pattern=if have_boiNon then LinePattern.Dash else LinePattern.Solid,
+      thickness=0.5));
+  connect(valHeaWatMinBypNon.port_a, junOutBoiNon.port_3)
+    annotation (Line(
+      points={{60,-40},{60,-10}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_valHeaWatMinBypNon));
+  connect(VHeaWatBypNon_flow.port_a, junOutBoiNon.port_3) annotation (Line(
+      points={{60,-20},{60,-10}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_bypHeaWatFixNon));
+  connect(THeaWatPriSupNon.port_b, junOutBoiNon.port_1)
+    annotation (Line(
+      points={{20,0},{50,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon));
+  connect(boiNon.ports_bHeaWat, inlPumHeaWatPriNon.ports_a)
+    annotation (Line(
+      points={{-140,0},{-110,0}},
+      color={0,0,0},
+      thickness=0.5,
+      visible=have_boiNon));
+  annotation (
+  Documentation(info="<html>
 <p>
 This template represents a hot water plant with boilers.
 </p>
@@ -703,5 +882,8 @@ April 28, 2023, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Diagram(graphics={Rectangle(
+          extent={{260,-240},{261,0}},
+          lineColor={0,0,0},
+          visible=ctl.have_senDpHeaWatLoc)}));
 end BoilerPlant;

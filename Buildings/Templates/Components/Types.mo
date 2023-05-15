@@ -77,6 +77,14 @@ package Types "Package with type definitions"
       Propeller
       "Propeller fan")
     "Enumeration to specify the type of single fan";
+  type IconPipe = enumeration(
+      None
+      "No line",
+      Return
+      "Return pipe - Dashed line",
+      Supply
+      "Supply pipe - Solid line")
+    "Enumeration to specify the pipe symbol";
   type Pump = enumeration(
       None
       "No pump",
