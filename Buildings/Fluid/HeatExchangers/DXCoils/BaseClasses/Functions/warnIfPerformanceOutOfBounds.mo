@@ -15,13 +15,13 @@ algorithm
   else
     retVal :=0;
   end if;
-  if (retVal <> 0) then
-    Modelica.Utilities.Streams.print(
+  assert(
+    retVal == 0,
 "*** Warning: DX coil performance curves at nominal conditions are outside of bounds.
              " + msg + " is outside of bounds 0.9 to 1.1.
              The value of the curve fit is " + String(x) + "
-             Check the coefficients of the function " + curveName + ".");
-  end if;
+             Check the coefficients of the function " + curveName + ".",
+    level = AssertionLevel.warning);
 
 annotation (
     Documentation(info="<html>
@@ -32,6 +32,10 @@ If this is the case, the function writes a warning.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 15, 2023, by Michael Wetter:<br/>
+Changed print statement to an assertion.
+</li>
 <li>
 September 12, 2010 by Michael Wetter:<br/>
 First implementation.

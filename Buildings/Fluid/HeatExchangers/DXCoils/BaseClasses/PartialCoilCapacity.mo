@@ -102,7 +102,7 @@ initial algorithm
       msg="EIR as a function of temperature ",
       curveName="sta[" + String(iSta) + "].perCur.EIRFunT");
 
-     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
        Buildings.Fluid.Utilities.extendedPolynomial(
          x=1,
          c=sta[iSta].perCur.EIRFunFF,
@@ -111,10 +111,9 @@ initial algorithm
          msg="EIR as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.EIRFunFF");
    end for;
-   for iSta in 1:nSta loop
-     checkBoundsTEva[iSta] :=true;
-     checkBoundsTCon[iSta] :=true;
-   end for;
+
+  checkBoundsTEva := fill(true, nSta);
+  checkBoundsTCon := fill(true, nSta);
 
 equation
     // Modelica requires to evaluate the when() block for each element in iSta=1...nSta.
