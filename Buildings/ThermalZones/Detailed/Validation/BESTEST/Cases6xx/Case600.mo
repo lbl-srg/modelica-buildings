@@ -14,11 +14,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     peakCoo(Min=-5.422*1000, Max=-6.481*1000, Mean=-6.024*1000)));
   replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.CriteriaLimits
       heaCri(LowerLimit=3.75*3.6e9, UpperLimit=4.98*3.6e9)
-    "Limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
+    "Annual heating load limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
     annotation (Placement(transformation(extent={{-96,82},{-82,96}})));
   replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.CriteriaLimits
       cooCri(LowerLimit=-5*3.6e9, UpperLimit=-6.83*3.6e9)
-    "Limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
+    "Annual cooling load limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
     annotation (Placement(transformation(extent={{-96,62},{-82,76}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     k=0.1,
