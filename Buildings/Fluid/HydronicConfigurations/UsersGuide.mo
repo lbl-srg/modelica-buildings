@@ -335,7 +335,7 @@ drop of the consumer circuit at design conditions.
 Note that the sizing rules do not take into account the discrete sizes
 of control valves.
 Those are available with <i>Kvs</i> values which increase in a geometric
-progression, referred to as a Reynard series (Petitjean, 1994):
+progression, referred to as a Renard series (Petitjean, 1994):
 <i>Kvs &isin; {1.0, 1.6, 2.5, 4.0, 6.3, 10.0, 16.0, ...}</i>.
 The models from this package do not take into account those discrete
 sizes but rather consider that any pressure drop can be achieved at
@@ -346,7 +346,7 @@ is lower than the pipe diameter.
 </p>
 <h4>Distribution pump</h4>
 <p>
-For configurations with a secondary distribution pump, the user may chose
+For configurations with a secondary distribution pump, the user may choose
 whether to include the pump in the configuration model or not, using
 the parameter <code>typPum</code> from the enumeration
 <a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Types.Pump\">
