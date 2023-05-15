@@ -3,8 +3,7 @@ block CoilDefrostTimeCalculations
   "Calculates defrost curve value at given temperature and mass flow rate"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
     defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method to trigger the defrost cycle";
 

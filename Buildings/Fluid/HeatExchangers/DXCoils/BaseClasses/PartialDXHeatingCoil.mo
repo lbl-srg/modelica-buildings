@@ -26,16 +26,16 @@ partial model PartialDXHeatingCoil
     final defTri=datCoi.defTri,
     final tDefRun=datCoi.tDefRun,
     final TDefLim=datCoi.TDefLim,
-    dTHys=dTHys)
+    final dTHys=dTHys)
     "Block to compute defrost time fraction, heat transfer multiplier and input power multiplier"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostCapacity defCap(
+    redeclare package MediumA = Medium,
     final defTri=datCoi.defTri,
     final defOpe=datCoi.defOpe,
     final tDefRun=datCoi.tDefRun,
     final defCur=datCoi,
-    redeclare package MediumA = Medium,
     final QDefResCap=datCoi.QDefResCap)
     "Block to compute actual heat transferred to medium and power input after accounting for defrost"
     annotation (Placement(transformation(extent={{62,76},{82,96}})));
