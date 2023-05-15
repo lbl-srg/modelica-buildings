@@ -18,7 +18,8 @@ The following seven DX coil models are available:
   </tr>
   <tr>
     <td>Air source</td>
-    <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</td>
+    <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
+                             Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</a></td>
     <td>Cooling coil with multiple operating stages, each stage having a constant speed.
         Each stage has its own performance curve, which may represent
         the coil performance at different compressor speed, or the
@@ -30,13 +31,15 @@ The following seven DX coil models are available:
   </tr>
   <tr>
       <td>Air source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</td>
+      <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
+                               Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</a></td>
       <td>Single stage cooling coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
   <tr>
       <td>Air source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</td>
+      <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
+                               Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a></td>
       <td>Cooling coil with variable speed compressor with lower speed limit. If the control signal
           is below the lower limit, the coil switches off. It switches on if the control
           signal is above the lower limit plus a hysteresis. By default, the minimum speed
@@ -46,13 +49,15 @@ The following seven DX coil models are available:
   </tr>
   <tr>
       <td>Air source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</td>
+      <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating\">
+                               Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</a></td>
       <td>Single stage heating coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
   <tr>
       <td>Water source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.MultiStage</td>
+      <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.MultiStage\">
+                               Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.MultiStage</a></td>
       <td>Coil with multiple operating stages, each stage having a constant speed.
       Each stage has its own performance curve, which may represent the coil
       performance at different compressor speed, or the coil performance as
@@ -61,13 +66,15 @@ The following seven DX coil models are available:
   </tr>
    <tr>
       <td>Water source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.SingleSpeed</td>
+      <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.SingleSpeed\">
+                               Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.SingleSpeed</a></td>
       <td>Single stage coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
    </tr>
    <tr>
       <td>Water source</td>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.VariableSpeed</td>
+      <td><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.VariableSpeed\">
+                               Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.VariableSpeed</a></td>
       <td>Coil with variable speed compressor with lower speed limit.
       If the control signal is below the lower limit, the coil switches off.
       It switches on if the control signal is above the lower limit plus a hysteresis.
