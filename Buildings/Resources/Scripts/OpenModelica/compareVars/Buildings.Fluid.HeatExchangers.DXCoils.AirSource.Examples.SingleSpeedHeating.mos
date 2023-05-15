@@ -1,7 +1,7 @@
 compareVars :=
   {
     "sinSpeDX.on",
-    "sinSpeDX.dxCoi.TConIn",
+    "sinSpeDX.TOut",
     "sinSpeDX.vol.T",
     "sinSpeDX.port_a.m_flow"
   };

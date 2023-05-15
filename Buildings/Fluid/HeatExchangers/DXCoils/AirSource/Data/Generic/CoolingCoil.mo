@@ -5,7 +5,7 @@ record CoolingCoil
 
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
-    final is_CooCoi=true);
+    final is_cooCoi=true);
 
 annotation (preferredView="info",
 defaultComponentName="datCoi",

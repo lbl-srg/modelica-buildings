@@ -325,8 +325,8 @@ If a coil has multiple stages, then the fit need to be done for each stage.
 For variable frequency coils, multiple fits need to be done for user selected
 compressor speeds. For intermediate speeds, the performance data will be interpolated
 by the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a>.
 </p>
 <p>
 The table below shows the polynomials explained above,

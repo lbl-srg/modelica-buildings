@@ -1,6 +1,15 @@
-last-generated=2015-05-08
-statistics-initialization={'numerical Jacobians': '0', 'nonlinear': '1'}
-statistics-simulation={'numerical Jacobians': '0', 'nonlinear': ' ', 'linear': ' '}
-uacp.UAcp=[2.39501523971557617188, 2.39501523971557617188]
-time=[0., 60.]
-uacp.bypass_nominal=[0.20256857573986053467, 0.20256857573986053467]
+last-generated=2023-05-02
+statistics-initialization=
+{
+  "nonlinear": "1",
+  "numerical Jacobians": "0"
+}
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 6e+01]
+uacp.UAcp=[2.395015239715576e+00, 2.395015239715576e+00]
+uacp.bypass_nominal=[2.025685757398605e-01, 2.025685757398605e-01]

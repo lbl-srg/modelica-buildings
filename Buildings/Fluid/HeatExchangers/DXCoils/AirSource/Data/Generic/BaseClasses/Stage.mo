@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses
 record Stage "Generic data record for a stage of a air source DX coil"
   extends Modelica.Icons.Record;
 
-  parameter Boolean is_CooCoi = true
+  parameter Boolean is_cooCoi = true
     "=false, for heating coil";
 
   parameter Modelica.Units.SI.AngularVelocity spe(displayUnit="1/min")
@@ -11,7 +11,7 @@ record Stage "Generic data record for a stage of a air source DX coil"
   replaceable parameter
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
     nomVal(
-    final is_CooCoi=is_CooCoi)
+    final is_cooCoi=is_cooCoi)
     "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -35,7 +35,7 @@ revisions="<html>
 <ul>
 <li>
 April 4, 2023, by Xing Lu and Karthik Devaprasad:<br/>
-Added Boolean parameter <code>is_CooCoi</code> and propogated it in instance 
+Added Boolean parameter <code>is_cooCoi</code> and propogated it in instance 
 <code>nomVal</code>.<br/>
 Updated information section.
 </li>

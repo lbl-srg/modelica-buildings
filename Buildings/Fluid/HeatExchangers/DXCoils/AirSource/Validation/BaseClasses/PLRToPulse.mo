@@ -3,7 +3,7 @@ block PLRToPulse
   "Converts an input for part load ratio value into an enable signal"
 
   parameter Real tPer = 15*60
-    "Timestep period for PLR sampling";
+    "Time period for PLR sampling";
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uPLR
     "Part load ratio input"
@@ -40,7 +40,7 @@ protected
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Latch lat
-    "Output a true signal from start of currrent timestep, until the required 
+    "Output a true signal from start of currrent time period, until the required 
     run-time is achieved"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
 
@@ -58,7 +58,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
     final delayTime=1e-6)
-    "Delay the enable sugnal by 1e-6 seconds, which is also the duration for 
+    "Delay the enable signal by 1e-6 seconds, which is also the duration for 
     which the pulse signal is held. Required when PLR input is zero"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
@@ -110,10 +110,10 @@ annotation (Icon(
   Documentation(info="<html>
 <p>
 This block calculates the time duration for which the DX coil needs to be kept enabled
-based on the part-load ratio input signal <code>uPLR</code> for the timestep 
-<code>tPer</code>, and then generates an output enable signal <code>yEna</code> 
-for that duration. Once the component has been kept enabled for the calculated 
-duration, the component is disabled till the start of the next timestep.
+based on the part-load ratio input signal <code>uPLR</code> for the constant simulation
+run period <code>tPer</code>, and then generates an output enable signal 
+<code>yEna</code> for that duration. Once the component has been kept enabled for 
+the calculated duration, the component is kept disabled until the start of the next period.
 </p>
 </html>",
 revisions="<html>

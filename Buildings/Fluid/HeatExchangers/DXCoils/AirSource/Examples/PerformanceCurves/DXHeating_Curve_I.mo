@@ -2,11 +2,11 @@ within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurv
 record DXHeating_Curve_I "DX heating coil performance curve I"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
-    capFunT={0.5120426675,0.0227700422,0.0000806439,-0.0023934427,-0.0000165785,
-        -0.0000886025},
-    capFunFF={1,0,0,0},
-    EIRFunT={0.7969361175,-0.006662416,0.0005931581,0.012575857,0.0003214811,-0.0006690053},
-    EIRFunFF={1,0,0,0},
+    capFunT={0.9135970355,0.0127860478,0.0000527533,-0.0005917719,0.000136017,
+        -0.0000894155},
+    capFunFF={0.84,0.16,0,0},
+    EIRFunT={0.6019839404,-0.0053765594,0.000773762,0.0186496391,0.0002225627,-0.0008182042},
+    EIRFunFF={1.3824,-0.4336,0.0512},
     TConInMin=17.78+273.15,
     TConInMax=23.33+273.15,
     TEvaInMin=-30.56+273.15,

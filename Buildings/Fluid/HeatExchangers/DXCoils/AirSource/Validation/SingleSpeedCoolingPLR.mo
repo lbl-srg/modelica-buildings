@@ -511,7 +511,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.QLat_flow, QCoo_flow.u2) annotation (Line(
-      points={{12.6,13},{20,13},{20,32},{-48,32},{-48,84},{-42,84}},
+      points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PEPlu_ori.y, PEPlu.u) annotation (Line(
@@ -558,8 +558,8 @@ equation
             Documentation(info="<html>
 <p>
 This model validates the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</a>.
 </p>
 <p>
 The difference in results of

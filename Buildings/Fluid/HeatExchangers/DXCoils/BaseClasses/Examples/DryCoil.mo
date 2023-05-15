@@ -34,7 +34,7 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datCoi(
-    is_CooCoi=true,
+    is_cooCoi=true,
     sta={
       Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,

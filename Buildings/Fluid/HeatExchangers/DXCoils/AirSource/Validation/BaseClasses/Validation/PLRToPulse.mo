@@ -25,8 +25,8 @@ protected
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   Buildings.Controls.OBC.CDL.Discrete.Sampler samPLR(
-    final samplePeriod(displayUnit="min") = 900)
-    "Sample the PLR every timestep"
+    final samplePeriod = 900)
+    "Sample the PLR every time period"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
 
 equation
