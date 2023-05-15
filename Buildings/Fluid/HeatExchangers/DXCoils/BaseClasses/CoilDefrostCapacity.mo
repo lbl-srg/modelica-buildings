@@ -7,8 +7,7 @@ block CoilDefrostCapacity
     "Fluid medium package";
 
   parameter Real tDefRun(
-    final unit="1",
-    displayUnit="1") = 0.5
+    final unit="1") = 0.5
     "Time period fraction for which defrost cycle is run"
     annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
 

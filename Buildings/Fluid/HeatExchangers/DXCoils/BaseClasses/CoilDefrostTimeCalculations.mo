@@ -8,8 +8,7 @@ block CoilDefrostTimeCalculations
     "Type of method to trigger the defrost cycle";
 
   parameter Real tDefRun(
-    final unit="1",
-    displayUnit="1") = 0.5
+    final unit="1") = 0.5
     "Time period fraction for which defrost cycle is run"
     annotation(Dialog(enable=defTri == Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed));
 
@@ -30,29 +29,25 @@ block CoilDefrostTimeCalculations
 
   Modelica.Blocks.Interfaces.RealInput XOut(
     final unit="kg/kg",
-    displayUnit="kg/kg",
     final quantity="MassFraction")
     "Humidity ratio of outdoor air"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}}),
       iconTransformation(extent={{-120,-30},{-100,-10}})));
 
   Modelica.Blocks.Interfaces.RealOutput tDefFra(
-    final unit="1",
-    displayUnit="1")
+    final unit="1")
     "Defrost time period fraction"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
       iconTransformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput heaCapMul(
-    final unit="1",
-    displayUnit="1")
+    final unit="1")
     "Heating capacity multiplier"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput inpPowMul(
-    final unit="1",
-    displayUnit="1")
+    final unit="1")
     "Input power multiplier"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
       iconTransformation(extent={{100,-50},{120,-30}})));
