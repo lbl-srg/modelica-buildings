@@ -13,7 +13,7 @@ record CoilHeatTransfer
   parameter Integer nSta(
     final min=1)
     "Number of stages"
-    annotation (Evaluate = true, Dialog(enable = not sinStaOpe));
+    annotation (Dialog(enable = not sinStaOpe));
 
   parameter Real minSpeRat(
     final min=0,
