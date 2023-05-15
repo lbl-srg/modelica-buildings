@@ -10,9 +10,6 @@ model VariableSpeedCooling "Variable speed DX cooling coil"
       dryCoi(redeclare
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
           coiCap)),
-    redeclare
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-      datCoi,
     use_mCon_flow=false);
 
   parameter Real minSpeRat(
