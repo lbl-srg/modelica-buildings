@@ -13,7 +13,7 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-16
             {180,160}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandReverseCycleDefrost.mos"
         "Simulate and Plot"),
-    experiment(Tolerance=1e-6, StopTime=86400),
+    experiment(Tolerance=1e-6, StopTime=172800),
             Documentation(info="<html>
 <p>
 This model validates the model
