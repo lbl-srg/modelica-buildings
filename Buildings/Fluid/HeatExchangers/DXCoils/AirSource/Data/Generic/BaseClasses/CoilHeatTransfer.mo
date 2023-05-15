@@ -39,9 +39,9 @@ defaultComponentPrefixes="parameter",
 Documentation(info="<html>
 <p>
 This record is used as a baseclass for the performance data records
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a> and
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil</a>.
 </p>
 </html>",

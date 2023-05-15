@@ -141,11 +141,11 @@ revisions="<html>
 <li>
 April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Updated classes for <code>wetCoi.cooCap</code> and <code>dryCoi.cooCap</code> from
-<code>CoolingCapacityAirCooled</code> to 
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+<code>CoolingCapacityAirCooled</code> to
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.<br/>
 Updated class for data record <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
 
 </li>

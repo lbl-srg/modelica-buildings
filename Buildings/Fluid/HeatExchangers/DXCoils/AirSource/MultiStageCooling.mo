@@ -66,11 +66,11 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Renamed class to <code>MultiStageCooling</code> to differentiate it from DX 
+Renamed class to <code>MultiStageCooling</code> to differentiate it from DX
 heating coils.<br/>
-Extended class changed to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil\">
+Extended class changed to <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil</a>.<br/>
-Updated connection statements because of coil capacity block instance being 
+Updated connection statements because of coil capacity block instance being
 renamed from <code>dxCoo</code> to <code>dxCoi</code>.<br/>
 Updated formatting for readability.
 </li>

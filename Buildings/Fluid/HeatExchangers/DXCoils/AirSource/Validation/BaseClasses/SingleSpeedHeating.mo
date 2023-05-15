@@ -211,19 +211,19 @@ This is a baseclass component for the following validation models:
 </p>
 <ul>
 <li>
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_OnDemandResistiveDefrost\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_OnDemandResistiveDefrost\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_OnDemandResistiveDefrost</a>
 </li>
 <li>
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_OnDemandReverseCycleDefrost\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_OnDemandReverseCycleDefrost\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_OnDemandReverseCycleDefrost</a>
 </li>
 <li>
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_TimedResistiveDefrost\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_TimedResistiveDefrost\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_TimedResistiveDefrost</a>
 </li>
 <li>
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_TimedReverseCycleDefrost\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_TimedReverseCycleDefrost\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation.SingleSpeedHeating_TimedReverseCycleDefrost</a>
 </li>
 </ul>

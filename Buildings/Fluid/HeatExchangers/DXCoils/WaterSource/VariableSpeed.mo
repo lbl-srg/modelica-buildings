@@ -40,7 +40,7 @@ for an explanation of the model.
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Updated air-source cooling coil class being extended from <code>VariableSpeed</code>
-to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
+to <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a>.
 </li>
 <li>

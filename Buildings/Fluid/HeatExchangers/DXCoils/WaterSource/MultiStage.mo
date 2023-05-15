@@ -21,7 +21,7 @@ equation
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Updated air-source cooling coil class being extended from <code>MultiStage</code>
-to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
+to <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</a>.
 </li>
 <li>

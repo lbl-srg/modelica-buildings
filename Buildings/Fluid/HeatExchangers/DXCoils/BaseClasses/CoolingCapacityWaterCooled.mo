@@ -150,7 +150,7 @@ revisions="<html>
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Updated class being extended from <code>PartialCoolingCapacity</code> to
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity</a>.
 </li>
 <li>

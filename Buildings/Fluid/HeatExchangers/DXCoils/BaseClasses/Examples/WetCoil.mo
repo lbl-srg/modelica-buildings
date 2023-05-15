@@ -134,12 +134,12 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
 revisions="<html>
 <ul>
 <li>
-Changed redeclare in <code>wetCoi</code> from instance <code>cooCap</code> with 
+Changed redeclare in <code>wetCoi</code> from instance <code>cooCap</code> with
 class <code>CoolingCapacityAirCooled</code> to instance <code>coiCap</code> with
-class <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+class <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.<br/>
-Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to 
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
 </li>
 <li>

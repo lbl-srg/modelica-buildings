@@ -28,7 +28,7 @@ for an explanation of the model.
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Updated air-source cooling coil class being extended from <code>SingleSpeed</code>
-to <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
+to <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</a>.
 </li>
 <li>

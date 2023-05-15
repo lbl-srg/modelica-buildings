@@ -153,8 +153,8 @@ revisions="<html>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 Updated model name.<br/>
 Changed instance class for <code>mulStaDX</code> to
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">AirSource.MultiStageCooling</a>.<br/>
-Updated connection statements due to change in output interface instance on 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">AirSource.MultiStageCooling</a>.<br/>
+Updated connection statements due to change in output interface instance on
 <code>mulStaDX</code> from <code>TConIn</code> to <code>TOut</code>.
 </li>
 <li>

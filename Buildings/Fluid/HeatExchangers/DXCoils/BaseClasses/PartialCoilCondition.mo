@@ -90,8 +90,8 @@ revisions="<html>
 <li>
 April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Changed instance <code>cooCap</code> with class <code>CoolingCapacityAirCooled</code>
-to instance <code>coiCap</code> with class 
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+to instance <code>coiCap</code> with class
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
 </li>
 <li>

@@ -28,7 +28,7 @@ record SingleSpeedHeating
 <p>
 This record declares performance curves for the heating capacity and the EIR for use in
 heating coil validation models in
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Validation</a>.
 It has been obtained from the EnergyPlus 9.6 example file
 <code>PackagedTerminalHeatPump.idf</code>.

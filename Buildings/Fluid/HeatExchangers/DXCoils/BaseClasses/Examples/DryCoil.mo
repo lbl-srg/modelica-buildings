@@ -115,11 +115,11 @@ revisions="<html>
 <li>
 April 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 Changed instance from <code>cooCap</code> with class <code>CoolingCapacityAirCooled</code>
-to <code>coiCap</code> with class <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
+to <code>coiCap</code> with class <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.
 <br/>
 Updated class for data record <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer</a>.
 </li>
 <li>

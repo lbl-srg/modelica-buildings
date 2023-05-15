@@ -10,7 +10,7 @@ record Generic "Generic data record for DoubleSpeed DXCoils"
 <p>
 This record is used as a template for performance data
 for the air source DX coils
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</a> with double speed.
 </p>
 </html>",

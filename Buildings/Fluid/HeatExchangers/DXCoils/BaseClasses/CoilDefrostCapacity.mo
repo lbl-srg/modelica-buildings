@@ -206,9 +206,9 @@ equation
           textString="f(To,Xo)")}),
           Documentation(info="<html>
 <p>
-Block to calculate heat transfered to airloop <code>QTotDef_flow</code>, as well as 
-the total heating power consumption of the component <code>PTot</code>, as defined 
-in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2 
+Block to calculate heat transfered to airloop <code>QTotDef_flow</code>, as well as
+the total heating power consumption of the component <code>PTot</code>, as defined
+in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
 document. It also calculates the defrost input power consumption <code>PDef</code>
 and the crankcase heater input power consumption <code>PCra</code>.<br/>
@@ -216,19 +216,19 @@ The inputs are as follows:
 </p>
 <ul>
 <li>
-the defrost cycle time fraction <code>tDefFra</code>, the heating capacity multiplier 
-<code>heaCapMul</code> and the input power multiplier <code>inpPowMul</code> 
-calculated by <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations\">
+the defrost cycle time fraction <code>tDefFra</code>, the heating capacity multiplier
+<code>heaCapMul</code> and the input power multiplier <code>inpPowMul</code>
+calculated by <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilDefrostTimeCalculations</a>.
 </li>
 <li>
 the total heat transfer <code>QTot_flow</code> and energy input ratio <code>EIR</code>
-calculated by <a href=\"Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
+calculated by <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>.
 </li>
 <li>
 the measured temperature <code>TConIn</code>, humidity ratio per kg of total air
-<code>XConIn</code> and pressure <code>pIn</code> of the indoor coil inlet air 
+<code>XConIn</code> and pressure <code>pIn</code> of the indoor coil inlet air
 temperature.
 </li>
 <li>

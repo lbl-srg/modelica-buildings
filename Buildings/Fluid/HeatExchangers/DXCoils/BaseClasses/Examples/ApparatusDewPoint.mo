@@ -147,7 +147,7 @@ revisions="<html>
 <li>
 April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Updated data record class for <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.<br/>
 </li>
 <li>
