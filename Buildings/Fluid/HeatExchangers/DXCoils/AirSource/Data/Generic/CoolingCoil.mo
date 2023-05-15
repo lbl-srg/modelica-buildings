@@ -1,8 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic;
 record CoolingCoil
   "Performance record for a DX Cooling Coil with one or multiple stages"
-  extends Modelica.Icons.Record;
-
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
     final is_cooCoi=true);
