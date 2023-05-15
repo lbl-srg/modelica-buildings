@@ -35,7 +35,7 @@ void* jsonWriterInit(
 
   for (i = 0; i < numKeys; ++i)
   {
-    ID-> varKeys[i] = (char **)malloc((strlen(varKeys[i])+1) * sizeof(char*));
+    ID-> varKeys[i] = (char *)malloc((strlen(varKeys[i])+1) * sizeof(char));
     if ( ID->varKeys[i] == NULL )
       ModelicaError("Not enough memory in jsonWriterInit.c for allocating varKeys.");
       strcpy(ID->varKeys[i], varKeys[i]);
