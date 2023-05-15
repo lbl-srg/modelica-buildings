@@ -84,7 +84,10 @@ equation
 
   // Calculate difference between outdoor air humidity ratio and saturated air humidity
   // ratio at estimated outdoor coil surface temperature, which will indicate frost formation
-  delta_XCoilOut = Buildings.Utilities.Math.Functions.smoothMax(1e-6, (XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1)), (0.5*1e-6));
+  delta_XCoilOut = Buildings.Utilities.Math.Functions.smoothMax(
+    1e-6,
+    XOutDryAir - Buildings.Utilities.Psychrometrics.Functions.X_pTphi(101325, TCoiOut, 1),
+    0.5*1e-6);
 
   //  Use hysteresis block for comparison of outdoor air temperature with max limit
   //  for defrost operation
