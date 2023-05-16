@@ -92,61 +92,125 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(TFlo.port, roo.surf_surBou[6]) annotation (Line(
-      points={{140,-90},{96.2,-90},{96.2,-31.1667}},
+      points={{140,-90},{96.2,-90},{96.2,-31.5833}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[1].port, roo.surf_surBou[1]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32.8333}},
+      points={{140,-50},{96.2,-50},{96.2,-32.4167}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[2].port, roo.surf_surBou[2]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32.5}},
+      points={{140,-50},{96.2,-50},{96.2,-32.25}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[3].port, roo.surf_surBou[3]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-32.1667}},
+      points={{140,-50},{96.2,-50},{96.2,-32.0833}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[4].port, roo.surf_surBou[4]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-31.8333}},
+      points={{140,-50},{96.2,-50},{96.2,-31.9167}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TOthWal[5].port, roo.surf_surBou[5]) annotation (Line(
-      points={{140,-50},{96.2,-50},{96.2,-31.5}},
+      points={{140,-50},{96.2,-50},{96.2,-31.75}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouIn.ports[1], roo.ports[1]) annotation (Line(
-      points={{60,-44},{74,-44},{74,-26},{84,-26},{84,-26},{84,-26},{84,-30},{85,
-          -30}},
+      points={{60,-44},{74,-44},{74,-26},{84,-26},{84,-26},{84,-26},{84,-29},{85,
+          -29}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouOut.ports[1], roo.ports[2]) annotation (Line(
-      points={{60,-74},{74,-74},{74,-26},{85,-26}},
+      points={{60,-74},{74,-74},{74,-27},{85,-27}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Documentation(info="<html>
-<p>This tutorial gives step by step instructions on building and simulating a mixed convection model. The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> with the ISAT program by simulating ventilation with mixed convection in an empty room. </p>
+annotation (Documentation(info="<html>
+<p>
+This tutorial gives step by step instructions on building and simulating a mixed
+convection model. The model tests the coupled simulation of
+<a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>
+with the ISAT program by simulating ventilation with mixed convection in an empty room.
+</p>
 <h4>Case Description</h4>
-<p>There are four inputs and two outputs in the ISAT model for this case. The inputs are (1) supply air temperature, (2) supply air flow rate, (3) temperature of the ceiling and walls and (4) temperature of the floor. The outputs are (1) average room temperature and (2) velocity.</p>
-<p><br>Figure (a) shows the schematic of the FFD simulation and Figure (b) shows the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD. </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionSchematic.png\" alt=\"image\"/> </p>
-<p align=\"center\">Figure (a) </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.png\" alt=\"image\"/> </p>
-<p align=\"center\">Figure (b) </p>
+<p>
+There are four inputs and two outputs in the ISAT model for this case. The inputs
+are (1) supply air temperature, (2) supply air flow rate, (3) temperature of
+the ceiling and walls and (4) temperature of the floor. The outputs are (1)
+average room temperature and (2) velocity.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation and Figure (b) shows
+the velocity vectors and temperatures on the X-Z plane at <i>Y = 0.5</i> m as
+simulated by the FFD.
+</p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionSchematic.png\" alt=\"image\"/></p>
+<p align=\"center\">Figure (a)</p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.png\" alt=\"image\"/></p>
+<p align=\"center\">Figure (b)</p>
 <h4>Step by Step Guide</h4>
-<p>This section describes step by step how to build and simulate the model. </p>
+<p>
+This section describes step by step how to build and simulate the model.
+</p>
 <ol>
-<li>Add the following model components into the <span style=\"font-family: Courier New;\">MixedConvection</span> model: </li>
-<li><ul>
-<li><a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>. This model is used to implement data exchange between Modelica and ISAT. Name it as <span style=\"font-family: Courier New;\">roo</span>. </li>
-<li><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>. Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <span style=\"font-family: Courier New;\">weaDat</span>. </li>
-<li><a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain are zero. Name these models as <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span>, respectively. </li>
-<li><a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>. This block is used to convert three numbers into a vector. Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>. </li>
-<li><a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>. Two models are needed to specify the temperature on the floor and other walls. Name them as <span style=\"font-family: Courier New;\">TFlo</span> and <span style=\"font-family: Courier New;\">TOthWal</span> respectively. Please note that it is necessary to declare <span style=\"font-family: Courier New;\">TOthWal</span> as a vector of <i>5</i> elements. </li>
-<li><a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a>. This model provides inlet air for the <span style=\"font-family: Courier New;\">roo</span>. Name it as <span style=\"font-family: Courier New;\">bouIn</span>. </li>
-<li><a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">Buildings.Fluid.Sources.Boundary_pT</a>. This model is the outdoor environment to which the outlet of <span style=\"font-family: Courier New;\">roo</span> is connected. Name it as <span style=\"font-family: Courier New;\">bouOut</span>. </li>
-</ul></li>
-<li>In the text editor mode, add the medium and the number of surfaces as below:
+<li>
+Add the following model components into the <span style=\"font-family: Courier New;\">
+MixedConvection</span> model:
+</li>
+<li>
+<ul>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">
+Buildings.ThermalZones.Detailed.ISAT</a>.
+This model is used to implement data exchange between Modelica and ISAT. Name it as
+<span style=\"font-family: Courier New;\">roo</span>.
+</li>
+<li>
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as
+<span style=\"font-family: Courier New;\">weaDat</span>.
+</li>
+<li><a href=\"modelica://Modelica.Blocks.Sources.Constant\">
+Modelica.Blocks.Sources.Constant</a>.
+Three models are needed to specify that internal radiation, internal convective
+heat gain and internal latent heat gain are zero.
+Name these models as <span style=\"font-family: Courier New;\">qRadGai_flow</span>,
+<span style=\"font-family: Courier New;\">qConGai_flow</span> and
+<span style=\"font-family: Courier New;\">qLatGai_flow</span>,
+respectively.
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">
+Modelica.Blocks.Routing.Multiplex3</a>.
+This block is used to convert three numbers into a vector.
+Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>.
+</li>
+<li>
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">
+Buildings.HeatTransfer.Sources.FixedTemperature</a>.
+Two models are needed to specify the temperature on the floor and other walls.
+Name them as <span style=\"font-family: Courier New;\">TFlo</span> and
+<span style=\"font-family: Courier New;\">TOthWal</span> respectively.
+Please note that it is necessary to declare
+<span style=\"font-family: Courier New;\">TOthWal</span> as a vector of <i>5</i> elements.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">
+Buildings.Fluid.Sources.MassFlowSource_T</a>.
+This model provides inlet air for the <span style=\"font-family: Courier New;\">roo</span>.
+Name it as <span style=\"font-family: Courier New;\">bouIn</span>.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">
+Buildings.Fluid.Sources.Boundary_pT</a>.
+This model is the outdoor environment to which the outlet of
+<span style=\"font-family: Courier New;\">roo</span> is connected.
+Name it as <span style=\"font-family: Courier New;\">bouOut</span>.
+</li>
+</ul>
+</li>
+<li>
+In the text editor mode, add the medium and the number of surfaces as below:
 <pre>
 package MediumA = Buildings.Media.Air (T_default=283.15);
 parameter Integer nConExtWin=0;
@@ -156,7 +220,8 @@ parameter Integer nConExt=0;
 parameter Integer nConPar=0;
 </pre>
 </li>
-<li>Edit <span style=\"font-family: Courier New;\">roo</span> as below:
+<li>
+Edit <span style=\"font-family: Courier New;\">roo</span> as below:
 <pre>
 Buildings.ThermalZones.Detailed.CFD roo(
 redeclare package Medium = MediumA,
@@ -189,13 +254,26 @@ portName={&quot;Inlet&quot;,&quot;Outlet&quot;},
 samplePeriod = 200);
 </pre>
 </li>
-<li>Set the parameters for the following components: </li>
-<li><ul>
-<li>Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>. </li>
-<li>Set <span style=\"font-family: Courier New;\">TFlo</span> to <i>303.15</i> Kelvin. </li>
-<li>Set <span style=\"font-family: Courier New;\">TOthWal</span> to <i>283.15</i> Kelvin. </li>
-</ul></li>
-<li>Set the values for the parameters of <span style=\"font-family: Courier New;\">bouIn</span> and <span style=\"font-family: Courier New;\">bouOut</span> as below:
+<li>
+Set the parameters for the following components:
+</li>
+<li>
+<ul>
+<li>Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>,
+<span style=\"font-family: Courier New;\">qConGai_flow</span>
+and <span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>.
+</li>
+<li>
+Set <span style=\"font-family: Courier New;\">TFlo</span> to <i>303.15</i> Kelvin.
+</li>
+<li>
+Set <span style=\"font-family: Courier New;\">TOthWal</span> to <i>283.15</i> Kelvin.
+</li>
+</ul>
+</li>
+<li>
+Set the values for the parameters of <span style=\"font-family: Courier New;\">bouIn</span>
+and <span style=\"font-family: Courier New;\">bouOut</span> as below:
 <pre>
 Fluid.Sources.MassFlowSource_T bouIn(
 redeclare package Medium = MediumA,
@@ -207,10 +285,13 @@ redeclare package Medium = MediumA,
 nPorts=1);
 </pre>
 </li>
-<li>Connect the components as shown in the figure below.
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionModel.png\" alt=\"image\"/> </p>
+<li>
+Connect the components as shown in the figure below.
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionModel.png\" alt=\"image\"/></p>
 </li>
-<li>Confirm in the textual editor that the connections to <span style=\"font-family: Courier New;\">roo.ports</span> are as follows:
+<li>
+Confirm in the textual editor that the connections to <span style=\"font-family: Courier New;\">roo.ports</span>
+are as follows:
 <pre>
 connect(bouIn.ports[1], roo.ports[1]);
 connect(bouOut.ports[1], roo.ports[2]);
@@ -300,27 +381,72 @@ connect(bouOut.ports[1], roo.ports[2]);
 <p>outp.outp_weight 1.0</p>
 <p>outp.outp_weight 10.0</p>
 </li>
-<li>Note: the desired outputs of isat can be altered by changing the output sensors in section 3 of the set.isat file. The available default sensors include:</li>
-<li><ul>
-<li><span style=\"font-family: Courier New;\">temp_roo,</span> which outputs the average room temperature, </li>
-<li><span style=\"font-family: Courier New;\">temp_occ</span>, which outputs the average temperature of the occupied zone, </li>
-<li><span style=\"font-family: Courier New;\">vel_occ,</span> which outputs the average velocity of the occupied zone, </li>
-<li><span style=\"font-family: Courier New;\">temp_sen,</span> which outputs the temperature at a defined location (default is center of the room), </li>
-<li><span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the velocity at the a defined location (default is center of the room). </li>
-</ul></li>
+<li>
+Note: the desired outputs of isat can be altered by changing the output sensors
+in section 3 of the set.isat file. The available default sensors include:
+</li>
+<li>
+<ul>
+<li>
+<span style=\"font-family: Courier New;\">temp_roo,</span>
+which outputs the average room temperature,
+</li>
+<li>
+<span style=\"font-family: Courier New;\">temp_occ</span>,
+which outputs the average temperature of the occupied zone,
+</li>
+<li>
+<span style=\"font-family: Courier New;\">vel_occ,</span>
+which outputs the average velocity of the occupied zone,
+</li>
+<li>
+<span style=\"font-family: Courier New;\">temp_sen,</span>
+which outputs the temperature at a defined location (default is
+center of the room),
+</li>
+<li>
+<span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the
+velocity at the a defined location (default is center of the room).
+</li>
+</ul>
+</li>
 </ol>
-<p>Furthermore, advanced users can modify the source code located in <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span> to adjust the current sensors or add new ones.</p>
-<p>For example, in lines <span style=\"font-family: Courier New;\">324-326</span> and <span style=\"font-family: Courier New;\">344-346</span> in <span style=\"font-family: Courier New;\">utility_isat.c,</span> users can change the location of the temperature or velocity sensor.</p>
-<p>In addition, the occupied zones can be adjusted in the <span style=\"font-family: Courier New;\">average_room_temp</span> and <span style=\"font-family: Courier New;\">average_room_vel</span> functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span></p>
+<p>Furthermore, advanced users can modify the source code located in
+<span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span>
+to adjust the current sensors or add new ones.
+</p>
+<p>
+For example, in lines <span style=\"font-family: Courier New;\">324-326</span>
+and <span style=\"font-family: Courier New;\">344-346</span>
+in <span style=\"font-family: Courier New;\">utility_isat.c,</span>
+users can change the location of the temperature or velocity sensor.
+</p>
+<p>
+In addition, the occupied zones can be adjusted in the
+<span style=\"font-family: Courier New;\">average_room_temp</span>
+and <span style=\"font-family: Courier New;\">average_room_vel</span>
+functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span>
+</p>
 <ol>
 <li>Use the Simplified CFD Interface (SCI) to generate the input file for the FFD. </li>
-<li><ul>
+<li>
+<ul>
 <li>Use a 20 X 20 X 20 stretched grid. </li>
 <li>Set the time step size of the FFD to <i>0.1</i> seconds. </li>
-<li>Generate the input files, which by default have the names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
-<li>Rename the files as <span style=\"font-family: Courier New;\">MixedConvection.cfd</span> and <span style=\"font-family: Courier New;\">MixedConvection.dat</span>, respectively. </li>
-</ul></li>
-<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">MixedConvection.ffd</span> (an example file is available in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/</span>):
+<li>Generate the input files, which by default have the names
+<span style=\"font-family: Courier New;\">input.cfd</span> (mesh file)
+and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file).
+</li>
+<li>
+Rename the files as <span style=\"font-family: Courier New;\">MixedConvection.cfd</span>
+and <span style=\"font-family: Courier New;\">MixedConvection.dat</span>, respectively.
+</li>
+</ul>
+</li>
+<li>
+Revise the FFD parameter input file <span style=\"font-family: Courier New;\">MixedConvection.ffd</span>
+(an example file is available in <span style=\"font-family: Courier New;\">
+Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/</span>):
 <pre>
 inpu.parameter_file_format SCI
 inpu.parameter_file_name MixedConvection.cfd
@@ -344,10 +470,25 @@ init.v 0.0 // Initial condition for velocity v
 init.w 0.0 // Initial condition for velocity w
 </pre>
 </li>
-<li>Put the files <span style=\"font-family: Courier New;\">input.isat</span>, <span style=\"font-family: Courier New;\">output.isat</span>, <span style=\"font-family: Courier New;\">set.isat</span>, <span style=\"font-family: Courier New;\">input.ffd</span>, <span style=\"font-family: Courier New;\">input.dat</span>, and <span style=\"font-family: Courier New;\">input.cfd</span> in the directory <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/</span>. </li>
-<li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>
+<li>
+Put the files <span style=\"font-family: Courier New;\">input.isat</span>,
+<span style=\"font-family: Courier New;\">output.isat</span>,
+<span style=\"font-family: Courier New;\">set.isat</span>,
+<span style=\"font-family: Courier New;\">input.ffd</span>,
+<span style=\"font-family: Courier New;\">input.dat</span>,
+and <span style=\"font-family: Courier New;\">input.cfd</span> in the
+directory <span style=\"font-family: Courier New;\">
+Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection/</span>.
+</li>
+<li>
+Set the simulation stop time of the Modelica model to
+<span style=\"font-family: Courier New;\">180</span> seconds and choose,
+for example, the Radau solver.
+</li>
 <li>Translate the model and start the simulation. </li>
-<li>Post-process: the generation of FFD output file (plt or vtk) is blocked by default, the users should revise the codes to output. </li>
+<li>Post-process: the generation of FFD output file (plt or vtk) is blocked by
+default, the users should revise the codes to output.
+</li>
 </ol>
 </html>",revisions="<html>
 <ul>

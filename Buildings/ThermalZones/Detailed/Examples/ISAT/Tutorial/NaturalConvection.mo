@@ -80,12 +80,12 @@ equation
       smooth=Smooth.None));
   connect(TEasWal.port, roo.surf_surBou[1])
     annotation (Line(
-      points={{120,-70},{76.2,-70},{76.2,-52.8333}},
+      points={{120,-70},{76.2,-70},{76.2,-52.4167}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TWesWal.port, roo.surf_surBou[2])
     annotation (Line(
-      points={{120,-110},{76.2,-110},{76.2,-52.5}},
+      points={{120,-110},{76.2,-110},{76.2,-52.25}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
@@ -93,42 +93,96 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
+annotation (Diagram(coordinateSystem(extent={{-80,-140},{180,80}},
           preserveAspectRatio=false)),
-          __Dymola_Commands(file =    "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection.mos"
+          __Dymola_Commands(file = "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection.mos"
         "Simulate and plot"),
         experiment(Tolerance=1e-06, StopTime=7200),
-       Documentation(info="<html>
-<p>This tutorial gives step by step instructions for building and simulating a natural convection model. The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> with the ISAT program by simulating the natural convection in an empty room with only surface boundary conditions. </p>
+Documentation(info="<html>
+<p>
+This tutorial gives step by step instructions for building and simulating a
+natural convection model. The model tests the coupled simulation of
+<a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>
+with the ISAT program by simulating the natural convection in an empty room with
+only surface boundary conditions.
+</p>
 <h4>Case Description</h4>
-<p>The Rayleigh number is a dimensionless number associated with natural convection, defined as </p>
+<p>
+The Rayleigh number is a dimensionless number associated with natural convection,
+defined as
+</p>
 <p align=\"center\"><i>R<sub>a</sub> = g &beta; (T<sub>w</sub>-T<sub>e</sub>)L<sup>3</sup> &frasl; (&nu; &alpha;) </i></p>
-<p>To get a Rayleigh number of <i>1E5</i>, the flow properties are manually set as acceleration due to gravity <i>g<sub>z</sub>=-0.01</i> m/s<sup>2</sup>, thermal expansion coefficient <i>&beta;=3e-3</i> K<sup>-1</sup>, kinematic viscosity <i>&nu;=1.5e-5</i> m<sup>2</sup>/s, thermal diffusivity <i>&alpha;=2e-5</i> m<sup>2</sup>/s, and characteristic length <i>L=1</i> m. </p>
-<p>There are two inputs and two outputs in the ISAT model for this case. The inputs are (1) temperature of the west wall and (2) temperature of the east wall. The outputs are (1) average room temperature and (2) velocity.</p>
-<p>Figure (a) shows the schematic of the FFD simulation. The following conditions are applied in Modelica.: </p>
+<p>
+To get a Rayleigh number of <i>1E5</i>, the flow properties are manually set as
+acceleration due to gravity <i>g<sub>z</sub>=-0.01</i> m/s<sup>2</sup>, thermal
+expansion coefficient <i>&beta;=3e-3</i> K<sup>-1</sup>, kinematic viscosity
+<i>&nu;=1.5e-5</i> m<sup>2</sup>/s, thermal diffusivity <i>&alpha;=2e-5</i> m<sup>2</sup>/s,
+and characteristic length <i>L=1</i> m.
+</p>
+<p>
+There are two inputs and two outputs in the ISAT model for this case. The inputs
+are (1) temperature of the west wall and (2) temperature of the east wall.
+The outputs are (1) average room temperature and (2) velocity.
+</p>
+<p>
+Figure (a) shows the schematic of the FFD simulation. The following conditions are applied in Modelica.:
+</p>
 <ul>
-<li>East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&circ;C, </li>
-<li>West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&circ;C, </li>
-<li>North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>. </li>
+<li>East wall: Fixed temperature at <i>T<sub>e</sub>=0</i>&circ;C,</li>
+<li>West wall: Fixed temperature at <i>T<sub>w</sub>=1</i>&circ;C,</li>
+<li>North &amp; South wall, Ceiling, Floor: Fixed heat flux at <i>0</i> W/m<sup>2</sup>.</li>
 </ul>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvectionSchematic.png\" alt=\"image\"/> </p>
 <p align=\"center\">Figure (a) </p>
-<p>Figure (b) shows the velocity vectors and temperature contour in degree Celsius on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD. </p>
+<p>
+Figure (b) shows the velocity vectors and temperature contour in degree Celsius
+on the X-Z plane at <i>Y = 0.5</i> m as simulated by the FFD.
+</p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection.png\" alt=\"image\"/> </p>
 <p align=\"center\">Figure (b) </p>
-<p>More details of the case description can be found in <a href=\"#ZuoEtAl2012\">Zuo et al. (2012)</a>. </p>
+<p>
+More details of the case description can be found in <a href=\"#ZuoEtAl2012\">Zuo et al. (2012)</a>.
+</p>
 <h4>Step by Step Guide</h4>
 <p>This section describes step by step how to build and simulate the model. </p> 
 <ol>
 <li>Add the following component models to the <span style=\"font-family: Courier New;\">NaturalConvection</span> model: </li>
 <li><ul>
-<li><a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.ISAT</a>. This model is used to implement the data exchange between Modelica and ISAT. Name it as <span style=\"font-family: Courier New;\">roo</span>. </li>
-<li><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>. Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A. Name it as <span style=\"font-family: Courier New;\">weaDat</span>. </li>
-<li><a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>. Three models are needed to specify that internal radiation, internal convective heat gain and internal latent heat gain zero. Name these models as <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span>, respectively. </li>
-<li><a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>. This block is used to combine three scalar signals to a vector. Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>. </li>
-<li><a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>. Two models are needed to specify the temperatures on the east and west walls. Name them as <span style=\"font-family: Courier New;\">TeasWal</span> and <span style=\"font-family: Courier New;\">TwesWal</span>, respectively. </li>
+<li>
+<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.ISAT</a>.
+This model is used to implement the data exchange between Modelica and ISAT.
+Name it as <span style=\"font-family: Courier New;\">roo</span>.
+</li>
+<li>
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+Use weather data from OHare Intl. Airport, Chicago, Illinoi, U.S.A.
+Name it as <span style=\"font-family: Courier New;\">weaDat</span>.
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Sources.Constant\">Modelica.Blocks.Sources.Constant</a>.
+Three models are needed to specify that internal radiation, internal convective heat
+gain and internal latent heat gain zero. Name these models as
+<span style=\"font-family: Courier New;\">qRadGai_flow</span>,
+<span style=\"font-family: Courier New;\">qConGai_flow</span>
+and <span style=\"font-family: Courier New;\">qLatGai_flow</span>,
+respectively.
+</li>
+<li>
+<a href=\"modelica://Modelica.Blocks.Routing.Multiplex3\">Modelica.Blocks.Routing.Multiplex3</a>.
+This block is used to combine three scalar signals to a vector.
+Name it as <span style=\"font-family: Courier New;\">multiple_x3</span>.
+</li>
+<li>
+<a href=\"modelica://Buildings.HeatTransfer.Sources.FixedTemperature\">Buildings.HeatTransfer.Sources.FixedTemperature</a>.
+Two models are needed to specify the temperatures on the east and west walls.
+Name them as <span style=\"font-family: Courier New;\">TeasWal</span>
+and <span style=\"font-family: Courier New;\">TwesWal</span>, respectively.
+</li>
 </ul>
-<p><br>Note that for the other four walls with adiabatic boundary conditions, we do not need to specify a zero heat flow boundary condition because the heat flow rate transferred through a heat port from the outside is zero if the heat port is not connected from the outside. </p>
+<p>Note that for the other four walls with adiabatic boundary conditions,
+we do not need to specify a zero heat flow boundary condition because the
+heat flow rate transferred through a heat port from the outside is zero if the heat
+port is not connected from the outside. </p>
 </li>
 <li>In the textual editor mode, add the medium and the number of surfaces as shown below:
 <pre>
@@ -184,9 +238,13 @@ massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 </li>
 <li>Set the values for the following components: </li>
 <li><ul>
-<li>Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>, <span style=\"font-family: Courier New;\">qConGai_flow</span> and <span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>. </li>
-<li>Set <span style=\"font-family: Courier New;\">TEasWal</span> to <i>273.15</i> Kelvin. </li>
-<li>Set <span style=\"font-family: Courier New;\">TWesWal</span> to <i>274.15</i> Kelvin. </li>
+<li>
+Set <span style=\"font-family: Courier New;\">qRadGai_flow</span>,
+<span style=\"font-family: Courier New;\">qConGai_flow</span> and
+<span style=\"font-family: Courier New;\">qLatGai_flow</span> to <i>0</i>.
+</li>
+<li>Set <span style=\"font-family: Courier New;\">TEasWal</span> to <i>273.15</i> Kelvin.</li>
+<li>Set <span style=\"font-family: Courier New;\">TWesWal</span> to <i>274.15</i> Kelvin.</li>
 </ul></li>
 <li>Define the settings for the ISAT model:
 <p>In the <span style=\"font-family: Courier New;\">set.isat</span> file, the parameters for the ISAT model can be defined:</p>
@@ -257,27 +315,73 @@ massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
 <p>outp.outp_weight 1.0</p>
 <p>outp.outp_weight 10.0</p>
 </li>
-<li>Note: the desired outputs of isat can be altered by changing the output sensors in section 3 of the set.isat file. The available default sensors include:</li>
+<li>
+Note: the desired outputs of isat can be altered by changing the output sensors
+in section 3 of the set.isat file. The available default sensors include:
+</li>
 <li><ul>
-<li><span style=\"font-family: Courier New;\">temp_roo,</span> which outputs the average room temperature, </li>
-<li><span style=\"font-family: Courier New;\">temp_occ</span>, which outputs the average temperature of the occupied zone, </li>
-<li><span style=\"font-family: Courier New;\">vel_occ,</span> which outputs the average velocity of the occupied zone, </li>
-<li><span style=\"font-family: Courier New;\">temp_sen,</span> which outputs the temperature at a defined location (default is center of the room), </li>
-<li><span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the velocity at the a defined location (default is center of the room). </li>
-</ul></li>
+<li>
+<span style=\"font-family: Courier New;\">temp_roo,</span>
+which outputs the average room temperature,
+</li>
+<li>
+<span style=\"font-family: Courier New;\">temp_occ</span>,
+which outputs the average temperature of the occupied zone,
+</li>
+<li>
+<span style=\"font-family: Courier New;\">vel_occ,</span>
+which outputs the average velocity of the occupied zone,
+</li>
+<li><span style=\"font-family: Courier New;\">temp_sen,</span>
+which outputs the temperature at a defined location (default is center of
+the room),
+</li>
+<li>
+<span style=\"font-family: Courier New;\">vel_sen,</span> which outputs the
+velocity at the a defined location (default is center of the room).
+</li>
+</ul>
+</li>
 </ol>
-<p>Furthermore, advanced users can modify the source code located in <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span> to adjust the current sensors or add new ones.</p>
-<p>For example, in lines <span style=\"font-family: Courier New;\">324-326</span> and <span style=\"font-family: Courier New;\">344-346</span> in <span style=\"font-family: Courier New;\">utility_isat.c,</span> users can change the location of the temperature or velocity sensor.</p>
-<p>In addition, the occupied zones can be adjusted in the <span style=\"font-family: Courier New;\">average_room_temp</span> and <span style=\"font-family: Courier New;\">average_room_vel</span> functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span></p>
+<p>
+Furthermore, advanced users can modify the source code located in
+<span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span>
+to adjust the current sensors or add new ones.
+</p>
+<p>
+For example, in lines <span style=\"font-family: Courier New;\">324-326</span>
+and <span style=\"font-family: Courier New;\">344-346</span>
+in <span style=\"font-family: Courier New;\">utility_isat.c,</span>
+users can change the location of the temperature or velocity sensor.
+</p>
+<p>I
+n addition, the occupied zones can be adjusted in the
+<span style=\"font-family: Courier New;\">average_room_temp</span>
+and <span style=\"font-family: Courier New;\">average_room_vel</span>
+functions in <span style=\"font-family: Courier New;\">utility_isat.c.</span>
+</p>
 <ol>
 <li>Use the Simplified CFD Interface (SCI) to generate the input file for FFD. </li>
 <li><ul>
 <li>Use a 20 x 20 x 20 uniform grid. </li>
 <li>Set the time step size of the FFD to <i>10</i> seconds. </li>
-<li>Generate the input files which have the default names <span style=\"font-family: Courier New;\">input.cfd</span> (mesh file) and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file). </li>
-<li>Rename the files as <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> and <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, respectively. </li>
-</ul></li>
-<li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span> (an example file is provided in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/</span>):
+<li>
+Generate the input files which have the default names
+<span style=\"font-family: Courier New;\">input.cfd</span> (mesh file)
+and <span style=\"font-family: Courier New;\">zeroone.dat</span> (obstacles file).
+</li>
+<li>
+Rename the files as <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span>
+and <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>,
+respectively.
+</li>
+</ul>
+</li>
+<li>
+Revise the FFD parameter input file
+<span style=\"font-family: Courier New;\">NaturalConvection.ffd</span>
+(an example file is provided in
+<span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/</span>):
 <pre>
 inpu.parameter_file_format SCI
 inpu.parameter_file_name NaturalConvection.cfd
@@ -299,12 +403,29 @@ init.u 0.0 // Initial condition for velocity u
 init.v 0.0 // Initial condition for velocity v
 init.w 0.0 // Initial condition for velocity w
 </pre>
-<p>Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</sup></i>. </p>
+<p>
+Please note that some of the physical properties were manipulated to obtain the
+desired Rayleigh Number of <i>10<sup>5</sup></i>.
+</p>
 </li> 
-<li>Store <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span>, <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, and <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> at <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial</span>. </li>
-<li>Set simulation the stop time of the Modelica model <span style=\"font-family: Courier New;\">7200</span> seconds and choose for example the Radau solver. </li>
+<li>
+Store <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span>,
+<span style=\"font-family: Courier New;\">NaturalConvection.dat</span>,
+and <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span>
+at <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial</span>.
+</li>
+<li>
+Set simulation the stop time of the Modelica model
+<span style=\"font-family: Courier New;\">7200</span> seconds and choose
+for example the Radau solver.
+</li>
 <li>Translate the model and start the simulation. </li>
-<li>Post-process: click the Tecplot macro script <span style=\"font-family: Courier New;\">Buildings/Resources/Image/Rooms/Examples/ISAT/Tutorial/NaturalConvection.mcr</span> that will generate the temperature contour and velocity vectors shown in the Figure (b). Note: Tecplot is needed for this. </li>
+<li>
+Post-process: click the Tecplot macro script <span style=\"font-family: Courier New;\">
+Buildings/Resources/Image/Rooms/Examples/ISAT/Tutorial/NaturalConvection.mcr</span>
+that will generate the temperature contour and velocity vectors shown in the
+Figure (b). Note: Tecplot is needed for this.
+</li>
 </ol>
 </html>",revisions="<html>
 <ul>

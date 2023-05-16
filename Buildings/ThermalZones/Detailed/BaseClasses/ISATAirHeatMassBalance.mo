@@ -28,11 +28,12 @@ model ISATAirHeatMassBalance
 
   annotation (Documentation(info="<html>
 <p>
-Block derived from <a href=\"modelica://Buildings.ThermalZones.Detailed.
-BaseClasses.CFDAirHeatMassBalance\"> Buildings.ThermalZones.Detailed.
-BaseClasses.CFDAirHeatMassBalance</a> to compute the heat and 
+Block derived from
+<a href=\"modelica://Buildings.ThermalZones.Detailed.BaseClasses.CFDAirHeatMassBalance\">
+Buildings.ThermalZones.Detailed.BaseClasses.CFDAirHeatMassBalance</a> to compute the heat and 
 mass balance of the air using ISAT.
-</html>",   revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 January 5, 2022, by Xu Han, Cary Faulkner, Wangda Zuo and Michael Wetter:<br/>

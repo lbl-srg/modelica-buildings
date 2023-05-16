@@ -104,23 +104,42 @@ equation
       smooth=Smooth.None));
   end for;
   connect(bouIn.ports[1], roo.ports[1]) annotation (Line(
-      points={{60,-44},{74,-44},{74,-26},{84,-26},{84,-26},{84,-26},{84,-30},{85,
-          -30}},
+      points={{60,-44},{74,-44},{74,-26},{84,-26},{84,-26},{84,-26},{84,-29},{85,
+          -29}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouOut.ports[1], roo.ports[2]) annotation (Line(
-      points={{60,-74},{74,-74},{74,-26},{85,-26}},
+      points={{60,-74},{74,-74},{74,-27},{85,-27}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Documentation(info="<html>
-<p>The model tests the coupled simulation of <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a> with the ISAT program by simulating ventilation with mixed convection in an empty room with an exterior wall. The schematic can be found in <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection\">Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection</a>. This case is to demenstrate a case with weather conditions involved by adding an exterior wall. Also, this case adopts a pretraining feature that trains the isat model before the start of the simulation, which can be adapted duringh the simulation when needed.</p>
+annotation (Documentation(info="<html>
+<p>
+The model tests the coupled simulation of
+<a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>
+with the ISAT program by simulating ventilation with mixed convection in an
+empty room with an exterior wall.
+The schematic can be found in
+<a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection\">
+Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial.MixedConvection</a>.
+This case is to demenstrate a case with weather conditions involved by adding
+an exterior wall. Also, this case adopts a pretraining feature that trains the
+isat model before the start of the simulation, which can be adapted duringh
+the simulation when needed.
+</p>
 <h4>Case Description</h4>
-<p>There are one input and two outputs in the ISAT model for this case. The input is (1) interior surface temperature of east wall (exterior wall). The outputs are (1) Zone air temperature, (2) East wall heat flux. </p>
-<h4>Guide for Setting Pretraining </h4>
-<p>This section describes how to set up pretraining for isat. </p>
+<p>
+There are one input and two outputs in the ISAT model for this case. The input
+is (1) interior surface temperature of east wall (exterior wall). The outputs
+are (1) Zone air temperature, (2) East wall heat flux.
+</p>
+<h4>Guide for Setting Pretraining</h4>
+<p>
+This section describes how to set up pretraining for isat.
+</p>
 <ol>
-<li>Define the settings for the ISAT model: </li>
-<p>In the <span style=\"font-family: Courier New;\">set.isat</span> file, the parameters for the ISAT model can be defined:</p>
+<li>Define the settings for the ISAT model:
+<p>In the <span style=\"font-family: Courier New;\">set.isat</span> file,
+the parameters for the ISAT model can be defined:</p>
 <p>/********************************************************************************</p>
 <p>| Section 1: General settings of isat</p>
 <p>********************************************************************************/</p>
@@ -139,18 +158,21 @@ equation
 <p>/********************************************************************************</p>
 <p>| Section 3: Output settings of isat and ffd</p>
 <p>********************************************************************************/</p>
-<p>/*outp.outp_name: names of outputs including temp_occ, vel_occ, temp_sen, vel_sen, temp_rack, heat_wall1, heat_wall2, heat_wall3, heat_wall4, heat_wall5, heat_wall6*/</p>
+<p>/*outp.outp_name: names of outputs including temp_occ, vel_occ, temp_sen, vel_sen,
+temp_rack, heat_wall1, heat_wall2, heat_wall3, heat_wall4, heat_wall5, heat_wall6*/</p>
 <p>outp.outp_name temp_roo</p>
 <p>outp.outp_name heat_wall1</p>
-<p>/*outp.outp_Boundary_upper: output upper boundary for error control, when outputs have different order of magnitudes*/</p>
+<p>/*outp.outp_Boundary_upper: output upper boundary for error control,
+when outputs have different order of magnitudes*/</p>
 <p>outp.outp_Boundary_upper 284.15</p>
 <p>outp.outp_Boundary_upper 12.0</p>
-<p>/*outp.outp_Boundary_lower: output lower boundary for error control, when outputs have different order of magnitudes*/</p>
+<p>/*outp.outp_Boundary_lower: output lower boundary for error control,
+when outputs have different order of magnitudes*/</p>
 <p>outp.outp_Boundary_lower 281.15</p>
 <p>outp.outp_Boundary_lower -10.0</p>
-<li>Note: this guide is for pretraining of isat with one input. If the case has more than one inputs, the syntax of setting is:</li>
-</ol>
-<ol>
+</li>
+<li>Note: this guide is for pretraining of isat with one input.
+If the case has more than one inputs, the syntax of setting is:
 <p>/*inpu.xBoundary_upper: inpu upper boundary for genereating gird in Binary pretraining*/</p>
 <p>inpu.xBoundary_upper 40 /*upper boundary for the first input*/</p>
 <p>inpu.xBoundary_upper 40 /*upper boundary for the second input*/</p>
@@ -161,6 +183,7 @@ equation
 <p>inpu.xBoundary_lower -30 /*lower boundary for the third input*/</p>
 <p>/*inpu.divide: define coarse/fine gird in Binary pretraining*/</p>
 <p>inpu.divide 128</p>
+</li>
 </ol>
 </html>",revisions="<html>
 <ul>
@@ -169,10 +192,9 @@ equation
 </html>"),
     experiment(
       StopTime=604800,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"),
+      Tolerance=1e-06),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.mos" "Simulate and plot"),
+          "modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvection.mos" "Simulate and plot"),
     Diagram(coordinateSystem(extent={{-80,-160},{200,120}}, preserveAspectRatio=false),
         graphics));
 end MixedConvectionWithExteriorWall;
