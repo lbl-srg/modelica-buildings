@@ -36,8 +36,8 @@ equation
       points={{-43.4,64},{-40,64},{-40,59.6},{-21,59.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(eva.on, on) annotation (Line(
-      points={{-12,-54},{-92,-54},{-92,80},{-110,80}},
+  connect(watVapEva.on, on) annotation (Line(
+      points={{-12,-56},{-92,-56},{-92,80},{-110,80}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(on, onSwi.u) annotation (Line(

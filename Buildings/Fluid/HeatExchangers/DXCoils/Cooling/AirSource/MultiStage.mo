@@ -29,8 +29,8 @@ model MultiStage
     annotation (Placement(transformation(extent={{-56,-68},{-44,-56}})));
 
 equation
-  connect(onSwi.y, eva.on) annotation (Line(
-      points={{-43.4,-62},{-26,-62},{-26,-54},{-12,-54}},
+  connect(onSwi.y, watVapEva.on) annotation (Line(
+      points={{-43.4,-62},{-26,-62},{-26,-56},{-12,-56}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.u, stage) annotation (Line(

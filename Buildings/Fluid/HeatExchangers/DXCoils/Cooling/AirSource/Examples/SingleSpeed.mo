@@ -109,8 +109,9 @@ equation
       points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TConIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-42,50},{-42,
-          13},{-11,13}}, color={0,0,127}));
+  connect(TConIn.y, sinSpeDX.TOut) annotation (Line(points={{-79,50},{-42,50},{
+          -42,13},{-11,13}},
+                         color={0,0,127}));
   annotation (             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Cooling/AirSource/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(Tolerance=1e-6, StopTime=3600),

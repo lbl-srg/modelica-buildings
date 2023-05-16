@@ -58,7 +58,6 @@ model SingleSpeedPLR
     final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     final from_dp=true,
     final computeReevaporation=true,
-    final eva(m(start=0)),
     final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -543,11 +542,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(small.y, multiSum.u[1]) annotation (Line(
-      points={{101,-90},{110,-90},{110,-111.9},{118,-111.9}},
+      points={{101,-90},{110,-90},{110,-115.05},{118,-115.05}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(Q_flowEPlu.y, multiSum.u[2]) annotation (Line(
-      points={{101,-130},{108,-130},{108,-116.1},{118,-116.1}},
+      points={{101,-130},{108,-130},{108,-112.95},{118,-112.95}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},

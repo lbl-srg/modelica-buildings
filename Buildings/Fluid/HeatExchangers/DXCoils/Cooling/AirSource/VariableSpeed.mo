@@ -50,8 +50,8 @@ equation
       points={{-110,80},{-90,80},{-90,70},{-65.2,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(deaBan.y, eva.on) annotation (Line(
-      points={{-51.4,70},{-48,70},{-48,62},{-92,62},{-92,-54},{-12,-54}},
+  connect(deaBan.y, watVapEva.on) annotation (Line(
+      points={{-51.4,70},{-48,70},{-48,62},{-92,62},{-92,-56},{-12,-56}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.y,dxCoi.stage)  annotation (Line(

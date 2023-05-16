@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource;
 model SingleSpeed "Single speed water source DX coils"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialWaterCooledDXCoil(
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.SingleSpeed eva);
 
   Modelica.Blocks.Interfaces.BooleanInput on

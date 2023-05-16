@@ -39,7 +39,7 @@ model SingleSpeed "Test model for single speed DX coil"
     dpCon_nominal=dpCon_nominal,
     show_T=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
-                 "Single speed DX coil"
+    "Single speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil

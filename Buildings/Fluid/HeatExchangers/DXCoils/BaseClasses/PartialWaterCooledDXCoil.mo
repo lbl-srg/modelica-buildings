@@ -145,52 +145,38 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     annotation (Placement(transformation(extent={{-50,-110},{-70,-90}})));
 
   // Components
-  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil
-    eva constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    redeclare final
-      Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
-      datCoi=datCoi,
-    dxCoi(
-      redeclare final
-        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
-        datCoi=datCoi,
-      wetCoi(
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          coiCap,
-        redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
-          datCoi=datCoi,
-        appDewPt(redeclare final
-            Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
-            datCoi=datCoi, uacp(redeclare final
-              Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues
-              per))),
-      dryCoi(redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
-          coiCap, redeclare final
-          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
-          datCoi=datCoi)),
-    redeclare final package Medium = MediumEva,
-    final use_mCon_flow=true,
-    final dp_nominal=dpEva_nominal,
-    final allowFlowReversal=allowFlowReversalEva,
-    final show_T=false,
-    final from_dp=from_dpEva,
-    final linearizeFlowResistance=linearizeFlowResistanceEva,
-    final deltaM=deltaMEva,
-    final m_flow_small=mEva_flow_small,
-    final tau=tauEva,
-    final homotopyInitialization=homotopyInitialization,
-    final energyDynamics=energyDynamics,
-    final p_start=pEva_start,
-    final T_start=TEva_start,
-    final X_start=XEva_start,
-    final C_start=CEva_start,
-    final computeReevaporation=computeReevaporation,
-    eva(nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
+    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
+      redeclare final package Medium = MediumEva,
+      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+      dxCoi(
+      redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+      wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled coiCap,
+        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+        appDewPt(
+          redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+          uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues per))),
+      dryCoi(
+        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled coiCap,
+        redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi)),
+      final use_mCon_flow=true,
+      final dp_nominal=dpEva_nominal,
+      final allowFlowReversal=allowFlowReversalEva,
+      final show_T=false,
+      final from_dp=from_dpEva,
+      final linearizeFlowResistance=linearizeFlowResistanceEva,
+      final deltaM=deltaMEva,
+      final m_flow_small=mEva_flow_small,
+      final tau=tauEva,
+      final homotopyInitialization=homotopyInitialization,
+      final energyDynamics=energyDynamics,
+      final p_start=pEva_start,
+      final T_start=TEva_start,
+      final X_start=XEva_start,
+      final C_start=CEva_start,
+      final computeReevaporation=computeReevaporation,
+      watVapEva(
+        nomVal=Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
           COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
           SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
@@ -200,7 +186,8 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
           phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
           p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
           tWet=datCoi.sta[nSta].nomVal.tWet,
-          gamma=datCoi.sta[nSta].nomVal.gamma))) "Direct evaporative coil"
+          gamma=datCoi.sta[nSta].nomVal.gamma)))
+      "Direct evaporative coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u watCooCon(
