@@ -2,9 +2,9 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoolingCoil
   "Partial model for DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    final is_cooCoi=datCoi.is_cooCoi,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling
-      dxCoi(redeclare package Medium = Medium),
+      dxCoi(redeclare final package Medium = Medium,
+      redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
       prescribedHeatFlowRate=true),
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi);
@@ -17,9 +17,9 @@ partial model PartialDXCoolingCoil
       iconTransformation(extent={{100,40},{120,60}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation eva(
-    redeclare package Medium = Medium,
-     nomVal=datCoi.sta[nSta].nomVal,
-     computeReevaporation=computeReevaporation) if is_cooCoi
+    redeclare final package Medium = Medium,
+    nomVal=datCoi.sta[nSta].nomVal,
+    final computeReevaporation=computeReevaporation)
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 

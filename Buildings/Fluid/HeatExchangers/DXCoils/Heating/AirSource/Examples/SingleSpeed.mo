@@ -17,12 +17,10 @@ model SingleSpeed "Test model for single speed DX heating coil"
     nSta=1,
     minSpeRat=0.2,
     sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
-        is_cooCoi=false,
+        Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-          is_cooCoi=false,
+          Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=16381.47714,
           COP_nominal=3.90494,
           SHR_nominal=1,
@@ -38,7 +36,7 @@ model SingleSpeed "Test model for single speed DX heating coil"
     final QDefResCap=10500,
     final QCraCap=200)
     "DX heating coil data record"
-    annotation (Placement(transformation(extent={{60,34},{80,54}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
 
 
   Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.SingleSpeed sinSpeDX(

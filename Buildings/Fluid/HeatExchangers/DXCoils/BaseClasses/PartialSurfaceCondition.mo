@@ -3,7 +3,7 @@ partial block PartialSurfaceCondition
   "Partial block for apparatus dew and dry point calculation"
   extends Modelica.Blocks.Icons.Block;
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialCoolingParameters;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);

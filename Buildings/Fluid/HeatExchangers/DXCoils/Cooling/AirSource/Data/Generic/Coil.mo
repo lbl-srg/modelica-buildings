@@ -1,10 +1,68 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic;
 record Coil
   "Performance record for a DX Cooling Coil with one or multiple stages"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
-    final is_cooCoi=true);
+  extends Modelica.Icons.Record;
 
+  final parameter Boolean sinStaOpe = nSta == 1
+    "The data record is used for single speed operation"
+    annotation(HideResult=true);
+
+  parameter Integer nSta(
+    final min=1)
+    "Number of stages"
+    annotation (Dialog(enable = not sinStaOpe));
+
+  parameter Real minSpeRat(
+    final min=0,
+    final max=1)=0.2
+    "Minimum speed ratio"
+    annotation (Dialog(enable = not sinStaOpe));
+
+  replaceable parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
+    "Data record for coil performance at each stage";
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small=0.0001*sta[nSta].nomVal.m_flow_nominal
+    "Small mass flow rate for regularization near zero flow"
+    annotation (Dialog(group="Minimum conditions"));
+
+  /////////////////////////////////////////////////////////////////////////////////////
+  // Data added for type compatibility, but not used for calculations in cooling coils
+  final parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation
+    defOpe=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
+    "Defrost operation type"
+    annotation(HideResult=true);
+
+  final parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostTimeMethods.timed
+    "Type of method used to calculate defrost time fraction"
+    annotation(HideResult=true);
+
+  final parameter Real tDefRun(
+    final unit="1",
+    displayUnit="1")=0
+    "Time period fraction for which defrost cycle is run"
+    annotation(HideResult=true);
+
+  final parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=273.65
+    "Maximum temperature at which defrost operation is activated"
+    annotation(HideResult=true);
+
+  final parameter Modelica.Units.SI.HeatFlowRate QDefResCap(min=0) = 0
+    "Heating capacity of resistive defrost element"
+    annotation(HideResult=true);
+
+  final parameter Modelica.Units.SI.HeatFlowRate QCraCap(min=0) = 0
+    "Crankcase heater capacity"
+    annotation(HideResult=true);
+//-----------------------------Performance curves-----------------------------//
+  final parameter Real defEIRFunT[6] = fill(0,6)
+    "Biquadratic coefficients for defrost capacity function of temperature"
+    annotation(HideResult=true);
+
+  final parameter Real PLFraFunPLR[:] = {1}
+    "Quadratic/cubic equation for part load fraction as a function of part-load ratio"
+    annotation(HideResult=true);
 annotation (preferredView="info",
 defaultComponentName="datCoi",
 defaultComponentPrefixes="parameter",

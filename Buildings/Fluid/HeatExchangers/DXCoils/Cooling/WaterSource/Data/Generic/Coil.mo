@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic;
-record DXCoil
+record Coil
   "Performance record for a DX Cooling Coil with one or multiple stages"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil(
@@ -130,4 +130,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DXCoil;
+end Coil;

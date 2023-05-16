@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource;
 model VariableSpeed "Variable speed DX cooling coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
       final variableSpeedCoil=true,
       wetCoi(redeclare

@@ -1,17 +1,14 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
+﻿within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoilCapacityAirSource
   "Calculates cooling capacity at given temperature and flow fraction for air source coils"
-  extends
-    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(
-  redeclare replaceable Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta],
-  use_mCon_flow=false);
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(
+    use_mCon_flow=false);
 
 equation
  if stage > 0 then
     for iSta in 1:nSta loop
-
-    Q_flow[iSta] = corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*sta[iSta].nomVal.Q_flow_nominal;
-    EIR[iSta]    = corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/sta[iSta].nomVal.COP_nominal;
+      Q_flow[iSta] = corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*sta[iSta].nomVal.Q_flow_nominal;
+      EIR[iSta]    = corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/sta[iSta].nomVal.COP_nominal;
     end for;
  else //cooling coil off
    Q_flow = fill(0, nSta);

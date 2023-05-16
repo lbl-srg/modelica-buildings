@@ -1,13 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource;
 model SingleSpeed
   "Single speed DX heating coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil(
-    dxCoi(
-      final variableSpeedCoil=false,
-      redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource
-        coiCap),
-    computeReevaporation=false,
-    use_mCon_flow=false);
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXHeatingCoil;
 
   Modelica.Blocks.Sources.Constant speRat(
     final k=1)

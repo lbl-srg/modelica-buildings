@@ -19,7 +19,6 @@ model SingleSpeed
     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil
     datCoi(nSta=1, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
-        is_cooCoi=true,
         spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(

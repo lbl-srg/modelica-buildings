@@ -47,10 +47,6 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.InputPower</a>.
 revisions="<html>
 <ul>
 <li>
-April 5, 2023, by Xing Lu:<br/>
-Added parameter value for <code>is_CooCoi</code> to instance <code>pwr</code>.
-</li>
-<li>
 August 29, 2012 by Kaustubh Phalak:<br/>
 First implementation.
 </li>

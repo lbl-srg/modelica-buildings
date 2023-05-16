@@ -7,7 +7,7 @@ model WetCoil "Test model for WetCoil"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil wetCoi(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
+    datCoi = datCoi,
     variableSpeedCoil=true,
     use_mCon_flow=false,
     redeclare

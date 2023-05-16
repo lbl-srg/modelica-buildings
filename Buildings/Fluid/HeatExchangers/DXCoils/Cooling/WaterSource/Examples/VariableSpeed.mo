@@ -40,15 +40,23 @@ model VariableSpeed "Test model for variable speed DX coil"
                                  "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi(nSta=1, sta={
-   Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.Stage(
-   spe=1800/60,
-   nomVal=Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues(
-      Q_flow_nominal=-21000,COP_nominal=3,SHR_nominal=0.8,
-      m_flow_nominal=1.5,mCon_flow_nominal=1,TEvaIn_nominal=273.15+26.67,
-      TConIn_nominal=273.15+29.4),
-    perCur=Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Examples.PerformanceCurves.Curve_I())}) "Coil data"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  parameter
+    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
+    datCoi(nSta=1, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.Stage(
+        spe=1800/60,
+        nomVal=
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=-21000,
+          COP_nominal=3,
+          SHR_nominal=0.8,
+          m_flow_nominal=1.5,
+          mCon_flow_nominal=1,
+          TEvaIn_nominal=273.15 + 26.67,
+          TConIn_nominal=273.15 + 29.4),
+        perCur=
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Examples.PerformanceCurves.Curve_I())})
+    "Coil data" annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Ramp mCon_flow(
     duration=600,
     startTime=6000,
@@ -83,8 +91,8 @@ equation
           -12,38},{-12,4},{-6,4}}, color={0,127,255}));
   connect(sinAir.ports[1], varSpeDX.port_b) annotation (Line(points={{32,40},{
           28,40},{28,4},{14,4}}, color={0,127,255}));
-  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{69,-38},{68,
-          -38},{52,-38}},          color={0,0,127}));
+  connect(mCon_flow.y, souWat.m_flow_in) annotation (Line(points={{69,-38},{54,
+          -38},{54,-38}},          color={0,0,127}));
   connect(speRat.y, varSpeDX.speRat) annotation (Line(points={{-69,12},{-40,12},
           {-7.2,12}},     color={0,0,127}));
   annotation (             __Dymola_Commands(file=

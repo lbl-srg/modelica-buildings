@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-partial model PartialDXCoil "Partial model for DX coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
+partial model PartialDXCoil
+  "Partial model for air or water cooled DX cooling coil"
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialCoolingParameters;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
@@ -9,15 +10,10 @@ partial model PartialDXCoil "Partial model for DX coil"
   constant Boolean use_mCon_flow
     "Set to true to enable connector for the condenser mass flow rate";
 
-  parameter Boolean is_cooCoi
-    "= false, if DX coil is in the heating operation";
-
   parameter Boolean computeReevaporation=true
     "Set to true to compute reevaporation of water that accumulated on coil"
     annotation (Evaluate=true, Dialog(tab="Dynamics", group="Moisture balance"));
 
-  parameter String substanceName="water"
-    "Name of species substance";
 
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
@@ -43,11 +39,19 @@ partial model PartialDXCoil "Partial model for DX coil"
     "Sensible heat flow rate"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
 
-  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoi(
+  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface dxCoi
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface(
     datCoi=datCoi,
     final use_mCon_flow=use_mCon_flow)
     "DX coil"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));
+
+protected
+  constant String substanceName="water"
+    "Name of species substance";
+  parameter Integer i_x(fixed=false)
+    "Index of substance";
 
   // Flow reversal is not needed. Also, if ff < ffMin/4, then
   // Q_flow and EIR are set the zero. Hence, it is safe to assume
@@ -75,10 +79,6 @@ partial model PartialDXCoil "Partial model for DX coil"
     final y=port_a.m_flow) "Inlet air mass flow rate"
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
 
-protected
-  parameter Integer i_x(fixed=false)
-    "Index of substance";
-
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Temperature of the control volume"
     annotation (Placement(transformation(extent={{66,16},{78,28}})));
@@ -96,7 +96,6 @@ initial algorithm
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
     {datCoi.sta[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
-
 
   // Compute index of species vector that carries the substance name
   i_x :=-1;
@@ -126,12 +125,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(mCon_flow,dxCoi. mCon_flow) annotation (Line(points={{-110,-30},{-24,
+  connect(mCon_flow, dxCoi.mCon_flow) annotation (Line(points={{-110,-30},{-24,
           -30},{-24,42},{-21,42}}, color={0,0,127}));
-
-  if is_cooCoi then
-
-  end if;
 
   annotation (
 defaultComponentName="dxCoi",

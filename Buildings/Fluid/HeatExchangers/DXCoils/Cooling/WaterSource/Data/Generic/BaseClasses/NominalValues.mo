@@ -6,7 +6,7 @@ record NominalValues "Data record of nominal values for water source DX coils"
 //-----------------------------Nominal conditions-----------------------------//
 
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal
-    "Nominal water mass flow rate at condensers"
+    "Nominal water mass flow rate at condenser"
     annotation (Dialog(group="Nominal condition"));
 
 annotation (defaultComponentName="nomVal",
@@ -16,7 +16,7 @@ annotation (defaultComponentName="nomVal",
 This is the base record of nominal values for water source DX cooling coil models.
 </p>
 <p>See the information section of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil\">
 Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>

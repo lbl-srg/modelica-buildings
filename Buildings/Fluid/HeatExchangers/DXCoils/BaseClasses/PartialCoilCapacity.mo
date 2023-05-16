@@ -34,10 +34,7 @@ partial block PartialCoilCapacity
     "Number of coil stages (not counting the off stage)"
     annotation(Evaluate=true);
 
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
-     constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage
+ replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
      "Performance data for this stage";
   output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flow rate";

@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model DryCoil "Test model for DryCoil"
 extends Modelica.Icons.Example;
-  package Medium =
-      Buildings.Media.Air;
+  package Medium = Buildings.Media.Air;
   Modelica.Blocks.Sources.Constant TConIn(
     k=273.15 + 35) "Condenser inlet air temperature"
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
@@ -33,8 +32,7 @@ extends Modelica.Icons.Example;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer datCoi(
-    is_cooCoi=true,
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi(
     sta={
       Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,

@@ -1,10 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-partial block EssentialParameters "A partial block for essential parameters"
+partial block EssentialCoolingParameters
+  "A partial block for essential parameters for cooling DX coils"
 
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
-    datCoi constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer
+ replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 
@@ -12,7 +10,7 @@ protected
   parameter Integer nSta=datCoi.nSta "Number of stages";
   annotation ( Documentation(info="<html>
 <p>
-This partial block declares parameters that are required by most classes
+This partial block declares parameters that are required by most classes for cooling DX coils
 in the package
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils\">
 Buildings.Fluid.HeatExchangers.DXCoils</a>.
@@ -40,4 +38,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end EssentialParameters;
+end EssentialCoolingParameters;

@@ -1,10 +1,10 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses;
+within Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.BaseClasses;
 record NominalValues "Data record of nominal values"
   extends Modelica.Icons.Record;
 
 //-----------------------------Nominal conditions-----------------------------//
-  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final max=0)
-    "Nominal capacity (negative number)"
+  parameter Modelica.Units.SI.HeatFlowRate Q_flow_nominal(final min=0)
+    "Nominal capacity"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Real COP_nominal(final unit="1") "Nominal coefficient of performance"
@@ -22,7 +22,7 @@ record NominalValues "Data record of nominal values"
     annotation (Dialog(tab="General", group="Nominal condition"));
 
   parameter Modelica.Units.SI.Temperature TConIn_nominal=308.15
-    "Condenser entering temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb for air cooled)"
+    "Condenser entering temperature at rating condition"
     annotation (Dialog(tab="General", group="Nominal condition"));
 
   parameter Real phiIn_nominal(final unit="1")=0.5
@@ -33,43 +33,31 @@ record NominalValues "Data record of nominal values"
     "Atmospheric pressure"
     annotation (Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Time tWet=1400
+  final parameter Modelica.Units.SI.Time tWet=0
     "Time until moisture drips from coil when a dry coil is switched on"
-    annotation (Dialog(tab="General", group="Re-evaporation data"));
+    annotation(HideResult=true);
 
-  parameter Real gamma(min=0) = 1.5
+  final parameter Real gamma(min=0) = 0
     "Ratio of evaporation heat transfer divided by latent heat transfer at nominal conditions"
-    annotation(Dialog(tab="General",group="Re-evaporation data"));
+   annotation(HideResult=true);
 
 annotation (defaultComponentName="nomVal",
               preferredView="info",
   Documentation(info="<html>
 <p>
-This is the base record of nominal values for air source DX cooling coil models.
+This is the base record of nominal values for air source DX heating coil models.
 </p>
 <p>
 See the information section of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil\">
+Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil</a>
 for a description of the data.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Added Boolean conditional for cooling mode operation. Added conditional enable to parameters for SHR_nominal, tWet and gamma.
-</li>
-<li>
-September 25, 2012 by Michael Wetter:<br/>
-Revised documentation.
-</li>
-<li>
-September 4, 2012 by Michael Wetter:<br/>
-Added parameters for evaporation model.
-</li>
-<li>
-August 13, 2012 by Kaustubh Phalak:<br/>
+May 16, 2023 by Michael Wetter:<br/>
 First implementation.
 </li>
 </ul>

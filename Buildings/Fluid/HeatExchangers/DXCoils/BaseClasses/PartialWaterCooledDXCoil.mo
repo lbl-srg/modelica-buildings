@@ -1,8 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model PartialWaterCooledDXCoil "Base class for water source DX coils"
   extends Buildings.BaseClasses.BaseIcon;
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters(
-          redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi);
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialCoolingParameters(
+      redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi);
 
   replaceable package MediumEva =
       Modelica.Media.Interfaces.PartialMedium "Medium for evaporator"
@@ -144,17 +145,33 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     annotation (Placement(transformation(extent={{-50,-110},{-70,-90}})));
 
   // Components
-  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
-   constrainedby
+  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil
+    eva constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
-    redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-    dxCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-          wetCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled coiCap,
-                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-                 appDewPt(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
-                         uacp(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues per))),
-          dryCoi(redeclare final Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled coiCap,
-                 redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi)),
+    redeclare final
+      Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
+      datCoi=datCoi,
+    dxCoi(
+      redeclare final
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
+        datCoi=datCoi,
+      wetCoi(
+        redeclare final
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
+          coiCap,
+        redeclare final
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
+          datCoi=datCoi,
+        appDewPt(redeclare final
+            Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
+            datCoi=datCoi, uacp(redeclare final
+              Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues
+              per))),
+      dryCoi(redeclare final
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacityWaterCooled
+          coiCap, redeclare final
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil
+          datCoi=datCoi)),
     redeclare final package Medium = MediumEva,
     final use_mCon_flow=true,
     final dp_nominal=dpEva_nominal,
@@ -172,17 +189,18 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     final X_start=XEva_start,
     final C_start=CEva_start,
     final computeReevaporation=computeReevaporation,
-    eva(final nomVal=Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
-        Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
-        COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
-        SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
-        m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
-        TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,
-        TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
-        phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
-        p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
-        tWet= datCoi.sta[nSta].nomVal.tWet,
-        gamma=datCoi.sta[nSta].nomVal.gamma))) "Direct evaporative coil"
+    eva(nomVal=
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Q_flow_nominal=datCoi.sta[nSta].nomVal.Q_flow_nominal,
+          COP_nominal=datCoi.sta[nSta].nomVal.COP_nominal,
+          SHR_nominal=datCoi.sta[nSta].nomVal.SHR_nominal,
+          m_flow_nominal=datCoi.sta[nSta].nomVal.m_flow_nominal,
+          TEvaIn_nominal=datCoi.sta[nSta].nomVal.TEvaIn_nominal,
+          TConIn_nominal=datCoi.sta[nSta].nomVal.TConIn_nominal,
+          phiIn_nominal=datCoi.sta[nSta].nomVal.phiIn_nominal,
+          p_nominal=datCoi.sta[nSta].nomVal.p_nominal,
+          tWet=datCoi.sta[nSta].nomVal.tWet,
+          gamma=datCoi.sta[nSta].nomVal.gamma))) "Direct evaporative coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.HeatExchangers.HeaterCooler_u watCooCon(
@@ -270,7 +288,7 @@ equation
   connect(eva.port_b, port_b)
     annotation (Line(points={{10,0},{100,0}},           color={0,127,255}));
   connect(eva.port_a, port_a)
-    annotation (Line(points={{-10,0},{-10,0},{-100,0}},    color={0,127,255}));
+    annotation (Line(points={{-10,0},{-100,0}},            color={0,127,255}));
   connect(watCooCon.port_b, portCon_b) annotation (Line(points={{-40,-80},{-60,-80},
           {-60,-100}}, color={0,127,255}));
   connect(eva.P, P) annotation (Line(points={{11,9},{40,9},{40,90},{110,90}},
@@ -282,10 +300,10 @@ equation
   connect(watCooCon.port_a, senMasFloCon.port_b)
     annotation (Line(points={{-20,-80},{20,-80}},color={0,127,255}));
   connect(senMasFloCon.m_flow, eva.mCon_flow) annotation (Line(points={{30,-69},
-          {30,-69},{30,-38},{30,-30},{-20,-30},{-20,-3},{-11,-3}},     color={0,
+          {30,-30},{-20,-30},{-20,-3},{-11,-3}},                       color={0,
           0,127}));
-  connect(TConEntWat.y, eva.TOut) annotation (Line(points={{-39,11},{-20,11},{
-          -20,4},{-20,4},{-20,3},{-11,3}}, color={0,0,127}));
+  connect(TConEntWat.y, eva.TOut) annotation (Line(points={{-39,11},{-20,11},{-20,
+          3},{-11,3}},                     color={0,0,127}));
   connect(portCon_a, senMasFloCon.port_a) annotation (Line(points={{60,-100},{60,
           -100},{60,-80},{40,-80}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
