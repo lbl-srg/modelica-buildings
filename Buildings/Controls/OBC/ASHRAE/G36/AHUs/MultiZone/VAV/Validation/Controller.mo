@@ -2,8 +2,8 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Validation;
 model Controller "Validation controller model"
 
   Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.Controller conAHU(
-    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1_2016,
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final eneStd=Buildings.Controls.OBC.ASHRAE.G36.Types.EnergyStandard.ASHRAE90_1,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_4B,
     final minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper,
@@ -30,22 +30,22 @@ model Controller "Validation controller model"
     final startTime=0)
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOut(
     final amplitude=5,
     final offset=18 + 273.15,
     final freqHz=1/3600) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,180},{-220,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin ducStaPre(
     final offset=200,
     final amplitude=150,
     final freqHz=1/3600) "Duct static pressure"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine2(
     final offset=3,
     final amplitude=2,
     final freqHz=1/9600) "Duct static pressure setpoint reset requests"
     annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine3(
     final amplitude=6,
     final freqHz=1/9600)
     "Maximum supply temperature setpoint reset"
@@ -125,18 +125,8 @@ model Controller "Validation controller model"
     final period=3600)
     "Freeze protection reset"
     annotation (Placement(transformation(extent={{-240,-170},{-220,-150}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul "Supply fan speed"
-    annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
-    "Convert boolean to real"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Logical.Pre pre "Break loop"
     annotation (Placement(transformation(extent={{220,30},{240,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp supFanSpe(
-    final duration=3600,
-    final height=0.7,
-    final offset=0.1) "Supply fan speed"
-    annotation (Placement(transformation(extent={{-200,-120},{-180,-100}})));
 
 equation
   connect(TOut.y, conAHU.TOut) annotation (Line(points={{-218,190},{62,190},{62,
@@ -181,18 +171,10 @@ equation
     annotation (Line(points={{-218,-160},{-202,-160}}, color={255,0,255}));
   connect(not1.y, conAHU.u1SofSwiRes) annotation (Line(points={{-178,-160},{56,
           -160},{56,-76.3636},{96,-76.3636}}, color={255,0,255}));
-  connect(supFanSpe.y, mul.u2) annotation (Line(points={{-178,-110},{-120,-110},
-          {-120,-106},{-2,-106}}, color={0,0,127}));
-  connect(booToRea.y, mul.u1) annotation (Line(points={{-58,20},{-20,20},{-20,-94},
-          {-2,-94}}, color={0,0,127}));
   connect(conAHU.y1SupFan, pre.u) annotation (Line(points={{184,-40},{200,-40},
           {200,40},{218,40}},          color={255,0,255}));
   connect(pre.y, conAHU.u1SupFan) annotation (Line(points={{242,40},{250,40},{
           250,70},{50,70},{50,16.3636},{96,16.3636}}, color={255,0,255}));
-  connect(pre.y, booToRea.u) annotation (Line(points={{242,40},{250,40},{250,70},
-          {-100,70},{-100,20},{-82,20}}, color={255,0,255}));
-  connect(mul.y, conAHU.uSupFan_actual) annotation (Line(points={{22,-100},{50,
-          -100},{50,-38.1818},{96,-38.1818}}, color={0,0,127}));
 
   connect(sumDesPopBreZon.y, conAHU.VSumAdjPopBreZon_flow) annotation (Line(
         points={{-178,100},{38,100},{38,5.45455},{96,5.45455}}, color={0,0,127}));

@@ -3,24 +3,31 @@ block Setpoints
     "Specify zone minimum outdoor air and minimum airflow set points for compliance with ASHRAE standard 62.1"
 
   parameter Boolean have_winSen=false
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=false
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=false
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_parFanPowUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not have_SZVAV and not have_parFanPowUni));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_SZVAV and not have_typTerUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not have_SZVAV and not have_typTerUni));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and (not have_parFanPowUni and not have_typTerUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not have_parFanPowUni and not have_typTerUni));
 
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation(Dialog(enable=have_occSen));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_occSen));
   parameter Real VAreBreZon_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -30,31 +37,35 @@ block Setpoints
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design population component of the breathing zone outdoor airflow"
-    annotation(Dialog(group="Design conditions"));
+    annotation (Dialog(group="Design conditions"));
   parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
     "Design zone minimum airflow setpoint"
-    annotation(Dialog(enable=not have_SZVAV, group="Design conditions"));
+    annotation (Dialog(enable=not have_SZVAV, group="Design conditions"));
   parameter Real VCooMax_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and not have_SZVAV, group="Design conditions"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not have_SZVAV, group="Design conditions"));
   parameter Real zonDisEff_cool=1.0
     "Zone cooling air distribution effectiveness"
-    annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness"));
   parameter Real zonDisEff_heat=0.8
     "Zone heating air distribution effectiveness"
-    annotation(Dialog(tab="Advanced", group="Distribution effectiveness"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if open, false if closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-340,210},{-300,250}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -200,8 +211,7 @@ protected
     have_SZVAV
     "Occupied minimum airflow setpoint"
     annotation (Placement(transformation(extent={{80,220},{100,240}})));
-  Buildings.Controls.OBC.CDL.Logical.Not notOcc if have_occSen
-    "Not occupied"
+  Buildings.Controls.OBC.CDL.Logical.Not notOcc if have_occSen "Not occupied"
     annotation (Placement(transformation(extent={{-280,160},{-260,180}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch unpPopBreAir
     "Population component of the required breathing zone outdoor airflow when it is unpopulated"
@@ -274,6 +284,8 @@ protected
     final k=VPopBreZon_flow)
     "Design population component of the breathing zone outdoor airflow"
     annotation (Placement(transformation(extent={{-180,290},{-160,310}})));
+  CDL.Logical.Not winOpe if have_winSen "Window is open"
+    annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
 equation
   connect(addPar.y, lin.x1) annotation (Line(points={{-198,-40},{-180,-40},{-180,
           -52},{-162,-52}}, color={0,0,127}));
@@ -323,8 +335,6 @@ equation
           -46},{-82,-46}}, color={0,0,127}));
   connect(booToRea.y, co2Con.u1) annotation (Line(points={{-138,30},{-120,30},{-120,
           -34},{-82,-34}}, color={0,0,127}));
-  connect(u1Win, or2.u1)
-    annotation (Line(points={{-320,230},{-22,230}}, color={255,0,255}));
   connect(inOccMod.y, notOccMod.u) annotation (Line(points={{-198,30},{-180,30},
           {-180,210},{-82,210}}, color={255,0,255}));
   connect(notOccMod.y, or2.u2) annotation (Line(points={{-58,210},{-40,210},{-40,
@@ -431,6 +441,10 @@ equation
           90},{78,90}}, color={0,0,127}));
   connect(desPopAir.y, popBreOutAir.f2) annotation (Line(points={{-158,300},{-100,
           300},{-100,-188},{-22,-188}}, color={0,0,127}));
+  connect(u1Win, winOpe.u)
+    annotation (Line(points={{-320,230},{-242,230}}, color={255,0,255}));
+  connect(winOpe.y, or2.u1)
+    annotation (Line(points={{-218,230},{-22,230}}, color={255,0,255}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
@@ -541,7 +555,7 @@ annotation (defaultComponentName="minFlo",
   Documentation(info="<html>
 <p>
 This sequence sets the zone minimum outdoor air and minimum airflow setpoints, for
-compliance with the ventilation rate procedure of ASHRAE Standard 62.1-2016. The
+compliance with the ventilation rate procedure of ASHRAE Standard 62.1. The
 implementation is according to ASHRAE Guideline36, Section 5.2.1.3. The calculation
 is done following the steps below.
 </p>

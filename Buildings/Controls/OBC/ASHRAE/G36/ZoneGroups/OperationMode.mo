@@ -5,17 +5,20 @@ block OperationMode "Block that outputs the operation mode"
   parameter Real preWarCooTim(
     final unit="s",
     final quantity="Time") = 10800
-    "Maximum cool-down or warm-up time";
+    "Maximum cool-down or warm-up time"
+    annotation (__cdl(ValueInReference=true));
   parameter Real TZonFreProOn(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
-    "Threshold temperature to activate the freeze protection mode";
+    "Threshold temperature to activate the freeze protection mode"
+    annotation (__cdl(ValueInReference=true));
   parameter Real TZonFreProOff(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=280.15
-    "Threshold temperature to end the freeze protection mode";
+    "Threshold temperature to end the freeze protection mode"
+    annotation (__cdl(ValueInReference=true));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ
     "True: zone scheduled to be occupied"
@@ -90,8 +93,7 @@ protected
     final k=Buildings.Controls.OBC.ASHRAE.G36.Types.OperationModes.occupied)
     "Occupied mode "
     annotation (Placement(transformation(extent={{100,340},{120,360}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(
-    final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant unoPerInd(final k=0.0)
     "Index to indicate unoccupied period"
     annotation (Placement(transformation(extent={{0,340},{20,360}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch corCooDowTim "Corrected cool down period"
@@ -899,6 +901,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/ZoneGroups/S
 </p>
 </html>",revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constant from <code>0</code> to <code>0.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 June 15, 2020, by Jianjun Hu:<br/>
 Upgraded the sequence according to ASHRAE Guideline 36, May 2020 version.

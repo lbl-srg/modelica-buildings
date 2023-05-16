@@ -11,10 +11,10 @@ model ModeAndSetPoints
     ignDemLim=false) "Operating mode and temperature setpoints"
     annotation (Placement(transformation(extent={{80,40},{100,80}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
     final freqHz=1/28800) "Cooling setpoint adjustment"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"
@@ -31,7 +31,7 @@ model ModeAndSetPoints
     final period=14400,
     final shift=1200)
     "Generate signal indicating window status"
-    annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse occSta(
     final period=14400,
     final width=0.95)
@@ -39,13 +39,13 @@ model ModeAndSetPoints
     annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerAdj(
     final k=0) "Zero adjustment"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
+    annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Switch to zero adjustment when window is open"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi2
     "Switch to zero adjustment when window is open"
-    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant cooDowTim(
     final k=1800)
     "Cooling down time"
@@ -72,42 +72,36 @@ model ModeAndSetPoints
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
-  CDL.Continuous.Sources.Constant                        THeaSetOcc(final k=
-        293.15) "Occupied heating setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetOcc(
+    final k=293.15)
+    "Occupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  CDL.Continuous.Sources.Constant                        TCooSetOcc(final k=
-        297.15) "Occupied cooling setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetOcc(
+    final k=297.15)
+    "Occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}})));
-  CDL.Continuous.Sources.Constant                        THeaSetUno(final k=
-        285.15) "Unoccupied heating setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaSetUno(
+    final k=285.15)
+    "Unoccupied heating setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  CDL.Continuous.Sources.Constant                        TCooSetUno(final k=
-        303.15) "Unoccupied cooling setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TCooSetUno(
+    final k=303.15) "Unoccupied cooling setpoint"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
+  Buildings.Controls.OBC.CDL.Logical.Not winOpe "Window is open"
+    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
 equation
-  connect(winSta.y, swi2.u2)
-    annotation (Line(points={{-98,-70},{-30,-70},{-30,-40},{-2,-40}},
-          color={255,0,255}));
-  connect(winSta.y, swi1.u2)
-    annotation (Line(points={{-98,-70},{-30,-70},{-30,-80},{-2,-80}},
-          color={255,0,255}));
   connect(zerAdj.y, swi2.u1)
-    annotation (Line(points={{-98,-30},{-20,-30},{-20,-32},{-2,-32}},
-                                                                 color={0,0,127}));
+    annotation (Line(points={{-98,-20},{-20,-20},{-20,-22},{-2,-22}}, color={0,0,127}));
   connect(zerAdj.y, swi1.u1)
-    annotation (Line(points={{-98,-30},{-20,-30},{-20,-72},{-2,-72}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{-98,-20},{-20,-20},{-20,-72},{-2,-72}}, color={0,0,127}));
   connect(cooSetAdj.y, swi2.u3)
-    annotation (Line(points={{-58,-50},{-30,-50},{-30,-48},{-2,-48}},
-                                                                   color={0,0,127}));
+    annotation (Line(points={{-58,-40},{-50,-40},{-50,-38},{-2,-38}}, color={0,0,127}));
   connect(heaSetAdj.y, swi1.u3)
     annotation (Line(points={{-98,-100},{-40,-100},{-40,-88},{-2,-88}},color={0,0,127}));
   connect(cooDowTim.y, modSetPoi.cooDowTim) annotation (Line(points={{-98,160},
           {60,160},{60,78},{78,78}},color={0,0,127}));
   connect(warUpTim.y, modSetPoi.warUpTim) annotation (Line(points={{-58,140},{
-          56,140},{56,76},{78,76}},
-                                 color={0,0,127}));
+          56,140},{56,76},{78,76}}, color={0,0,127}));
   connect(ramp2.y, sin2.u)
     annotation (Line(points={{-98,110},{-82,110}}, color={0,0,127}));
   connect(sin2.y, gai.u)
@@ -120,12 +114,10 @@ equation
           40,6},{40,56},{78,56}},  color={0,0,127}));
   connect(occSch.occupied, modSetPoi.u1Occ) annotation (Line(points={{-59,-6},{
           36,-6},{36,58},{78,58}}, color={255,0,255}));
-  connect(swi2.y, modSetPoi.cooSetAdj) annotation (Line(points={{22,-40},{44,
-          -40},{44,51},{78,51}},
-                            color={0,0,127}));
+  connect(swi2.y, modSetPoi.cooSetAdj) annotation (Line(points={{22,-30},{44,-30},
+          {44,51},{78,51}}, color={0,0,127}));
   connect(swi1.y, modSetPoi.heaSetAdj) annotation (Line(points={{22,-80},{48,
-          -80},{48,49},{78,49}},
-                            color={0,0,127}));
+          -80},{48,49},{78,49}}, color={0,0,127}));
   connect(occSta.y, modSetPoi.u1OccSen) annotation (Line(points={{-58,-120},{52,
           -120},{52,46},{78,46}}, color={255,0,255}));
   connect(cooDemLimLev.y, modSetPoi.uCooDemLimLev) annotation (Line(points={{-98,
@@ -140,6 +132,12 @@ equation
           {32,20},{32,61},{78,61}}, color={0,0,127}));
   connect(THeaSetUno.y,modSetPoi.TUnoHeaSet)  annotation (Line(points={{-58,40},
           {28,40},{28,63},{78,63}}, color={0,0,127}));
+  connect(winSta.y, winOpe.u)
+    annotation (Line(points={{-98,-60},{-52,-60}}, color={255,0,255}));
+  connect(winOpe.y, swi2.u2) annotation (Line(points={{-28,-60},{-10,-60},{-10,-30},
+          {-2,-30}}, color={255,0,255}));
+  connect(winOpe.y, swi1.u2) annotation (Line(points={{-28,-60},{-10,-60},{-10,-80},
+          {-2,-80}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/AHUs/SingleZone/VAV/SetPoints/Validation/ModeAndSetPoints.mos"

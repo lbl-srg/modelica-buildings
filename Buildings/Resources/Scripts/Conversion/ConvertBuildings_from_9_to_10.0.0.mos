@@ -5,6 +5,23 @@ clear
 
 convertClear();
 
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3339
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Sine",
+             "Buildings.Controls.OBC.CDL.Continuous.Sources.Sin");
+convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sine",
+             "Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sin");
+
+// Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3288
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled",
+             "Buildings.Fluid.HeatExchangers.DXCoils.AirSource");
+convertClass("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled",
+             "Buildings.Fluid.HeatExchangers.DXCoils.WaterSource");
+
+
+
+convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1",
+             "Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1");
+
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3074
 convertClass("Buildings.Fluid.SolarCollectors.Controls.SolarPumpController",
              "Buildings.Obsolete.Fluid.SolarCollectors.Controls.SolarPumpController");
@@ -17,3 +34,9 @@ convertModifiers("Buildings.Controls.OBC.CDL.Routing.RealExtractor",
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1",
              "Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1");
+             
+// Conversion for https://github.com/lbl-srg/modelica-buildings/pull/3321
+convertClass("Buildings.Fluid.Movers.SpeedControlled_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.SpeedControlled_Nrpm");
+convertClass("Buildings.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm",
+             "Buildings.Obsolete.Fluid.Movers.Preconfigured.SpeedControlled_Nrpm");

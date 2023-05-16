@@ -56,10 +56,11 @@ INVALID_IN_MOS=[]
 # The check for lineColor is from
 # https://github.com/modelica/ModelicaStandardLibrary/blob/master/.CI/check_deprecated_line_color.py
 INVALID_REGEXP_IN_MO=["StopTime\s*=\s*\d\s*[*]\s*\d+",
-                      "fontSize\s*=",
+                      "(Documentation\s*\(((.|\r?\n)*?))font-size\s*:",
                       "file\s*=\s*\"Resources", # This should be file="modelica://Buildings/Resources
                       "parameter.*Boolean.*homotopyInitialization",
-                      "(Text\s*\([^\).]*)lineColor"]
+                      "(Text\s*\([^\)]*)lineColor",
+                      "(Line\s*\([^\)]*)lineThickness"]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
@@ -113,11 +114,17 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
     for string in listOfStrings:
         match = re.search(string, filTex, re.I)
         if match is not None:
+            cou = match.group().count('\n')
+            if cou > 1:
+                # Create short message as the match can be many lines long.
+                msg = match.group().split('\n')[0] + "..."
+            else:
+                msg = match.group()
             reportError("File '"
                         + getRelativeMoPath(fileName)
                         + "' contains invalid string regular expression '"
                         + string + "' in '"
-                        + match.group() + "'.")
+                        + msg + "'.")
 
 #########################################################
 def reportErrorIfMissing(fileName, listOfStrings):

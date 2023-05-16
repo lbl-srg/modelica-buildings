@@ -31,7 +31,8 @@ partial model PartialSeries "Partial model for series network"
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumDis(
     redeclare final package Medium = Medium,
     final m_flow_nominal=datDes.mPumDis_flow_nominal,
-    final allowFlowReversal=allowFlowReversalSer)
+    final allowFlowReversal=allowFlowReversalSer,
+    dp_nominal=150E3)
     "Distribution pump"
     annotation (Placement(transformation(
       extent={{10,-10},{-10,10}},
@@ -275,6 +276,10 @@ equation
     coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
       Documentation(revisions="<html>
 <ul>
+<li>
+November 16, 2022, by Michael Wetter:<br/>
+Set correct nominal pressure for distribution pump.
+</li>
 <li>
 February 23, 2021, by Antoine Gautier:<br/>
 Refactored with base classes from the <code>DHC</code> package.<br/>

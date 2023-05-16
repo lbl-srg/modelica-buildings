@@ -3,7 +3,8 @@ block DamperValves
   "Output signals for controlling constant-volume parallel fan-powered terminal unit"
 
   parameter Real dTDisZonSetMax(unit="K")=11
-    "Zone maximum discharge air temperature above heating setpoint";
+    "Zone maximum discharge air temperature above heating setpoint"
+    annotation (__cdl(ValueInReference=true));
   parameter Real VMin_flow(
     final quantity="VolumeFlowRate",
     final unit="m3/s")
@@ -15,51 +16,50 @@ block DamperValves
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Valve"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
   parameter Real kVal(unit="1/K")=0.5
     "Gain of controller for valve control"
-    annotation(Dialog(group="Valve"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Valve"));
   parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
-    annotation(Dialog(group="Valve",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Valve",
     enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (Dialog(group="Valve",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Boolean have_preIndDam = true
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation(Dialog(group="Damper"));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation(Dialog(group="Damper", enable=not have_preIndDam));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
   parameter Real kDam(unit="1")=0.5
     "Gain of controller for damper control"
-    annotation(Dialog(group="Damper", enable=not have_preIndDam));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Damper"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation(Dialog(group="Damper",
-    enable=not have_preIndDam
-           and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Damper",
+    enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+         or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(group="Damper",
-      enable=not have_preIndDam
-             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Damper",
+      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real dTHys(unit="K")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.05
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real floHys(unit="m3/s")=0.01
     "Hysteresis for checking airflow rate"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput oveFloSet
     "Index of overriding flow setpoint, 1: set to zero; 2: set to cooling maximum; 3: set to minimum flow; 4: set to heating maximum"
@@ -257,7 +257,6 @@ block DamperValves
     "Normalized setpoint for discharge volume flow rate"
     annotation (Placement(transformation(extent={{220,140},{240,160}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide VDis_flowNor
-    if not have_preIndDam
     "Normalized discharge volume flow rate"
     annotation (Placement(transformation(extent={{220,80},{240,100}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conDam(
@@ -267,13 +266,9 @@ block DamperValves
     final Td=TdDam,
     final yMax=1,
     final yMin=0,
-    final y_reset=0) if not have_preIndDam
+    final y_reset=0)
     "Damper position controller"
     annotation (Placement(transformation(extent={{260,140},{280,160}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=1)
-    if have_preIndDam
-    "Block that can be disabled so remove the connection"
-    annotation (Placement(transformation(extent={{180,-40},{200,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi3 "Air damper position"
     annotation (Placement(transformation(extent={{280,-10},{300,10}})));
   Buildings.Controls.OBC.CDL.Logical.Not not1 "Not in unoccupied mode"
@@ -446,10 +441,6 @@ equation
           0},{278,0}},   color={255,0,255}));
   connect(conZer3.y, swi3.u1) annotation (Line(points={{-238,-20},{40,-20},{40,8},
           {278,8}},  color={0,0,127}));
-  connect(VDisSet_flowNor.y, gai.u) annotation (Line(points={{242,150},{250,150},
-          {250,70},{160,70},{160,-30},{178,-30}}, color={0,0,127}));
-  connect(gai.y, swi3.u3) annotation (Line(points={{202,-30},{220,-30},{220,-8},
-          {278,-8}}, color={0,0,127}));
   connect(conDam.y, swi3.u3) annotation (Line(points={{282,150},{300,150},{300,60},
           {220,60},{220,-8},{278,-8}},  color={0,0,127}));
   connect(VDis_flowNor.y, conDam.u_m)
@@ -634,14 +625,6 @@ annotation (
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          visible=not have_preIndDam,
-          extent={{-11.5,4.5},{11.5,-4.5}},
-          textColor={0,0,127},
-          pattern=LinePattern.Dash,
-          origin={39.5,-85.5},
-          rotation=90,
-          textString="VDis_flow"),
-        Text(
           extent={{68,96},{98,86}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
@@ -816,6 +799,11 @@ when <code>oveFloSet</code> equals to 3, force the zone airflow setpoint
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2023, by Jianjun Hu:<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

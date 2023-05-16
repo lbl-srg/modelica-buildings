@@ -2,49 +2,68 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints;
 block FreezeProtection
   "Freeze protection sequence for multizone air handling unit"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon
-    "Type of building pressure control system";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes
-    "Design of minimum outdoor air and economizer function";
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-    "Type of freeze stat";
+  parameter Boolean have_frePro=true
+    "True: enable freeze protection"
+    annotation (__cdl(ValueInReference=false));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes buiPreCon=Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefDamper
+    "Type of building pressure control system"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_frePro));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection minOADes=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+    "Design of minimum outdoor air and economizer function"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_frePro));
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat freSta=Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
+    "Type of freeze stat"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_frePro));
   parameter Boolean have_hotWatCoi=true
-    "True: the AHU has heating coil";
+    "True: the AHU has heating coil"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_frePro));
   parameter Integer minHotWatReq=2
     "Minimum heating hot-water plant request to active the heating plant"
-    annotation(Dialog(enable=have_hotWatCoi));
+    annotation(__cdl(ValueInReference=true),
+                Dialog(enable=have_hotWatCoi and have_frePro));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController heaCoiCon=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Heating coil controller"
-    annotation (Dialog(group="Heating coil controller", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real k(unit="1")=1
     "Gain of coil controller"
-    annotation (Dialog(group="Heating coil controller", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real Ti(unit="s")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(group="Heating coil controller",
-                       enable=have_hotWatCoi and
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Heating coil controller",
+                       enable=have_hotWatCoi and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real Td(unit="s")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="Heating coil controller",
-                       enable=have_hotWatCoi and
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Heating coil controller",
+                       enable=have_hotWatCoi and have_frePro and
                               (heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
                               heaCoiCon==Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real yMax=1
     "Upper limit of output"
-    annotation (Dialog(group="Heating coil controller", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real yMin=0
     "Lower limit of output"
-    annotation (Dialog(group="Heating coil controller", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Heating coil controller", enable=have_hotWatCoi and have_frePro));
   parameter Real Thys(unit="K")=0.25
     "Hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced", enable=have_frePro));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uOutDamPosMin(
     final min=0,
     final max=1,
-    final unit="1")
+    final unit="1") if have_frePro
     "Minimum economizer damper position limit as returned by the damper position limits sequence"
     annotation (Placement(transformation(extent={{-480,740},{-440,780}}),
         iconTransformation(extent={{-140,170},{-100,210}})));
@@ -82,19 +101,20 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if have_frePro
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-480,310},{-440,350}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Freeze protection stat signal. If the stat is normally open (the input is normally false), when enabling freeze protection, the input becomes true. If the stat is normally close, vice versa."
-    annotation (Placement(transformation(extent={{-480,140},{-440,180}}),
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1FreSta if freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS and
+    have_frePro
+    "Freeze protection stat signal. The stat is normally close (the input is normally true), when enabling freeze protection, the input becomes false"
+    annotation (Placement(transformation(extent={{-480,110},{-440,150}}),
         iconTransformation(extent={{-140,0},{-100,40}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1SofSwiRes if (freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat or freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Freeze protection reset signal from software switch"
     annotation (Placement(transformation(extent={{-480,0},{-440,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -110,8 +130,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{-480,-248},{-440,-208}}),
         iconTransformation(extent={{-140,-70},{-100,-30}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{-480,-340},{-440,-300}}),
@@ -120,8 +139,7 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{-480,-388},{-440,-348}}),
@@ -148,7 +166,8 @@ block FreezeProtection
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirMix(
     final unit="K",
     final displayUnit="degC",
-    final quantity="ThermodynamicTemperature") if have_hotWatCoi
+    final quantity="ThermodynamicTemperature") if have_hotWatCoi and
+    have_frePro
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-480,-716},{-440,-676}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
@@ -157,6 +176,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,300},{480,340}}),
         iconTransformation(extent={{100,-170},{140,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1EneCHWPum
+ if have_frePro
     "Commanded on to energize chilled water pump"
     annotation (Placement(transformation(extent={{440,240},{480,280}}),
         iconTransformation(extent={{100,170},{140,210}})));
@@ -199,8 +219,7 @@ block FreezeProtection
     annotation (Placement(transformation(extent={{440,-240},{480,-200}}),
         iconTransformation(extent={{100,10},{140,50}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput y1RetFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{440,-300},{480,-260}}),
@@ -209,8 +228,7 @@ block FreezeProtection
     final min=0,
     final max=1,
     final unit="1")
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
     "Return fan commanded speed"
     annotation (Placement(transformation(extent={{440,-380},{480,-340}}),
@@ -245,27 +263,29 @@ block FreezeProtection
     "Request to heating hot-water plant"
     annotation (Placement(transformation(extent={{440,-800},{480,-760}}),
         iconTransformation(extent={{100,-190},{140,-150}})));
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla "Alarm level"
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yAla if have_frePro
+    "Alarm level"
     annotation (Placement(transformation(extent={{440,-860},{480,-820}}),
         iconTransformation(extent={{100,-210},{140,-170}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
     final t=273.15 + 4.4,
-    final h=Thys)
+    final h=Thys) if have_frePro
     "Check if supply air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-360,810},{-340,830}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    final t=300)
+    final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,810},{-280,830}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq
+    if have_hotWatCoi and have_frePro
     "Hot water plant request in stage 1 mode"
     annotation (Placement(transformation(extent={{60,802},{80,822}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    final k=minHotWatReq) if have_hotWatCoi
+    final k=minHotWatReq) if have_hotWatCoi and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-20,830},{0,850}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minVen
+  Buildings.Controls.OBC.CDL.Continuous.Switch minVen if have_frePro
     "Minimum ventilation when in stage 1 mode"
     annotation (Placement(transformation(extent={{60,730},{80,750}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiCon1(
@@ -274,133 +294,139 @@ block FreezeProtection
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if have_hotWatCoi
+    final yMin=yMin) if have_hotWatCoi and have_frePro
     "Heating coil control in stage 1 mode"
     annotation (Placement(transformation(extent={{-320,680},{-300,700}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1 if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoi1
+    if have_hotWatCoi and have_frePro
     "Heating coil position"
     annotation (Placement(transformation(extent={{120,660},{140,680}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
     final t=273.15 + 7,
-    final h=Thys)
+    final h=Thys) if have_frePro
     "Check if supply air temperature is greater than threshold"
     annotation (Placement(transformation(extent={{-380,600},{-360,620}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat if have_frePro
     "Stay in stage 1 freeze protection mode"
     annotation (Placement(transformation(extent={{-60,802},{-40,822}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(
-    final t=300)
+    final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-320,600},{-300,620}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge endStaOne
+  Buildings.Controls.OBC.CDL.Logical.Edge endStaOne if have_frePro
     "Clear the latch to end the stage 1 freeze protection"
     annotation (Placement(transformation(extent={{-260,592},{-240,612}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr1(
     final t=273.15 + 3.3,
-    final h=Thys)
+    final h=Thys) if have_frePro
     "Check if supply air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-380,460},{-360,480}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(
-    final t=300)
+    final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-340,460},{-320,480}})));
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold holSta2(
     final trueHoldDuration=3600,
-    final falseHoldDuration=0)
+    final falseHoldDuration=0) if have_frePro
     "Stage in stage 2 freeze protection mode"
     annotation (Placement(transformation(extent={{-300,452},{-280,472}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDam2
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDam2 if have_frePro
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{120,590},{140,610}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
-    final k=0)
+    final k=0) if have_frePro
     "Fully closed damper position"
     annotation (Placement(transformation(extent={{40,610},{60,630}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam2
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam2 if minOADes ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     and have_frePro
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{120,540},{140,560}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDam2
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDam2 if have_frePro
     "Return air damper position"
     annotation (Placement(transformation(extent={{120,408},{140,428}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
-    final k=1)
+    final k=1) if have_frePro
     "Fully open damper or valve position"
     annotation (Placement(transformation(extent={{-140,310},{-120,330}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi1 if have_frePro
     "Alarm when it is in stage 2 mode"
     annotation (Placement(transformation(extent={{120,310},{140,330}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
-    final k=3)
+    final k=3) if have_frePro
     "Level 3 alarm"
     annotation (Placement(transformation(extent={{40,340},{60,360}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
-    final k=0) if have_hotWatCoi
+    final k=0) if have_hotWatCoi and have_frePro
     "Zero request"
     annotation (Placement(transformation(extent={{-20,780},{0,800}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim3(
-    final t=900)
+    final t=900) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,240},{-280,260}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr2(
     final t=273.15 + 1,
-    final h=Thys)
+    final h=Thys) if have_frePro
     "Check if supply air temperature is less than threshold"
     annotation (Placement(transformation(extent={{-360,200},{-340,220}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim4(
-    final t=300)
+    final t=300) if have_frePro
     "Check if the supply air temperature has been lower than threshold value for sufficient long time"
     annotation (Placement(transformation(extent={{-300,200},{-280,220}})));
-  Buildings.Controls.OBC.CDL.Logical.Or3 or3
+  Buildings.Controls.OBC.CDL.Logical.Or3 or3 if have_frePro
     "Check if it should be in stage 3 mode"
     annotation (Placement(transformation(extent={{-220,192},{-200,212}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con2(
-    final k=false)
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+    final k=false) if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+     and have_frePro
     "Constant false"
     annotation (Placement(transformation(extent={{-300,50},{-280,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat1
+  Buildings.Controls.OBC.CDL.Logical.Latch lat1 if have_frePro
     "Stay in stage 3 freeze protection mode"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch supFan
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Continuous.Switch supFan if (not freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Supply fan speed"
     annotation (Placement(transformation(extent={{120,-230},{140,-210}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retFan
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Continuous.Switch retFan if (buiPreCon ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Return fan speed"
     annotation (Placement(transformation(extent={{120,-370},{140,-350}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch relFan
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Continuous.Switch relFan if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Relief fan speed"
     annotation (Placement(transformation(extent={{120,-510},{140,-490}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con3(
-    final k=0)
+    final k=0) if have_frePro
     "Zero constant"
     annotation (Placement(transformation(extent={{-140,48},{-120,68}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch outDam
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Continuous.Switch outDam if not freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Outdoor air damper"
     annotation (Placement(transformation(extent={{320,70},{340,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Continuous.Switch cooCoi if not freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Cooling coil position"
     annotation (Placement(transformation(extent={{120,-590},{140,-570}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3
-    if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+  Buildings.Controls.OBC.CDL.Integers.Switch hotWatPlaReq3 if have_hotWatCoi
+     and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Hot water plant request in stage 3 mode"
     annotation (Placement(transformation(extent={{320,-790},{340,-770}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
-    final k=minHotWatReq)
-    if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+    final k=minHotWatReq) if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Minimum hot-water plant requests"
     annotation (Placement(transformation(extent={{-140,-782},{-120,-762}})));
-  Buildings.Controls.OBC.CDL.Continuous.Max max1 if have_hotWatCoi
+  Buildings.Controls.OBC.CDL.Continuous.Max max1
+    if have_hotWatCoi and have_frePro
     "Higher of supply air and mixed air temperature"
     annotation (Placement(transformation(extent={{-300,-700},{-280,-680}})));
   Buildings.Controls.OBC.CDL.Continuous.PID heaCoiMod(
@@ -409,217 +435,248 @@ block FreezeProtection
     final Ti=Ti,
     final Td=Td,
     final yMax=yMax,
-    final yMin=yMin) if have_hotWatCoi
+    final yMin=yMin) if have_hotWatCoi and have_frePro
     "Heating coil control when it is in stage 3 mode"
     annotation (Placement(transformation(extent={{40,-670},{60,-650}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con4(
-    final k=273.15 + 27) if have_hotWatCoi
+    final k=273.15 + 27) if have_hotWatCoi and have_frePro
     "Setpoint temperature"
     annotation (Placement(transformation(extent={{-140,-670},{-120,-650}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos
-    if have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+  Buildings.Controls.OBC.CDL.Continuous.Switch heaCoiPos if have_hotWatCoi and (
+    not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Heating coil position"
     annotation (Placement(transformation(extent={{320,-710},{340,-690}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi3 if have_frePro
     "Alarm level"
     annotation (Placement(transformation(extent={{320,-850},{340,-830}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt4(
-    final k=2) "Level 2 alarm"
+    final k=2) if have_frePro
+    "Level 2 alarm"
     annotation (Placement(transformation(extent={{-140,-842},{-120,-822}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert shuDowWar(
     final message="Warning: the unit is shut down by freeze protection!")
+    if have_frePro
     "Unit shut down warning"
     annotation (Placement(transformation(extent={{380,210},{400,230}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Logical not"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 if have_frePro
+    "Logical not"
     annotation (Placement(transformation(extent={{120,210},{140,230}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert disMinVenWar(
     final message="Warning: minimum ventilation was interrupted by freeze protection!")
+    if have_frePro
     "Warning of disabling minimum ventilation "
     annotation (Placement(transformation(extent={{380,452},{400,472}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not2
+  Buildings.Controls.OBC.CDL.Logical.Not not2 if have_frePro
     "Logical not"
     annotation (Placement(transformation(extent={{120,452},{140,472}})));
   Buildings.Controls.OBC.CDL.Logical.Timer tim5(
-    final t=3600)
+    final t=3600) if have_frePro
     "Check if it has been in stage 2 for sufficient long time"
     annotation (Placement(transformation(extent={{-260,420},{-240,440}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+  Buildings.Controls.OBC.CDL.Continuous.Switch minOutDam if minOADes ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Minimum outdoor air damper position"
     annotation (Placement(transformation(extent={{320,-10},{340,10}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt5(
-    final k=0)
+    final k=0) if have_frePro
     "Level 0 alarm"
     annotation (Placement(transformation(extent={{40,278},{60,298}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch lat2
+  Buildings.Controls.OBC.CDL.Logical.Latch lat2 if have_frePro
     "Stay in stage 2 freeze protection mode"
     annotation (Placement(transformation(extent={{-180,452},{-160,472}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge endStaTwo
+  Buildings.Controls.OBC.CDL.Logical.Edge endStaTwo if have_frePro
     "Clear the latch to end the stage 2 freeze protection"
     annotation (Placement(transformation(extent={{-220,412},{-200,432}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2
+  Buildings.Controls.OBC.CDL.Logical.Or or2 if have_frePro
     "Start stage 1 freeze protection mode"
     annotation (Placement(transformation(extent={{-160,802},{-140,822}})));
-  Buildings.Controls.OBC.CDL.Continuous.Switch retDam
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Continuous.Switch retDam if not freSta ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Return air damper position"
     annotation (Placement(transformation(extent={{320,150},{340,170}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant supTemSet(
-    final k=273.15+ 6) if have_hotWatCoi
+    final k=273.15+ 6) if have_hotWatCoi and have_frePro
     "Supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-380,680},{-360,700}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi2 if have_frePro
     "Alarm level"
     annotation (Placement(transformation(extent={{380,310},{400,330}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi4
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi4 if have_frePro
     "Alarm level"
     annotation (Placement(transformation(extent={{320,570},{340,590}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt6(
-    final k=2)
+    final k=2) if have_frePro
     "Stage 2 freeze protection"
     annotation (Placement(transformation(extent={{160,620},{180,640}})));
-  Buildings.Controls.OBC.CDL.Integers.Switch intSwi5
+  Buildings.Controls.OBC.CDL.Integers.Switch intSwi5 if have_frePro
     "Alarm level"
     annotation (Placement(transformation(extent={{260,760},{280,780}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt7(
-    final k=1)
+    final k=1) if have_frePro
     "Stage 1 freeze protection"
     annotation (Placement(transformation(extent={{140,830},{160,850}})));
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt8(
-    final k=0)
+    final k=0) if have_frePro
     "Stage 0 freeze protection"
     annotation (Placement(transformation(extent={{140,730},{160,750}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minOutDam3
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+  Buildings.Controls.OBC.CDL.Logical.Switch minOutDam3 if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+     and have_frePro
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{120,510},{140,530}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con5(
-    final k=false)
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+    final k=false) if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+     and have_frePro
     "False"
     annotation (Placement(transformation(extent={{-40,530},{-20,550}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch minOutDam1
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
-     and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Logical.Switch minOutDam1 if (minOADes ==
+    Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+     and not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Minimum outdoor air damper command on position"
     annotation (Placement(transformation(extent={{320,-80},{340,-60}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norTru
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "The output is normally true when the freeze stat is normally open (false)"
-    annotation (Placement(transformation(extent={{-360,70},{-340,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Switch logSwi
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Freeze protection enabled by the freeze stat"
-    annotation (Placement(transformation(extent={{-300,120},{-280,140}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant norOpe(
-    final k=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO)
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
-    "Check if the freeze stat is normally open"
+  Buildings.Controls.OBC.CDL.Logical.Not norFal if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+     and have_frePro
+    "The output is normally false"
     annotation (Placement(transformation(extent={{-360,120},{-340,140}})));
-  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
-    if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-     or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC)
+  Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+     and have_frePro
     "Reset the freeze protection by the physical reset switch in freeze stat"
     annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
-  Buildings.Controls.OBC.CDL.Logical.And and1
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Logical.And and1 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Disable return fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-290},{340,-270}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta3
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Logical.Not norSta3 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+     and have_frePro
     "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-310},{180,-290}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta1 "Not in stage 3"
+  Buildings.Controls.OBC.CDL.Logical.Not norSta1 if have_frePro
+    "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-170},{180,-150}})));
-  Buildings.Controls.OBC.CDL.Logical.And and2
-    if not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Logical.And and2 if (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Disable supply fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-150},{340,-130}})));
-  Buildings.Controls.OBC.CDL.Logical.Not norSta2
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.
-     ReliefFan
+  Buildings.Controls.OBC.CDL.Logical.Not norSta2 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan)
+     and have_frePro
     "Not in stage 3"
     annotation (Placement(transformation(extent={{160,-450},{180,-430}})));
-  Buildings.Controls.OBC.CDL.Logical.And and3
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+  Buildings.Controls.OBC.CDL.Logical.And and3 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
      and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Disable relief fan when in stage 3"
     annotation (Placement(transformation(extent={{320,-430},{340,-410}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=1)
-    if have_hotWatCoi and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if (have_hotWatCoi and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-650},{340,-630}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
-    final k=1)
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-620},{140,-600}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
-    final k=1)
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-540},{140,-520}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or1
-    if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
-     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Logical.Or or1 if buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+     and (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     or not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-470},{340,-450}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
-    final k=1)
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+    final k=1) if ((buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-400},{140,-380}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or4
-    if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+  Buildings.Controls.OBC.CDL.Logical.Or or4 if (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
      or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
-     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     or not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-330},{340,-310}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
-    final k=1)
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,120},{340,140}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai5(
-    final k=1)
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,40},{340,60}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai6(
-    final k=1)
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
-     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if (minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow
+     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{320,-40},{340,-20}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or5
-    if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
-     and freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Logical.Or or5 if minOADes == Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure
+     and (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     or not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-110},{340,-90}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or6
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+  Buildings.Controls.OBC.CDL.Logical.Or or6 if (freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+     or (not have_frePro)
     "Dummy block for enabling and disabling conditional connection"
     annotation (Placement(transformation(extent={{320,-190},{340,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai7(
-    final k=1)
-    if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+    final k=1) if freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment
+     and have_frePro
     "Dummy block for enabling and disabling the conditional connection"
     annotation (Placement(transformation(extent={{120,-260},{140,-240}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai8(final k=1)
+    if not have_frePro
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-240,-60},{-220,-40}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt9(final k=0)
+    if not have_frePro "Dummy constant"
+    annotation (Placement(transformation(extent={{380,360},{400,380}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai9(final k=1)
+    if not have_frePro
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-240,-90},{-220,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai10(final k=1)
+    if not have_frePro
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-240,-120},{-220,-100}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai11(final k=1)
+    if not have_frePro
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-260,-280},{-240,-260}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai12(final k=1)
+    if (not have_frePro) and (buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+     or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-260,-420},{-240,-400}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai13(final k=1)
+    if (not have_frePro) and buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReliefFan
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-260,-560},{-240,-540}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai14(final k=1)
+    if not have_frePro
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-260,-640},{-240,-620}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai15(final k=1)
+    if (not have_frePro) and have_hotWatCoi
+    "Dummy block for enabling and disabling the conditional connection"
+    annotation (Placement(transformation(extent={{-260,-740},{-240,-720}})));
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt10(final k=0)
+    if (not have_frePro) and (have_hotWatCoi and (not freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment))
+    "Dummy constant"
+    annotation (Placement(transformation(extent={{360,-820},{380,-800}})));
 equation
   connect(lesThr.y, tim.u)
     annotation (Line(points={{-338,820},{-302,820}}, color={255,0,255}));
@@ -845,16 +902,10 @@ equation
           {200,-78},{318,-78}},        color={255,0,255}));
   connect(con5.y, minOutDam1.u1) annotation (Line(points={{-18,540},{0,540},{0,-62},
           {318,-62}}, color={255,0,255}));
-  connect(norOpe.y, logSwi.u2)
-    annotation (Line(points={{-338,130},{-302,130}}, color={255,0,255}));
-  connect(u1FreSta,norTru. u) annotation (Line(points={{-460,160},{-380,160},{
-          -380,80},{-362,80}},   color={255,0,255}));
-  connect(logSwi.y, or3.u3) annotation (Line(points={{-278,130},{-260,130},{
-          -260,194},{-222,194}}, color={255,0,255}));
+  connect(u1FreSta,norFal. u) annotation (Line(points={{-460,130},{-362,130}},
+                                 color={255,0,255}));
   connect(or3.y, lat1.u) annotation (Line(points={{-198,202},{-160,202},{-160,
           160},{-142,160}}, color={255,0,255}));
-  connect(logSwi.y, falEdg.u)
-    annotation (Line(points={{-278,130},{-222,130}}, color={255,0,255}));
   connect(falEdg.y, lat1.clr) annotation (Line(points={{-198,130},{-180,130},{
           -180,154},{-142,154}}, color={255,0,255}));
   connect(u1RetFan, and1.u1) annotation (Line(points={{-460,-320},{-80,-320},{-80,
@@ -881,10 +932,6 @@ equation
           -428},{318,-428}}, color={255,0,255}));
   connect(lat1.y, norSta2.u) annotation (Line(points={{-118,160},{20,160},{20,-440},
           {158,-440}}, color={255,0,255}));
-  connect(norTru.y, logSwi.u3) annotation (Line(points={{-338,80},{-320,80},{
-          -320,122},{-302,122}},  color={255,0,255}));
-  connect(u1FreSta, logSwi.u1) annotation (Line(points={{-460,160},{-320,160},{
-          -320,138},{-302,138}}, color={255,0,255}));
   connect(uHeaCoi, gai.u) annotation (Line(points={{-460,640},{-100,640},{-100,-640},
           {318,-640}}, color={0,0,127}));
   connect(gai.y, yHeaCoi) annotation (Line(points={{342,-640},{360,-640},{360,-700},
@@ -941,6 +988,46 @@ equation
           -250},{118,-250}}, color={0,0,127}));
   connect(gai7.y, ySupFan) annotation (Line(points={{142,-250},{160,-250},{160,-220},
           {460,-220}}, color={0,0,127}));
+  connect(norFal.y, falEdg.u)
+    annotation (Line(points={{-338,130},{-222,130}}, color={255,0,255}));
+  connect(norFal.y, or3.u3) annotation (Line(points={{-338,130},{-260,130},{-260,
+          194},{-222,194}}, color={255,0,255}));
+  connect(conInt9.y, yFreProSta) annotation (Line(points={{402,370},{420,370},{420,
+          320},{460,320}}, color={255,127,0}));
+  connect(gai8.y, yRetDam) annotation (Line(points={{-218,-50},{366,-50},{366,160},
+          {460,160}}, color={0,0,127}));
+  connect(gai9.y, yOutDam) annotation (Line(points={{-218,-80},{-200,-80},{-200,
+          -50},{372,-50},{372,80},{460,80}}, color={0,0,127}));
+  connect(uRetDam, gai8.u) annotation (Line(points={{-460,390},{-414,390},{-414,
+          -50},{-242,-50}}, color={0,0,127}));
+  connect(uOutDam, gai9.u) annotation (Line(points={{-460,720},{-406,720},{-406,
+          -80},{-242,-80}}, color={0,0,127}));
+  connect(gai10.y, yMinOutDam) annotation (Line(points={{-218,-110},{-192,-110},
+          {-192,-50},{378,-50},{378,0},{460,0}}, color={0,0,127}));
+  connect(uMinOutDam, gai10.u) annotation (Line(points={{-460,560},{-400,560},{-400,
+          -110},{-242,-110}}, color={0,0,127}));
+  connect(gai11.y, ySupFan) annotation (Line(points={{-238,-270},{300,-270},{300,
+          -220},{460,-220}}, color={0,0,127}));
+  connect(uSupFan, gai11.u) annotation (Line(points={{-460,-228},{-400,-228},{-400,
+          -270},{-262,-270}}, color={0,0,127}));
+  connect(uRetFan, gai12.u) annotation (Line(points={{-460,-368},{-400,-368},{-400,
+          -410},{-262,-410}}, color={0,0,127}));
+  connect(gai12.y, yRetFan) annotation (Line(points={{-238,-410},{300,-410},{300,
+          -360},{460,-360}}, color={0,0,127}));
+  connect(uRelFan, gai13.u) annotation (Line(points={{-460,-508},{-400,-508},{-400,
+          -550},{-262,-550}}, color={0,0,127}));
+  connect(gai13.y, yRelFan) annotation (Line(points={{-238,-550},{300,-550},{300,
+          -500},{460,-500}}, color={0,0,127}));
+  connect(uCooCoi, gai14.u) annotation (Line(points={{-460,-588},{-400,-588},{-400,
+          -630},{-262,-630}}, color={0,0,127}));
+  connect(gai14.y, yCooCoi) annotation (Line(points={{-238,-630},{300,-630},{300,
+          -580},{460,-580}}, color={0,0,127}));
+  connect(gai15.y, yHeaCoi) annotation (Line(points={{-238,-730},{380,-730},{380,
+          -700},{460,-700}}, color={0,0,127}));
+  connect(uHeaCoi, gai15.u) annotation (Line(points={{-460,640},{-390,640},{-390,
+          -730},{-262,-730}}, color={0,0,127}));
+  connect(conInt10.y, yHotWatPlaReq) annotation (Line(points={{382,-810},{400,-810},
+          {400,-780},{460,-780}}, color={255,127,0}));
 annotation (defaultComponentName="mulAHUFrePro",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-200},{100,200}}),
         graphics={
@@ -955,12 +1042,13 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,200},{-14,182}},
           textColor={0,0,127},
-          textString="uOutDamPosMin"),
+          textString="uOutDamPosMin",
+          visible=have_frePro),
         Text(
           extent={{-96,32},{-48,10}},
           textColor={255,0,255},
-          visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NO
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Connected_to_BAS_NC),
+          visible=freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_BAS
+               and have_frePro,
           textString="u1FreSta"),
         Text(
           extent={{-98,178},{-46,162}},
@@ -983,7 +1071,8 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,60},{-56,40}},
           textColor={0,0,127},
-          textString="TAirSup"),
+          textString="TAirSup",
+          visible=have_frePro),
         Text(
           extent={{-96,-130},{-46,-148}},
           textColor={0,0,127},
@@ -992,8 +1081,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,-90},{-46,-108}},
           textColor={0,0,127},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-                  or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="uRetFan"),
         Text(
@@ -1003,7 +1091,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{-96,-182},{-58,-198}},
           textColor={0,0,127},
-          visible=have_hotWatCoi,
+          visible=have_hotWatCoi and have_frePro,
           textString="TAirMix"),
         Text(
           extent={{-96,-160},{-50,-178}},
@@ -1029,8 +1117,7 @@ annotation (defaultComponentName="mulAHUFrePro",
         Text(
           extent={{52,-10},{98,-26}},
           textColor={0,0,127},
-          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-                  or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+          visible=buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
                   or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp,
           textString="yRetFan"),
         Text(
@@ -1056,16 +1143,19 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-96,12},{-30,-12}},
           textColor={255,0,255},
           visible=(freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.No_freeze_stat
-               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment),
+               or freSta == Buildings.Controls.OBC.ASHRAE.G36.Types.FreezeStat.Hardwired_to_equipment)
+               and have_frePro,
           textString="u1SofSwiRes"),
         Text(
           extent={{24,200},{96,180}},
           textColor={255,0,255},
-          textString="y1EneCHWPum"),
+          textString="y1EneCHWPum",
+          visible=have_frePro),
         Text(
           extent={{70,-178},{98,-196}},
           textColor={255,127,0},
-          textString="yAla"),
+          textString="yAla",
+          visible=have_frePro),
         Text(
           extent={{42,-140},{96,-156}},
           textColor={255,127,0},
@@ -1088,9 +1178,8 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{-96,-64},{-48,-86}},
           textColor={255,0,255},
           textString="u1RetFan",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
         Text(
           extent={{50,64},{98,42}},
           textColor={255,0,255},
@@ -1099,9 +1188,8 @@ annotation (defaultComponentName="mulAHUFrePro",
           extent={{48,16},{96,-6}},
           textColor={255,0,255},
           textString="y1RetFan",
-          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanCalculatedAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
-               or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
+          visible=(buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanMeasuredAir
+                or buiPreCon == Buildings.Controls.OBC.ASHRAE.G36.Types.BuildingPressureControlTypes.ReturnFanDp)),
         Text(
           extent={{50,-34},{98,-56}},
           textColor={255,0,255},
@@ -1187,6 +1275,12 @@ shall be no software reset switch.)
 </ol>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2022, by Jianjun Hu:<br/>
+Added flag to disable freeze protection.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
 <li>
 July 15, 2021, by Jianjun Hu:<br/>
 First implementation.

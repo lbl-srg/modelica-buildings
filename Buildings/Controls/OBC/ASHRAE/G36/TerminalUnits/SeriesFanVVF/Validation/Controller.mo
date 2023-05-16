@@ -3,14 +3,13 @@ model Controller
   "Validation of model that controls series-fan powered unit with variable volume fan"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.SeriesFanVVF.Controller serFanCon(
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final VAreBreZon_flow=0.006,
     final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
     final VCooMax_flow=1.5,
     final maxRat=2,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final have_preIndDam=false,
     final staPreMul=1,
     final hotWatRes=1,
     final floHys=0.01,
@@ -21,7 +20,7 @@ model Controller
     final VAreMin_flow=0)
     "Series-fan powered unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
@@ -67,12 +66,12 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin CO2(
     final amplitude=400,
     final freqHz=1/28800,
     final offset=600) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin parFanFlo(
     final offset=1.2,
     final amplitude=0.6,
     final freqHz=1/28800) "Parallel fan flow"
@@ -114,7 +113,7 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-120},{-60,-100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     final offset=273.15 + 13,
     final amplitude=1,
     final freqHz=1/28800) "Supply air temperature from air handling unit"
@@ -145,7 +144,7 @@ model Controller
     final k=273.15 + 13)
     "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine disFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin disFlo(
     final offset=1.3,
     final amplitude=0.6,
     final freqHz=1/28800) "Discharge airflow rate"
@@ -153,16 +152,15 @@ model Controller
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant CO2Set(final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
 equation
   connect(TZon.y,serFanCon. TZon) annotation (Line(points={{-98,240},{52,240},{
-          52,109},{98,109}},
-                          color={0,0,127}));
+          52,109},{98,109}}, color={0,0,127}));
   connect(cooSet.y,serFanCon. TCooSet) annotation (Line(points={{-58,220},{48,
           220},{48,107},{98,107}}, color={0,0,127}));
   connect(heaSet.y,serFanCon. THeaSet) annotation (Line(points={{-98,200},{44,
           200},{44,105},{98,105}}, color={0,0,127}));
-  connect(winSta.y, serFanCon.u1Win) annotation (Line(points={{-58,180},{40,180},
-          {40,103},{98,103}}, color={255,0,255}));
   connect(occ.y, serFanCon.u1Occ) annotation (Line(points={{-98,160},{36,160},{
           36,101},{98,101}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
@@ -193,30 +191,29 @@ equation
   connect(reaToInt3.y,serFanCon. oveDamPos) annotation (Line(points={{-18,-80},
           {60,-80},{60,83},{98,83}},color={255,127,0}));
   connect(reaToInt4.y,serFanCon. oveFan) annotation (Line(points={{-18,-110},{
-          64,-110},{64,81},{98,81}},
-                                  color={255,127,0}));
+          64,-110},{64,81},{98,81}}, color={255,127,0}));
   connect(heaOff.y, not1.u)
     annotation (Line(points={{-98,-140},{-42,-140}}, color={255,0,255}));
   connect(not1.y,serFanCon. uHeaOff) annotation (Line(points={{-18,-140},{68,
-          -140},{68,79},{98,79}},
-                            color={255,0,255}));
+          -140},{68,79},{98,79}}, color={255,0,255}));
   connect(supFan.y, serFanCon.u1Fan) annotation (Line(points={{-58,-200},{72,
-          -200},{72,75},{98,75}},
-                            color={255,0,255}));
+          -200},{72,75},{98,75}}, color={255,0,255}));
   connect(terFan.y, serFanCon.u1TerFan) annotation (Line(points={{-98,-220},{76,
           -220},{76,73},{98,73}}, color={255,0,255}));
   connect(hotPla.y, serFanCon.u1HotPla) annotation (Line(points={{-58,-240},{80,
           -240},{80,71},{98,71}}, color={255,0,255}));
   connect(TSupSet.y,serFanCon. TSupSet) annotation (Line(points={{-98,-20},{52,
-          -20},{52,87},{98,87}},
-                            color={0,0,127}));
+          -20},{52,87},{98,87}}, color={0,0,127}));
   connect(TSup.y,serFanCon. TSup) annotation (Line(points={{-58,0},{48,0},{48,
           89},{98,89}}, color={0,0,127}));
   connect(disFlo.y,serFanCon.VPri_flow)  annotation (Line(points={{-98,20},{44,
-          20},{44,91},{98,91}},
-                            color={0,0,127}));
+          20},{44,91},{98,91}}, color={0,0,127}));
   connect(CO2Set.y, serFanCon.ppmCO2Set) annotation (Line(points={{-98,100},{28,
           100},{28,97},{98,97}}, color={0,0,127}));
+  connect(winSta.y, not2.u)
+    annotation (Line(points={{-58,180},{-42,180}}, color={255,0,255}));
+  connect(not2.y, serFanCon.u1Win) annotation (Line(points={{-18,180},{40,180},{
+          40,103},{98,103}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/SeriesFanVVF/Validation/Controller.mos"

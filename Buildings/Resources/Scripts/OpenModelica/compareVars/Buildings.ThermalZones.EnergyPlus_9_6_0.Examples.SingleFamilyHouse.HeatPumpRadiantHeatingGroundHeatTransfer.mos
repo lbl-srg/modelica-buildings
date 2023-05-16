@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "livFlo.T",
+    "TSetRooHea.y",
+    "TOpe.y",
+    "heaPum.y",
+    "livFlo.q_flow",
+    "COP.y",
+    "pum.P",
+    "heaPum.P",
+    "pumBor.P"
+  };

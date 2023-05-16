@@ -37,6 +37,7 @@
 int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
                  double *t1, double *y) {
   size_t i, j, k;
+  int writeData = 1;
 
   /*check if current modelica time equals to last time*/
   /*if yes, it means cfdExchangeData() was called multiple times at one synchronization point, then directly return*/
@@ -112,24 +113,22 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   cosim->modelica->dt = dt;
   cosim->modelica->lt = t0;
 
-  /* Copy the Modelica data to shared memory*/
-  for(i=0; i<cosim->para->nSur; i++) {
-    cosim->modelica->temHea[i] = u[i];
-  }
+    cosim->modelica->t = t0;
+    cosim->modelica->dt = dt;
+    cosim->modelica->lt = t0;
 
-  if(cosim->para->sha==1) {
-    for(j=0; j<cosim->para->nConExtWin; j++) {
-      cosim->modelica->shaConSig[j] = u[i+j];
-      cosim->modelica->shaAbsRad[j] = u[i+j+cosim->para->nConExtWin];
+    /* Copy the Modelica data to shared memory*/
+    for(i=0; i<cosim->para->nSur; i++) {
+      cosim->modelica->temHea[i] = u[i];
     }
-    i = i + 2*cosim->para->nConExtWin;
-  }
 
-  cosim->modelica->sensibleHeat = u[i];
-  i++;
-
-  cosim->modelica->latentHeat = u[i];
-  i++;
+    if(cosim->para->sha==1) {
+      for(j=0; j<cosim->para->nConExtWin; j++) {
+        cosim->modelica->shaConSig[j] = u[i+j];
+        cosim->modelica->shaAbsRad[j] = u[i+j+cosim->para->nConExtWin];
+      }
+      i = i + 2*cosim->para->nConExtWin;
+    }
 
   if(cosim->para->nSou>0){
     for(j=0; j<cosim->para->nSou; j++) {
@@ -141,25 +140,34 @@ int cfdExchangeData(double t0, double dt, const double *u, size_t nU, size_t nY,
   cosim->modelica->p = u[i];
   i++;
 
-  for(j=0; j<cosim->para->nPorts; j++) {
-    cosim->modelica->mFloRatPor[j] = u[i+j];
-    cosim->modelica->TPor[j] = u[i+j+cosim->para->nPorts];
+    cosim->modelica->latentHeat = u[i];
+    i++;
+
+    cosim->modelica->p = u[i];
+    i++;
+
+    for(j=0; j<cosim->para->nPorts; j++) {
+      cosim->modelica->mFloRatPor[j] = u[i+j];
+      cosim->modelica->TPor[j] = u[i+j+cosim->para->nPorts];
+    }
+
+    i = i + 2*cosim->para->nPorts;
+    for(j=0; j<cosim->para->nPorts; j++)
+      for(k=0; k<cosim->para->nXi; k++) {
+        cosim->modelica->XiPor[j][k] = u[i+j*cosim->para->nXi+k];
+      }
+
+    i = i + cosim->para->nPorts*cosim->para->nXi;
+    for(j=0; j<cosim->para->nPorts; j++)
+      for(k=0; k<cosim->para->nC; k++) {
+        cosim->modelica->CPor[j][k] = u[i+j*cosim->para->nC+k];
+      }
+
+    /* Set the flag to new data*/
+    cosim->modelica->flag = 1;
+  } else {
+    cosim->ffd->flag = 1;
   }
-
-  i = i + 2*cosim->para->nPorts;
-  for(j=0; j<cosim->para->nPorts; j++)
-    for(k=0; k<cosim->para->nXi; k++) {
-      cosim->modelica->XiPor[j][k] = u[i+j*cosim->para->nXi+k];
-    }
-
-  i = i + cosim->para->nPorts*cosim->para->nXi;
-  for(j=0; j<cosim->para->nPorts; j++)
-    for(k=0; k<cosim->para->nC; k++) {
-      cosim->modelica->CPor[j][k] = u[i+j*cosim->para->nC+k];
-    }
-
-  /* Set the flag to new data*/
-  cosim->modelica->flag = 1;
 
   /****************************************************************************
   | Copy data from CFD

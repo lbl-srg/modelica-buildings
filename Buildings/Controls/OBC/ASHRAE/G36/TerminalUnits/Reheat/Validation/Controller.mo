@@ -3,7 +3,7 @@ model Controller
   "Validation of model that controls terminal unit with reheat"
 
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller rehBoxCon(
-    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016,
+    final venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1,
     final VAreBreZon_flow=0.006,
     final VPopBreZon_flow=0.005,
     final VMin_flow=0.5,
@@ -11,7 +11,6 @@ model Controller
     final VHeaMin_flow=0.5,
     final VHeaMax_flow=1.2,
     final controllerTypeVal=Buildings.Controls.OBC.CDL.Types.SimpleController.PI,
-    final have_preIndDam=false,
     final staPreMul=1,
     final hotWatRes=1,
     final floHys=0.01,
@@ -22,7 +21,7 @@ model Controller
     final VAreMin_flow=0)
     "Reheat unit controller"
     annotation (Placement(transformation(extent={{100,70},{120,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TZon(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TZon(
     final freqHz=1/86400,
     final amplitude=4,
     final offset=299.15)
@@ -68,12 +67,12 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine CO2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin CO2(
     final amplitude=400,
     final freqHz=1/28800,
     final offset=600) "CO2 concentration"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine parFanFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin parFanFlo(
     final offset=1.2,
     final amplitude=0.6,
     final freqHz=1/28800) "Parallel fan flow"
@@ -103,7 +102,7 @@ model Controller
     final n=0)
     "Round real number to given digits"
     annotation (Placement(transformation(extent={{-80,-110},{-60,-90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     final offset=273.15 + 13,
     final amplitude=1,
     final freqHz=1/28800) "Supply air temperature from air handling unit"
@@ -130,7 +129,7 @@ model Controller
     final k=273.15 + 13)
     "AHU supply air temperature setpoint"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine disFlo(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin disFlo(
     final offset=1.3,
     final amplitude=0.6,
     final freqHz=1/28800) "Discharge airflow rate"
@@ -139,6 +138,8 @@ model Controller
     final k=894)
     "CO2 concentration setpoint"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not2 "Logical not"
+    annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
 equation
   connect(TZon.y,rehBoxCon. TZon) annotation (Line(points={{-98,240},{52,240},{52,
           109},{98,109}}, color={0,0,127}));
@@ -146,8 +147,6 @@ equation
           220},{48,107},{98,107}}, color={0,0,127}));
   connect(heaSet.y,rehBoxCon. THeaSet) annotation (Line(points={{-98,200},{44,
           200},{44,105},{98,105}}, color={0,0,127}));
-  connect(winSta.y, rehBoxCon.u1Win) annotation (Line(points={{-58,180},{40,180},
-          {40,102},{98,102}}, color={255,0,255}));
   connect(occ.y, rehBoxCon.u1Occ) annotation (Line(points={{-98,160},{36,160},{
           36,100},{98,100}}, color={255,0,255}));
   connect(opeMod.y,round2. u)
@@ -178,8 +177,7 @@ equation
   connect(not1.y,rehBoxCon. uHeaOff) annotation (Line(points={{-18,-140},{64,-140},
           {64,80},{98,80}}, color={255,0,255}));
   connect(supFan.y, rehBoxCon.u1Fan) annotation (Line(points={{-58,-200},{68,
-          -200},{68,73.2},{98,73.2}},
-                                color={255,0,255}));
+          -200},{68,73.2},{98,73.2}}, color={255,0,255}));
   connect(hotPla.y, rehBoxCon.u1HotPla) annotation (Line(points={{-58,-240},{72,
           -240},{72,71.2},{98,71.2}}, color={255,0,255}));
   connect(TSupSet.y,rehBoxCon. TSupSet) annotation (Line(points={{-98,-30},{52,-30},
@@ -190,6 +188,10 @@ equation
           {44,90},{98,90}}, color={0,0,127}));
   connect(CO2Set.y, rehBoxCon.ppmCO2Set) annotation (Line(points={{-98,90},{0,
           90},{0,96},{98,96}},   color={0,0,127}));
+  connect(winSta.y, not2.u)
+    annotation (Line(points={{-58,180},{-42,180}}, color={255,0,255}));
+  connect(not2.y, rehBoxCon.u1Win) annotation (Line(points={{-18,180},{40,180},{
+          40,102},{98,102}}, color={255,0,255}));
 annotation (
   experiment(StopTime=86400, Tolerance=1e-6),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/G36/TerminalUnits/Reheat/Validation/Controller.mos"

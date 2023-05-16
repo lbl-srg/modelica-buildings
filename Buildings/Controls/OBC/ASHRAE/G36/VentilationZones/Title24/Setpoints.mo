@@ -3,20 +3,26 @@ block Setpoints
   "Specify zone minimum outdoor air and minimum airflow set points for compliance with California Title 24"
 
   parameter Boolean have_winSen=false
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=false
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=false
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_typTerUni=false
     "True: the zone has typical terminal units and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_SZVAV or have_parFanPowUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not (have_SZVAV or have_parFanPowUni)));
   parameter Boolean have_parFanPowUni=false
     "True: the zone has parallel fan-powered terminal unit and CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_SZVAV or have_typTerUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not (have_SZVAV or have_typTerUni)));
   parameter Boolean have_SZVAV=false
     "True: it is single zone VAV AHU system with CO2 sensor"
-    annotation(Dialog(enable=have_CO2Sen and not (have_parFanPowUni or have_typTerUni)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and not (have_parFanPowUni or have_typTerUni)));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
     annotation(Dialog(group="Design conditions"));
@@ -28,10 +34,11 @@ block Setpoints
     annotation(Dialog(enable=not (have_CO2Sen and have_SZVAV), group="Design conditions"));
   parameter Real VCooMax_flow(unit="m3/s")=0.025
     "Design zone cooling maximum airflow rate"
-    annotation(Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=have_CO2Sen and (have_parFanPowUni or have_typTerUni), group="Design conditions"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if open, false if closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-340,230},{-300,270}}),
         iconTransformation(extent={{-140,70},{-100,110}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -209,7 +216,7 @@ protected
     final k=false)
     if not have_winSen
     "Constant false"
-    annotation (Placement(transformation(extent={{-180,270},{-160,290}})));
+    annotation (Placement(transformation(extent={{-180,280},{-160,300}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1(
     final k=true)
     if not have_occSen "Constant true"
@@ -226,9 +233,9 @@ protected
     if not have_CO2Sen
     "Constant zero"
     annotation (Placement(transformation(extent={{200,-90},{220,-70}})));
+  Buildings.Controls.OBC.CDL.Logical.Not winOpe if have_winSen "Window is open"
+    annotation (Placement(transformation(extent={{-180,240},{-160,260}})));
 equation
-  connect(u1Win, zonAbsMin.u2)
-    annotation (Line(points={{-320,250},{38,250}}, color={255,0,255}));
   connect(zer1.y, zonAbsMin.u1) annotation (Line(points={{-78,280},{20,280},{20,
           258},{38,258}}, color={0,0,127}));
   connect(u1Occ, notOcc.u)
@@ -245,8 +252,6 @@ equation
     annotation (Line(points={{-238,170},{-82,170}}, color={255,0,255}));
   connect(zonAbsMin2.y, zonAbsMin1.u3) annotation (Line(points={{-58,170},{-30,170},
           {-30,202},{-22,202}}, color={0,0,127}));
-  connect(u1Win, zonDesMin.u2) annotation (Line(points={{-320,250},{-140,250},{-140,
-          130},{38,130}}, color={255,0,255}));
   connect(zer1.y, zonDesMin.u1) annotation (Line(points={{-78,280},{20,280},{20,
           138},{38,138}}, color={0,0,127}));
   connect(zonDesMin1.y, zonDesMin.u3) annotation (Line(points={{2,110},{30,110},
@@ -271,8 +276,6 @@ equation
           {-120,60},{238,60}}, color={255,0,255}));
   connect(gai.y, zonOccMin.u1) annotation (Line(points={{-78,230},{-40,230},{-40,
           68},{238,68}}, color={0,0,127}));
-  connect(u1Win, zonOccMin1.u2) annotation (Line(points={{-320,250},{-140,250},{
-          -140,40},{178,40}}, color={255,0,255}));
   connect(zer1.y, zonOccMin1.u1) annotation (Line(points={{-78,280},{20,280},{20,
           48},{178,48}}, color={0,0,127}));
   connect(zonOccMin1.y, zonOccMin.u3) annotation (Line(points={{202,40},{220,40},
@@ -351,11 +354,11 @@ equation
           -190},{160,32},{178,32}}, color={0,0,127}));
   connect(zonOccMin.y, VOccZonMin_flow)
     annotation (Line(points={{262,60},{320,60}}, color={0,0,127}));
-  connect(con.y, zonAbsMin.u2) annotation (Line(points={{-158,280},{-140,280},{-140,
+  connect(con.y, zonAbsMin.u2) annotation (Line(points={{-158,290},{-140,290},{-140,
           250},{38,250}}, color={255,0,255}));
-  connect(con.y, zonDesMin.u2) annotation (Line(points={{-158,280},{-140,280},{-140,
+  connect(con.y, zonDesMin.u2) annotation (Line(points={{-158,290},{-140,290},{-140,
           130},{38,130}}, color={255,0,255}));
-  connect(con.y, zonOccMin1.u2) annotation (Line(points={{-158,280},{-140,280},{
+  connect(con.y, zonOccMin1.u2) annotation (Line(points={{-158,290},{-140,290},{
           -140,40},{178,40}}, color={255,0,255}));
   connect(con1.y, notOcc.u) annotation (Line(points={{-258,230},{-240,230},{-240,
           210},{-182,210}}, color={255,0,255}));
@@ -371,6 +374,14 @@ equation
     annotation (Line(points={{-58,-50},{320,-50}}, color={0,0,127}));
   connect(zer3.y, yCO2) annotation (Line(points={{222,-80},{240,-80},{240,-50},{
           320,-50}}, color={0,0,127}));
+  connect(u1Win, winOpe.u)
+    annotation (Line(points={{-320,250},{-182,250}}, color={255,0,255}));
+  connect(winOpe.y, zonAbsMin.u2)
+    annotation (Line(points={{-158,250},{38,250}}, color={255,0,255}));
+  connect(winOpe.y, zonDesMin.u2) annotation (Line(points={{-158,250},{-140,250},
+          {-140,130},{38,130}}, color={255,0,255}));
+  connect(winOpe.y, zonOccMin1.u2) annotation (Line(points={{-158,250},{-140,250},
+          {-140,40},{178,40}}, color={255,0,255}));
 annotation (defaultComponentName="minFlo",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

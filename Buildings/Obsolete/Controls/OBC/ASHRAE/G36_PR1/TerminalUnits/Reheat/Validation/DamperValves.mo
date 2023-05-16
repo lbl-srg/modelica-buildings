@@ -44,7 +44,7 @@ model DamperValves
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant VActCooMax_flow(k=0.075)
     "Active cooling maximum airflow setpoint"
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine VDis_flow(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin VDis_flow(
     offset=0.015,
     amplitude=0.002,
     freqHz=1/86400) "Discharge airflow rate"

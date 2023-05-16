@@ -19,8 +19,8 @@ model ChilledWaterBypass
     "On signals of the chillers"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
-  Modelica.Blocks.Interfaces.RealInput mFloByp(final unit="kg/s")
-    "Chilled water bypass loop mass flow rate"
+  Modelica.Blocks.Interfaces.RealInput mFloChi(final unit="kg/s")
+    "Mass flow rate through the chillers"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealOutput y
     "Bypass valve opening ratio"
@@ -31,7 +31,6 @@ model ChilledWaterBypass
     controllerType=controllerType,
     final k=k,
     final Ti=Ti,
-    yMin=0.01,
     y_reset=0)
     "Chilled water bypass valve controller"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -71,11 +70,10 @@ equation
     annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
   connect(mFloSetSca.y, bypValCon.u_s)
     annotation (Line(points={{41,50},{50,50},{50,0},{58,0}}, color={0,0,127}));
-  connect(mFloByp, mFloBypSca.u)
+  connect(mFloChi, mFloBypSca.u)
     annotation (Line(points={{-120,-50},{-62,-50}}, color={0,0,127}));
   connect(mFloBypSca.y, bypValCon.u_m)
     annotation (Line(points={{-39,-50},{70,-50},{70,-12}}, color={0,0,127}));
-  connect(y, y) annotation (Line(points={{110,0},{110,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="chiBypCon",
     Icon(
@@ -92,6 +90,16 @@ equation
     Documentation(
       revisions="<html>
 <ul>
+<li>
+January 27, 2023, by Michael Wetter:<br/>
+Removed connection to itself.
+</li>
+<li>
+December 14, 2022, by Kathryn Hinkelman:<br/>
+Corrected measured mass flow rate to be on the chiller 
+leg in order to control minimum flow rate through the chillers.<br>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912#issuecomment-1324375700\">#2912</a>.
+</li>
 <li>
 May 3, 2021 by Jing Wang:<br/>
 First implementation. 

@@ -2,8 +2,10 @@ within Buildings.Controls.OBC.ASHRAE.G36.AHUs.SingleZone.VAV.SetPoints;
 block ModeAndSetPoints
   "Output zone setpoint with operation mode selection"
 
-  parameter Boolean have_winSen "Check if the zone has window status sensor";
-  parameter Boolean have_occSen "Check if the zone has occupancy sensor";
+  parameter Boolean have_winSen
+    "Check if the zone has window status sensor";
+  parameter Boolean have_occSen
+    "Check if the zone has occupancy sensor";
   parameter Boolean have_locAdj
     "True: the zone has local setpoint adjustment knob"
     annotation (Dialog(tab="Setpoints adjustment", group="Adjustable settings"));
@@ -17,72 +19,90 @@ block ModeAndSetPoints
     unit="K",
     displayUnit="degC")=300.15
     "Maximum active cooling setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActCoo_min(
     unit="K",
     displayUnit="degC")=295.15
     "Minimum active cooling setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActHea_max(
     unit="K",
     displayUnit="degC")=295.15
     "Maximum active heating setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TActHea_min(
     unit="K",
     displayUnit="degC")=291.15
     "Minimum active heating setpoint"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TWinOpeCooSet(
     unit="K",
     displayUnit="degC")=322.15
     "Cooling setpoint when window is open"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real TWinOpeHeaSet(
     unit="K",
     displayUnit="degC")=277.15
     "Heating setpoint when window is open"
-    annotation (Dialog(tab="Setpoints adjustment", group="Limits"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Limits"));
   parameter Real incTSetDem_1=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_2=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real incTSetDem_3=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_1=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_2=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real decTSetDem_3=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation (Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Setpoints adjustment", group="Demand control adjustment", enable=not ignDemLim));
   parameter Real bouLim=1
     "Threshold of temperature difference for indicating the end of setback or setup mode"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced"));
   parameter Real uLow=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
   parameter Real uHigh=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced"));
   parameter Real preWarCooTim(unit="s")=10800
     "Maximum cool-down or warm-up time"
-    annotation (Dialog(tab="Advanced", group="Operating mode"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Operating mode"));
   parameter Real TZonFreProOn(
     unit="K",
     displayUnit="degC")=277.15
     "Threshold temperature to activate the freeze protection mode"
-    annotation (Dialog(tab="Advanced", group="Operating mode"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Operating mode"));
   parameter Real TZonFreProOff(
     unit="K",
     displayUnit="degC")=280.15
     "Threshold temperature to end the freeze protection mode"
-    annotation (Dialog(tab="Advanced", group="Operating mode"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Operating mode"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",
@@ -96,7 +116,7 @@ block ModeAndSetPoints
     annotation (Placement(transformation(extent={{-200,160},{-160,200}}),
       iconTransformation(extent={{-140,140},{-100,180}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status: true=open, false=close"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-200,130},{-160,170}}),
         iconTransformation(extent={{-140,110},{-100,150}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -214,12 +234,13 @@ block ModeAndSetPoints
     annotation (Placement(transformation(extent={{-80,80},{-60,108}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger colZon
     "Check if the zone is cold"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger hotZon
     "Check if the zone is hot"
-    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
+    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant winSta(
-    final k=false) if not have_winSen
+    final k=true)
+    if not have_winSen
     "Assume window is closed when there is no windows status sensor"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant occSta(
@@ -228,8 +249,9 @@ block ModeAndSetPoints
     annotation (Placement(transformation(extent={{40,-190},{60,-170}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt
     "Boolean to integer"
+    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Buildings.Controls.OBC.CDL.Logical.Not winOpe "Window is open"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-
 equation
   connect(zonSta.cooDowTim, cooDowTim) annotation (Line(points={{-82,105},{-110,
           105},{-110,210},{-180,210}}, color={0,0,127}));
@@ -248,13 +270,13 @@ equation
   connect(zonSta.yOccHeaHig, opeModSel.u1OccHeaHig) annotation (Line(points={{-58,
           100},{36,100},{36,26.4},{58,26.4}}, color={255,0,255}));
   connect(zonSta.yUnoHeaHig, colZon.u) annotation (Line(points={{-58,90},{-48,90},
-          {-48,-50},{-42,-50}}, color={255,0,255}));
-  connect(colZon.y, opeModSel.totColZon) annotation (Line(points={{-18,-50},{26,
-          -50},{26,21.6},{58,21.6}}, color={255,127,0}));
+          {-48,-60},{-42,-60}}, color={255,0,255}));
+  connect(colZon.y, opeModSel.totColZon) annotation (Line(points={{-18,-60},{26,
+          -60},{26,21.6},{58,21.6}}, color={255,127,0}));
   connect(zonSta.yHigUnoCoo, hotZon.u) annotation (Line(points={{-58,83},{-52,83},
-          {-52,-80},{-42,-80}}, color={255,0,255}));
-  connect(hotZon.y, opeModSel.totHotZon) annotation (Line(points={{-18,-80},{28,
-          -80},{28,10.4},{58,10.4}}, color={255,127,0}));
+          {-52,-90},{-42,-90}}, color={255,0,255}));
+  connect(hotZon.y, opeModSel.totHotZon) annotation (Line(points={{-18,-90},{28,
+          -90},{28,10.4},{58,10.4}}, color={255,127,0}));
   connect(zonSta.yUnoHeaHig, opeModSel.u1SetBac) annotation (Line(points={{-58,90},
           {-28,90},{-28,18.4},{58,18.4}}, color={255,0,255}));
   connect(zonSta.yEndSetBac, opeModSel.u1EndSetBac) annotation (Line(points={{-58,
@@ -281,12 +303,8 @@ equation
           {140,-60},{180,-60}}, color={0,0,127}));
   connect(TZonSet.THeaSet, THeaSet) annotation (Line(points={{122,-120},{140,-120},
           {140,-160},{180,-160}}, color={0,0,127}));
-  connect(winSta.y, booToInt.u)
-    annotation (Line(points={{-78,-20},{-42,-20}}, color={255,0,255}));
-  connect(u1Win, booToInt.u) annotation (Line(points={{-180,150},{-130,150},{-130,
-          40},{-60,40},{-60,-20},{-42,-20}}, color={255,0,255}));
-  connect(booToInt.y, opeModSel.uOpeWin) annotation (Line(points={{-18,-20},{24,
-          -20},{24,23.2},{58,23.2}},  color={255,127,0}));
+  connect(booToInt.y, opeModSel.uOpeWin) annotation (Line(points={{12,-20},{24,-20},
+          {24,23.2},{58,23.2}},       color={255,127,0}));
   connect(TZonSet.setAdj, setAdj) annotation (Line(points={{98,-120},{-64,-120},
           {-64,-60},{-180,-60}}, color={0,0,127}));
   connect(TZonSet.heaSetAdj, heaSetAdj) annotation (Line(points={{98,-124},{-80,
@@ -315,6 +333,12 @@ equation
           50},{-112,-117},{98,-117}}, color={0,0,127}));
   connect(TUnoCooSet, TZonSet.TUnoCooSet) annotation (Line(points={{-180,30},{-108,
           30},{-108,-109},{98,-109}}, color={0,0,127}));
+  connect(winSta.y, winOpe.u)
+    annotation (Line(points={{-78,-20},{-42,-20}}, color={255,0,255}));
+  connect(winOpe.y, booToInt.u)
+    annotation (Line(points={{-18,-20},{-12,-20}}, color={255,0,255}));
+  connect(u1Win, winOpe.u) annotation (Line(points={{-180,150},{-130,150},{-130,
+          40},{-60,40},{-60,-20},{-42,-20}}, color={255,0,255}));
 annotation (defaultComponentName="modSetPoi",
   Diagram(coordinateSystem(extent={{-160,-220},{160,220}})),
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),

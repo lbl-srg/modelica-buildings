@@ -254,6 +254,11 @@ int cfdStartCosimulation(char *cfdFilNam, char **name, double *A, double *til,
     }
   }
 
+  cosim->ffd->msg = (char *) malloc(1000*sizeof(char));
+  if (cosim->ffd->msg == NULL){
+    ModelicaError("Failed to allocate memory for cosim->ffd->msg in cfdStartCosimulation.c");
+  }
+
   cosim->ffd->temHea = (double *) malloc(nSur*sizeof(double));
   if (cosim->ffd->temHea == NULL){
     ModelicaError("Failed to allocate memory for cosim->ffd->temHea in cfdStartCosimulation.c");

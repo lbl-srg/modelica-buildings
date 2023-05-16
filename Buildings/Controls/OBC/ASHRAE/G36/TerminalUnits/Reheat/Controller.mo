@@ -1,35 +1,40 @@
 within Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat;
 block Controller "Controller for room VAV box with reheat"
 
-  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd=Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+  parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=true
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=true
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_hotWatCoi=true
-    "True: the unit has the hot water coil";
+    "True: the unit has the hot water coil"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
                               and have_occSen));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
-    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   parameter Real VAreMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for building area"
-    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016));
+    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24));
   // ---------------- Design parameters ----------------
   parameter Real VAreBreZon_flow(unit="m3/s")
     "Design area component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions",
-                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VPopBreZon_flow(unit="m3/s")
     "Design population component of the breathing zone outdoor airflow"
     annotation(Dialog(group="Design conditions",
-                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+                      enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real VMin_flow(unit="m3/s")
     "Design zone minimum airflow setpoint"
     annotation (Dialog(group="Design conditions"));
@@ -45,142 +50,160 @@ block Controller "Controller for room VAV box with reheat"
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Cooling"));
   parameter Real TiCooCon(unit="s")=120
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Heating"));
   parameter Real TiHeaCon(unit="s")=120
     "Time constant of integrator block for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper and valve control parameters ----------------
-  parameter Real dTDisZonSetMax=11
+  parameter Real dTDisZonSetMax(unit="K")=11
     "Zone maximum discharge air temperature above heating setpoint"
-    annotation (Dialog(tab="Damper and valve control"));
-  parameter Real TDisMin=283.15 "Lowest discharge air temperature"
-    annotation (Dialog(tab="Damper and valve control"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Damper and valve control"));
+  parameter Real TDisMin(
+    unit="K",
+    displayUnit="degC")=283.15
+    "Lowest discharge air temperature"
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Damper and valve control"));
   parameter CDL.Types.SimpleController controllerTypeVal=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Damper and valve control", group="Valve"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real kVal=0.5
     "Gain of controller for valve control"
-    annotation (Dialog(tab="Damper and valve control", group="Valve"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Valve"));
   parameter Real TiVal(unit="s")=300
     "Time constant of integrator block for valve control"
-    annotation (Dialog(tab="Damper and valve control", group="Valve",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdVal(unit="s")=0.1
     "Time constant of derivative block for valve control"
-    annotation (Dialog(tab="Damper and valve control", group="Valve",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Valve",
       enable=controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or controllerTypeVal == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Boolean have_preIndDam=false
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation (Dialog(tab="Damper and valve control", group="Damper"));
   parameter CDL.Types.SimpleController controllerTypeDam=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_preIndDam));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_preIndDam));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Damper"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_preIndDam
-             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Damper",
+      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(tab="Damper and valve control", group="Damper",
-      enable=not have_preIndDam
-             and (controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                  or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper and valve control", group="Damper",
+      enable=(controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or controllerTypeDam == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests"));
   parameter Real twoTemDif(unit="K")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests"));
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation (Dialog(tab="System requests", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="System requests", enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="System requests", group="Duration time", enable=have_hotWatCoi));
   // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms"));
   parameter Real hotWatRes=1
     "Importance multiplier for the hot water reset control loop"
-    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real lowTemTim(unit="s")=600
     "Threshold time to check low discharge temperature"
-    annotation (Dialog(tab="Alarms", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms", enable=have_hotWatCoi));
   parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real leaFloTim(unit="s")=600
     "Threshold time to check damper leaking airflow"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real valCloTim(unit="s")=900
     "Threshold time to check valve leaking water flow"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppresion"));
   parameter Real chaRat=540
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
-                                "Maximum suppression time"
-    annotation (Dialog(tab="Time-based suppresion"));
+    "Maximum suppression time"
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real looHys(unit="1")=0.05
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real floHys(unit="m3/s")=0.01
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real damPosHys(unit="1")=0.05
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real valPosHys(unit="1")=0.05
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real valPosHys(unit="1")=0.005
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
-    annotation (Dialog(tab="Advanced", group="Control loops"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
-                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
+                       enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
@@ -204,7 +227,7 @@ block Controller "Controller for room VAV box with reheat"
     annotation (Placement(transformation(extent={{-220,180},{-180,220}}),
         iconTransformation(extent={{-140,130},{-100,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win if have_winSen
-    "Window status, true if the window is open, false if it is closed"
+    "Window status, normally closed (true), when windows open, it becomes false"
     annotation (Placement(transformation(extent={{-220,150},{-180,190}}),
         iconTransformation(extent={{-140,100},{-100,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Occ if have_occSen
@@ -290,36 +313,36 @@ block Controller "Controller for room VAV box with reheat"
         iconTransformation(extent={{100,130},{140,170}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjPopBreZon_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Adjusted population component breathing zone flow rate"
     annotation (Placement(transformation(extent={{200,160},{240,200}}),
         iconTransformation(extent={{100,100},{140,140}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VAdjAreBreZon_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Adjusted area component breathing zone flow rate"
     annotation (Placement(transformation(extent={{200,130},{240,170}}),
         iconTransformation(extent={{100,80},{140,120}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VMinOA_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,100},{240,140}}),
         iconTransformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonAbsMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Zone absolute minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,70},{240,110}}),
         iconTransformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput VZonDesMin_flow(
     final quantity="VolumeFlowRate",
-    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final unit="m3/s") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Zone design minimum outdoor airflow setpoint"
     annotation (Placement(transformation(extent={{200,40},{240,80}}),
         iconTransformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCO2(
-    final unit="1") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final unit="1") if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "CO2 control loop signal"
     annotation (Placement(transformation(extent={{200,10},{240,50}}),
         iconTransformation(extent={{100,0},{140,40}})));
@@ -432,7 +455,7 @@ block Controller "Controller for room VAV box with reheat"
     final VCooMax_flow=VCooMax_flow,
     final zonDisEff_cool=zonDisEff_cool,
     final zonDisEff_heat=zonDisEff_heat,
-    final dTHys=dTHys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016
+    final dTHys=dTHys) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
     "Output the minimum outdoor airflow rate setpoint, when using ASHRAE 62.1"
     annotation (Placement(transformation(extent={{-100,120},{-80,140}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.DamperValves damVal(
@@ -445,7 +468,6 @@ block Controller "Controller for room VAV box with reheat"
     final kVal=kVal,
     final TiVal=TiVal,
     final TdVal=TdVal,
-    final have_preIndDam=have_preIndDam,
     final controllerTypeDam=controllerTypeDam,
     final kDam=kDam,
     final TiDam=TiDam,
@@ -461,25 +483,9 @@ block Controller "Controller for room VAV box with reheat"
     final VOccMin_flow=VOccMin_flow,
     final VAreMin_flow=VAreMin_flow,
     final VMin_flow=VMin_flow,
-    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016
+    final VCooMax_flow=VCooMax_flow) if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24
     "Output the minimum outdoor airflow rate setpoint, when using Title 24"
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant noVenStd(
-    final k=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified)
-    "No ventilation standard"
-    annotation (Placement(transformation(extent={{-60,250},{-40,270}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1
-    "Logical not"
-    annotation (Placement(transformation(extent={{-20,250},{0,270}})));
-  Buildings.Controls.OBC.CDL.Utilities.Assert assMes1(
-    final message="Warning: Ventilation standard is not specified!")
-    "Warning when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{20,250},{40,270}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerFlo(
-    final k=0)
-    if venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.Not_Specified
-    "Zero flow when the ventilation standard is not specified"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
   connect(TZon, timSup.TZon) annotation (Line(points={{-200,260},{-164,260},{-164,
           246},{-142,246}}, color={0,0,127}));
@@ -625,12 +631,6 @@ equation
           96},{54,96},{54,60},{220,60}}, color={0,0,127}));
   connect(minFlo.yCO2, yCO2) annotation (Line(points={{-78,84},{48,84},{48,30},{
           220,30}}, color={0,0,127}));
-  connect(noVenStd.y,not1. u)
-    annotation (Line(points={{-38,260},{-22,260}}, color={255,0,255}));
-  connect(not1.y,assMes1. u)
-    annotation (Line(points={{2,260},{18,260}},    color={255,0,255}));
-  connect(zerFlo.y, actAirSet.VOccMin_flow) annotation (Line(points={{-78,30},{-72,
-          30},{-72,44},{-62,44}}, color={0,0,127}));
   connect(setOve.yDam, sysReq.uDam) annotation (Line(points={{82,-86},{98,-86},{
           98,-133},{118,-133}}, color={0,0,127}));
   connect(setOve.yDam, ala.uDam) annotation (Line(points={{82,-86},{98,-86},
@@ -809,37 +809,37 @@ annotation (defaultComponentName="rehBoxCon",
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VAdjPopBreZon_flow",
-          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1),
         Text(
           extent={{12,112},{96,94}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VAdjAreBreZon_flow",
-          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1),
         Text(
           extent={{36,92},{96,72}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VMinOA_flow",
-          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1),
         Text(
           extent={{18,72},{96,52}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VZonAbsMin_flow",
-          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24),
         Text(
           extent={{18,50},{96,32}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VZonDesMin_flow",
-          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24),
         Text(
           extent={{66,28},{96,12}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="yCO2",
-          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24_2016)}),
+          visible=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.California_Title_24)}),
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,-280},{200,280}})),
   Documentation(info="<html>
 <p>
@@ -910,6 +910,11 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Subsequences.Overrides</a
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2023, by Jianjun Hu:<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

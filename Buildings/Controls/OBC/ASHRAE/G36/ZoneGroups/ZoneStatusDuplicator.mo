@@ -1,8 +1,12 @@
 within Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups;
 block ZoneStatusDuplicator "Duplicate zone status output"
 
-  parameter Integer nZon(final min=1)=1 "Number of zones in input";
-  parameter Integer nZonGro(final min=1)=1 "Number of groups in output";
+  parameter Integer nZon(final min=1)=1
+    "Number of zones in input"
+    annotation (__cdl(ValueInReference=false));
+  parameter Integer nZonGro(final min=1)=1
+    "Number of groups in output"
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[nZon]
     "True when the zone is set to be occupied due to the override"
@@ -75,7 +79,7 @@ block ZoneStatusDuplicator "Duplicate zone status output"
     annotation (Placement(transformation(extent={{-80,-460},{-40,-420}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win[nZon]
-    "True when the window is open, false when the window is close or the zone does not have window status sensor"
+    "Window status, normally closed (true), when windows open, it becomes false. For zone without sensor, it is true"
     annotation (Placement(transformation(extent={{-80,-540},{-40,-500}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
 

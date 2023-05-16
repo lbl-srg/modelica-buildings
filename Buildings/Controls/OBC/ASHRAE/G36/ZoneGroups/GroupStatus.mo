@@ -3,22 +3,25 @@ block GroupStatus "Block that outputs the zone group status"
 
   parameter Integer nBuiZon(
     final min=1)=5
-    "Total number of zones in building";
+    "Total number of zones in building"
+    annotation (__cdl(ValueInReference=false));
   parameter Integer nGroZon(
     final min=1)=nBuiZon
-    "Total number of zones in the group";
+    "Total number of zones in the group"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean zonGroMsk[nBuiZon]=fill(true, nBuiZon)
-    "Boolean array mask of zones included in group";
+    "Boolean array mask of zones included in group"
+    annotation (__cdl(ValueInReference=false));
   parameter Real uLow(
     final unit="K",
     final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real uHigh(
     final unit="K",
     final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput zonOcc[nBuiZon]
     "True when the zone is set to be occupied due to the override"
@@ -88,7 +91,7 @@ block GroupStatus "Block that outputs the zone group status"
     annotation (Placement(transformation(extent={{-160,-240},{-120,-200}}),
       iconTransformation(extent={{-140,-190},{-100,-150}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput u1Win[nBuiZon]
-    "True when the window is open, false when the window is close or the zone does not have window status sensor"
+    "Window status, normally closed (true), when windows open, it becomes false. For zone without sensor, it is true"
     annotation (Placement(transformation(extent={{-160,-320},{-120,-280}}),
         iconTransformation(extent={{-140,-210},{-100,-170}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput uGroOcc
@@ -160,7 +163,8 @@ block GroupStatus "Block that outputs the zone group status"
     "Total number of open windows"
     annotation (Placement(transformation(extent={{120,-320},{160,-280}}),
       iconTransformation(extent={{100,-210},{140,-170}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Not not1[nGroZon] "Logical not"
+    annotation (Placement(transformation(extent={{-60,-310},{-40,-290}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.MultiMax cooDowTim(
     final nin=nGroZon)
@@ -260,7 +264,7 @@ protected
     annotation (Placement(transformation(extent={{60,270},{80,290}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToInteger booToInt2[nGroZon]
     "Convert boolean to integer"
-    annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
+    annotation (Placement(transformation(extent={{20,-310},{40,-290}})));
   Buildings.Controls.OBC.CDL.Integers.MultiSum totOpeWin(
     final nin=nGroZon)
     "Total number of opening windows"
@@ -410,7 +414,7 @@ equation
   connect(totOpeWin.y, yOpeWin)
     annotation (Line(points={{82,-300},{140,-300}}, color={255,127,0}));
   connect(booToInt2.y, totOpeWin.u)
-    annotation (Line(points={{-18,-300},{58,-300}}, color={255,127,0}));
+    annotation (Line(points={{42,-300},{58,-300}},  color={255,127,0}));
   connect(schOcc.y, booToRea.u)
     annotation (Line(points={{-18,260},{0,260},{0,240},{18,240}},
       color={255,0,255}));
@@ -486,12 +490,14 @@ equation
     annotation (Line(points={{-140,-220},{-102,-220}}, color={0,0,127}));
   connect(TZonFil.y, maxTem.u)
     annotation (Line(points={{-78,-220},{18,-220}}, color={0,0,127}));
-  connect(uWinFil.y, booToInt2.u)
-    annotation (Line(points={{-78,-300},{-42,-300}}, color={255,0,255}));
   connect(TZonFil.y, sumTem.u) annotation (Line(points={{-78,-220},{-70,-220},{-70,
           -200},{-62,-200}}, color={0,0,127}));
   connect(TZonFil.y, minTem.u) annotation (Line(points={{-78,-220},{-70,-220},{-70,
           -260},{18,-260}}, color={0,0,127}));
+  connect(uWinFil.y, not1.u)
+    annotation (Line(points={{-78,-300},{-62,-300}}, color={255,0,255}));
+  connect(not1.y, booToInt2.u)
+    annotation (Line(points={{-38,-300},{18,-300}}, color={255,0,255}));
 annotation (
   defaultComponentName = "groSta",
   Icon(coordinateSystem(extent={{-100,-200},{100,200}}),
