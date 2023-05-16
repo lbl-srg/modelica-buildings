@@ -428,7 +428,7 @@ model HeatPumpHeatExchanger
     "Heat flow rate at evaporator"
     annotation (Placement(transformation(extent={{-100,230},{-80,250}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloEvaSHW(
-    final Q_flow_nominal=-QHotWat_flow_nominal*(1 + 1/COPHotWat_nominal),
+    final Q_flow_nominal=-QHotWat_flow_nominal*(1 - 1/COPHotWat_nominal),
     final dT_nominal=-dT_nominal,
     final ratFloMin=ratFloMin,
     final cp=cpSer_default) if have_hotWat and have_varFloEva
@@ -442,7 +442,7 @@ model HeatPumpHeatExchanger
     "Mass flow rate control"
     annotation (Placement(transformation(extent={{-100,270},{-80,290}})));
   Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls.PrimaryVariableFlow conFloEvaHHW(
-    final Q_flow_nominal=-QHeaWat_flow_nominal*(1 + 1/COPHeaWat_nominal),
+    final Q_flow_nominal=-QHeaWat_flow_nominal*(1 - 1/COPHeaWat_nominal),
     final dT_nominal=-dT_nominal,
     final ratFloMin=ratFloMin,
     final cp=cpSer_default) if have_varFloEva
@@ -455,6 +455,12 @@ model HeatPumpHeatExchanger
     if have_varFloEva or have_varFloCon "Heating load"
     annotation (Placement(transformation(extent={{-140,270},{-120,290}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSub(final k=-1)
+    if have_hotWat "Convert to subtraction"
+    annotation (Placement(transformation(extent={{-80,70},{-100,90}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter toSub1(final k=-1)
+    if have_hotWat "Convert to subtraction"
+    annotation (Placement(transformation(extent={{-80,216},{-100,236}})));
 equation
   connect(TChiWatSupSet, conTChiWat.u_s) annotation (Line(points={{-320,0},{-200,
           0},{-200,-200},{-152,-200}},  color={0,0,127}));
@@ -617,18 +623,12 @@ equation
   connect(loaSHW, heaFloEvaSHW.u1) annotation (Line(points={{-320,-120},{-288,
           -120},{-288,-36},{-164,-36},{-164,106},{-102,106}},
                                                        color={0,0,127}));
-  connect(proHotWat.PHea, heaFloEvaSHW.u2) annotation (Line(points={{12,37},{18,
-          37},{18,80},{-108,80},{-108,94},{-102,94}},
-                                                   color={0,0,127}));
   connect(senTHeaWatRet.T, dTHHW.u2)
     annotation (Line(points={{20,311},{20,314},{2,314}}, color={0,0,127}));
   connect(senTHeaWatSup.T, dTHHW.u1)
     annotation (Line(points={{140,271},{140,326},{2,326}}, color={0,0,127}));
   connect(senMasFloHeaWat.m_flow, capFloHHW.u) annotation (Line(points={{-240,271},
           {-240,320},{-222,320}}, color={0,0,127}));
-  connect(proHeaWat.PHea, heaFloEvaHHW.u2) annotation (Line(points={{12,217},{
-          20,217},{20,226},{-110,226},{-110,234},{-102,234}},
-                                                           color={0,0,127}));
   connect(conFloEvaSHW.m_flow, proHotWat.m2_flow) annotation (Line(points={{-38,100},
           {-16,100},{-16,31},{-12,31}},               color={0,0,127}));
   connect(conFloEvaHHW.m_flow, proHeaWat.m2_flow) annotation (Line(points={{-38,240},
@@ -651,6 +651,14 @@ equation
     annotation (Line(points={{-118,280},{-102,280}}, color={0,0,127}));
   connect(loaHHW.y, heaFloEvaHHW.u1) annotation (Line(points={{-118,280},{-110,
           280},{-110,246},{-102,246}}, color={0,0,127}));
+  connect(proHotWat.PHea, toSub.u) annotation (Line(points={{12,37},{18,37},{18,
+          80},{-78,80}}, color={0,0,127}));
+  connect(toSub.y, heaFloEvaSHW.u2) annotation (Line(points={{-102,80},{-108,80},
+          {-108,94},{-102,94}}, color={0,0,127}));
+  connect(proHeaWat.PHea, toSub1.u) annotation (Line(points={{12,217},{20,217},
+          {20,226},{-78,226}}, color={0,0,127}));
+  connect(toSub1.y, heaFloEvaHHW.u2) annotation (Line(points={{-102,226},{-110,
+          226},{-110,234},{-102,234}}, color={0,0,127}));
   annotation (
   defaultComponentName="ets",
   Documentation(info="<html>
