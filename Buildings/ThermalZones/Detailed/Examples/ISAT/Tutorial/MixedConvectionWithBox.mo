@@ -39,9 +39,8 @@ model MixedConvectionWithBox
     hRoo = 1,
     linearizeRadiation = false,
     useCFD = true,
-    haveSource=true,
     nSou=1,
-    sensorName = {"Occupied zone air temperature", "Velocity"},
+    sensorName = {"Zone air temperature", "Velocity"},
     cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox/input.ffd",
     nConExt = nConExt,
     nConExtWin = nConExtWin,
@@ -76,7 +75,8 @@ model MixedConvectionWithBox
   Modelica.Blocks.Sources.Step step(
     height=15,
     offset=283.15,
-    startTime=201)
+    startTime=100)
+    "Internal source heat gain"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1]) annotation (Line(
@@ -157,45 +157,47 @@ equation
 <li><a href=\"modelica://Modelica.Blocks.Sources.Step\">Modelica.Blocks.Sources.Step</a>. This is a step function that generates the heat source. Name it as <span style=\"font-family: Courier New;\">step</span>. </li>
 </ul></li>
 <li>In the text editor mode, add the medium and the number of surfaces as below:
-<p><span style=\"font-family: Courier New;\">package MediumA = Buildings.Media.Air (T_default=283.15);</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConExtWin=0;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConBou=0;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nSurBou=6;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConExt=0;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConPar=0;</span></p>
+<pre>
+package MediumA = Buildings.Media.Air (T_default=283.15);
+parameter Integer nConExtWin=0;
+parameter Integer nConBou=0;
+parameter Integer nSurBou=6;
+parameter Integer nConExt=0;
+parameter Integer nConPar=0;
+</pre>
 </li>
 <li>Edit <span style=\"font-family: Courier New;\">roo</span> as below: 
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.CFD roo(</span></p>
-<p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
-<p><span style=\"font-family: Courier New;\">surBou(</span></p>
-<p><span style=\"font-family: Courier New;\">name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},</span></p>
-<p><span style=\"font-family: Courier New;\">A={0.9,0.9,1,1,1,1},</span></p>
-<p><span style=\"font-family: Courier New;\">til={Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Ceiling,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Floor},</span></p>
-<p><span style=\"font-family: Courier New;\">each absIR=1e-5,</span></p>
-<p><span style=\"font-family: Courier New;\">each absSol=1e-5,</span></p>
-<p><span style=\"font-family: Courier New;\">each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),</span></p>
-<p><span style=\"font-family: Courier New;\">lat = 0.012787839282646,</span></p>
-<p><span style=\"font-family: Courier New;\">AFlo = 1*1,</span></p>
-<p><span style=\"font-family: Courier New;\">hRoo = 1,</span></p>
-<p><span style=\"font-family: Courier New;\">linearizeRadiation = false,</span></p>
-<p><span style=\"font-family: Courier New;\">useCFD = true,</span></p>
-<p><span style=\"font-family: Courier New;\">haveSource=true,</span></p>
-<p><span style=\"font-family: Courier New;\">nSou=1,</span></p>
-<p><span style=\"font-family: Courier New;\">sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},</span></p>
-<p><span style=\"font-family: Courier New;\">cfdFilNam = &quot;modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox.ffd&quot;,</span></p>
-<p><span style=\"font-family: Courier New;\">nConExt = nConExt,</span></p>
-<p><span style=\"font-family: Courier New;\">nConExtWin = nConExtWin,</span></p>
-<p><span style=\"font-family: Courier New;\">nConPar = nConPar,</span></p>
-<p><span style=\"font-family: Courier New;\">nConBou = nConBou,</span></p>
-<p><span style=\"font-family: Courier New;\">nSurBou = nSurBou,</span></p>
-<p><span style=\"font-family: Courier New;\">nPorts = 2,</span></p>
-<p><span style=\"font-family: Courier New;\">portName={&quot;Inlet&quot;,&quot;Outlet&quot;},</span></p>
-<p><span style=\"font-family: Courier New;\">samplePeriod = 200);</span></p>
+<pre>
+Buildings.ThermalZones.Detailed.CFD roo(
+redeclare package Medium = MediumA,
+surBou(
+name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},
+A={0.9,0.9,1,1,1,1},
+til={Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Ceiling,
+Buildings.Types.Tilt.Floor},
+each absIR=1e-5,
+each absSol=1e-5,
+each boundaryCondition=Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature),
+lat = 0.012787839282646,
+AFlo = 1*1,
+hRoo = 1,
+linearizeRadiation = false,
+useCFD = true,
+sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},
+cfdFilNam = &quot;modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox.ffd&quot;,
+nConExt = nConExt,
+nConExtWin = nConExtWin,
+nConPar = nConPar,
+nConBou = nConBou,
+nSurBou = nSurBou,
+nPorts = 2,
+portName={&quot;Inlet&quot;,&quot;Outlet&quot;},
+samplePeriod = 200);
+</pre>
 </li>
 <li>Set the parameters for the following components: </li>
 <li><ul>
@@ -204,21 +206,25 @@ equation
 <li>Set <span style=\"font-family: Courier New;\">TOthWal</span> to <i>283.15</i> Kelvin. </li>
 </ul></li>
 <li>Set the values for the parameters of <span style=\"font-family: Courier New;\">bouIn</span> and <span style=\"font-family: Courier New;\">bouOut</span> as below: 
-<p><span style=\"font-family: Courier New;\">Fluid.Sources.MassFlowSource_T bouIn(</span></p>
-<p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
-<p><span style=\"font-family: Courier New;\">nPorts=1,</span></p>
-<p><span style=\"font-family: Courier New;\">m_flow=0.1,</span></p>
-<p><span style=\"font-family: Courier New;\">T=283.15);</span></p>
-<p><span style=\"font-family: Courier New;\">Fluid.Sources.FixedBoundary bouOut(</span></p>
-<p><span style=\"font-family: Courier New;\">redeclare package Medium = MediumA,</span></p>
-<p><span style=\"font-family: Courier New;\">nPorts=1);</span></p>
+<pre>
+Fluid.Sources.MassFlowSource_T bouIn(
+redeclare package Medium = MediumA,
+nPorts=1,
+m_flow=0.1,
+T=283.15);
+Fluid.Sources.FixedBoundary bouOut(
+redeclare package Medium = MediumA,
+nPorts=1);
+</pre>
 </li>
 <li>Connect the components as shown in the figure below. 
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBoxModel.png\" alt=\"image\"/> </p>
 </li>
 <li>Confirm in the textual editor that the connections to <span style=\"font-family: Courier New;\">roo.ports</span> are as follows: 
-<p><span style=\"font-family: Courier New;\">connect(bouIn.ports[1], roo.ports[1]);</span></p>
-<p><span style=\"font-family: Courier New;\">connect(bouOut.ports[1], roo.ports[2]);</span></p>
+<pre>
+connect(bouIn.ports[1], roo.ports[1]);
+connect(bouOut.ports[1], roo.ports[2]);
+</pre>
 </li>
 <li>Define the settings for the ISAT model: 
 <p>In the <span style=\"font-family: Courier New;\">set.isat</span> file, the parameters for the ISAT model can be defined:</p>
@@ -329,26 +335,28 @@ equation
 <li>Rename the files as <span style=\"font-family: Courier New;\">MixedConvectionWithBox.cfd</span> and <span style=\"font-family: Courier New;\">MixedConvectionWithBox.dat</span>, respectively. </li>
 </ul></li>
 <li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">MixedConvectionWithBox.ffd</span> (an example file is available in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox/</span>):
-<p><span style=\"font-family: Courier New;\">inpu.parameter_file_format SCI</span></p>
-<p><span style=\"font-family: Courier New;\">inpu.parameter_file_name input.cfd</span></p>
-<p><span style=\"font-family: Courier New;\">inpu.block_file_name zeroone.dat</span></p>
-<p><span style=\"font-family: Courier New;\">outp.result_file NO //PLT, VTK, NO</span></p>
-<p><span style=\"font-family: Courier New;\">prob.nu 0.000015 // Kinematic viscosity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.rho 1.205 // Density</span></p>
-<p><span style=\"font-family: Courier New;\">prob.gravx 0 // Gravity in x direction</span></p>
-<p><span style=\"font-family: Courier New;\">prob.gravy 0 // Gravity in y direction</span></p>
-<p><span style=\"font-family: Courier New;\">prob.gravz -9.81 // Gravity in z direction</span></p>
-<p><span style=\"font-family: Courier New;\">prob.cond 0.0257 // Conductivity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.Cp 1006.0 // Specific heat capacity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.beta 0.00343 // Thermal expansion coefficient</span></p>
-<p><span style=\"font-family: Courier New;\">prob.diff 0.00001 // Diffusivity for contaminants</span></p>
-<p><span style=\"font-family: Courier New;\">prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall</span></p>
-<p><span style=\"font-family: Courier New;\">prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance force</span></p>
-<p><span style=\"font-family: Courier New;\">bc.outlet_bc ZERO_GRADIENT // ZERO_GRADIENT, PRESCRIBED_VALUE</span></p>
-<p><span style=\"font-family: Courier New;\">init.T 10.0 // Initial condition for Temperature</span></p>
-<p><span style=\"font-family: Courier New;\">init.u 0.0 // Initial condition for velocity u</span></p>
-<p><span style=\"font-family: Courier New;\">init.v 0.0 // Initial condition for velocity v</span></p>
-<p><span style=\"font-family: Courier New;\">init.w 0.0 // Initial condition for velocity w</span></p>
+<pre>
+inpu.parameter_file_format SCI
+inpu.parameter_file_name input.cfd
+inpu.block_file_name zeroone.dat
+outp.result_file NO //PLT, VTK, NO
+prob.nu 0.000015 // Kinematic viscosity
+prob.rho 1.205 // Density
+prob.gravx 0 // Gravity in x direction
+prob.gravy 0 // Gravity in y direction
+prob.gravz -9.81 // Gravity in z direction
+prob.cond 0.0257 // Conductivity
+prob.Cp 1006.0 // Specific heat capacity
+prob.beta 0.00343 // Thermal expansion coefficient
+prob.diff 0.00001 // Diffusivity for contaminants
+prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
+prob.Temp_Buoyancy 10.0 // Reference temperature for calculating buoyance force
+bc.outlet_bc ZERO_GRADIENT // ZERO_GRADIENT, PRESCRIBED_VALUE
+init.T 10.0 // Initial condition for Temperature
+init.u 0.0 // Initial condition for velocity u
+init.v 0.0 // Initial condition for velocity v
+init.w 0.0 // Initial condition for velocity w
+</pre>
 </li>
 <li>Put the files <span style=\"font-family: Courier New;\">input.isat</span>, <span style=\"font-family: Courier New;\">output.isat</span>, <span style=\"font-family: Courier New;\">set.isat</span>, <span style=\"font-family: Courier New;\">input.ffd</span>, <span style=\"font-family: Courier New;\">input.dat</span>, and <span style=\"font-family: Courier New;\">input.cfd</span> in the directory <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/MixedConvectionWithBox/</span>. </li>
 <li>Set the simulation stop time of the Modelica model to <span style=\"font-family: Courier New;\">180</span> seconds and choose, for example, the Radau solver. </li>

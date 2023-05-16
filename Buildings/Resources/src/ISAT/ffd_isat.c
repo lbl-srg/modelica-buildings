@@ -245,23 +245,25 @@ void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, co
 ******************************************************************************/
   int num_input = 2;
   int num_output = 1;
-  double outp_weight[5] = { 0 };
+  double outp_Boundary_upper[5] = { 0 };
+  double outp_Boundary_lower[5] = { 0 };
+  int divide_grid = 1;
   OUTPUT_TYPE outp_name[5] = { temp_occ };
   INPUT_TYPE inpu_name[10] = { sur_temp };
   /* Declare and initialize variables */
   int num_inlet = 0, num_block = 0, num_wall = 0, dir_inlet = 0;
   /* temperature, heat flux or velocity will be overwritten or not */
-  int inlet_temp_re[100] = { 0 };
-  int inlet_vel_re[100] = { 0 };
-  int block_re[100] = { 0 };
-  int wall_re[100] = { 0 };
-  int wall_heat_re[10] = { 0 };
+  int inlet_temp_re[10] = { 0 };
+  int inlet_vel_re[10] = { 0 };
+  int block_re[10] = { 0 };
+  int wall_re[20] = { 0 };
+  int wall_heat_re[20] = { 0 };
   /* temperature, heat flux or velocity will be overwritten by which isat input */
-  int inlet_temp_wh[100] = { 0 };
-  int inlet_vel_wh[100] = { 0 };
-  int block_wh[100] = { 0 };
-  int wall_wh[100] = { 0 };
-  int wall_heat_wh[10] = { 0 };
+  int inlet_temp_wh[10] = { 0 };
+  int inlet_vel_wh[10] = { 0 };
+  int block_wh[10] = { 0 };
+  int wall_wh[20] = { 0 };
+  int wall_heat_wh[20] = { 0 };
 
   char filepath[400] = { 0 };
   int readexisting = 1;
@@ -277,11 +279,14 @@ void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, co
   int nf;                             /* Calculate in main */
   int nh = 0;                         /* If the additional function h(x) is not required, set nh=0, nhd=1. */
   int nhd = 1;                        /* Function h is not used so far */
+
+  /* define inputs of isat.lib */	
   double x[nx_SIZE] = {0};            /* Initialize x */
   double fa[nf_SIZE] = {0};           /* Initialize fa */
   double ga[nx_SIZE][nf_SIZE] = {0};  /* Initialize ga. Note: In Fortran, g(nf,nx). Initialize in C by a reverse matrix */
   double ha[nh_SIZE] = {0};           /* Initialize fa */
   double rusr[nf_SIZE] = {nf_SIZE};   /* Note rusr[1]=its length, so >=1. It may used to contain f in some special usage */
+
   int info[70] = {0};                 /* Initialize by default value 0 */
   double rinfo[100] = {0};            /* Initialize by default value 0 */
   double stats[100] = {0};            /* Initialize memory for store performance info */
@@ -326,19 +331,17 @@ void isatab_(int *idtab, int *mode, const int *nx, double x[], const int *nf, co
   int useUnboundedTest = 1;                /* = 0, use xBoundary for random test = 1, use xBoundary2 for random test */                           
   int useRoundInput = 1;                   /* If use rounded input, chose rounded digits after decimal */
   
-  double xBoundary[nx_SIZE][2] = { { 12.0,28.0 },{ 3.0,28.0 } }; 
-	/*Contains lower and upper boundary of x.*/
-  double xBoundaryCenterRange = 10; 
-	/*Contains centered range of inputs in a rectangular domian. To set maximum difference of inputs at different dimensions.*/
+  double** xBoundary;                      /*Contains lower and upper boundary of x.*/
+  double xBoundaryCenterRange = 10;        /*Contains centered range of inputs in a rectangular domian. To set maximum difference of inputs at different dimensions.*/
   
-  double xStep[nx_SIZE] = { 0.1,0.01 }; /*Step size to generate table.*/
-  int nRanCall = 10;                     /*Number of Random call for testing*/
+  double* xStep;                           /*Step size to generate table.*/
 
-  double xBoundary2[nx_SIZE][2] = { { 12.0,30.0 },{ 0,30.0 } };
-	/*Contains lower and upper boundary of x for "unbounded case".*/
+  int nRanCall = 10;                       /*Number of Random call for testing*/
+
+  double** xBoundary2;                     /*Contains lower and upper boundary of x for "unbounded case".*/
 	
-  double mu=1.0, sigma=10/3;  /* for bounded */
-  double sigma2=10/3;  /* for unbounded */
+  double mu=1.0, sigma=10/3;               /* for bounded */
+  double sigma2=10/3;                      /* for unbounded */
   
 /****************************************************/  
   int digAftdec = 1;                               
@@ -453,16 +456,30 @@ int isat_main () {
 
   cosim_log("isat_main(): Start ISAT-FFD simulation", COSIM_NORMAL);
 
-  /*read the existing ffd result file*/
-  read_isat_parameters();
+  /*read isat general settings*/
+  if (read_isat_general() != 0) {
+	  cosim_log("isat_main (): could not read_isat_general()", COSIM_ERROR);
+	  return 1;
+  }
 
-  if(readexisting == 1) read_existing(&para);
-  
+  /*allocate memory for isat global variables*/
+  if (allocate_memory_isat() != 0) {
+	  cosim_log("isat_main (): could not allocate_memory_isat()", COSIM_ERROR);
+	  return 1;
+  }
+
+  /*read isat input/output settings*/
+  if (read_isat_input_output() != 0) {
+	  cosim_log("isat_main (): could not read_isat_input_output()", COSIM_ERROR);
+	  return 1;
+  }
+
   /****************************************************************************
   | Calculate nx and nf
   ****************************************************************************/
-  nx = sizeof(x)/sizeof(double);
-  nf = sizeof(fa)/sizeof(double);
+  nx = num_input;
+  nf = num_output;
+
   /****************************************************************************
   | Update non-rectangular input domain
   ****************************************************************************/
@@ -491,6 +508,57 @@ int isat_main () {
   return 0;
 
 } /* End of Main */
+
+/****************************************************************************
+|  Allocate memory for variables
+|
+| \isat global parameters
+|
+| \return No return needed
+****************************************************************************/
+int allocate_memory_isat() {
+	int i, j;
+	/****************************************************************************
+	| Allocate memory for variables
+	****************************************************************************/
+	xStep = (REAL*)calloc(num_input, sizeof(REAL));
+	if (xStep == NULL) {
+		sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xStep");
+		cosim_log(logMsg, COSIM_ERROR);
+		return 1;
+	}
+	for (i = 0; i < num_input; i++) {
+		xStep[i] = 0.1;
+	}
+
+	xBoundary = (REAL**)malloc(num_input * sizeof(REAL*));
+	xBoundary2 = (REAL**)malloc(num_input * sizeof(REAL*));
+	for (i = 0; i < num_input; i++) {
+		xBoundary[i] = (REAL*)calloc(2, sizeof(REAL));
+		if (xBoundary[i] == NULL) {
+			sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xBoundary[%d]", i);
+			cosim_log(logMsg, COSIM_ERROR);
+			return 1;
+		}
+		else {
+			xBoundary[i][0] = 0;
+			xBoundary[i][1] = 1;	
+		}
+
+		xBoundary2[i] = (REAL*)calloc(2, sizeof(REAL));
+		if (xBoundary2[i] == NULL) {
+			sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xBoundary2[%d]", i);
+			cosim_log(logMsg, COSIM_ERROR);
+			return 1;
+		}
+		else {
+			xBoundary2[i][0] = 0;
+			xBoundary2[i][1] = 1;
+		}
+	}
+
+	return 0;
+} /* End of allocate_memory() */
 
 
 /****************************************************************************
@@ -544,7 +612,7 @@ void evaluate(){
   }
   if (useISAT){
 	tStart = clock();
-		
+
 	/* Windows*/
 	#ifdef _MSC_VER
 		ISATAB(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
@@ -552,7 +620,6 @@ void evaluate(){
 	#else
 		isatab_(&idtab, &mode, &nx, x, &nf, &nh, &nhd, (void *)&unusedPointer, (int *)&ffdStruct, rusr, info, rinfo, fa, ga, ha, stats);
 	#endif
-
 	tEnd = clock();
 	cpuCum = (double)(tEnd - tStart) / CLOCKS_PER_SEC;
 	cpuISAT += cpuCum;
@@ -565,6 +632,9 @@ void evaluate(){
 
   /*increase nQuery*/
   nQuery++;
+
+  /*write recorc*/
+  writeRecord();
  
   /*update time_elipse*/
   time_elipse = cpuISAT;
@@ -630,10 +700,17 @@ void randomCall (int nCall, int useNormalDistribution, int useUnboundedTest){
 | return No return needed
 ****************************************************************************/
 void writeRecord (){
-  if (fabs(cpuISAT - time_elipse) > 1.000000/*threshold for the time difference*/) {
-	sprintf(logMsg, "nQuery, Input[0], Input[1], outPut[0], stats[1-5], isat_cum, cpu_cum:\t%d\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f", nQuery,x[0],x[1],fa[0],stats[0],stats[1],stats[2],stats[3],stats[4],stats[8],stats[81],cpuISAT );
+  int i;
+	sprintf(logMsg, "nQuery,stats[1-5], isat_cum, cpu_cum:\t%d\t%f\t%f\t%f\t%f\t%f\t%f\t%f\t%f", nQuery,stats[0],stats[1],stats[2],stats[3],stats[4],stats[8],stats[81],cpuISAT );
 	cosim_log(logMsg, COSIM_NORMAL);
-  }
+	for (i = 0; i < num_input; i++) {
+		sprintf(logMsg, "\tinput[%d]:\t%f", i, x[i]);
+		cosim_log(logMsg, COSIM_NORMAL);
+	}
+	for (i = 0; i < num_output; i++) {
+		sprintf(logMsg, "\toutput[%d]:\t%f\t%f", i, fa[i], fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i]);
+		cosim_log(logMsg, COSIM_NORMAL);
+	}
 }
 
 
@@ -711,7 +788,14 @@ void binaryTrain () {
   double sumOfGroAdd= 0;
   int i = 0,j = 0;
   int divide =1;
-  double xStep[nx_SIZE];
+  double* xStep;
+
+  xStep = (double*)calloc(num_input, sizeof(double));
+  if (xStep == NULL) {
+	  sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xStep");
+	  cosim_log(logMsg, COSIM_ERROR);
+  }
+
   
   /*initialize the digAftdec*/
   if (RoundDigitsControl) digAftdec = 0;
@@ -728,8 +812,8 @@ void binaryTrain () {
     /* evaluation with current divide */
 	nDemArrEva(nx,xStep);
     divide = divide*2;
-  }
-  while (sumOfGroAdd + nQuery * 5 / 1000 <= (stats[3] + stats[4]));
+  } while (divide <= divide_grid);
+ /* while (sumOfGroAdd + nQuery * 5 / 1000 <= (stats[3] + stats[4])); */
 
 }
 
@@ -737,7 +821,13 @@ void NoTrain() {
   double sumOfGroAdd = 0;
   int i = 0, j = 0;
   int divide = 1;
-  double xStep[nx_SIZE];
+  double* xStep;
+
+  xStep = (double*)calloc(num_input, sizeof(double));
+  if (xStep == NULL) {
+	  sprintf(logMsg, "allocate_memory_isat(): Could not allocate memory for xStep");
+	  cosim_log(logMsg, COSIM_ERROR);
+  }
 
   /*initialize the digAftdec*/
   if (RoundDigitsControl) digAftdec = 0;
@@ -816,11 +906,11 @@ void update_digit() {
 }
 
 /****************************************************************************
-|  Read isat parameters
+|  Read isat general settings
 | 
 |  return No return needed
 ****************************************************************************/
-void read_isat_parameters() {
+int read_isat_general() {
   char filenametmp[400];
   char string[400], tmp[400], tmp1[400];
   int i;
@@ -935,341 +1025,472 @@ void read_isat_parameters() {
 			return 1;
 		}
 	}
-
-	/* Read inpu.inpu_name */
-	else if (!strcmp(tmp, "/*inpu.inpu_name:")) {
-		sprintf(logMsg, "\tRead input settings of isat and ffd:");
-		cosim_log(logMsg, COSIM_NORMAL);
-		for (i = 0; i < num_input; i++) {
-			fgets(string, 400, file_params);
-			sscanf(string, "%s", tmp);
-			if (!strcmp(tmp, "inpu.inpu_name")) {
-				sscanf(string, "%s%s", tmp, tmp1);
-				if (!strcmp(tmp1, "inlet_temp"))
-					inpu_name[i] = inlet_temp;
-				else if (!strcmp(tmp1, "inlet_mass"))
-					inpu_name[i] = inlet_mass;
-				else if (!strcmp(tmp1, "inlet_vel"))
-					inpu_name[i] = inlet_vel;
-				else if (!strcmp(tmp1, "block_temp"))
-					inpu_name[i] = block_temp;
-				else if (!strcmp(tmp1, "block_hea"))
-					inpu_name[i] = block_hea;
-				else if (!strcmp(tmp1, "rack_hea"))
-					inpu_name[i] = rack_hea;
-				else if (!strcmp(tmp1, "sur_temp"))
-					inpu_name[i] = sur_temp;
-				else if (!strcmp(tmp1, "sur_hea"))
-					inpu_name[i] = sur_hea;
-				else {
-					sprintf(logMsg, "read_isat_parameters(): %s is not valid input for %s", tmp1, tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				}
-				sprintf(logMsg, "\t\t%s[%d]=%s", tmp, i, tmp1);
-				cosim_log(logMsg, COSIM_NORMAL);
-			} /*end of if (!strcmp(tmp, "inpu.inpu_name"))*/
-			else {
-				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.inpu_name", tmp);
-				cosim_log(logMsg, COSIM_ERROR);
-				return 1;
-			}
-		} /*End of for (i = 0; i < num_input; i++)*/
-	} /*End of else if (!strcmp(tmp, "/*inpu.inpu_name:"))*/
-
-	/* Read inpu.num_inlet */
-	else if (!strcmp(tmp, "inpu.num_inlet")) {
-		sscanf(string, "%s%d", tmp, &num_inlet);
-		sprintf(logMsg, "\t\t%s=%d", tmp, num_inlet);
-		cosim_log(logMsg, COSIM_NORMAL);
-	}
-	/* Read inpu.num_block */
-	else if (!strcmp(tmp, "inpu.num_block")) {
-		sscanf(string, "%s%d", tmp, &num_block);
-		sprintf(logMsg, "\t\t%s=%d", tmp, num_block);
-		cosim_log(logMsg, COSIM_NORMAL);
-	}
-	/* Read inpu.num_wall */
-	else if (!strcmp(tmp, "inpu.num_wall")) {
-		sscanf(string, "%s%d", tmp, &num_wall);
-		sprintf(logMsg, "\t\t%s=%d", tmp, num_wall);
-		cosim_log(logMsg, COSIM_NORMAL);
-	}
-	/* Read inpu.dir_inlet */
-	else if (!strcmp(tmp, "inpu.dir_inlet")) {
-		if (num_inlet > 0) {
-			sscanf(string, "%s%d", tmp, &dir_inlet);
-			sprintf(logMsg, "\t\t%s=%d", tmp, dir_inlet);
-			cosim_log(logMsg, COSIM_NORMAL);
-		}
-	}
-
-	/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
-	else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) {
-		if (num_inlet > 0) {
-			for (i = 0; i < num_inlet; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.inlet_temp_re")) {
-					sscanf(string, "%s%d", tmp, &inlet_temp_re[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_temp_re[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.inlet_temp_re", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
-			} /* End of for (i = 0; i < num_input; i++) */
-		} /* End of if (num_input > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
-
-	/* Read inpu.inlet_vel_re if inpu.num_inlet > 0 */
-	else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) {
-		if (num_inlet > 0) {
-			for (i = 0; i < num_inlet; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.inlet_vel_re")) {
-					sscanf(string, "%s%d", tmp, &inlet_vel_re[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_vel_re[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.inlet_vel_re", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.inlet_vel_re")) */
-			} /* End of for (i = 0; i < num_input; i++) */
-		} /* End of if (num_input > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) */
-
-			/* Read inpu.inlet_temp_wh if inpu.num_inlet > 0 */
-	else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) {
-		if (num_inlet > 0) {
-			for (i = 0; i < num_inlet; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.inlet_temp_wh")) {
-					sscanf(string, "%s%d", tmp, &inlet_temp_wh[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_temp_wh[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.inlet_temp_wh", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.inlet_temp_wh")) */
-			} /* End of for (i = 0; i < num_input; i++) */
-		} /* End of if (num_input > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) */
-
-	/* Read inpu.inlet_u_wh if inpu.num_inlet > 0 */
-	else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) {
-		if (num_inlet > 0) {
-			for (i = 0; i < num_inlet; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.inlet_vel_wh")) {
-					sscanf(string, "%s%d", tmp, &inlet_vel_wh[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_vel_wh[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.inlet_vel_wh", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.inlet_vel_wh")) */
-			} /* End of for (i = 0; i < num_input; i++) */
-		} /* End of if (num_input > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) */
-
-	/* Read inpu.block_re if inpu.num_block > 0 */
-	else if (!strcmp(tmp, "/*inpu.block_re:")) {
-		if (num_block > 0) {
-			for (i = 0; i < num_block; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.block_re")) {
-					sscanf(string, "%s%d", tmp, &block_re[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, block_re[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.block_re", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.block_re")) */
-			} /* End of for (i = 0; i < num_block; i++) */
-		} /* End of if (num_block > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.block_re:")) */
-
-	/* Read inpu.block_wh if inpu.num_block > 0 */
-	else if (!strcmp(tmp, "/*inpu.block_wh:")) {
-		if (num_block > 0) {
-			for (i = 0; i < num_block; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.block_wh")) {
-					sscanf(string, "%s%d", tmp, &block_wh[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, block_wh[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.block_wh", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.block_wh")) */
-			} /* End of for (i = 0; i < num_block; i++) */
-		} /* End of if (num_block > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.block_wh:")) */
-
-	/* Read inpu.wall_re if inpu.num_wall > 0 */
-	else if (!strcmp(tmp, "/*inpu.wall_re:")) {
-		if (num_wall > 0) {
-			for (i = 0; i < num_wall; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.wall_re")) {
-					sscanf(string, "%s%d", tmp, &wall_re[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_re[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.wall_re", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.wall_re")) */
-			} /* End of for (i = 0; i < num_wall; i++) */
-		} /* End of if (num_wall > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.wall_re:")) */
-
-	/* Read inpu.wall_wh if inpu.num_wall > 0 */
-	else if (!strcmp(tmp, "/*inpu.wall_wh:")) {
-		if (num_wall > 0) {
-			for (i = 0; i < num_wall; i++) {
-				fgets(string, 400, file_params);
-				sscanf(string, "%s", tmp);
-				if (!strcmp(tmp, "inpu.wall_wh")) {
-					sscanf(string, "%s%d", tmp, &wall_wh[i]);
-					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_wh[i]);
-					cosim_log(logMsg, COSIM_NORMAL);
-				}
-				else {
-					sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.wall_wh", tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				} /* End of if (!strcmp(tmp, "inpu.wall_wh")) */
-			} /* End of for (i = 0; i < num_wall; i++) */
-		} /* End of if (num_wall > 0) */
-	} /* End of else if (!strcmp(tmp, "/*inpu.wall_wh:")) */
-
-	/* Read outp.outp_name */
-	else if (!strcmp(tmp, "/*outp.outp_name:")) {
-		sprintf(logMsg, "\tRead output settings of isat and ffd:");
-		cosim_log(logMsg, COSIM_NORMAL);
-		for (i = 0; i < num_output; i++) {
-			fgets(string, 400, file_params);
-			sscanf(string, "%s", tmp);
-			if (!strcmp(tmp, "outp.outp_name")) {
-				sscanf(string, "%s%s", tmp, tmp1);
-				if (!strcmp(tmp1, "temp_roo"))
-					outp_name[i] = temp_roo;
-				else if (!strcmp(tmp1, "temp_occ"))
-					outp_name[i] = temp_occ;
-				else if (!strcmp(tmp1, "vel_occ"))
-					outp_name[i] = vel_occ;
-				else if (!strcmp(tmp1, "temp_sen"))
-					outp_name[i] = temp_sen;
-				else if (!strcmp(tmp1, "vel_sen"))
-					outp_name[i] = vel_sen;
-				else if (!strcmp(tmp1, "temp_rack"))
-					outp_name[i] = temp_rack;
-				else if (!strcmp(tmp1, "heat_wall1"))
-					outp_name[i] = heat_wall1;
-				else if (!strcmp(tmp1, "heat_wall2"))
-					outp_name[i] = heat_wall2;
-				else if (!strcmp(tmp1, "heat_wall3"))
-					outp_name[i] = heat_wall3;
-				else if (!strcmp(tmp1, "heat_wall4"))
-					outp_name[i] = heat_wall4;
-				else if (!strcmp(tmp1, "heat_wall5"))
-					outp_name[i] = heat_wall5;
-				else if (!strcmp(tmp1, "heat_wall6"))
-					outp_name[i] = heat_wall6;
-				else {
-					sprintf(logMsg, "read_isat_parameters(): %s is not valid input for %s", tmp1, tmp);
-					cosim_log(logMsg, COSIM_ERROR);
-					return 1;
-				}
-				sprintf(logMsg, "\t\t%s[%d]=%s", tmp, i, tmp1);
-				cosim_log(logMsg, COSIM_NORMAL);
-			} /*end of if (!strcmp(tmp, "outp.outp_name"))*/
-			else {
-				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be outp.outp_name", tmp);
-				cosim_log(logMsg, COSIM_ERROR);
-				return 1;
-			}
-		} /*End of for (i = 0; i < num_output; i++)*/
-	} /*End of else if (!strcmp(tmp, "/*outp.outp_name:"))*/
-
-	/* Read outp.outp_weight */
-	else if (!strcmp(tmp, "/*outp.outp_weight:")) {
-		for (i = 0; i < num_output; i++) {
-			fgets(string, 400, file_params);
-			sscanf(string, "%s", tmp);
-			if (!strcmp(tmp, "outp.outp_weight")) {
-				sscanf(string, "%s%lf", tmp, &outp_weight[i]);
-				sprintf(logMsg, "\t\t%s[%d]=%lf", tmp, i, outp_weight[i]);
-				cosim_log(logMsg, COSIM_NORMAL);
-			}
-			else {
-				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be outp.outp_name", tmp);
-				cosim_log(logMsg, COSIM_ERROR);
-				return 1;
-			} /* End of if (!strcmp(tmp, "outp.outp_weight"))*/
-		} /* End of for (i = 0; i < num_output; i++)*/
-	} /* End of else if (!strcmp(tmp, "/*outp.outp_weight:"))*/
-
-	else if (!strcmp(tmp, "/*outp.wall_heat_re:")) {
-		for (i = 0; i < para.cosim->para->nSur; i++) {
-			fgets(string, 400, file_params);
-			sscanf(string, "%s", tmp);
-			if (!strcmp(tmp, "outp.wall_heat_re")) {
-				sscanf(string, "%s%d", tmp, &wall_heat_re[i]);
-				sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_heat_re[i]);
-				cosim_log(logMsg, COSIM_NORMAL);
-			}
-			else {
-				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be outp.wall_heat_re", tmp);
-				cosim_log(logMsg, COSIM_ERROR);
-				return 1;
-			} /* End of if (!strcmp(tmp, "outp.wall_heat_re:"))*/
-		} /* End of for (i = 0; i < para.cosim->para->nSur; i++)*/
-	} /* End of else if (!strcmp(tmp, "/*outp.wall_heat_re:"))*/
-
-	else if (!strcmp(tmp, "/*outp.wall_heat_wh:")) {
-		for (i = 0; i < para.cosim->para->nSur; i++) {
-			fgets(string, 400, file_params);
-			sscanf(string, "%s", tmp);
-			if (!strcmp(tmp, "outp.wall_heat_wh")) {
-				sscanf(string, "%s%d", tmp, &wall_heat_wh[i]);
-				sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_heat_wh[i]);
-				cosim_log(logMsg, COSIM_NORMAL);
-			}
-			else {
-				sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be outp.wall_heat_wh", tmp);
-				cosim_log(logMsg, COSIM_ERROR);
-				return 1;
-			} /* End of if (!strcmp(tmp, "outp.wall_heat_wh:"))*/
-		} /* End of for (i = 0; i < para.cosim->para->nSur; i++)*/
-	} /* End of else if (!strcmp(tmp, "/*outp.wall_heat_wh:"))*/
-
   } /* End of while (next = 0)*/
 
   fclose(file_params);
+  return 0;
 
 }
+
+
+/****************************************************************************
+|  Read isat input/output settings
+|
+|  return No return needed
+****************************************************************************/
+int read_isat_input_output() {
+	char filenametmp[400];
+	char string[400], tmp[400], tmp1[400];
+	int i;
+
+	cosim_log("-------------------------------------------------------------------",
+		COSIM_NORMAL);
+	/****************************************************************************
+	| overwrite the parameters by user settings
+	****************************************************************************/
+	char* lastSlash = strrchr(para.cosim->para->fileName, '/');
+	int nPath = strlen(para.cosim->para->fileName) - (strlen(lastSlash) - 1);
+
+	para.cosim->para->filePath = (char*)calloc(nPath + 1, sizeof(char));
+	para.inpu->parameter_file_path = (char*)calloc(nPath + 1, sizeof(char));
+	if (para.cosim->para->filePath == NULL) {
+		cosim_log("read_isat_input_output(): Could not allocate memory for the path to the FFD files", COSIM_ERROR);
+		return 1;
+	}
+	else {
+		strncpy(filepath, para.cosim->para->fileName, nPath);
+	}
+	snprintf(filenametmp, sizeof(filenametmp), "%s%s", filepath, "set.isat");
+
+
+	/****************************************************************************
+	| overwrite the parameters by user settings
+	****************************************************************************/
+	if ((file_params = fopen(filenametmp, "r")) == NULL) {
+		return 1;
+	}
+	else {
+		sprintf(logMsg, "read_isat_input_output(): Read isat parameters from file %s", filenametmp);
+		cosim_log(logMsg, COSIM_NORMAL);
+	}
+	/* Read the settings for outputs */
+	int next = 0;
+	while (next == 0) {
+		if (fgets(string, 400, file_params) == NULL)
+			next = 1;
+		if (EOF == sscanf(string, "%s", tmp)) {
+			continue;
+		}
+
+		/* Read inpu.inpu_name */
+		if (!strcmp(tmp, "/*inpu.inpu_name:")) {
+			sprintf(logMsg, "\tRead input settings of isat and ffd:");
+			cosim_log(logMsg, COSIM_NORMAL);
+			for (i = 0; i < num_input; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "inpu.inpu_name")) {
+					sscanf(string, "%s%s", tmp, tmp1);
+					if (!strcmp(tmp1, "inlet_temp"))
+						inpu_name[i] = inlet_temp;
+					else if (!strcmp(tmp1, "inlet_mass"))
+						inpu_name[i] = inlet_mass;
+					else if (!strcmp(tmp1, "inlet_vel"))
+						inpu_name[i] = inlet_vel;
+					else if (!strcmp(tmp1, "block_temp"))
+						inpu_name[i] = block_temp;
+					else if (!strcmp(tmp1, "block_hea"))
+						inpu_name[i] = block_hea;
+					else if (!strcmp(tmp1, "rack_hea"))
+						inpu_name[i] = rack_hea;
+					else if (!strcmp(tmp1, "sur_temp"))
+						inpu_name[i] = sur_temp;
+					else if (!strcmp(tmp1, "sur_hea"))
+						inpu_name[i] = sur_hea;
+					else {
+						sprintf(logMsg, "read_isat_parameters(): %s is not valid input for %s", tmp1, tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					}
+					sprintf(logMsg, "\t\t%s[%d]=%s", tmp, i, tmp1);
+					cosim_log(logMsg, COSIM_NORMAL);
+				} /*end of if (!strcmp(tmp, "inpu.inpu_name"))*/
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.inpu_name", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				}
+			} /*End of for (i = 0; i < num_input; i++)*/
+		} /*End of else if (!strcmp(tmp, "/*inpu.inpu_name:"))*/
+
+		/* Read inpu.num_inlet */
+		else if (!strcmp(tmp, "inpu.num_inlet")) {
+			sscanf(string, "%s%d", tmp, &num_inlet);
+			sprintf(logMsg, "\t\t%s=%d", tmp, num_inlet);
+			cosim_log(logMsg, COSIM_NORMAL);
+		}
+		/* Read inpu.num_block */
+		else if (!strcmp(tmp, "inpu.num_block")) {
+			sscanf(string, "%s%d", tmp, &num_block);
+			sprintf(logMsg, "\t\t%s=%d", tmp, num_block);
+			cosim_log(logMsg, COSIM_NORMAL);
+		}
+		/* Read inpu.num_wall */
+		else if (!strcmp(tmp, "inpu.num_wall")) {
+			sscanf(string, "%s%d", tmp, &num_wall);
+			sprintf(logMsg, "\t\t%s=%d", tmp, num_wall);
+			cosim_log(logMsg, COSIM_NORMAL);
+		}
+
+		/* Read inpu.xBoundary_upper */
+		else if (!strcmp(tmp, "/*inpu.xBoundary_upper:") && useBinarySelectedPoint == 1) {
+			for (i = 0; i < num_input; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "inpu.xBoundary_upper")) {
+					sscanf(string, "%s%lf", tmp, &xBoundary[i][1]);
+					sprintf(logMsg, "\t\t%s[%d]=%lf", tmp, i, xBoundary[i][1]);
+					cosim_log(logMsg, COSIM_NORMAL);
+				}
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.outp_name", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				} /* End of if (!strcmp(tmp, "inpu.xBoundary_lower"))*/
+			} /* End of for (i = 0; i < num_input; i++)*/
+		} /* End of else if (!strcmp(tmp, "/*inpu.xBoundary_lower:"))*/
+
+		else if (!strcmp(tmp, "/*inpu.xBoundary_lower:")) {
+			for (i = 0; i < num_input; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "inpu.xBoundary_lower")) {
+					sscanf(string, "%s%lf", tmp, &xBoundary[i][0]);
+					sprintf(logMsg, "\t\t%s[%d]=%lf", tmp, i, xBoundary[i][0]);
+					cosim_log(logMsg, COSIM_NORMAL);
+				}
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.outp_name", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				} /* End of if (!strcmp(tmp, "inpu.xBoundary_lower"))*/
+			} /* End of for (i = 0; i < num_input; i++)*/
+		} /* End of else if (!strcmp(tmp, "/*inpu.xBoundary_lower:"))*/
+
+		/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.divide:")) {
+			if (useBinarySelectedPoint == 1) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.divide")) {
+						sscanf(string, "%s%d", tmp, &divide_grid);
+						sprintf(logMsg, "\t\t%s=%d", tmp, divide_grid);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.divide", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
+
+
+		/* Read inpu.dir_inlet */
+		else if (!strcmp(tmp, "inpu.dir_inlet")) {
+			if (num_inlet > 0) {
+				sscanf(string, "%s%d", tmp, &dir_inlet);
+				sprintf(logMsg, "\t\t%s=%d", tmp, dir_inlet);
+				cosim_log(logMsg, COSIM_NORMAL);
+			}
+		}
+
+		/* Read inpu.inlet_temp_re if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_temp_re")) {
+						sscanf(string, "%s%d", tmp, &inlet_temp_re[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_temp_re[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.inlet_temp_re", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_temp_re")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_re:")) */
+
+		/* Read inpu.inlet_vel_re if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_vel_re")) {
+						sscanf(string, "%s%d", tmp, &inlet_vel_re[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_vel_re[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.inlet_vel_re", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_vel_re")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_re:")) */
+
+				/* Read inpu.inlet_temp_wh if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_temp_wh")) {
+						sscanf(string, "%s%d", tmp, &inlet_temp_wh[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_temp_wh[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.inlet_temp_wh", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_temp_wh")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_temp_wh:")) */
+
+		/* Read inpu.inlet_u_wh if inpu.num_inlet > 0 */
+		else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) {
+			if (num_inlet > 0) {
+				for (i = 0; i < num_inlet; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.inlet_vel_wh")) {
+						sscanf(string, "%s%d", tmp, &inlet_vel_wh[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, inlet_vel_wh[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_parameters(): wrong format for %s, which should be inpu.inlet_vel_wh", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.inlet_vel_wh")) */
+				} /* End of for (i = 0; i < num_input; i++) */
+			} /* End of if (num_input > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.inlet_vel_wh:")) */
+
+		/* Read inpu.block_re if inpu.num_block > 0 */
+		else if (!strcmp(tmp, "/*inpu.block_re:")) {
+			if (num_block > 0) {
+				for (i = 0; i < num_block; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.block_re")) {
+						sscanf(string, "%s%d", tmp, &block_re[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, block_re[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.block_re", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.block_re")) */
+				} /* End of for (i = 0; i < num_block; i++) */
+			} /* End of if (num_block > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.block_re:")) */
+
+		/* Read inpu.block_wh if inpu.num_block > 0 */
+		else if (!strcmp(tmp, "/*inpu.block_wh:")) {
+			if (num_block > 0) {
+				for (i = 0; i < num_block; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.block_wh")) {
+						sscanf(string, "%s%d", tmp, &block_wh[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, block_wh[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.block_wh", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.block_wh")) */
+				} /* End of for (i = 0; i < num_block; i++) */
+			} /* End of if (num_block > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.block_wh:")) */
+
+		/* Read inpu.wall_re if inpu.num_wall > 0 */
+		else if (!strcmp(tmp, "/*inpu.wall_re:")) {
+			if (num_wall > 0) {
+				for (i = 0; i < num_wall; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.wall_re")) {
+						sscanf(string, "%s%d", tmp, &wall_re[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_re[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.wall_re", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.wall_re")) */
+				} /* End of for (i = 0; i < num_wall; i++) */
+			} /* End of if (num_wall > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.wall_re:")) */
+
+		/* Read inpu.wall_wh if inpu.num_wall > 0 */
+		else if (!strcmp(tmp, "/*inpu.wall_wh:")) {
+			if (num_wall > 0) {
+				for (i = 0; i < num_wall; i++) {
+					fgets(string, 400, file_params);
+					sscanf(string, "%s", tmp);
+					if (!strcmp(tmp, "inpu.wall_wh")) {
+						sscanf(string, "%s%d", tmp, &wall_wh[i]);
+						sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_wh[i]);
+						cosim_log(logMsg, COSIM_NORMAL);
+					}
+					else {
+						sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be inpu.wall_wh", tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					} /* End of if (!strcmp(tmp, "inpu.wall_wh")) */
+				} /* End of for (i = 0; i < num_wall; i++) */
+			} /* End of if (num_wall > 0) */
+		} /* End of else if (!strcmp(tmp, "/*inpu.wall_wh:")) */
+
+		/* Read outp.outp_name */
+		else if (!strcmp(tmp, "/*outp.outp_name:")) {
+			sprintf(logMsg, "\tRead output settings of isat and ffd:");
+			cosim_log(logMsg, COSIM_NORMAL);
+			for (i = 0; i < num_output; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "outp.outp_name")) {
+					sscanf(string, "%s%s", tmp, tmp1);
+					if (!strcmp(tmp1, "temp_roo"))
+						outp_name[i] = temp_roo;
+					else if (!strcmp(tmp1, "temp_occ"))
+						outp_name[i] = temp_occ;
+					else if (!strcmp(tmp1, "vel_occ"))
+						outp_name[i] = vel_occ;
+					else if (!strcmp(tmp1, "temp_sen"))
+						outp_name[i] = temp_sen;
+					else if (!strcmp(tmp1, "vel_sen"))
+						outp_name[i] = vel_sen;
+					else if (!strcmp(tmp1, "temp_rack"))
+						outp_name[i] = temp_rack;
+					else if (!strcmp(tmp1, "heat_wall1"))
+						outp_name[i] = heat_wall1;
+					else if (!strcmp(tmp1, "heat_wall2"))
+						outp_name[i] = heat_wall2;
+					else if (!strcmp(tmp1, "heat_wall3"))
+						outp_name[i] = heat_wall3;
+					else if (!strcmp(tmp1, "heat_wall4"))
+						outp_name[i] = heat_wall4;
+					else if (!strcmp(tmp1, "heat_wall5"))
+						outp_name[i] = heat_wall5;
+					else if (!strcmp(tmp1, "heat_wall6"))
+						outp_name[i] = heat_wall6;
+					else {
+						sprintf(logMsg, "read_isat_input_output(): %s is not valid input for %s", tmp1, tmp);
+						cosim_log(logMsg, COSIM_ERROR);
+						return 1;
+					}
+					sprintf(logMsg, "\t\t%s[%d]=%s", tmp, i, tmp1);
+					cosim_log(logMsg, COSIM_NORMAL);
+				} /*end of if (!strcmp(tmp, "outp.outp_name"))*/
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.outp_name", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				}
+			} /*End of for (i = 0; i < num_output; i++)*/
+		} /*End of else if (!strcmp(tmp, "/*outp.outp_name:"))*/
+
+		/* Read outp.outp_weight */
+		else if (!strcmp(tmp, "/*outp.outp_Boundary_upper:")) {
+			for (i = 0; i < num_output; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "outp.outp_Boundary_upper")) {
+					sscanf(string, "%s%lf", tmp, &outp_Boundary_upper[i]);
+					sprintf(logMsg, "\t\t%s[%d]=%lf", tmp, i, outp_Boundary_upper[i]);
+					cosim_log(logMsg, COSIM_NORMAL);
+				}
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.outp_name", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				} /* End of if (!strcmp(tmp, "outp.outp_Boundary_upper"))*/
+			} /* End of for (i = 0; i < num_output; i++)*/
+		} /* End of else if (!strcmp(tmp, "/*outp.outp_Boundary_upper:"))*/
+
+		else if (!strcmp(tmp, "/*outp.outp_Boundary_lower:")) {
+			for (i = 0; i < num_output; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "outp.outp_Boundary_lower")) {
+					sscanf(string, "%s%lf", tmp, &outp_Boundary_lower[i]);
+					sprintf(logMsg, "\t\t%s[%d]=%lf", tmp, i, outp_Boundary_lower[i]);
+					cosim_log(logMsg, COSIM_NORMAL);
+				}
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.outp_name", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				} /* End of if (!strcmp(tmp, "outp.outp_Boundary_lower"))*/
+			} /* End of for (i = 0; i < num_output; i++)*/
+		} /* End of else if (!strcmp(tmp, "/*outp.outp_Boundary_lower:"))*/
+
+		else if (!strcmp(tmp, "/*outp.wall_heat_re:")) {
+			for (i = 0; i < para.cosim->para->nSur; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "outp.wall_heat_re")) {
+					sscanf(string, "%s%d", tmp, &wall_heat_re[i]);
+					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_heat_re[i]);
+					cosim_log(logMsg, COSIM_NORMAL);
+				}
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.wall_heat_re", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				} /* End of if (!strcmp(tmp, "outp.wall_heat_re:"))*/
+			} /* End of for (i = 0; i < para.cosim->para->nSur; i++)*/
+		} /* End of else if (!strcmp(tmp, "/*outp.wall_heat_re:"))*/
+
+		else if (!strcmp(tmp, "/*outp.wall_heat_wh:")) {
+			for (i = 0; i < para.cosim->para->nSur; i++) {
+				fgets(string, 400, file_params);
+				sscanf(string, "%s", tmp);
+				if (!strcmp(tmp, "outp.wall_heat_wh")) {
+					sscanf(string, "%s%d", tmp, &wall_heat_wh[i]);
+					sprintf(logMsg, "\t\t%s[%d]=%d", tmp, i, wall_heat_wh[i]);
+					cosim_log(logMsg, COSIM_NORMAL);
+				}
+				else {
+					sprintf(logMsg, "read_isat_input_output(): wrong format for %s, which should be outp.wall_heat_wh", tmp);
+					cosim_log(logMsg, COSIM_ERROR);
+					return 1;
+				} /* End of if (!strcmp(tmp, "outp.wall_heat_wh:"))*/
+			} /* End of for (i = 0; i < para.cosim->para->nSur; i++)*/
+		} /* End of else if (!strcmp(tmp, "/*outp.wall_heat_wh:"))*/
+
+	} /* End of while (next = 0)*/
+
+	fclose(file_params);
+	return 0;
+
+}
+
+
 
 /****************************************************************************
 |  Main logic of cosimulation
@@ -1289,11 +1510,6 @@ int cosim_loop() {
   }
 
   evaluate();
-
-  for (i = 0; i < num_output; i++) {
-	para.cosim->ffd->output[i] = fa[i] / outp_weight[i];
-  }
-
   flag = write_cosim_data(&para);
 	
   next = 1;
@@ -1321,7 +1537,7 @@ int cosim_loop() {
 	
 	}
 	for (i = 0; i < num_output; i++) {
-		para.cosim->ffd->output[i] = fa[i] / outp_weight[i];
+		para.cosim->ffd->output[i] = fa[i] * (outp_Boundary_upper[i] - outp_Boundary_lower[i]) + outp_Boundary_lower[i];
 	}
 
 

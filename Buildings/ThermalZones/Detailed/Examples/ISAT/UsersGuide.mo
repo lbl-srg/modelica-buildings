@@ -4,7 +4,9 @@ package UsersGuide
   annotation (preferredView="info",
   Documentation(info="<html>
 <h4>Introduction</h4>
-<p>For an introduction to the coupled simulation and for detailed information on <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>, please refer to <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.ISAT\">Buildings.ThermalZones.Detailed.UsersGuide.ISAT</a>. For a step by step guide on performing the coupled simulation, please refer to <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial\">Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial</a>. </p>
+<p>For an introduction to the coupled simulation and for detailed information on <a href=\"modelica://Buildings.ThermalZones.Detailed.ISAT\">Buildings.ThermalZones.Detailed.ISAT</a>, please refer to <a href=\"modelica://Buildings.ThermalZones.Detailed.UsersGuide.ISAT\">Buildings.ThermalZones.Detailed.UsersGuide.ISAT</a>. </p>
+<p>For a step by step guide on performing the coupled simulation, please refer to <a href=\"modelica://Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial\">Buildings.ThermalZones.Detailed.Examples.ISAT.Tutorial</a>. </p>
+<p>Note that the users should set all the variables of interests as outputs of isat, which otherwise will be returned with constant default values.</p>
 <p><b>Files for the Coupled Simulation</b> </p>
 <p>The source code of the ISAT program is located at <span style=\"font-family: Courier New;\">Buildings/Resources/src/ISAT</span>. The <span style=\"font-family: Courier New;\">Buildings</span> library contains precompiled versions of this source code in the subdirectories of <span style=\"font-family: Courier New;\">Buildings/Resources/Library</span>. </p>
 <p>To run the coupled simulation with ISAT, the following files are needed and provided in the <span style=\"font-family: Courier New;\">Buildings</span> library: </p>
@@ -23,7 +25,8 @@ package UsersGuide
 </ul></li>
 </ul>
 <h4>Compiling library files</h4>
-<p>The ISAT program can be compiled into a dll in Windows using MinGW compilers or Microsoft Visual Studio and Intel Visual Fortran. It can also be compiled in Linux using gcc and gfortran. Compiled files are distributed with the <span style=\"font-family: Courier New;\">Buildings</span> library. If you want to compile the files yourself, please refer to the guides at the <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">ISAT project website</a>.</p>
+<p>The ISAT program can be compiled into a dll in Windows using MinGW compilers or Microsoft Visual Studio and Intel Visual Fortran. It can also be compiled in Linux using gcc and gfortran. </p>
+<p>Compiled files are distributed with the <span style=\"font-family: Courier New;\">Buildings</span> library. If you want to compile the files yourself, please refer to the guides at the <a href=\"https://www.colorado.edu/lab/sbs/data-center-package\">ISAT project website</a>.</p>
 </html>", revisions="<html>
 <ul>
 <li>April 5, 2020, by Xu Han, Cary Faulkner, Wangda Zuo:<br>First implementation. </li>

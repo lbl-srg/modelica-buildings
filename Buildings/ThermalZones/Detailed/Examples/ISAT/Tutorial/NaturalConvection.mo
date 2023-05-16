@@ -42,9 +42,8 @@ model NaturalConvection "Tutorial for the natural convection case"
    hRoo = 1,
    linearizeRadiation = false,
    useCFD = true,
-   haveSource=false,
    nSou=0,
-   sensorName = {"Occupied zone air temperature", "Velocity"},
+   sensorName = {"Zone air temperature", "Velocity"},
    cfdFilNam = "modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.ffd",
    nConExt = nConExt,
    nConExtWin = nConExtWin,
@@ -132,51 +131,53 @@ equation
 <p><br>Note that for the other four walls with adiabatic boundary conditions, we do not need to specify a zero heat flow boundary condition because the heat flow rate transferred through a heat port from the outside is zero if the heat port is not connected from the outside. </p>
 </li>
 <li>In the textual editor mode, add the medium and the number of surfaces as shown below:
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.CFD roo(</span></p>
-<p><span style=\"font-family: Courier New;\">package MediumA = Buildings.Media.Air (T_default=283.15);</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConExtWin=0;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConBou=0;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nSurBou=6;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConExt=0;</span></p>
-<p><span style=\"font-family: Courier New;\">parameter Integer nConPar=0;</span> </p>
+<pre>
+package MediumA = Buildings.Media.Air (T_default=283.15);
+parameter Integer nConExtWin=0;
+parameter Integer nConBou=0;
+parameter Integer nSurBou=6;
+parameter Integer nConExt=0;
+parameter Integer nConPar=0;
+</pre>
 </li> 
 <li>Edit <span style=\"font-family: Courier New;\">roo</span> as below:
-<p><span style=\"font-family: Courier New;\">edeclare package Medium = MediumA,</span></p>
-<p><span style=\"font-family: Courier New;\">surBou(</span></p>
-<p><span style=\"font-family: Courier New;\">name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},</span></p>
-<p><span style=\"font-family: Courier New;\">each A=1*1,</span></p>
-<p><span style=\"font-family: Courier New;\">til={Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Wall,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Ceiling,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.Types.Tilt.Floor},</span></p>
-<p><span style=\"font-family: Courier New;\">each absIR=1e-5,</span></p>
-<p><span style=\"font-family: Courier New;\">each absSol=1e-5,</span></p>
-<p><span style=\"font-family: Courier New;\">boundaryCondition={</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,</span></p>
-<p><span style=\"font-family: Courier New;\">Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate}),</span></p>
-<p><span style=\"font-family: Courier New;\">lat = 0.012787839282646,</span></p>
-<p><span style=\"font-family: Courier New;\">AFlo = 1*1,</span></p>
-<p><span style=\"font-family: Courier New;\">hRoo = 1,</span></p>
-<p><span style=\"font-family: Courier New;\">linearizeRadiation = false,</span></p>
-<p><span style=\"font-family: Courier New;\">useCFD = true,</span></p>
-<p><span style=\"font-family: Courier New;\">haveSource=false,</span></p>
-<p><span style=\"font-family: Courier New;\">nSou=0,</span></p>
-<p><span style=\"font-family: Courier New;\">sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},</span></p>
-<p><span style=\"font-family: Courier New;\">cfdFilNam = &quot;modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.ffd&quot;,</span></p>
-<p><span style=\"font-family: Courier New;\">nConExt = nConExt,</span></p>
-<p><span style=\"font-family: Courier New;\">nConExtWin = nConExtWin,</span></p>
-<p><span style=\"font-family: Courier New;\">nConPar = nConPar,</span></p>
-<p><span style=\"font-family: Courier New;\">nConBou = nConBou,</span></p>
-<p><span style=\"font-family: Courier New;\">nSurBou = nSurBou,</span></p>
-<p><span style=\"font-family: Courier New;\">T_start=273.15,</span></p>
-<p><span style=\"font-family: Courier New;\">samplePeriod = 7200,</span></p>
-<p><span style=\"font-family: Courier New;\">massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);</span></p>
+<pre>
+Buildings.ThermalZones.Detailed.CFD roo(
+redeclare package Medium = MediumA,
+surBou(
+name={&quot;East Wall&quot;,&quot;West Wall&quot;,&quot;North Wall&quot;,&quot;South Wall&quot;,&quot;Ceiling&quot;,&quot;Floor&quot;},
+each A=1*1,
+til={Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Wall,
+Buildings.Types.Tilt.Ceiling,
+Buildings.Types.Tilt.Floor},
+each absIR=1e-5,
+each absSol=1e-5,
+boundaryCondition={
+Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
+Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.Temperature,
+Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
+Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
+Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate,
+Buildings.ThermalZones.Detailed.Types.CFDBoundaryConditions.HeatFlowRate}),
+lat = 0.012787839282646,
+AFlo = 1*1,
+hRoo = 1,
+linearizeRadiation = false,
+useCFD = true,
+sensorName = {&quot;Occupied zone air temperature&quot;, &quot;Velocity&quot;},
+cfdFilNam = &quot;modelica://Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvection/input.ffd&quot;,
+nConExt = nConExt,
+nConExtWin = nConExtWin,
+nConPar = nConPar,
+nConBou = nConBou,
+nSurBou = nSurBou,
+T_start=273.15,
+samplePeriod = 7200);
+massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+</pre>
 </li>
 <li>Connect the component as shown in the figure below.
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/ThermalZones/Detailed/Examples/ISAT/Tutorial/NaturalConvectionModel.png\" alt=\"image\"/> </p>
@@ -277,25 +278,27 @@ equation
 <li>Rename the files as <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> and <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, respectively. </li>
 </ul></li>
 <li>Revise the FFD parameter input file <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span> (an example file is provided in <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial/</span>):
-<p><span style=\"font-family: Courier New;\">inpu.parameter_file_format SCI</span></p>
-<p><span style=\"font-family: Courier New;\">inpu.parameter_file_name NaturalConvection.cfd</span></p>
-<p><span style=\"font-family: Courier New;\">inpu.block_file_name NaturalConvection.dat</span></p>
-<p><span style=\"font-family: Courier New;\">prob.nu 1.5e-5 // Kinematic viscosity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.rho 1 // Density</span></p>
-<p><span style=\"font-family: Courier New;\">prob.gravx 0 // Gravity in x direction</span></p>
-<p><span style=\"font-family: Courier New;\">prob.gravy 0 // Gravity in y direction</span></p>
-<p><span style=\"font-family: Courier New;\">prob.gravz -0.01 // Gravity in z direction</span></p>
-<p><span style=\"font-family: Courier New;\">prob.cond 0.02 // Conductivity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.Cp 1000.0 // Specific heat capacity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.beta 3e-3 // Thermal expansion coefficient</span></p>
-<p><span style=\"font-family: Courier New;\">prob.diff 0.00001 // Diffusivity for contaminants</span></p>
-<p><span style=\"font-family: Courier New;\">prob.alpha 2e-5 // Thermal diffusivity</span></p>
-<p><span style=\"font-family: Courier New;\">prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall</span></p>
-<p><span style=\"font-family: Courier New;\">prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyance force</span></p>
-<p><span style=\"font-family: Courier New;\">init.T 0.0 // Initial condition for Temperature</span></p>
-<p><span style=\"font-family: Courier New;\">init.u 0.0 // Initial condition for velocity u</span></p>
-<p><span style=\"font-family: Courier New;\">init.v 0.0 // Initial condition for velocity v</span></p>
-<p><span style=\"font-family: Courier New;\">init.w 0.0 // Initial condition for velocity w</span></p>
+<pre>
+inpu.parameter_file_format SCI
+inpu.parameter_file_name NaturalConvection.cfd
+inpu.block_file_name NaturalConvection.dat
+prob.nu 1.5e-5 // Kinematic viscosity
+prob.rho 1 // Density
+prob.gravx 0 // Gravity in x direction
+prob.gravy 0 // Gravity in y direction
+prob.gravz -0.01 // Gravity in z direction
+prob.cond 0.02 // Conductivity
+prob.Cp 1000.0 // Specific heat capacity
+prob.beta 3e-3 // Thermal expansion coefficient
+prob.diff 0.00001 // Diffusivity for contaminants
+prob.alpha 2e-5 // Thermal diffusivity
+prob.coeff_h 0.0004 // Convective heat transfer coefficient near the wall
+prob.Temp_Buoyancy 0.0 // Reference temperature for calculating buoyance force
+init.T 0.0 // Initial condition for Temperature
+init.u 0.0 // Initial condition for velocity u
+init.v 0.0 // Initial condition for velocity v
+init.w 0.0 // Initial condition for velocity w
+</pre>
 <p>Please note that some of the physical properties were manipulated to obtain the desired Rayleigh Number of <i>10<sup>5</sup></i>. </p>
 </li> 
 <li>Store <span style=\"font-family: Courier New;\">NaturalConvection.ffd</span>, <span style=\"font-family: Courier New;\">NaturalConvection.dat</span>, and <span style=\"font-family: Courier New;\">NaturalConvection.cfd</span> at <span style=\"font-family: Courier New;\">Buildings/Resources/Data/ThermalZones/Detailed/Examples/ISAT/Tutorial</span>. </li>

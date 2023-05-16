@@ -38,7 +38,7 @@
 #define READ_FFD_RESULT 1
 
 #define nx_SIZE 10                  /* Dimension of x */
-#define nf_SIZE 4                   /* Dimension of f */ 
+#define nf_SIZE 10                   /* Dimension of f */ 
 #define nh_SIZE 1                   /* Dimension of h, Set to 1 if h(x) is not required to initialize pointer ha */
 
 /****************************************************************************
