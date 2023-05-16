@@ -48,7 +48,7 @@ model DXCooledAirsideEconomizer
     m_flow_nominal=mA_flow_nominal,
     nPorts=2) "Simplified data center room"
     annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling varSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.VariableSpeed varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoi,
@@ -91,53 +91,53 @@ model DXCooledAirsideEconomizer
   Modelica.Blocks.Sources.Constant SATSetPoi(k=TAirSupSet)
     "Supply air temperature set point"
     annotation (Placement(transformation(extent={{-240,90},{-220,110}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi(
     nSta=4,
     sta={
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*(3/8),
           COP_nominal=3,
           SHR_nominal=0.8,
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
-     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Examples.PerformanceCurves.Curve_I()),
+     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
         nomVal=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*(1/2),
           COP_nominal=3,
           SHR_nominal=0.8,
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_I()),
-     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Examples.PerformanceCurves.Curve_I()),
+     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*(3/4),
           COP_nominal=3,
           SHR_nominal=0.8,
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_II()),
-     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Examples.PerformanceCurves.Curve_II()),
+     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
         nomVal=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.8,
           TEvaIn_nominal=TRooSet,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves.DXCooling_Curve_III())})
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Examples.PerformanceCurves.Curve_III())})
         "Coil data"
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
   Buildings.Fluid.Actuators.Dampers.MixingBox eco(
@@ -337,8 +337,8 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
-This example illustrates how to use <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</a> in a cooling system for data center rooms.
+This example illustrates how to use <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.VariableSpeed</a> in a cooling system for data center rooms.
 </p>
 <h4>System description</h4>
 <p>

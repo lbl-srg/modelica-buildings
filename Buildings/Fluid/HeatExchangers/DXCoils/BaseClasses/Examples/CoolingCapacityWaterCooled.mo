@@ -30,7 +30,7 @@ model CoolingCapacityWaterCooled "Test model for CoolingCapacityWaterCooled"
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   parameter
-  Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage
+  Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.Stage
    sta(nomVal(
     Q_flow_nominal=-21000,COP_nominal=3,SHR_nominal=0.8,
     m_flow_nominal=1.5,mCon_flow_nominal=1),

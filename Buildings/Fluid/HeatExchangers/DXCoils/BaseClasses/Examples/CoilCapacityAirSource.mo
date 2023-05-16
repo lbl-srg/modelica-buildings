@@ -27,7 +27,7 @@ model CoilCapacityAirSource "Test model for CoilCapacityAirSource"
     offset=273.15 + 30)
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage sta(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta(
     nomVal(Q_flow_nominal=-21000,COP_nominal=3,
       SHR_nominal=0.8,m_flow_nominal=1.5),
    perCur = Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III_AirCooled(),

@@ -22,7 +22,7 @@ block CoilDefrostCapacity
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation.resistive
     "Type of defrost method";
 
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil defCur
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil defCur
     "Defrost curve parameter record";
 
   Modelica.Blocks.Interfaces.RealInput tDefFra(

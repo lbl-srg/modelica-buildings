@@ -4,7 +4,7 @@ block CoolingCapacityWaterCooled
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCapacity(
   final use_mCon_flow=true,
-  redeclare Buildings.Fluid.HeatExchangers.DXCoils.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
+  redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
 
 protected
   Real[nSta] ffCon(each min=0)

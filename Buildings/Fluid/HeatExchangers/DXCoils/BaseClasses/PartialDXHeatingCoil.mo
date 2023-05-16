@@ -5,8 +5,8 @@ partial model PartialDXHeatingCoil
     final is_cooCoi=datCoi.is_cooCoi,
     redeclare Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dxCoi(
       redeclare package Medium = Medium,
-      redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil datCoi),
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.HeatingCoil datCoi);
+      redeclare Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil datCoi),
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil datCoi);
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys(
     final min=0)=0.5
@@ -93,8 +93,8 @@ defaultComponentName="dxCoi",
 Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedHeating</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.SingleSpeed</a>.
 </p>
 </html>",
 revisions="<html>

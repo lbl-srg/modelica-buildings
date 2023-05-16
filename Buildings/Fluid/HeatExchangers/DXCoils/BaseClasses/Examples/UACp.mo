@@ -7,7 +7,7 @@ model UACp "Test model for UACp"
     redeclare package Medium = Medium,
     homotopyInitialization=true) "Calculates UA/Cp value for the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  parameter AirSource.Data.Generic.BaseClasses.NominalValues nomVal(
+  parameter Cooling.AirSource.Data.Generic.BaseClasses.NominalValues nomVal(
     Q_flow_nominal=-21000,
     COP_nominal=3,
     SHR_nominal=0.8,

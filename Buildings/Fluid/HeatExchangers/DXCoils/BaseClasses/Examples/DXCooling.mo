@@ -50,41 +50,41 @@ model DXCooling "Test model for DXCooling"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi(sta={
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi(sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-12000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=0.9),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-18000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.2),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I_AirCooled()),
-        Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-30000,
           COP_nominal=3,
           SHR_nominal=0.8,
@@ -145,8 +145,8 @@ Updated classes for <code>wetCoi.cooCap</code> and <code>dryCoi.cooCap</code> fr
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCapacityAirSource</a>.<br/>
 Updated class for data record <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil\">
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil</a>.
 
 </li>
 <li>

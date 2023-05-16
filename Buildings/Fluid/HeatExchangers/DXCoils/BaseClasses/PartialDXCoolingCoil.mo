@@ -7,7 +7,7 @@ partial model PartialDXCoolingCoil
       dxCoi(redeclare package Medium = Medium),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
       prescribedHeatFlowRate=true),
-    redeclare Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi);
+    redeclare Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil datCoi);
 
   Modelica.Blocks.Interfaces.RealOutput QLat_flow(
     final quantity="Power",
@@ -88,12 +88,12 @@ defaultComponentName="dxCoi",
 Documentation(info="<html>
 <p>
 This partial model is the base class for
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling</a>,
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.MultiStageCooling</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeedCooling</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.SingleSpeed</a>,
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.MultiStage\">
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.MultiStage</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.VariableSpeed</a>.
 </p>
 </html>",
 revisions="<html>
