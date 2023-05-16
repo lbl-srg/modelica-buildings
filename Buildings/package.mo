@@ -1519,14 +1519,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
       <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
       </td>
   </tr>
-<tr><td colspan=\"2\"><b>Buildings.Media</b>
+  <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Media.Steam
-    </td>
-    <td valign=\"top\">Package with medium model for steam heating applications.
-    </td>
-</tr>
+  <tr><td valign=\"top\">Buildings.Media.Steam
+      </td>
+      <td valign=\"top\">Package with medium model for steam heating applications.
+      </td>
+  </tr>
 </table>
 <!-- New components for existing libraries -->
 <p>
