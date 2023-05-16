@@ -140,14 +140,14 @@ model HeatPump "Base subsystem with water-to-water heat pump"
     redeclare final package Medium = Medium2,
     final m_flow_nominal=m2_flow_nominal,
     final allowFlowReversal=allowFlowReversal2,
-    dp_nominal=dp2_nominal*2)
+    dp_nominal=dp2_nominal)
     "Heat pump evaporator water pump"
     annotation (Placement(transformation(extent={{70,-70},{50,-50}})));
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
     final allowFlowReversal=allowFlowReversal1,
-    dp_nominal=dp1_nominal*2)                   if have_pumCon
+    dp_nominal=dp1_nominal)                     if have_pumCon
     "Heat pump condenser water pump"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floConNom(

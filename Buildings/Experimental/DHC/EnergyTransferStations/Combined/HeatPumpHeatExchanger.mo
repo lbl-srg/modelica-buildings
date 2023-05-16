@@ -192,7 +192,7 @@ model HeatPumpHeatExchanger
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=m1HexChi_flow_nominal,
     final allowFlowReversal=allowFlowReversalSer,
-    dp_nominal=dp_nominal*2)
+    dp_nominal=dp_nominal)
     "Chilled water HX primary pump"
     annotation (Placement(transformation(extent={{110,-350},{90,-330}})));
   Buildings.Fluid.HeatExchangers.DryCoilEffectivenessNTU hexChi(
