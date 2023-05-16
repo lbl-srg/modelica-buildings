@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.DoubleSpeed;
 record Lennox_KCA240S4 =
-  Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.DoubleSpeed.Generic (
-                                                                  sta = {
+  Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.DoubleSpeed.Generic
+    (                                                             sta = {
    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
                                                                          spe = 1200,
    nomVal = Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(

@@ -1,9 +1,15 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Examples;
-package PerformanceCurves "fixme: add brief description"
-  extends Modelica.Icons.Package;
+package PerformanceCurves "Package with several performance curves"
+  extends Modelica.Icons.MaterialPropertiesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains performance curves for the coil heat transfer capacity and the EIR
+of air source DX cooling and heating coils that are used in the examples.
+</p>
+<p>
+The data are described in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil\">
+Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil</a>.
 </p>
 </html>"));
 end PerformanceCurves;

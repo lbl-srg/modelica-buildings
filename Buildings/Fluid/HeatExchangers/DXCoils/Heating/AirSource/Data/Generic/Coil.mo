@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic;
 record Coil
   "Performance record for a DX Heating Coil with one or multiple stages"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer(
     final is_cooCoi=false);
 
   parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Types.DefrostOperation

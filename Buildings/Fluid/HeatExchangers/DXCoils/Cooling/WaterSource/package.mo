@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling;
-package WaterSource "Waterr source DX package unit"
+package WaterSource "Water source DX coils"
   extends Modelica.Icons.VariantsPackage;
 
 

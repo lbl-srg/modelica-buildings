@@ -1,8 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Examples;
 package PerformanceCurves "Package with several performance curves"
-
-
-
+  extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (Documentation(info="<html>
 <p>
@@ -20,9 +18,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.DoubleSpeed</a>.
 <p>
 The data are described in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil</a>.
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil</a>.
 </p>
 </html>",
 revisions="<html>

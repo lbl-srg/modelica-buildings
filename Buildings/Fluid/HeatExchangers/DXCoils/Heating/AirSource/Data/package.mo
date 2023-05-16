@@ -1,9 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource;
-package Data "fixme: add brief description"
-  extends Modelica.Icons.Package;
+package Data "Package with performance data for DX heating coils"
+  extends Modelica.Icons.MaterialPropertiesPackage;
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-fixme: add a package description.
+This package contains performance data for DX heating coils.
 </p>
 </html>"));
 end Data;

@@ -22,8 +22,7 @@ record CoilHeatTransfer
     annotation (Dialog(enable = not sinStaOpe));
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage
-    sta[nSta](
+    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta](
     is_cooCoi=fill(is_cooCoi,nSta))
     constrainedby
     Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage

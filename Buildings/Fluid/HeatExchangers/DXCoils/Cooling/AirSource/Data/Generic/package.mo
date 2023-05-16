@@ -5,7 +5,7 @@ package Generic "Package with generic performance curves"
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the heat transfer capacity and the EIR
-of air source DX coils.
+of air source DX cooling coils.
 For performance data of specific air source DX cooling coils, see the packages
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.SingleSpeed</a>
@@ -16,9 +16,7 @@ Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.DoubleSpeed</a>.
 <p>
 The data are described in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil</a>.
+Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.Coil</a>.
 </p>
 </html>",
 revisions="<html>

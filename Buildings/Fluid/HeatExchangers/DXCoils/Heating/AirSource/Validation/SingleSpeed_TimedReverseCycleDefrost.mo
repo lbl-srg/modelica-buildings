@@ -3,7 +3,8 @@ model SingleSpeed_TimedReverseCycleDefrost
   "Validation model for single speed heating DX coil with defrost operation"
 
   extends Modelica.Icons.Example;
-  extends Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Validation.BaseClasses.SingleSpeedHeating(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Validation.BaseClasses.SingleSpeedHeating(
     datRea(
       final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_TimedReverseCycleDefrost/DXCoilSystemAuto.dat")),
     datCoi(

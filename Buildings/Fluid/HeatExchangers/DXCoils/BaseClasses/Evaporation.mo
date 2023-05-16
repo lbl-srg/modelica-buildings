@@ -174,7 +174,7 @@ initial equation
     This means that the coil is not dehumidifying air at the nominal conditions.
     Check nominal parameters.
     " +
-      Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
+      Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.nominalValuesToString(
       nomVal),
     AssertionLevel.warning);
 
@@ -206,7 +206,7 @@ initial equation
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
    " +
-    Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.nominalValuesToString(
     nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 

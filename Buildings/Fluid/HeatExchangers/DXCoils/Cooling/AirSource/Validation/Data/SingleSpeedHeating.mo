@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Validation.Data;
 record SingleSpeedHeating
   "Data record for DX heating coil in validation models"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Data.Generic.Coil(
     sta={
         Buildings.Fluid.HeatExchangers.DXCoils.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         is_cooCoi=false,
