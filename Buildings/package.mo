@@ -217,6 +217,11 @@ Version 10.0.0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
+<tr><td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT</p>
+    </td>
+    <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.ThermalZones.ISO13790
     </td>
     <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
@@ -1514,25 +1519,12 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
       <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
       </td>
   </tr>
-  <tr><td colspan=\"2\"><b>Buildings.Media</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Geothermal.BuriedPipes
-    </td>
-    <td valign=\"top\">Package with models for modeling thermal coupling between buried pipes and ground.
-    </td>
-</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Media.Steam
     </td>
     <td valign=\"top\">Package with medium model for steam heating applications.
-    </td>
-</tr>
-<tr><td valign=\"top\"><p>Buildings.ThermalZones.Detailed.Examples.ISAT</p>
-    </td>
-    <td valign=\"top\"><p>Package with thermal airflow model using in situ adaptive tabulation.</p>
     </td>
 </tr>
 </table>
