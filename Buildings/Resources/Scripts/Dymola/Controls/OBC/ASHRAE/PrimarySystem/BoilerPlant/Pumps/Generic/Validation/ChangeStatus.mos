@@ -1,0 +1,3 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.Generic.Validation.ChangeStatus", method="Cvode", stopTime=35, tolerance=1e-06, resultFile="ChangeStatus");
+createPlot(id=1, position={0, 0, 1545, 998}, y={"chaPumSta.uNexLagPum", "chaPumSta.uLasLagPum"}, range={0.0, 35.0, -2.0, 9.0}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 1545, 496}, y={"chaPumSta.yHotWatPum[1]", "chaPumSta.yHotWatPum[2]", "chaPumSta.yHotWatPum[3]"}, range={0.0, 35.0, -0.1, 1.1}, grid=true, subPlot=2, colors={{28,108,200}, {28,108,200}, {28,108,200}});

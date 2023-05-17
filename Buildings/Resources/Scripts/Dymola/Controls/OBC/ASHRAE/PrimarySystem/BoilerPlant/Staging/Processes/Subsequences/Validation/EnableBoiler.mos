@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.Processes.Subsequences.Validation.EnableBoiler", method="Dassl", stopTime=3600, tolerance=1e-06, resultFile="EnableBoiler");
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=1, y={"enaDisBoi.nexEnaBoi","enaDisBoi.nexDisBoi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=2, y={"enaDisBoi.uStaUp","enaDisBoi.uUpsDevSta", "enaDisBoi.uOnOff"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=3, y={"enaDisBoi.uBoi[1]","enaDisBoi.uBoi[2]", "enaDisBoi.uBoi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=4, y={"enaDisBoi.yBoi[1]","enaDisBoi.yBoi[2]", "enaDisBoi.yBoi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=1, position={20, 10, 800, 1200}, subPlot=5, y={"truFalHol.y"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});
+
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=1, y={"enaOneBoi.nexEnaBoi","enaOneBoi.nexDisBoi"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=2, y={"enaOneBoi.uStaUp","enaOneBoi.uUpsDevSta", "enaOneBoi.uOnOff"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=3, y={"enaOneBoi.uBoi[1]","enaOneBoi.uBoi[2]", "enaOneBoi.uBoi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=4, y={"enaOneBoi.yBoi[1]","enaOneBoi.yBoi[2]", "enaOneBoi.yBoi[3]"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200},{28,108,200},{28,108,200}});
+createPlot(id=2, position={830, 10, 800, 1200}, subPlot=5, y={"truFalHol1.y"}, range={0.0, 3600, 0, 0.02}, grid=true, colors={{28,108,200}});

@@ -1,0 +1,19 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Validation.ControllerTwo_MinimumLeadRuntime", method="Cvode", stopTime=100000, tolerance=1e-06, resultFile="ControllerTwo_MinimumLeadRuntime");
+
+createPlot(id=1, subPlot=1, position={10, 10, 1200, 800}, y={"leaLag.uLeaStaSet","leaLag.uLagStaSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"leaLag.yDevStaSet[1]","leaLag.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=3, position={10, 10, 1200, 800}, y={"leaLag.yDevRol[1]","leaLag.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, subPlot=4, position={10, 10, 1200, 800}, y={"leaLag.minLeaTim.accTim[1].y","leaLag.minLeaTim.accTim[2].y", "leaLag.minLeaRuntime"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{50, 50, 50}});
+createPlot(id=1, subPlot=5, position={10, 10, 1200, 800}, y={"leaLag.minLeaTim.accTim[1].passed","leaLag.minLeaTim.accTim[2].passed"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=2, subPlot=1, position={20, 10, 1200, 800}, y={"leaLag1.uLeaStaSet","leaLag1.uLagStaSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=2, position={20, 10, 1200, 800}, y={"leaLag1.yDevStaSet[1]","leaLag1.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=3, position={20, 10, 1200, 800}, y={"leaLag1.yDevRol[1]","leaLag1.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, subPlot=4, position={20, 10, 1200, 800}, y={"leaLag1.minLeaTim.accTim[1].y","leaLag1.minLeaTim.accTim[2].y","leaLag1.minLeaRuntime"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{50, 50, 50}});
+createPlot(id=2, subPlot=5, position={20, 10, 1200, 800}, y={"leaLag1.minLeaTim.accTim[1].passed","leaLag1.minLeaTim.accTim[2].passed"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=3, subPlot=1, position={20, 10, 1200, 800}, y={"leaSta.uLeaStaSet"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{0,140,72}});
+createPlot(id=3, subPlot=2, position={20, 10, 1200, 800}, y={"leaSta.yDevStaSet[1]","leaSta.yDevStaSet[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=3, position={20, 10, 1200, 800}, y={"leaSta.yDevRol[1]","leaSta.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, subPlot=4, position={20, 10, 1200, 800}, y={"leaSta.minLeaTim.accTim[1].y","leaSta.minLeaTim.accTim[2].y","leaSta.minLeaRuntime"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72},{50, 50, 50}});
+createPlot(id=3, subPlot=5, position={20, 10, 1200, 800}, y={"leaSta.minLeaTim.accTim[1].passed","leaSta.minLeaTim.accTim[2].passed"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});

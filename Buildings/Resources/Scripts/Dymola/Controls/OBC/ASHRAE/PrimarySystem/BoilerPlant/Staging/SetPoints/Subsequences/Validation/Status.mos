@@ -1,0 +1,50 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Staging.SetPoints.Subsequences.Validation.Status", method="dassl", stopTime=10, tolerance=1e-06, resultFile="Status");
+
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=1, y={"sta.nSta", "sta.nBoi", "sta.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=2, y={"sta.uAva[1]", "sta.uAva[2]", "sta.uAva[3]", "sta.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=3, y={"sta.staMat[3, 1]", "sta.staMat[3, 2]", "sta.staMat[3, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=4, y={"sta.yHig", "sta.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={20, 10, 800, 700}, subPlot=5, y={"sta.yAvaUp", "sta.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=1, y={"sta1.nSta", "sta1.nBoi", "sta1.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=2, y={"sta1.uAva[1]", "sta1.uAva[2]", "sta1.uAva[3]", "sta1.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=3, y={"sta1.staMat[3, 1]", "sta1.staMat[3, 2]", "sta1.staMat[3, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=4, y={"sta1.yHig", "sta1.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={850, 10, 800, 700}, subPlot=5, y={"sta1.yAvaUp", "sta1.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=1, y={"sta2.nSta", "sta2.nBoi", "sta2.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=2, y={"sta2.uAva[1]", "sta2.uAva[2]", "sta2.uAva[3]", "sta2.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=3, y={"sta2.staMat[3, 1]", "sta2.staMat[3, 2]", "sta2.staMat[3, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=4, y={"sta2.yHig", "sta2.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=3, position={30, 20, 800, 700}, subPlot=5, y={"sta2.yAvaUp", "sta2.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=1, y={"sta3.nSta", "sta3.nBoi", "sta3.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=2, y={"sta3.uAva[1]", "sta3.uAva[2]", "sta3.uAva[3]", "sta3.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=3, y={"sta3.staMat[1, 1]", "sta3.staMat[1, 2]", "sta3.staMat[1, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=4, y={"sta3.yHig", "sta3.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=4, position={860, 20, 800, 700}, subPlot=5, y={"sta3.yAvaUp", "sta3.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=1, y={"sta4.nSta", "sta4.nBoi", "sta4.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=2, y={"sta4.uAva[1]", "sta4.uAva[2]", "sta4.uAva[3]", "sta4.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=3, y={"sta4.staMat[3, 1]", "sta4.staMat[3, 2]", "sta4.staMat[3, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=4, y={"sta4.yHig", "sta4.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=5, position={40, 30, 800, 700}, subPlot=5, y={"sta4.yAvaUp", "sta4.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=1, y={"sta5.nSta", "sta5.nBoi", "sta5.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=2, y={"sta5.uAva[1]", "sta5.uAva[2]", "sta5.uAva[3]", "sta5.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=3, y={"sta5.staMat[1, 1]", "sta5.staMat[1, 2]", "sta5.staMat[1, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=4, y={"sta5.yHig", "sta5.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=6, position={870, 30, 800, 700}, subPlot=5, y={"sta5.yAvaUp", "sta5.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=1, y={"sta6.nSta", "sta6.nBoi", "sta6.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=2, y={"sta6.uAva[1]", "sta6.uAva[2]", "sta6.uAva[3]", "sta6.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=3, y={"sta6.staMat[3, 1]", "sta6.staMat[3, 2]", "sta6.staMat[3, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=4, y={"sta6.yHig", "sta6.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=7, position={50, 40, 800, 700}, subPlot=5, y={"sta6.yAvaUp", "sta6.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=1, y={"sta7.nSta", "sta7.nBoi", "sta7.u"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=2, y={"sta7.uAva[1]", "sta7.uAva[2]", "sta7.uAva[3]", "sta7.uAva[4]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}, {77, 25, 0}});
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=3, y={"sta7.staMat[1, 1]", "sta7.staMat[1, 2]", "sta7.staMat[1, 3]"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}});
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=4, y={"sta7.yHig", "sta7.yLow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{28,108,200}, {238,46,47}});
+createPlot(id=8, position={880, 40, 800, 700}, subPlot=5, y={"sta7.yAvaUp", "sta7.yAvaDow"}, range={0.0, 1700.0, -0.2, 0.12}, grid=true, colors={{238,46,47}, {238,46,47}});
+//ExportPlotAsImage("./Resources/Images/Controls/OBC/ASHRAE/PrimarySystem/BoilerPlant/Staging/SetPoints/Subsequences/Status.png", 1, true, false);

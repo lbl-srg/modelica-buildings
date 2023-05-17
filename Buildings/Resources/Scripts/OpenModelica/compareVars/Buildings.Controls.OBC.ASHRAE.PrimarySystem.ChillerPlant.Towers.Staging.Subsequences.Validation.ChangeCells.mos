@@ -1,0 +1,12 @@
+compareVars :=
+  {
+    "enaTowCel.uCelNum",
+    "enaTowCel.uTowSta[1]",
+    "enaTowCel.uTowSta[2]",
+    "enaTowCel.uTowSta[3]",
+    "enaTowCel.uTowSta[4]",
+    "enaTowCel.yChaCel[1]",
+    "enaTowCel.yChaCel[2]",
+    "enaTowCel.yChaCel[3]",
+    "enaTowCel.yChaCel[4]"
+  };

@@ -1,0 +1,15 @@
+compareVars :=
+  {
+    "chiPlaCon.plaEna.yPla",
+    "chiPlaCon.wseSta.y",
+    "chiPlaCon.staSetCon.yUp",
+    "chiPlaCon.staSetCon.ySta",
+    "chiPlaCon.upProCon.yChi[1]",
+    "chiPlaCon.upProCon.yChi[2]",
+    "chiPlaCon.upProCon.yChiHeaCon[1]",
+    "chiPlaCon.upProCon.yChiHeaCon[2]",
+    "chiPlaCon.upProCon.yChiWatIsoVal[1]",
+    "chiPlaCon.upProCon.yChiWatIsoVal[2]",
+    "chiPlaCon.upProCon.yConWatPumNum",
+    "chiPlaCon.upProCon.yTowStaUp"
+  };

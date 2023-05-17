@@ -1,0 +1,12 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.EquipmentRotation.Subsequences.Validation.LeastRuntime_uDevRol", method="Cvode", stopTime=100000, tolerance=1e-06, resultFile="LeastRuntime_uDevRol");
+createPlot(id=1, subPlot=1, position={10, 10, 1200, 800}, y={"rotTwo.yDevRol[1]","rotTwo.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=2, position={10, 10, 1200, 800}, y={"leaRunTim.uDevSta[1]","leaRunTim.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, subPlot=3, position={10, 10, 1200, 800}, y={"leaRunTim.accTim[1].y","leaRunTim.accTim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=2, subPlot=1, position={20, 10, 1200, 800}, y={"rotTwo1.yDevRol[1]","rotTwo1.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=2, position={10, 10, 1200, 800}, y={"leaRunTim1.uDevSta[1]","leaRunTim1.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=2, subPlot=3, position={20, 10, 1200, 800}, y={"leaRunTim1.accTim[1].y","leaRunTim1.accTim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+
+createPlot(id=3, subPlot=1, position={20, 10, 1200, 800}, y={"rotTwo2.yDevRol[1]","rotTwo2.yDevRol[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=2, position={10, 10, 1200, 800}, y={"leaRunTim2.uDevSta[1]","leaRunTim2.uDevSta[2]"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
+createPlot(id=3, subPlot=3, position={20, 10, 1200, 800}, y={"leaRunTim2.accTim[1].y","leaRunTim2.accTim[2].y"}, range={0.0, 1800.0, -0.2, 0.12}, grid=true, colors={{28,108,200},{0,140,72}});
