@@ -2,18 +2,18 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Data;
 record StandardResults "ASHRAE Standard Results"
     extends Modelica.Icons.Record;
 
- parameter ResultSummary annualHea(Min(unit="J"),
-                                 Max(unit="J"),
-                                 Mean(unit="J")) "Annual heating energy";
- parameter ResultSummary annualCoo(Min(unit="J"),
-                                 Max(unit="J"),
-                                 Mean(unit="J")) "Annual heating energy";
- parameter ResultSummary peakHea(Min(unit="W"),
-                                 Max(unit="W"),
-                                 Mean(unit="W")) "Peak heating power";
- parameter ResultSummary peakCoo(Min(unit="W"),
-                                 Max(unit="W"),
-                                 Mean(unit="W")) "Peak heating power";
+ parameter ResultSummary annualHea(Min(final unit="J"),
+                                 Max(final unit="J"),
+                                 Mean(final unit="J")) "Annual heating energy";
+ parameter ResultSummary annualCoo(Min(final unit="J"),
+                                 Max(final unit="J"),
+                                 Mean(final unit="J")) "Annual heating energy";
+ parameter ResultSummary peakHea(Min(final unit="W"),
+                                 Max(final unit="W"),
+                                 Mean(final unit="W")) "Peak heating power";
+ parameter ResultSummary peakCoo(Min(final unit="W"),
+                                 Max(final unit="W"),
+                                 Mean(final unit="W")) "Peak heating power";
  annotation (
    defaultComponentPrefixes="parameter",
    defaultComponentName="staRes",

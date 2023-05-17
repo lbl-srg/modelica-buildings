@@ -2,8 +2,8 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Data;
 record CriteriaLimits
   "Record that is used for summary of the test acceptance criteria limits"
   extends Modelica.Icons.Record;
-  parameter Real LowerLimit(unit="J") "Lower limit of the test acceptance criteria";
-  parameter Real UpperLimit(unit="J") "Upper limit of the test acceptance criteria";
+  parameter Modelica.Units.SI.Energy LowerLimit "Lower limit of the test acceptance criteria";
+  parameter Modelica.Units.SI.Energy UpperLimit "Upper limit of the test acceptance criteria";
  annotation (
    Documentation(info=
 "<html>
