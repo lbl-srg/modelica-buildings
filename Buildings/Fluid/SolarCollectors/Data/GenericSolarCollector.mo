@@ -30,7 +30,7 @@ Documentation(info="<html>
   <p>
     Generic data file which is used for the
     <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">
-    Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a> model. It establishes
+    Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector</a> model. It establishes
     the base inputs needed to create model-specific data packages.
   </p>
 </html>"));

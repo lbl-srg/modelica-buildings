@@ -35,9 +35,9 @@ partial block PartialCoolingCapacity
     annotation(Evaluate=true);
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage sta[nSta]
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
      constrainedby
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.Stage
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage
      "Performance data for this stage";
   output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flow rate";
@@ -90,7 +90,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.capFunFF,
          xMin=sta[iSta].perCur.ffMin,
-         xMax=sta[iSta].perCur.ffMin),
+         xMax=sta[iSta].perCur.ffMax),
          msg="Capacity as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.capFunFF");
 
@@ -107,7 +107,7 @@ initial algorithm
          x=1,
          c=sta[iSta].perCur.EIRFunFF,
          xMin=sta[iSta].perCur.ffMin,
-         xMax=sta[iSta].perCur.ffMin),
+         xMax=sta[iSta].perCur.ffMax),
          msg="EIR as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.EIRFunFF");
    end for;
@@ -183,7 +183,7 @@ if stage > 0 then
       x=ff[iSta],
       c=sta[iSta].perCur.capFunFF,
       xMin=sta[iSta].perCur.ffMin,
-      xMax=sta[iSta].perCur.ffMin);
+      xMax=sta[iSta].perCur.ffMax);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
         x1=Buildings.Utilities.Math.Functions.biquadratic(
@@ -196,12 +196,12 @@ if stage > 0 then
        x=ff[iSta],
        c=sta[iSta].perCur.EIRFunFF,
        xMin=sta[iSta].perCur.ffMin,
-       xMax=sta[iSta].perCur.ffMin)
+       xMax=sta[iSta].perCur.ffMax)
         "Cooling capacity modification factor as function of flow fraction";
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFac[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ff[iSta] - sta[iSta].perCur.ffMin/4,
-       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffMin/4));
+       delta=max(Modelica.Constants.eps, sta[iSta].perCur.ffMin/8));
 
     end for;
   else //cooling coil off
@@ -307,13 +307,13 @@ is
 <h4>Obtaining the polynomial coefficients</h4>
 <p>
 The package
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves</a>
 contains performance curves.
 Alternatively, users can enter their own performance curves by
 making an instance of a curve in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves</a>
 and specifying custom coefficients for the above polynomials.
 The polynomial coefficients can be obtained by doing a curve fit that fits the
 polynomials to a set of data.
@@ -325,14 +325,14 @@ If a coil has multiple stages, then the fit need to be done for each stage.
 For variable frequency coils, multiple fits need to be done for user selected
 compressor speeds. For intermediate speeds, the performance data will be interpolated
 by the model
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.VariableSpeed</a>.
 </p>
 <p>
 The table below shows the polynomials explained above,
 the name of the polynomial coefficients in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves\">
-Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Examples.PerformanceCurves</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Examples.PerformanceCurves</a>
 and the independent parameters against which the data need to be fitted.
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
@@ -399,6 +399,12 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 8, 2022, by Michael Wetter:<br/>
+Corrected calculation of performance which used the wrong upper bound.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/3146\">issue 3146</a>.
+</li>
 <li>
 October 21, 2019, by Michael Wetter:<br/>
 Ensured that transition interval for computation of <code>corFac</code> is non-zero.<br/>

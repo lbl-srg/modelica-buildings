@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "zonStaDup.yTZon[1, 1]",
+    "zonStaDup.yTZon[1, 2]",
+    "zonStaDup.yTZon[2, 3]",
+    "zonStaDup.yTZon[2, 4]",
+    "zonStaDup.yTZon[2, 5]"
+  };

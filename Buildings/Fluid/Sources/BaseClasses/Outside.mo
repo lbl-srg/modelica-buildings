@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sources.BaseClasses;
 partial model Outside
   "Boundary that takes weather data, and optionally trace substances, as an input"
-  extends Buildings.Fluid.Sources.BaseClasses.PartialSource(final verifyInputs=true);
+  extends Buildings.Fluid.Sources.BaseClasses.PartialAirSource(final verifyInputs=true);
 
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
@@ -128,6 +128,12 @@ with exception of boundary pressure, do not have an effect.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 09, 2023, by Jianjun Hu:<br/>
+Changed base class to constrain medium to moist air.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
+</li>
 <li>
 February 25, 2020, by Michael Wetter:<br/>
 Changed icon to display its operating state.<br/>
