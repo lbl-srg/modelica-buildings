@@ -289,15 +289,15 @@ def simulateCase(arg, simulator):
     cwd = os.getcwd()
     output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
 
+    # The following makes dymola worker cd into outputDirectory.
     s = Simulator(arg[0], outputDirectory=os.path.relpath(output_dir_path))
-    # Set MODELICAPATH (only in child process, so this won't affect main process).
-    os.environ['MODELICAPATH'] = os.path.abspath(os.path.pardir)
 
     if simulator == 'Dymola':
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
         s.addPreProcessingStatement(r'cd')
-        s.addPreProcessingStatement(r'openModel("package.mo");')
-        s.addPreProcessingStatement(fr'cd("{os.path.relpath(output_dir_path)}");')
+        print(os.getcwd())
+        print(os.listdir(os.pardir))
+        s.addPreProcessingStatement(r'openModel(path="../package.mo", changeDirectory=false);')
     if simulator == 'Optimica':
         # Set MODELICAPATH (only in child process, so this won't affect main process).
         os.environ['MODELICAPATH'] = os.path.abspath(os.path.pardir)
