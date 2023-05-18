@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.ChilledBeams.SetPoints.Validation.ZoneTemperature", method="Cvode", stopTime=90, tolerance=1e-06, resultFile="ZoneTemperatureSetpoint");
-
-createPlot(id=1, position={0, 0, 1437, 978}, y={"TZonSet.uOpeMod"}, range={0.0, 90.0, -0.2, 3.2}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1437, 486}, y={"TZonSet.TZonHeaSet", "TZonSet.TZonCooSet"}, range={0.0, 90.0, 289.0, 300.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});

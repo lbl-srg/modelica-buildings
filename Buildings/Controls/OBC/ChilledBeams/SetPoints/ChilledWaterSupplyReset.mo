@@ -250,7 +250,27 @@ annotation(defaultComponentName="chiWatSupRes",
               lineColor={28,108,200},
               fillColor={255,255,255},
               fillPattern=FillPattern.None,
-      textString="chiWatSupRes")}),
+      textString="chiWatSupRes"),
+        Text(
+          extent={{-96,48},{-60,32}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uValPos"),
+        Text(
+          extent={{-96,-32},{-60,-48}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uConSen"),
+        Text(
+          extent={{52,-50},{96,-70}},
+          textColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="TChiWatReq"),
+        Text(
+          extent={{44,74},{96,48}},
+          textColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="yChiWatSupReq")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

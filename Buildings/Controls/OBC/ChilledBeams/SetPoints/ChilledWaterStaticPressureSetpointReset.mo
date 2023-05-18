@@ -2,10 +2,10 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block ChilledWaterStaticPressureSetpointReset
   "Sequence to generate static pressure setpoint for chilled water loop"
 
-  parameter Integer nVal = 3
+  parameter Integer nVal(min=1)
     "Number of chilled water control valves on chilled beam manifolds";
 
-  parameter Integer nPum = 2
+  parameter Integer nPum(min=1)
     "Number of chilled water pumps in chilled beam system";
 
   parameter Real valPosLowClo(
@@ -35,14 +35,14 @@ block ChilledWaterStaticPressureSetpointReset
   parameter Real chiWatStaPreMax(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 30000
+    final quantity="Pressure")
     "Maximum chilled water loop static pressure setpoint"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
   parameter Real chiWatStaPreMin(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 20000
+    final quantity="Pressure")
     "Minimum chilled water loop static pressure setpoint"
     annotation(Dialog(group="Trim-and-Respond parameters"));
 
@@ -166,7 +166,7 @@ protected
     "Find maximum integer output"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
-  Buildings.Controls.OBC.ASHRAE.G36_PR1.Generic.SetPoints.TrimAndRespond triRes(
+  Buildings.Controls.OBC.ASHRAE.G36.Generic.TrimAndRespond triRes(
     final iniSet=chiWatStaPreMax,
     final minSet=chiWatStaPreMin,
     final maxSet=chiWatStaPreMax,
@@ -233,11 +233,26 @@ annotation(defaultComponentName="chiWatStaPreSetRes",
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
             Text(
-              extent={{-50,20},{50,-20}},
+              extent={{-50,34},{50,-6}},
               lineColor={28,108,200},
               fillColor={255,255,255},
               fillPattern=FillPattern.None,
-      textString="chiWatStaPreSetRes")}),
+      textString="chiWatStaPreSetRes"),
+        Text(
+          extent={{-96,58},{-60,42}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uPumSta"),
+        Text(
+          extent={{-96,-42},{-60,-58}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="uValPos"),
+        Text(
+          extent={{44,16},{98,-14}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yStaPreSetPoi")}),
   Diagram(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>

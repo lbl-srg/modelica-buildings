@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "operatingMode.enaSch.y[1]",
+    "operatingMode.uOcc",
     "operatingMode.uDetOcc",
     "operatingMode.intSwi.y"
   };

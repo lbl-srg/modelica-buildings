@@ -43,10 +43,12 @@ equation
       color={0,0,127}));
 
   connect(remPreSen1.y, chiPumSpe.dpChiWat[1]) annotation (Line(points={{-38,20},
-          {-20,20},{-20,-1},{38,-1}}, color={0,0,127}));
+          {-20,20},{-20,-0.5},{38,-0.5}},
+                                      color={0,0,127}));
 
   connect(remPreSen2.y, chiPumSpe.dpChiWat[2]) annotation (Line(points={{-38,-20},
-          {-30,-20},{-30,1},{38,1}}, color={0,0,127}));
+          {-30,-20},{-30,0.5},{38,0.5}},
+                                     color={0,0,127}));
 
   connect(pumSta.y, chiPumSpe.uChiWatPum) annotation (Line(points={{-38,60},{-10,
           60},{-10,8},{38,8}}, color={255,0,255}));
@@ -59,6 +61,30 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.Speed_remoteDp\">
 Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.Speed_remoteDp</a>.
+</p>
+<p>
+It consists of an open-loop setup for block <code>chiPumSpe</code> with
+a Boolean pulse input signal <code>pumSta</code> that is used to simulate chilled water pump status <code>chiPumSpe.uChiWatPum</code>, 
+two sine input signals <code>remPreSen 1</code> and <code>remPreSen 2</code> that are used to represent remote pressure difference sensor readings, 
+a constant input signal <code>difPreSet</code> that generates a pressure difference setpoint,
+and an output signal <code>chiPumSpe.yChiWatPumSpe</code> for the chilled water pump speed setpoint in chilled beam systems with variable-speed pumps. 
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+The block <code>chiPumSpe</code> receives input signals <code>remPreSen 1</code> and <code>remPreSen 2</code> 
+and its PID loop output is mapped from minimum
+pump speed <code>minPumSpe</code> at 0% to maximum pump speed
+<code>maxPumSpe</code> at 100%.
+</li>
+<li>
+When two input signals of the chilled water differential static pressures exist 
+(<code>chiPumSpe.maxLoo.u[1]</code> and <code>chiPumSpe.maxLoo.u[1]</code>), 
+the block <code>chiPumSpe</code> outputs chilled water pump speed <code>chiPumSpe.yChiWatPumSpe</code>,   
+which is controlled by the maximum signal output <code>chiPumSpe.maxLoo.y</code>.
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>

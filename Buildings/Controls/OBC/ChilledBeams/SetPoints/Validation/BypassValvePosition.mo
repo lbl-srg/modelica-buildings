@@ -4,6 +4,7 @@ model BypassValvePosition
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition
     bypValPos(
+    nPum=2,
     final k=10,
     final Ti=0.001)
     "Bypass valve position setpoint controller"
@@ -33,13 +34,13 @@ protected
 
 equation
   connect(booPul.y, bypValPos.uPumSta) annotation (Line(points={{-58,40},{-20,40},
-          {-20,4},{-2,4}}, color={255,0,255}));
+          {-20,6},{-2,6}}, color={255,0,255}));
 
   connect(pul.y, bypValPos.uPumSpe)
     annotation (Line(points={{-58,0},{-2,0}}, color={0,0,127}));
 
   connect(sin.y, bypValPos.dpChiWatLoo) annotation (Line(points={{-58,-40},{-20,
-          -40},{-20,-4},{-2,-4}}, color={0,0,127}));
+          -40},{-20,-6},{-2,-6}}, color={0,0,127}));
 
 annotation (
   experiment(
@@ -54,6 +55,31 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition\">
 Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition</a>.
+</p>
+<p>
+It consists of an open-loop setup for block <code>bypValPos</code> with
+a Boolean pulse signal <code>booPul</code> that is used to simulate pump proven on signal, 
+a real pulse signal <code>pul</code> that is used to simulate pump speed, 
+and a sine signal <code>sin</code> that is used to simulate chilled water loop differential static pressure. 
+The block determines the bypass valve position setpoint <code>bypValPos.yBypValPos</code>
+based on the pump proven on status <code>uPumSta</code>, measured pump 
+speed <code>uPumSpe</code> and measured differential pressure across the
+demand loop <code>dpChiWatLoo</code>.
+</p>
+<p>
+The following observations should be apparent from the simulation plots:
+<ol>
+<li>
+When none of the pumps are proven on (<code>bypValPos.uPumSta[1]=false</code> and <code>bypValPos.uPumSta[2]=false</code>)
+for times between 2000 and 4000 seconds and for times greater than 6000 seconds, 
+the bypass valve position is completely opened (<code>bypValPos.yBypValPos=1</code>).
+</li>
+<li>
+When the pumps are proven on and are running at minimum speed (<code>bypValPos.minPumSpe=0.1</code>), 
+the bypass valve position <code>bypValPos.yBypValPos</code> is used to regulate <code>dpChiWatLoo</code> at 
+maximum allowed loop pressure <code>dPChiWatMax</code>.
+</li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>
