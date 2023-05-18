@@ -6,19 +6,21 @@ block ZoneStatus "Block that outputs zone temperature status"
     displayUnit="K",
     final quantity="TemperatureDifference",
     final min=0.5) = 1
-    "Threshold of temperature difference for indicating the end of setback or setup mode";
+    "Threshold of temperature difference for indicating the end of setback or setup mode"
+    annotation (__cdl(ValueInReference=true));
   parameter Boolean have_winSen=false
-    "Check if the zone has window status sensor";
+    "Check if the zone has window status sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Real uLow(
     final unit="K",
     final quantity="TemperatureDifference")=-0.1
     "Low limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real uHigh(
     final unit="K",
     final quantity="TemperatureDifference")=0.1
     "High limit of the hysteresis for checking temperature difference"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput cooDowTim(
     final unit="s",

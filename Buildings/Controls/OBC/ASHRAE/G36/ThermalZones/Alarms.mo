@@ -4,27 +4,29 @@ block Alarms "Zone level alarms"
   parameter Real timChe(
     final unit="s",
     final quantity="Time")=600
-    "Threshold time to check temperature difference";
+    "Threshold time to check temperature difference"
+    annotation (__cdl(ValueInReference=true));
   parameter Boolean have_CO2Sen=false
     "True: the zone has CO2 sensor"
-    annotation (Dialog(group="CO2 concentration alarm"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="CO2 concentration alarm"));
   parameter Real modChe(
     final unit="s",
     final quantity="Time")=7200
     "Threshold time to check unoccupied time"
-    annotation (Dialog(group="CO2 concentration alarm", enable=have_CO2Sen));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="CO2 concentration alarm", enable=have_CO2Sen));
   parameter Real CO2Set=894
     "CO2 setpoint in ppm"
-    annotation (Dialog(group="CO2 concentration alarm", enable=have_CO2Sen));
+    annotation (__cdl(ValueInReference=true), Dialog(group="CO2 concentration alarm", enable=have_CO2Sen));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real ppmHys(
     final unit="1")=25
     "Hysteresis to check CO2 concentration"
-    annotation (Dialog(tab="Advanced", enable=have_CO2Sen));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced", enable=have_CO2Sen));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",

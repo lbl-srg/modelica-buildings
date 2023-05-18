@@ -3,25 +3,25 @@ block ControlLoops "Heating and cooling control loops"
 
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (Dialog(group="Cooling control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Cooling control"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(group="Cooling control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Cooling control"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (Dialog(group="Heating control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Heating control"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (Dialog(group="Heating control"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Heating control"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced"));
   parameter Real dTHys(unit="K")=0.25
     "Delta between the temperature hysteresis high and low limit"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Threshold value to check if the controller output is near zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",

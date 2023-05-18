@@ -126,7 +126,6 @@ model Direct "Direct cooling ETS model for district energy systems with in-build
     annotation (Placement(transformation(extent={{-220,190},{-200,210}})));
   Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium=MediumSer,
-    final allowFlowReversal=false,
     final m_flow_nominal=mBui_flow_nominal,
     final dpValve_nominal=dpCheVal_nominal)
     "Check valve (backflow preventer)"
@@ -251,6 +250,11 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 5, 2023, by David Blum:<br/>
+Removed assignment of check valve <code>allowFlowReversal=false</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
+</li>
 <li>
 January 11, 2023, by Michael Wetter:<br/>
 Changed controls to use CDL. Changed PID to PI as default for controller.
