@@ -287,20 +287,17 @@ def simulateCase(arg, simulator):
     mat_suffix = re.sub(r"\.", "_", str(arg[2]))
     output_dir_prefix = f"{mat_root}_{mat_suffix}"
     cwd = os.getcwd()
-    output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
-
-    # The following makes dymola worker cd into outputDirectory.
-    s = Simulator(arg[0], outputDirectory=os.path.relpath(output_dir_path))
+    output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=os.path.abspath(os.path.join(cwd, os.pardir)))
 
     if simulator == 'Dymola':
+        s = Simulator(arg[0], outputDirectory=output_dir_path)
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-        s.addPreProcessingStatement(r'cd')
-        print(os.getcwd())
-        print(os.listdir(os.pardir))
-        s.addPreProcessingStatement(r'openModel(path="../package.mo", changeDirectory=false);')
+        s.addPreProcessingStatement(r'openModel("../Buildings/package.mo", changeDirectory=false);')
+        s.addPreProcessingStatement(r'openModel("/mnt/shared/Buildings/package.mo", changeDirectory=false);')
     if simulator == 'Optimica':
+        s = Simulator(arg[0], outputDirectory=output_dir_path)
         # Set MODELICAPATH (only in child process, so this won't affect main process).
-        os.environ['MODELICAPATH'] = os.path.abspath(os.path.pardir)
+        os.environ['MODELICAPATH'] = os.path.abspath(os.path.join(os.path.pardir, 'Buildings'))
 
     for modif in arg[1]:
         s.addModelModifier(modif)

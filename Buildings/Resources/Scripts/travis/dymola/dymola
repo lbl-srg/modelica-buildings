@@ -4,6 +4,10 @@
 cur_dir=`pwd`
 bas_nam=`basename ${cur_dir}`
 sha_dir=`dirname ${cur_dir}`
+
+echo 'DEBUG: Content of sha_dir'
+ls $sha_dir
+
 # If the current directory is part of the argument list,
 # replace it with . as the docker may have a different file structure
 arg_lis=`echo $@ | sed -e "s|${cur_dir}|.|g"`
