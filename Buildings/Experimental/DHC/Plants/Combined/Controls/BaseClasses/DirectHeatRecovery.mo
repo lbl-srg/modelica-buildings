@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block DirectHeatRecovery
   "Block controlling HRC in direct heat recovery mode"
 
@@ -11,16 +11,16 @@ block DirectHeatRecovery
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal
-    "Chiller CHW design mass flow rate (each unit)"
+    "Chiller CHW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min
-    "Chiller CHW minimum mass flow rate (each unit)"
+    "Chiller CHW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_nominal
-    "HRC CHW design mass flow rate (each unit)"
+    "HRC CHW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_min
-    "HRC CHW minimum mass flow rate (each unit)"
+    "HRC CHW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
 
   parameter Real k(min=0)=0.01

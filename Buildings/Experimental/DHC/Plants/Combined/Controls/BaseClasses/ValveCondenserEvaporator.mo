@@ -11,40 +11,40 @@ block ValveCondenserEvaporator
     annotation (Dialog(group="HW loop and heat recovery chillers"),
       Evaluate=true);
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_nominal
-    "Chiller CHW design mass flow rate (each unit)"
+    "Chiller CHW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChi_flow_min
-    "Chiller CHW minimum mass flow rate (each unit)"
+    "Chiller CHW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mConWatChi_flow_nominal
-    "Chiller CW design mass flow rate (each unit)"
+    "Chiller CW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.PressureDifference dpEvaChi_nominal(displayUnit="Pa")
-    "Chiller evaporator design pressure drop (each unit)"
+    "Chiller evaporator design pressure drop (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.PressureDifference dpValEvaChi_nominal(
       displayUnit="Pa")
-    "Chiller evaporator isolation valve design pressure drop (each unit)"
+    "Chiller evaporator isolation valve design pressure drop (value will be used for each unit)"
     annotation(Dialog(group="CHW loop and cooling-only chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_nominal
-    "HRC CHW design mass flow rate (each unit)"
+    "HRC CHW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mChiWatChiHea_flow_min
-    "HRC CHW minimum mass flow rate (each unit)"
+    "HRC CHW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mConWatChiHea_flow_nominal
-    "HRC CW design mass flow rate (each unit)"
+    "HRC CW design mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.MassFlowRate mHeaWatChiHea_flow_min
-    "Chiller HW minimum mass flow rate (each unit)"
+    "Chiller HW minimum mass flow rate (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.PressureDifference dpEvaChiHea_nominal(
       displayUnit="Pa")
-    "Design chiller evaporator  pressure drop (each unit)"
+    "Design chiller evaporator  pressure drop (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.PressureDifference dpValEvaChiHea_nominal(
       displayUnit="Pa")
-    "HRC evaporator isolation valve design pressure drop (each unit)"
+    "HRC evaporator isolation valve design pressure drop (value will be used for each unit)"
     annotation(Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
