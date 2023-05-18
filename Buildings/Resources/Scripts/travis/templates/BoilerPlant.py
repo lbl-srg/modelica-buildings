@@ -287,17 +287,19 @@ def simulateCase(arg, simulator):
     mat_suffix = re.sub(r"\.", "_", str(arg[2]))
     output_dir_prefix = f"{mat_root}_{mat_suffix}"
     cwd = os.getcwd()
-    output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=os.path.abspath(os.path.join(cwd, os.pardir)))
+    # We need to create temp directories at the same level as Buildings because of
+    # the way volumes are mounted in docker run, see Buildings/Resources/Scripts/travis/dymola/dymola.
+    output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=os.path.abspath(os.pardir))
+
+    # The following make Dymola worker cd into outputDirectory.
+    s = Simulator(arg[0], outputDirectory=output_dir_path)
 
     if simulator == 'Dymola':
-        s = Simulator(arg[0], outputDirectory=output_dir_path)
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
         s.addPreProcessingStatement(r'openModel("../Buildings/package.mo", changeDirectory=false);')
-        s.addPreProcessingStatement(r'openModel("/mnt/shared/Buildings/package.mo", changeDirectory=false);')
     if simulator == 'Optimica':
-        s = Simulator(arg[0], outputDirectory=output_dir_path)
         # Set MODELICAPATH (only in child process, so this won't affect main process).
-        os.environ['MODELICAPATH'] = os.path.abspath(os.path.join(os.path.pardir, 'Buildings'))
+        os.environ['MODELICAPATH'] = os.path.abspath(os.pardir)
 
     for modif in arg[1]:
         s.addModelModifier(modif)
