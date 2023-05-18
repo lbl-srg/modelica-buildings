@@ -293,7 +293,7 @@ def simulateCase(arg, simulator):
 
     if simulator == 'Dymola':
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-        s.addPreProcessingStatement(r'openModel("../package.mo");')
+        s.addPreProcessingStatement(r'openModel("package.mo");')
         s.addPreProcessingStatement(fr'cd("{os.path.relpath(output_dir_path)}");')
     if simulator == 'Optimica':
         # Set MODELICAPATH (only in child process, so this won't affect main process).
