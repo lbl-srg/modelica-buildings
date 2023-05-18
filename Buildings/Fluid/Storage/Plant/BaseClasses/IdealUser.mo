@@ -89,11 +89,16 @@ model IdealUser "Ideal user model"
     redeclare final package Medium = Medium)
     "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource ideTemSou(
+  Buildings.Fluid.Sources.PropertySource_T proSou(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=m_flow_nominal,
-    final TSet=T_CHWR_nominal) "Ideal temperature source"
-    annotation (Placement(transformation(extent={{20,-70},{0,-50}})));
+    final use_T_in=true) "Ideal temperature source" annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={10,-60})));
+  Modelica.Blocks.Sources.Constant TRet(final k=T_CHWR_nominal)
+    "Constant CHW return temperature"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 equation
   connect(senRelPre.p_rel, dp) annotation (Line(points={{-63,20},{110,20}},
                            color={0,0,127}));
@@ -116,12 +121,14 @@ equation
     annotation (Line(points={{-30,-49},{-30,68}}, color={0,0,127}));
   connect(port_a, val.port_a)
     annotation (Line(points={{-100,60},{0,60}}, color={0,127,255}));
-  connect(val.port_b, ideTemSou.port_a) annotation (Line(points={{20,60},{40,60},
-          {40,-60},{20,-60}}, color={0,127,255}));
-  connect(ideTemSou.port_b, senMasFlo.port_a)
-    annotation (Line(points={{0,-60},{-20,-60}}, color={0,127,255}));
   connect(conPI.u_s, mPre_flow)
     annotation (Line(points={{-42,80},{-110,80}}, color={0,0,127}));
+  connect(senMasFlo.port_a, proSou.port_b)
+    annotation (Line(points={{-20,-60},{0,-60}}, color={0,127,255}));
+  connect(proSou.port_a, val.port_b) annotation (Line(points={{20,-60},{40,-60},
+          {40,60},{20,60}}, color={0,127,255}));
+  connect(TRet.y, proSou.T_in)
+    annotation (Line(points={{1,-30},{14,-30},{14,-48}}, color={0,0,127}));
   annotation (
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
