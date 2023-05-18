@@ -749,8 +749,9 @@ Energy, Volume 199, 15 May 2020, 117418.
   revisions="<html>
 <ul>
 <li>
-May 3, 2023, by David Blum:<br/>
+May 17, 2023, by David Blum:<br/>
 Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
+Corrected calculation of heat pump evaporator mass flow control.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
 issue 3379</a>.
