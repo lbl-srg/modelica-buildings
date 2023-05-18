@@ -135,27 +135,26 @@ block ZoneRegulation
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConSen
     "Signal from condensation sensor in zone"
     annotation (Placement(transformation(extent={{-180,20},{-140,60}}),
-      iconTransformation(extent={{-140,0},{-100,40}})));
+      iconTransformation(extent={{-140,-34},{-100,6}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "Zone operation mode"
     annotation (Placement(transformation(extent={{-180,-190},{-140,-150}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
+      iconTransformation(extent={{-140,-100},{-100,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    displayUnit="degC")
-    "Measured zone temperature"
+    displayUnit="degC") "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,100},{-140,140}}),
-      iconTransformation(extent={{-140,40},{-100,80}})));
+      iconTransformation(extent={{-140,32},{-100,72}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured discharge airflow rate"
     annotation (Placement(transformation(extent={{-180,-70},{-140,-30}}),
-      iconTransformation(extent={{-140,-40},{-100,0}})));
+      iconTransformation(extent={{-140,-68},{-100,-28}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiVal(
     final min=0,
@@ -181,19 +180,23 @@ block ZoneRegulation
     annotation (Placement(transformation(extent={{140,140},{180,180}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
-  Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneTemperature TZonSet(
-    final zonOccHeaSet=zonOccHeaSet,
-    final zonUnoccHeaSet=zonUnoccHeaSet,
-    final zonOccCooSet=zonOccCooSet,
-    final zonUnoccCooSet=zonUnoccCooSet)
-    "Zone temperature setpoint controller"
-    annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
-
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
     final nin=3)
     "Find required volume flow rate"
     annotation (Placement(transformation(extent={{-30,-40},{-10,-20}})));
 
+  CDL.Interfaces.RealInput TZonCooSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="K") "Zone cooling setpoint temperature" annotation (Placement(
+        transformation(extent={{-180,60},{-140,100}}), iconTransformation(
+          extent={{-140,0},{-100,40}})));
+  CDL.Interfaces.RealInput TZonHeaSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="K") "Zone heating setpoint temperature" annotation (Placement(
+        transformation(extent={{-180,140},{-140,180}}), iconTransformation(
+          extent={{-140,62},{-100,102}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conHeaLoo(
     final controllerType=controllerTypeHea,
@@ -366,15 +369,6 @@ equation
   connect(not1.y, assMes.u) annotation (Line(points={{32,40},{40,40},{40,70},{48,
           70}}, color={255,0,255}));
 
-  connect(TZonSet.TZonHeaSet, conHeaLoo.u_s) annotation (Line(points={{-78,126},
-          {-20,126},{-20,160},{-2,160}}, color={0,0,127}));
-
-  connect(TZonSet.TZonCooSet, conCooLoo.u_s) annotation (Line(points={{-78,114},
-          {-20,114},{-20,120},{-2,120}}, color={0,0,127}));
-
-  connect(uOpeMod, TZonSet.uOpeMod) annotation (Line(points={{-160,-170},{-120,-170},
-          {-120,120},{-102,120}}, color={255,127,0}));
-
   connect(swi.y, yDam)
     annotation (Line(points={{102,-30},{160,-30}}, color={0,0,127}));
 
@@ -394,6 +388,10 @@ equation
   connect(tim.passed, not1.u) annotation (Line(points={{-26,32},{-10,32},{-10,40},
           {8,40}}, color={255,0,255}));
 
+  connect(conCooLoo.u_s, TZonCooSet) annotation (Line(points={{-2,120},{-56,120},
+          {-56,80},{-160,80}}, color={0,0,127}));
+  connect(conHeaLoo.u_s, TZonHeaSet)
+    annotation (Line(points={{-2,160},{-160,160}}, color={0,0,127}));
 annotation (defaultComponentName="zonRegCon",
   Icon(graphics={Rectangle(
         extent={{-100,-100},{100,100}},
@@ -403,7 +401,52 @@ annotation (defaultComponentName="zonRegCon",
         Text(
           extent={{-120,160},{114,108}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255}),
+        Text(
+          extent={{-100,58},{-76,48}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-98,-42},{-66,-54}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="VDis_flow"),
+        Text(
+          extent={{-98,-74},{-68,-88}},
+          textColor={244,125,35},
+          pattern=LinePattern.Dash,
+          textString="uOpeMod"),
+        Text(
+          extent={{74,44},{98,34}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yReh"),
+        Text(
+          extent={{72,6},{98,-6}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yChiVal"),
+        Text(
+          extent={{74,-34},{98,-44}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yDam"),
+        Text(
+          extent={{-96,-6},{-60,-22}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uConSen"),
+        Text(
+          extent={{-98,94},{-54,68}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZonHeaSet"),
+        Text(
+          extent={{-98,30},{-52,12}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZonCooSet")}),
     Diagram(coordinateSystem(extent={{-140,-180},{140,180}})),
 Documentation(info="<html>
 <p>

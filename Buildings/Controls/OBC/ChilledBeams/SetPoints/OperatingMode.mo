@@ -2,12 +2,6 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block OperatingMode
   "Block with sequences for picking system operating mode"
 
-  parameter Integer nSchRow = 4
-    "Number of rows in schedule table";
-
-  parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
-    "Table defining schedule for enabling plant";
-
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDetOcc
     "Detected occupancy"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
@@ -18,17 +12,13 @@ block OperatingMode
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
-    final table=schTab,
-    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    final timeScale=3600)
-    "Table defining when occupancy is expected"
-    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
     "Pass signal for occupied mode if zone is occupied; Else pass signal for unoccupiedScheduled or unoccupiedUnscheduled"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
+  CDL.Interfaces.BooleanInput uOcc "Define when occupancy is expected"
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+        iconTransformation(extent={{-140,-100},{-100,-60}})));
 protected
   parameter Integer modInt[3]={Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied,
       Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedScheduled,
@@ -55,16 +45,9 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Logical not"
-    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=0.5)
-    "Convert Real signal to Boolean"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
 equation
-  connect(enaSch.y[1],greThr. u)
-    annotation (Line(points={{-68,-50},{-62,-50}},     color={0,0,127}));
   connect(conInt.y, intSwi.u1) annotation (Line(points={{2,30},{50,30},{50,8},{58,
           8}},      color={255,127,0}));
   connect(conInt1.y, intSwi1.u1) annotation (Line(points={{2,-20},{10,-20},{10,-42},
@@ -75,13 +58,12 @@ equation
           {58,-8}}, color={255,127,0}));
   connect(intSwi.y, yOpeMod) annotation (Line(points={{82,0},{120,0}},
                color={255,127,0}));
-  connect(greThr.y, not1.u)
-    annotation (Line(points={{-38,-50},{-32,-50}},
-                                                 color={255,0,255}));
   connect(not1.y, intSwi1.u2)
-    annotation (Line(points={{-8,-50},{18,-50}}, color={255,0,255}));
+    annotation (Line(points={{-38,-50},{18,-50}},color={255,0,255}));
   connect(uDetOcc, intSwi.u2)
     annotation (Line(points={{-120,0},{58,0}},   color={255,0,255}));
+  connect(not1.u, uOcc)
+    annotation (Line(points={{-62,-50},{-120,-50}}, color={255,0,255}));
   annotation (defaultComponentName="opeMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={
@@ -99,7 +81,22 @@ equation
               lineColor={28,108,200},
               fillColor={255,255,255},
               fillPattern=FillPattern.None,
-          textString="sysOpeMod")}),                             Diagram(
+          textString="sysOpeMod"),
+        Text(
+          extent={{-98,8},{-62,-8}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uDetOcc"),
+        Text(
+          extent={{60,8},{98,-10}},
+          textColor={255,127,0},
+          pattern=LinePattern.Dash,
+          textString="yOpeMod"),
+        Text(
+          extent={{-100,-74},{-70,-86}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uOcc")}),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
         <p>

@@ -3,7 +3,9 @@ model Controller
   "Validate zone temperature setpoint controller"
 
   Buildings.Controls.OBC.ChilledBeams.System.Controller
-    sysCon(dPChiWatMax=31000)
+    sysCon(
+    nPum=2,
+    nVal=3,dPChiWatMax=31000)
     "System controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -28,11 +30,11 @@ protected
 
 equation
   connect(pul.y, sysCon.uValPos)
-    annotation (Line(points={{-58,0},{-40,0},{-40,-4},{-12,-4}}, color={0,0,127}));
+    annotation (Line(points={{-58,0},{-40,0},{-40,-6},{-12,-6}}, color={0,0,127}));
   connect(sysCon.yChiWatPum, pre1.u)
-    annotation (Line(points={{12,4},{20,4},{20,0},{28,0}}, color={255,0,255}));
+    annotation (Line(points={{12,6},{20,6},{20,0},{28,0}}, color={255,0,255}));
   connect(pre1.y, sysCon.uPumSta)
-    annotation (Line(points={{52,0},{60,0},{60,50},{-20,50},{-20,4},{-12,4}},
+    annotation (Line(points={{52,0},{60,0},{60,50},{-20,50},{-20,6},{-12,6}},
       color={255,0,255}));
 
   connect(sin2.y, sysCon.dPChiWatLoo) annotation (Line(points={{-58,40},{-30,40},
