@@ -34,8 +34,8 @@ model MultipleValves
     "Pressure drop of pipe and other resistances that are in series (each unit)"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Boolean use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState
-    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+  parameter Boolean use_inputFilter=true
+    "Opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(tab="Dynamics", group="Filtered opening"));
   parameter Modelica.Units.SI.Time riseTime=120
     "Rise time of the filter (time to reach 99.6 % of an opening step)"
