@@ -1,10 +1,15 @@
 #!/bin/bash
 # coding: utf-8
 
-# This script shall be run from the top level directory within `modelica-buildings`,
-# i.e., where `./Buildings` can be found.
+# This script shall be run from `modelica-buildings/Buildings`,
+# i.e., where the top-level `package.mo` file can be found.
+#
+# Command line flag -l is for a local run of this script to run simulations and update the checksum.
+# Without -l TRAVISRUN is set to false which triggers the comparison of the checksum against HEAD.
+# The first argument after the optional flag is for the Modelica tool, defaulting to Dymola.
+#
 # The script performs the following tasks.
-# - Generate checksums for all *.mo files within Buildings/Templates, order them
+# - Generate checksums for all *.mo files within the Templates package, order them
 #   based on the file names, and generates the checksum of those checksums.
 # - Compare the resulting checksum with the stored value from previous evaluation.
 # - If the values differ: run simulation script (*.py),
@@ -12,14 +17,12 @@
 # - If all simulations succeed: overwrite stored checksum with new value,
 #                               otherwise do nothing.
 
-# Command line flag -t sets TRAVISRUN=true which triggers the comparison of the checksum against HEAD.
-# Not using -t is for a local run of this script to run simulations and update the checksum.
-TRAVISRUN=false
+TRAVISRUN=true
 OPTIND=1
 
-while getopts 't' flag; do
+while getopts 'l' flag; do
     case "${flag}" in
-        t) TRAVISRUN=true;;
+        l) TRAVISRUN=false;;
         *) echo 'Error in command line parsing' >&2
             exit 1
     esac
@@ -28,15 +31,15 @@ done
 shift "$(( OPTIND - 1 ))"
 SIMULATOR=${1:-Dymola}
 
-CHECKSUM="$(find ./Buildings/Templates/. -type f -name *.mo -exec md5sum {} \; | LC_ALL=C sort -f -k 2 | awk '{ print $1; }' | md5sum | awk '{ print $1; }')"
-echo $CHECKSUM > ./Buildings/Resources/Scripts/travis/templates/checksum
+CHECKSUM="$(find ./Templates/. -type f -name *.mo -exec md5sum {} \; | LC_ALL=C sort -f -k 2 | awk '{ print $1; }' | md5sum | awk '{ print $1; }')"
+echo $CHECKSUM > ./Resources/Scripts/travis/templates/checksum
 
 # Diff / HEAD
 if $TRAVISRUN; then
-    DIFFCHECKSUM="$(git diff --name-only HEAD | grep 'Buildings/Resources/Scripts/travis/templates/checksum')"
+    DIFFCHECKSUM="$(git diff --name-only HEAD | grep 'Resources/Scripts/travis/templates/checksum')"
 
     if [[ $? == 0 ]]; then
-        echo "Computed checksum does not match checksum on HEAD: please commit updated checksum for Buildings/Templates."
+        echo "Computed checksum does not match checksum on HEAD: please commit updated checksum for Templates."
         echo "Checksum on HEAD:"
         git show HEAD:Buildings/Resources/Scripts/travis/templates/checksum
         echo "Computed checksum:"
@@ -46,13 +49,14 @@ if $TRAVISRUN; then
 fi
 
 # Diff / master
-DIFFCHECKSUM="$(git diff --name-only origin/master | grep 'Buildings/Resources/Scripts/travis/templates/checksum')"
+DIFFCHECKSUM="$(git diff --name-only origin/master | grep 'Resources/Scripts/travis/templates/checksum')"
 
 if [[ $? == 0 ]]; then
-    echo "Computed checksum does not match checksum on master: running simulations for models in Buildings/Templates."
+    echo "Computed checksum does not match checksum on master."
+    echo "Running simulations for models in Templates with $SIMULATOR."
     # Launch simulations (typically several thousands).
     r=
-    ./Buildings/Resources/Scripts/travis/templates/BoilerPlant.py $SIMULATOR
+    ./Resources/Scripts/travis/templates/BoilerPlant.py $SIMULATOR
     r=$r$?
     (($r==0))
     if [[ $? == 0 ]]; then

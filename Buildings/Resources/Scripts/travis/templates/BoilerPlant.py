@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# This script shall be run from the top level directory within `modelica-buildings`,
-# i.e., where `./Buildings` can be found.
+# This script shall be run from the directory `modelica-buildings/Buildings`,
+# i.e., where the top-level `package.mo` file can be found.
 # The script takes as an optional positional argument the Modelica tool to use
 # (Dymola or Optimica, defaulting to Dymola).
 # The script performs the following tasks.
@@ -289,16 +289,15 @@ def simulateCase(arg, simulator):
     cwd = os.getcwd()
     output_dir_path = tempfile.mkdtemp(prefix=output_dir_prefix, dir=cwd)
 
-    s = Simulator(modelName=arg[0], outputDirectory=output_dir_path)
+    s = Simulator(arg[0], outputDirectory=os.path.relpath(output_dir_path))
 
     if simulator == 'Dymola':
-        package_path = os.path.abspath(os.path.join('Buildings', 'package.mo'))
         s.addPreProcessingStatement(r'Advanced.TranslationInCommandLog:=true;')
-        s.addPreProcessingStatement(fr'openModel("{package_path}");')
-
+        s.addPreProcessingStatement(r'openModel("../package.mo");')
+        s.addPreProcessingStatement(fr'cd("{os.path.relpath(output_dir_path)}");')
     if simulator == 'Optimica':
         # Set MODELICAPATH (only in child process, so this won't affect main process).
-        os.environ['MODELICAPATH'] = os.path.abspath(os.curdir)
+        os.environ['MODELICAPATH'] = os.path.abspath(os.path.pardir)
 
     for modif in arg[1]:
         s.addModelModifier(modif)
