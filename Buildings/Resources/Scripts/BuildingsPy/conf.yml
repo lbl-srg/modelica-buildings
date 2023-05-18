@@ -124,6 +124,10 @@
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
+- model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETS
+  openmodelica:
+    comment: simulates ok with OMEdit 1.22.0~dev-51-ge506fbc
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
