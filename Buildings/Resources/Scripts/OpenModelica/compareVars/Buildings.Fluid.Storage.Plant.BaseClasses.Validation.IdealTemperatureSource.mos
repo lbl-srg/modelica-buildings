@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "T_a.T",
-    "T_b.T"
-  };
