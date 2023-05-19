@@ -30,7 +30,7 @@ First implementation.
 <p>
 Performance data for ice tank charging and discharging curves.
 See
-<a href=\"Buildings.Fluid.Storage.Ice.Tank\">Buildings.Fluid.Storage.Ice.Tank</a>
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.Tank\">Buildings.Fluid.Storage.Ice.Tank</a>
 for the definition of the charging and discharging coefficients.
 </p>
 </html>"));

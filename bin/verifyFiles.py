@@ -44,6 +44,7 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "modelica://BuildingSystems",
 	        "modelica://IDEAS",
                 "modelica://https://",
+                r'href=\"Buildings.',
                 ">>>>>>",
                 "<<<<<<"]
 

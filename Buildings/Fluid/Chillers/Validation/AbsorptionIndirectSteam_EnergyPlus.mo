@@ -152,7 +152,7 @@ equation
   Documentation(info="<html>
 <p>
 This model validates
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 <p>
 The EnergyPlus results were generated using the example file <code>IndirectAbsorptionChiller.idf</code>
