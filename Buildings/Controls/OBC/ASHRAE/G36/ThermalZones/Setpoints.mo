@@ -3,73 +3,80 @@ block Setpoints
   "Block outputs thermal zone cooling and heating active setpoint"
 
   parameter Boolean have_occSen "Check if the zone has occupancy sensor"
-    annotation(Dialog(group="Sensors"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Sensors"));
   parameter Boolean have_winSen
     "Check if the zone has window status sensor"
-    annotation(Dialog(group="Sensors"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Sensors"));
   parameter Boolean have_locAdj=true
     "True: the zone has local setpoint adjustment knob"
-    annotation (Dialog(group="Setpoint adjustable setting"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Setpoint adjustable setting"));
   parameter Boolean sepAdj=true
     "True: cooling and heating setpoint can be adjusted separately"
-    annotation (Dialog(group="Setpoint adjustable setting", enable=have_locAdj));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Setpoint adjustable setting", enable=have_locAdj));
   parameter Boolean ignDemLim = true
     "True: exempt the individual zone from demand limit setpoint adjustment"
-    annotation(Dialog(group="Setpoint adjustable setting"));
+    annotation (__cdl(ValueInReference=false), Dialog(group="Setpoint adjustable setting"));
   parameter Real TActCoo_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=300.15
     "Maximum active cooling setpoint"
-    annotation(Dialog(group="Setpoints limits setting"));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoints limits setting"));
   parameter Real TActCoo_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=295.15
     "Minimum active cooling setpoint"
-    annotation(Dialog(group="Setpoints limits setting"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Setpoints limits setting"));
   parameter Real TActHea_max(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=295.15
     "Maximum active heating setpoint"
-    annotation(Dialog(group="Setpoints limits setting"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Setpoints limits setting"));
   parameter Real TActHea_min(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=291.15
     "Minimum active heating setpoint"
-    annotation(Dialog(group="Setpoints limits setting"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Setpoints limits setting"));
   parameter Real TWinOpeCooSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=322.15
     "Cooling setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Real TWinOpeHeaSet(
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=277.15
     "Heating setpoint when window is open"
-    annotation(Dialog(group="Setpoints limits setting", enable=have_winSen));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Setpoints limits setting", enable=have_winSen));
   parameter Real incTSetDem_1(unit="K")=0.5
     "Cooling setpoint increase value (degC) when cooling demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
   parameter Real incTSetDem_2(unit="K")=1
     "Cooling setpoint increase value (degC) when cooling demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
   parameter Real incTSetDem_3(unit="K")=2
     "Cooling setpoint increase value (degC) when cooling demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
   parameter Real decTSetDem_1(unit="K")=0.5
     "Heating setpoint decrease value (degC) when heating demand limit level 1 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
   parameter Real decTSetDem_2(unit="K")=1
     "Heating setpoint decrease value (degC) when heating demand limit level 2 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
   parameter Real decTSetDem_3(unit="K")=2
     "Heating setpoint decrease value (degC) when heating demand limit level 3 is imposed"
-    annotation(Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Setpoint adjustment", tab="Demand control", enable=not ignDemLim));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uOpeMod
     "AHU operation mode status signal"

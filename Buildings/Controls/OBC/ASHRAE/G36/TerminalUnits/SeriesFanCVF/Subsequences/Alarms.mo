@@ -15,46 +15,51 @@ block Alarms "Generate alarms of parallerl fan-powered terminal unit with consta
   parameter Real lowFloTim(
     final unit="s",
     final quantity="Time")=300
-    "Threshold time to check low flow rate";
+    "Threshold time to check low flow rate"
+    annotation (__cdl(ValueInReference=true));
   parameter Real lowTemTim(
     final unit="s",
     final quantity="Time")=600
     "Threshold time to check low discharge temperature"
-    annotation (Dialog(enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true), Dialog(enable=have_hotWatCoi));
   parameter Real comChaTim(
     final unit="s",
     final quantity="Time")=15
-    "Threshold time after fan command change";
+    "Threshold time after fan command change"
+    annotation (__cdl(ValueInReference=true));
   parameter Real fanOffTim(
     final unit="s",
     final quantity="Time")=600
-    "Threshold time to check fan off";
+    "Threshold time to check fan off"
+    annotation (__cdl(ValueInReference=true));
   parameter Real leaFloTim(
     final unit="s",
     final quantity="Time")=600
-    "Threshold time to check damper leaking airflow";
+    "Threshold time to check damper leaking airflow"
+    annotation (__cdl(ValueInReference=true));
   parameter Real valCloTim(
     final unit="s",
     final quantity="Time")=900
-    "Threshold time to check valve leaking water flow";
+    "Threshold time to check valve leaking water flow"
+    annotation (__cdl(ValueInReference=true));
   parameter Real floHys(
     final quantity="VolumeFlowRate",
     final unit="m3/s")=0.05
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real dTHys(
     final unit="K",
     final quantity="TemperatureDifference")=0.25
     "Temperature difference hysteresis below which the temperature difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real damPosHys(
     final unit="1")=0.05
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real valPosHys(
     final unit="1")=0.05
     "Near zero valve position, below which the valve will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VPri_flow(
     final min=0,
