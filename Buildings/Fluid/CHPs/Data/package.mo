@@ -8,7 +8,7 @@ annotation(preferredView="info",
 This package contains the common parameters that are used
 to specify the performance data
 for the CHP model
-<a href=\"Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
+<a href=\"modelica://Buildings.Fluid.CHPs.ThermalElectricalFollowing\">
 Buildings.Fluid.CHPs.ThermalElectricalFollowing</a>.
 </p>
 </html>", revisions="<html>
