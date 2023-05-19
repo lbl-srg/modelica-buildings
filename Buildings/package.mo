@@ -239,7 +239,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        configurations used in hydronic circuits for heating or cooling applications.
     </td>
 </tr>
-</table>
+  </table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -345,6 +345,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
+    </td>
+    <td valign=\"top\">Added model to read weekly time schedules from a file.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1601\">IBPSA, #1601</a>.
+    </td>
+  </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -353,6 +363,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">Improved error message in Java application that converts weather file.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3380\">#3380</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.ASHRAE.G36.AHUs</b>
     </td>
 </tr>
