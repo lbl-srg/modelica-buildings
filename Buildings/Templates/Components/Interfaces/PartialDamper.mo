@@ -21,7 +21,8 @@ partial model PartialDamper "Interface class for damper"
     annotation(Dialog(tab="Graphics", enable=false));
 
   parameter Buildings.Templates.Components.Data.Damper dat(final typ=typ)
-    "Design and operating parameters";
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{70,70},{90,90}})));
 
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=
     dat.dp_nominal

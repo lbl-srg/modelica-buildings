@@ -155,11 +155,18 @@ equation
       color={255,204,51},
       thickness=0.5));
   annotation (
+  __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/AirHandlersFans/Validation/VAVMZBase.mos"
+  "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>
 This is a validation model for the configuration represented by
 <a href=\"modelica://Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase\">
-Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase</a>
+Buildings.Templates.AirHandlersFans.Validation.UserProject.AirHandlersFans.VAVMZBase</a>.
+It is intended to check whether the template model is well-defined for
+this particular system configuration.
+However, due to the open-loop controls a correct physical behavior
+is not expected and the plotted variables are for non-regression testing only.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));

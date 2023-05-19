@@ -207,7 +207,12 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaPre,
-      redeclare final package MediumAir=MediumAir)
+      redeclare final package MediumAir=MediumAir,
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Heating coil in preheat position"
     annotation (
     choices(
@@ -231,7 +236,12 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiCoo,
-      redeclare final package MediumAir=MediumAir)
+      redeclare final package MediumAir=MediumAir,
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Cooling coil"
     annotation (
       choices(
@@ -246,7 +256,12 @@ model VAVMultiZone "Multiple-zone VAV"
   inner replaceable Buildings.Templates.Components.Coils.None coiHeaReh
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       final dat=dat.coiHeaReh,
-      redeclare final package MediumAir=MediumAir)
+      redeclare final package MediumAir=MediumAir,
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Heating coil in reheat position"
     annotation (
     choices(

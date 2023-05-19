@@ -180,7 +180,7 @@ template parameters.
 When creating a model for a complete HVAC system with multiple instances of 
 different templates, the class
 <a href=\"modelica://Buildings.Templates.Data.AllSystems\">
-Buildings.Templates.Data.AllSystems</a>.
+Buildings.Templates.Data.AllSystems</a>
 can be used at the top level of the model to assign all design and operating parameters.
 This class allows the use of Modelica outer components to retrieve the configuration 
 parameter values for each template instance based on the instance name.

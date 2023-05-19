@@ -2,7 +2,8 @@ within Buildings.Templates.Components.Interfaces;
 partial model PartialCoil "Interface class for coil"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     redeclare final package Medium=MediumAir,
-    final m_flow_nominal=mAir_flow_nominal)
+    final m_flow_nominal=mAir_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     annotation(__Linkage(enable=false));
 
   replaceable package MediumAir=Buildings.Media.Air
@@ -40,7 +41,9 @@ partial model PartialCoil "Interface class for coil"
     final typ=typ,
     final typVal=typVal)
     "Design and operating parameters"
-    annotation(__Linkage(enable=false));
+    annotation (
+    Placement(transformation(extent={{70,70},{90,90}})),
+    __Linkage(enable=false));
 
   final parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0) = dat.mAir_flow_nominal
@@ -53,13 +56,46 @@ partial model PartialCoil "Interface class for coil"
     dat.Q_flow_nominal
     "Nominal heat flow rate";
 
+  parameter Modelica.Units.SI.Time tau=20
+    "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition",
+      enable=typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed),
+      __Linkage(enable=false));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations",
+      enable=typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed),
+      __Linkage(enable=false));
+
+  parameter Boolean allowFlowReversalAir=true
+    "= true to allow flow reversal, false restricts to design direction - Air side"
+    annotation (Dialog(tab="Assumptions"), Evaluate=true,
+      __Linkage(enable=false));
+  parameter Boolean allowFlowReversalLiq=true
+    "= true to allow flow reversal, false restricts to design direction - CHW and HW side"
+    annotation (Dialog(tab="Assumptions",
+      enable=typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling or
+      typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating),
+      Evaluate=true,
+      __Linkage(enable=false));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
-    redeclare package Medium = MediumSou) if have_sou
+    redeclare package Medium = MediumSou,
+    m_flow(min=if allowFlowReversalLiq then -Modelica.Constants.inf else 0),
+    h_outflow(start=MediumSou.h_default, nominal=MediumSou.h_default)) if have_sou
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}}),
         iconTransformation(extent={{40,-110},{60,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
-    redeclare package Medium = MediumSou) if have_sou
+    redeclare package Medium = MediumSou,
+    m_flow(max=if allowFlowReversalLiq then +Modelica.Constants.inf else 0),
+    h_outflow(start = MediumSou.h_default, nominal = MediumSou.h_default))
+                                                                    if have_sou
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-30,-110},{-50,-90}}),
         iconTransformation(extent={{-40,-110},{-60,-90}})));
@@ -79,6 +115,7 @@ partial model PartialCoil "Interface class for coil"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,100})));
+
 protected
   parameter Buildings.Templates.Components.Data.Valve datVal(
     final typ=typVal,

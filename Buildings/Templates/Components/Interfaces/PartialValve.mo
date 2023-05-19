@@ -17,7 +17,8 @@ partial model PartialValve "Interface class for valve"
 
   parameter Buildings.Templates.Components.Data.Valve dat(final typ=typ)
     "Design and operating parameters"
-    annotation(__Linkage(enable=false));
+    annotation (Placement(transformation(extent={{70,70},{90,90}})),
+    __Linkage(enable=false));
 
   final parameter Modelica.Units.SI.PressureDifference dpValve_nominal=
     dat.dpValve_nominal

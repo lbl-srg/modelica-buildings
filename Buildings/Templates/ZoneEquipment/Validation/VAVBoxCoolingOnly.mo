@@ -10,9 +10,10 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     "Heating medium (such as HHW)";
 
   inner parameter UserProject.Data.AllSystems datAll(
-    sysUni=Buildings.Templates.Types.Units.SI,       ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
+    sysUni=Buildings.Templates.Types.Units.SI,
+    ashCliZon=Buildings.Controls.OBC.ASHRAE.G36.Types.ASHRAEClimateZone.Zone_3B,
     redeclare replaceable model VAVBox =
-        UserProject.ZoneEquipment.VAVBoxCoolingOnly)
+      UserProject.ZoneEquipment.VAVBoxCoolingOnly)
     "System parameters"
     annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
@@ -98,11 +99,18 @@ equation
       color={255,204,51},
       thickness=0.5));
     annotation (
+  __Dymola_Commands(
+  file="modelica://Buildings/Resources/Scripts/Dymola/Templates/ZoneEquipment/Validation/VAVBoxCoolingOnly.mos"
+  "Simulate and plot"),
   experiment(Tolerance=1e-6, StopTime=1), Documentation(info="<html>
 <p>
 This is a validation model for the configuration represented by
 <a href=\"modelica://Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly\">
-Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly</a>
+Buildings.Templates.ZoneEquipment.Validation.UserProject.ZoneEquipment.VAVBoxCoolingOnly</a>.
+It is intended to check whether the template model is well-defined for
+this particular system configuration.
+However, due to the open-loop controls a correct physical behavior
+is not expected and the plotted variables are for non-regression testing only.
 </p>
 </html>"),
     Diagram(coordinateSystem(extent={{-120,-120},{120,120}})));

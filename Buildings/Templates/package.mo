@@ -14,7 +14,7 @@ Buildings.Controls.OBC</a>.
 </html>"), Icon(graphics={Text(
           extent={{-100,100},{100,-100}},
           textColor={0,0,0},
-          fontName="Engravers MT",
-          textString="T",
-          textStyle={TextStyle.Bold})}));
+          fontName="Arial",
+          textStyle={TextStyle.Bold},
+          textString="T")}));
 end Templates;

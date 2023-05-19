@@ -27,7 +27,8 @@ partial model PartialFan "Interface class for fan"
     final typ=typ,
     final nFan=nFan)
     "Design and operating parameters"
-    annotation(__Linkage(enable=false));
+    annotation(Placement(transformation(extent={{70,70},{90,90}})),
+    __Linkage(enable=false));
 
   final parameter Integer nFan = dat.nFan
     "Number of fans";

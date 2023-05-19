@@ -65,7 +65,8 @@ partial model PartialOutdoorReliefReturnSection
       final typDamRel=typDamRel,
       final typFanRel=typFanRel,
       final typFanRet=typFanRet)
-    "Design and operating parameters";
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{150,110},{170,130}})));
 
   final parameter Modelica.Units.SI.MassFlowRate mAirSup_flow_nominal=
     dat.damOut.m_flow_nominal

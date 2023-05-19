@@ -20,7 +20,12 @@ model VAVBox "Interface class for VAV terminal unit"
       redeclare final Buildings.Templates.Components.Valves.TwoWayModulating val)
     constrainedby Buildings.Templates.Components.Interfaces.PartialCoil(
       redeclare final package MediumAir = MediumAir,
-      final dat=datCoiHea)
+      final dat=datCoiHea,
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final allowFlowReversalAir=allowFlowReversalAir,
+      final allowFlowReversalLiq=allowFlowReversalLiq,
+      final show_T=show_T)
     "Heating coil"
     annotation (
     choices(

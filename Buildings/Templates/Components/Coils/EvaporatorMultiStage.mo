@@ -12,7 +12,10 @@ model EvaporatorMultiStage
     redeclare final package Medium = MediumAir,
     final datCoi=dat.datCoi,
     final dp_nominal=dpAir_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final allowFlowReversal=allowFlowReversalAir,
+    final show_T=show_T)
     "Heat exchanger"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 

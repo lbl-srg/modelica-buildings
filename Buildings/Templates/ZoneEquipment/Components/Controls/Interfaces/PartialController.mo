@@ -8,7 +8,8 @@ partial block PartialController "Interface class for terminal unit controller"
   replaceable parameter
     Buildings.Templates.ZoneEquipment.Components.Data.PartialController dat(
       final typ=typ)
-      "Design and operating parameters";
+      "Design and operating parameters"
+      annotation (Placement(transformation(extent={{190,170},{210,190}})));
 
   outer parameter Buildings.Templates.Data.AllSystems datAll
     "Top-level (whole building) system parameters";

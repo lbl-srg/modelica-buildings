@@ -5,8 +5,16 @@ simulateModel("Buildings.Templates.AirHandlersFans.Validation.VAVMZDedicatedDamp
     resultFile="VAVMZDedicatedDampersPressure");
 createPlot(
     id=1,
-    position={15, 15, 1192, 772},
-    y={"VAV_1.port_Sup.m_flow"},
+    subPlot=1,
+    position={20, 20, 500, 500},
+    y={"busAHU.TAirSup", "busAHU.TAirMix", "busAHU.TOut"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=1,
+    subPlot=2,
+    y={"busAHU.fanSup.V_flow", "busAHU.VOut_flow"},
     autoscale=true,
     grid=true
 );

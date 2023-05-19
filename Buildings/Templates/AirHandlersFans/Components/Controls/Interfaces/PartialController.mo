@@ -19,7 +19,9 @@ partial block PartialController "Interface class for AHU controller"
     Buildings.Templates.AirHandlersFans.Components.Data.PartialController dat(
     final typ=typ,
     final typFanSup=typFanSup,
-    final typFanRet=typFanRet) "Design and operating parameters";
+    final typFanRet=typFanRet)
+    "Design and operating parameters"
+    annotation (Placement(transformation(extent={{190,170},{210,190}})));
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     "AHU control bus"
