@@ -10,8 +10,8 @@ model Case670 "Case 600, but has single pane window with clear glass"
      annualCoo(Min=-5.954*3.6e9, Max=-6.623*3.6e9, Mean=-6.402*3.6e9),
      peakHea(Min=3.655*1000, Max=4.221*1000, Mean=3.943*1000),
      peakCoo(Min=-5.839*1000, Max=-6.925*1000, Mean=-6.445*1000)),
-   heaCri(LowerLimit=4*3.6e9, UpperLimit=7.96*3.6e9),
-   cooCri(LowerLimit=-5.05*3.6e9, UpperLimit=-7.67*3.6e9));
+   heaCri(lowerLimit=4*3.6e9, upperLimit=7.96*3.6e9),
+   cooCri(lowerLimit=-5.05*3.6e9, upperLimit=-7.67*3.6e9));
 
 annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases6xx/Case670.mos"

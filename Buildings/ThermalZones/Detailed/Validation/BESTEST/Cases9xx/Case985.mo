@@ -9,8 +9,8 @@ model Case985
      annualCoo(Min=-5.880*3.6e9, Max=-7.273*3.6e9, Mean=-6.351*3.6e9),
      peakHea(Min=2.452*1000, Max=2.785*1000, Mean=2.631*1000),
      peakCoo(Min=-3.208*1000, Max=-4.225*1000, Mean=-3.824*1000)),
-   heaCri(LowerLimit=1.68*3.6e9, UpperLimit=3.09*3.6e9),
-   cooCri(LowerLimit=-5.95*3.6e9, UpperLimit=-7.26*3.6e9));
+   heaCri(lowerLimit=1.68*3.6e9, upperLimit=3.09*3.6e9),
+   cooCri(lowerLimit=-5.95*3.6e9, upperLimit=-7.26*3.6e9));
 
 annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case985.mos"

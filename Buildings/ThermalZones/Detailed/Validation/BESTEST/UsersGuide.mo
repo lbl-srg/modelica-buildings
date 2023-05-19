@@ -90,8 +90,8 @@ in the table after the plots below.
 <tr><td colspan=\"10\"><b>Annual heating load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
-<th>LowerLimits</th>
-<th>UpperLimits</th>
+<th>Lower limit</th>
+<th>Upper limit</th>
 <th>BSIMAC</th>
 <th>CSE</th>
 <th>DeST</th>
@@ -354,8 +354,8 @@ in the table after the plots below.
 <tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>
 <tr>
 <th>Case</th>
-<th>LowerLimits</th>
-<th>UpperLimits</th>
+<th>Lower limit</th>
+<th>Upper limit</th>
 <th>BSIMAC</th>
 <th>CSE</th>
 <th>DeST</th>

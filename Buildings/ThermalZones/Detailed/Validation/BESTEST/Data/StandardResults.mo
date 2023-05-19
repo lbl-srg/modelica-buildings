@@ -7,13 +7,13 @@ record StandardResults "ASHRAE Standard Results"
                                  Mean(final unit="J")) "Annual heating energy";
  parameter ResultSummary annualCoo(Min(final unit="J"),
                                  Max(final unit="J"),
-                                 Mean(final unit="J")) "Annual heating energy";
+                                 Mean(final unit="J")) "Annual cooling energy";
  parameter ResultSummary peakHea(Min(final unit="W"),
                                  Max(final unit="W"),
                                  Mean(final unit="W")) "Peak heating power";
  parameter ResultSummary peakCoo(Min(final unit="W"),
                                  Max(final unit="W"),
-                                 Mean(final unit="W")) "Peak heating power";
+                                 Mean(final unit="W")) "Peak cooling power";
  annotation (
    defaultComponentPrefixes="parameter",
    defaultComponentName="staRes",

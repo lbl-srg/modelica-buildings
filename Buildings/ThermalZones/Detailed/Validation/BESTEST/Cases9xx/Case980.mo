@@ -9,8 +9,8 @@ model Case980
      annualCoo(Min=-3.501*3.6e9, Max=-3.995*3.6e9, Mean=-3.710*3.6e9),
      peakHea(Min=1.254*1000, Max=1.693*1000, Mean=1.489*1000),
      peakCoo(Min=-2.930*1000, Max=-3.668*1000, Mean=-3.348*1000)),
-   heaCri(LowerLimit=-0.61*3.6e9, UpperLimit=1.28*3.6e9),
-   cooCri(LowerLimit=-3.52*3.6e9, UpperLimit=-4.49*3.6e9));
+   heaCri(lowerLimit=-0.61*3.6e9, upperLimit=1.28*3.6e9),
+   cooCri(lowerLimit=-3.52*3.6e9, upperLimit=-4.49*3.6e9));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.ExteriorWallCase980 extWalCase980(
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)

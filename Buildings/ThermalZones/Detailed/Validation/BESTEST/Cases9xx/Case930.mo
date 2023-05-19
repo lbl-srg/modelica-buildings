@@ -17,8 +17,8 @@ model Case930 "Case 920, but with added overhang and sidefins"
     annualCoo(Min=-1.654*3.6e9, Max=-2.161*3.6e9, Mean=-1.898*3.6e9),
     peakHea(Min=2.537*1000, Max=2.968*1000, Mean=2.751*1000),
     peakCoo(Min=-2.335*1000, Max=-3.052*1000, Mean=-2.656*1000)),
-   heaCri(LowerLimit=2.75*3.6e9, UpperLimit=5.35*3.6e9),
-   cooCri(LowerLimit=-1.24*3.6e9, UpperLimit=-2.64*3.6e9));
+   heaCri(lowerLimit=2.75*3.6e9, upperLimit=5.35*3.6e9),
+   cooCri(lowerLimit=-1.24*3.6e9, upperLimit=-2.64*3.6e9));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case930.mos"
         "Simulate and plot"),

@@ -9,8 +9,8 @@ model Case680
      annualCoo(Min=-5.932*3.6e9, Max=-6.529*3.6e9, Mean=-6.264*3.6e9),
      peakHea(Min=1.778*1000, Max=2.126*1000, Mean=1.984*1000),
      peakCoo(Min=-5.761*1000, Max=-7.051*1000, Mean=-6.446*1000)),
-   heaCri(LowerLimit=1.21*3.6e9, UpperLimit=3.08*3.6e9),
-   cooCri(LowerLimit=-5.13*3.6e9, UpperLimit=-7.7*3.6e9));
+   heaCri(lowerLimit=1.21*3.6e9, upperLimit=3.08*3.6e9),
+   cooCri(lowerLimit=-5.13*3.6e9, upperLimit=-7.7*3.6e9));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.ExteriorWallCase680 extWalCase680
     "Exterior wall"

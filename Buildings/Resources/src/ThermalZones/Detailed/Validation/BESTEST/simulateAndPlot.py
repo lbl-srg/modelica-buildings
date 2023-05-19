@@ -14,9 +14,9 @@ import shutil
 # If true, run simulations and not only the post processing.
 DO_SIMULATIONS = True
 # If true, delete the simulation result files.
-CLEAN_MAT = True
+CLEAN_MAT = False
 # If true, temporary directories will be deleted.
-DelTemDir = True
+DelTemDir = False
 
 CWD = os.getcwd()
 
@@ -25,7 +25,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
-TOOL = 'optimica'
+TOOL = 'dymola'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
@@ -977,8 +977,8 @@ def _generate_load_tables(comDat, allTools, lessTools):
     withLimits = '''
 <tr>
 <th>Case</th>
-<th>LowerLimits</th>
-<th>UpperLimits</th>
+<th>Lower limit</th>
+<th>Upper limit</th>
 <th>BSIMAC</th>
 <th>CSE</th>
 <th>DeST</th>

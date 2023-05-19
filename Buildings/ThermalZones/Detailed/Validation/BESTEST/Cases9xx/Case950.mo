@@ -16,8 +16,8 @@ model Case950
       peakCoo(Min=-2.054*1000, Max=-2.388*1000, Mean=-2.268*1000)),
     gaiHea(k=0),
     multiSum(nu=2),
-   heaCri(LowerLimit=0*3.6e9, UpperLimit=0*3.6e9),
-   cooCri(LowerLimit=-0.43*3.6e9, UpperLimit=-1.52*3.6e9));
+   heaCri(lowerLimit=0*3.6e9, upperLimit=0*3.6e9),
+   cooCri(lowerLimit=-0.43*3.6e9, upperLimit=-1.52*3.6e9));
 
   BaseClasses.DaySchedule vent(table=[      0, -1409/3600;
                                        7*3600, -1409/3600;

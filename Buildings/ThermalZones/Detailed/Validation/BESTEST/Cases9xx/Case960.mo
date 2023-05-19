@@ -22,8 +22,8 @@ model Case960 "Case 900, but with an unconditioned sun-space"
       annualCoo(Min=-0.789*3.6e9, Max=-0.950*3.6e9, Mean=-0.896*3.6e9),
       peakHea(Min=2.085*1000, Max=2.300*1000, Mean=2.196*1000),
       peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)),
-   heaCri(LowerLimit=2*3.6e9, UpperLimit=3.4*3.6e9),
-   cooCri(LowerLimit=-0.62*3.6e9, UpperLimit=-1.81*3.6e9));
+   heaCri(lowerLimit=2*3.6e9, upperLimit=3.4*3.6e9),
+   cooCri(lowerLimit=-0.62*3.6e9, upperLimit=-1.81*3.6e9));
 
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,

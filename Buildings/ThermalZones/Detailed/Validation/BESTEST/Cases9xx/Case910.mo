@@ -13,8 +13,8 @@ model Case910 "Case 900, but the window has an overhang"
     annualCoo(Min=-1.191*3.6e9, Max=-1.490*3.6e9, Mean=-1.374*3.6e9),
     peakHea(Min=2.469*1000, Max=2.799*1000, Mean=2.648*1000),
     peakCoo(Min=-2.081*1000, Max=-2.722*1000, Mean=-2.306*1000)),
-   heaCri(LowerLimit=1.56*3.6e9, UpperLimit=2.3*3.6e9),
-   cooCri(LowerLimit=-2*3.6e9, UpperLimit=-0.86*3.6e9));
+   heaCri(lowerLimit=1.56*3.6e9, upperLimit=2.3*3.6e9),
+   cooCri(lowerLimit=-2*3.6e9, upperLimit=-0.86*3.6e9));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/ThermalZones/Detailed/Validation/BESTEST/Cases9xx/Case910.mos"
         "Simulate and plot"),
