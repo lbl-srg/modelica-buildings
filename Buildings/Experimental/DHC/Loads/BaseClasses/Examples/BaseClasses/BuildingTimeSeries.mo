@@ -241,8 +241,9 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Continuous.Add addPFan
     "Sum fan power"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(u(
-        final unit="W"), final k=facMul) if have_heaLoa "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(
+    u(final unit="W"),
+    final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{272,30},{292,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqCoo_flow(u(
         final unit="W"), final k=facMul) if have_cooLoa "Scaling"
