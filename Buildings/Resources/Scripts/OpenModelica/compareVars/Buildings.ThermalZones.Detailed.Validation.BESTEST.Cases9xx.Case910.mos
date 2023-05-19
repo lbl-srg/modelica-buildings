@@ -21,8 +21,8 @@ compareVars :=
     "TRooAnn.y",
     "EHea.y",
     "ECoo.y",
-    "heaCri.LowerLimit",
-    "heaCri.UpperLimit",
-    "cooCri.LowerLimit",
-    "cooCri.UpperLimit"
+    "heaCri.lowerLimit",
+    "heaCri.upperLimit",
+    "cooCri.lowerLimit",
+    "cooCri.upperLimit"
   };
