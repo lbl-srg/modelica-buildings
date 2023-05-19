@@ -5,9 +5,10 @@ model ChilledWaterStaticPressureSetpointReset
   Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterStaticPressureSetpointReset
     chiWatStaPreSetRes(
     final nVal=2,
-    nPum=2,
-    chiWatStaPreMax=30000,
-    chiWatStaPreMin=20000)
+    final nPum=2,
+    final chiWatStaPreMax=30000,
+    final chiWatStaPreMin=20000)
+    "Instance of chilled water pressure setpoint reset calculation"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
 protected
@@ -16,7 +17,7 @@ protected
     "Boolean pulse source"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2[2](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin2[2](
     final amplitude=fill(0.5, 2),
     final freqHz=fill(1/1800, 2),
     final phase=fill(1.57, 2),
@@ -25,16 +26,14 @@ protected
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
 equation
-  connect(booPul.y, chiWatStaPreSetRes.uPumSta) annotation (Line(points={{-38,
-          30},{20,30},{20,5},{38,5}}, color={255,0,255}));
+  connect(booPul.y, chiWatStaPreSetRes.uPumSta) annotation (Line(points={{-38,30},
+          {20,30},{20,4},{38,4}},     color={255,0,255}));
   connect(sin2.y, chiWatStaPreSetRes.uValPos) annotation (Line(points={{-38,-30},
-          {20,-30},{20,-5},{38,-5}}, color={0,0,127}));
+          {20,-30},{20,-4},{38,-4}}, color={0,0,127}));
 annotation (
   experiment(
       StopTime=3600,
-      Interval=0.5,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SetPoints/Validation/ChilledWaterStaticPressureSetpointReset.mos"
     "Simulate and plot"),
   Documentation(info="<html>

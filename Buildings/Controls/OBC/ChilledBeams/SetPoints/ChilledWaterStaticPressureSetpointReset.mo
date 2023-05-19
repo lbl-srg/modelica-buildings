@@ -2,10 +2,12 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block ChilledWaterStaticPressureSetpointReset
   "Sequence to generate static pressure setpoint for chilled water loop"
 
-  parameter Integer nVal(min=1)
+  parameter Integer nVal(
+    final min=1)
     "Number of chilled water control valves on chilled beam manifolds";
 
-  parameter Integer nPum(min=1)
+  parameter Integer nPum(
+    final min=1)
     "Number of chilled water pumps in chilled beam system";
 
   parameter Real valPosLowClo(
@@ -98,14 +100,14 @@ block ChilledWaterStaticPressureSetpointReset
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPumSta[nPum]
     "Pump proven on signal"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
-      iconTransformation(extent={{-140,30},{-100,70}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uValPos[nVal](
     final unit = fill("1", nVal),
     displayUnit = fill("1", nVal))
     "Chilled water control valve position on chilled beams"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-      iconTransformation(extent={{-140,-70},{-100,-30}})));
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yStaPreSetPoi(
     final unit="Pa",
@@ -229,22 +231,16 @@ annotation(defaultComponentName="chiWatStaPreSetRes",
               textString="%name"),
             Rectangle(
               extent={{-100,100},{100,-100}},
-              lineColor={28,108,200},
+              lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-50,34},{50,-6}},
-              lineColor={28,108,200},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.None,
-      textString="chiWatStaPreSetRes"),
         Text(
-          extent={{-96,58},{-60,42}},
+          extent={{-96,48},{-60,32}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uPumSta"),
         Text(
-          extent={{-96,-42},{-60,-58}},
+          extent={{-96,-32},{-60,-48}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uValPos"),

@@ -105,34 +105,6 @@ block Controller
     "Design air volume flow rate when zone is unoccupied during scheduled occupancy"
     annotation(Dialog(tab="Zone setpoints", group="Ventilation setpoints"));
 
-  parameter Real zonOccHeaSet(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature")=293.15
-    "Zone heating setpoint when it is occupied"
-    annotation(Dialog(tab="Zone setpoints", group="Temperature setpoints"));
-
-  parameter Real zonUnoccHeaSet(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature")=290.15
-    "Zone heating setpoint when it is unoccupied"
-    annotation(Dialog(tab="Zone setpoints", group="Temperature setpoints"));
-
-  parameter Real zonOccCooSet(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature")=296.15
-    "Zone cooling setpoint when it is occupied"
-    annotation(Dialog(tab="Zone setpoints", group="Temperature setpoints"));
-
-  parameter Real zonUnoccCooSet(
-    final unit="K",
-    displayUnit="K",
-    final quantity="ThermodynamicTemperature")=299.15
-    "Zone cooling setpoint when it is unoccupied"
-    annotation(Dialog(tab="Zone setpoints", group="Temperature setpoints"));
-
   parameter Real valPosLowCloReq(
     final unit="1",
     displayUnit="1") = 0.05
@@ -221,63 +193,84 @@ block Controller
     annotation(Dialog(tab="Request generation",
       group="Chilled water temperature reset parameters"));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDetOcc
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccDet
     "Detected occupancy in zone"
-    annotation (Placement(transformation(extent={{-128,66},{-100,94}}),
-        iconTransformation(extent={{-128,66},{-100,94}})));
+    annotation (Placement(transformation(extent={{-140,120},{-100,160}}),
+        iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uConSen
     "Signal indicating condensation detected in zone"
-    annotation (Placement(transformation(extent={{-128,-34},{-100,-6}}),
-        iconTransformation(extent={{-128,-34},{-100,-6}})));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
+        iconTransformation(extent={{-140,-40},{-100,0}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccExp
+    "Expected occupancy in the zone"
+    annotation (Placement(transformation(extent={{-140,80},{-100,120}}),
+      iconTransformation(extent={{-140,80},{-100,120}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonHeaSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="K")
+    "Zone heating setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TZonCooSet(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="K")
+    "Zone cooling setpoint temperature"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}}),
+      iconTransformation(extent={{-140,0},{-100,40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="K",
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
-    annotation (Placement(transformation(extent={{-128,-54},{-100,-26}}),
-        iconTransformation(extent={{-128,-54},{-100,-26}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VDis_flow(
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate")
     "Measured discharge air flow rate from CAV terminal"
-    annotation (Placement(transformation(extent={{-128,-74},{-100,-46}}),
-        iconTransformation(extent={{-128,-74},{-100,-46}})));
+    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}}),
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uChiVal(
     final unit="1",
     displayUnit="1")
     "Measured chilled beam manifold control valve position"
-    annotation (Placement(transformation(extent={{-128,-94},{-100,-66}}),
-        iconTransformation(extent={{-128,-94},{-100,-66}})));
+    annotation (Placement(transformation(extent={{-140,-160},{-100,-120}}),
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatSupReq
     "Chilled water supply requests"
-    annotation (Placement(transformation(extent={{100,-54},{128,-26}}),
-        iconTransformation(extent={{100,-54},{128,-26}})));
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput TChiWatReq
     "Chilled water temperature reset requests"
-    annotation (Placement(transformation(extent={{100,-94},{128,-66}}),
-        iconTransformation(extent={{100,-94},{128,-66}})));
+    annotation (Placement(transformation(extent={{100,-100},{140,-60}}),
+      iconTransformation(extent={{100,-100},{140,-60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yReh
     "CAV terminal reheat signal"
-    annotation (Placement(transformation(extent={{100,66},{128,94}}),
-        iconTransformation(extent={{100,66},{128,94}})));
+    annotation (Placement(transformation(extent={{100,60},{140,100}}),
+      iconTransformation(extent={{100,60},{140,100}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDam
     "CAV terminal damper position signal"
-    annotation (Placement(transformation(extent={{100,-14},{128,14}}),
-        iconTransformation(extent={{100,-14},{128,14}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yChiVal
     "Chilled beam manifold control valve position signal"
-    annotation (Placement(transformation(extent={{100,26},{128,54}}),
-        iconTransformation(extent={{100,26},{128,54}})));
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneRegulation zonRegCon(
     final conSenOnThr=conSenOnThr,
@@ -295,33 +288,14 @@ block Controller
     final TdDam=TdDam,
     final VDes_occ=VDes_occ,
     final VDes_unoccSch=VDes_unoccSch,
-    final VDes_unoccUnsch=VDes_unoccUnsch,
-    final zonOccHeaSet=zonOccHeaSet,
-    final zonUnoccHeaSet=zonUnoccHeaSet,
-    final zonOccCooSet=zonOccCooSet,
-    final zonUnoccCooSet=zonUnoccCooSet)
+    final VDes_unoccUnsch=VDes_unoccUnsch)
     "Zone temperature regulation controller"
-    annotation (Placement(transformation(extent={{-10,16},{10,36}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
-  CDL.Interfaces.RealInput TZonHeaSet(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="K") "Zone heating setpoint temperature" annotation (Placement(
-        transformation(extent={{-128,26},{-100,54}}), iconTransformation(extent=
-           {{-128,26},{-100,54}})));
-  CDL.Interfaces.RealInput TZonCooSet(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    displayUnit="K") "Zone cooling setpoint temperature" annotation (Placement(
-        transformation(extent={{-128,6},{-100,34}}), iconTransformation(extent={
-            {-128,6},{-100,34}})));
-  CDL.Interfaces.BooleanInput uOcc "Define when occupancy is expected"
-    annotation (Placement(transformation(extent={{-128,46},{-100,74}}),
-        iconTransformation(extent={{-128,46},{-100,74}})));
 protected
   Buildings.Controls.OBC.ChilledBeams.SetPoints.OperatingMode opeMod
     "Determine operating mode for zone"
-    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.ChilledWaterSupplyReset chiWatSupRes(
     final valPosLowCloReq=valPosLowCloReq,
@@ -340,72 +314,82 @@ protected
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation
-  connect(uDetOcc, opeMod.uDetOcc)
-    annotation (Line(points={{-114,80},{-82,80}}, color={255,0,255}));
-  connect(opeMod.yOpeMod, zonRegCon.uOpeMod) annotation (Line(points={{-58,80},{
-          -50,80},{-50,18},{-12,18}}, color={255,127,0}));
-  connect(uConSen, zonRegCon.uConSen) annotation (Line(points={{-114,-20},{-62,-20},
-          {-62,24.6},{-12,24.6}},
+  connect(uOccDet,opeMod.uOccDet)
+    annotation (Line(points={{-120,140},{-90,140},{-90,124},{-82,124}},
+                                                  color={255,0,255}));
+  connect(opeMod.yOpeMod, zonRegCon.uOpeMod) annotation (Line(points={{-58,120},
+          {-20,120},{-20,11.6667},{-11.6667,11.6667}},
+                                      color={255,127,0}));
+  connect(uConSen, zonRegCon.uConSen) annotation (Line(points={{-120,-20},{-60,
+          -20},{-60,18.3333},{-11.6667,18.3333}},
                                 color={255,0,255}));
-  connect(TZon, zonRegCon.TZon) annotation (Line(points={{-114,-40},{-32,-40},{-32,
-          31.2},{-12,31.2}},
+  connect(TZon, zonRegCon.TZon) annotation (Line(points={{-120,-60},{-30,-60},{
+          -30,25},{-11.6667,25}},
                            color={0,0,127}));
-  connect(VDis_flow, zonRegCon.VDis_flow) annotation (Line(points={{-114,-60},{-36,
-          -60},{-36,21.2},{-12,21.2}}, color={0,0,127}));
-  connect(zonRegCon.yReh, yReh) annotation (Line(points={{12,30},{60,30},{60,80},
-          {114,80}}, color={0,0,127}));
+  connect(VDis_flow, zonRegCon.VDis_flow) annotation (Line(points={{-120,-100},
+          {-36,-100},{-36,15},{-11.6667,15}},
+                                       color={0,0,127}));
+  connect(zonRegCon.yReh, yReh) annotation (Line(points={{11.6667,23.3333},{60,
+          23.3333},{60,80},{120,80}},
+                     color={0,0,127}));
   connect(zonRegCon.yChiVal, yChiVal)
-    annotation (Line(points={{12,26},{66,26},{66,40},{114,40}},
+    annotation (Line(points={{11.6667,20},{70,20},{70,40},{120,40}},
                                               color={0,0,127}));
-  connect(zonRegCon.yDam, yDam) annotation (Line(points={{12,22},{60,22},{60,0},
-          {114,0}},        color={0,0,127}));
-  connect(uChiVal, chiWatSupRes.uValPos) annotation (Line(points={{-114,-80},{-20,
-          -80},{-20,-56},{-12,-56}}, color={0,0,127}));
-  connect(uConSen, chiWatSupRes.uConSen) annotation (Line(points={{-114,-20},{-18,
-          -20},{-18,-64},{-12,-64}},color={255,0,255}));
-  connect(chiWatSupRes.yChiWatSupReq, yChiWatSupReq) annotation (Line(points={{12,-54},
-          {80,-54},{80,-40},{114,-40}},      color={255,127,0}));
-  connect(chiWatSupRes.TChiWatReq, TChiWatReq) annotation (Line(points={{12,-66},
-          {80,-66},{80,-80},{114,-80}}, color={255,127,0}));
-  connect(zonRegCon.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-12,34.2},
-          {-42,34.2},{-42,34},{-70,34},{-70,40},{-114,40}}, color={0,0,127}));
-  connect(zonRegCon.TZonCooSet, TZonCooSet) annotation (Line(points={{-12,28},{-70,
-          28},{-70,20},{-114,20}}, color={0,0,127}));
-  connect(opeMod.uOcc, uOcc) annotation (Line(points={{-82,72},{-90,72},{-90,60},
-          {-114,60}}, color={255,0,255}));
+  connect(zonRegCon.yDam, yDam) annotation (Line(points={{11.6667,16.6667},{60,
+          16.6667},{60,0},{120,0}},
+                           color={0,0,127}));
+  connect(uChiVal, chiWatSupRes.uValPos) annotation (Line(points={{-120,-140},{
+          -20,-140},{-20,-56},{-12,-56}},
+                                     color={0,0,127}));
+  connect(uConSen, chiWatSupRes.uConSen) annotation (Line(points={{-120,-20},{
+          -60,-20},{-60,-64},{-12,-64}},
+                                    color={255,0,255}));
+  connect(chiWatSupRes.yChiWatSupReq, yChiWatSupReq) annotation (Line(points={{12,-56},
+          {70,-56},{70,-40},{120,-40}},      color={255,127,0}));
+  connect(chiWatSupRes.TChiWatReq, TChiWatReq) annotation (Line(points={{12,-64},
+          {70,-64},{70,-80},{120,-80}}, color={255,127,0}));
+  connect(zonRegCon.TZonHeaSet, TZonHeaSet) annotation (Line(points={{-11.6667,
+          28.3333},{-30,28.3333},{-30,60},{-120,60}},       color={0,0,127}));
+  connect(zonRegCon.TZonCooSet, TZonCooSet) annotation (Line(points={{-11.6667,
+          21.6667},{-80,21.6667},{-80,20},{-120,20}},
+                                   color={0,0,127}));
+  connect(opeMod.uOccExp, uOccExp) annotation (Line(points={{-82,116},{-90,116},
+          {-90,100},{-120,100}},
+                          color={255,0,255}));
   annotation (defaultComponentName="terCon",
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+    Icon(coordinateSystem(extent={{-100,-160},{100,160}}),
+      graphics={
         Text(
-          extent={{-120,160},{114,108}},
+          extent={{-120,200},{120,160}},
           textString="%name",
           lineColor={0,0,255}),
-                 Rectangle(
-        extent={{-100,-100},{100,100}},
+      Rectangle(
+        extent={{-100,-160},{100,160}},
         lineColor={0,0,127},
         fillColor={255,255,255},
         fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,88},{-62,72}},
+          extent={{-98,148},{-62,132}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uDetOcc"),
+          textString="uOccDet"),
         Text(
           extent={{-98,-12},{-62,-28}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uConSen"),
         Text(
-          extent={{-100,-36},{-76,-46}},
+          extent={{-102,-56},{-76,-66}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-98,-52},{-62,-68}},
+          extent={{-98,-92},{-62,-108}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="VDis_flow"),
         Text(
-          extent={{-98,-74},{-68,-86}},
+          extent={{-98,-134},{-68,-146}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="uChiVal"),
@@ -435,7 +419,7 @@ equation
           pattern=LinePattern.Dash,
           textString="TChiWatReq"),
         Text(
-          extent={{-98,54},{-54,28}},
+          extent={{-98,74},{-54,48}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZonHeaSet"),
@@ -445,11 +429,12 @@ equation
           pattern=LinePattern.Dash,
           textString="TZonCooSet"),
         Text(
-          extent={{-100,66},{-72,56}},
+          extent={{-100,106},{-60,94}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOcc")}),                        Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
+          textString="uOccExp")}),                     Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
+            160}})),
   Documentation(info="<html>
 <p>
 Sequences for operating the zone CAV terminal box and the zone chilled beam manifold 

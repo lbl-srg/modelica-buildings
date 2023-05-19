@@ -21,7 +21,7 @@ protected
     "Ramp input signal"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=0.5,
     final freqHz=1/360,
     final offset=0.5)
@@ -38,50 +38,53 @@ protected
     "Logical Not"
     annotation (Placement(transformation(extent={{-30,38},{-10,58}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
     final amplitude=5,
     final freqHz=1/720,
     final offset=295)
     "Continuous sine signal"
     annotation (Placement(transformation(extent={{-70,72},{-50,92}})));
 
-protected
-  CDL.Continuous.Sources.Constant                        con(final k=273.15 +
-        22)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(
+    final k=273.15+22)
     "Zone occupied heating setpoint"
     annotation (Placement(transformation(extent={{-70,6},{-50,26}})));
-  CDL.Continuous.Sources.Constant                        con1(final k=273.15 +
-        26)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1(
+    final k=273.15+26)
     "Zone occupied cooling setpoint"
     annotation (Placement(transformation(extent={{-70,-26},{-50,-6}})));
+
 equation
   connect(ram.y, reaToInt.u)
     annotation (Line(points={{-48,-80},{-42,-80}},
                                                color={0,0,127}));
 
   connect(reaToInt.y, zonRegCon.uOpeMod) annotation (Line(points={{-18,-80},{0,
-          -80},{0,-6},{18,-6}},
+          -80},{0,-6.33333},{18.3333,-6.33333}},
                            color={255,127,0}));
 
   connect(sin.y, zonRegCon.VDis_flow) annotation (Line(points={{-48,-48},{-16,
-          -48},{-16,-2.8},{18,-2.8}},
+          -48},{-16,-3},{18.3333,-3}},
                           color={0,0,127}));
 
   connect(booPul.y, not1.u)
     annotation (Line(points={{-48,48},{-32,48}}, color={255,0,255}));
 
   connect(not1.y, zonRegCon.uConSen) annotation (Line(points={{-8,48},{10,48},{
-          10,0.6},{18,0.6}},
+          10,0.333333},{18.3333,0.333333}},
                       color={255,0,255}));
 
   connect(sin1.y, zonRegCon.TZon) annotation (Line(points={{-48,82},{14,82},{14,
-          7.2},{18,7.2}},
+          7},{18.3333,7}},
                       color={0,0,127}));
 
-  connect(zonRegCon.TZonCooSet, con1.y) annotation (Line(points={{18,4},{-28,4},
-          {-28,-16},{-48,-16}}, color={0,0,127}));
-  connect(zonRegCon.TZonHeaSet, con.y) annotation (Line(points={{18,10.2},{18,
-          10},{-28,10},{-28,16},{-48,16}}, color={0,0,127}));
+  connect(zonRegCon.TZonCooSet, con1.y) annotation (Line(points={{18.3333,
+          3.66667},{-28,3.66667},{-28,-16},{-48,-16}},
+                                color={0,0,127}));
+  connect(zonRegCon.TZonHeaSet, con.y) annotation (Line(points={{18.3333,
+          10.3333},{18.3333,10},{-28,10},{-28,16},{-48,16}},
+                                           color={0,0,127}));
 annotation (
   experiment(
       StopTime=3600,

@@ -2,10 +2,15 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block OperatingMode
   "Block with sequences for picking system operating mode"
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDetOcc
-    "Detected occupancy"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccDet
+    "Detected occupancy signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
-      iconTransformation(extent={{-140,-20},{-100,20}})));
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uOccExp
+    "Expected occupancy signal"
+    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yOpeMod
     "System operating mode signal"
@@ -13,19 +18,19 @@ block OperatingMode
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
-    "Pass signal for occupied mode if zone is occupied; Else pass signal for unoccupiedScheduled or unoccupiedUnscheduled"
+    "Pass signal for occupied mode if zone is occupied; Else pass signal for 
+    unoccupiedScheduled or unoccupiedUnscheduled"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  CDL.Interfaces.BooleanInput uOcc "Define when occupancy is expected"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
-        iconTransformation(extent={{-140,-100},{-100,-60}})));
 protected
-  parameter Integer modInt[3]={Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied,
-      Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedScheduled,
-      Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedUnscheduled}
+  parameter Integer modInt[3]={
+    Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied,
+    Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedScheduled,
+    Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.unoccupiedUnscheduled}
     "Array of integer constants associated with each mode";
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied)
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=Buildings.Controls.OBC.ChilledBeams.Types.OperationModes.occupied)
     "Constant integer for occupied mode"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 
@@ -60,9 +65,9 @@ equation
                color={255,127,0}));
   connect(not1.y, intSwi1.u2)
     annotation (Line(points={{-38,-50},{18,-50}},color={255,0,255}));
-  connect(uDetOcc, intSwi.u2)
+  connect(uOccDet, intSwi.u2)
     annotation (Line(points={{-120,0},{58,0}},   color={255,0,255}));
-  connect(not1.u, uOcc)
+  connect(not1.u, uOccExp)
     annotation (Line(points={{-62,-50},{-120,-50}}, color={255,0,255}));
   annotation (defaultComponentName="opeMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
@@ -73,30 +78,24 @@ equation
               textString="%name"),
             Rectangle(
               extent={{-100,100},{100,-100}},
-              lineColor={28,108,200},
+              lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-50,20},{50,-20}},
-              lineColor={28,108,200},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.None,
-          textString="sysOpeMod"),
         Text(
-          extent={{-98,8},{-62,-8}},
+          extent={{-98,48},{-62,32}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uDetOcc"),
+          textString="uOccDet"),
         Text(
           extent={{60,8},{98,-10}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yOpeMod"),
         Text(
-          extent={{-100,-74},{-70,-86}},
+          extent={{-100,-34},{-62,-46}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
-          textString="uOcc")}),                                  Diagram(
+          textString="uOccExp")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
         Documentation(info="<html>
         <p>

@@ -92,11 +92,13 @@ block ChilledWaterSupplyReset
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput yChiWatSupReq
     "Number of requests for chilled water supply"
-    annotation (Placement(transformation(extent={{100,40},{140,80}})));
+    annotation (Placement(transformation(extent={{100,40},{140,80}}),
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.IntegerOutput TChiWatReq
     "Number of requests for chilled water supply temperature reset"
-    annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
+    annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
 protected
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi
@@ -242,15 +244,9 @@ annotation(defaultComponentName="chiWatSupRes",
               textString="%name"),
             Rectangle(
               extent={{-100,100},{100,-100}},
-              lineColor={28,108,200},
+              lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-50,20},{50,-20}},
-              lineColor={28,108,200},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.None,
-      textString="chiWatSupRes"),
         Text(
           extent={{-96,48},{-60,32}},
           textColor={0,0,127},
@@ -262,12 +258,12 @@ annotation(defaultComponentName="chiWatSupRes",
           pattern=LinePattern.Dash,
           textString="uConSen"),
         Text(
-          extent={{52,-50},{96,-70}},
+          extent={{52,-30},{96,-50}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="TChiWatReq"),
         Text(
-          extent={{44,74},{96,48}},
+          extent={{44,54},{96,28}},
           textColor={255,127,0},
           pattern=LinePattern.Dash,
           textString="yChiWatSupReq")}),

@@ -88,7 +88,7 @@ equation
           {70,34}}, color={255,127,0}));
   connect(minInt.y, yIndMod)
     annotation (Line(points={{94,40},{120,40}}, color={255,127,0}));
-  annotation (defaultComponentName="zerStaIndCor",
+  annotation (defaultComponentName="zerIndCor",
     Icon(coordinateSystem(preserveAspectRatio=false),
       graphics={
           Rectangle(

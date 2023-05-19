@@ -166,9 +166,9 @@ block Controller
     final unit="Pa",
     final quantity="PressureDifference",
     displayUnit="Pa")
-    "Chilled water differential static pressure from remote sensor" annotation (
-     Placement(transformation(extent={{-320,-180},{-280,-140}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+    "Chilled water differential static pressure from remote sensor"
+    annotation (Placement(transformation(extent={{-320,-180},{-280,-140}}),
+      iconTransformation(extent={{-140,-60},{-100,-20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpChiWatSet(
     final unit="Pa",
@@ -200,17 +200,23 @@ block Controller
     final timPer=timPer1,
     final timPer1=timPer2,
     final timPer2=timPer3,
-    sigDif=sigDif)
+    final sigDif=sigDif)
     "Enable and disable lag pumps using pump speed"
     annotation (Placement(transformation(extent={{-120,28},{-100,48}})));
 
-  SetPoints.ZeroIndexCorrection zerStaIndCor(yMax=nPum)
-    annotation (Placement(transformation(extent={{-86,-134},{-66,-114}})));
-  SetPoints.ZeroIndexCorrection zerStaIndCor1(yMax=nPum)
-    annotation (Placement(transformation(extent={{-86,-80},{-66,-60}})));
-// protected
+protected
   parameter Integer pumInd[nPum]={i for i in 1:nPum}
     "Pump index, {1,2,...,n}";
+
+  Buildings.Controls.OBC.ChilledBeams.SetPoints.ZeroIndexCorrection zerIndCorLasLagPum(
+    final yMax=nPum)
+    "Block to account for index signals that are lower than 1 or higher than max allowed limits"
+    annotation (Placement(transformation(extent={{-86,-134},{-66,-114}})));
+
+  Buildings.Controls.OBC.ChilledBeams.SetPoints.ZeroIndexCorrection zerIndCorNexLagPum(
+    final yMax=nPum)
+    "Block to account for index signals that are lower than 1 or higher than max allowed limits"
+    annotation (Placement(transformation(extent={{-86,-80},{-66,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Switch logSwi[nPum]
     "Logical switch for enabling and disabling complete pump system with lead pump"
@@ -226,18 +232,18 @@ block Controller
     "Boolean replicator"
     annotation (Placement(transformation(extent={{118,86},{138,106}})));
 
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(final samplePeriod=
-        samplePeriodUniDelPumSpe)
+  Buildings.Controls.OBC.CDL.Discrete.UnitDelay uniDel(
+    final samplePeriod=samplePeriodUniDelPumSpe)
     "Unit delay for pump speed"
     annotation (Placement(transformation(extent={{-200,28},{-180,48}})));
 
   Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLead
     enaLeaPum(
-    nVal=nVal,
-    valPosClo=valPosClo,
-    valPosOpe=valPosOpe,
-    valOpeThr=valOpeThr,
-    valCloThr=valCloThr)
+    final nVal=nVal,
+    final valPosClo=valPosClo,
+    final valPosOpe=valPosOpe,
+    final valOpeThr=valOpeThr,
+    final valCloThr=valCloThr)
     "Enable lead pump"
     annotation (Placement(transformation(extent={{-200,70},{-180,90}})));
 
@@ -250,7 +256,7 @@ block Controller
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    controllerType=controllerTypePumSpe)
+    final controllerType=controllerTypePumSpe)
     "Chilled water pump speed control with remote DP sensor"
     annotation (Placement(transformation(extent={{-20,-200},{0,-180}})));
 
@@ -456,22 +462,22 @@ equation
 
   connect(dpChiWat_remote, pumSpeRemDp.dpChiWat[1]) annotation (Line(points={{
           -300,-160},{-34,-160},{-34,-190},{-22,-190}}, color={0,0,127}));
-  connect(mulSumInt.y, zerStaIndCor.uInd)
+  connect(mulSumInt.y, zerIndCorLasLagPum.uInd)
     annotation (Line(points={{-178,-120},{-88,-120}}, color={255,127,0}));
-  connect(zerStaIndCor.yIndMod, lasLagPum.index) annotation (Line(points={{-64,-120},
-          {-50,-120},{-50,-114}}, color={255,127,0}));
-  connect(lasLagPum.y, zerStaIndCor.u) annotation (Line(points={{-38,-102},{-38,
-          -86},{-116,-86},{-116,-128},{-88,-128}}, color={0,0,127}));
-  connect(addInt.y, zerStaIndCor1.uInd)
+  connect(zerIndCorLasLagPum.yIndMod, lasLagPum.index) annotation (Line(points={
+          {-64,-120},{-50,-120},{-50,-114}}, color={255,127,0}));
+  connect(lasLagPum.y, zerIndCorLasLagPum.u) annotation (Line(points={{-38,-102},
+          {-38,-86},{-116,-86},{-116,-128},{-88,-128}}, color={0,0,127}));
+  connect(addInt.y, zerIndCorNexLagPum.uInd)
     annotation (Line(points={{-96,-66},{-88,-66}}, color={255,127,0}));
-  connect(zerStaIndCor1.yIndMod, nexLagPum.index) annotation (Line(points={{-64,
-          -66},{-52,-66},{-52,-58}}, color={255,127,0}));
-  connect(nexLagPum.y, zerStaIndCor1.u) annotation (Line(points={{-40,-46},{-40,
-          -30},{-92,-30},{-92,-74},{-88,-74}}, color={0,0,127}));
-  connect(zerStaIndCor1.yCapMod, reaToInt1.u) annotation (Line(points={{-64,-74},
-          {-28,-74},{-28,-46},{-10,-46}}, color={0,0,127}));
-  connect(zerStaIndCor.yCapMod, reaToInt2.u) annotation (Line(points={{-64,-128},
-          {-26,-128},{-26,-100},{-8,-100}}, color={0,0,127}));
+  connect(zerIndCorNexLagPum.yIndMod, nexLagPum.index) annotation (Line(points={
+          {-64,-66},{-52,-66},{-52,-58}}, color={255,127,0}));
+  connect(nexLagPum.y, zerIndCorNexLagPum.u) annotation (Line(points={{-40,-46},
+          {-40,-30},{-92,-30},{-92,-74},{-88,-74}}, color={0,0,127}));
+  connect(zerIndCorNexLagPum.yCapMod, reaToInt1.u) annotation (Line(points={{-64,
+          -74},{-28,-74},{-28,-46},{-10,-46}}, color={0,0,127}));
+  connect(zerIndCorLasLagPum.yCapMod, reaToInt2.u) annotation (Line(points={{-64,
+          -128},{-26,-128},{-26,-100},{-8,-100}}, color={0,0,127}));
 annotation (defaultComponentName="secPumCon",
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-280,-240},{280,200}}),

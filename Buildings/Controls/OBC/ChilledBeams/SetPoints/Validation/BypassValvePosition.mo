@@ -4,7 +4,7 @@ model BypassValvePosition
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.BypassValvePosition
     bypValPos(
-    nPum=2,
+    final nPum=2,
     final k=10,
     final Ti=0.001)
     "Bypass valve position setpoint controller"
@@ -19,7 +19,7 @@ protected
     "Real pulse source"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=10000,
     final freqHz=1/1000,
     final offset=45000)
@@ -45,9 +45,7 @@ equation
 annotation (
   experiment(
       StopTime=7200,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SetPoints/Validation/BypassValvePosition.mos"
     "Simulate and plot"),
   Documentation(info="<html>

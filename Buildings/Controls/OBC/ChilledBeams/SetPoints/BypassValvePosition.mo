@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.ChilledBeams.SetPoints;
 block BypassValvePosition
   "Block with sequences for calculating bypass valve position"
 
-  parameter Integer nPum(min=1)
+  parameter Integer nPum(
+    final min=1)
     "Number of pumps in the chilled water loop";
 
   parameter Real minPumSpe(
@@ -113,8 +114,8 @@ protected
     final k=k,
     final Ti=Ti,
     final Td=Td,
-    r=dPChiWatMax,
-    reverseActing=false)
+    final r=dPChiWatMax,
+    final reverseActing=false)
     "PID controller for regulating differential pressure at or below max pressure setpoint"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
@@ -128,7 +129,7 @@ protected
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant offSetdPChiWatMax(
-    final k(final unit="Pa")=dPChiWatMax)
+    final k=dPChiWatMax)
     "Offset for maximum dp chilled water"
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}})));
 
@@ -192,15 +193,9 @@ equation
               textString="%name"),
             Rectangle(
               extent={{-100,100},{100,-100}},
-              lineColor={28,108,200},
+              lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid),
-            Text(
-              extent={{-50,20},{50,-20}},
-              lineColor={28,108,200},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.None,
-          textString="sysOpeMod"),
         Text(
           extent={{-96,68},{-56,50}},
           textColor={255,0,255},

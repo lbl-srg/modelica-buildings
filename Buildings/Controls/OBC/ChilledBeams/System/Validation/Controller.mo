@@ -21,7 +21,7 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin2(
     final amplitude=7500,
     final freqHz=1/1800,
     final offset=25000)
