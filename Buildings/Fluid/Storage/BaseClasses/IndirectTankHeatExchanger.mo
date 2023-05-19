@@ -285,9 +285,9 @@ equation
           the heat exchanger, and convection from the heat exchanger to the surrounding fluid.
           </p>
           <p>
-          The model is based on <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
+          The model is based on <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside\">
           Buildings.Fluid.HeatExchangers.BaseClasses.HACoilInside</a> and
-          <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
+          <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder\">
           Buildings.Fluid.HeatExchangers.BaseClasses.HANaturalCylinder</a>.
           </p>
           <p>
