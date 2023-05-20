@@ -5,7 +5,7 @@ model Controller
   Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Controller
     pumCon(
     final nPum=2,
-    nVal=3,
+    final nVal=3,
     final minPumSpe=0.1,
     final maxPumSpe=1,
     final k=1,
@@ -66,9 +66,7 @@ equation
 annotation (
   experiment(
       StopTime=3600,
-      Interval=0.5,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SecondaryPumps/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>

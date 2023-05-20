@@ -14,7 +14,7 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=maxPumSpe)
     "Minimum pump speed"
     annotation (Dialog(group="Pump parameters"));
 

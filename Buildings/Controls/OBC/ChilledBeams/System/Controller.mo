@@ -16,7 +16,7 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=maxPumSpe) = 0.1
+    final max=maxPumSpe)
     "Minimum pump speed"
     annotation (Dialog(group="Pump parameters"));
 
@@ -24,7 +24,7 @@ block Controller
     final unit="1",
     displayUnit="1",
     final min=minPumSpe,
-    final max=1) = 1
+    final max=1)
     "Maximum pump speed"
     annotation (Dialog(group="Pump parameters"));
 
@@ -209,7 +209,7 @@ block Controller
     final quantity="Pressure",
     final min=0)
     "Maximum chilled water loop static pressure setpoint"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real chiWatStaPreMin(
     final unit="Pa",
@@ -217,7 +217,7 @@ block Controller
     final quantity="Pressure",
     final min=0)
     "Minimum chilled water loop static pressure setpoint"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real triAmoVal(
     final unit="Pa",
@@ -225,7 +225,7 @@ block Controller
     final quantity="PressureDifference",
     final max=0)
     "Static pressure trim amount"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real resAmoVal(
     final unit="Pa",
@@ -233,7 +233,7 @@ block Controller
     final quantity="PressureDifference",
     final min=0)
     "Static pressure respond amount"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real maxResVal(
     final unit="Pa",
@@ -241,7 +241,7 @@ block Controller
     final quantity="PressureDifference",
     final min=0)
     "Static pressure maximum respond amount"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real samPerVal(
     final unit="s",
@@ -249,7 +249,7 @@ block Controller
     final quantity="Duration",
     final min=0)
     "Sample period duration"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real delTimVal(
     final unit="s",
@@ -257,7 +257,7 @@ block Controller
     final quantity="Duration",
     final min=0)
     "Delay period duration"
-    annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
+    annotation(Dialog(group="Trim-and-Respond for chilled water static pressure reset"));
 
   parameter Real thrTimLow(
     final unit="s",

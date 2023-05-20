@@ -4,15 +4,18 @@ model Controller
 
   Buildings.Controls.OBC.ChilledBeams.System.Controller
     sysCon(
-    nPum=2,
-    nVal=3,dPChiWatMax=31000,
-    chiWatStaPreMax=30000,
-    chiWatStaPreMin=20000,
-    triAmoVal=-500,
-    resAmoVal=750,
-    maxResVal=1000,
-    samPerVal=30,
-    delTimVal=120)
+    final nPum=2,
+    final nVal=3,
+    final minPumSpe=0.1,
+    final maxPumSpe=1,
+    final dPChiWatMax=31000,
+    final chiWatStaPreMax=30000,
+    final chiWatStaPreMin=20000,
+    final triAmoVal=-500,
+    final resAmoVal=750,
+    final maxResVal=1000,
+    final samPerVal=30,
+    final delTimVal=120)
     "System controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -49,9 +52,7 @@ equation
 annotation (
   experiment(
       StopTime=3600,
-      Interval=1,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/System/Validation/Controller.mos"
     "Simulate and plot"),
   Documentation(info="<html>
