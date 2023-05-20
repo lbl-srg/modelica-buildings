@@ -2,12 +2,12 @@
 <svg
    id="svg4190"
    version="1.1"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
-   width="906.94873"
-   height="428.37064"
-   viewBox="0 0 906.94873 428.37062"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   width="875.20856"
+   height="418.08185"
+   viewBox="0 0 875.20856 418.08183"
    sodipodi:docname="ChilledBeamsSchematic.svg"
-   inkscape:export-filename="C:\Users\deva713\OneDrive - PNNL\Documents\OpenBuildingControl\ChilledBeamsControlSequences\ChilledBeamSchematic.png"
+   inkscape:export-filename="C:\buildings_library\buildings_library_pnnl\Buildings\Resources\Images\Controls\OBC\ChilledBeams\ChilledBeamsSchematic.png"
    inkscape:export-xdpi="150"
    inkscape:export-ydpi="150"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -1014,19 +1014,19 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="3840"
-     inkscape:window-height="2066"
+     inkscape:window-width="2560"
+     inkscape:window-height="1017"
      id="namedview4192"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="3.0015905"
-     inkscape:cx="614.67412"
-     inkscape:cy="243.20439"
-     inkscape:window-x="3829"
-     inkscape:window-y="-11"
+     inkscape:zoom="0.75039763"
+     inkscape:cx="1180.041"
+     inkscape:cy="465.75307"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="g1851"
      inkscape:measure-start="0,0"
@@ -1038,12 +1038,12 @@
     <inkscape:grid
        type="xygrid"
        id="grid4200"
-       originx="-110.25011"
-       originy="922.27915" />
+       originx="-132.16059"
+       originy="916.27911" />
   </sodipodi:namedview>
   <g
      id="g1851"
-     transform="rotate(90,-142.10031,211.85025)">
+     transform="rotate(90,-150.05555,197.89501)">
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.99999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M -164.88847,-257.42533 V -3.5092404"
@@ -1382,7 +1382,7 @@
        transform="rotate(-90,149.75659,52.136373)"><tspan
          x="608.48029"
          y="-225.66524"
-         id="tspan9994">DPT</tspan></text>
+         id="tspan4051">DPT</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.26128px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1467,7 +1467,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect26209);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="-49"
          y="-132.2825"
-         id="tspan9996">system controller</tspan></text>
+         id="tspan4053">system controller</tspan></text>
     <rect
        style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;paint-order:stroke fill markers"
        id="rect22583-9"
@@ -1483,9 +1483,9 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect26209-1);display:inline;fill:#000000;fill-opacity:1;stroke:none"><tspan
          x="-49"
          y="-132.2825"
-         id="tspan9998">terminal controller</tspan></text>
+         id="tspan4055">terminal controller</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.991007;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.96399, 1.982;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908)"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 2;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908)"
        d="m -299.63116,-152.60156 v -72.60154 h 113.24267 14.69094 v -31.9853"
        id="path31158" />
     <path
@@ -1497,15 +1497,15 @@
        d="m -29.14229,-312.32048 v -87.02954 h -133.38249"
        id="path33686" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.956683;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.82672, 1.91337;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908)"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 2;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908)"
        d="m 13.80704,-312.73894 v -108.80925 h 0.103774 v -74.80635"
        id="path33916" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.956684;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.82671, 1.91337;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908-8)"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 2;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908-8)"
        d="m -25.219772,-494.12156 v -12.72058 h 0.103774 v -8.74542"
        id="path33916-0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.925965;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3.70387, 1.85192;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 2;stroke-dashoffset:0;stroke-opacity:1"
        d="m -11.13231,-495.05957 v 183.78718"
        id="path34532-5" />
     <path
@@ -1573,16 +1573,21 @@
          id="tspan2046">chilled beam manifold</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;white-space:pre;inline-size:110.139;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="316.72223"
-       y="32.426842"
+       y="52.426842"
        id="text4327-6-6-3-4-2-2-8-5-8-9-6-7-2"
        transform="rotate(-90)"><tspan
-         sodipodi:role="line"
          x="316.72223"
-         y="32.426842"
-         style="font-size:12.2001px;line-height:1.25"
-         id="tspan5676">requests to primary loop</tspan></text>
+         y="52.426842"
+         id="tspan4059"><tspan
+           style="font-size:12.2001px;line-height:1.25"
+           id="tspan4057">requests to </tspan></tspan><tspan
+         x="316.72223"
+         y="67.676969"
+         id="tspan4063"><tspan
+           style="font-size:12.2001px;line-height:1.25"
+           id="tspan4061">primary loop</tspan></tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:0%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;white-space:pre;inline-size:71.5514;display:inline;fill:#000000;fill-opacity:0.968627;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
@@ -1592,7 +1597,7 @@
        transform="rotate(-90,-37.072899,-12.101661)"><tspan
          x="608.48029"
          y="-225.66524"
-         id="tspan10000">DPT</tspan></text>
+         id="tspan4065">DPT</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1628,8 +1633,8 @@
          style="font-size:12.2001px;line-height:1.25"
          id="tspan2086">from DPT</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.999996;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4.00002, 2.00001;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908-4-0-7-7-5)"
-       d="M 38.49474,-313.01944 38.169583,-478.12999"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 2;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#marker4908-4-0-7-7-5)"
+       d="m 38.547832,-313.2881 -0.378547,-81.72911"
        id="path34532-6-2-6-2-5-9"
        sodipodi:nodetypes="cc" />
     <text
