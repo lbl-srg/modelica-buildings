@@ -5,7 +5,14 @@ model Controller
   Buildings.Controls.OBC.ChilledBeams.System.Controller
     sysCon(
     nPum=2,
-    nVal=3,dPChiWatMax=31000)
+    nVal=3,dPChiWatMax=31000,
+    chiWatStaPreMax=30000,
+    chiWatStaPreMin=20000,
+    triAmoVal=-500,
+    resAmoVal=750,
+    maxResVal=1000,
+    samPerVal=30,
+    delTimVal=120)
     "System controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -54,15 +61,17 @@ This example validates
 Buildings.Controls.OBC.ChilledBeams.System.Controller</a>.
 </p>
 <p>
-It consists of an open-loop setup for the system controller <code>sysCon</code> block, with
-a time-varying sinusoidal input <code>sin2</code> (varying between <code>17500 Pa</code> and 
-<code>32500 Pa</code>) for the measured chilled water loop differential pressure <code>sysCon.dPChiWatLoo</code>, 
-and a periodic pulse input <code>pul</code> for the measured chilled water valve 
-position <code>sysCon.uValPos</code>. A logical pre block <code>pre1</code> is used to 
-capture the pump enable output signal <code>sysCon.yChiWatPum</code> and provide it 
-back as an input to the pump status signal <code>sysCon.uPumSta</code>. The trim-and-respond
-parameters for the chilled water static pressure setpoint reset in <code>sysCon</code>
-use nominal pressure <code>30000 Pa</code> and minimum pressure <code>20000 Pa</code>.
+It consists of an open-loop setup for the system controller <code>sysCon</code>
+block, with a time-varying sinusoidal input <code>sin2</code> (varying between 
+<code>17500 Pa</code> and <code>32500 Pa</code>) for the measured chilled water 
+loop differential pressure <code>sysCon.dPChiWatLoo</code>, and a periodic pulse 
+input <code>pul</code> for the measured chilled water valve 
+position <code>sysCon.uValPos</code>. A logical pre block <code>pre1</code> is 
+used to capture the pump enable output signal <code>sysCon.yChiWatPum</code> and 
+provide it back as an input to the pump status signal <code>sysCon.uPumSta</code>. 
+The trim-and-respond parameters for the chilled water static pressure setpoint 
+reset in <code>sysCon</code> use nominal pressure <code>30000 Pa</code> and minimum 
+pressure <code>20000 Pa</code>.
 </p>
 <p>
 The following observations should be apparent from the simulation plots:
@@ -74,7 +83,7 @@ when <code>sysCon.uValPos</code> changes to <code>0</code>.
 </li>
 <li>
 When <code>sysCon.dPChiWatLoo</code> falls below the calculated static pressure 
-setpoint <code>sysCon.chiWatStaPreSetRes.yStaPreSetPoi</code>,an increase in pump 
+setpoint <code>sysCon.chiWatStaPreSetRes.yStaPreSetPoi</code>, an increase in pump 
 speed output signal <code>sysCon.yPumSpe</code> is observed.
 </li>
 <li>

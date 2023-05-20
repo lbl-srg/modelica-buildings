@@ -12,10 +12,6 @@ block Controller
     "Total number of chilled water control valves on chilled beams"
     annotation (Dialog(group="System parameters"));
 
-  parameter Integer nSenRemDP=1
-    "Total number of remote differential pressure sensors"
-    annotation (Dialog(group="System parameters"));
-
   parameter Real minPumSpe(
     final unit="1",
     displayUnit="1",
@@ -210,49 +206,56 @@ block Controller
   parameter Real chiWatStaPreMax(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 30000
+    final quantity="Pressure",
+    final min=0)
     "Maximum chilled water loop static pressure setpoint"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 
   parameter Real chiWatStaPreMin(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="Pressure") = 20000
+    final quantity="Pressure",
+    final min=0)
     "Minimum chilled water loop static pressure setpoint"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 
   parameter Real triAmoVal(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") = -500
+    final quantity="PressureDifference",
+    final max=0)
     "Static pressure trim amount"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 
   parameter Real resAmoVal(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") = 750
+    final quantity="PressureDifference",
+    final min=0)
     "Static pressure respond amount"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 
   parameter Real maxResVal(
     final unit="Pa",
     displayUnit="Pa",
-    final quantity="PressureDifference") = 1000
+    final quantity="PressureDifference",
+    final min=0)
     "Static pressure maximum respond amount"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 
   parameter Real samPerVal(
     final unit="s",
     displayUnit="s",
-    final quantity="Duration") = 30
+    final quantity="Duration",
+    final min=0)
     "Sample period duration"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 
   parameter Real delTimVal(
     final unit="s",
     displayUnit="min",
-    final quantity="Duration") = 120
+    final quantity="Duration",
+    final min=0)
     "Delay period duration"
     annotation(Dialog(tab="Chilled water static pressure reset", group="Trim-and-Respond parameters"));
 

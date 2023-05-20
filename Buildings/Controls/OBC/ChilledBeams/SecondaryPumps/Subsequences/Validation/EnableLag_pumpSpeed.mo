@@ -50,20 +50,23 @@ Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.EnableLag_pumpSp
 </p>
 <p>
 It consists of an open-loop setup for block <code>enaLagPum</code> with
-a ramp input signal <code>ram</code> that is used to simulate the pump speed, and two outputs <code>yUp</code> and <code>yUp</code>
-that hold stage-up and stage-down signals with a duration of 10 seconds for easy visualization, respectively. 
+a ramp input signal <code>ram</code> that is used to simulate the pump speed, and 
+two outputs <code>yUp</code> and <code>yDown</code> that hold stage-up and stage-down 
+signals with a duration of 10 seconds for easy visualization, respectively. 
 </p>
 <p>
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-The block <code>enaLagPum</code> stages up <code>yUp = true</code> when pump speed <code>enaLagPum.uPumSpe</code> 
-exceeds speed limit <code>enaLagPum.speLim</code> for time period <code>enaLagPum.timPer</code> 
+<code>enaLagPum</code> stages up (<code>yUp = true</code>) when pump speed 
+<code>enaLagPum.uPumSpe</code> 
+exceeds speed limits <code>enaLagPum.speLim</code> for time period <code>enaLagPum.timPer</code> 
 or <code>enaLagPum.speLim1</code> for <code>enaLagPum.timPer1</code>.
 </li>
 <li>
-The block <code>enaLagPum</code> stages down <code>yDown = false</code> when <code>enaLagPum.uPumSpe</code> 
-falls below <code>enaLagPum.speLim2</code> for <code>enaLagPum.timPer2</code>.
+It stages down (<code>yDown = false</code>) when <code>enaLagPum.uPumSpe</code> 
+falls below speed limit <code>enaLagPum.speLim2</code> for time period 
+<code>enaLagPum.timPer2</code>.
 </li>
 </ol>
 </p>

@@ -132,20 +132,20 @@ The following observations should be apparent from the simulation plots:
 <ol>
 <li>
 Valve position signal <code>terCon.yChiVal</code> is increased from <code>0</code> whenever <code>terCon.TZon</code>
-exceeds the zone cooling setpoint temperature <code>terCon.zonRegCon.TZonSet.TZonCooSet</code>.
+exceeds the zone cooling setpoint temperature <code>terCon.TZonCooSet</code>.
 It is reduced to <code>0</code> whenever <code>terCon.uConSen</code> becomes <code>true</code>
 for duration <code>conSenOnThr</code>.
 </li>
 <li>
 It also determines the number of chilled water supply requests 
 <code>terCon.yChiWatSupReq</code> and temperature reset requests <code>terCon.TChiWatReq</code>.
-<code>terCon.TChiWatReq</code> should be zero whenever <code>terCon.uConSen</code>
-becomes <code>true</code> for duration <code>conSenOnThr</code>.
+<code>terCon.TChiWatReq</code> should be zero whenever condensation sensor signal 
+<code>terCon.uConSen</code> becomes <code>true</code> for duration <code>conSenOnThr</code>.
 </li>
 <li>
 Terminal reheat signal <code>terCon.yReh</code> is increased from <code>0</code> 
 whenever <code>terCon.TZon</code> falls below the zone heating setpoint temperature 
-<code>terCon.zonRegCon.TZonSet.TZonHeaSet</code>.
+<code>terCon.TZonHeaSet</code>.
 </li>
 <li>
 Terminal damper position signal <code>terCon.yDam</code> is increased from <code>0</code>

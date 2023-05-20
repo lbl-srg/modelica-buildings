@@ -8,7 +8,7 @@ model ZoneRegulation
     final VDes_unoccSch=0.1,
     final VDes_unoccUnsch=0.2)
     "Zone temperature regulator"
-    annotation (Placement(transformation(extent={{20,-8},{40,12}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
@@ -61,29 +61,29 @@ equation
                                                color={0,0,127}));
 
   connect(reaToInt.y, zonRegCon.uOpeMod) annotation (Line(points={{-18,-80},{0,
-          -80},{0,-6.33333},{18.3333,-6.33333}},
+          -80},{0,-8.33333},{18.3333,-8.33333}},
                            color={255,127,0}));
 
   connect(sin.y, zonRegCon.VDis_flow) annotation (Line(points={{-48,-48},{-16,
-          -48},{-16,-3},{18.3333,-3}},
+          -48},{-16,-5},{18.3333,-5}},
                           color={0,0,127}));
 
   connect(booPul.y, not1.u)
     annotation (Line(points={{-48,48},{-32,48}}, color={255,0,255}));
 
   connect(not1.y, zonRegCon.uConSen) annotation (Line(points={{-8,48},{10,48},{
-          10,0.333333},{18.3333,0.333333}},
+          10,-1.66667},{18.3333,-1.66667}},
                       color={255,0,255}));
 
   connect(sin1.y, zonRegCon.TZon) annotation (Line(points={{-48,82},{14,82},{14,
-          7},{18.3333,7}},
+          5},{18.3333,5}},
                       color={0,0,127}));
 
   connect(zonRegCon.TZonCooSet, con1.y) annotation (Line(points={{18.3333,
-          3.66667},{-28,3.66667},{-28,-16},{-48,-16}},
+          1.66667},{-28,1.66667},{-28,-16},{-48,-16}},
                                 color={0,0,127}));
   connect(zonRegCon.TZonHeaSet, con.y) annotation (Line(points={{18.3333,
-          10.3333},{18.3333,10},{-28,10},{-28,16},{-48,16}},
+          8.33333},{18.3333,8},{-28,8},{-28,16},{-48,16}},
                                            color={0,0,127}));
 annotation (
   experiment(

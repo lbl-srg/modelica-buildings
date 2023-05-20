@@ -95,20 +95,20 @@ When the control valve position (<code>chiWatSupRes.uValPos=0.15</code>) is less
 are generated for chilled water supply temperature setpoint reset. 
 </li>
 <li>
-When the control valve position (<code>chiWatSupRes1.uValPos=0.55</code>) is open greater than 
-(<code>chiWatSupRes1.valPosHigOpeReq=0.5</code>) for (<code>chiWatSupRes1.thrTimHigReq=60</code>) continuously, 
-two requests (<code>chiWatSupRes1.yChiWatSupReq=2</code>) is generated for chilled water supply. 
-When the control valve position (<code>chiWatSupRes1.uValPos=0.55</code>) is greater than 
-(<code>chiWatSupRes1.valPosLowOpeTemRes=0.5</code>) and when (<code>chiWatSupRes1.uConSen=false<code>), one request 
-(<code>chiWatSupRes1.TChiWatReq=1</code>) are generated for chilled water supply temperature setpoint reset. 
+When the control valve position (<code>chiWatSupRes1.uValPos=0.55</code>) is 
+open greater than 
+(<code>chiWatSupRes1.valPosHigOpeReq=0.5</code>) for (<code>chiWatSupRes1.thrTimHigReq=60</code>) 
+continuously, 
+two requests (<code>chiWatSupRes1.yChiWatSupReq=2</code>) are generated for 
+chilled water supply.
 </li>
-<li>
-When the control valve position (<code>chiWatSupRes2.uValPos=1.0</code>) is open greater than 
-(<code>chiWatSupRe2.valPosHigOpeReq=0.5</code>) for (<code>chiWatSupRes2.thrTimHigReq=60</code>) continuously, 
-two requests (<code>chiWatSupRes2.yChiWatSupReq=2</code>) is generated for chilled water supply. 
-When the control valve position (<code>chiWatSupRes2.uValPos=1.0</code>) is greater than 
-(<code>chiWatSupRe2.valPosHigOpeTemRes=0.99</code>) and and when (<code>chiWatSupRes2.uConSen=false<code>), two requests 
-(<code>chiWatSupRes2.TChiWatReq=2</code>) are generated for chilled water supply temperature setpoint reset. 
+<li> 
+When the control valve position (<code>chiWatSupRes1.uValPos=0.55</code>) 
+is greater than 
+(<code>chiWatSupRes1.valPosLowOpeTemRes=0.5</code>) and when (<code>chiWatSupRes1.uConSen=false</code>), 
+one request 
+(<code>chiWatSupRes1.TChiWatReq=1</code>) is generated for chilled water supply 
+temperature setpoint reset. 
 </li>
 </ol>
 </p>

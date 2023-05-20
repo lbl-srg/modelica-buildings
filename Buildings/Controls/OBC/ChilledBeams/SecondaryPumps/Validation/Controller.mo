@@ -32,7 +32,7 @@ protected
     "Logical pre block"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin2(
     final amplitude=0.5,
     final freqHz=1/1800,
     final offset=1)
@@ -79,11 +79,16 @@ Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Controller</a>.
 </p>
 <p>
 It consists of an open-loop setup for controller <code>pumCon</code>, with
-a constant integer input block <code>conInt1</code> that generates a constant output value of {2,1} to indicate order of pump enabled, 
-a pulse real input block <code>pull</code> that generates a pulse signal to simulate chilled water control valve position, 
-a sine input block <code>sin2</code> that generates a sine signal to simulate chilled water differential static pressure from remote sensor, 
-and a constant real input block <code>con3</code> that generates a constant output value of 1 to simulate chilled water differential static pressure setpoint. 
-A logical pre block <code>pre2</code> is used to capture the chilled water pump enable output signal <code>pumCon.yChiWatPum</code> and provide it 
+a constant integer input block <code>conInt1</code> that generates a constant 
+output value of {2,1} to indicate order of pump enable, 
+a pulse real input block <code>pull</code> that generates a pulse signal to simulate 
+chilled water control valve position, 
+a sine input block <code>sin2</code> that generates a sine signal to simulate 
+chilled water differential static pressure from remote sensor, 
+and a constant real input block <code>con3</code> that generates a constant output 
+value of 1 to simulate chilled water differential static pressure setpoint. 
+A logical pre block <code>pre2</code> is used to capture the chilled water pump 
+enable output signal <code>pumCon.yChiWatPum</code> and provide it 
 back as an input to the pump operating status signal <code>pumCon.uChiWatPum</code>.
 </p>
 </html>", revisions="<html>
