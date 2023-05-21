@@ -238,7 +238,7 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        configurations used in hydronic circuits for heating or cooling applications.
     </td>
 </tr>
-</table>
+  </table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -344,6 +344,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
+    </td>
+    <td valign=\"top\">Added model to read weekly time schedules from a file.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1601\">IBPSA, #1601</a>.
+    </td>
+  </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
