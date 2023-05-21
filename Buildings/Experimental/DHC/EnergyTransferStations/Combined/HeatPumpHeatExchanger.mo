@@ -1,8 +1,6 @@
 within Buildings.Experimental.DHC.EnergyTransferStations.Combined;
-model HeatPumpHeatExchanger
-  "Model of a substation with heat pump and compressor-less cooling"
-  extends
-    Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
+model HeatPumpHeatExchanger "Model of a substation with heat pump and compressor-less cooling"
+  extends Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.PartialETS(
     final typ=Buildings.Experimental.DHC.Types.DistrictSystemType.CombinedGeneration5,
     final have_weaBus=false,
     final have_chiWat=true,
@@ -57,27 +55,28 @@ model HeatPumpHeatExchanger
     "Pressure difference at nominal flow rate (for each flow leg)"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mHeaWat_flow_nominal(min=0)=
-    abs(QHeaWat_flow_nominal/cpBui_default/(THeaWatSup_nominal -
-    THeaWatRet_nominal)) "Heating water mass flow rate"
+    abs(QHeaWat_flow_nominal/cpBui_default/(THeaWatSup_nominal - THeaWatRet_nominal))
+    "Heating water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   final parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(min=0)=
-    abs(QChiWat_flow_nominal/cpBui_default/(TChiWatSup_nominal -
-    TChiWatRet_nominal)) "Chilled water mass flow rate"
+    abs(QChiWat_flow_nominal/cpBui_default/(TChiWatSup_nominal - TChiWatRet_nominal))
+    "Chilled water mass flow rate"
     annotation (Dialog(group="Nominal conditions"));
   final parameter Modelica.Units.SI.MassFlowRate mEvaHotWat_flow_nominal(min=0)=
-       QHotWat_flow_nominal*(COPHotWat_nominal - 1)/COPHotWat_nominal/
-    cpSer_default/dT_nominal
-    "Evaporator water mass flow rate of heat pump for hot water production"
+       QHotWat_flow_nominal*(COPHotWat_nominal - 1)/COPHotWat_nominal/cpSer_default/dT_nominal
+       "Evaporator water mass flow rate of heat pump for hot water production"
     annotation (Dialog(group="Nominal condition", enable=have_hotWat));
   final parameter Modelica.Units.SI.MassFlowRate mSerWat_flow_nominal(min=0)=
     max(proHeaWat.m2_flow_nominal + mEvaHotWat_flow_nominal, hexChi.m1_flow_nominal)
     "Service water mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   constant Modelica.Units.SI.SpecificHeatCapacity cpBui_default=
-      MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(p=MediumBui.p_default,
+    MediumBui.specificHeatCapacityCp(MediumBui.setState_pTX(
+      p=MediumBui.p_default,
       T=MediumBui.T_default)) "Specific heat capacity of the fluid";
   constant Modelica.Units.SI.SpecificHeatCapacity cpSer_default=
-      MediumBui.specificHeatCapacityCp(MediumSer.setState_pTX(p=MediumSer.p_default,
+    MediumBui.specificHeatCapacityCp(MediumSer.setState_pTX(
+      p=MediumSer.p_default,
       T=MediumSer.T_default)) "Specific heat capacity of the fluid";
   // Heat pump for heating water production
   parameter Real COPHeaWat_nominal(final unit="1")
@@ -296,9 +295,9 @@ model HeatPumpHeatExchanger
     redeclare final package Medium = MediumSer,
     final m_flow_nominal=mSerWat_flow_nominal) "Flow switch box"
     annotation (Placement(transformation(extent={{-10,-390},{10,-370}})));
-  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(redeclare
-      final package Medium =
-                       MediumBui, final m_flow_nominal=proHeaWat.m1_flow_nominal
+  Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Junction bypHeaWatSup(
+    redeclare final package Medium = MediumBui,
+    final m_flow_nominal=proHeaWat.m1_flow_nominal
         *{1,-1,-1}) "Bypass heating water (supply)" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -399,8 +398,8 @@ model HeatPumpHeatExchanger
         MediumBui, final allowFlowReversal=allowFlowReversalBui)
     "Primary heating water mass flow rate"
     annotation (Placement(transformation(extent={{30,270},{50,250}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(trueHoldDuration=15*
-        60) if have_hotWat "Enable SHW production"
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold enaSHW(
+    trueHoldDuration=15*60) if have_hotWat "Enable SHW production"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   Modelica.Blocks.Sources.Constant zer1(k=0) if not have_hotWat
     "Replacement variable"
