@@ -145,8 +145,9 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     annotation (Placement(transformation(extent={{-50,-110},{-70,-90}})));
 
   // Components
-  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
-    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
+  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil eva
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
       redeclare final package Medium = MediumEva,
       redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
       dxCoi(
