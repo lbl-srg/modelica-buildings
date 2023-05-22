@@ -362,7 +362,8 @@ for an explanation of the model.
 <li>
 April 5 , 2023, by Xing Lu:<br/>
 Changed instance name <code>dxCoo</code> in instance <code>eva</code> to 
-<code>dxCoi</code>.<br/>
+<code>dxCoi</code>. Changed baseclass used from <code>PartialDXCoil</code> to 
+<code>PartialDXCoolingCoil</code>.<br/>
 Connect statements with references to <code>TConIn</code> changed to <code>TOut</code>.
 </li>
 <li>
