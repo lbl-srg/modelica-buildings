@@ -1442,7 +1442,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>01-Oct:16</td>
 <td>62.4</td>
 <td>01-Oct:15</td>
-<td>63.9</td>
+<td>63.6</td>
 <td>18-Oct:16</td>
 </tr>
 <tr>
@@ -1459,7 +1459,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>01-Oct:16</td>
 <td>61.1</td>
 <td>01-Oct:15</td>
-<td>62.8</td>
+<td>62.5</td>
 <td>18-Oct:16</td>
 </tr>
 <tr>
@@ -1476,7 +1476,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>12-Oct:16</td>
 <td>69.8</td>
 <td>22-Jan:16</td>
-<td>69.3</td>
+<td>69.1</td>
 <td>22-Jan:16</td>
 </tr>
 <tr>
@@ -1510,7 +1510,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>05-Aug:16</td>
 <td>36.1</td>
 <td>11-Sep:16</td>
-<td>36.7</td>
+<td>36.6</td>
 <td>11-Sep:16</td>
 </tr>
 <tr>
@@ -1527,7 +1527,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>12-Oct:15</td>
 <td>48.1</td>
 <td>12-Oct:15</td>
-<td>48.0</td>
+<td>47.9</td>
 <td>12-Oct:16</td>
 </tr>
 <tr>
@@ -1648,7 +1648,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>09-Feb:6</td>
 <td>-12.8</td>
 <td>09-Feb:6</td>
-<td>-11.9</td>
+<td>-11.8</td>
 <td>9-Feb:6</td>
 </tr>
 <tr>
@@ -1665,7 +1665,7 @@ show the peak temperature hour, are shown in the table after the plots.
 <td>09-Feb:7</td>
 <td>4.2</td>
 <td>09-Feb:7</td>
-<td>3.9</td>
+<td>4.0</td>
 <td>9-Feb:7</td>
 </tr>
 <tr>
