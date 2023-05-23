@@ -9,6 +9,7 @@ model DedicatedDampersPressure
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Economizer outdoor air damper"
     annotation (Placement(transformation(
@@ -17,6 +18,7 @@ model DedicatedDampersPressure
         origin={0,0})));
   Buildings.Templates.Components.Dampers.TwoPosition damOutMin(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOutMin)
     "Minimum outdoor air damper"
     annotation (Placement(transformation(
@@ -26,6 +28,7 @@ model DedicatedDampersPressure
 
   Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=true,
     final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air temperature sensor"
@@ -37,6 +40,7 @@ model DedicatedDampersPressure
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=
       typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
       typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,

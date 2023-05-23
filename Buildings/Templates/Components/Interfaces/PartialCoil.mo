@@ -7,7 +7,7 @@ partial model PartialCoil "Interface class for coil"
     annotation(__Linkage(enable=false));
 
   replaceable package MediumAir=Buildings.Media.Air
-    "Source-side medium"
+    "Air medium"
     annotation(__Linkage(enable=false));
   /*
   The following definition is needed only for Dymola that does not allow
@@ -17,7 +17,7 @@ partial model PartialCoil "Interface class for coil"
   replaceable package MediumSou=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Source-side medium"
-    annotation(__Linkage(enable=false));
+    annotation(Dialog(enable=false), __Linkage(enable=false));
 
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
@@ -37,7 +37,6 @@ partial model PartialCoil "Interface class for coil"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Components.Data.Coil dat(
-    final have_sou=have_sou,
     final typ=typ,
     final typVal=typVal)
     "Design and operating parameters"
@@ -59,9 +58,10 @@ partial model PartialCoil "Interface class for coil"
   parameter Modelica.Units.SI.Time tau=20
     "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition",
-      enable=typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and (
+      typ==Buildings.Templates.Components.Types.Coil.ElectricHeating or
       typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
-      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed),
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed)),
       __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -87,7 +87,8 @@ partial model PartialCoil "Interface class for coil"
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
     redeclare package Medium = MediumSou,
     m_flow(min=if allowFlowReversalLiq then -Modelica.Constants.inf else 0),
-    h_outflow(start=MediumSou.h_default, nominal=MediumSou.h_default)) if have_sou
+    h_outflow(start=MediumSou.h_default, nominal=MediumSou.h_default))
+    if have_sou
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}}),
         iconTransformation(extent={{40,-110},{60,-90}})));
@@ -95,15 +96,15 @@ partial model PartialCoil "Interface class for coil"
     redeclare package Medium = MediumSou,
     m_flow(max=if allowFlowReversalLiq then +Modelica.Constants.inf else 0),
     h_outflow(start = MediumSou.h_default, nominal = MediumSou.h_default))
-                                                                    if have_sou
+    if have_sou
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-30,-110},{-50,-90}}),
         iconTransformation(extent={{-40,-110},{-60,-90}})));
   Buildings.BoundaryConditions.WeatherData.Bus busWea if have_weaBus
     "Weather bus"
     annotation (Placement(
-        transformation(extent={{-80,80},{-40,120}}), iconTransformation(extent={{-70,90},
-            {-40,110}})));
+        transformation(extent={{-80,80},{-40,120}}), iconTransformation(extent={{-50,90},
+            {-30,110}})));
   Buildings.Templates.Components.Interfaces.Bus bus
     if typ <> Buildings.Templates.Components.Types.Coil.None
     "Control bus"

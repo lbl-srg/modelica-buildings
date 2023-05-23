@@ -50,6 +50,17 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
 
+  parameter Modelica.Units.SI.Time tau=20
+    "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition",
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
+      __Linkage(enable=false));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
+      __Linkage(enable=false));
+
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true, __Linkage(enable=false));
@@ -104,7 +115,17 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     redeclare final package Medium = MediumAir,
     final m_flow_nominal={1,-1,-1}*m_flow_nominal,
     final dp_nominal=fill(0, 3),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    final energyDynamics=energyDynamics,
+    final tau=tau,
+    final portFlowDirection_1=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversal then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving)
     "Splitter with air economizer"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}})));
   Buildings.Templates.Components.Sensors.DifferentialPressure pAirRet_rel(

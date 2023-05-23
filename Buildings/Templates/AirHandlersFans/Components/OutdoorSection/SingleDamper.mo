@@ -9,6 +9,7 @@ model SingleDamper
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Outdoor air damper"
     annotation (
@@ -19,6 +20,7 @@ model SingleDamper
 
   Buildings.Templates.Components.Sensors.VolumeFlowRate VOut_flow(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)
@@ -26,12 +28,14 @@ model SingleDamper
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=true,
     final m_flow_nominal=m_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb
       or typCtlEco == Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
     final m_flow_nominal=m_flow_nominal) "Outdoor air enthalpy sensor"

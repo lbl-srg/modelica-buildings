@@ -31,6 +31,17 @@ partial model PartialOutdoorSection "Interface class for outdoor air section"
     dat.mOutMin_flow_nominal
     "Minimum outdoor air mass flow rate";
 
+  parameter Modelica.Units.SI.Time tau=20
+    "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition",
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
+      __Linkage(enable=false));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
+      __Linkage(enable=false));
+
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
     annotation(Dialog(tab="Assumptions"), Evaluate=true, __Linkage(enable=false));

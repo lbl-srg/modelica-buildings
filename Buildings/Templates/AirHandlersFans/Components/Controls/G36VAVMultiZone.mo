@@ -479,6 +479,9 @@ and
 Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.OperationMode</a>:
 Computation of the zone group operating mode out of zone-level signals
 </li>
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem\">
+Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneGroupSystem</a>:
+Computation of the AHU operating mode
 </ul>
 <h4>Details</h4>
 <p>

@@ -19,6 +19,7 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     secOut constrainedby
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
+      final allowFlowReversal=allowFlowReversal,
       final dat=dat)
     "Outdoor air section"
     annotation (
@@ -37,6 +38,7 @@ model MixedAirWithDamper "Mixed air system with return air damper"
     secRel constrainedby
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
+      final allowFlowReversal=allowFlowReversal,
       final dat=dat)
     "Relief/return air section"
     annotation (
@@ -57,6 +59,7 @@ model MixedAirWithDamper "Mixed air system with return air damper"
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRet,
     final text_rotation=90)
     "Return damper"
@@ -70,7 +73,8 @@ model MixedAirWithDamper "Mixed air system with return air damper"
   replaceable Buildings.Templates.AirHandlersFans.Components.HeatRecovery.None recHea
     constrainedby
     Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces.PartialHeatRecovery(
-      redeclare final package MediumAir = MediumAir)
+      redeclare final package MediumAir = MediumAir,
+      final allowFlowReversal=allowFlowReversal)
     "Heat recovery"
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
 

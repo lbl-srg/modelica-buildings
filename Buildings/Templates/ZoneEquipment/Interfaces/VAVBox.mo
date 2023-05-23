@@ -41,6 +41,8 @@ model VAVBox "Interface class for VAV terminal unit"
   inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
     constrainedby Buildings.Templates.Components.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
+      final allowFlowReversal=allowFlowReversalAir,
+      final show_T=show_T,
       final dat=datDamVAV)
     "VAV damper"
     annotation (Dialog(group="VAV damper"),
@@ -61,6 +63,7 @@ model VAVBox "Interface class for VAV terminal unit"
 
   Buildings.Templates.Components.Sensors.Temperature TAirDis(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final have_sen=ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
       ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly,
     final m_flow_nominal=mAir_flow_nominal,
@@ -69,6 +72,7 @@ model VAVBox "Interface class for VAV terminal unit"
     annotation (Placement(transformation(extent={{90,-210},{110,-190}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VAirDis_flow(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final have_sen=ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat or
       ctl.typ==Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxCoolingOnly,
     final m_flow_nominal=mAir_flow_nominal,
@@ -131,5 +135,44 @@ equation
 <p>
 This partial class provides a standard interface for VAV terminal unit templates.
 </p>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-200,20},{200,-20}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127}),
+        Ellipse(
+          extent={{-134,4},{-126,-4}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Line(
+          points={{-120,20},{-140,-20}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{50,-200},{50,-194},{14,-194},{14,-20}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_souHeaWat),
+        Line(
+          points={{-50,-200},{-50,-194},{-12,-194},{-12,-20}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_souHeaWat,
+          pattern=LinePattern.Dash),
+        Rectangle(
+          extent={{-14,20},{16,-20}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5,
+          visible=coiHea.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{16,20},{-14,-20}},
+          color={0,0,0},
+          thickness=0.5,
+          visible=coiHea.typ <> Buildings.Templates.Components.Types.Coil.None)}));
 end VAVBox;

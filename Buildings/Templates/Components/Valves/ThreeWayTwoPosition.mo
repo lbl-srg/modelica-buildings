@@ -8,7 +8,16 @@ model ThreeWayTwoPosition "Three-way two-position valve"
       redeclare final package Medium=Medium,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=dpFixed_nominal)
+      final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal},
+      final portFlowDirection_1=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Entering,
+      final portFlowDirection_2=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+      final portFlowDirection_3=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Valve"
     annotation (
       __Linkage(enable=false),
@@ -39,9 +48,9 @@ model ThreeWayTwoPosition "Three-way two-position valve"
         rotation=-90,
         origin={0,50})));
 equation
-  connect(port_a, val.port_a)
+  connect(port_a, val.port_1)
     annotation (Line(points={{-100,0},{-10,0}}, color={0,127,255}));
-  connect(val.port_b, port_b)
+  connect(val.port_2, port_b)
     annotation (Line(points={{10,0},{100,0}}, color={0,127,255}));
   connect(val.y_actual, evaOpe.u)
     annotation (Line(points={{5,7},{20,7},{20,-38}}, color={0,0,127}));

@@ -9,6 +9,7 @@ model DedicatedDampersAirflow
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Economizer outdoor air damper"
     annotation (Placement(transformation(
@@ -17,6 +18,7 @@ model DedicatedDampersAirflow
         origin={0,0})));
   Buildings.Templates.Components.Dampers.Modulating damOutMin(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOutMin)
     "Minimum outdoor air damper"
     annotation (Placement(transformation(
@@ -26,12 +28,14 @@ model DedicatedDampersAirflow
 
   Buildings.Templates.Components.Sensors.Temperature TOut(
     redeclare final package Medium =  MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=true,
     final m_flow_nominal=mOutMin_flow_nominal)
     "Outdoor air temperature sensor"
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
   Buildings.Templates.Components.Sensors.VolumeFlowRate VOutMin_flow(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=true,
     final m_flow_nominal=mOutMin_flow_nominal,
     final typ=Buildings.Templates.Components.Types.SensorVolumeFlowRate.AFMS)

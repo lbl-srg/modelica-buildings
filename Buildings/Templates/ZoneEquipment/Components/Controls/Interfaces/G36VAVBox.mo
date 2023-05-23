@@ -263,18 +263,15 @@ It contains the following components.
 <ul>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller\">
-Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a>:
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a> or
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller\">
+Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Controller</a>:
 Main controller for the terminal unit
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints\">
 Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Setpoints</a>:
 Computation of the zone temperature setpoints
-</li>
-<li>
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone\">
-Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.OutdoorAirFlow.Zone</a>:
-Computation of the zone minimum outdoor air and minimum airflow setpoints
 </li>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.ASHRAE.G36.ZoneGroups.ZoneStatus\">

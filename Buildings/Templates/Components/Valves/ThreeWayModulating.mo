@@ -8,7 +8,16 @@ model ThreeWayModulating "Three-way modulating valve"
       redeclare final package Medium=Medium,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal})
+      final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal},
+      final portFlowDirection_1=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Entering,
+      final portFlowDirection_2=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+      final portFlowDirection_3=if allowFlowReversal then
+        Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+        else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Valve"
     annotation (
       __Linkage(enable=false),

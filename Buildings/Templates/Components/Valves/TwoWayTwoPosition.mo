@@ -10,7 +10,9 @@ model TwoWayTwoPosition "Two-way two-position valve"
       final CvData = Buildings.Fluid.Types.CvTypes.OpPoint,
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
-      final dpFixed_nominal=dpFixed_nominal)
+      final dpFixed_nominal=dpFixed_nominal,
+      final allowFlowReversal=allowFlowReversal,
+      final show_T=show_T)
     "Valve (butterfly valve characteristic)"
     annotation (
       __Linkage(enable=false),

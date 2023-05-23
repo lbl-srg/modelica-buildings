@@ -1,11 +1,5 @@
 within Buildings.Templates.AirHandlersFans;
 model VAVMultiZone "Multiple-zone VAV"
-  Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
-    redeclare final package Medium = MediumAir,
-    final have_sen=true)
-    "Duct static pressure sensor"
-    annotation (
-      Placement(transformation(extent={{250,-230},{270,-210}})));
 /*
   HACK: In Dymola only (ticket SR00860858-01), bindings for the parameter record
   cannot be made final if propagation from a top-level record (whole building)
@@ -65,6 +59,8 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final package MediumAir = MediumAir,
     final typCtlFanRet=ctl.typCtlFanRet,
     final typCtlEco=ctl.typCtlEco,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversalAir,
     dat(
       final mOutMin_flow_nominal=dat.mOutMin_flow_nominal,
       final damOut=dat.damOut,
@@ -82,7 +78,8 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=ctl.use_TMix,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Mixed air temperature sensor"
     annotation (Placement(
         transformation(extent={{-110,-210},{-90,-190}})));
@@ -90,6 +87,8 @@ model VAVMultiZone "Multiple-zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.None fanSupBlo
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversal=allowFlowReversalAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
@@ -111,7 +110,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final have_sen=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Heating coil leaving air temperature sensor"
     annotation (
       Placement(transformation(extent={{40,-210},{60,-190}})));
@@ -121,7 +121,8 @@ model VAVMultiZone "Multiple-zone VAV"
     final have_sen=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None
          and coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Averaging,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Cooling coil leaving air temperature sensor"
     annotation (
       Placement(transformation(extent={{100,-210},{120,-190}})));
@@ -129,6 +130,7 @@ model VAVMultiZone "Multiple-zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
+      final allowFlowReversal=allowFlowReversalAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
         Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured)
@@ -149,7 +151,8 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final package Medium = MediumAir,
     final have_sen=true,
     final typ=Buildings.Templates.Components.Types.SensorTemperature.Standard,
-    final m_flow_nominal=mAirSup_flow_nominal)
+    final m_flow_nominal=mAirSup_flow_nominal,
+    final allowFlowReversal=allowFlowReversalAir)
     "Supply air temperature sensor"
     annotation (Placement(
         transformation(extent={{210,-210},{230,-190}})));
@@ -182,6 +185,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.Temperature TAirRet(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final have_sen=
       secOutRel.have_eco and
       (ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialDryBulb or
@@ -194,6 +198,7 @@ model VAVMultiZone "Multiple-zone VAV"
 
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirRet(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversalAir,
     final have_sen=
       secOutRel.have_eco and
       ctl.typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,
@@ -201,6 +206,13 @@ model VAVMultiZone "Multiple-zone VAV"
     "Return air enthalpy sensor"
     annotation (
       Placement(transformation(extent={{250,-90},{230,-70}})));
+
+  Buildings.Templates.Components.Sensors.DifferentialPressure pAirSup_rel(
+    redeclare final package Medium = MediumAir,
+    final have_sen=true)
+    "Duct static pressure sensor"
+    annotation (
+      Placement(transformation(extent={{250,-230},{270,-210}})));
 
   inner replaceable Buildings.Templates.Components.Coils.WaterBasedHeating coiHeaPre(
     redeclare final package MediumHeaWat=MediumHeaWat,
@@ -281,19 +293,37 @@ model VAVMultiZone "Multiple-zone VAV"
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,-1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3)) if have_souHeaWat
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving,
+    final portFlowDirection_3=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving) if have_souHeaWat
     "HHW supply junction"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-260})));
-  Buildings.Fluid.FixedResistances.Junction junHeaWatSup1(
+  Buildings.Fluid.FixedResistances.Junction junHeaWatRet(
     redeclare final package Medium = MediumHeaWat,
     final m_flow_nominal=mHeaWat_flow_nominal*{1,-1,1},
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    dp_nominal=fill(0, 3)) if have_souHeaWat
-    "HHW return junction"
-    annotation (Placement(transformation(
+    dp_nominal=fill(0, 3),
+    final portFlowDirection_1=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_2=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Entering,
+    final portFlowDirection_3=if allowFlowReversalLiq then
+      Modelica.Fluid.Types.PortFlowDirection.Bidirectional
+      else Modelica.Fluid.Types.PortFlowDirection.Leaving) if have_souHeaWat
+    "HHW return junction" annotation (
+      Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-240})));
@@ -401,14 +431,14 @@ equation
     annotation (Line(points={{192,-200},{210,-200}}, color={0,127,255}));
   connect(port_aHeaWat, junHeaWatSup.port_1)
     annotation (Line(points={{20,-280},{20,-270}}, color={0,127,255}));
-  connect(port_bHeaWat, junHeaWatSup1.port_2)
+  connect(port_bHeaWat, junHeaWatRet.port_2)
     annotation (Line(points={{-20,-280},{-20,-250}}, color={0,127,255}));
   connect(junHeaWatSup.port_3, coiHeaReh.port_aSou) annotation (Line(points={{
           30,-260},{145,-260},{145,-210}}, color={0,127,255}));
-  connect(coiHeaReh.port_bSou, junHeaWatSup1.port_3) annotation (Line(points={{135,
-          -210},{135,-240},{-10,-240}},     color={0,127,255}));
-  connect(coiHeaPre.port_bSou, junHeaWatSup1.port_1) annotation (Line(points={{15,-210},
-          {15,-220},{-20,-220},{-20,-230}},          color={0,127,255}));
+  connect(coiHeaReh.port_bSou, junHeaWatRet.port_3) annotation (Line(points={{135,
+          -210},{135,-240},{-10,-240}}, color={0,127,255}));
+  connect(coiHeaPre.port_bSou, junHeaWatRet.port_1) annotation (Line(points={{15,
+          -210},{15,-220},{-20,-220},{-20,-230}}, color={0,127,255}));
   connect(junHeaWatSup.port_2, coiHeaPre.port_aSou) annotation (Line(points={{20,-250},
           {20,-220},{25,-220},{25,-210}},          color={0,127,255}));
   connect(out.ports[3], pAirSup_rel.port_b) annotation (Line(points={{-38.6667,
@@ -420,7 +450,133 @@ equation
     annotation (Line(points={{-30,-200},{10,-200}}, color={0,127,255}));
   annotation (
     defaultComponentName="VAV",
-    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Rectangle(
+          extent={{-200,120},{200,80}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127}),
+        Rectangle(
+          extent={{-200,-80},{200,-120}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127}),
+        Ellipse(
+          extent={{110,-80},{150,-120}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199},
+          visible=typFanSup <> Buildings.Templates.Components.Types.Fan.None),
+        Polygon(
+          points={{130,-81},{130,-119},{149,-100},{130,-81}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255},
+          visible=typFanSup <> Buildings.Templates.Components.Types.Fan.None),
+        Ellipse(
+          extent={{-20,120},{20,80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={0,100,199},
+          visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
+               or typFanRel <> Buildings.Templates.Components.Types.Fan.None),
+        Polygon(
+          points={{0,119},{0,81},{-19,100},{0,119}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255},
+          visible=typFanRet <> Buildings.Templates.Components.Types.Fan.None
+               or typFanRel <> Buildings.Templates.Components.Types.Fan.None),
+        Rectangle(
+          extent={{48,-80},{78,-120}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5,
+          visible=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{78,-80},{48,-120}},
+          color={0,0,0},
+          thickness=0.5,
+          visible=coiCoo.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Rectangle(
+          extent={{-78,-80},{-48,-120}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          lineThickness=0.5,
+          visible=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
+               or coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{-48,-80},{-78,-120}},
+          color={0,0,0},
+          thickness=0.5,
+          visible=coiHeaPre.typ <> Buildings.Templates.Components.Types.Coil.None
+               or coiHeaReh.typ <> Buildings.Templates.Components.Types.Coil.None),
+        Line(
+          points={{-160,-80},{-180,-120}},
+          color={0,0,0},
+          thickness=0.5),
+        Ellipse(
+          extent={{-174,-96},{-166,-104}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Line(
+          points={{-160,120},{-180,80}},
+          color={0,0,0},
+          thickness=0.5),
+        Ellipse(
+          extent={{-174,104},{-166,96}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Rectangle(
+          extent={{-80,20},{80,-20}},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.Solid,
+          fillColor={0,127,127},
+          lineColor={0,127,127},
+          origin={-130,0},
+          rotation=-90),
+        Line(
+          points={{20,10},{-20,-10}},
+          color={0,0,0},
+          thickness=0.5,
+          origin={-130,0},
+          rotation=360),
+        Ellipse(
+          extent={{-134,4},{-126,-4}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={0,0,0}),
+        Line(
+          points={{50,-200},{50,-120}},
+          color={28,108,200},
+          pattern=LinePattern.Dash,
+          thickness=5,
+          visible=have_souChiWat),
+        Line(
+          points={{-50,-200},{-50,-120}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_souHeaWat),
+        Line(
+          points={{130,-200},{130,-194},{76,-194},{76,-120}},
+          color={28,108,200},
+          thickness=5,
+          visible=have_souChiWat),
+        Line(
+          points={{-130,-200},{-130,-194},{-76,-194},{-76,-120}},
+          color={238,46,47},
+          thickness=5,
+          visible=have_souHeaWat,
+          pattern=LinePattern.Dash)}),
+Diagram(
     coordinateSystem(preserveAspectRatio=false, extent={{-300,-280},{300,280}}),
       graphics={
         Line(points={{300,-70},{-120,-70}}, color={0,0,0}),
