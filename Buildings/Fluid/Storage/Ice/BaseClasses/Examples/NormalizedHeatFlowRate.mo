@@ -61,7 +61,7 @@ equation
 info="<html>
 <p>
 This example is to validate the
-<a href=\"Buildings.Fluid.Storage.Ice.BaseClasses.NormalizedHeatFlowRate\">
+<a href=\"modelica://Buildings.Fluid.Storage.Ice.BaseClasses.NormalizedHeatFlowRate\">
 Buildings.Fluid.Storage.Ice.BaseClasses.NormalizedHeatFlowRate</a>.
 </p>
 </html>"));

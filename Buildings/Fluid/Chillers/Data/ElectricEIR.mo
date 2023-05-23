@@ -25,7 +25,7 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
                    "<html>
 <p>This record is used as a template for performance data
 for the chiller model
-<a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
 </p>
 </html>", revisions="<html>
