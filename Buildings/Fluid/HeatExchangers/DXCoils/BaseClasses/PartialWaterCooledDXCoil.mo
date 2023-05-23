@@ -145,8 +145,9 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     annotation (Placement(transformation(extent={{-50,-110},{-70,-90}})));
 
   // Components
-  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil eva
-    constrainedby Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
+  replaceable Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil eva
+    constrainedby
+    Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoolingCoil(
       redeclare final package Medium = MediumEva,
       redeclare final Buildings.Fluid.HeatExchangers.DXCoils.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
       dxCoi(
@@ -361,7 +362,8 @@ for an explanation of the model.
 <li>
 April 5 , 2023, by Xing Lu:<br/>
 Changed instance name <code>dxCoo</code> in instance <code>eva</code> to 
-<code>dxCoi</code>.<br/>
+<code>dxCoi</code>. Changed baseclass used from <code>PartialDXCoil</code> to 
+<code>PartialDXCoolingCoil</code>.<br/>
 Connect statements with references to <code>TConIn</code> changed to <code>TOut</code>.
 </li>
 <li>
