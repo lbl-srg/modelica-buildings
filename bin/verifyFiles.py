@@ -44,6 +44,7 @@ INVALID_IN_ALL=["fixme", "import \"",
                 "modelica://BuildingSystems",
 	        "modelica://IDEAS",
                 "modelica://https://",
+                r'href=\"Buildings.',
                 ">>>>>>",
                 "<<<<<<"]
 
@@ -114,17 +115,11 @@ def reportErrorIfContainsRegExp(fileName, listOfStrings):
     for string in listOfStrings:
         match = re.search(string, filTex, re.I)
         if match is not None:
-            cou = match.group().count('\n')
-            if cou > 1:
-                # Create short message as the match can be many lines long.
-                msg = match.group().split('\n')[0] + "..."
-            else:
-                msg = match.group()
             reportError("File '"
                         + getRelativeMoPath(fileName)
                         + "' contains invalid string regular expression '"
                         + string + "' in '"
-                        + msg + "'.")
+                        + match.group() + "'.")
 
 #########################################################
 def reportErrorIfMissing(fileName, listOfStrings):

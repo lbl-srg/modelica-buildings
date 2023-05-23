@@ -19,7 +19,7 @@ package Types "Package with type definitions"
     annotation (Documentation(info="<html>
 <p>
 Enumeration to specify the calculation of the hydraulic efficiency.
-See <a href=\"Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
+See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
 for instructions.
 </p>
 </html>", revisions="<html>
@@ -44,7 +44,7 @@ First implementation. This is for
     annotation (Documentation(info="<html>
 <p>
 Enumeration to specify the calculation of the motor efficiency.
-See <a href=\"Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
+See <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Buildings.Fluid.Movers.UsersGuide</a>
 for instructions.
 </p>
 </html>", revisions="<html>

@@ -288,7 +288,7 @@ The input <code>TSet</code> is the set point for the leaving fluid temperature a
 </ul>
 <p>
 The heating and cooling performance coefficients are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.HeatPumps.Data.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.Data.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.Data.EquationFitReversible</a>.
 </p>
 <p>
