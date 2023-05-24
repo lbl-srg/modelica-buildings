@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoReturn "No return branch"
   extends
-    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoReturn,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
@@ -10,8 +10,11 @@ model NoReturn "No return branch"
   Buildings.Templates.Components.Dampers.TwoPosition damRel(
     redeclare final package Medium = MediumAir,
     final dat=dat.damRel,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal,
     final text_flip=true)
-    "Relief damper" annotation (Placement(transformation(
+    "Relief damper"
+    annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-150,0})));
@@ -19,6 +22,8 @@ model NoReturn "No return branch"
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
       final dat=dat.fanRet,
+      final energyDynamics=energyDynamics,
+      final allowFlowReversal=allowFlowReversal,
       final have_senFlo=
         typCtlFanRet==Buildings.Templates.AirHandlersFans.Types.ControlFanReturn.AirflowMeasured,
       final text_flip=true)

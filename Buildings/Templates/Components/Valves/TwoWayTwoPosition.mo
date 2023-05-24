@@ -11,6 +11,10 @@ model TwoWayTwoPosition "Two-way two-position valve"
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
       final dpFixed_nominal=dpFixed_nominal,
+      final use_inputFilter=use_inputFilter,
+      final riseTime=riseTime,
+      final init=init,
+      final y_start=y_start,
       final allowFlowReversal=allowFlowReversal,
       final show_T=show_T)
     "Valve (butterfly valve characteristic)"

@@ -1,7 +1,7 @@
-within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
-block G36VAVBox "Guideline 36 controller for VAV terminal unit"
+within Buildings.Templates.ZoneEquipment.Components.Interfaces;
+block ControllerG36VAVBox "Guideline 36 controller for VAV terminal unit"
   extends
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController;
+    Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialControllerVAVBox;
 
   parameter Boolean have_occSen=false
     "Set to true if the zone has occupancy sensor"
@@ -287,4 +287,4 @@ for HVAC Systems. Atlanta, GA.
 </li>
 </ul>
 </html>"));
-end G36VAVBox;
+end ControllerG36VAVBox;

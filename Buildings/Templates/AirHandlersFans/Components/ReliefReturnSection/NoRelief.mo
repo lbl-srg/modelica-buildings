@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model NoRelief "No relief branch"
   extends
-    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.NoRelief,
     final typDamRel=Buildings.Templates.Components.Types.Damper.None,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
@@ -10,6 +10,7 @@ model NoRelief "No relief branch"
   replaceable Buildings.Templates.Components.Fans.None fanRet
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
+      final energyDynamics=energyDynamics,
       final allowFlowReversal=allowFlowReversal,
       final dat=dat.fanRet,
       final have_senFlo=

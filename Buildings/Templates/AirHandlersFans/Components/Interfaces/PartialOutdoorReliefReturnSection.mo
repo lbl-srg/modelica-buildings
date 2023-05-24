@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces;
+within Buildings.Templates.AirHandlersFans.Components.Interfaces;
 partial model PartialOutdoorReliefReturnSection
   "Interface class for outdoor/relief/return air section"
 
@@ -91,12 +91,6 @@ partial model PartialOutdoorReliefReturnSection
     dat.damRet.dp_nominal
     "Return air damper pressure drop";
 
-
-  parameter Modelica.Units.SI.Time tau=20
-    "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition",
-      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
-      __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"

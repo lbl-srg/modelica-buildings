@@ -8,8 +8,7 @@ record Damper "Record for damper model"
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
-    start=if typ==Buildings.Templates.Components.Types.Damper.None then 0
-    else 1)
+    start=1)
     "Air mass flow rate"
     annotation (
       Dialog(group="Mechanical",

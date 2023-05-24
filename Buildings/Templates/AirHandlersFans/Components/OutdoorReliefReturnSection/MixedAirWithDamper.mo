@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection;
 model MixedAirWithDamper "Mixed air system with return air damper"
   extends
-    Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.OutdoorReliefReturnSection.MixedAirWithDamper,
     final typSecOut=secOut.typ,
     final typSecRel=secRel.typ,
@@ -17,8 +17,9 @@ model MixedAirWithDamper "Mixed air system with return air damper"
   replaceable
     Buildings.Templates.AirHandlersFans.Components.OutdoorSection.SingleDamper
     secOut constrainedby
-    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
       redeclare final package MediumAir = MediumAir,
+      final energyDynamics=energyDynamics,
       final allowFlowReversal=allowFlowReversal,
       final dat=dat)
     "Outdoor air section"
@@ -36,8 +37,9 @@ model MixedAirWithDamper "Mixed air system with return air damper"
   replaceable
     Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.ReturnFan
     secRel constrainedby
-    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection(
       redeclare final package MediumAir = MediumAir,
+      final energyDynamics=energyDynamics,
       final allowFlowReversal=allowFlowReversal,
       final dat=dat)
     "Relief/return air section"
@@ -59,6 +61,7 @@ model MixedAirWithDamper "Mixed air system with return air damper"
 
   Buildings.Templates.Components.Dampers.Modulating damRet(
     redeclare final package Medium = MediumAir,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRet,
     final text_rotation=90)
@@ -72,7 +75,7 @@ model MixedAirWithDamper "Mixed air system with return air damper"
   // Currently only the configuration without heat recovery is supported.
   replaceable Buildings.Templates.AirHandlersFans.Components.HeatRecovery.None recHea
     constrainedby
-    Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces.PartialHeatRecovery(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialHeatRecovery(
       redeclare final package MediumAir = MediumAir,
       final allowFlowReversal=allowFlowReversal)
     "Heat recovery"

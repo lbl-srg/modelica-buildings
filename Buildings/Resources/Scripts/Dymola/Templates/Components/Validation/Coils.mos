@@ -78,3 +78,11 @@ createPlot(
     autoscale=true,
     grid=true
 );
+createPlot(
+    id=6,
+    subPlot=1,
+    position={300, 0, 400, 400},
+    y={"non.m_flow", "non.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

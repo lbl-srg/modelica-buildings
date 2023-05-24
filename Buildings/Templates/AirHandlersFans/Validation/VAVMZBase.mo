@@ -21,11 +21,19 @@ model VAVMZBase
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{90,92},{110,112}})));
 
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.FixedInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true,
+      Dialog(tab = "Dynamics", group="Conservation equations"));
+
   inner replaceable UserProject.AirHandlersFans.VAVMZBase VAV_1 constrainedby
     Buildings.Templates.AirHandlersFans.VAVMultiZone(
-    final dat=datAll._VAV_1,
+    final dat=datAll.dat_VAV_1,
     redeclare final package MediumAir = MediumAir,
-    redeclare final package MediumChiWat = MediumChiWat) "Air handling unit"
+    redeclare final package MediumChiWat = MediumChiWat,
+    final energyDynamics=energyDynamics)
+    "Air handling unit"
     annotation (Placement(transformation(extent={{-20,-50},{20,-10}})));
   Buildings.Fluid.Sources.Boundary_pT bouOut(
     redeclare final package Medium =MediumAir,

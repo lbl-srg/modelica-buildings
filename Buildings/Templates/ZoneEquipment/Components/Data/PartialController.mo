@@ -9,7 +9,7 @@ record PartialController "Record for controller interface class"
   annotation (Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for the class
-<a href=\"modelica://Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController\">
+<a href=\"modelica://Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialController\">
 Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController</a>.
 </p>
 </html>"));

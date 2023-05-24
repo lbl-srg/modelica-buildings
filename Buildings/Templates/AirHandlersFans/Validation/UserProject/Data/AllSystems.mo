@@ -21,7 +21,7 @@ class AllSystems "Top-level (whole building) system parameters"
   outer VAV VAV_1
     "Instance of MZVAV model";
 
-  parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone _VAV_1(
+  parameter Buildings.Templates.AirHandlersFans.Data.VAVMultiZone dat_VAV_1(
     final typ=VAV_1.typ,
     final typFanSup=VAV_1.typFanSup,
     final typFanRet=VAV_1.typFanRet,

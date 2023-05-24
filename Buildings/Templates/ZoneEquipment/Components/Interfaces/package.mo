@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
+within Buildings.Templates.ZoneEquipment.Components;
 package Interfaces "Interface classes"
   extends Modelica.Icons.InterfacesPackage;
 

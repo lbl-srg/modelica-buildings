@@ -2,7 +2,7 @@ within Buildings.Templates.AirHandlersFans.Components.Controls;
 block G36VAVMultiZone
   "Guideline 36 controller"
   extends
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.G36VAVMultiZone);
 
   parameter String idZon[nZon]

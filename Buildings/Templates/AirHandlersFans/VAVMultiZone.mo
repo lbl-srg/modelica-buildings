@@ -130,6 +130,7 @@ model VAVMultiZone "Multiple-zone VAV"
   inner replaceable Buildings.Templates.Components.Fans.SingleVariable fanSupDra
     constrainedby Buildings.Templates.Components.Interfaces.PartialFan(
       redeclare final package Medium = MediumAir,
+      final energyDynamics=energyDynamics,
       final allowFlowReversal=allowFlowReversalAir,
       final dat=dat.fanSup,
       final have_senFlo=ctl.typCtlFanRet==
@@ -221,7 +222,6 @@ model VAVMultiZone "Multiple-zone VAV"
       final dat=dat.coiHeaPre,
       redeclare final package MediumAir=MediumAir,
       final energyDynamics=energyDynamics,
-      final tau=tau,
       final allowFlowReversalAir=allowFlowReversalAir,
       final allowFlowReversalLiq=allowFlowReversalLiq,
       final show_T=show_T)
@@ -250,7 +250,6 @@ model VAVMultiZone "Multiple-zone VAV"
       final dat=dat.coiCoo,
       redeclare final package MediumAir=MediumAir,
       final energyDynamics=energyDynamics,
-      final tau=tau,
       final allowFlowReversalAir=allowFlowReversalAir,
       final allowFlowReversalLiq=allowFlowReversalLiq,
       final show_T=show_T)
@@ -270,7 +269,6 @@ model VAVMultiZone "Multiple-zone VAV"
       final dat=dat.coiHeaReh,
       redeclare final package MediumAir=MediumAir,
       final energyDynamics=energyDynamics,
-      final tau=tau,
       final allowFlowReversalAir=allowFlowReversalAir,
       final allowFlowReversalLiq=allowFlowReversalLiq,
       final show_T=show_T)
@@ -329,7 +327,7 @@ model VAVMultiZone "Multiple-zone VAV"
         origin={-20,-240})));
   inner replaceable Buildings.Templates.AirHandlersFans.Components.Controls.G36VAVMultiZone ctl
     constrainedby
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final dat=dat.ctl,
       final nZon=nZon)
     "Control selections"
@@ -370,7 +368,7 @@ equation
           75,-268},{60,-268},{60,-280}},
                                       color={0,127,255}));
   connect(busWea,coiCoo.busWea)  annotation (Line(
-      points={{0,280},{0,100},{74.5,100},{74.5,-190}},
+      points={{0,280},{0,100},{76,100},{76,-190}},
       color={255,204,51},
       thickness=0.5));
   connect(TAirMix.port_b, fanSupBlo.port_a)
@@ -751,7 +749,7 @@ within the current class.
 In this case, an additional variable <code>pBui</code> needs to be
 connected to the control bus to pass in the value of the absolute pressure
 in a representative space of the building.
-This is only for templating purposes, the actual control point remains the
+This is a modeling requirement, the actual control point remains the
 relative building static pressure.
 </p>
 <h4>References</h4>

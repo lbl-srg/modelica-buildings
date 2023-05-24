@@ -8,13 +8,6 @@ partial model PartialValve "Interface class for valve"
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
-  parameter Integer text_rotation = 0
-    "Text rotation angle in icon layer"
-    annotation(Dialog(tab="Graphics", enable=false));
-  parameter Boolean text_flip = false
-    "True to flip text horizontally in icon layer"
-    annotation(Dialog(tab="Graphics", enable=false));
-
   parameter Buildings.Templates.Components.Data.Valve dat(final typ=typ)
     "Design and operating parameters"
     annotation (Placement(transformation(extent={{70,70},{90,90}})),
@@ -29,6 +22,46 @@ partial model PartialValve "Interface class for valve"
   final parameter Modelica.Units.SI.PressureDifference dpFixedByp_nominal=
     dat.dpFixedByp_nominal
     "Nominal pressure drop in the bypass line";
+
+  parameter Boolean use_inputFilter=true
+    "= true, if opening is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    enable=typ<>Buildings.Templates.Components.Types.Valve.None));
+  parameter Modelica.Units.SI.Time riseTime=120
+    "Rise time of the filter (time to reach 99.6 % of an opening step)"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Filtered opening",
+      enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+  parameter Real y_start=1 "Initial position of actuator"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",
+    enable=use_inputFilter and typ<>Buildings.Templates.Components.Types.Valve.None));
+
+  parameter Modelica.Units.SI.Time tau=10
+    "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition",
+      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and (
+      typ==Buildings.Templates.Components.Types.Valves.ThreeWayModulating or
+      typ==Buildings.Templates.Components.Types.Valves.ThreeWayTwoPosition)),
+      __Linkage(enable=false));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations",
+      enable=typ==Buildings.Templates.Components.Types.Valves.ThreeWayModulating or
+      typ==Buildings.Templates.Components.Types.Valves.ThreeWayTwoPosition),
+      __Linkage(enable=false));
+
+  parameter Integer text_rotation = 0
+    "Text rotation angle in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
+  parameter Boolean text_flip = false
+    "True to flip text horizontally in icon layer"
+    annotation(Dialog(tab="Graphics", enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a portByp_a(
     redeclare final package Medium = Medium,

@@ -1,8 +1,10 @@
-within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
-partial block PartialVAVBoxController "Interface class for VAV terminal unit"
+within Buildings.Templates.ZoneEquipment.Components.Interfaces;
+partial block PartialControllerVAVBox
+  "Interface class for VAV terminal unit controller"
   extends
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialController(
-      redeclare Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController dat(
+    Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialController(
+      redeclare
+      Buildings.Templates.ZoneEquipment.Components.Data.VAVBoxController dat(
         stdVen=stdVen));
 
   parameter Boolean have_CO2Sen=false
@@ -24,4 +26,4 @@ partial block PartialVAVBoxController "Interface class for VAV terminal unit"
 This partial class provides a standard interface for VAV terminal unit controllers.
 </p>
 </html>"));
-end PartialVAVBoxController;
+end PartialControllerVAVBox;

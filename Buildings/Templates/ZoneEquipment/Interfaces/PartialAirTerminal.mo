@@ -54,16 +54,11 @@ partial model PartialAirTerminal
     "Total HHW heat flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Time tau=20
-    "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"),
-      __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
       __Linkage(enable=false));
-
   final parameter Boolean allowFlowReversalAir=true
     "= true to allow flow reversal, false restricts to design direction - Air side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true,

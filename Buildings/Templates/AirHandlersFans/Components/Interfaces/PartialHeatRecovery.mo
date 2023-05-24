@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.HeatRecovery.Interfaces;
+within Buildings.Templates.AirHandlersFans.Components.Interfaces;
 partial model PartialHeatRecovery "Interface class for heat recovery"
 
   replaceable package MediumAir=Buildings.Media.Air

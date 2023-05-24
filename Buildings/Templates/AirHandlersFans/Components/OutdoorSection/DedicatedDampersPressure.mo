@@ -2,13 +2,14 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersPressure
   "Separate dampers for ventilation and economizer, with differential pressure sensor"
   extends
-    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersPressure,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Economizer outdoor air damper"
@@ -18,6 +19,7 @@ model DedicatedDampersPressure
         origin={0,0})));
   Buildings.Templates.Components.Dampers.TwoPosition damOutMin(
     redeclare final package Medium = MediumAir,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOutMin)
     "Minimum outdoor air damper"

@@ -4,7 +4,7 @@ model VAVMZCoilEvaporatorMultiStage "Validation model for multiple-zone VAV"
     datAll(
       redeclare model VAV =
         UserProject.AirHandlersFans.VAVMZCoilEvaporatorMultiStage,
-      _VAV_1(coiCoo(redeclare
+      dat_VAV_1(coiCoo(redeclare
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.DoubleSpeed.Lennox_SCA240H4B
         datCoi))),
     redeclare

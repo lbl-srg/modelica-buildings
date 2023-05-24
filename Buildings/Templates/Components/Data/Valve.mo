@@ -8,8 +8,7 @@ record Valve "Record for valve model"
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(
     final min=0,
-    start=if typ==Buildings.Templates.Components.Types.Valve.None then 0
-    else 1)
+    start=1)
     "Nominal mass flow rate of fully open valve"
     annotation(Dialog(group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Valve.None));

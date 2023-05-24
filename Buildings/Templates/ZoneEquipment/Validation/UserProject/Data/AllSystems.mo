@@ -22,7 +22,7 @@ class AllSystems "Top-level (whole building) system parameters"
   outer VAVBox VAVBox_1
     "Instance of VAV box model";
 
-  parameter Buildings.Templates.ZoneEquipment.Data.VAVBox _VAVBox_1(
+  parameter Buildings.Templates.ZoneEquipment.Data.VAVBox dat_VAVBox_1(
     final typ=VAVBox_1.typ,
     final have_souChiWat=VAVBox_1.have_souChiWat,
     final have_souHeaWat=VAVBox_1.have_souHeaWat,

@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls;
 block G36VAVBoxReheat
   "Guideline 36 controller"
-  extends Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.G36VAVBox(
+  extends Buildings.Templates.ZoneEquipment.Components.Interfaces.ControllerG36VAVBox(
     final typ=Buildings.Templates.ZoneEquipment.Types.Controller.G36VAVBoxReheat);
 
   annotation (

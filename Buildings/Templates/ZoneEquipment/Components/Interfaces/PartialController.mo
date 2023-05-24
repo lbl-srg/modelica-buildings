@@ -1,4 +1,4 @@
-within Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces;
+within Buildings.Templates.ZoneEquipment.Components.Interfaces;
 partial block PartialController "Interface class for terminal unit controller"
 
   parameter Buildings.Templates.ZoneEquipment.Types.Controller typ

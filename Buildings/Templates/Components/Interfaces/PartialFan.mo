@@ -7,15 +7,31 @@ partial model PartialFan "Interface class for fan"
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Boolean have_senFlo
+  parameter Boolean have_senFlo = false
     "Set to true for air flow measurement"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Evaluate=true, Dialog(group="Configuration",
+    enable=typ<>Buildings.Templates.Components.Types.Fan.None));
+
+  parameter Modelica.Units.SI.Time tau=1
+    "Time constant of fluid volume for nominal flow, used if energy or mass balance is dynamic"
+    annotation (Dialog(
+      tab="Dynamics",
+      group="Nominal condition",
+      enable=typ<>Buildings.Templates.Components.Types.Fan.None and
+      energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
+      __Linkage(enable=false));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Type of energy balance: dynamic (3 initialization options) or steady state"
+    annotation(Evaluate=true,
+      Dialog(tab = "Dynamics", group="Conservation equations",
+      enable=typ<>Buildings.Templates.Components.Types.Fan.None),
+      __Linkage(enable=false));
 
   parameter Buildings.Templates.Components.Types.FanSingle typSin=
     Buildings.Templates.Components.Types.FanSingle.Housed
     "Type of single fan"
     annotation(Dialog(tab="Graphics", enable=false));
-
   parameter Integer text_rotation = 0
     "Text rotation angle in icon layer"
     annotation(Dialog(tab="Graphics", enable=false));
@@ -30,8 +46,12 @@ partial model PartialFan "Interface class for fan"
     annotation(Placement(transformation(extent={{70,70},{90,90}})),
     __Linkage(enable=false));
 
-  final parameter Integer nFan = dat.nFan
-    "Number of fans";
+  parameter Integer nFan(
+    final min=0,
+    start=0)
+    "Number of fans"
+    annotation (Dialog(group="Configuration",
+      enable=typ==Buildings.Templates.Components.Types.Fan.Array));
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=dat.dp_nominal
     "Total pressure rise";
 

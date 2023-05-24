@@ -22,7 +22,6 @@ model VAVBox "Interface class for VAV terminal unit"
       redeclare final package MediumAir = MediumAir,
       final dat=datCoiHea,
       final energyDynamics=energyDynamics,
-      final tau=tau,
       final allowFlowReversalAir=allowFlowReversalAir,
       final allowFlowReversalLiq=allowFlowReversalLiq,
       final show_T=show_T)
@@ -41,6 +40,7 @@ model VAVBox "Interface class for VAV terminal unit"
   inner replaceable Buildings.Templates.Components.Dampers.Modulating damVAV
     constrainedby Buildings.Templates.Components.Interfaces.PartialDamper(
       redeclare final package Medium = MediumAir,
+      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final allowFlowReversal=allowFlowReversalAir,
       final show_T=show_T,
       final dat=datDamVAV)
@@ -54,7 +54,7 @@ model VAVBox "Interface class for VAV terminal unit"
 
   inner replaceable Buildings.Templates.ZoneEquipment.Components.Controls.OpenLoop ctl
     constrainedby
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController(
+    Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialControllerVAVBox(
       final dat=dat.ctl)
     "Control selections"
     annotation (

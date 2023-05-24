@@ -4,16 +4,13 @@ record Coil "Record for coil model"
 
   parameter Buildings.Templates.Components.Types.Coil typ
     "Equipment type"
-    annotation (Dialog(group="Configuration", enable=false));
+    annotation (Dialog(group="Configuration", enable=false), Evaluate=true);
   parameter Buildings.Templates.Components.Types.Valve typVal
     "Type of valve"
-    annotation (Dialog(group="Configuration", enable=false));
-  final parameter Boolean have_sou=
-    typ==Buildings.Templates.Components.Types.Coil.WaterBasedCooling or
-    typ==Buildings.Templates.Components.Types.Coil.WaterBasedHeating
+    annotation (Dialog(group="Configuration", enable=false), Evaluate=true);
+  parameter Boolean have_sou
     "Set to true for fluid ports on the source side"
     annotation (Dialog(group="Configuration"), Evaluate=true);
-
 
   /*
 For evaporator coils this is also provided by the performance data record.
@@ -124,8 +121,8 @@ the maximum value from the performance data record.
     Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.DXCoil
     "Performance data record of evaporator coil"
     annotation(choicesAllMatching=true, Dialog(
-      enable=typ==Buildings.Templates.Components.Types.HeatExchanger.DXMultiStage or
-      typ==Buildings.Templates.Components.Types.HeatExchanger.DXVariableSpeed));
+      enable=typ==Buildings.Templates.Components.Types.Coil.EvaporatorMultiStage or
+      typ==Buildings.Templates.Components.Types.Coil.EvaporatorVariableSpeed));
   annotation (Documentation(info="<html>
 <p>
 This record provides the set of sizing and operating parameters for

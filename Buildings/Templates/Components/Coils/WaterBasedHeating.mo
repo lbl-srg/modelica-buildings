@@ -3,8 +3,7 @@ model WaterBasedHeating "Hot water coil"
   extends Buildings.Templates.Components.Interfaces.PartialCoil(
     final typ=Buildings.Templates.Components.Types.Coil.WaterBasedHeating,
     final typVal=val.typ,
-    port_aSou(redeclare final package Medium = MediumHeaWat),
-    port_bSou(redeclare final package Medium = MediumHeaWat));
+    redeclare final package MediumSou = MediumHeaWat);
 
   replaceable package MediumHeaWat=Buildings.Media.Water
     "Source side medium";
@@ -22,6 +21,8 @@ model WaterBasedHeating "Hot water coil"
   replaceable Buildings.Templates.Components.Valves.TwoWayModulating val constrainedby
     Buildings.Templates.Components.Interfaces.PartialValve(
       redeclare final package Medium = MediumHeaWat,
+      final energyDynamics=energyDynamics,
+      use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
       final allowFlowReversal=allowFlowReversalLiq,
       final show_T=show_T,
       final dat=datVal)

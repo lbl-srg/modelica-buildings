@@ -2,13 +2,14 @@ within Buildings.Templates.AirHandlersFans.Components.OutdoorSection;
 model DedicatedDampersAirflow
   "Separate dampers for ventilation and economizer, with airflow measurement station"
   extends
-    Buildings.Templates.AirHandlersFans.Components.OutdoorSection.Interfaces.PartialOutdoorSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorSection(
     final typ=Buildings.Controls.OBC.ASHRAE.G36.Types.OutdoorAirSection.DedicatedDampersAirflow,
     final typDamOut=damOut.typ,
     final typDamOutMin=damOutMin.typ);
 
   Buildings.Templates.Components.Dampers.Modulating damOut(
     redeclare final package Medium = MediumAir,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOut)
     "Economizer outdoor air damper"
@@ -18,6 +19,7 @@ model DedicatedDampersAirflow
         origin={0,0})));
   Buildings.Templates.Components.Dampers.Modulating damOutMin(
     redeclare final package Medium = MediumAir,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
     final allowFlowReversal=allowFlowReversal,
     final dat=dat.damOutMin)
     "Minimum outdoor air damper"
@@ -43,6 +45,7 @@ model DedicatedDampersAirflow
     annotation (Placement(transformation(extent={{110,50},{130,70}})));
   Buildings.Templates.Components.Sensors.SpecificEnthalpy hAirOut(
     redeclare final package Medium = MediumAir,
+    final allowFlowReversal=allowFlowReversal,
     final have_sen=
       typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.FixedEnthalpyWithFixedDryBulb or
       typCtlEco==Buildings.Controls.OBC.ASHRAE.G36.Types.ControlEconomizer.DifferentialEnthalpyWithFixedDryBulb,

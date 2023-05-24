@@ -1,0 +1,33 @@
+simulateModel("Buildings.Templates.Components.Validation.Valves",
+    method="cvode",
+    tolerance=1e-6,
+    stopTime=200.0,
+    resultFile="Valves");
+createPlot(
+    id=1,
+    position={0, 0, 400, 400},
+    y={"modThr.bus.y", "modThr.bus.y_actual", "modThr.val.res1.m_flow",  "modThr.val.res3.m_flow", "modThr.val.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=2,
+    position={100, 0, 400, 400},
+    y={"modTwo.bus.y", "modTwo.bus.y_actual", "modTwo.val.m_flow", "modTwo.val.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=3,
+    position={200, 0, 400, 400},
+    y={"twoThr.bus.y1", "twoThr.bus.y_actual", "twoThr.val.res1.m_flow", "twoThr.val.res3.m_flow", "twoThr.val.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);
+createPlot(
+    id=4,
+    position={300, 0, 400, 400},
+    y={"twoTwo.bus.y1", "twoTwo.bus.y_actual", "twoTwo.val.m_flow", "twoTwo.val.m_flow_nominal"},
+    autoscale=true,
+    grid=true
+);

@@ -9,6 +9,12 @@ model ThreeWayTwoPosition "Three-way two-position valve"
       final m_flow_nominal=m_flow_nominal,
       final dpValve_nominal=dpValve_nominal,
       final dpFixed_nominal={dpFixed_nominal, dpFixedByp_nominal},
+      final energyDynamics=energyDynamics,
+      final tau=tau,
+      final use_inputFilter=use_inputFilter,
+      final riseTime=riseTime,
+      final init=init,
+      final y_start=y_start,
       final portFlowDirection_1=if allowFlowReversal then
         Modelica.Fluid.Types.PortFlowDirection.Bidirectional
         else Modelica.Fluid.Types.PortFlowDirection.Entering,

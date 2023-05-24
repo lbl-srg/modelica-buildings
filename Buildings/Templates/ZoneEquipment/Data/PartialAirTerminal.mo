@@ -15,18 +15,18 @@ record PartialAirTerminal "Record for air terminal unit interface class"
     "Type of controller"
     annotation (Evaluate=true, Dialog(group="Configuration", enable=false));
 
-  parameter String id
+  parameter String id=""
    "System tag"
-    annotation (Dialog(group="Configuration"));
+    annotation (Dialog(group="Advanced"));
   parameter String id_souAir=""
     "Air supply system tag"
-    annotation (Evaluate=true, Dialog(group="Configuration"));
+    annotation (Dialog(group="Advanced"));
   parameter String id_souChiWat=""
     "CHW supply system tag"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souChiWat));
+    annotation (Dialog(group="Advanced", enable=have_souChiWat));
   parameter String id_souHeaWat=""
     "HHW supply system tag"
-    annotation (Evaluate=true, Dialog(group="Configuration", enable=have_souHeaWat));
+    annotation (Dialog(group="Advanced", enable=have_souHeaWat));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal(
     final min=0,
@@ -44,6 +44,10 @@ record PartialAirTerminal "Record for air terminal unit interface class"
 This record provides the set of sizing and operating parameters for the class
 <a href=\"modelica://Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal\">
 Buildings.Templates.ZoneEquipment.Interfaces.PartialAirTerminal</a>.
+</p>
+<p>
+The tab <code>Advanced</code> contains some optional parameters that can be used 
+for workflow automation, but are not used for simulation.
 </p>
 </html>"));
 end PartialAirTerminal;

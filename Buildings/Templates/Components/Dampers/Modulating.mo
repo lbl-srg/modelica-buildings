@@ -9,6 +9,10 @@ model Modulating "Modulating damper"
     final m_flow_nominal=m_flow_nominal,
     final dpDamper_nominal=dp_nominal,
     final dpFixed_nominal=dat.dpFixed_nominal,
+    final use_inputFilter=use_inputFilter,
+    final riseTime=riseTime,
+    final init=init,
+    final y_start=y_start,
     final allowFlowReversal=allowFlowReversal,
     final show_T=show_T)
     "Exponential damper"

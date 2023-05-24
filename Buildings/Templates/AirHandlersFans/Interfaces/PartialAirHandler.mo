@@ -87,10 +87,6 @@ partial model PartialAirHandler "Interface class for air handler"
     "Total HHW heat flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Units.SI.Time tau=20
-    "Time constant at nominal flow - Air side and liquid side"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition"),
-      __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"

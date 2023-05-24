@@ -1,14 +1,16 @@
-within Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces;
-partial block PartialVAVMultizone "Interface class for multiple-zone VAV controller"
+within Buildings.Templates.AirHandlersFans.Components.Interfaces;
+partial block PartialControllerVAVMultizone
+  "Interface class for multiple-zone VAV controller"
   extends
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialController(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialController(
       redeclare Buildings.Templates.AirHandlersFans.Components.Data.VAVMultiZoneController
         dat(
           typSecOut=secOutRel.typSecOut,
           buiPreCon=buiPreCon,
           stdVen=stdVen));
 
-  outer replaceable Buildings.Templates.AirHandlersFans.Components.OutdoorReliefReturnSection.Interfaces.PartialOutdoorReliefReturnSection
+  outer replaceable
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialOutdoorReliefReturnSection
     secOutRel "Outdoor/relief/return air section";
   outer replaceable Buildings.Templates.Components.Coils.None coiCoo
     "Cooling coil";
@@ -106,4 +108,4 @@ initial equation
 This partial class provides a standard interface for multiple-zone VAV controllers.
 </p>
 </html>"));
-end PartialVAVMultizone;
+end PartialControllerVAVMultizone;

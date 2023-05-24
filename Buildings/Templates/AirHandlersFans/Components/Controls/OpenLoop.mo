@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.Controls;
 block OpenLoop "Open loop controller"
   extends
-    Buildings.Templates.AirHandlersFans.Components.Controls.Interfaces.PartialVAVMultizone(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialControllerVAVMultizone(
       final typ=Buildings.Templates.AirHandlersFans.Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamOut(k=1)

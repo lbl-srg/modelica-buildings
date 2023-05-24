@@ -1,4 +1,4 @@
-within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces;
+within Buildings.Templates.AirHandlersFans.Components.Interfaces;
 partial model PartialReliefReturnSection "Interface class for relief/return air section"
 
   replaceable package MediumAir=Buildings.Media.Air
@@ -50,11 +50,6 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
         enable=typFanRel <> Buildings.Templates.Components.Types.Fan.None or
           typFanRet <> Buildings.Templates.Components.Types.Fan.None));
 
-  parameter Modelica.Units.SI.Time tau=20
-    "Time constant at nominal flow"
-    annotation (Dialog(tab="Dynamics", group="Nominal condition",
-      enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
-      __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -116,7 +111,6 @@ partial model PartialReliefReturnSection "Interface class for relief/return air 
     final m_flow_nominal={1,-1,-1}*m_flow_nominal,
     final dp_nominal=fill(0, 3),
     final energyDynamics=energyDynamics,
-    final tau=tau,
     final portFlowDirection_1=if allowFlowReversal then
       Modelica.Fluid.Types.PortFlowDirection.Bidirectional
       else Modelica.Fluid.Types.PortFlowDirection.Entering,

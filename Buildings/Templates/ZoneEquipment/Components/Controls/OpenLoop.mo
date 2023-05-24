@@ -1,7 +1,7 @@
 within Buildings.Templates.ZoneEquipment.Components.Controls;
 block OpenLoop "Open loop controller"
   extends
-    Buildings.Templates.ZoneEquipment.Components.Controls.Interfaces.PartialVAVBoxController(
+    Buildings.Templates.ZoneEquipment.Components.Interfaces.PartialControllerVAVBox(
       final typ=Buildings.Templates.ZoneEquipment.Types.Controller.OpenLoop);
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yDamVAV(k=1)

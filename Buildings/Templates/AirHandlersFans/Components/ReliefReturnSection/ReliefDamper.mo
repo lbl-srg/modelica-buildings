@@ -1,7 +1,7 @@
 within Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection;
 model ReliefDamper "Modulating relief damper without fan"
   extends
-    Buildings.Templates.AirHandlersFans.Components.ReliefReturnSection.Interfaces.PartialReliefReturnSection(
+    Buildings.Templates.AirHandlersFans.Components.Interfaces.PartialReliefReturnSection(
     final typ=Buildings.Templates.AirHandlersFans.Types.ReliefReturnSection.ReliefDamper,
     final typDamRel=damRel.typ,
     final typFanRel=Buildings.Templates.Components.Types.Fan.None,
@@ -9,6 +9,8 @@ model ReliefDamper "Modulating relief damper without fan"
 
   Buildings.Templates.Components.Dampers.Modulating damRel(
     redeclare final package Medium = MediumAir,
+    use_inputFilter=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+    final allowFlowReversal=allowFlowReversal,
     final dat=dat.damRel,
     final text_flip=true,
     typBla=Buildings.Templates.Components.Types.DamperBlades.Opposed)

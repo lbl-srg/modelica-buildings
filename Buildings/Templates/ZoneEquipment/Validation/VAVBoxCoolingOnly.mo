@@ -38,7 +38,7 @@ model VAVBoxCoolingOnly "Validation model for VAV terminal unit cooling only"
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
 
   inner replaceable UserProject.ZoneEquipment.VAVBoxCoolingOnly VAVBox_1(
-    final dat=datAll._VAVBox_1,
+    final dat=datAll.dat_VAVBox_1,
     redeclare final package MediumAir = MediumAir,
     redeclare final package MediumHeaWat = MediumHeaWat)
     "Terminal unit"

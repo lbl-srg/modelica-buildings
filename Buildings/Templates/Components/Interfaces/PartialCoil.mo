@@ -37,6 +37,7 @@ partial model PartialCoil "Interface class for coil"
     annotation (Evaluate=true, Dialog(group="Configuration"));
 
   parameter Buildings.Templates.Components.Data.Coil dat(
+    final have_sou=have_sou,
     final typ=typ,
     final typVal=typVal)
     "Design and operating parameters"
@@ -85,7 +86,7 @@ partial model PartialCoil "Interface class for coil"
       __Linkage(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_aSou(
-    redeclare package Medium = MediumSou,
+    redeclare final package Medium = MediumSou,
     m_flow(min=if allowFlowReversalLiq then -Modelica.Constants.inf else 0),
     h_outflow(start=MediumSou.h_default, nominal=MediumSou.h_default))
     if have_sou
@@ -93,7 +94,7 @@ partial model PartialCoil "Interface class for coil"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}}),
         iconTransformation(extent={{40,-110},{60,-90}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_bSou(
-    redeclare package Medium = MediumSou,
+    redeclare final package Medium = MediumSou,
     m_flow(max=if allowFlowReversalLiq then +Modelica.Constants.inf else 0),
     h_outflow(start = MediumSou.h_default, nominal = MediumSou.h_default))
     if have_sou
