@@ -372,7 +372,7 @@ initial equation
         fillPattern=FillPattern.Solid),
         Line(
           points={{-60,-60},{50,-60},{50,0}},
-          color={28,108,200},
+          color={238,46,47},
           thickness=5),
         Ellipse(
           extent={{-40,-40},{0,-80}},
@@ -381,7 +381,7 @@ initial equation
           fillColor={0,100,199}),
         Line(
           points={{-60,100},{50,100},{50,0},{200,0}},
-          color={28,108,200},
+          color={238,46,47},
           thickness=5),
         Rectangle(
           extent={{-180,-40},{-60,-120}},
@@ -422,7 +422,7 @@ initial equation
           endAngle=360,
           visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
         Polygon(
-          points={{150,20},{150,-20},{170,0},{150,20}},
+          points={{150,19},{150,-19},{169,0},{150,19}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
@@ -430,7 +430,7 @@ initial equation
           visible=typPumHeaWatSec == Buildings.Templates.HeatingPlants.HotWater.Types.PumpsSecondary.Centralized),
         Line(
           points={{200,-100},{-60,-100}},
-          color={28,108,200},
+          color={238,46,47},
           pattern=LinePattern.Dash,
           thickness=5),
         Ellipse(
@@ -439,22 +439,22 @@ initial equation
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
         Polygon(
-          points={{-20,120},{-20,80},{0,100},{-20,120}},
+          points={{-20,119},{-20,81},{-1,100},{-20,119}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
         Line(
           points={{-60,60},{20,60},{20,-98}},
-          color={28,108,200},
+          color={238,46,47},
           thickness=5,
           pattern=LinePattern.Dash),
         Line(
           points={{102,-2},{102,-102}},
-          color={28,108,200},
+          color={238,46,47},
           thickness=5),
         Polygon(
-          points={{-20,-40},{-20,-80},{0,-60},{-20,-40}},
+          points={{-20,-41},{-20,-79},{-1,-60},{-20,-41}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
