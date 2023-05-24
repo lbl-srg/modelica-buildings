@@ -97,7 +97,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-120},{100,100}}),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                          graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},
@@ -108,5 +108,6 @@ First implementation.
                 pattern = LinePattern.None,
                 fillPattern = FillPattern.Solid,
                 points = {{-36,60},{64,0},{-36,-60},{-36,60}})}), Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+        coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}})));
 end Controller;
