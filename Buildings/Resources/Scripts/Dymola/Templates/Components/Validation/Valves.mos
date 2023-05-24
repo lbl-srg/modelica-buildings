@@ -20,14 +20,14 @@ createPlot(
 createPlot(
     id=3,
     position={200, 0, 400, 400},
-    y={"twoThr.bus.y1", "twoThr.bus.y_actual", "twoThr.val.res1.m_flow", "twoThr.val.res3.m_flow", "twoThr.val.m_flow_nominal"},
+    y={"twoThr.bus.y1", "twoThr.bus.y1_actual", "twoThr.val.res1.m_flow", "twoThr.val.res3.m_flow", "twoThr.val.m_flow_nominal"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=4,
     position={300, 0, 400, 400},
-    y={"twoTwo.bus.y1", "twoTwo.bus.y_actual", "twoTwo.val.m_flow", "twoTwo.val.m_flow_nominal"},
+    y={"twoTwo.bus.y1", "twoTwo.bus.y1_actual", "twoTwo.val.m_flow", "twoTwo.val.m_flow_nominal"},
     autoscale=true,
     grid=true
 );

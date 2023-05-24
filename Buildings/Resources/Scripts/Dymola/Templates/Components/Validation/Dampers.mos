@@ -20,7 +20,7 @@ createPlot(
 createPlot(
     id=3,
     position={200, 0, 400, 400},
-    y={"two.bus.y1", "two.bus.y_actual", "two.dam.m_flow", "two.dam.m_flow_nominal"},
+    y={"two.bus.y1", "two.bus.y1_actual", "two.dam.m_flow", "two.dam.m_flow_nominal"},
     autoscale=true,
     grid=true
 );

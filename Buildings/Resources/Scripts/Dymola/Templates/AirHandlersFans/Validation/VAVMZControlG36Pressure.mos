@@ -7,14 +7,14 @@ createPlot(
     id=1,
     subPlot=1,
     position={20, 20, 500, 500},
-    y={"busAHU.TAirSup", "busAHU.TAirMix", "busAHU.TOut"},
+    y={"VAV_1.bus.TAirSup", "VAV_1.bus.TAirMix", "VAV_1.bus.TOut"},
     autoscale=true,
     grid=true
 );
 createPlot(
     id=1,
     subPlot=2,
-    y={"busAHU.VOut_flow"},
+    y={"VAV_1.bus.VOut_flow"},
     autoscale=true,
     grid=true
 );
