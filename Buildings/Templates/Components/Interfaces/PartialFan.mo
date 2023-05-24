@@ -2,7 +2,7 @@ within Buildings.Templates.Components.Interfaces;
 partial model PartialFan "Interface class for fan"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final m_flow_nominal=dat.m_flow_nominal)
-    annotation(__Linkage(enable=false));
+    annotation(__ctrl_flow(enable=false));
 
   parameter Buildings.Templates.Components.Types.Fan typ
     "Equipment type"
@@ -19,14 +19,14 @@ partial model PartialFan "Interface class for fan"
       group="Nominal condition",
       enable=typ<>Buildings.Templates.Components.Types.Fan.None and
       energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState),
-      __Linkage(enable=false));
+      __ctrl_flow(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true,
       Dialog(tab = "Dynamics", group="Conservation equations",
       enable=typ<>Buildings.Templates.Components.Types.Fan.None),
-      __Linkage(enable=false));
+      __ctrl_flow(enable=false));
 
   parameter Buildings.Templates.Components.Types.FanSingle typSin=
     Buildings.Templates.Components.Types.FanSingle.Housed
@@ -44,7 +44,7 @@ partial model PartialFan "Interface class for fan"
     final nFan=nFan)
     "Design and operating parameters"
     annotation(Placement(transformation(extent={{70,70},{90,90}})),
-    __Linkage(enable=false));
+    __ctrl_flow(enable=false));
 
   parameter Integer nFan(
     final min=0,

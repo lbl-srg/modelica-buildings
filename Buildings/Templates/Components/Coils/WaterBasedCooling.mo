@@ -57,7 +57,7 @@ model WaterBasedCooling "Chilled water coil"
     final show_T=show_T)
     "Heat exchanger"
     annotation (
-      __Linkage(enable=false),
+      __ctrl_flow(enable=false),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Fluid.FixedResistances.Junction jun(

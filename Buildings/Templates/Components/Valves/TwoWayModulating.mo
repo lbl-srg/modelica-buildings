@@ -17,7 +17,7 @@ model TwoWayModulating "Two-way modulating valve"
       final show_T=show_T)
     "Valve"
     annotation (
-      __Linkage(enable=false),
+      __ctrl_flow(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(

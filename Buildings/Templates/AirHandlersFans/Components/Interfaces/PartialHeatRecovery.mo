@@ -4,7 +4,7 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__Linkage(enable=false));
+    annotation(__ctrl_flow(enable=false));
 
   parameter Buildings.Templates.AirHandlersFans.Types.HeatRecovery typ
     "Equipment type"
@@ -12,7 +12,7 @@ partial model PartialHeatRecovery "Interface class for heat recovery"
 
   parameter Boolean allowFlowReversal = true
     "= false to simplify equations, assuming, but not enforcing, no flow reversal"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true, __Linkage(enable=false));
+    annotation(Dialog(tab="Assumptions"), Evaluate=true, __ctrl_flow(enable=false));
 
   Buildings.Templates.AirHandlersFans.Interfaces.Bus bus
     if typ <> Buildings.Templates.AirHandlersFans.Types.HeatRecovery.None

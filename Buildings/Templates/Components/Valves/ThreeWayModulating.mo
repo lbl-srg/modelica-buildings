@@ -26,7 +26,7 @@ model ThreeWayModulating "Three-way modulating valve"
         else Modelica.Fluid.Types.PortFlowDirection.Entering)
     "Valve"
     annotation (
-      __Linkage(enable=false),
+      __ctrl_flow(enable=false),
       choicesAllMatching=true,
       Placement(
         transformation(

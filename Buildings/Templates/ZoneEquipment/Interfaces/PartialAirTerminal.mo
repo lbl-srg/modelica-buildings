@@ -5,11 +5,11 @@ partial model PartialAirTerminal
   replaceable package MediumAir=Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Air medium"
-    annotation(__Linkage(enable=false));
+    annotation(__ctrl_flow(enable=false));
   replaceable package MediumHeaWat=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "HHW medium"
-    annotation(Dialog(enable=have_souHeaWat), __Linkage(enable=false));
+    annotation(Dialog(enable=have_souHeaWat), __ctrl_flow(enable=false));
 
   parameter Buildings.Templates.ZoneEquipment.Types.Configuration typ
     "Type of system"
@@ -58,20 +58,20 @@ partial model PartialAirTerminal
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations"),
-      __Linkage(enable=false));
+      __ctrl_flow(enable=false));
   final parameter Boolean allowFlowReversalAir=true
     "= true to allow flow reversal, false restricts to design direction - Air side"
     annotation (Dialog(tab="Assumptions"), Evaluate=true,
-      __Linkage(enable=false));
+      __ctrl_flow(enable=false));
   parameter Boolean allowFlowReversalLiq=true
     "= true to allow flow reversal, false restricts to design direction - CHW and HW side"
     annotation (Dialog(tab="Assumptions", enable=have_souChiWat or have_souHeaWat),
       Evaluate=true,
-      __Linkage(enable=false));
+      __ctrl_flow(enable=false));
   parameter Boolean show_T = false
     "= true, if actual temperature at ports of subcomponents is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"),
-      __Linkage(enable=false));
+      __ctrl_flow(enable=false));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Sup(
     redeclare final package Medium = MediumAir,

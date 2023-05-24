@@ -55,7 +55,7 @@ model WaterBasedHeating "Hot water coil"
     final allowFlowReversal2=allowFlowReversalAir,
     final show_T=show_T)
     "Heat exchanger"
-    annotation (__Linkage(enable=false),
+    annotation (__ctrl_flow(enable=false),
       Placement(transformation(extent={{10,4},{-10,-16}})));
 
   Buildings.Templates.Components.Routing.PassThroughFluid pas(
