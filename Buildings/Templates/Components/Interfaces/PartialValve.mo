@@ -45,15 +45,15 @@ partial model PartialValve "Interface class for valve"
     "Time constant at nominal flow"
     annotation (Dialog(tab="Dynamics", group="Nominal condition",
       enable=energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and (
-      typ==Buildings.Templates.Components.Types.Valves.ThreeWayModulating or
-      typ==Buildings.Templates.Components.Types.Valves.ThreeWayTwoPosition)),
+      typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating or
+      typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition)),
       __Linkage(enable=false));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Conservation equations",
-      enable=typ==Buildings.Templates.Components.Types.Valves.ThreeWayModulating or
-      typ==Buildings.Templates.Components.Types.Valves.ThreeWayTwoPosition),
+      enable=typ==Buildings.Templates.Components.Types.Valve.ThreeWayModulating or
+      typ==Buildings.Templates.Components.Types.Valve.ThreeWayTwoPosition),
       __Linkage(enable=false));
 
   parameter Integer text_rotation = 0
