@@ -51,7 +51,7 @@ partial model PartialFan "Interface class for fan"
     start=0)
     "Number of fans"
     annotation (Dialog(group="Configuration",
-      enable=typ==Buildings.Templates.Components.Types.Fan.Array));
+      enable=typ==Buildings.Templates.Components.Types.Fan.ArrayVariable));
   final parameter Modelica.Units.SI.PressureDifference dp_nominal=dat.dp_nominal
     "Total pressure rise";
 
