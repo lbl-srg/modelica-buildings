@@ -5,7 +5,7 @@ model OperatingMode
   parameter Integer nSchRow = 4
     "Number of rows in schedule table";
 
-  parameter Real schTab[nSchRow,2] = [0,0; 6,1; 18,1; 24,1]
+  parameter Real schTab[nSchRow,2] = [0,0; 2,1; 18,1; 24,1]
     "Table defining schedule for enabling plant";
 
   Buildings.Controls.OBC.ChilledBeams.SetPoints.OperatingMode operatingMode
@@ -32,11 +32,10 @@ protected
 
 equation
   connect(booPul.y,operatingMode.uOccDet)
-    annotation (Line(points={{-8,20},{0,20},{0,2},{8,2}},
+    annotation (Line(points={{-8,20},{0,20},{0,4},{8,4}},
                                             color={255,0,255}));
-  connect(operatingMode.uOccExp, greThr.y) annotation (Line(points={{8,-2},{0,
-          -2},{0,-20},{-8,-20}},
-                              color={255,0,255}));
+  connect(operatingMode.uOccExp, greThr.y) annotation (Line(points={{8,-4},{0,-4},
+          {0,-20},{-8,-20}},  color={255,0,255}));
   connect(greThr.u, enaSch.y[1])
     annotation (Line(points={{-32,-20},{-38,-20}}, color={0,0,127}));
 annotation (

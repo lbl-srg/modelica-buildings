@@ -1,5 +1,5 @@
-simulateModel("Buildings.Controls.OBC.ChilledBeams.SetPoints.Validation.OperatingMode", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="OperatingMode");
+simulateModel("Buildings.Controls.OBC.ChilledBeams.SetPoints.Validation.OperatingMode", method="Cvode", stopTime=14400, tolerance=1e-06, resultFile="OperatingMode");
 
-createPlot(id=1, position={0, 0, 1338, 978}, y={"operatingMode.uOcc"}, range={0.0, 7600.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 1338, 191}, y={"operatingMode.uDetOcc"}, range={0.0, 7600.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1338, 978}, y={"operatingMode.uOccExp"}, range={0.0, 7600.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1338, 191}, y={"operatingMode.uOccDet"}, range={0.0, 7600.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
 createPlot(id=1, position={0, 0, 1338, 192}, y={"operatingMode.intSwi.y"}, range={0.0, 7600.0, -1.0, 4.0}, grid=true, subPlot=3, colors={{28,108,200}});
