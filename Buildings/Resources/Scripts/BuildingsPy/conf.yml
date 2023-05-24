@@ -197,6 +197,9 @@
   openmodelica:
     comment: returned non-zero exit status 255.
     simulate: false
+- model_name: Buildings.Obsolete.DistrictHeatingCooling.Validation.HeatingCoolingHotWaterSmall
+  openmodelica:
+    rtol: 1.0E-8
 - model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
   dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
