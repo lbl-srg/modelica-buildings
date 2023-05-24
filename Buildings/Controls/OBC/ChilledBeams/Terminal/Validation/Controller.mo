@@ -52,9 +52,9 @@ protected
     annotation (Placement(transformation(extent={{-40,46},{-20,66}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
-    final amplitude=5,
+    final amplitude=10,
     final freqHz=1/720,
-    final offset=295)
+    final offset=297.15)
     "Continuous sine signal"
     annotation (Placement(transformation(extent={{-80,-66},{-60,-46}})));
 
