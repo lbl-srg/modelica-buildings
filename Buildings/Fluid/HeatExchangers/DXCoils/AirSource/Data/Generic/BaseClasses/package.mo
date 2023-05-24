@@ -7,10 +7,10 @@ package BaseClasses "Package with base classes for performance data"
 This package contains performance curves for the cooling capacity and the EIR
 of air source DX cooling coils.
 For performance data of specific air source DX cooling coils, see the packages
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.SingleSpeed\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.SingleSpeed</a>
 and
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.DoubleSpeed\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.DoubleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.DoubleSpeed</a>.
 </p>
 <p>
