@@ -81,7 +81,7 @@ are proven on (<code>uChiWatPum = true</code>).
 </li>
 <li>
 <code>chiPumSpe</code> runs the pump at minimum speed (<code>yChiWatPumSpe = minPumSpe</code>)
-when none of the pumpsare not yet proven on (<code>uChiWatPum = false</code>).
+when none of the pumps are not yet proven on (<code>uChiWatPum = false</code>).
 </li>
 </ol>
 </p>
