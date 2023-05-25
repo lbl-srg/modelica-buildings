@@ -30,22 +30,22 @@ model Controller "Validation controller model"
     final startTime=0)
     "Measured mixed air temperature"
     annotation (Placement(transformation(extent={{-200,-200},{-180,-180}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOut(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOut(
     final amplitude=5,
     final offset=18 + 273.15,
     final freqHz=1/3600) "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-240,180},{-220,200}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine ducStaPre(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin ducStaPre(
     final offset=200,
     final amplitude=150,
     final freqHz=1/3600) "Duct static pressure"
     annotation (Placement(transformation(extent={{-200,200},{-180,220}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine2(
     final offset=3,
     final amplitude=2,
     final freqHz=1/9600) "Duct static pressure setpoint reset requests"
     annotation (Placement(transformation(extent={{-240,220},{-220,240}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sine3(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sine3(
     final amplitude=6,
     final freqHz=1/9600)
     "Maximum supply temperature setpoint reset"

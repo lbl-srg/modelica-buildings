@@ -4,27 +4,31 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
   parameter Boolean have_hotWatCoi
     "True: the system has hot water coil";
   parameter Real thrTemDif(unit="K")=3
-    "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests";
+    "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
+    annotation (__cdl(ValueInReference=true));
   parameter Real twoTemDif(unit="K")=2
-    "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests";
+    "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
+    annotation (__cdl(ValueInReference=true));
   parameter Real thrTDis_1(unit="K")=17
     "Threshold difference between discharge air temperature and its setpoint for generating 3 hot water reset requests"
-    annotation(Dialog(enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true), Dialog(enable=have_hotWatCoi));
   parameter Real thrTDis_2(unit="K")=8.3
     "Threshold difference between discharge air temperature and its setpoint for generating 2 hot water reset requests"
-    annotation(Dialog(enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true), Dialog(enable=have_hotWatCoi));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation(Dialog(group="Duration times"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Duration times"));
   parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
-    annotation(Dialog(group="Duration times"));
+    annotation (__cdl(ValueInReference=true), Dialog(group="Duration times"));
   parameter Real durTimDisAir(unit="s")=300
     "Duration time of discharge air temperature less than setpoint"
-    annotation(Dialog(group="Duration times", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=true),
+                Dialog(group="Duration times", enable=have_hotWatCoi));
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (Dialog(tab="Advanced", enable=have_hotWatCoi));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Advanced", enable=have_hotWatCoi));
   parameter Real floHys(unit="m3/s")
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
     annotation (Dialog(tab="Advanced"));
@@ -41,7 +45,7 @@ block SystemRequests "Output system requests for parallel fan-powered terminal u
     final unit="s",
     final quantity="Time")=120
     "Sample period of component, set to the same value as the trim and respond that process yPreSetReq"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAftSup
     "After suppression period due to the setpoint change"

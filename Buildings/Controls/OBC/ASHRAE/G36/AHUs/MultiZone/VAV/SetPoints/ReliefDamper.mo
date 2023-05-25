@@ -5,9 +5,11 @@ block ReliefDamper
     final unit="Pa",
     final quantity="PressureDifference",
     max=30) = 12
-    "Building static pressure difference relative to ambient (positive to pressurize the building)";
+    "Building static pressure difference relative to ambient (positive to pressurize the building)"
+    annotation (__cdl(ValueInReference=true));
   parameter Real k(min=0, unit="1") = 0.5
-    "Gain, applied to building pressure control error normalized with dpBuiSet";
+    "Gain, applied to building pressure control error normalized with dpBuiSet"
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput dpBui(
     final unit="Pa",

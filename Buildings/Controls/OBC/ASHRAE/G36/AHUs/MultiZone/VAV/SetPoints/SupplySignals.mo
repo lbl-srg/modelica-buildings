@@ -3,33 +3,40 @@ block SupplySignals
   "Multizone VAV AHU supply air temperature control loop and coil valves position"
 
   parameter Boolean have_heaCoi=true
-    "True: the AHU has heating coil. It could be the hot water coil, or the electric heating coil";
+    "True: the AHU has heating coil. It could be the hot water coil, or the electric heating coil"
+    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
       Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of controller for supply air temperature signal";
+    "Type of controller for supply air temperature signal"
+    annotation (__cdl(ValueInReference=false));
   parameter Real kTSup(final unit="1/K")=0.05
-    "Gain of controller for supply air temperature signal";
+    "Gain of controller for supply air temperature signal"
+    annotation (__cdl(ValueInReference=false));
   parameter Real TiTSup(
     final unit="s",
     final quantity="Time")=600
     "Time constant of integrator block for supply temperature control signal"
-    annotation(Dialog(
+    annotation (__cdl(ValueInReference=false),
+                Dialog(
       enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real TdTSup(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block for supply temperature control signal"
-    annotation(Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+    annotation(__cdl(ValueInReference=false),
+                Dialog(enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
                           or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real uHea_max(
     final min=-0.9,
     final unit="1")=-0.25
-    "Upper limit of controller signal when heating coil is off. Require -1 < uHea_max < uCoo_min < 1.";
+    "Upper limit of controller signal when heating coil is off. Require -1 < uHea_max < uCoo_min < 1."
+    annotation (__cdl(ValueInReference=false));
   parameter Real uCoo_min(
     final max=0.9,
     final unit="1")=0.25
-    "Lower limit of controller signal when cooling coil is off. Require -1 < uHea_max < uCoo_min < 1.";
+    "Lower limit of controller signal when cooling coil is off. Require -1 < uHea_max < uCoo_min < 1."
+    annotation (__cdl(ValueInReference=false));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TAirSup(
     final unit="K",
@@ -68,7 +75,6 @@ block SupplySignals
     annotation (Placement(transformation(extent={{100,40},{140,80}}),
         iconTransformation(extent={{100,40},{140,80}})));
 
-protected
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conTSup(
     final controllerType=controllerType,
     final k=kTSup,
@@ -80,6 +86,8 @@ protected
     final y_reset=0)
     "Controller for supply air temperature control signal (to be used by heating coil, cooling coil and economizer)"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
+protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch to select supply temperature control signal based on status of supply fan"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
