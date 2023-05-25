@@ -21,7 +21,7 @@ equation
 
 annotation (
   experiment(
-    StopTime=720,
+    StopTime=760,
     Tolerance=1e-06,
     __Dymola_Algorithm="Dassl"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SecondaryPumps/Subsequences/Validation/EnableLead.mos"

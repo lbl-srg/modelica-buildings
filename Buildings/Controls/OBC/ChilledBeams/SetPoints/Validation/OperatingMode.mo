@@ -40,7 +40,7 @@ equation
     annotation (Line(points={{-32,-20},{-38,-20}}, color={0,0,127}));
 annotation (
   experiment(
-      StopTime=7200,
+      StopTime=14400,
       Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ChilledBeams/SetPoints/Validation/OperatingMode.mos"
     "Simulate and plot"),
