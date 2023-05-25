@@ -74,16 +74,14 @@ chilled water pump speed setpoint in chilled beam systems with variable-speed pu
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-The block <code>chiPumSpe</code> receives input signals <code>remPreSen1</code> 
-and <code>remPreSen2</code> and its PID loop output is mapped from minimum
-pump speed <code>minPumSpe</code> at 0% to maximum pump speed
-<code>maxPumSpe</code> at 100%.
+The block <code>chiPumSpe</code> outputs chilled water pump speed <code>yChiWatPumSpe</code>,
+based on the difference between the measured chilled water differential pressure
+<code>dpChiWat</code> and the setpoint <code>dpChiWatSet</code> whenever any of the pumps 
+are proven on (<code>uChiWatPum = true</code>).
 </li>
 <li>
-When two input signals of the chilled water differential static pressures exist 
-(<code>chiPumSpe.maxLoo.u[1]</code> and <code>chiPumSpe.maxLoo.u[1]</code>), 
-the block <code>chiPumSpe</code> outputs chilled water pump speed <code>chiPumSpe.yChiWatPumSpe</code>,   
-which is controlled by the maximum signal output <code>chiPumSpe.maxLoo.y</code>.
+<code>chiPumSpe</code> runs the pump at minimum speed (<code>yChiWatPumSpe = minPumSpe</code>)
+when none of the pumpsare not yet proven on (<code>uChiWatPum = false</code>).
 </li>
 </ol>
 </p>

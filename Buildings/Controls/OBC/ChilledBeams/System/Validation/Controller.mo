@@ -78,28 +78,28 @@ pressure <code>20000 Pa</code>.
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-The lead pump enable signal <code>sysCon.yChiWatPum[1]</code> becomes <code>true</code>
-when <code>sysCon.uValPos</code> changes to <code>1</code>. It becomes <code>false</code>
-when <code>sysCon.uValPos</code> changes to <code>0</code>.
+The lead pump enable signal <code>yChiWatPum[1]</code> becomes <code>true</code>
+when <code>uValPos</code> changes to <code>1</code>. It becomes <code>false</code>
+when <code>uValPos</code> changes to <code>0</code>.
 </li>
 <li>
-When <code>sysCon.dPChiWatLoo</code> falls below the calculated static pressure 
-setpoint <code>sysCon.chiWatStaPreSetRes.yStaPreSetPoi</code>, an increase in pump 
-speed output signal <code>sysCon.yPumSpe</code> is observed.
+When measured chilled water differential pressure <code>dpChiWatLoo</code> falls 
+below the setpoint <code>sysCon.chiWatStaPreSetRes.yStaPreSetPoi</code>, an increase 
+in pump speed output signal <code>yPumSpe</code> is observed.
 </li>
 <li>
-The lag pump enable signal <code>sysCon.yChiWatPum[2]</code> becomes <code>true</code> when 
-<code>sysCon.yPumSpe</code> exceeds pump speed limit <code>sysCon.speLim1</code>
-for duration <code>sysCon.timPer2</code>, and becomes <code>false</code> when it
-falls below <code>sysCon.speLim2</code> for <code>sysCon.timPer3</code>.
+The lag pump enable signal <code>yChiWatPum[2]</code> becomes <code>true</code> when 
+pump speed <code>yPumSpe</code> exceeds pump speed limit <code>speLim1</code>
+for duration <code>timPer2</code>, and becomes <code>false</code> when it
+falls below <code>speLim2</code> for <code>sysCon.timPer3</code>.
 </li>
 <li>
-The bypass valve position signal <code>sysCon.yBypValPos</code> becomes <code>0</code>
-when <code>sysCon.yChiWatPum[1] == true</code> and is <code>1</code>
-when <code>sysCon.yChiWatPum[1] == false</code>.
-<code>sysCon.yBypValPos</code> is increased from <code>0</code> if <code>sysCon.yChiWatPum[1] == true</code>,
-<code>sysCon.yPumSpe</code> is at minimum pump speed <code>sysCon.minPumSpe</code>
-and <code>sysCon.dPChiWatLoo</code> exceeds maximum pressure allowed <code>sysCon.dPChiWatMax</code>.
+The bypass valve position <code>yBypValPos</code> becomes <code>0</code>
+when <code>yChiWatPum[1] = true</code> and is <code>1</code>
+when <code>yChiWatPum[1] = false</code>.
+If <code>yChiWatPum[1] == true</code> and <code>yPumSpe</code> is at minimum pump 
+speed <code>minPumSpe</code>, <code>yBypValPos</code> is used to maintain
+<code>dPChiWatLoo</code> at maximum pressure allowed <code>dPChiWatMax</code>.
 </li>
 </ol>
 </p>

@@ -59,14 +59,12 @@ The following observations should be apparent from the simulation plots:
 <ol>
 <li>
 <code>enaLagPum</code> stages up (<code>yUp = true</code>) when pump speed 
-<code>enaLagPum.uPumSpe</code> 
-exceeds speed limits <code>enaLagPum.speLim</code> for time period <code>enaLagPum.timPer</code> 
-or <code>enaLagPum.speLim1</code> for <code>enaLagPum.timPer1</code>.
+<code>uPumSpe</code> exceeds speed limits <code>speLim</code> for time period 
+<code>timPer</code> or <code>speLim1</code> for <code>timPer1</code>.
 </li>
 <li>
-It stages down (<code>yDown = false</code>) when <code>enaLagPum.uPumSpe</code> 
-falls below speed limit <code>enaLagPum.speLim2</code> for time period 
-<code>enaLagPum.timPer2</code>.
+It stages down (<code>yDown = false</code>) when <code>uPumSpe</code> 
+falls below speed limit <code>speLim2</code> for time period <code>timPer2</code>.
 </li>
 </ol>
 </p>

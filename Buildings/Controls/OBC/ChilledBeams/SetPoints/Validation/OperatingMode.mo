@@ -60,14 +60,16 @@ and a Integer output <code>operatingMode.yOpeMod</code> that generates system op
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-When the detection of occupancy signal is false (<code>operatingMode.uDetOcc=false</code>) and 
-occupancy schedule signal is true (<code>operatingMode.uOcc=true</code>), 
-the system operating mode setpoint is 1 (<code>operatingMode.yOpeMod=1</code>).
+When occupancy detected in the zone (<code>uOccDet=true</code>), the system 
+operating mode setpoint is 1 (<code>yOpeMod=1</code>).
 </li>
 <li>
-When the detection of occupancy signal is false (<code>operatingMode.uDetOcc=false</code>) and 
-occupancy schedule signal is false (<code>operatingMode.uOcc=false</code>), 
-the system operating mode setpoint is 2 (<code>operatingMode.yOpeMod=2</code>).
+When <code>uOccDet=false</code> and <code>uOccExp=false</code>, 
+the setpoint is 2 (<code>yOpeMod=2</code>).
+</li>
+<li>
+When <code>uOccDet=false</code> and <code>uOccExp=true</code>, 
+the setpoint is 3 (<code>yOpeMod=3</code>).
 </li>
 </ol>
 </p>

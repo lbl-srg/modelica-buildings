@@ -56,13 +56,12 @@ The following observations should be apparent from the simulation plots:
 <ol>
 <li>
 The block <code>chiWatStaPreSetRes</code> generates requests to reset pump static pressure setpoints
-(<code>chiWatStaPreSetRes.yStaPreSetPoi</code>) when pump proven on signal is true
-(<code>chiWatStaPreSetRes.uPumSta[1]=true</code>) and chilled water control valve is open greater than 
-<code>chiWatStaPreSetRes.valPosLowOpe</code> for <code>chiWatStaPreSetRes.thrTimLow</code> continuously.
+(<code>yStaPreSetPoi</code>) when pump proven on signal is true
+(<code>uPumSta=true</code>) and chilled water control valve is open greater than 
+<code>valPosLowOpe</code> for time period <code>thrTimLow</code> continuously.
 </li>
 <li>
-The block <code>chiWatStaPreSetRes</code> generates zero request when pump proven on signal is false
-(<code>chiWatStaPreSetRes.uPumSta[1]=false</code>).
+It generates zero requests when <code>uPumSta=false</code>.
 </li>
 </ol>
 </p>

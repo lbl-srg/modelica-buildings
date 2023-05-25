@@ -68,14 +68,14 @@ demand loop <code>dpChiWatLoo</code>.
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-When none of the pumps are proven on (<code>bypValPos.uPumSta[1]=false</code> and <code>bypValPos.uPumSta[2]=false</code>)
-for times between 2000 and 4000 seconds and for times greater than 6000 seconds, 
-the bypass valve position is completely opened (<code>bypValPos.yBypValPos=1</code>).
+When none of the pumps are proven on (<code>uPumSta=false</code>), 
+the bypass valve is completely opened (<code>yBypValPos=1</code>).
 </li>
 <li>
-When the pumps are proven on and are running at minimum speed (<code>bypValPos.minPumSpe=0.1</code>), 
-the bypass valve position <code>bypValPos.yBypValPos</code> is used to regulate <code>dpChiWatLoo</code> at 
-maximum allowed loop pressure <code>dPChiWatMax</code>.
+When the pumps are proven on (<code>uPumSta=true</code>) and are running at 
+minimum speed (<code>minPumSpe=0.1</code>), <code>yBypValPos</code> is used to 
+regulate the measured chilled water differential pressure<code>dpChiWatLoo</code> 
+at maximum allowed loop pressure <code>dPChiWatMax</code>.
 </li>
 </ol>
 </p>

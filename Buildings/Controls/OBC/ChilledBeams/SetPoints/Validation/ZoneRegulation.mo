@@ -101,12 +101,13 @@ Buildings.Controls.OBC.ChilledBeams.SetPoints.ZoneRegulation</a>.
 </p>
 <p>
 It consists of an open-loop setup for block <code>zonRegCon</code> with
-two sine input signals <code>sin1</code> and <code>sin1</code> that are used to simulated 
-the measured zone temperature signal <code>zonRegCon.TZon</code> and measured discharge airflow rate signal 
-<code>zonRegCon.VDis_flow</code>, respectively, 
-a Boolean step input signal <code>booPul</code> that is used to simulate the signal from condensation sensor 
-in zone <code>zonRegCon.uConSen</code>, two constant Real input sigals that are used to simulate 
-the zone heating and cooling setpoint temperatures <code>zonRegCon.TZonHeaSet</code> and <code>zonRegCon.TZonCooSet</code>, respectively, 
+two sine input signals <code>sin1</code> and <code>sin1</code> that are used to 
+simulate the measured zone temperature signal <code>zonRegCon.TZon</code> and 
+measured discharge airflow rate signal <code>zonRegCon.VDis_flow</code>, respectively, 
+a Boolean step input signal <code>booPul</code> that is used to simulate the signal 
+from condensation sensor in zone <code>zonRegCon.uConSen</code>, two constant Real 
+input sigals that are used to simulate the zone heating and cooling setpoint 
+temperatures <code>zonRegCon.TZonHeaSet</code> and <code>zonRegCon.TZonCooSet</code>, respectively, 
 and a ramp signal <code>ram</code> that generates Real integer signal and uses <code>reaToInt</code> 
 to simulate the zone operation mode <code>zonRegCon.uOpeMod</code>.
 </p>
@@ -114,18 +115,21 @@ to simulate the zone operation mode <code>zonRegCon.uOpeMod</code>.
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-The block <code>zonRegCon</code> generates the CAV reheat signal <code>zonRegCon.yReh</code> greater than 0 
-when the measured zone temperature <code>zonRegCon.TZon</code> is below the zone heating setpoint <code>zonRegCon.TZonHeaSet</code>. 
+<code>zonRegCon</code> generates the CAV reheat signal <code>yReh</code> to maintain
+the measured zone temperature <code>TZon</code> at or above the zone heating setpoint 
+<code>TZonHeaSet</code>.
 </li>
 <li>
-The block <code>zonRegCon</code> generates the CAV damper position signal <code>zonRegCon.yDam</code> that is greater than 0 to 
-adjust the supply air at volume flow rates <code>VDes_occ</code>, <code>VDes_unoccUnsch</code>, and <code>VDes_unoccSch</code>  
-when the operating modes <code>zonRegCon.uOpeMod</code> are <code>occupied</code>, 
-<code>unoccupiedUnscheduled</code>, and <code>unoccupiedScheduled</code>, respectively. 
+It also generates the CAV damper position signal <code>yDam</code> to maintain
+the supply air volume flow rate <code>VDis_flow</code> at setpoints <code>VDes_occ</code>, 
+<code>VDes_unoccUnsch</code>, or <code>VDes_unoccSch</code>,  
+when the calculated operating mode <code>uOpeMod</code> is <code>occupied</code>, 
+<code>unoccupiedUnscheduled</code>, or <code>unoccupiedScheduled</code>, respectively. 
 </li>
 <li>
-The block <code>zonRegCon</code> generates the chilled beam control valve position <code>zonRegCon.yVal</code> greater than 0 
-when the measured zone temperature <code>zonRegCon.TZon</code> is above the zone cooling setpoint <code>zonRegCon.TZonCooSet</code>. 
+The chilled beam control valve position <code>yVal</code> is used to maintain
+the measured zone temperature <code>TZon</code> at or below the zone cooling 
+setpoint <code>TZonCooSet</code>.
 </li>
 </ol>
 </p>

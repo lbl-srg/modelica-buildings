@@ -40,16 +40,15 @@ annotation (
     The following observations should be apparent from the simulation plots:
     <ol>
     <li>
-    <code>enaLeaPum</code> enables the lead pump (<code>enaLeaPum.yLea = true</code>)
+    <code>enaLeaPum</code> enables the lead pump (<code>yLea = true</code>)
     when any of the chilled beam control valves are continuously open 
-    (<code>enaLeaPum.uValPos[1] &gt; 0.1 </code> or <code>enaLeaPum.uValPos[2] &gt; 0.1 </code>) 
-    for 30 seconds. 
+    (<code>uValPos[1] &gt; valPosOpe</code> or <code>uValPos[2] &gt; valPosOpe</code>) 
+    for time period <code>valOpeThr</code>.
     </li>
     <li>
-    It disables lead pump (<code>enaLeaPum.yLea = false</code>) when 
-    all the chilled beam control valves are continuously closed 
-    (<code>enaLeaPum.uValPos[1] &lt; 0.05 </code> or <code>enaLeaPum.uValPos[2] &lt; 0.05 </code>) 
-    for 60 seconds.
+    It disables lead pump (<code>yLea = false</code>) when all the chilled beam 
+    control valves are continuously closed (<code>uValPos[1] &lt; valPosClo</code> 
+    and <code>uValPos[2] &lt; valPosClo</code>) for duration <code>valCloThr</code>.
     </li>
     </ol>
     </p>
