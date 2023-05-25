@@ -1,5 +1,0 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.Heating.AirSource.Examples.SingleSpeed", stopTime=3600, method="cvode", tolerance=1e-6, resultFile="SingleSpeed");
-
-createPlot(id=1, position={0, 0, 867, 844}, y={"sinSpeDX.on"}, range={0.0, 3600.0, -0.5, 1.5}, grid=true, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 867, 278}, y={"sinSpeDX.TOut", "sinSpeDX.vol.T"}, range={0.0, 3600.0, 15.0, 30.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, displayUnits={"degC", "degC"});
-createPlot(id=1, position={0, 0, 867, 278}, y={"sinSpeDX.port_a.m_flow"}, range={0.0, 3600.0, -0.5, 2.5}, grid=true, subPlot=3, colors={{28,108,200}});
