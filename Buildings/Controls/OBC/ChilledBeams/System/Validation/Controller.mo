@@ -78,7 +78,7 @@ pressure <code>20000 Pa</code>.
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-The lead pump enable signal <code>sysCon.yChiWatPum[1]</code> becomes </code>true</code>
+The lead pump enable signal <code>sysCon.yChiWatPum[1]</code> becomes <code>true</code>
 when <code>sysCon.uValPos</code> changes to <code>1</code>. It becomes <code>false</code>
 when <code>sysCon.uValPos</code> changes to <code>0</code>.
 </li>

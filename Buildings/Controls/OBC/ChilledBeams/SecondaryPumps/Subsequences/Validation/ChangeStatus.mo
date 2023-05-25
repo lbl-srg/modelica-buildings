@@ -121,6 +121,7 @@ annotation (
 This example validates
 <a href=\"modelica://Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.ChangeStatus\">
 Buildings.Controls.OBC.ChilledBeams.SecondaryPumps.Subsequences.ChangeStatus</a>.
+</p>
 <p>
 It consists of an open-loop setup for block <code>chaPumSta</code> that changes the status of pumps, with
 a constant Boolean input <code>con</code> that generates constant Boolean false signal, a sample trigger input block <code>samTri</code> 
@@ -156,6 +157,7 @@ It becomes <code>false</code>
 when <code>chaPumSta.uNexLagPum</code> changes from <code>3</code> to <code>4</code> and
 <code>chaPumSta.uLasLagPum</code> changes from <code>4</code> to <code>3</code>.
 </li>
+</ol>
 </p>
 </html>", revisions="<html>
 <ul>

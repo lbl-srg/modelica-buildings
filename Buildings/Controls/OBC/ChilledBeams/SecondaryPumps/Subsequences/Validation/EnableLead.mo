@@ -51,6 +51,7 @@ annotation (
     (<code>enaLeaPum.uValPos[1] &lt; 0.05 </code> or <code>enaLeaPum.uValPos[2] &lt; 0.05 </code>) 
     for 60 seconds.
     </li>
+    </ol>
     </p>
     </html>", revisions="<html>
     <ul>

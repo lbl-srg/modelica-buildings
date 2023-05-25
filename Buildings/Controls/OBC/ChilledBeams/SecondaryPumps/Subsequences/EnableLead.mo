@@ -119,14 +119,21 @@ annotation (
   Block that enables and disables lead pump for chilled water beam 
   systems.
   </p>
+  <p>
+  <ul>
   <li>
   The lead pump shall be enabled <code>yLea = true</code> when
   any of the chilled beam control valves are continuously open 
   (<code>uValPos &gt; valPosOpe</code>) for <code>valOpeThr</code>
-  time. The lead pump shall be disabled when all the chilled beam control valves
+  time.
+  </li>
+  <li>
+  The lead pump shall be disabled when all the chilled beam control valves
   are continuously closed (<code>uValPos &lt; valPosClo</code>) for <code>valCloThr</code>
   time.
   </li>
+  </ul>
+  </p>
   </html>", revisions="<html>
 <ul>
 <li>
