@@ -134,7 +134,7 @@ back as an input to the pump status signal <code>chaPumSta.uChiWatPum</code>.
 The following observations should be apparent from the simulation plots:
 <ol>
 <li>
-The lead pump enable signal <code>chaPumSta.yChiWatPum[1]</code> becomes </code>true</code>
+The lead pump enable signal <code>chaPumSta.yChiWatPum[1]</code> becomes <code>true</code>
 when <code>chaPumSta.uNexLagPum</code> changes from <code>0</code> to <code>1</code> and 
 <code>chaPumSta.uLasLagPum</code> changes from <code>7</code> to <code>6</code>. 
 It becomes <code>false</code>
