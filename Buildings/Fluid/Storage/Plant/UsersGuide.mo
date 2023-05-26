@@ -18,13 +18,14 @@ Shown in the schematic below, it has two CHW plants and three users.
 </p>
 <ul>
 <li>
-Plant 1 only has a chiller. The supply pump is controlled to ensure that
+Plant 1 only has a chiller. The supply pump, P1, is controlled to ensure that
 all users have enough pressure head.
 </li>
 <li>
 Plant 2 has a chiller and a stratified CHW tank.
 The storage plant has a reversible connection to the district network.
-This connection can either pump water to the network from the plant,
+This connection can either pump water to the network from the plant using the
+pump P_sec, 
 or throttle water from the pressurised network to charge the tank.
 </li>
 </ul>
@@ -70,7 +71,7 @@ is controlled to maintain a constant flow from the pressurised network
 to the storage tank.
 </li>
 <li>
-Otherwise, the connection cuts off flow isolates plant 2 from
+Otherwise, the connection cuts off flow to isolate plant 2 from
 the district network.
 </li>
 </ul>

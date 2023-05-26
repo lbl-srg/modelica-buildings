@@ -208,7 +208,7 @@ branch is closed off.
 </li>
 <li>
 When the storage tank in the plant is being charged remotely by a chiller
-else where in the district system, the valve is open to throttle water
+elsewhere in the district system, the valve is open to throttle water
 from the district network to the tank.
 </li>
 </ul>
