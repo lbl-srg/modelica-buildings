@@ -407,7 +407,7 @@ The system is back to the all-off state.
 </li>
 <li>
 At <code>time = 7500</code>, the system in once again commanded to charge
-the tank, But the chiller in the storage plantis offline.
+the tank, but the chiller in the storage plant is offline.
 The tank is therefore charged remotely by the district.
 This stops once the tank is cooled.
 </li>
