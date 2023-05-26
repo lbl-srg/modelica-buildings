@@ -232,6 +232,16 @@ model DualSource
     "Position of the most open user control valve"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
 
+  Sources.PropertySource_T                 chi2(redeclare final package Medium
+      = Medium, final use_T_in=true)
+                         "Chiller 1 represented by an ideal temperature source"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,-110})));
+  Modelica.Blocks.Sources.Constant TSet1(k=T_CHWS_nominal)
+    "Constant CHW leaving temperature"
+    annotation (Placement(transformation(extent={{-100,-158},{-80,-138}})));
 equation
   connect(stoPla.port_a, parJunPla2.port_c2)
     annotation (Line(points={{0,-96},{40,-96}}, color={0,127,255}));
@@ -314,15 +324,18 @@ equation
   connect(ideUse3.yVal_actual, muxVal.u[3]) annotation (Line(points={{101,-162},
           {106,-162},{106,-170},{162,-170},{162,-167.667},{180,-167.667}},
         color={0,0,127}));
-  connect(com.y, stoPla.com) annotation (Line(points={{-79,-30},{-70,-30},{-70,-88},
-          {-21,-88}}, color={255,127,0}));
-  connect(chiOnl.y, stoPla.chiIsOnl) annotation (Line(points={{-79,-70},{-74,-70},
-          {-74,-92},{-21,-92}}, color={255,0,255}));
+  connect(com.y, stoPla.com) annotation (Line(points={{-79,-30},{-70,-30},{-70,
+          -84},{-21,-84}},
+                      color={255,127,0}));
+  connect(chiOnl.y, stoPla.chiIsOnl) annotation (Line(points={{-79,-70},{-74,
+          -70},{-74,-87.8},{-21,-87.8}},
+                                color={255,0,255}));
   connect(mulMax_yVal_actual.y, hys_yVal_actual.u)
     annotation (Line(points={{-118,-110},{-102,-110}},
                                                      color={0,0,127}));
   connect(hys_yVal_actual.y, stoPla.hasLoa) annotation (Line(points={{-78,-110},
-          {-74,-110},{-74,-96},{-21,-96}}, color={255,0,255}));
+          {-74,-110},{-74,-91.8},{-21,-91.8}},
+                                           color={255,0,255}));
   connect(muxVal.y, mulMax_yVal_actual.u[1:3]) annotation (Line(points={{201,
           -170},{206,-170},{206,-190},{-150,-190},{-150,-109.333},{-142,
           -109.333}}, color={0,0,127}));
@@ -331,7 +344,7 @@ equation
   connect(conPI_pumChi1.y, pumSup1.y)
     annotation (Line(points={{-81,170},{-10,170},{-10,102}}, color={0,0,127}));
   connect(conPI_pumChi1.y, stoPla.yPum) annotation (Line(points={{-81,170},{-66,
-          170},{-66,-84},{-21,-84}}, color={0,0,127}));
+          170},{-66,-80},{-21,-80}}, color={0,0,127}));
   connect(stoPla.port_b, parJunPla2.port_c1)
     annotation (Line(points={{0,-84},{40,-84}}, color={0,127,255}));
   connect(stoPla.port_a, bou.ports[1]) annotation (Line(points={{0,-96},{6,-96},
@@ -342,6 +355,12 @@ equation
           54},{20,54},{20,64},{40,64}}, color={0,127,255}));
   connect(TSet.y, chi1.T_in) annotation (Line(points={{-79,70},{-72,70},{-72,66},
           {-62,66}}, color={0,0,127}));
+  connect(chi2.port_b, stoPla.port_chi_a) annotation (Line(points={{-50,-100},{
+          -50,-96},{-20,-96}}, color={0,127,255}));
+  connect(stoPla.port_b_chi, chi2.port_a) annotation (Line(points={{-20,-100},{
+          -20,-126},{-50,-126},{-50,-120}}, color={0,127,255}));
+  connect(TSet1.y, chi2.T_in) annotation (Line(points={{-79,-148},{-70,-148},{
+          -70,-114},{-62,-114}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
         "Simulate and plot"),

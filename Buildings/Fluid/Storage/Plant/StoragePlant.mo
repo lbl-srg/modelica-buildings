@@ -4,16 +4,6 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
-  Buildings.Fluid.Sources.PropertySource_T chi(
-    redeclare final package Medium = Medium,
-    final use_T_in=true) "Chiller represented by an ideal temperature source"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={-50,-30})));
-  Modelica.Blocks.Sources.Constant TSet(final k=nom.T_CHWS_nominal)
-    "Constant CHW leaving temperature"
-    annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumPri(
     redeclare final package Medium = Medium,
     final addPowerToMedium=false,
@@ -58,16 +48,16 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Interfaces.BooleanInput chiIsOnl annotation (Placement(
         transformation(rotation=0, extent={{-120,40},{-100,60}}),
-        iconTransformation(extent={{-120,-30},{-100,-10}})));
+        iconTransformation(extent={{-120,12},{-100,32}})));
   Modelica.Blocks.Interfaces.IntegerInput com annotation (Placement(
         transformation(rotation=0, extent={{-120,60},{-100,80}}),
-        iconTransformation(extent={{-120,10},{-100,30}})));
+        iconTransformation(extent={{-120,50},{-100,70}})));
   Modelica.Blocks.Interfaces.BooleanInput hasLoa annotation (Placement(
         transformation(rotation=0, extent={{-120,20},{-100,40}}),
-        iconTransformation(extent={{-120,-70},{-100,-50}})));
+        iconTransformation(extent={{-120,-28},{-100,-8}})));
   Modelica.Blocks.Interfaces.RealInput yPum(final unit="1") annotation (
       Placement(transformation(rotation=0, extent={{-120,80},{-100,100}}),
-        iconTransformation(extent={{-120,50},{-100,70}})));
+        iconTransformation(extent={{-120,90},{-100,110}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
     redeclare final package Medium = Medium)
     annotation (Placement(transformation(rotation=0, extent={{90,30},
@@ -76,6 +66,16 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     redeclare final package Medium = Medium)
     annotation (Placement(transformation(rotation=0, extent={{90,-70},
             {110,-50}}), iconTransformation(extent={{90,-70},{110,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_a port_chi_a(redeclare package Medium =
+        Medium)
+    "Fluid connector a  for chiller(positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-110,-70},{-90,-50}}),
+        iconTransformation(extent={{-110,-70},{-90,-50}})));
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_chi(redeclare package Medium =
+        Medium)
+    "Fluid connector b for chiller (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
+        iconTransformation(extent={{-110,-110},{-90,-90}})));
 equation
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-70},{70,-70},{70,
           -90},{-70,-90},{-70,42},{-61,42}},                   color={255,0,255}));
@@ -107,12 +107,10 @@ equation
                                                          color={0,127,255}));
   connect(port_a, tanBra.port_aRetNet) annotation (Line(points={{100,-60},{80,-60},
           {80,-16},{20,-16}}, color={0,127,255}));
-  connect(chi2PreDro.port_b, chi.port_a) annotation (Line(points={{-40,-50},{-50,
-          -50},{-50,-40}}, color={0,127,255}));
-  connect(chi.port_b, pumPri.port_a)
-    annotation (Line(points={{-50,-20},{-50,10},{-40,10}}, color={0,127,255}));
-  connect(TSet.y, chi.T_in) annotation (Line(points={{-79,-30},{-74,-30},{-74,-34},
-          {-62,-34}}, color={0,0,127}));
+  connect(pumPri.port_a, port_chi_a) annotation (Line(points={{-40,10},{-84,10},
+          {-84,-60},{-100,-60}}, color={0,127,255}));
+  connect(chi2PreDro.port_b, port_b_chi) annotation (Line(points={{-40,-50},{
+          -70,-50},{-70,-100},{-100,-100}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
                                 Rectangle(
