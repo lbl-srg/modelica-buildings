@@ -223,8 +223,8 @@ model DualSource
         6000,2; 7500,1])
     "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  Modelica.Blocks.Sources.BooleanTable chiOnl(table={0,6000}, startValue=false)
-    "Chiller is online"
+  Modelica.Blocks.Sources.BooleanTable chiEnaSta(table={0,6000}, startValue=
+        false) "Chiller enable status, true if chiller is enabled"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys_yVal_actual(uLow=0.05,
       uHigh=0.5) "Hysteresis for user control valve position"
@@ -317,8 +317,8 @@ equation
         color={0,0,127}));
   connect(com.y, stoPla.com) annotation (Line(points={{-79,-30},{-70,-30},{-70,-88},
           {-21,-88}}, color={255,127,0}));
-  connect(chiOnl.y, stoPla.chiEnaSta) annotation (Line(points={{-79,-70},{-74,-70},
-          {-74,-92},{-21,-92}}, color={255,0,255}));
+  connect(chiEnaSta.y, stoPla.chiEnaSta) annotation (Line(points={{-79,-70},{-74,
+          -70},{-74,-92},{-21,-92}}, color={255,0,255}));
   connect(mulMax_yVal_actual.y, hys_yVal_actual.u)
     annotation (Line(points={{-118,-110},{-102,-110}},
                                                      color={0,0,127}));
@@ -408,7 +408,7 @@ The system is back to the all-off state.
 </li>
 <li>
 At <code>time = 7500</code>, the system in once again commanded to charge
-the tank, but the chiller in the storage plant is offline.
+the tank, but the chiller in the storage plant is not enabled.
 The tank is therefore charged remotely by the district.
 This stops once the tank is cooled.
 </li>

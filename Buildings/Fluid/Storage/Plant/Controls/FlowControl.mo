@@ -321,13 +321,13 @@ The system transitions among the following states:
   <tr>
     <td>Local Charging</td>
     <td>Charge the tank with the local chiller.</td>
-    <td>\"Charge tank\" command<br>AND tank is not cooled yet<br>AND chiller is online.<br>This transition takes priority<br>over the one below.<sup>1</sup></td>
+    <td>\"Charge tank\" command<br>AND tank is not cooled yet<br>AND chiller is enabled.<br>This transition takes priority<br>over the one below.<sup>1</sup></td>
     <td>The in-transition condition becomes false.</td>
   </tr>
   <tr>
     <td>Remote Charging</td>
     <td>Charge the tank with the remote chiller.</td>
-    <td>Same as above except that<br>the chiller is offline.</td>
+    <td>Same as above except that<br>the chiller is not enabled.</td>
     <td>The in-transition condition becomes false.</td>
   </tr>
   <tr>
@@ -343,12 +343,12 @@ The system transitions among the following states:
     <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.<br>This transition takes priority over the one below.</td>
   </tr>
   <tr>
-    <td>To \"chiller producing\": Chiller is online AND any one of:<br>(a) Tank is depleted;<br>(b) No \"tank produce\" command AND tank not overcooled.</td>
+    <td>To \"chiller producing\": Chiller is enabled AND any one of:<br>(a) Tank is depleted;<br>(b) No \"tank produce\" command AND tank not overcooled.</td>
   </tr>
   <tr>
     <td rowspan=\"2\">Chiller Producing</td>
     <td rowspan=\"2\">The chiller produces CHW to the district.<br>This step is in parallel with \"secondary pump on\".</td>
-    <td rowspan=\"2\">The district has load AND<br>the chiller is online.</td>
+    <td rowspan=\"2\">The district has load AND<br>the chiller is enabled.</td>
     <td>To initial step: No load OR the in-transition conditions<br>of \"tank producing\" and \"chiller producing\" are both false.<br>This transition takes priority over the one below.</td>
   </tr>
   <tr>
