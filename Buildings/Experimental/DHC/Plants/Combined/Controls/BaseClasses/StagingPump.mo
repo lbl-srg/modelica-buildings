@@ -9,7 +9,7 @@ block StagingPump "Pump staging"
     start=1)
     "Number of pumps"
     annotation(Evaluate=true);
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(start=1)
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Loop design mass flow rate (all pumps)"
     annotation(Dialog(group="Nominal condition", enable=have_flowCriterion));
   parameter Real yDow=0.30
