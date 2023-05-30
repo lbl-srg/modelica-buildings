@@ -39,7 +39,7 @@ block FlowControl
         iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.StateGraph.Transition traChaLoc(condition=com == 1 and (not tanSta[2])
          and chiEnaSta)
-    "Transition: Charge tank command AND tank not cooled AND chiller is online"
+    "Transition: Charge tank command AND tank not cooled AND chiller enabled"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
   Modelica.StateGraph.Step steChaLoc(nIn=1, nOut=1) "Step: Local charging"
     annotation (Placement(transformation(extent={{300,60},{320,80}})));
@@ -48,7 +48,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{340,60},{360,80}})));
   Modelica.StateGraph.Transition traChaRem(condition=com == 1 and (not tanSta[2])
          and not chiEnaSta)
-    "Transition: Charge tank command AND tank not cooled AND chiller is offline"
+    "Transition: Charge tank command AND tank not cooled AND chiller not enabled"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
   Modelica.StateGraph.Step steChaRem(nIn=1, nOut=1) "Step: Remote charging"
     annotation (Placement(transformation(extent={{300,20},{320,40}})));
@@ -56,7 +56,7 @@ block FlowControl
                                        "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,20},{360,40}})));
   Modelica.StateGraph.Transition traProChi(condition=chiEnaSta)
-    "Transition: Chiller is online"
+    "Transition: Chiller enabled"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
   Modelica.StateGraph.Step steProChi(nIn=2, nOut=2)
     "Step: Chiller produces CHW"
@@ -93,7 +93,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{780,-80},{800,-60}}),
         iconTransformation(extent={{100,-70},{120,-50}})));
   Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
-    "Normalised speed signal for pump"
+    "Normalised speed signal for the secondary pump"
                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -103,8 +103,9 @@ block FlowControl
         rotation=0,
         origin={-110,80})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swiSecPum
+    "Switch for secondary pump flow"
     annotation (Placement(transformation(extent={{740,-20},{760,0}})));
-  Modelica.Blocks.Sources.Constant zero(final k=0) "Constant zero"
+  Modelica.Blocks.Sources.Constant zer(final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{700,-50},{720,-30}})));
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal swiVal(realTrue=
         mTan_flow_nominal, realFalse=0) "Switch for valve flow"
@@ -123,7 +124,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{116,-174},{510,-6}})));
   Modelica.StateGraph.Transition traTanToChi(condition=(tanSta[1] or (com <> 3
          and not tanSta[3])) and chiEnaSta)
-    "Transition: Tank is depleted OR tank is no longer overcooled while no discharge command, AND chiller is online"
+    "Transition: Tank is depleted OR tank is no longer overcooled while no discharge command, AND chiller enabled"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
@@ -182,8 +183,8 @@ equation
           127}));
   connect(ySecPum, swiSecPum.y)
     annotation (Line(points={{790,-10},{762,-10}}, color={0,0,127}));
-  connect(zero.y, swiSecPum.u3) annotation (Line(points={{721,-40},{738,-40},{738,
-          -18}},               color={0,0,127}));
+  connect(zer.y, swiSecPum.u3)
+    annotation (Line(points={{721,-40},{738,-40},{738,-18}}, color={0,0,127}));
   connect(swiVal.u, expVal.y)
     annotation (Line(points={{738,-70},{721,-70}}, color={255,0,255}));
   connect(swiVal.y, yVal)

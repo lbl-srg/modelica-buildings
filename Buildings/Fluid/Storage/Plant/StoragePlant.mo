@@ -23,8 +23,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
     redeclare final package Medium = Medium,
     final m_flow_nominal=nom.mChi_flow_nominal,
-    dp_nominal=0.1*nom.dp_nominal)
-    "Pressure drop of the chiller branch in plant 2" annotation (Placement(
+    dp_nominal=0.1*nom.dp_nominal) "Pressure drop of the chiller loop"
+                                                     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -60,13 +60,17 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     "Chiller enable status, true if chiller is enabled" annotation (Placement(
         transformation(rotation=0, extent={{-120,40},{-100,60}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
-  Modelica.Blocks.Interfaces.IntegerInput com annotation (Placement(
+  Modelica.Blocks.Interfaces.IntegerInput com
+    "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
+                                              annotation (Placement(
         transformation(rotation=0, extent={{-120,60},{-100,80}}),
         iconTransformation(extent={{-120,10},{-100,30}})));
-  Modelica.Blocks.Interfaces.BooleanInput hasLoa annotation (Placement(
+  Modelica.Blocks.Interfaces.BooleanInput hasLoa "True: Has load"
+                                                 annotation (Placement(
         transformation(rotation=0, extent={{-120,20},{-100,40}}),
         iconTransformation(extent={{-120,-70},{-100,-50}})));
-  Modelica.Blocks.Interfaces.RealInput yPum(final unit="1") annotation (
+  Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
+    "Normalised speed signal for the secondary pump"        annotation (
       Placement(transformation(rotation=0, extent={{-120,80},{-100,100}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b port_b(
