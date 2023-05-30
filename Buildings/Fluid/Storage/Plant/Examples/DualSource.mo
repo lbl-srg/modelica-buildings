@@ -316,7 +316,7 @@ equation
         color={0,0,127}));
   connect(com.y, stoPla.com) annotation (Line(points={{-79,-30},{-70,-30},{-70,-88},
           {-21,-88}}, color={255,127,0}));
-  connect(chiOnl.y, stoPla.chiIsOnl) annotation (Line(points={{-79,-70},{-74,-70},
+  connect(chiOnl.y, stoPla.chiEnaSta) annotation (Line(points={{-79,-70},{-74,-70},
           {-74,-92},{-21,-92}}, color={255,0,255}));
   connect(mulMax_yVal_actual.y, hys_yVal_actual.u)
     annotation (Line(points={{-118,-110},{-102,-110}},

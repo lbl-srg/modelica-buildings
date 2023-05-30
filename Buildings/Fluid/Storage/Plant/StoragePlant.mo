@@ -56,7 +56,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
     "Nominal values for the storage plant"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Interfaces.BooleanInput chiIsOnl annotation (Placement(
+  Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
+    "Chiller enable status, true if chiller is enabled" annotation (Placement(
         transformation(rotation=0, extent={{-120,40},{-100,60}}),
         iconTransformation(extent={{-120,-30},{-100,-10}})));
   Modelica.Blocks.Interfaces.IntegerInput com annotation (Placement(
@@ -93,7 +94,7 @@ equation
           4},{39,4}},                color={0,0,127}));
   connect(tanBra.TTan,tanSta. TTan) annotation (Line(points={{21,-20},{30,-20},{
           30,-70},{39,-70}},            color={0,0,127}));
-  connect(chiIsOnl, floCon.chiIsOnl) annotation (Line(points={{-110,50},{-61,50}},
+  connect(chiEnaSta, floCon.chiEnaSta) annotation (Line(points={{-110,50},{-61,50}},
                                   color={255,0,255}));
   connect(com, floCon.com) annotation (Line(points={{-110,70},{-80,70},{-80,54},
           {-61,54}},   color={255,127,0}));

@@ -18,7 +18,8 @@ block FlowControl
     "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
-  Modelica.Blocks.Interfaces.BooleanInput chiIsOnl "Chiller is online"
+  Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
+    "Chiller enable status, true if chiller is enabled"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealOutput mPriPum_flow
@@ -37,7 +38,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
   Modelica.StateGraph.Transition traChaLoc(condition=com == 1 and (not tanSta[2])
-         and chiIsOnl)
+         and chiEnaSta)
     "Transition: Charge tank command AND tank not cooled AND chiller is online"
     annotation (Placement(transformation(extent={{260,60},{280,80}})));
   Modelica.StateGraph.Step steChaLoc(nIn=1, nOut=1) "Step: Local charging"
@@ -46,7 +47,7 @@ block FlowControl
                                        "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,60},{360,80}})));
   Modelica.StateGraph.Transition traChaRem(condition=com == 1 and (not tanSta[2])
-         and not chiIsOnl)
+         and not chiEnaSta)
     "Transition: Charge tank command AND tank not cooled AND chiller is offline"
     annotation (Placement(transformation(extent={{260,20},{280,40}})));
   Modelica.StateGraph.Step steChaRem(nIn=1, nOut=1) "Step: Remote charging"
@@ -54,7 +55,7 @@ block FlowControl
   Modelica.StateGraph.Transition traRes2(condition=not traChaRem.condition)
                                        "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{340,20},{360,40}})));
-  Modelica.StateGraph.Transition traProChi(condition=chiIsOnl)
+  Modelica.StateGraph.Transition traProChi(condition=chiEnaSta)
     "Transition: Chiller is online"
     annotation (Placement(transformation(extent={{260,-160},{280,-140}})));
   Modelica.StateGraph.Step steProChi(nIn=2, nOut=2)
@@ -121,7 +122,7 @@ block FlowControl
   Modelica.StateGraph.Parallel parallel(nBranches=2)
     annotation (Placement(transformation(extent={{116,-174},{510,-6}})));
   Modelica.StateGraph.Transition traTanToChi(condition=(tanSta[1] or (com <> 3
-         and not tanSta[3])) and chiIsOnl)
+         and not tanSta[3])) and chiEnaSta)
     "Transition: Tank is depleted OR tank is no longer overcooled while no discharge command, AND chiller is online"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
