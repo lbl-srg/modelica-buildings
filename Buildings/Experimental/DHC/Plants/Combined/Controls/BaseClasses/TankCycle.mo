@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block TankCycle "Block that determines the tank cycle flag"
 
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]

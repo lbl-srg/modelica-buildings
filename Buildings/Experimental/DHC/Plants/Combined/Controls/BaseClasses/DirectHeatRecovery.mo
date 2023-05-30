@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block DirectHeatRecovery
   "Block controlling HRC in direct heat recovery mode"
 
