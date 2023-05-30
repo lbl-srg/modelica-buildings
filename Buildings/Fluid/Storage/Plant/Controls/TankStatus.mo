@@ -23,7 +23,7 @@ block TankStatus "Block that returns the status of the tank"
         rotation=0,
         origin={-110,0})));
 
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "State graph root"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.StateGraph.InitialStep iniSte(nOut=1, nIn=1)
     "Initial step, also active when none of the other steps apply"
@@ -65,7 +65,8 @@ block TankStatus "Block that returns the status of the tank"
     "Tank status - 1: is depleted; 2: is cooled; 3: is overcooled"
     annotation (Placement(transformation(extent={{440,-10},{460,10}}),
       iconTransformation(extent={{100,-10},{120,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Or or2 "Or"
+  Buildings.Controls.OBC.CDL.Logical.Or or2
+    "The tank is cooled when either the \"cooled\" or \"overcooled\" step is active"
     annotation (Placement(transformation(extent={{380,-10},{400,10}})));
 equation
   connect(iniSte.outPort[1], altDepOrCoo.inPort)

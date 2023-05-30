@@ -56,7 +56,8 @@ model DualSource
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Fluid.Storage.Plant.StoragePlant stoPla(
     redeclare final package Medium = Medium,
-    final nom=nom) annotation (Placement(transformation(
+    final nom=nom) "Storage plant"
+                   annotation (Placement(transformation(
           rotation=0, extent={{-20,-100},{0,-80}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     p(final displayUnit="Pa") = 101325 + dp_nominal,

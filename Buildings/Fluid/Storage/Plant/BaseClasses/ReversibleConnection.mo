@@ -6,6 +6,7 @@ model ReversibleConnection
     final m_flow_nominal=nom.m_flow_nominal);
 
   parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
+    "Nominal values"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(

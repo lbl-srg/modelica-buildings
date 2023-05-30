@@ -30,7 +30,7 @@ block FlowControl
     "Secondary pump normalised speed" annotation (Placement(transformation(
           extent={{780,-20},{800,0}}), iconTransformation(extent={{100,-10},{
             120,10}})));
-  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot
+  inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "State graph root"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.StateGraph.InitialStep allOff(nOut=1, nIn=1) "Initial step, all off"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
@@ -121,6 +121,7 @@ block FlowControl
     "Transition: Has load and the plant can produce CHW via either the chiller or the tank"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Modelica.StateGraph.Parallel parallel(nBranches=2)
+    "Parallel states of the components in the primary and secondary loops"
     annotation (Placement(transformation(extent={{116,-174},{510,-6}})));
   Modelica.StateGraph.Transition traTanToChi(condition=(tanSta[1] or (com <> 3
          and not tanSta[3])) and chiEnaSta)
