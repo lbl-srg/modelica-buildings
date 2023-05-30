@@ -12,13 +12,11 @@ model PartialIndirect
     final have_fan=false);
   // mass flow rates
   parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal(
-    final min=0,
-    final start=0.5)
+    final min=0)
     "Nominal mass flow rate of district side"
     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
-    final min=0,
-    final start=0.5)
+    final min=0)
     "Nominal mass flow rate of building side"
     annotation(Dialog(group="Nominal condition"));
   // Primary supply control valve
@@ -30,13 +28,11 @@ model PartialIndirect
   // Heat exchanger
   parameter Modelica.Units.SI.PressureDifference dp1_nominal(
     final min=0,
-    final start=500,
     displayUnit="Pa")
     "Nominal pressure difference on primary side"
     annotation (Dialog(group="Heat exchanger"));
   parameter Modelica.Units.SI.PressureDifference dp2_nominal(
     final min=0,
-    final start=500,
     displayUnit="Pa")
     "Nominal pressure difference on secondary side"
     annotation (Dialog(group="Heat exchanger"));
