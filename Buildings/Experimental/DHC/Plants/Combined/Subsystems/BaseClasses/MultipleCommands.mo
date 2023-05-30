@@ -93,5 +93,12 @@ The real output <code>nUniOnBou</code> is the maximum between <i>1</i>
 and <code>nUniOn</code>.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end MultipleCommands;

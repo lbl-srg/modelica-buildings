@@ -253,5 +253,12 @@ class derived from
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine\">
 Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</a>.
 Hydronics are resolved with mass flow rate multiplier components.
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialMultiplePumps;

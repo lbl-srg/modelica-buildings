@@ -465,5 +465,12 @@ This model validates
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.ChillerHeatRecoveryGroup</a>
 in a configuration with two HRCs.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillerHeatRecoveryGroup;

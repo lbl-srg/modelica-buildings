@@ -640,5 +640,12 @@ block PartialController "Interface class for plant controller"
 <p>
 This block serves as an interface class for the plant controller.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialController;

@@ -66,5 +66,12 @@ See the base class
 Buildings.Experimental.DHC.Plants.Combined.Subsystems.BaseClasses.PartialMultiplePumps</a>.
 for a description of the modeling approach.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end MultiplePumpsFlow;

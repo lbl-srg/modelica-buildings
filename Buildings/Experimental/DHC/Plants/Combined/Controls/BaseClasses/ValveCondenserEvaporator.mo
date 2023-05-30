@@ -1548,5 +1548,12 @@ commanded open (with a threshold of <i>10&nbsp;%</i>).
 In addition, the CWC lead pump may also be enabled if the CW chiller
 bypass valve is commanded open.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ValveCondenserEvaporator;

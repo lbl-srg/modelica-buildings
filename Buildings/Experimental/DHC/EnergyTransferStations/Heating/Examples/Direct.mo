@@ -138,17 +138,9 @@ supply temperature is modeled as a sinusoidal signal to test the response of sys
       revisions="<html>
 <ul>
 <li>
-December 23, 2022, by Kathryn Hinkelman:<br/>
-Removed extraneous <code>m*_flow_nominal</code> parameters because 
-<code>mBui_flow_nominal</code> can be used across all components.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
-</li> 
-<li>November 15, 2022, by Kathryn Hinkelman:<br/>
-Corrected pressure balance across bypass leg and system.
+April 7, 2023, by David Blum:<br/>
+First implementation.
 </li>
-</ul>
-<ul>
-<li>March 20, 2022, by Chengnan Shi:<br/>First implementation.</li>
 </ul>
 </html>"));
 end Direct;

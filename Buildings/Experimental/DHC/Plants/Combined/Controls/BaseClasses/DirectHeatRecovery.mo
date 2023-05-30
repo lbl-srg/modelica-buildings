@@ -261,5 +261,12 @@ From <i>67&nbsp;%</i> to <i>100&nbsp;%</i> the HRC condenser entering
 temperature setpoint is reset from <i>THeaWatRet + 0.5&nbsp;</i>°C
 to <i>THeaWatRet - 15&nbsp;</i>°C.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end DirectHeatRecovery;

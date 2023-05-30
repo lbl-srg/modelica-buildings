@@ -62,5 +62,12 @@ This is a validation model for the pump staging logic implemented in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPump</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StagingPump;

@@ -131,5 +131,12 @@ in a configuration with two heat pumps.
 The heat pumps are initially On and they are switched Off one after the other
 as they are exposed to an increasing HW return temperature.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end HeatPumpGroup;

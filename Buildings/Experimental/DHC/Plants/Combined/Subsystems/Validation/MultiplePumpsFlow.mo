@@ -56,5 +56,12 @@ The two pumps are commanded On one after the other as they receive
 an increasing flow setpoint and work against a two-way modulating 
 valve that gets progressively opened.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end MultiplePumpsFlow;

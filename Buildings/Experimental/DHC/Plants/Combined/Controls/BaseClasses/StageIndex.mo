@@ -235,5 +235,12 @@ From stage <code>#i</code>, the transition to stage <code>#0</code> is triggered
 when stage <code>#i</code> has been active for the minimum runtime and the Enable signal 
 <code>u1</code> is <code>false</code>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StageIndex;

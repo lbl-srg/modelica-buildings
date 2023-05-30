@@ -114,5 +114,12 @@ in a configuration with two chillers.
 The chillers are initially On and they are switched Off one after the other
 as they receive an increasing CHW supply temperature setpoint.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillerGroup;

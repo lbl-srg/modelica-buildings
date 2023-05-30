@@ -360,5 +360,12 @@ has no impact on the heat pump <i>COP</i> (all other variables
 such as the HW return temperature being kept invariant).
 This is a limitation of the model.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end HeatPumpGroup;

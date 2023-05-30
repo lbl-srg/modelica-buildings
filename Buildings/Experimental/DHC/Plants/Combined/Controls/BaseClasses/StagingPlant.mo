@@ -685,6 +685,13 @@ falls below the value of the parameter <i>PLRStaTra</i> for <i>15&nbsp;</i>min.
 Failsafe conditions: the failsafe stage up conditions are not true.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(extent={{-240,-320},{240,320}})),
     Icon(coordinateSystem(extent={{-100,-160},{100,160}}), graphics={

@@ -43,14 +43,7 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>
-January 11, 2023, by Michael Wetter:<br/>
-Changed controls to use CDL. Changed PID to PI as default for controller.
-</li>
-<li>
-March 21, 2022, by Chengnan Shi:<br/>
-Update with base class partial model.
-</li>
-<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>
+April 7, 2023, by David Blum:<br/>
 First implementation.
 </li>
 </ul>

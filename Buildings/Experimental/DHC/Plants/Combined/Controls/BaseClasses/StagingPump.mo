@@ -255,5 +255,12 @@ The lag pump is disabled whenever any of the following is true.
 is higher than <i>(n - 1) / nPum - 0.03</i> for <i>10</i>&nbsp;min.
 </li>
 </ul>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StagingPump;

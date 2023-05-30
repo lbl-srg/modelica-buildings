@@ -193,5 +193,12 @@ for the various multiple-pump models within
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Subsystems\">
 Buildings.Experimental.DHC.Plants.Combined.Subsystems</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end PartialMultiplePumps;

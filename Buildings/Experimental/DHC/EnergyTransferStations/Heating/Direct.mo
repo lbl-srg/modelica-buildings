@@ -43,29 +43,9 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>
-January 11, 2023, by Michael Wetter:<br/>
-Changed controls to use CDL. Changed PID to PI as default for controller.
+April 7, 2023, by David Blum:<br/>
+First implementation.
 </li>
-<li>
-January 2, 2023, by Kathryn Hinkelman:<br/>
-Set pressure drops at junctions to 0 and removed parameter <code>dp_nominal</code>
-</li>
-<li>
-December 28, 2022, by Kathryn Hinkelman:<br/>
-Simplified the control implementation for the district return stream. Improved default control parameters.
-</li>
-<li>
-December 23, 2022, by Kathryn Hinkelman:<br/>
-Removed extraneous <code>m*_flow_nominal</code> parameters because 
-<code>mBui_flow_nominal</code> can be used across all components.
-This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2912\">#2912</a>.
-</li> 
-<li>
-November 11, 2022, by Michael Wetter:<br/>
-Changed check valve to use version of <code>Buildings</code> library, and hence no outer <code>system</code> is needed.
-</li>      
-<li>March 20, 2022, by Chengnan Shi:<br/>Update with base class partial model and standard PI control.</li>
-<li>Novermber 13, 2019, by Kathryn Hinkelman:<br/>First implementation. </li>
 </ul>
 </html>"));
 end Direct;

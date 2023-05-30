@@ -125,5 +125,12 @@ This is a validation model for the plant staging logic implemented in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StagingPlant</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StagingPlant;

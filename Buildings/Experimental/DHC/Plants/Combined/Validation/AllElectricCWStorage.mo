@@ -225,5 +225,12 @@ low cooling loads and high heating loads during the third day,
 and no cooling loads (cooling disabled) and high heating loads 
 during the last day. 
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end AllElectricCWStorage;

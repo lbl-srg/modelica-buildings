@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block TankCycle "Block that determines the tank cycle flag"
 
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
@@ -235,5 +235,12 @@ only in the above two clauses without a time delay.
 <p>
 The minimum runtime of each tank cycle is fixed at <i>30&nbsp;</i>min.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end TankCycle;

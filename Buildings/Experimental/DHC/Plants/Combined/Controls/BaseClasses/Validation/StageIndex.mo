@@ -32,5 +32,12 @@ This is a validation model for the block
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StageIndex\">
 Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses.StageIndex</a>.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end StageIndex;

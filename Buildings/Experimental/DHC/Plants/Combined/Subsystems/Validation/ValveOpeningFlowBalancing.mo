@@ -83,5 +83,12 @@ This model validates the computation of the valve opening that ensures
 flow balancing proportional to design flow in the case of linear valves
 configured with a pressure drop varying linearly with the flow rate.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ValveOpeningFlowBalancing;

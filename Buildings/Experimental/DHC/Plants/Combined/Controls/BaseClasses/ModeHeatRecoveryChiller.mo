@@ -80,5 +80,12 @@ to the CW interconnection and that is not operating in cascading cooling,
 that is the unit with the highest index below the lowest index of HRCs operating
 in cascading cooling mode.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ModeHeatRecoveryChiller;

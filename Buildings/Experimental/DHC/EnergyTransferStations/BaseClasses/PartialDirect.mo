@@ -239,6 +239,10 @@ Chapter 5: End User Interface. In <i>District Cooling Guide</i>, Second Edition 
       revisions="<html>
 <ul>
 <li>
+April 7, 2023, by David Blum:<br/>
+Changed to partial base class for direct so can extend to heating and cooling ETS.
+</li>
+<li>
 January 11, 2023, by Michael Wetter:<br/>
 Changed controls to use CDL. Changed PID to PI as default for controller.
 </li>

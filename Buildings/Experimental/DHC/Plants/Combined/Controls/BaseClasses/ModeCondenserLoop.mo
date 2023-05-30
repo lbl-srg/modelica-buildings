@@ -433,5 +433,12 @@ heat exchanger for <i>1&nbsp;</i>min.
 <p>
 The mode is enabled whenever neither Charge Assist nor Heat Rejection mode is enabled.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ModeCondenserLoop;

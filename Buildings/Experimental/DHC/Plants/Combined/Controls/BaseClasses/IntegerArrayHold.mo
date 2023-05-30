@@ -54,5 +54,12 @@ At initial time, the value of the output array is set
 to the value of the input array, and this is considered
 as the first update time.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end IntegerArrayHold;

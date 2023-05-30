@@ -145,11 +145,7 @@ The mass flow rate of heating water in the building side is varied based on the 
       revisions="<html>
 <ul>
 <li>
-January 30, 2023:<br/>
-Corrected parameterization.
-</li>
-<li>
-March 20, 2022, by Chengnan Shi:<br/>
+April 7, 2023, by David Blum:<br/>
 First implementation.
 </li>
 </ul>

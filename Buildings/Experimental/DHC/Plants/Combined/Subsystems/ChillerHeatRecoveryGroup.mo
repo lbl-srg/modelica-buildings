@@ -768,5 +768,12 @@ control loop ensures that the valve creates the adequate pressure drop
 and flow, which will simply be reached at a different valve opening
 with the above simplification.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ChillerHeatRecoveryGroup;

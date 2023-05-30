@@ -251,5 +251,12 @@ The fan cycling On and Off is implicitly modeled
 in the cooling tower component which uses a low limit of the control signal
 to switch to a free convection regime at zero fan power.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2023, by Antoine Gautier:<br/>
+First implementation.
+</li>
+</ul>
 </html>"));
 end CoolingTowerGroup;
