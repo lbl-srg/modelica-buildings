@@ -78,8 +78,7 @@ model PartialIndirect
     annotation (Dialog(group="PID controller",enable=
           controllerType == Modelica.Blocks.Types.SimpleController.PD or
           controllerType == Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real yMax(
-    final start=1)=1
+  parameter Real yMax=1
     "Upper limit of output"
     annotation (Dialog(group="PID controller"));
   parameter Real yMin=0.01

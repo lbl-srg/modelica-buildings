@@ -12,8 +12,7 @@ model PartialDirect
     final have_fan=false);
   // Mass flow rate
   parameter Modelica.Units.SI.MassFlowRate mBui_flow_nominal(
-    final min=0,
-    final start=0.5)
+    final min=0)
     "Nominal mass flow rate of building side"
     annotation(Dialog(group="Nominal condition"));
   // Pressure drops
@@ -44,8 +43,7 @@ model PartialDirect
     final min=0)=0.1
     "Time constant of derivative block"
     annotation (Dialog(group="PID controller",enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
-  parameter Real yMax(
-    final start=1)=1
+  parameter Real yMax=1
     "Upper limit of output"
     annotation (Dialog(group="PID controller"));
   parameter Real yMin=0
