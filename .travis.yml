@@ -39,6 +39,7 @@ env:
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
+    - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Airflow\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Examples\""
 
 before_install:
