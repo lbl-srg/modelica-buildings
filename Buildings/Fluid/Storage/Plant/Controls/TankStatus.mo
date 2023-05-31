@@ -183,6 +183,13 @@ the tank is considered both \"cooled\" and \"overcooled\".
   </tr>
 </tbody>
 </table>
+<p>
+Symbols:
+<i>T<sub>Hig</sub></i> - Higher threshold,
+<i>T<sub>Low</sub></i> - Lower threshold,
+<i>&Delta; T<sub>Unc</sub></i> - Meter uncertainty,
+<i>&Delta; T<sub>Hys</sub></i> - Band for hysteresis.
+</p>
 </html>"),
 revisions="<html>
 <ul>
