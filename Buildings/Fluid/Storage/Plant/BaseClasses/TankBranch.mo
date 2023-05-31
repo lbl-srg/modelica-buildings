@@ -1,11 +1,7 @@
 within Buildings.Fluid.Storage.Plant.BaseClasses;
 model TankBranch "Model of the tank branch of a storage plant"
 
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium package";
-
-  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
-    "Nominal values";
+  extends Buildings.Fluid.Storage.Plant.BaseClasses.NominalDeclarations;
 
   // Storage tank parameters
   parameter Modelica.Units.SI.Volume VTan "Tank volume"
@@ -35,29 +31,6 @@ model TankBranch "Model of the tank branch of a storage plant"
     annotation (Dialog(tab="Initialization"));
   parameter Modelica.Units.SI.Time tau=1 "Time constant for mixing"
     annotation(Dialog(group="Tank"));
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_aRetNet(
-    redeclare final package Medium = Medium,
-    p(final displayUnit="Pa"))
-    "Port that connects to the return side of the district network"
-    annotation (Placement(transformation(extent={{90,-70},{110,-50}}),
-        iconTransformation(extent={{90,-70},{110,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bSupNet(redeclare final package
-      Medium = Medium, p(final displayUnit="Pa"))
-    "Port that connects to the supply side of the district network" annotation (
-     Placement(transformation(extent={{90,50},{110,70}}), iconTransformation(
-          extent={{90,50},{110,70}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_bRetChi(redeclare final package
-      Medium = Medium, p(final displayUnit="Pa"))
-    "Port that connects to the return side of the chiller" annotation (
-      Placement(transformation(extent={{-110,-70},{-90,-50}}),
-        iconTransformation(extent={{-110,-70},{-90,-50}})));
-  Modelica.Fluid.Interfaces.FluidPort_a port_aSupChi(
-    redeclare final package Medium = Medium,
-    p(final displayUnit="Pa"))
-    "Port that connects to the supply side of the chiller"  annotation (
-      Placement(transformation(extent={{-110,50},{-90,70}}), iconTransformation(
-          extent={{-110,50},{-90,70}})));
 
   Buildings.Fluid.Storage.Stratified tan(
     redeclare final package Medium = Medium,
