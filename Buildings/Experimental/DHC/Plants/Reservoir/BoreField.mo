@@ -37,7 +37,7 @@ model BoreField "Geothermal borefield model"
   to compute dependent parameters.
   */
   parameter Integer nBor = borFieDat.conDat.nBor
-    "Length of borehole"
+    "Number of boreholes"
     annotation(Evaluate=true);
   parameter Real dxyBor = 10
     "Distance between boreholes";
