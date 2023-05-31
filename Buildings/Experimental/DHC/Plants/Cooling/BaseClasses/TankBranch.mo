@@ -1,7 +1,8 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 model TankBranch "Model of the tank branch of a storage plant"
 
-  extends Buildings.Fluid.Storage.Plant.BaseClasses.NominalDeclarations;
+  extends
+    Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.NominalDeclarations;
 
   // Storage tank parameters
   parameter Modelica.Units.SI.Volume VTan "Tank volume"
@@ -194,7 +195,7 @@ equation
     defaultComponentName = "tanBra",
     Documentation(info="<html>
 <p>
-This model is part of a storage plant model. This branch has a stratified tank.
+This model is part of a storage plant. This branch has a stratified tank.
 This tank can potentially be charged remotely by a chiller from the district
 CHW network other than its own local chiller.
 </p>

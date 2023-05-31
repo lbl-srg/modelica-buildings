@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Controls;
+within Buildings.Experimental.DHC.Plants.Cooling.Controls;
 block FlowControl
   "This block controls the flow at the primary and secondary pumps"
   extends Modelica.Blocks.Icons.Block;

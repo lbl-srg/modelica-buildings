@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Examples;
+within Buildings.Experimental.DHC.Plants.Cooling.Examples;
 model DualSource
   "Idealised district system model with two sources and three users"
   extends Modelica.Icons.Example;
@@ -47,18 +47,17 @@ model DualSource
         origin={-50,170})));
 
 // Second plant: chiller and tank
-  final parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom(
+  final parameter Buildings.Experimental.DHC.Plants.Cooling.Data.NominalValues
+    nom(
     mTan_flow_nominal=m_flow_nominal,
     mChi_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWR_nominal) "Nominal values for the second plant"
     annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Fluid.Storage.Plant.StoragePlant stoPla(
-    redeclare final package Medium = Medium,
-    final nom=nom) "Storage plant"
-                   annotation (Placement(transformation(
-          rotation=0, extent={{-20,-100},{0,-80}})));
+  Buildings.Experimental.DHC.Plants.Cooling.StoragePlant stoPla(redeclare
+      final package Medium = Medium, final nom=nom) "Storage plant" annotation (
+     Placement(transformation(rotation=0, extent={{-20,-100},{0,-80}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     p(final displayUnit="Pa") = 101325 + dp_nominal,
     redeclare final package Medium = Medium,
@@ -78,7 +77,7 @@ model DualSource
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
 // Users
-  Buildings.Fluid.Storage.Plant.BaseClasses.IdealUser ideUse1(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser ideUse1(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.6*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
@@ -88,7 +87,7 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,150})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.IdealUser ideUse2(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser ideUse2(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
@@ -98,7 +97,7 @@ model DualSource
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={90,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.IdealUser ideUse3(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser ideUse3(
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
@@ -147,7 +146,8 @@ model DualSource
         origin={130,-150})));
 
 // District pipe network
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunUse1(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
+    parJunUse1(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
@@ -156,7 +156,8 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={50,150})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunPla1(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
+    parJunPla1(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWS_nominal,
     T2_start=nom.T_CHWR_nominal)
@@ -165,7 +166,8 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={50,70})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunUse2(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
+    parJunUse2(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
@@ -174,7 +176,8 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={50,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunPla2(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
+    parJunPla2(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWS_nominal,
     T2_start=nom.T_CHWR_nominal)
@@ -183,7 +186,8 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={50,-90})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelJunctions parJunUse3(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
+    parJunUse3(
     redeclare final package Medium = Medium,
     T1_start=nom.T_CHWR_nominal,
     T2_start=nom.T_CHWS_nominal)
@@ -192,7 +196,8 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={50,-170})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS1U1(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes
+    parPipS1U1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
@@ -200,7 +205,8 @@ model DualSource
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,110})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS1U2(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes
+    parPipS1U2(
     redeclare package Medium = Medium,
     m_flow_nominal=2*m_flow_nominal,
     dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
@@ -208,7 +214,8 @@ model DualSource
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,30})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS2U2(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes
+    parPipS2U2(
     redeclare package Medium = Medium,
     m_flow_nominal=2*m_flow_nominal,
     dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
@@ -216,7 +223,8 @@ model DualSource
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={50,-50})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ParallelPipes parPipS2U3(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes
+    parPipS2U3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=0.15*dp_nominal) "Parallel pipes" annotation (Placement(
@@ -360,16 +368,16 @@ equation
   connect(parJunPla2.port_c2, stoPla.port_aRetNet)
     annotation (Line(points={{40,-96},{0,-96}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Plant/Examples/DualSource.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Cooling/Examples/DualSource.mos"
         "Simulate and plot"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),                                             Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-120,-200},{220,220}})),
         Documentation(info="<html>
 <p>
-The modelled system is described in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.UsersGuide\">
-Buildings.Fluid.Storage.Plant.UsersGuide</a>.
+The modelled system is described in the documentation of
+<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.StoragePlant\">
+Buildings.Experimental.DHC.Plants.Cooling.StoragePlant</a>.
 </p>
 <p>
 The source blocks give the system the following operation schedule during

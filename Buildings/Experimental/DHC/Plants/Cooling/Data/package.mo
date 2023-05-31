@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant;
+within Buildings.Experimental.DHC.Plants.Cooling;
 package Data "Data for storage plant nominal values"
   extends Modelica.Icons.MaterialPropertiesPackage;
 

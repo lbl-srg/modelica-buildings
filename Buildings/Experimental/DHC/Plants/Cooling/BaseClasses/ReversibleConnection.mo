@@ -1,11 +1,11 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 model ReversibleConnection
   "A connection that supports reversible flow with a pump and a valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     final allowFlowReversal=true,
     final m_flow_nominal=nom.m_flow_nominal);
 
-  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
+  parameter Buildings.Experimental.DHC.Plants.Cooling.Data.NominalValues nom
     "Nominal values"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 
@@ -129,16 +129,12 @@ First implementation. This is for
           points={{40,-40},{24,-30},{24,-50},{40,-40}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{40,-40},{56,-30},{56,-50},{40,-40}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.ClosedRemote
-               or plaTyp == Buildings.Fluid.Storage.Plant.BaseClasses.Types.Setup.Open),
+          fillPattern=FillPattern.Solid),
         Polygon(
           points={{60,40},{40,60},{40,20},{60,40}},
           lineColor={0,0,0},

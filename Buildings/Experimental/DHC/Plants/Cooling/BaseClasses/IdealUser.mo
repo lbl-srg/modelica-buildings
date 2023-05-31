@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 model IdealUser "Ideal user model"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
@@ -133,9 +133,9 @@ equation
     defaultComponentName = "ideUse",
                                  Documentation(info="<html>
 <p>
-This is a simple ideal user model used by example models under
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
-Buildings.Fluid.Storage.Plant.Examples</a>.
+This is a simple ideal user model used by
+<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource\">
+Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource</a>.
 The load of the user is described by a varying flow rate setpoint.
 The valve is controlled to maintain the requested flow.
 CHW always leaves the user at a fixed return temperature.

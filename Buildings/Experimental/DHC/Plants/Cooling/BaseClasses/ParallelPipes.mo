@@ -1,6 +1,6 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 model ParallelPipes "CHW supply and return pipes in parallel"
-  extends Interfaces.PartialFourPortInterface(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     final m1_flow_nominal = m_flow_nominal,

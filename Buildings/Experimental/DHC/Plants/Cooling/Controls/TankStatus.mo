@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Controls;
+within Buildings.Experimental.DHC.Plants.Cooling.Controls;
 block TankStatus "Block that returns the status of the tank"
   extends Modelica.Blocks.Icons.Block;
 

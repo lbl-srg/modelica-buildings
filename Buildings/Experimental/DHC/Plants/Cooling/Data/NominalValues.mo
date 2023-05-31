@@ -1,4 +1,4 @@
-within Buildings.Fluid.Storage.Plant.Data;
+within Buildings.Experimental.DHC.Plants.Cooling.Data;
 record NominalValues "Nominal values"
   extends Modelica.Icons.Record;
 

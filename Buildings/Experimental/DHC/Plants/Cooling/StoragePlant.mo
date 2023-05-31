@@ -1,7 +1,8 @@
-within Buildings.Fluid.Storage.Plant;
+within Buildings.Experimental.DHC.Plants.Cooling;
 model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
 
-  extends Buildings.Fluid.Storage.Plant.BaseClasses.NominalDeclarations;
+  extends
+    Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.NominalDeclarations;
 
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumPri(
     redeclare final package Medium = Medium,
@@ -18,7 +19,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-50})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.TankBranch tanBra(
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final nom=nom,
     VTan=0.8,
@@ -28,19 +29,17 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={10,-10})));
-  Buildings.Fluid.Storage.Plant.BaseClasses.ReversibleConnection revCon(
-    redeclare final package Medium = Medium,
-    final nom=nom) "Reversible connection"
+  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ReversibleConnection
+    revCon(redeclare final package Medium = Medium, final nom=nom)
+    "Reversible connection"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Fluid.Storage.Plant.Controls.FlowControl floCon(
+  Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl floCon(
     final mChi_flow_nominal=nom.mChi_flow_nominal,
     final mTan_flow_nominal=nom.mTan_flow_nominal,
     final use_outFil=true) "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Fluid.Storage.Plant.Controls.TankStatus tanSta(
-    TLow=nom.T_CHWS_nominal,
-    THig=nom.T_CHWR_nominal)
-    "Tank status"
+  Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus tanSta(TLow=nom.T_CHWS_nominal,
+      THig=nom.T_CHWR_nominal) "Tank status"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
     "Chiller enable status, true if chiller is enabled" annotation (Placement(
@@ -184,9 +183,9 @@ The tank in this plant can be charged by its local chiller or by a remote
 chiller on the same CHW district network.
 </p>
 <p>
-An example model for this system is implemented in the subpackage
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Examples\">
-Buildings.Fluid.Storage.Plant.Examples</a>.
+An example model for this system is implemented as
+<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource\">
+Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource</a>.
 Shown in the schematic below, it has two CHW plants and three users.
 </p>
 <ul>
@@ -204,7 +203,7 @@ or throttle water from the pressurised network to charge the tank.
 </ul>
 <p align=\"center\">
 <img alt=\"SystemConcept\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/SystemConcept.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/SystemConcept.png\"/>
 </p>
 <h4>Control Signals</h4>
 <p>
@@ -254,24 +253,24 @@ the district network.
 </ul>
 <p align=\"center\">
 <img alt=\"ControlSignals\"
-src=\"modelica://Buildings/Resources/Images/Fluid/Storage/Plant/ControlSignals.png\"/>
+src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/ControlSignals.png\"/>
 </p>
 <h4>Implementation</h4>
 <p>
 The chiller is implemented as an ideal temperature source where the outlet
 temperature is always at the prescribed value in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource\">
-Buildings.Fluid.Storage.Plant.BaseClasses.IdealTemperatureSource</a>.
+<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealTemperatureSource\">
+Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealTemperatureSource</a>.
 </p>
 <p>
 The control of the storage plant is implemented as a state graph in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.FlowControl\">
-Buildings.Fluid.Storage.Plant.Controls.FlowControl</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl\">
+Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl</a>.
 </p>
 <p>
 The status of tank is also implemented as a state graph in
-<a href=\"Modelica://Buildings.Fluid.Storage.Plant.Controls.TankStatus\">
-Buildings.Fluid.Storage.Plant.Controls.TankStatus</a>.
+<a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus\">
+Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus</a>.
 </p>
 </html>", revisions="<html>
 <ul>

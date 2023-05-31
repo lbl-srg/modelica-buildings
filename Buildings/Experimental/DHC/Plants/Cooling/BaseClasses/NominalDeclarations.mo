@@ -1,11 +1,11 @@
-within Buildings.Fluid.Storage.Plant.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 partial model NominalDeclarations
   "Class that declares the common ports and nominal values"
 
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
-  parameter Buildings.Fluid.Storage.Plant.Data.NominalValues nom
+  parameter Buildings.Experimental.DHC.Plants.Cooling.Data.NominalValues nom
     "Nominal values"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
