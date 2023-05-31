@@ -88,9 +88,9 @@ equation
 Documentation(info="<html>
 <p>
 This model implements a validation of the block
-<a href=\"Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.BaseClasses.EquationFitReversible</a>
-that applies the equation fit method used for <a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+that applies the equation fit method used for <a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>", revisions="<html>
