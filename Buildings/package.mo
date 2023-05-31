@@ -117,7 +117,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a> if the zon
 <li>
 Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code>, <code>m_flow</code>
 and <code>V_flow</code>.
-See <a href=\"Buildings.Fluid.Sensors.VolumeFlowRate\">
+See <a href=\"modelica://Buildings.Fluid.Sensors.VolumeFlowRate\">
 Buildings.Fluid.Sensors.VolumeFlowRate</a>.
 </li>
 <li>
@@ -222,6 +222,14 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
     <td valign=\"top\">Package that contains models for reduced building physics of thermal zones
                        based on a thermal network consisting of five resistances and one capacity.
                        The models are inspired by the ISO 13790:2008 Standard.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples
+    </td>
+    <td valign=\"top\">Package that contains example models of a building 
+                       with loads provided as time series for heat 
+                       pump space heating, heat pump domestic hot water heating,
+                       and free cooling in an ambient district network.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
@@ -996,6 +1004,23 @@ that can lead to wrong simulation results):
   <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
   </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+  </td>
+  <td valign=\"top\">Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
+                     Corrected calculation of heat pump evaporator mass flow control.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+                     issue 3379</a>.
+  </td>
+</tr>  
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
+  </td>
+  <td valign=\"top\">Assigned dp_nominal to condenser pump.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+                     issue 3379</a>.
+  </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect
   </td>
   <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
@@ -1011,6 +1036,14 @@ that can lead to wrong simulation results):
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
   </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries
+  </td>
+  <td valign=\"top\">Applied <code>facMul</code> to domestic hot water load.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+                     issue 3379</a>.
+  </td>
+</tr>  
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>

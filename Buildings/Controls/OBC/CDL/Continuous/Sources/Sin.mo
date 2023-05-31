@@ -91,7 +91,7 @@ Block that outputs a <code>sine</code>.
 April 13, 2023, by Michael Wetter:<br/>
 Renamed block from <code>Sine</code> to <code>Sin</code>
 to use consistent naming with
-<a href=\"Buildings.Controls.OBC.CDL.Continuous.Sin\">
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.Sin\">
 Buildings.Controls.OBC.CDL.Continuous.Sin</a>.<br/>
 This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3339\">#3339</a>
