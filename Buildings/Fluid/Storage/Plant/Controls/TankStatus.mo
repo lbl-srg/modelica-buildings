@@ -107,10 +107,10 @@ equation
     annotation (Line(points={{402,0},{450,0}}, color={255,0,255}));
   connect(steOveCoo.active, y[3]) annotation (Line(points={{190,-81},{190,-136},
           {420,-136},{420,0},{450,0},{450,3.33333}}, color={255,0,255}));
-  connect(steOveCoo.active, or2.u1) annotation (Line(points={{190,-81},{190,
-          -124},{364,-124},{364,0},{378,0}}, color={255,0,255}));
-  connect(steCoo.active, or2.u2) annotation (Line(points={{90,-61},{90,-130},{
-          370,-130},{370,-8},{378,-8}}, color={255,0,255}));
+  connect(steCoo.active, or2.u1) annotation (Line(points={{90,-61},{90,-126},{
+          360,-126},{360,0},{378,0}}, color={255,0,255}));
+  connect(steOveCoo.active, or2.u2) annotation (Line(points={{190,-81},{190,
+          -136},{370,-136},{370,-8},{378,-8}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-40,72},{42,-72}},
