@@ -228,14 +228,17 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr>
+    <td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.PartialConvertTime
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added model to be extended in solar models that need calendar year for calculation.<br/>
+                     See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA, #1716</a>.
+
     </td>
-    </tr>
+</tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -244,6 +247,21 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr>
+    <td valign=\"top\">Buildings/BoundaryConditions/SolarGeometry/BaseClasses/Declination.mo<br/>
+                     Buildings/BoundaryConditions/SolarIrradiation/BaseClasses/SkyClearness.mo<br/>
+                     Buildings/BoundaryConditions/WeatherData/BaseClasses/ConvertTime.mo<br/>
+                     Buildings/BoundaryConditions/WeatherData/BaseClasses/EquationOfTime.mo<br/>
+                     Buildings/BoundaryConditions/WeatherData/BaseClasses/LocalCivilTime.mo
+    </td>
+    <td valign=\"top\">Updated radiation models to use calendar time instead of simulation time.<br/>
+                     See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1716\">IBPSA, #1716</a>.
+
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.CDL</b>
     </td>
 </tr>
