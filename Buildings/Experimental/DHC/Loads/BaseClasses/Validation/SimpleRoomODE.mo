@@ -166,9 +166,9 @@ equation
 <html>
 <p>
 This example validates
-<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE\">
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE\">
 Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE</a> by comparison with
-<a href=\"Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
+<a href=\"modelica://Buildings.ThermalZones.ReducedOrder.RC.TwoElements\">
 Buildings.ThermalZones.ReducedOrder.RC.TwoElements</a>.
 <p>
 A first instance of the reduced order model is used to assess the heating and

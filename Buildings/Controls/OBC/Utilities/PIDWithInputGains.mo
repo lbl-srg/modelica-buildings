@@ -407,7 +407,7 @@ where <i>y<sub>min</sub></i> and <i>y<sub>max</sub></i> are limits for the contr
 </p>
 <p>
 This block is identical to
-<a href=\"Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
+<a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>,
 except that the controller gains
 <i>k</i>, <i>T<sub>i</sub></i> and <i>T<sub>d</sub></i> are inputs rather than parameters.

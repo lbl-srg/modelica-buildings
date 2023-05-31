@@ -117,7 +117,7 @@ Buildings.Controls.OBC.ASHRAE.G36_PR1.TerminalUnits.Controller</a> if the zone h
 <li>
 Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code>, <code>m_flow</code>
 and <code>V_flow</code>.
-See <a href=\"Buildings.Fluid.Sensors.VolumeFlowRate\">
+See <a href=\"modelica://Buildings.Fluid.Sensors.VolumeFlowRate\">
 Buildings.Fluid.Sensors.VolumeFlowRate</a>.
 </li>
 <li>

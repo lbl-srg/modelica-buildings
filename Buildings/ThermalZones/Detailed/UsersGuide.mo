@@ -809,7 +809,7 @@ During the initialzation, the following data are sent from Modelica to CFD:
 An array of strings where each element is the name of the surface,
 as declared by
 the user when instantiating the model
-<a href=\"Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
+<a href=\"modelica://Buildings.ThermalZones.Detailed.CFD\">Buildings.ThermalZones.Detailed.CFD</a>.
 Let us call this array <code>name</code>.
 The orders of elements in this array are as follows:
 <ol>

@@ -11,10 +11,10 @@ of air-cooled DX cooling coils that are used in the examples.
 </p>
 <p>
 For performance data of specific air-cooled DX cooling coils, see the packages
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.SingleSpeed</a>
 and
-<a href=\"Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed\">
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed\">
 Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.DoubleSpeed</a>.
 </p>
 <p>

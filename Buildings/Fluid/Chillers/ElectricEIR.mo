@@ -155,7 +155,7 @@ condenser entering and evaporator leaving fluid temperature.
 </ul>
 <p>
 These curves are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.Chillers.Data.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR\">
 Buildings.Fluid.Chillers.Data.ElectricEIR</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
