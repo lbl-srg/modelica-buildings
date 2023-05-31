@@ -259,7 +259,7 @@ equation
       "Simulate and plot"),
     experiment(
       StartTime=3024000,
-      StopTime=3888000,
+      StopTime=3456000,
       Tolerance=1e-06),
   Diagram(coordinateSystem(extent={{-240,-240},{240,240}})),
     Documentation(info="<html>
