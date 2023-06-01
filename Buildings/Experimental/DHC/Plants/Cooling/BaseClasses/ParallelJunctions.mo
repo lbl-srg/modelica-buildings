@@ -115,7 +115,13 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0},
           origin={60.5,-2.5},
-          rotation=90)}),                                        Diagram(
+          rotation=90),
+      Text(
+          extent={{-141,-99},{159,-139}},
+          textColor={0,0,255},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255},
+          textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
         defaultComponentName = "parJun",
     Documentation(info="<html>
