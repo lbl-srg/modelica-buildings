@@ -57,12 +57,12 @@ model SingleSpeedHeating
   Modelica.Blocks.Math.Mean Q_flowMea(
     final f=1/3600)
     "Mean of cooling rate"
-    annotation (Placement(transformation(extent={{0,80},{20,100}})));
+    annotation (Placement(transformation(extent={{80,-20},{100,0}})));
 
   Modelica.Blocks.Math.Mean PMea(
     final f=1/3600)
     "Mean of power"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{80,10},{100,30}})));
 
   Buildings.Controls.OBC.CDL.Discrete.UnitDelay PEPlu(
     final samplePeriod=3600)
@@ -163,12 +163,12 @@ equation
       points={{61,130},{78,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sinSpeDX.QSen_flow, Q_flowMea.u) annotation (Line(points={{11,17},{20,
-          17},{20,54},{-10,54},{-10,90},{-2,90}}, color={0,0,127}));
+  connect(sinSpeDX.QSen_flow, Q_flowMea.u) annotation (Line(points={{11,17},{50,
+          17},{50,-10},{78,-10}},                 color={0,0,127}));
   connect(toTotAirEPlu.XiTotalAir, XConOutEPlu.u)
     annotation (Line(points={{21,-130},{28,-130}}, color={0,0,127}));
-  connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{25.5,19},{25.5,20},
-          {38,20}}, color={0,0,127}));
+  connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{50,19},{50,20},
+          {78,20}}, color={0,0,127}));
   connect(datRea.y[14], plrToPul.uPLR)
     annotation (Line(points={{-131,120},{-82,120}}, color={0,0,127}));
   connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-30,120},
