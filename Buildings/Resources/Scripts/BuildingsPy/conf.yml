@@ -157,6 +157,8 @@
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
   dymola:
     time_out: 600
+  openmodelica:
+    time_out: 600
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
     comment: timed out after 300 seconds
