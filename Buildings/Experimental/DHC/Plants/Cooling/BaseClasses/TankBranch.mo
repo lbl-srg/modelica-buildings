@@ -111,6 +111,24 @@ model TankBranch "Model of the tank branch of a storage plant"
     "Heat port that connects to the control volumes of the tank"
     annotation (Placement(transformation(extent={{-26,-26},{-14,-14}}),
         iconTransformation(extent={{-6,-6},{6,6}})));
+  Modelica.Blocks.Interfaces.RealOutput TTan[2](
+    each final quantity="Temperature",
+    each displayUnit="C") "Temperatures at the tank 1: top and 2: bottom"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={110,-90}), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=180,
+        origin={110,-100})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemTop
+    "Temperature sensor for tank top"
+    annotation (Placement(transformation(extent={{20,20},{40,40}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemBot
+    "Temperature sensor for tank bottom"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+
+protected
   Buildings.Fluid.FixedResistances.Junction junSup(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -130,22 +148,7 @@ model TankBranch "Model of the tank branch of a storage plant"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-50,-60})));
-  Modelica.Blocks.Interfaces.RealOutput TTan[2](
-    each final quantity="Temperature",
-    each displayUnit="C") "Temperatures at the tank 1: top and 2: bottom"
-    annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={110,-90}), iconTransformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={110,-100})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemTop
-    "Temperature sensor for tank top"
-    annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTemBot
-    "Temperature sensor for tank bottom"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+
 equation
   connect(senFlo.m_flow, mTan_flow) annotation (Line(points={{-61,-30},{-66,-30},
           {-66,90},{110,90}},         color={0,0,127}));
