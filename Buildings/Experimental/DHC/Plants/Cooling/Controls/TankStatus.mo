@@ -58,7 +58,7 @@ block TankStatus "Block that returns the status of the tank"
   Modelica.StateGraph.StepWithSignal steOveCoo(nIn=1, nOut=1)
     "Step: Tank is overcooled (and is still cooled)"
     annotation (Placement(transformation(extent={{180,-80},{200,-60}})));
-  Modelica.StateGraph.Transition traRes3(condition=traRes2.condition)
+  Modelica.StateGraph.Transition traRes3(condition=TTan[1] > TLow + dTHys)
     "Transition: Reset to initial step"
     annotation (Placement(transformation(extent={{220,-80},{240,-60}})));
   Modelica.Blocks.Interfaces.BooleanOutput y[3]
@@ -166,20 +166,20 @@ the tank is considered both \"cooled\" and \"overcooled\".
   <tr>
     <td>Depleted</td>
     <td>The chill in the tank is depleted. The tank is warm.</td>
-    <td><i>T<sub>2</sub> &gt; T<sub>Hig</sub> - &Delta; T<sub>Unc</sub></i></td>
-    <td><i>T<sub>2</sub> &lt; T<sub>Hig</sub> - &Delta; T<sub>Hys</sub></i></td>
+    <td><i>T<sub>2</sub> &gt; T<sub>Hig</sub> - &Delta;T<sub>Unc</sub></i></td>
+    <td><i>T<sub>2</sub> &lt; T<sub>Hig</sub> - &Delta;T<sub>Hys</sub></i></td>
   </tr>
   <tr>
     <td>Cooled</td>
     <td>The tank is cooled, but there is still capacity left for further chilling.</td>
-    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta; T<sub>Hys</sub></i></td>
-    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta; T<sub>Hys</sub>*2</i></td>
+    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta;T<sub>Hys</sub></i></td>
+    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta;T<sub>Hys</sub>*2</i></td>
   </tr>
   <tr>
     <td>Overcooled</td>
     <td>The tank is cooled to the maximum of its capacity.</td>
-    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta; T<sub>Unc</sub></i></td>
-    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta; T<sub>Hys</sub>*2</i></td>
+    <td><i>T<sub>1</sub> &lt; T<sub>Low</sub> + &Delta;T<sub>Unc</sub></i></td>
+    <td><i>T<sub>1</sub> &gt; T<sub>Low</sub> + &Delta;T<sub>Hys</sub></i></td>
   </tr>
 </tbody>
 </table>
@@ -187,8 +187,8 @@ the tank is considered both \"cooled\" and \"overcooled\".
 Symbols:
 <i>T<sub>Hig</sub></i> - Higher threshold,
 <i>T<sub>Low</sub></i> - Lower threshold,
-<i>&Delta; T<sub>Unc</sub></i> - Meter uncertainty,
-<i>&Delta; T<sub>Hys</sub></i> - Band for hysteresis.
+<i>&Delta;T<sub>Unc</sub></i> - Meter uncertainty,
+<i>&Delta;T<sub>Hys</sub></i> - Band for hysteresis.
 </p>
 </html>"),
 revisions="<html>
