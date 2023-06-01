@@ -150,16 +150,6 @@ model DualSource
 
 // District pipe network
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
-    parJunUse1(
-    redeclare final package Medium = Medium,
-    T1_start=T_CHWR_nominal,
-    T2_start=T_CHWS_nominal)
-    "Parallel junctions for breaking algebraic loops" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={50,150})));
-  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
     parJunPla1(
     redeclare final package Medium = Medium,
     T1_start=T_CHWS_nominal,
@@ -189,16 +179,6 @@ model DualSource
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={50,-90})));
-  Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
-    parJunUse3(
-    redeclare final package Medium = Medium,
-    T1_start=T_CHWR_nominal,
-    T2_start=T_CHWS_nominal)
-    "Parallel junctions for breaking algebraic loops" annotation (Placement(
-        transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={50,-170})));
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelPipes
     parPipS1U1(
     redeclare package Medium = Medium,
@@ -272,26 +252,14 @@ equation
           {110,-150},{118,-150}}, color={0,0,127}));
   connect(mulMin_dpUse.y,conPI_pumChi1.u_m)
     annotation (Line(points={{-78,130},{-50,130},{-50,158}}, color={0,0,127}));
-  connect(parJunUse1.port_c2, ideUse1.port_a) annotation (Line(points={{60,156},
-          {80,156}},                          color={0,127,255}));
-  connect(parJunUse1.port_c1, ideUse1.port_b) annotation (Line(points={{60,144},
-          {80,144}},                       color={0,127,255}));
   connect(parJunUse2.port_c2, ideUse2.port_a) annotation (Line(points={{60,-4},
           {80,-4}},                     color={0,127,255}));
   connect(ideUse2.port_b,parJunUse2.port_c1)  annotation (Line(points={{80,-16},
           {60,-16}},                            color={0,127,255}));
-  connect(parJunUse3.port_c2, ideUse3.port_a) annotation (Line(points={{60,-164},
-          {80,-164}},                               color={0,127,255}));
-  connect(ideUse3.port_b,parJunUse3.port_c1)  annotation (Line(points={{80,-176},
-          {60,-176}},                               color={0,127,255}));
-  connect(parPipS1U1.port_a2, parJunUse1.port_b2)
-    annotation (Line(points={{44,120},{44,140}}, color={0,127,255}));
   connect(parPipS1U1.port_b2, parJunPla1.port_a1)
     annotation (Line(points={{44,100},{44,80}}, color={0,127,255}));
   connect(parJunPla1.port_b2, parPipS1U1.port_a1)
     annotation (Line(points={{56,80},{56,100}}, color={0,127,255}));
-  connect(parPipS1U1.port_b1, parJunUse1.port_a1)
-    annotation (Line(points={{56,120},{56,140}}, color={0,127,255}));
   connect(parJunPla1.port_b1, parPipS1U2.port_a2)
     annotation (Line(points={{44,60},{44,40}}, color={0,127,255}));
   connect(parPipS1U2.port_b2, parJunUse2.port_a2)
@@ -312,10 +280,6 @@ equation
     annotation (Line(points={{44,-120},{44,-100}}, color={0,127,255}));
   connect(parJunPla2.port_a2, parPipS2U3.port_b1)
     annotation (Line(points={{56,-100},{56,-120}}, color={0,127,255}));
-  connect(parPipS2U3.port_a1, parJunUse3.port_b1)
-    annotation (Line(points={{56,-140},{56,-160}}, color={0,127,255}));
-  connect(parJunUse3.port_a2, parPipS2U3.port_b2)
-    annotation (Line(points={{44,-160},{44,-140}}, color={0,127,255}));
   connect(gaiUse1.y, muxDp.u[1]) annotation (Line(points={{141,170},{160,170},{
           160,147.667},{180,147.667}},
                                    color={0,0,127}));
@@ -370,6 +334,14 @@ equation
           -74},{-34,-74},{-34,-84},{-20,-84}}, color={0,127,255}));
   connect(bou.ports[1], stoPla.port_a2) annotation (Line(points={{0,-130},{6,
           -130},{6,-96},{0,-96}}, color={0,127,255}));
+  connect(parPipS1U1.port_a2, ideUse1.port_a)
+    annotation (Line(points={{44,120},{44,156},{80,156}}, color={0,127,255}));
+  connect(ideUse1.port_b, parPipS1U1.port_b1)
+    annotation (Line(points={{80,144},{56,144},{56,120}}, color={0,127,255}));
+  connect(parPipS2U3.port_b2, ideUse3.port_a) annotation (Line(points={{44,-140},
+          {44,-164},{80,-164}}, color={0,127,255}));
+  connect(parPipS2U3.port_a1, ideUse3.port_b) annotation (Line(points={{56,-140},
+          {56,-176},{80,-176}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Cooling/Examples/DualSource.mos"
         "Simulate and plot"),
