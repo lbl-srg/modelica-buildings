@@ -8,26 +8,24 @@ partial model PartialDXHeatingCoil
 
   parameter Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil datCoi
     "Performance data"
-    annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
+    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys(
     final min=0)=0.5
     "Temperature comparison for hysteresis"
     annotation(Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput XOut(
-    final unit="kg/kg",
-    final displayUnit="kg/kg",
-    final quantity="MassFraction")
-    "Outside air humidity ratio per kg of total air"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}}),
-      iconTransformation(extent={{-120,60},{-100,80}})));
-
   Modelica.Blocks.Interfaces.RealInput TOut(
     final unit="K",
     displayUnit="degC")
     "Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+
+  Modelica.Blocks.Interfaces.RealInput phi(
+    final unit="1")
+    "Outdoor air relative humidity at evaporator inlet (0...1)" annotation (
+      Placement(transformation(extent={{-120,60},{-100,80}}),
+        iconTransformation(extent={{-120,60},{-100,80}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
@@ -47,16 +45,6 @@ partial model PartialDXHeatingCoil
     final use_mCon_flow=false) "DX coil"
     annotation (Placement(transformation(extent={{-20,42},{0,62}})));
 
-  // Flow reversal is not needed. Also, if ff < ffMin/4, then
-  // Q_flow and EIR are set the zero. Hence, it is safe to assume
-  // forward flow, which will avoid an event
-
-//  extends Buildings.Fluid.DXSystems.BaseClasses.PartialDXCoil(
-//    redeclare Buildings.Fluid.DXSystems.BaseClasses.DryCoil dxCoi(
-//      redeclare package Medium = Medium,
-//      redeclare Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil datCoi),
-//    redeclare Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil datCoi);
-
 protected
   constant String substanceName="water"
     "Name of species substance";
@@ -65,6 +53,10 @@ protected
 
   parameter Integer i_x(fixed=false)
     "Index of substance";
+
+  parameter Modelica.Units.SI.AbsolutePressure pAtm(fixed=false)
+    "Atmospheric pressure";
+
   Modelica.Units.SI.SpecificEnthalpy hIn=inStream(port_a.h_outflow)
     "Enthalpy of air entering the DX coil";
 
@@ -85,7 +77,7 @@ protected
 
   Modelica.Blocks.Sources.RealExpression m(
     final y=port_a.m_flow) "Inlet air mass flow rate"
-    annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
+    annotation (Placement(transformation(extent={{-90,44},{-68,64}})));
 
   Buildings.Fluid.DXSystems.BaseClasses.CoilDefrostTimeCalculations
     defTimFra(
@@ -106,13 +98,15 @@ protected
     "Block to compute actual heat transferred to medium and power input after accounting for defrost"
     annotation (Placement(transformation(extent={{62,76},{82,96}})));
 
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
-    "Temperature of the control volume"
-    annotation (Placement(transformation(extent={{66,16},{78,28}})));
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(
+    final use_p_in=false,
+    final p=pAtm)
+    "Conversion for relative humidity to water vapor mass fraction"
+    annotation (Placement(transformation(extent={{-60,88},{-40,108}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow q
     "Heat extracted by coil"
-    annotation (Placement(transformation(extent={{42,44},{62,64}})));
+    annotation (Placement(transformation(extent={{58,10},{38,30}})));
 
   Modelica.Blocks.Sources.RealExpression p_in(
     final y=port_a.p)
@@ -123,6 +117,7 @@ protected
     final y=XIn[i_x])
     "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-90,2},{-70,22}})));
+
 
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
@@ -147,28 +142,25 @@ initial algorithm
                   + Medium.mediumName + "'.\n"
                   + "Change medium model to one that has '" + substanceName + "' as a substance.");
 
+  pAtm :=port_a.p;
 equation
   connect(m.y,dxCoi. m_flow) annotation (Line(
-      points={{-69,44},{-66,44},{-66,54.4},{-21,54.4}},
+      points={{-66.9,54},{-66,54},{-66,54.4},{-21,54.4}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(q.port, vol.heatPort) annotation (Line(
-      points={{62,54},{66,54},{66,22},{-12,22},{-12,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(TVol.port, q.port) annotation (Line(
-      points={{66,22},{66,54},{62,54}},
+      points={{38,20},{-20,20},{-20,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(TOut,dxCoi.TEvaIn)  annotation (Line(points={{-110,30},{-92,30},{-92,62},
-          {-46,62},{-46,52},{-21,52}},
+          {-26,62},{-26,52},{-21,52}},
                          color={0,0,127}));
-  connect(T.y,dxCoi.TConIn)  annotation (Line(points={{-69,28},{-40,28},{-40,57},
+  connect(T.y,dxCoi.TConIn)  annotation (Line(points={{-69,28},{-38,28},{-38,57},
           {-21,57}}, color={0,0,127}));
   connect(TOut, defTimFra.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,
-          62},{-46,62},{-46,102},{-1,102}},
+          62},{-26,62},{-26,102},{-1,102}},
                           color={0,0,127}));
   connect(defTimFra.tDefFra, defCap.tDefFra) annotation (Line(points={{21,104},{
           40,104},{40,97},{61,97}},        color={0,0,127}));
@@ -176,27 +168,31 @@ equation
           {34,100},{34,94},{61,94}},        color={0,0,127}));
   connect(defTimFra.inpPowMul, defCap.inpPowMul) annotation (Line(points={{21,96},
           {28,96},{28,91},{61,91}},         color={0,0,127}));
-  connect(T.y, defCap.TConIn) annotation (Line(points={{-69,28},{-40,28},{-40,88},
+  connect(T.y, defCap.TConIn) annotation (Line(points={{-69,28},{-38,28},{-38,88},
           {61,88}},  color={0,0,127}));
-  connect(XOut, defTimFra.XOut) annotation (Line(points={{-110,70},{-52,70},{-52,
-          98},{-1,98}},   color={0,0,127}));
   connect(dxCoi.Q_flow, defCap.QTot_flow) annotation (Line(points={{1,56},{22,56},
           {22,72},{61,72}},       color={0,0,127}));
   connect(dxCoi.EIR, defCap.EIR) annotation (Line(points={{1,60},{18,60},{18,75},
           {61,75}},       color={0,0,127}));
   connect(TOut, defCap.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,62},
-          {-46,62},{-46,78},{61,78}},
+          {-26,62},{-26,78},{61,78}},
                      color={0,0,127}));
-  connect(defCap.QTotDef_flow, q.Q_flow) annotation (Line(points={{83,78},{94,78},
-          {94,10},{32,10},{32,54},{42,54}},      color={0,0,127}));
-  connect(defCap.QTotDef_flow, QSen_flow) annotation (Line(points={{83,78},{98,78},
-          {98,70},{110,70}},      color={0,0,127}));
+  connect(defCap.QTotDef_flow, q.Q_flow) annotation (Line(points={{83,78},{92,
+          78},{92,20},{58,20}},                  color={0,0,127}));
+  connect(defCap.QTotDef_flow, QSen_flow) annotation (Line(points={{83,78},{92,
+          78},{92,70},{110,70}},  color={0,0,127}));
   connect(defCap.PTot, P) annotation (Line(points={{83,90},{110,90}},
                 color={0,0,127}));
   connect(p_in.y, defCap.pIn) annotation (Line(points={{-69,-20},{-30,-20},{-30,
           81},{61,81}},   color={0,0,127}));
-  connect(X.y, defCap.XConIn) annotation (Line(points={{-69,12},{-36,12},{-36,84},
+  connect(X.y, defCap.XConIn) annotation (Line(points={{-69,12},{-34,12},{-34,84},
           {61,84}},       color={0,0,127}));
+  connect(defTimFra.XOut, x_pTphi.X[1])
+    annotation (Line(points={{-1,98},{-39,98}}, color={0,0,127}));
+  connect(x_pTphi.T, TOut) annotation (Line(points={{-62,98},{-92,98},{-92,30},{
+          -110,30}}, color={0,0,127}));
+  connect(x_pTphi.phi, phi) annotation (Line(points={{-62,92},{-96,92},{-96,70},
+          {-110,70}}, color={0,0,127}));
   annotation (
 defaultComponentName="dxCoi",
 Documentation(info="<html>
@@ -208,6 +204,11 @@ Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 31, 2023, by Michael Wetter:<br/>
+Changed implementation to use <code>phi</code> rather than water vapor concentration
+as input because the latter is not available on the weather data bus.
+</li>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 First implementation.
@@ -224,8 +225,12 @@ First implementation.
           textColor={0,0,127},
           textString="QSen"),
                    Text(
-          extent={{-158,98},{-100,80}},
+          extent={{-136,98},{-78,80}},
           textColor={0,0,127},
-          textString="XOut")}),
+          textString="phi"),
+                   Text(
+          extent={{-140,58},{-82,40}},
+          textColor={0,0,127},
+          textString="TOut")}),
     Diagram(coordinateSystem(extent={{-100,-60},{100,120}})));
 end PartialDXHeatingCoil;

@@ -65,7 +65,7 @@ model SingleSpeed "Test model for single speed DX heating coil"
     final use_p_in=true,
     final nPorts=1)
     "Source"
-    annotation (Placement(transformation(extent={{-20,-38},{0,-18}})));
+    annotation (Placement(transformation(extent={{-20,-58},{0,-38}})));
 
   Modelica.Blocks.Sources.BooleanStep onOff(
     final startTime=600)
@@ -78,7 +78,7 @@ model SingleSpeed "Test model for single speed DX heating coil"
     final height=-3,
     final offset=273.15 + 23)
     "Temperature"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Modelica.Blocks.Sources.Ramp p(
     final duration=600,
@@ -86,21 +86,20 @@ model SingleSpeed "Test model for single speed DX heating coil"
     final height=dp_nominal,
     final offset=101325)
     "Pressure"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
 
   Modelica.Blocks.Sources.Constant TEvaIn(
     final k=273.15 + 0)
     "Evaporator inlet temperature"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,-8},{-60,12}})));
 
-  Modelica.Blocks.Sources.Constant XEvaIn(
-    final k=0.001/1.001)
-    "Evaporator inlet humidity ratio"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Modelica.Blocks.Sources.Constant phi(final k=0.1)
+    "Outside air relative humidity"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 
 equation
   connect(TConIn.y, sou.T_in) annotation (Line(
-      points={{-59,-50},{-30,-50},{-30,-24},{-22,-24}},
+      points={{-59,-70},{-30,-70},{-30,-44},{-22,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
@@ -109,21 +108,21 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
-      points={{-59,-20},{-22,-20}},
+      points={{-59,-40},{-22,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.port_a, sou.ports[1]) annotation (Line(
-      points={{20,0},{12,0},{12,-28},{0,-28}},
+      points={{20,0},{12,0},{12,-48},{0,-48}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-59,40},{-10,40},{-10,
-          3},{19,3}},    color={0,0,127}));
+  connect(TEvaIn.y, sinSpeDX.TOut) annotation (Line(points={{-59,2},{-58,2},{
+          -58,3},{19,3}},color={0,0,127}));
   connect(sinSpeDX.port_b, sin.ports[1]) annotation (Line(
       points={{40,0},{44,0},{44,-20},{48,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(XEvaIn.y, sinSpeDX.XOut) annotation (Line(points={{-59,10},{-20,10},{-20,
-          7},{19,7}},  color={0,0,127}));
+  connect(sinSpeDX.phi, phi.y) annotation (Line(points={{19,7},{-50,7},{-50,40},
+          {-59,40}}, color={0,0,127}));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/Heating/AirSource/Examples/SingleSpeed.mos"
         "Simulate and plot"),
     experiment(

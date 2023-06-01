@@ -133,6 +133,11 @@ model SingleSpeedHeating
     "Heating coil data record"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
+  Buildings.Utilities.Psychrometrics.Phi_pTX phi
+    "Conversion to relative humidity"
+    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+  Modelica.Blocks.Sources.Constant pAtm(final k=101325) "Atmospheric pressure"
+    annotation (Placement(transformation(extent={{-150,60},{-130,80}})));
 equation
   connect(sinSpeDX.port_b, sin.ports[1])
     annotation (Line(
@@ -160,9 +165,6 @@ equation
       smooth=Smooth.None));
   connect(sinSpeDX.QSen_flow, Q_flowMea.u) annotation (Line(points={{11,17},{20,
           17},{20,54},{-10,54},{-10,90},{-2,90}}, color={0,0,127}));
-  connect(toTotAirOut.XiTotalAir, sinSpeDX.XOut) annotation (Line(points={{-79,80},
-          {-40,80},{-40,17},{-11,17}},
-                                     color={0,0,127}));
   connect(toTotAirEPlu.XiTotalAir, XConOutEPlu.u)
     annotation (Line(points={{21,-130},{28,-130}}, color={0,0,127}));
   connect(sinSpeDX.P, PMea.u) annotation (Line(points={{11,19},{25.5,19},{25.5,20},
@@ -202,6 +204,14 @@ equation
           {-108,-30},{-10,-30},{-10,-40},{98,-40}}, color={0,0,127}));
   connect(datRea.y[16], PCraEPlu.u) annotation (Line(points={{-131,120},{-108,120},
           {-108,-80},{98,-80}}, color={0,0,127}));
+  connect(phi.X_w, toTotAirOut.XiTotalAir)
+    annotation (Line(points={{-61,80},{-79,80}}, color={0,0,127}));
+  connect(TEvaIn_K.Kelvin, phi.T) annotation (Line(points={{-79,49.8},{-70,49.8},
+          {-70,88},{-61,88}}, color={0,0,127}));
+  connect(pAtm.y, phi.p) annotation (Line(points={{-129,70},{-120,70},{-120,66},
+          {-66,66},{-66,72},{-61,72}}, color={0,0,127}));
+  connect(sinSpeDX.phi, phi.phi) annotation (Line(points={{-11,17},{-32,17},{-32,
+          80},{-39,80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},
             {180,160}})),
   Documentation(info="<html>
@@ -229,6 +239,11 @@ Buildings.Fluid.DXSystems.Heating.AirSource.Validation.SingleSpeed_TimedReverseC
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 31, 2023, by Michael Wetter:<br/>
+Changed implementation to use <code>phi</code> rather than water vapor concentration
+as input because the latter is not available on the weather data bus.
+</li>
 <li>
 April 2, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 First implementation.
