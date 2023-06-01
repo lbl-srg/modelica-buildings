@@ -67,7 +67,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     final dp_nominal=dp_nominal,
     final T_start=T_CHWS_nominal)
     "Reversible connection"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl floCon(
     final mChi_flow_nominal=mChi_flow_nominal,
     final mTan_flow_nominal=mTan_flow_nominal,
@@ -110,15 +110,27 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={60,110})));
+  Buildings.Fluid.Sensors.RelativePressure senRelPre(
+    redeclare final package Medium = Medium)
+    "Relative pressure sensor"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+      rotation=-90,origin={80,10})));
+  Buildings.Controls.OBC.CDL.Interfaces.RealOutput dp(
+    final quantity="PressureDifference",
+    final unit="Pa",
+    final displayUnit="Pa")
+    "Pressure drop accross the connection (measured)"
+    annotation (Placement(transformation(extent={{100,70},{140,110}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
 equation
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-70},{70,-70},{70,
           -90},{-70,-90},{-70,42},{-61,42}},                   color={255,0,255}));
   connect(floCon.mPriPum_flow, pumPri.m_flow_in)
     annotation (Line(points={{-39,56},{-30,56},{-30,22}}, color={0,0,127}));
   connect(floCon.ySecPum,revCon. yPum) annotation (Line(points={{-39,50},{34,50},
-          {34,16},{39,16}},          color={0,0,127}));
-  connect(floCon.yVal,revCon. yVal) annotation (Line(points={{-39,44},{28,44},{28,
-          4},{39,4}},                color={0,0,127}));
+          {34,36},{39,36}},          color={0,0,127}));
+  connect(floCon.yVal,revCon. yVal) annotation (Line(points={{-39,44},{30,44},{30,
+          24},{39,24}},              color={0,0,127}));
   connect(tanBra.TTan,tanSta. TTan) annotation (Line(points={{21,-20},{30,-20},{
           30,-70},{39,-70}},            color={0,0,127}));
   connect(chiEnaSta, floCon.chiEnaSta) annotation (Line(points={{-60,110},{-60,80},
@@ -135,9 +147,9 @@ equation
                             color={0,0,127}));
   connect(port_b2, chi2PreDro.port_b) annotation (Line(points={{-100,-60},{-84,-60},
           {-84,-50},{-40,-50}}, color={0,127,255}));
-  connect(tanBra.port_a2, port_a2) annotation (Line(points={{20,-16},{86,-16},{86,
+  connect(tanBra.port_a2, port_a2) annotation (Line(points={{20,-16},{80,-16},{80,
           -60},{100,-60}}, color={0,127,255}));
-  connect(revCon.port_b, port_b1) annotation (Line(points={{60,10},{86,10},{86,60},
+  connect(revCon.port_b, port_b1) annotation (Line(points={{60,30},{80,30},{80,60},
           {100,60}}, color={0,127,255}));
   connect(port_a1, pumPri.port_a) annotation (Line(points={{-100,60},{-84,60},{-84,
           10},{-40,10}}, color={0,127,255}));
@@ -146,7 +158,13 @@ equation
   connect(tanBra.port_b2, chi2PreDro.port_a) annotation (Line(points={{0,-16},{-6,
           -16},{-6,-50},{-20,-50}}, color={0,127,255}));
   connect(tanBra.port_b1, revCon.port_a) annotation (Line(points={{20,-4},{34,-4},
-          {34,10},{40,10}}, color={0,127,255}));
+          {34,30},{40,30}}, color={0,127,255}));
+  connect(port_b1, senRelPre.port_a)
+    annotation (Line(points={{100,60},{80,60},{80,20}}, color={0,127,255}));
+  connect(port_a2, senRelPre.port_b) annotation (Line(points={{100,-60},{80,-60},
+          {80,-3.55271e-15}}, color={0,127,255}));
+  connect(senRelPre.p_rel, dp) annotation (Line(points={{71,10},{66,10},{66,90},
+          {120,90}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
                                Rectangle(
