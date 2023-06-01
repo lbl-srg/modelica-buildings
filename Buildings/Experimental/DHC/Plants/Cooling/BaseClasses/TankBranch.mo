@@ -1,8 +1,29 @@
 within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 model TankBranch "Model of the tank branch of a storage plant"
 
-  extends
-    Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.NominalDeclarations;
+  extends Buildings.Fluid.Interfaces.PartialFourPort(
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium);
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium package";
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
+    "Nominal mass flow rate for CHW tank branch"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal(min=0)
+    "Nominal mass flow rate for CHW chiller branch"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Temperature T_CHWS_nominal(displayUnit="degC")=
+    7+273.15 "Nominal temperature of CHW supply"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Temperature T_CHWR_nominal(displayUnit="degC")=
+    12+273.15
+    "Nominal temperature of CHW return"
+    annotation(Dialog(group="Nominal values"));
 
   // Storage tank parameters
   parameter Modelica.Units.SI.Volume VTan "Tank volume"
@@ -24,7 +45,7 @@ model TankBranch "Model of the tank branch of a storage plant"
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-  parameter Medium.Temperature T_start=nom.T_CHWR_nominal
+  parameter Medium.Temperature T_start=T_CHWR_nominal
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization"));
   parameter Modelica.Units.SI.Temperature TFlu_start[nSeg]=T_start*ones(nSeg)
@@ -46,7 +67,7 @@ model TankBranch "Model of the tank branch of a storage plant"
     final T_start=T_start,
     final TFlu_start=TFlu_start,
     final tau=tau,
-    final m_flow_nominal=nom.mTan_flow_nominal,
+    final m_flow_nominal=mTan_flow_nominal,
     show_T=true) "Tank"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.Sensors.MassFlowRate senFlo(
@@ -93,17 +114,17 @@ model TankBranch "Model of the tank branch of a storage plant"
   Buildings.Fluid.FixedResistances.Junction junSup(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=nom.T_CHWS_nominal,
+    T_start=T_CHWS_nominal,
     tau=30,
-    m_flow_nominal={-nom.mChi_flow_nominal,nom.mTan_flow_nominal,nom.m_flow_nominal},
+    m_flow_nominal={-mChi_flow_nominal,mTan_flow_nominal,m_flow_nominal},
     dp_nominal={0,0,0}) "Junction on the supply side"
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
   Buildings.Fluid.FixedResistances.Junction junRet(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=nom.T_CHWR_nominal,
+    T_start=T_CHWR_nominal,
     tau=30,
-    m_flow_nominal={-nom.m_flow_nominal,nom.mChi_flow_nominal,nom.mTan_flow_nominal},
+    m_flow_nominal={-m_flow_nominal,mChi_flow_nominal,mTan_flow_nominal},
     dp_nominal={0,0,0}) "Junction on the return side" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -140,16 +161,8 @@ equation
                                                          color={191,0,0}));
   connect(heaPorVol, tan.heaPorVol) annotation (Line(points={{-20,-20},{-20,-4},
           {0,-4},{0,0}},         color={191,0,0}));
-  connect(port_aSupChi, junSup.port_1)
-    annotation (Line(points={{-100,60},{40,60}}, color={0,127,255}));
-  connect(junSup.port_2, port_bSupNet)
-    annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
-  connect(port_bRetChi, junRet.port_2)
-    annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
   connect(junRet.port_3, senFlo.port_a)
     annotation (Line(points={{-50,-50},{-50,-40}}, color={0,127,255}));
-  connect(junRet.port_1,port_aRetNet)
-    annotation (Line(points={{-40,-60},{100,-60}}, color={0,127,255}));
   connect(senFlo.port_b, tan.port_a)
     annotation (Line(points={{-50,-20},{-50,0},{-10,0}}, color={0,127,255}));
   connect(tan.port_b, junSup.port_3)
@@ -162,6 +175,14 @@ equation
           {110,-90},{110,-92.5}}, color={0,0,127}));
   connect(senTemBot.T, TTan[2]) annotation (Line(points={{41,-30},{70,-30},{70,-87.5},
           {110,-87.5}}, color={0,0,127}));
+  connect(port_b2, junRet.port_2)
+    annotation (Line(points={{-100,-60},{-60,-60}}, color={0,127,255}));
+  connect(junRet.port_1, port_a2)
+    annotation (Line(points={{-40,-60},{100,-60}}, color={0,127,255}));
+  connect(junSup.port_2, port_b1)
+    annotation (Line(points={{60,60},{100,60}}, color={0,127,255}));
+  connect(junSup.port_1, port_a1)
+    annotation (Line(points={{40,60},{-100,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),       graphics={
                                Rectangle(

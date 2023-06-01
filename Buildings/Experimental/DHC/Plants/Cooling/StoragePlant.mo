@@ -1,19 +1,46 @@
 within Buildings.Experimental.DHC.Plants.Cooling;
 model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
 
-  extends
-    Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.NominalDeclarations;
+  extends Buildings.Fluid.Interfaces.PartialFourPort(
+    redeclare final package Medium1 = Medium,
+    redeclare final package Medium2 = Medium);
+
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium package";
+
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=
+     mTan_flow_nominal+mChi_flow_nominal
+    "Nominal mass flow rate"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
+    "Nominal mass flow rate for CHW tank branch"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal(min=0)
+    "Nominal mass flow rate for CHW chiller branch"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
+    "Nominal pressure difference"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
+    final displayUnit="degC")=
+     7+273.15 "Nominal temperature of CHW supply"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.Temperature T_CHWR_nominal(
+    final displayUnit="degC")=
+     12+273.15
+    "Nominal temperature of CHW return"
+    annotation(Dialog(group="Nominal values"));
 
   Buildings.Fluid.Movers.Preconfigured.FlowControlled_m_flow pumPri(
     redeclare final package Medium = Medium,
     final addPowerToMedium=false,
-    final m_flow_nominal=nom.mChi_flow_nominal,
+    final m_flow_nominal=mChi_flow_nominal,
     final dp_nominal=chi2PreDro.dp_nominal) "Primary CHW pump"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.mChi_flow_nominal,
-    dp_nominal=0.1*nom.dp_nominal) "Pressure drop of the chiller loop"
+    final m_flow_nominal=mChi_flow_nominal,
+    dp_nominal=0.1*dp_nominal) "Pressure drop of the chiller loop"
                                                      annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -21,7 +48,11 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         origin={-30,-50})));
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch tanBra(
     redeclare final package Medium = Medium,
-    final nom=nom,
+    final m_flow_nominal=m_flow_nominal,
+    final mTan_flow_nominal=mTan_flow_nominal,
+    final mChi_flow_nominal=mChi_flow_nominal,
+    final T_CHWS_nominal=T_CHWS_nominal,
+    final T_CHWR_nominal=T_CHWR_nominal,
     VTan=0.8,
     hTan=3,
     dIns=0.3) "Tank branch, tank can be charged remotely" annotation (Placement(
@@ -30,16 +61,21 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         rotation=0,
         origin={10,-10})));
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ReversibleConnection
-    revCon(redeclare final package Medium = Medium, final nom=nom)
+    revCon(redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal,
+    final mTan_flow_nominal=mTan_flow_nominal,
+    final dp_nominal=dp_nominal,
+    final T_start=T_CHWS_nominal)
     "Reversible connection"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl floCon(
-    final mChi_flow_nominal=nom.mChi_flow_nominal,
-    final mTan_flow_nominal=nom.mTan_flow_nominal,
+    final mChi_flow_nominal=mChi_flow_nominal,
+    final mTan_flow_nominal=mTan_flow_nominal,
     final use_outFil=true) "Control block for storage plant flows"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus tanSta(TLow=nom.T_CHWS_nominal,
-      THig=nom.T_CHWR_nominal) "Tank status"
+  Buildings.Experimental.DHC.Plants.Cooling.Controls.TankStatus tanSta(
+    TLow=T_CHWS_nominal,
+    THig=T_CHWR_nominal) "Tank status"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Blocks.Interfaces.BooleanInput chiEnaSta
     "Chiller enable status, true if chiller is enabled" annotation (Placement(
@@ -77,14 +113,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
 equation
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-70},{70,-70},{70,
           -90},{-70,-90},{-70,42},{-61,42}},                   color={255,0,255}));
-  connect(tanBra.port_bRetChi,chi2PreDro. port_a) annotation (Line(points={{0,-16},
-          {-10,-16},{-10,-50},{-20,-50}},           color={0,127,255}));
-  connect(pumPri.port_b, tanBra.port_aSupChi) annotation (Line(points={{-20,10},
-          {-10,10},{-10,-4},{0,-4}}, color={0,127,255}));
   connect(floCon.mPriPum_flow, pumPri.m_flow_in)
     annotation (Line(points={{-39,56},{-30,56},{-30,22}}, color={0,0,127}));
-  connect(tanBra.port_bSupNet,revCon. port_a) annotation (Line(points={{20,-4},{
-          34,-4},{34,10},{40,10}},        color={0,127,255}));
   connect(floCon.ySecPum,revCon. yPum) annotation (Line(points={{-39,50},{34,50},
           {34,16},{39,16}},          color={0,0,127}));
   connect(floCon.yVal,revCon. yVal) annotation (Line(points={{-39,44},{28,44},{28,
@@ -103,16 +133,27 @@ equation
   connect(yPum, floCon.yPum) annotation (Line(points={{-20,110},{-20,72},{-68,72},
           {-68,58},{-61,58}},
                             color={0,0,127}));
-  connect(pumPri.port_a, port_aSupChi) annotation (Line(points={{-40,10},{-86,
-          10},{-86,60},{-100,60}}, color={0,127,255}));
-  connect(chi2PreDro.port_b, port_bRetChi) annotation (Line(points={{-40,-50},{
-          -84,-50},{-84,-60},{-100,-60}}, color={0,127,255}));
-  connect(revCon.port_b, port_bSupNet) annotation (Line(points={{60,10},{86,10},
-          {86,60},{100,60}}, color={0,127,255}));
-  connect(tanBra.port_aRetNet, port_aRetNet) annotation (Line(points={{20,-16},
-          {86,-16},{86,-60},{100,-60}}, color={0,127,255}));
+  connect(port_b2, chi2PreDro.port_b) annotation (Line(points={{-100,-60},{-84,-60},
+          {-84,-50},{-40,-50}}, color={0,127,255}));
+  connect(tanBra.port_a2, port_a2) annotation (Line(points={{20,-16},{86,-16},{86,
+          -60},{100,-60}}, color={0,127,255}));
+  connect(revCon.port_b, port_b1) annotation (Line(points={{60,10},{86,10},{86,60},
+          {100,60}}, color={0,127,255}));
+  connect(port_a1, pumPri.port_a) annotation (Line(points={{-100,60},{-84,60},{-84,
+          10},{-40,10}}, color={0,127,255}));
+  connect(pumPri.port_b, tanBra.port_a1) annotation (Line(points={{-20,10},{-6,10},
+          {-6,-4},{0,-4}}, color={0,127,255}));
+  connect(tanBra.port_b2, chi2PreDro.port_a) annotation (Line(points={{0,-16},{-6,
+          -16},{-6,-50},{-20,-50}}, color={0,127,255}));
+  connect(tanBra.port_b1, revCon.port_a) annotation (Line(points={{20,-4},{34,-4},
+          {34,10},{40,10}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
+                               Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-100,62},{100,58}},
           fillColor={0,0,0},

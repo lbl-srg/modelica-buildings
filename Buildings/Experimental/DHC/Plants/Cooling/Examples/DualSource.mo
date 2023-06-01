@@ -7,6 +7,12 @@ model DualSource
 
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=1
     "Nominal mass flow rate, slightly larger than needed by one user load";
+  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal=1
+    "Nominal mass flow rate for CHW tank branch"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal=1
+    "Nominal mass flow rate for CHW chiller branch"
+    annotation(Dialog(group="Nominal values"));
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
     final displayUnit="Pa")=
      300000
@@ -47,16 +53,13 @@ model DualSource
         origin={-50,170})));
 
 // Second plant: chiller and tank
-  final parameter Buildings.Experimental.DHC.Plants.Cooling.Data.NominalValues
-    nom(
-    mTan_flow_nominal=m_flow_nominal,
-    mChi_flow_nominal=m_flow_nominal,
+  Buildings.Experimental.DHC.Plants.Cooling.StoragePlant stoPla(redeclare
+      final package Medium = Medium,
+    mTan_flow_nominal=mTan_flow_nominal,
+    mChi_flow_nominal=mChi_flow_nominal,
     dp_nominal=dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
-    T_CHWR_nominal=T_CHWR_nominal) "Nominal values for the second plant"
-    annotation (Placement(transformation(extent={{-60,-140},{-40,-120}})));
-  Buildings.Experimental.DHC.Plants.Cooling.StoragePlant stoPla(redeclare
-      final package Medium = Medium, final nom=nom) "Storage plant" annotation (
+    T_CHWR_nominal=T_CHWR_nominal)                  "Storage plant" annotation (
      Placement(transformation(rotation=0, extent={{-20,-100},{0,-80}})));
   Buildings.Fluid.Sources.Boundary_pT bou(
     p(final displayUnit="Pa") = 101325 + dp_nominal,
@@ -149,8 +152,8 @@ model DualSource
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
     parJunUse1(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWR_nominal,
-    T2_start=nom.T_CHWS_nominal)
+    T1_start=T_CHWR_nominal,
+    T2_start=T_CHWS_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -159,8 +162,8 @@ model DualSource
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
     parJunPla1(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWS_nominal,
-    T2_start=nom.T_CHWR_nominal)
+    T1_start=T_CHWS_nominal,
+    T2_start=T_CHWR_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -169,8 +172,8 @@ model DualSource
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
     parJunUse2(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWR_nominal,
-    T2_start=nom.T_CHWS_nominal)
+    T1_start=T_CHWR_nominal,
+    T2_start=T_CHWS_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -179,8 +182,8 @@ model DualSource
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
     parJunPla2(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWS_nominal,
-    T2_start=nom.T_CHWR_nominal)
+    T1_start=T_CHWS_nominal,
+    T2_start=T_CHWR_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -189,8 +192,8 @@ model DualSource
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.ParallelJunctions
     parJunUse3(
     redeclare final package Medium = Medium,
-    T1_start=nom.T_CHWR_nominal,
-    T2_start=nom.T_CHWS_nominal)
+    T1_start=T_CHWR_nominal,
+    T2_start=T_CHWS_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -357,16 +360,16 @@ equation
           {-62,66}}, color={0,0,127}));
   connect(TSet2.y, chi2.T_in) annotation (Line(points={{-79,-90},{-72,-90},{-72,
           -94},{-62,-94}}, color={0,0,127}));
-  connect(chi2.port_b, stoPla.port_aSupChi) annotation (Line(points={{-50,-80},{
-          -50,-74},{-26,-74},{-26,-84},{-20,-84}}, color={0,127,255}));
-  connect(chi2.port_a, stoPla.port_bRetChi) annotation (Line(points={{-50,-100},
-          {-50,-106},{-26,-106},{-26,-96},{-20,-96}}, color={0,127,255}));
-  connect(stoPla.port_aRetNet, bou.ports[1]) annotation (Line(points={{0,-96},{6,
-          -96},{6,-130},{0,-130}}, color={0,127,255}));
-  connect(stoPla.port_bSupNet, parJunPla2.port_c1)
+  connect(stoPla.port_b1, parJunPla2.port_c1)
     annotation (Line(points={{0,-84},{40,-84}}, color={0,127,255}));
-  connect(parJunPla2.port_c2, stoPla.port_aRetNet)
+  connect(parJunPla2.port_c2, stoPla.port_a2)
     annotation (Line(points={{40,-96},{0,-96}}, color={0,127,255}));
+  connect(stoPla.port_b2, chi2.port_a) annotation (Line(points={{-20,-96},{-34,
+          -96},{-34,-106},{-50,-106},{-50,-100}}, color={0,127,255}));
+  connect(chi2.port_b, stoPla.port_a1) annotation (Line(points={{-50,-80},{-50,
+          -74},{-34,-74},{-34,-84},{-20,-84}}, color={0,127,255}));
+  connect(bou.ports[1], stoPla.port_a2) annotation (Line(points={{0,-130},{6,
+          -130},{6,-96},{0,-96}}, color={0,127,255}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Cooling/Examples/DualSource.mos"
         "Simulate and plot"),

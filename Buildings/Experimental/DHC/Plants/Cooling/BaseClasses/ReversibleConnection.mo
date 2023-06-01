@@ -2,12 +2,14 @@ within Buildings.Experimental.DHC.Plants.Cooling.BaseClasses;
 model ReversibleConnection
   "A connection that supports reversible flow with a pump and a valve"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    final allowFlowReversal=true,
-    final m_flow_nominal=nom.m_flow_nominal);
+    final allowFlowReversal=true);
 
-  parameter Buildings.Experimental.DHC.Plants.Cooling.Data.NominalValues nom
-    "Nominal values"
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+  parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
+    "Nominal mass flow rate for CHW tank branch";
+  parameter Modelica.Units.SI.PressureDifference dp_nominal
+    "Nominal pressure difference";
+  parameter Modelica.Units.SI.ThermodynamicTemperature T_start
+    "Start temperature";
 
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
@@ -31,20 +33,20 @@ model ReversibleConnection
         origin={-110,60})));
   Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y pum(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.m_flow_nominal,
+    final m_flow_nominal=m_flow_nominal,
     final addPowerToMedium=false,
-    final dp_nominal=nom.dp_nominal) "Supply pump"
+    final dp_nominal=dp_nominal) "Supply pump"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.m_flow_nominal,
-    final dpValve_nominal=0.1*nom.dp_nominal,
+    final m_flow_nominal=m_flow_nominal,
+    final dpValve_nominal=0.1*dp_nominal,
     final dpFixed_nominal=0) "Check valve"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent val(
     redeclare final package Medium = Medium,
-    final m_flow_nominal=nom.mTan_flow_nominal,
-    final dpValve_nominal=nom.dp_nominal,
+    final m_flow_nominal=mTan_flow_nominal,
+    final dpValve_nominal=dp_nominal,
     y_start=0)
     "Valve that throttles CHW from the supply line to the tank"
     annotation (Placement(transformation(extent={{20,-40},{0,-20}})));
@@ -61,9 +63,9 @@ protected
   Buildings.Fluid.FixedResistances.Junction jun1(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=nom.T_CHWS_nominal,
     tau=30,
-    m_flow_nominal={-nom.mTan_flow_nominal,nom.m_flow_nominal,-nom.m_flow_nominal},
+    T_start=T_start,
+    m_flow_nominal={-mTan_flow_nominal,m_flow_nominal,-m_flow_nominal},
     dp_nominal={0,0,0}) "Junction" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -71,9 +73,9 @@ protected
   Buildings.Fluid.FixedResistances.Junction jun2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=nom.T_CHWS_nominal,
     tau=30,
-    m_flow_nominal={-nom.m_flow_nominal,-nom.mTan_flow_nominal,nom.m_flow_nominal},
+    T_start=T_start,
+    m_flow_nominal={-m_flow_nominal,-mTan_flow_nominal,m_flow_nominal},
     dp_nominal={0,0,0}) "Junction" annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
