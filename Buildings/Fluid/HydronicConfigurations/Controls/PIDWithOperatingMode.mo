@@ -213,9 +213,7 @@ applies the minimum control effect, i.e., valves/dampers closed,
 VFDs at minimum speed, etc.
 </li>
 <li>
-When operated under the mode
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled\">
-Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.enabled</a>
+When operated under the mode <code>enabled</code>
 the controller behaves exactly as
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
@@ -223,9 +221,7 @@ Furthermore, the controller output is reset to <code>y_reset</code> at enable
 time.
 </li>
 <li>
-When operated under the mode
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating\">
-Buildings.Fluid.HydronicConfigurations.Controls.OperatingModes.heating</a>
+When operated under the mode <code>heating</code>
 the controller behaves as
 <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
 Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>
