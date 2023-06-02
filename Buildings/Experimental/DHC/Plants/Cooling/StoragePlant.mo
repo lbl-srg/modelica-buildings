@@ -272,6 +272,8 @@ The plants are controlled as follows:
 <li>
 In plant 1, the chiller is always on. The speed-controlled pump
 ensures that the users have enough pressure head at all times.
+This includes plant 2 when its tank is charged remotely by plant 1 and
+it acts like a energy consumer.
 </li>
 <li>
 For plant 2:
