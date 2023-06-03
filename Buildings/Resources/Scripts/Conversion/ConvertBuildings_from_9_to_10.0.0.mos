@@ -11,11 +11,16 @@ convertClass("Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sine",
              "Buildings.Controls.OBC.CDL.Continuous.Sources.Validation.Sin");
 
 // Conversion for https://github.com/lbl-srg/modelica-buildings/issues/3288
+convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage",
+               "TConIn", "TOut");
+convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleSpeed",
+               "TConIn", "TOut");
+convertElement("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed",
+               "TConIn", "TOut");
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.AirCooled",
              "Buildings.Fluid.DXSystems.Cooling.AirSource");
 convertClass("Buildings.Fluid.HeatExchangers.DXCoils.WaterCooled",
              "Buildings.Fluid.DXSystems.Cooling.WaterSource");
-
 
 
 convertClass("Buildings.Controls.OBC.ASHRAE.G36_PR1",
