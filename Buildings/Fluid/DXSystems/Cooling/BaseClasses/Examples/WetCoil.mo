@@ -46,7 +46,7 @@ model WetCoil "Test model for WetCoil"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil datCoi(nSta=4, sta={
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(nSta=4, sta={
         Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
@@ -139,8 +139,8 @@ class <code>CoolingCapacityAirCooled</code> to instance <code>coiCap</code> with
 class <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
 Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.<br/>
 Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.
 </li>
 <li>
 January 11, 2021, by Michael Wetter:<br/>

@@ -16,7 +16,7 @@ model SingleSpeed
     "Pressure drop at m_flow_nominal";
 
   parameter
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoi(nSta=1, sta={
         Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,

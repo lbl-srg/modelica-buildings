@@ -2,7 +2,7 @@ within Buildings.Fluid.DXSystems.Cooling.BaseClasses;
 partial block EssentialParameters
   "A partial block for essential parameters for cooling DX coils"
 
- replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil datCoi
+ replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 

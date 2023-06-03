@@ -8,8 +8,8 @@ of air source DX cooling and heating coils that are used in the examples.
 </p>
 <p>
 The data are described in
-<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil</a>.
 </p>
 </html>"));
 end PerformanceCurves;

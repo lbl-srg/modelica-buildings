@@ -25,7 +25,7 @@ This record declares the data used to specify performance curves for water sourc
 </p>
 <p>
 See the information section of
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil\">
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>

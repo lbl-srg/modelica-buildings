@@ -12,7 +12,7 @@ model SingleSpeed
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1000
     "Pressure drop at m_flow_nominal";
 
-  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoi(
     sta={
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(

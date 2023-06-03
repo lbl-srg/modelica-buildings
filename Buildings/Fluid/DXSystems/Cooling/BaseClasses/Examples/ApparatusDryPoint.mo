@@ -36,7 +36,9 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
     offset=0.25,
     startTime=900) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  parameter Cooling.AirSource.Data.Generic.Coil datCoi(nSta=4, sta={
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(
+    nSta=4,
+    sta={
         Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=

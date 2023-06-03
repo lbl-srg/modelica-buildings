@@ -1,6 +1,6 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic;
-record Coil
-  "Performance record for a DX Cooling Coil with one or multiple stages"
+record DXCoil
+  "Performance record for a DX Cooling DXCoil with one or multiple stages"
   extends Modelica.Icons.Record;
 
   final parameter Boolean sinStaOpe = nSta == 1
@@ -174,4 +174,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Coil;
+end DXCoil;

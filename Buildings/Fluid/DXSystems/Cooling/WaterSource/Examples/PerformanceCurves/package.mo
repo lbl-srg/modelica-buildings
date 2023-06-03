@@ -7,7 +7,7 @@ This package contains performance curves for the cooling capacity and the EIR
 of water source DX cooling coils that are used in the examples.
 
 The data are described in
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil\">
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil</a>.
 </p>
 </html>",

@@ -57,7 +57,7 @@ model MultiStage
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   parameter
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoi(
       nSta=4,
       sta={Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(

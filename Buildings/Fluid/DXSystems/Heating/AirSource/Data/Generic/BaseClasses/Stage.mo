@@ -19,8 +19,8 @@ annotation (defaultComponentName="per",
   <p>This is the base record for air source DX coil model at a particular compressor
   speed.
 See the information section of
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil</a> for a description of the data. </p>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a> for a description of the data. </p>
 </html>",
 revisions="<html>
 <ul>

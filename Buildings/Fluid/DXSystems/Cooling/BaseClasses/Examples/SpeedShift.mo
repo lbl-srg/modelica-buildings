@@ -2,8 +2,9 @@ within Buildings.Fluid.DXSystems.Cooling.BaseClasses.Examples;
 model SpeedShift "Test model for SpeedShift block"
  extends Modelica.Icons.Example;
  parameter Integer nSta=4 "Number of standard compressor speeds";
-  Buildings.Fluid.DXSystems.Cooling.BaseClasses.SpeedShift speShi(nSta=nSta, speSet=
-        datCoi.sta.spe,
+  Buildings.Fluid.DXSystems.Cooling.BaseClasses.SpeedShift speShi(
+    nSta=nSta,
+    speSet=datCoi.sta.spe,
     variableSpeedCoil=true)
     annotation (Placement(transformation(extent={{42,-10},{62,10}})));
   Modelica.Blocks.Sources.Constant u[nSta](k={10,20,30,40}) "Inputs"
@@ -11,7 +12,7 @@ model SpeedShift "Test model for SpeedShift block"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.25; 900,0.50; 1800,0.50;
         2700,0.75; 3600,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
-  parameter Cooling.AirSource.Data.Generic.Coil datCoi(nSta=4, sta={
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(nSta=4, sta={
         Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
@@ -94,8 +95,8 @@ revisions="<html>
 <li>
 April 5, 2023 by Xing Lu:<br/>
 Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.
 </li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>

@@ -6,7 +6,7 @@ model SpeedSelect "Test model for speed select"
     speSet=datCoi.sta.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   parameter
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoi(nSta=4, sta={
         Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
@@ -74,8 +74,8 @@ revisions="<html>
 <li>
 April 5, 2023 by Xing Lu:<br/>
 Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.
 </li>
 <li>
 May 1, 2013, by Michael Wetter:<br/>

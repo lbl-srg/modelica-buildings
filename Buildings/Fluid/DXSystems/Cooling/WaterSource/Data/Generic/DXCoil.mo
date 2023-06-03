@@ -1,8 +1,8 @@
 within Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic;
-record Coil
-  "Performance record for a DX Cooling Coil with one or multiple stages"
+record DXCoil
+  "Performance record for a DX Cooling DXCoil with one or multiple stages"
   extends
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil(
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil(
   redeclare parameter Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.BaseClasses.Stage sta[nSta]);
 annotation (preferredView="info",
 defaultComponentName="datCoi",
@@ -109,8 +109,8 @@ revisions="<html>
 <li>
 April 5, 2023, by Xing Lu:<br/>
 Updated class being extended from <code>DXCoil</code> to
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.
 </li>
 <li>
 February 17, 2017, by Yangyang Fu:<br/>
@@ -130,4 +130,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Coil;
+end DXCoil;

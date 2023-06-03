@@ -6,7 +6,7 @@ partial model PartialDXHeatingCoil
         Modelica.Media.Interfaces.PartialCondensingGases,
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
-  parameter Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil datCoi
+  parameter Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil datCoi
     "Performance data"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 

@@ -4,10 +4,10 @@ partial model PartialDXCoolingCoil
   extends Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoil(
     redeclare Buildings.Fluid.DXSystems.Cooling.BaseClasses.DXCooling
       dxCoi(redeclare final package Medium = Medium,
-      redeclare Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil datCoi),
+      redeclare Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi),
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
       prescribedHeatFlowRate=true),
-    redeclare Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil datCoi);
+    redeclare Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi);
 
   Modelica.Blocks.Interfaces.RealOutput QLat_flow(
     final quantity="Power",

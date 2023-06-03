@@ -49,8 +49,8 @@ This is the base record of nominal values for air source DX heating coil models.
 </p>
 <p>
 See the information section of
-<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>
 </html>",

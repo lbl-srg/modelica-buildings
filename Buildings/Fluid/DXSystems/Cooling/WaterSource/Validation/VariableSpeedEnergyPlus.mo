@@ -28,7 +28,7 @@ model VariableSpeedEnergyPlus
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   parameter
-    Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil
     datCoi(
     nSta=10,
     minSpeRat=0.1,

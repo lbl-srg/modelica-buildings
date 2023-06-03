@@ -12,7 +12,7 @@ model SingleSpeed "Test model for single speed DX heating coil"
     "Pressure drop at m_flow_nominal";
 
   parameter
-    Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil
     datCoi(
     nSta=1,
     minSpeRat=0.2,

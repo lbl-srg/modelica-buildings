@@ -32,7 +32,7 @@ extends Modelica.Icons.Example;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
 
-  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil datCoi(
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(
     sta={
       Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,

@@ -16,7 +16,7 @@ annotation (defaultComponentName="nomVal",
 This is the base record of nominal values for water source DX cooling coil models.
 </p>
 <p>See the information section of
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil\">
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>

@@ -38,7 +38,7 @@ model MultiStage "Test model for multi speed water source DX coil"
                  "Multi-speed DX coil"
     annotation (Placement(transformation(extent={{-6,-6},{14,14}})));
   parameter
-    Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil
     datCoi(nSta=4, sta={
         Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,

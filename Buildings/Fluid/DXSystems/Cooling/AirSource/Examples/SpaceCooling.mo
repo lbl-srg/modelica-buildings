@@ -45,7 +45,7 @@ model SpaceCooling "Space cooling with DX coils"
     "Cooling load of coil, taking into account economizer, and increased due to latent heat removal";
 
   parameter
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoi(
       sta={Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
@@ -60,7 +60,7 @@ model SpaceCooling "Space cooling with DX coils"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   parameter
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoiMulSpe(
       nSta=2,
       sta={

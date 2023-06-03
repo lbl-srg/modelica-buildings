@@ -14,7 +14,7 @@ model SingleSpeedPLR
   parameter Modelica.Units.SI.PressureDifference dp_nominal=1141
     "Pressure drop at m_flow_nominal";
 
-  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil
     datCoi(nSta=1,
     sta={
     Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(

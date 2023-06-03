@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource.Data.DoubleSpeed;
 record Generic "Generic data record for DoubleSpeed DXCoils"
   extends
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil(
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil(
       final nSta=2);
   annotation (
     defaultComponentName="datCoi",

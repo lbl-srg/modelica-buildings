@@ -36,7 +36,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
     startTime=0,
     table=[0.0,0.00; 600,0.25; 1800,0.5; 2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  parameter Cooling.AirSource.Data.Generic.Coil datCoi(nSta=4, sta={
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(nSta=4, sta={
         Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
@@ -147,8 +147,8 @@ revisions="<html>
 <li>
 April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Updated data record class for <code>datCoi</code> from <code>DXCoil</code> to
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.Coil</a>.<br/>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.<br/>
 </li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br/>

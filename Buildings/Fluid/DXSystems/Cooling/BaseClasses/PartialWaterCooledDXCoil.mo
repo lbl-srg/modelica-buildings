@@ -3,7 +3,7 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
   extends Buildings.BaseClasses.BaseIcon;
   extends
     Buildings.Fluid.DXSystems.Cooling.BaseClasses.EssentialParameters(
-      redeclare Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil datCoi);
+      redeclare Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi);
 
   replaceable package MediumEva =
       Modelica.Media.Interfaces.PartialMedium "Medium for evaporator"
@@ -149,17 +149,17 @@ model PartialWaterCooledDXCoil "Base class for water source DX coils"
     constrainedby
     Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil(
       redeclare final package Medium = MediumEva,
-      redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+      redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
       dxCoi(
-      redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+      redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
       wetCoi(redeclare final Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled coiCap,
-        redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+        redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
         appDewPt(
-          redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi,
+          redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi,
           uacp(redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.BaseClasses.NominalValues per))),
       dryCoi(
         redeclare final Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled coiCap,
-        redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil datCoi=datCoi)),
+        redeclare final Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi=datCoi)),
       final use_mCon_flow=true,
       final dp_nominal=dpEva_nominal,
       final allowFlowReversal=allowFlowReversalEva,

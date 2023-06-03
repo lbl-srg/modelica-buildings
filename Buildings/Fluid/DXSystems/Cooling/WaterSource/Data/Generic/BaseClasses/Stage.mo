@@ -11,7 +11,7 @@ annotation (defaultComponentName="per",
 <p>
 This is the base record for water source DX cooling coil performance data at a compressor speed.
 See the information section of
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil\">
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil</a> for a description of the data.
 </p>
 </html>",

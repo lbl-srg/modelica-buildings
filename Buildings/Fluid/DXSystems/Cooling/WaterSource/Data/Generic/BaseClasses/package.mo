@@ -9,7 +9,7 @@ of DX cooling coils.
 </p>
 <p>
 The data are described in
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.Coil\">
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil</a>.
 </p>
 </html>",
