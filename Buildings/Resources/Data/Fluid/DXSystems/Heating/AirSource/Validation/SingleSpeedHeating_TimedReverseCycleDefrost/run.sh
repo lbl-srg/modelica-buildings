@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-idf_file= `ls *.idf`
+idf_file=`ls *.idf`
 energyplus \
   --readvars \
   --output-directory EnergyPlus \
