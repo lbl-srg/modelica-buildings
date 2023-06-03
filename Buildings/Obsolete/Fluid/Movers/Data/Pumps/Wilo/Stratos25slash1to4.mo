@@ -26,8 +26,8 @@ Documentation(info="<html>
   </a>
   </p>
   <p>See
-  <a href=\"modelica://Buildings.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
-  Buildings.Obsolete.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
+  <a href=\"modelica://Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6\">
+  Buildings.Fluid.Movers.Data.Pumps.Wilo.Stratos25slash1to6
   </a>
   for more information about how the data is derived.
   </p>
