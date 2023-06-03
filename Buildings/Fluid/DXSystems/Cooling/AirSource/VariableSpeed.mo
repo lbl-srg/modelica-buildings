@@ -1,14 +1,14 @@
 within Buildings.Fluid.DXSystems.Cooling.AirSource;
 model VariableSpeed "Variable speed DX cooling coil"
   extends
-    Buildings.Fluid.DXSystems.BaseClasses.PartialDXCoolingCoil(
+    Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil(
     dxCoi(
       final variableSpeedCoil=true,
       wetCoi(redeclare
-          Buildings.Fluid.DXSystems.BaseClasses.CoilCapacityAirSource
+          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
           coiCap),
       dryCoi(redeclare
-          Buildings.Fluid.DXSystems.BaseClasses.CoilCapacityAirSource
+          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
           coiCap)),
     use_mCon_flow=false);
 

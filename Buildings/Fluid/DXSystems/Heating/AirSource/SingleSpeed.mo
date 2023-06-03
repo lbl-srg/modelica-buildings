@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Heating.AirSource;
 model SingleSpeed
   "Single speed DX heating coil"
-  extends Buildings.Fluid.DXSystems.BaseClasses.PartialDXHeatingCoil;
+  extends Buildings.Fluid.DXSystems.Heating.BaseClasses.PartialDXHeatingCoil;
 
   Modelica.Blocks.Sources.Constant speRat(
     final k=1)

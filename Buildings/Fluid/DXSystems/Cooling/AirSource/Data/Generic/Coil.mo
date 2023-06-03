@@ -28,13 +28,13 @@ record Coil
 
   /////////////////////////////////////////////////////////////////////////////////////
   // Data added for type compatibility, but not used for calculations in cooling coils
-  final parameter Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation
-    defOpe=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation.resistive
+  final parameter Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation
+    defOpe=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive
     "Defrost operation type"
     annotation(HideResult=true);
 
-  final parameter Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods
-    defTri=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods.timed
+  final parameter Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method used to calculate defrost time fraction"
     annotation(HideResult=true);
 
@@ -135,15 +135,15 @@ the performance curves for the wet bulb and dry bulb temperatures at the evapora
 and then selecting the corresponding performance.
 The selection of the corresponding performance is described and implemented
 in
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryWetSelector\">
-Buildings.Fluid.DXSystems.BaseClasses.DryWetSelector</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector</a>.
 </p>
 <p>
 The parameters <code>tWet</code> and <code>gamma</code> characterize the amount of
 moisture that evaporates from the coil surface into the air stream when the coil is
 wet and switched off. For an examplanation of the parameters, see
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.Evaporation\">
-Buildings.Fluid.DXSystems.BaseClasses.Evaporation</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation</a>.
 </p>
 <p>
 There can be an arbitrary number of polynomial coefficients for the record

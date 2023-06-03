@@ -7,8 +7,8 @@ model SingleSpeed_OnDemandResistiveDefrost
     datRea(
       final fileName=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/Data/Fluid/HeatExchangers/DXCoils/AirSource/Validation/SingleSpeedHeating_OnDemandResistiveDefrost/DXCoilSystemAuto.dat")),
     datCoi(
-      final defOpe=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation.resistive,
-      final defTri=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods.onDemand));
+      final defOpe=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive,
+      final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.onDemand));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},
             {180,160}})),

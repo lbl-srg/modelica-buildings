@@ -26,33 +26,33 @@ record Coil
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
 
-  parameter Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation
-    defOpe=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation.resistive
+  parameter Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation
+    defOpe=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive
     "Defrost operation type";
 
-  parameter Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods
-    defTri=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods.timed
+  parameter Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods
+    defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed
     "Type of method used to calculate defrost time fraction";
 
   parameter Real tDefRun(
     final unit="1",
     displayUnit="1")=0.166
     "Time period fraction for which defrost cycle is run"
-    annotation(Dialog(enable = defTri==Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods.timed));
+    annotation(Dialog(enable = defTri==Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim=273.65
     "Maximum temperature at which defrost operation is activated";
 
   parameter Modelica.Units.SI.HeatFlowRate QDefResCap(min=0)
     "Heating capacity of resistive defrost element"
-    annotation(Dialog(enable = defOpe==Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation.resistive));
+    annotation(Dialog(enable = defOpe==Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive));
 
   parameter Modelica.Units.SI.HeatFlowRate QCraCap(min=0)
     "Crankcase heater capacity";
 //-----------------------------Performance curves-----------------------------//
   parameter Real defEIRFunT[6] = fill(0,6)
     "Biquadratic coefficients for defrost capacity function of temperature"
-    annotation (Dialog(enable = defOpe==Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation.reverseCycle));
+    annotation (Dialog(enable = defOpe==Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.reverseCycle));
 
   parameter Real PLFraFunPLR[:] = {1}
     "Quadratic/cubic equation for part load fraction as a function of part-load ratio";

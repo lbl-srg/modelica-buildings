@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.WaterSource;
 model MultiStage "Multi speed water source DX coils"
   extends
-    Buildings.Fluid.DXSystems.BaseClasses.PartialWaterCooledDXCoil(
+    Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialWaterCooledDXCoil(
       redeclare final Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage eva);
 
   Modelica.Blocks.Interfaces.IntegerInput stage

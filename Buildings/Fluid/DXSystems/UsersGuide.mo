@@ -97,8 +97,8 @@ If the supply air temperature is used, then the control algorithm should be such
 For air source DX cooling coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR)
 are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate),
 the evaporator air inlet temperature and the outdoor air temperature. These polynomials are explained at
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CoilCapacityAirSource\">
-Buildings.Fluid.DXSystems.BaseClasses.CoilCapacityAirSource</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
 </p>
 <p>
 For air source DX heating coils, the steady-state total rate of heating and the Energy Input Ratio (EIR)
@@ -112,8 +112,8 @@ are computed using polynimials in the air mass flow fraction (relative to the no
 the water mass flow fraction (relative to the nominal water mass flow rate),
 the evaporator air inelt temperature and the condenser water intet temperature.
 These polynomials are explained at
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CoolingCapacityWaterCooled\">
-Buildings.Fluid.DXSystems.BaseClasses.CoolingCapacityWaterCooled</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled</a>.
 </p>
 <h4>Evaporation of accumulated water vapor</h4>
 <p>
@@ -121,14 +121,14 @@ If a coil dehumidifies air, a water film builts up on the evaporator.
 When the compressor is off, then this water film evaporates into the air stream.
 For coils that short-cycle, this significantly decrease the dehumidification capacity of the coil.
 The accumulation and reevaporation of water on the evaporator coil is explained at
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.Evaporation\">
-Buildings.Fluid.DXSystems.BaseClasses.Evaporation</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation</a>.
 </p>
 <h4>Coil dynamics</h4>
 <p>Two dynamic effects are modeled: The accumulation and reevaporation of water at the evaporator,
 and the thermal response of the evaporator. The dynamics of the evaporation is described at
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.Evaporation\">
-Buildings.Fluid.DXSystems.BaseClasses.Evaporation</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation</a>.
 The dynamics of the evaporator is approximated by a first order response
 where the time constant is a model parameter.
 Hence, the dynamic response is similar to other models of the <code>Buildings.Fluid</code> package and described at
@@ -138,31 +138,31 @@ Hence, the dynamic response is similar to other models of the <code>Buildings.Fl
 <p>
 The coils model two separate performances, one assuming a dry coil, and one assuming a wet coil.
 The dry coil is modeled using <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryCoil\">Buildings.Fluid.DXSystems.BaseClasses.DryCoil</a>
-and the wet coil is modeled using <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.WetCoil\">Buildings.Fluid.DXSystems.BaseClasses.WetCoil</a>.
+and the wet coil is modeled using <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil</a>.
 Both use the same model
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CoilCapacityAirSource\">
-Buildings.Fluid.DXSystems.BaseClasses.CoilCapacityAirSource</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>
 to compute the cooling capacity, but the wet coil uses the wet-bulb temperature
 of the air inlet instead of the dry bulb temperature to compute the coil performance.
 The wet coil model computes the humidity of the leaving air <i>X<sub>w,o</sub></i>, using the bypass factor model.<br/>
 In the cooling coil model, this humidity is compared to the humidity at the evaporator inlet <i>X<sub>i</sub></i>.
 If <i>X<sub>w,o</sub>-X<sub>i</sub> &gt; 0</i> the coil is assumed to be dry, otherwise it is wet.
-This test is implemented in <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryWetSelector\">Buildings.Fluid.DXSystems.BaseClasses.DryWetSelector</a>
+This test is implemented in <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector</a>
 in such a way that the transition between wet and dry coil is differentiable.<br/>
 In the heating coil model, the coil is assumed to be acting as a dry coil at all times.
 </p>
 <p>
 The split between sensible and latent heat ratio is computed using the apparatus dew point.
 This calculation is implemented in
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.ApparatusDewPoint\">Buildings.Fluid.DXSystems.BaseClasses.ApparatusDewPoint</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint</a>.
 Once the appartus dew point is known, the sensible to latent heat ratio can be determined as shown in the figure below.
 </p>
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Fluid/DXSystems/BaseClasses/ApparatusDewPoint.png\" alt=\"image\"/> </p>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Fluid/DXSystems/Cooling/BaseClasses/ApparatusDewPoint.png\" alt=\"image\"/> </p>
 <p>
 The method used is the bypass factor method, which assumes that of the leaving air,
 a fraction is at the same condition as the entering air, and the other fraction is at the apparatus dew point.
 This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which is computed in
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.UACp\">Buildings.Fluid.DXSystems.BaseClasses.UACp</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.UACp\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.UACp</a>.
 </p>
 <p>
 Once the ratio <i>UA &frasl; c<sub>p</sub></i> is known,

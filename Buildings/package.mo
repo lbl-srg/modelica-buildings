@@ -1062,7 +1062,7 @@ that can lead to wrong simulation results):
                        Buildings.Fluid.DXSystems.WaterCooled.MultiStage<br/>
                        Buildings.Fluid.DXSystems.WaterCooled.SingleStage<br/>
                        Buildings.Fluid.DXSystems.WaterCooled.VariableSpeed<br/>
-                       Buildings.Fluid.DXSystems.BaseClasses.CoolingCapacityWaterCooled<br/>
+                       Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled<br/>
                        Buildings.Fluid.DXSystems.BaseClasses.PartialCoolingCapacity
 
     </td>
@@ -1104,7 +1104,7 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.DXSystems.BaseClasses.Evaporation
+<tr><td valign=\"top\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation
     </td>
     <td valign=\"top\">Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>
                        This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3322\">issue 3322</a>.
@@ -1441,7 +1441,7 @@ that can lead to wrong simulation results):
                        Buildings.Fluid.DXSystems.WaterCooled.MultiStage<br/>
                        Buildings.Fluid.DXSystems.WaterCooled.SingleStage<br/>
                        Buildings.Fluid.DXSystems.WaterCooled.VariableSpeed<br/>
-                       Buildings.Fluid.DXSystems.BaseClasses.CoolingCapacityWaterCooled<br/>
+                       Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled<br/>
                        Buildings.Fluid.DXSystems.BaseClasses.PartialCoolingCapacity
 
     </td>
@@ -4179,7 +4179,7 @@ as reported in <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1432\">I
                            Buildings.Fluid.DXSystems.AirCooled.Examples.VariableSpeed<br/>
                            Buildings.Fluid.DXSystems.AirCooled.Validation.SingleSpeedEnergyPlus<br/>
                            Buildings.Fluid.DXSystems.AirCooled.Validation.SingleSpeedPLREnergyPlus<br/>
-                           Buildings.Fluid.DXSystems.BaseClasses.Examples.WetCoil<br/>
+                           Buildings.Fluid.DXSystems.Cooling.BaseClasses.Examples.WetCoil<br/>
                            Buildings.Fluid.DXSystems.WaterCooled.Examples.MultiStage<br/>
                            Buildings.Fluid.DXSystems.WaterCooled.Examples.SingleSpeed<br/>
                            Buildings.Fluid.DXSystems.WaterCooled.Examples.VariableSpeed<br/>
@@ -7698,7 +7698,7 @@ This closes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/565\"
        </td>
    </tr>
    <tr><td valign=\"top\">Buildings.Fluid.Chillers.Carnot<br/>
-                          Buildings.Fluid.DXSystems.BaseClasses.PartialDXCoil<br/>
+                          Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoil<br/>
                           Buildings.Fluid.HeatExchangers.HeaterCooler_u<br/>
                           Buildings.Fluid.MassExchangers.Humidifier_u
        </td>
@@ -9273,14 +9273,14 @@ units are wrong or errors in documentation):
               Buildings.Fluid.HeatExchangers.BaseClasses.HexElement<br/>
               Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange<br/>
               Buildings.Fluid.HeatExchangers.BaseClasses.MassExchangeDummy<br/>
-              Buildings.Fluid.DXSystems.BaseClasses.ApparatusDewPoint<br/>
-              Buildings.Fluid.DXSystems.BaseClasses.ApparatusDryPoint<br/>
+              Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint<br/>
+              Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDryPoint<br/>
               Buildings.Fluid.DXSystems.BaseClasses.CoolingCapacity<br/>
-              Buildings.Fluid.DXSystems.BaseClasses.DXCooling<br/>
+              Buildings.Fluid.DXSystems.Cooling.BaseClasses.DXCooling<br/>
               Buildings.Fluid.DXSystems.BaseClasses.DryCoil<br/>
-              Buildings.Fluid.DXSystems.BaseClasses.DryWetSelector<br/>
-              Buildings.Fluid.DXSystems.BaseClasses.Evaporation<br/>
-              Buildings.Fluid.DXSystems.BaseClasses.WetCoil<br/>
+              Buildings.Fluid.DXSystems.Cooling.BaseClasses.DryWetSelector<br/>
+              Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation<br/>
+              Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil<br/>
               Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort<br/>
               Buildings.Fluid.Sensors.RelativeTemperature<br/>
               Buildings.Fluid.Sensors.Temperature<br/>

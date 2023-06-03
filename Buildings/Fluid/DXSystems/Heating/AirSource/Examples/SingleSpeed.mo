@@ -29,8 +29,8 @@ model SingleSpeed "Test model for single speed DX heating coil"
           TConIn_nominal=273.15 + 21),
         perCur=
           Buildings.Fluid.DXSystems.Heating.AirSource.Examples.PerformanceCurves.Curve_I())},
-    final defOpe=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostOperation.resistive,
-    final defTri=Buildings.Fluid.DXSystems.BaseClasses.Types.DefrostTimeMethods.timed,
+    final defOpe=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive,
+    final defTri=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed,
     final tDefRun=1/6,
     final TDefLim=273.65,
     final QDefResCap=10500,

@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.BaseClasses;
 model DryCoil "Calculates dry coil condition"
  extends
-    Buildings.Fluid.DXSystems.BaseClasses.PartialCoilCondition;
+    Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCoilCondition;
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
       annotation (choicesAllMatching=true);
@@ -20,8 +20,8 @@ under the assumption that the coil is dry.
 </p>
 <p>
 The wet coil conditions are computed in
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.WetCoil\">
-Buildings.Fluid.DXSystems.BaseClasses.WetCoil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil</a>.
 See
 <a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
 Buildings.Fluid.DXSystems.UsersGuide</a>
