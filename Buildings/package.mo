@@ -310,6 +310,15 @@ have been <b style=\"color:blue\">improved</b> in a
 
     </td>
 </tr>
+  <tr>
+    <td valign=\"top\">Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe<br/>
+    Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.partialInternalResistances
+    </td>
+    <td valign=\"top\">Corrected variability of assignment to comply with the Modelica Language Definition.<br/>
+                       See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1762\">IBPSA, #1762</a>.
+
+    </td>
+  </tr>
 <tr>
     <td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ
     </td>
