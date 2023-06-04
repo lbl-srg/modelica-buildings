@@ -36,7 +36,7 @@ partial function partialInternalResistances
 protected
   parameter Real pi = 3.141592653589793 "pi";
 
-  parameter Real rTub_in = rTub-eTub "Inner radius of tube";
+  Real rTub_in = rTub-eTub "Inner radius of tube";
 
   Real RConv(unit="(m.K)/W")=
     Buildings.Fluid.Geothermal.Borefields.BaseClasses.Boreholes.BaseClasses.Functions.convectionResistanceCircularPipe(
@@ -70,6 +70,11 @@ the borehole internal resistances.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 4, 2023, by Michael Wetter:<br/>
+Corrected variability.<br/>
+This is for <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1762\">IBPSA, #1762</a>.
+</li>
 <li>
 February 28, 2022, by Massimo Cimmino:<br/>
 Changed function to be <code>pure</code>.<br/>
