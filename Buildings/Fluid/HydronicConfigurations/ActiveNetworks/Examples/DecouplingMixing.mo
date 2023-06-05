@@ -172,8 +172,8 @@ followed by a large overshoot, and the control loop is hard to tune.
 The fact that the load seems unmet at partial load (see plot #4) is due to the
 load model that does not guarantee a linear variation of the load
 with the input signal in cooling mode, see
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
-Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load</a>.
 </p>
 </html>", revisions="<html>
 <ul>

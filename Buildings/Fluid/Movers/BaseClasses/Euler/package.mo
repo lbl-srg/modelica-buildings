@@ -15,7 +15,7 @@ Buildings.Fluid.Movers.BaseClasses.Euler.correlation</a>.
 <li>
 When curves of power and pressure against flow rate is available,
 the function
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.getPeak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.getPeak</a>
 can identify the peak operating condition from them.
 This is useful comparing power computation results
@@ -25,11 +25,11 @@ against other methods.
 The peak operating condition (where the efficiency <i>&eta;</i> is
 at its maximum) which is used by the correlation is stored in an instance
 of the record
-<a href=\"Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Euler.peak\">
 Buildings.Fluid.Movers.BaseClasses.Euler.peak</a>.
 </li>
 <li>
-<a href=\"Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 uses the peak values and the correlation to generate a power curve against
 volumetric flow rate. This estimated power curve is used in place of the

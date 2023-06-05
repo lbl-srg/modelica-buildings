@@ -135,7 +135,7 @@ This model is part of a computational performance benchmark between
 <ul>
 <li>
 a simplified modeling of the piping network as implemented in
-<a href=\"Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
+<a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution\">
 Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>
 (see the corresponding example
 <a href=\"modelica://Buildings.Experimental.DHC.Loads.BaseClasses.Validation.BenchmarkFlowDistribution1\">

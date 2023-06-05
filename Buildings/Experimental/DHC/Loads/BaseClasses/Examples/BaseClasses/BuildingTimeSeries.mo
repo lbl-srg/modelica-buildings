@@ -241,12 +241,16 @@ model BuildingTimeSeries
   Buildings.Controls.OBC.CDL.Continuous.Add addPFan
     "Sum fan power"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(u(
-        final unit="W"), final k=facMul) if have_heaLoa "Scaling"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHea_flow(
+    u(final unit="W"),
+    final k=facMul) if have_heaLoa "Scaling"
     annotation (Placement(transformation(extent={{272,30},{292,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqCoo_flow(u(
         final unit="W"), final k=facMul) if have_cooLoa "Scaling"
     annotation (Placement(transformation(extent={{272,-10},{292,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter mulQReqHot_flow(u(final
+        unit="W"), final k=facMul) if have_heaLoa "Scaling"
+    annotation (Placement(transformation(extent={{270,-130},{290,-110}})));
 protected
   parameter Modelica.Units.SI.AbsolutePressure pSat_nominal=
     Buildings.Utilities.Psychrometrics.Functions.saturationPressure(T_aChiWat_nominal)
@@ -334,9 +338,6 @@ equation
     annotation (Line(points={{90.8333,46},{160,46},{160,114},{238,114}},color={0,0,127}));
   connect(terUniHea.PFan,addPFan.u1)
     annotation (Line(points={{90.8333,-12},{180,-12},{180,126},{238,126}},color={0,0,127}));
-  connect(loa.y[3], QReqHotWat_flow) annotation (Line(points={{-259,0},{40,0},{
-          40,-120},{320,-120}},
-                             color={0,0,127}));
   connect(disFloCoo.port_b, mulChiWatOut[1].port_a)
     annotation (Line(points={{140,-260},{260,-260}}, color={0,127,255}));
   connect(disFloHea.port_b, mulHeaWatOut[1].port_a)
@@ -361,6 +362,10 @@ equation
           -66},{220,-66},{220,280},{268,280}}, color={0,0,127}));
   connect(disFloCoo.QActTot_flow, mulQCoo_flow.u) annotation (Line(points={{141,
           -266},{224,-266},{224,240},{268,240}}, color={0,0,127}));
+  connect(mulQReqHot_flow.y, QReqHotWat_flow)
+    annotation (Line(points={{292,-120},{320,-120}}, color={0,0,127}));
+  connect(mulQReqHot_flow.u, loa.y[3]) annotation (Line(points={{268,-120},{40,-120},
+          {40,0},{-259,0}}, color={0,0,127}));
 annotation (
     Documentation(
       info="<html>
@@ -459,6 +464,13 @@ as specified in the \"Advanced\" tab.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 3, 2023, by David Blum:<br/>
+Applied <code>facMul</code> to domestic hot water load.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+issue 3379</a>.
+</li>
 <li>
 November 21, 2022, by David Blum:<br/>
 Scale <code>facMulHea</code> and <code>facMulCoo</code> with peak load.<br/>
