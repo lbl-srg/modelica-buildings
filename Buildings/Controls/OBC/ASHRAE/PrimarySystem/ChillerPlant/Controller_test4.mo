@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant;
-block Controller "Chiller plant controller"
+block Controller_test4 "Chiller plant controller"
 
   parameter Boolean closeCoupledPlant=false
     "True: the plant is close coupled, i.e. the pipe length from the chillers to cooling towers does not exceed approximately 100 feet"
@@ -1601,7 +1601,7 @@ block Controller "Chiller plant controller"
     final staMat=staMat) "Identify stage index"
     annotation (Placement(transformation(extent={{-520,120},{-500,140}})));
   CDL.Integers.Sources.Constant conInt(k=1)
-    annotation (Placement(transformation(extent={{-1000,300},{-980,320}})));
+    annotation (Placement(transformation(extent={{-1000,290},{-980,310}})));
 protected
   final parameter Boolean have_serChi = not have_parChi
     "true = series chillers plant; false = parallel chillers plant"
@@ -1706,9 +1706,6 @@ equation
                                                        color={255,0,255}));
   connect(minBypValCon.yValPos, yMinValPosSet) annotation (Line(points={{-636,-140},
           {-480,-140},{-480,-320},{940,-320}}, color={0,0,127}));
-  connect(staSetCon.ySta, towCon.uChiStaSet) annotation(Line(points={{-172,-24},
-          {-140,-24},{-140,-120},{-330,-120},{-330,-684},{-268,-684}},
-        color={255,127,0}));
   connect(TConWatSup, towCon.TConWatSup) annotation(Line(points={{-920,-660},{-268,
           -660}},                                 color={0,0,127}));
   connect(TConWatRet, towCon.TConWatRet) annotation(Line(points={{-920,240},{-850,
@@ -1970,8 +1967,6 @@ equation
           -512},{-860,-340},{-920,-340}}, color={255,127,0}));
   connect(uChi, towCon.uChi) annotation (Line(points={{-920,400},{-800,400},{-800,
           -572},{-268,-572}},      color={255,0,255}));
-  connect(staSetCon.yIni, wseSta.uIni) annotation (Line(points={{-172,-16},{-150,
-          -16},{-150,272},{-750,272},{-750,316},{-704,316}}, color={255,127,0}));
   connect(plaEna.yPla, wseSta.uPla) annotation (Line(points={{-658,-520},{-580,-520},
           {-580,72},{-760,72},{-760,320},{-704,320}}, color={255,0,255}));
   connect(dpChiWat, wseSta.dpChiWat) annotation (Line(points={{-920,110},{-730,110},
@@ -1984,8 +1979,6 @@ equation
           {-580,-422},{-542,-422}}, color={255,0,255}));
   connect(staSetCon.yIni, enaDev.uIni) annotation (Line(points={{-172,-16},{-150,
           -16},{-150,-370},{-570,-370},{-570,-426},{-542,-426}}, color={255,127,0}));
-  connect(staSetCon.ySta, enaDev.uChiSta) annotation (Line(points={{-172,-24},{-140,
-          -24},{-140,-144},{-560,-144},{-560,-430},{-542,-430}},color={255,127,0}));
   connect(uConWatPum, enaDev.uConWatPum) annotation (Line(points={{-920,-410},{-590,
           -410},{-590,-438},{-542,-438}}, color={255,0,255}));
   connect(uChiWatPum, enaDev.uChiWatPum) annotation (Line(points={{-920,574},{-790,
@@ -2078,8 +2071,16 @@ equation
           130},{-340,-204},{172,-204}}, color={255,127,0}));
   connect(ideSta.ySta, upProCon.uChiSta) annotation (Line(points={{-498,130},{-340,
           130},{-340,372},{172,372}}, color={255,127,0}));
-  connect(conInt.y, wseSta.uChiSta) annotation (Line(points={{-978,310},{-960,
-          310},{-960,304},{-776,304},{-776,312},{-704,312}}, color={255,127,0}));
+  connect(conInt.y, wseSta.uChiSta) annotation (Line(points={{-978,300},{-960,
+          300},{-960,312},{-704,312}}, color={255,127,0}));
+  connect(conInt.y, wseSta.uIni) annotation (Line(points={{-978,300},{-960,300},
+          {-960,316},{-704,316}}, color={255,127,0}));
+  connect(staSetCon.ySta, enaDev.uChiSta) annotation (Line(points={{-172,-24},{
+          -140,-24},{-140,-160},{-560,-160},{-560,-430},{-542,-430}}, color={
+          255,127,0}));
+  connect(staSetCon.ySta, towCon.uChiStaSet) annotation (Line(points={{-172,-24},
+          {-140,-24},{-140,-160},{-560,-160},{-560,-684},{-268,-684}}, color={
+          255,127,0}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
@@ -2489,4 +2490,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Controller;
+end Controller_test4;

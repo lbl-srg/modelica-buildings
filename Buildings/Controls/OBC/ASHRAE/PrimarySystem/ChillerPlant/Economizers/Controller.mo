@@ -249,6 +249,8 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,156},{40,176}})));
 
+  CDL.Logical.Pre pre1
+    annotation (Placement(transformation(extent={{-18,-58},{2,-38}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning wseTun(
     final step=step,
@@ -336,7 +338,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Plant enable edge"
-    annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
+    annotation (Placement(transformation(extent={{-18,-30},{2,-10}})));
   Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Plant enabled with economizer-only operation"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
@@ -413,10 +415,6 @@ equation
           -58},{-102,-58}}, color={255,127,0}));
   connect(intEqu.y, and1.u2) annotation (Line(points={{-78,-50},{-70,-50},{-70,-28},
           {-62,-28}}, color={255,0,255}));
-  connect(uPla, edg.u)
-    annotation (Line(points={{-200,-20},{-142,-20}}, color={255,0,255}));
-  connect(edg.y, and1.u1)
-    annotation (Line(points={{-118,-20},{-62,-20}}, color={255,0,255}));
   connect(uIni, intEqu1.u1) annotation (Line(points={{-200,-50},{-150,-50},{-150,
           -100},{-102,-100}}, color={255,127,0}));
   connect(uChiSta, intEqu1.u2)
@@ -425,10 +423,6 @@ equation
     annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
   connect(not1.y, edg1.u)
     annotation (Line(points={{-38,-100},{-22,-100}}, color={255,0,255}));
-  connect(and1.y, lat.u)
-    annotation (Line(points={{-38,-20},{18,-20}}, color={255,0,255}));
-  connect(edg1.y, lat.clr) annotation (Line(points={{2,-100},{10,-100},{10,-26},
-          {18,-26}}, color={255,0,255}));
   connect(lat.y, enaEco.u2) annotation (Line(points={{42,-20},{60,-20},{60,-28},
           {78,-28}}, color={255,0,255}));
   connect(truFalHol.y, enaEco.u1) annotation (Line(points={{162,166},{170,166},{
@@ -466,6 +460,16 @@ equation
           -154,-134},{118,-134}}, color={255,0,255}));
   connect(uPla, wsePum.uPla) annotation (Line(points={{-200,-20},{-154,-20},{
           -154,-172},{118,-172}}, color={255,0,255}));
+  connect(and1.y, edg.u)
+    annotation (Line(points={{-38,-20},{-20,-20}}, color={255,0,255}));
+  connect(edg.y, lat.u)
+    annotation (Line(points={{4,-20},{18,-20}}, color={255,0,255}));
+  connect(uPla, and1.u1)
+    annotation (Line(points={{-200,-20},{-62,-20}}, color={255,0,255}));
+  connect(not1.y, pre1.u) annotation (Line(points={{-38,-100},{-30,-100},{-30,
+          -48},{-20,-48}}, color={255,0,255}));
+  connect(pre1.y, lat.clr) annotation (Line(points={{4,-48},{12,-48},{12,-26},{
+          18,-26}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={

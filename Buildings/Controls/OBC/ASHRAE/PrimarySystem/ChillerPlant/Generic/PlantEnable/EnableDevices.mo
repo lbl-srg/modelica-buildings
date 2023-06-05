@@ -23,7 +23,7 @@ block EnableDevices
     final min=0,
     final max=nSta)
     "Current chiller stage"
-    annotation (Placement(transformation(extent={{-200,10},{-160,50}}),
+    annotation (Placement(transformation(extent={{-200,0},{-160,40}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uChiWatPum[nChiWatPum]
     "Chilled water pump proven on"
@@ -101,19 +101,21 @@ block EnableDevices
     "Enable lead chiller"
     annotation (Placement(transformation(extent={{20,-130},{40,-110}})));
 
+  CDL.Logical.Pre pre
+    annotation (Placement(transformation(extent={{-20,72},{0,92}})));
+  CDL.Logical.Pre pre1
+    annotation (Placement(transformation(extent={{2,20},{22,40}})));
 equation
   connect(uPla, edg.u)
     annotation (Line(points={{-180,100},{-102,100}}, color={255,0,255}));
   connect(uIni, intEqu1.u1) annotation (Line(points={{-180,60},{-102,60}},
           color={255,127,0}));
   connect(uChiSta, intEqu1.u2)
-    annotation (Line(points={{-180,30},{-140,30},{-140,52},{-102,52}}, color={255,127,0}));
+    annotation (Line(points={{-180,20},{-140,20},{-140,52},{-102,52}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
   connect(not1.y, edg1.u)
     annotation (Line(points={{-38,60},{-22,60}}, color={255,0,255}));
-  connect(edg1.y, ecoMod.clr) annotation (Line(points={{2,60},{20,60},{20,94},{38,
-          94}}, color={255,0,255}));
   connect(edg.y, ecoMod.u)
     annotation (Line(points={{-78,100},{38,100}}, color={255,0,255}));
   connect(ecoMod.y, yEnaPlaPro)
@@ -128,8 +130,6 @@ equation
           22},{-42,22}}, color={255,127,0}));
   connect(uIni, intChiMod.u1) annotation (Line(points={{-180,60},{-120,60},{-120,
           30},{-42,30}}, color={255,127,0}));
-  connect(intChiMod.y, and1.u1)
-    annotation (Line(points={{-18,30},{98,30}}, color={255,0,255}));
   connect(ecoMod.y, and1.u2) annotation (Line(points={{62,100},{80,100},{80,22},
           {98,22}}, color={255,0,255}));
   connect(and1.y, yChiWatIsoVal)
@@ -150,6 +150,14 @@ equation
           0},{0,-120},{18,-120}}, color={255,0,255}));
   connect(and3.y, yLeaChi)
     annotation (Line(points={{42,-120},{180,-120}}, color={255,0,255}));
+  connect(not1.y, pre.u) annotation (Line(points={{-38,60},{-30,60},{-30,82},{
+          -22,82}}, color={255,0,255}));
+  connect(pre.y, ecoMod.clr) annotation (Line(points={{2,82},{20,82},{20,94},{
+          38,94}}, color={255,0,255}));
+  connect(intChiMod.y, pre1.u)
+    annotation (Line(points={{-18,30},{0,30}}, color={255,0,255}));
+  connect(pre1.y, and1.u1)
+    annotation (Line(points={{24,30},{98,30}}, color={255,0,255}));
 annotation (defaultComponentName = "enaDev",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
     graphics={

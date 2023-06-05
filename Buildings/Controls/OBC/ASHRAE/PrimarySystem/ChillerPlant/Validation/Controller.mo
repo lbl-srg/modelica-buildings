@@ -119,8 +119,7 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp watLev(
     final height=1.2,
     final duration=3600,
-    final offset=0.5)
-    "Water level in cooling tower"
+    final offset=0.5) "Water level in cooling tower"
     annotation (Placement(transformation(extent={{-260,-270},{-240,-250}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(5, 2))

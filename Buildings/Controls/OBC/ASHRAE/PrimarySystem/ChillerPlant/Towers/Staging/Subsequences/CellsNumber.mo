@@ -58,6 +58,8 @@ block CellsNumber
     "Chiller stage index to identify total number of enabling cells"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
 
+  CDL.Logical.Pre pre
+    annotation (Placement(transformation(extent={{-160,90},{-140,110}})));
 protected
   Buildings.Controls.OBC.CDL.Conversions.RealToInteger reaToInt
     "Convert real input to integer output"
@@ -114,7 +116,7 @@ protected
     "All condenser water pumps are off"
     annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Equal norOpe
-    "Normal operation, not in the chiller stage changeprocess"
+    "Normal operation, not in the chiller stage change process"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi1
     "Chiller stage index in the staging process"
@@ -164,8 +166,6 @@ equation
       color={255,0,255}));
   connect(uChiSta, norOpe.u1)
     annotation (Line(points={{-280,100},{-222,100}}, color={255,127,0}));
-  connect(norOpe.y, swi.u2)
-    annotation (Line(points={{-198,100},{-122,100}}, color={255,0,255}));
   connect(intToRea1.y, swi.u1)
     annotation (Line(points={{-198,140},{-170,140},{-170,108},{-122,108}},
       color={0,0,127}));
@@ -197,6 +197,10 @@ equation
           -98},{198,-98}}, color={255,0,255}));
   connect(or2.y, yLeaCel)
     annotation (Line(points={{222,-90},{280,-90}}, color={255,0,255}));
+  connect(norOpe.y, pre.u)
+    annotation (Line(points={{-198,100},{-162,100}}, color={255,0,255}));
+  connect(pre.y, swi.u2)
+    annotation (Line(points={{-138,100},{-122,100}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
