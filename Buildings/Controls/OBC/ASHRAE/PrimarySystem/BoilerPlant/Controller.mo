@@ -52,11 +52,6 @@ model Controller
     "Number of hot-water requests to be ignored before enabling boiler plant loop"
     annotation(Dialog(tab="Plant enable/disable parameters"));
 
-  parameter Integer nSchRow(
-    final min=1) = 4
-    "Number of rows to be created for plant schedule table"
-    annotation(Dialog(tab="Plant enable/disable parameters"));
-
   parameter Integer nBoi
     "Number of boilers"
     annotation(Dialog(tab="General", group="Boiler plant configuration parameters"));
@@ -113,10 +108,6 @@ model Controller
     final max=nPumSec) = nPumSec
     "Total number of pumps that operate at design conditions in secondary loop"
     annotation (Dialog(group="Boiler plant configuration parameters"));
-
-  parameter Real schTab[nSchRow,2] = [0,1;6,1;18,1;24,1]
-    "Table defining schedule for enabling plant"
-    annotation(Dialog(tab="Plant enable/disable parameters"));
 
   parameter Real TOutLoc(
     final unit="K",
@@ -899,6 +890,11 @@ model Controller
     annotation (Placement(transformation(extent={{-440,-460},{-400,-420}}),
       iconTransformation(extent={{-140,-250},{-100,-210}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchEna
+    "Signal indicating if schedule allows plant to be enabled"
+    annotation (Placement(transformation(extent={{-440,400},{-400,440}}),
+      iconTransformation(extent={{-140,330},{-100,370}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput plaReq
     "Plant requests"
     annotation (Placement(transformation(extent={{-440,330},{-400,370}}),
@@ -1105,8 +1101,6 @@ model Controller
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable plaEna(
     final nIgnReq=nIgnReq,
-    final nSchRow=nSchRow,
-    final schTab=schTab,
     final TOutLoc=TOutLoc,
     final plaOffThrTim=plaOffThrTim,
     final plaOnThrTim=plaOnThrTim,
@@ -1552,7 +1546,7 @@ equation
           86,-128},{86,-152.933},{118,-152.933}},
                                             color={255,127,0}));
   connect(plaReq, plaEna.supResReq) annotation (Line(points={{-420,350},{-360,350},
-          {-360,334},{-342,334}},      color={255,127,0}));
+          {-360,330},{-342,330}},      color={255,127,0}));
   connect(reaToInt.u, triSam.y)
     annotation (Line(points={{-130,-40},{-138,-40}},
                                                    color={0,0,127}));
@@ -1563,7 +1557,7 @@ equation
           {-80,-60},{-220,-60},{-220,-13},{-212,-13}},
                                                   color={255,127,0}));
   connect(TOut, plaEna.TOut) annotation (Line(points={{-420,310},{-360,310},{-360,
-          326},{-342,326}},
+          324},{-342,324}},
                           color={0,0,127}));
   connect(TSupPri, staSetCon.THotWatSup) annotation (Line(points={{-420,270},{-240,
           270},{-240,8},{-212,8}},                    color={0,0,127}));
@@ -1698,8 +1692,8 @@ equation
   connect(plaEna.yPla, priPumCon.uPlaEna) annotation (Line(points={{-318,330},{
           -230,330},{-230,-78},{90,-78},{90,-158.533},{118,-158.533}},
                                                                   color={255,0,255}));
-  connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSupSet) annotation
-    (Line(points={{-118,184},{-100,184},{-100,107},{118,107}}, color={0,0,127}));
+  connect(hotWatSupTemRes.TPlaHotWatSupSet, upProCon.THotWatSupSet) annotation (
+     Line(points={{-118,184},{-100,184},{-100,107},{118,107}}, color={0,0,127}));
   connect(TRetPri, staSetCon.THotWatRetPri) annotation (Line(points={{-420,230},
           {-260,230},{-260,-1},{-212,-1}},   color={0,0,127}));
   connect(TRetSec, staSetCon.THotWatRetSec) annotation (Line(points={{-420,150},
@@ -1859,16 +1853,18 @@ equation
   connect(plaEna.yPla, yPla) annotation (Line(points={{-318,330},{-230,330},{-230,
           252},{-80,252},{-80,192},{380,192},{380,300},{420,300}}, color={255,0,
           255}));
+  connect(uSchEna, plaEna.uSchEna) annotation (Line(points={{-420,420},{-350,420},
+          {-350,336},{-342,336}}, color={255,0,255}));
   annotation (defaultComponentName="boiPlaCon",
-    Icon(coordinateSystem(extent={{-100,-340},{100,340}}),
+    Icon(coordinateSystem(extent={{-100,-360},{100,360}}),
        graphics={
         Rectangle(
-          extent={{-100,-340},{100,340}},
+          extent={{-100,-360},{100,360}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-120,378},{100,338}},
+          extent={{-120,400},{100,360}},
           textColor={0,0,255},
           textString="%name"),
         Rectangle(
@@ -1882,7 +1878,7 @@ equation
           lineColor={175,175,175},
           fillColor={175,175,175},
           fillPattern=FillPattern.Solid)}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-400,-620},{400,400}}),
+        coordinateSystem(preserveAspectRatio=false, extent={{-400,-580},{400,440}}),
         graphics={
           Rectangle(
             extent={{-394,392},{-266,290}},
