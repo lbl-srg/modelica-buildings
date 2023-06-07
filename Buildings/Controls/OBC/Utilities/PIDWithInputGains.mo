@@ -94,7 +94,8 @@ block PIDWithInputGains
     final uMin=yMin)
     "Limiter"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 "Outputs of anti-windup compensation"
+  Buildings.Controls.OBC.CDL.Continuous.Divide antWinGai2 if with_I
+    "Outputs of anti-windup compensation"
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide gaiI if with_I "Gain of the integral term"
     annotation (Placement(transformation(extent={{-200,116},{-180,136}})));
@@ -536,8 +537,14 @@ R. Montgomery and R. McDowall (2008).
 American Society of Heating Refrigerating and Air-Conditioning Engineers Inc. Atlanta, GA.
 </p>
 </html>",
-      revisions="<html>
+revisions="<html>
 <ul>
+<li>
+June 5, 2023, by Jianjun Hu:<br/>
+Changed the instance <code>antWinGai2</code> to be conditional.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3423\">issue 3423</a>.
+</li>
 <li>
 May 17, 2022, by Sen Huang:<br/>
 Changing the gains from parameters to inputs<br/>
