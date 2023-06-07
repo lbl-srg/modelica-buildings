@@ -25,7 +25,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
-TOOL = 'optimica'
+TOOL = 'dymola'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'

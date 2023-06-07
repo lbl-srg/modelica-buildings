@@ -2,7 +2,7 @@ within Buildings.ThermalZones.Detailed.Validation;
 package BESTEST "Package with models for the BESTEST validation"
   extends Modelica.Icons.ExamplesPackage;
 
-  constant Integer nStaRef = 6 "Number of states in a reference material";
+  constant Integer nStaRef = 12 "Number of states in a reference material";
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
