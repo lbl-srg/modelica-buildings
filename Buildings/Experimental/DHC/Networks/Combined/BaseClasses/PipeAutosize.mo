@@ -75,7 +75,7 @@ annotation (
     Documentation(info="<html>
 <p>
 This model is similar to
-<a href=\"Buildings.Fluid.FixedResistances.HydraulicDiameter\">
+<a href=\"modelica://Buildings.Fluid.FixedResistances.HydraulicDiameter\">
 Buildings.Fluid.FixedResistances.HydraulicDiameter</a>
 except for the modifications below which allow to use this model for computing the
 hydraulic diameter at initialization, based on the pressure drop per pipe length

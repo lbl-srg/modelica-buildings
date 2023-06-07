@@ -372,7 +372,7 @@ outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
 Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
 a hot water supply temperature setpoint at the outlet of the condenser barrel.
 See
-<a href=\"Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
 Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
 for an example with a chiller operating in heating mode.
 </p>
