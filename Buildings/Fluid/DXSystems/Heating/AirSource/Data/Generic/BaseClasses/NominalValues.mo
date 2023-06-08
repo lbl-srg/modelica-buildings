@@ -10,9 +10,6 @@ record NominalValues "Data record of nominal values"
   parameter Real COP_nominal(final unit="1") "Nominal coefficient of performance"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Real SHR_nominal(final unit="1") "Nominal sensible heat ratio"
-    annotation (Dialog(group="Nominal condition"));
-
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal air mass flow rate at evaporators"
     annotation (Dialog(group="Nominal condition"));
@@ -32,6 +29,14 @@ record NominalValues "Data record of nominal values"
   parameter Modelica.Units.SI.Pressure p_nominal=101325
     "Atmospheric pressure"
     annotation (Dialog(tab="General", group="Nominal condition"));
+
+
+    //Non-configurable parameters, required to maintain compatibility
+    // between heating and cooling coil baseclasses//
+
+  final parameter Real SHR_nominal(final unit="1")=0
+    "Nominal sensible heat ratio"
+    annotation (Dialog(group="Nominal condition"));
 
   final parameter Modelica.Units.SI.Time tWet=0
     "Time until moisture drips from coil when a dry coil is switched on"

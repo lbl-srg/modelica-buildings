@@ -129,7 +129,7 @@ model SingleSpeedHeating
     "Convert humidity ratio per kg dry air to humidity ratio per kg total air for coil inlet air"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
-  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Validation.Data.SingleSpeedHeating datCoi
+  parameter Buildings.Fluid.DXSystems.Heating.AirSource.Validation.Data.SingleSpeedHeating datCoi
     "Heating coil data record"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
 
