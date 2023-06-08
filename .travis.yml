@@ -34,7 +34,7 @@ env:
     - OMC_VERSION=ubuntu-2204-omc:1.22.0_dev-41-g8a5b18f-1
     - OPTIMICA_VERSION=travis-ubuntu-2204-optimica:1.43.4
     - DYMOLA_VERSION=travis_ubuntu-2004_dymola:2023x-x86_64_rev-1
-    - ENERGYPLUS_VERSION=EnergyPlus-9.6.0-f420c06a69-Linux-Ubuntu20.04-x86_64
+    - ENERGYPLUS_VERSION=EnergyPlus-23.1.0-87ed9199d4-Linux-Ubuntu20.04-x86_64
     - MODELICA_JSON_VERSION=6d950c3592fa021aa914ba4ff34a67cbb69962c6
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
@@ -108,7 +108,7 @@ before_install:
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.6.0/${ENERGYPLUS_VERSION}.tar.gz;
+      wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v23.1.0/${ENERGYPLUS_VERSION}.tar.gz;
       tar xzf ${ENERGYPLUS_VERSION}.tar.gz;
       rm ${ENERGYPLUS_VERSION}.tar.gz;
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_VERSION}";
