@@ -9,7 +9,7 @@ block CoilDefrostTimeCalculations
 
   parameter Real tDefRun(
     final unit="1") = 0.5
-    "Time period fraction for which defrost cycle is run"
+    "If defrost operation is timed, timestep fraction for which defrost cycle is run"
     annotation(Dialog(enable=defTri == Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.ThermodynamicTemperature TDefLim
@@ -36,7 +36,7 @@ block CoilDefrostTimeCalculations
 
   Modelica.Blocks.Interfaces.RealOutput tDefFra(
     final unit="1")
-    "Defrost time period fraction"
+    "Defrost operation timestep fraction"
     annotation (Placement(transformation(extent={{100,30},{120,50}}),
       iconTransformation(extent={{100,30},{120,50}})));
 
@@ -132,6 +132,60 @@ document. It also calculates the heating capacity multiplier <code>heaCapMul</co
 and the input power multiplier <code>inpPowMul</code>. The inputs are the measured
 temperature <code>TOut</code> and humidity ratio per kg total air <code>XOut</code> 
 of the outdoor air.
+</p>
+<h4>Calculations</h4>
+<p>
+The model first estimates the outdoor coil temperature <code>TCoiOut</code> from 
+the outdoor air drybulb temperature <code>TOut</code> using the following relation 
+<p align=\"center\" style=\"font-style:italic;\">
+TCoiOut = 0.82*TOut - 8.589
+</p>
+</p>
+<p>
+The difference between the outdoor air humidity ratio <code>XOutDryAir</code> and 
+the saturated air humidity ratio at outdoor coil temperature is used to determine 
+frost formation on the outdoor coil as follows
+<p align=\"center\" style=\"font-style:italic;\">
+delta_XCoilOut = max(1e-6, (XOutDryAir - XSatOutCoil))
+</p>
+</p>
+<p>
+The block then calculates the time period fraction <code>tDefFra</code> for which 
+the defrost operation is assumed to run, based on the input for the defrost trigger 
+type parameter <code>defTri</code>.<br/>
+In the EnergyPlus model, <code>tDefFra</code> represents the fraction of the constant 
+timestep in the simulation model for which the defrost operation is assumed to be 
+active. This is calculated to be a higher value when the outdoor air temperature 
+is lower and the relative humidity is higher. This results in a higher proportion
+of the consumed power going towards the defrost operation and lower heating of 
+the HVAC air stream.
+</p>
+<p>
+In this Modelica implementation of the model, while the timestep may not be constant
+and may vary based on the solver for the simulation, the same assumption is used 
+for calculating the proportion of energy consumed for defrost mode operation. The coil
+does not actually enter defrost operation (with reverse flow of refrigerant) during 
+this timestep fraction.
+</p>
+<p>
+If <code>defTri</code> is set to <code>timed</code>, <code>tDefFra</code> is set 
+to the user input parameter for defrost operation timestep fraction <code>tDefRun</code>.
+The heating capacity multiplier <code>heaCapMul</code> and input power multiplier
+<code>inpPowMul</code> are calculated as follows:
+<p align=\"center\" style=\"font-style:italic;\">
+tDefFra = tDefRun<br/>
+heaCapMul = 0.909 - 107.33*delta_XCoilOut<br/>
+inpPowMul = 0.9 - 36.45*delta_XCoilOut
+</p>
+</p>
+<p>
+If <code>defTri</code> is set to <code>onDemand</code>, <code>tDefFra</code>, 
+<code>heaCapMul</code> and <code>inpPowMul</code> are calculated as follows:
+<p align=\"center\" style=\"font-style:italic;\">
+tDefFra = 1/(1 + (0.01446/delta_XCoilOut))<br/>
+heaCapMul = 0.875*(1 - tDefFra)<br/>
+inpPowMul = 0.954*(1 - tDefFra)
+</p>
 </p>
 </html>",
 revisions="<html>

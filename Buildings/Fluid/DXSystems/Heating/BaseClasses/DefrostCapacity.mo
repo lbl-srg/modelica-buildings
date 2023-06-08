@@ -8,7 +8,7 @@ block DefrostCapacity
 
   parameter Real tDefRun(
     final unit="1") = 0.5
-    "Time period fraction for which defrost cycle is run"
+    "If defrost operation is timed, timestep fraction for which defrost cycle is run"
     annotation(Dialog(enable=defTri == Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostTimeMethods.timed));
 
   parameter Modelica.Units.SI.Power QDefResCap = defCur.QDefResCap
@@ -235,6 +235,64 @@ temperature.
 the measured outdoor air temperature <code>TOut</code>.
 </li>
 </ul>
+<h4>Calculations</h4>
+<ul>
+<li>
+<p>
+If the type of defrost method <code>defOpe</code> is set to <code>reverseCycle</code>,
+the heat transfer rate from the airstream to the outdoor coil <code>QDef_flow</code>
+and the power consumption for defrost <code>PDef</code> are calculated as follows:
+<p align=\"center\" style=\"font-style:italic;\">
+QDef_flow = 0.01*tDefFra*(7.222 - TOut)*(QTot_flow/1.01667)<br/>
+PDef = defMod_T*(QTot_flow/1.01667)*tDefFra*RTF<br/>
+</p>
+where <code>defMod_T</code> is the defrost operation modifier (from curve 
+<code>defCur</code> function of inlet air wet-bulb temperature 
+<code>TConInWetBul</code> and <code>TOut</code>) calculated as
+<p align=\"center\" style=\"font-style:italic;\">
+defMod_T = defCur[1] + defCur[2]*TConInWetBul + defCur[3]*TConInWetBul<sup>2</sup>
++ defCur[4]*TOut + defCur[5]*TOut<sup>2</sup> + defCur[6]*TOut*TConInWetBul
+</p>
+and <code>RTF</code> is the runtime fraction of the heating coil, calculated from 
+part load ratio <code>PLR</code> and part load fraction <code>PLFra</code> as
+<p align=\"center\" style=\"font-style:italic;\">
+RTF = PLR/PLFra
+</p>
+<code>PLR</code> is currently being hardcoded with a value of <code>1</code> since 
+this is currently only implemented for a constant speed DX heating coil.<br/>
+<code>PLFra</code> is calculated from the part load fraction curve (function of 
+<code>PLR</code>) <code>defCur.PLFraFunPLR</code> as follows:
+<p align=\"center\" style=\"font-style:italic;\">
+PLFra = PLFraFunPLR[1] + PLFraFunPLR[2]*PLR + PLFraFunPLR[3]*PLR<sup>2</sup> +
+PLFraFunPLR[4]*PLR<sup>3</sup>
+</p>
+</p>
+</li>
+<br/>
+<li>
+<p>
+If the type of defrost method <code>defOpe</code> is set to <code>reverseCycle</code>,
+the calculations are as follows:
+<p align=\"center\" style=\"font-style:italic;\">
+QDef_flow = 0<br/>
+PDef = QDefResCap*tDefFra*RTF
+</p>
+where <code>QDefResCap</code> is the rated capacity of the resistive heating 
+element on the outdoor coil.<br/>
+The remaining variable calculations for <code>RTF</code>, <code>PLR</code> and 
+<code>PLFra</code> are the same as above.
+</p>
+</li>
+<br/>
+<li>
+The total power consumption <code>PTot</code> and total heat flowrate to the air stream 
+<code>QTotDef_flow</code> (while accounting for defrost operation) is calculated 
+as follows:<br/>
+<p align=\"center\" style=\"font-style:italic;\">
+PTot = QTot_flow*EIR*PLR*inpPowMul/PLFra<br/>
+QTotDef_flow = QTot_flow*heaCapMul
+</p>
+</li>
 </html>",
 revisions="<html>
 <ul>
