@@ -4,7 +4,7 @@
 !-      Use '!' comments if they need to be retained when using the IDFEditor.
 !-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
 
-  Version,23.1;
+  Version,9.6;
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -49,8 +49,7 @@
 !-   ===========  ALL OBJECTS IN CLASS: ZONEAIRHEATBALANCEALGORITHM ===========
 
   ZoneAirHeatBalanceAlgorithm,
-    ThirdOrderBackwardDifference,  !- Algorithm
-    No;                      !- Do Space Heat Balance for Sizing
+    ThirdOrderBackwardDifference;  !- Algorithm
 
 !-   ===========  ALL OBJECTS IN CLASS: ZONEAIRCONTAMINANTBALANCE ===========
 
@@ -1097,12 +1096,12 @@
 
   ZoneInfiltration:DesignFlowRate,
     189.1-2009 - Office - WholeBuilding - Md Office - CZ4-8 Infiltration,  !- Name
-    Space Type 1,            !- Zone or ZoneList or Space or SpaceList Name
+    Space Type 1,            !- Zone or ZoneList Name
     Infiltration Sched,      !- Schedule Name
     AirChanges/Hour,         !- Design Flow Rate Calculation Method
     ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
     0.3,                     !- Air Changes per Hour {1/hr}
     1,                       !- Constant Term Coefficient
     0,                       !- Temperature Term Coefficient
@@ -1111,12 +1110,12 @@
 
   ZoneInfiltration:DesignFlowRate,
     189.1-2009 - Office - WholeBuilding - Md Office - CZ4-8 Infiltration 1,  !- Name
-    Space Type 2,            !- Zone or ZoneList or Space or SpaceList Name
+    Space Type 2,            !- Zone or ZoneList Name
     Infiltration Sched,      !- Schedule Name
     AirChanges/Hour,         !- Design Flow Rate Calculation Method
     ,                        !- Design Flow Rate {m3/s}
-    ,                        !- Flow Rate per Floor Area {m3/s-m2}
-    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    ,                        !- Flow per Zone Floor Area {m3/s-m2}
+    ,                        !- Flow per Exterior Surface Area {m3/s-m2}
     0.3,                     !- Air Changes per Hour {1/hr}
     1,                       !- Constant Term Coefficient
     0,                       !- Temperature Term Coefficient
