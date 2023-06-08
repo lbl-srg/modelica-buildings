@@ -109,7 +109,8 @@ before_install:
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      # The Spawn idf use 9.6.0, while others use a more recent EnergyPlus, hence we install both
+      # The Spawn idf reference results are generated with EnergyPlus 9.6.0,
+      # while others use a more recent EnergyPlus, hence we install both
       wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.6.0/${ENERGYPLUS_9_6_0}.tar.gz;
       tar xzf ${ENERGYPLUS_9_6_0}.tar.gz;
       rm ${ENERGYPLUS_9_6_0}.tar.gz;
