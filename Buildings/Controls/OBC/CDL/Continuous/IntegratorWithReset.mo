@@ -77,33 +77,24 @@ equation
     Documentation(
       info="<html>
 <p>
-This model is similar to
-<a href=\"modelica://Modelica.Blocks.Continuous.Integrator\">
-Modelica.Blocks.Continuous.Integrator</a>
-except that it allows to reset the output <code>y</code>
-of the integrator.
+Block that outputs
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+y(t) = y<sub>start</sub> + &int;<sub>t<sub>0</sub></sub><sup>t</sup> u(s) ds.
 </p>
 <p>
-The output of the integrator can be reset as follows:
-</p>
-<ul>
-<li>
 Whenever the input signal <code>trigger</code> changes from <code>false</code>
 to <code>true</code>,
-the integrator is reset by setting <code>y</code>
+the integrator is reset by setting <i>y<sub>start</sub></i>
 to the value of the input signal <code>y_reset_in</code>.
-</li>
-</ul>
-<h4>Implementation</h4>
-<p>
-To adjust the icon layer, the code of
-<a href=\"modelica://Modelica.Blocks.Continuous.Integrator\">
-Modelica.Blocks.Continuous.Integrator</a>
-has been copied into this model rather than extended.
 </p>
 </html>",
       revisions="<html>
 <ul>
+<li>
+June 8, 2023, by Michael Wetter:<br/>
+Updated documentation.
+</li>
 <li>
 February 2, 2022, by Michael Wetter:<br/>
 Removed <code>unit=\"1\"</code> declaration for gain <code>k</code>.
