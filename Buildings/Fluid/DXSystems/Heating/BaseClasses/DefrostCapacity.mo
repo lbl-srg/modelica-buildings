@@ -27,7 +27,7 @@ block DefrostCapacity
 
   Modelica.Blocks.Interfaces.RealInput tDefFra(
     final unit="1")
-    "Defrost time period fraction"
+    "Calculated fraction of timestep for which the defrost cycle is assumed to run"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
       iconTransformation(extent={{-120,100},{-100,120}})));
 
