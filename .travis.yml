@@ -108,9 +108,9 @@ before_install:
        docker pull "$DOCKER_USERNAME"/${OPTIMICA_VERSION};
        cp Buildings/Resources/Scripts/travis/optimica/jm_ipython.sh $HOME/bin/jm_ipython.sh;
     fi;
+# The Spawn idf reference results are generated with EnergyPlus 9.6.0,
+# while others use a more recent EnergyPlus, hence we install both
   - if [[ "$TEST_ARG" == *test-energyplus* ]]; then
-      # The Spawn idf reference results are generated with EnergyPlus 9.6.0,
-      # while others use a more recent EnergyPlus, hence we install both
       wget --no-verbose https://github.com/NREL/EnergyPlus/releases/download/v9.6.0/${ENERGYPLUS_9_6_0}.tar.gz;
       tar xzf ${ENERGYPLUS_9_6_0}.tar.gz;
       rm ${ENERGYPLUS_9_6_0}.tar.gz;
@@ -120,7 +120,6 @@ before_install:
       rm ${ENERGYPLUS_23_1_0}.tar.gz;
       echo "Installed EnergyPlus in ${PWD}/${ENERGYPLUS_23_1_0}";
     fi;
-
   - if [[ "$TEST_ARG" == *test-cdl-conformance* ]]; then
       wget --no-verbose https://github.com/lbl-srg/modelica-json/archive/${MODELICA_JSON_VERSION}.tar.gz;
       tar xzf ${MODELICA_JSON_VERSION}.tar.gz;
