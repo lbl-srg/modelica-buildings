@@ -94,7 +94,7 @@ model Case600FF
       glaSys={window600},
       wWin={2*3},
       hWin={2},
-      fFra={0.001},
+      fFra={1e-10},
       til={Z_},
       azi={S_})) "Room model"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
@@ -142,17 +142,12 @@ model Case600FF
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) "Roof"
     annotation (Placement(transformation(extent={{60,84},{74,98}})));
   replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.Win600 window600(
-    UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window"
     annotation (Placement(transformation(extent={{40,84},{54,98}})));
   Buildings.Fluid.Sources.MassFlowSource_T sinInf(
     redeclare package Medium = MediumA,
-    m_flow=1,
     use_m_flow_in=true,
-    use_T_in=false,
-    use_X_in=false,
-    use_C_in=false,
     nPorts=1) "Sink model for air infiltration"
     annotation (Placement(transformation(extent={{4,-66},{16,-54}})));
   Buildings.Fluid.Sources.Outside souInf(redeclare package Medium = MediumA,
@@ -205,7 +200,6 @@ model Case600FF
 
   HeatTransfer.Convection.Exterior conOpa(
     A=48,
-    hFixed=0.8,
     roughness=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough,
     final til=Buildings.Types.Tilt.Floor,
     final azi=0,

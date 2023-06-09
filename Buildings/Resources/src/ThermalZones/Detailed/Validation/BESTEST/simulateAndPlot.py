@@ -12,7 +12,7 @@ import sys
 import shutil
 
 # If true, run simulations and not only the post processing.
-DO_SIMULATIONS = True
+DO_SIMULATIONS = False
 # If true, delete the simulation result files.
 CLEAN_MAT = True
 # If true, temporary directories will be deleted.
@@ -25,7 +25,7 @@ CWD = os.getcwd()
 # so that the regression test will generate high resolution results.
 BP_BRANCH = 'issue335_high_ncp'
 # simulator, JModelica and optimica are supported
-TOOL = 'dymola'
+TOOL = 'optimica'
 
 # standard data file
 ASHRAE_DATA = './ASHRAE140_data.dat'
@@ -143,7 +143,10 @@ def _move_results(resultDirs):
 
     for resultDir in resultDirs:
         haveMat = False
-        resultsFolder = os.path.join(resultDir, 'Buildings')
+        if (TOOL == 'optimica'):
+            resultsFolder = resultDir
+        else:
+            resultsFolder = os.path.join(resultDir, 'Buildings')
         for file in os.listdir(resultsFolder):
             if file.endswith('.mat'):
                 haveMat = True
@@ -182,7 +185,10 @@ def _organize_cases(mat_dir):
         for case in CASES:
             temp = {'case': case}
             for matFile in matFiles:
-                tester = '{}.'.format(case)
+                if (TOOL == 'optimica'):
+                    tester = '{}_'.format(case)
+                else:
+                    tester = '{}.'.format(case)
                 if tester in matFile:
                     temp['matFile'] = os.path.join(mat_dir, matFile)
             caseList.append(temp)
