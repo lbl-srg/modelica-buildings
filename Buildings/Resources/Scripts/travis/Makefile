@@ -15,6 +15,8 @@ ROOT = $(TRAVIS_BUILD_DIR)
 # The target below excludes run.sh in ThermalZones as they are using a more recent
 # version of EnergyPlus that has not yet been released.
 test-energyplus-validations:
+	@echo "*********************************************************"
+	@echo "*********************************************************"
 	@echo "*** Testing idf files for $((ENERGYPLUS_23_1_0))"
 	@export PATH=$(PATH):$(ROOT)/$(ENERGYPLUS_23_1_0); && \
 	 find $(ROOT)/Buildings/Resources/Data/Fluid -name run.sh | xargs -I {} sh -c \
@@ -22,6 +24,7 @@ test-energyplus-validations:
 	   echo "*********************************************************" && \
 	   echo "*** Testing `pwd`/run.sh" && \
 	   ./run.sh'
+	@echo "*********************************************************"
 	@echo "*** Testing idf files for $((ENERGYPLUS_9_6_0))"
 	@export PATH=$(PATH):$(ROOT)/$(ENERGYPLUS_9_6_0); && \
 	 find $(ROOT)/Buildings/Resources/Data/ThermalZones/EnergyPlus_9_6_0 -name run.sh | xargs -I {} sh -c \
