@@ -1,7 +1,8 @@
 within Buildings.Experimental.DHC.Loads.Combined;
 model BuildingTimeSeriesWithETS
   "Model of a building with loads provided as time series, connected to an ETS"
-  extends Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
+  extends
+    Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
     redeclare Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
       final filNam=filNam,
       have_hotWat=true,
@@ -69,6 +70,24 @@ model BuildingTimeSeriesWithETS
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter loaCooNor(k=1/
         QCoo_flow_nominal) "Normalized cooling load"
     annotation (Placement(transformation(extent={{-200,-150},{-180,-130}})));
+  Controls.OBC.CDL.Continuous.MultiplyByParameter           mulPPumETS1(u(final
+        unit="W"), final k=facMul) if have_pum "Scaling"
+    annotation (Placement(transformation(extent={{268,-84},{288,-64}})));
+  Controls.OBC.CDL.Interfaces.RealOutput           mCooFlow(final unit="W")
+                    if have_pum
+    "ETS pump power"
+    annotation (Placement(
+        transformation(extent={{300,-96},{340,-56}}),
+                                                    iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={70,120})));
+  Controls.OBC.CDL.Interfaces.RealOutput           mCoo_flow(final unit="kg/s")
+    "District water mass flow rate used for cooling service"
+    annotation ( Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=-90,
+        origin={42,-320}),
+      iconTransformation(extent={{300,-200},{380,-120}})));
 equation
   connect(bui.QReqHotWat_flow, ets.loaSHW) annotation (Line(points={{28,4},{28,
           -10},{-64,-10},{-64,-74},{-34,-74}}, color={0,0,127}));
@@ -92,6 +111,12 @@ equation
           {-220,-4},{-220,-140},{-202,-140}}, color={0,0,127}));
   connect(loaHeaNor.y, resTHeaWatSup.u) annotation (Line(points={{-178,-100},{
           -120,-100},{-120,-40},{-112,-40}},  color={0,0,127}));
+  connect(ets.mCoo_flow, mulPPumETS1.u) annotation (Line(points={{34,-72},{150,
+          -72},{150,-74},{266,-74}}, color={0,0,127}));
+  connect(mulPPumETS1.y, mCooFlow) annotation (Line(points={{290,-74},{292,-74},
+          {292,-76},{320,-76}}, color={0,0,127}));
+  connect(ets.mCoo_flow, mCoo_flow)
+    annotation (Line(points={{34,-72},{42,-72},{42,-320}}, color={0,0,127}));
   annotation (
     Documentation(info="<html>
 <p>

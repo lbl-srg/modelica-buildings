@@ -1,7 +1,8 @@
 within Buildings.Experimental.DHC.Examples.Combined;
 model SeriesVariableFlow
   "Example of series connection with variable district water mass flow rate"
-  extends Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(redeclare
+  extends
+    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(      redeclare
       Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
       bui[nBui](final filNam=filNam), datDes(
       mPumDis_flow_nominal=97.3,
@@ -36,9 +37,6 @@ model SeriesVariableFlow
     "Scale with nominal mass flow rate"
     annotation (Placement(transformation(extent={{-240,-70},{-220,-50}})));
 equation
-  connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-229,20},{
-          -184,20},{-184,4.66667},{-161.333,4.66667}},
-                                  color={0,0,127}));
   connect(THotWatSupSet.y, bui.THotWatSupSet) annotation (Line(points={{-168,
           180},{-40,180},{-40,183},{-12,183}}, color={0,0,127}));
   connect(TColWat.y, bui.TColWat) annotation (Line(points={{-138,160},{-40,160},
@@ -54,18 +52,26 @@ equation
           120},{-300,120},{-300,-54},{-282,-54}},
                                          color={0,0,127}));
   connect(TDisWatRet.T, conPum.TSouIn[1]) annotation (Line(points={{69,0},{60,0},
-          {60,80},{-304,80},{-304,-61},{-282,-61}},
+          {60,80},{-304,80},{-304,-60.5},{-282,-60.5}},
                                             color={0,0,127}));
   connect(TDisWatBorLvg.T, conPum.TSouIn[2]) annotation (Line(points={{-91,-40},
-          {-290,-40},{-290,-58},{-282,-58},{-282,-59}},
+          {-290,-40},{-290,-58},{-282,-58},{-282,-59.5}},
                                                   color={0,0,127}));
   connect(TDisWatBorLvg.T, conPum.TSouOut[1]) annotation (Line(points={{-91,-40},
-          {-290,-40},{-290,-67},{-282,-67}},              color={0,0,127}));
-  connect(TDisWatSup.T, conPum.TSouOut[2]) annotation (Line(points={{-91,20},{-100,
-          20},{-100,60},{-296,60},{-296,-65},{-282,-65}},
+          {-290,-40},{-290,-66.5},{-283.6,-66.5}},        color={0,0,127}));
+  connect(TDisWatSup.T, conPum.TSouOut[2]) annotation (Line(points={{-91,20},{
+          -100,20},{-100,60},{-296,60},{-296,-65.5},{-283.6,-65.5}},
                                                    color={0,0,127}));
   connect(gai.y, pumSto.m_flow_in) annotation (Line(points={{-218,-60},{-180,-60},
           {-180,-68}}, color={0,0,127}));
+  connect(masFloDisPla.y, pla.mPum_flow) annotation (Line(points={{-229,20},{
+          -168,20},{-168,4.66667},{-161.333,4.66667}}, color={0,0,127}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-208,40},
+          {-208,38},{-161.333,38},{-161.333,7.33333}}, color={0,0,127}));
+  connect(TDisWatSup.port_b, dis.port_aDisSup) annotation (Line(points={{-80,30},
+          {-78,30},{-78,140},{-20,140}}, color={0,127,255}));
+  connect(TDisWatRet.port_a, dis.port_bDisSup) annotation (Line(points={{80,10},
+          {84,10},{84,140},{20,140}}, color={0,127,255}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
@@ -73,8 +79,9 @@ equation
   file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Examples/Combined/SeriesVariableFlow.mos"
   "Simulate and plot"),
   experiment(
-      StopTime=604800,
-      Tolerance=1e-06),
+      StopTime=31536000,
+      Tolerance=1e-06,
+      __Dymola_Algorithm="Dassl"),
     Documentation(revisions="<html>
 <ul>
 <li>

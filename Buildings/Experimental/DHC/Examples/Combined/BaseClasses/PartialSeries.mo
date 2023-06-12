@@ -209,10 +209,6 @@ equation
           127,255}));
   connect(conPla.port_bDis, TDisWatSup.port_a)
     annotation (Line(points={{-80,0},{-80,10}}, color={0,127,255}));
-  connect(TDisWatSup.port_b, dis.port_aDisSup) annotation (Line(points={{-80,30},
-          {-80,140},{-20,140}}, color={0,127,255}));
-  connect(dis.port_bDisSup, TDisWatRet.port_a)
-    annotation (Line(points={{20,140},{80,140},{80,10}}, color={0,127,255}));
   connect(TDisWatRet.port_b, pumDis.port_a)
     annotation (Line(points={{80,-10},{80,-50}}, color={0,127,255}));
   connect(conSto.port_bDis, TDisWatBorLvg.port_a)
@@ -223,9 +219,6 @@ equation
           180},{20,160},{12,160},{12,150}}, color={0,127,255}));
   connect(dis.ports_bCon, bui.port_aSerAmb) annotation (Line(points={{-12,150},{
           -12,160},{-20,160},{-20,180},{-10,180}}, color={0,127,255}));
-  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-180,40},
-          {-180,7.33333},{-161.333,7.33333}},
-                              color={0,0,127}));
   connect(THeaWatSupMaxSet.y, bui.THeaWatSupMaxSet) annotation (Line(points={{-228,
           220},{-20,220},{-20,187},{-12,187}}, color={0,0,127}));
   connect(TChiWatSupSet.y, bui.TChiWatSupSet) annotation (Line(points={{-198,200},
@@ -247,27 +240,29 @@ equation
           -140},{218,-140}}, color={0,0,127}));
   connect(pla.PPum, EPumPla.u) annotation (Line(points={{-138.667,5.33333},{
           -120,5.33333},{-120,40},{218,40}}, color={0,0,127}));
-  connect(EPumETS.y, EPum.u[1]) annotation (Line(points={{241,200},{260,200},{260,
-          119.25},{278,119.25}},
+  connect(EPumETS.y, EPum.u[1]) annotation (Line(points={{241,200},{260,200},{
+          260,119.25},{278,119.25}},
                                color={0,0,127}));
   connect(EPumPla.y, EPum.u[2]) annotation (Line(points={{241,40},{260,40},{260,
           119.75},{278,119.75}},
                                color={0,0,127}));
-  connect(EPumDis.y, EPum.u[3]) annotation (Line(points={{241,-80},{262,-80},{262,
-          120.25},{278,120.25}},
+  connect(EPumDis.y, EPum.u[3]) annotation (Line(points={{241,-80},{262,-80},{
+          262,120.25},{278,120.25}},
                                color={0,0,127}));
-  connect(EPumSto.y, EPum.u[4]) annotation (Line(points={{241,-140},{264,-140},{
-          264,120.75},{278,120.75}},
+  connect(EPumSto.y, EPum.u[4]) annotation (Line(points={{241,-140},{264,-140},
+          {264,120.75},{278,120.75}},
                                    color={0,0,127}));
   connect(bui.PHea, PHeaPump.u) annotation (Line(points={{12,189},{120,189},{
           120,160},{138,160}},
                            color={0,0,127}));
   connect(PHeaPump.y, EHeaPum.u)
     annotation (Line(points={{162,160},{218,160}}, color={0,0,127}));
-  connect(EHeaPum.y, ETot.u[1]) annotation (Line(points={{241,160},{300,160},{300,
-          159.5},{318,159.5}}, color={0,0,127}));
-  connect(EPum.y, ETot.u[2]) annotation (Line(points={{302,120},{310,120},{310,160.5},
-          {318,160.5}},    color={0,0,127}));
+  connect(EHeaPum.y, ETot.u[1]) annotation (Line(points={{241,160},{300,160},{
+          300,159.5},{318,159.5}},
+                               color={0,0,127}));
+  connect(EPum.y, ETot.u[2]) annotation (Line(points={{302,120},{310,120},{310,
+          160.5},{318,160.5}},
+                           color={0,0,127}));
   connect(TDisWatSup.T, conVio.u[1]) annotation (Line(points={{-91,20},{-100,20},
           {-100,12},{-60,12},{-60,20},{318,20}},           color={0,0,127}));
   connect(TDisWatBorLvg.T, conVio.u[2]) annotation (Line(points={{-91,-40},{-100,

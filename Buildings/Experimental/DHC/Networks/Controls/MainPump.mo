@@ -3,6 +3,7 @@ model MainPump "Main pump controller"
   extends Modelica.Blocks.Icons.Block;
   parameter Integer nMix(min=1) "Number of mixing points after the substations";
   parameter Integer nSou(min=1) "Number of heat sources (and heat sinks)";
+  parameter Integer nBui(min=1) "Number of heat sources (and heat sinks)";
   parameter Real yPumMin(min=0.01, max=1, final unit="1") = 0.05
     "Minimum pump speed";
   parameter Modelica.Units.SI.Temperature TMin(displayUnit="degC") = 281.15
@@ -30,14 +31,12 @@ model MainPump "Main pump controller"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouIn[nSou](
     each final unit="K",
-    each displayUnit="degC")
-    "Temperatures at the inlets of the sources"
+    each displayUnit="degC") "Temperatures at the inlets of the sources"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSouOut[nSou](
     each final unit="K",
-    each displayUnit="degC")
-    "Temperatures at the outlets of the sources"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    each displayUnit="degC") "Temperatures at the outlets of the sources"
+    annotation (Placement(transformation(extent={{-156,-80},{-116,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y(min=0, max=1, unit="1")
     "Pump control signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
@@ -53,12 +52,11 @@ model MainPump "Main pump controller"
     "Maximum temperature at mixing points"
     annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum(
-    nin=nSou,
-    k=fill(1, nSou))
+    k=fill(1, nSou), nin=nSou)
     annotation (Placement(transformation(extent={{-50,-130},{-30,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract dTSou[nSou]
     "Temperature differences over source"
-    annotation (Placement(transformation(extent={{-80,-130},{-60,-110}})));
+    annotation (Placement(transformation(extent={{-92,-130},{-72,-110}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter dTSou_nor(k=1/(
         sum(dTSou_nominal)))
     "Normalization of temperature difference over source"
@@ -80,7 +78,7 @@ model MainPump "Main pump controller"
     annotation (Placement(transformation(extent={{-70,70},{-50,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant yMin(k=yPumMin)
     "Minimum pump speed"
-    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
+    annotation (Placement(transformation(extent={{-72,40},{-52,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TMax_nominal(k=TMax)
     "Maximum temperature"
     annotation (Placement(transformation(extent={{-70,150},{-50,170}})));
@@ -113,21 +111,44 @@ model MainPump "Main pump controller"
     annotation (Placement(transformation(extent={{10,110},{30,130}})));
   Buildings.Controls.OBC.CDL.Continuous.Max ySetPum "Change in pump signal"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=-delta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(final k=0)
     "Gain factor"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
-    final k=-delta)
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=2)
     "Gain factor"
     annotation (Placement(transformation(extent={{60,-110},{80,-90}})));
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(h=0.05)
+    annotation (Placement(transformation(extent={{6,-176},{26,-156}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+    annotation (Placement(transformation(extent={{44,-176},{64,-156}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi1
+    annotation (Placement(transformation(extent={{44,-204},{64,-184}})));
+  Buildings.Controls.OBC.CDL.Continuous.Switch swi2
+    annotation (Placement(transformation(extent={{126,-128},{146,-108}})));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=
+        use_temperatureShift)
+    annotation (Placement(transformation(extent={{112,-162},{132,-142}})));
+  Modelica.Blocks.Interfaces.RealInput m_flow_coo[nBui](final unit="kg/s")
+    "Prescribed mass flow rate" annotation (Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-124,-154}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=0,
+        origin={-124,-104})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.001, h=0.01)
+    annotation (Placement(transformation(extent={{-74,-170},{-54,-150}})));
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    annotation (Placement(transformation(extent={{92,-198},{112,-178}})));
+  Buildings.Controls.OBC.CDL.Continuous.MultiSum mulSum1(nin=nBui, k=fill(1,
+        nBui))
+    annotation (Placement(transformation(extent={{-104,-188},{-84,-168}})));
 equation
   connect(TMix, TMixMin.u) annotation (Line(points={{-120,60},{-80,60},{-80,-20},
           {-72,-20}}, color={0,0,127}));
   connect(TMix, TMixMax.u) annotation (Line(points={{-120,60},{-80,60},{-80,20},
           {-72,20}}, color={0,0,127}));
-  connect(mulSum.u, dTSou.y)
-    annotation (Line(points={{-52,-120},{-58,-120}}, color={0,0,127}));
   connect(mulSum.y, dTSou_nor.u)
     annotation (Line(points={{-28,-120},{-22,-120}}, color={0,0,127}));
   connect(dTSou_nor.y, conShi.u_m)
@@ -138,7 +159,7 @@ equation
   connect(uppCur.u, TMixMax.y)
     annotation (Line(points={{28,20},{-48,20}}, color={0,0,127}));
   connect(uppCur.f1, yMin.y) annotation (Line(points={{28,24},{-30,24},{-30,50},
-          {-48,50}}, color={0,0,127}));
+          {-50,50}}, color={0,0,127}));
   connect(uppCur.f2, one.y) annotation (Line(points={{28,12},{-26,12},{-26,80},{
           -48,80}}, color={0,0,127}));
   connect(TMax_nominal.y, TMax_upper.u1)
@@ -177,26 +198,60 @@ equation
                         color={0,0,127}));
   connect(lowCur.f1, one.y) annotation (Line(points={{28,-16},{-26,-16},{-26,80},
           {-48,80}},color={0,0,127}));
-  connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-28},{-30,-28},{-30,50},
-          {-48,50}}, color={0,0,127}));
+  connect(lowCur.f2, yMin.y) annotation (Line(points={{28,-28},{-30,-28},{-30,
+          50},{-50,50}},
+                     color={0,0,127}));
   connect(uppCur.y, ySetPum.u1)
     annotation (Line(points={{52,20},{56,20},{56,6},{58,6}}, color={0,0,127}));
   connect(lowCur.y, ySetPum.u2) annotation (Line(points={{52,-20},{56,-20},{56,-6},
           {58,-6}}, color={0,0,127}));
   connect(ySetPum.y, y)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
-  connect(TSouOut, dTSou.u1) annotation (Line(points={{-120,-60},{-94,-60},{-94,
-          -114},{-82,-114}}, color={0,0,127}));
-  connect(TSouIn, dTSou.u2) annotation (Line(points={{-120,0},{-88,0},{-88,-126},
-          {-82,-126}}, color={0,0,127}));
-  connect(sNeg.y, gai1.u) annotation (Line(points={{82,-140},{94,-140},{94,-120},
-          {54,-120},{54,-100},{58,-100}}, color={0,0,127}));
-  connect(gai1.y, TMin_lower.u2) annotation (Line(points={{82,-100},{94,-100},{94,
-          100},{-40,100},{-40,114},{-32,114}}, color={0,0,127}));
-  connect(sPos.y, gai.u) annotation (Line(points={{82,-60},{88,-60},{88,60},{54,
-          60},{54,80},{58,80}}, color={0,0,127}));
-  connect(gai.y, TMax_upper.u2) annotation (Line(points={{82,80},{88,80},{88,140},
-          {-40,140},{-40,154},{-32,154}}, color={0,0,127}));
+  connect(TSouOut, dTSou.u1) annotation (Line(points={{-136,-60},{-94,-60},{-94,
+          -104},{-102,-104},{-102,-114},{-94,-114}},
+                             color={0,0,127}));
+  connect(TSouIn, dTSou.u2) annotation (Line(points={{-120,0},{-90,0},{-90,-86},
+          {-104,-86},{-104,-126},{-94,-126}},
+                       color={0,0,127}));
+  connect(gai.y, TMin_lower.u2) annotation (Line(points={{82,80},{84,80},{84,
+          102},{-42,102},{-42,114},{-32,114}}, color={0,0,127}));
+  connect(dTSou_nor.y, lesThr.u) annotation (Line(points={{2,-120},{8,-120},{8,
+          -144},{-2,-144},{-2,-166},{4,-166}}, color={0,0,127}));
+  connect(zer.y, swi.u1) annotation (Line(points={{-28,-80},{46,-80},{46,-150},
+          {36,-150},{36,-158},{42,-158}}, color={0,0,127}));
+  connect(one.y, swi.u3) annotation (Line(points={{-48,80},{-10,80},{-10,-76},{
+          34,-76},{34,-174},{42,-174}}, color={0,0,127}));
+  connect(zer.y, swi1.u3) annotation (Line(points={{-28,-80},{-26,-80},{-26,
+          -202},{42,-202}}, color={0,0,127}));
+  connect(one.y, swi1.u1) annotation (Line(points={{-48,80},{-48,-4},{-16,-4},{
+          -16,-186},{42,-186}}, color={0,0,127}));
+  connect(lesThr.y, swi.u2)
+    annotation (Line(points={{28,-166},{42,-166}}, color={255,0,255}));
+  connect(lesThr.y, swi1.u2) annotation (Line(points={{28,-166},{28,-194},{42,
+          -194}}, color={255,0,255}));
+  connect(swi.y, gai1.u) annotation (Line(points={{66,-166},{86,-166},{86,-164},
+          {96,-164},{96,-116},{54,-116},{54,-100},{58,-100}}, color={0,0,127}));
+  connect(swi1.y, gai.u) annotation (Line(points={{66,-194},{84,-194},{84,64},{
+          48,64},{48,80},{58,80}}, color={0,0,127}));
+  connect(gai1.y, swi2.u1) annotation (Line(points={{82,-100},{118,-100},{118,
+          -110},{124,-110}}, color={0,0,127}));
+  connect(zer.y, swi2.u3) annotation (Line(points={{-28,-80},{36,-80},{36,-76},
+          {114,-76},{114,-126},{124,-126}}, color={0,0,127}));
+  connect(swi2.y, TMax_upper.u2) annotation (Line(points={{148,-118},{140,-118},
+          {140,146},{-40,146},{-40,154},{-32,154}}, color={0,0,127}));
+  connect(booleanExpression.y, and2.u2) annotation (Line(points={{133,-152},{132,
+          -152},{132,-222},{90,-222},{90,-196}}, color={255,0,255}));
+  connect(and2.y, swi2.u2) annotation (Line(points={{114,-188},{112,-188},{112,-118},
+          {124,-118}}, color={255,0,255}));
+  connect(dTSou.y, mulSum.u)
+    annotation (Line(points={{-70,-120},{-52,-120}}, color={0,0,127}));
+  connect(greThr.y, and2.u1) annotation (Line(points={{-52,-160},{-46,-160},{-46,
+          -188},{90,-188}}, color={255,0,255}));
+  connect(mulSum1.y, greThr.u) annotation (Line(points={{-82,-178},{-76,-178},{-76,
+          -160}}, color={0,0,127}));
+  connect(mulSum1.u[:], m_flow_coo[:]) annotation (Line(points={{-106,-178},{-124,
+          -178},{-124,-154}},
+                  color={0,0,127}));
   annotation (
     defaultComponentName="conPum",
     Diagram(coordinateSystem(extent={{-100,-180},{100,180}})), Icon(

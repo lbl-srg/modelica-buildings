@@ -1,7 +1,8 @@
 within Buildings.Experimental.DHC.Examples.Combined;
 model SeriesConstantFlow
   "Example of series connection with constant district water mass flow rate"
-  extends Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(redeclare
+  extends
+    Buildings.Experimental.DHC.Examples.Combined.BaseClasses.PartialSeries(      redeclare
       Buildings.Experimental.DHC.Loads.Combined.BuildingTimeSeriesWithETS
       bui[nBui](final filNam=filNam), datDes(
       mPumDis_flow_nominal=95,
@@ -41,6 +42,13 @@ equation
           180},{-24,180},{-24,183},{-12,183}}, color={0,0,127}));
   connect(TColWat.y, bui.TColWat) annotation (Line(points={{-138,160},{-40,160},
           {-40,164},{-8,164},{-8,168}}, color={0,0,127}));
+  connect(TDisWatSup.port_b, dis.port_aDisSup) annotation (Line(points={{-80,30},
+          {-76,30},{-76,138},{-20,138},{-20,140}}, color={0,127,255}));
+  connect(dis.port_bDisSup, TDisWatRet.port_a)
+    annotation (Line(points={{20,140},{80,140},{80,10}}, color={0,127,255}));
+  connect(TSewWat.y, pla.TSewWat) annotation (Line(points={{-259,40},{-226,40},
+          {-226,42},{-174,42},{-174,7.33333},{-161.333,7.33333}}, color={0,0,
+          127}));
   annotation (
   Diagram(
   coordinateSystem(preserveAspectRatio=false, extent={{-360,-260},{360,260}})),
