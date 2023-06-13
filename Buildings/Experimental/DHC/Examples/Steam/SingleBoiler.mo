@@ -23,7 +23,7 @@ model SingleBoiler "Example model for a complete steam district heating system w
      "Saturation temperature, at high pressure";
 
   parameter Integer N = 3 "Number of buildings";
-  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=sum(bld.m_flow_nominal)
+  parameter Modelica.Units.SI.MassFlowRate mDis_flow_nominal=sum(bld.m_flow_nominal)*1.2
     "Nominal mass flow rate of entire district";
   parameter Modelica.Units.SI.HeatFlowRate QDis_flow_nominal=QBui_flow_nominal*N
     "Nominal heat flow rate of entire district";
