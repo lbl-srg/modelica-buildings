@@ -12,7 +12,7 @@ import sys
 import shutil
 
 # If true, run simulations and not only the post processing.
-DO_SIMULATIONS = False
+DO_SIMULATIONS = True
 # If true, delete the simulation result files.
 CLEAN_MAT = True
 # If true, temporary directories will be deleted.

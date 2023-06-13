@@ -325,7 +325,7 @@ in the table after the plots below.
 <td>0.411</td>
 <td>0.351</td>
 <td>0.450</td>
-<td bgcolor=\"#90EE90\">0.441</td>
+<td bgcolor=\"#90EE90\">0.491</td>
 </tr>
 <tr>
 <td>Case985</td>
@@ -589,7 +589,7 @@ in the table after the plots below.
 <td>3.712</td>
 <td>3.775</td>
 <td>3.519</td>
-<td bgcolor=\"#FF4500\">3.423</td>
+<td bgcolor=\"#FF4500\">3.454</td>
 </tr>
 <tr>
 <td>Case985</td>
@@ -957,8 +957,8 @@ in the table after the plots below.
 <td>09-Feb:7</td>
 <td>1.592</td>
 <td>09-Feb:7</td>
-<td>1.521</td>
-<td>9-Feb:7</td>
+<td>2.028</td>
+<td>17-Mar:4</td>
 </tr>
 <tr>
 <td>Case985</td>
@@ -991,7 +991,7 @@ in the table after the plots below.
 <td>09-Feb:7</td>
 <td>1.662</td>
 <td>09-Feb:6</td>
-<td>1.582</td>
+<td>1.583</td>
 <td>9-Feb:6</td>
 </tr>
 <tr><td colspan=\"15\"><b>Peak cooling load (kW)</b></td></tr>
@@ -1333,7 +1333,7 @@ in the table after the plots below.
 <td>12-Oct:15</td>
 <td>3.313</td>
 <td>12-Oct:14</td>
-<td>3.274</td>
+<td>3.237</td>
 <td>18-Oct:15</td>
 </tr>
 <tr>
