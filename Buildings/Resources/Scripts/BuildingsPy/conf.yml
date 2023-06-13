@@ -124,6 +124,10 @@
   optimica:
     comment: The rootfinding function failed in an unrecoverable manner. At time 5959.741337. (Radau5ODE fails at 3540.029280) (but works locally)
     simulate: false
+- model_name: Buildings.Experimental.DHC.Loads.Combined.Examples.BuildingTimeSeriesWithETS
+  openmodelica:
+    comment: simulates ok with OMEdit 1.22.0~dev-51-ge506fbc
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -152,6 +156,8 @@
     simulate: false
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.MSLAIT
   dymola:
+    time_out: 600
+  openmodelica:
     time_out: 600
 - model_name: Buildings.Fluid.FixedResistances.Validation.PlugFlowPipes.PlugFlowAIT
   openmodelica:
@@ -313,6 +319,10 @@
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379
     simulate: false
+- model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case920
+  openmodelica:
+    comment: Timeout on travis
+    time_out: 600
 - model_name: Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx.Case930
   openmodelica:
     comment: Timeout on travis, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/571321984#L379

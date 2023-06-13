@@ -12,8 +12,8 @@ model LoadTwoWayValveControl
 <p>
 This is a model of a thermal load on a hydronic circuit that
 is composed of
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
-Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load</a>
 and a throttle circuit with a two-way valve 
 that is used to modulate the flow rate through the load component.
 </p>

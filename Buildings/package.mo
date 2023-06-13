@@ -117,7 +117,7 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.Reheat.Controller</a> if the zon
 <li>
 Suffix <code>_flow</code> for a flow variable, such as <code>Q_flow</code>, <code>m_flow</code>
 and <code>V_flow</code>.
-See <a href=\"Buildings.Fluid.Sensors.VolumeFlowRate\">
+See <a href=\"modelica://Buildings.Fluid.Sensors.VolumeFlowRate\">
 Buildings.Fluid.Sensors.VolumeFlowRate</a>.
 </li>
 <li>
@@ -224,13 +224,21 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        The models are inspired by the ISO 13790:2008 Standard.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples
+    </td>
+    <td valign=\"top\">Package that contains example models of a building 
+                       with loads provided as time series for heat 
+                       pump space heating, heat pump domestic hot water heating,
+                       and free cooling in an ambient district network.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
     </td>
     <td valign=\"top\">Package that contains models for standard connection
                        configurations used in hydronic circuits for heating or cooling applications.
     </td>
 </tr>
-</table>
+  </table>
 <!-- New components for existing libraries -->
 <p>
 The following <b style=\"color:blue\">new components</b> have been added
@@ -336,6 +344,16 @@ to <b style=\"color:blue\">existing</b> libraries:
                        <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1681\">IBPSA, #1681</a>.
     </td>
 </tr>
+  <tr><td colspan=\"2\"><b>Buildings.Utilities.IO.Files</b>
+    </td>
+  </tr>
+  <tr><td valign=\"top\">Buildings.Utilities.IO.Files.WeeklySchedule
+    </td>
+    <td valign=\"top\">Added model to read weekly time schedules from a file.<br/>
+                       This is for
+                       <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1601\">IBPSA, #1601</a>.
+    </td>
+  </tr>
 </table>
 <!-- Backward compatible changes -->
 <p>
@@ -344,6 +362,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.OBC.Utilities.PIDWithInputGains
+    </td>
+    <td valign=\"top\">Correted the instance <code>antWinGai2</code> to be conditional.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3423\">#3423</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b>
     </td>
 </tr>
@@ -986,6 +1014,23 @@ that can lead to wrong simulation results):
   <tr><td colspan=\"2\"><b>Buildings.Experimental</b>
     </td>
   </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+  </td>
+  <td valign=\"top\">Assigned dp_nominal to <code>pum1HexChi</code>.<br/>
+                     Corrected calculation of heat pump evaporator mass flow control.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+                     issue 3379</a>.
+  </td>
+</tr>  
+<tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
+  </td>
+  <td valign=\"top\">Assigned dp_nominal to condenser pump.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+                     issue 3379</a>.
+  </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect
   </td>
   <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
@@ -1001,6 +1046,14 @@ that can lead to wrong simulation results):
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3389\">#3389</a>.
   </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries
+  </td>
+  <td valign=\"top\">Applied <code>facMul</code> to domestic hot water load.<br/>
+                     This is for
+                     <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+                     issue 3379</a>.
+  </td>
+</tr>  
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>

@@ -155,7 +155,7 @@ condenser entering and evaporator leaving fluid temperature.
 </ul>
 <p>
 These curves are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.Chillers.Data.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR\">
 Buildings.Fluid.Chillers.Data.ElectricEIR</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
@@ -220,7 +220,7 @@ outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
 Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
 a hot water supply temperature setpoint at the outlet of the condenser barrel.
 See
-<a href=\"Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
 Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
 for an example with a chiller operating in heating mode.
 </p>
