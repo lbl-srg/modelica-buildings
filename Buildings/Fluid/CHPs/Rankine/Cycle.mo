@@ -164,8 +164,8 @@ equation
 
   // Estimate the isentropic expander outlet state
   if sExpInl > sSatVapCon then
-    (hExpOut_i - hSatVapCon) / (hSupVapCon - hSatVapCon)
-      = (sExpInl - sSatVapCon) / (sSupVapCon - sSatVapCon);
+    (hExpOut_i - hSatVapCon) / (sExpInl - sSatVapCon)
+      =  (hSupVapCon - hSatVapCon) / (sSupVapCon - sSatVapCon);
   else
     (hExpOut_i - hPum) / (sExpInl - sPum)
       = (hSatVapCon - hPum) / (sSatVapCon - sPum);
