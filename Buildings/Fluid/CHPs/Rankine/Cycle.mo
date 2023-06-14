@@ -147,11 +147,10 @@ protected
     "Specific enthalpy of superheated vapour on evaporator side";
 
 initial equation
-/*  assert(etaExp < etaExpLim,
-"Expander outlet state is under the dome!
-Based on the input parameters, the maximum expander effciency can be assumed
-to be " + String(etaExpLim) + ".
-Or use a higher superheating differential temperature.");*/
+  assert(etaExp < etaExpLim,
+"Expander outlet state is under the dome! Based on the input parameters,
+the expander effciency can be assumed at maximum to be " + String(etaExpLim) + ".
+Or use a higher superheating differential temperature.");
 
 equation
   // Estimate the overheated expander inlet state
