@@ -112,6 +112,10 @@
   optimica:
     comment: 'The system is structurally singular. Modelon #2023012739000252'
     translate: false
+- model_name: Buildings.Experimental.DHC.Examples.Steam.SingleBoiler
+  optimica:
+    comment: 'Fails initialization, works if Buildings.Experimental.DHC.Plants.Steam.SingleBoiler.allowFlowReversal=true, but then OpenModelica fails'
+    simulate: false
 - model_name: Buildings.Experimental.DHC.Loads.BaseClasses.Examples.CouplingTimeSeries
   openmodelica:
     comment: simulation terminated by an assertion at initialization
@@ -131,6 +135,10 @@
 - model_name: Buildings.Experimental.DHC.Loads.Cooling.Examples.BuildingTimeSeriesWithETS
   openmodelica:
     comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Steam.Examples.SingleBoiler
+  optimica:
+    comment: 'Fails initialization, works if Buildings.Experimental.DHC.Plants.Steam.SingleBoiler.allowFlowReversal=true, but then OpenModelica fails'
     simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
