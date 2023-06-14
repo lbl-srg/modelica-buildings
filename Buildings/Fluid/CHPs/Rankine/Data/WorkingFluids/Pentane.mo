@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids;
-record Pentane "Data record for n-PentaneR601"
+record Pentane "Data record for n-pentane (R601)"
   extends Generic(
     T = {263.15      ,284.98888889,306.82777778,328.66666667,350.50555556,
  372.34444444,394.18333333,416.02222222,437.86111111,459.7       },

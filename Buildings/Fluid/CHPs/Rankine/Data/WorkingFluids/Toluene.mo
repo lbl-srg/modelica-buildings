@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids;
-record Toluene "Data record for Toluene"
+record Toluene "Data record for toluene"
   extends Generic(
     T = {263.15,298.55,333.95,369.35,404.75,440.15,475.55,510.95,546.35,581.75},
     p = {4.65864538e+02,3.87850648e+03,1.91362008e+04,6.60727857e+04,
