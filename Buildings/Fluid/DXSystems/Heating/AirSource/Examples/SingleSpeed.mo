@@ -23,7 +23,6 @@ model SingleSpeed "Test model for single speed DX heating coil"
           Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=16381.47714,
           COP_nominal=3.90494,
-          SHR_nominal=1,
           m_flow_nominal=2,
           TEvaIn_nominal=273.15 - 5,
           TConIn_nominal=273.15 + 21),
