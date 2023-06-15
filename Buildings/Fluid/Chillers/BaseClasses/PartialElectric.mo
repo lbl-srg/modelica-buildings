@@ -378,21 +378,43 @@ for an example with a chiller operating in heating mode.
 </p>
 <h4>Implementation</h4>
 <p>
-Models that extend from this base class need to provide
-three functions to predict capacity and power consumption:
+This implementation computes the chiller capacity and power consumption
+the same way as documented in
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
+section 14.3.9.2.
+The chiller capacity is computed as
+</p>
+<pre>  QEva_flow_ava = QEva_flow_nominal*capFunT;</pre>
+<p>
+and the power consumption is computed as
+</p>
+<pre>  P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;</pre>
+<p>
+(See equations 14.234 and 14.240 in the referenced document.)
+</p>
+<p>
+Models that extend from this base class need to provide the following
+three functions:
 </p>
 <ul>
 <li>
-A function to predict cooling capacity. The function value needs
-to be assigned to <code>capFunT</code>.
+<code>capFunT</code> to predict cooling capacity,
 </li>
 <li>
-A function to predict the power input as a function of temperature.
-The function value needs to be assigned to <code>EIRFunT</code>.
+<code>EIRFunT</code> to predict the power input as a function of temperature,
+and
 </li>
 <li>
-A function to predict the power input as a function of the part load ratio.
-The function value needs to be assigned to <code>EIRFunPLR</code>.
+<code>EIRFunPLR</code> to predict the power input as a function of the
+part load ratio.
+</li>
+</ul>
+<h4>References</h4>
+<ul>
+<li>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
 </li>
 </ul>
 </html>",
