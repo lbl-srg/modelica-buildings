@@ -17,20 +17,20 @@ block Controller
     annotation (Dialog(group="Plant parameters",
       enable=have_varSecPum));
 
-  parameter Integer nPum = 2
+  parameter Integer nPum
     "Total number of secondary hot water pumps"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Integer nPumPri = 2
+  parameter Integer nPumPri
     "Total number of primary hot water pumps"
     annotation (Dialog(group="Plant parameters",
       enable=not have_varSecPum));
 
-  parameter Integer nBoi = 2
+  parameter Integer nBoi
     "Total number of boilers"
     annotation (Dialog(group="Plant parameters"));
 
-  parameter Integer nSen=2
+  parameter Integer nSen
     "Total number of remote differential pressure sensors"
     annotation (Dialog(group="Plant parameters"));
 
@@ -60,7 +60,7 @@ block Controller
     final min=1e-6,
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") = 0.5
+    final quantity="VolumeFlowRate")
     "Total plant design hot water flow rate"
     annotation (Dialog(group="Plant parameters"));
 
@@ -68,7 +68,7 @@ block Controller
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference",
-    final min=1e-6) = 5*6894.75
+    final min=1e-6)
     "Maximum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters", group="DP-based speed regulation",
       enable = speConTyp == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.localDP));
@@ -77,7 +77,7 @@ block Controller
     final unit="Pa",
     displayUnit="Pa",
     final quantity="PressureDifference",
-    final min=1e-6) = 5*6894.75
+    final min=1e-6)
     "Minimum hot water loop local differential pressure setpoint"
     annotation (Dialog(tab="Pump control parameters",
       group="DP-based speed regulation",
@@ -427,7 +427,7 @@ protected
     annotation (Placement(transformation(extent={{-250,-166},{-230,-146}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt1(
-    final nin=nPumPri)    if not have_varSecPum
+    final nin=nPumPri) if    not have_varSecPum
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-200,-166},{-180,-146}})));
 
@@ -729,9 +729,8 @@ equation
           0},{274,-264},{-74,-264},{-74,-326},{-62,-326}}, color={255,0,255}));
   connect(logSwi.y, pumSpeRemDp.uHotWatPum) annotation (Line(points={{214,0},{274,
           0},{274,-264},{-74,-264},{-74,-362},{-62,-362}}, color={255,0,255}));
-  connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},
-          {-216,-156},{-216,-154.25},{-202,-154.25}},
-                                                   color={255,127,0}));
+  connect(booToInt1.y, mulSumInt1.u[1:2]) annotation (Line(points={{-228,-156},{
+          -216,-156},{-216,-156},{-202,-156}},     color={255,127,0}));
   connect(min.y, yPumSpe)
     annotation (Line(points={{182,-400},{300,-400}}, color={0,0,127}));
   connect(addInt.y, zerStaIndCor.uInd)
