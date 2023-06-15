@@ -355,7 +355,42 @@ equation
         Text(
           extent={{-140,140},{140,180}},
           textString="%name",
-          textColor={0,0,255})}),
+          textColor={0,0,255}),
+        Text(
+          extent={{-132,132},{-90,108}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-132,76},{-64,40}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TCooSet"),
+        Text(
+          extent={{-132,18},{-64,-18}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="THeaSet"),
+        Text(
+          extent={{-128,-46},{-86,-72}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uAva"),
+        Text(
+          extent={{68,66},{134,18}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yFanSpe"),
+        Text(
+          extent={{90,-28},{134,-52}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yFan"),
+        Text(
+          extent={{-130,-104},{-48,-138}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="fanOpeMod")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-200},{140,100}})),
     Documentation(info="<html>

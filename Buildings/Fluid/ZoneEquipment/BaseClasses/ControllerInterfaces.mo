@@ -175,12 +175,87 @@ protected
           extent={{-100,140},{100,-140}},
           lineColor={0,0,0},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-98,138},{-62,122}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uFan"),
+        Text(
+          extent={{-96,102},{-64,86}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-96,70},{-48,46}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TCooSet"),
+        Text(
+          extent={{-96,32},{-48,8}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="THeaSet"),
+        Text(
+          extent={{-96,-12},{-64,-28}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TOut"),
+        Text(
+          extent={{-94,-50},{-62,-68}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uAva"),
+        Text(
+          extent={{-94,-84},{-32,-106}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="fanOpeMod"),
+        Text(
+          extent={{-94,-122},{-62,-138}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TSup"),
+        Text(
+          extent={{40,130},{94,112}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yCooEna"),
+        Text(
+          extent={{40,90},{94,72}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yHeaEna"),
+        Text(
+          extent={{42,54},{94,24}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="ySupHea"),
+        Text(
+          extent={{62,8},{94,-8}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yCoo"),
+        Text(
+          extent={{64,-30},{96,-46}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yHea"),
+        Text(
+          extent={{44,-64},{96,-94}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yFanSpe"),
+        Text(
+          extent={{62,-112},{98,-128}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yFan")}),
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
     <p>
-    Baseclass for controller interfaces.
+    Baseclass for controller interfaces. 
     </p>
     </html>
     ", revisions="<html>

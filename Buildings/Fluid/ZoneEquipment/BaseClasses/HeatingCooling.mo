@@ -210,7 +210,42 @@ equation
         Text(
           extent={{-140,140},{140,180}},
           textString="%name",
-          textColor={0,0,255})}),
+          textColor={0,0,255}),
+        Text(
+          extent={{-98,68},{-62,52}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uFan"),
+        Text(
+          extent={{-96,26},{-64,10}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-96,-52},{-64,-68}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TSup"),
+        Text(
+          extent={{-94,-10},{-46,-34}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZonSet"),
+        Text(
+          extent={{64,48},{96,32}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="yCoi"),
+        Text(
+          extent={{62,8},{98,-8}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yEna"),
+        Text(
+          extent={{62,-32},{98,-48}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yMod")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>
