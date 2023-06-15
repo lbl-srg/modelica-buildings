@@ -1,0 +1,4 @@
+﻿simulateModel("Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.Validation.CyclingFanCyclingCoil", stopTime=86400, tolerance=1e-06, resultFile="CyclingFanCyclingCoil");
+createPlot(id=1, position={0, 0, 1380, 608}, y={"conVarWatConFan.TZon", "conVarWatConFan.THeaSet", "conVarWatConFan.TCooSet"}, range={16000.0, 62000.0, 20.0, 26.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}, {0,140,72}}, range2={0.6, 0.9}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={0, 0, 1380, 608}, y={"conVarWatConFan.yCooEna", "conVarWatConFan.yHeaEna", "conVarWatConFan.yFan"}, range={16000.0, 62000.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=3, colors={{28,108,200}, {28,108,200}, {28,108,200}});
+createPlot(id=1, position={0, 0, 1380, 608}, y={"conVarWatConFan.uAva"}, range={16000.0, 62000.0, -1.0, 2.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}});
