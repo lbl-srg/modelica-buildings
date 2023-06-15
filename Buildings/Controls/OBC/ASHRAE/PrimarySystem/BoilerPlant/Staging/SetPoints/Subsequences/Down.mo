@@ -236,12 +236,12 @@ block Down
 protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer(
     final p=1e-6)
-    "Add small vcalue to input signal to prevent divide by zero"
+    "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-166,10},{-146,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer1(
     final p=1e-6)
-    "Add small vcalue to input signal to prevent divide by zero"
+    "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-166,-66},{-146,-46}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1

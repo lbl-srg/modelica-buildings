@@ -97,12 +97,12 @@ block EfficiencyCondition
 protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer(
     final p=1e-6)
-    "Add small vcalue to input signal to prevent divide by zero"
+    "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-110,90},{-90,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addParDivZer1(
     final p=1e-6)
-    "Add small vcalue to input signal to prevent divide by zero"
+    "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-112,10},{-92,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Divide div
@@ -111,6 +111,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
     final p=1e-6)
+    "Add small value to input signal to prevent divide by zero"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
