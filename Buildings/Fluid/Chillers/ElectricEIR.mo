@@ -142,18 +142,25 @@ the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
 </p>
 <ul>
 <li>
-A biquadratic function is used to predict cooling capacity as a function of
-condenser entering and evaporator leaving fluid temperature.
+A biquadratic function <code>capFunT</code> is used to predict
+cooling capacity as a function of condenser entering and evaporator leaving
+fluid temperature.
 </li>
 <li>
-A quadratic function is used to predict power input to cooling capacity ratio with respect to the part load ratio.
+A quadratic function <code>EIRFunPLR</code> is used to predict
+power input to cooling capacity ratio with respect to the part load ratio.
 </li>
 <li>
-A biquadratic function is used to predict power input to cooling capacity ratio as a function of
+A biquadratic function <code>EIRFunT</code> is used to predict
+power input to cooling capacity ratio as a function of
 condenser entering and evaporator leaving fluid temperature.
 </li>
 </ul>
 <p>
+These functions take the same form as documented in
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
+section 14.3.9.2 (equations 14.231 through 14.233).
 These curves are stored in the data record <code>per</code> and are available from
 <a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricEIR\">
 Buildings.Fluid.Chillers.Data.ElectricEIR</a>.
@@ -229,6 +236,10 @@ for an example with a chiller operating in heating mode.
 <li>
 Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric Chiller
 Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
+</li>
+<li>
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
 </li>
 </ul>
 </html>",
