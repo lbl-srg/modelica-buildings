@@ -27,7 +27,7 @@ annotation (
         experiment(
       StopTime=3.1536e+07,
       Interval=3600,
-      Tolerance=1e-05),
+      Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
 <li>
