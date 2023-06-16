@@ -1355,7 +1355,8 @@ block Controller "Chiller plant controller"
     "All input values are the same"
     annotation(Placement(transformation(extent={{-60,-590},{-40,-570}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Or chaProUpDown "Either in staging up or in staging down process"
+  Buildings.Controls.OBC.CDL.Logical.Or chaProUpDown
+    "Either in staging up or in staging down process"
     annotation(Placement(transformation(extent={{380,-90},{400,-70}})));
 
   Buildings.Controls.OBC.CDL.Logical.FallingEdge falEdg
@@ -1399,8 +1400,8 @@ block Controller "Chiller plant controller"
     "Design condenser water pump speed"
     annotation (Placement(transformation(extent={{480,190},{500,210}})));
 
-  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator desConPumSpe(final
-      nout=nChi) if not have_fixSpeConWatPum
+  Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator desConPumSpe(
+    final nout=nChi) if not have_fixSpeConWatPum
     "Replicate design condenser water pump speed"
     annotation (Placement(transformation(extent={{540,190},{560,210}})));
 
@@ -1600,8 +1601,6 @@ block Controller "Chiller plant controller"
     final nChi=nChi,
     final staMat=staMat) "Identify stage index"
     annotation (Placement(transformation(extent={{-520,120},{-500,140}})));
-  CDL.Integers.Sources.Constant conInt(k=1)
-    annotation (Placement(transformation(extent={{-1000,302},{-980,322}})));
 protected
   final parameter Boolean have_serChi = not have_parChi
     "true = series chillers plant; false = parallel chillers plant"
@@ -1656,27 +1655,27 @@ equation
   connect(uChiLoa, upProCon.uChiLoa) annotation(Line(points={{-920,140},{-830,140},
           {-830,408},{172,408}}, color={0,0,127}));
   connect(upProCon.yStaPro, chaProUpDown.u1) annotation(Line(points={{268,436},{
-          330,436},{330,-80},{378,-80}},           color={255,0,255}));
+          330,436},{330,-80},{378,-80}}, color={255,0,255}));
   connect(dowProCon.yStaPro, chaProUpDown.u2) annotation(Line(points={{268,-144},
-          {340,-144},{340,-88},{378,-88}},       color={255,0,255}));
+          {340,-144},{340,-88},{378,-88}}, color={255,0,255}));
   connect(uChi, dowProCon.uChi) annotation(Line(points={{-920,400},{-800,400},{-800,
           -184},{172,-184}}, color={255,0,255}));
   connect(mulMax.y, wseSta.uTowFanSpeMax) annotation(Line(points={{-38,-580},{0,
           -580},{0,-360},{-780,-360},{-780,324},{-704,324}},       color={0,0,127}));
   connect(towCon.yMakUp, yMakUp) annotation(Line(points={{-172,-708},{-140,-708},
-          {-140,-760},{940,-760}},       color={255,0,255}));
+          {-140,-760},{940,-760}}, color={255,0,255}));
   connect(uChiWatPum, chiWatPlaRes.uChiWatPum) annotation(Line(points={{-920,574},
           {-790,574},{-790,-288},{-704,-288}},
         color={255,0,255}));
   connect(mulOr.y, minBypValCon.uChiWatPum) annotation(Line(points={{-718,-124},
-          {-684,-124}},                         color={255,0,255}));
+          {-684,-124}}, color={255,0,255}));
   connect(uChiWatPum, mulOr.u) annotation(Line(points={{-920,574},{-790,574},{-790,
-          -124},{-742,-124}},     color={255,0,255}));
+          -124},{-742,-124}}, color={255,0,255}));
   connect(staSetCon.yOpeParLoaRatMin, dowProCon.yOpeParLoaRatMin) annotation (
-      Line(points={{-172,-52.8},{-120,-52.8},{-120,-164},{172,-164}},    color=
+      Line(points={{-172,-52.8},{-120,-52.8},{-120,-164},{172,-164}}, color=
           {0,0,127}));
   connect(uChi, upProCon.uChi) annotation(Line(points={{-920,400},{172,400}},
-                          color={255,0,255}));
+          color={255,0,255}));
   connect(wseSta.y, upProCon.uWSE) annotation(Line(points={{-656,326},{-630,326},
           {-630,344},{172,344}}, color={255,0,255}));
   connect(wseSta.y, dowProCon.uWSE) annotation(Line(points={{-656,326},{-630,326},
@@ -1703,34 +1702,34 @@ equation
     annotation (Line(points={{-476,452},{-370,452},{-370,477},{434,477}}, color=
          {0,0,127}));
   connect(uChiAva, staSetCon.uChiAva) annotation(Line(points={{-920,80},{-268,80}},
-                                                       color={255,0,255}));
+          color={255,0,255}));
   connect(minBypValCon.yValPos, yMinValPosSet) annotation (Line(points={{-636,-140},
           {-480,-140},{-480,-320},{940,-320}}, color={0,0,127}));
   connect(staSetCon.ySta, towCon.uChiStaSet) annotation(Line(points={{-172,-24},
           {-140,-24},{-140,-120},{-330,-120},{-330,-684},{-268,-684}},
         color={255,127,0}));
   connect(TConWatSup, towCon.TConWatSup) annotation(Line(points={{-920,-660},{-268,
-          -660}},                                 color={0,0,127}));
+          -660}}, color={0,0,127}));
   connect(TConWatRet, towCon.TConWatRet) annotation(Line(points={{-920,240},{-850,
-          240},{-850,-644},{-268,-644}},         color={0,0,127}));
+          240},{-850,-644},{-268,-644}}, color={0,0,127}));
   connect(watLev, towCon.watLev) annotation (Line(points={{-920,-740},{-300,-740},
           {-300,-716},{-268,-716}}, color={0,0,127}));
   connect(towCon.uIsoVal, uIsoVal) annotation(Line(points={{-268,-708},{-920,-708}},
-                                             color={0,0,127}));
+          color={0,0,127}));
   connect(uTowSta, towCon.uTowSta) annotation (Line(points={{-920,-780},{-440,-780},
-          {-440,-628},{-268,-628}},      color={255,0,255}));
+          {-440,-628},{-268,-628}}, color={255,0,255}));
   connect(uConWatPumSpe, conWatPumSpe.u) annotation (Line(points={{-920,-380},{-662,
-          -380}},                              color={0,0,127}));
+          -380}}, color={0,0,127}));
   connect(uConWatPumSpe, towCon.uConWatPumSpe) annotation (Line(points={{-920,-380},
-          {-820,-380},{-820,-652},{-268,-652}},       color={0,0,127}));
+          {-820,-380},{-820,-652},{-268,-652}}, color={0,0,127}));
   connect(conWatPumSpe.y, dowProCon.uConWatPumSpe) annotation (Line(points={{-638,
-          -380},{130,-380},{130,-288},{172,-288}},      color={0,0,127}));
+          -380},{130,-380},{130,-288},{172,-288}}, color={0,0,127}));
   connect(conWatPumSpe.y, upProCon.uConWatPumSpe) annotation (Line(points={{-638,
           -380},{130,-380},{130,328},{172,328}},      color={0,0,127}));
   connect(wseSta.yTunPar, staSetCon.uTunPar) annotation (Line(points={{-656,332},
-          {-640,332},{-640,-28},{-268,-28}},         color={0,0,127}));
+          {-640,332},{-640,-28},{-268,-28}}, color={0,0,127}));
   connect(TChiWatRet, wseSta.TChiWatRet) annotation (Line(points={{-920,280},{-860,
-          280},{-860,336},{-704,336}},     color={0,0,127}));
+          280},{-860,336},{-704,336}}, color={0,0,127}));
   connect(upProCon.yTowStaUp, staCooTow.u1) annotation (Line(points={{268,388},{
           310,388},{310,-120},{478,-120}}, color={255,0,255}));
   connect(dowProCon.yTowStaDow, staCooTow.u2) annotation (Line(points={{268,-220},
@@ -1754,17 +1753,17 @@ equation
   connect(VChiWat_flow, upProCon.VChiWat_flow) annotation (Line(points={{-920,440},
           {-880,440},{-880,390.4},{172,390.4}}, color={0,0,127}));
   connect(wseSta.y, booRep.u) annotation (Line(points={{-656,326},{-630,326},{-630,
-          250},{-622,250}},      color={255,0,255}));
+          250},{-622,250}}, color={255,0,255}));
   connect(booRep.y, heaPreCon.uWSE) annotation (Line(points={{-598,250},{-550,250},
-          {-550,188},{-524,188}},      color={255,0,255}));
+          {-550,188},{-524,188}}, color={255,0,255}));
   connect(TConWatRet, conWatRetTem.u) annotation (Line(points={{-920,240},{-682,
-          240}},                       color={0,0,127}));
+          240}}, color={0,0,127}));
   connect(conWatRetTem.y, heaPreCon.TConWatRet) annotation (Line(points={{-658,240},
           {-650,240},{-650,212},{-524,212}},      color={0,0,127}));
   connect(TChiWatSup, chiWatSupTem.u) annotation (Line(points={{-920,210},{-840,
           210},{-840,204},{-682,204}}, color={0,0,127}));
   connect(chiWatSupTem.y, heaPreCon.TChiWatSup) annotation (Line(points={{-658,204},
-          {-524,204}},                            color={0,0,127}));
+          {-524,204}}, color={0,0,127}));
   connect(upProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u1) annotation (Line(
         points={{268,356},{360,356},{360,208},{478,208}}, color={0,0,127}));
   connect(dowProCon.yDesConWatPumSpe, desConWatPumSpeSwi.u3) annotation (Line(
@@ -1773,7 +1772,7 @@ equation
           562,200},{580,200},{580,240},{-532,240},{-532,196},{-524,196}}, color
         ={0,0,127}));
   connect(heaPreCon.uHeaPreCon, uHeaPreCon) annotation (Line(points={{-524,180},
-          {-920,180}},                       color={0,0,127}));
+          {-920,180}}, color={0,0,127}));
   connect(heaPreCon.yMaxTowSpeSet, towCon.uMaxTowSpeSet) annotation (Line(
         points={{-476,212},{-360,212},{-360,-620},{-268,-620}}, color={0,0,127}));
   connect(heaPreCon.yConWatPumSpeSet, mulMin.u) annotation (Line(points={{-476,188},
@@ -1810,9 +1809,9 @@ equation
   connect(intSwi.y, chiWatPumCon.uPumLeaLag) annotation (Line(points={{402,580},
           {420,580},{420,543},{434,543}}, color={255,127,0}));
   connect(uChiWatPum, equRot.uDevSta) annotation (Line(points={{-920,574},{258,574}},
-                                      color={255,0,255}));
+          color={255,0,255}));
   connect(chiStaUp.y, chiMinFloSet.u2) annotation (Line(points={{402,320},{420,320},
-          {420,120},{478,120}},      color={255,0,255}));
+          {420,120},{478,120}}, color={255,0,255}));
   connect(upProCon.yStaPro, chiStaUp.u) annotation (Line(points={{268,436},{330,
           436},{330,320},{378,320}}, color={255,0,255}));
   connect(dowProCon.yStaPro, chiStaUp.clr) annotation (Line(points={{268,-144},{
@@ -1822,13 +1821,11 @@ equation
   connect(TOutWet, wseSta.TOutWet) annotation (Line(points={{-920,360},{-870,360},
           {-870,340},{-704,340}},      color={0,0,127}));
   connect(pre2.y, towCon.uTowStaCha) annotation (Line(points={{122,-440},{180,
-          -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}},
-                                                           color={255,0,255}));
+          -440},{180,-512},{-320,-512},{-320,-692},{-268,-692}}, color={255,0,255}));
   connect(staCooTow.y, pre2.u) annotation (Line(points={{502,-120},{590,-120},{
           590,-400},{80,-400},{80,-440},{98,-440}},    color={255,0,255}));
   connect(towCon.ySpeSet, mulMax.u) annotation (Line(points={{-172,-684},{-100,
-          -684},{-100,-580},{-62,-580}},
-                                   color={0,0,127}));
+          -684},{-100,-580},{-62,-580}}, color={0,0,127}));
   connect(booToInt.y, totChiPum.u)
     annotation (Line(points={{602,560},{618,560}}, color={255,127,0}));
   connect(chiStaUp.y, desConWatPumSpeSwi.u2) annotation (Line(points={{402,320},
@@ -1898,9 +1895,9 @@ equation
   connect(relDem.y, yReaChiDemLim)
     annotation (Line(points={{502,-210},{940,-210}}, color={255,0,255}));
   connect(dpChiWat_local, chiWatPumCon.dpChiWat_local) annotation (Line(points={{-920,
-          510},{-820,510},{-820,489},{434,489}},       color={0,0,127}));
+          510},{-820,510},{-820,489},{434,489}}, color={0,0,127}));
   connect(dpChiWat_local, staSetCon.dpChiWatPum_local) annotation (Line(points={{-920,
-          510},{-820,510},{-820,4},{-268,4}},       color={0,0,127}));
+          510},{-820,510},{-820,4},{-268,4}}, color={0,0,127}));
   connect(chiWatPumCon.dpChiWatPumSet_local, staSetCon.dpChiWatPumSet_local)
     annotation (Line(points={{506,483},{520,483},{520,460},{-350,460},{-350,12},
           {-268,12}}, color={0,0,127}));
@@ -2078,8 +2075,8 @@ equation
           130},{-340,-204},{172,-204}}, color={255,127,0}));
   connect(ideSta.ySta, upProCon.uChiSta) annotation (Line(points={{-498,130},{-340,
           130},{-340,372},{172,372}}, color={255,127,0}));
-  connect(conInt.y, wseSta.uChiSta) annotation (Line(points={{-978,312},{-704,
-          312}},                                             color={255,127,0}));
+  connect(staSetCon.ySta, wseSta.uChiSta) annotation (Line(points={{-172,-24},{-140,
+          -24},{-140,280},{-740,280},{-740,312},{-704,312}}, color={255,127,0}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
