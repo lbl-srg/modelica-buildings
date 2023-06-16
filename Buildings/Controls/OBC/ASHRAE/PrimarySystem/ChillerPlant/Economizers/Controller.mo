@@ -249,8 +249,6 @@ block Controller "Waterside economizer (WSE) enable/disable status"
     "Enable condition based on the outdoor wet bulb temperature"
     annotation (Placement(transformation(extent={{20,156},{40,176}})));
 
-  CDL.Logical.Pre pre1
-    annotation (Placement(transformation(extent={{-18,-58},{2,-38}})));
 protected
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Economizers.Subsequences.Tuning wseTun(
     final step=step,
@@ -356,7 +354,11 @@ protected
     annotation (Placement(transformation(extent={{-20,-110},{0,-90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or enaEco "Economizer enabled"
-    annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
+    annotation (Placement(transformation(extent={{120,-30},{140,-10}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Pre pre2
+    "Break algebric loop"
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
 
 equation
   connect(uTowFanSpeMax, wseTun.uTowFanSpeMax) annotation (Line(points={{-200,10},
@@ -423,27 +425,16 @@ equation
     annotation (Line(points={{-78,-100},{-62,-100}}, color={255,0,255}));
   connect(not1.y, edg1.u)
     annotation (Line(points={{-38,-100},{-22,-100}}, color={255,0,255}));
-  connect(lat.y, enaEco.u2) annotation (Line(points={{42,-20},{60,-20},{60,-28},
-          {78,-28}}, color={255,0,255}));
   connect(truFalHol.y, enaEco.u1) annotation (Line(points={{162,166},{170,166},{
-          170,70},{70,70},{70,-20},{78,-20}}, color={255,0,255}));
+          170,70},{110,70},{110,-20},{118,-20}},  color={255,0,255}));
   connect(enaEco.y, y)
-    annotation (Line(points={{102,-20},{200,-20}}, color={255,0,255}));
-  connect(enaEco.y, pre.u) annotation (Line(points={{102,-20},{110,-20},{110,-60},
-          {118,-60}}, color={255,0,255}));
-  connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{102,-20},{110,-20},{
-          110,-140},{118,-140}},
-                             color={255,0,255}));
-  connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{102,-20},{110,-20},{
-          110,-176},{118,-176}},
-                             color={255,0,255}));
+    annotation (Line(points={{142,-20},{200,-20}}, color={255,0,255}));
   connect(dpChiWat, wseVal.dpChiWat) annotation (Line(points={{-200,-140},{-60,-140},
           {-60,-146},{118,-146}}, color={0,0,127}));
   connect(uPum, wsePum.uPum) annotation (Line(points={{-200,-180},{118,-180}},
                              color={255,0,255}));
   connect(TEntHex, wsePum.TEntHex) annotation (Line(points={{-200,-210},{100,
-          -210},{100,-188},{118,-188}},
-                                  color={0,0,127}));
+          -210},{100,-188},{118,-188}},  color={0,0,127}));
   connect(wseVal.yConWatIsoVal, yConWatIsoVal) annotation (Line(points={{142,-134},
           {160,-134},{160,-100},{200,-100}}, color={0,0,127}));
   connect(wseVal.yRetVal, yRetVal)
@@ -466,10 +457,18 @@ equation
     annotation (Line(points={{4,-20},{18,-20}}, color={255,0,255}));
   connect(uPla, and1.u1)
     annotation (Line(points={{-200,-20},{-62,-20}}, color={255,0,255}));
-  connect(not1.y, pre1.u) annotation (Line(points={{-38,-100},{-30,-100},{-30,
-          -48},{-20,-48}}, color={255,0,255}));
-  connect(pre1.y, lat.clr) annotation (Line(points={{4,-48},{12,-48},{12,-26},{
-          18,-26}}, color={255,0,255}));
+  connect(lat.y, pre2.u)
+    annotation (Line(points={{42,-20},{58,-20}}, color={255,0,255}));
+  connect(pre2.y, enaEco.u2) annotation (Line(points={{82,-20},{100,-20},{100,-28},
+          {118,-28}}, color={255,0,255}));
+  connect(edg1.y, lat.clr) annotation (Line(points={{2,-100},{10,-100},{10,-26},
+          {18,-26}}, color={255,0,255}));
+  connect(enaEco.y, pre.u) annotation (Line(points={{142,-20},{150,-20},{150,-40},
+          {110,-40},{110,-60},{118,-60}}, color={255,0,255}));
+  connect(enaEco.y, wseVal.uWSE) annotation (Line(points={{142,-20},{150,-20},{150,
+          -40},{110,-40},{110,-140},{118,-140}}, color={255,0,255}));
+  connect(enaEco.y, wsePum.uWSE) annotation (Line(points={{142,-20},{150,-20},{150,
+          -40},{110,-40},{110,-176},{118,-176}}, color={255,0,255}));
   annotation (defaultComponentName = "wseSta",
         Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
              graphics={

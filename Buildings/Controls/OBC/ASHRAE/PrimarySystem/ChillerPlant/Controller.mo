@@ -1601,7 +1601,7 @@ block Controller "Chiller plant controller"
     final staMat=staMat) "Identify stage index"
     annotation (Placement(transformation(extent={{-520,120},{-500,140}})));
   CDL.Integers.Sources.Constant conInt(k=1)
-    annotation (Placement(transformation(extent={{-1000,300},{-980,320}})));
+    annotation (Placement(transformation(extent={{-1000,302},{-980,322}})));
 protected
   final parameter Boolean have_serChi = not have_parChi
     "true = series chillers plant; false = parallel chillers plant"
@@ -2078,8 +2078,8 @@ equation
           130},{-340,-204},{172,-204}}, color={255,127,0}));
   connect(ideSta.ySta, upProCon.uChiSta) annotation (Line(points={{-498,130},{-340,
           130},{-340,372},{172,372}}, color={255,127,0}));
-  connect(conInt.y, wseSta.uChiSta) annotation (Line(points={{-978,310},{-960,
-          310},{-960,304},{-776,304},{-776,312},{-704,312}}, color={255,127,0}));
+  connect(conInt.y, wseSta.uChiSta) annotation (Line(points={{-978,312},{-704,
+          312}},                                             color={255,127,0}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
