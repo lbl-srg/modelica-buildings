@@ -1,6 +1,6 @@
-within Buildings.Fluid.ZoneEquipment.WindowAC.Validation;
-model CoolingModeSimpleInput
-  "Validation model for cooling mode operation of window AC system"
+within Buildings.Fluid.ZoneEquipment.WindowAC.Examples;
+model WindowAC
+  "Example model for cooling mode operation of window AC system"
   extends Modelica.Icons.Example;
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
@@ -113,6 +113,6 @@ equation
       StopTime=18230400,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingModeSimpleInput.mos"
+          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Examples/WindowAC.mos"
         "Simulate and Plot"));
-end CoolingModeSimpleInput;
+end WindowAC;

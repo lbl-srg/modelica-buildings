@@ -1,9 +1,9 @@
-within Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.Validation;
+within Buildings.Fluid.ZoneEquipment.BaseClasses.Validation;
 model SupplementalHeating
   "Validation model for supplemental heating controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating
+  Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating
     conSupHea(final TLocOut(displayUnit="K") = 271.15)
     "Instance of controller for cycling fan and cyling coil"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
@@ -54,8 +54,8 @@ equation
     Documentation(info="<html>
     <p>
     This simulation model is used to validate 
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating\">
-    Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating</a>. 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating</a>. 
     </p>
     </html>",revisions="<html>
       <ul>
@@ -66,6 +66,6 @@ equation
       </ul>
       </html>"),
     experiment(Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Controls/Validation/SupplementalHeating.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/SupplementalHeating.mos"
         "Simulate and Plot"));
 end SupplementalHeating;
