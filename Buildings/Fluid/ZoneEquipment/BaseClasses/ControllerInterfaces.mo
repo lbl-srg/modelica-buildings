@@ -255,13 +255,13 @@ protected
       extent={{-140,-140},{140,140}})),
     Documentation(info="<html>
     <p>
-    Baseclass for controller interfaces. 
+    Baseclass containing control signals and measured inputs for constructing the zone HVAC equipment system controllers. 
     </p>
     </html>
     ", revisions="<html>
     <ul>
     <li>
-    April 10, 2023 by Karthik Devaprasad:<br/>
+    June 15, 2023 by Karthik Devaprasad and Junke Wang:<br/>
     First implementation.
     </li>
     </ul>

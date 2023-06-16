@@ -335,10 +335,11 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-280,28},{-270,
-          28},{-270,8},{-260,8}},   color={0,127,255}));
-  connect(out.ports[2], VAirExh_flow.port_b) annotation (Line(points={{-280,32},
-          {-270,32},{-270,50},{-260,50}},    color={0,127,255}));
+  connect(out.ports[1], vAirOut.port_a) annotation (Line(points={{-280,31},{
+          -270,31},{-270,8},{-260,8}},
+                                    color={0,127,255}));
+  connect(out.ports[2], VAirExh_flow.port_b) annotation (Line(points={{-280,29},
+          {-270,29},{-270,50},{-260,50}},    color={0,127,255}));
   connect(vAirOut.port_b, TAirOut.port_a)
     annotation (Line(points={{-240,8},{-230,8}},   color={0,127,255}));
   connect(TAirOut.port_b, eco.port_Out) annotation (Line(points={{-210,8},{-206,

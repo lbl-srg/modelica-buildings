@@ -85,12 +85,12 @@ model CoolingMode
         3)) "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modularController(
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modCon(
     final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.windowAC,
     final fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan,
     final has_fanOpeMod=true,
     tFanEna=60)
-    "Modular controller"
+    "Instance of modular controller with constant speed fan and DX cooling coil"
     annotation (Placement(transformation(extent={{-76,-68},{-40,-20}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
@@ -201,24 +201,24 @@ equation
   connect(totMasAir.y, div1.u2) annotation (Line(points={{-58,18},{-56,18},{-56,
           36},{-88,36},{-88,44},{-82,44}},
                          color={0,0,127}));
-  connect(modularController.yCooEna, winAC.uCooEna) annotation (Line(points={{-36.4,
+  connect(modCon.yCooEna, winAC.uCooEna) annotation (Line(points={{-36.4,
           -23.4286},{-30,-23.4286},{-30,-13.8},{-18,-13.8}},
-                                                 color={255,0,255}));
-  connect(ava.y, modularController.uAva) annotation (Line(points={{-108,-50},{
-          -100,-50},{-100,-54.2857},{-79.6,-54.2857}},
-                                           color={255,0,255}));
-  connect(fanOpeMod.y, modularController.fanOpeMod) annotation (Line(points={{-108,
-          -80},{-100,-80},{-100,-60.1143},{-79.6,-60.1143}},
-                                                      color={255,0,255}));
+                                                   color={255,0,255}));
+  connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{
+          -100,-54.2857},{-79.6,-54.2857}},
+                                       color={255,0,255}));
+  connect(fanOpeMod.y, modCon.fanOpeMod) annotation (Line(points={{-108,-80},{
+          -100,-80},{-100,-60.1143},{-79.6,-60.1143}},
+                                                  color={255,0,255}));
   connect(winAC.yFan_actual, fanProOn.u)
     annotation (Line(points={{25,12},{26,12},{26,16},{28,16}},
                                                color={0,0,127}));
-  connect(fanProOn.y, modularController.uFan) annotation (Line(points={{52,16},
-          {100,16},{100,-80},{-86,-80},{-86,-21.7143},{-79.6,-21.7143}},
-                                                            color={255,0,255}));
-  connect(modularController.yFan, booToRea.u)
-    annotation (Line(points={{-36.4,-64.5714},{-34,-64.5714},{-34,-61},{-29.8,
-          -61}},                                   color={255,0,255}));
+  connect(fanProOn.y, modCon.uFan) annotation (Line(points={{52,16},{100,16},{
+          100,-80},{-86,-80},{-86,-21.7143},{-79.6,-21.7143}},
+                                                           color={255,0,255}));
+  connect(modCon.yFan, booToRea.u) annotation (Line(points={{-36.4,-64.5714},{
+          -34,-64.5714},{-34,-61},{-29.8,-61}},
+                                            color={255,0,255}));
   connect(datRea.y[7], K2C[1].u) annotation (Line(points={{-99,40},{-94,40},{-94,
           80},{-82,80}}, color={0,0,127}));
   connect(datRea.y[14], K2C[2].u) annotation (Line(points={{-99,40},{-94,40},{-94,
@@ -229,20 +229,19 @@ equation
       points={{52,120},{54,120},{54,88},{-11.8,88},{-11.8,14}},
       color={255,204,51},
       thickness=0.5));
-  connect(K2C[2].y, modularController.TCooSet) annotation (Line(points={{-58,80},
-          {-44,80},{-44,-10},{-96,-10},{-96,-34.0571},{-79.6,-34.0571}},
-                                                            color={0,0,127}));
+  connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,80},{-44,80},
+          {-44,-10},{-96,-10},{-96,-34.0571},{-79.6,-34.0571}},color={0,0,127}));
   connect(winAC.port_Air_a2, zon.ports[1]) annotation (Line(points={{24,0},{79,0},
           {79,22.9}},         color={0,127,255}));
   connect(winAC.port_Air_b2, zon.ports[2])
     annotation (Line(points={{24,-8},{81,-8},{81,22.9}}, color={0,127,255}));
   connect(con1.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,52},
           {58,52}}, color={0,0,127}));
-  connect(zon.TAir, modularController.TZon) annotation (Line(points={{101,60},{
-          110,60},{110,-90},{-90,-90},{-90,-27.8857},{-79.6,-27.8857}},
-                                                        color={0,0,127}));
-  connect(winAC.TAirSup, modularController.TSup) annotation (Line(points={{25,6},{
-          30,6},{30,-86},{-84,-86},{-84,-66.2857},{-79.6,-66.2857}},
+  connect(zon.TAir, modCon.TZon) annotation (Line(points={{101,60},{110,60},{
+          110,-90},{-90,-90},{-90,-27.8857},{-79.6,-27.8857}},
+                                                           color={0,0,127}));
+  connect(winAC.TAirSup, modCon.TSup) annotation (Line(points={{25,6},{30,6},{
+          30,-86},{-84,-86},{-84,-66.2857},{-79.6,-66.2857}},
                                                            color={0,0,127}));
   connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{
           2,-38},{-32,-38},{-32,6},{-18,6}}, color={0,0,127}));

@@ -78,13 +78,13 @@ model HeatingMode
     "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modularController(
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modCon(
     final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.ptac,
     final fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan,
     final has_fanOpeMod=true,
     tFanEna=60,
     dTHys=0.1)
-    "Modular controller"
+    "Instance of modular controller with constant speed fan and DX coil"
     annotation (Placement(transformation(extent={{-86,-80},{-66,-52}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(
@@ -375,24 +375,24 @@ equation
           {-94,66},{-126,66},{-126,10},{-94,10}}, color={0,0,127}));
   connect(Nominal_mass_flow.y, division.u2)
     annotation (Line(points={{-111,-2},{-94,-2}}, color={0,0,127}));
-  connect(fanProOn.y, modularController.uFan) annotation (Line(points={{56,10},{
-          56,-100},{-104,-100},{-104,-54},{-88,-54}}, color={255,0,255}));
-  connect(zon.TAir, modularController.TZon) annotation (Line(points={{99,68},{106,
-          68},{106,-104},{-92,-104},{-92,-58},{-88,-58}}, color={0,0,127}));
-  connect(K2C[2].y, modularController.TCooSet) annotation (Line(points={{-58,90},
-          {-52,90},{-52,-44},{-96,-44},{-96,-62},{-88,-62}}, color={0,0,127}));
-  connect(K2C[1].y, modularController.THeaSet) annotation (Line(points={{-58,90},
-          {-52,90},{-52,-44},{-96,-44},{-96,-66},{-88,-66}}, color={0,0,127}));
-  connect(ava.y, modularController.uAva) annotation (Line(points={{-108,-50},{-100,
-          -50},{-100,-70},{-88,-70}}, color={255,0,255}));
-  connect(modularController.fanOpeMod, fanOpeMod.y) annotation (Line(points={{-88,
-          -74},{-100,-74},{-100,-80},{-108,-80}}, color={255,0,255}));
-  connect(ptac.TAirSup, modularController.TSup) annotation (Line(points={{25,4},
-          {32,4},{32,-94},{-90,-94},{-90,-78},{-88,-78}}, color={0,0,127}));
-  connect(modularController.yCooEna, ptac.uCooEna) annotation (Line(points={{-64,
-          -56},{-40,-56},{-40,-15.8},{-18,-15.8}}, color={255,0,255}));
-  connect(modularController.yHeaEna, booToRea.u) annotation (Line(points={{-64,-60},
-          {-58,-60},{-58,-74},{-54,-74}}, color={255,0,255}));
+  connect(fanProOn.y, modCon.uFan) annotation (Line(points={{56,10},{56,-100},{-104,
+          -100},{-104,-53},{-88,-53}}, color={255,0,255}));
+  connect(zon.TAir, modCon.TZon) annotation (Line(points={{99,68},{106,68},{106,
+          -104},{-92,-104},{-92,-56.6},{-88,-56.6}}, color={0,0,127}));
+  connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,90},{-52,90},{
+          -52,-44},{-96,-44},{-96,-60.2},{-88,-60.2}}, color={0,0,127}));
+  connect(K2C[1].y, modCon.THeaSet) annotation (Line(points={{-58,90},{-52,90},{
+          -52,-44},{-96,-44},{-96,-64},{-88,-64}}, color={0,0,127}));
+  connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{-100,
+          -72},{-88,-72}}, color={255,0,255}));
+  connect(modCon.fanOpeMod, fanOpeMod.y) annotation (Line(points={{-88,-75.4},{-100,
+          -75.4},{-100,-80},{-108,-80}}, color={255,0,255}));
+  connect(ptac.TAirSup, modCon.TSup) annotation (Line(points={{25,4},{32,4},{32,
+          -94},{-90,-94},{-90,-79},{-88,-79}}, color={0,0,127}));
+  connect(modCon.yCooEna, ptac.uCooEna) annotation (Line(points={{-64,-54},{-40,
+          -54},{-40,-15.8},{-18,-15.8}}, color={255,0,255}));
+  connect(modCon.yHeaEna, booToRea.u) annotation (Line(points={{-64,-58},{-58,-58},
+          {-58,-74},{-54,-74}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{260,

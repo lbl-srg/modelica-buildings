@@ -103,5 +103,20 @@ equation
           extent={{-100,200},{100,240}},
           textString="%name",
           textColor={0,0,255})}),
-      Diagram(coordinateSystem(preserveAspectRatio=false)));
+      Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+    <p>
+    This is a window air conditioner model. The system consists of an 
+    outdoor air mixer, a signle-speed direct expansion (DX) cooling coil, 
+    and a constant speed supply air fan. 
+    </p>
+</html>
+", revisions="<html>
+    <ul>
+    <li>
+    June 15, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end WindowAC;

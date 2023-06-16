@@ -115,7 +115,7 @@ model ModularController
     tCoiEna=tFanEna)           if has_hea "Heating mode controller"
     annotation (Placement(transformation(extent={{-84,66},{-56,94}})));
 
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating conSupHea if has_supHea
+  Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea if has_supHea
     annotation (Placement(transformation(extent={{34,6},{62,34}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or orFanEna
@@ -236,5 +236,45 @@ equation
   connect(conHeaMod.yEna, conSupHea.uHeaEna) annotation (Line(points={{-53.2,80},
           {10,80},{10,8.8},{31.2,8.8}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+    <p>
+    This is a control module for the HVAC zone equipment models designed as an analogue 
+    to the control logic in EnergyPlus. The components are as follows:
+    <ul>
+    <li>
+    Heating and cooling coil controller <code>conHea</code>: 
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>
+    </li>
+    <li>
+    Cycling fan controller <code>conFanCyc</code>:
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan</a>
+    </li>
+    <li>
+    Variable fan controller <code>conVarFanConWat</code>:
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.VariableFan\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.VariableFan</a>
+    </li>
+    <li>
+    Variable fan controller <code>conMulSpeFanConWat</code>:
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.MultispeedFan\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.MultispeedFan</a>
+    </li>
+    <li>
+    Supplemental heating controller <code>conSupHea</code>:
+    <a href=\"Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating</a>
+    </li>
+    </ul>
+    </html>
+", revisions="<html>
+    <ul>
+    <li>
+    June 15, 2023 by Karthik Devaprasad, Xing Lu, and Junke Wang:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end ModularController;
