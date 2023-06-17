@@ -144,8 +144,7 @@ protected
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.And andTSupLow
-    "Enable heating/cooling component only when measured supply temperature is 
-    above dew point at thermal comfort level"
+    "Enable heating/cooling component only when measured supply temperature is above dew point at thermal comfort level"
     annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
 
 equation

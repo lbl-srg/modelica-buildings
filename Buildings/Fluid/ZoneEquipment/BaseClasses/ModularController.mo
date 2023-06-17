@@ -45,7 +45,7 @@ model ModularController
     annotation(Dialog(tab="Advanced"));
 
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerTypeHea=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-    "Type of cooling loop controller"
+    "Type of heating loop controller"
     annotation (Dialog(group="Heating mode control"));
 
   parameter Real kHea(
@@ -66,6 +66,35 @@ model ModularController
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
+
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
+    "Type of supplementary heating controller"
+    annotation (Dialog(group="PI controller"));
+
+  parameter Real k=1
+    "Gain of supplementary heating controller"
+    annotation (Dialog(group="PI controller"));
+
+  parameter Modelica.Units.SI.Time Ti=120
+    "Time constant of Integrator block for supplementary heating"
+    annotation (Dialog(group="PI controller"));
+
+  parameter Modelica.Units.SI.Time Td=0.1
+    "Time constant of Derivative block for supplementary heating"
+    annotation (Dialog(group="PI controller"));
+
+  parameter Real TLocOut(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=273.15-8
+    "Minimum outdoor dry-bulb temperature for compressor operation";
+
+  parameter Real dTHeaSet(
+    final unit="K",
+    displayUnit="degC",
+    final quantity="ThermodynamicTemperature")=-2
+    "Constant value to reduce heating setpoint for supplementary heating"
+    annotation(Dialog(group="Setpoint adjustment"));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.VariableFan conVarFanConWat(has_hea=has_hea, has_coo=has_coo,
     controllerTypeCoo=controllerTypeCoo,
@@ -115,7 +144,13 @@ model ModularController
     tCoiEna=tFanEna)           if has_hea "Heating mode controller"
     annotation (Placement(transformation(extent={{-84,66},{-56,94}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea if has_supHea
+  Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=k,
+    Ti=Ti,
+    Td=Td,
+    TLocOut=TLocOut,
+    dTHeaSet=dTHeaSet) if has_supHea "Supplementary heating controller"
     annotation (Placement(transformation(extent={{34,6},{62,34}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or orFanEna
@@ -194,7 +229,8 @@ equation
   connect(conCooMod.yEna, yCooEna) annotation (Line(points={{-53.2,120},{120,
           120},{120,120},{160,120}},
                                 color={255,0,255}));
-  if not has_supHea then connect(conHeaMod.yEna, yHeaEna) annotation (Line(points={{-53.2,
+  if not has_supHea then
+                         connect(conHeaMod.yEna, yHeaEna) annotation (Line(points={{-53.2,
             80},{120,80},{120,80},{160,80}},
                          color={255,0,255})); end if;
   connect(conCooMod.yMod, orFanEna.u1) annotation (Line(points={{-53.2,114.4},{-40,
@@ -219,7 +255,7 @@ equation
           {-94,111.6},{-86.8,111.6}}, color={0,0,127}));
   connect(conHeaMod.TSup, TSup) annotation (Line(points={{-86.8,71.6},{-86.8,72},
           {-94,72},{-94,-130},{-160,-130}}, color={0,0,127}));
-  connect(conSupHea.TSetHea, THeaSet) annotation (Line(points={{31.2,31.2},{-120,
+  connect(conSupHea.THeaSet, THeaSet) annotation (Line(points={{31.2,31.2},{-120,
           31.2},{-120,20},{-160,20}}, color={0,0,127}));
   connect(TZon, conSupHea.TZon) annotation (Line(points={{-160,94},{-100,94},{-100,
           26},{32,26},{32,25.6},{31.2,25.6}}, color={0,0,127}));
@@ -231,10 +267,10 @@ equation
   connect(conSupHea.yHeaEna, yHeaEna) annotation (Line(points={{64.8,17.2},{78,
           17.2},{78,80},{160,80}},
                              color={255,0,255}));
-  connect(conCooMod.yMod, conSupHea.uHeaMod) annotation (Line(points={{-53.2,114.4},
-          {18,114.4},{18,14.4},{31.2,14.4}}, color={255,0,255}));
   connect(conHeaMod.yEna, conSupHea.uHeaEna) annotation (Line(points={{-53.2,80},
           {10,80},{10,8.8},{31.2,8.8}}, color={255,0,255}));
+  connect(conSupHea.uHeaMod, conHeaMod.yMod) annotation (Line(points={{31.2,
+          14.4},{20,14.4},{20,74.4},{-53.2,74.4}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

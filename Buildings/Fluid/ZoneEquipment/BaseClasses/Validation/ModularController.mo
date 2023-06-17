@@ -91,7 +91,7 @@ equation
 </html>",revisions="<html>
       <ul>
       <li>
-      Junke 15, 2023 by Karthik Devaprasad, Xing Lu, and Junke Wang:<br/>
+      June 15, 2023 by Karthik Devaprasad, Xing Lu, and Junke Wang:<br/>
       First implementation.
       </li>
       </ul>

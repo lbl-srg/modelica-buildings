@@ -12,43 +12,43 @@ protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaMod(
     final k=true)
     "Heating mode signal"
-    annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uHeaEna(
     final period=7200)
     "heating coil enable signal"
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
+    annotation (Placement(transformation(extent={{-40,-46},{-20,-26}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=12,
     final duration=36000,
     final offset=273.15 + 15)
     "Measured zone temperature"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(
     final k=273.15+ 21)
     "Heating setpoint temperature"
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+    annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
     final height=-8,
     final duration=18000,
     final offset=273.15 + 3)
     "Outdoor air temperature"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
 equation
-  connect(heaSetPoi.y, conSupHea.TSetHea) annotation (Line(points={{-18,60},{
-          -10,60},{-10,8},{10,8}}, color={0,0,127}));
+  connect(heaSetPoi.y,conSupHea.THeaSet)  annotation (Line(points={{-18,34},{
+          -10,34},{-10,8},{10,8}}, color={0,0,127}));
   connect(TZon.y, conSupHea.TZon)
-    annotation (Line(points={{-18,90},{0,90},{0,4},{10,4}}, color={0,0,127}));
-  connect(TOut.y, conSupHea.TOut) annotation (Line(points={{-18,30},{-14,30},{
-          -14,0},{10,0}}, color={0,0,127}));
-  connect(uHeaEna.y, conSupHea.uHeaEna) annotation (Line(points={{-18,-10},{-6,
-          -10},{-6,-8},{10,-8}}, color={255,0,255}));
-  connect(uHeaMod.y, conSupHea.uHeaMod) annotation (Line(points={{-18,-40},{-4,
-          -40},{-4,-4},{10,-4}}, color={255,0,255}));
+    annotation (Line(points={{-18,70},{0,70},{0,4},{10,4}}, color={0,0,127}));
+  connect(TOut.y, conSupHea.TOut) annotation (Line(points={{-18,0},{10,0}},
+                          color={0,0,127}));
+  connect(uHeaEna.y, conSupHea.uHeaEna) annotation (Line(points={{-18,-36},{-10,
+          -36},{-10,-8},{10,-8}},color={255,0,255}));
+  connect(uHeaMod.y, conSupHea.uHeaMod) annotation (Line(points={{-18,-70},{0,
+          -70},{0,-4},{10,-4}},  color={255,0,255}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

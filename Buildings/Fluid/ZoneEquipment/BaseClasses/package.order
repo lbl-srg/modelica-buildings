@@ -2,9 +2,9 @@ EquipmentInterfaces
 ControllerInterfaces
 Types
 HeatingCooling
+SupplementalHeating
 CyclingFan
 VariableFan
 MultispeedFan
-SupplementalHeating
 ModularController
 Validation

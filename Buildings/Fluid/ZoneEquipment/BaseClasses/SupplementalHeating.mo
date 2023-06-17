@@ -11,7 +11,7 @@ block SupplementalHeating "Supplemental heating controller"
     final unit="K",
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=-1
-    "Constant value to reduce heating setpoint by for supplementary heating"
+    "Constant value to reduce heating setpoint for supplementary heating"
     annotation(Dialog(group="Setpoint adjustment"));
 
   parameter Real dTHys(
@@ -44,10 +44,10 @@ block SupplementalHeating "Supplemental heating controller"
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uHeaEna
     "DX heating coil enable signal"
-    annotation (Placement(transformation(extent={{-200,-100},{-160,-60}}),
+    annotation (Placement(transformation(extent={{-200,-110},{-160,-70}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput TSetHea(
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
     final displayUnit="degC",
     final quantity="ThermodynamicTemperature")
@@ -163,15 +163,15 @@ equation
     annotation (Line(points={{62,-50},{180,-50}}, color={255,0,255}));
   connect(notLocOut.y, andHeaEna.u1) annotation (Line(points={{2,-30},{10,-30},{
           10,-50},{38,-50}}, color={255,0,255}));
-  connect(uHeaEna, andHeaEna.u2) annotation (Line(points={{-180,-80},{10,-80},{10,
+  connect(uHeaEna, andHeaEna.u2) annotation (Line(points={{-180,-90},{10,-90},{10,
           -58},{38,-58}}, color={255,0,255}));
   connect(andLocOut.y, booToReaSupHeaLocOut.u) annotation (Line(points={{-58,-10},
           {-50,-10},{-50,100},{-42,100}}, color={255,0,255}));
-  connect(TSetHea, addParHeaSet.u)
+  connect(THeaSet, addParHeaSet.u)
     annotation (Line(points={{-180,70},{-42,70}},  color={0,0,127}));
   connect(addParHeaSet.y, conPIHeaHig.u_s)
     annotation (Line(points={{-18,70},{-2,70}}, color={0,0,127}));
-  connect(TSetHea, conPIHeaLocOut.u_s) annotation (Line(points={{-180,70},{-140,
+  connect(THeaSet, conPIHeaLocOut.u_s) annotation (Line(points={{-180,70},{-140,
           70},{-140,120},{-102,120}}, color={0,0,127}));
   connect(TZon, conPIHeaLocOut.u_m)
     annotation (Line(points={{-180,30},{-90,30},{-90,108}}, color={0,0,127}));
@@ -202,7 +202,42 @@ annotation (defaultComponentName="conSupHea",
         Text(
         extent={{-100,160},{100,120}},
         textString="%name",
-        textColor={0,0,255})}),
+        textColor={0,0,255}),
+        Text(
+          extent={{-96,92},{-48,68}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="THeaSet"),
+        Text(
+          extent={{-96,48},{-64,32}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TZon"),
+        Text(
+          extent={{-96,8},{-64,-8}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="TOut"),
+        Text(
+          extent={{-94,-32},{-40,-48}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uHeaMod"),
+        Text(
+          extent={{-94,-72},{-40,-88}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="uHeaEna"),
+        Text(
+          extent={{44,-12},{96,-28}},
+          textColor={255,0,255},
+          pattern=LinePattern.Dash,
+          textString="yHeaEna"),
+        Text(
+          extent={{42,34},{96,8}},
+          textColor={0,0,127},
+          pattern=LinePattern.Dash,
+          textString="ySupHea")}),
   Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-160,-140},{160,140}})),
 Documentation(info="<html>
