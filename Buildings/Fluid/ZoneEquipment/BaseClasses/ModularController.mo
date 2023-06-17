@@ -69,19 +69,19 @@ model ModularController
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
     "Type of supplementary heating controller"
-    annotation (Dialog(group="PI controller"));
+    annotation (Dialog(group="Supplementary heating control"));
 
   parameter Real k=1
     "Gain of supplementary heating controller"
-    annotation (Dialog(group="PI controller"));
+    annotation (Dialog(group="Supplementary heating control"));
 
   parameter Modelica.Units.SI.Time Ti=120
     "Time constant of Integrator block for supplementary heating"
-    annotation (Dialog(group="PI controller"));
+    annotation (Dialog(group="Supplementary heating control"));
 
   parameter Modelica.Units.SI.Time Td=0.1
     "Time constant of Derivative block for supplementary heating"
-    annotation (Dialog(group="PI controller"));
+    annotation (Dialog(group="Supplementary heating control"));
 
   parameter Real TLocOut(
     final unit="K",
