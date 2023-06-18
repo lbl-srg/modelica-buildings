@@ -114,12 +114,6 @@ model PackagedTerminalHeatPump
     "Cooling coil outlet air temperature sensor"
     annotation (Placement(transformation(extent={{-6,-10},{14,10}})));
 
-  Modelica.Blocks.Interfaces.RealInput uSupHea(
-    final unit="1") if has_hea
-    "Supplementary heating loop signal"
-    annotation (Placement(transformation(extent={{-400,-30},{-360,10}}),
-      iconTransformation(extent={{-240,-160},{-200,-120}})));
-
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirHeaCoi(
     redeclare final package Medium=MediumA,
     final m_flow_nominal=mAir_flow_nominal)
@@ -141,7 +135,8 @@ equation
     annotation (Line(points={{-380,120},{-202,120},{-202,80},{-24,80}},
                                                   color={0,0,127}));
   connect(gaiFanNor.y, yFan_actual)
-    annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
+    annotation (Line(points={{321,110},{350,110},{350,130},{380,130}},
+                                                   color={0,0,127}));
   connect(fan.port_b, SupHeaCoi.port_a)
     annotation (Line(points={{142,0},{184,0}}, color={0,127,255}));
   connect(SupHeaCoi.port_b, TAirLvg.port_a)
@@ -160,12 +155,10 @@ equation
     annotation (Line(points={{-30,0},{-6,0}}, color={0,127,255}));
   connect(TAirCooCoi.port_b, HeaCoi.port_a)
     annotation (Line(points={{14,0},{46,0}}, color={0,127,255}));
-  connect(uCooEna, CooCoi.on) annotation (Line(points={{-380,-120},{-74,-120},{
+  connect(uCooEna, CooCoi.on) annotation (Line(points={{-380,-130},{-74,-130},{
           -74,8},{-51,8}}, color={255,0,255}));
-  connect(uHeaEna, HeaCoi.on) annotation (Line(points={{-380,-160},{-94,-160},{
+  connect(uHeaEna, HeaCoi.on) annotation (Line(points={{-380,-170},{-94,-170},{
           -94,-48},{30,-48},{30,8},{45,8}}, color={255,0,255}));
-  connect(uSupHea, SupHeaCoi.u) annotation (Line(points={{-380,-10},{-338,-10},
-          {-338,-54},{160,-54},{160,6},{182,6}},color={0,0,127}));
   connect(TAirHeaCoi.port_b, fan.port_a)
     annotation (Line(points={{100,0},{122,0}}, color={0,127,255}));
   connect(TAirHeaCoi.port_a, HeaCoi.port_b)
@@ -200,6 +193,8 @@ equation
           3},{-51,3}}, color={0,0,127}));
   connect(TOut.y, HeaCoi.TOut) annotation (Line(points={{-239,-40},{20,-40},{20,
           3},{45,3}}, color={0,0,127}));
+  connect(SupHeaCoi.u, uSupHea) annotation (Line(points={{182,6},{172,6},{172,
+          -20},{-340,-20},{-340,-10},{-380,-10}}, color={0,0,127}));
   annotation (defaultComponentName = "pthp",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

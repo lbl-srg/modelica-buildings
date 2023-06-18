@@ -126,6 +126,7 @@ model ModularController
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCooMod(
     controllerType=controllerTypeCoo,
     k=kCoo,
+    TSupDew=TSupDew,
     Ti=TiCoo,
     Td=TdCoo,
     dTHys=dTHys,

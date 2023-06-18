@@ -40,36 +40,42 @@ partial model EquipmentInterfaces
 
   Modelica.Blocks.Interfaces.RealInput uHea(
     final unit="1") if has_varHea and has_hea "Heating loop signal"
-    annotation(Placement(transformation(extent={{-400,-100},{-360,-60}}),
-      iconTransformation(extent={{-240,-198},{-200,-158}})));
+    annotation(Placement(transformation(extent={{-400,-110},{-360,-70}}),
+      iconTransformation(extent={{-220,-110},{-200,-90}})));
 
   Modelica.Blocks.Interfaces.BooleanInput uCooEna if not has_varCoo and has_coo
     "Cooling coil enable signal"
-    annotation (Placement(transformation(extent={{-400,-140},{-360,-100}}),
-      iconTransformation(extent={{-240,-118},{-200,-78}})));
+    annotation (Placement(transformation(extent={{-400,-150},{-360,-110}}),
+      iconTransformation(extent={{-220,-150},{-200,-130}})));
 
   Modelica.Blocks.Interfaces.BooleanInput uHeaEna if not has_varHea and has_hea
     "Heating coil enable signal"
-    annotation (Placement(transformation(extent={{-400,-180},{-360,-140}}),
-      iconTransformation(extent={{-240,-198},{-200,-158}})));
+    annotation (Placement(transformation(extent={{-400,-190},{-360,-150}}),
+      iconTransformation(extent={{-220,-190},{-200,-170}})));
 
   Modelica.Blocks.Interfaces.RealInput uCoo(
     final unit="1") if has_varCoo and has_coo
     "Cooling loop signal"
-    annotation(Placement(transformation(extent={{-400,-60},{-360,-20}}),
-      iconTransformation(extent={{-240,-118},{-200,-78}})));
+    annotation(Placement(transformation(extent={{-400,-70},{-360,-30}}),
+      iconTransformation(extent={{-220,-70},{-200,-50}})));
 
   Modelica.Blocks.Interfaces.RealInput uFan(
     final unit="1")
     "Fan signal"
     annotation(Placement(transformation(extent={{-400,100},{-360,140}}),
-      iconTransformation(extent={{-240,80},{-200,120}})));
+      iconTransformation(extent={{-220,130},{-200,150}})));
 
   Modelica.Blocks.Interfaces.RealInput uEco(
     final unit="1")
     "Control signal for economizer"
     annotation (Placement(transformation(extent={{-400,140},{-360,180}}),
-      iconTransformation(extent={{-240,160},{-200,200}})));
+      iconTransformation(extent={{-220,170},{-200,190}})));
+
+  Modelica.Blocks.Interfaces.RealInput uSupHea(
+    final unit="1") if has_supHea
+    "Supplementary heating loop signal"
+    annotation (Placement(transformation(extent={{-400,-30},{-360,10}}),
+      iconTransformation(extent={{-220,-30},{-200,-10}})));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_Air_a2(
     redeclare final package Medium = MediumA)
@@ -111,7 +117,7 @@ partial model EquipmentInterfaces
     final unit="1",
     displayUnit="1")
     "Normalized measured fan speed signal"
-    annotation (Placement(transformation(extent={{360,100},{380,120}}),
+    annotation (Placement(transformation(extent={{360,110},{400,150}}),
       iconTransformation(extent={{200,150},{220,170}})));
 
   Modelica.Blocks.Interfaces.RealOutput TAirSup(
@@ -119,7 +125,7 @@ partial model EquipmentInterfaces
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")
     "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{360,70},{380,90}}),
+    annotation (Placement(transformation(extent={{360,60},{400,100}}),
       iconTransformation(extent={{200,90},{220,110}})));
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHW(
@@ -190,18 +196,18 @@ partial model EquipmentInterfaces
   Modelica.Fluid.Interfaces.FluidPort_a port_Air_a1(
     redeclare final package Medium = MediumA) if has_extOAPor
     "Ventilation inlet air port from the outdoor air"
-    annotation (Placement(transformation(extent={{-370,-10},{-350,10}}),
-      iconTransformation(extent={{-210,-50},{-190,-30}})));
+    annotation (Placement(transformation(extent={{-370,10},{-350,30}}),
+      iconTransformation(extent={{-210,10},{-190,30}})));
 
   Modelica.Fluid.Interfaces.FluidPort_b port_Air_b1(
     redeclare final package Medium = MediumA) if has_extOAPor
     "Exhaust air port to the outdoor air"
     annotation (Placement(transformation(extent={{-370,70},{-350,90}}),
-      iconTransformation(extent={{-210,30},{-190,50}})));
+      iconTransformation(extent={{-210,90},{-190,110}})));
 
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "if not has_extOAPor and has_ven"
     annotation (Placement(transformation(extent={{-350,10},{-310,50}}),
-      iconTransformation(extent={{-168,170},{-148,190}})));
+      iconTransformation(extent={{-172,46},{-152,66}})));
 
   Buildings.Fluid.Sources.Outside out(
     redeclare final package Medium = MediumA,
@@ -301,6 +307,10 @@ protected
                                      (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
     "Does the zone equipment have a heating element?";
 
+  final parameter Boolean has_supHea=not
+                                        (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
+    "Does the zone equipment have a supplementary heating element?";
+
   final parameter Boolean has_varCoo=not
                                         (cooCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
     "Does the zone equipment have variable PLR cooling equipment?";
@@ -361,11 +371,11 @@ equation
                                         color={0,127,255}));
   connect(TAirMix.port_b, vAirMix.port_a) annotation (Line(points={{-110,0},{-100,
           0}},                      color={0,127,255}));
-  connect(port_Air_a1, TAirMix.port_a) annotation (Line(points={{-360,0},{-330,
-          0},{-330,-26},{-160,-26},{-160,0},{-130,0}},
+  connect(port_Air_a1, TAirMix.port_a) annotation (Line(points={{-360,20},{-330,
+          20},{-330,-26},{-160,-26},{-160,0},{-130,0}},
                                                  color={0,127,255}));
-  connect(port_Air_b1, vAirRet.port_b) annotation (Line(points={{-360,80},{-312,
-          80},{-312,108},{-66,108},{-66,50},{-90,50}},
+  connect(port_Air_b1, vAirRet.port_b) annotation (Line(points={{-360,80},{-330,
+          80},{-330,108},{-66,108},{-66,50},{-90,50}},
                                                      color={0,127,255}));
   connect(TAirRet.port_a, port_Air_a2) annotation (Line(points={{-140,50},{-140,
           78},{-2,78},{-2,40},{360,40}},   color={0,127,255}));
@@ -379,7 +389,7 @@ equation
   connect(vAirSup.port_b, port_Air_b2) annotation (Line(points={{300,0},{340,0},
           {340,-40},{360,-40}}, color={0,127,255}));
   connect(TAirLvg.T, TAirSup)
-    annotation (Line(points={{250,11},{250,80},{370,80}},color={0,0,127}));
+    annotation (Line(points={{250,11},{250,80},{380,80}},color={0,0,127}));
   annotation (defaultComponentName = "zonHVACSys",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,-200},{200,200}}),
                                graphics={Rectangle(
