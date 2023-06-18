@@ -3,12 +3,11 @@ model SupplementalHeating
   "Validation model for supplemental heating controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating
-    conSupHea(final TLocOut(displayUnit="K") = 271.15)
+  Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea(
+    final TLocOut(displayUnit="K") = 271.15)
     "Instance of controller for cycling fan and cyling coil"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
 
-protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaMod(
     final k=true)
     "Heating mode signal"

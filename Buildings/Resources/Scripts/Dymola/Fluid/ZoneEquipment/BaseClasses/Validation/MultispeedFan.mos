@@ -1,0 +1,6 @@
+﻿simulateModel("Buildings.Fluid.ZoneEquipment.BaseClasses.Validation.MultispeedFan", startTime=0, stopTime=43200, method="Cvode", tolerance=1e-06, resultFile="MultispeedFan");
+createPlot(id=1, position={0, 0, 900, 430}, y={"conMulSpeFanConWat.uAva"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 900, 430}, y={"conMulSpeFanConWat.TZon", "conMulSpeFanConWat.TCooSet", "conMulSpeFanConWat.THeaSet"}, range={0.0, 86400, 15.0, 35.0}, grid=true, subPlot=2, colors={{238,46,47}, {28,108,200}, {0,140,72}}, displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={0, 0, 900, 430}, y={"conMulSpeFanConWat.yFan"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 900, 430}, y={"conMulSpeFanConWat.yFanSpe"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 900, 430}, y={"conMulSpeFanConWat.fanOpeMod"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=5, colors={{28,108,200}});

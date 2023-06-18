@@ -1,0 +1,7 @@
+﻿simulateModel("Buildings.Fluid.ZoneEquipment.BaseClasses.Validation.HeatingCooling", startTime=0, stopTime=43200, method="Cvode", tolerance=1e-06, resultFile="HeatingCooling");
+createPlot(id=1, position={0, 0, 600, 430}, y={"conCooMod.TZon", "conCooMod.TZonSet"}, range={0.0, 86400, 18.0, 30.0}, grid=true, colors={{238,46,47}, {28,108,200}}, displayUnits={"degC", "degC"});
+createPlot(id=1, position={0, 0, 600, 430}, y={"conCooMod.yMod", "conCooMod.yEna"}, range={0.0, 86400, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=1, position={0, 0, 600, 430}, y={"conCooMod.yCoi"}, range={0.0, 86400, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=2, position={0, 0, 800, 430}, y={"conHeaMod.TZon", "conHeaMod.TZonSet"}, range={0.0, 86400, 18.0, 30.0}, grid=true, colors={{238,46,47}, {28,108,200}}, displayUnits={"degC", "degC"});
+createPlot(id=2, position={0, 0, 800, 430}, y={"conHeaMod.yMod", "conHeaMod.yEna"}, range={0.0, 86400, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
+createPlot(id=2, position={0, 0, 800, 430}, y={"conHeaMod.yCoi"}, range={0.0, 86400, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
