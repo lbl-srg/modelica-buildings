@@ -1,0 +1,8 @@
+compareVars :=
+  {
+    "tOn.y",
+    "k.y",
+    "ratioLT.y",
+    "timConDel.T",
+    "timConDel.L"
+  };

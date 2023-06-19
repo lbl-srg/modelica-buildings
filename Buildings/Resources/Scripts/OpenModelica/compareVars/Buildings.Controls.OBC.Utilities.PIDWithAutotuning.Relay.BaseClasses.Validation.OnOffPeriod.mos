@@ -1,0 +1,6 @@
+compareVars :=
+  {
+    "enaSig.y",
+    "onOffPer.tOn",
+    "onOffPer.tOff"
+  };
