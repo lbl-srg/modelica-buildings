@@ -4,7 +4,7 @@ model PIDWithFirstOrderAMIGO "Test model for an autotuning PID controller"
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO PIDWitTun(
-    controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
+      controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PID)
     "PID controller with an autotuning feature"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset PID(
@@ -83,7 +83,7 @@ equation
           {40,20},{40,86},{58,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{82,-50},{92,-50},
           {92,-66},{40,-66},{40,-20},{32,-20}}, color={0,0,127}));
-  connect(autTunSig.y, PIDWitTun.triAutTun)
+  connect(autTunSig.y, PIDWitTun.triTun)
     annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   annotation (
     experiment(
@@ -104,11 +104,11 @@ to that of a normal PID controller (<code>PID</code>) with prescribed gains.
 </p>
 <p>
 Both PID controllers are connected with a first-order control process.
-At the beginning (simulation time is less than 1000s), the outputs from those two PID controllers 
+At the beginning (simulation time is less than <i>1000s</i>), the outputs from those two PID controllers 
 are the same as their prescribed gains.
 </p>
 <p>
-Once the autotuning starts at 1000s, the outputs of the two PID controllers become different.
+Once the autotuning starts at <i>1000s</i>, the outputs of the two PID controllers become different.
 After the tuning completes, under the control of <code>PIDWitTun</code>, the value of the controlled variable
 is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
 On the contrary, <code>PID</code> has a poor control performance,

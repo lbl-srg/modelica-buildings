@@ -65,9 +65,9 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay</a>.
 </p>
 <p>
-Input <code>tOn</code> changes from 0 to 0.1 at 0.1s,
+Input <code>tOn</code> changes from <i>0</i> to <i>0.1</i> at <i>0.1s</i>,
 Input <code>k</code> is constant,
-Input <code>ratioLT</code> changes twice, from 0.3 to 0.4 at 0.32s and from 0.4 to 0.3 at 0.8s.
+Input <code>ratioLT</code> changes twice, from <i>0.3</i> to <i>0.4</i> at <i>0.32s</i> and from <i>0.4</i> to <i>0.3</i> at <i>0.8s</i>.
 </p>
 </html>"));
 end TimeConstantDelay;

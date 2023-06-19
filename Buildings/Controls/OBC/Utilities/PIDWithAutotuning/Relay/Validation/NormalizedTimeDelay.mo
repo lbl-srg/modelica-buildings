@@ -49,7 +49,7 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>.
 </p>
 <p>
-The input <code>rho</code> is a step signal that changes from 2 to 1 at 0.7s.
+The input <code>rho</code> is a step signal that changes from <i>2</i> to <i>1</i> at <i>0.7s</i>.
 </p>
 </html>"));
 end NormalizedTimeDelay;

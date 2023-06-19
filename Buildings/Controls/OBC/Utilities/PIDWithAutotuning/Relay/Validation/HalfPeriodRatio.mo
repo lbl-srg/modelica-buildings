@@ -72,16 +72,16 @@ This example mimics an output from a relay controller.
 </p>
 <ul>
 <li>
-At 0.1s, the output switches from On to Off.
-The length of the On period becomes 0.1s.
+At <i>0.1s</i>, the output switches from On to Off.
+The length of the On period becomes <i>0.1s</i>.
 </li>
 <li>
-At 0.7s, the output switches to On.
-The length of the Off period becomes 0.5s.
+At <i>0.7s</i>, the output switches to On.
+The length of the Off period becomes <i>0.5s</i>.
 </li>
 <li>
-At 0.9s, the output switches to Off.
-The length of the On period becomes 0.2s.
+At <i>0.9s</i>, the output switches to Off.
+The length of the On period becomes <i>0.2s</i>.
 </li>
 </ul>
 </html>"));

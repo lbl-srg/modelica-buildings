@@ -55,13 +55,13 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod</a>.
 This example considers an output from a relay controller, <code>enaSig</code>.
 <ul>
 <li>
-At 0.06s, <code>enaSig</code> switches from On to Off.
+At <i>0.06s</i>, <code>enaSig</code> switches from On to Off.
 </li>
 <li>
-At 0.7s, <code>enaSig</code> switches to On.
+At <i>0.7s</i>, <code>enaSig</code> switches to On.
 </li>
 <li>
-At 0.86s, <code>enaSig</code> switches to Off.
+At <i>0.86s</i>, <code>enaSig</code> switches to Off.
 </li>
 </ul>
 </html>"));

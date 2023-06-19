@@ -63,7 +63,7 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(origin={0,-120},  extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRes
-    "Resets the controller output when trigger becomes true" annotation (
+    "Connector for reseting the controller output" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -72,7 +72,7 @@ block FirstOrderAMIGO
         rotation=90,
         origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triTun
-    "Starts the autotuning when trigger becomes true" annotation (Placement(
+    "Connector for starting the autotuning" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -136,7 +136,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Switch the block output to the output from the PID controller when the autotuning is disabled or is completed "
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "when autotuning is disabled"
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Becomes true when the autotuning is disabled"
     annotation (Placement(transformation(extent={{30,-78},{50,-58}})));
 protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
@@ -226,8 +226,8 @@ equation
           -50},{46,-50},{46,-20},{-10,-20},{-10,32},{-2,32}}, color={255,0,255}));
   connect(or1.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,-40},{
           48,-40},{48,-20},{58,-20}}, color={255,0,255}));
-  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-82},{
-          60,-82},{60,-120}}, color={255,0,255}));
+  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-82},{60,
+          -82},{60,-120}}, color={255,0,255}));
   connect(not1.y, or1.u2)
     annotation (Line(points={{52,-68},{58,-68}}, color={255,0,255}));
   annotation (Documentation(info="<html>
@@ -249,7 +249,7 @@ PID controller.
 <h4>Brief guidance</h4>
 <p>
 To use this block, connect it to the control loop.
-It will start the PID tuning process whenever the value of the boolean input signal <code>triAutTun</code> changes from
+It will start the PID tuning process whenever the value of the boolean input signal <code>triTun</code> changes from
 <code>false</code> to <code>true</code>.
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
 The PID tuning process will end automatically based on the algorithm defined

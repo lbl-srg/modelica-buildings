@@ -94,15 +94,15 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrd
 This example considers an output from a relay controller, which is described below:
 <ul>
 <li>
-At 0.1s, the output switches from On to Off.
+At <i>0.1s</i>, the output switches from On to Off.
 </li>
 <li>
-At 0.8s, the output switches to On.
+At <i>0.8s</i>, the output switches to On.
 </li>
 <li>
-At 0.9s, the output switches to Off.
+At <i>0.9s</i>, the output switches to Off.
 </li>
 </ul>
-This output triggers an autotuning process that lasts from 0.1s to 0.8s.
+This output triggers an autotuning process that lasts from <i>0.1s</i> to <i>0.9s</i>.
 </html>"));
 end ControlProcessModel;
