@@ -36,6 +36,7 @@ block TimeConstantDelay
     "Time delay"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Abs absk
     "Absoulte value of the gain"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -60,18 +61,18 @@ block TimeConstantDelay
     "Quotient of dead band divided by the absolute value of the gain"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
-    "Output first input divided by second input"
+    "Blocks that calculates the input 1 by the second the input 2"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div3
-    "Calculate the time constant"
+    "Blocks that calculates the time constant"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1 "Product of the inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul1 "Product of the two inputs"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
-    "Calculate time delay"
+    "Blocks that calculates time delay"
     annotation (Placement(transformation(extent={{0,74},{20,94}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub1
-    "Difference of the two inputs"
+    "Blocks that calculates the difference of the two inputs"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
     "Quotient of dead band divided by the absolute value of gain minus the lower value for the output"

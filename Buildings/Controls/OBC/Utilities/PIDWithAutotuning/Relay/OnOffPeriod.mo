@@ -7,7 +7,7 @@ block OnOffPeriod
     "Simulation time"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,40},{-100,80}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Relay switch signal"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -24,6 +24,7 @@ block OnOffPeriod
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
     "Length for the on period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
+protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
     "Simulation time when the input signal becomes on (True)"
     annotation (Placement(transformation(extent={{-50,30},{-30,50}})));
@@ -34,10 +35,10 @@ block OnOffPeriod
     "Relay switch off"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOffCal
-    "Calculate the horizon length for the off period"
+    "Block that calculates the horizon length for the off period"
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOnCal
-    "Calculate the horizon length for the on period"
+    "Block that calculates the horizon length for the on period"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOff
     "Trigger the action to record the horizon length for the off period"
@@ -56,11 +57,11 @@ block OnOffPeriod
     annotation (Placement(transformation(extent={{70,50},{90,30}})));
 
 equation
-  connect(Off.u, On) annotation (Line(points={{-82,-70},{-120,-70}},
+  connect(Off.u,on)  annotation (Line(points={{-82,-70},{-120,-70}},
                       color={255,0,255}));
   connect(Off.y, timOff.trigger) annotation (Line(points={{-58,-70},{-40,-70},{
           -40,-52}}, color={255,0,255}));
-  connect(timOn.trigger, On) annotation (Line(points={{-40,28},{-40,20},{-90,20},
+  connect(timOn.trigger,on)  annotation (Line(points={{-40,28},{-40,20},{-90,20},
           {-90,-70},{-120,-70}}, color={255,0,255}));
   connect(lenOffCal.u1, timOn.y) annotation (Line(points={{8,-24},{0,-24},{0,40},
           {-28,40}},     color={0,0,127}));
@@ -117,7 +118,7 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block processes a relay swtich output signal and calculates the length of
+This block processes a relay switch output signal and calculates the length of
 the on period (when the relay switch signal becomes <code>true</code>),
 and the length of the off period (when the relay switch signal becomes
 <code>false</code>), respectively.

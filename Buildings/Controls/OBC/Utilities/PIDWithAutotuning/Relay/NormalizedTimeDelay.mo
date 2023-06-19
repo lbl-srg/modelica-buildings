@@ -10,32 +10,34 @@ block NormalizedTimeDelay
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
     "Normalized time delay"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar1(
     final p=-1)
-    "Calculate the difference between gamma and 1"
+    "Block that calculates the difference between gamma and 1"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar2(
     final p=0.65)
-    "Calculate the sum of the output of gai and 0.65"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant asyLev(
     final k=gamma)
     "Asymmetry level of the relay controller"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.Divide div "Calculate the normalized time delay"
+  Buildings.Controls.OBC.CDL.Continuous.Divide div
+    "Block that calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract subGamRho
-    "Calculate the difference between the asymmetry level of the relay controller and the half period ratio"
+    "Block that calculates the difference between the asymmetry level of the relay controller and the half period ratio"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
     final k=0.35)
     "Gain for the half period ratio"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Calculate the product of the output of addPar1 and that of addPar2"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{0,-48},{20,-28}})));
   Buildings.Controls.OBC.CDL.Utilities.Assert assMes(
-    final message="The asymmetry level should be larger than the half period ratio.")
+    final message="Increasing the asymmetry level to avoid negative values for the time delay.")
     "Error message when asymmetry level is less than the half period ratio"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gre(

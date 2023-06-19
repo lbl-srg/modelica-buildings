@@ -1,24 +1,23 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
-model PIDDerivativeTime "Test model for PIDDerivativeTime"
+model PIDDerivativeTime "Test model for calculating the integral time for a PID controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
-    PIDDerTim "Calculate the integral time for a PI controller"
+    PIDDerTim "Blocks that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable RefDat(table=[0,1,0.5,
-        0.3,0.95,0.446,0.127; 0.1,1.1,0.55,0.33,0.864,0.49,0.14; 0.2,1.2,
-        0.6,0.36,0.792,0.535,0.153; 0.3,1.3,0.65,0.39,0.731,0.579,0.165;
-        0.4,1.4,0.7,0.42,0.679,0.624,0.178; 0.5,1.5,0.75,0.45,0.633,0.669,0.191;
-        0.6,1.6,0.8,0.48,0.594,0.713,0.203; 0.7,1.7,0.85,0.51,0.559,0.758,0.216;
-        0.8,1.8,0.9,0.54,0.528,0.802,0.229; 0.9,1.9,0.95,0.57,0.5,0.847,0.242;
-        1,2,1,0.6,0.475,0.891,0.254], extrapolation=
-        Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Data for validating the PIDDerivativeTime block"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
+    duration=1,
+    offset=0.5,
+    height=0.5) "Time constant of a first order time-delayed model"
+    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
+    duration=1,
+    offset=0.3,
+    height=0.3) "Time delay of a first order time-delayed model"
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
-  connect(PIDDerTim.T, RefDat.y[2]) annotation (Line(points={{-12,6},{-20,6},{-20,
-          0},{-38,0}}, color={0,0,127}));
-  connect(PIDDerTim.L, RefDat.y[3]) annotation (Line(points={{-12,-6},{-20,-6},
-          {-20,0},{-38,0}}, color={0,0,127}));
+  connect(T.y, PIDDerTim.T) annotation (Line(points={{-38,20},{-20,20},{-20,6},{
+          -12,6}}, color={0,0,127}));
+  connect(L.y, PIDDerTim.L) annotation (Line(points={{-38,-20},{-20,-20},{-20,-6},
+          {-12,-6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,
@@ -56,7 +55,8 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime</a>.
 </p>
 <p>
-The reference data is imported from a raw data that is generated with a Python implementation of this block.
+The input input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
+input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 </html>"));
 end PIDDerivativeTime;

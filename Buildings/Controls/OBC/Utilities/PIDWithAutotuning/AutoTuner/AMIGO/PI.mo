@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
-block PI "Identify control gain and integral time of the PI controller"
+block PI "Identify control gain and integral time of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
     final min=1E-6)
     "Gain of a first order time-delayed model"
@@ -30,11 +30,12 @@ block PI "Identify control gain and integral time of the PI controller"
     "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
+protected
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain gai
-    "Calculate the control gain"
+    "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIIntegralTime
-    intTim "Calculate the integral time"
+    intTim "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
 equation

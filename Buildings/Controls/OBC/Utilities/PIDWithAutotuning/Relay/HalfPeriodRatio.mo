@@ -27,6 +27,7 @@ block HalfPeriodRatio
     "A boolean signal, true if the tuning completes"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Min tMin
     "Minimum value of the length for the on and off period "
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -39,41 +40,41 @@ block HalfPeriodRatio
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOnSam(final y_start=
         Buildings.Controls.OBC.CDL.Constants.eps)
-    "Sample tOn when the tuning period ends"
+    "Block that samples tOn when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSam(final y_start=
         Buildings.Controls.OBC.CDL.Constants.eps)
-    "Sample tOff when the tuning period ends"
+    "Block that samples tOff when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
-    "Sample the tmin when tmin is larger than 0"
+    "Block that samples the tmin when tmin is larger than 0"
     annotation (Placement(transformation(extent={{20,30},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater tInc
-    "Check if either the length for the on period or the length for the off period increases after they both becomes positive"
+    "Block that checks if either the length for the on period or the length for the off period increases after they both becomes positive"
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Min mintOntOff
-    "Find the smaller one between the length for the on period and the length for the off period"
+    "Block that finds the smaller one between the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Max maxtOntOff
-    "Find the larger one between the length for the on period and the length for the off period"
+    "Block that finds the larger one between the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide halPerRat
-    "Calculate the half period ratio"
+    "Block that calculates the half period ratio"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Add addtOntOff
-    "Calculate the sum of the length for the on period and the length for the off period"
+    "Block that calculates the sum of the length for the on period and the length for the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Detect if the the length for the on period or the length for the off period changes after both of them are larger than 0"
+    "Block that detects if the the length for the on period or the length for the off period changes after both of them are larger than 0"
     annotation (Placement(transformation(extent={{-34,-40},{-14,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater gretmaxtOntOff
-    "Check if either the length for the on period or the length for the off period is larger than 0"
+    "Block that checks if either the length for the on period or the length for the off period is larger than 0"
     annotation (Placement(transformation(extent={{-20,10},{0,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Less tDec
-    "Check if either the length for the on period or the length for the off period decreases after they both becomes positive"
+    "Block that checks if either the length for the on period or the length for the off period decreases after they both becomes positive"
     annotation (Placement(transformation(extent={{30,-90},{50,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Or tCha
-    "Check if the length for the on period or the length for the off period changes"
+    "Block that checks if the length for the on period or the length for the off period changes"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
 
 equation
@@ -190,7 +191,7 @@ The algorithm for calculating <code>&rho;</code> is as follows:
 <h5>Step 1: detects when the tuning period begins.</h5>
 <p>
 The tuning period is triggered to begin when either <code>t<sub>on</sub></code>
-or <code>t<sub>off</sub></code> are larger than 0.
+or <code>t<sub>off</sub></code> is larger than 0.
 In this implementation, we detect the beginning time by monitoring the sum of
 <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>.
 </p>
@@ -200,8 +201,8 @@ are larger than 0.</h5>
 <p>
 We then record the value of the minimum value between
 <code>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</code>
-at the momement when both <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>
-become postive.
+at the moment when both <code>t<sub>on</sub></code> and <code>t<sub>off</sub></code>
+become positive.
 </p>
 
 <h5>Step 3: detects when the tuning period ends.</h5>
@@ -210,7 +211,7 @@ The tuning period is triggered to end when either <code>t<sub>on</sub></code>
 or <code>t<sub>off</sub></code> changes after they become positive.
 In this implementation, we detect the end time by checking if the value of
 <code>(t<sub>on</sub>+t<sub>off</sub>)*min(t<sub>on</sub>,t<sub>off</sub>)</code>
-is different from the output of step2.
+is different from the output of step 2.
 </p>
 
 <h4>References</h4>

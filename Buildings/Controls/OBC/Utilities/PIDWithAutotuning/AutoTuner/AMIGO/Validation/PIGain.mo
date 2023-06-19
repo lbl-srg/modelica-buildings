@@ -1,25 +1,30 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation;
-model PIGain "Test model for PIGain"
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable RefDat(table=[0,1,0.5,
-        0.3,0.343,0.469; 0.1,1.1,0.55,0.33,0.312,0.516; 0.2,1.2,0.6,0.36,0.286,0.563;
-        0.3,1.3,0.65,0.39,0.264,0.609; 0.4,1.4,0.7,0.42,0.245,0.656; 0.5,1.5,
-        0.75,0.45,0.228,0.703; 0.6,1.6,0.8,0.48,0.214,0.75; 0.7,1.7,
-        0.85,0.51,0.202,0.797; 0.8,1.8,0.9,0.54,0.19,0.844; 0.9,1.9,
-        0.95,0.57,0.18,0.891; 1,2,1,0.6,0.171,0.938],
-        extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Data for validating the PIgain block"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+model PIGain "Test model for calculating the gain for a PI controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain PIGai
-    "Calculate the gain for a PI controller"
+    "Blocks that calculates the gain"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp kp(
+    duration=1,
+    offset=1,
+    height=1) "Gain of a first order time-delayed model"
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
+    duration=1,
+    offset=0.5,
+    height=0.5) "Time constant of a first order time-delayed model"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
+    duration=1,
+    offset=0.3,
+    height=0.3) "Time delay of a first order time-delayed model"
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
-  connect(PIGai.kp, RefDat.y[1]) annotation (Line(points={{-10,6},{-26,6},{-26,
-          0},{-38,0}}, color={0,0,127}));
-  connect(PIGai.T, RefDat.y[2])
-    annotation (Line(points={{-10,0},{-38,0}}, color={0,0,127}));
-  connect(PIGai.L, RefDat.y[3]) annotation (Line(points={{-10,-6},{-26,-6},{-26,
-          0},{-38,0}}, color={0,0,127}));
+  connect(L.y, PIGai.L) annotation (Line(points={{-38,-50},{-20,-50},{-20,-6},{-10,
+          -6}}, color={0,0,127}));
+  connect(T.y, PIGai.T) annotation (Line(points={{-38,-10},{-28,-10},{-28,0},{-10,
+          0}}, color={0,0,127}));
+  connect(kp.y, PIGai.kp) annotation (Line(points={{-38,30},{-20,30},{-20,6},{-10,
+          6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,
@@ -57,7 +62,8 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain</a>.
 </p>
 <p>
-The reference data is imported from a raw data that is generated with a Python implementation of this block.
+The input <code>kp</code> varies from <i>1</i> to <i>2</i>, input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
+input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 </html>"));
 end PIGain;

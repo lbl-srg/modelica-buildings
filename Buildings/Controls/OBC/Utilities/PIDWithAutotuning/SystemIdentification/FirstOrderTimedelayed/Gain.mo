@@ -29,12 +29,12 @@ block Gain "Identify the gain of a first order time delayed model"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Gain"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Add Iu
     "Integral of the relay output"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset Iy(
-    final k=1,
-    final y_start=1E-11)
+    final k=1, final y_start=1E-3)
     "Integral of the process output"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant refRelOut(
@@ -43,9 +43,8 @@ block Gain "Identify the gain of a first order time delayed model"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide divIyIu "Calculate the gain"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1E-11)
-    "Avoid divide-by-zero errors"
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(final p=1E-3)
+    "Block that avoids a divide-by-zero error"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOnyHig(
     final k=yHig) "Product of tOn and yHig"
@@ -102,7 +101,7 @@ k = I<sub>y</sub>/I<sub>u</sub>,
 </p>
 <p>
 where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the process
-output and the integral of the relay output, respectively.
+output and the integrals of the relay output, respectively.
 </p>
 <p><i>I<sub>y</sub></i> is calculated by </p>
 <p>I<sub>y</sub> = &int; u(t) dt;</p>

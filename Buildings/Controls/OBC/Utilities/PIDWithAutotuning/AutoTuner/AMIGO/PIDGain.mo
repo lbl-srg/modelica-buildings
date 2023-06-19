@@ -22,8 +22,9 @@ block PIDGain "Identify the control gain of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Calculate the inverse of the input gain"
+    "Block that calculates the inverse of the input gain"
     annotation (Placement(transformation(extent={{-40,56},{-20,76}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const(
     final k=1)
@@ -31,17 +32,17 @@ block PIDGain "Identify the control gain of a PID controller"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.AddParameter add(
     final p=0.2)
-    "Calculate the sum of 0.2 and the output of gai1"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
-    "Calculate ratio of the time constant to the time delay"
+    "Block that calculates the ratio of the time constant to the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.45)
-    "Calculate the product of 0.45 and the output of div2"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Calcualte the sum of the output of addPar and the output of div1"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
@@ -84,7 +85,7 @@ First implementation<br/>
 <p>This block calculates the control gain of a PID model.</p>
 <h4>Main equations</h4>
 <p>
-The main equations is
+The main equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 k = 1/k<sub>p</sub> + (0.2 + 0.45 T/L),
@@ -93,12 +94,6 @@ k = 1/k<sub>p</sub> + (0.2 + 0.45 T/L),
 where <code>k<sub>p</sub></code> is the gain of the first-order time-delayed model,
 <code>T</code> is the time constant of the first-order time-delayed model,
 and <code>L</code> is the time delay of the first-order time-delayed model.
-</p>
-<h4>Validation</h4>
-<p>
-This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDGain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDGain</a>.
 </p>
 <h4>References</h4>
 <p>

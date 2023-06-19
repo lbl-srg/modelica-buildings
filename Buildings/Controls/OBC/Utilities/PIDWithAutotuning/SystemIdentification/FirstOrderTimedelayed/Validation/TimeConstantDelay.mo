@@ -1,29 +1,34 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation;
-model TimeConstantDelay "Test model for TimeConstantDelay"
+model TimeConstantDelay "Test model for identifying the the time constant and the time delay of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay
     timConDel(yLow=0.1)
-    "Calculate the time constant and the time delay of a first-order model"
+    "Block that calculates the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable RefDat(
-        table=[0,1,1,0.3,0.754,0.226;
-        0.098,1,1,0.3,0.754,0.226; 0.1,1,1,0.3,0.754,0.226;
-        0.1,1,1,0.5,0.672,0.336; 0.298,1,1,0.5,0.672,0.336;
-        0.3,1,1,0.5,0.672,0.336; 0.3,1,1,0.1,0.853,0.085;
-        0.698,1,1,0.1,0.853,0.085; 0.7,1,1,0.1,0.853,
-        0.085; 0.7,1,1,0.5,0.672,0.336; 0.828,1,1,0.5,0.672,
-        0.336; 0.83,1,1,0.5,0.672,0.336; 0.83,1,1,0.8,0.575,0.46;
-        0.848,1,1,0.8,0.575,0.46;0.85,1,1,0.8,0.575,0.46;
-        0.85,2,1,0.5,1.344,0.672; 1,2,1,0.5,1.344,0.672], extrapolation=
-        Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Data for validating the timeConstantDelay block"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1)
+  "Gain"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOn(
+    amplitude=-0.1,
+    width=0.1,
+    period=1,
+    offset=0.1)
+    "The length of the on period"
+    annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse ratioLT(
+    amplitude=-0.1,
+    width=0.4,
+    period=0.8,
+    offset=0.4)
+    "Ratio between the time constant and the time delay"
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
 equation
-  connect(RefDat.y[1], timConDel.tOn) annotation (Line(points={{-38,0},{-20,0},
-          {-20,6},{-12,6}}, color={0,0,127}));
-  connect(timConDel.k, RefDat.y[2])
-    annotation (Line(points={{-12,0},{-38,0}}, color={0,0,127}));
-  connect(timConDel.ratioLT, RefDat.y[3]) annotation (Line(points={{-12,-6},{-20,
-          -6},{-20,0},{-38,0}}, color={0,0,127}));
+  connect(tOn.y, timConDel.tOn) annotation (Line(points={{-38,40},{-20,40},{-20,
+          6},{-12,6}}, color={0,0,127}));
+  connect(k.y, timConDel.k)
+    annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
+  connect(ratioLT.y, timConDel.ratioLT) annotation (Line(points={{-38,-40},{-20,
+          -40},{-20,-6},{-12,-6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

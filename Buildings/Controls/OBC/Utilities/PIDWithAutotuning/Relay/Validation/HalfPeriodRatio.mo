@@ -1,26 +1,38 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
-model HalfPeriodRatio "Test model for HalfPeriodRatio"
+model HalfPeriodRatio "Test model for calculating the half period ratio"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRat
-    "Calculate the half period ratio"
-    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOn(
-    table=[0,0; 0.1,1; 0.3,1; 0.7,1; 0.83,2; 0.85,6],
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Signal for the length of the on period"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable tOff(
-    table=[0,0; 0.1,0; 0.3,0; 0.7,3; 0.83,3; 0.85,3],
-    smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Signal for the length of the off period"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    "Calculate the half period ratio based on a response from a relay controller"
+    annotation (Placement(transformation(extent={{22,-10},{42,10}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig1(
+    amplitude=-0.1,
+    width=0.2,
+    period=1,
+    offset=0.1) "Block that generates signals for forming the signal of the length of On period"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig2(
+    amplitude=-0.1,
+    width=0.8,
+    period=1,
+    offset=0.1) "Block that generates signals for forming the signal of the length of On period"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Add tOn "Blocks that generates the length of the on period"
+    annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
+    amplitude=-0.7,
+    width=0.7,
+    period=1,
+    offset=0.7) "The length of the off period"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
-  connect(tOn.y[1], halPerRat.tOn) annotation (Line(points={{-38,30},{-20,30},{
-          -20,6},{-10,6}},      color={0,0,127}));
-  connect(tOff.y[1], halPerRat.tOff) annotation (Line(points={{-38,-30},{-20,
-          -30},{-20,-6},{-10,-6}},      color={0,0,127}));
+  connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-30},{0,-30},{0,
+          -6},{20,-6}},       color={0,0,127}));
+  connect(tOnSig2.y, tOn.u1) annotation (Line(points={{-58,70},{-40,70},{-40,56},
+          {-36,56}}, color={0,0,127}));
+  connect(tOnSig1.y, tOn.u2) annotation (Line(points={{-58,30},{-40,30},{-40,44},
+          {-36,44}}, color={0,0,127}));
+  connect(tOn.y, halPerRat.tOn)
+    annotation (Line(points={{-12,50},{0,50},{0,6},{20,6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

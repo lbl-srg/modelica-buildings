@@ -1,21 +1,21 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
-model OnOffPeriod "Test model for OnOffPeriod"
+model OnOffPeriod "Test model for calculating the length of the on period and the off period"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
-    "Calculate the length of the on period and the off period"
+    "Calculate the length of the on period and the off period based on a response from a relay controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable relRes(table=[0,1; 0.1,0;
-        0.3,0; 0.7,1; 0.83,0; 0.85,1], period=2)
-    "Mimicks the response for a relay controller"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relRes(
+    width=0.2,
+    period=0.8,
+    shift=-0.1) "Mimic the response for a relay controller"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
-  connect(onOffPer.On, relRes.y[1]) annotation (Line(points={{-12,-6},{-20,-6},
-          {-20,-10},{-38,-10}}, color={255,0,255}));
   connect(modTim.y, onOffPer.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
           6},{-12,6}}, color={0,0,127}));
+  connect(relRes.y, onOffPer.on) annotation (Line(points={{-38,-10},{-20,-10},{-20,
+          -6},{-12,-6}}, color={255,0,255}));
   annotation (
       experiment(
       StopTime=1.0,

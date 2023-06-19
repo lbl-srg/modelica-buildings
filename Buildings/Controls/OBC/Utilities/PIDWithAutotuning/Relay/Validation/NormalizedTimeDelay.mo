@@ -1,18 +1,17 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
-model NormalizedTimeDelay "Test model for NormalizedTimeDelay"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(gamma=4)
-    "Calculate the normalized time delay"
+model NormalizedTimeDelay "Test model for calculating the normalized time delay"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(gamma=3)
+    "Calculate the normalized time delay based on a response from a relay controller"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable RefDat(table=[0,0,
-        2.051; 0.298,0,2.051; 0.3,0,2.051; 0.3,1,1; 0.698,1,1; 0.7,1,1; 0.7,1.5,0.709;
-        0.848,1.5,0.709; 0.85,1.5,0.709; 0.85,2,0.494; 0.998,2, 0.494; 1,2,0.494],
-        extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Data for validating the normalizedTimeDelay block"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse rho(
+    amplitude=1,
+    width=0.7,
+    period=1,
+    offset=1) "Half period ratio"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
-  connect(RefDat.y[1], norTimDel.rho)
-    annotation (Line(points={{-38,0},{-10,0}}, color={0,0,127}));
+  connect(rho.y, norTimDel.rho)
+    annotation (Line(points={{-28,0},{-10,0}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

@@ -21,22 +21,23 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
     "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.3)
-    "Calculate the product of 0.3 and the time delay"
+    "Block that calculates the product of 0.3 and the time delay"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.5)
-    "Calculate the product of 0.5 and the input time constant"
+    "Block that calculates the product of 0.5 and the input time constant"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    "Calculate the product of the output of gai2 and the input time constant"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
-    "Calculate the sum of the output of gai1 and the input time constant"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
-    "Calculate the output of mul divided by the output of add"
+    "Block that calculates the first input divided by the second input"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation
@@ -76,10 +77,11 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the derivative time of a PID model.</p>
+<p>This block calculates the derivative time of a PID controller, based on a reduced-order model,
+i.e., a first-order time-delayed model, that approximates the control process.</p>
 <h4>Main equations</h4>
 <p>
-The main equations is
+The main equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>d</sub> = 0.5 L T/(0.3 L + T),
@@ -87,12 +89,6 @@ T<sub>d</sub> = 0.5 L T/(0.3 L + T),
 <p>
 where <code>T</code> is the time constant of the first-order time-delayed model
 and <code>L</code> is the time delay of the first-order time-delayed model.
-</p>
-<h4>Validation</h4>
-<p>
-This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDDerivativeTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDDerivativeTime</a>.
 </p>
 <h4>References</h4>
 <p>

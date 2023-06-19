@@ -27,23 +27,24 @@ block PID "Identify control gain, integral time, and derivative time of the PID 
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Connector for time constant signal for the integral term"
+    "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Connector for time constant signal for the derivative term"
+    "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
+protected
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gai
-    "Calculate the control gain"
+    "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime
-    intTim "Calculate the integral time"
+    intTim "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
-    derTim "Calculate the derivative time"
+    derTim "Block that calculates the derivative time"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation

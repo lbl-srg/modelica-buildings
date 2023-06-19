@@ -37,19 +37,20 @@ block ResponseProcess
     "A real signal of the normalized time delay"
     annotation (Placement(transformation(extent={{100,-10},{140,30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
-    "Calculate the length of the on period and the off period"
+    "Block that calculates the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRatio
-    "Calculate the half period ratio"
+    "Block that calculates the half period ratio"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(
      final gamma=max(yHig, yLow)/min(yLow, yHig))
-    "Calculate the normalized time delay"
+    "Block that calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 equation
-  connect(onOffPer.On, On) annotation (Line(points={{-82,4},{-90,4},{-90,-60},{
+  connect(onOffPer.on, On) annotation (Line(points={{-82,4},{-90,4},{-90,-60},{
           -120,-60}}, color={255,0,255}));
   connect(onOffPer.tim, tim) annotation (Line(points={{-82,16},{-90,16},{-90,60},
           {-120,60}}, color={0,0,127}));
@@ -90,7 +91,7 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block processes a relay swtich output signall and calculates:
+This block processes a relay switch output signal and calculates:
 </p>
 <ol>
 <li>
@@ -103,7 +104,7 @@ the length of the off period (when the relay switch signal becomes <code>false</
 the normalized time delay of the responses;
 </li>
 <li>
-the flags which indicates if the tuning starts and completes, respectively.
+the flags which indicate if the tuning starts and completes, respectively.
 </li>
 </ol>
 <p>

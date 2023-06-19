@@ -1,36 +1,61 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation;
-model ControlProcessModel "Test model for ControlProcessModel"
+model ControlProcessModel
+  "Test model for Identify the reduced-order model of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel
     conProMod(yLow=0.1, deaBan=0.05)
-    "Calculate the parameters of  of a first-order model"
+    "Calculate the parameters of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable RefDat(table=[0,1,1,1,
-        0.3,1,1; 0.1,1,1,1,0.3,1,1; 0.1,0.5,1,1,0.5,1,1; 0.298,0.5,1,1,0.5,1,1;
-        0.3,0.5,1,1,0.5,1,1; 0.3,0.5,1,1,0.1,1,1;0.698,0.5,1,1,0.1,1,1; 0.7,0.5,1,1,0.1,1,1;
-        0.7,0.5,1,3,0.5,0.762,0.762;0.828,0.5,1,3,0.5,0.762,0.762; 0.83,0.5,1,3,0.5,
-        0.762,0.762; 0.83,1,1,3,0.8,0.762,0.762; 0.83,1,1,3,0.8,0.762,0.762;
-        0.848,1,1,3,0.8,0.762,0.762; 0.85,1,1,3,0.8, 0.762,0.762; 0.85,1,2,3,0.5,0.762,0.762;
-        1,1,2,3,0.5,0.762,0.762],
-        extrapolation=Buildings.Controls.OBC.CDL.Types.Extrapolation.HoldLastPoint)
-    "Data for validating the controlProcessModel block"
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable RefBooDat(table=[0,0,0;
-        0.298,0,0; 0.3,0,0; 0.3,1,0; 0.698,1,0; 0.7,1,0; 0.7,1,1; 0.7,1,1;1,1,1], period=1)
-    "Boolean Data for validating the controlProcessModel block"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse u(
+    amplitude=0.5,
+    width=0.125,
+    period=0.8,
+    offset=0.5)
+    "The response of a relay controller"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOn(
+    amplitude=-0.1,
+    width=0.1,
+    period=1,
+    offset=0.1)
+    "The length of the on period"
+    annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
+    amplitude=-0.7,
+    width=0.8,
+    period=1,
+    offset=0.7)
+    "The length of the off period"
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse tunSta(
+    width=0.9,
+    period=1,
+    shift=-0.9) "Mimicking the signal for the tuning period starts"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse tunEnd(
+    width=0.2,
+    period=1,
+    shift=0.8) "Mimicking the signal for the tuning period ends"
+    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse ratioLT(
+    amplitude=-0.1,
+    width=0.4,
+    period=0.8,
+    offset=0.4)
+    "Ratio between the time constant and the time delay"
+    annotation (Placement(transformation(extent={{-48,-40},{-28,-20}})));
 equation
-  connect(RefDat.y[1], conProMod.u) annotation (Line(points={{-58,0},{-20,0},{-20,
-          8},{-12,8}}, color={0,0,127}));
-  connect(conProMod.tOn, RefDat.y[2]) annotation (Line(points={{-12,4},{-18,4},
-          {-18,0},{-58,0}}, color={0,0,127}));
-  connect(conProMod.tOff, RefDat.y[3]) annotation (Line(points={{-12,-4},{-16,-4},
-          {-16,0},{-58,0}}, color={0,0,127}));
-  connect(conProMod.tau, RefDat.y[4]) annotation (Line(points={{-12,-8},{-18,-8},
-          {-18,0},{-58,0}}, color={0,0,127}));
-  connect(RefBooDat.y[1], conProMod.triSta)
+  connect(tunSta.y, conProMod.triSta)
     annotation (Line(points={{-58,-50},{-6,-50},{-6,-12}}, color={255,0,255}));
-  connect(conProMod.triEnd, RefBooDat.y[2])
-    annotation (Line(points={{6,-12},{6,-50},{-58,-50}}, color={255,0,255}));
+  connect(conProMod.triEnd, tunEnd.y)
+    annotation (Line(points={{6,-12},{6,-90},{-58,-90}}, color={255,0,255}));
+  connect(u.y, conProMod.u) annotation (Line(points={{-58,90},{-20,90},{-20,8},{
+          -12,8}}, color={0,0,127}));
+  connect(tOn.y, conProMod.tOn) annotation (Line(points={{-58,52},{-30,52},{-30,
+          4},{-12,4}}, color={0,0,127}));
+  connect(conProMod.tOff, tOff.y) annotation (Line(points={{-12,-4},{-40,-4},{-40,
+          10},{-58,10}}, color={0,0,127}));
+  connect(ratioLT.y, conProMod.tau) annotation (Line(points={{-26,-30},{-20,-30},
+          {-20,-8},{-12,-8}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

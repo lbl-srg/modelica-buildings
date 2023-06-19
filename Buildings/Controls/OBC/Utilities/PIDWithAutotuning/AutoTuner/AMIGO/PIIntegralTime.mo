@@ -21,41 +21,42 @@ block PIIntegralTime "Identify the integral time of a PI controller"
     "Time constant for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),
         iconTransformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1
-    "Calculate the sum of the output of mul3 and the output of gai1"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{0,44},{20,64}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Calculate the sum of 0.35 and the output of div"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add3
-    "Calculate the sum of the output of add1 and the output of mul2"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{60,-54},{80,-34}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
-    "Calculate the output of gai3 divided by the output of add3"
+    "Block that calculates the input 1 divided by input 2"
     annotation (Placement(transformation(extent={{0,-4},{20,16}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=12)
-    "Mutiple the time delay by 12"
+    "Block that mutiples the time delay by 12"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=7)
-    "Mutiple the time delay by 7"
+    "Block that mutiples the time delay by 7"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=13)
-    "Mutiple the output of mul3 by 13"
+    "Block that mutiples the output of mul3 by 13"
     annotation (Placement(transformation(extent={{-20,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(final k=0.35)
-    "Mutiple the time delay by 0.35"
+    "Block that mutiples the time delay by 0.35"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
-    "Calculate the product of the input time constant and the output of gai1"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
-    "Calculate the product of the time delay and the output of gai2"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
-    "Calculate the square value of the input time constant"
+    "Block that calculates the square value of the input time constant"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
-    "Calculate the product of the output of the gai3 and the time delay"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-80,2},{-60,22}})));
 
 equation
@@ -123,7 +124,7 @@ First implementation<br/>
 <p>This block calculates the integral time of a PI model</p>
 <h4>Main equations</h4>
 <p>
-The main equations is
+The main equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>i</sub> = 0.35 L + 13 L T<sup>2</sup>/(T<sup>2</sup> + 12 L T + 7 L<sup>2</sup>),
@@ -131,12 +132,6 @@ T<sub>i</sub> = 0.35 L + 13 L T<sup>2</sup>/(T<sup>2</sup> + 12 L T + 7 L<sup>2<
 <p>
 where <code>T</code> is the time constant of the first-order time-delayed model
 and <code>L</code> is the time delay of the first-order time-delayed model.
-</p>
-<h4>Validation</h4>
-<p>
-This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIIntegralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIIntegralTime</a>.
 </p>
 <h4>References</h4>
 <p>

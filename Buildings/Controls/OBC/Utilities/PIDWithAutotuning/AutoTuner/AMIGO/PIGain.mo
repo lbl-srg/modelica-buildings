@@ -22,6 +22,7 @@ block PIGain "Identify the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain of a PI controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculate the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -35,28 +36,28 @@ block PIGain "Identify the control gain of a PI controller"
     "Constant parameter 2 (value 0.15)"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Calculate 0.15 divided by the control gain"
+    "Block that calculates 0.15 divided by the control gain"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
-    "Calculate the output of mul2 divided by the output of mul1"
+    "Block that calculates the input 1 divided by the input 2"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div3
-    "Calculate the time constant divided by the output of mul2"
+    "Block that calculates the input 1 divided by the input 2"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
-    "Calculate the square value of the sum of the time constant and the time delay"
+    "Block that calculates the square value of the sum of the time constant and the time delay"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul2
-    "Calculate the product of the gain and the time delay"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul3
-    "Calculate the product of the output of sub and the output of div3"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul4
-    "Calculate the product of the time constant times the time delay"
+    "Block that calculates the product of the two inputs"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub
-    "Calculate the difference between 0.35 and the output of div2"
+    "Block that calculates the difference between the two inputs"
     annotation (Placement(transformation(extent={{60,-54},{80,-34}})));
 
 equation
@@ -125,7 +126,7 @@ First implementation<br/>
 <p>This block calculates the control gain of a PI model, <i>k</i></p>
 <h4>Main equations</h4>
 <p>
-The main equations is
+The main equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
@@ -134,12 +135,6 @@ k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
 where <code>k<sub>p</sub></code> is the gain of the first-order time-delayed model,
 <code>T</code> is the time constant of the first-order time-delayed model, and
 <code>L</code> is the time delay of the first-order time-delayed model.
-</p>
-<h4>Validation</h4>
-<p>
-This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIGain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIGain</a>.
 </p>
 <h4>References</h4>
 <p>
