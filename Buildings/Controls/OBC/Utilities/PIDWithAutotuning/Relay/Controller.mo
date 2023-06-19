@@ -95,7 +95,32 @@ equation
         Text(
           extent={{-100,140},{100,100}},
           textString="%name",
-          textColor={0,0,255})}),                                Diagram(
+          textColor={0,0,255}),
+        Polygon(
+          points={{-70,92},{-78,70},{-62,70},{-70,92}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{84,-70},{62,-62},{62,-78},{84,-70}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-70,78},{-70,-90}},
+          color={192,192,192}),
+        Line(
+          points={{-80,-70},{80,-70}},
+          color={192,192,192}),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-62,-10},{84,-52}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="Relay"),
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
+            ={28,108,200})}),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

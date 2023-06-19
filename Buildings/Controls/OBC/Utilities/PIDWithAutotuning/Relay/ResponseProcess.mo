@@ -38,13 +38,13 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{100,-10},{140,30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
+  BaseClasses.OnOffPeriod                                              onOffPer
     "Block that calculates the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio halPerRatio
+  BaseClasses.HalfPeriodRatio                                              halPerRatio
     "Block that calculates the half period ratio"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay norTimDel(
+  BaseClasses.NormalizedTimeDelay                                              norTimDel(
      final gamma=max(yHig, yLow)/min(yLow, yHig))
     "Block that calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -81,7 +81,20 @@ equation
         Text(
           extent={{-100,140},{100,100}},
           textString="%name",
-          textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textColor={0,0,255}),
+        Polygon(
+          points={{-54,56},{-62,34},{-46,34},{-54,56}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{34,-58},{26,-36},{42,-36},{34,-58}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-54,60},{30,60},{34,60},{34,-36}}, color={28,108,200}),
+        Line(points={{-54,34},{-54,-64},{36,-64}}, color={28,108,200})}),
+                                  Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>

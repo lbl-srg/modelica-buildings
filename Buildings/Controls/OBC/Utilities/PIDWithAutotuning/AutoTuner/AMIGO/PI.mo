@@ -31,10 +31,10 @@ block PI "Identify control gain and integral time of a PI controller"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIGain gai
+  BaseClasses.PIGain                                                        gai
     "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIIntegralTime
+  BaseClasses.PIIntegralTime
     intTim "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
@@ -63,7 +63,40 @@ equation
         Text(
           extent={{-100,140},{100,100}},
           textString="%name",
-          textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textColor={0,0,255}),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-16,-12},{84,-52}},
+          lineColor={0,0,0},
+          textString="PI",
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175}),
+        Polygon(
+          points={{12,-30},{-10,-22},{-10,-38},{12,-30}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{32,-14},{24,8},{40,8},{32,-14}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{32,8},{32,44}}, color={28,108,200}),
+        Line(points={{-42,-30},{-10,-30}}, color={28,108,200}),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-18,80},{82,40}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="k"),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-116,-10},{-16,-50}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="Ti")}),     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>

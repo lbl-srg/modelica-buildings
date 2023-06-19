@@ -72,12 +72,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "The output of samtau divided by that of addPar"
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain gain(
+  BaseClasses.Gain                                                                                   gain(
     final yHig=yHig,
     final yLow=yLow)
     "Block that calculates the gain"
     annotation (Placement(transformation(extent={{-84,10},{-64,30}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay
+  BaseClasses.TimeConstantDelay
     timConDel(
     final yHig=yHig,
     final yLow=yLow,
@@ -178,7 +178,23 @@ equation
         Text(
           extent={{-100,140},{100,100}},
           textString="%name",
-          textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textColor={0,0,255}),
+        Polygon(
+          points={{-68,76},{-76,54},{-60,54},{-68,76}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{80,-74},{58,-66},{58,-82},{80,-74}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-68,56},{-68,-94}}, color={28,108,200}),
+        Line(points={{58,-74},{-90,-74}}, color={28,108,200}),
+        Line(points={{-52,-74},{-46,-48},{-26,-14},{0,10},{28,28},{48,34},{62,
+              34}}, color={28,108,200}),
+        Line(points={{-58,36},{82,36}}, color={28,108,200})}),
+                                  Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>

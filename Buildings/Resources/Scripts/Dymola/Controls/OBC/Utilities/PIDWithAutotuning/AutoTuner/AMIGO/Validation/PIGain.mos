@@ -1,3 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIGain", method="Cvode", tolerance=1e-06, resultFile="PIGain");
-createPlot(id=1, position={15, 15, 884, 547}, y={"kp.y", "T.y", "L.y"}, range={0.0, 1.0, 0.0, 2.5}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}, {0,140,72}});
-createPlot(id=1, position={15, 15, 884, 547}, y={"PIGai.k"}, range={0.0, 1.0, 0.15000000000000002, 0.35000000000000003}, grid=true, subPlot=102, colors={{28,108,200}});

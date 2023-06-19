@@ -1,3 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIDDerivativeTime", method="Cvode", tolerance=1e-06, resultFile="PIDDerivativeTime");
-createPlot(id=1, position={35, 35, 884, 547}, y={"T.y", "L.y"}, range={0.0, 1.0, 0.2, 1.2}, grid=true, subPlot=101, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={35, 35, 884, 547}, y={"PIDDerTim.Td"}, range={0.0, 1.0, 0.10000000000000002, 0.30000000000000004}, grid=true, subPlot=102, colors={{28,108,200}});

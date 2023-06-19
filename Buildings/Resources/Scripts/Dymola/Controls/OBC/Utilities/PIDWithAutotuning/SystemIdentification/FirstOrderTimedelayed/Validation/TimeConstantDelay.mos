@@ -1,6 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation.TimeConstantDelay", method="Cvode", tolerance=1e-06, resultFile="TimeConstantDelay");
-createPlot(id=1, position={15, 15, 1101, 667}, y={"tOn.y"}, range={0.0, 1.0, -0.1, 0.20000000000000004}, grid=true, subPlot=101, colors={{28,108,200}});
-createPlot(id=1, position={15, 15, 1101, 667}, y={"k.y"}, range={0.0, 1.0, 0.8, 1.2000000000000002}, grid=true, subPlot=102, colors={{28,108,200}});
-createPlot(id=1, position={15, 15, 1101, 667}, y={"ratioLT.y"}, range={0.0, 1.0, 0.20000000000000004, 0.5000000000000001}, grid=true, subPlot=103, colors={{28,108,200}});
-createPlot(id=1, position={15, 15, 1101, 667}, y={"timConDel.T"}, range={0.0, 1.0, -0.1, 0.20000000000000004}, grid=true, subPlot=104, colors={{28,108,200}});
-createPlot(id=1, position={15, 15, 1101, 667}, y={"timConDel.L"}, range={0.0, 1.0, -0.05, 0.05}, grid=true, subPlot=105, colors={{28,108,200}});

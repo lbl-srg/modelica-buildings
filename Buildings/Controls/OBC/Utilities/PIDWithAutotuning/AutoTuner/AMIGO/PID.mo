@@ -37,13 +37,13 @@ block PID "Identify control gain, integral time, and derivative time of the PID 
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 protected
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gai
+  BaseClasses.PIDGain                                                        gai
     "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime
+  BaseClasses.PIDIntegralTime
     intTim "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
+  BaseClasses.PIDDerivativeTime
     derTim "Block that calculates the derivative time"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
@@ -78,7 +78,53 @@ equation
         Text(
           extent={{-154,148},{146,108}},
           textString="%name",
-          textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textColor={0,0,255}),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-16,20},{84,-20}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="PID"),
+        Polygon(
+          points={{32,22},{24,44},{40,44},{32,22}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,2},{-22,10},{-22,-6},{0,2}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{32,44},{32,68}}, color={28,108,200}),
+        Polygon(
+          points={{32,-22},{24,-44},{40,-44},{32,-22}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-22,2},{-48,2}}, color={28,108,200}),
+        Line(points={{32,-44},{32,-62}}, color={28,108,200}),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-16,102},{84,62}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="k"),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-116,26},{-16,-14}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="Ti"),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-18,-62},{82,-102}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="Td")}),     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>
