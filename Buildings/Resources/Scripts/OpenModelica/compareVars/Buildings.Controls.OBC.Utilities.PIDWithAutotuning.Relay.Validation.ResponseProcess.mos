@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "relRes.y",
+    "enaSig.y",
     "resPro.tOn",
     "resPro.tOff",
     "resPro.triEnd",
