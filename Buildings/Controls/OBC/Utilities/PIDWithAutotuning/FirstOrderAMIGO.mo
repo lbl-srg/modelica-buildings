@@ -71,7 +71,7 @@ block FirstOrderAMIGO
         extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triAutTun
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triTun
     "Starts the autotuning when trigger becomes true" annotation (Placement(
         transformation(
         extent={{-20,-20},{20,20}},
@@ -220,14 +220,14 @@ equation
                                                   color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
-  connect(rel.trigger, triAutTun) annotation (Line(points={{24,-2},{24,-82},{60,
-          -82},{60,-120}}, color={255,0,255}));
+  connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-82},{60,-82},
+          {60,-120}}, color={255,0,255}));
   connect(or1.u1, resPro.triEnd) annotation (Line(points={{58,-60},{52,-60},{52,
           -50},{46,-50},{46,-20},{-10,-20},{-10,32},{-2,32}}, color={255,0,255}));
   connect(or1.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,-40},{
           48,-40},{48,-20},{58,-20}}, color={255,0,255}));
-  connect(not1.u, triAutTun) annotation (Line(points={{28,-68},{24,-68},{24,-82},
-          {60,-82},{60,-120}}, color={255,0,255}));
+  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-82},{
+          60,-82},{60,-120}}, color={255,0,255}));
   connect(not1.y, or1.u2)
     annotation (Line(points={{52,-68},{58,-68}}, color={255,0,255}));
   annotation (Documentation(info="<html>

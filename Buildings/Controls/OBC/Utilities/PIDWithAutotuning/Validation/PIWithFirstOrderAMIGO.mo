@@ -84,7 +84,7 @@ equation
           {40,20},{40,86},{58,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{82,-50},{92,-50},
           {92,-66},{40,-66},{40,-20},{32,-20}}, color={0,0,127}));
-  connect(autTunSig.y, PIWitTun.triAutTun)
+  connect(autTunSig.y, PIWitTun.triTun)
     annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   annotation (
     experiment(
