@@ -1,8 +1,7 @@
 compareVars :=
   {
-    "PIDGai.kp",
-    "PIDGai.T",
-    "PIDGai.L",
-    "PIDGai.k",
-    "RefDat.y[4]"
+    "kp.y",
+    "T.y",
+    "L.y",
+    "PIDGai.k"
   };

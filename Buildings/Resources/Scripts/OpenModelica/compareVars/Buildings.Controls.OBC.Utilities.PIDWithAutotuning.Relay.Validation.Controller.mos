@@ -1,5 +1,8 @@
 compareVars :=
   {
     "relCon.u_m",
-    "relCon.y"
+    "relRes.y",
+    "relCon.y",
+    "relCon.yErr",
+    "relCon.yOn"
   };

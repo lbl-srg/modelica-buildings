@@ -1,7 +1,6 @@
 compareVars :=
   {
-    "PIIntTim.T",
-    "PIIntTim.L",
-    "PIIntTim.Ti",
-    "RefDat.y[5]"
+    "T.y",
+    "L.y",
+    "PIIntTim.Ti"
   };

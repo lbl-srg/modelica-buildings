@@ -1,6 +1,5 @@
 compareVars :=
   {
-    "norTimDel.rho",
-    "norTimDel.tau",
-    "RefDat.y[2]"
+    "rho.y",
+    "norTimDel.tau"
   };

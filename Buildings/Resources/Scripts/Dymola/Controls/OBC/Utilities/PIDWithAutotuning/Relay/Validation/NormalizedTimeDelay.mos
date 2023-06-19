@@ -1,5 +1,3 @@
 simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.NormalizedTimeDelay", method="Cvode", tolerance=1e-06, resultFile="NormalizedTimeDelay");
-createPlot(id=1, position={75, 75, 1484, 920}, y={"norTimDel.rho"}, range={0.0, 1.0, -0.5, 2.5}, grid=true, subPlot=1, colors={{28,108,200}});
-createPlot(id=1, position={95, 95, 1484, 920}, y={"norTimDel.tau", "RefDat.y[2]"}, range={0.0, 1.0, 0.0, 2.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-
-
+createPlot(id=1, position={35, 35, 884, 547}, y={"rho.y"}, range={0.0, 1.0, 0.5, 2.5}, grid=true, subPlot=101, colors={{28,108,200}});
+createPlot(id=1, position={35, 35, 884, 547}, y={"norTimDel.tau"}, range={0.0, 1.0, 0.2, 1.2}, grid=true, subPlot=102, colors={{28,108,200}});

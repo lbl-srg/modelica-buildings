@@ -1,6 +1,7 @@
 simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.Controller", method="Cvode", tolerance=1e-06, stopTime=1.0, resultFile="Controller");
-createPlot(id=1, position={75, 75, 1484, 920}, y={"relCon.u_m"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}});
+createPlot(id=1, position={24, 24, 1148, 620}, y={"relCon.u_m"}, range={0.0, 1.0, -1.5, 1.5}, grid=true, subPlot=101, colors={{28,108,200}});
 plotExpression(apply(Controller[end].relCon.u_s-0.4), false, "controller[end].relCon.u_s-deaBan", 1);
 plotExpression(apply(Controller[end].relCon.u_s+0.4), false, "controller[end].relCon.u_s+deaBan", 1);
-createPlot(id=1, position={75, 75, 1484, 920}, y={"relCon.y"}, range={0.0, 1.0, -1.0, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
-
+createPlot(id=1, position={15, 15, 1148, 620}, y={"relRes.y"}, range={0.0, 1.0, -1.0, 2.0}, grid=true, subPlot=102, colors={{28,108,200}});
+createPlot(id=1, position={15, 15, 1148, 620}, y={"relCon.y"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=103, colors={{28,108,200}});
+createPlot(id=1, position={15, 15, 1148, 620}, y={"relCon.yErr", "relCon.yOn"}, range={0.0, 1.0, -2.0, 2.0}, grid=true, subPlot=104, colors={{28,108,200}, {238,46,47}});

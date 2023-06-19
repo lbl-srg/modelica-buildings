@@ -1,6 +1,6 @@
 compareVars :=
   {
-    "onOffPer.On",
+    "relRes.y",
     "onOffPer.tOn",
     "onOffPer.tOff"
   };

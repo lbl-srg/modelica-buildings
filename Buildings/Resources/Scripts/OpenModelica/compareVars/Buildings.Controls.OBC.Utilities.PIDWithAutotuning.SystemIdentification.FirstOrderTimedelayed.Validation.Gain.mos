@@ -1,8 +1,8 @@
 compareVars :=
   {
-    "u.y[1]",
-    "tOn.y[1]",
-    "tOff.y[1]",
-    "tunSta.y[1]",
+    "u.y",
+    "tOn.y",
+    "tOff.y",
+    "tunSta.y",
     "gai.k"
   };

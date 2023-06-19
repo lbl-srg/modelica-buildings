@@ -1,7 +1,12 @@
 compareVars :=
   {
+    "tunSta.y",
+    "tunEnd.y",
+    "u.y",
+    "ratioLT.y",
+    "tOn.y",
+    "tOff.y",
+    "conProMod.k",
     "conProMod.T",
-    "RefDat.y[5]",
-    "conProMod.L",
-    "RefDat.y[6]"
+    "conProMod.L"
   };
