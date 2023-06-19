@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation;
-model PIWithFirstOrderAMIGO "Test model for FirstOrderAMIGO"
+model PIWithFirstOrderAMIGO "Test model for an autotuning PI controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant SetPoint(k=0.8)
     "Setpoint value"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -41,10 +41,15 @@ model PIWithFirstOrderAMIGO "Test model for FirstOrderAMIGO"
     "A derivative block that is used to mimic the first order process 2"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
 
+  CDL.Logical.Sources.Pulse autTunSig(
+    width=0.9,
+    period=10000,
+    shift=-9000) "Signal for enabling the autotuning"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
 equation
   connect(resSig.y, PI.trigger) annotation (Line(points={{-58,70},{-30,70},{-30,
           40},{-16,40},{-16,48}}, color={255,0,255}));
-  connect(PIWitTun.tri, PI.trigger) annotation (Line(points={{-16,-32},{-16,-38},
+  connect(PIWitTun.triRes, PI.trigger) annotation (Line(points={{-16,-32},{-16,-38},
           {-30,-38},{-30,40},{-16,40},{-16,48}}, color={255,0,255}));
   connect(PIWitTun.u_s, PI.u_s) annotation (Line(points={{-22,-20},{-48,-20},{-48,
           60},{-22,60}}, color={0,0,127}));
@@ -79,6 +84,8 @@ equation
           {40,20},{40,86},{58,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{82,-50},{92,-50},
           {92,-66},{40,-66},{40,-20},{32,-20}}, color={0,0,127}));
+  connect(autTunSig.y, PIWitTun.triAutTun)
+    annotation (Line(points={{-58,-50},{-4,-50},{-4,-32}}, color={255,0,255}));
   annotation (
     experiment(
       StopTime=10000,
@@ -93,16 +100,9 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example compares the output of a PI controller (<code>PIWitTun</code>)
-with an autotuning feature to that of another PI controller (<code>PI</code>)
-with arbitary gains.
-</p>
-<p>
-Both PI controllers are connected with a first-order control process.
-Under the control of <code>PIWitTun</code>, the value of the controlled variable
-is close to the setpoint after the tuning period ends (<code>PIWitTun.resPro.triEnd = true</code>). 
-On the contrary, <code>PI</code> has a poor control performance,
-i.e., the value of the controlled variable oscillates, without an autotuning setup.
+This example is almost identical to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Validation.PIDWithFirstOrderAMIGO</a>.
+However, an autotuning PI controller rather than an autotuning PID controller is considered in this example.
 </p>
 </html>",
       revisions="<html>
