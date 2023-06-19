@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
-package Validation "Collection of models that validate the blocks for PID autotuning"
+package Validation "Collection of models that validate the blocks for autotuning PID controllers"
   annotation (
     preferredView="info",
     Documentation(
