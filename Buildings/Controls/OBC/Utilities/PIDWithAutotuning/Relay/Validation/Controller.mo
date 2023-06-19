@@ -9,17 +9,17 @@ model Controller "Test model for a relay controller"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relRes(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
     width=0.5,
     period=1,
-    shift=-0.5) "Mimic the response for a relay controller"
+    shift=-0.5) "Enable signal"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
   connect(con.y, relCon.u_s)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
   connect(sin.y, relCon.u_m)
     annotation (Line(points={{-38,-80},{0,-80},{0,-12}}, color={0,0,127}));
-  connect(relRes.y, relCon.trigger)
+  connect(enaSig.y, relCon.trigger)
     annotation (Line(points={{-38,-40},{-6,-40},{-6,-12}}, color={255,0,255}));
   annotation (
       experiment(
@@ -55,6 +55,12 @@ First implementation<br/>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
+</p>
+<p>
+The input signal, <code>sin</code>, mimics the response of a control process.
+In the first half of the test period, the relay controller is disabled, its output remains unchanged
+from the initial values.
+In the rest time, the relay controller is enabled and its output changes based on <code>sin</code>.  
 </p>
 </html>"));
 end Controller;

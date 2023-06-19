@@ -63,7 +63,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain</a>.
 </p>
 <p>
 The input <code>kp</code> varies from <i>1</i> to <i>2</i>, input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
-input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
+and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 </html>"));
 end PIDGain;

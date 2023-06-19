@@ -32,9 +32,9 @@ model ControlProcessModel
     shift=-0.9) "Mimicking the signal for the tuning period starts"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse tunEnd(
-    width=0.2,
+    width=0.1,
     period=1,
-    shift=0.8) "Mimicking the signal for the tuning period ends"
+    shift=0.9) "Mimicking the signal for the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse ratioLT(
     amplitude=-0.1,
@@ -91,5 +91,18 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.ControlProcessModel</a>.
 </p>
+This example considers an output from a relay controller, which is described below:
+<ul>
+<li>
+At 0.1s, the output switches from On to Off.
+</li>
+<li>
+At 0.8s, the output switches to On.
+</li>
+<li>
+At 0.9s, the output switches to Off.
+</li>
+</ul>
+This output triggers an autotuning process that lasts from 0.1s to 0.8s.
 </html>"));
 end ControlProcessModel;

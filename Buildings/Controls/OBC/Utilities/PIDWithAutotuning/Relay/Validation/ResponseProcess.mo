@@ -6,15 +6,15 @@ model ResponseProcess "Test model for processing the response of a relay control
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relRes(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
     width=0.2,
     period=0.8,
-    shift=-0.1) "Mimic the response for a relay controller"
+    shift=-0.1) "Enable signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(modTim.y, resPro.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
           6},{-12,6}}, color={0,0,127}));
-  connect(relRes.y, resPro.On) annotation (Line(points={{-38,-20},{-20,-20},{-20,
+  connect(enaSig.y,resPro.on)  annotation (Line(points={{-38,-20},{-20,-20},{-20,
           -6},{-12,-6}}, color={255,0,255}));
   annotation (
       experiment(
@@ -51,6 +51,10 @@ First implementation<br/>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess</a>.
+</p>
+<p>
+This testing scenario in this example is the same to that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.OnOffPeriod\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.OnOffPeriod</a>.
 </p>
 </html>"));
 end ResponseProcess;

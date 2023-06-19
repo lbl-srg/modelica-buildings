@@ -101,7 +101,7 @@ k = I<sub>y</sub>/I<sub>u</sub>,
 </p>
 <p>
 where <i>I<sub>y</sub></i> and <i>I<sub>u</sub></i> are the integral of the process
-output and the integrals of the relay output, respectively.
+output and the integral of the relay output, respectively.
 </p>
 <p><i>I<sub>y</sub></i> is calculated by </p>
 <p>I<sub>y</sub> = &int; u(t) dt;</p>

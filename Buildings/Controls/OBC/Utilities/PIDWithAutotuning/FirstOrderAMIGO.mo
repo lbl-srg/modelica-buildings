@@ -167,7 +167,7 @@ equation
     annotation (Line(points={{58,-28},{52,-28},{52,16},{42,16}}, color={0,0,127}));
   connect(swi.u1,PID. y) annotation (Line(points={{58,-12},{40,-12},{40,-40},{22,
           -40}}, color={0,0,127}));
-  connect(resPro.On, rel.yOn) annotation (Line(points={{22,34},{58,34},{58,4},{42,
+  connect(resPro.on, rel.yOn) annotation (Line(points={{22,34},{58,34},{58,4},{42,
           4}}, color={255,0,255}));
   connect(modTim.y, resPro.tim) annotation (Line(points={{58,70},{40,70},{40,46},
           {22,46}}, color={0,0,127}));

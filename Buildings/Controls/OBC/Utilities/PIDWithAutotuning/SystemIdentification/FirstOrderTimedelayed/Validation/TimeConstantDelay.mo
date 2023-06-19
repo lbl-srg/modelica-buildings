@@ -64,5 +64,10 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay</a>.
 </p>
+<p>
+Input <code>tOn</code> changes from 0 to 0.1 at 0.1s,
+Input <code>k</code> is constant,
+Input <code>ratioLT</code> changes twice, from 0.3 to 0.4 at 0.32s and from 0.4 to 0.3 at 0.8s.
+</p>
 </html>"));
 end TimeConstantDelay;

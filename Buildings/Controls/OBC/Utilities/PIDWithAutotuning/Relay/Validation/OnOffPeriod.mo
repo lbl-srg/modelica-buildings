@@ -6,15 +6,15 @@ model OnOffPeriod "Test model for calculating the length of the on period and th
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relRes(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
     width=0.2,
     period=0.8,
-    shift=-0.1) "Mimic the response for a relay controller"
+    shift=-0.1) "Enable signal"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(modTim.y, onOffPer.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
           6},{-12,6}}, color={0,0,127}));
-  connect(relRes.y, onOffPer.on) annotation (Line(points={{-38,-10},{-20,-10},{-20,
+  connect(enaSig.y, onOffPer.on) annotation (Line(points={{-38,-10},{-20,-10},{-20,
           -6},{-12,-6}}, color={255,0,255}));
   annotation (
       experiment(
@@ -52,5 +52,17 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod</a>.
 </p>
+This example considers an output from a relay controller, <code>enaSig</code>.
+<ul>
+<li>
+At 0.06s, <code>enaSig</code> switches from On to Off.
+</li>
+<li>
+At 0.7s, <code>enaSig</code> switches to On.
+</li>
+<li>
+At 0.86s, <code>enaSig</code> switches to Off.
+</li>
+</ul>
 </html>"));
 end OnOffPeriod;

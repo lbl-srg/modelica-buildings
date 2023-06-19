@@ -5,7 +5,7 @@ block ResponseProcess
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput On
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
     "Relay switch signal"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -50,7 +50,7 @@ protected
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
 equation
-  connect(onOffPer.on, On) annotation (Line(points={{-82,4},{-90,4},{-90,-60},{
+  connect(onOffPer.on,on)  annotation (Line(points={{-82,4},{-90,4},{-90,-60},{
           -120,-60}}, color={255,0,255}));
   connect(onOffPer.tim, tim) annotation (Line(points={{-82,16},{-90,16},{-90,60},
           {-120,60}}, color={0,0,127}));

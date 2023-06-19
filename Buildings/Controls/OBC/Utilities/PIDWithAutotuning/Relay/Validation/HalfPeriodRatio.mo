@@ -12,17 +12,17 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig2(
     amplitude=-0.1,
-    width=0.8,
+    width=0.9,
     period=1,
     offset=0.1) "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Add tOn "Blocks that generates the length of the on period"
     annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
-    amplitude=-0.7,
+    amplitude=-0.5,
     width=0.7,
     period=1,
-    offset=0.7) "The length of the off period"
+    offset=0.5) "The length of the off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-30},{0,-30},{0,
@@ -68,6 +68,21 @@ First implementation<br/>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
+This example mimics an output from a relay controller.
 </p>
+<ul>
+<li>
+At 0.1s, the output switches from On to Off.
+The length of the On period becomes 0.1s.
+</li>
+<li>
+At 0.7s, the output switches to On.
+The length of the Off period becomes 0.5s.
+</li>
+<li>
+At 0.9s, the output switches to Off.
+The length of the On period becomes 0.2s.
+</li>
+</ul>
 </html>"));
 end HalfPeriodRatio;

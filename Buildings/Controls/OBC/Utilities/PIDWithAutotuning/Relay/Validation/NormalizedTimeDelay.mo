@@ -48,5 +48,8 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>.
 </p>
+<p>
+The input <code>rho</code> is a step signal that changes from 2 to 1 at 0.7s.
+</p>
 </html>"));
 end NormalizedTimeDelay;

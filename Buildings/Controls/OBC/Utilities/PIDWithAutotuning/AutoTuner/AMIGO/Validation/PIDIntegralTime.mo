@@ -56,7 +56,7 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTi
 </p>
 <p>
 The input input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
-input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
+and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 </html>"));
 end PIDIntegralTime;
