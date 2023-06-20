@@ -1,12 +1,17 @@
 within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.Validation;
-model PlantEnable "Validation model for PlantEnable sequence"
+model PlantEnable
+  "Validation model for PlantEnable sequence"
+
+  parameter Integer nSchRow(
+    final min=1) = 4
+    "Number of rows to be created for plant schedule table";
+
+  parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
+    "Table defining schedule for enabling plant";
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable
     plaEna(
-    final nIgnReq=2,
-    final plaOffThrTim=15*60,
-    final plaOnThrTim=15*60,
-    final schTab=[0,0; 1,1; 18,1; 24,1])
+    final nIgnReq=2)
     "Testing time-variance for all inputs"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
@@ -24,12 +29,18 @@ model PlantEnable "Validation model for PlantEnable sequence"
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.PlantEnable
     plaEna3(
-    final nIgnReq=2,
-    final schTab=[0,0; 1,1; 18,1; 24,1])
+    final nIgnReq=2)
     "Testing time-varying boiler plant enable schedule"
     annotation (Placement(transformation(extent={{80,-50},{100,-30}})));
 
 protected
+  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
+    final table=schTab,
+    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
+    final timeScale=3600)
+    "Table defining when plant can be enabled"
+    annotation (Placement(transformation(extent={{-110,110},{-90,130}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
     final amplitude=2,
     final freqHz=1/(6*60),
@@ -100,6 +111,11 @@ protected
     "Input for outdoor air temperature"
     annotation (Placement(transformation(extent={{10,-70},{30,-50}})));
 
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    final t=0.5)
+    "Check if schedule lets the controller enable the plant or not"
+    annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
+
 equation
   connect(sin.y, reaToInt.u)
     annotation (Line(points={{-68,80},{-62,80}},
@@ -114,31 +130,41 @@ equation
     annotation (Line(points={{38,-20},{32,-20}},
       color={0,0,127}));
   connect(plaEna1.supResReq, reaToInt1.y)
-    annotation (Line(points={{-22,-36},{-30,-36},{-30,-20},{-38,-20}},
+    annotation (Line(points={{-22,-40},{-30,-40},{-30,-20},{-38,-20}},
       color={255,127,0}));
   connect(plaEna2.supResReq, reaToInt2.y)
-    annotation (Line(points={{78,64},{70,64},{70,80},{62,80}},
+    annotation (Line(points={{78,60},{70,60},{70,80},{62,80}},
       color={255,127,0}));
   connect(plaEna2.TOut, sin5.y)
-    annotation (Line(points={{78,56},{70,56},{70,40},{32,40}},
+    annotation (Line(points={{78,54},{70,54},{70,40},{32,40}},
       color={0,0,127}));
   connect(plaEna3.supResReq, reaToInt3.y)
-    annotation (Line(points={{78,-36},{70,-36},{70,-20},{62,-20}},
+    annotation (Line(points={{78,-40},{70,-40},{70,-20},{62,-20}},
       color={255,127,0}));
   connect(plaEna3.TOut, con3.y)
-    annotation (Line(points={{78,-44},{70,-44},{70,-60},{32,-60}},
+    annotation (Line(points={{78,-46},{70,-46},{70,-60},{32,-60}},
       color={0,0,127}));
   connect(reaToInt.y, plaEna.supResReq)
-    annotation (Line(points={{-38,80},{-30,80},{-30,64},{-22,64}},
+    annotation (Line(points={{-38,80},{-30,80},{-30,60},{-22,60}},
       color={255,127,0}));
   connect(sin1.y, plaEna.TOut)
-    annotation (Line(points={{-68,40},{-30,40},{-30,56},{-22,56}},
+    annotation (Line(points={{-68,40},{-30,40},{-30,54},{-22,54}},
       color={0,0,127}));
   connect(con1.y, plaEna1.TOut)
-    annotation (Line(points={{-68,-60},{-30,-60},{-30,-44},{-22,-44}},
+    annotation (Line(points={{-68,-60},{-30,-60},{-30,-46},{-22,-46}},
       color={0,0,127}));
+  connect(enaSch.y[1], greThr.u)
+    annotation (Line(points={{-88,120},{-82,120}}, color={0,0,127}));
+  connect(greThr.y, plaEna.uSchEna) annotation (Line(points={{-58,120},{-26,120},
+          {-26,66},{-22,66}}, color={255,0,255}));
+  connect(greThr.y, plaEna1.uSchEna) annotation (Line(points={{-58,120},{-26,120},
+          {-26,-34},{-22,-34}}, color={255,0,255}));
+  connect(greThr.y, plaEna2.uSchEna) annotation (Line(points={{-58,120},{74,120},
+          {74,66},{78,66}}, color={255,0,255}));
+  connect(greThr.y, plaEna3.uSchEna) annotation (Line(points={{-58,120},{74,120},
+          {74,-34},{78,-34}}, color={255,0,255}));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=false),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
       graphics={Ellipse(
                   lineColor = {75,138,73},
                   fillColor={255,255,255},
@@ -151,7 +177,7 @@ equation
                   fillPattern = FillPattern.Solid,
                   points={{-36,60},{64,0},{-36,-60},{-36,60}})}),
     Diagram(coordinateSystem(
-      preserveAspectRatio=false),
+      preserveAspectRatio=false, extent={{-140,-140},{140,140}}),
       graphics={Text(
                   extent={{-72,26},{-24,18}},
                   textColor={28,108,200},

@@ -6,13 +6,6 @@ block PlantEnable
     final min=0) = 0
     "Number of hot-water requests to be ignored before enablng boiler plant loop";
 
-  parameter Integer nSchRow(
-    final min=1) = 4
-    "Number of rows to be created for plant schedule table";
-
-  parameter Real schTab[nSchRow,2] = [0,1; 6,1; 18,1; 24,1]
-    "Table defining schedule for enabling plant";
-
   parameter Real TOutLoc(
     final unit="K",
     final displayUnit="K") = 300
@@ -40,10 +33,15 @@ block PlantEnable
     "Temperature deadband for boiler lockout"
     annotation (Dialog(tab="Advanced"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uSchEna
+    "Signal indicating if schedule allows plant to be enabled"
+    annotation (Placement(transformation(extent={{-200,-130},{-160,-90}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.IntegerInput supResReq
     "Number of heating hot-water requests"
     annotation (Placement(transformation(extent={{-200,30},{-160,70}}),
-      iconTransformation(extent={{-140,20},{-100,60}})));
+      iconTransformation(extent={{-140,-20},{-100,20}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -51,19 +49,12 @@ block PlantEnable
     final quantity="ThermodynamicTemperature")
     "Measured outdoor air temperature"
     annotation (Placement(transformation(extent={{-200,-40},{-160,0}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+        iconTransformation(extent={{-140,-80},{-100,-40}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yPla
     "Plant enable signal"
     annotation (Placement(transformation(extent={{160,-20},{200,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable enaSch(
-    final table=schTab,
-    final smoothness=Buildings.Controls.OBC.CDL.Types.Smoothness.ConstantSegments,
-    final timeScale=3600)
-    "Table defining when plant can be enabled"
-    annotation (Placement(transformation(extent={{-150,-120},{-130,-100}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=plaOnThrTim)
     "Time since plant has been enabled"
@@ -78,11 +69,6 @@ protected
     final k=-1)
     "Invert signal for subtraction"
     annotation (Placement(transformation(extent={{-152,-30},{-132,-10}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=0.5)
-    "Check if schedule lets the controller enable the plant or not"
-    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterThreshold intGreThr(
     final t=nIgnReq)
@@ -145,8 +131,6 @@ protected
 equation
   connect(yPla, yPla)
     annotation (Line(points={{180,0},{180,0}}, color={255,0,255}));
-  connect(greThr.y, not1.u)
-    annotation (Line(points={{-98,-110},{-12,-110}}, color={255,0,255}));
   connect(hys.u, addPar.y) annotation (Line(points={{-122,-50},{-128,-50},{-128,
           -34},{-96,-34},{-96,-20},{-98,-20}},                              color={0,0,127}));
   connect(not3.y, tim1.u)
@@ -159,13 +143,10 @@ equation
   {-72,-30}}, color={255,0,255}));
   connect(pre1.y, not4.u) annotation (Line(points={{-38,50},{-30,50},{-30,70},{-22,
   70}}, color={255,0,255}));
-  connect(greThr.y, mulAnd.u[1]) annotation (Line(points={{-98,-110},{-92,-110},
-          {-92,125.25},{78,125.25}},
-                             color={255,0,255}));
-  connect(hys.y, mulAnd.u[2]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
-          121.75},{78,121.75}}, color={255,0,255}));
-  connect(intGreThr.y, mulAnd.u[3]) annotation (Line(points={{-98,50},{-80,50},{
-          -80,118.25},{78,118.25}}, color={255,0,255}));
+  connect(hys.y, mulAnd.u[1]) annotation (Line(points={{-98,-50},{-86,-50},{-86,
+          125.25},{78,125.25}}, color={255,0,255}));
+  connect(intGreThr.y, mulAnd.u[2]) annotation (Line(points={{-98,50},{-80,50},{
+          -80,121.75},{78,121.75}}, color={255,0,255}));
   connect(mulAnd.y, lat.u) annotation (Line(points={{102,120},{110,120},{110,0},
           {118,0}}, color={255,0,255}));
   connect(and2.y, lat.clr) annotation (Line(points={{102,-30},{110,-30},{110,-6},
@@ -185,10 +166,8 @@ equation
           30},{-70,50},{-62,50}}, color={255,0,255}));
   connect(pre1.y, tim.u) annotation (Line(points={{-38,50},{-30,50},{-30,10},{8,
           10}}, color={255,0,255}));
-  connect(enaSch.y[1], greThr.u)
-    annotation (Line(points={{-128,-110},{-122,-110}}, color={0,0,127}));
-  connect(tim2.passed, mulAnd.u[4]) annotation (Line(points={{32,62},{60,62},{60,
-          114},{78,114},{78,114.75}}, color={255,0,255}));
+  connect(tim2.passed, mulAnd.u[3]) annotation (Line(points={{32,62},{40,62},{40,
+          118},{78,118},{78,118.25}}, color={255,0,255}));
   connect(tim.passed, and2.u1) annotation (Line(points={{32,2},{70,2},{70,-30},{
           78,-30}}, color={255,0,255}));
   connect(tim1.passed, mulOr.u[3]) annotation (Line(points={{-18,-38},{20,-38},
@@ -197,6 +176,10 @@ equation
     annotation (Line(points={{-122,-20},{-130,-20}}, color={0,0,127}));
   connect(TOut, gai.u)
     annotation (Line(points={{-180,-20},{-154,-20}}, color={0,0,127}));
+  connect(uSchEna, not1.u)
+    annotation (Line(points={{-180,-110},{-12,-110}}, color={255,0,255}));
+  connect(uSchEna, mulAnd.u[4]) annotation (Line(points={{-180,-110},{-92,-110},
+          {-92,114.75},{78,114.75}}, color={255,0,255}));
   annotation (defaultComponentName = "plaEna",
   Icon(graphics={
         Rectangle(

@@ -76,6 +76,22 @@ protected
     "Boiler maximum design flowrate expanded for element-wise multiplication
     with the staging matrix";
 
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.ZeroIndexCorrection zerStaIndCor
+    "Block to resolve errors caused by zero index"
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.ZeroIndexCorrection zerStaIndCor1
+    "Block to resolve errors caused by zero index"
+    annotation (Placement(transformation(extent={{-110,-288},{-90,-268}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.ZeroIndexCorrection zerStaIndCor2
+    "Block to resolve errors caused by zero index"
+    annotation (Placement(transformation(extent={{-40,-310},{-20,-290}})));
+
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Generic.ZeroIndexCorrection zerStaIndCor3
+    "Block to resolve errors caused by zero index"
+    annotation (Placement(transformation(extent={{-8,70},{12,90}})));
+
   Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes
     "Used to break algebraic loop and sample the minimum flow setpoint at the start
     of stage change process to use as reference for calculations"
@@ -175,9 +191,7 @@ protected
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig1(
-    final allowOutOfRange=true,
-    final nin=nSta,
-    final outOfRangeValue=1e-6)
+    final nin=nSta)
     "Extract flow ratio of previous setpoint during stage-up"
     annotation (Placement(transformation(extent={{60,70},{80,90}})));
 
@@ -204,11 +218,9 @@ protected
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig3(
-    final allowOutOfRange=true,
-    final nin=nBoi,
-    final outOfRangeValue=1e-6)
+    final nin=nBoi)
     "Extract max flowrate of boiler being disabled during stage-up"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    annotation (Placement(transformation(extent={{-12,40},{8,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Pass minimum flow setpoint based on whether stage-up involves a boiler being disabled"
@@ -245,12 +257,10 @@ protected
 
   Buildings.Controls.OBC.CDL.Integers.Add addInt1
     "Previous stage during stage change"
-    annotation (Placement(transformation(extent={{-90,-310},{-70,-290}})));
+    annotation (Placement(transformation(extent={{-80,-310},{-60,-290}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig4(
-    final allowOutOfRange=true,
-    final nin=nSta,
-    final outOfRangeValue=1e-6)
+    final nin=nSta)
     "Extract flow ratio of previous setpoint during stage-down"
     annotation (Placement(transformation(extent={{60,-280},{80,-260}})));
 
@@ -259,9 +269,7 @@ protected
     annotation (Placement(transformation(extent={{100,-260},{120,-240}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndSig5(
-    final allowOutOfRange=true,
-    final nin=nBoi,
-    final outOfRangeValue=1e-6)
+    final nin=nBoi)
     "Extract max flowrate of boiler being disabled during stage-down"
     annotation (Placement(transformation(extent={{-40,-270},{-20,-250}})));
 
@@ -381,9 +389,6 @@ equation
           -128,100},{-72,100},{-72,86},{-62,86}},
                                                color={255,127,0}));
 
-  connect(subInt.y, extIndSig1.index) annotation (Line(points={{-38,80},{40,80},
-          {40,60},{70,60},{70,68}},color={255,127,0}));
-
   connect(matGai.y, extIndSig2.u)
     annotation (Line(points={{-18,-220},{-2,-220}},
                                                 color={0,0,127}));
@@ -392,7 +397,7 @@ equation
           {-128,-240},{10,-240},{10,-232}}, color={255,127,0}));
 
   connect(con3.y, extIndSig3.u) annotation (Line(points={{-58,-220},{-54,-220},{
-          -54,50},{-22,50}}, color={0,0,127}));
+          -54,50},{-14,50}}, color={0,0,127}));
 
   connect(max.y, pro2.u1) annotation (Line(points={{122,100},{130,100},{130,76},
           {138,76}}, color={0,0,127}));
@@ -445,35 +450,20 @@ equation
   connect(pro3.y, swi2.u3) annotation (Line(points={{114,-90},{120,-90},{120,-158},
           {138,-158}}, color={0,0,127}));
 
-  connect(extIndSig3.y, add2.u1) annotation (Line(points={{2,50},{40,50},{40,46},
-          {58,46}}, color={0,0,127}));
-
   connect(extIndSig2.y, add2.u2) annotation (Line(points={{22,-220},{46,-220},{46,
           34},{58,34}}, color={0,0,127}));
-
-  connect(uLasDisBoi, extIndSig3.index)
-    annotation (Line(points={{-160,30},{-10,30},{-10,38}}, color={255,127,0}));
 
   connect(extIndSig.y, max.u2) annotation (Line(points={{82,-50},{88,-50},{88,94},
           {98,94}}, color={0,0,127}));
 
-  connect(extIndSig1.y, max.u1) annotation (Line(points={{82,80},{84,80},{84,106},
-          {98,106}}, color={0,0,127}));
-
   connect(conInt1.y, addInt1.u2) annotation (Line(points={{-108,-320},{-100,-320},
-          {-100,-306},{-92,-306}}, color={255,127,0}));
+          {-100,-306},{-82,-306}}, color={255,127,0}));
 
   connect(uStaSet, addInt1.u1) annotation (Line(points={{-160,-90},{-128,-90},{-128,
-          -294},{-92,-294}}, color={255,127,0}));
+          -294},{-82,-294}}, color={255,127,0}));
 
   connect(matMax.y, extIndSig4.u) annotation (Line(points={{42,-150},{52,-150},{
           52,-270},{58,-270}}, color={0,0,127}));
-
-  connect(addInt1.y, extIndSig4.index) annotation (Line(points={{-68,-300},{70,-300},
-          {70,-282}}, color={255,127,0}));
-
-  connect(extIndSig4.y, max1.u2) annotation (Line(points={{82,-270},{88,-270},{88,
-          -256},{98,-256}}, color={0,0,127}));
 
   connect(extIndSig.y, max1.u1) annotation (Line(points={{82,-50},{88,-50},{88,-244},
           {98,-244}}, color={0,0,127}));
@@ -484,9 +474,6 @@ equation
   connect(extIndSig2.y, add1.u1) annotation (Line(points={{22,-220},{46,-220},{46,
           -294},{98,-294}}, color={0,0,127}));
 
-  connect(extIndSig5.y, add1.u2) annotation (Line(points={{-18,-260},{0,-260},{0,
-          -306},{98,-306}}, color={0,0,127}));
-
   connect(max1.y, pro4.u1) annotation (Line(points={{122,-250},{130,-250},{130,-264},
           {138,-264}}, color={0,0,127}));
 
@@ -495,9 +482,6 @@ equation
 
   connect(pro4.y, swi2.u1) annotation (Line(points={{162,-270},{166,-270},{166,-170},
           {132,-170},{132,-142},{138,-142}}, color={0,0,127}));
-
-  connect(uLasDisBoi, extIndSig5.index) annotation (Line(points={{-160,30},{-134,
-          30},{-134,-280},{-30,-280},{-30,-272}}, color={255,127,0}));
 
   connect(swi.y, lin.f2) annotation (Line(points={{162,10},{166,10},{166,-8},{258,
           -8}}, color={0,0,127}));
@@ -563,6 +547,39 @@ equation
           172,-136},{258,-136}}, color={0,0,127}));
   connect(intWitRes.y, sub3.u2) annotation (Line(points={{162,-100},{172,-100},{
           172,-136},{220,-136},{220,-206},{228,-206}}, color={0,0,127}));
+  connect(uLasDisBoi, zerStaIndCor.uInd) annotation (Line(points={{-160,30},{-86,
+          30},{-86,34},{-82,34}}, color={255,127,0}));
+  connect(zerStaIndCor.yIndMod, extIndSig3.index)
+    annotation (Line(points={{-58,34},{-2,34},{-2,38}}, color={255,127,0}));
+  connect(zerStaIndCor.yCapMod, add2.u1) annotation (Line(points={{-58,26},{38,26},
+          {38,46},{58,46}}, color={0,0,127}));
+  connect(extIndSig3.y, zerStaIndCor.uCap) annotation (Line(points={{10,50},{20,
+          50},{20,66},{-90,66},{-90,26},{-82,26}}, color={0,0,127}));
+  connect(uLasDisBoi, zerStaIndCor1.uInd) annotation (Line(points={{-160,30},{-132,
+          30},{-132,-274},{-112,-274}}, color={255,127,0}));
+  connect(zerStaIndCor1.yIndMod, extIndSig5.index) annotation (Line(points={{-88,
+          -274},{-30,-274},{-30,-272}}, color={255,127,0}));
+  connect(zerStaIndCor1.yCapMod, add1.u2) annotation (Line(points={{-88,-282},{0,
+          -282},{0,-306},{98,-306}}, color={0,0,127}));
+  connect(extIndSig5.y, zerStaIndCor1.uCap) annotation (Line(points={{-18,-260},
+          {-10,-260},{-10,-244},{-120,-244},{-120,-282},{-112,-282}}, color={0,0,
+          127}));
+  connect(addInt1.y, zerStaIndCor2.uInd) annotation (Line(points={{-58,-300},{-50,
+          -300},{-50,-296},{-42,-296}}, color={255,127,0}));
+  connect(zerStaIndCor2.yIndMod, extIndSig4.index) annotation (Line(points={{-18,
+          -296},{70,-296},{70,-282}}, color={255,127,0}));
+  connect(zerStaIndCor2.yCapMod, max1.u2) annotation (Line(points={{-18,-304},{90,
+          -304},{90,-256},{98,-256}}, color={0,0,127}));
+  connect(extIndSig4.y, zerStaIndCor2.uCap) annotation (Line(points={{82,-270},{
+          86,-270},{86,-320},{-50,-320},{-50,-304},{-42,-304}}, color={0,0,127}));
+  connect(subInt.y, zerStaIndCor3.uInd) annotation (Line(points={{-38,80},{-20,80},
+          {-20,84},{-10,84}}, color={255,127,0}));
+  connect(zerStaIndCor3.yIndMod, extIndSig1.index) annotation (Line(points={{14,
+          84},{30,84},{30,60},{70,60},{70,68}}, color={255,127,0}));
+  connect(zerStaIndCor3.yCapMod, max.u1) annotation (Line(points={{14,76},{20,76},
+          {20,106},{98,106}}, color={0,0,127}));
+  connect(extIndSig1.y, zerStaIndCor3.uCap) annotation (Line(points={{82,80},{84,
+          80},{84,100},{-14,100},{-14,76},{-10,76}}, color={0,0,127}));
 annotation (
   defaultComponentName="minBoiFloSet",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),

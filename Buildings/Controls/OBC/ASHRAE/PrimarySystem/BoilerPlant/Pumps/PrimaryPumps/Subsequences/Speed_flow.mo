@@ -6,9 +6,9 @@ block Speed_flow
     "Type of controller"
     annotation(Dialog(group="Speed controller"));
 
-  parameter Boolean primarySecondarySensors = true
-  "True: Flowrate sensors in primary and secondary circuits;
-  False: Flowrate sensor in decoupler";
+  parameter Boolean use_priSecSen = true
+    "True: Use flowrate sensor in primary and secondary circuits for regulation;
+    False: Use flowrate sensor in decoupler for regulation";
 
   parameter Integer nPum = 2
     "Total number of hot water pumps";
@@ -64,7 +64,7 @@ block Speed_flow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatPri_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if primarySecondarySensors
+    final quantity="VolumeFlowRate") if use_priSecSen
     "Measured hot water flow rate through primary circuit"
     annotation (Placement(transformation(extent={{-160,-50},{-120,-10}}),
       iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -72,7 +72,7 @@ block Speed_flow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSec_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if primarySecondarySensors
+    final quantity="VolumeFlowRate") if use_priSecSen
     "Measured hot water flow rate through secondary circuit"
     annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -80,7 +80,7 @@ block Speed_flow
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatDec_flow(
     final unit="m3/s",
     displayUnit="m3/s",
-    final quantity="VolumeFlowRate") if not primarySecondarySensors
+    final quantity="VolumeFlowRate") if not use_priSecSen
     "Measured hot water flow rate through decoupler"
     annotation (Placement(transformation(extent={{-160,-120},{-120,-80}}),
       iconTransformation(extent={{-140,-70},{-100,-30}})));
@@ -113,11 +113,11 @@ protected
     "Pump speed"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Subtract sub2 if use_priSecSen
     "Compare measured flowrate in primary and secondary loops"
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div if primarySecondarySensors
+  Buildings.Controls.OBC.CDL.Continuous.Divide div if use_priSecSen
     "Normalize flow-rate value"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
 
@@ -151,12 +151,12 @@ protected
     annotation (Placement(transformation(extent={{80,90},{100,110}})));
 
   Buildings.Controls.OBC.CDL.Continuous.AddParameter addPar(
-    final p=1e-6) if primarySecondarySensors
+    final p=1e-6) if use_priSecSen
     "Ensure divisor is non-zero"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
-    final k=1/VHotWat_flow_nominal) if not primarySecondarySensors
+    final k=1/VHotWat_flow_nominal) if not use_priSecSen
     "Normalize flowrate"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
 
@@ -245,14 +245,14 @@ pump speed(<code>maxPumSpe</code>) at 100%.
 <ol>
 <li>
 When the plant has flowrate sensors in the primary and secondary loops,
-<code>primarySecondarySensors = true</code>, the measured flowrate in primary
+<code>use_priSecSen = true</code>, the measured flowrate in primary
 loop <code>VHotWatPri_flow</code> and the measured flowrate in secondary loop
 <code>VHotWatSec_flow</code> is used to calculate the flow through the decoupler
 (<code>VHotWatPri_flow - VHotWatSec_flow</code>) and generate the control signal.
 </li>
 <li>
 When the plant has a flowrate sensor in the decoupler, 
-<code>primarySecondarySensors = false</code>, the measured flowrate through the
+<code>use_priSecSen = false</code>, the measured flowrate through the
 decoupler is used to calculate the control signal.
 </li>
 </ol>
