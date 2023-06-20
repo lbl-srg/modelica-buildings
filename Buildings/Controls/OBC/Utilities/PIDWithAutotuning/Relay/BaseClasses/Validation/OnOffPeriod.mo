@@ -50,19 +50,19 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod</a>.
 </p>
 This example considers an output from a relay controller, <code>enaSig</code>.
 <ul>
 <li>
-At <i>0.06s</i>, <code>enaSig</code> switches from On to Off.
+At <i>0.06</i>s, <code>enaSig</code> switches from On to Off.
 </li>
 <li>
-At <i>0.7s</i>, <code>enaSig</code> switches to On.
+At <i>0.7</i>s, <code>enaSig</code> switches to On.
 </li>
 <li>
-At <i>0.86s</i>, <code>enaSig</code> switches to Off.
+At <i>0.86</i>s, <code>enaSig</code> switches to Off.
 </li>
 </ul>
 </html>"));

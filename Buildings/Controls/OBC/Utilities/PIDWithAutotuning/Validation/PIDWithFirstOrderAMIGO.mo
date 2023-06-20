@@ -104,15 +104,15 @@ to that of a normal PID controller (<code>PID</code>) with prescribed gains.
 </p>
 <p>
 Both PID controllers are connected with a first-order control process.
-At the beginning (simulation time is less than <i>1000s</i>), the outputs from those two PID controllers 
-are the same as their prescribed gains.
+At the beginning (<i>0</i>s-<i>1000</i>s), the outputs from those two PID controllers 
+are identical as their prescribed gains are the same.
 </p>
 <p>
-Once the autotuning starts at <i>1000s</i>, the outputs of the two PID controllers become different.
+Once the autotuning starts at <i>1000</i>s, the outputs of the two PID controllers become different.
 After the tuning completes, under the control of <code>PIDWitTun</code>, the value of the controlled variable
 is close to the setpoint after the tuning period ends (<code>PIDWitTun.resPro.triEnd = true</code>). 
 On the contrary, <code>PID</code> has a poor control performance,
-i.e., the value of the controlled variable oscillates, without an autotuning setup.
+i.e., the value of the controlled variable oscillates.
 </p>
 </html>",
       revisions="<html>

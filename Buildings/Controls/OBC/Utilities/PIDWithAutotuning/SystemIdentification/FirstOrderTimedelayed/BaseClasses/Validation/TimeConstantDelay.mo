@@ -61,13 +61,13 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClassess.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClassess.TimeConstantDelay</a>.
 </p>
 <p>
-Input <code>tOn</code> changes from <i>0</i> to <i>0.1</i> at <i>0.1s</i>,
+Input <code>tOn</code> changes from <i>0</i> to <i>0.1</i> at <i>0.1</i>s,
 Input <code>k</code> is constant,
-Input <code>ratioLT</code> changes twice, from <i>0.3</i> to <i>0.4</i> at <i>0.32s</i> and from <i>0.4</i> to <i>0.3</i> at <i>0.8s</i>.
+Input <code>ratioLT</code> changes twice, from <i>0.3</i> to <i>0.4</i> at <i>0.32</i>s and from <i>0.4</i> to <i>0.3</i> at <i>0.8</i>s.
 </p>
 </html>"));
 end TimeConstantDelay;

@@ -53,8 +53,8 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess</a>.
 </p>
 <p>
-This testing scenario in this example is the same to that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.OnOffPeriod\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.OnOffPeriod</a>.
+This testing scenario in this example is the same to that in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.OnOffPeriod\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.OnOffPeriod</a>.
 </p>
 </html>"));
 end ResponseProcess;

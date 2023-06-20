@@ -67,22 +67,22 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio</a>.
 This example mimics an output from a relay controller.
 </p>
 <ul>
 <li>
-At <i>0.1s</i>, the output switches from On to Off.
-The length of the On period becomes <i>0.1s</i>.
+At <i>0.1</i>s, the output switches from On to Off.
+The length of the On period becomes <i>0.1</i>s.
 </li>
 <li>
-At <i>0.7s</i>, the output switches to On.
-The length of the Off period becomes <i>0.5s</i>.
+At <i>0.7</i>s, the output switches to On.
+The length of the Off period becomes <i>0.5</i>s.
 </li>
 <li>
-At <i>0.9s</i>, the output switches to Off.
-The length of the On period becomes <i>0.2s</i>.
+At <i>0.9</i>s, the output switches to Off.
+The length of the On period becomes <i>0.2</i>s.
 </li>
 </ul>
 </html>"));

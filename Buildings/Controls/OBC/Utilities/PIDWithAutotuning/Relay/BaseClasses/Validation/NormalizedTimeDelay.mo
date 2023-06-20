@@ -46,11 +46,11 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.NormalizedTimeDelay</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay</a>.
 </p>
 <p>
-The input <code>rho</code> is a step signal that changes from <i>2</i> to <i>1</i> at <i>0.7s</i>.
+The input <code>rho</code> is a step signal that changes from <i>2</i> to <i>1</i> at <i>0.7</i>s.
 </p>
 </html>"));
 end NormalizedTimeDelay;

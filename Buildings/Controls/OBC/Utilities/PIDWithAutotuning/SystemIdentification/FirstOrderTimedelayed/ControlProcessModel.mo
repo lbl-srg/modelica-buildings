@@ -193,7 +193,8 @@ equation
         Line(points={{58,-74},{-90,-74}}, color={28,108,200}),
         Line(points={{-52,-74},{-46,-48},{-26,-14},{0,10},{28,28},{48,34},{62,
               34}}, color={28,108,200}),
-        Line(points={{-58,36},{82,36}}, color={28,108,200})}),
+        Line(points={{-58,36},{82,36}}, color={28,108,200},
+          pattern=LinePattern.Dash)}),
                                   Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
@@ -204,9 +205,9 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>This block calculates the model parameters of a first-order time-delayed model.
-Specifically, it employs <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Gain</a> and <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.TimeConstantDelay</a>
+Specifically, it employs <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain</a> and <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay</a>
 to identify the gain and the time constant/the time delay, respectively.</p>
 <p>This block is inactive by default and is active once the tuning period starts, i.e., <code>triSta</code> becomes true;
 It then calculates the model parameters at the time when the tuning period ends, i.e., <code>triEnd</code> becomes true.
