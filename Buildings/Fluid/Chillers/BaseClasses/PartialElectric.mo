@@ -333,14 +333,14 @@ The model has three tests on the part load ratio and the cycling ratio:
 <li>
 The test
 <pre>
-  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax);
+  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax)
 </pre>
 ensures that the chiller capacity does not exceed the chiller capacity specified
 by the parameter <code>PLRMax</code>.
 </li>
 <li>
 The test <pre>
-  CR = min(PLR1/per.PRLMin, 1.0);
+  CR = min(PLR1/per.PRLMin, 1.0)
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
 that a chiller would run if it were to cycle because its load is smaller than
@@ -351,7 +351,7 @@ average temperature between the modes where the compressor is off and on.
 </li>
 <li>
 The test <pre>
-  PLR2 = max(PLRMinUnl, PLR1);
+  PLR2 = max(PLRMinUnl, PLR1)
 </pre>
 computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
@@ -385,13 +385,13 @@ EnergyPlus v22.1.0 Engineering Reference</a>
 section 14.3.9.2.
 The chiller capacity is computed as
 </p>
-<pre>  QEva_flow_ava = QEva_flow_nominal*capFunT;</pre>
+<pre>  QEva_flow_ava = QEva_flow_nominal*capFunT</pre>
 <p>
 and the power consumption is computed as
 </p>
-<pre>  P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;</pre>
+<pre>  P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR.</pre>
 <p>
-(See equations 14.234 and 14.240 in the referenced document.)
+See equations 14.234 and 14.240 in the referenced document.
 </p>
 <p>
 Models that extend from this base class need to provide the following
