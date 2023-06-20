@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant;
 model Controller
     "Boiler plant controller"
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_priPum[nPriLeg]= fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nPriLeg)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_priPum[nPriLoo]= fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nPriLoo)
     "Type of controller"
     annotation (Dialog(tab="Primary pump control parameters",
       group="PID parameters"));
@@ -11,22 +11,20 @@ model Controller
     "Type of controller"
     annotation(Dialog(tab="Bypass valve control parameters"));
 
-  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_secPum[nSecLeg]= fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSecLeg)
+  parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType_secPum[nSecLoo]= fill(Buildings.Controls.OBC.CDL.Types.SimpleController.PI, nSecLoo)
     "Type of controller"
     annotation(Dialog(tab="Secondary pump control parameters",
       group="PID parameters"));
 
-  parameter Integer nPriLeg(
-    final min=1) = 1
+  parameter Integer nPriLoo(
+    final min=1)
     "Number of legs in the primary loop; Must be 1 for primary-only boiler 
     plant"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
-  parameter Integer boiLegMat[nBoi](
-    final min=fill(1, nBoi),
-    final max=fill(nPriLeg, nBoi)) = fill(1, nBoi)
-    "Matrix describing the primary leg to which each boiler belongs"
+  parameter Integer boiLooMat[nPriLoo, :]
+    "Matrix describing the primary loops and their constituent boilers"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
@@ -34,52 +32,52 @@ model Controller
     "Is the boiler plant a primary-only boiler plant?"
     annotation(Dialog(group="Boiler plant configuration parameters"));
 
-  parameter Integer nSecLeg
+  parameter Integer nSecLoo
     "Number of legs in the secondary loop"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
-  parameter Boolean have_heaPriPum[nPriLeg]
+  parameter Boolean have_heaPriPum[nPriLoo]
     "True: Headered primary pumps;
     False: Dedicated primary pumps"
     annotation(Dialog(group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_varPriPum[nPriLeg]
+  parameter Boolean have_varPriPum[nPriLoo]
     "True: Variable-speed primary pumps;
     False: Fixed-speed primary pumps"
     annotation(Dialog(group="Boiler plant configuration parameters"));
 
-  parameter Boolean have_priFloSen[nPriLeg]
+  parameter Boolean have_priFloSen[nPriLoo]
     "True: Flowrate sensor in primary loop in primary-secondary plants;
     False: No flowrate sensor in primary loop"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
-  parameter Boolean have_secFloSen_PriCon[nSecLeg]
+  parameter Boolean have_secFloSen_PriCon[nSecLoo]
     "True: Flowrate sensor in secondary loop downstream of decoupler for primary pump control;
     False: No flowrate sensor in secondary loop"
     annotation(Dialog(group="Boiler plant configuration parameters",
-      enable = (not have_priOnl and speConTypPri == fill(Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate, nPriLeg))));
+      enable = (not have_priOnl and speConTypPri == fill(Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.flowrate, nPriLoo))));
 
-  parameter Boolean have_secFloSen_SecCon[nSecLeg]
+  parameter Boolean have_secFloSen_SecCon[nSecLoo]
     "True: Flowrate sensor in secondary loop for secondary pump control;
     False: No flowrate sensor in secondary loop"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable = (not have_priOnl and have_varSec)));
 
-  parameter Boolean have_decFloSen[nPriLeg]
+  parameter Boolean have_decFloSen[nPriLoo]
     "True: Flowrate sensor in decoupler leg;
     False: No flowrate sensor in decoupler leg"
     annotation(Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
-  parameter Boolean have_priTemSen[nPriLeg]
+  parameter Boolean have_priTemSen[nPriLoo]
     "True: Temperature sensors in primary loop;
     False: Temperature sensors in boiler supply"
     annotation (Dialog(group="Boiler plant configuration parameters",
       enable = speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
-  parameter Boolean have_varSecPum[nSecLeg]
+  parameter Boolean have_varSecPum[nSecLoo]
     "True: Variable-speed secondary pumps;
     False: Fixed-speed secondary pumps"
     annotation (Dialog(group="Boiler plant configuration parameters",
@@ -90,7 +88,7 @@ model Controller
     "Number of hot-water requests to be ignored before enabling boiler plant loop"
     annotation(Dialog(tab="Plant enable/disable parameters"));
 
-  parameter Integer nBoi[nPriLeg]
+  parameter Integer nBoi[nPriLoo]
     "Number of boilers"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters"));
@@ -110,7 +108,7 @@ model Controller
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters"));
 
-  parameter Integer nPumPri[nPriLeg]
+  parameter Integer nPumPri[nPriLoo]
     "Number of primary pumps in each primary loop in the boiler plant"
     annotation(Dialog(tab="General",
       group="Boiler plant configuration parameters"));
@@ -132,19 +130,19 @@ model Controller
       group="Temperature-based speed regulation",
       enable= speConTypPri == Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Types.PrimaryPumpSpeedControlTypes.temperature));
 
-  parameter Integer nPumPri_nominal[nPriLeg](
-    final max=fill(nPumPri, nPriLeg),
-    final min=fill(1, nPriLeg)) = fill(nPumPri, nPriLeg)
+  parameter Integer nPumPri_nominal[nPriLoo](
+    final max=fill(nPumPri, nPriLoo),
+    final min=fill(1, nPriLoo)) = fill(nPumPri, nPriLoo)
     "Total number of pumps that operate at design conditions in each primary loop"
     annotation (Dialog(group="Boiler plant configuration parameters"));
 
-  parameter Integer nPumSec[nSecLeg]
+  parameter Integer nPumSec[nSecLoo]
     "Total number of secondary hot water pumps in each secondary loop"
     annotation (Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
 
-  parameter Integer nPumSec_nominal[nSecLeg](
-    final max=nPumSec) = fill(nPumSec, nSecLeg)
+  parameter Integer nPumSec_nominal[nSecLoo](
+    final max=nPumSec) = fill(nPumSec, nSecLoo)
     "Total number of pumps that operate at design conditions in each secondary loop"
     annotation (Dialog(group="Boiler plant configuration parameters",
       enable = not have_priOnl));
@@ -1017,7 +1015,7 @@ model Controller
     annotation (Placement(transformation(extent={{-440,130},{-400,170}}),
       iconTransformation(extent={{-140,120},{-100,160}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSecPriPumCon_flow[nPriLeg](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSecPriPumCon_flow[nPriLoo](
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate") if not have_priOnl and have_secFloSen
@@ -1025,7 +1023,7 @@ model Controller
     annotation (Placement(transformation(extent={{-440,-90},{-400,-50}}),
         iconTransformation(extent={{-140,30},{-100,70}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatDec_flow[nPriLeg](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatDec_flow[nPriLoo](
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate") if not have_priOnl and have_varPriPum
@@ -1250,11 +1248,11 @@ protected
     "Vector of secondary pump indices up to total number of secondary pumps";
 
   Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator booScaRep(
-    final nout=nPriLeg)
+    final nout=nPriLoo)
     "Replicate pump change signal to each primary leg"
     annotation (Placement(transformation(extent={{68,-220},{88,-200}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSecPumCon_flow[nSecLeg](
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput VHotWatSecPumCon_flow[nSecLoo](
     final unit="m3/s",
     displayUnit="m3/s",
     final quantity="VolumeFlowRate") if not have_priOnl and have_secFloSen
@@ -1329,7 +1327,7 @@ protected
     annotation (Placement(transformation(extent={{120,20},{140,60}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.PrimaryPumps.Controller
-    priPumCon[nPriLeg](
+    priPumCon[nPriLoo](
     final controllerType=controllerType_priPum,
     final have_heaPriPum=have_heaPriPum,
     final have_priOnl=have_priOnl,
@@ -1453,7 +1451,7 @@ protected
     "Constant stage Integer source"
     annotation (Placement(transformation(extent={{-390,-40},{-370,-20}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nPriLeg,nPumPri](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2[nPriLoo,nPumPri](
     final k=priPumInd)
     "Constant stage Integer source"
     annotation (Placement(transformation(extent={{60,-138},{80,-118}})));
@@ -1470,7 +1468,7 @@ protected
     "Integer to Real converter"
     annotation (Placement(transformation(extent={{-190,-50},{-170,-30}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet[nPriLeg](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet[nPriLoo](
     final k=maxLocDpPri) if have_priOnl
     "Differential pressure setpoint for primary circuit"
     annotation (Placement(transformation(extent={{60,-180},{80,-160}})));
@@ -1526,7 +1524,7 @@ protected
     annotation (Placement(transformation(extent={{240,60},{260,80}})));
 
   Buildings.Controls.OBC.ASHRAE.PrimarySystem.BoilerPlant.Pumps.SecondaryPumps.Controller
-    secPumCon[nSecLeg](
+    secPumCon[nSecLoo](
     final controllerType=controllerType_secPum,
     final have_varSecPum=true,
     final have_secFloSen=have_secFloSen,
@@ -1561,12 +1559,12 @@ protected
     "Switch input signal between stage-up and stage-down processes"
     annotation (Placement(transformation(extent={{64,280},{84,300}})));
 
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nSecLeg,nPumSec](
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3[nSecLoo,nPumSec](
     final k=secPumInd) if not have_priOnl
     "Constant stage Integer source"
     annotation (Placement(transformation(extent={{60,-290},{80,-270}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet1[nSecLeg](
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant dpHotWatSet1[nSecLoo](
     final k=maxLocDpSec) if not have_priOnl
     "Differential pressure setpoint for secondary circuit"
     annotation (Placement(transformation(extent={{60,-390},{80,-370}})));
