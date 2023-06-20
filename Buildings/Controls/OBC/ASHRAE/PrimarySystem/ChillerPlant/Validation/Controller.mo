@@ -116,7 +116,7 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol[2](
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{120,-120},{140,-100}})));
+    annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
@@ -124,11 +124,11 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Logical.Pre conWatPum[2](
     final pre_u_start=fill(false, 2))
     "Condenser water pump status setpoint"
-    annotation (Placement(transformation(extent={{120,-50},{140,-30}})));
+    annotation (Placement(transformation(extent={{160,-50},{180,-30}})));
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol2[2](
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
+    annotation (Placement(transformation(extent={{120,-70},{140,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp chiCooLoa[2](
     final height={80,70},
     final duration=fill(3600, 2),
@@ -193,15 +193,16 @@ equation
   connect(towSta1.y, chiPlaCon.uTowSta) annotation (Line(points={{142,-170},{160,
           -170},{160,-190},{-40,-190},{-40,-170},{-30,-170}}, color={255,0,255}));
   connect(chiPlaCon.yTowCelIsoVal, zerOrdHol.u) annotation (Line(points={{90,-70},
-          {100,-70},{100,-110},{118,-110}},    color={0,0,127}));
-  connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-110},{
-          190,-110},{190,-210},{-70,-210},{-70,-150},{-30,-150}},color={0,0,127}));
-  connect(chiPlaCon.yConWatPum, conWatPum.u) annotation (Line(points={{90,20},{108,
-          20},{108,-40},{118,-40}}, color={255,0,255}));
-  connect(conWatPum.y, chiPlaCon.uConWatPum) annotation (Line(points={{142,-40},
+          {100,-70},{100,-90},{118,-90}},      color={0,0,127}));
+  connect(zerOrdHol.y, chiPlaCon.uIsoVal) annotation (Line(points={{142,-90},{
+          190,-90},{190,-210},{-70,-210},{-70,-150},{-30,-150}}, color={0,0,127}));
+  connect(chiPlaCon.yConWatPum, conWatPum.u) annotation (Line(points={{90,20},{
+          108,20},{108,-40},{158,-40}},
+                                    color={255,0,255}));
+  connect(conWatPum.y, chiPlaCon.uConWatPum) annotation (Line(points={{182,-40},
           {210,-40},{210,-230},{-100,-230},{-100,-90},{-30,-90}}, color={255,0,255}));
   connect(conWatPum.y, booToRea.u)
-    annotation (Line(points={{142,-40},{218,-40}}, color={255,0,255}));
+    annotation (Line(points={{182,-40},{218,-40}}, color={255,0,255}));
   connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{242,-10},{250,-10},{
           250,-14},{258,-14}}, color={0,0,127}));
   connect(booToRea.y, pro.u2) annotation (Line(points={{242,-40},{250,-40},{250,
@@ -209,9 +210,9 @@ equation
   connect(pro.y, chiPlaCon.uConWatPumSpe) annotation (Line(points={{282,-20},{300,
           -20},{300,-250},{-110,-250},{-110,-80},{-30,-80}},    color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal, zerOrdHol2.u) annotation (Line(points={{90,-15},
-          {100,-15},{100,-70},{118,-70}}, color={0,0,127}));
-  connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-70},
-          {200,-70},{200,-220},{-80,-220},{-80,-40},{-30,-40}}, color={0,0,127}));
+          {100,-15},{100,-60},{118,-60}}, color={0,0,127}));
+  connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-60},
+          {200,-60},{200,-220},{-80,-220},{-80,-40},{-30,-40}}, color={0,0,127}));
   connect(dpChiWat.y, chiPlaCon.dpChiWat_remote[1]) annotation (Line(points={{-238,70},
           {-180,70},{-180,140},{-30,140}},          color={0,0,127}));
   connect(booToRea1.y, pro1.u1) annotation (Line(points={{-218,170},{-210,170},
