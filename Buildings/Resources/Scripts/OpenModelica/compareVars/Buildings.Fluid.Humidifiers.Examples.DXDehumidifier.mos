@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "dxDeh.deHum.vol.X_w",
+    "sou.medium.Xi[1]",
+    "dxDeh.T",
+    "dxDeh.senTIn.T",
+    "dxDeh.P",
+    "on.y"
+  };
