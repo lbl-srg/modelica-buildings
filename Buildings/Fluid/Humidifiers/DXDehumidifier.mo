@@ -1,4 +1,4 @@
-within Buildings.Fluid.Humidifiers;
+﻿within Buildings.Fluid.Humidifiers;
 model DXDehumidifier "DX dehumidifier"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
@@ -195,7 +195,9 @@ The amount of exchanged moisture <code>mWat_flow</code> is equal to
 <p>
 The amount of heat added to the air stream <code>QHea</code> is equal to 
 </p>
-<p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> h<sub>fg</sub> + P<sub>deh</sub> ,</p><p align=\"center\">P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod / (eneFac<sub>nominal</sub> eneFacMod), </i>
+<p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> h<sub>fg</sub> + P<sub>deh</sub> ,</i>
+</p>
+<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod / (eneFac<sub>nominal</sub> eneFacMod), </i>
 </p>
 <p>
 where <code>V_flow_nominal</code> is the rated water removal flow rate and 
