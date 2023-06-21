@@ -264,7 +264,7 @@ equation
           extent={{-180,-120},{220,100}})),
     experiment(
       StartTime=12960000,
-      StopTime=13564800,
+      StopTime=15120000,
       __Dymola_Algorithm="Cvode",
       Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Validation/DXDehumidifier.mos"
