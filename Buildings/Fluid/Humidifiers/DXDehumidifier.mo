@@ -1,4 +1,4 @@
-﻿within Buildings.Fluid.Humidifiers;
+within Buildings.Fluid.Humidifiers;
 model DXDehumidifier "DX dehumidifier"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
