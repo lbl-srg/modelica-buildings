@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   sodipodi:docname="constantFlowrateVariableFan.svg"
+   sodipodi:docname="variableFan.svg"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    inkscape:export-ydpi="80.029999"
    inkscape:export-xdpi="80.029999"
-   inkscape:export-filename="/Users/agautier/Desktop/vav.png"
+   inkscape:export-filename="C:\buildings_library\buildings_library_pnnl\Buildings\Resources\Images\Fluid\ZoneEquipment\Baseclasses\variableFan.png"
    id="svg8"
    version="1.1"
    viewBox="0 0 204.28055 129.49258"
@@ -479,22 +479,6 @@
        id="path903-3"
        d="M 5.2916666,183.22917 H 82.020832"
        style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend-8)" />
-    <path
-       inkscape:original-d="m -21.166667,265.77909 c -27.402764,-29.83079 -51.229966,-1.26074 -76.729166,0"
-       inkscape:path-effect="#path-effect1303-1"
-       inkscape:connector-curvature="0"
-       id="path1301-3"
-       d="M -21.166667,265.77909 H -97.895833"
-       style="fill:none;stroke:#000000;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 3;stroke-dashoffset:0;stroke-opacity:1"
-       sodipodi:nodetypes="cc" />
-    <path
-       inkscape:original-d="m 78.427215,265.77909 c -27.402764,-29.83079 -51.229966,-1.26074 -76.7291657,0"
-       inkscape:path-effect="#path-effect9837"
-       inkscape:connector-curvature="0"
-       id="path1301-3-8"
-       d="M 78.427215,265.77909 H 1.6980493"
-       style="fill:none;stroke:#000000;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 3;stroke-dashoffset:0;stroke-opacity:1"
-       sodipodi:nodetypes="cc" />
     <flowRoot
        transform="matrix(0.12508093,0,0,0.12508093,-27.30341,230.10423)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -577,18 +561,6 @@
            id="rect1827" /></flowRegion><flowPara
          id="flowPara1829">Minimum ai</flowPara></flowRoot>
     <flowRoot
-       transform="matrix(0.13541393,0,0,0.13541393,-37.242352,183.81655)"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       id="flowRoot1839"
-       xml:space="preserve"><flowRegion
-         id="flowRegion1841"><rect
-           y="677.51971"
-           x="-445"
-           height="80"
-           width="540"
-           id="rect1843" /></flowRegion><flowPara
-         id="flowPara1845">Heating valve signal</flowPara></flowRoot>
-    <flowRoot
        transform="scale(0.26458333)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot1847"
@@ -608,46 +580,20 @@
        d="M 55.717732,253.44624 48.501455,245.9627"
        style="fill:none;stroke:#000000;stroke-width:0.265;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Lend)" />
     <path
-       inkscape:original-d="m -76.851991,275.65748 -9.087162,-8.01809"
-       inkscape:path-effect="#path-effect5580"
-       inkscape:connector-curvature="0"
-       id="path5578"
-       d="m -76.851991,275.65748 -9.087162,-8.01809"
-       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5590)" />
-    <flowRoot
-       transform="matrix(0.13541393,0,0,0.13541393,85.411082,183.81655)"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       id="flowRoot1839-2"
-       xml:space="preserve"><flowRegion
-         id="flowRegion1841-9"><rect
-           y="677.51971"
-           x="-445"
-           height="80"
-           width="540"
-           id="rect1843-9" /></flowRegion><flowPara
-         id="flowPara1845-1">Cooling valve signal</flowPara></flowRoot>
-    <path
-       inkscape:original-d="m 62.379663,275.66097 9.087162,-8.01809"
-       inkscape:path-effect="#path-effect869"
-       inkscape:connector-curvature="0"
-       id="path5578-4"
-       d="m 62.379663,275.66097 9.087162,-8.01809"
-       style="fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker5590-5)" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 3;stroke-dashoffset:0;stroke-opacity:1"
-       d="M -21.544643,320.81848 V 265.37961"
+       style="fill:none;stroke:#000000;stroke-width:0.444929;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.77971, 1.77971;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -21.544643,320.81848 V 301.3078"
        id="path825-5-8-9"
        inkscape:connector-curvature="0"
        inkscape:path-effect="#path-effect1025"
-       inkscape:original-d="m -21.544643,320.81848 c 11.932327,-19.06768 22.938085,-38.08974 0,-55.43887"
+       inkscape:original-d="m -21.544643,320.81848 c 11.932327,-6.71052 22.938085,-13.40498 0,-19.51068"
        sodipodi:nodetypes="cc" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:3, 3;stroke-dashoffset:0;stroke-opacity:1"
-       d="M 2.1719408,320.28394 V 265.37961"
+       style="fill:none;stroke:#000000;stroke-width:0.439139;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.75655, 1.75655;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 2.1719408,320.28394 V 301.461"
        id="path825-5-8-9-0"
        inkscape:connector-curvature="0"
        inkscape:path-effect="#path-effect9808"
-       inkscape:original-d="m 2.1719408,320.28394 c 11.9323272,-18.88383 22.9380852,-37.72248 0,-54.90433"
+       inkscape:original-d="m 2.1719408,320.28394 c 11.9323272,-6.47398 22.9380852,-12.93246 0,-18.82294"
        sodipodi:nodetypes="cc" />
     <rect
        y="307.20535"
