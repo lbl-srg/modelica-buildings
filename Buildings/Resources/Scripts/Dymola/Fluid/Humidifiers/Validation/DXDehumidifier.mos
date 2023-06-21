@@ -1,8 +1,6 @@
-﻿simulateModel("Buildings.Fluid.Humidifiers.Validation.DXDehumidifier", startTime=12960000, stopTime=13564800, method="Cvode", resultFile="DXDehumidifier");
+﻿simulateModel("Buildings.Fluid.Humidifiers.Validation.DXDehumidifier", startTime=12960000, stopTime=15120000, method="Cvode", resultFile="DXDehumidifier");
 createPlot(id=1, position={0, 0, 1469, 647}, y={"mWatEP.y", "mWatMod.y"}, range={12940000.0, 13600000.0, -0.0005, 0.001}, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1469, 647}, y={"QHeaEP.y", "QHeaMod.y"}, range={12940000.0, 13600000.0, -1000.0, 2000.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1469, 647}, y={"PEP.y", "PMod.y"}, range={12940000.0, 13600000.0, -500.0, 1000.0}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}});
-createPlot(id=2, position={0, 0, 1475, 535}, y={"phiZonAirEP.y", "phiZonAirMod.y"}, range={12960000.0, 13580000.0, 35.0, 50.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, range2={0.7000000000000001, 0.9000000000000001});
+createPlot(id=2, position={0, 0, 1475, 535}, y={"phiZonAirEP.y", "phiZonAirMod.y"}, range={12960000.0, 13580000.0, 35.0, 50.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}}, range2={0.7, 0.9});
 createPlot(id=2, position={0, 0, 1475, 535}, y={"TZonAirEP.y", "TZonAirMod.y"}, range={12960000.0, 13580000.0, 20.0, 35.0}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}}, range2={0.75, 0.95});
-
-
