@@ -99,7 +99,7 @@ model DryCoilDiscretized
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
     each final m1_flow_nominal=m1_flow_nominal/nPipPar,
-    each final m2_flow_nominal=m1_flow_nominal/nPipPar/nPipSeg,
+    each final m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
     each tau1=tau1,
     each tau2=tau2,
     each tau_m=tau_m,
