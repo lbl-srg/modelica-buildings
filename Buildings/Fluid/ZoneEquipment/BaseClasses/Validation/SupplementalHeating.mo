@@ -67,15 +67,15 @@ equation
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When <code>conSupHea.TOut</code> is above the minimum dry bulb temperature <code>conSupHea.TLocOut</code> 
-    and the system is in the heating mode (<code>conSupHea.uHeaMod = True</code>), the DX heating coil is prioritized 
-    for heating (<code>conSupHea.yHeaEna = True</code>). 
+    When <code>TOut</code> is above the minimum dry bulb temperature <code>conSupHea.TLocOut</code> 
+    and the system is in the heating mode (<code>uHeaMod=True</code>), the DX heating coil is prioritized 
+    for heating (<code>conSupHea.yHeaEna=True</code>). 
     </li>
     <li>
-    When <code>conSupHea.TOut</code> is below the minimum dry bulb temperature <code>conSupHea.TLocOut</code> 
-    and the system is in the heating mode (<code>conSupHea.uHeaEna = True</code>), 
+    When <code>TOut</code> is below the minimum dry bulb temperature <code>conSupHea.TLocOut</code> 
+    and the system is in the heating mode (<code>uHeaEna=True</code>), 
     the supplemental heating is enabled (conSupHea.ySupHea=ture</code>) to track the zone air temperature 
-    setpoint <code>conSupHea.THeaSet</code> and the DX heating coil (<code>conSupHea.yHeaEna = False</code>) 
+    setpoint <code>THeaSet</code> and the DX heating coil (<code>conSupHea.yHeaEna=False</code>) 
     is disabled.
     </li>
     </ul>

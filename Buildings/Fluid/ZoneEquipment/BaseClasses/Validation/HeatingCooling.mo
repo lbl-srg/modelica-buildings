@@ -103,13 +103,13 @@ equation
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When the measured zone temperature <code>conCooMod.TZon</code> exceeds the setpoint <code>conCooMod.TZonSet</code> 
-    with a specific deadband and the fan is proven on (<code>conCooMod.uFan=true</code>), the cooling coil is enabled 
+    When the measured zone temperature <code>TZon</code> exceeds the setpoint <code>TZonSet</code> 
+    with a specific deadband and the fan is proven on (<code>uFan=true</code>), the cooling coil is enabled 
     (<code>conCooMod.yEna=true</code>). 
     </li>
     <li>
-    When the measured zone temperature <code>conHeaMod.TZon</code> is below the setpoint <code>conHeaMod.TZonSet</code> 
-    with a specific deadband and the fan is proven on (<code>conHeaMod.uFan=true</code>), the heating coil is enabled 
+    When the measured zone temperature <code>TZon</code> is below the setpoint <code>TZonSet</code> 
+    with a specific deadband and the fan is proven on (<code>uFan=true</code>), the heating coil is enabled 
     (<code>conHeaMod.yEna=true</code>). 
     </li>
     </ul>
