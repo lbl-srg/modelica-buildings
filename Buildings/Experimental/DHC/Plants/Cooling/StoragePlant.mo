@@ -229,20 +229,18 @@ equation
         defaultComponentName="stoPla",
     Documentation(info="<html>
 <p>
-This model encompasses the components of the storage plant.
-It includes the flow-controlled primary pump, the stratefied
-storage tank, and the reversible connection.
+This model encompasses the components of a chilled water storage plant.
+It includes a flow-controlled primary pump, a stratefied
+storage tank, a reversible connection with a district network, and related controls
+to coordinate charging and discharging of the tank.
 The chiller is intentionally excluded in this model so that it can be
-otherwise chosen and configured outside of this component.
-</p>
-<h4>System Concept</h4>
-<p>
-This package implements models for a storage plant with a chiller and a tank.
+otherwise chosen and configured outside of this component.  
 The tank in this plant can be charged by its local chiller or by a remote
 chiller on the same CHW district network.
 </p>
+<h4>System Concept Example</h4>
 <p>
-An example model for this system is implemented as
+An example usage of this model within a district network is implemented in
 <a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource\">
 Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource</a>.
 Shown in the schematic below, it has two CHW plants and three users.
@@ -250,13 +248,14 @@ Shown in the schematic below, it has two CHW plants and three users.
 <ul>
 <li>
 Plant 1 only has a chiller. The supply pump, P1, is controlled to ensure that
-all users have enough pressure head.
+all users have enough pressure head.  This represents a remote chiller plant,
+referenced above.
 </li>
 <li>
-Plant 2 has a chiller and a stratified CHW tank.
-The storage plant has a reversible connection to the district network.
-This connection can either pump water to the network from the plant using the
-pump P_sec, 
+Plant 2 has a chiller and a stratified CHW tank and is represented by this model.
+The storage plant has a reversible connection to the district network 
+that can either pump water to the network from the plant using the
+pump P<sub>sec</sub>, 
 or throttle water from the pressurised network to charge the tank.
 </li>
 </ul>
@@ -273,7 +272,7 @@ The plants are controlled as follows:
 In plant 1, the chiller is always on. The speed-controlled pump
 ensures that the users have enough pressure head at all times.
 This includes plant 2 when its tank is charged remotely by plant 1 and
-it acts like a energy consumer.
+it acts like an energy consumer.
 </li>
 <li>
 For plant 2:
