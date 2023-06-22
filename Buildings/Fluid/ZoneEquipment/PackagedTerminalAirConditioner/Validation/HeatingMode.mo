@@ -320,7 +320,7 @@ equation
   connect(realExpression6.y, TZonAirMod.u)
     annotation (Line(points={{141,-16},{154,-16}}, color={0,0,127}));
   connect(damPos.y,ptac. uEco) annotation (Line(points={{-98,50},{-58,50},{-58,12},
-          {-18,12}}, color={0,0,127}));
+          {-17,12}}, color={0,0,127}));
   connect(realExpression7.y, TZonAirEP.u)
     annotation (Line(points={{221,-16},{232,-16}}, color={0,0,127}));
   connect(realExpression9.y, m_flowFanEP.u)
@@ -334,7 +334,7 @@ equation
   connect(realExpression15.y, TAirMixEP.u)
     annotation (Line(points={{221,64},{232,64}}, color={0,0,127}));
   connect(building.weaBus,ptac. weaBus) annotation (Line(
-      points={{0,124},{14,124},{14,60},{-11.8,60},{-11.8,12}},
+      points={{0,124},{14,124},{14,60},{-12.2,60},{-12.2,-0.4}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, building.weaBus) annotation (Line(
@@ -367,10 +367,11 @@ equation
     annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
   connect(datRea.y[24], K2C[2].u)
     annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
-  connect(booToRea.y, ptac.uHea) annotation (Line(points={{-30,-74},{-24,-74},{
-          -24,-23.8},{-18,-23.8}}, color={0,0,127}));
+  connect(booToRea.y, ptac.uHea) annotation (Line(points={{-30,-74},{-24,-74},{-24,
+          -16},{-17,-16}},         color={0,0,127}));
   connect(division.y, ptac.uFan)
-    annotation (Line(points={{-71,4},{-18,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-44,4},{-44,8},{-17,8}},
+                                               color={0,0,127}));
   connect(datRea.y[27], division.u1) annotation (Line(points={{-99,90},{-94,90},
           {-94,66},{-126,66},{-126,10},{-94,10}}, color={0,0,127}));
   connect(Nominal_mass_flow.y, division.u2)
@@ -390,7 +391,7 @@ equation
   connect(ptac.TAirSup, modCon.TSup) annotation (Line(points={{25,4},{32,4},{32,
           -94},{-90,-94},{-90,-79},{-88,-79}}, color={0,0,127}));
   connect(modCon.yCooEna, ptac.uCooEna) annotation (Line(points={{-64,-54},{-40,
-          -54},{-40,-15.8},{-18,-15.8}}, color={255,0,255}));
+          -54},{-40,-20},{-17,-20}},     color={255,0,255}));
   connect(modCon.yHeaEna, booToRea.u) annotation (Line(points={{-64,-58},{-58,-58},
           {-58,-74},{-54,-74}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -405,33 +406,33 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
     <p>
-    This is an example model for the PTAC system model under heating mode 
-    with a cycling fan cycling coil (AUTO Fan) controller. It consists of: 
-    </p>
-<ul>
-<li>
-an instance of the PTAC system model <code>PackagedTerminalAirConditioner</code>. 
-</li>
-<li>
-thermal zone model <code>zon</code> of class 
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
-</li>
-<li>
-PTAC controller <code>cycFanCycCoi</code> of class 
-<a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil\">
-Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil</a>. 
-</li>
-</ul>
-<p>The simulation model provides a closed-loop example of <code>PTAC</code> that 
-is operated by <code>cycFanCycCoi</code> and regulates the zone temperature in 
-<code>zon</code> at its specific setpoint. 
-</p>
-</html>
-", revisions="<html>
+    This is a validation model for the packaged terminal air conditioner (PTAC) system model under heating mode 
+    with a modular controller. The validation model consists of: </p>
     <ul>
     <li>
-    May 17, 2023, by Junke Wang, Xing Lu and Karthik Devaprasad:<br/>
+    An instance of the PTAC system model <code>PackagedTerminalAirConditioner</code>. 
+    </li>
+    <li>
+    A thermal zone model <code>zon</code> of class 
+    <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+    Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
+    </li>
+    <li>
+    A modular controller <code>ModularController</code> of class 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>. 
+    </li>
+    </ul>
+    <p>
+    The validation model provides a closed-loop example of <code>PackagedTerminalAirConditioner</code> that 
+    is operated by <code>ModularController</code> to regulate the zone temperature in 
+    <code>zon</code> at its heating setpoint. 
+    </p>
+    </html>
+    ", revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang, Xing Lu, and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>

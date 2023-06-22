@@ -45,19 +45,7 @@ record SizingData "Sizing calculations and values for component parameters"
     Documentation(info="<html>
       <p>
       Sizing data record based on EnergyPlus example file available in the Buildings library
-      (modelica-buildings/Buildings/Resources/Data/Fluid/ZoneEquipment/FanCoilAutoSize_ConstantFlowVariableFan.idf).
-      The calculations for the UA values are derived from the EnergyPlus 
-      Engineering Reference document.
-      <br>
-      The record is currently being used as an example for the UA calculations 
-      required to translate the EnergyPlus cooling coil parameters to the Modelica 
-      parameters. The exposed parameters for the cooling coil are the inputs used 
-      for the EnergyPlus component and <code>UACooCoiTot_nominal</code> is the parameter
-      being used on the Modelica component.
-      <br>
-      A correction factor <code>UACorrectionFactor</code> is currently being used
-      to make the cooling coil outlet temperature and energy consumption match 
-      with the reference value form Modelica.
+      (modelica-buildings/Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.idf).
       </p>
       </html>",   revisions="<html>
       <ul>

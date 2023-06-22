@@ -74,7 +74,8 @@ equation
   connect(vAirMix.port_b, fan.port_a) annotation (Line(points={{-80,0},{-40,0},
           {-40,0},{-8,0}}, color={0,127,255}));
   connect(gaiFanNor.y, yFan_actual)
-    annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
+    annotation (Line(points={{321,110},{350,110},{350,130},{380,130}},
+                                                   color={0,0,127}));
   connect(fan.port_b, sinSpeDXCoo.port_a) annotation (Line(points={{12,0},{90,0}},
                          color={0,127,255}));
   connect(sinSpeDXCoo.port_b, TAirLvg.port_a) annotation (Line(
@@ -90,7 +91,7 @@ equation
       horizontalAlignment=TextAlignment.Right));
   connect(TOut.y, sinSpeDXCoo.TOut) annotation (Line(points={{-239,-40},{60,-40},
           {60,3},{89,3}},             color={0,0,127}));
-  connect(uCooEna, sinSpeDXCoo.on) annotation (Line(points={{-380,-120},{-80,-120},
+  connect(uCooEna, sinSpeDXCoo.on) annotation (Line(points={{-380,-130},{-80,-130},
           {-80,-60},{40,-60},{40,8},{89,8}}, color={255,0,255}));
   annotation (defaultComponentName = "winAC",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
@@ -106,15 +107,24 @@ equation
       Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>
-    This is a window air conditioner model. The system consists of an 
+    This is a window air conditioner system model. The system consists of an 
     outdoor air mixer, a signle-speed direct expansion (DX) cooling coil, 
-    and a constant speed supply air fan. 
+    and a constant speed supply air fan. The coil meets the cooling load 
+    by cycling on/off, while the fan can operate continuously or cycle 
+    on/off in conjunction with the coil. 
     </p>
-</html>
-", revisions="<html>
+    <p>
+    The control module for the system is implemented separately in 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>. The controller
+    cycles the DX cooling coil and fan to regulate the zone temperature based on the 
+    cooling setpoint. 
+    </p>
+    </html>
+    ", revisions="<html>
     <ul>
     <li>
-    June 15, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
+    June 21, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
     First implementation.
     </li>
     </ul>

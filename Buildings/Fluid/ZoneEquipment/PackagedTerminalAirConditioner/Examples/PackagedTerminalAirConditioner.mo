@@ -114,33 +114,35 @@ equation
           {50,40}},     color={0,0,127}));
   connect(Xi.y, souAir.Xi_in[1]) annotation (Line(points={{21,48},{30,48},{30,32},
           {50,32}},     color={0,0,127}));
-  connect(onFanCoil.y, ptac.uFan) annotation (Line(points={{-68,10},{-22,10}},
-                             color={0,0,127}));
+  connect(onFanCoil.y, ptac.uFan) annotation (Line(points={{-68,10},{-44,10},{-44,
+          14},{-21,14}},     color={0,0,127}));
   connect(yDamOut.y, ptac.uEco) annotation (Line(points={{-68,50},{-40,50},{-40,
-          18},{-22,18}}, color={0,0,127}));
+          18},{-21,18}}, color={0,0,127}));
   connect(cooDis.y, ptac.uCooEna) annotation (Line(points={{-68,-24},{-40,-24},{
-          -40,-9.8},{-22,-9.8}}, color={255,0,255}));
+          -40,-14},{-21,-14}},   color={255,0,255}));
   connect(weaDat.weaBus, ptac.weaBus) annotation (Line(
-      points={{-70,80},{-15.8,80},{-15.8,18}},
+      points={{-70,80},{-16.2,80},{-16.2,5.6}},
       color={255,204,51},
       thickness=0.5));
-  connect(yHea.y, ptac.uHea) annotation (Line(points={{-68,-60},{-30,-60},{-30,-17.8},
-          {-22,-17.8}}, color={0,0,127}));
+  connect(yHea.y, ptac.uHea) annotation (Line(points={{-68,-60},{-30,-60},{-30,-10},
+          {-21,-10}},   color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,140}})),
     experiment(Tolerance=1e-6),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalAirConditioner/Examples/PackagedTerminalAirConditioner.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
-<p>This is an example model for the PTAC model in one heating day with simple inputs.</p>
-</html>", revisions="<html>
+    <p>
+    This is an example model for the packaged terminal air conditioner model in one heating day with simple inputs.
+    </p>
+    </html>", revisions="<html>
     <ul>
     <li>
-    May 17, 2023, by Junke Wang, Xing Lu and Karthik Devaprasad:<br/>
+    June 21, 2023, by Junke Wang, Xing Lu, and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>
-    </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalAirConditioner/Examples/PackagedTerminalAirConditioner.mos"
-        "Simulate and plot"));
+    </html>"));
 end PackagedTerminalAirConditioner;
