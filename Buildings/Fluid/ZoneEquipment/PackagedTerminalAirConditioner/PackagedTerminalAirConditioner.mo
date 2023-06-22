@@ -91,7 +91,8 @@ equation
     annotation (Line(points={{-380,120},{-202,120},{-202,80},{-24,80}},
                                                   color={0,0,127}));
   connect(gaiFanNor.y, yFan_actual)
-    annotation (Line(points={{321,110},{370,110}}, color={0,0,127}));
+    annotation (Line(points={{321,110},{350,110},{350,130},{380,130}},
+                                                   color={0,0,127}));
   connect(weaBus.TDryBul, TOut.u) annotation (Line(
       points={{-330,30},{-310,30},{-310,-40},{-262,-40}},
       color={255,204,51},
@@ -109,13 +110,13 @@ equation
   connect(CooCoi.TOut, TOut.y) annotation (Line(points={{79,3},{60,3},{60,-40},{
           -239,-40}}, color={0,0,127}));
   connect(CooCoi.on, uCooEna) annotation (Line(points={{79,8},{50,8},{50,-20},{-78,
-          -20},{-78,-120},{-380,-120}}, color={255,0,255}));
+          -20},{-78,-130},{-380,-130}}, color={255,0,255}));
   connect(TAirCooCoi.port_b, heaCoiEle.port_a)
     annotation (Line(points={{150,0},{182,0}}, color={0,127,255}));
   connect(heaCoiEle.port_b, TAirLvg.port_a)
     annotation (Line(points={{202,0},{240,0}}, color={0,127,255}));
   connect(heaCoiEle.u, uHea) annotation (Line(points={{180,6},{172,6},{172,-58},
-          {-160,-58},{-160,-80},{-380,-80}}, color={0,0,127}));
+          {-160,-58},{-160,-90},{-380,-90}}, color={0,0,127}));
   annotation (defaultComponentName = "ptac",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(
@@ -135,18 +136,16 @@ equation
     an electric heating coil, and a constant speed supply air fan. 
     </p>
     <p>
-    The control modules for the system are implemented separately in 
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls\">
-    Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls</a>: 
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil\">
-    CyclingFanCyclingCoil</a> to cycle the DX cooling coil, electric heating coil, and fan to regulate the zone temperature based on the 
-    cooling and heating setpoints. 
+    The control module for the system is implemented separately in 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a> and cycles the DX cooling coil, 
+    electric heating coil, and fan to regulate the zone temperature based on the cooling and heating setpoints. 
     </p>
     </html>
     ", revisions="<html>
     <ul>
     <li>
-    May 17, 2023, by Junke Wang, Xing Lu and Karthik Devaprasad:<br/>
+    June 21, 2023, by Junke Wang, Xing Lu, and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>

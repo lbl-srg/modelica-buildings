@@ -157,17 +157,17 @@ equation
   connect(Xi.y, souAir.Xi_in[1]) annotation (Line(points={{21,48},{30,48},{30,32},
           {50,32}},     color={0,0,127}));
   connect(onFanCoil.y,pthp. uFan) annotation (Line(points={{-68,-10},{-40,-10},{
-          -40,10},{-22,10}}, color={0,0,127}));
+          -40,14},{-21,14}}, color={0,0,127}));
   connect(supHea.y, pthp.uSupHea) annotation (Line(points={{-68,20},{-44,20},{-44,
-          -14},{-22,-14}}, color={0,0,127}));
+          -2},{-21,-2}},   color={0,0,127}));
   connect(yDamOut.y,pthp. uEco) annotation (Line(points={{-68,50},{-40,50},{-40,
-          18},{-22,18}}, color={0,0,127}));
+          18},{-21,18}}, color={0,0,127}));
   connect(heaEna.y, pthp.uHeaEna) annotation (Line(points={{-68,-42},{-38,-42},{
-          -38,-17.8},{-22,-17.8}}, color={255,0,255}));
+          -38,-18},{-21,-18}},     color={255,0,255}));
   connect(cooDis.y, pthp.uCooEna) annotation (Line(points={{-68,-70},{-34,-70},{
-          -34,-9.8},{-22,-9.8}}, color={255,0,255}));
+          -34,-14},{-21,-14}},   color={255,0,255}));
   connect(weaDat.weaBus,pthp. weaBus) annotation (Line(
-      points={{-70,80},{-15.8,80},{-15.8,18}},
+      points={{-70,80},{-16.2,80},{-16.2,5.6}},
       color={255,204,51},
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -175,16 +175,18 @@ equation
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,140}})),
     experiment(Tolerance=1e-6),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Examples/PackagedTerminalHeatPump.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
-<p>This is an example model for the PTHP model in one heating day with simple inputs.</p>
-</html>", revisions="<html>
+    <p>
+    This is an example model for the packaged terminal heat pump model in one heating day with simple inputs.
+    </p>
+    </html>", revisions="<html>
     <ul>
     <li>
-    April 10, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+    June 21, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
     First implementation.
     </li>
     </ul>
-    </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/PackagedTerminalHeatPump/Examples/PackagedTerminalHeatPump.mos"
-        "Simulate and plot"));
+    </html>"));
 end PackagedTerminalHeatPump;

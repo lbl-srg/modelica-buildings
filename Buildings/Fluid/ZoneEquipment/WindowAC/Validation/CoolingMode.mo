@@ -202,7 +202,7 @@ equation
           36},{-88,36},{-88,44},{-82,44}},
                          color={0,0,127}));
   connect(modCon.yCooEna, winAC.uCooEna) annotation (Line(points={{-36.4,
-          -23.4286},{-30,-23.4286},{-30,-13.8},{-18,-13.8}},
+          -23.4286},{-30,-23.4286},{-30,-18},{-17,-18}},
                                                    color={255,0,255}));
   connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{
           -100,-54.2857},{-79.6,-54.2857}},
@@ -226,7 +226,7 @@ equation
   connect(datRea.y[15], K2C[3].u) annotation (Line(points={{-99,40},{-94,40},{-94,
           80},{-82,80}}, color={0,0,127}));
   connect(building.weaBus, winAC.weaBus) annotation (Line(
-      points={{52,120},{54,120},{54,88},{-11.8,88},{-11.8,14}},
+      points={{52,120},{54,120},{54,88},{-12.2,88},{-12.2,1.6}},
       color={255,204,51},
       thickness=0.5));
   connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,80},{-44,80},
@@ -243,8 +243,8 @@ equation
   connect(winAC.TAirSup, modCon.TSup) annotation (Line(points={{25,6},{30,6},{
           30,-86},{-84,-86},{-84,-66.2857},{-79.6,-66.2857}},
                                                            color={0,0,127}));
-  connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{
-          2,-38},{-32,-38},{-32,6},{-18,6}}, color={0,0,127}));
+  connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{2,
+          -38},{-32,-38},{-32,10},{-17,10}}, color={0,0,127}));
   connect(realExpression.y,powCooCoiMod. u)
     annotation (Line(points={{139,84},{154,84}}, color={0,0,127}));
   connect(realExpression1.y,powFanMod. u)
@@ -264,7 +264,7 @@ equation
   connect(realExpression6.y, TZonAirMod.u)
     annotation (Line(points={{139,-84},{154,-84}}, color={0,0,127}));
   connect(damPos.y, winAC.uEco) annotation (Line(points={{-98,0},{-38,0},{-38,14},
-          {-18,14}}, color={0,0,127}));
+          {-17,14}}, color={0,0,127}));
   connect(realExpression7.y, TZonAirEP.u)
     annotation (Line(points={{215,-84},{232,-84}}, color={0,0,127}));
   connect(realExpression8.y, powCooCoiEP.u)
@@ -289,5 +289,39 @@ equation
       StopTime=16502400,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingMode.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+    <p>
+    This is a validation model for the window air conditioner system model with a modular controller. 
+    The validation model consists of: 
+    </p>
+    <ul>
+    <li>
+    An instance of the window air conditioner system model <code>WindowAC</code>. 
+    </li>
+    <li>
+    thermal zone model <code>zon</code> of class 
+    <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+    Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
+    </li>
+    <li>
+    A modular controller <code>ModularController</code> of class 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>. 
+    </li>
+    </ul>
+    <p>
+    The simulation model provides a closed-loop example of <code>WindowAC</code> that 
+    is operated by <code>ModularController</code> to regulate the zone temperature in 
+    <code>zon</code> at its cooling setpoint. 
+    </p>
+    </html>
+    ", revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end CoolingMode;

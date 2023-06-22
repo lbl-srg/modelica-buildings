@@ -6,6 +6,6 @@ package Data "Sizing data used for validation models"
 
   annotation(Documentation(info="<html>
   This package contains data records with sizing data and fan performance data 
-  for fan coil validation models.
+  for window air conditioner models.
   </html>"));
 end Data;

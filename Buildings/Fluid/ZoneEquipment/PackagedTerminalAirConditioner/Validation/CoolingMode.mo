@@ -297,10 +297,10 @@ equation
   connect(con.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,60},
           {56,60}}, color={0,0,127}));
   connect(damPos.y,ptac. uEco) annotation (Line(points={{-98,50},{-58,50},{-58,12},
-          {-18,12}}, color={0,0,127}));
+          {-17,12}}, color={0,0,127}));
 
   connect(building.weaBus,ptac. weaBus) annotation (Line(
-      points={{0,124},{14,124},{14,60},{-11.8,60},{-11.8,12}},
+      points={{0,124},{14,124},{14,60},{-12.2,60},{-12.2,-0.4}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, building.weaBus) annotation (Line(
@@ -356,9 +356,9 @@ equation
   connect(realExpression18.y,powFanEP. u)
     annotation (Line(points={{221,-126},{232,-126}}, color={0,0,127}));
   connect(booToRea[1].y, ptac.uFan) annotation (Line(points={{-30,-76},{-24,-76},
-          {-24,4},{-18,4}}, color={0,0,127}));
+          {-24,8},{-17,8}}, color={0,0,127}));
   connect(booToRea[2].y, ptac.uHea) annotation (Line(points={{-30,-76},{-24,-76},
-          {-24,-23.8},{-18,-23.8}}, color={0,0,127}));
+          {-24,-16},{-17,-16}},     color={0,0,127}));
   connect(datRea.y[23], K2C[1].u)
     annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
   connect(datRea.y[24], K2C[2].u)
@@ -378,7 +378,7 @@ equation
   connect(modCon.fanOpeMod, fanOpeMod.y) annotation (Line(points={{-88,-75.4},{-104,
           -75.4},{-104,-80},{-108,-80}}, color={255,0,255}));
   connect(modCon.yCooEna, ptac.uCooEna) annotation (Line(points={{-64,-54},{-32,
-          -54},{-32,-15.8},{-18,-15.8}}, color={255,0,255}));
+          -54},{-32,-20},{-17,-20}},     color={255,0,255}));
   connect(modCon.yHeaEna, booToRea[2].u) annotation (Line(points={{-64,-58},{-60,
           -58},{-60,-76},{-54,-76}}, color={255,0,255}));
   connect(modCon.yFan, booToRea[1].u) annotation (Line(points={{-64,-78},{-60,-78},
@@ -394,34 +394,33 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
     <p>
-    This is an example model for the PTAC system model under cooling mode operation 
-    with a cycling fan cycling coil (AUTO Fan) controller. It consists of: 
-    </p>
-<ul>
-<li>
-an instance of the PTAC system model <code>PackagedTerminalAirConditioner</code>. 
-</li>
-<li>
-thermal zone model <code>zon</code> of class 
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
-</li>
-<li>
-PTAC controller <code>cycFanCycCoi</code> of class 
-<a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil\">
-Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil</a>. 
-</li>
-</ul>
-<p>
-The simulation model provides a closed-loop example of <code>PTAC</code> that 
-is operated by <code>cycFanCycCoi</code> and regulates the zone temperature in 
-<code>zon</code> at its specific setpoint. 
-</p>
-</html>
-", revisions="<html>
+    This is a validation model for the packaged terminal air conditioner (PTAC) system model under cooling mode 
+    with a modular controller. The validation model consists of: </p>
     <ul>
     <li>
-    May 17, 2023 by Junke Wang, Xing Lu and Karthik Devaprasad:<br/>
+    An instance of the PTAC system model <code>PackagedTerminalAirConditioner</code>. 
+    </li>
+    <li>
+    A thermal zone model <code>zon</code> of class 
+    <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+    Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
+    </li>
+    <li>
+    A modular controller <code>ModularController</code> of class 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>. 
+    </li>
+    </ul>
+    <p>
+    The validation model provides a closed-loop example of <code>PackagedTerminalAirConditioner</code> that 
+    is operated by <code>ModularController</code> to regulate the zone temperature in 
+    <code>zon</code> at its cooling setpoint. 
+    </p>
+    </html>
+    ", revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang, Xing Lu, and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>

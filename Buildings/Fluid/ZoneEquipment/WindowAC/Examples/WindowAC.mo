@@ -87,11 +87,11 @@ model WindowAC
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(weaDat.weaBus, winAC.weaBus) annotation (Line(
-      points={{-60,78},{-15.8,78},{-15.8,18}},
+      points={{-60,78},{-16.2,78},{-16.2,5.6}},
       color={255,204,51},
       thickness=0.5));
   connect(damPos.y, winAC.uEco)
-    annotation (Line(points={{-58,18},{-22,18}}, color={0,0,127}));
+    annotation (Line(points={{-58,18},{-21,18}}, color={0,0,127}));
   connect(souAir.ports[1], winAC.port_Air_a2) annotation (Line(points={{72,36},
           {78,36},{78,4},{20,4}}, color={0,127,255}));
   connect(sinAir.ports[1], winAC.port_Air_b2) annotation (Line(points={{72,-44},
@@ -101,9 +101,9 @@ equation
   connect(Xi.y, souAir.Xi_in[1]) annotation (Line(points={{21,48},{36,48},{36,
           32},{50,32}}, color={0,0,127}));
   connect(onFanCoil.y, winAC.uFan) annotation (Line(points={{-58,-30},{-42,-30},
-          {-42,10},{-22,10}}, color={0,0,127}));
+          {-42,14},{-21,14}}, color={0,0,127}));
   connect(uCooEna.y, winAC.uCooEna) annotation (Line(points={{-58,-70},{-38,-70},
-          {-38,-9.8},{-22,-9.8}}, color={255,0,255}));
+          {-38,-14},{-21,-14}},   color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,140}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
@@ -114,5 +114,18 @@ equation
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Examples/WindowAC.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+    <p>
+    This is an example model for the window air conditioner model in one cooling day with simple inputs.
+    </p>
+    </html>
+    ", revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end WindowAC;

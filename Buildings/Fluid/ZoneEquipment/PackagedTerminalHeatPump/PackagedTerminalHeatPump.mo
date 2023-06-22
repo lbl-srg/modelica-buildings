@@ -215,28 +215,23 @@ equation
     heating coil. 
     </p>
     <p>
-    The control modules for the system are implemented separately in 
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls\">
-    Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls</a>: 
+    The control module for the system is implemented separately in 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>. The controller cycles 
+    the DX cooling coil, DX heating coil, and fan to regulate the zone temperature based on the 
+    heating and cooling setpoints. 
     </p>
-<ul>
-<li>
-<a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.CyclingFanCyclingCoil\">
-CyclingFanCyclingCoil</a>: Cycle the DX cooling coil, DX heating coil, electric 
-supplementaty heating coil, and fan to regulate the zone temperature based on the 
-heating and cooling setpoints. 
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalHeatPump.Controls.SupplementalHeating\">
-SupplementalHeating</a>: Turn on/off the supplemental heating based on the minimum 
-outdoor air drybulb temperature limit.
-</li>
-</ul>
-</html>
-", revisions="<html>
+    <p>
+    If the DX heating coil operating at full load is unable to meet
+    the zone heating load (e.g., the outdoor temperature is below the minimum outdoor air drybulb temperature limit), 
+    the controller will activate the electric supplemental heating coil to meet the 
+    remaining zone heating load to the extent possible.
+    </p>
+    </html>
+    ", revisions="<html>
     <ul>
     <li>
-    April 10, 2023, by Xing Lu and Karthik Devaprasad:<br/>
+    June 21, 2023, by Xing Lu, Karthik Devaprasad, and Junke Wang:<br/>
     First implementation.
     </li>
     </ul>
