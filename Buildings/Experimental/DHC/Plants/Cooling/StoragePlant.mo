@@ -241,8 +241,8 @@ chiller on the same CHW district network.
 <h4>System Concept Example</h4>
 <p>
 An example usage of this model within a district network is implemented in
-<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource\">
-Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource</a>.
+<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource\">
+Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource</a>.
 Shown in the schematic below, it has two CHW plants and three users.
 </p>
 <ul>

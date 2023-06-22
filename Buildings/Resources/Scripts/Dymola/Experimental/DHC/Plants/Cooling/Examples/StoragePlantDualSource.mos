@@ -1,8 +1,8 @@
-simulateModel("Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource",
+simulateModel("Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantStoragePlantDualSource",
  stopTime=9000,
  tolerance=1e-06,
  method="radau",
- resultFile="DualSource");
+ resultFile="StoragePlantDualSource");
 // Plot commands
 createPlot(id=1,
  position={27, 28, 733, 459},

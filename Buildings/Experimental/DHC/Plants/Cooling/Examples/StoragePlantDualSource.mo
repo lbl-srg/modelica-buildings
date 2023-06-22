@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants.Cooling.Examples;
-model DualSource
+model StoragePlantDualSource
   "Idealised district system model with two sources and three users"
   extends Modelica.Icons.Example;
 
@@ -351,7 +351,7 @@ equation
   connect(gaiStoPla.y, muxDp.u[4]) annotation (Line(points={{141,-190},{160,-190},
           {160,150},{180,150},{180,152.625}}, color={0,0,127}));
   annotation (experiment(Tolerance=1e-06, StopTime=9000),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Cooling/Examples/DualSource.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Experimental/DHC/Plants/Cooling/Examples/StoragePlantDualSource.mos"
         "Simulate and plot"),
         Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),                                             Diagram(
@@ -429,4 +429,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end DualSource;
+end StoragePlantDualSource;

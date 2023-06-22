@@ -134,8 +134,8 @@ equation
                                  Documentation(info="<html>
 <p>
 This is a simple ideal user model used by
-<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource\">
-Buildings.Experimental.DHC.Plants.Cooling.Examples.DualSource</a>.
+<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource\">
+Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource</a>.
 The load of the user is described by a varying flow rate setpoint.
 The valve is controlled to maintain the requested flow.
 CHW always leaves the user at a fixed return temperature.
