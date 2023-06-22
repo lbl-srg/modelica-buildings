@@ -285,9 +285,10 @@ network). Otherwise, they are commanded off.
 <li>
 The system receives a command to charge, hold, or discharge the storage tank.
 The tank controller returns status signals indicating whether it is depleted,
-cooled, or overcooled. The command is not necessarily enforced. For example,
-if the chill in the storage tank is depleted, the discharge command will not
-be executed. See the Implementation section for details.
+cooled, or overcooled. The command may be disregarded. For example, if the
+tank is receiving a discharge command but it is already depleted, it will not
+discharge which would let warm return water directly flow to the supply side.
+See the Implementation section for details.
 </li>
 <li>
 The reversible connection between plant 2 and the district network
