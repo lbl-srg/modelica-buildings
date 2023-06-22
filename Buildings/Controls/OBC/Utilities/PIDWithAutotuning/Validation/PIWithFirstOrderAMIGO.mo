@@ -93,7 +93,7 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.FirstOrderAMIGO</a>.
 </p>
 <p>
-This example is to compare the output of a PI controller (<code>PIWitTun</code>)
+This example compares the output of a PI controller (<code>PIWitTun</code>)
 with an autotuning feature to that of another PI controller (<code>PI</code>)
 with arbitary gains.
 </p>

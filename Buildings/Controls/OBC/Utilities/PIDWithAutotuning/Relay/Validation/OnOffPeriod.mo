@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model OnOffPeriod "Test model for OnOffPeriod"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.OnOffPeriod onOffPer
-    "Calculate the length of the On period and the Off period"
+    "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.TimeTable relRes(table=[0,1; 0.1,0;
         0.3,0; 0.7,1; 0.83,0; 0.85,1], period=2)

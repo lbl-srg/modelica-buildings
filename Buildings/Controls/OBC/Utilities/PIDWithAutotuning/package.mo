@@ -4,7 +4,8 @@ package PIDWithAutotuning "Package with blocks for PID autotuning"
     preferredView="info",
     Documentation(
       info="<html>
-<p>This package contains components to perform automatic tunning on PID controllers. </p>
+<p>This package contains blocks to perform automatic tuning of PID controllers.
+</p>
 </html>"),
     Icon(
       graphics={

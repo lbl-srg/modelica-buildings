@@ -92,8 +92,11 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the integral time of a PID model.</p>
 <h4>Main equations</h4>
+<p>
+The main equations is
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
-T<sub>i</sub> = L(0.4L + 0.8T)/(L + 0.1T),
+T<sub>i</sub> = L (0.4 L + 0.8 T)/(L + 0.1 T),
 </p>
 <p>
 where <code>T</code> is the time constant of the first-order time-delayed model

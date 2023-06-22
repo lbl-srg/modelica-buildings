@@ -12,14 +12,14 @@ block Gain "Identify the gain of a first order time delayed model"
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the Off period"
+    "Length for the off period"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triSta
@@ -116,11 +116,11 @@ where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value
 and the lower value of the relay control output, respectively.
 <i>y<sub>ref</sub></i> is the reference value of the relay output.
 <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the On
-period and the Off period, respectively.
+period and the off period, respectively.
 </p>
 <p>
-During an On period, the relay switch signal becomes <code>true</code>.
-During an Off period, the relay switch signal becomes <code>false</code>.
+During an on period, the relay switch signal becomes <code>true</code>.
+During an off period, the relay switch signal becomes <code>false</code>.
 </p>
 <h4>References</h4>
 <p>Josefin Berner (2017).

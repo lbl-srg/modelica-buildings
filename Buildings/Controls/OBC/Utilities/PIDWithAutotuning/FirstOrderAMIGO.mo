@@ -60,15 +60,15 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_m
     "Connector of measurement input signal"
-    annotation (Placement(transformation(origin={30,-120}, extent={{20,-20},{-20,20}},rotation=270),
+    annotation (Placement(transformation(origin={0,-120},  extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput tri
     "Resets the controller output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={4,-120}),
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
-    annotation (Placement(transformation(extent={{100,-40},{140,0}}), iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
     final yHig=yHig,
     final yLow=yLow,
@@ -114,7 +114,7 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     final yHig=yHig - yRef,
     final yLow=yRef + yLow)
-    "Identify the On and Off period length, the half period ratio, and the moments when the tuning starts and ends"
+    "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
     annotation (Placement(transformation(extent={{20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
@@ -135,14 +135,16 @@ equation
           0}}, color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{18,10},{0,10},{0,0},{-120,0}},
                color={0,0,127}));
-  connect(PID.trigger, tri) annotation (Line(points={{4,-52},{4,-120}}, color={255,0,255}));
+  connect(PID.trigger, tri) annotation (Line(points={{4,-52},{4,-90},{-60,-90},
+          {-60,-120}},                                                  color={255,0,255}));
   connect(samk.y,PID. k) annotation (Line(points={{-18,-20},{-14,-20},{-14,-32},
           {-2,-32}}, color={0,0,127}));
   connect(PID.Ti, samTi.y) annotation (Line(points={{-2,-36},{-14,-36},{-14,-50},
           {-58,-50}}, color={0,0,127}));
   connect(samTd.y,PID. Td) annotation (Line(points={{-18,-70},{-6,-70},{-6,-44},
           {-2,-44}}, color={0,0,127}));
-  connect(rel.u_m, u_m) annotation (Line(points={{30,-2},{30,-120}}, color={0,0,127}));
+  connect(rel.u_m, u_m) annotation (Line(points={{30,-2},{30,-60},{10,-60},{10,
+          -96},{0,-96},{0,-120}},                                    color={0,0,127}));
   connect(swi.u3, rel.y)
     annotation (Line(points={{58,-28},{52,-28},{52,16},{42,16}}, color={0,0,127}));
   connect(swi.u1,PID. y) annotation (Line(points={{58,-12},{40,-12},{40,-40},{22,
@@ -199,8 +201,9 @@ equation
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{-82,43},{-86,43},{-86,-70},
           {-42,-70}}, color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{82,-20},{120,-20}}, color={0,0,127}));
-  connect(u_m, PID.u_m) annotation (Line(points={{30,-120},{30,-60},{10,-60},{10,
+    annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}},
+                                                  color={0,0,127}));
+  connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>
@@ -219,12 +222,12 @@ and inherits all the parameters of the latter. However, through the parameter
 <code>controllerType</code>, the controller can only be configured as PI or
 PID controller.
 </p>
-<h4>Breif guidance</h4>
+<h4>Brief guidance</h4>
 <p>
-To use this block, connect it to the control loop. 
+To use this block, connect it to the control loop.
 It will start the PID tuning process once the simulation starts.
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
-The PID tuning process will ends automatically based on the algorithm defined
+The PID tuning process will end automatically based on the algorithm defined
 in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
 Starting from then, the control loop is controlled by a PI or PID controller.
@@ -235,7 +238,8 @@ Note that the output of this block is limited from 0 to 1.
 <h4>References</h4>
 <p>
 J. Berner (2017).
-<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
+<a href=\"https://lucris.lub.lu.se/ws/portalfiles/portal/33100749/ThesisJosefinBerner.pdf\">
+\"Automatic Controller Tuning using Relay-based Model Identification.\"</a>
 Department of Automatic Control, Lund University.
 </p>
 </html>", revisions="<html>

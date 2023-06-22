@@ -11,7 +11,7 @@ block TimeConstantDelay
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length for the on period"
     annotation (Placement(transformation(extent={{-140,56},{-100,96}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput k
@@ -161,7 +161,7 @@ T = t<sub>on</sub>/(ln((&delta;/|k|-y<sub>hig</sub>+exp(&tau;/(1 - &tau;))(y<sub
 <p>
 where <code>y<sub>hig</sub></code> and <code>y<sub>low</sub></code> are the higher value
 and the lower value of the relay control output, respectively.
-<code>t<sub>on</sub></code> is the length of the On period.
+<code>t<sub>on</sub></code> is the length of the on period.
 <code>&delta;</code> is the dead band of a relay controller.
 <code>k</code> is the gain of the first-order time-delayed model.
 <code>&tau;</code> is the normalized time delay.
