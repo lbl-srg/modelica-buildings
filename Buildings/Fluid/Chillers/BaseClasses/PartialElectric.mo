@@ -410,6 +410,12 @@ and
 part load ratio.
 </li>
 </ul>
+<p>
+See the documentation of
+<a href=\"Modelica://Buildings.Fluid.Chillers.Data.ElectricEIR.Generic\">
+Buildings.Fluid.Chillers.Data.ElectricEIR.Generic</a>
+to see how they are formulated in extended models.
+</p>
 <h4>References</h4>
 <ul>
 <li>

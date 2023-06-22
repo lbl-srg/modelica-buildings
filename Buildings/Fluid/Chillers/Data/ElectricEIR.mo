@@ -27,6 +27,46 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
 for the chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
+It provides coefficients for the following functions:</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code></th>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Modifies cooling capacity</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Modifies EIR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Modifies EIR</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>BIquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
+<p>
+where
+<code>TConEnt</code> is the condenser entering temperature,
+<code>TEvaLvg</code> is the evaporator leaving temperature,
+<code>TConLvg</code> is the condenser leaving temperatore, and
+PLR is the part load ratio.
 </p>
 </html>", revisions="<html>
 <ul>
