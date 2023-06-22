@@ -1,4 +1,5 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses;
+
 block PIDGain "Identify the control gain of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput kp(
     final min=1E-6)
