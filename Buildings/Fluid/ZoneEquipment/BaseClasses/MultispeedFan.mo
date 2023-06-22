@@ -9,13 +9,15 @@ block MultispeedFan
     "The zonal HVAC system has a cooling coil";
 
   parameter Integer nSpe(
-    final min=2) = 2
+    final min=2)
     "Number of fan speeds"
     annotation(Dialog(group="System parameters"));
 
   parameter Real fanSpe[nSpe](
-    final unit="1",
-    displayUnit="1") = {0,1}
+    final min=fill(0, nSpe),
+    final max=fill(1, nSpe),
+    final unit=fill("1", nSpe),
+    displayUnit=fill("1", nSpe))
     "Fan speed values"
     annotation(Dialog(group="System parameters"));
 
@@ -77,12 +79,6 @@ block MultispeedFan
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling cooling and heating mode"
-    annotation(Dialog(tab="Advanced"));
-
-  parameter Real dFanSpe(
-    final unit="1",
-    displayUnit="1") = 0.05
-    "Fan speed difference used for cycling fan speed"
     annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput heaCooOpe

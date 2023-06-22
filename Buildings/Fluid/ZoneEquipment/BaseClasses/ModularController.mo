@@ -2,13 +2,42 @@ within Buildings.Fluid.ZoneEquipment.BaseClasses;
 model ModularController
   extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces;
 
+  parameter Real minFanSpe(
+    final unit="1",
+    displayUnit="1",
+    final min=0)
+    "Minimum allowed fan speed"
+    annotation(Dialog(group="Fan parameters",
+      enable= not has_mulFan_new));
+
   parameter Modelica.Units.SI.Time tFanEnaDel = 30
     "Time period for delay between switching from deadband mode to heating/cooling mode"
-    annotation(Dialog(group="System parameters"));
+    annotation(Dialog(group="Fan parameters"));
 
   parameter Modelica.Units.SI.Time tFanEna = 300
     "Minimum duration for which fan is enabled"
-    annotation(Dialog(group="System parameters"));
+    annotation(Dialog(group="Fan parameters"));
+
+  parameter Integer nSpe(
+    final min=2)
+    "Number of fan speeds"
+    annotation(Dialog(group="Fan parameters",
+      enable=has_mulFan_new));
+
+  parameter Real fanSpe[nSpe](
+    final min=fill(0, nSpe),
+    final max=fill(1, nSpe),
+    final unit=fill("1", nSpe),
+    displayUnit=fill("1", nSpe))
+    "Fan speed values"
+    annotation(Dialog(group="Fan parameters",
+      enable=has_mulFan_new));
+
+  parameter Modelica.Units.SI.Time tSpe=180
+    "Minimum amount of time for which calculated speed exceeds preset value for 
+    speed to be changed"
+    annotation(Dialog(group="Fan parameters",
+      enable=has_mulFan_new));
 
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 0.2
     "Temperature difference used for enabling cooling and heating mode"
@@ -52,34 +81,37 @@ model ModularController
     final unit="1",
     displayUnit="1",
     final min=0)=1
-    "Gain of cooling loop controller"
+    "Gain of heating loop controller"
     annotation(Dialog(group="Heating mode control"));
 
   parameter Modelica.Units.SI.Time TiHea=0.5
-    "Time constant of cooling loop integrator block"
+    "Time constant of heating loop integrator block"
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PI or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
   parameter Modelica.Units.SI.Time TdHea=0.1
-    "Time constant of cooling loop derivative block"
+    "Time constant of heating loop derivative block"
     annotation(Dialog(group="Heating mode control",
       enable = controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PD or
       controllerTypeHea == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PI
+  parameter Modelica.Blocks.Types.SimpleController controllerTypeSupHea=Modelica.Blocks.Types.SimpleController.PI
     "Type of supplementary heating controller"
     annotation (Dialog(group="Supplementary heating control"));
 
-  parameter Real k=1
+  parameter Real kSupHea(
+    final unit="1",
+    displayUnit="1",
+    final min=0)=1
     "Gain of supplementary heating controller"
     annotation (Dialog(group="Supplementary heating control"));
 
-  parameter Modelica.Units.SI.Time Ti=120
+  parameter Modelica.Units.SI.Time TiSupHea=120
     "Time constant of Integrator block for supplementary heating"
     annotation (Dialog(group="Supplementary heating control"));
 
-  parameter Modelica.Units.SI.Time Td=0.1
+  parameter Modelica.Units.SI.Time TdSupHea=0.1
     "Time constant of Derivative block for supplementary heating"
     annotation (Dialog(group="Supplementary heating control"));
 
@@ -106,11 +138,15 @@ model ModularController
     final controllerTypeHea=controllerTypeHea,
     final kHea=kHea,
     final TiHea=TiHea,
-    final TdHea=TdHea) if has_varFan
+    final TdHea=TdHea,
+    final minFanSpe=minFanSpe,
+    final tFanEnaDel=tFanEnaDel,
+    final tFanEna=tFanEna) if has_varFan
     "Variable-speed fan controller"
     annotation (Placement(transformation(extent={{36,-74},{60,-50}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(
+    final minFanSpe=minFanSpe,
     final tFanEnaDel=tFanEnaDel,
     final tFanEna=tFanEna) if has_conFan
     "Cycling fan control"
@@ -119,6 +155,9 @@ model ModularController
   Buildings.Fluid.ZoneEquipment.BaseClasses.MultispeedFan conMulSpeFan(
     final has_hea=has_hea,
     final has_coo=has_coo,
+    final nSpe=nSpe,
+    final fanSpe=fanSpe,
+    final tSpe=tSpe,
     final controllerTypeCoo=controllerTypeCoo,
     final kCoo=kCoo,
     final TiCoo=TiCoo,
@@ -126,7 +165,9 @@ model ModularController
     final controllerTypeHea=controllerTypeHea,
     final kHea=kHea,
     final TiHea=TiHea,
-    final TdHea=TdHea) if has_mulFan
+    final TdHea=TdHea,
+    final tFanEnaDel=tFanEnaDel,
+    final tFanEna=tFanEna) if has_mulFan_new
     "Multi-speed fan controller"
     annotation (Placement(transformation(extent={{36,-118},{60,-94}})));
 
@@ -155,10 +196,11 @@ model ModularController
     annotation (Placement(transformation(extent={{-80,66},{-60,86}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea(
-    final controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    final k=k,
-    final Ti=Ti,
-    final Td=Td,
+    final dTHys=dTHys,
+    final controllerType=controllerTypeSupHea,
+    final k=kSupHea,
+    final Ti=TiSupHea,
+    final Td=TdSupHea,
     final TLocOut=TLocOut,
     final dTHeaSet=dTHeaSet) if has_supHea
     "Supplementary heating controller"
@@ -169,7 +211,7 @@ model ModularController
     annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant conCoo(
-    k=false) if not has_coo
+    final k=false) if not has_coo
     "Constant false signal if cooling mode is not available"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
@@ -177,6 +219,38 @@ model ModularController
     final k=false) if not has_hea
     "Constant false signal if heating mode is not available"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+
+  parameter Boolean has_hea_new=has_hea
+    "Does the zone equipment have heating equipment?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_varHea_new=has_varHea
+    "Does the zone equipment have variable heating?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_coo_new=has_coo
+    "Does the zone equipment have cooling equipment?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_varCoo=has_varCoo
+    "Does the zone equipment have variable cooling?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_supHea = has_supHea
+    "Does the zone equipment have supplementary heating coil?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_conFan = has_conFan
+    "Does the zone equipment have constant speed fan?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_varFan = has_varFan
+    "Does the zone equipment have variable speed fan?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
+
+  parameter Boolean has_mulFan_new = has_mulFan
+    "Does the zone equipment have multiple speed fan?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
 
 equation
   connect(fanOpeMod, conFanCyc.fanOpeMod) annotation (Line(points={{-160,-94},{

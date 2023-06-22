@@ -6,7 +6,7 @@ model CyclingFan
     final unit="1",
     displayUnit="1",
     final min=0,
-    final max=1) = 0.4
+    final max=1)
     "Minimum allowed fan speed"
     annotation(Dialog(group="System parameters"));
 

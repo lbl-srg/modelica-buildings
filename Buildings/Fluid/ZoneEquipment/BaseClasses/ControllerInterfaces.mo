@@ -2,19 +2,21 @@ within Buildings.Fluid.ZoneEquipment.BaseClasses;
 partial model ControllerInterfaces
   "Baseclass for zone HVAC controller interfaces"
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes sysTyp
-    "Select zonal HVAC system type"
-    annotation (Dialog(group="System parameters"));
-
   parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes fanTyp
     "Select zonal HVAC fan type"
     annotation (Dialog(group="Fan parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
-    "Type of heating coil used" annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou heaCoiTyp
+    "Type of heating coil used"
+    annotation (Dialog(group="System parameters"));
 
-  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
-    "Type of cooling coil used" annotation (Dialog(group="System parameters"));
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou cooCoiTyp
+    "Type of cooling coil used"
+    annotation (Dialog(group="System parameters"));
+
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou supHeaTyp
+    "Type of supplemental heating coil used"
+    annotation(Dialog(group="System parameters"));
 
   parameter Boolean has_fanOpeMod = true
     "Does the controller need a fan operating mode signal interface?";
@@ -120,39 +122,27 @@ partial model ControllerInterfaces
       iconTransformation(extent={{100,20},{140,60}})));
 
 protected
-  final parameter Boolean has_hea=(sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.fcu)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.ptac)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitHeater)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
-    and not (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
+  final parameter Boolean has_hea=(heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele)
+    or (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat)
+    or (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum)
     "Does the zone equipment have heating equipment?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean has_coo=(sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.fcu)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.ptac)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.windowAC)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
-    and not (cooCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.noCoo)
+  final parameter Boolean has_varHea=(heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele)
+    or (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat)
+    "Does the zone equipment have variable heating?";
+
+  final parameter Boolean has_coo=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
+    or (cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
     "Does the zone equipment have cooling equipment?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean has_varHea = (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.fcu)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitHeater)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
-    "Does the zone equipment have variable heating?";
-
-  final parameter Boolean has_varCoo = (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.fcu)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.zoneOAUnit)
-    or (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.unitVentilator)
+  final parameter Boolean has_varCoo=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
+    or (cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
     "Does the zone equipment have variable cooling?";
 
-  final parameter Boolean has_supHea = (sysTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.pthp)
-    and not (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
+  final parameter Boolean has_supHea = (supHeaTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.ele)
+    or (supHeaTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.hotWat)
     "Does the zone equipment have supplementary heating coil?";
 
   final parameter Boolean has_conFan = (fanTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan)

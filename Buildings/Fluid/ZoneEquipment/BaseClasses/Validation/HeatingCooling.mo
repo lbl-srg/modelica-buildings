@@ -4,33 +4,39 @@ model HeatingCooling
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCooMod(
-    conMod=false,
-    tCoiEna=300)
+    final conMod=false,
+    final k=0.05,
+    final Ti=60,
+    final tCoiEna=200)
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{32,38},{60,66}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHeaMod(
-    conMod=true,
-    tCoiEna=300)
+    final conMod=true,
+    final k=0.05,
+    final Ti=60,
+    final tCoiEna=200)
     "Heating mode controller"
     annotation (Placement(transformation(extent={{30,-64},{58,-36}})));
 
+protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
     final height=8,
-    final duration=36000,
+    final duration=1500,
     final offset=273.15 + 20)
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,58},{-26,72}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant heaSetPoi(
-    final k=273.15+ 21)
+    final k=273.15+ 23)
     "Heating setpoint temperature"
     annotation (Placement(transformation(extent={{-40,-70},{-26,-56}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup(
-    final height=6,
-    final duration=3600,
-    final offset=273.15 + 20)
+    final height=-10,
+    final duration=750,
+    final offset=273.15 + 20,
+    final startTime=700)
     "Measured supply air temperature"
     annotation (Placement(transformation(extent={{-40,6},{-26,20}})));
 
@@ -40,19 +46,19 @@ model HeatingCooling
     annotation (Placement(transformation(extent={{-40,32},{-26,46}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon1(
-    final height=8,
-    final duration=36000,
-    final offset=273.15 + 17)
+    final height=-8,
+    final duration=1500,
+    final offset=273.15 + 28)
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,-44},{-26,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uFan(
-    final period=900)
+    final period=150)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-40,82},{-26,96}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uFan1(
-    final period=900)
+    final period=150)
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-40,-20},{-26,-6}})));
 
@@ -78,6 +84,30 @@ equation
     This simulation model is used to validate 
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
     Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>. 
+    </p>
+    <p>
+    It tests two instances of the class, <code>conCooMod</code> for cooling and 
+    <code>conHeaMod</code> for heating. It has time-varying input signals for the 
+    measured zone temperature, fan proven on signal and measured supply air temperature.
+    The following observations can be made from the plots.
+    <ul>
+    <li>
+    <code>conCooMod</code> enters cooling mode (<code>conCooMod.yMod = true</code>)
+    when the zone temperature <code>conCooMod.TZon</code> rises above the cooling 
+    setpoint <code>conCooMod.TZonSet</code>.
+    </li>
+    <li>
+    It enables cooling (<code>conCooMod.yEna = true</code>) only when fan is proven 
+    on (<code>uFan=true</code>), supply air temperature <code>TSup</code> is above 
+    the nominal dewpoint temperature of zone air <code>TSupDew</code> and
+    <code>conCooMod.yMod = true</code>.
+    </li>
+    <li>
+    Similarly, it enters heating mode (<code>conHeaMod.yMod = true</code>) when 
+    <code>TZon</code> is below <code>TZonSet</code>, and enables the heating 
+    (<code>yEna=true</code>) when <code>uFan=true</code>.
+    </li>
+    </ul>
     </p>
     </html>",revisions="<html>
       <ul>

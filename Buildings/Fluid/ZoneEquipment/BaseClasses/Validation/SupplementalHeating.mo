@@ -4,10 +4,11 @@ model SupplementalHeating
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea(
-    final TLocOut(displayUnit="K") = 271.15)
+    final TLocOut = 271.15)
     "Instance of controller for cycling fan and cyling coil"
     annotation (Placement(transformation(extent={{12,-10},{32,10}})));
 
+protected
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant uHeaMod(
     final k=true)
     "Heating mode signal"
@@ -15,7 +16,7 @@ model SupplementalHeating
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse uHeaEna(
     final period=7200)
-    "heating coil enable signal"
+    "Heating coil enable signal from main heating controller"
     annotation (Placement(transformation(extent={{-40,-46},{-20,-26}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
@@ -55,6 +56,24 @@ equation
     This simulation model is used to validate 
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating\">
     Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating</a>. 
+    </p>
+    <p>
+    It tests an instance of the supplemental heating controller <code>conSupHea</code>
+    with time-varying input signals for the heating enable signal from main controller 
+    <code>uHeaEna</code>, zone temperature <code>TZon</code> and outdoor air temperature
+    <code>TOut</code>. The following observations can be made from the plot.
+    <ul>
+    <li>
+    The main heating coil enable signal from the supplemental controller <code>yHeaEna</code>
+    matches <code>uHeaEna</code> as long as <code>TOut</code> stays above the lockout
+    temperature <code>TLocOut</code>. When <code>TOut &lt; TLocOut</code>, 
+    <code>yHeaEna=false</code>.
+    </li>
+    <li>
+    The supplemental heating modulation signal <code>ySupHea</code> is used to operate
+    the supplemental heating coil when <code>TZon &lt; THeaSet</code>.
+    </li>
+    </ul>
     </p>
     </html>",revisions="<html>
       <ul>

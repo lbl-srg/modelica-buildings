@@ -1,10 +1,11 @@
 within Buildings.Fluid.ZoneEquipment.BaseClasses;
-package Validation "Validation models for PTHP control modules"
+package Validation "Validation models for control module components"
 
   extends Modelica.Icons.ExamplesPackage;
 
 
   annotation(Documentation(info="<html>
-    This package contains validation models for the PTHP control modules.
+  This package contains validation models for the control modules used to construct 
+  the zonal HVAC equipment controllers.
       </html>"));
 end Validation;

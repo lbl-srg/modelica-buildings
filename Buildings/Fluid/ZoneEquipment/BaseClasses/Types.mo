@@ -20,6 +20,12 @@ ele - Electric resistance heating coil
 <li>
 hotWat - Hot-water heating coil
 </li>
+<li>
+heaPum - Electric heat-pump heating coil
+</li>
+<li>
+noHea - No heating coil
+</li>
 </ol>
 </html>",
   revisions="<html>
@@ -32,7 +38,6 @@ First implementation.
 </html>"));
   type CooSou = enumeration(
       eleDX "Electric direct expansion cooling coil",
-      heaPum "Electric heat pump cooling coil",
       chiWat "Chilled-water cooling coil",
       noCoo "No cooling coil")
       "Enumeration for the cooling coil types"
@@ -47,6 +52,9 @@ eleDX - Electric direct expansion cooling coil
 </li>
 <li>
 chiWat - Chilled-water cooling coil
+</li>
+<li>
+noCoo - No cooling coil
 </li>
 </ol>
 </html>",
@@ -155,6 +163,36 @@ varSpeFan - Variable speed fan
 </li>
 <li>
 mulSpeFan - Multiple speed fan
+</li>
+</ol>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+April 20, 2022 by Karthik Devaprasad:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
+  type SupHeaSou = enumeration(
+      ele "Electric resistance heating coil",
+      hotWat "Hot-water heating coil",
+      noHea "No heating coil")
+    "Enumeration for the supplemental heating coil types"
+      annotation (Documentation(info="<html>
+<p>
+Enumeration for the type of heating coil used in the zone equipment.
+The possible values are
+</p>
+<ol>
+<li>
+ele - Electric resistance supplemental heating coil
+</li>
+<li>
+hotWat - Hot-water supplemental heating coil
+</li>
+<li>
+noHea - No supplemental heating coil
 </li>
 </ol>
 </html>",

@@ -1,5 +1,6 @@
-﻿simulateModel("Buildings.Fluid.ZoneEquipment.BaseClasses.Validation.CyclingFan", startTime=0, stopTime=43200, method="Cvode", tolerance=1e-06, resultFile="CyclingFan");
-createPlot(id=1, position={0, 0, 900, 430}, y={"conFanCyc.uFan"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=1, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 900, 430}, y={"conFanCyc.fanOpeMod"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 900, 430}, y={"conFanCyc.yFanSpe"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=1, position={0, 0, 900, 430}, y={"conFanCyc.yFan"}, range={0.0, 43200, -0.5, 1.5}, grid=true, subPlot=4, colors={{28,108,200}});
+simulateModel("Buildings.Fluid.ZoneEquipment.BaseClasses.Validation.CyclingFan", startTime=0, stopTime=1800, method="Cvode", tolerance=1e-06, resultFile="CyclingFan");
+createPlot(id=1, position={0, 0, 1018, 830}, y={"conFanCyc.heaCooOpe"}, range={0.0, 1800.0, -1.0, 2.0}, grid=true, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1018, 162}, y={"conFanCyc.uFan"}, range={0.0, 1800.0, -1.0, 2.0}, grid=true, subPlot=2, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1018, 162}, y={"conFanCyc.fanOpeMod"}, range={0.0, 1800.0, -1.0, 2.0}, grid=true, subPlot=3, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1018, 162}, y={"conFanCyc.yFan"}, range={0.0, 1800.0, -1.0, 2.0}, grid=true, subPlot=4, colors={{28,108,200}});
+createPlot(id=1, position={0, 0, 1018, 162}, y={"conFanCyc.yFanSpe"}, range={0.0, 1800.0, -1.0, 2.0}, grid=true, subPlot=5, colors={{28,108,200}});
