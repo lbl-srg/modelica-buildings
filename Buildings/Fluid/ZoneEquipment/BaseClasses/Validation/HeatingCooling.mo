@@ -39,13 +39,6 @@ model HeatingCooling
     "Cooling setpoint temperature"
     annotation (Placement(transformation(extent={{-40,32},{-26,46}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TSup1(
-    final height=6,
-    final duration=3600,
-    final offset=273.15 + 35)
-    "Measured supply air temperature"
-    annotation (Placement(transformation(extent={{-40,-96},{-26,-82}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon1(
     final height=8,
     final duration=36000,
@@ -74,8 +67,6 @@ equation
           {0,-47.2},{27.2,-47.2}}, color={0,0,127}));
   connect(heaSetPoi.y, conHeaMod.TZonSet) annotation (Line(points={{-24.6,-63},{
           0,-63},{0,-52.8},{27.2,-52.8}}, color={0,0,127}));
-  connect(TSup1.y, conHeaMod.TSup) annotation (Line(points={{-24.6,-89},{10,-89},
-          {10,-58},{28,-58},{28,-58.4},{27.2,-58.4}}, color={0,0,127}));
   connect(uFan1.y, conHeaMod.uFan) annotation (Line(points={{-24.6,-13},{10,-13},
           {10,-42},{27.2,-42},{27.2,-41.6}}, color={255,0,255}));
   connect(uFan.y, conCooMod.uFan) annotation (Line(points={{-24.6,89},{-24.6,88},

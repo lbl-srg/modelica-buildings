@@ -85,7 +85,7 @@ model HeatingMode
     tFanEna=60,
     dTHys=0.1)
     "Instance of modular controller with constant speed fan and DX coil"
-    annotation (Placement(transformation(extent={{-86,-80},{-66,-52}})));
+    annotation (Placement(transformation(extent={{-86,-80},{-66,-48}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(
     final k=true)
@@ -297,10 +297,10 @@ equation
   connect(ptac.yFan_actual, fanProOn.u) annotation (Line(points={{25,10},{32,10}},
                             color={0,0,127}));
   connect(ptac.port_Air_a2, zon.ports[1])
-    annotation (Line(points={{24,-2},{77,-2},{77,30.9}},
+    annotation (Line(points={{24,-2},{76,-2},{76,30.9}},
                                                        color={0,127,255}));
   connect(ptac.port_Air_b2, zon.ports[2])
-    annotation (Line(points={{24,-10},{79,-10},{79,30.9}},
+    annotation (Line(points={{24,-10},{80,-10},{80,30.9}},
                                                          color={0,127,255}));
   connect(con.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,60},
           {56,60}}, color={0,0,127}));
@@ -320,7 +320,7 @@ equation
   connect(realExpression6.y, TZonAirMod.u)
     annotation (Line(points={{141,-16},{154,-16}}, color={0,0,127}));
   connect(damPos.y,ptac. uEco) annotation (Line(points={{-98,50},{-58,50},{-58,12},
-          {-18,12}}, color={0,0,127}));
+          {-17,12}}, color={0,0,127}));
   connect(realExpression7.y, TZonAirEP.u)
     annotation (Line(points={{221,-16},{232,-16}}, color={0,0,127}));
   connect(realExpression9.y, m_flowFanEP.u)
@@ -334,7 +334,7 @@ equation
   connect(realExpression15.y, TAirMixEP.u)
     annotation (Line(points={{221,64},{232,64}}, color={0,0,127}));
   connect(building.weaBus,ptac. weaBus) annotation (Line(
-      points={{0,124},{14,124},{14,60},{-11.8,60},{-11.8,12}},
+      points={{0,124},{14,124},{14,60},{-13.2,60},{-13.2,12.2}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, building.weaBus) annotation (Line(
@@ -367,32 +367,37 @@ equation
     annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
   connect(datRea.y[24], K2C[2].u)
     annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
-  connect(booToRea.y, ptac.uHea) annotation (Line(points={{-30,-74},{-24,-74},{
-          -24,-23.8},{-18,-23.8}}, color={0,0,127}));
+  connect(booToRea.y, ptac.uHea) annotation (Line(points={{-30,-74},{-24,-74},{-24,
+          -16},{-17,-16}},         color={0,0,127}));
   connect(division.y, ptac.uFan)
-    annotation (Line(points={{-71,4},{-18,4}}, color={0,0,127}));
+    annotation (Line(points={{-71,4},{-44,4},{-44,8},{-17,8}},
+                                               color={0,0,127}));
   connect(datRea.y[27], division.u1) annotation (Line(points={{-99,90},{-94,90},
           {-94,66},{-126,66},{-126,10},{-94,10}}, color={0,0,127}));
   connect(Nominal_mass_flow.y, division.u2)
     annotation (Line(points={{-111,-2},{-94,-2}}, color={0,0,127}));
-  connect(fanProOn.y, modCon.uFan) annotation (Line(points={{56,10},{56,-100},{-104,
-          -100},{-104,-53},{-88,-53}}, color={255,0,255}));
+  connect(fanProOn.y, modCon.uFan) annotation (Line(points={{56,10},{56,-100},{
+          -104,-100},{-104,-50},{-88,-50}},
+                                       color={255,0,255}));
   connect(zon.TAir, modCon.TZon) annotation (Line(points={{99,68},{106,68},{106,
-          -104},{-92,-104},{-92,-56.6},{-88,-56.6}}, color={0,0,127}));
-  connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,90},{-52,90},{
-          -52,-44},{-96,-44},{-96,-60.2},{-88,-60.2}}, color={0,0,127}));
-  connect(K2C[1].y, modCon.THeaSet) annotation (Line(points={{-58,90},{-52,90},{
-          -52,-44},{-96,-44},{-96,-64},{-88,-64}}, color={0,0,127}));
-  connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{-100,
-          -72},{-88,-72}}, color={255,0,255}));
-  connect(modCon.fanOpeMod, fanOpeMod.y) annotation (Line(points={{-88,-75.4},{-100,
-          -75.4},{-100,-80},{-108,-80}}, color={255,0,255}));
+          -104},{-92,-104},{-92,-54},{-88,-54}},     color={0,0,127}));
+  connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,90},{-52,90},
+          {-52,-44},{-96,-44},{-96,-58},{-88,-58}},    color={0,0,127}));
+  connect(K2C[1].y, modCon.THeaSet) annotation (Line(points={{-58,90},{-52,90},
+          {-52,-44},{-96,-44},{-96,-62},{-88,-62}},color={0,0,127}));
+  connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{
+          -100,-70},{-88,-70}},
+                           color={255,0,255}));
+  connect(modCon.fanOpeMod, fanOpeMod.y) annotation (Line(points={{-88,-74},{
+          -100,-74},{-100,-80},{-108,-80}},
+                                         color={255,0,255}));
   connect(ptac.TAirSup, modCon.TSup) annotation (Line(points={{25,4},{32,4},{32,
-          -94},{-90,-94},{-90,-79},{-88,-79}}, color={0,0,127}));
-  connect(modCon.yCooEna, ptac.uCooEna) annotation (Line(points={{-64,-54},{-40,
-          -54},{-40,-15.8},{-18,-15.8}}, color={255,0,255}));
-  connect(modCon.yHeaEna, booToRea.u) annotation (Line(points={{-64,-58},{-58,-58},
-          {-58,-74},{-54,-74}}, color={255,0,255}));
+          -94},{-90,-94},{-90,-78},{-88,-78}}, color={0,0,127}));
+  connect(modCon.yCooEna, ptac.uCooEna) annotation (Line(points={{-64,-52},{-40,
+          -52},{-40,-20},{-17,-20}},     color={255,0,255}));
+  connect(modCon.yHeaEna, booToRea.u) annotation (Line(points={{-64,-56},{-58,
+          -56},{-58,-74},{-54,-74}},
+                                color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{260,

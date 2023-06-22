@@ -64,7 +64,7 @@ model HeatingCooling
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TSup(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature")
+    final quantity="ThermodynamicTemperature") if not conMod
     "Measured supply temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -105,7 +105,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysModCoo(
     final uLow=-dTHys,
-    final uHigh=dTHys)   if not conMod
+    final uHigh=dTHys) if   not conMod
     "Enable cooling mode when zone temperature is not at setpoint"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
@@ -139,11 +139,11 @@ protected
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
-    final t=TSupDew)
+    final t=TSupDew) if not conMod
     "Check if supply temperature is greater than zone air dewpoint temperature"
-    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And andTSupLow
+  Buildings.Controls.OBC.CDL.Logical.And andTSupLow if not conMod
     "Enable heating/cooling component only when measured supply temperature is above dew point at thermal comfort level"
     annotation (Placement(transformation(extent={{54,-38},{74,-18}})));
 
@@ -191,14 +191,18 @@ equation
                       color={255,0,255}));
   connect(truFalHol.y, yEna) annotation (Line(points={{92,0},{120,0}},
                    color={255,0,255}));
-  connect(TSup, greThr.u) annotation (Line(points={{-120,-80},{-90,-80},{-90,
-          -70},{-82,-70}}, color={0,0,127}));
-  connect(greThr.y, andTSupLow.u2) annotation (Line(points={{-58,-70},{10,-70},
-          {10,-60},{40,-60},{40,-36},{52,-36}}, color={255,0,255}));
+  connect(TSup, greThr.u) annotation (Line(points={{-120,-80},{-82,-80}},
+                           color={0,0,127}));
+  connect(greThr.y, andTSupLow.u2) annotation (Line(points={{-58,-80},{-20,-80},
+          {-20,-60},{40,-60},{40,-36},{52,-36}},color={255,0,255}));
   connect(andHeaCooEna.y, andTSupLow.u1) annotation (Line(points={{62,0},{64,0},
           {64,-12},{40,-12},{40,-28},{52,-28}}, color={255,0,255}));
   connect(andTSupLow.y, truFalHol.u) annotation (Line(points={{76,-28},{80,-28},
           {80,-12},{66,-12},{66,0},{68,0}}, color={255,0,255}));
+  if conMod then
+    connect(andHeaCooEna.y, truFalHol.u)
+      annotation (Line(points={{62,0},{68,0}}, color={255,0,255}));
+  end if;
   annotation (defaultComponentName="conOpeMod",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Rectangle(
@@ -224,7 +228,8 @@ equation
           extent={{-96,-52},{-64,-68}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
-          textString="TSup"),
+          textString="TSup",
+          enable=not conMod),
         Text(
           extent={{-94,-10},{-46,-34}},
           textColor={0,0,127},
@@ -270,11 +275,15 @@ equation
       </li>
       </ul>
       </p>
+      <p align=\"center\">
+      <img src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/Baseclasses/variableHeatingCooling.png\"
+           alt=\"variableHeatingCooling.png\" />
+      </p>
       </html>
       ", revisions="<html>
       <ul>
       <li>
-      April 10, 2023 by Karthik Devaprasad and Xing Lu:<br/>
+      June 21, 2023 by Karthik Devaprasad, Xing Lu, Junke Wang:<br/>
       First implementation.
       </li>
       </ul>

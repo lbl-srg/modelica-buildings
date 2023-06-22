@@ -287,36 +287,31 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false,
       extent={{-140,-120},{140,120}})),
     Documentation(info="<html>
-      This is a control module for the fan coil unit (FCU) system model designed as an 
-      analogue to the <code>VariableFanConstantFlow</code> capacity control method 
-      in EnergyPlus. The control logic is as described in the following section 
-      and can also be seen in the logic chart.
-      <br>
+      <p>
+      This is a control module for the cycling fan designed as an 
+      analogue to the control logic in EnergyPlus. The components are operated 
+      as follows:
       <ul>
       <li>
-      When the zone temperature <code>TZon</code> is above the cooling setpoint
-      temperature <code>TCooSet</code>, the FCU enters cooling mode operation.
-      The fan is enabled (<code>yFan = True</code>) and is run at a speed
-      <code>yFanSpe</code> that regulates <code>TZon</code> at <code>TCooSet</code>. 
-      The cooling valve signal <code>yCoo</code> is set to <code>1</code> to fully open the
-      cooling coil valve.
+      The fan is enabled (<code>yFan=true</code>) when the cooling/heating mode signal
+      <code>heaCooOpe</code> is held <code>true</code> for a minimum time duration
+      <code>tFanEnaDel</code>, or if the fan operating mode signal <code>fanOpeMod</code>
+      is <code>true</code>.
       </li>
       <li>
-      When <code>TZon</code> is below the heating setpoint temperature <code>THeaSet</code>, 
-      the FCU enters heating mode operation. The fan is enabled (<code>yFan = True</code>)
-      and is run at speed <code>yFanSpe</code> to regulate <code>TZon</code> at 
-      <code>THeaSet</code>. The heating signal <code>yHea</code> is set to <code>1</code>
-      to fully open the heating coil valve.
+      Once enabled, the fan is held enabled for minimum time duration <code>tFanEna</code>.
       </li>
       <li>
-      When <code>TZon</code> is between <code>THeaSet</code> and <code>TCooSet</code>, 
-      the FCU enters deadband mode. If the zone is occupied as per the occupancy schedule 
-      (<code>conVarWatConFan.timTabOccSch.y = 1</code>), the fan is enabled (<code>yFan = True</code>) 
-      and is run at the minimum speed
-      (<code>yFanSpe = minFanSpe</code>). <code>yHea</code> and <code>yCoo</code> are set 
-      to <code>zero</code>.
+      The fan is run at minimum speed <code>minFanSpe</code> until it is proven 
+      on (<code>uFan=true</code>). The fan speed <code>yFanSpe</code> is then set
+      to 100%.
+      </li>
+      <li>
+      The fan is not enabled if the availability signal <code>uAva</code> is set 
+      to <code>false</code>.
       </li>
       </ul>
+      </p>
       <p align=\"center\">
       <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/FanCoilUnit/Controls/constantFlowrateVariableFan.png\"/>
       </p>
@@ -324,7 +319,7 @@ equation
       ", revisions="<html>
       <ul>
       <li>
-      August 03, 2022 by Karthik Devaprasad:<br/>
+      June 21, 2023 by Karthik Devaprasad, Junke Wang:<br/>
       First implementation.
       </li>
       </ul>

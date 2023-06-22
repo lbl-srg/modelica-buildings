@@ -131,7 +131,7 @@ model ModularController
     Td=TdCoo,
     dTHys=dTHys,
     conMod=false,
-    tCoiEna=tFanEna)              if has_coo "Cooling mode controller"
+    tCoiEna=tFanEna) if              has_coo "Cooling mode controller"
     annotation (Placement(transformation(extent={{-84,106},{-56,134}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHeaMod(
@@ -142,7 +142,7 @@ model ModularController
     Td=TdHea,
     dTHys=dTHys,
     conMod=true,
-    tCoiEna=tFanEna)           if has_hea "Heating mode controller"
+    tCoiEna=tFanEna) if           has_hea "Heating mode controller"
     annotation (Placement(transformation(extent={{-84,66},{-56,94}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating conSupHea(
@@ -171,13 +171,15 @@ equation
           -94},{-40,-30.4},{13.2,-30.4}},color={255,0,255}));
   connect(fanOpeMod, conMulSpeFanConWat.fanOpeMod) annotation (Line(points={{-160,
           -94},{-40,-94},{-40,-132},{14,-132}},   color={255,0,255}));
-  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-56},{-60,-56},{-60,
-          -24.8},{13.2,-24.8}},
+  connect(uAva, conFanCyc.uAva) annotation (Line(points={{-160,-56},{-130,-56},
+          {-130,-24.8},{13.2,-24.8}},
                           color={255,0,255}));
-  connect(uAva, conVarFanConWat.uAva) annotation (Line(points={{-160,-56},{-60,-56},
-          {-60,-72},{14,-72}}, color={255,0,255}));
-  connect(uAva, conMulSpeFanConWat.uAva) annotation (Line(points={{-160,-56},{-60,
-          -56},{-60,-126},{14,-126}}, color={255,0,255}));
+  connect(uAva, conVarFanConWat.uAva) annotation (Line(points={{-160,-56},{-130,
+          -56},{-130,-72},{14,-72}},
+                               color={255,0,255}));
+  connect(uAva, conMulSpeFanConWat.uAva) annotation (Line(points={{-160,-56},{
+          -130,-56},{-130,-126},{14,-126}},
+                                      color={255,0,255}));
   connect(conFanCyc.yFanSpe, yFanSpe) annotation (Line(points={{46.8,-19.2},{
           100,-19.2},{100,-80},{160,-80}},
                                 color={0,0,127}));
@@ -254,8 +256,6 @@ equation
                                 color={0,0,127}));
   connect(TSup, conCooMod.TSup) annotation (Line(points={{-160,-130},{-94,-130},
           {-94,111.6},{-86.8,111.6}}, color={0,0,127}));
-  connect(conHeaMod.TSup, TSup) annotation (Line(points={{-86.8,71.6},{-86.8,72},
-          {-94,72},{-94,-130},{-160,-130}}, color={0,0,127}));
   connect(conSupHea.THeaSet, THeaSet) annotation (Line(points={{31.2,31.2},{-120,
           31.2},{-120,20},{-160,20}}, color={0,0,127}));
   connect(TZon, conSupHea.TZon) annotation (Line(points={{-160,94},{-100,94},{-100,

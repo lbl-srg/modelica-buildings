@@ -22,7 +22,7 @@ partial model ControllerInterfaces
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uFan
     "Fan proven on signal"
     annotation (Placement(transformation(extent={{-180,110},{-140,150}}),
-      iconTransformation(extent={{-140,110},{-100,150}})));
+      iconTransformation(extent={{-140,120},{-100,160}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uAva
     "Availability signal"
@@ -32,7 +32,7 @@ partial model ControllerInterfaces
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput fanOpeMod if has_fanOpeMod
     "Supply fan operating mode signal"
     annotation (Placement(transformation(extent={{-180,-114},{-140,-74}}),
-      iconTransformation(extent={{-140,-114},{-100,-74}})));
+      iconTransformation(extent={{-140,-120},{-100,-80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
@@ -40,7 +40,7 @@ partial model ControllerInterfaces
     final quantity="ThermodynamicTemperature")
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-180,74},{-140,114}}),
-      iconTransformation(extent={{-140,74},{-100,114}})));
+      iconTransformation(extent={{-140,80},{-100,120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TCooSet(
     final unit="K",
@@ -48,7 +48,7 @@ partial model ControllerInterfaces
     final quantity="ThermodynamicTemperature") if has_coo
     "Zone cooling temperature setpoint"
     annotation (Placement(transformation(extent={{-180,36},{-140,76}}),
-      iconTransformation(extent={{-140,38},{-100,78}})));
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput THeaSet(
     final unit="K",
@@ -64,7 +64,7 @@ partial model ControllerInterfaces
     final quantity="ThermodynamicTemperature")
     "Measured supply temperature"
     annotation (Placement(transformation(extent={{-180,-150},{-140,-110}}),
-      iconTransformation(extent={{-140,-150},{-100,-110}})));
+      iconTransformation(extent={{-140,-160},{-100,-120}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TOut(
     final unit="K",
@@ -165,29 +165,29 @@ protected
     "Does the zone equipment have multiple speed fan?";
 
   annotation (defaultComponentName = "fanCoiUni",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-140},{100,
-            140}}),                                                                              graphics={
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,
+            160}}),                                                                              graphics={
         Text(
-          extent={{-140,180},{140,140}},
+          extent={{-140,200},{140,160}},
           textString="%name",
           textColor={0,0,255}),
                   Rectangle(
-          extent={{-100,140},{100,-140}},
+          extent={{-100,160},{100,-160}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-98,138},{-62,122}},
+          extent={{-98,148},{-62,132}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="uFan"),
         Text(
-          extent={{-96,102},{-64,86}},
+          extent={{-96,108},{-64,92}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TZon"),
         Text(
-          extent={{-96,70},{-48,46}},
+          extent={{-96,72},{-48,48}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TCooSet"),
@@ -207,12 +207,12 @@ protected
           pattern=LinePattern.Dash,
           textString="uAva"),
         Text(
-          extent={{-94,-84},{-32,-106}},
+          extent={{-94,-90},{-32,-112}},
           textColor={255,0,255},
           pattern=LinePattern.Dash,
           textString="fanOpeMod"),
         Text(
-          extent={{-94,-122},{-62,-138}},
+          extent={{-94,-132},{-62,-148}},
           textColor={0,0,127},
           pattern=LinePattern.Dash,
           textString="TSup"),

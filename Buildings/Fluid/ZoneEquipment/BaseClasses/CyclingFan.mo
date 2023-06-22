@@ -174,8 +174,9 @@ equation
       <ul>
       <li>
       The fan is enabled (<code>yFan=true</code>) when the cooling/heating mode signal
-      <code>fanOpeMod</code> is held <code>true</code> for a minimum time duration
-      <code>tFanEnaDel</code>.
+      <code>heaCooOpe</code> is held <code>true</code> for a minimum time duration
+      <code>tFanEnaDel</code>, or if the fan operating mode signal <code>fanOpeMod</code>
+      is <code>true</code>.
       </li>
       <li>
       Once enabled, the fan is held enabled for minimum time duration <code>tFanEna</code>.
@@ -185,13 +186,21 @@ equation
       on (<code>uFan=true</code>). The fan speed <code>yFanSpe</code> is then set
       to 100%.
       </li>
+      <li>
+      The fan is not enabled if the availability signal <code>uAva</code> is set 
+      to <code>false</code>.
+      </li>
       </ul>
+      </p>
+      <p align=\"center\">
+      <img src=\"modelica://Buildings/Resources/Images/Fluid/ZoneEquipment/Baseclasses/cyclingFan.png\"
+           alt=\"variableHeatingCooling.png\" />
       </p>
       </html>
       ", revisions="<html>
       <ul>
       <li>
-      April 10, 2023 by Karthik Devaprasad and Xing Lu:<br/>
+      June 21, 2023 by Karthik Devaprasad, Xing Lu, Junke Wang:<br/>
       First implementation.
       </li>
       </ul>

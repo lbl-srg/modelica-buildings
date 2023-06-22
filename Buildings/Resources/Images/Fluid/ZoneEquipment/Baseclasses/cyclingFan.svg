@@ -515,14 +515,14 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:39.9994px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;text-anchor:start"
            y="742.51971"
            x="-450"
-           height="209.90053"
-           width="425.63123"
+           height="262.3259"
+           width="430"
            id="rect1325-5-1" /></flowRegion><flowPara
          id="flowPara7983">Minimum </flowPara><flowPara
-         id="flowPara7985">fan speed</flowPara><flowPara
-         id="flowPara1412">if system</flowPara><flowPara
-         id="flowPara3742">is available</flowPara><flowPara
-         id="flowPara1410" /></flowRoot>
+         id="flowPara1410">fan speed</flowPara><flowPara
+         id="flowPara1012">while fan is</flowPara><flowPara
+         id="flowPara1014">not proven</flowPara><flowPara
+         id="flowPara1016">on</flowPara></flowRoot>
     <flowRoot
        transform="scale(0.26458333)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
