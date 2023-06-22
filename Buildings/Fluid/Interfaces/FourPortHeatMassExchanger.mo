@@ -205,7 +205,7 @@ The model can be used as-is, although there will be no heat or mass transfer
 between the two fluid streams.
 To add heat transfer, heat flow can be added to the heat port of the two volumes.
 See for example
-<a href=\"Buildings.Fluid.Chillers.Carnot_y\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Carnot_y\">
 Buildings.Fluid.Chillers.Carnot_y</a>.
 To add moisture input into (or moisture output from) volume <code>vol2</code>,
 the model can be replaced with

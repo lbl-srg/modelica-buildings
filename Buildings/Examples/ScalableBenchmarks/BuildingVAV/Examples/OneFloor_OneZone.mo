@@ -12,8 +12,8 @@ model OneFloor_OneZone "Closed-loop model with 1 zone in 1 floor"
     "Prescribed pressure difference";
   parameter Modelica.Units.SI.Volume VRoo[nZon,nFlo]={{6*8*2.7 for j in 1:nFlo}
       for i in 1:nZon} "Room volume";
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]={{7*
-      conv*VRoo[i, j] for j in 1:nFlo} for i in 1:nZon}
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal_each[nZon,nFlo]=
+    7*conv*VRoo[:,:]
     "Nominal flow rate to each zone";
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=nZon*(7*conv)*6*8*2.7
     "Nominal system flow rate";
@@ -316,7 +316,7 @@ equation
         color={255,204,51}, thickness=0.5),
         Text(textString="%second", index=1, extent={{6,3},{6,3}}));
     connect(eco[iFlo].port_Exh, amb[iFlo].ports[1])
-      annotation (Line(points={{-262,40},{-278,40},{-278,40.4},{-306,40.4}},
+      annotation (Line(points={{-262,40},{-278,40},{-278,38.3},{-306,38.3}},
         color={0,127,255}, thickness=0.5));
     connect(senRetFlo[iFlo].port_b, fanRet[iFlo].port_a)
       annotation (Line(points={{12,126},{-10,126}},color={0,127,255}, thickness=0.5));
@@ -336,7 +336,7 @@ equation
       annotation (Line(points={{-51,-60},{-50,-60},{-50,-66}},
         color={0,127,255}));
     connect(amb[iFlo].ports[2], VOut1[iFlo].port_a)
-      annotation (Line(points={{-306,37.6},{-300,37.6},{-300,22},{-292,22}},
+      annotation (Line(points={{-306,39.7},{-300,39.7},{-300,22},{-292,22}},
         color={0,127,255}, thickness=0.5));
     connect(VOut1[iFlo].port_b, eco[iFlo].port_Out)
       annotation (Line(points={{-276,22},{-270,22},{-262,22}},
@@ -511,6 +511,13 @@ shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2023, by Michael Wetter:<br/>
+Reformulated assignment of <code>m_flow_each</code> to avoid in Dymola 2023x
+the error \"Incompatible number of dimensions for variable and its definition equation\".<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3360\">issue #3360</a>.
+</li>
 <li>
 August 22, 2022, by Hongxiang Fu:<br/>
 Replaced <code>fanRet[]</code> with a preconfigured fan model.

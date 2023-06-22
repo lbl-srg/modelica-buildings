@@ -199,7 +199,11 @@ This will model the following pump curve for the pump input signal <code>y=1</co
 <p align=\"center\">
 <img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UsersGuide/pumpCurve.png\"/>
 </p>
-
+<p>
+See <a href=\"modelica://Buildings.Fluid.Movers.Validation.PressureCurve\">
+Buildings.Fluid.Movers.Validation.PressureCurve</a>
+for a small example that validates the pressure curve specification.
+</p>
 <h5>Models that directly control the head or the mass flow rate</h5>
 <p>
 The models <a href=\"modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
@@ -349,7 +353,7 @@ to be enabled and a differential pressure measurement
 must be connected to
 the pump input <code>dpMea</code>.
 This functionality is demonstrated in
-<a href=\"Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem\">
+<a href=\"modelica://Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem\">
 Buildings.Fluid.Movers.Validation.FlowControlled_dpSystem</a>.
 </p>
 <p>
