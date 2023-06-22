@@ -15,7 +15,7 @@ block FlowControl
     annotation(Dialog(tab="Dynamics", group="Filter"));
 
   Modelica.Blocks.Interfaces.IntegerInput com
-    "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
+    "Command: 1 = charge tank, 2 = no command, 3 = discharge from tank"
     annotation (Placement(transformation(extent={{-120,50},{-100,70}}),
         iconTransformation(extent={{-120,30},{-100,50}})));
   Modelica.Blocks.Interfaces.BooleanInput chiEnaSta

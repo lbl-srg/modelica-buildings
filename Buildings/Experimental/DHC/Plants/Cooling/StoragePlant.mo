@@ -86,7 +86,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         rotation=-90,
         origin={-20,110})));
   Modelica.Blocks.Interfaces.IntegerInput com
-    "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
+    "Command: 1 = charge tank, 2 = no command, 3 = discharge from tank"
                                               annotation (Placement(
         transformation(rotation=-90,
                                    extent={{-10,-10},{10,10}},
@@ -283,7 +283,7 @@ are on whenever needed (for charging the tank or producing CHW to the
 network). Otherwise, they are commanded off.
 </li>
 <li>
-The system receives a command to charge, hold, or discharge the storage tank.
+The system receives a command to charge or discharge the storage tank.
 The tank controller returns status signals indicating whether it is depleted,
 cooled, or overcooled. The command may be disregarded. For example, if the
 tank is receiving a discharge command but it is already depleted, it will not

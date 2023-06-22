@@ -227,7 +227,7 @@ model StoragePlantDualSource
     annotation (Placement(transformation(extent={{100,-220},{80,-200}})));
   Modelica.Blocks.Sources.IntegerTable com(table=[0,2; 200,1; 3000,2; 4000,3;
         6000,2; 7500,1])
-    "Command: 1 = charge tank, 2 = hold tank, 3 = discharge from tank"
+    "Command: 1 = charge tank, 2 = no command, 3 = discharge from tank"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.BooleanTable chiEnaSta(table={0,6000}, startValue=
         false) "Chiller enable status, true if chiller is enabled"
@@ -379,8 +379,8 @@ Note that at this point the tank still has capacity.
 <li>
 At <code>time = 1800</code>, load appears at the district network.
 The storage plant starts producing CHW to the system.
-Currently the system is commanded to hold the tank and
-therefore the CHW is supplied by the chiller.
+Currently the tank is not commanded to charge or discharge, therefore it
+functions like a common pipe and the CHW is supplied by the chiller.
 <ul>
 <li>
 Because the CHW flow needed at the storage plant is lower than that is
