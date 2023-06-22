@@ -1066,6 +1066,12 @@ that can lead to wrong simulation results):
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3151\">Buildings, issue 3151</a>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized
+    </td>
+    <td valign=\"top\">Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3441\">#3441</a>.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.MultiStage<br/>
                        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.SingleStage<br/>
                        Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.VariableSpeed<br/>
