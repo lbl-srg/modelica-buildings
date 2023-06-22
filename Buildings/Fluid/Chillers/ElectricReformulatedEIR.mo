@@ -132,18 +132,18 @@ This model uses three functions to predict capacity and power consumption:</p>
 <ul>
 <li>
 A biquadratic function <code>capFunT</code> is used to predict
-cooling capacity as a function of condenser leaving and evaporator leaving
-fluid temperature.
+cooling capacity as a function of condenser leaving temperature
+<code>TConLvg</code> and evaporator leaving temperature <code>TEvaLvg</code>.
 </li>
 <li>
 A bicubic function <code>EIRFunPLR</code> is used to predict
 power input to cooling capacity ratio as a function of
-condenser leaving temperature and part load ratio.
+condenser leaving temperature <code>TConLvg</code> and part load ratio.
 </li>
 <li>
-A biquadratic function <code>EIRFunT</code> is used to predict
-power input to cooling capacity ratio as a function of
-condenser leaving and evaporator leaving fluid temperature.
+A biquadratic function <code>EIRFunT</code> is used to predict power input to
+cooling capacity ratio as a function of condenser leaving temperature
+<code>TConLvg</code> and evaporator leaving temperature <code>TEvaLvg</code>.
 </li>
 </ul>
 

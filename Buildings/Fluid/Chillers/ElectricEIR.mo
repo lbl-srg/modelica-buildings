@@ -143,17 +143,17 @@ the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
 <ul>
 <li>
 A biquadratic function <code>capFunT</code> is used to predict
-cooling capacity as a function of condenser entering and evaporator leaving
-fluid temperature.
+cooling capacity as a function of condenser entering temperature
+<code>TConEnt</code> and evaporator leaving temperature <code>TEvaLvg</code>.
 </li>
 <li>
 A quadratic function <code>EIRFunPLR</code> is used to predict
 power input to cooling capacity ratio with respect to the part load ratio.
 </li>
 <li>
-A biquadratic function <code>EIRFunT</code> is used to predict
-power input to cooling capacity ratio as a function of
-condenser entering and evaporator leaving fluid temperature.
+A biquadratic function <code>EIRFunT</code> is used to predict power input to
+cooling capacity ratio as a function of condenser entering temperature
+<code>TConEnt</code> and evaporator leaving temperature <code>TEvaLvg</code>.
 </li>
 </ul>
 <p>
