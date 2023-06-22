@@ -1578,11 +1578,6 @@ block Controller "Chiller plant controller"
     "False: disable tower cell"
     annotation (Placement(transformation(extent={{820,-670},{840,-650}})));
 
-  Buildings.Controls.OBC.CDL.Routing.BooleanScalarReplicator enaTowCel(
-    final nout=nTowCel)
-    "False: disable all tower cells"
-    annotation (Placement(transformation(extent={{780,-590},{800,-570}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Switch swi[nTowCel]
     "Tower cell isolation valve position setpoint"
     annotation (Placement(transformation(extent={{880,-630},{900,-610}})));
@@ -2019,32 +2014,28 @@ equation
           {-580,-463},{738,-463}},       color={255,0,255}));
   connect(uChiStaPro.y, disChi.uChi) annotation (Line(points={{662,350},{710,350},
           {710,-461},{738,-461}},      color={255,0,255}));
-  connect(chiIsoVal.y, disChi.uChiWatIsoVal) annotation (Line(points={{562,0},{660,
-          0},{660,-468},{738,-468}},     color={0,0,127}));
-  connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,634},{-810,
-          634},{-810,-466},{738,-466}},      color={255,0,255}));
+  connect(chiIsoVal.y, disChi.uChiWatIsoVal) annotation (Line(points={{562,0},{
+          660,0},{660,-467},{738,-467}}, color={0,0,127}));
+  connect(uChiWatReq, disChi.uChiWatReq) annotation (Line(points={{-920,634},{
+          -810,634},{-810,-465},{738,-465}}, color={255,0,255}));
   connect(disChi.yChi, yChi) annotation (Line(points={{762,-461},{800,-461},{800,
           350},{940,350}},      color={255,0,255}));
   connect(disChi.yChiWatIsoVal, yChiWatIsoVal) annotation (Line(points={{762,-465},
           {810,-465},{810,0},{940,0}},        color={0,0,127}));
-  connect(uChiWatPum, disChi.uConWatReq) annotation (Line(points={{-920,574},{-790,
-          574},{-790,-472},{738,-472}},      color={255,0,255}));
+  connect(uChiWatPum, disChi.uConWatReq) annotation (Line(points={{-920,574},{
+          -790,574},{-790,-469},{738,-469}}, color={255,0,255}));
   connect(pro4.y, disChi.uConWatIsoVal) annotation (Line(points={{682,240},{700,
-          240},{700,-474},{738,-474}}, color={0,0,127}));
+          240},{700,-471},{738,-471}}, color={0,0,127}));
   connect(disChi.yConWatIsoVal, yHeaPreConVal) annotation (Line(points={{762,-468},
           {820,-468},{820,240},{940,240}},        color={0,0,127}));
   connect(disChi.yChiWatPumSpe, yChiPumSpe) annotation (Line(points={{762,-472},
           {830,-472},{830,480},{940,480}},  color={0,0,127}));
-  connect(pro.y, disChi.uChiWatPumSpe) annotation (Line(points={{662,480},{720,480},
-          {720,-477},{738,-477}},      color={0,0,127}));
+  connect(pro.y, disChi.uChiWatPumSpe) annotation (Line(points={{662,480},{720,
+          480},{720,-473},{738,-473}}, color={0,0,127}));
   connect(pro1.y, disChi.uConWatPumSpe) annotation (Line(points={{682,150},{730,
-          150},{730,-479},{738,-479}}, color={0,0,127}));
+          150},{730,-475},{738,-475}}, color={0,0,127}));
   connect(disChi.yConWatPumSpe, yConWatPumSpe) annotation (Line(points={{762,-475},
           {840,-475},{840,150},{940,150}},        color={0,0,127}));
-  connect(disChi.yTow, enaTowCel.u) annotation (Line(points={{762,-479},{770,-479},
-          {770,-580},{778,-580}}, color={255,0,255}));
-  connect(enaTowCel.y, celCom.u2) annotation (Line(points={{802,-580},{810,-580},
-          {810,-668},{818,-668}}, color={255,0,255}));
   connect(towCon.yTowSta, celCom.u1)
     annotation (Line(points={{-172,-660},{818,-660}}, color={255,0,255}));
   connect(celCom.y, yTowCel)
@@ -2077,6 +2068,12 @@ equation
           130},{-340,372},{172,372}}, color={255,127,0}));
   connect(staSetCon.ySta, wseSta.uChiSta) annotation (Line(points={{-172,-24},{-140,
           -24},{-140,280},{-740,280},{-740,312},{-704,312}}, color={255,127,0}));
+  connect(disChi.yTowSta, celCom.u2) annotation (Line(points={{762,-479},{780,
+          -479},{780,-668},{818,-668}}, color={255,0,255}));
+  connect(towCon.yTowSta, disChi.uTowSta) annotation (Line(points={{-172,-660},
+          {680,-660},{680,-477},{738,-477}}, color={255,0,255}));
+  connect(chaProUpDown.y, disChi.chaPro) annotation (Line(points={{402,-80},{
+          410,-80},{410,-479},{738,-479}}, color={255,0,255}));
 annotation (
     defaultComponentName="chiPlaCon",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-400},{100,400}}),
