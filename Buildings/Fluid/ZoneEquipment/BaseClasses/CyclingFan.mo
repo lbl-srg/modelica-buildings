@@ -59,7 +59,8 @@ protected
     "Pass true if fan is enabled but not yet proven on"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Switch swi
+  Buildings.Controls.OBC.CDL.Continuous.Switch swiFanSpe
+    "Pass min speed signal if fan is not proven on, else pass max speed signal"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not notProOn
@@ -107,14 +108,14 @@ equation
                                color={255,0,255}));
   connect(andAva.y, yFan)
     annotation (Line(points={{82,-40},{120,-40}},  color={255,0,255}));
-  connect(conMinFanSpe.y, swi.u1) annotation (Line(points={{42,80},{50,80},{50,48},
-          {58,48}},  color={0,0,127}));
-  connect(booToReaFanSpe.y, swi.u3) annotation (Line(points={{42,0},{50,0},{50,32},
-          {58,32}},          color={0,0,127}));
-  connect(andFanPro.y, swi.u2)
-    annotation (Line(points={{42,40},{58,40}},   color={255,0,255}));
-  connect(swi.y, yFanSpe)
-    annotation (Line(points={{82,40},{120,40}},    color={0,0,127}));
+  connect(conMinFanSpe.y, swiFanSpe.u1) annotation (Line(points={{42,80},{50,80},
+          {50,48},{58,48}}, color={0,0,127}));
+  connect(booToReaFanSpe.y, swiFanSpe.u3)
+    annotation (Line(points={{42,0},{50,0},{50,32},{58,32}}, color={0,0,127}));
+  connect(andFanPro.y, swiFanSpe.u2)
+    annotation (Line(points={{42,40},{58,40}}, color={255,0,255}));
+  connect(swiFanSpe.y, yFanSpe)
+    annotation (Line(points={{82,40},{120,40}}, color={0,0,127}));
   connect(uFan, notProOn.u) annotation (Line(points={{-120,70},{-92,70}},
                      color={255,0,255}));
   connect(heaCooOpe, timFan.u)
@@ -182,9 +183,9 @@ equation
       Once enabled, the fan is held enabled for minimum time duration <code>tFanEna</code>.
       </li>
       <li>
-      The fan is run at minimum speed <code>minFanSpe</code> until it is proven 
-      on (<code>uFan=true</code>). The fan speed <code>yFanSpe</code> is then set
-      to 100%.
+      The fan is run at minimum speed <code>minFanSpe</code> when it is not proven 
+      on (<code>uFan=false</code>). The fan speed <code>yFanSpe</code> is set
+      to 100% when it is proven on (<code>uFan=true</code>).
       </li>
       <li>
       The fan is not enabled if the availability signal <code>uAva</code> is set 

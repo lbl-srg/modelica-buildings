@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.BaseClasses;
-block SupplementalHeating "Supplemental heating controller"
+block SupplementalHeating
+  "Supplemental heating controller"
 
   parameter Real TLocOut(
     final unit="K",

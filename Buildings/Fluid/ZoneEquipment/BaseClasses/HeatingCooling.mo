@@ -21,7 +21,8 @@ model HeatingCooling
     displayUnit="degC",
     final quantity="ThermodynamicTemperature")=273.15 + 12
     "Supply air temperature limit under which condensation will be caused"
-    annotation(Dialog(group="Setpoints limits setting"));
+    annotation(Dialog(group="Setpoints limits setting",
+      enable = not conMod));
 
   parameter Modelica.Units.SI.Time Ti=0.5
     "Time constant of integrator block"
@@ -49,7 +50,8 @@ model HeatingCooling
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
     final unit="K",
     displayUnit="K",
-    final quantity="ThermodynamicTemperature") "Measured zone temperature"
+    final quantity="ThermodynamicTemperature")
+    "Measured zone temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
       iconTransformation(extent={{-140,0},{-100,40}})));
 
@@ -105,7 +107,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Continuous.Hysteresis hysModCoo(
     final uLow=-dTHys,
-    final uHigh=dTHys) if   not conMod
+    final uHigh=dTHys) if not conMod
     "Enable cooling mode when zone temperature is not at setpoint"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
 
@@ -133,8 +135,9 @@ protected
     "Pass true for heating mode signal when hysteresis becomes false"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 
-  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(final
-      trueHoldDuration=tCoiEna, falseHoldDuration=0)
+  Buildings.Controls.OBC.CDL.Logical.TrueFalseHold truFalHol(
+    final trueHoldDuration=tCoiEna,
+    final falseHoldDuration=0)
     "Keep coil enabled for minimum time duration"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
