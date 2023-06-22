@@ -5,20 +5,23 @@ model HeatingCooling
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conCooMod(
     conMod=false,
+    dTHys=0.5,
     tCoiEna=300)
     "Cooling mode controller"
     annotation (Placement(transformation(extent={{32,38},{60,66}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling conHeaMod(
     conMod=true,
+    dTHys=0.5,
     tCoiEna=300)
     "Heating mode controller"
     annotation (Placement(transformation(extent={{30,-64},{58,-36}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
-    final height=8,
-    final duration=36000,
-    final offset=273.15 + 20)
+    final height=4,
+    final duration=21600,
+    final offset=273.15 + 22,
+    startTime=10800)
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,58},{-26,72}})));
 
@@ -47,9 +50,10 @@ model HeatingCooling
     annotation (Placement(transformation(extent={{-40,-96},{-26,-82}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon1(
-    final height=8,
-    final duration=36000,
-    final offset=273.15 + 17)
+    final height=4,
+    final duration=21600,
+    final offset=273.15 + 19,
+    startTime=10800)
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,-44},{-26,-30}})));
 
@@ -82,21 +86,40 @@ equation
           {12,88},{12,60},{29.2,60},{29.2,60.4}}, color={255,0,255}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    Documentation(info="<html>
-    <p>
-    This simulation model is used to validate 
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
-    Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>. 
-    </p>
-    </html>",revisions="<html>
-      <ul>
-      <li>
-      June 20, 2023, by Junke Wang and Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"),
     experiment(Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/HeatingCooling.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+    <p>
+    This is a validation model for the controller 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>. The model comprises the controllers
+    (<code>conCooMod</code> and <code>conHeaMod</code>), which receive input signals including zone temperatures 
+    (<code>Tzon</code> and <code>Tzon1</code>), zone temperature setpoints (<code>heaSetPoi</code> and 
+    <code>cooSetPoi</code>), supply air temperatures (<code>TSup</code> and <code>TSup1</code>), and 
+    fan signals (<code>uFan</code> and <code>uFan1</code>) for cooling and heating modes, respectively. 
+    </p>
+    <p>
+    Simulation results are observed as follows: 
+    <ul>
+    <li>
+    When the measured zone temperature <code>conCooMod.TZon</code> exceeds the setpoint <code>conCooMod.TZonSet</code> 
+    with a specific deadband and the fan is proven on (<code>conCooMod.uFan=true</code>), the cooling coil is enabled 
+    (<code>conCooMod.yEna=true</code>). 
+    </li>
+    <li>
+    When the measured zone temperature <code>conHeaMod.TZon</code> is below the setpoint <code>conHeaMod.TZonSet</code> 
+    with a specific deadband and the fan is proven on (<code>conHeaMod.uFan=true</code>), the heating coil is enabled 
+    (<code>conHeaMod.yEna=true</code>). 
+    </li>
+    </ul>
+    </p>
+    </html>",revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end HeatingCooling;
