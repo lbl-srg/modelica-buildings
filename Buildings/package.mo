@@ -395,6 +395,14 @@ that can lead to wrong simulation results):
                      This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3199\">issue 3199</a>.
   </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+  </td>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilDiscretized
+    </td>
+    <td valign=\"top\">Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>
+                       This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3441\">#3441</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Time</b>
   </td>
 </tr>
