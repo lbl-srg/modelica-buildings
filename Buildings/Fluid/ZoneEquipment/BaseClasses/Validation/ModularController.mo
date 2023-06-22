@@ -155,17 +155,36 @@ equation
     <p>
     This simulation model is used to validate 
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
-    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>.  
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>, which is used for different zone equipments.  
     </p>
-</html>",revisions="<html>
-      <ul>
-      <li>
-      June 20, 2023 by Junke Wang and Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"),
-    experiment(Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/ModularController.mos"
-        "Simulate and plot"));
+    <p>
+    Simulation results are observed as follows: 
+    <ul>
+    <li>
+    When the controller (<code>ModularController</code>) is used for the packaged terminal heat pump system, 
+    it enables/disables the DX coils to regulate the zone temperature (<code>TZon</code>)
+    tracking its setpoints (<code>cooSetPoi</code> and <code>cooSetPoi</code>). 
+    The electric supplemental heating coil is activated when the outdoor temperature is below the 
+    minimum outdoor air drybulb temperature limit. 
+    </li>
+    <li>
+    When the controller (<code>ModularController</code>) is used for the packaged terminal air conditioner system, 
+    it enables/disables the DX cooling coil and electric heating coil to regulate the 
+    zone temperature (<code>TZon2</code>) tracking its setpoints (<code>cooSetPoi2</code> and <code>cooSetPoi2</code>).
+    </li>
+    <li>
+    When the controller (<code>ModularController</code>) is used for the window air conditioner system, 
+    it enables/disables the DX cooling coil only to regulate the zone temperature (<code>TZon1</code>) 
+    tracking its cooling setpoint (<code>cooSetPoi1</code>).
+    </li>
+    </ul>
+    </p>
+    </html>",revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023 by Junke Wang and Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end ModularController;

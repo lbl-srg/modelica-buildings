@@ -20,9 +20,10 @@ protected
     annotation (Placement(transformation(extent={{-40,-46},{-20,-26}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TZon(
-    final height=12,
-    final duration=36000,
-    final offset=273.15 + 15)
+    final height=3,
+    final duration=21600,
+    final offset=273.15 + 19,
+    startTime=10800)
     "Measured zone temperature"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
 
@@ -32,9 +33,9 @@ protected
     annotation (Placement(transformation(extent={{-40,24},{-20,44}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp TOut(
-    final height=-8,
+    final height=-10,
     final duration=18000,
-    final offset=273.15 + 3)
+    final offset=273.15 + 0)
     "Outdoor air temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 
@@ -85,5 +86,39 @@ equation
       </html>"),
     experiment(Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/SupplementalHeating.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+    <p>
+    This is a validation model for the controller 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.SupplementalHeating</a>. The model comprises the controller
+    (<code>conSupHea</code>), which receives input signals including zone temperature (<code>Tzon</code>), 
+    zone heating temperature setpoint (<code>heaSetPoi</code>), outdoor air temperatures (<code>TOut</code>), 
+    heating coil enabling signal (<code>uHeaEna</code>), and heating mode signal (<code>uHeaMod</code>).
+    </p>
+    <p>
+    Simulation results are observed as follows: 
+    <ul>
+    <li>
+    When <code>TOut</code> is above the minimum dry bulb temperature <code>conSupHea.TLocOut</code> 
+    and the system is in the heating mode (<code>uHeaMod=True</code>), the DX heating coil is prioritized 
+    for heating (<code>conSupHea.yHeaEna=True</code>). 
+    </li>
+    <li>
+    When <code>TOut</code> is below the minimum dry bulb temperature <code>conSupHea.TLocOut</code> 
+    and the system is in the heating mode (<code>uHeaEna=True</code>), 
+    the supplemental heating is enabled (conSupHea.ySupHea=ture</code>) to track the zone air temperature 
+    setpoint <code>THeaSet</code> and the DX heating coil (<code>conSupHea.yHeaEna=False</code>) 
+    is disabled.
+    </li>
+    </ul>
+    </p>
+    </html>",revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end SupplementalHeating;

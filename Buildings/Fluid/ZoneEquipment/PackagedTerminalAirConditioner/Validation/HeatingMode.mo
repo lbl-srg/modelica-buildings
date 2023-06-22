@@ -410,33 +410,33 @@ equation
         "Simulate and plot"),
     Documentation(info="<html>
     <p>
-    This is an example model for the PTAC system model under heating mode 
-    with a cycling fan cycling coil (AUTO Fan) controller. It consists of: 
-    </p>
-<ul>
-<li>
-an instance of the PTAC system model <code>PackagedTerminalAirConditioner</code>. 
-</li>
-<li>
-thermal zone model <code>zon</code> of class 
-<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
-Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
-</li>
-<li>
-PTAC controller <code>cycFanCycCoi</code> of class 
-<a href=\"modelica://Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil\">
-Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Controls.CyclingFanCyclingCoil</a>. 
-</li>
-</ul>
-<p>The simulation model provides a closed-loop example of <code>PTAC</code> that 
-is operated by <code>cycFanCycCoi</code> and regulates the zone temperature in 
-<code>zon</code> at its specific setpoint. 
-</p>
-</html>
-", revisions="<html>
+    This is a validation model for the packaged terminal air conditioner (PTAC) system model under heating mode 
+    with a modular controller. The validation model consists of: </p>
     <ul>
     <li>
-    May 17, 2023, by Junke Wang, Xing Lu and Karthik Devaprasad:<br/>
+    An instance of the PTAC system model <code>PackagedTerminalAirConditioner</code>. 
+    </li>
+    <li>
+    A thermal zone model <code>zon</code> of class 
+    <a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone\">
+    Buildings.ThermalZones.EnergyPlus_9_6_0.ThermalZone</a>. 
+    </li>
+    <li>
+    A modular controller <code>ModularController</code> of class 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController</a>. 
+    </li>
+    </ul>
+    <p>
+    The validation model provides a closed-loop example of <code>PackagedTerminalAirConditioner</code> that 
+    is operated by <code>ModularController</code> to regulate the zone temperature in 
+    <code>zon</code> at its heating setpoint. 
+    </p>
+    </html>
+    ", revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang, Xing Lu, and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>

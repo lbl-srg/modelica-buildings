@@ -254,7 +254,7 @@ setpoint <code>THeaSet</code> and disables the DX heating coil (<code>yHeaEna = 
 <li>
 When <code>TOut</code> is above the minimum dry bulb temperature <code>TLocOut</code> 
 and the system is in the heating mode (<code>uHeaMod = True</code>), 
-the controller reduces the setpoint for the the supplemental heating by 
+the controller reduces the setpoint for the supplemental heating by 
 <code>dTHeaSet</code>, thereby prioritizing the DX coil for heating use, and 
 running the supplementary heating only when the DX coil is unable to meet the 
 heating load. 

@@ -19,7 +19,7 @@ protected
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse heaCooOpe(
     final period=900)
-    "Fan proven on signal"
+    "Heating-cooling operation signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse fanOpeMod(
@@ -40,7 +40,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>
-    This simulation model is used to validate 
+    This is a validation model for the controller 
     <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan\">
     Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan</a>.
     </p>
@@ -65,14 +65,11 @@ equation
     </ul>
     </p>
     </html>",revisions="<html>
-      <ul>
-      <li>
-      June 20, 2023, by Junke Wang and Karthik Devaprasad:<br/>
-      First implementation.
-      </li>
-      </ul>
-      </html>"),
-    experiment(Tolerance=1e-06),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/CyclingFan.mos"
-        "Simulate and Plot"));
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end CyclingFan;

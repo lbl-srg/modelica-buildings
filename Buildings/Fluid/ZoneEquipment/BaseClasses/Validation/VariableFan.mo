@@ -121,5 +121,40 @@ equation
       </html>"),
     experiment(Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/VariableFan.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    Documentation(info="<html>
+    <p>
+    This is a validation model for the controller 
+    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.VariableFan\">
+    Buildings.Fluid.ZoneEquipment.BaseClasses.VariableFan</a>. The model comprises the controller
+    (<code>conVarFanConWat</code>), which receives input signals including zone temperature 
+    (<code>TZon</code>), heating/cooling setpoint temperature (<code>cooSetPoi</code> or <code>HeaSetPoi</code>), 
+    and occupancy availability (<code>uAve</code>).
+    </p>
+    <p>
+    Simulation results are observed as follows: 
+    <ul>
+    <li>
+    When the zone temperature (<code>TZon</code>) is below the heating setpoint
+    (<code>THeaSet</code>) or exceeds the cooling setpoint
+    (<code>TCooSet</code>), the fan is enabled (<code>conVarFanConWat.yFan</code>) 
+    operating at a maximum speed.
+    </li>
+    <li>
+    When the zone temperature (<code>TZon</code>) is between the cooling setpoint
+    (<code>TCooSet</code>) and heating setpoint(<code>THeaSet</code>), 
+    the fan is run at a minimum speed if the occupancy availability signal is true (
+    <code>uAva=ture</code>) and is disabled if the occupancy availability signal is false (
+    <code>uAva=false</code>).
+    </li>
+    </ul>
+    </p>
+    </html>",revisions="<html>
+    <ul>
+    <li>
+    June 21, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"));
 end VariableFan;
