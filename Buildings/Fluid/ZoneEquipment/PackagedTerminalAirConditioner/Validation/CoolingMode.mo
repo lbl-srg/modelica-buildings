@@ -72,7 +72,8 @@ model CoolingMode
     final columns=2:11,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
-    final shiftTime= 7862400)
+    final shiftTime(displayUnit="d") = 7776000,
+    verboseExtrapolation=true)
     "Reader for EnergyPlus reference results"
     annotation (Placement(transformation(extent={{-120,80},{-100,100}})));
 

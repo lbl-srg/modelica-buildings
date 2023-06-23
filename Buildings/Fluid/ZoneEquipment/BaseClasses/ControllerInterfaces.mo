@@ -76,14 +76,12 @@ partial model ControllerInterfaces
     annotation (Placement(transformation(extent={{-180,-40},{-140,0}}),
       iconTransformation(extent={{-140,-40},{-100,0}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCooEna if not has_varCoo and
-    has_coo
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yCooEna if has_coo
     "Cooling enable signal"
     annotation (Placement(transformation(extent={{140,100},{180,140}}),
       iconTransformation(extent={{100,100},{140,140}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaEna if not has_varHea and
-    has_hea
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yHeaEna if has_hea
     "Heating enable signal"
     annotation (Placement(transformation(extent={{140,60},{180,100}}),
       iconTransformation(extent={{100,60},{140,100}})));
@@ -95,7 +93,7 @@ partial model ControllerInterfaces
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yHea(
     final unit="1",
-    displayUnit="1") if has_hea and has_varHea
+    displayUnit="1") if has_hea
     "Heating signal"
     annotation (Placement(transformation(extent={{140,-60},{180,-20}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
@@ -109,7 +107,7 @@ partial model ControllerInterfaces
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yCoo(
     final unit="1",
-    displayUnit="1") if has_coo and has_varCoo
+    displayUnit="1") if has_coo
     "Cooling signal"
     annotation (Placement(transformation(extent={{140,-20},{180,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
@@ -117,7 +115,8 @@ partial model ControllerInterfaces
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput ySupHea(
     final min=0,
     final max=1,
-    final unit="1") if has_supHea "Supplementary heating control signal"
+    final unit="1") if has_supHea
+    "Supplementary heating control signal"
     annotation (Placement(transformation(extent={{140,20},{180,60}}),
       iconTransformation(extent={{100,20},{140,60}})));
 
@@ -128,18 +127,10 @@ protected
     "Does the zone equipment have heating equipment?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean has_varHea=(heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele)
-    or (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat)
-    "Does the zone equipment have variable heating?";
-
   final parameter Boolean has_coo=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
     or (cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
     "Does the zone equipment have cooling equipment?"
     annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  final parameter Boolean has_varCoo=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
-    or (cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
-    "Does the zone equipment have variable cooling?";
 
   final parameter Boolean has_supHea = (supHeaTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.ele)
     or (supHeaTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.hotWat)
@@ -151,8 +142,9 @@ protected
   final parameter Boolean has_varFan = (fanTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.varSpeFan)
     "Does the zone equipment have variable speed fan?";
 
-  final parameter Boolean has_mulFan = (fanTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.mulSpeFan)
-    "Does the zone equipment have multiple speed fan?";
+  parameter Boolean has_mulFan = (fanTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.mulSpeFan)
+    "Does the zone equipment have multiple speed fan?"
+    annotation(Evaluate=true);
 
   annotation (defaultComponentName = "fanCoiUni",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-160},{100,

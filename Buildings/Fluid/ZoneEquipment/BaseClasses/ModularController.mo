@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.BaseClasses;
 model ModularController
+  "Modular controller for zonal HVAC systems"
   extends Buildings.Fluid.ZoneEquipment.BaseClasses.ControllerInterfaces;
 
   parameter Real minFanSpe(
@@ -19,7 +20,7 @@ model ModularController
     annotation(Dialog(group="Fan parameters"));
 
   parameter Integer nSpe(
-    final min=2)
+    final min=2) = 2
     "Number of fan speeds"
     annotation(Dialog(group="Fan parameters",
       enable=has_mulFan_new));
@@ -28,7 +29,7 @@ model ModularController
     final min=fill(0, nSpe),
     final max=fill(1, nSpe),
     final unit=fill("1", nSpe),
-    displayUnit=fill("1", nSpe))
+    displayUnit=fill("1", nSpe)) = {0,1}
     "Fan speed values"
     annotation(Dialog(group="Fan parameters",
       enable=has_mulFan_new));
@@ -167,7 +168,7 @@ model ModularController
     final TiHea=TiHea,
     final TdHea=TdHea,
     final tFanEnaDel=tFanEnaDel,
-    final tFanEna=tFanEna) if has_mulFan_new
+    final tFanEna=tFanEna) if has_mulFan
     "Multi-speed fan controller"
     annotation (Placement(transformation(extent={{36,-118},{60,-94}})));
 
@@ -219,34 +220,6 @@ model ModularController
     final k=false) if not has_hea
     "Constant false signal if heating mode is not available"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-
-  parameter Boolean has_hea_new=has_hea
-    "Does the zone equipment have heating equipment?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  parameter Boolean has_varHea_new=has_varHea
-    "Does the zone equipment have variable heating?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  parameter Boolean has_coo_new=has_coo
-    "Does the zone equipment have cooling equipment?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  parameter Boolean has_varCoo=has_varCoo
-    "Does the zone equipment have variable cooling?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  parameter Boolean has_supHea = has_supHea
-    "Does the zone equipment have supplementary heating coil?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  parameter Boolean has_conFan = has_conFan
-    "Does the zone equipment have constant speed fan?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
-
-  parameter Boolean has_varFan = has_varFan
-    "Does the zone equipment have variable speed fan?"
-    annotation(Dialog(enable=false, tab="Non-configurable"));
 
   parameter Boolean has_mulFan_new = has_mulFan
     "Does the zone equipment have multiple speed fan?"
@@ -358,7 +331,8 @@ equation
                              color={255,0,255}));
   connect(orFanEna.y, conMulSpeFan.heaCooOpe) annotation (Line(points={{-8,50},
           {0,50},{0,-96},{34,-96}},  color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="conMod",
+    Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
     <p>

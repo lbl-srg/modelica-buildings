@@ -22,21 +22,36 @@ partial model EquipmentInterfaces
   parameter Modelica.Units.SI.MassFlowRate mAirOut_flow_nominal
     "Nominal mass flow rate of outdoor air"
     annotation(Dialog(enable=((oaPorTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix)
-           or (oaPorTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts)),
-                                                                                   group="System parameters"));
+      or (oaPorTyp == Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts)),
+      group="System parameters"));
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
     "Nominal mass flow rate of supply air"
     annotation(Dialog(group="System parameters"));
 
   parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat
-    "Type of heating coil used" annotation (Dialog(group="System parameters"));
+    "Type of heating coil used"
+    annotation (Dialog(group="System parameters"));
+
+  parameter Boolean has_varHea
+    "Does the zone equipment have variable PLR heating equipment?"
+    annotation (Dialog(group="System parameters"));
 
   parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat
-    "Type of cooling coil used" annotation (Dialog(group="System parameters"));
+    "Type of cooling coil used"
+    annotation (Dialog(group="System parameters"));
+
+  parameter Boolean has_varCoo
+    "Does the zone equipment have variable PLR cooling equipment?"
+    annotation (Dialog(group="System parameters"));
+
+  parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou supHeaTyp
+    "Type of supplemental heating coil used"
+    annotation(Dialog(group="System parameters"));
 
   parameter Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts
-    "Type of OA port" annotation (Dialog(group="System parameters"));
+    "Type of OA port"
+    annotation (Dialog(group="System parameters"));
 
   Modelica.Blocks.Interfaces.RealInput uHea(
     final unit="1") if has_varHea and has_hea "Heating loop signal"
@@ -299,25 +314,20 @@ protected
     (oaPorTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaPorts))
     "Does the zone equipment provide outdoor air for ventilation?";
 
-  final parameter Boolean has_coo=not
-                                     (cooCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.noCoo)
-    "Does the zone equipment have a cooling element?";
+  final parameter Boolean has_coo=(cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
+    or (cooCoiTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat)
+    "Does the zone equipment have cooling equipment?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean has_hea=not
-                                     (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
-    "Does the zone equipment have a heating element?";
+  final parameter Boolean has_hea=(heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele)
+    or (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.hotWat)
+    or (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum)
+    "Does the zone equipment have heating equipment?"
+    annotation(Dialog(enable=false, tab="Non-configurable"));
 
-  final parameter Boolean has_supHea=not
-                                        (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea)
-    "Does the zone equipment have a supplementary heating element?";
-
-  final parameter Boolean has_varCoo=not
-                                        (cooCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX)
-    "Does the zone equipment have variable PLR cooling equipment?";
-
-  final parameter Boolean has_varHea=not
-                                        (heaCoiTyp==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum)
-    "Does the zone equipment have variable PLR heating equipment?";
+  final parameter Boolean has_supHea = (supHeaTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.ele)
+    or (supHeaTyp ==Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.hotWat)
+    "Does the zone equipment have supplementary heating coil?";
 
 equation
   connect(THWRet.port_a,valHW. port_a)

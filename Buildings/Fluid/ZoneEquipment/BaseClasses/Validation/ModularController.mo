@@ -4,32 +4,33 @@ model ModularController
 
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modCon(
-    supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
-    fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.mulSpeFan,
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
-    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.noCoo,
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController conMod(
+    final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.ele,
+    final fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.heaPum,
+    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
     final has_fanOpeMod=true,
     final minFanSpe=0.1,
-    final tFanEna=0,
     final dTHys=0.2)
     "Instance of packaged terminal heat pump controller"
     annotation (Placement(transformation(extent={{-80,80},{-60,112}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modCon1(
-    heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea,
-    has_varHea=false,
-    cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.chiWat,
-    final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.windowAC,
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController conMod1(
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea,
+    final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
+    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
     final fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan,
     final has_fanOpeMod=true,
-    final tFanEna=0,
+    final minFanSpe=0.1,
     final dTHys=0.2)
     "Instance of window air conditioner controller"
     annotation (Placement(transformation(extent={{8,18},{28,50}})));
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modCon2(
-    final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.ptac,
+  Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController conMod2(
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele,
+    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
+    final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
+    final minFanSpe=0.1,
     final fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan,
     final has_fanOpeMod=true,
     final tFanEna=0,
@@ -95,58 +96,60 @@ protected
     annotation (Placement(transformation(extent={{130,-80},{150,-60}})));
 
 equation
-  connect(heaSetPoi.y, modCon.THeaSet) annotation (Line(points={{-118,80},{-116,
+  connect(heaSetPoi.y,conMod. THeaSet) annotation (Line(points={{-118,80},{-116,
           80},{-116,98},{-82,98}},      color={0,0,127}));
-  connect(TZon.y, modCon.TZon) annotation (Line(points={{-118,140},{-110,140},{
+  connect(TZon.y,conMod. TZon) annotation (Line(points={{-118,140},{-110,140},{
           -110,106},{-82,106}},
                      color={0,0,127}));
-  connect(supFanOpeMod.y, modCon.fanOpeMod) annotation (Line(points={{-118,-10},
+  connect(supFanOpeMod.y,conMod. fanOpeMod) annotation (Line(points={{-118,-10},
           {-100,-10},{-100,86},{-82,86}},     color={255,0,255}));
-  connect(uAva.y, modCon.uAva) annotation (Line(points={{-118,20},{-94,20},{-94,
+  connect(uAva.y,conMod. uAva) annotation (Line(points={{-118,20},{-94,20},{-94,
           90},{-82,90}},   color={255,0,255}));
-  connect(modCon.yFan, truDel.u) annotation (Line(points={{-58,84},{-52,84},{
+  connect(conMod.yFan, truDel.u) annotation (Line(points={{-58,84},{-52,84},{
           -52,80},{-40,80}},
                     color={255,0,255}));
-  connect(truDel.y, modCon.uFan) annotation (Line(points={{-16,80},{-16,118},{
+  connect(truDel.y,conMod. uFan) annotation (Line(points={{-16,80},{-16,118},{
           -100,118},{-100,110},{-82,110}},    color={255,0,255}));
-  connect(cooSetPoi.y, modCon.TCooSet) annotation (Line(points={{-118,110},{
+  connect(cooSetPoi.y,conMod. TCooSet) annotation (Line(points={{-118,110},{
           -104,110},{-104,102},{-82,102}},
                                        color={0,0,127}));
-  connect(TSup.y, modCon.TSup) annotation (Line(points={{-118,-40},{-90,-40},{
+  connect(TSup.y,conMod. TSup) annotation (Line(points={{-118,-40},{-90,-40},{
           -90,82},{-82,82}},        color={0,0,127}));
-  connect(TOut.y, modCon.TOut) annotation (Line(points={{-118,50},{-112,50},{
+  connect(TOut.y,conMod. TOut) annotation (Line(points={{-118,50},{-112,50},{
           -112,94},{-82,94}},
                            color={0,0,127}));
-  connect(modCon1.yFan, truDel1.u) annotation (Line(points={{30,22},{30,20},{38,
+  connect(conMod1.yFan, truDel1.u) annotation (Line(points={{30,22},{30,20},{38,
           20}},            color={255,0,255}));
-  connect(truDel1.y, modCon1.uFan) annotation (Line(points={{62,20},{68,20},{68,
+  connect(truDel1.y,conMod1. uFan) annotation (Line(points={{62,20},{68,20},{68,
           -22},{-12,-22},{-12,48},{6,48}},                 color={255,0,255}));
-  connect(modCon2.yFan, truDel2.u) annotation (Line(points={{122,-68},{122,-70},
+  connect(conMod2.yFan, truDel2.u) annotation (Line(points={{122,-68},{122,-70},
           {128,-70}},     color={255,0,255}));
-  connect(truDel2.y, modCon2.uFan) annotation (Line(points={{152,-70},{160,-70},
+  connect(truDel2.y,conMod2. uFan) annotation (Line(points={{152,-70},{160,-70},
           {160,-98},{88,-98},{88,-42},{98,-42}},        color={255,0,255}));
-  connect(TZon.y, modCon1.TZon) annotation (Line(points={{-118,140},{-110,140},{
+  connect(TZon.y,conMod1. TZon) annotation (Line(points={{-118,140},{-110,140},{
           -110,44},{6,44}}, color={0,0,127}));
-  connect(heaSetPoi.y, modCon1.TCooSet) annotation (Line(points={{-118,80},{-116,
+  connect(heaSetPoi.y,conMod1. TCooSet) annotation (Line(points={{-118,80},{-116,
           80},{-116,40},{6,40}}, color={0,0,127}));
-  connect(TZon.y, modCon2.TZon) annotation (Line(points={{-118,140},{-110,140},{
+  connect(TZon.y,conMod2. TZon) annotation (Line(points={{-118,140},{-110,140},{
           -110,-46},{98,-46}}, color={0,0,127}));
-  connect(cooSetPoi.y, modCon2.TCooSet) annotation (Line(points={{-118,110},{-104,
+  connect(cooSetPoi.y,conMod2. TCooSet) annotation (Line(points={{-118,110},{-104,
           110},{-104,-50},{98,-50}}, color={0,0,127}));
-  connect(heaSetPoi.y, modCon2.THeaSet) annotation (Line(points={{-118,80},{-116,
+  connect(heaSetPoi.y,conMod2. THeaSet) annotation (Line(points={{-118,80},{-116,
           80},{-116,-54},{98,-54}}, color={0,0,127}));
-  connect(uAva.y, modCon2.uAva) annotation (Line(points={{-118,20},{-94,20},{-94,
+  connect(uAva.y,conMod2. uAva) annotation (Line(points={{-118,20},{-94,20},{-94,
           -62},{98,-62}}, color={255,0,255}));
-  connect(supFanOpeMod.y, modCon2.fanOpeMod) annotation (Line(points={{-118,-10},
+  connect(supFanOpeMod.y,conMod2. fanOpeMod) annotation (Line(points={{-118,-10},
           {-100,-10},{-100,-66},{98,-66}}, color={255,0,255}));
-  connect(TSup.y, modCon2.TSup) annotation (Line(points={{-118,-40},{-90,-40},{-90,
+  connect(TSup.y,conMod2. TSup) annotation (Line(points={{-118,-40},{-90,-40},{-90,
           -70},{98,-70}}, color={0,0,127}));
-  connect(uAva.y, modCon1.uAva) annotation (Line(points={{-118,20},{-94,20},{-94,
+  connect(uAva.y,conMod1. uAva) annotation (Line(points={{-118,20},{-94,20},{-94,
           28},{6,28}}, color={255,0,255}));
-  connect(supFanOpeMod.y, modCon1.fanOpeMod) annotation (Line(points={{-118,-10},
+  connect(supFanOpeMod.y,conMod1. fanOpeMod) annotation (Line(points={{-118,-10},
           {-100,-10},{-100,24},{6,24}}, color={255,0,255}));
-  connect(TSup.y, modCon1.TSup) annotation (Line(points={{-118,-40},{-90,-40},{-90,
+  connect(TSup.y,conMod1. TSup) annotation (Line(points={{-118,-40},{-90,-40},{-90,
           20},{6,20}}, color={0,0,127}));
+  connect(TOut.y,conMod2. TOut) annotation (Line(points={{-118,50},{-112,50},{-112,
+          -58},{98,-58}}, color={0,0,127}));
   annotation(Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-120},{180,
@@ -161,21 +164,23 @@ equation
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When the controller (<code>ModularController</code>) is used for the packaged terminal heat pump system, 
-    it enables/disables the DX coils to regulate the zone temperature (<code>TZon</code>)
-    tracking its setpoints (<code>cooSetPoi</code> and <code>cooSetPoi</code>). 
-    The electric supplemental heating coil is activated when the outdoor temperature is below the 
-    minimum outdoor air drybulb temperature limit. 
+    When the controller <code>conMod</code> is used for the packaged terminal
+    heat pump system, it enables/disables the DX coils to regulate the zone temperature 
+    <code>TZon</code> between setpoints <code>cooSetPoi</code> and <code>heaSetPoi</code>. 
+    The electric supplemental heating coil is activated if the DX heating coil 
+    is running at full capacity or when the outdoor air temperature <code>TOut</code>
+    is below the minimum outdoor air drybulb temperature limit <code>conMod.TLocOut</code>.
     </li>
     <li>
-    When the controller (<code>ModularController</code>) is used for the packaged terminal air conditioner system, 
-    it enables/disables the DX cooling coil and electric heating coil to regulate the 
-    zone temperature (<code>TZon2</code>) tracking its setpoints (<code>cooSetPoi2</code> and <code>cooSetPoi2</code>).
+    When the controller <code>conMod1</code>) is used for the window air 
+    conditioner system, it enables/disables the DX cooling coil only to regulate 
+    the zone temperature <code>TZon</code> below its cooling setpoint <code>cooSetPoi</code>.
     </li>
     <li>
-    When the controller (<code>ModularController</code>) is used for the window air conditioner system, 
-    it enables/disables the DX cooling coil only to regulate the zone temperature (<code>TZon1</code>) 
-    tracking its cooling setpoint (<code>cooSetPoi1</code>).
+    When the controller <code>conMod2</code>) is used for the packaged terminal 
+    air conditioner system, it enables/disables the DX cooling coil and electric 
+    heating coil to regulate the zone temperature <code>TZon</code> between
+    its setpoints <code>cooSetPoi</code> and <code>heaSetPoi</code>.
     </li>
     </ul>
     </p>
@@ -186,5 +191,7 @@ equation
     First implementation.
     </li>
     </ul>
-    </html>"));
+    </html>"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/ModularController.mos"
+        "Simulate and Plot"));
 end ModularController;
