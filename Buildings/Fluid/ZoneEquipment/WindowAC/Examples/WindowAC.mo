@@ -1,14 +1,19 @@
 within Buildings.Fluid.ZoneEquipment.WindowAC.Examples;
 model WindowAC
-  "Example model for cooling mode operation of window AC system"
+  "Example model for window AC system"
+
   extends Modelica.Icons.Example;
+
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air";
+
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=75
-    "Pressure drop at m_flow_nominal";
+    "Pressure drop at m_flow_nominal across window AC tubing";
+
   parameter Modelica.Units.SI.PressureDifference dpDX_nominal=75
-    "Pressure drop at m_flow_nominal";
+    "Pressure drop at m_flow_nominal across DX coil in window AC";
+
   parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
@@ -30,11 +35,13 @@ model WindowAC
           TEvaInMax=273.15 + 23.89,
           ffMin=0.875,
           ffMax=1.125))}, nSta=1)
-  annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    "Data record for DX cooling coil"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   Buildings.Fluid.Sources.Boundary_pT souAir(
     redeclare package Medium = MediumA,
     final use_Xi_in=true,
-    use_p_in=false,
+    final use_p_in=false,
     final p(displayUnit="Pa") = 101325 + dpAir_nominal + 50,
     final use_T_in=true,
     final T=279.15,
@@ -44,50 +51,63 @@ model WindowAC
 
   Buildings.Fluid.Sources.Boundary_pT sinAir(
     redeclare package Medium = MediumA,
-    p(displayUnit="Pa") = 101325,
+    final p= 101325,
     final nPorts=1)
     "Sink for zone air"
     annotation (Placement(transformation(extent={{52,-54},{72,-34}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(
+    final k=0)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
+
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-80,68},{-60,88}})));
+
   Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.SizingData winACSizing
     "Sizing parameters for window AC"
     annotation (Placement(transformation(extent={{60,92},{80,112}})));
+
   Buildings.Fluid.ZoneEquipment.WindowAC.WindowAC winAC(
     redeclare package MediumA = MediumA,
-    mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
-    mAir_flow_nominal=winACSizing.mAir_flow_nominal,
-    oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
-    dpAir_nominal(displayUnit="Pa") = dpAir_nominal,
-    dpDX_nominal(displayUnit="Pa") = dpDX_nominal,
+    final mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
+    final mAir_flow_nominal=winACSizing.mAir_flow_nominal,
+    final oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
+    final dpAir_nominal= dpAir_nominal,
+    final dpDX_nominal= dpDX_nominal,
     redeclare Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.FanData fanPer,
-    datCoi=datCoi)
+    final datCoi=datCoi)
+    "Performance data record"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onFanCoil(final k=1)
+
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant onFanCoil(
+    final k=1)
     "on off signal for fan and DX coil"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+
   Modelica.Blocks.Sources.Ramp TEvaIn(
-    duration=86400,
-    startTime=18144000,
-    height=-5,
-    offset=273.15 + 23) "Temperature"
+    final duration=86400,
+    final startTime=18144000,
+    final height=-5,
+    final offset=273.15 + 23)
+    "Temperature"
     annotation (Placement(transformation(extent={{0,68},{20,88}})));
-  Modelica.Blocks.Sources.Constant Xi(k=0.0123)
+
+  Modelica.Blocks.Sources.Constant Xi(
+    final k=0.0123)
     "Fixed Xi value"
     annotation (Placement(transformation(extent={{0,38},{20,58}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uCooEna(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant uCooEna(
+    final k=true)
     "Availability signal"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+
 equation
   connect(weaDat.weaBus, winAC.weaBus) annotation (Line(
-      points={{-60,78},{-16.2,78},{-16.2,5.6}},
+      points={{-60,78},{-17.2,78},{-17.2,18.2}},
       color={255,204,51},
       thickness=0.5));
   connect(damPos.y, winAC.uEco)
@@ -105,7 +125,7 @@ equation
   connect(uCooEna.y, winAC.uCooEna) annotation (Line(points={{-58,-70},{-38,-70},
           {-38,-14},{-21,-14}},   color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,140}})),
+            -100},{100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,140}})),
     experiment(
@@ -113,11 +133,12 @@ equation
       StopTime=18230400,
       __Dymola_Algorithm="Cvode"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Examples/WindowAC.mos"
-        "Simulate and Plot"),
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Examples/WindowAC.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
     <p>
-    This is an example model for the window air conditioner model in one cooling day with simple inputs.
+    This is an example model for the window air conditioner model with open-loop
+    inputs and boundary conditions.
     </p>
     </html>
     ", revisions="<html>

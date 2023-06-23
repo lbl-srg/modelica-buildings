@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment.WindowAC.Validation;
-package Data "Sizing data used for validation models"
+package Data "Data records used for validation models"
 
   extends Modelica.Icons.MaterialPropertiesPackage;
 

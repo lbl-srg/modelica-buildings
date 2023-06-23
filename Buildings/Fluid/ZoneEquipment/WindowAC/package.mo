@@ -1,5 +1,5 @@
 within Buildings.Fluid.ZoneEquipment;
-package WindowAC
+package WindowAC "Package with window AC system model"
   annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -33,5 +33,10 @@ package WindowAC
           lineColor={128,128,128},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          extent={{-80.0,0.0},{-20.0,60.0}})}));
+          extent={{-80.0,0.0},{-20.0,60.0}})}),
+    Documentation(info="
+    <html>
+    Package with zonal HVAC system model for window AC, along with example and 
+    validation models.
+    </html>"));
 end WindowAC;

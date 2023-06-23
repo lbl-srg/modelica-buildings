@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data;
-record FanData "Fan data for the validation model"
+record FanData
+  "Fan data for the validation model"
   extends Buildings.Fluid.Movers.Data.Generic(
     speed_nominal=2900,
     power(

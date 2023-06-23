@@ -2,13 +2,17 @@ within Buildings.Fluid.ZoneEquipment.WindowAC.Validation;
 model CoolingMode
   "Validation model for cooling mode operation of window AC system"
   extends Modelica.Icons.Example;
+
   replaceable package MediumA = Buildings.Media.Air
     constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air";
+
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=75
-    "Pressure drop at m_flow_nominal";
+    "Pressure drop at m_flow_nominal across window AC ducts";
+
   parameter Modelica.Units.SI.PressureDifference dpDX_nominal=75
-    "Pressure drop at m_flow_nominal";
+    "Pressure drop at m_flow_nominal across DX cooling coil";
+
   parameter Modelica.Units.SI.Time averagingTimestep = 3600
     "Time-step used to average out Modelica results for comparison with EPlus results. Same value is also applied to unit delay shift on EPlus power value";
 
@@ -34,215 +38,257 @@ model CoolingMode
           TEvaInMax=273.15 + 23.89,
           ffMin=0.5,
           ffMax=1.5))}, nSta=1)
-  annotation (Placement(transformation(extent={{60,106},{80,126}})));
+    "Performance data record"
+    annotation (Placement(transformation(extent={{60,106},{80,126}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(final k=0.2)
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant damPos(
+    final k=0.2)
     "Outdoor air damper position"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
 
   Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.SizingData winACSizing(
-      mAir_flow_nominal=0.50747591)
+    final mAir_flow_nominal=0.50747591)
     "Sizing parameters for window AC"
     annotation (Placement(transformation(extent={{60,72},{80,92}})));
 
   Buildings.Fluid.ZoneEquipment.WindowAC.WindowAC winAC(
     redeclare package MediumA = MediumA,
-    mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
-    mAir_flow_nominal=winACSizing.mAir_flow_nominal,
-    dpAir_nominal(displayUnit="Pa") = dpAir_nominal,
-    dpDX_nominal(displayUnit="Pa") = dpDX_nominal,
+    final mAirOut_flow_nominal=winACSizing.mAirOut_flow_nominal,
+    final mAir_flow_nominal=winACSizing.mAir_flow_nominal,
+    final dpAir_nominal=dpAir_nominal,
+    final dpDX_nominal= dpDX_nominal,
     redeclare Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data.FanData fanPer,
-    datCoi=datCoi,
-    sinSpeDXCoo(tau=3600))
+    final datCoi=datCoi,
+    sinSpeDXCoo(
+      tau=3600))
     annotation (Placement(transformation(extent={{-16,-24},{24,16}})));
 
   Modelica.Blocks.Sources.Pulse p(
-    nperiod=1,
-    offset=101325,
-    width=100,
-    period=864000,
-    startTime=18144000,
-    amplitude=1086) "Pressure"
+    final nperiod=1,
+    final offset=101325,
+    final width=100,
+    final period=864000,
+    final startTime=18144000,
+    final amplitude=1086)
+    "Pressure"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.dat"),
-    final columns=2:22,
+    final fileName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.dat"),
+    final columns=2:10,
     final tableName="EnergyPlus",
-    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
+    final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
+    final shiftTime= 15724800)
     "Reader for \"FanCoilAutoSize_ConstantFlowVariableFan.idf\" energy plus example results"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Calculate mass fractions of constituents"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter totMasAir(final p=1)
-    "Add 1 to humidity ratio value to find total mass of moist air"
-    annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
-  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](final p=fill(273.15,
-        3)) "Convert temperature from Celsius to Kelvin "
+  Buildings.Controls.OBC.CDL.Continuous.AddParameter K2C[3](
+    final p=fill(273.15,3))
+    "Convert temperature from Celsius to Kelvin "
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
   Buildings.Fluid.ZoneEquipment.BaseClasses.ModularController modCon(
-    final sysTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SystemTypes.windowAC,
+    final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea,
+    final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
+    final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
     final fanTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.FanTypes.conSpeFan,
     final has_fanOpeMod=true,
-    tFanEna=60)
+    final minFanSpe=0.1,
+    final tFanEna=60)
     "Instance of modular controller with constant speed fan and DX cooling coil"
     annotation (Placement(transformation(extent={{-76,-68},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(k=true)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(
+    final k=true)
     "Availability signal"
     annotation (Placement(transformation(extent={{-130,-60},{-110,-40}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanOpeMod(k=false)
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant fanOpeMod(
+    final k=false)
     "Fan operating mode"
     annotation (Placement(transformation(extent={{-130,-90},{-110,-70}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis fanProOn(uLow=0.04, uHigh=
-        0.05) "Check if fan is proven on based off of measured fan speed"
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis fanProOn(
+    final uLow=0.04,
+    final uHigh=0.05)
+    "Check if fan is proven on based off of measured fan speed"
     annotation (Placement(transformation(extent={{30,6},{50,26}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea
+    "Boolean to real conversion for fan signal"
     annotation (Placement(transformation(extent={{-28,-70},{-10,-52}})));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    "Zone air temperature sensor"
     annotation (Placement(transformation(extent={{30,58},{50,78}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay powCooCoiEP(samplePeriod=
-        averagingTimestep)
-    annotation (Placement(transformation(extent={{234,76},{254,96}})));
 
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.idf"),
-    epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.idf"),
+    final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    "Building energy model"
     annotation (Placement(transformation(extent={{32,110},{52,130}})));
 
   ThermalZones.EnergyPlus_9_6_0.ThermalZone zon(
-    zoneName="West Zone",
+    final zoneName="West Zone",
     redeclare package Medium = MediumA,
-    T_start=296.85,
-    nPorts=2) annotation (Placement(transformation(extent={{60,22},{100,62}})));
+    final T_start=296.85,
+    final nPorts=2)
+    "Thermal zone model"
+    annotation (Placement(transformation(extent={{60,22},{100,62}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[3](k=fill(0, 3))
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con1[3](
+    final k=fill(0, 3))
+    "Internal heat gain added to zone"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=winAC.sinSpeDXCoo.P)
+
+  Modelica.Blocks.Sources.RealExpression realExpression(
+    final y=winAC.sinSpeDXCoo.P)
+    "DX cooling coil power consumption"
     annotation (Placement(transformation(extent={{118,74},{138,94}})));
-  Modelica.Blocks.Math.Mean powCooCoiMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean powCooCoiMod(
+    final f=1/averagingTimestep)
+    "Time-averaged cooling coil power"
     annotation (Placement(transformation(extent={{156,74},{176,94}})));
-  Modelica.Blocks.Math.Mean powFanMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean powFanMod(
+    final f=1/averagingTimestep)
+    "Time-averaged fan power"
     annotation (Placement(transformation(extent={{156,102},{176,122}})));
-  Modelica.Blocks.Sources.RealExpression realExpression1(y=winAC.fan.P)
+
+  Modelica.Blocks.Sources.RealExpression realExpression1(
+    final y=winAC.fan.P)
+    "Fan power consumption"
     annotation (Placement(transformation(extent={{118,102},{138,122}})));
-  Modelica.Blocks.Sources.RealExpression realExpression2(y=winAC.fan.m_flow)
+
+  Modelica.Blocks.Sources.RealExpression realExpression2(
+    final y=winAC.fan.m_flow)
+    "Fan air mass flow rate"
     annotation (Placement(transformation(extent={{118,48},{138,68}})));
-  Modelica.Blocks.Math.Mean m_flowFanMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean m_flowFanMod(
+    final f=1/averagingTimestep)
+    "Time-averaged fan mass flow rate"
     annotation (Placement(transformation(extent={{156,48},{176,68}})));
-  Modelica.Blocks.Sources.RealExpression realExpression3(y=winAC.TAirLvg.T -
-        273.15)
+
+  Modelica.Blocks.Sources.RealExpression realExpression3(
+    final y=winAC.TAirLvg.T-273.15)
+    "Window AC leaving air temperature (in deg C)"
     annotation (Placement(transformation(extent={{118,20},{138,40}})));
-  Modelica.Blocks.Math.Mean TAirLvgMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean TAirLvgMod(
+    final f=1/averagingTimestep)
+    "Time-averaged leaving air temperature from window AC"
     annotation (Placement(transformation(extent={{156,20},{176,40}})));
-  Modelica.Blocks.Sources.RealExpression realExpression4(y=winAC.TAirMix.T -
-        273.15)
+
+  Modelica.Blocks.Sources.RealExpression realExpression4(
+    final y=winAC.TAirMix.T - 273.15)
+    "Window AC mixed air temperature (in deg C)"
     annotation (Placement(transformation(extent={{118,-8},{138,12}})));
-  Modelica.Blocks.Math.Mean TAirMixMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean TAirMixMod(
+    final f=1/averagingTimestep)
+    "Time-averaged mixed air temperature"
     annotation (Placement(transformation(extent={{156,-8},{176,12}})));
-  Modelica.Blocks.Math.Mean QCooCoiMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean QCooCoiMod(
+    final f=1/averagingTimestep)
+    "Time-averaged cooling coil heat removal rate"
     annotation (Placement(transformation(extent={{156,-38},{176,-18}})));
-  Modelica.Blocks.Sources.RealExpression realExpression5(y=-winAC.sinSpeDXCoo.QSen_flow
-         - winAC.sinSpeDXCoo.QLat_flow)
+
+  Modelica.Blocks.Sources.RealExpression realExpression5(
+    final y=-winAC.sinSpeDXCoo.QSen_flow - winAC.sinSpeDXCoo.QLat_flow)
+    "Total heat removal rate from air stream by DX cooling coil"
     annotation (Placement(transformation(extent={{118,-38},{138,-18}})));
-  Modelica.Blocks.Sources.RealExpression realExpression6(y=senTem.T - 273.15)
+
+  Modelica.Blocks.Sources.RealExpression realExpression6(
+    final y=senTem.T - 273.15)
+    "Measured zone air temperature (in deg C)"
     annotation (Placement(transformation(extent={{118,-94},{138,-74}})));
-  Modelica.Blocks.Math.Mean TZonAirMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean TZonAirMod(
+    final f=1/averagingTimestep)
+    "Time-averaged zone air temperature"
     annotation (Placement(transformation(extent={{156,-94},{176,-74}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TZonAirEP(samplePeriod=
-        averagingTimestep)
-    annotation (Placement(transformation(extent={{234,-94},{254,-74}})));
-  Modelica.Blocks.Sources.RealExpression realExpression7(y=datRea.y[15])
+
+  Modelica.Blocks.Sources.RealExpression TZonAirEP(
+    final y=datRea.y[8])
+    "Zone air temperature from EPlus"
     annotation (Placement(transformation(extent={{194,-94},{214,-74}})));
-  Modelica.Blocks.Sources.RealExpression realExpression8(y=datRea.y[3] - datRea.y[
-        16])
+
+  Modelica.Blocks.Sources.RealExpression powCooCoiEP(
+    final y=datRea.y[2] - datRea.y[9])
+    "Cooling coil power consumption from EPlus"
     annotation (Placement(transformation(extent={{192,76},{212,96}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay m_flowFanEP(samplePeriod=
-        averagingTimestep)
-    annotation (Placement(transformation(extent={{234,48},{254,68}})));
-  Modelica.Blocks.Sources.RealExpression realExpression9(y=datRea.y[9])
+
+  Modelica.Blocks.Sources.RealExpression m_flowFanEP(
+    final y=datRea.y[6])
+    "Fan mass flow rate from EPlus"
     annotation (Placement(transformation(extent={{194,48},{214,68}})));
-  Modelica.Blocks.Sources.RealExpression realExpression11(y=datRea.y[5])
+
+  Modelica.Blocks.Sources.RealExpression PLRCooCoiEP(
+    final y=datRea.y[3])
+    "Cooling coil PLR from EPlus"
     annotation (Placement(transformation(extent={{194,-64},{214,-44}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay PLRCooCoiEP(samplePeriod=
-        averagingTimestep)
-    annotation (Placement(transformation(extent={{234,-64},{254,-44}})));
-  Modelica.Blocks.Math.Mean PLRCooCoiMod(f=1/averagingTimestep)
+
+  Modelica.Blocks.Math.Mean PLRCooCoiMod(
+    final f=1/averagingTimestep)
+    "Time-averaged cooling coil PLR"
     annotation (Placement(transformation(extent={{156,-64},{176,-44}})));
-  Modelica.Blocks.Sources.RealExpression realExpression10(y=(winAC.sinSpeDXCoo.QSen_flow
-         + winAC.sinSpeDXCoo.QLat_flow)/winAC.sinSpeDXCoo.datCoi.sta[1].nomVal.Q_flow_nominal)
+
+  Modelica.Blocks.Sources.RealExpression realExpression10(
+    final y=(winAC.sinSpeDXCoo.QSen_flow+winAC.sinSpeDXCoo.QLat_flow)/winAC.sinSpeDXCoo.datCoi.sta[1].nomVal.Q_flow_nominal)
+    "PLR of DX cooling coil"
     annotation (Placement(transformation(extent={{118,-64},{138,-44}})));
-  Modelica.Blocks.Sources.RealExpression realExpression12(y=datRea.y[1])
+
+  Modelica.Blocks.Sources.RealExpression QCooCoiEP(
+    final y=datRea.y[1])
+    "Cooling coil heat removal rate from EPlus"
     annotation (Placement(transformation(extent={{194,-36},{214,-16}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay QCooCoiEPlus(samplePeriod=
-        averagingTimestep)
-    annotation (Placement(transformation(extent={{234,-36},{254,-16}})));
-  Modelica.Blocks.Sources.RealExpression realExpression13(y=datRea.y[8])
+
+  Modelica.Blocks.Sources.RealExpression TAirLvgEP(
+    final y=datRea.y[5])
+    "Leaving air temperature from EPlus"
     annotation (Placement(transformation(extent={{194,20},{214,40}})));
-  Buildings.Controls.OBC.CDL.Discrete.UnitDelay TAirLvgEP(samplePeriod=
-        averagingTimestep)
-    annotation (Placement(transformation(extent={{234,20},{254,40}})));
 
 equation
-  connect(datRea.y[11], div1.u1) annotation (Line(points={{-99,40},{-94,40},{-94,
-          56},{-82,56}}, color={0,0,127}));
-  connect(datRea.y[11], totMasAir.u) annotation (Line(points={{-99,40},{-94,40},
-          {-94,18},{-82,18}}, color={0,0,127}));
-  connect(totMasAir.y, div1.u2) annotation (Line(points={{-58,18},{-56,18},{-56,
-          36},{-88,36},{-88,44},{-82,44}},
-                         color={0,0,127}));
-  connect(modCon.yCooEna, winAC.uCooEna) annotation (Line(points={{-36.4,
-          -23.4286},{-30,-23.4286},{-30,-18},{-17,-18}},
-                                                   color={255,0,255}));
-  connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{
-          -100,-54.2857},{-79.6,-54.2857}},
-                                       color={255,0,255}));
-  connect(fanOpeMod.y, modCon.fanOpeMod) annotation (Line(points={{-108,-80},{
-          -100,-80},{-100,-60.1143},{-79.6,-60.1143}},
-                                                  color={255,0,255}));
+  connect(modCon.yCooEna, winAC.uCooEna) annotation (Line(points={{-36.4,-26},{-30,
+          -26},{-30,-18},{-17,-18}},               color={255,0,255}));
+  connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{-100,
+          -53},{-79.6,-53}},           color={255,0,255}));
+  connect(fanOpeMod.y, modCon.fanOpeMod) annotation (Line(points={{-108,-80},{-100,
+          -80},{-100,-59},{-79.6,-59}},           color={255,0,255}));
   connect(winAC.yFan_actual, fanProOn.u)
     annotation (Line(points={{25,12},{26,12},{26,16},{28,16}},
                                                color={0,0,127}));
-  connect(fanProOn.y, modCon.uFan) annotation (Line(points={{52,16},{100,16},{
-          100,-80},{-86,-80},{-86,-21.7143},{-79.6,-21.7143}},
-                                                           color={255,0,255}));
-  connect(modCon.yFan, booToRea.u) annotation (Line(points={{-36.4,-64.5714},{
-          -34,-64.5714},{-34,-61},{-29.8,-61}},
-                                            color={255,0,255}));
-  connect(datRea.y[7], K2C[1].u) annotation (Line(points={{-99,40},{-94,40},{-94,
+  connect(fanProOn.y, modCon.uFan) annotation (Line(points={{52,16},{100,16},{100,
+          -80},{-86,-80},{-86,-23},{-79.6,-23}},           color={255,0,255}));
+  connect(modCon.yFan, booToRea.u) annotation (Line(points={{-36.4,-62},{-34,-62},
+          {-34,-61},{-29.8,-61}},           color={255,0,255}));
+  connect(datRea.y[4], K2C[1].u) annotation (Line(points={{-99,40},{-94,40},{-94,
           80},{-82,80}}, color={0,0,127}));
-  connect(datRea.y[14], K2C[2].u) annotation (Line(points={{-99,40},{-94,40},{-94,
+  connect(datRea.y[7], K2C[2].u) annotation (Line(points={{-99,40},{-94,40},{-94,
           80},{-82,80}}, color={0,0,127}));
-  connect(datRea.y[15], K2C[3].u) annotation (Line(points={{-99,40},{-94,40},{-94,
+  connect(datRea.y[8], K2C[3].u) annotation (Line(points={{-99,40},{-94,40},{-94,
           80},{-82,80}}, color={0,0,127}));
   connect(building.weaBus, winAC.weaBus) annotation (Line(
-      points={{52,120},{54,120},{54,88},{-12.2,88},{-12.2,1.6}},
+      points={{52,120},{54,120},{54,88},{-13.2,88},{-13.2,14.2}},
       color={255,204,51},
       thickness=0.5));
-  connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,80},{-44,80},
-          {-44,-10},{-96,-10},{-96,-34.0571},{-79.6,-34.0571}},color={0,0,127}));
-  connect(winAC.port_Air_a2, zon.ports[1]) annotation (Line(points={{24,0},{79,0},
-          {79,22.9}},         color={0,127,255}));
+  connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,80},{-44,80},{
+          -44,-10},{-96,-10},{-96,-35},{-79.6,-35}},           color={0,0,127}));
+  connect(winAC.port_Air_a2, zon.ports[1]) annotation (Line(points={{24,0},{78,0},
+          {78,22.9}},         color={0,127,255}));
   connect(winAC.port_Air_b2, zon.ports[2])
-    annotation (Line(points={{24,-8},{81,-8},{81,22.9}}, color={0,127,255}));
+    annotation (Line(points={{24,-8},{82,-8},{82,22.9}}, color={0,127,255}));
   connect(con1.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,52},
           {58,52}}, color={0,0,127}));
-  connect(zon.TAir, modCon.TZon) annotation (Line(points={{101,60},{110,60},{
-          110,-90},{-90,-90},{-90,-27.8857},{-79.6,-27.8857}},
-                                                           color={0,0,127}));
-  connect(winAC.TAirSup, modCon.TSup) annotation (Line(points={{25,6},{30,6},{
-          30,-86},{-84,-86},{-84,-66.2857},{-79.6,-66.2857}},
-                                                           color={0,0,127}));
+  connect(zon.TAir, modCon.TZon) annotation (Line(points={{101,60},{110,60},{110,
+          -90},{-90,-90},{-90,-29},{-79.6,-29}},           color={0,0,127}));
+  connect(winAC.TAirSup, modCon.TSup) annotation (Line(points={{25,6},{30,6},{30,
+          -86},{-84,-86},{-84,-65},{-79.6,-65}},           color={0,0,127}));
   connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{2,
           -38},{-32,-38},{-32,10},{-17,10}}, color={0,0,127}));
   connect(realExpression.y,powCooCoiMod. u)
@@ -265,21 +311,8 @@ equation
     annotation (Line(points={{139,-84},{154,-84}}, color={0,0,127}));
   connect(damPos.y, winAC.uEco) annotation (Line(points={{-98,0},{-38,0},{-38,14},
           {-17,14}}, color={0,0,127}));
-  connect(realExpression7.y, TZonAirEP.u)
-    annotation (Line(points={{215,-84},{232,-84}}, color={0,0,127}));
-  connect(realExpression8.y, powCooCoiEP.u)
-    annotation (Line(points={{213,86},{232,86}}, color={0,0,127}));
-  connect(realExpression9.y, m_flowFanEP.u)
-    annotation (Line(points={{215,58},{232,58}}, color={0,0,127}));
-  connect(realExpression11.y, PLRCooCoiEP.u)
-    annotation (Line(points={{215,-54},{232,-54}}, color={0,0,127}));
   connect(realExpression10.y, PLRCooCoiMod.u)
     annotation (Line(points={{139,-54},{154,-54}}, color={0,0,127}));
-  connect(realExpression12.y, QCooCoiEPlus.u)
-    annotation (Line(points={{215,-26},{232,-26}},
-                                                 color={0,0,127}));
-  connect(realExpression13.y, TAirLvgEP.u)
-    annotation (Line(points={{215,30},{232,30}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{260,

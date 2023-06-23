@@ -1,20 +1,25 @@
 within Buildings.Fluid.ZoneEquipment.WindowAC;
 model WindowAC
+  "Window AC system model"
     extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
     final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea,
     oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
     redeclare final package MediumHW =Modelica.Media.Interfaces.PartialMedium,
-    redeclare final package MediumCHW =Modelica.Media.Interfaces.PartialMedium);
+    redeclare final package MediumCHW =
+        Modelica.Media.Interfaces.PartialMedium);
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
     annotation(Dialog(group="System parameters"));
+
   parameter Modelica.Units.SI.PressureDifference dpDX_nominal
     "Pressure drop for DX cooling coil at m_flow_nominal";
+
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
+
   replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for supply fan"
@@ -23,7 +28,8 @@ model WindowAC
       Dialog(group="Fan parameters"));
 
   replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi(
-    nSta=1) "Coil data"
+    final nSta=1)
+    "Coil data"
     annotation (Placement(transformation(extent={{2,100},{22,120}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
@@ -37,12 +43,12 @@ model WindowAC
 
   Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling sinSpeDXCoo(
     redeclare final package Medium = MediumA,
-    show_T=true,
-    dp_nominal=dpDX_nominal,
-    datCoi=datCoi,
-    from_dp=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal)
+    final show_T=true,
+    final dp_nominal=dpDX_nominal,
+    final datCoi=datCoi,
+    final from_dp=true,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    final T_start=datCoi.sta[1].nomVal.TEvaIn_nominal)
     "Single speed DX coil"
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 
@@ -57,11 +63,13 @@ model WindowAC
     annotation (Placement(transformation(extent={{300,100},{320,120}})));
 
   Modelica.Blocks.Routing.RealPassThrough TOut(y(
-      final quantity="ThermodynamicTemperature",
-      final unit="K",
-      displayUnit="degC",
-      min=0))
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    displayUnit="degC",
+    final min=0))
+    "Pass outdoor air temperature from the weatherbus"
     annotation (Placement(transformation(extent={{-260,-50},{-240,-30}})));
+
 equation
   connect(gai.y, fan.m_flow_in)
     annotation (Line(points={{-1,80},{2,80},{2,12}},   color={0,0,127}));
@@ -108,7 +116,7 @@ equation
     Documentation(info="<html>
     <p>
     This is a window air conditioner system model. The system consists of an 
-    outdoor air mixer, a signle-speed direct expansion (DX) cooling coil, 
+    outdoor air mixer, a single-speed direct expansion (DX) cooling coil, 
     and a constant speed supply air fan. The coil meets the cooling load 
     by cycling on/off, while the fan can operate continuously or cycle 
     on/off in conjunction with the coil. 

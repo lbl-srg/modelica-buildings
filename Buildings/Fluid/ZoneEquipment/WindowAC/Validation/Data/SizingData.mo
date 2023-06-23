@@ -1,5 +1,6 @@
 within Buildings.Fluid.ZoneEquipment.WindowAC.Validation.Data;
-record SizingData "Sizing calculations and values for component parameters"
+record SizingData
+  "Sizing calculations and values for component parameters"
 
   extends Modelica.Icons.Record;
 
@@ -35,9 +36,6 @@ record SizingData "Sizing calculations and values for component parameters"
     displayUnit="1") = 0.009
     "Outlet air humidity ratio"
     annotation (Dialog(group="Cooling coil parameters"));
-
-// protected
-
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
