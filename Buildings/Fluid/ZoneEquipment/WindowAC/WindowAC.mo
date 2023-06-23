@@ -8,8 +8,8 @@ model WindowAC
     final has_varHea=false,
     final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
     oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
-    redeclare final package MediumHW=Modelica.Media.Interfaces.PartialMedium,
-    redeclare final package MediumCHW=Modelica.Media.Interfaces.PartialMedium);
+    redeclare final package MediumHW=Buildings.Media.Water,
+    redeclare final package MediumCHW=Buildings.Media.Water);
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
