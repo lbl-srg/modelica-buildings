@@ -61,7 +61,7 @@ model StoragePlantDualSource
     mTan_flow_nominal=mTan_flow_nominal,
     mChi_flow_nominal=mChi_flow_nominal,
     dpPum_nominal=dp_nominal,
-    dpVal_nominal=0.2*dp_nominal,
+    dpVal_nominal=0.5*dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWR_nominal)                  "Storage plant" annotation (
      Placement(transformation(rotation=0, extent={{-20,-100},{0,-80}})));
