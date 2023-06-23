@@ -75,7 +75,7 @@ model CoolingMode
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.dat"),
+    final fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.dat"),
     final columns=2:10,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments,
@@ -97,7 +97,7 @@ model CoolingMode
     final minFanSpe=0.1,
     final tFanEna=60)
     "Instance of modular controller with constant speed fan and DX cooling coil"
-    annotation (Placement(transformation(extent={{-76,-68},{-40,-20}})));
+    annotation (Placement(transformation(extent={{-76,-68},{-56,-36}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant ava(
     final k=true)
@@ -124,9 +124,9 @@ model CoolingMode
     annotation (Placement(transformation(extent={{30,58},{50,78}})));
 
   inner ThermalZones.EnergyPlus_9_6_0.Building building(
-    final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.idf"),
-    final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/WindowAC/WindACFanOnOff.idf"),
+    final epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    final weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Building energy model"
     annotation (Placement(transformation(extent={{32,110},{52,130}})));
 
@@ -254,18 +254,18 @@ model CoolingMode
     annotation (Placement(transformation(extent={{194,20},{214,40}})));
 
 equation
-  connect(modCon.yCooEna, winAC.uCooEna) annotation (Line(points={{-36.4,-26},{-30,
-          -26},{-30,-18},{-17,-18}},               color={255,0,255}));
+  connect(modCon.yCooEna, winAC.uCooEna) annotation (Line(points={{-54,-40},{-30,
+          -40},{-30,-18},{-17,-18}},               color={255,0,255}));
   connect(ava.y, modCon.uAva) annotation (Line(points={{-108,-50},{-100,-50},{-100,
-          -53},{-79.6,-53}},           color={255,0,255}));
+          -58},{-78,-58}},             color={255,0,255}));
   connect(fanOpeMod.y, modCon.fanOpeMod) annotation (Line(points={{-108,-80},{-100,
-          -80},{-100,-59},{-79.6,-59}},           color={255,0,255}));
+          -80},{-100,-62},{-78,-62}},             color={255,0,255}));
   connect(winAC.yFan_actual, fanProOn.u)
     annotation (Line(points={{25,12},{26,12},{26,16},{28,16}},
                                                color={0,0,127}));
   connect(fanProOn.y, modCon.uFan) annotation (Line(points={{52,16},{100,16},{100,
-          -80},{-86,-80},{-86,-23},{-79.6,-23}},           color={255,0,255}));
-  connect(modCon.yFan, booToRea.u) annotation (Line(points={{-36.4,-62},{-34,-62},
+          -80},{-86,-80},{-86,-38},{-78,-38}},             color={255,0,255}));
+  connect(modCon.yFan, booToRea.u) annotation (Line(points={{-54,-64},{-34,-64},
           {-34,-61},{-29.8,-61}},           color={255,0,255}));
   connect(datRea.y[4], K2C[1].u) annotation (Line(points={{-99,40},{-94,40},{-94,
           80},{-82,80}}, color={0,0,127}));
@@ -278,7 +278,7 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(K2C[2].y, modCon.TCooSet) annotation (Line(points={{-58,80},{-44,80},{
-          -44,-10},{-96,-10},{-96,-35},{-79.6,-35}},           color={0,0,127}));
+          -44,-10},{-96,-10},{-96,-46},{-78,-46}},             color={0,0,127}));
   connect(winAC.port_Air_a2, zon.ports[1]) annotation (Line(points={{24,0},{78,0},
           {78,22.9}},         color={0,127,255}));
   connect(winAC.port_Air_b2, zon.ports[2])
@@ -286,9 +286,9 @@ equation
   connect(con1.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,52},
           {58,52}}, color={0,0,127}));
   connect(zon.TAir, modCon.TZon) annotation (Line(points={{101,60},{110,60},{110,
-          -90},{-90,-90},{-90,-29},{-79.6,-29}},           color={0,0,127}));
+          -90},{-90,-90},{-90,-42},{-78,-42}},             color={0,0,127}));
   connect(winAC.TAirSup, modCon.TSup) annotation (Line(points={{25,6},{30,6},{30,
-          -86},{-84,-86},{-84,-65},{-79.6,-65}},           color={0,0,127}));
+          -86},{-84,-86},{-84,-66},{-78,-66}},             color={0,0,127}));
   connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{2,
           -38},{-32,-38},{-32,10},{-17,10}}, color={0,0,127}));
   connect(realExpression.y,powCooCoiMod. u)

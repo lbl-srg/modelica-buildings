@@ -4,10 +4,12 @@ model WindowAC
     extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
     final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.noHea,
+    final has_varCoo=false,
+    final has_varHea=false,
+    final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
     oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
-    redeclare final package MediumHW =Modelica.Media.Interfaces.PartialMedium,
-    redeclare final package MediumCHW =
-        Modelica.Media.Interfaces.PartialMedium);
+    redeclare final package MediumHW=Modelica.Media.Interfaces.PartialMedium,
+    redeclare final package MediumCHW=Modelica.Media.Interfaces.PartialMedium);
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal
     "Total pressure difference across supply and return ports in airloop"
