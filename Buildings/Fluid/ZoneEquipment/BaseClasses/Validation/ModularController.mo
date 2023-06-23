@@ -193,5 +193,6 @@ equation
     </ul>
     </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/ModularController.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+    experiment(Tolerance=1e-06));
 end ModularController;

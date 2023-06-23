@@ -131,7 +131,7 @@ equation
     experiment(
       StartTime=18144000,
       StopTime=18230400,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-6),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Examples/WindowAC.mos"
         "Simulate and plot"),

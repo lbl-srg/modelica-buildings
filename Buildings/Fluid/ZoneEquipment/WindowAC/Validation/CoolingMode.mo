@@ -320,8 +320,8 @@ equation
     experiment(
       StartTime=15897600,
       StopTime=16502400,
-      __Dymola_Algorithm="Cvode"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingMode.mos"
+      Tolerance=1e-6),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/WindowAC/Validation/CoolingMode.mos"
         "Simulate and Plot"),
     Documentation(info="<html>
     <p>
