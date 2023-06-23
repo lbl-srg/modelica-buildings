@@ -148,12 +148,12 @@ model CoolingMode
     "DX cooling coil power consumption"
     annotation (Placement(transformation(extent={{118,74},{138,94}})));
 
-  Modelica.Blocks.Math.Mean powCooCoiMod(
+  Modelica.Blocks.Math.Mean PCooCoiMod(
     final f=1/averagingTimestep)
     "Time-averaged cooling coil power"
     annotation (Placement(transformation(extent={{156,74},{176,94}})));
 
-  Modelica.Blocks.Math.Mean powFanMod(
+  Modelica.Blocks.Math.Mean PFanMod(
     final f=1/averagingTimestep)
     "Time-averaged fan power"
     annotation (Placement(transformation(extent={{156,102},{176,122}})));
@@ -218,7 +218,7 @@ model CoolingMode
     "Zone air temperature from EPlus"
     annotation (Placement(transformation(extent={{194,-94},{214,-74}})));
 
-  Modelica.Blocks.Sources.RealExpression powCooCoiEP(
+  Modelica.Blocks.Sources.RealExpression PCooCoiEP(
     final y=datRea.y[2] - datRea.y[9])
     "Cooling coil power consumption from EPlus"
     annotation (Placement(transformation(extent={{192,76},{212,96}})));
@@ -291,11 +291,10 @@ equation
           -86},{-84,-86},{-84,-66},{-78,-66}},             color={0,0,127}));
   connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{2,
           -38},{-32,-38},{-32,10},{-17,10}}, color={0,0,127}));
-  connect(realExpression.y,powCooCoiMod. u)
+  connect(realExpression.y, PCooCoiMod.u)
     annotation (Line(points={{139,84},{154,84}}, color={0,0,127}));
-  connect(realExpression1.y,powFanMod. u)
-    annotation (Line(points={{139,112},{154,112}},
-                                                 color={0,0,127}));
+  connect(realExpression1.y, PFanMod.u)
+    annotation (Line(points={{139,112},{154,112}}, color={0,0,127}));
   connect(realExpression2.y, m_flowFanMod.u)
     annotation (Line(points={{139,58},{154,58}}, color={0,0,127}));
   connect(realExpression3.y, TAirLvgMod.u)

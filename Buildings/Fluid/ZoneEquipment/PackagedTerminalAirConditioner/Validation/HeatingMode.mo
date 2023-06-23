@@ -62,12 +62,13 @@ model HeatingMode
     redeclare
       Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Validation.Data.FanData
       fanPer,
-    final datCooCoi=datCooCoi) "Packaged terminal air conditioner instance"
+    final datCooCoi=datCooCoi)
+    "Packaged terminal air conditioner instance"
     annotation (Placement(transformation(extent={{-16,-26},{24,14}})));
 
   Modelica.Blocks.Sources.CombiTimeTable datRea(
     final tableOnFile=true,
-    final fileName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalAirConditioner/HeatingMode/1ZonePTAC.dat"),
+    final fileName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalAirConditioner/HeatingMode/1ZonePTAC.dat"),
     final columns=2:11,
     final tableName="EnergyPlus",
     final smoothness=Modelica.Blocks.Types.Smoothness.ConstantSegments)
@@ -108,9 +109,9 @@ model HeatingMode
     annotation (Placement(transformation(extent={{34,0},{54,20}})));
 
   inner Buildings.ThermalZones.EnergyPlus_9_6_0.Building building(
-    final idfName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalAirConditioner/HeatingMode/1ZonePTAC.idf"),
-    final epwName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
-    final weaName=Modelica.Utilities.Files.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    final idfName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/Data/Fluid/ZoneEquipment/PackagedTerminalAirConditioner/HeatingMode/1ZonePTAC.idf"),
+    final epwName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw"),
+    final weaName=Modelica.Utilities.Files.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Building instance for thermal zone"
     annotation (Placement(transformation(extent={{-20,114},{0,134}})));
 
@@ -126,7 +127,7 @@ model HeatingMode
     "Zero signal for internal thermal loads"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  Modelica.Blocks.Math.Mean powFanMod(
+  Modelica.Blocks.Math.Mean PFanMod(
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-134},{176,-114}})));
@@ -220,12 +221,12 @@ model HeatingMode
     "Outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{62,114},{82,134}})));
 
-  Modelica.Blocks.Sources.RealExpression powHeaCoiEP(
+  Modelica.Blocks.Sources.RealExpression PHeaCoiEP(
     final y=datRea.y[3])
     "Heating coil power consumption (EnergyPlus)"
     annotation (Placement(transformation(extent={{200,-60},{220,-40}})));
 
-  Modelica.Blocks.Math.Mean powHeaCoiMod(
+  Modelica.Blocks.Math.Mean PHeaCoiMod(
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-62},{176,-42}})));
@@ -240,18 +241,18 @@ model HeatingMode
     "Cooling coil power consumption (Modelica)"
     annotation (Placement(transformation(extent={{120,-100},{140,-80}})));
 
-  Modelica.Blocks.Math.Mean powCooCoiMod(
+  Modelica.Blocks.Math.Mean PCooCoiMod(
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-100},{176,-80}})));
 
-  Modelica.Blocks.Sources.RealExpression powCooCoiEP(
+  Modelica.Blocks.Sources.RealExpression PCooCoiEP(
     final y=datRea.y[1])
     "Cooling coil power consumption"
     annotation (Placement(transformation(extent={{200,-98},{220,-78}})));
 
 
-  Modelica.Blocks.Sources.RealExpression powFanEP(
+  Modelica.Blocks.Sources.RealExpression PFanEP(
     final y=datRea.y[9])
     "Fan power consumption (EnergyPlus)"
     annotation (Placement(transformation(extent={{200,-134},{220,-114}})));
@@ -278,9 +279,8 @@ equation
                                                          color={0,127,255}));
   connect(con.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,60},
           {56,60}}, color={0,0,127}));
-  connect(realExpression1.y,powFanMod. u)
-    annotation (Line(points={{141,-124},{154,-124}},
-                                                 color={0,0,127}));
+  connect(realExpression1.y, PFanMod.u)
+    annotation (Line(points={{141,-124},{154,-124}}, color={0,0,127}));
   connect(realExpression2.y, m_flowFan.u)
     annotation (Line(points={{141,124},{154,124}},
                                                  color={0,0,127}));
@@ -316,10 +316,10 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(realExpression17.y, powHeaCoiMod.u)
+  connect(realExpression17.y, PHeaCoiMod.u)
     annotation (Line(points={{141,-52},{154,-52}}, color={0,0,127}));
-  connect(realExpression10.y, powCooCoiMod.u)
-    annotation (Line(points={{141,-90},{154,-90}},   color={0,0,127}));
+  connect(realExpression10.y, PCooCoiMod.u)
+    annotation (Line(points={{141,-90},{154,-90}}, color={0,0,127}));
   connect(datRea.y[6], K2C[1].u)
     annotation (Line(points={{-99,90},{-82,90}}, color={0,0,127}));
   connect(datRea.y[7], K2C[2].u)

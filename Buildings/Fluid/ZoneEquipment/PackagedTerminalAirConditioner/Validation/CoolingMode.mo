@@ -62,7 +62,7 @@ model CoolingMode
     redeclare
       Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Validation.Data.FanData
       fanPer,
-    datCooCoi=datCooCoi)
+    final datCooCoi=datCooCoi)
     "Packaged terminal air conditioner instance"
     annotation (Placement(transformation(extent={{-16,-26},{24,14}})));
 
@@ -138,7 +138,7 @@ model CoolingMode
     "Outdoor air drybulb temperature"
     annotation (Placement(transformation(extent={{60,114},{80,134}})));
 
-  Modelica.Blocks.Math.Mean powFanMod(
+  Modelica.Blocks.Math.Mean PFanMod(
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-136},{176,-116}})));
@@ -223,12 +223,12 @@ model CoolingMode
     "Mixed air temperature (EnergyPlus)"
     annotation (Placement(transformation(extent={{200,48},{220,68}})));
 
-  Modelica.Blocks.Sources.RealExpression powHeaCoiEP(
+  Modelica.Blocks.Sources.RealExpression PHeaCoiEP(
     final y=datRea.y[3])
     "Heating coil power consumption (EnergyPlus)"
     annotation (Placement(transformation(extent={{200,-66},{220,-46}})));
 
-  Modelica.Blocks.Math.Mean powHeaCoiMod(
+  Modelica.Blocks.Math.Mean PHeaCoiMod(
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-68},{176,-48}})));
@@ -243,17 +243,17 @@ model CoolingMode
     "Cooling coil power consumption (Modelica)"
     annotation (Placement(transformation(extent={{120,-106},{140,-86}})));
 
-  Modelica.Blocks.Math.Mean powCooCoiMod(
+  Modelica.Blocks.Math.Mean PCooCoiMod(
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-106},{176,-86}})));
 
-  Modelica.Blocks.Sources.RealExpression powCooCoiEP(
+  Modelica.Blocks.Sources.RealExpression PCooCoiEP(
     final y=datRea.y[1])
     "Cooling coil power consumption"
     annotation (Placement(transformation(extent={{200,-104},{220,-84}})));
 
-  Modelica.Blocks.Sources.RealExpression powFanEP(
+  Modelica.Blocks.Sources.RealExpression PFanEP(
     final y=datRea.y[9])
     "Fan power consumption (EnergyPlus)"
     annotation (Placement(transformation(extent={{200,-136},{220,-116}})));
@@ -296,9 +296,8 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}},
       horizontalAlignment=TextAlignment.Right));
-  connect(realExpression1.y,powFanMod. u)
-    annotation (Line(points={{141,-126},{154,-126}},
-                                                 color={0,0,127}));
+  connect(realExpression1.y, PFanMod.u)
+    annotation (Line(points={{141,-126},{154,-126}}, color={0,0,127}));
   connect(realExpression2.y,m_flowFan. u)
     annotation (Line(points={{141,122},{154,122}},
                                                  color={0,0,127}));
@@ -311,10 +310,10 @@ equation
     annotation (Line(points={{141,24},{154,24}},   color={0,0,127}));
   connect(realExpression6.y,TZonAirMod. u)
     annotation (Line(points={{141,-22},{154,-22}}, color={0,0,127}));
-  connect(realExpression17.y, powHeaCoiMod.u)
+  connect(realExpression17.y, PHeaCoiMod.u)
     annotation (Line(points={{141,-58},{154,-58}}, color={0,0,127}));
-  connect(realExpression10.y,powCooCoiMod. u)
-    annotation (Line(points={{141,-96},{154,-96}},   color={0,0,127}));
+  connect(realExpression10.y, PCooCoiMod.u)
+    annotation (Line(points={{141,-96},{154,-96}}, color={0,0,127}));
   connect(booToRea[1].y, ptac.uFan) annotation (Line(points={{-30,-76},{-24,-76},
           {-24,8},{-17,8}}, color={0,0,127}));
   connect(booToRea[2].y, ptac.uHea) annotation (Line(points={{-30,-76},{-24,-76},
