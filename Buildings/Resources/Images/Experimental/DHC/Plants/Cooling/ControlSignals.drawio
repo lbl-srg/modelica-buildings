@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-06-02T16:53:07.229Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="iHbsk7maS62gJGf7WjBQ" version="21.2.1" type="device">
+<mxfile host="Electron" modified="2023-06-23T22:50:05.641Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="ZM664Zk8J6XMGfYI_-Fv" version="21.2.1" type="device">
   <diagram id="srBAZhQ2KLluDyzof_pd" name="Page-1">
-    <mxGraphModel dx="584" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="456" dy="854" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="0" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -576,6 +576,9 @@
         </mxCell>
         <mxCell id="GQwlBKBxIzU2rrclb5-g-3" value="" style="triangle;whiteSpace=wrap;html=1;fillColor=none;rotation=90;strokeColor=#3333FF;fontColor=#3333FF;" parent="1" vertex="1">
           <mxGeometry x="1490" y="709.34" width="10" height="10.25" as="geometry" />
+        </mxCell>
+        <mxCell id="PYCVDJ6xZcprUKnse3K--1" value="The pressure head signal from the storage plant is only used when it is in remote charging mode." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#3333FF;" vertex="1" parent="1">
+          <mxGeometry x="1569.87" y="584.33" width="80.13" height="139.99" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
