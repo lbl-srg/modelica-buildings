@@ -103,6 +103,7 @@ model DXDehumidifier "DX dehumidifier"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     mWat_flow_nominal=-V_flow_nominal*rhoWat)
     "Baseclass for conditioning fluid medium"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
