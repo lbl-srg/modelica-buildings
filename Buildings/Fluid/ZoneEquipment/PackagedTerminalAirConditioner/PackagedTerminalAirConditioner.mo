@@ -1,8 +1,12 @@
 within Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner;
 model PackagedTerminalAirConditioner
+  "System model for PTAC"
   extends Buildings.Fluid.ZoneEquipment.BaseClasses.EquipmentInterfaces(
     final cooCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.CooSou.eleDX,
     final heaCoiTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.HeaSou.ele,
+    final has_varCoo=false,
+    final has_varHea=true,
+    final supHeaTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.SupHeaSou.noHea,
     oaPorTyp=Buildings.Fluid.ZoneEquipment.BaseClasses.Types.OAPorts.oaMix,
     redeclare final package MediumHW = Buildings.Media.Water,
     redeclare final package MediumCHW = Buildings.Media.Water);

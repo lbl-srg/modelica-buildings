@@ -71,7 +71,7 @@ model PackagedTerminalAirConditioner
     annotation (Placement(transformation(extent={{52,-54},{72,-34}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-    final filNam=ModelicaServices.ExternalReferences.loadResource("modelica://Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
+    final filNam=ModelicaServices.ExternalReferences.loadResource("./Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos"))
     "Outdoor weather data"
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
 
@@ -121,7 +121,7 @@ equation
   connect(cooDis.y, ptac.uCooEna) annotation (Line(points={{-68,-24},{-40,-24},{
           -40,-14},{-21,-14}},   color={255,0,255}));
   connect(weaDat.weaBus, ptac.weaBus) annotation (Line(
-      points={{-70,80},{-16.2,80},{-16.2,5.6}},
+      points={{-70,80},{-17.2,80},{-17.2,18.2}},
       color={255,204,51},
       thickness=0.5));
   connect(yHea.y, ptac.uHea) annotation (Line(points={{-68,-60},{-30,-60},{-30,-10},
