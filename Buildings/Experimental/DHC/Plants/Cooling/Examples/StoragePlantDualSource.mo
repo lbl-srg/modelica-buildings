@@ -347,7 +347,7 @@ equation
           {44,-164},{80,-164}}, color={0,127,255}));
   connect(parPipS2U3.port_a1, ideUse3.port_b) annotation (Line(points={{56,-140},
           {56,-176},{80,-176}}, color={0,127,255}));
-  connect(stoPla.dp, gaiStoPla.u) annotation (Line(points={{2,-90},{20,-90},{20,
+  connect(stoPla.dp, gaiStoPla.u) annotation (Line(points={{2,-88},{20,-88},{20,
           -190},{118,-190}}, color={0,0,127}));
   connect(gaiStoPla.y, muxDp.u[4]) annotation (Line(points={{141,-190},{160,-190},
           {160,150},{180,150},{180,152.625}}, color={0,0,127}));

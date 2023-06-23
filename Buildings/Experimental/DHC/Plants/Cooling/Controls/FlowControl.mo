@@ -25,11 +25,11 @@ block FlowControl
   Modelica.Blocks.Interfaces.RealOutput mPriPum_flow
     "Primary pump mass flow rate"
     annotation (Placement(transformation(extent={{780,40},{800,60}}),
-                       iconTransformation(extent={{100,50},{120,70}})));
+                       iconTransformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput ySecPum
     "Secondary pump normalised speed" annotation (Placement(transformation(
-          extent={{780,-20},{800,0}}), iconTransformation(extent={{100,-10},{
-            120,10}})));
+          extent={{780,-20},{800,0}}), iconTransformation(extent={{100,30},{120,
+            50}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "State graph root"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.StateGraph.InitialStep allOff(nOut=1, nIn=1) "Initial step, all off"
@@ -91,7 +91,7 @@ block FlowControl
     annotation (Placement(transformation(extent={{-8,-200},{646,100}})));
   Modelica.Blocks.Interfaces.RealOutput yVal "Valve normalised mass flow rate"
     annotation (Placement(transformation(extent={{780,-80},{800,-60}}),
-        iconTransformation(extent={{100,-70},{120,-50}})));
+        iconTransformation(extent={{100,-10},{120,10}})));
   Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
     "Normalised speed signal for the secondary pump"
                               annotation (Placement(
@@ -146,6 +146,12 @@ block FlowControl
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={330,-110})));
+  Modelica.Blocks.Interfaces.BooleanOutput isChaRem
+    "Is operated for remote charging" annotation (Placement(transformation(
+          extent={{780,-140},{800,-120}}), iconTransformation(extent={{100,-50},
+            {120,-30}})));
+  Modelica.Blocks.Sources.BooleanExpression booleanExpression(y=steChaRem.active)
+    annotation (Placement(transformation(extent={{700,-140},{720,-120}})));
 equation
   connect(traChaLoc.outPort,steChaLoc. inPort[1])
     annotation (Line(points={{271.5,70},{299,70}}, color={0,0,0}));
@@ -242,6 +248,8 @@ equation
   connect(traRou.outPort, alt.join[3]) annotation (Line(points={{551.5,-90},{576,
           -90},{576,1.42109e-14},{577.33,1.42109e-14}},
                                             color={0,0,0}));
+  connect(booleanExpression.y, isChaRem)
+    annotation (Line(points={{721,-130},{790,-130}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-220},{780,140}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(extent={{-20,80},{20,40}}, lineColor={28,108,200}),

@@ -124,17 +124,21 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     final unit="Pa",
     final displayUnit="Pa")
     "Pressure drop accross the connection (measured)"
-    annotation (Placement(transformation(extent={{100,70},{140,110}}),
-      iconTransformation(extent={{100,-20},{140,20}})));
+    annotation (Placement(transformation(extent={{100,-40},{120,-20}}),
+      iconTransformation(extent={{100,0},{140,40}})));
+  Modelica.Blocks.Interfaces.BooleanOutput isChaRem
+    "Is operated for remote charging" annotation (Placement(transformation(
+          extent={{100,30},{120,50}}), iconTransformation(extent={{100,-30},{
+            120,-10}})));
 equation
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-70},{70,-70},{70,
           -90},{-70,-90},{-70,42},{-61,42}},                   color={255,0,255}));
   connect(floCon.mPriPum_flow, pumPri.m_flow_in)
-    annotation (Line(points={{-39,56},{-30,56},{-30,22}}, color={0,0,127}));
-  connect(floCon.ySecPum,revCon. yPum) annotation (Line(points={{-39,50},{34,50},
+    annotation (Line(points={{-39,58},{-30,58},{-30,22}}, color={0,0,127}));
+  connect(floCon.ySecPum,revCon. yPum) annotation (Line(points={{-39,54},{34,54},
           {34,36},{39,36}},          color={0,0,127}));
-  connect(floCon.yVal,revCon. yVal) annotation (Line(points={{-39,44},{30,44},{30,
-          24},{39,24}},              color={0,0,127}));
+  connect(floCon.yVal,revCon. yVal) annotation (Line(points={{-39,50},{30,50},{
+          30,24},{39,24}},           color={0,0,127}));
   connect(tanBra.TTan,tanSta. TTan) annotation (Line(points={{21,-20},{30,-20},{
           30,-70},{39,-70}},            color={0,0,127}));
   connect(chiEnaSta, floCon.chiEnaSta) annotation (Line(points={{-60,110},{-60,80},
@@ -167,8 +171,10 @@ equation
     annotation (Line(points={{100,60},{80,60},{80,20}}, color={0,127,255}));
   connect(port_a2, senRelPre.port_b) annotation (Line(points={{100,-60},{80,-60},
           {80,-3.55271e-15}}, color={0,127,255}));
-  connect(senRelPre.p_rel, dp) annotation (Line(points={{71,10},{66,10},{66,90},
-          {120,90}}, color={0,0,127}));
+  connect(senRelPre.p_rel, dp) annotation (Line(points={{71,10},{66,10},{66,-30},
+          {110,-30}},color={0,0,127}));
+  connect(floCon.isChaRem, isChaRem) annotation (Line(points={{-39,46},{94,46},
+          {94,40},{110,40}}, color={255,0,255}));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},{100,100}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
                                Rectangle(
