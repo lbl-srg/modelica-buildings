@@ -57,7 +57,8 @@ model StoragePlantDualSource
       final package Medium = Medium,
     mTan_flow_nominal=mTan_flow_nominal,
     mChi_flow_nominal=mChi_flow_nominal,
-    dp_nominal=dp_nominal,
+    dpPum_nominal=dp_nominal,
+    dpVal_nominal=0.2*dp_nominal,
     T_CHWS_nominal=T_CHWS_nominal,
     T_CHWR_nominal=T_CHWR_nominal)                  "Storage plant" annotation (
      Placement(transformation(rotation=0, extent={{-20,-100},{0,-80}})));
@@ -78,7 +79,7 @@ model StoragePlantDualSource
   Modelica.Blocks.Sources.Constant TSet2(final k=T_CHWS_nominal)
     "Constant CHW leaving temperature"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Math.Gain gaiStoPla(final k=1/stoPla.dp_nominal)
+  Modelica.Blocks.Math.Gain gaiStoPla(final k=1/stoPla.dpVal_nominal)
     "Gain to normalise dp measurement" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

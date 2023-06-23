@@ -18,8 +18,11 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   parameter Modelica.Units.SI.MassFlowRate mChi_flow_nominal(min=0)
     "Nominal mass flow rate for CHW chiller branch"
     annotation(Dialog(group="Nominal values"));
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Nominal pressure difference"
+  parameter Modelica.Units.SI.PressureDifference dpPum_nominal
+    "Nominal pressure difference for secondary pump sizing"
+    annotation(Dialog(group="Nominal values"));
+  parameter Modelica.Units.SI.PressureDifference dpVal_nominal
+    "Nominal pressure difference for return valve sizing"
     annotation(Dialog(group="Nominal values"));
   parameter Modelica.Units.SI.Temperature T_CHWS_nominal(
     final displayUnit="degC")=
@@ -40,7 +43,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mChi_flow_nominal,
-    dp_nominal=0.1*dp_nominal) "Pressure drop of the chiller loop"
+    dp_nominal=0.1*dpPum_nominal) "Pressure drop of the chiller loop"
                                                      annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
@@ -64,7 +67,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     revCon(redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final mTan_flow_nominal=mTan_flow_nominal,
-    final dp_nominal=dp_nominal,
+    final dpPum_nominal=dpPum_nominal,
+    final dpVal_nominal=dpVal_nominal,
     final T_start=T_CHWS_nominal)
     "Reversible connection"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));

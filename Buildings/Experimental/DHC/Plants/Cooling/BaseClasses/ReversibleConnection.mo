@@ -6,8 +6,10 @@ model ReversibleConnection
 
   parameter Modelica.Units.SI.MassFlowRate mTan_flow_nominal(min=0)
     "Nominal mass flow rate for CHW tank branch";
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Nominal pressure difference";
+  parameter Modelica.Units.SI.PressureDifference dpPum_nominal
+    "Nominal pressure difference for supply pump sizing";
+  parameter Modelica.Units.SI.PressureDifference dpVal_nominal
+    "Nominal pressure difference for return valve sizing";
   parameter Modelica.Units.SI.ThermodynamicTemperature T_start
     "Start temperature";
 
@@ -35,18 +37,18 @@ model ReversibleConnection
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
     final addPowerToMedium=false,
-    final dp_nominal=dp_nominal) "Supply pump"
+    final dp_nominal=dpPum_nominal) "Supply pump"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.Fluid.FixedResistances.CheckValve cheVal(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dpValve_nominal=0.1*dp_nominal,
+    final dpValve_nominal=0.1*dpPum_nominal,
     final dpFixed_nominal=0) "Check valve"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Fluid.Actuators.Valves.TwoWayPressureIndependent val(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mTan_flow_nominal,
-    final dpValve_nominal=dp_nominal,
+    final dpValve_nominal=dpVal_nominal,
     y_start=0)
     "Valve that throttles CHW from the supply line to the tank"
     annotation (Placement(transformation(extent={{20,-40},{0,-20}})));
