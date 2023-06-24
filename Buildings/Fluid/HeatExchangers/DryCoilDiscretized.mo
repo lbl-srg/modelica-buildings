@@ -448,6 +448,12 @@ rather may be considered as approximated by these heat conductors.
 </html>", revisions="<html>
 <ul>
 <li>
+June 22, 2023 by Hongxiang Fu:<br/>
+Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3441\">#3441</a>.
+</li>
+<li>
 November 4, 2017, by Michael wetter:<br/>
 Added approximation of diffusion.<br/>
 This is for
