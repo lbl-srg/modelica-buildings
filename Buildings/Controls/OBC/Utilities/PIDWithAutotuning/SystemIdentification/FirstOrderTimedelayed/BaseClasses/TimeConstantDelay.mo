@@ -176,8 +176,8 @@ L = T &tau;/(1 - &tau;),
 <h4>Validation</h4>
 <p>
 This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation.TimeConstantDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.Validation.TimeConstantDela</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation.TimeConstantDela</a>.
 </p>
 <h4>References</h4>
 <p>

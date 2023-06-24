@@ -1,5 +1,4 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses;
-
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses;
 block PIDDerivativeTime "Identify the derivative time of a PID controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput T(
     final quantity="Time",

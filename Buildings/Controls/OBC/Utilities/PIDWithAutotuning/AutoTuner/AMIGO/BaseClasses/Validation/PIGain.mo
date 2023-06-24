@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.Validation;
 model PIGain "Test model for calculating the gain for a PI controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIGain
-                                                                            PIGai
-    "Blocks that calculates the gain"
+    PIGai "Blocks that calculates the gain"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp kp(
     duration=1,

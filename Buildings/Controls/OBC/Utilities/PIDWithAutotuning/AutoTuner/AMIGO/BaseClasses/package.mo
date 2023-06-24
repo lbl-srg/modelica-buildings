@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO;
 package BaseClasses "Package with base classes"
-  
+
 annotation (Icon(graphics={
         Rectangle(
           lineColor={200,200,200},
@@ -12,5 +12,11 @@ annotation (Icon(graphics={
           extent={{-30,-32},{30,28}},
           lineColor={128,128,128},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+<p>
+This package contains base classes to construct blocks in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO</a>.
+</p>
+</html>"));
 end BaseClasses;

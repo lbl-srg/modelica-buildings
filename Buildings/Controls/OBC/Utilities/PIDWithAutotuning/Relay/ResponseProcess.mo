@@ -38,13 +38,13 @@ block ResponseProcess
     annotation (Placement(transformation(extent={{100,-10},{140,30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
-  BaseClasses.OnOffPeriod                                              onOffPer
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod onOffPer
     "Block that calculates the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  BaseClasses.HalfPeriodRatio                                              halPerRatio
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio halPerRatio
     "Block that calculates the half period ratio"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  BaseClasses.NormalizedTimeDelay                                              norTimDel(
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay norTimDel(
      final gamma=max(yHig, yLow)/min(yLow, yHig))
     "Block that calculates the normalized time delay"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));

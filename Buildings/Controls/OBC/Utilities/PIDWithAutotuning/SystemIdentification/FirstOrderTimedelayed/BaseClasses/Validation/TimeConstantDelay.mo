@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation;
 model TimeConstantDelay "Test model for identifying the the time constant and the time delay of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
-    timConDel(yLow=0.1)
-    "Block that calculates the time constant and the time delay of a first-order model"
+    timConDel(yLow=0.1) "Block that calculates the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1)
   "Gain"
@@ -61,8 +60,8 @@ First implementation<br/>
 </html>", info="<html>
 <p>
 Validation test for the block
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClassess.TimeConstantDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClassess.TimeConstantDelay</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay</a>.
 </p>
 <p>
 Input <code>tOn</code> changes from <i>0</i> to <i>0.1</i> at <i>0.1</i>s,

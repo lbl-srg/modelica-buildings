@@ -31,10 +31,10 @@ block PI "Identify control gain and integral time of a PI controller"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  BaseClasses.PIGain                                                        gai
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIGain                                                        gai
     "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  BaseClasses.PIIntegralTime
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIIntegralTime
     intTim "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
@@ -65,9 +65,7 @@ equation
           textString="%name",
           textColor={0,0,255}),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-16,-12},{84,-52}},
-          lineColor={0,0,0},
           textString="PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
@@ -84,16 +82,12 @@ equation
         Line(points={{32,8},{32,44}}, color={28,108,200}),
         Line(points={{-42,-30},{-10,-30}}, color={28,108,200}),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-18,80},{82,40}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="k"),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-116,-10},{-16,-50}},
-          lineColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Ti")}),     Diagram(coordinateSystem(preserveAspectRatio=false)),

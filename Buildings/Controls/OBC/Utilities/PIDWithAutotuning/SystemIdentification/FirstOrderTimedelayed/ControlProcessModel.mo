@@ -72,12 +72,12 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "The output of samtau divided by that of addPar"
     annotation (Placement(transformation(extent={{12,-30},{32,-10}})));
-  BaseClasses.Gain                                                                                   gain(
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain gain(
     final yHig=yHig,
     final yLow=yLow)
     "Block that calculates the gain"
     annotation (Placement(transformation(extent={{-84,10},{-64,30}})));
-  BaseClasses.TimeConstantDelay
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
     timConDel(
     final yHig=yHig,
     final yLow=yLow,

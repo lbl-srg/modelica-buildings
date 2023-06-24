@@ -253,8 +253,8 @@ It will start the PID tuning process whenever the value of the boolean input sig
 <code>false</code> to <code>true</code>.
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
 The PID tuning process will end automatically based on the algorithm defined
-in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
+in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning..BaseClasses.Relay.HalfPeriodRatio</a>.
 Starting from then, the control loop is controlled by a PI or PID controller.
 </p>
 <p>
@@ -292,10 +292,8 @@ First implementation<br/>
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
-          lineColor={0,0,0},
-          textString="PI",
+          textString= if controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID then "PID" else "PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Polygon(

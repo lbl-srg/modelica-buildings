@@ -1,8 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
 model HalfPeriodRatio "Test model for calculating the half period ratio"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio
-                                                                           halPerRat
-    "Calculate the half period ratio based on a response from a relay controller"
+    halPerRat "Calculate the half period ratio based on a response from a relay controller"
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig1(
     amplitude=-0.1,

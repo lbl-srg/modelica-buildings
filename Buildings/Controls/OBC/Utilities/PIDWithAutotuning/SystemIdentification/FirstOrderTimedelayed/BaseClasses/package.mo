@@ -11,5 +11,11 @@ package BaseClasses "Package with base classes"
           extent={{-30,-32},{30,28}},
           lineColor={128,128,128},
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}), Documentation(info="<html>
+<p>
+This package contains base classes to construct blocks in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>.
+</p>
+</html>"));
 end BaseClasses;

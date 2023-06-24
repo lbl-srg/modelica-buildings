@@ -103,12 +103,6 @@ This block calculates the normalized time delay of the responses from a relay co
 where <code>&gamma;</code> and <code>&rho;</code> are the asymmetry level of
 the relay controller and the half-period ratio, respectively.
 </p>
-<h4>Validation</h4>
-<p>
-This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.NormalizedTimeDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation.NormalizedTimeDelay</a>.
-</p>
 <h4>References</h4>
 <p>
 Josefin Berner (2017)
