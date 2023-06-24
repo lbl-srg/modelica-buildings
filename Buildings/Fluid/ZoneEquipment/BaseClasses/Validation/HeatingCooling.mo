@@ -119,38 +119,5 @@ equation
       </html>"),
     experiment(Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/ZoneEquipment/BaseClasses/Validation/HeatingCooling.mos"
-        "Simulate and Plot"),
-    Documentation(info="<html>
-    <p>
-    This is a validation model for the controller 
-    <a href=\"modelica://Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling\">
-    Buildings.Fluid.ZoneEquipment.BaseClasses.HeatingCooling</a>. The model comprises the controllers
-    (<code>conCooMod</code> and <code>conHeaMod</code>), which receive input signals including zone temperatures 
-    (<code>Tzon</code> and <code>Tzon1</code>), zone temperature setpoints (<code>heaSetPoi</code> and 
-    <code>cooSetPoi</code>), supply air temperatures (<code>TSup</code> and <code>TSup1</code>), and 
-    fan signals (<code>uFan</code> and <code>uFan1</code>) for cooling and heating modes, respectively. 
-    </p>
-    <p>
-    Simulation results are observed as follows: 
-    <ul>
-    <li>
-    When the measured zone temperature <code>TZon</code> exceeds the setpoint <code>TZonSet</code> 
-    with a specific deadband and the fan is proven on (<code>uFan=true</code>), the cooling coil is enabled 
-    (<code>conCooMod.yEna=true</code>). 
-    </li>
-    <li>
-    When the measured zone temperature <code>TZon</code> is below the setpoint <code>TZonSet</code> 
-    with a specific deadband and the fan is proven on (<code>uFan=true</code>), the heating coil is enabled 
-    (<code>conHeaMod.yEna=true</code>). 
-    </li>
-    </ul>
-    </p>
-    </html>",revisions="<html>
-    <ul>
-    <li>
-    June 21, 2023, by Junke Wang and Karthik Devaprasad:<br/>
-    First implementation.
-    </li>
-    </ul>
-    </html>"));
+        "Simulate and Plot"));
 end HeatingCooling;
