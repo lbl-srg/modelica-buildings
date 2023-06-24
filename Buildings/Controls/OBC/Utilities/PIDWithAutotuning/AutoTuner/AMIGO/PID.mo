@@ -37,8 +37,8 @@ block PID "Identify control gain, integral time, and derivative time of the PID 
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
 protected
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain                                                        gai
-    "Block that calculates the control gain"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain
+    gai "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDIntegralTime
     intTim "Block that calculates the integral time"

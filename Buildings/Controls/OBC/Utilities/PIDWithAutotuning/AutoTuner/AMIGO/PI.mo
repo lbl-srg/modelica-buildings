@@ -31,8 +31,8 @@ block PI "Identify control gain and integral time of a PI controller"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{100,-80},{140,-40}})));
 protected
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIGain                                                        gai
-    "Block that calculates the control gain"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIGain
+    gai "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIIntegralTime
     intTim "Block that calculates the integral time"
