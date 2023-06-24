@@ -2,7 +2,8 @@ within Buildings.Fluid.ZoneEquipment.BaseClasses.Validation;
 model CyclingFan "Validation model for cycling fan controller"
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc
+  Buildings.Fluid.ZoneEquipment.BaseClasses.CyclingFan conFanCyc(
+    final minFanSpe=0.1)
     "Instance of controller with constant speed fan"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 
