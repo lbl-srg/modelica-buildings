@@ -126,12 +126,12 @@ First implementation.
           Text(
             visible=not (c > 1E-10),
             extent={{4,-8},{98,-40}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="d=%d"),
           Text(
             visible=not (c > 1E-10),
             extent={{4,-56},{98,-88}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="c=%c")}));
   end Material;
 
@@ -178,12 +178,12 @@ First implementation.
           Text(
             visible=d > 1E-10,
             extent={{-98,-62},{-2,-86}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="d=%d"),
           Text(
             visible=c > 1E-10,
             extent={{-98,-8},{-2,-38}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="c=%c"),
           Text(
             extent={{-98,38},{-2,14}},
