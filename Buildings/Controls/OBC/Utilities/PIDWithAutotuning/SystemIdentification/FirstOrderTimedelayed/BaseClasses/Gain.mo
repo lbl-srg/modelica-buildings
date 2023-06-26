@@ -12,14 +12,14 @@ block Gain "Identify the gain of a first order time delayed model"
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the on period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
     iconTransformation(extent={{-140,-20},{-100,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the off period"
+    "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}}),
     iconTransformation(extent={{-140,-100},{-100,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triSta
@@ -47,10 +47,12 @@ protected
     "Block that avoids a divide-by-zero error"
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOnyHig(
-    final k=yHig) "Product of tOn and yHig"
+    final k=yHig)
+    "Product of tOn and yHig"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiOffyLow(
-    final k=-yLow) "Product of tOff and yLow"
+    final k=-yLow)
+    "Product of tOff and yLow"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
 
 equation

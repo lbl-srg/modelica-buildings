@@ -24,11 +24,11 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
 protected
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.3)
-    "Block that calculates the product of 0.3 and the time delay"
+    "Block that calculates the product of 0.3 and the input"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.5)
-    "Block that calculates the product of 0.5 and the input time constant"
+    "Block that calculates the product of 0.5 and the input"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Block that calculates the product of the two inputs"
@@ -37,7 +37,7 @@ protected
     "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
-    "Block that calculates the first input divided by the second input"
+    "Block that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
 
 equation

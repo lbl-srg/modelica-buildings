@@ -1,28 +1,33 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
 model HalfPeriodRatio "Test model for calculating the half period ratio"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio
-    halPerRat "Calculate the half period ratio based on a response from a relay controller"
+    halPerRat
+    "Calculate the half period ratio"
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig1(
     amplitude=-0.1,
     width=0.2,
     period=1,
-    offset=0.1) "Block that generates signals for forming the signal of the length of On period"
+    offset=0.1)
+    "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig2(
     amplitude=-0.1,
     width=0.9,
     period=1,
-    offset=0.1) "Block that generates signals for forming the signal of the length of On period"
+    offset=0.1)
+    "Block that generates signals for forming the signal of the length of On period"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add tOn "Blocks that generates the length of the on period"
+  Buildings.Controls.OBC.CDL.Continuous.Add tOn
+    "The length of the On period"
     annotation (Placement(transformation(extent={{-34,40},{-14,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
     amplitude=-0.5,
     width=0.7,
     period=1,
-    offset=0.5) "The length of the off period"
+    offset=0.5)
+    "The length of the Off period"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-30},{0,-30},{0,

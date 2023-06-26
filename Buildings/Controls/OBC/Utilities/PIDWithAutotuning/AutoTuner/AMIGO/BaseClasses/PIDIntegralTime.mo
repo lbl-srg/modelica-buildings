@@ -28,7 +28,7 @@ protected
     "Block that calculates the sum of the output of gai1 and the product of 0.8 and the input time constant"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
-    "Block that calculates the input 1 divided by the input 2"
+    "Block that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.4)

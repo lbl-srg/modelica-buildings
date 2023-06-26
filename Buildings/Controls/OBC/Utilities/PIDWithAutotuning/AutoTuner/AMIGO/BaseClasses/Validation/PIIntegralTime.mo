@@ -1,17 +1,20 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.Validation;
 model PIIntegralTime "Test model for calculating the integral time for a PI controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIIntegralTime
-    PIIntTim "Block that calculates the integral time"
+    PIIntTim
+    "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
     duration=1,
     offset=0.5,
-    height=0.5) "Time constant of a first order time-delayed model"
+    height=0.5)
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
     duration=1,
     offset=0.3,
-    height=0.3) "Time delay of a first order time-delayed model"
+    height=0.3)
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(T.y, PIIntTim.T) annotation (Line(points={{-38,20},{-20,20},{-20,6},{-12,
@@ -55,7 +58,7 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIIntegralTime</a>.
 </p>
 <p>
-The input input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
+The input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
 and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
 </p>
 </html>"));

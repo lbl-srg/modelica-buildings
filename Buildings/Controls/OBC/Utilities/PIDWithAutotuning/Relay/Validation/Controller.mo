@@ -3,17 +3,22 @@ model Controller "Test model for a relay controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller relCon(
     yHig=1,
     yLow=0.5,
-    deaBan=0.4) "A relay controller"
+    deaBan=0.4)
+    "A relay controller"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(freqHz=2) "Measured value"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(freqHz=2)
+    "Measured value"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0) "Setpoint"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con(k=0)
+    "Setpoint"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
     width=0.5,
     period=1,
-    shift=-0.5) "Enable signal"
+    shift=-0.5)
+    "Enable signal"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
+
 equation
   connect(con.y, relCon.u_s)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));

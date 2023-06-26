@@ -6,17 +6,20 @@ model PID "Test model for calculating parameters of a PID controller"
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp kp(
     duration=1,
     offset=1,
-    height=1) "Gain of a first order time-delayed model"
+    height=1)
+    "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
     duration=1,
     offset=0.5,
-    height=0.5) "Time constant of a first order time-delayed model"
+    height=0.5)
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp  L(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
     duration=1,
     offset=0.3,
-    height=0.3) "Time delay of a first order time-delayed model"
+    height=0.3)
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(kp.y, PID.kp) annotation (Line(points={{-38,30},{-20,30},{-20,6},{-12,

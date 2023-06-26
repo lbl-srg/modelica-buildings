@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation;
 model Gain "Test model for identifying the gain of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain
-    gai "Block that calculate the gain of a first-order model"
+    gai
+    "Block that calculates the gain of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse u(
     amplitude=0.5,
@@ -15,19 +16,20 @@ model Gain "Test model for identifying the gain of the control process"
     width=0.1,
     period=1,
     offset=0.1)
-    "The length of the on period"
+    "The length of the On period"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOff(
     amplitude=-0.7,
     width=0.8,
     period=1,
     offset=0.7)
-    "The length of the off period"
+    "The length of the Off period"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse tunSta(
     width=0.9,
     period=1,
-    shift=-0.9) "Mimicking the signal for the tuning period starts"
+    shift=-0.9)
+    "The signal for the tuning period starts"
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
 equation
   connect(tunSta.y, gai.triSta)

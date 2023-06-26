@@ -1,22 +1,26 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.Validation;
 model PIGain "Test model for calculating the gain for a PI controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIGain
-    PIGai "Blocks that calculates the gain"
+    PIGai
+    "Blocks that calculates the gain"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp kp(
     duration=1,
     offset=1,
-    height=1) "Gain of a first order time-delayed model"
+    height=1)
+    "Gain of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp T(
     duration=1,
     offset=0.5,
-    height=0.5) "Time constant of a first order time-delayed model"
+    height=0.5)
+    "Time constant of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp L(
     duration=1,
     offset=0.3,
-    height=0.3) "Time delay of a first order time-delayed model"
+    height=0.3)
+    "Time delay of a first order time-delayed model"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 equation
   connect(L.y, PIGai.L) annotation (Line(points={{-38,-50},{-20,-50},{-20,-6},{-10,

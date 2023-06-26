@@ -19,13 +19,13 @@ block ResponseProcess
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the on period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "length for the off period"
+    "length for the Off period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
     "A boolean signal, true if the tuning starts"
@@ -39,7 +39,7 @@ block ResponseProcess
         iconTransformation(extent={{100,-20},{140,20}})));
 protected
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod onOffPer
-    "Block that calculates the length of the on period and the off period"
+    "Block that calculates the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio halPerRatio
     "Block that calculates the half period ratio"

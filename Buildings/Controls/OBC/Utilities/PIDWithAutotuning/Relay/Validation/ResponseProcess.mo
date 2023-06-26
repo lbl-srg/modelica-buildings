@@ -2,7 +2,8 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model ResponseProcess "Test model for processing the response of a relay controller"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     yHig=1,
-    yLow=0.2) "Calculate the length of the on period and the off period"
+    yLow=0.2)
+    "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
@@ -10,7 +11,8 @@ model ResponseProcess "Test model for processing the response of a relay control
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
     width=0.2,
     period=0.8,
-    shift=-0.1) "Enable signal"
+    shift=-0.1)
+    "Enable signal"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(modTim.y, resPro.tim) annotation (Line(points={{-38,20},{-20,20},{-20,

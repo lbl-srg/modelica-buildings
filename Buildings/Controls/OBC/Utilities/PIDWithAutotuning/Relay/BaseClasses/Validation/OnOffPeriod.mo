@@ -1,7 +1,7 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
 model OnOffPeriod "Test model for calculating the length of the on period and the off period"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod
-    onOffPer "Calculate the length of the on period and the off period based on a response from a relay controller"
+    onOffPer "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
@@ -9,7 +9,8 @@ model OnOffPeriod "Test model for calculating the length of the on period and th
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
     width=0.2,
     period=0.8,
-    shift=-0.1) "Enable signal"
+    shift=-0.1)
+    "Enable signal"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(modTim.y, onOffPer.tim) annotation (Line(points={{-38,20},{-20,20},{-20,

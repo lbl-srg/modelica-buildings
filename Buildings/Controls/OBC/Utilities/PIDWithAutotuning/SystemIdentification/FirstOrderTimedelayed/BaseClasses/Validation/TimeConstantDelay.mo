@@ -1,17 +1,18 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation;
 model TimeConstantDelay "Test model for identifying the the time constant and the time delay of the control process"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay
-    timConDel(yLow=0.1) "Block that calculates the time constant and the time delay of a first-order model"
+    timConDel(yLow=0.1)
+    "Block that calculates the time constant and the time delay of a first-order model"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant k(k=1)
-  "Gain"
+    "Gain"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOn(
     amplitude=-0.1,
     width=0.1,
     period=1,
     offset=0.1)
-    "The length of the on period"
+    "The length of the On period"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse ratioLT(
     amplitude=-0.1,
@@ -64,9 +65,9 @@ Validation test for the block
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay</a>.
 </p>
 <p>
-Input <code>tOn</code> changes from <i>0</i> to <i>0.1</i> at <i>0.1</i>s,
-Input <code>k</code> is constant,
-Input <code>ratioLT</code> changes twice, from <i>0.3</i> to <i>0.4</i> at <i>0.32</i>s and from <i>0.4</i> to <i>0.3</i> at <i>0.8</i>s.
+The input <code>tOn</code> changes from <i>0</i> to <i>0.1</i> at <i>0.1</i>s,
+input <code>k</code> is constant,
+input <code>ratioLT</code> changes twice, from <i>0.3</i> to <i>0.4</i> at <i>0.32</i>s and from <i>0.4</i> to <i>0.3</i> at <i>0.8</i>s.
 </p>
 </html>"));
 end TimeConstantDelay;

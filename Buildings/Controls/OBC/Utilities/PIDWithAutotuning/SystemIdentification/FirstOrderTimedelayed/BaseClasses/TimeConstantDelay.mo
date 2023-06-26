@@ -11,7 +11,7 @@ block TimeConstantDelay
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the on period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{-140,56},{-100,96}}),
     iconTransformation(extent={{-140,40},{-100,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput k
@@ -52,7 +52,8 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant relDeaBan(k=deaBan)
     "Dead band of the relay controller"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Add add1 "Sum of the inputs"
+  Buildings.Controls.OBC.CDL.Continuous.Add add1
+    "Sum of the inputs"
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
     "Sum of the higher value for the output and the lower value for the output"
@@ -61,7 +62,7 @@ protected
     "Quotient of dead band divided by the absolute value of the gain"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
-    "Blocks that calculates the input 1 by the second the input 2"
+    "Blocks that calculates input 1 by input 2"
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div3
     "Blocks that calculates the time constant"
@@ -75,10 +76,10 @@ protected
     "Blocks that calculates the difference of the two inputs"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract sub2
-    "Quotient of dead band divided by the absolute value of gain minus the lower value for the output"
+    "Blocks that calculates the difference of the two inputs"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Log log
-    "Natural logarithm of the output of div2"
+    "Natural logarithm of the input"
     annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
 
 equation

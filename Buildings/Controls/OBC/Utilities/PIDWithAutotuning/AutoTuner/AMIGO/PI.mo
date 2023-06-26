@@ -102,7 +102,7 @@ First implementation<br/>
 <p>
 This block calculates the control gain and the integral time of a PI controller.
 </p>
-<p>Please refer to the following block for detailed information:</p>
+<p>Please refer to the following blocks for detailed information:</p>
 <ul>
 <li>
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIGain\">

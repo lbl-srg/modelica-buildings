@@ -144,7 +144,7 @@ else, <code>y(t) and y<sub>On</sub>(t) are kept unchanged</code>,
 </ul>
 <p>where <code>&delta;</code> is a dead band, <code>y<sub>hig</sub></code>
 and <code>y<sub>low</sub></code>
-are the higher value and the lower value of the output <code>y</code>.
+are the higher value and the lower value of the output <code>y</code>, respectively.
 </p>
 <p>
 Note that this block generates an asymmetric output, meaning <code>y<sub>hig</sub> &ne; y<sub>low</sub></code>.

@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses;
-package Validation "Collection of models that validate the blocks in the AutoTuner"
+package Validation "Collection of validation models"
   annotation (
     preferredView="info",
     Documentation(
       info="<html>
 <p>
 This package contains models that validate the blocks in
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses</a>.
 </p>
 </html>"),
     Icon(

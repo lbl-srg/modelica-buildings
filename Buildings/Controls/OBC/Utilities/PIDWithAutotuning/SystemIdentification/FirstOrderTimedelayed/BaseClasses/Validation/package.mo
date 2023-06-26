@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses;
-package Validation "Collection of models that validate the blocks in the FirstOrderTimedelayed"
+package Validation "Collection of validation models"
   annotation (
     preferredView="info",
     Documentation(

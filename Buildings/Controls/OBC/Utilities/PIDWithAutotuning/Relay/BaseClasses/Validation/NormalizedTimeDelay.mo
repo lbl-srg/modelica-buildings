@@ -1,13 +1,14 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
 model NormalizedTimeDelay "Test model for calculating the normalized time delay"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay
-    norTimDel(gamma=3) "Calculate the normalized time delay based on a response from a relay controller"
+    norTimDel(gamma=3) "Calculate the normalized time delay"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse rho(
     amplitude=1,
     width=0.7,
     period=1,
-    offset=1) "Half period ratio"
+    offset=1)
+    "Half period ratio"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(rho.y, norTimDel.rho)
