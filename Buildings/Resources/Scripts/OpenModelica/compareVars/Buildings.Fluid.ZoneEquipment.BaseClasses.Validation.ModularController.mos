@@ -9,7 +9,6 @@ compareVars :=
     "conMod.uAva",
     "conMod.ySupHea",
     "conMod1.TZon",
-    "conMod1.THeaSet",
     "conMod1.TCooSet",
     "conMod1.yCooEna",
     "conMod1.yFan",
