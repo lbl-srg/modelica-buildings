@@ -143,6 +143,22 @@ partial model EquipmentInterfaces
     annotation (Placement(transformation(extent={{360,60},{400,100}}),
       iconTransformation(extent={{200,90},{220,110}})));
 
+  Modelica.Blocks.Interfaces.RealOutput PHeaCoi(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power") if has_hea and not has_HW
+    "Heating coil power consumption" annotation (Placement(transformation(
+          extent={{360,-100},{400,-60}}), iconTransformation(extent={{200,-110},
+            {220,-90}})));
+
+  Modelica.Blocks.Interfaces.RealOutput PCooCoi(
+    final unit="W",
+    displayUnit="W",
+    final quantity="Power") if has_coo and not has_CHW
+    "Cooling coil power consumption" annotation (Placement(transformation(
+          extent={{360,-140},{400,-100}}), iconTransformation(extent={{200,-170},
+            {220,-150}})));
+
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHW(
     redeclare final package Medium = MediumHW,
     final m_flow_nominal=mHotWat_flow_nominal,

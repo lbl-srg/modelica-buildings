@@ -183,11 +183,6 @@ model CoolingMode
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,14},{176,34}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression5(
-    final y=ptac.heaCoiEle.Q_flow)
-    "Heating coil heat transfer rate (Modelica)"
-    annotation (Placement(transformation(extent={{120,14},{140,34}})));
-
   Modelica.Blocks.Sources.RealExpression realExpression6(
     final y=zon.TAir - 273.15)
     "Zone air temperature (Modelica)"
@@ -232,16 +227,6 @@ model CoolingMode
     final f=1/averagingTimestep)
     "Average out Modelica results over time"
     annotation (Placement(transformation(extent={{156,-68},{176,-48}})));
-
-  Modelica.Blocks.Sources.RealExpression realExpression17(
-    final y=ptac.heaCoiEle.Q_flow)
-    "Heating coil power consumption (Modelica)"
-    annotation (Placement(transformation(extent={{120,-68},{140,-48}})));
-
-  Modelica.Blocks.Sources.RealExpression realExpression10(
-    final y=ptac.CooCoi.P)
-    "Cooling coil power consumption (Modelica)"
-    annotation (Placement(transformation(extent={{120,-106},{140,-86}})));
 
   Modelica.Blocks.Math.Mean PCooCoiMod(
     final f=1/averagingTimestep)
@@ -306,14 +291,8 @@ equation
                                                color={0,0,127}));
   connect(realExpression4.y,TAirMixMod. u)
     annotation (Line(points={{141,58},{154,58}},   color={0,0,127}));
-  connect(realExpression5.y,QHeaCoiMod. u)
-    annotation (Line(points={{141,24},{154,24}},   color={0,0,127}));
   connect(realExpression6.y,TZonAirMod. u)
     annotation (Line(points={{141,-22},{154,-22}}, color={0,0,127}));
-  connect(realExpression17.y, PHeaCoiMod.u)
-    annotation (Line(points={{141,-58},{154,-58}}, color={0,0,127}));
-  connect(realExpression10.y, PCooCoiMod.u)
-    annotation (Line(points={{141,-96},{154,-96}}, color={0,0,127}));
   connect(booToRea[1].y, ptac.uFan) annotation (Line(points={{-30,-76},{-24,-76},
           {-24,8},{-17,8}}, color={0,0,127}));
   connect(booToRea[2].y, ptac.uHea) annotation (Line(points={{-30,-76},{-24,-76},
@@ -342,6 +321,12 @@ equation
           -60},{-60,-76},{-54,-76}}, color={255,0,255}));
   connect(modCon.yFan, booToRea[1].u) annotation (Line(points={{-64,-80},{-60,-80},
           {-60,-76},{-54,-76}}, color={255,0,255}));
+  connect(ptac.PHeaCoi, QHeaCoiMod.u) annotation (Line(points={{25,-16},{100,
+          -16},{100,24},{154,24}}, color={0,0,127}));
+  connect(ptac.PHeaCoi, PHeaCoiMod.u) annotation (Line(points={{25,-16},{100,
+          -16},{100,-58},{154,-58}}, color={0,0,127}));
+  connect(ptac.PCooCoi, PCooCoiMod.u) annotation (Line(points={{25,-22},{80,-22},
+          {80,-96},{154,-96}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-140},{260,

@@ -103,6 +103,8 @@ equation
           {60,3},{89,3}},             color={0,0,127}));
   connect(uCooEna, sinSpeDXCoo.on) annotation (Line(points={{-380,-130},{-80,-130},
           {-80,-60},{40,-60},{40,8},{89,8}}, color={255,0,255}));
+  connect(sinSpeDXCoo.P, PCooCoi) annotation (Line(points={{111,9},{180,9},{180,
+          -120},{380,-120}}, color={0,0,127}));
   annotation (defaultComponentName = "winAC",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

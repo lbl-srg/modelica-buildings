@@ -71,6 +71,7 @@ model PackagedTerminalAirConditioner
     redeclare final package Medium = MediumA,
     final m_flow_nominal=mAir_flow_nominal,
     final dp_nominal=0,
+    final energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final Q_flow_nominal=QHeaCoi_flow_nominal) if not has_HW
     "Electric heating coil"
     annotation (Placement(transformation(extent={{182,-10},{202,10}})));
@@ -121,6 +122,10 @@ equation
     annotation (Line(points={{202,0},{240,0}}, color={0,127,255}));
   connect(heaCoiEle.u, uHea) annotation (Line(points={{180,6},{172,6},{172,-58},
           {-160,-58},{-160,-90},{-380,-90}}, color={0,0,127}));
+  connect(heaCoiEle.Q_flow, PHeaCoi) annotation (Line(points={{203,6},{220,6},{
+          220,-80},{380,-80}}, color={0,0,127}));
+  connect(CooCoi.P, PCooCoi) annotation (Line(points={{101,9},{120,9},{120,-40},
+          {210,-40},{210,-120},{380,-120}}, color={0,0,127}));
   annotation (defaultComponentName = "ptac",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics={Rectangle(

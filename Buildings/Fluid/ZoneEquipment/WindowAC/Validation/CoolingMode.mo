@@ -143,11 +143,6 @@ model CoolingMode
     "Internal heat gain added to zone"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
 
-  Modelica.Blocks.Sources.RealExpression realExpression(
-    final y=winAC.sinSpeDXCoo.P)
-    "DX cooling coil power consumption"
-    annotation (Placement(transformation(extent={{118,74},{138,94}})));
-
   Modelica.Blocks.Math.Mean PCooCoiMod(
     final f=1/averagingTimestep)
     "Time-averaged cooling coil power"
@@ -291,8 +286,6 @@ equation
           -86},{-84,-86},{-84,-66},{-78,-66}},             color={0,0,127}));
   connect(booToRea.y, winAC.uFan) annotation (Line(points={{-8.2,-61},{2,-61},{2,
           -38},{-32,-38},{-32,10},{-17,10}}, color={0,0,127}));
-  connect(realExpression.y, PCooCoiMod.u)
-    annotation (Line(points={{139,84},{154,84}}, color={0,0,127}));
   connect(realExpression1.y, PFanMod.u)
     annotation (Line(points={{139,112},{154,112}}, color={0,0,127}));
   connect(realExpression2.y, m_flowFanMod.u)
@@ -312,6 +305,8 @@ equation
           {-17,14}}, color={0,0,127}));
   connect(realExpression10.y, PLRCooCoiMod.u)
     annotation (Line(points={{139,-54},{154,-54}}, color={0,0,127}));
+  connect(winAC.PCooCoi, PCooCoiMod.u) annotation (Line(points={{25,-20},{106,
+          -20},{106,84},{154,84}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})),
       Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,-100},{260,
