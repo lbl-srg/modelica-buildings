@@ -254,7 +254,7 @@ It will start the PID tuning process whenever the value of the boolean input sig
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
 The PID tuning process will end automatically based on the algorithm defined
 in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning..BaseClasses.Relay.HalfPeriodRatio</a>.
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.HalfPeriodRatio</a>.
 Starting from then, the control loop is controlled by a PI or PID controller.
 </p>
 <p>

@@ -1,7 +1,8 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Validation;
 model ResponseProcess "Test model for processing the response of a relay controller"
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(yHig=1,
-      yLow=0.2) "Calculate the length of the on period and the off period"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
+    yHig=1,
+    yLow=0.2) "Calculate the length of the on period and the off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"

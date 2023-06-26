@@ -173,12 +173,6 @@ The time delay, <code>L</code>, is calculated by
 <p align=\"center\" style=\"font-style:italic;\">
 L = T &tau;/(1 - &tau;),
 </p>
-<h4>Validation</h4>
-<p>
-This block was validated analytically, see
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation.TimeConstantDelay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Validation.TimeConstantDela</a>.
-</p>
 <h4>References</h4>
 <p>
 Josefin Berner (2015).
