@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Calculate the lengths of the on period and the off period, the half period ratio, as well as the times when the tuning starts and ends"
+  "Calculate the lengths of the On period and the Off period, the half period ratio, as well as the times when the tuning starts and ends"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
@@ -108,10 +108,10 @@ This block processes a relay switch output signal and calculates:
 </p>
 <ol>
 <li>
-the length of the on period (when the relay switch signal becomes <code>true</code>);
+the length of the On period (when the relay switch signal becomes <code>true</code>);
 </li>
 <li>
-the length of the off period (when the relay switch signal becomes <code>false</code>);
+the length of the Off period (when the relay switch signal becomes <code>false</code>);
 </li>
 <li>
 the normalized time delay of the responses;

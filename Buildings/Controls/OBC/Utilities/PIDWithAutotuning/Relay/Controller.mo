@@ -119,8 +119,8 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}),                                    Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
@@ -139,7 +139,7 @@ if <code>yErr &lt; - &delta;</code> and <code>trigger</code> is true, then <code
 if <code>yErr &gt; &delta;</code> and <code>trigger</code> is true, then <code>y(t) = -y<sub>low</sub>, y<sub>On</sub>(t) = false</code>,
 </li>
 <li>
-else, <code>y(t) and y<sub>On</sub>(t) are kept unchanged</code>,
+else, <code>y(t)</code> and <code>y<sub>On</sub>(t)</code> are kept unchanged,
 </li>
 </ul>
 <p>where <code>&delta;</code> is a dead band, <code>y<sub>hig</sub></code>

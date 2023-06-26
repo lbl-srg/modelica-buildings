@@ -96,7 +96,7 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the gain of a first-order time-delayed model.</p>
+<p>This block calculates the gain of a first-order time delayed model.</p>
 <h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">
 k = I<sub>y</sub>/I<sub>u</sub>,
@@ -120,8 +120,8 @@ and the lower value of the relay control output, respectively.
 period and the off period, respectively.
 </p>
 <p>
-During an on period, the relay switch signal becomes <code>true</code>.
-During an off period, the relay switch signal becomes <code>false</code>.
+During an On period, the relay switch signal becomes <code>true</code>.
+During an Off period, the relay switch signal becomes <code>false</code>.
 </p>
 <h4>References</h4>
 <p>Josefin Berner (2017).

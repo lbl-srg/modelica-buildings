@@ -6,8 +6,8 @@ package Validation "Collection of validation models"
       info="<html>
 <p>
 This package contains models that validate the blocks in
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses</a>.
 </p>
 </html>"),
     Icon(

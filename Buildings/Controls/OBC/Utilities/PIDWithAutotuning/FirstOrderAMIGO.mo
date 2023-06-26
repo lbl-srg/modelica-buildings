@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
-  "An autotuning PID controller with an AMIGO tuner and a first order time delayed system model"
+  "An autotuning PID controller with an AMIGO tuner and a first-order time delayed system model"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real r(
@@ -251,6 +251,7 @@ PID controller.
 To use this block, connect it to the control loop.
 It will start the PID tuning process whenever the value of the boolean input signal <code>triTun</code> changes from
 <code>false</code> to <code>true</code>.
+Before the PID tuning process starts, the control loop is controlled by a PI or PID controller.  
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
 The PID tuning process will end automatically based on the algorithm defined
 in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">

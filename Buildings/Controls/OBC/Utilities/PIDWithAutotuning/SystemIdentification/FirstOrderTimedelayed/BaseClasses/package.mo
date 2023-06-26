@@ -14,8 +14,8 @@ package BaseClasses "Package with base classes"
           fillPattern=FillPattern.Solid)}), Documentation(info="<html>
 <p>
 This package contains base classes to construct blocks in
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification</a>.
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed</a>.
 </p>
 </html>"));
 end BaseClasses;
