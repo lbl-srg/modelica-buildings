@@ -54,8 +54,8 @@ This model can be used to simulate an air-source DX heating coil with single spe
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.UsersGuide\">
+Buildings.Fluid.DXSystems.Heating.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>",

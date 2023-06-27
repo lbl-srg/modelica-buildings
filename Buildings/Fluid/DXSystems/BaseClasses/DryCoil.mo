@@ -17,15 +17,14 @@ equation
 <p>
 This block calculates the rate of heating/cooling and the coil surface condition
 under the assumption that the coil is dry.
+The heat transfer calculations are done in
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
 </p>
 <p>
-The wet coil conditions are computed in
+For a similar model that is used to compute the wet coil conditions, see
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil\">
 Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil</a>.
-See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
-for an explanation of the model.
 </p>
 </html>",
 revisions="<html>

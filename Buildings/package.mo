@@ -226,8 +226,8 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
 </tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Combined.Examples
     </td>
-    <td valign=\"top\">Package that contains example models of a building 
-                       with loads provided as time series for heat 
+    <td valign=\"top\">Package that contains example models of a building
+                       with loads provided as time series for heat
                        pump space heating, heat pump domestic hot water heating,
                        and free cooling in an ambient district network.
     </td>
@@ -1012,7 +1012,7 @@ that can lead to wrong simulation results):
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
                      issue 3379</a>.
   </td>
-</tr>  
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems.HeatPump
   </td>
   <td valign=\"top\">Assigned dp_nominal to condenser pump.<br/>
@@ -1020,7 +1020,7 @@ that can lead to wrong simulation results):
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
                      issue 3379</a>.
   </td>
-</tr>    
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.EnergyTransferStations.Cooling.Indirect
   </td>
   <td valign=\"top\">Fixed building supply temperature controller parameter <code>reverseActing</code>
@@ -1043,7 +1043,7 @@ that can lead to wrong simulation results):
                      <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
                      issue 3379</a>.
   </td>
-</tr>  
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
     </td>
 </tr>
@@ -12391,9 +12391,13 @@ particular package.<br/>
    </td>
    <td valign=\"top\">Package with active beams.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">Fluid.HeatExchangers.DXSystems.Cooling</a>
    </td>
    <td valign=\"top\">Package with direct evaporative cooling coils.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.DXSystems.Heating.UsersGuide\">Fluid.HeatExchangers.DXSystems.Heating</a>
+   </td>
+   <td valign=\"top\">Package with air source DX heating coils.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.UsersGuide\">Fluid.HeatExchangers.RadiantSlabs</a>
    </td>
