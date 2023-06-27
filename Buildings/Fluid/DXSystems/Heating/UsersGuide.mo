@@ -17,7 +17,7 @@ The following DX coil model is available:
       <th>Properties</th>
       <th>Control signal</th>
   </tr>
-  <tr>
+  <tr valign=\"top\">
       <td>Air source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed\">
                                Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed</a></td>
@@ -53,6 +53,13 @@ the heat transferred from the indoor airstream to the outdoor coil for defrost).
 The user needs to keep in mind that there is no actual defrost mode operation. The
 model only calculates a theoretical time fraction (of a constant, assumed timestep)
 that the coil enters defrost mode, and calculates heat transfer for it.
+</p>
+<h4>Coil dynamics</h4>
+<p>
+The dynamics of the condenser is approximated by a first order response
+where the time constant is a model parameter.
+Hence, the dynamic response is similar to other models of the <code>Buildings.Fluid</code> package and described at
+<a href=\"modelica://Buildings.Fluid.UsersGuide\">Buildings.Fluid.UsersGuide</a>.
 </p>
 <h4>Limitations</h4>
 <p>This model has the following limitations: </p>

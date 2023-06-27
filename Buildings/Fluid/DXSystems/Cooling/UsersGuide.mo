@@ -17,7 +17,7 @@ The following six DX coil models are available:
       <th>Properties</th>
       <th>Control signal</th>
   </tr>
-  <tr>
+  <tr valign=\"top\">
     <td>Air source</td>
     <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage\">
                              Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage</a></td>
@@ -30,14 +30,14 @@ The following six DX coil models are available:
                  <i>1</i> for first stage,
                  <i>2</i> for second stage, etc.</td>
   </tr>
-  <tr>
+  <tr valign=\"top\">
       <td>Air source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed\">
                                Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed</a></td>
       <td>Single stage coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
-  <tr>
+  <tr valign=\"top\">
       <td>Air source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed\">
                                Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed</a></td>
@@ -48,7 +48,7 @@ The following six DX coil models are available:
           record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</td>
       <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
   </tr>
-  <tr>
+  <tr valign=\"top\">
       <td>Water source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.MultiStage\">
                                Buildings.Fluid.DXSystems.Cooling.WaterSource.MultiStage</a></td>
@@ -58,14 +58,14 @@ The following six DX coil models are available:
       it switches between cooling only, cooling with hot gas reheat, or heating only.</td>
       <td>Integer; <i>0</i> for off, <i>1</i> for first stage, <i>2</i> for second stage, etc.</td>
   </tr>
-   <tr>
+   <tr valign=\"top\">
       <td>Water source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.SingleSpeed\">
                                Buildings.Fluid.DXSystems.Cooling.WaterSource.SingleSpeed</a></td>
       <td>Single stage coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
    </tr>
-   <tr>
+   <tr valign=\"top\">
       <td>Water source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.WaterSource.VariableSpeed\">
                                Buildings.Fluid.DXSystems.Cooling.WaterSource.VariableSpeed</a></td>
@@ -80,7 +80,7 @@ The following six DX coil models are available:
 </table>
 <h4>Control of the coils</h4>
 <p>
-The DX coil models take as a control input the stage of operation, an on/off signal,
+The DX cooling coil models take as a control input the stage of operation, an on/off signal,
 or the speed of the compressor. Because the thermal response of the coil is very fast,
 it is important to use as the controlled variable the room air temperature,
 as the room air temperature has a much slower response compare to the supply air temperature.
@@ -166,7 +166,8 @@ the bypass factor is a function of the current mass flow rate only.
    However, if the performance curve for the energy input ratio contains electricity use for a condenser fan, then this is of course reflected by the model output.
   </li>
   <li>
-  The air must flow from port a to port b. If there is reverse flow, then no cooling is provided and no power is consumed.
+  The air must flow from <code>port_a</code> to <code>port_b</code>.
+  If there is reverse flow, then no cooling is provided and no power is consumed.
   </li>
 </ul>
 </html>", revisions="<html>
