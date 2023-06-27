@@ -16,9 +16,7 @@ Buildings.Fluid.DXSystems.Cooling.AirSource.Data.DoubleSpeed</a>.
 <p>
 The data are described in
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a> and
-<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil\">
-Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil</a>.
+Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.
 </p>
 </html>",
 revisions="<html>

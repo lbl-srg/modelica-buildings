@@ -134,9 +134,7 @@ Documentation(info="<html>
 <p>
 This partial model is the base class for
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil</a> and
-<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.BaseClasses.PartialDXHeatingCoil\">
-Buildings.Fluid.DXSystems.Heating.BaseClasses.PartialDXHeatingCoil</a>.
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialDXCoolingCoil</a>.
 </p>
 </html>",
 revisions="<html>
