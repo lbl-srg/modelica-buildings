@@ -45,8 +45,8 @@ the load diversity as required when controlling for the return temperature
 Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.InjectionTwoWayConstant</a>).
 In addition, the load model does not guarantee a linear variation of the load
 with the input signal in cooling mode, see
-<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load\">
-Buildings.Fluid.HydronicConfigurations.Examples.BaseClasses.Load</a>.
+<a href=\"modelica://Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load\">
+Buildings.Fluid.HydronicConfigurations.ActiveNetworks.Examples.BaseClasses.Load</a>.
 This amplifies the effect of the unmet load at partial load.
 </p>
 </html>", revisions="<html>
