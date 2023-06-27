@@ -99,7 +99,7 @@ model DryCoilDiscretized
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
     each final m1_flow_nominal=m1_flow_nominal/nPipPar,
-    each final m2_flow_nominal=m1_flow_nominal/nPipPar/nPipSeg,
+    each final m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
     each tau1=tau1,
     each tau2=tau2,
     each tau_m=tau_m,
@@ -447,6 +447,12 @@ rather may be considered as approximated by these heat conductors.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 22, 2023 by Hongxiang Fu:<br/>
+Corrected the modification of <code>hexReg[nReg].m2_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3441\">#3441</a>.
+</li>
 <li>
 November 4, 2017, by Michael wetter:<br/>
 Added approximation of diffusion.<br/>
