@@ -31,8 +31,7 @@ partial block PartialCapacity
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
   parameter Integer nSta(min=1)
-    "Number of coil stages (not counting the off stage)"
-    annotation(Evaluate=true);
+    "Number of coil stages (not counting the off stage)";
 
  replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
      "Performance data for this stage";
