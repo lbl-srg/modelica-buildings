@@ -206,13 +206,16 @@ equation
           textString="f(To,Xo)")}),
           Documentation(info="<html>
 <p>
-Block to calculate heat transfered to airloop <code>QTotDef_flow</code>, as well as
-the total heating power consumption of the component <code>PTot</code>, as defined
-in section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2
-<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
-document. It also calculates the defrost input power consumption <code>PDef</code>
+Block that calculates the heat transfered to airloop <code>QTotDef_flow</code>,
+the total heating power consumption of the component <code>PTot</code>,
+the defrost input power consumption <code>PDef</code>
 and the crankcase heater input power consumption <code>PCra</code>.
-The inputs are as follows:
+</p>
+<p>
+The calculation are based on
+in Section 15.2.11.5 and 11.6 in the the EnergyPlus 22.2
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
+document, and are as
 </p>
 <ul>
 <li>
@@ -244,10 +247,13 @@ the measured outdoor air temperature <code>TOut</code>.
 </li>
 </ul>
 <h4>Calculations</h4>
+<p>
+Based on the type of defrost method <code>defOpe</code>, different calculations are used:
+</p>
 <ul>
 <li>
 <p>
-If the type of defrost method <code>defOpe</code> is set to <code>reverseCycle</code>,
+If <code>defOpe = reverseCycle</code>,
 the heat transfer rate from the airstream to the outdoor coil <code>QDef_flow</code>
 and the power consumption for defrost <code>PDef</code> are calculated as follows:
 <p align=\"center\" style=\"font-style:italic;\">
@@ -255,9 +261,7 @@ QDef_flow = 0.01*tDefFra*(7.222 - TOut)*(QTot_flow/1.01667),<br/>
 PDef = defMod_T*(QTot_flow/1.01667)*tDefFra*RTF,
 </p>
 <p>
-where <code>defMod_T</code> is the defrost operation modifier (from curve
-<code>defCur</code> function of inlet air wet-bulb temperature
-<code>TConInWetBul</code> and <code>TOut</code>) calculated as
+where <code>defMod_T</code> is the defrost operation modifier calculated as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 defMod_T = defCur[1] + defCur[2]*TConInWetBul + defCur[3]*TConInWetBul<sup>2</sup>
@@ -270,10 +274,11 @@ part load ratio <code>PLR</code> and part load fraction <code>PLFra</code> as
 RTF = PLR/PLFra.
 </p>
 <p>
-The part load ratio <code>PLR</code> is currently being hardcoded with a value of <code>1</code> since
-this is currently only implemented for a constant speed DX heating coil.<br/>
-<code>PLFra</code> is calculated from the part load fraction curve (function of
-<code>PLR</code>) <code>defCur.PLFraFunPLR</code> as
+The part load ratio <code>PLR</code> is set to <code>1</code> since
+only a constant speed DX heating coil is implemented.
+</p>
+<p>
+The <code>PLFra</code> is calculated from the part load fraction curve <code>defCur.PLFraFunPLR</code> as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 PLFra = PLFraFunPLR[1] + PLFraFunPLR[2]*PLR + PLFraFunPLR[3]*PLR<sup>2</sup> +
@@ -282,7 +287,7 @@ PLFraFunPLR[4]*PLR<sup>3</sup>.
 </li>
 <li>
 <p>
-If the type of defrost method <code>defOpe</code> is set to <code>reverseCycle</code>,
+If <code>defOpe = reverseCycle</code>,
 the calculations are
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -296,7 +301,7 @@ The remaining variable calculations for <code>RTF</code>, <code>PLR</code> and
 <code>PLFra</code> are the same as above.
 </p>
 </li>
-<li>
+</ul>
 <p>
 The total power consumption <code>PTot</code> and total heat flowrate to the air stream
 <code>QTotDef_flow</code> (while accounting for defrost operation) is calculated
@@ -306,8 +311,6 @@ as follows:
 PTot = QTot_flow*EIR*PLR*inpPowMul/PLFra,<br/>
 QTotDef_flow = QTot_flow*heaCapMul.
 </p>
-</li>
-</ul>
 </html>",
 revisions="<html>
 <ul>

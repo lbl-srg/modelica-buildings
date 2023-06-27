@@ -125,13 +125,17 @@ equation
           textString="f(To,Xo)")}),
           Documentation(info="<html>
 <p>
-Block to calculate defrost cycling time fraction <code>tDefFra</code> as defined
-in section 15.2.11.4 in the the EnergyPlus 22.2
-<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
-document. It also calculates the heating capacity multiplier <code>heaCapMul</code>
-and the input power multiplier <code>inpPowMul</code>. The inputs are the measured
+Block that calculates the defrost cycling time fraction <code>tDefFra</code>,
+the heating capacity multiplier <code>heaCapMul</code>
+and the input power multiplier <code>inpPowMul</code>.
+</p>
+<p>
+The inputs are the measured
 temperature <code>TOut</code> and humidity ratio per kg total air <code>XOut</code>
 of the outdoor air.
+The calculation is based on Section 15.2.11.4 in the EnergyPlus 22.2
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.2.0/EngineeringReference.pdf\">engineering reference</a>
+document and is as decribed below.
 </p>
 <h4>Calculations</h4>
 <p>
@@ -150,14 +154,14 @@ delta_XCoilOut = max(1e-6, (XOutDryAir - XSatOutCoil)).
 </p>
 <p>
 The block then calculates the time period fraction <code>tDefFra</code> for which
-the defrost operation is assumed to run, based on the input for the defrost trigger
-type parameter <code>defTri</code>.<br/>
+the defrost operation is assumed to run, based on defrost calculation mode specified
+by the parameter <code>defTri</code>.<br/>
 In the EnergyPlus model, <code>tDefFra</code> represents the fraction of the constant
 timestep in the simulation model for which the defrost operation is assumed to be
 active. This is calculated to be a higher value when the outdoor air temperature
 is lower and the relative humidity is higher. This results in a higher proportion
 of the consumed power going towards the defrost operation and lower heating of
-the HVAC air stream.
+the condenser's air stream.
 </p>
 <p>
 In this Modelica implementation of the model, while the timestep may not be constant
