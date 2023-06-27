@@ -27,7 +27,7 @@ The following DX coil model is available:
 </table>
 <h4>Control of the coils</h4>
 <p>
-The DX coil model takes in an on/off signal as a control input. Because the thermal
+The DX coil model takes an on/off signal as a control input. Because the thermal
 response of the coil is very fast, it is important to use the room air temperature
 as the controlled variable, as it has a much slower response compared to the supply
 air temperature. If the supply air temperature is used, then the control algorithm
