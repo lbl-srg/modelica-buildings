@@ -1,16 +1,14 @@
-within Buildings.Fluid.DXSystems.Cooling.AirSource.Validation.Data;
+within Buildings.Fluid.DXSystems.Heating.AirSource.Validation.Data;
 record SingleSpeedHeating
   "Data record for DX heating coil in validation models"
-  extends
-    Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil(
+  extends Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil(
     sta={
-        Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
+        Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
+          Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=15000,
           COP_nominal=2.75,
-          SHR_nominal=1,
           m_flow_nominal=0.782220983308365,
           TEvaIn_nominal=273.15 + 6,
           TConIn_nominal=273.15 + 21),
@@ -27,8 +25,8 @@ record SingleSpeedHeating
 <p>
 This record declares performance curves for the heating capacity and the EIR for use in
 heating coil validation models in
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Validation\">
-Buildings.Fluid.DXSystems.Cooling.AirSource.Validation</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Validation\">
+Buildings.Fluid.DXSystems.Heating.AirSource.Validation</a>.
 It has been obtained from the EnergyPlus 9.6 example file
 <code>PackagedTerminalHeatPump.idf</code>.
 </p>

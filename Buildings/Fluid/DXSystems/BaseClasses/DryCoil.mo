@@ -15,7 +15,7 @@ equation
           -92,-100},{-92,40},{-15,40}}, color={0,0,127}));
   annotation (defaultComponentName="dryCoi", Documentation(info="<html>
 <p>
-This block calculates the rate of cooling and the coil surface condition
+This block calculates the rate of heating/cooling and the coil surface condition
 under the assumption that the coil is dry.
 </p>
 <p>

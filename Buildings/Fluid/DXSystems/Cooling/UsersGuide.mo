@@ -1,13 +1,14 @@
-within Buildings.Fluid.DXSystems;
+within Buildings.Fluid.DXSystems.Cooling;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
+
   annotation (preferredView="info",
   Documentation(info="<html>
 <p>
-This package contains models for direct evaporation (DX) cooling and heating coils.
+This package contains models for direct evaporation (DX) cooling coils.
 </p>
 <p>
-The following seven DX coil models are available:
+The following six DX coil models are available:
 </p>
   <table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
   <tr>
@@ -20,7 +21,7 @@ The following seven DX coil models are available:
     <td>Air source</td>
     <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage\">
                              Buildings.Fluid.DXSystems.Cooling.AirSource.MultiStage</a></td>
-    <td>Cooling coil with multiple operating stages, each stage having a constant speed.
+    <td>Coil with multiple operating stages, each stage having a constant speed.
         Each stage has its own performance curve, which may represent
         the coil performance at different compressor speed, or the
         coil performance as it switches between cooling only,
@@ -33,26 +34,19 @@ The following seven DX coil models are available:
       <td>Air source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed\">
                                Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed</a></td>
-      <td>Single stage cooling coil with constant compressor speed</td>
+      <td>Single stage coil with constant compressor speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
   <tr>
       <td>Air source</td>
       <td><a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed\">
                                Buildings.Fluid.DXSystems.Cooling.AirSource.VariableSpeed</a></td>
-      <td>Cooling coil with variable speed compressor with lower speed limit. If the control signal
+      <td>Coil with variable speed compressor with lower speed limit. If the control signal
           is below the lower limit, the coil switches off. It switches on if the control
           signal is above the lower limit plus a hysteresis. By default, the minimum speed
           ratio is <code>minSpeRat</code> and obtained from the coil data
           record <code>datCoi.minSpeRat</code>. The hysteresis is by default <code>speDeaBanRat=0.05</code>.</td>
       <td>Real number; <i>0</i> for coil off, <i>1</i> for coil at full speed.</td>
-  </tr>
-  <tr>
-      <td>Air source</td>
-      <td><a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed\">
-                               Buildings.Fluid.DXSystems.Heating.AirSource.SingleSpeed</a></td>
-      <td>Single stage heating coil with constant compressor speed</td>
-      <td>Boolean signal; <code>true</code> if coil is on.</td>
   </tr>
   <tr>
       <td>Water source</td>
@@ -101,25 +95,20 @@ the evaporator air inlet temperature and the outdoor air temperature. These poly
 Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
 </p>
 <p>
-For air source DX heating coils, the steady-state total rate of heating and the Energy Input Ratio (EIR)
-are computed using similar polynomials in the air mass flow fraction, condenser air inlet temperature,
-and outdoor air temperature, as explained at <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryCoil\">
-Buildings.Fluid.DXSystems.BaseClasses.DryCoil</a>.
-</p>
-<p>
 For water source DX coils, the steady-state total rate of cooling and the EIR
-are computed using polynimials in the air mass flow fraction (relative to the nominal mass flow rate),
+are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate),
 the water mass flow fraction (relative to the nominal water mass flow rate),
-the evaporator air inelt temperature and the condenser water intet temperature.
+the evaporator air inlet temperature and the condenser water inlet temperature.
 These polynomials are explained at
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled\">
 Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityWaterCooled</a>.
 </p>
 <h4>Evaporation of accumulated water vapor</h4>
 <p>
-If a coil dehumidifies air, a water film builts up on the evaporator.
-When the compressor is off, then this water film evaporates into the air stream.
-For coils that short-cycle, this significantly decrease the dehumidification capacity of the coil.
+If a coil dehumidifies air, a water film builds up on the evaporator.
+When the compressor is off, this water film evaporates into the air stream.
+For coils that short-cycle, this significantly decreases the dehumidification 
+capacity of the coil.
 The accumulation and reevaporation of water on the evaporator coil is explained at
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation\">
 Buildings.Fluid.DXSystems.Cooling.BaseClasses.Evaporation</a>.
@@ -155,7 +144,7 @@ In the heating coil model, the coil is assumed to be acting as a dry coil at all
 The split between sensible and latent heat ratio is computed using the apparatus dew point.
 This calculation is implemented in
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.ApparatusDewPoint</a>.
-Once the appartus dew point is known, the sensible to latent heat ratio can be determined as shown in the figure below.
+Once the apparatus dew point is known, the sensible to latent heat ratio can be determined as shown in the figure below.
 </p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Fluid/DXSystems/Cooling/BaseClasses/ApparatusDewPoint.png\" alt=\"image\"/> </p>
 <p>
@@ -184,7 +173,8 @@ the bypass factor is a function of the current mass flow rate only.
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Updated class names for existing cooling coil models, and added references for new DX heating coil model.
+Moved User's Guide to separate subpackage for DX cooling coils, and updated all 
+filepaths in links.
 </li>
 <li>
 February 28, 2017 by Yangyang Fu:<br/>
