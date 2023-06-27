@@ -15,10 +15,7 @@ block Switch
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
 equation
-  y=if u2 then
-      u1
-    else
-      u3;
+  y=smooth(0, if u2 then u1 else u3);
   annotation (
     defaultComponentName="swi",
     Documentation(
@@ -34,6 +31,11 @@ Otherwise, it outputs <code>y = u3</code>.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 27, 2023, by Michael Wetter:<br/>
+Added <code>smoothOrder(0, ...)</code> as Dymola 2023x assumes <code>y</code> to be
+smooth, and simulations can then fail if it differentiated this output.
+</li>
 <li>
 July 17, 2020, by Jianjun Hu:<br/>
 Changed icon to display dynamically which input signal is being outputted.<br/>

@@ -9,7 +9,6 @@ model CouplingTimeSeriesSingleLoop
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries buiCoo(
     have_heaWat=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    facMulCoo=40,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1)
     "Building wint cooling only"
@@ -46,7 +45,6 @@ model CouplingTimeSeriesSingleLoop
   Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries buiHea(
     have_chiWat=false,
     filNam="modelica://Buildings/Resources/Data/Experimental/DHC/Loads/Examples/SwissResidential_20190916.mos",
-    facMulHea=10,
     nPorts_aChiWat=1,
     nPorts_bChiWat=1,
     nPorts_aHeaWat=1,
@@ -145,6 +143,13 @@ secondary pumps.
 </html>",
       revisions="<html>
 <ul>
+<li>
+November 21, 2022, by David Blum:<br/>
+Change <code>buiHea.facMulHea</code> and <code>buiCoo.facMulCoo</code> to be default.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">
+issue 2302</a>.
+</li>
 <li>
 September 18, 2020, by Jianjun Hu:<br/>
 First implementation.

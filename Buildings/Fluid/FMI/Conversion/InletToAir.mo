@@ -219,7 +219,7 @@ First implementation.
         Text(
           visible=allowFlowReversal and Medium.nXi > 0,
           extent={{-28,-68},{36,-94}},
-          lineColor={0,0,127},
+          textColor={0,0,127},
           textString="X_w"),
         Polygon(
           visible=allowFlowReversal,

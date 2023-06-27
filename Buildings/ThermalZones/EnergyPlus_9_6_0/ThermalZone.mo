@@ -372,7 +372,7 @@ Model for a thermal zone that is implemented in EnergyPlus.
 This model instantiates the FMU with the name <code>idfName</code> and
 connects to the thermal zone with name <code>zoneName</code>.
 The <code>idfName</code> needs to be specified in an instance of
-<a href=\"Buildings.ThermalZones.EnergyPlus_9_6_0.Building\">
+<a href=\"modelica://Buildings.ThermalZones.EnergyPlus_9_6_0.Building\">
 Buildings.ThermalZones.EnergyPlus_9_6_0.Building</a>
 that is named <code>building</code>, and that is placed at this
 or at a higher hierarchy-level of the model.

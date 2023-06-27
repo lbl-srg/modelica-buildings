@@ -5,7 +5,7 @@ model EvaporationFlowReversal
   package Medium =Buildings.Media.Air;
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
     nomVal(
     Q_flow_nominal=-5000,
     COP_nominal=3,

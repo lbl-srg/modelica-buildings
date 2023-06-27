@@ -120,7 +120,7 @@ Hydeman et al. (2002) that has been developed in the CoolTools project
 and that is implemented in EnergyPlus as the model
 <code>Chiller:Electric:ReformulatedEIR</code>.
 This empirical model is similar to
-<a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
 The difference is that to compute the performance, this model
 uses the condenser leaving temperature instead of the entering temperature,
@@ -139,14 +139,14 @@ A bicubic function is used to predict power input to cooling capacity ratio
 as a function of condenser leaving temperature and part load ratio.
 </li>
 <li>
-A biquadratic functions is used to predict power input to cooling capacity ratio as a function of
+A biquadratic function is used to predict power input to cooling capacity ratio as a function of
 condenser leaving and evaporator leaving fluid temperature.
 </li>
 </ul>
 
 <p>
 These curves are stored in the data record <code>per</code> and are available from
-<a href=\"Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
@@ -198,11 +198,24 @@ The electric power only contains the power for the compressor, but not any power
 <p>
 The model can be parametrized to compute a transient
 or steady-state response.
-The transient response of the boiler is computed using a first
+The transient response of the chiller is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
-
+<p>
+Optionally, the model can be configured to represent heat recovery chillers with
+a switchover option by setting the parameter <code>have_switchover</code> to
+<code>true</code>.
+In that case an additional Boolean input connector <code>coo</code> is used.
+The chiller is tracking a chilled water supply temperature setpoint at the
+outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
+Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
+a hot water supply temperature setpoint at the outlet of the condenser barrel.
+See
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
+for an example with a chiller operating in heating mode.
+</p>
 <h4>References</h4>
 <ul>
 <li>

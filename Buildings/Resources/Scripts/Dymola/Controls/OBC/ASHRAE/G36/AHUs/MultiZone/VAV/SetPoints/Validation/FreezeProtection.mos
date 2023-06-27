@@ -1,0 +1,11 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.AHUs.MultiZone.VAV.SetPoints.Validation.FreezeProtection", method="Cvode", stopTime=3600, tolerance=1e-06, resultFile="FreezeProtection_MultiZone");
+createPlot(id=1, position={10, 10, 900, 1200}, y={"frePro.uOutDamPosMin", "frePro.uOutDam", "frePro.yOutDam"}, range={0.0, 4000.0, -0.2, 0.8}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"frePro.uHeaCoi", "frePro.yHeaCoi", "frePro.yCooCoi"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"1", "1", "1"});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"frePro.uRetDam", "frePro.yRetDam"}, range={0.0, 4000.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=1, position={10, 10, 900, 1200}, y={"frePro.uSupFan", "frePro.ySupFan"}, range={0.0, 4000.0, -0.2, 0.8}, grid=true, subPlot=4, colors={{28,108,200}, {238,46,47}}, timeUnit="s", displayUnits={"1", "1"});
+createPlot(id=2, position={920, 10, 900, 1200}, y={"frePro.yAla"}, range={0.0, 4000.0, -1.0, 3.0}, grid=true, subPlot=1, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1200}, y={"frePro.yHotWatPlaReq"}, range={0.0, 4000.0, -1.0, 3.0}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s");
+createPlot(id=2, position={920, 10, 900, 1200}, y={"frePro.TAirSup"}, range={0.0, 4000.0, -2.0, 8.0}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"degC"});
+createPlot(id=2, position={920, 10, 900, 1200}, y={"frePro.yFreProSta", "frePro.u1SofSwiRes"}, range={0.0, 4000.0, -2.0, 4.0}, grid=true, subPlot=4, colors={{28,108,200}, {28,108,200}}, timeUnit="s");
+
+

@@ -7,7 +7,7 @@ model Evaporation
      annotation (choicesAllMatching=true);
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.NominalValues
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues
     nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -169,12 +169,12 @@ initial equation
   // Potential difference in moisture concentration that drives mass transfer at nominal condition
   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
   assert(
-    dX_nominal > 1E-10,
+    dX_nominal < 0,
     "*** Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
     This means that the coil is not dehumidifying air at the nominal conditions.
     Check nominal parameters.
     " +
-      Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
       nomVal),
     AssertionLevel.warning);
 
@@ -206,7 +206,7 @@ initial equation
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
    " +
-    Buildings.Fluid.HeatExchangers.DXCoils.AirCooled.Data.Generic.BaseClasses.nominalValuesToString(
+    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.nominalValuesToString(
     nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate is too small.");
 
@@ -454,7 +454,7 @@ it follows that
   K = -ln(
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
-  (x<sub>wb,nom</sub>-x<sub>nom</sub>)
+  (x<sub>nom</sub>-x<sub>wb,nom</sub>)
 ),
 </p>
 <p>
@@ -484,7 +484,7 @@ To evaluate
   K = -ln(
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
-  (x<sub>wb,nom</sub>-x<sub>nom</sub>)
+  (x<sub>nom</sub>-x<sub>wb,nom</sub>)
 ),
 </p>
 <p>
@@ -499,9 +499,9 @@ Note that <i>&gamma;<sub>nom</sub></i> must be such that
 This condition is equivalent to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>wb,nom</sub>-x<sub>nom</sub>)
+  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>nom</sub>-x<sub>wb,nom</sub>)
   h<sub>fg</sub>
-  &frasl; (-Q&#775;<sub>L,nom</sub>)
+  &frasl; Q&#775;<sub>L,nom</sub>
 </p>
 <p>
 If <i>&gamma;<sub>nom</sub></i> were equal to the right hand side, then the
@@ -509,7 +509,7 @@ mass transfer effectiveness would be one. Hence, we set the maximum value of
 &gamma;<sub>nom,max</sub> to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>wb,nom</sub>-x<sub>nom</sub>)
+&gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>nom</sub>-x<sub>wb,nom</sub>)
   h<sub>fg</sub>
   &frasl; Q&#775;<sub>L,nom</sub>,
 </p>
@@ -543,8 +543,8 @@ This is implemented by replacing for <i>|m&#775;<sub>a</sub>(t)| &lt; &delta;</i
 the equation for the evaporation mass flow rate by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
- m&#775;<sub>wat</sub>(t) = C m m&#775;<sub>a</sub><sup>2</sup>(t)
- (x<sub>wb,nom</sub>-x<sub>nom</sub>),
+ m&#775;<sub>wat</sub>(t) = -C m m&#775;<sub>a</sub><sup>2</sup>(t)
+ (x<sub>nom</sub>-x<sub>wb,nom</sub>),
 </p>
 <p>
 where
@@ -573,6 +573,12 @@ Florida Solar Energy Center, Technical Report FSEC-CR-1537-05, January 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2023, by Jianjun Hu:<br/>
+Corrected assertion for the condition <code>dX_nominal&lt;0</code> and the documentation.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3322\">#3322</a>.
+</li>
 <li>
 May 7, 2020, by Michael Wetter:<br/>
 Corrected limits for <code>dX_nominal</code>.<br/>

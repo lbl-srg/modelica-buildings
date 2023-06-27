@@ -22,7 +22,7 @@ void prependString(const char* fileName, const char* string){
   if(fseek(fr, 0, SEEK_SET)!=0)
     ModelicaFormatError("The file %s could not be read.", fileName);
 
-  origString = malloc(fsize + 1);
+  origString = (char *)malloc((fsize + 1) * sizeof(char));
   if ( origString == NULL ){
     /* not enough memory is available: file too large */
     ModelicaError("Not enough memory in fileWriterInit.c for prepending string.");

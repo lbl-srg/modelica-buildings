@@ -15,7 +15,7 @@ model OptimalStartHeatingCooling
     k=24+273.15)
     "Zone cooling setpoint during occupancy"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TOutBase(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TOutBase(
     amplitude=5,
     freqHz=1/86400,
     offset=15+273.15,

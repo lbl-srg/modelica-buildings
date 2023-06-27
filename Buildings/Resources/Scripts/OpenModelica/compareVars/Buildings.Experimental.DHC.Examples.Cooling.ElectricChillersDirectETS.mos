@@ -1,0 +1,9 @@
+compareVars :=
+  {
+    "buiETS[1].bui.loa.y[1]",
+    "dis.mCon_flow[1]",
+    "pla.senMasFlo.m_flow",
+    "pla.senTCHWSup.T",
+    "buiETS[2].ets.senTBuiSup.T",
+    "buiETS[2].ets.senTBuiRet.T"
+  };

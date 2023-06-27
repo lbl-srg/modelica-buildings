@@ -4,7 +4,7 @@ CalendarTimeMonthsPlus
 Constant
 Pulse
 Ramp
-Sine
+Sin
 StandardTime
 TimeTable
 TimeTableNegativeStartTime

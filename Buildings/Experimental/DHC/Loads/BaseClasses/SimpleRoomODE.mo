@@ -2,14 +2,14 @@ within Buildings.Experimental.DHC.Loads.BaseClasses;
 model SimpleRoomODE
   "Simplified model for assessing room air temperature variations around a set point"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.Units.SI.Temperature TOutHea_nominal(displayUnit="degC")
-    "Outdoor air temperature at heating nominal conditions"
+  parameter Modelica.Units.SI.TemperatureDifference dTEnv_nominal
+    "Design temperature difference at which envelope heat loss is QEnv_flow_nominal"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TIndHea_nominal(displayUnit="degC")
-    "Indoor air temperature at heating nominal conditions"
+  parameter Modelica.Units.SI.Temperature TAir_start(displayUnit="degC")
+    "Initial air temperature"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.HeatFlowRate QHea_flow_nominal(min=0) "Heating heat flow rate (for TInd=TIndHea_nominal, TOut=TOutHea_nominal,
-    with no internal gains, no solar radiation)"
+  parameter Modelica.Units.SI.HeatFlowRate QEnv_flow_nominal(min=0)
+    "Envelope heat loss at temperature difference of dTEnv_nominal (with no internal gains, no solar radiation)"
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean steadyStateInitial=false
     "true initializes T with dT(0)/dt=0, false initializes T with T(0)=TIndHea_nominal"
@@ -39,15 +39,14 @@ model SimpleRoomODE
     "Room air temperature"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
-  parameter Modelica.Units.SI.ThermalConductance G=-QHea_flow_nominal/(
-      TOutHea_nominal - TIndHea_nominal)
+  parameter Modelica.Units.SI.ThermalConductance G=abs(QEnv_flow_nominal/dTEnv_nominal)
     "Lumped thermal conductance representing all temperature dependent heat transfer mechanisms";
 initial equation
   if steadyStateInitial then
     der(
       TAir)=0;
   else
-    TAir=TIndHea_nominal;
+    TAir=TAir_start;
   end if;
 equation
   der(
@@ -71,7 +70,7 @@ infiltration and ventilation) is assessed from the steady-state energy balance
 at heating nominal conditions as
 </p>
 <p style=\"font-style:italic;\">
-0 = Q&#775;<sub>heating, nom</sub> + G (T<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>).
+0 = Q&#775;<sub>heating, nom</sub> + G (dT<sub>out, heating, nom</sub> - T<sub>ind, heating, nom</sub>).
 </p>
 <p>
 Note that it is important for the model representativeness that
@@ -115,6 +114,11 @@ where <i>&tau; = C / G</i> is the time constant of the indoor temperature.
 </html>",
       revisions="<html>
 <ul>
+<li>
+January 26, 2023, by Michael Wetter:<br/>
+Updated parameters for clarity if used for cooling.
+</li>
+
 <li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.

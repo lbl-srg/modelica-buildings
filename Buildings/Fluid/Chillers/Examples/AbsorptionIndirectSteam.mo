@@ -114,7 +114,7 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chil
     Documentation(info="<html>
 <p>
 Example that simulates the absorption chiller
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>
 for different inlet conditions.
 </p>

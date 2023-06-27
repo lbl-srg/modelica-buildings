@@ -151,8 +151,7 @@ protected
 
 equation
   connect(u_s,uS_revAct.u)
-    annotation (Line(points={{-240,0},{-210,0},{-210,42},{-206,42},{-206,40},{
-          -202,40}},                                                color={0,0,127}));
+    annotation (Line(points={{-240,0},{-210,0},{-210,40},{-202,40}},color={0,0,127}));
   connect(u_m,uMea_revAct.u)
     annotation (Line(points={{0,-220},{0,-160},{-210,-160},{-210,-40},{-202,-40}},color={0,0,127}));
   connect(D.u,errD.y)
@@ -238,28 +237,28 @@ equation
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.P),
           extent={{-32,-22},{68,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="P",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD),
           extent={{-16,-22},{88,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="P D"),
         Text(
           visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID),
           extent={{-14,-22},{86,-62}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PID",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
@@ -309,7 +308,7 @@ equation
           pattern=LinePattern.None,
           fillColor={215,215,215},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PID")}),
     Documentation(
       info="<html>

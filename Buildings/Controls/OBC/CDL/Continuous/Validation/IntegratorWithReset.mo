@@ -1,11 +1,12 @@
 within Buildings.Controls.OBC.CDL.Continuous.Validation;
 model IntegratorWithReset
   "Test model for integrator with reset"
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intDef
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intDef(final
+      y_start=-2)
     "Integrator with default values"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1(
-    final y_start=5,
+  Buildings.Controls.OBC.CDL.Continuous.IntegratorWithReset intWitRes1(final
+      y_start=-2,
     final k=0.5)
     "Integrator with reset"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
