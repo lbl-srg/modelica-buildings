@@ -38,8 +38,8 @@ should be designed to avoid short-cycling.
 The steady-state total rate of heating and the Energy Input Ratio (EIR)
 are computed using polynomials in the air mass flow fraction, condenser air inlet
 temperature, and outdoor air temperature, as explained at
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.BaseClasses.BaseClasses.CapacityAirSource</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
 </p>
 <h4>Defrost operation</h4>
 <p>
