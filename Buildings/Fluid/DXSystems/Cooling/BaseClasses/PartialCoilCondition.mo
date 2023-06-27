@@ -8,7 +8,7 @@ partial block PartialCoilCondition
     "Flag, set to true for coil with variable speed";
 
   replaceable
-    Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource coiCap
+    Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource coiCap
     constrainedby
     Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCapacity(
       sta=datCoi.sta,
@@ -92,8 +92,8 @@ revisions="<html>
 April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Changed instance <code>cooCap</code> with class <code>CoolingCapacityAirCooled</code>
 to instance <code>coiCap</code> with class
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.
 </li>
 <li>
 April 13, 2017, by Michael Wetter:<br/>

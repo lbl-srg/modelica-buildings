@@ -1,4 +1,4 @@
-within Buildings.Fluid.DXSystems.Cooling.BaseClasses;
+within Buildings.Fluid.DXSystems.BaseClasses;
 block CapacityAirSource
   "Calculates cooling capacity at given temperature and flow fraction for air source coils"
   extends Buildings.Fluid.DXSystems.Cooling.BaseClasses.PartialCapacity(

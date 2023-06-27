@@ -11,7 +11,7 @@ model WetCoil "Test model for WetCoil"
     variableSpeedCoil=true,
     use_mCon_flow=false,
     redeclare
-      Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+      Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
       coiCap) "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant TConIn(
@@ -136,8 +136,8 @@ revisions="<html>
 <li>
 Changed redeclare in <code>wetCoi</code> from instance <code>cooCap</code> with
 class <code>CoolingCapacityAirCooled</code> to instance <code>coiCap</code> with
-class <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.<br/>
+class <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.<br/>
 Changed class for data record <code>datCoi</code> from <code>DXCoil</code> to
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.

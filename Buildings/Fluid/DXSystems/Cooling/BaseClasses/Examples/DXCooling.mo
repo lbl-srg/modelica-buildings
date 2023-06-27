@@ -15,10 +15,10 @@ model DXCooling "Test model for DXCooling"
    variableSpeedCoil=true,
    use_mCon_flow=false,
    wetCoi(redeclare
-        Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+        Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
         coiCap),
     dryCoi(redeclare
-        Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+        Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
         coiCap))
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.IntegerStep onOff(
@@ -142,8 +142,8 @@ revisions="<html>
 April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Updated classes for <code>wetCoi.cooCap</code> and <code>dryCoi.cooCap</code> from
 <code>CoolingCapacityAirCooled</code> to
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.<br/>
+<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.<br/>
 Updated class for data record <code>datCoi</code> from <code>DXCoil</code> to
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
 Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>.

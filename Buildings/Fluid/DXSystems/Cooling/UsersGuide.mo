@@ -91,8 +91,8 @@ If the supply air temperature is used, then the control algorithm should be such
 For air source DX cooling coils, the steady-state total rate of cooling and the Energy Input Ratio (EIR)
 are computed using polynomials in the air mass flow fraction (relative to the nominal mass flow rate),
 the evaporator air inlet temperature and the outdoor air temperature. These polynomials are explained at
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.
 </p>
 <p>
 For water source DX coils, the steady-state total rate of cooling and the EIR
@@ -129,8 +129,8 @@ The coils model two separate performances, one assuming a dry coil, and one assu
 The dry coil is modeled using <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryCoil\">Buildings.Fluid.DXSystems.BaseClasses.DryCoil</a>
 and the wet coil is modeled using <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil\">Buildings.Fluid.DXSystems.Cooling.BaseClasses.WetCoil</a>.
 Both use the same model
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>
 to compute the cooling capacity, but the wet coil uses the wet-bulb temperature
 of the air inlet instead of the dry bulb temperature to compute the coil performance.
 The wet coil model computes the humidity of the leaving air <i>X<sub>w,o</sub></i>, using the bypass factor model.<br/>

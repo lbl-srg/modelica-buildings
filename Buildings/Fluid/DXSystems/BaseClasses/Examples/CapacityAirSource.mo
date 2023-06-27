@@ -1,8 +1,8 @@
-within Buildings.Fluid.DXSystems.Cooling.BaseClasses.Examples;
-model CoilCapacityAirSource "Test model for CoilCapacityAirSource"
+within Buildings.Fluid.DXSystems.BaseClasses.Examples;
+model CapacityAirSource "Test model for CapacityAirSource"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.Air;
-  Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+  Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
     cooCap(sta={sta}, nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -51,13 +51,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (experiment(Tolerance=1e-6, StopTime=3600),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/Cooling/BaseClasses/Examples/CoilCapacityAirSource.mos"
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/DXSystems/BaseClasses/Examples/CapacityAirSource.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
 This example illustrates working of cooling capacity function
-<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.
 </p>
 </html>",
 revisions="<html>
@@ -67,8 +67,8 @@ April 5, 2023, by Xing Lu and Karthik Devaprasad:<br/>
 Updated name of class from <code>CoolingCapacityAirCooled</code> to
 <code>CoilCapacityAirSource</code>.<br/>
 Updated class for <code>cooCap</code> from <code>CoolingCapacityAirCooled</code>
-to <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
+to <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.
 </li>
 <li>
 February 28, 2017 by Yangyang Fu:<br/>
@@ -76,4 +76,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CoilCapacityAirSource;
+end CapacityAirSource;
