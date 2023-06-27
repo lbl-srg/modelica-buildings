@@ -1,6 +1,6 @@
-HeatingCooling
-SupplementalHeating
 CyclingFan
-VariableFan
-MultispeedFan
+HeatingCooling
 ModularController
+MultispeedFan
+SupplementalHeating
+VariableFan

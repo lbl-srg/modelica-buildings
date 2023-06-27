@@ -1,10 +1,10 @@
-EquipmentInterfaces
 ControllerInterfaces
-Types
-HeatingCooling
-SupplementalHeating
 CyclingFan
-VariableFan
-MultispeedFan
+EquipmentInterfaces
+HeatingCooling
 ModularController
+MultispeedFan
+SupplementalHeating
+VariableFan
+Types
 Validation
