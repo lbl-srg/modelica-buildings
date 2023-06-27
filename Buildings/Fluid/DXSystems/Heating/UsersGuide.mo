@@ -38,8 +38,8 @@ should be designed to avoid short-cycling.
 The steady-state total rate of heating and the Energy Input Ratio (EIR)
 are computed using polynomials in the air mass flow fraction, condenser air inlet
 temperature, and outdoor air temperature, as explained at
-<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryCoil\">
-Buildings.Fluid.DXSystems.BaseClasses.DryCoil</a>.
+<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.BaseClasses.CapacityAirSource</a>.
 </p>
 <h4>Defrost operation</h4>
 <p>
@@ -63,7 +63,7 @@ that the coil enters defrost mode, and calculates heat transfer for it.
    use for a fan, then this is of course reflected by the model output.
   </li>
   <li>
-  The air must flow from port a to port b. If there is reverse flow, then no
+  The air must flow from <code>port_a</code> to <code>port_b</code>. If there is reverse flow, then no
   heating is provided and no power is consumed.
   </li>
 </ul>
