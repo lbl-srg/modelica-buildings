@@ -1,4 +1,4 @@
-﻿simulateModel("Buildings.Fluid.ZoneEquipment.WindowAC.Validation.CoolingMode", startTime=15897600, stopTime=16502400, method="Cvode", resultFile="CoolingMode", outputInterval=3600);
+simulateModel("Buildings.Fluid.ZoneEquipment.WindowAC.Validation.CoolingMode", startTime=15897600, stopTime=16502400, method="Cvode", resultFile="CoolingMode", outputInterval=3600, tolerance=1e-6);
 createPlot(id=1, position={0, 0, 1004, 830}, y={"TZonAirMod.y", "TZonAirEP.y"}, range={15850000.0, 16550000.0, -5.0, 25.0}, autoscale=false, grid=true, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1004, 274}, y={"m_flowFanMod.y", "m_flowFanEP.y"}, range={15850000.0, 16550000.0, -0.2, 0.6}, autoscale=false, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
 createPlot(id=1, position={0, 0, 1004, 273}, y={"TAirLvgMod.y", "TAirLvgEP.y"}, range={15850000.0, 16550000.0, -5.0, 25.0}, autoscale=false, grid=true, subPlot=3, colors={{217,67,180}, {0,140,72}});
