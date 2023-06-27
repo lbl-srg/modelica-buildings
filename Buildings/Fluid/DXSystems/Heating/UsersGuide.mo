@@ -27,30 +27,30 @@ The following DX coil model is available:
 </table>
 <h4>Control of the coils</h4>
 <p>
-The DX coil model takes in an on/off signal as a control input. Because the thermal 
-response of the coil is very fast, it is important to use the room air temperature 
-as the controlled variable, as it has a much slower response compared to the supply 
-air temperature. If the supply air temperature is used, then the control algorithm 
+The DX coil model takes in an on/off signal as a control input. Because the thermal
+response of the coil is very fast, it is important to use the room air temperature
+as the controlled variable, as it has a much slower response compared to the supply
+air temperature. If the supply air temperature is used, then the control algorithm
 should be designed to avoid short-cycling.
 </p>
 <h4>Coil performance</h4>
 <p>
 The steady-state total rate of heating and the Energy Input Ratio (EIR)
-are computed using polynomials in the air mass flow fraction, condenser air inlet 
-temperature, and outdoor air temperature, as explained at 
+are computed using polynomials in the air mass flow fraction, condenser air inlet
+temperature, and outdoor air temperature, as explained at
 <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryCoil\">
 Buildings.Fluid.DXSystems.BaseClasses.DryCoil</a>.
 </p>
 <h4>Defrost operation</h4>
 <p>
 The coil model calculates the defrost operation of the outdoor evaporator coil
-analytically using the blocks <a href=\"Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations\">
-Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations</a> 
-(which calculates the time duration fraction for which the coil is assumed to be 
-in defrost mode)and <a href=\"Buildings.Fluid.DXSystems.Heating.BaseClasses.DefrostCapacity\">
+analytically using the blocks <a href=\"modelica://Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations\">
+Buildings.Fluid.DXSystems.Heating.BaseClasses.CoilDefrostTimeCalculations</a>
+(which calculates the time duration fraction for which the coil is assumed to be
+in defrost mode)and <a href=\"modelica://Buildings.Fluid.DXSystems.Heating.BaseClasses.DefrostCapacity\">
 Buildings.Fluid.DXSystems.Heating.BaseClasses.DefrostCapacity</a> (which calculates
 the heat transferred from the indoor airstream to the outdoor coil for defrost).
-The user needs to keep in mind that there is no actual defrost mode operation. The 
+The user needs to keep in mind that there is no actual defrost mode operation. The
 model only calculates a theoretical time fraction (of a constant, assumed timestep)
 that the coil enters defrost mode, and calculates heat transfer for it.
 </p>
@@ -59,11 +59,11 @@ that the coil enters defrost mode, and calculates heat transfer for it.
 <ul>
 <li>The coil model does not account for fan in the condenser air stream.
    Fans can be modeled separately using models from the package <a href=\"modelica://Buildings.Fluid.Movers\">Buildings.Fluid.Movers</a>.
-   However, if the performance curve for the energy input ratio contains electricity 
+   However, if the performance curve for the energy input ratio contains electricity
    use for a fan, then this is of course reflected by the model output.
   </li>
   <li>
-  The air must flow from port a to port b. If there is reverse flow, then no 
+  The air must flow from port a to port b. If there is reverse flow, then no
   heating is provided and no power is consumed.
   </li>
 </ul>
