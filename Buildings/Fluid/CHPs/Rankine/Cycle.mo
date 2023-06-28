@@ -20,29 +20,25 @@ model Cycle "Model for the Rankine cycle"
     final TCon=TCon,
     final dTSup=dTSup,
     final etaExp=etaExp) "Core equations for the Rankine cycle"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a
     "Working fluid connector a (corresponding to the evaporator)"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
       iconTransformation(extent={{-10,90},{10,110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(final T=TCon)
-    "Working fluid connector b (corresponding to the condenser)"
-    annotation (Placement(transformation(extent={{10,-110},{-10,-90}}),
-      iconTransformation(extent={{10,-110},{-10,-90}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     min=0,
     final quantity="Power",
-    final unit="W")
-    "Power output of the expander" annotation (Placement(transformation(extent={{100,30},
-            {120,50}}),            iconTransformation(extent={{100,-50},{120,-30}})));
+    final unit="W") "Power output of the expander"
+                                   annotation (Placement(transformation(extent={{100,30},
+            {120,50}}),            iconTransformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput etaThe(
     min=0,
     final unit="1") "Thermal efficiency"
     annotation (Placement(
-        transformation(extent={{100,-10},{120,10}}),  iconTransformation(extent
-          ={{100,-90},{120,-70}})));
+        transformation(extent={{100,-10},{120,10}}),  iconTransformation(extent={{100,-10},
+            {120,10}})));
   Buildings.HeatTransfer.Sources.FixedTemperature preTemEva(final T=TEva)
     "Working fluid temperature on the evaporator side"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -50,33 +46,41 @@ model Cycle "Model for the Rankine cycle"
     "Heat flow on the evaporator side"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulExp "Expander work"
-    annotation (Placement(transformation(extent={{42,30},{62,50}})));
+    annotation (Placement(transformation(extent={{20,30},{40,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulCon "Condenser heat flow"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
 
+  Modelica.Blocks.Interfaces.RealOutput QCon_flow(
+    min=0,
+    final quantity="Power",
+    final unit="W") "Heat rejected through the condenser (positive)"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}),
+        iconTransformation(extent={{100,-50},{120,-30}})));
+protected
+  Modelica.Blocks.Math.Gain gai(k(final unit="W") = -1, y(final unit="W"))
+    "Sign reversal"
+    annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
 equation
   connect(preTemEva.port, heaFloSenEva.port_a)
     annotation (Line(points={{-60,70},{-40,70}}, color={191,0,0}));
   connect(heaFloSenEva.port_b, port_a)
     annotation (Line(points={{-20,70},{0,70},{0,100}}, color={191,0,0}));
   connect(heaFloSenEva.Q_flow, mulExp.u1)
-    annotation (Line(points={{-30,59},{-30,46},{40,46}}, color={0,0,127}));
+    annotation (Line(points={{-30,59},{-30,46},{18,46}}, color={0,0,127}));
   connect(equ.etaThe, mulExp.u2)
-    annotation (Line(points={{11,4},{32,4},{32,34},{40,34}}, color={0,0,127}));
+    annotation (Line(points={{1,4},{10,4},{10,34},{18,34}},  color={0,0,127}));
   connect(mulExp.y, P)
-    annotation (Line(points={{64,40},{110,40}}, color={0,0,127}));
-  connect(equ.etaThe, etaThe) annotation (Line(points={{11,4},{94,4},{94,0},{110,
+    annotation (Line(points={{42,40},{110,40}}, color={0,0,127}));
+  connect(equ.etaThe, etaThe) annotation (Line(points={{1,4},{94,4},{94,0},{110,
           0}},   color={0,0,127}));
   connect(heaFloSenEva.Q_flow, mulCon.u1)
-    annotation (Line(points={{-30,59},{-30,-44},{-2,-44}}, color={0,0,127}));
-  connect(equ.rConEva, mulCon.u2) annotation (Line(points={{11,-4},{32,-4},{32,
-          -20},{-10,-20},{-10,-56},{-2,-56}}, color={0,0,127}));
-  connect(mulCon.y, preHeaFlo.Q_flow)
-    annotation (Line(points={{22,-50},{40,-50}}, color={0,0,127}));
-  connect(preHeaFlo.port, port_b) annotation (Line(points={{60,-50},{64,-50},{64,
-          -86},{0,-86},{0,-100}}, color={191,0,0}));
+    annotation (Line(points={{-30,59},{-30,-34},{18,-34}}, color={0,0,127}));
+  connect(equ.rConEva, mulCon.u2) annotation (Line(points={{1,-4},{10,-4},{10,
+          -46},{18,-46}}, color={0,0,127}));
+  connect(gai.u, mulCon.y)
+    annotation (Line(points={{58,-40},{42,-40}}, color={0,0,127}));
+  connect(gai.y, QCon_flow)
+    annotation (Line(points={{81,-40},{110,-40}}, color={0,0,127}));
 annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
