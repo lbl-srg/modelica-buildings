@@ -1,4 +1,8 @@
 MultiStage
+MultiStageCooling
 SingleSpeed
+SingleSpeedCooling
+SingleSpeedHeating
 VariableSpeed
+VariableSpeedCooling
 PerformanceCurves
