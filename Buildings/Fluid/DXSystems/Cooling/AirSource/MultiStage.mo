@@ -6,10 +6,10 @@ model MultiStage
     dxCoi(
       final variableSpeedCoil=false,
       wetCoi(redeclare
-          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+          Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap),
       dryCoi(redeclare
-          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+          Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap)),
     use_mCon_flow=false);
 
@@ -58,8 +58,8 @@ of operation, such as with or without hot gas reheat.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">
+Buildings.Fluid.DXSystems.Cooling.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>",

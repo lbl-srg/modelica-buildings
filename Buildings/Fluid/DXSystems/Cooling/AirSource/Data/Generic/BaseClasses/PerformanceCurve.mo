@@ -42,9 +42,7 @@ record PerformanceCurve "Data record for a performance curve"
 <p>
  See the information section of
  <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil\">
- Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a> and
- <a href=\"modelica://Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil\">
- Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil</a>
+ Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil</a>
  for a description of the data.
 </p>
 </html>",

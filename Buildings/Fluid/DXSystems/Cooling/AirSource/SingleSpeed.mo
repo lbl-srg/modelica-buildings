@@ -5,10 +5,10 @@ model SingleSpeed "Single speed DX cooling coil"
     dxCoi(
       final variableSpeedCoil=false,
       wetCoi(redeclare
-          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+          Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap),
       dryCoi(redeclare
-          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+          Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap)),
     use_mCon_flow=false);
 
@@ -54,8 +54,8 @@ This model can be used to simulate an air source DX cooling coil with single spe
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">
+Buildings.Fluid.DXSystems.Cooling.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>",
@@ -63,7 +63,7 @@ revisions="<html>
 <ul>
 <li>
 March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
-Renamed class to <code>SingleSpeedDXCooling</code> to differentiate it from DX 
+Renamed class to <code>SingleSpeedDXCooling</code> to differentiate it from DX
 heating coils.<br/>
 Updated connection statements to reflect change in instance name from <code>dxCoo</code>
 to <code>dxCoi</code>.<br/>

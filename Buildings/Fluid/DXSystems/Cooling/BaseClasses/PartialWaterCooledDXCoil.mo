@@ -353,16 +353,16 @@ This model can be used to simulate a water source DX cooling coil with single sp
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">
+Buildings.Fluid.DXSystems.Cooling.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 April 5 , 2023, by Xing Lu:<br/>
-Changed instance name <code>dxCoo</code> in instance <code>eva</code> to 
-<code>dxCoi</code>. Changed baseclass used from <code>PartialDXCoil</code> to 
+Changed instance name <code>dxCoo</code> in instance <code>eva</code> to
+<code>dxCoi</code>. Changed baseclass used from <code>PartialDXCoil</code> to
 <code>PartialDXCoolingCoil</code>.<br/>
 Connect statements with references to <code>TConIn</code> changed to <code>TOut</code>.
 </li>

@@ -27,7 +27,7 @@ record DXCoil
     annotation (Dialog(group="Minimum conditions"));
 
   /////////////////////////////////////////////////////////////////////////////////////
-  // Data added for type compatibility, but not used for calculations in cooling coils
+  // Parameter added for type compatibility, but not used for calculations in cooling coils
   final parameter Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation
     defOpe=Buildings.Fluid.DXSystems.Heating.BaseClasses.Types.DefrostOperation.resistive
     "Defrost operation type"

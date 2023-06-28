@@ -5,10 +5,10 @@ model VariableSpeed "Variable speed DX cooling coil"
     dxCoi(
       final variableSpeedCoil=true,
       wetCoi(redeclare
-          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+          Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap),
       dryCoi(redeclare
-          Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+          Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
           coiCap)),
     use_mCon_flow=false);
 
@@ -64,15 +64,15 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="varSpeDXCoo", Documentation(info="<html>
 <p>
-This model can be used to simulate an air source DX cooling coil with continuously 
+This model can be used to simulate an air source DX cooling coil with continuously
 variable speed compressors.
 The control input is the speed ratio.
 The coil will switch off if the speed ratio is below a minimum value.
 </p>
 <p>
 See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">
+Buildings.Fluid.DXSystems.Cooling.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>",
@@ -83,7 +83,7 @@ March 19, 2023 by Xing Lu and Karthik Devaprasad:<br/>
 Renamed class to <code>VariableSpeedDXCooling</code> to differentiate it from DX heating coils.<br/>
 Updated connect statement to reflect name change of instance from <code>dxCoo</code>
 to <code>dxCoi</code>.<br/>
-Updated formatting. 
+Updated formatting.
 </li>
 <li>
 March 7, 2022, by Michael Wetter:<br/>

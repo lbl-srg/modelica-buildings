@@ -4,6 +4,8 @@ partial model PartialDXHeatingCoil
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol(
+      prescribedHeatFlowRate=true),
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
   parameter Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.DXCoil datCoi

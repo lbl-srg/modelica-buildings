@@ -31,8 +31,7 @@ partial block PartialCapacity
     annotation (Placement(transformation(extent={{-120,-110},{-100,-90}})));
 
   parameter Integer nSta(min=1)
-    "Number of coil stages (not counting the off stage)"
-    annotation(Evaluate=true);
+    "Number of coil stages (not counting the off stage)";
 
  replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage sta[nSta]
      "Performance data for this stage";
@@ -226,8 +225,8 @@ cap<sub>FF </sub> accounts for a performance change due to different air flow ra
 relative to the nominal condition.
 These cooling capacity modifiers are multiplied with nominal cooling capacity
 to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate.
-See<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
+See<a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.
 <p>
 The temperature dependent cooling capacity modifier function is</p>
 <p align=\"center\" style=\"font-style:italic;\" >

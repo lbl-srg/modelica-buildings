@@ -10,7 +10,7 @@ extends Modelica.Icons.Example;
     datCoi=datCoi,
     variableSpeedCoil=true,
     redeclare
-      Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource
+      Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource
       coiCap,
     use_mCon_flow=false) "Performs calculation for dry coil condition"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
@@ -113,8 +113,8 @@ revisions="<html>
 <li>
 April 5, 2023, by Karthik Devaprasad and Xing Lu:<br/>
 Changed instance from <code>cooCap</code> with class <code>CoolingCapacityAirCooled</code>
-to <code>coiCap</code> with class <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource\">
-Buildings.Fluid.DXSystems.Cooling.BaseClasses.CapacityAirSource</a>.
+to <code>coiCap</code> with class <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource\">
+Buildings.Fluid.DXSystems.BaseClasses.CapacityAirSource</a>.
 <br/>
 Updated class for data record <code>datCoi</code> from <code>DXCoil</code> to
 <a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.CoilHeatTransfer\">

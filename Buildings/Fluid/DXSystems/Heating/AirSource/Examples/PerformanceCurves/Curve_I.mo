@@ -1,7 +1,7 @@
 within Buildings.Fluid.DXSystems.Heating.AirSource.Examples.PerformanceCurves;
 record Curve_I "DX heating coil performance curve I"
   extends
-    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
+    Buildings.Fluid.DXSystems.Heating.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
     capFunT={0.9135970355,0.0127860478,0.0000527533,-0.0005917719,0.000136017,
         -0.0000894155},
     capFunFF={0.84,0.16,0,0},

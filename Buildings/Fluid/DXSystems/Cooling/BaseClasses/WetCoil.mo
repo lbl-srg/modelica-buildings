@@ -166,8 +166,8 @@ The dry coil conditions are computed in
 <a href=\"modelica://Buildings.Fluid.DXSystems.BaseClasses.DryCoil\">
 Buildings.Fluid.DXSystems.BaseClasses.DryCoil</a>.
 See
-<a href=\"modelica://Buildings.Fluid.DXSystems.UsersGuide\">
-Buildings.Fluid.DXSystems.UsersGuide</a>
+<a href=\"modelica://Buildings.Fluid.DXSystems.Cooling.UsersGuide\">
+Buildings.Fluid.DXSystems.Cooling.UsersGuide</a>
 for an explanation of the model.
 </p>
 </html>",
