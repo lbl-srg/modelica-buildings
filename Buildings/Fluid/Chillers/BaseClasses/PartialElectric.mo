@@ -381,40 +381,62 @@ for an example with a chiller operating in heating mode.
 This implementation computes the chiller capacity and power consumption
 the same way as documented in
 <a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
-EnergyPlus v22.1.0 Engineering Reference</a>
-section 14.3.9.2.
-The chiller capacity is computed as
+EnergyPlus v22.1.0 Engineering Reference</a> section 14.3.9.2.
+Especially see equations 14.234 and 14.240 in the referenced document.
+</p>
+<p>
+The available chiller capacity <code>QEva_flow_ava</code> is adjusted from
+its nominal capacity <code>QEva_flow_nominal</code>
+by factor <code>capFunT</code> as
 </p>
 <pre>  QEva_flow_ava = QEva_flow_nominal*capFunT</pre>
 <p>
-and the power consumption is computed as
+and the compressor power consumption is computed as
 </p>
-<pre>  P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR.</pre>
+<pre>  P = -QEva_flow_ava*(1/COP_nominal)*EIRFunT*EIRFunPLR*CR.</pre>
 <p>
-See equations 14.234 and 14.240 in the referenced document.
+The models that extend from this base class implement the functions used above
+in ways that are shown in the table below.
 </p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code></th>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Adjusts cooling capacity for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Adjusts EIR for the current PLR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Adjusts EIR for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
 <p>
-Models that extend from this base class need to provide the following
-three functions:
-</p>
-<ul>
-<li>
-<code>capFunT</code> to predict cooling capacity,
-</li>
-<li>
-<code>EIRFunT</code> to predict the power input as a function of temperature,
-and
-</li>
-<li>
-<code>EIRFunPLR</code> to predict the power input as a function of the
-part load ratio.
-</li>
-</ul>
-<p>
-See the documentation of
-<a href=\"Modelica://Buildings.Fluid.Chillers.Data.ElectricEIR.Generic\">
-Buildings.Fluid.Chillers.Data.ElectricEIR.Generic</a>
-to see how they are formulated in extended models.
+where
+<code>TConEnt</code> is the condenser entering temperature,
+<code>TEvaLvg</code> is the evaporator leaving temperature,
+<code>TConLvg</code> is the condenser leaving temperatore, and
+PLR is the part load ratio.
 </p>
 <h4>References</h4>
 <ul>

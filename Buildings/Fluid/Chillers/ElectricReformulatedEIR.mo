@@ -129,28 +129,48 @@ and it uses a bicubic polynomial to compute the part load performance.
 
 <p>
 This model uses three functions to predict capacity and power consumption:</p>
-<ul>
-<li>
-A biquadratic function <code>capFunT</code> is used to predict
-cooling capacity as a function of condenser leaving temperature
-<code>TConLvg</code> and evaporator leaving temperature <code>TEvaLvg</code>.
-</li>
-<li>
-A bicubic function <code>EIRFunPLR</code> is used to predict
-power input to cooling capacity ratio as a function of
-condenser leaving temperature <code>TConLvg</code> and part load ratio.
-</li>
-<li>
-A biquadratic function <code>EIRFunT</code> is used to predict power input to
-cooling capacity ratio as a function of condenser leaving temperature
-<code>TConLvg</code> and evaporator leaving temperature <code>TEvaLvg</code>.
-</li>
-</ul>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code> (this model)</th>
+  <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code> (this model)</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Adjusts cooling capacity for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Adjusts EIR for the current PLR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Adjusts EIR for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
 
 <p>
 These curves are stored in the data record <code>per</code> and are available from
 <a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR</a>.
+How they are used to compute the adjusted capacity and compressor power
+can be found in the documentation of
+<a href=\"modelica://Buildings.Fluid.Chillers.BaseClasses.PartialElectric\">
+Buildings.Fluid.Chillers.BaseClasses.PartialElectric</a>.
 Additional performance curves can be developed using
 two available techniques (Hydeman and Gillespie, 2002). The first technique is called the
 Least-squares Linear Regression method and is used when sufficient performance data exist
