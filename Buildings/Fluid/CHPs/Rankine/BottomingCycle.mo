@@ -1,5 +1,6 @@
 within Buildings.Fluid.CHPs.Rankine;
-model Cycle "Model for the Rankine cycle"
+model BottomingCycle
+  "Model for the Rankine cycle as a bottoming cycle"
 
   parameter Buildings.Fluid.CHPs.Rankine.Data.Generic pro
     "Property records of the working fluid"
@@ -81,7 +82,8 @@ equation
     annotation (Line(points={{58,-40},{42,-40}}, color={0,0,127}));
   connect(gai.y, QCon_flow)
     annotation (Line(points={{81,-40},{110,-40}}, color={0,0,127}));
-annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+annotation (defaultComponentName="ran",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -117,89 +119,26 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{64,-58},{100,-100}},
           textColor={0,0,0},
-          textString="s")}),                                   Diagram(
+          textString="s"),
+        Text(
+          extent={{-149,-100},{151,-140}},
+          textColor={0,0,255},
+          textString="%name")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 [fixme: draft implementation.]<br/>
-Implemented in this model is a Rankine cycle.
-The cycle is determined through the input of
-the evaporator temperature <code>TEva</code>,
-the condenser temperature <code>TCon</code>,
-the expander efficiency <code>etaExp</code>,
-and optionally the superheating temperature differential <code>dTSup</code>.
-The model neglects the enthalpy difference between the pump inlet and outlet
-or the pressure loss along any pipe of they cycle components.
-While the model considers potential superheating before the expander inlet,
-it does not consider subcooling before the pump inlet.
-</p>
-<p><img src=\"modelica://Buildings/Resources/Images/Fluid/CHPs/Rankine/cycle.png\"
-alt=\"Cycle\"/></p>
-<p>
-The property queries of the working fluid are not performed by medium models,
-but by interpolating data records in
-<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.Data\">
-Buildings.Fluid.CHPs.Rankine.Data</a>.
-Specific enthalpy and specific entropy values are provided as support points
-on the saturated liquid line, the saturated vapour line,
-and a superheated vapour line. Support points on all three lines correspond
-with the same pressures. The points on the superheated vapour line have a
-constant temperature differential from their corresponding points on the
-saturated vapour line.
-</p>
-<p>
-Important state points in the Rankine cycle are determined by various schemes
-of inter-/extrapolation along isobaric lines (assumed near linear):
-</p>
+This model uses the Rankine cycle as a bottoming cycle.
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.Examples.ORCWithHeatExchangers\">
+Buildings.Fluid.CHPs.Rankine.Examples.ORCWithHeatExchangers</a>
+demonstrates how this model can be connected with heat exchangers.
+</html>", revisions="<html>
 <ul>
 <li>
-The pump inlet <code>Pum</code> and expander inlet <code>ExpInl</code>
-are both located on a saturation line. They are determined simply by
-smooth interpolation.
-</li>
-<li>
-When there is superheating (determined by <code>dTSup > 0.1</code>),
-<code>ExpInl</code> is elevated. Its specific enthaply and specific entropy
-are then found by linear inter-/extrapolation between the saturated and
-superheated (\"ref\") vapour lines along the isobaric line:<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-(s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup</sub>
-= (s<sub>SupVap,ref</sub> - s<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup,ref</sub>)<br/>
-(h<sub>ExpInl</sub> - h<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup</sub>
-= (h<sub>SupVap,ref</sub> - h<sub>SatVap</sub>)
-&frasl; &Delta;T<sub>Sup,ref</sub>)
-</p>
-</li>
-<li>
-The isentropic expander outlet <code>ExpOut_i</code> is found also by linear
-inter-/extrapolation, but with entropy instead of temperature.
-<ul>
-<li>
-If <code>ExpOut_i</code> lands outside of the dome, the inter-/extrapolation
-is performed between the saturated and superheated (\"ref\") lines:<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-(h<sub>ExpOut_i</sub> - h<sub>SatVap</sub>)
-&frasl; (s<sub>ExpInl</sub> - s<sub>SatVap</sub>)
-= (h<sub>SupVap,ref</sub> - h<sub>SatVap</sub>)
-&frasl; (s<sub>SupVap,ref</sub> - s<sub>SatVap</sub>)
-</p>
-</li>
-<li>
-If it lands inside the dome, interpolation is performed between
-the two saturation lines:<br/>
-<p align=\"center\" style=\"font-style:italic;\">
-(h<sub>ExpOut_i</sub> - h<sub>Pum</sub>)
-&frasl; (s<sub>ExpInl</sub> - s<sub>Pum</sub>)
-= (h<sub>SatVap</sub> - h<sub>Pum</sub>)
-&frasl; (s<sub>SatVap</sub> - s<sub>Pum</sub>)
-</p>
-In this case the results are accurate.
-</li>
-</ul>
+June 13, 2023, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
 </li>
 </ul>
 </html>"));
-end Cycle;
+end BottomingCycle;

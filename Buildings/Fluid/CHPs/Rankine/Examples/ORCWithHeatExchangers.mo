@@ -13,11 +13,11 @@ model ORCWithHeatExchangers
     displayUnit = "C") = 150 + 273.15
     "Temperature of the waste heat source";*/
 
-  Buildings.Fluid.CHPs.Rankine.Cycle cyc(
+  Buildings.Fluid.CHPs.Rankine.BottomingCycle ran(
     pro=pro,
     TEva(displayUnit="degC") = 357.95,
     TCon(displayUnit="degC") = 298.15,
-    etaExp=0.7)
+    etaExp=0.7) "Bottoming Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   parameter Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids.R123 pro
     "Property record of the working fluid"
@@ -66,7 +66,7 @@ model ORCWithHeatExchangers
     nPorts=1) "Source on the condenser side"
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
 equation
-  connect(eva.port_ref, cyc.port_a) annotation (Line(points={{-1.27676e-15,44},{
+  connect(eva.port_ref,ran. port_a) annotation (Line(points={{-1.27676e-15,44},{
           -1.27676e-15,27},{0,27},{0,10}}, color={191,0,0}));
   connect(souEva.ports[1], eva.port_a)
     annotation (Line(points={{-60,50},{-10,50}}, color={0,127,255}));
@@ -76,6 +76,21 @@ equation
     annotation (Line(points={{10,-50},{60,-50}}, color={0,127,255}));
   connect(con.port_b, sinCon.ports[1])
     annotation (Line(points={{-10,-50},{-60,-50}}, color={0,127,255}));
-  connect(cyc.QCon_flow, con.Q_flow) annotation (Line(points={{11,-4},{20,-4},{
+  connect(ran.QCon_flow, con.Q_flow) annotation (Line(points={{11,-4},{20,-4},{
           20,-44},{12,-44}}, color={0,0,127}));
+annotation(Documentation(info="<html>
+<p>
+This model demonstrates how the model
+<a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BottomingCycle\">
+Buildings.Fluid.CHPs.Rankine.BottomingCycle</a>
+can be connected to heat exchangers.
+</html>"),revisions="<html>
+<ul>
+<li>
+June 13, 2023, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
+</li>
+</ul>
+</html>");
 end ORCWithHeatExchangers;
