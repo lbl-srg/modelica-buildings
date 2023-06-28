@@ -1,4 +1,4 @@
-within Buildings.Fluid.CHPs.Rankine.Validation;
+within Buildings.Fluid.CHPs.Rankine.BaseClasses.Validation;
 model WetFluid "Organic Rankine cycle with a wet working fluid"
   extends DryFluid(equ(
         dTSup=2,

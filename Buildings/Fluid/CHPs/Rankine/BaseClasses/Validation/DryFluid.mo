@@ -1,4 +1,4 @@
-within Buildings.Fluid.CHPs.Rankine.Validation;
+within Buildings.Fluid.CHPs.Rankine.BaseClasses.Validation;
 model DryFluid "Organic Rankine cycle with a dry working fluid"
   extends Modelica.Icons.Example;
   Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations equ(
