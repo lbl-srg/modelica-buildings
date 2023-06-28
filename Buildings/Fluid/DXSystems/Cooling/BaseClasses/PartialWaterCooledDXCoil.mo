@@ -1,8 +1,7 @@
 within Buildings.Fluid.DXSystems.Cooling.BaseClasses;
 model PartialWaterCooledDXCoil "Base class for water source DX coils"
   extends Buildings.BaseClasses.BaseIcon;
-  extends
-    Buildings.Fluid.DXSystems.Cooling.BaseClasses.EssentialParameters(
+  extends Buildings.Fluid.DXSystems.Cooling.BaseClasses.EssentialParameters(
       redeclare Buildings.Fluid.DXSystems.Cooling.WaterSource.Data.Generic.DXCoil datCoi);
 
   replaceable package MediumEva =
@@ -296,58 +295,161 @@ equation
           -100},{60,-80},{40,-80}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-74,20},{80,-74}},
+          extent={{-80,80},{80,-80}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-99,4},{102,-6}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-102,-6},{-2,4}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid),
-                                Text(
-          extent={{52,42},{96,22}},
-          textColor={0,0,127},
-          textString="QEvaLat"),Text(
-          extent={{54,72},{98,52}},
-          textColor={0,0,127},
-          textString="QEvaSen"),
-        Rectangle(
-          extent={{0,-56},{62,-66}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-64,-66},{0,-56}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
                                 Text(
           extent={{54,100},{98,80}},
           textColor={0,0,127},
           textString="P"),
         Rectangle(
-          extent={{-64,-66},{-56,-90}},
+          extent={{-72,-52},{72,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{28,50},{32,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,68},{72,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,50},{-34,10}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-36,0},{-46,10},{-26,10},{-36,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-36,0},{-46,-12},{-26,-12},{-36,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,-12},{-34,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{8,22},{52,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{30,22},{12,-10},{48,-10},{30,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-96,-4},{-58,6}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{54,-90},{66,-56}},
+          extent={{26.25,-5},{-26.25,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={-63,-25.75},
+          rotation=90),
+        Rectangle(
+          extent={{-28,-4},{28,4}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),    Documentation(info="<html>
+          fillPattern=FillPattern.Solid,
+          origin={62,-24},
+          rotation=90),
+        Rectangle(
+          extent={{58,-4},{94,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{75,-2},{-75,2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,85,85},
+          fillPattern=FillPattern.Solid,
+          origin={-84,-13},
+          rotation=90),
+        Rectangle(
+          extent={{3,-2},{-3,2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,85,85},
+          fillPattern=FillPattern.Solid,
+          origin={-60,-87},
+          rotation=90),
+        Rectangle(
+          extent={{2,-13},{-2,13}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,85,85},
+          fillPattern=FillPattern.Solid,
+          origin={-71,-86},
+          rotation=90),
+        Rectangle(
+          extent={{2,-7},{-2,7}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,85,85},
+          fillPattern=FillPattern.Solid,
+          origin={-79,60},
+          rotation=90),
+        Rectangle(
+          extent={{2,-13},{-2,13}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={140,142,255},
+          fillPattern=FillPattern.Solid,
+          origin={73,-86},
+          rotation=90),
+        Rectangle(
+          extent={{3,-2},{-3,2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={140,142,255},
+          fillPattern=FillPattern.Solid,
+          origin={60,-87},
+          rotation=90),
+        Rectangle(
+          extent={{75,-2},{-75,2}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={140,142,255},
+          fillPattern=FillPattern.Solid,
+          origin={84,-13},
+          rotation=90),
+        Rectangle(
+          extent={{2,-7},{-2,7}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={140,142,255},
+          fillPattern=FillPattern.Solid,
+          origin={79,60},
+          rotation=90),         Text(
+          extent={{52,42},{96,22}},
+          textColor={0,0,127},
+          textString="QEvaLat"),Text(
+          extent={{54,72},{98,52}},
+          textColor={0,0,127},
+          textString="QEvaSen")}),             Documentation(info="<html>
 <p>
 This model can be used to simulate a water source DX cooling coil with single speed compressor.
 </p>

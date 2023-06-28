@@ -10,8 +10,10 @@ model SingleSpeed "Single speed water source DX coils"
 equation
   connect(eva.on, on) annotation (Line(points={{-11,8},{-16,8},{-16,80},{-112,
           80}},                 color={255,0,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
-            points={{-100,80},{-68,80},{-68,20}}, color={255,85,170})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                           Line(points={{-120,80},{-88,80},{-88,23.8672},{-2,24},
+              {-2,2.0215},{10,2}},                                    color={217,
+              67,180})}),
     Documentation(info="<html>
 <p>
 This model can be used to simulate a water source DX cooling coil with single speed compressor.

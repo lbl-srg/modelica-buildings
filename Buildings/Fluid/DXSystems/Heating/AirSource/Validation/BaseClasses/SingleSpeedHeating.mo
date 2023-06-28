@@ -145,7 +145,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TEvaIn_K.Kelvin, sinSpeDX.TOut) annotation (Line(
-      points={{-79,49.8},{-70,49.8},{-70,13},{-11,13}},
+      points={{-79,49.8},{-70,49.8},{-70,6},{-11,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, TOutMea.u)
@@ -171,8 +171,9 @@ equation
           {78,20}}, color={0,0,127}));
   connect(datRea.y[14], plrToPul.uPLR)
     annotation (Line(points={{-131,120},{-82,120}}, color={0,0,127}));
-  connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-30,120},
-          {-30,21},{-11,21}}, color={255,0,255}));
+  connect(plrToPul.yEna, sinSpeDX.on) annotation (Line(points={{-58,120},{-30,
+          120},{-30,18},{-11,18}},
+                              color={255,0,255}));
   connect(datRea.y[1], TEvaIn_K.Celsius) annotation (Line(points={{-131,120},{-108,
           120},{-108,49.6},{-102,49.6}}, color={0,0,127}));
   connect(datRea.y[9], toTotAirOut.XiDry) annotation (Line(points={{-131,120},{-108,
@@ -210,7 +211,7 @@ equation
           {-70,88},{-61,88}}, color={0,0,127}));
   connect(pAtm.y, phi.p) annotation (Line(points={{-129,70},{-120,70},{-120,66},
           {-66,66},{-66,72},{-61,72}}, color={0,0,127}));
-  connect(sinSpeDX.phi, phi.phi) annotation (Line(points={{-11,17},{-32,17},{-32,
+  connect(sinSpeDX.phi, phi.phi) annotation (Line(points={{-11,2},{-32,2},{-32,
           80},{-39,80}}, color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-160},
             {180,160}})),

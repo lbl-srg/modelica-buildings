@@ -101,5 +101,8 @@ First implementation.
     Icon(graphics={Text(
           extent={{-96,96},{-38,78}},
           textColor={0,0,127},
-          textString="speRat")}));
+          textString="speRat"),
+                           Line(points={{-120,80},{-88,80},{-88,23.8672},{-2,24},
+              {-2,2.0215},{10,2}},                                    color={0,0,
+              127})}));
 end VariableSpeed;

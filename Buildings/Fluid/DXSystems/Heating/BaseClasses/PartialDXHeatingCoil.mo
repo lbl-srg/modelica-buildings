@@ -21,13 +21,14 @@ partial model PartialDXHeatingCoil
     final unit="K",
     displayUnit="degC")
     "Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser"
-    annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
+    annotation (Placement(transformation(extent={{-120,-40},{-100,-20}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
 
   Modelica.Blocks.Interfaces.RealInput phi(
     final unit="1")
     "Outdoor air relative humidity at evaporator inlet (0...1)" annotation (
-      Placement(transformation(extent={{-120,60},{-100,80}}),
-        iconTransformation(extent={{-120,60},{-100,80}})));
+      Placement(transformation(extent={{-120,-60},{-100,-40}}),
+        iconTransformation(extent={{-120,-90},{-100,-70}})));
 
   Modelica.Blocks.Interfaces.RealOutput P(
     final quantity="Power",
@@ -88,7 +89,7 @@ protected
     final TDefLim=datCoi.TDefLim,
     final dTHys=dTHys)
     "Block to compute defrost time fraction, heat transfer multiplier and input power multiplier"
-    annotation (Placement(transformation(extent={{0,90},{20,110}})));
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
 
   Buildings.Fluid.DXSystems.Heating.BaseClasses.DefrostCapacity defCap(
     redeclare package MediumA = Medium,
@@ -104,7 +105,7 @@ protected
     final use_p_in=false,
     final p=pAtm)
     "Conversion for relative humidity to water vapor mass fraction"
-    annotation (Placement(transformation(extent={{-60,88},{-40,108}})));
+    annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow q
     "Heat extracted by coil"
@@ -156,28 +157,28 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(TOut,dxCoi.TEvaIn)  annotation (Line(points={{-110,30},{-92,30},{-92,62},
-          {-26,62},{-26,52},{-21,52}},
+  connect(TOut,dxCoi.TEvaIn)  annotation (Line(points={{-110,-30},{-94,-30},{
+          -94,46},{-32,46},{-32,52},{-21,52}},
                          color={0,0,127}));
   connect(T.y,dxCoi.TConIn)  annotation (Line(points={{-69,28},{-38,28},{-38,57},
           {-21,57}}, color={0,0,127}));
-  connect(TOut, defTimFra.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,
-          62},{-26,62},{-26,102},{-1,102}},
+  connect(TOut, defTimFra.TOut) annotation (Line(points={{-110,-30},{-94,-30},{
+          -94,112},{-1,112}},
                           color={0,0,127}));
-  connect(defTimFra.tDefFra, defCap.tDefFra) annotation (Line(points={{21,104},{
-          40,104},{40,97},{61,97}},        color={0,0,127}));
-  connect(defTimFra.heaCapMul, defCap.heaCapMul) annotation (Line(points={{21,100},
-          {34,100},{34,94},{61,94}},        color={0,0,127}));
-  connect(defTimFra.inpPowMul, defCap.inpPowMul) annotation (Line(points={{21,96},
-          {28,96},{28,91},{61,91}},         color={0,0,127}));
+  connect(defTimFra.tDefFra, defCap.tDefFra) annotation (Line(points={{21,114},{
+          40,114},{40,97},{61,97}},        color={0,0,127}));
+  connect(defTimFra.heaCapMul, defCap.heaCapMul) annotation (Line(points={{21,110},
+          {34,110},{34,94},{61,94}},        color={0,0,127}));
+  connect(defTimFra.inpPowMul, defCap.inpPowMul) annotation (Line(points={{21,106},
+          {28,106},{28,91},{61,91}},        color={0,0,127}));
   connect(T.y, defCap.TConIn) annotation (Line(points={{-69,28},{-38,28},{-38,88},
           {61,88}},  color={0,0,127}));
   connect(dxCoi.Q_flow, defCap.QTot_flow) annotation (Line(points={{1,56},{22,56},
           {22,72},{61,72}},       color={0,0,127}));
   connect(dxCoi.EIR, defCap.EIR) annotation (Line(points={{1,60},{18,60},{18,75},
           {61,75}},       color={0,0,127}));
-  connect(TOut, defCap.TOut) annotation (Line(points={{-110,30},{-92,30},{-92,62},
-          {-26,62},{-26,78},{61,78}},
+  connect(TOut, defCap.TOut) annotation (Line(points={{-110,-30},{-94,-30},{-94,
+          112},{-6,112},{-6,78},{61,78}},
                      color={0,0,127}));
   connect(defCap.QTotDef_flow, q.Q_flow) annotation (Line(points={{83,78},{92,
           78},{92,20},{58,20}},                  color={0,0,127}));
@@ -190,11 +191,14 @@ equation
   connect(X.y, defCap.XConIn) annotation (Line(points={{-69,12},{-34,12},{-34,84},
           {61,84}},       color={0,0,127}));
   connect(defTimFra.XOut, x_pTphi.X[1])
-    annotation (Line(points={{-1,98},{-39,98}}, color={0,0,127}));
-  connect(x_pTphi.T, TOut) annotation (Line(points={{-62,98},{-92,98},{-92,30},{
-          -110,30}}, color={0,0,127}));
-  connect(x_pTphi.phi, phi) annotation (Line(points={{-62,92},{-96,92},{-96,70},
-          {-110,70}}, color={0,0,127}));
+    annotation (Line(points={{-1,108},{-28,108},{-28,-40},{-39,-40}},
+                                                color={0,0,127}));
+  connect(x_pTphi.T, TOut) annotation (Line(points={{-62,-40},{-94,-40},{-94,
+          -30},{-110,-30}},
+                     color={0,0,127}));
+  connect(x_pTphi.phi, phi) annotation (Line(points={{-62,-46},{-94,-46},{-94,
+          -50},{-110,-50}},
+                      color={0,0,127}));
   annotation (
 defaultComponentName="dxCoi",
 Documentation(info="<html>
@@ -219,20 +223,104 @@ First implementation.
 
 </html>"),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
-         graphics={             Text(
-          extent={{58,98},{102,78}},
+         graphics={
+        Rectangle(
+          extent={{-80,80},{80,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+                                Text(
+          extent={{66,100},{110,80}},
           textColor={0,0,127},
-          textString="P"),      Text(
-          extent={{54,80},{98,60}},
-          textColor={0,0,127},
-          textString="QSen"),
+          textString="P"),
                    Text(
-          extent={{-136,98},{-78,80}},
+          extent={{-136,-52},{-78,-70}},
           textColor={0,0,127},
           textString="phi"),
                    Text(
-          extent={{-140,58},{-82,40}},
+          extent={{-140,-12},{-82,-30}},
           textColor={0,0,127},
-          textString="TOut")}),
-    Diagram(coordinateSystem(extent={{-100,-60},{100,120}})));
+          textString="TOut"),
+        Rectangle(
+          extent={{-38,-12},{-34,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-36,0},{-46,-12},{-26,-12},{-36,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-36,0},{-46,10},{-26,10},{-36,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-38,50},{-34,10}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{28,50},{32,-52}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,68},{70,50}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{8,22},{52,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{30,22},{12,-10},{48,-10},{30,22}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-27,-5},{27,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          origin={63,23},
+          rotation=90),
+        Rectangle(
+          extent={{58,-4},{86,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-94,-4},{-66,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-27,-5},{27,5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          origin={-65,23},
+          rotation=90),
+        Rectangle(
+          extent={{-72,-52},{70,-70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                Text(
+          extent={{58,80},{102,60}},
+          textColor={0,0,127},
+          textString="QSen")}),
+    Diagram(coordinateSystem(extent={{-100,-60},{100,140}})));
 end PartialDXHeatingCoil;

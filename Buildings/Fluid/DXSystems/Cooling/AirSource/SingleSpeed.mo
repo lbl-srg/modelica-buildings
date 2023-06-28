@@ -84,5 +84,7 @@ First implementation.
     Icon(graphics={Text(
           extent={{-140,132},{-96,112}},
           textColor={0,0,255},
-          textString="on")}));
+          textString="on"),Line(points={{-120,80},{-88,80},{-88,23.8672},{-2,24},
+              {-2,2.0215},{10,2}},                                    color={217,
+              67,180})}));
 end SingleSpeed;
