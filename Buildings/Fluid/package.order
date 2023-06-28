@@ -3,6 +3,7 @@ Actuators
 Boilers
 CHPs
 Chillers
+DXSystems
 Delays
 FMI
 FixedResistances
@@ -19,6 +20,7 @@ SolarCollectors
 Sources
 Storage
 Utilities
+ZoneEquipment
 Data
 Types
 Examples

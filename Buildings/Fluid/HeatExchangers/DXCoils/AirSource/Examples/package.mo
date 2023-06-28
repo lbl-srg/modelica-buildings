@@ -4,6 +4,6 @@ package Examples "Package with example of DX cooling coil models"
 
 
 annotation (preferredView="info", Documentation(info="<html>
-This package contains examples that use air source DX cooling coil models.
+This package contains examples that use air source DX heating and cooling coil models.
 </html>"));
 end Examples;
