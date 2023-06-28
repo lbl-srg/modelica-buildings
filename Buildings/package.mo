@@ -204,9 +204,9 @@ Each class (i.e., model, block and function) must be used in an example or valid
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-class Version_8_1_4 "Version 8.1.4"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_8_1_4 "Version 8.1.4"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 8.1.4 is a patch that has backward compatible bug fixes.
@@ -221,20 +221,6 @@ OPTIMICA (revision OCT-dev-r26446_JM-r14295) and recent versions of Impact.
 </div>
 <!-- New libraries -->
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -352,11 +338,11 @@ xxx
 </li>
 </ul>
 </html>"));
-end Version_8_1_4;
+    end Version_8_1_4;
 
-class Version_8_1_3 "Version 8.1.3"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_8_1_3 "Version 8.1.3"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 8.1.3 is a patch that has backward compatible bug fixes.
@@ -405,12 +391,12 @@ that can lead to wrong simulation results):
 </table>
 <!-- Uncritical errors -->
 </html>"));
-end Version_8_1_3;
+    end Version_8_1_3;
 
 
-class Version_8_1_2 "Version 8.1.2"
-  extends Modelica.Icons.ReleaseNotes;
-    annotation (Documentation(info="<html>
+    class Version_8_1_2 "Version 8.1.2"
+      extends Modelica.Icons.ReleaseNotes;
+        annotation (Documentation(info="<html>
 <div class=\"release-summary\">
 <p>
 Version 8.1.2 is a patch that has backward compatible bug fixes.
@@ -480,7 +466,7 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </html>"));
-end Version_8_1_2;
+    end Version_8_1_2;
 
   class Version_8_1_1 "Version 8.1.1"
     extends Modelica.Icons.ReleaseNotes;
