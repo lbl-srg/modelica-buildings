@@ -12,8 +12,10 @@ model DXDehumidifier
 
   Buildings.Fluid.Humidifiers.DXDehumidifier dxDeh(
     redeclare package Medium = Medium,
-    final m_flow_nominal=0.1,
+    final VWat_flow_nominal=5.805556e-7,
+    final mAir_flow_nominal=0.1,
     final dp_nominal=0,
+    final eneFac_nominal=3.412,
     final per=per)
     "DX dehumidifier instance"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
@@ -66,8 +68,7 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=14400,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Cvode"),
+      Tolerance=1e-06),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Humidifiers/Examples/DXDehumidifier.mos"
         "Simulate and Plot"),
     Documentation(info="<html>

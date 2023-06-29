@@ -1,46 +1,38 @@
-within Buildings.Fluid.Humidifiers;
+﻿within Buildings.Fluid.Humidifiers;
 model DXDehumidifier "DX dehumidifier"
   extends Buildings.Fluid.Interfaces.PartialTwoPort;
 
-  parameter Modelica.Units.SI.VolumeFlowRate V_flow_nominal(min=0) = 5.805556e-7
+  parameter Modelica.Units.SI.VolumeFlowRate VWat_flow_nominal(
+    final min=0)
     "Rated water removal rate, in m3/s"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal
+    "Nominal mass flow rate of air in the air stream"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Units.SI.PressureDifference dp_nominal(
+    displayUnit="Pa")
+    "Pressure difference"
+    annotation (Dialog(group="Nominal condition"));
+
+  parameter Real eneFac_nominal(
+    final min=0)
+    "Rated energy factor, in L/kwh"
     annotation (Dialog(group="Nominal condition"));
 
   parameter Boolean addPowerToMedium = true
     "Transfer power and heat to the fluid medium";
-
-  parameter Real eneFac_nominal(
-    final min=0) = 3.412
-    "Rated energy factor, in L/kwh"
-    annotation (Dialog(group="Nominal condition"));
 
   parameter Buildings.Fluid.Humidifiers.Data.Generic per
     "Performance data"
     annotation (choicesAllMatching=true,
       Placement(transformation(extent={{60,-56},{80,-36}})));
 
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate";
-
-  parameter Modelica.Units.SI.PressureDifference dp_nominal
-    "Pressure difference";
-
   Modelica.Blocks.Interfaces.BooleanInput uEna
     "Enable signal"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}}),
       iconTransformation(extent={{-120,-50},{-100,-30}})));
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
-    "Heat transfer into medium from dehumidifying action"
-    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
-
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
-    "Sensor for measuring heat flow rate into medium"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
-    "Temperature sensor"
-    annotation (Placement(transformation(extent={{38,50},{58,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput T(
     final unit="K",
@@ -49,20 +41,6 @@ model DXDehumidifier "DX dehumidifier"
     "Outlet air medium temperature"
     annotation (Placement(transformation(extent={{100,40},{120,60}}),
       iconTransformation(extent={{100,40},{120,60}})));
-
-  Modelica.Blocks.Sources.RealExpression u(
-    y=if uEna == true
-      then watRemMod
-      else 0)
-    "Remove humidity from inlet air only when component is enabled"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-
-  Modelica.Blocks.Sources.RealExpression QHea(
-    y=if uEna == true
-      then PDeh.y + (-deHum.mWat_flow)*h_fg
-      else 0)
-    "Heat transfer into medium only when component is enabled"
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
 
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     final unit="W",
@@ -80,31 +58,57 @@ model DXDehumidifier "DX dehumidifier"
     annotation (Placement(transformation(extent={{100,-30},{120,-10}}),
       iconTransformation(extent={{100,-30},{120,-10}})));
 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    "Heat transfer into medium from dehumidifying action"
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
+    "Sensor for measuring heat flow rate into medium"
+    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
+
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTem
+    "Temperature sensor"
+    annotation (Placement(transformation(extent={{38,50},{58,70}})));
+
+  Modelica.Blocks.Sources.RealExpression u(
+    y=if uEna == true
+      then watRemMod
+      else 0)
+    "Remove humidity from inlet air only when component is enabled"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+
+  Modelica.Blocks.Sources.RealExpression QHea(
+    y=if uEna == true
+      then PDeh.y + (-deHum.mWat_flow)*h_fg
+      else 0)
+    "Heat transfer into medium only when component is enabled"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+
   Modelica.Blocks.Sources.RealExpression PDeh(
     y=if uEna == true
-      then V_flow_nominal*watRemMod/eneFac_nominal/eneFacMod*1000*1000*3600
+      then VWat_flow_nominal*watRemMod/eneFac_nominal/eneFacMod*1000*1000*3600
       else 0)
     "Power consumed by dehumidification process"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
 
   Buildings.Fluid.Sensors.TemperatureTwoPort senTIn(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    final m_flow_nominal=mAir_flow_nominal)
     "Inlet air temperature sensor"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=mAir_flow_nominal)
     "Inlet air relative humidity sensor"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 
   Buildings.Fluid.Humidifiers.Humidifier_u deHum(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
+    m_flow_nominal=mAir_flow_nominal,
     dp_nominal=dp_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    mWat_flow_nominal=-V_flow_nominal*rhoWat)
+    mWat_flow_nominal=-VWat_flow_nominal*rhoWat)
     "Baseclass for conditioning fluid medium"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -201,7 +205,7 @@ The amount of heat added to the air stream <code>QHea</code> is equal to
 <p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod / (eneFac<sub>nominal</sub> eneFacMod), </i>
 </p>
 <p>
-where <code>V_flow_nominal</code> is the rated water removal flow rate and 
+where <code>VWat_flow_nominal</code> is the rated water removal flow rate and 
 <code>eneFac_nominal</code> is the rated energy factor. h<sub>fg</sub> is the 
 enthalpy of vaporization of air.
 </p>
