@@ -23,7 +23,23 @@ model PackagedTerminalAirConditioner
   parameter Modelica.Units.SI.PressureDifference dpCooDX_nominal
     "Pressure drop for DX cooling coil at m_flow_nominal";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling CooCoi(
+    // fixme: I don't think these parameters need to be replaceable
+    // fixme: this should be datFan (as the other is called datCooCoi, and
+    // then the name of the parameter equals the defaultComponentName.
+  replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
+    constrainedby Buildings.Fluid.Movers.Data.Generic
+    "Record with performance data for supply fan"
+    annotation (choicesAllMatching=true,
+      Placement(transformation(extent={{84,100},{104,120}})),
+      Dialog(group="Fan parameters"));
+
+  replaceable parameter
+    Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCooCoi(
+      final nSta=1)
+    "DX cooling coil data"
+    annotation (Placement(transformation(extent={{2,100},{22,120}})));
+
+  Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed CooCoi(
     redeclare final package Medium = MediumA,
     final show_T=true,
     final dp_nominal=dpCooDX_nominal,
@@ -43,20 +59,6 @@ model PackagedTerminalAirConditioner
     final m_flow_nominal=mAir_flow_nominal)
     "Cooling coil outlet air temperature sensor"
     annotation (Placement(transformation(extent={{130,-10},{150,10}})));
-
-  replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
-    constrainedby Buildings.Fluid.Movers.Data.Generic
-    "Record with performance data for supply fan"
-    annotation (choicesAllMatching=true,
-      Placement(transformation(extent={{84,100},{104,120}})),
-      Dialog(group="Fan parameters"));
-
-  replaceable parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil
-    datCooCoi(
-    final nSta=1)
-    "DX cooling coil data"
-    annotation (Placement(transformation(extent={{2,100},{22,120}})));
 
   Buildings.Fluid.Movers.FlowControlled_m_flow fan(
     redeclare final package Medium = MediumA,

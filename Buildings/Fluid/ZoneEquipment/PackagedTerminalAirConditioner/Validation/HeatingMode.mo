@@ -3,9 +3,7 @@ model HeatingMode
   "Validation model for heating mode operation of packaged terminal air conditioner"
   extends Modelica.Icons.Example;
 
-  replaceable package MediumA = Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialCondensingGases
-    "Medium model for air";
+  replaceable package MediumA = Buildings.Media.Air "Medium model for air";
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=75
     "Pressure drop at m_flow_nominal";
@@ -19,19 +17,16 @@ model HeatingMode
   parameter Modelica.Units.SI.Time delayTimestep = 3600
     "Time-step used to unit delay shift on EPlus power value";
 
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCooCoi(
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCooCoi(
     sta={
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
+        nomVal=Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-7144.01,
           COP_nominal=3.0,
           SHR_nominal=0.8,
           m_flow_nominal=0.50747591),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
+        perCur=Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
           capFunT={0.942587793,0.009543347,0.00068377,-0.011042676,0.000005249,-0.00000972},
           capFunFF={0.8,0.2,0},
           EIRFunT={0.342414409,0.034885008,-0.0006237,0.004977216,0.000437951,-0.000728028},
@@ -59,9 +54,7 @@ model HeatingMode
     final mAirOut_flow_nominal=0.50747591,
     final mAir_flow_nominal=0.50747591,
     final dpAir_nominal=dpAir_nominal,
-    redeclare
-      Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Validation.Data.FanData
-      fanPer,
+    final fanPer=datFan,
     final datCooCoi=datCooCoi)
     "Packaged terminal air conditioner instance"
     annotation (Placement(transformation(extent={{-16,-26},{24,14}})));
@@ -125,7 +118,7 @@ model HeatingMode
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant con[3](
     final k=fill(0, 3))
     "Zero signal for internal thermal loads"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{0,50},{20,70}})));
 
   Modelica.Blocks.Math.Mean PFanMod(
     final f=1/averagingTimestep)
@@ -253,6 +246,8 @@ model HeatingMode
     final y=0.50747591)
     annotation (Placement(transformation(extent={{-132,-12},{-112,8}})));
 
+  parameter Data.FanData datFan "Fan performance data"
+    annotation (Placement(transformation(extent={{30,66},{50,86}})));
 equation
   connect(ptac.yFan_actual, fanProOn.u) annotation (Line(points={{25,10},{32,10}},
                             color={0,0,127}));
@@ -262,8 +257,8 @@ equation
   connect(ptac.port_Air_b2, zon.ports[2])
     annotation (Line(points={{24,-10},{80,-10},{80,30.9}},
                                                          color={0,127,255}));
-  connect(con.y, zon.qGai_flow) annotation (Line(points={{22,40},{40,40},{40,60},
-          {56,60}}, color={0,0,127}));
+  connect(con.y, zon.qGai_flow) annotation (Line(points={{22,60},{56,60}},
+                    color={0,0,127}));
   connect(realExpression1.y, PFanMod.u)
     annotation (Line(points={{141,-124},{154,-124}}, color={0,0,127}));
   connect(realExpression2.y, m_flowFan.u)
@@ -280,7 +275,7 @@ equation
           {-17,12}}, color={0,0,127}));
 
   connect(building.weaBus,ptac. weaBus) annotation (Line(
-      points={{0,124},{14,124},{14,60},{-13.2,60},{-13.2,12.2}},
+      points={{0,124},{12,124},{12,90},{-13.2,90},{-13.2,12.2}},
       color={255,204,51},
       thickness=0.5));
   connect(weaBus, building.weaBus) annotation (Line(

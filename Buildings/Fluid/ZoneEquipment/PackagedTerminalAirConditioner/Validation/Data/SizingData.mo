@@ -2,6 +2,7 @@ within Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Validation.D
 record SizingData "Sizing calculations and values for component parameters"
 
   extends Modelica.Icons.Record;
+  // fixme: I don't think this data record is used in any model.
 
   parameter Modelica.Units.SI.MassFlowRate mAir_flow_nominal = 1.225 * 0.56578
     "Nominal supply air mass flow rate"

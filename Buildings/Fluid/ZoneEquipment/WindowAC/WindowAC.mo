@@ -22,6 +22,8 @@ model WindowAC
     "Loop output hysteresis below which the output will be seen as zero"
     annotation (Dialog(tab="Advanced"));
 
+  // fixme: I don't think these parameters, fanPer and datCoi, need to be replaceable.
+  // fixme: fanPer should be called datFan, then both have the same naming patter
   replaceable parameter Buildings.Fluid.Movers.Data.Generic fanPer
     constrainedby Buildings.Fluid.Movers.Data.Generic
     "Record with performance data for supply fan"
@@ -29,7 +31,7 @@ model WindowAC
       Placement(transformation(extent={{50,100},{70,120}})),
       Dialog(group="Fan parameters"));
 
-  replaceable parameter Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCoi(
+  replaceable parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCoi(
     final nSta=1)
     "Coil data"
     annotation (Placement(transformation(extent={{2,100},{22,120}})));
@@ -43,7 +45,7 @@ model WindowAC
     "Supply fan"
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.AirSource.SingleSpeedCooling sinSpeDXCoo(
+  Buildings.Fluid.DXSystems.Cooling.AirSource.SingleSpeed sinSpeDXCoo(
     redeclare final package Medium = MediumA,
     final show_T=true,
     final dp_nominal=dpDX_nominal,

@@ -2,27 +2,21 @@ within Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Examples;
 model PackagedTerminalAirConditioner
   "Example model for heating mode operation of packaged terminal air conditioner"
   extends Modelica.Icons.Example;
-  replaceable package MediumA = Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialCondensingGases
-    "Medium model for air";
+  package MediumA = Buildings.Media.Air "Medium model for air";
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=75
     "Pressure drop at m_flow_nominal";
 
-  parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.CoolingCoil datCooCoi(
+  parameter Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.DXCoil datCooCoi(
     sta={
-      Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.Stage(
+      Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.Stage(
         spe=1800,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.NominalValues(
-          is_CooCoi=true,
+        nomVal=Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-9365,
           COP_nominal=3.5,
           SHR_nominal=0.8,
           m_flow_nominal=1.2*0.56578),
-        perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
+        perCur=Buildings.Fluid.DXSystems.Cooling.AirSource.Data.Generic.BaseClasses.PerformanceCurve(
           capFunT={0.942587793,0.009543347,0.00068377,-0.011042676,0.000005249,-0.00000972},
           capFunFF={0.8,0.2,0},
           EIRFunT={0.342414409,0.034885008,-0.0006237,0.004977216,0.000437951,-0.000728028},
@@ -36,8 +30,7 @@ model PackagedTerminalAirConditioner
     "Cooling coil data"
     annotation (Placement(transformation(extent={{60,92},{80,112}})));
 
-  Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.PackagedTerminalAirConditioner
-    ptac(
+  Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.PackagedTerminalAirConditioner ptac(
     redeclare package MediumA = MediumA,
     mHotWat_flow_nominal=0.137,
     final mAirOut_flow_nominal=1.225*0.42691,
@@ -46,9 +39,7 @@ model PackagedTerminalAirConditioner
     QHeaCoi_flow_nominal=13866,
     final dpAir_nominal=dpAir_nominal,
     final dpCooDX_nominal= 0,
-    redeclare
-      Buildings.Fluid.ZoneEquipment.PackagedTerminalAirConditioner.Validation.Data.FanData
-      fanPer,
+    fanPer = datFan,
     datCooCoi=datCooCoi) "Packaged terminal air conditioner instance"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
@@ -105,6 +96,8 @@ model PackagedTerminalAirConditioner
     "Heating loop signal"
     annotation (Placement(transformation(extent={{-90,-70},{-70,-50}})));
 
+  parameter Validation.Data.FanData datFan "Fan performance data"
+    annotation (Placement(transformation(extent={{60,120},{80,140}})));
 equation
   connect(souAir.ports[1], ptac.port_Air_a2) annotation (Line(points={{72,36},{78,
           36},{78,4},{20,4}}, color={0,127,255}));

@@ -1,11 +1,9 @@
 within Buildings.Fluid.ZoneEquipment.WindowAC.Examples;
 model WindowAC
   "Example model for window AC system"
-
   extends Modelica.Icons.Example;
 
   replaceable package MediumA = Buildings.Media.Air
-    constrainedby Modelica.Media.Interfaces.PartialCondensingGases
     "Medium model for air";
 
   parameter Modelica.Units.SI.PressureDifference dpAir_nominal=75
