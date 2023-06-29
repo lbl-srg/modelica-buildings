@@ -1,4 +1,0 @@
-simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.Validation.PIIntegralTime", method="Cvode", tolerance=1e-06, resultFile="PIIntegralTime");
-createPlot(id=1, position={95, 95, 1484, 920}, y={"PIIntTim.T", "PIIntTim.L"}, range={0.0, 1.0, 0.2, 1.2}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}});
-createPlot(id=1, position={95, 95, 1484, 920}, y={"PIIntTim.Ti", "RefDat.y[5]"}, range={0.0, 1.0, 0.4, 1.0}, grid=true, subPlot=2, colors={{28,108,200}, {238,46,47}});
-

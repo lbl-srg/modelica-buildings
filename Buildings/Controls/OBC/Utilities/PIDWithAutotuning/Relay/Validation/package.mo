@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
-package Validation "Collection of models that validate the blocks of the Relay"
+package Validation "Collection of models that validate the blocks of a relay controller"
   annotation (
     preferredView="info",
     Documentation(

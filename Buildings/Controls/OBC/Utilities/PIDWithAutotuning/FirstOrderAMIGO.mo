@@ -1,6 +1,6 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
-  "A autotuning PID controller with an AMIGO tuner and a first order time delayed system model"
+  "An autotuning PID controller with an AMIGO tuner and a first-order time delayed system model"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real r(
@@ -62,18 +62,30 @@ block FirstOrderAMIGO
     "Connector of measurement input signal"
     annotation (Placement(transformation(origin={0,-120},  extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput tri
-    "Resets the controller output when trigger becomes true"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),
-        iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRes
+    "Connector for reseting the controller output" annotation (
+      Placement(transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triTun
+    "Connector for starting the autotuning" annotation (Placement(
+        transformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={60,-120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
-    final yHig=yHig,
-    final yLow=yLow,
-    final deaBan=deaBan) "Relay controller"
-    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
+    "Simulation time"
+    annotation (Placement(transformation(extent={{80,60},{60,80}})));
   Buildings.Controls.OBC.Utilities.PIDWithInputGains PID(
     final controllerType=controllerType,
     final r=r,
@@ -86,6 +98,22 @@ block FirstOrderAMIGO
     final reverseActing=reverseActing,
     final y_reset=xi_start) "PID controller with the gains as inputs"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPar
+    if with_D "Parameters of a PID controller"
+    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI PIPar
+    if not with_D "Parameters of a PI controller"
+    annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller rel(
+    final yHig=yHig,
+    final yLow=yLow,
+    final deaBan=deaBan) "Relay controller"
+    annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
+    final yHig=yHig - yRef,
+    final yLow=yRef + yLow)
+    "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
+    annotation (Placement(transformation(extent={{20,30},{0,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Switch between a PID controller and a relay controller"
     annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
@@ -105,21 +133,11 @@ block FirstOrderAMIGO
     final deaBan=deaBan)
     "Calculates the parameters of a first-order time-delayed model"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PI PIPar
-    if not with_D "Parameters of a PI controller"
-    annotation (Placement(transformation(extent={{-60,70},{-80,90}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID PIDPar
-    if with_D "Parameters of a PID controller"
-    annotation (Placement(transformation(extent={{-60,40},{-80,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
-    final yHig=yHig - yRef,
-    final yLow=yRef + yLow)
-    "Identify the on and off period length, the half period ratio, and the moments when the tuning starts and ends"
-    annotation (Placement(transformation(extent={{20,30},{0,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
-    "Simulation time"
-    annotation (Placement(transformation(extent={{80,60},{60,80}})));
-
+  Buildings.Controls.OBC.CDL.Logical.Or or1
+    "Switch the block output to the output from the PID controller when the autotuning is disabled or is completed "
+    annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Not not1 "Becomes true when the autotuning is disabled"
+    annotation (Placement(transformation(extent={{30,-78},{50,-58}})));
 protected
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
     "Boolean flag to enable derivative action"
@@ -135,8 +153,8 @@ equation
           0}}, color={0,0,127}));
   connect(rel.u_s, u_s) annotation (Line(points={{18,10},{0,10},{0,0},{-120,0}},
                color={0,0,127}));
-  connect(PID.trigger, tri) annotation (Line(points={{4,-52},{4,-90},{-60,-90},
-          {-60,-120}},                                                  color={255,0,255}));
+  connect(PID.trigger, triRes) annotation (Line(points={{4,-52},{4,-90},{-60,-90},
+          {-60,-120}}, color={255,0,255}));
   connect(samk.y,PID. k) annotation (Line(points={{-18,-20},{-14,-20},{-14,-32},
           {-2,-32}}, color={0,0,127}));
   connect(PID.Ti, samTi.y) annotation (Line(points={{-2,-36},{-14,-36},{-14,-50},
@@ -149,7 +167,7 @@ equation
     annotation (Line(points={{58,-28},{52,-28},{52,16},{42,16}}, color={0,0,127}));
   connect(swi.u1,PID. y) annotation (Line(points={{58,-12},{40,-12},{40,-40},{22,
           -40}}, color={0,0,127}));
-  connect(resPro.On, rel.yOn) annotation (Line(points={{22,34},{58,34},{58,4},{42,
+  connect(resPro.on, rel.yOn) annotation (Line(points={{22,34},{58,34},{58,4},{42,
           4}}, color={255,0,255}));
   connect(modTim.y, resPro.tim) annotation (Line(points={{58,70},{40,70},{40,46},
           {22,46}}, color={0,0,127}));
@@ -187,9 +205,6 @@ equation
           32},{-36,38}}, color={255,0,255}));
   connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{-2,36},{-24,
           36},{-24,38}}, color={255,0,255}));
-  connect(resPro.triEnd, swi.u2) annotation (Line(points={{-2,32},{-10,32},{-10,
-          -20},{58,-20}},
-                     color={255,0,255}));
   connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{-2,32},{-10,
           32},{-10,10},{-70,10},{-70,-38}},
                                        color={255,0,255}));
@@ -205,6 +220,16 @@ equation
                                                   color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
+  connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-82},{60,-82},
+          {60,-120}}, color={255,0,255}));
+  connect(or1.u1, resPro.triEnd) annotation (Line(points={{58,-60},{52,-60},{52,
+          -50},{46,-50},{46,-20},{-10,-20},{-10,32},{-2,32}}, color={255,0,255}));
+  connect(or1.y, swi.u2) annotation (Line(points={{82,-60},{90,-60},{90,-40},{
+          48,-40},{48,-20},{58,-20}}, color={255,0,255}));
+  connect(not1.u, triTun) annotation (Line(points={{28,-68},{24,-68},{24,-82},{60,
+          -82},{60,-120}}, color={255,0,255}));
+  connect(not1.y, or1.u2)
+    annotation (Line(points={{52,-68},{58,-68}}, color={255,0,255}));
   annotation (Documentation(info="<html>
 <p>
 This block implements a rule-based PID tuning method.
@@ -213,8 +238,7 @@ first-order delay (FOD) model.
 It then determines the parameters of this FOD model based on the responses of
 the control process to an asymmetric relay feedback.
 After that, taking the parameters of this FOD mode as inputs, this PID tuning
-method calculates the PID parameters based on prescribed rules,
-i.e., Approximate M-constrained Integral Gain Optimization (AMIGO) Tuner.
+method calculates the PID parameters with an Approximate M-constrained Integral Gain Optimization (AMIGO) Tuner.
 This block is built based on
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
@@ -225,11 +249,13 @@ PID controller.
 <h4>Brief guidance</h4>
 <p>
 To use this block, connect it to the control loop.
-It will start the PID tuning process once the simulation starts.
+It will start the PID tuning process whenever the value of the boolean input signal <code>triTun</code> changes from
+<code>false</code> to <code>true</code>.
+Before the PID tuning process starts, the control loop is controlled by a PI or PID controller.  
 During the PID tuning process, the control loop is controlled by a relay feedback controller.
 The PID tuning process will end automatically based on the algorithm defined
-in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.HalfPeriodRatio</a>.
+in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.HalfPeriodRatio</a>.
 Starting from then, the control loop is controlled by a PI or PID controller.
 </p>
 <p>
@@ -267,10 +293,8 @@ First implementation<br/>
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
           extent={{-26,-22},{74,-62}},
-          lineColor={0,0,0},
-          textString="PI",
+          textString= if controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID then "PID" else "PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Polygon(

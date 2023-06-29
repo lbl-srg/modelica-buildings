@@ -1,7 +1,8 @@
 compareVars :=
   {
+    "kp.y",
+    "T.y",
+    "L.y",
     "PI.k",
-    "RefDat.y[4]",
-    "PI.Ti",
-    "RefDat.y[5]"
+    "PI.Ti"
   };

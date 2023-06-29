@@ -27,23 +27,24 @@ block PID "Identify control gain, integral time, and derivative time of the PID 
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Connector for time constant signal for the integral term"
+    "Time constant signal for the integral term"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput Td(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Connector for time constant signal for the derivative term"
+    "Time constant signal for the derivative term"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}}),
         iconTransformation(extent={{100,-90},{140,-50}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain gai
-    "Calculate the control gain"
+protected
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain
+    gai "Block that calculates the control gain"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime
-    intTim "Calculate the integral time"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDIntegralTime
+    intTim "Block that calculates the integral time"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime
-    derTim "Calculate the derivative time"
+  Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDDerivativeTime
+    derTim "Block that calculates the derivative time"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation
@@ -77,7 +78,47 @@ equation
         Text(
           extent={{-154,148},{146,108}},
           textString="%name",
-          textColor={0,0,255})}), Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textColor={0,0,255}),
+        Text(
+          extent={{-16,20},{84,-20}},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="PID"),
+        Polygon(
+          points={{32,22},{24,44},{40,44},{32,22}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,2},{-22,10},{-22,-6},{0,2}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{32,44},{32,68}}, color={28,108,200}),
+        Polygon(
+          points={{32,-22},{24,-44},{40,-44},{32,-22}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-22,2},{-48,2}}, color={28,108,200}),
+        Line(points={{32,-44},{32,-62}}, color={28,108,200}),
+        Text(
+          visible=(controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI),
+          extent={{-16,102},{84,62}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="k"),
+        Text(
+          extent={{-116,26},{-16,-14}},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="Ti"),
+        Text(
+          extent={{-18,-62},{82,-102}},
+          fillPattern=FillPattern.Solid,
+          fillColor={175,175,175},
+          textString="Td")}),     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -90,19 +131,19 @@ First implementation<br/>
 This block calculates the control gain, the integral time, and the
 derivative time of a PID model.
 </p>
-<p>Please refer to the following block for detailed information:</p>
+<p>Refer to the following blocks for detailed information:</p>
 <ul>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDGain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDGain</a>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.BaseClasses.PIDGain</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDIntegralTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDIntegralTime</a>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDIntegralTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.BaseClasses.PIDIntegralTime</a>
 </li>
 <li>
-<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PIDDerivativeTime\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.PIDDerivativeTime</a>
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDDerivativeTime\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.AutoTuner.AMIGO.BaseClasses.PIDDerivativeTime</a>
 </li>
 </ul>
 </html>"));
