@@ -23,8 +23,10 @@ equation
   connect(speRat, eva.speRat) annotation (Line(points={{-112,80},{-16,80},{-16,
           8},{-11,8}},
                      color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={Line(
-            points={{-100,80},{-68,80},{-68,20}}, color={28,108,200})}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+                           Line(points={{-122,80},{-90,80},{-90,23.8672},{-4,24},
+              {-4,2.0215},{8,2}},                                     color={0,0,
+              127})}),
     Documentation(info="<html>
 <p>
 This model can be used to simulate a water source DX cooling coil with variable speed compressor.

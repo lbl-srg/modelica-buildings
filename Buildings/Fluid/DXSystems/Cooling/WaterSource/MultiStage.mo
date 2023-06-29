@@ -15,7 +15,8 @@ equation
                                 Text(
           extent={{54,100},{98,80}},
           textColor={0,0,127},
-          textString="P"), Line(points={{-100,80},{-68,80},{-68,20}}, color={
+          textString="P"), Line(points={{-122,80},{-90,80},{-90,23.8672},{-4,24},
+              {-4,2.02148},{8,2}},                                    color={
               255,128,0})}),    Documentation(revisions="<html>
               <ul>
 <li>

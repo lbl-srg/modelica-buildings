@@ -100,5 +100,8 @@ First implementation.
     Icon(graphics={Text(
           extent={{-102,94},{-44,76}},
           textColor={0,0,127},
-          textString="stage")}));
+          textString="stage"),
+                           Line(points={{-120,80},{-88,80},{-88,23.8672},{-2,24},
+              {-2,2.02148},{10,2}},                                   color={
+              255,128,0})}));
 end MultiStage;
