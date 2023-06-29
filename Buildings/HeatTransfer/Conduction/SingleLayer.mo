@@ -350,7 +350,7 @@ in the middle of a control volume with length <code>l=x/(material.nSta-2)</code>
 <p>
 To build multi-layer constructions,
 use
-<a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </p>
 <h4>Important parameters</h4>

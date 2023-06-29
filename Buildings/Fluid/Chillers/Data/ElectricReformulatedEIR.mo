@@ -23,7 +23,7 @@ package ElectricReformulatedEIR "Performance data for chiller ElectricReformulat
                    "<html>
 This record is used as a template for performance data
 for the chiller model
-<a href=\"Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>.
 </html>", revisions="<html>
 <ul>

@@ -100,10 +100,10 @@ These material records automatically compute the spatial grid
 that is used to compute transient heat conduction.
 In building materials, the thermal diffusivity of adjacent layer materials can differ by an order of magnitude. If the spatial grid generation were not to account for the material properties, then the time rate of change of the different temperature nodes would be significantly different from each other.
 Therefore, records in the packages
-<a href=\"Buildings.HeatTransfer.Data.Solids\">
+<a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
 Buildings.HeatTransfer.Data.Solids</a>
 and
-<a href=\"Buildings.HeatTransfer.Data.SolidsPCM\">
+<a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
 Buildings.HeatTransfer.Data.SolidsPCM</a>
 generate the spatial grid so that under the assumption of equal heat transfer, each node temperature has a similar time rate of change.
 </p>
