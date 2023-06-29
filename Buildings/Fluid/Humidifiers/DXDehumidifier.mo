@@ -209,9 +209,7 @@ where <code>VWat_flow_nominal</code> is the rated water removal flow rate and
 <code>eneFac_nominal</code> is the rated energy factor. h<sub>fg</sub> is the 
 enthalpy of vaporization of air.
 </p>
-<p>
 <h4>Performance Curve Modifiers</h4>
-</p>
 <p>
 The water removal modifier curve <code>watRemMod</code> is a biquadratic curve 
 with two independent variables: dry-bulb temperature and relative humidity of the 
