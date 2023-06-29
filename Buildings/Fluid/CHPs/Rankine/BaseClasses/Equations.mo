@@ -66,14 +66,14 @@ model Equations "Core equations of a Rankine cycle"
     min=0,
     final unit="1")=-dhExp/dhEva      "Thermal efficiency"
     annotation (Placement(
-        transformation(extent={{100,-50},{120,-30}}), iconTransformation(extent={{100,30},
+        transformation(extent={{100,30},{120,50}}),   iconTransformation(extent={{100,30},
             {120,50}})));
   Modelica.Blocks.Interfaces.RealOutput rConEva(
     max=0,
     final unit="1")=dhCon/dhEva
     "Ratio of heat flow of condenser to evaporator (<0)"
     annotation (Placement(
-        transformation(extent={{100,30},{120,50}}),   iconTransformation(extent={{100,-50},
+        transformation(extent={{100,-50},{120,-30}}), iconTransformation(extent={{100,-50},
             {120,-30}})));
 protected
   final parameter Modelica.Units.SI.SpecificEntropy sSatVapCon =
