@@ -4,30 +4,38 @@ model BottomingCycle_FluidPort
   extends BaseClasses.PartialBottomingCycle;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
-  // Input properties
-
   Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
     redeclare final package Medium = Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
-    final from_dp=false,
-    final dp_nominal=0,
-    final linearizeFlowResistance=true,
-    final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final UA=50) "Evaporator"
+    from_dp=false,
+    dp_nominal=0,
+    linearizeFlowResistance=true) "Evaporator"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
         origin={70,52})));
+  Modelica.Blocks.Interfaces.RealOutput QEva_flow(
+    min=0,
+    final quantity="Power",
+    final unit="W") "Heat injected through the evaporator" annotation (
+      Placement(transformation(extent={{100,70},{120,90}}), iconTransformation(
+          extent={{100,50},{120,70}})));
+
+protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow on the evaporator side"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  HeatTransfer.Sources.PrescribedTemperature preTem "Prescribed temperature"
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Prescribed temperature"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Sensors.TemperatureTwoPort senTem(redeclare final package Medium = Medium,
-      final m_flow_nominal=m_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
+    redeclare final package Medium = Medium,
+    final m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
-  Controls.OBC.CDL.Continuous.Limiter lim(uMax=Modelica.Constants.inf, uMin=
-        TEva) "Limits the direction of heat transfer"
+  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
+    uMax=Modelica.Constants.inf,
+    uMin=TEva)
+    "Limits the direction of heat transfer via temperature differential"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
 equation
   connect(eva.port_b, port_b)
@@ -48,20 +56,22 @@ equation
     annotation (Line(points={{-58,10},{-42,10}}, color={0,0,127}));
   connect(lim.u, senTem.T) annotation (Line(points={{-82,10},{-90,10},{-90,63},{
           -70,63}}, color={0,0,127}));
+  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{81,56},{96,56},{96,80},
+          {110,80}}, color={0,0,127}));
 annotation (defaultComponentName="ran",
     Icon(coordinateSystem(preserveAspectRatio=false)),         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
 [fixme: draft implementation.]<br/>
-This model uses the Rankine cycle as a bottoming cycle.
-<a href=\"modelica://Buildings.Fluid.CHPs.Rankine.Examples.ORC_HeatPort\">
-Buildings.Fluid.CHPs.Rankine.Examples.ORCWithHeatExchangers</a>
-demonstrates how this model can be connected with heat exchangers.
+This model uses the Rankine cycle as a bottoming cycle and interfaces with
+other components via the fluid ports. It is implemented in a way that
+it prevents heat back flow on the evaporator side when the medium temperature
+drops below the working fluid temperature.
 </html>", revisions="<html>
 <ul>
 <li>
-June 13, 2023, by Hongxiang Fu:<br/>
+June 30, 2023, by Hongxiang Fu:<br/>
 First implementation. This is for
 <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
 </li>

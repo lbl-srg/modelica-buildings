@@ -96,5 +96,24 @@ equation
         Text(
           extent={{64,-58},{100,-100}},
           textColor={0,0,0},
-          textString="s")}));
+          textString="s")}),
+Documentation(info="<html>
+<p>
+This partial model uses
+<a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations</a>
+and positions the organic Rankine cycle as a bottoming cycle.
+Specifically, it imposes the causality where the amount of heat input
+through the evaporator (presumably from a waste heat source) is known
+and the model computes the expander power output and heat rejected
+through the condenser. The details on the condenser side are omitted.
+</html>",revisions="<html>
+<ul>
+<li>
+June 30, 2023, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
+</li>
+</ul>
+</html>"));
 end PartialBottomingCycle;

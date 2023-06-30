@@ -57,4 +57,18 @@ equation
     annotation (Line(points={{-10,-50},{-60,-50}}, color={0,127,255}));
   connect(ran.QCon_flow,con. Q_flow) annotation (Line(points={{11,-10},{20,-10},
           {20,-44},{12,-44}},color={0,0,127}));
+  annotation (Documentation(info="<html>
+<p>
+This model demonstrates the use of models extended from
+<a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.PartialBottomingCycle\">
+Buildings.Fluid.CHPs.Rankine.BaseClasses.PartialBottomingCycle</a>.
+</html>",revisions="<html>
+<ul>
+<li>
+June 30, 2023, by Hongxiang Fu:<br/>
+First implementation. This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3433\">#3433</a>.
+</li>
+</ul>
+</html>"));
 end PartialORC;

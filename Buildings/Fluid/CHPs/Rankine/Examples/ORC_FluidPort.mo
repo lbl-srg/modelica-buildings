@@ -2,8 +2,11 @@ within Buildings.Fluid.CHPs.Rankine.Examples;
 model ORC_FluidPort "Example ORC with fluid port implementation"
   extends BaseClasses.PartialORC(
     redeclare Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ran(
-        redeclare final package Medium = MediumEva, m_flow_nominal=
-          mEva_flow_nominal),
+      redeclare final package Medium = MediumEva,
+      final m_flow_nominal = mEva_flow_nominal,
+      eva(
+        final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+        final UA=50)),
     souEva(nPorts=1),
     sinEva(nPorts=1));
   extends Modelica.Icons.Example;
@@ -15,10 +18,9 @@ equation
           40,50},{60,50}}, color={0,127,255}));
 annotation(Documentation(info="<html>
 <p>
-This model demonstrates how the model
+This model demonstrates the use of
 <a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort\">
-Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort</a>
-can be connected to heat exchangers.
+Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort</a>.
 </html>",revisions="<html>
 <ul>
 <li>

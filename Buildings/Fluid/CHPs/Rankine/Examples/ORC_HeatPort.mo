@@ -26,10 +26,9 @@ equation
     annotation (Line(points={{60,50},{10,50}}, color={0,127,255}));
 annotation(Documentation(info="<html>
 <p>
-This model demonstrates how the model
+This model demonstrates the use of
 <a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort\">
-Buildings.Fluid.CHPs.Rankine.BottomingCycle</a>
-can be connected to heat exchangers.
+Buildings.Fluid.CHPs.Rankine.BottomingCycle</a>.
 </html>",revisions="<html>
 <ul>
 <li>
