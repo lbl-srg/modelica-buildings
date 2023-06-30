@@ -103,7 +103,7 @@
 ! Environmental Emissions:        None
 ! Utility Tariffs:                None
 
-  Version,9.6;
+  Version,23.1;
 
 !-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
 
@@ -2310,7 +2310,19 @@
     ,                        !- Heat Rejection Capacity and Nominal Capacity Sizing Ratio
     ,                        !- Nominal Capacity {W}
     ,                        !- Free Convection Capacity {W}
-    ;                        !- Free Convection Nominal Capacity Sizing Factor
+    ,                        !- Free Convection Nominal Capacity Sizing Factor
+    35.0,                    !- Design Inlet Air Dry-Bulb Temperature {C}
+    25.6,                    !- Design Inlet Air Wet-Bulb Temperature {C}
+    autosize,                !- Design Approach Temperature {deltaC}
+    autosize,                !- Design Range Temperature {deltaC}
+    0.0,                     !- Basin Heater Capacity {W/K}
+    2.0,                     !- Basin Heater Setpoint Temperature {C}
+    ,                        !- Basin Heater Operating Schedule Name
+    SaturatedExit,           !- Evaporation Loss Mode
+    0.2,                     !- Evaporation Loss Factor {percent/K}
+    0.008,                   !- Drift Loss Percent {percent}
+    ConcentrationRatio,      !- Blowdown Calculation Mode
+    3.0;                     !- Blowdown Concentration Ratio
 
 !-   ===========  ALL OBJECTS IN CLASS: PLANTLOOP ===========
 
