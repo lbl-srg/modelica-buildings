@@ -1,8 +1,0 @@
-compareVars :=
-  {
-    "tOn.y",
-    "tOff.y",
-    "halPerRat.triSta",
-    "halPerRat.triEnd",
-    "halPerRat.rho"
-  };

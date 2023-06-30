@@ -1,5 +1,0 @@
-compareVars :=
-  {
-    "rho.y",
-    "norTimDel.tau"
-  };
