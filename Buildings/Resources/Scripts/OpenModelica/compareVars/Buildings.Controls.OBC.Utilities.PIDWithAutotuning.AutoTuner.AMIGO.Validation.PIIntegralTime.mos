@@ -1,6 +1,0 @@
-compareVars :=
-  {
-    "T.y",
-    "L.y",
-    "PIIntTim.Ti"
-  };

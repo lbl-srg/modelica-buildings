@@ -1,7 +1,0 @@
-compareVars :=
-  {
-    "kp.y",
-    "T.y",
-    "L.y",
-    "PIGai.k"
-  };
