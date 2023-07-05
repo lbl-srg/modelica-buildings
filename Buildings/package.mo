@@ -642,6 +642,23 @@ have been <b style=\"color:blue\">improved</b> in a
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3384\">#3384</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Media.Steam
+    </td>
+    <td valign=\"top\">Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
+                       from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
+                       <code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
+                       assertion erros during initilization.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.<br/>
+                       In function <code>rho_pT</code>, created and used new function extending
+                       <code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
+                       annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
+                       <code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
+                       the <code>g2</code> function.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>
     </td>
   </tr>
