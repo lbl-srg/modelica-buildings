@@ -232,6 +232,11 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        and free cooling in an ambient district network.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.BaseClasses.Steam
+    </td>
+    <td valign=\"top\">Package for steam systems using the split-medium approach..
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Steam
     </td>
     <td valign=\"top\">Package of example models for steam district heating systems.
