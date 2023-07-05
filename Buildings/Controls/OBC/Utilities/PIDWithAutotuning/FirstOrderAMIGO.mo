@@ -63,23 +63,13 @@ block FirstOrderAMIGO
     annotation (Placement(transformation(origin={0,-120},  extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triRes
-    "Connector for reseting the controller output" annotation (
-      Placement(transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120})));
+    "Connector for reseting the controller output"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120}),
+        iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput triTun
-    "Connector for starting the autotuning" annotation (Placement(
-        transformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={60,-120}), iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={60,-120})));
+    "Connector for starting the autotuning"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-120}),
+        iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Connector for actuator output signal"
     annotation (Placement(transformation(extent={{100,-20},{140,20}}),iconTransformation(extent={{100,-20},{140,20}})));
@@ -162,7 +152,7 @@ equation
   connect(samTd.y,PID. Td) annotation (Line(points={{-18,-70},{-6,-70},{-6,-44},
           {-2,-44}}, color={0,0,127}));
   connect(rel.u_m, u_m) annotation (Line(points={{30,-2},{30,-60},{10,-60},{10,
-          -96},{0,-96},{0,-120}},                                    color={0,0,127}));
+          -96},{0,-96},{0,-120}}, color={0,0,127}));
   connect(swi.u3, rel.y)
     annotation (Line(points={{58,-28},{52,-28},{52,16},{42,16}}, color={0,0,127}));
   connect(swi.u1,PID. y) annotation (Line(points={{58,-12},{40,-12},{40,-40},{22,
@@ -180,12 +170,11 @@ equation
   connect(rel.yErr, conProMod.u) annotation (Line(points={{42,10},{48,10},{48,58},
           {-18,58}}, color={0,0,127}));
   connect(PIDPar.kp, conProMod.k)
-    annotation (Line(points={{-58,56},{-50,56},{-50,56},{-42,56}},     color={0,0,127}));
+    annotation (Line(points={{-58,56},{-50,56},{-50,56},{-42,56}}, color={0,0,127}));
   connect(PIDPar.T, conProMod.T)
     annotation (Line(points={{-58,50},{-42,50}}, color={0,0,127}));
   connect(PIDPar.L, conProMod.L) annotation (Line(points={{-58,44},{-54,44},{
-          -54,44},{-42,44}},
-                         color={0,0,127}));
+          -54,44},{-42,44}}, color={0,0,127}));
   connect(PIDPar.k, samk.u) annotation (Line(points={{-82,57},{-94,57},{-94,-20},
           {-42,-20}}, color={0,0,127}));
   connect(PIDPar.Ti, samTi.u) annotation (Line(points={{-82,50},{-90,50},{-90,-50},
@@ -199,25 +188,21 @@ equation
   connect(PIPar.k, samk.u) annotation (Line(points={{-82,86},{-94,86},{-94,-20},
           {-42,-20}}, color={0,0,127}));
   connect(PIPar.Ti, samTi.u) annotation (Line(points={{-82,74},{-90,74},{-90,
-          -50},{-82,-50}},
-                      color={0,0,127}));
+          -50},{-82,-50}}, color={0,0,127}));
   connect(resPro.triEnd, conProMod.triEnd) annotation (Line(points={{-2,32},{-36,
           32},{-36,38}}, color={255,0,255}));
   connect(resPro.triSta, conProMod.triSta) annotation (Line(points={{-2,36},{-24,
           36},{-24,38}}, color={255,0,255}));
   connect(resPro.triEnd, samTi.trigger) annotation (Line(points={{-2,32},{-10,
-          32},{-10,10},{-70,10},{-70,-38}},
-                                       color={255,0,255}));
+          32},{-10,10},{-70,10},{-70,-38}}, color={255,0,255}));
   connect(resPro.triEnd, samk.trigger) annotation (Line(points={{-2,32},{-10,32},
           {-10,10},{-30,10},{-30,-8}},color={255,0,255}));
   connect(resPro.triEnd, samTd.trigger) annotation (Line(points={{-2,32},{-10,
-          32},{-10,-44},{-30,-44},{-30,-58}},
-                                         color={255,0,255}));
+          32},{-10,-44},{-30,-44},{-30,-58}}, color={255,0,255}));
   connect(PIDPar.Td, samTd.u) annotation (Line(points={{-82,43},{-86,43},{-86,-70},
           {-42,-70}}, color={0,0,127}));
   connect(swi.y, y)
-    annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}},
-                                                  color={0,0,127}));
+    annotation (Line(points={{82,-20},{90,-20},{90,0},{120,0}}, color={0,0,127}));
   connect(u_m, PID.u_m) annotation (Line(points={{0,-120},{0,-96},{10,-96},{10,
           -52}}, color={0,0,127}));
   connect(rel.trigger, triTun) annotation (Line(points={{24,-2},{24,-82},{60,-82},
