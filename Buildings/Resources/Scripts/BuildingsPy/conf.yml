@@ -191,10 +191,6 @@
   openmodelica:
     comment: Timed out after 300 seconds, https://app.travis-ci.com/github/lbl-srg/modelica-buildings/jobs/559381269#L479
     simulate: false
-- model_name: Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.ApparatusDewPoint
-  openmodelica:
-    comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
-    simulate: false
 - model_name: Buildings.Fluid.HeatExchangers.Validation.WetCoilEffectivenessNTUHeating
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
