@@ -232,6 +232,26 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        and free cooling in an ambient district network.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Steam
+    </td>
+    <td valign=\"top\">Package of example models for steam district heating systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Steam
+    </td>
+    <td valign=\"top\">Package with models for loads involving steam systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Steam
+    </td>
+    <td valign=\"top\">Package of models for distribution networks involving steam.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Steam
+    </td>
+    <td valign=\"top\">Package with models for steam plants.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
     </td>
     <td valign=\"top\">Package that contains models for standard connection
