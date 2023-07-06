@@ -48,6 +48,10 @@ but not in the connection to the building, as the latter is typically short.
       revisions="<html>
 <ul>
 <li>
+June 14, 2023, by David Blum:<br/>
+Fix redeclare of dis pipe models in connections.
+</li>
+<li>
 January 2, 2023, by Kathryn Hinkelman:<br/>
 First implementation.
 </li>

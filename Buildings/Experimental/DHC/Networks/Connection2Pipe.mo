@@ -23,6 +23,11 @@ mass flow rate.
       revisions="<html>
 <ul>
 <li>
+April 17, 2022, by Katy Hinkelman:<br/>
+Removed renamed model redeclare to solve error and allow separate pipe 
+declarations on sup/ret of DHC networks.
+</li>
+<li>
 February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
