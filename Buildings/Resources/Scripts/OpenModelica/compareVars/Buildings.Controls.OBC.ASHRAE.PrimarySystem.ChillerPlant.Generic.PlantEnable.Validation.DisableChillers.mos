@@ -1,16 +1,28 @@
 compareVars :=
   {
+    "disDev.uWSE",
+    "disDev.chaPro",
     "disDev.uChi[1]",
-    "disDev.uPla",
+    "disDev.uChi[2]",
     "disDev.uChiWatReq[1]",
+    "disDev.uChiWatReq[2]",
     "disDev.uConWatReq[1]",
+    "disDev.uConWatReq[2]",
     "disDev.uChiWatIsoVal[1]",
+    "disDev.uChiWatIsoVal[2]",
     "disDev.uConWatIsoVal[1]",
+    "disDev.uConWatIsoVal[2]",
     "disDev.uChiWatPumSpe[1]",
+    "disDev.uChiWatPumSpe[2]",
     "disDev.uConWatPumSpe[1]",
-    "disDev.yChi[1]",
+    "disDev.uConWatPumSpe[2]",
     "disDev.yChiWatIsoVal[1]",
+    "disDev.yChiWatIsoVal[2]",
     "disDev.yConWatIsoVal[1]",
+    "disDev.yConWatIsoVal[2]",
     "disDev.yChiWatPumSpe[1]",
-    "disDev.yConWatPumSpe[1]"
+    "disDev.yChiWatPumSpe[2]",
+    "disDev.yConWatPumSpe[1]",
+    "disDev.yConWatPumSpe[2]",
+    "disDev.yTowCel"
   };

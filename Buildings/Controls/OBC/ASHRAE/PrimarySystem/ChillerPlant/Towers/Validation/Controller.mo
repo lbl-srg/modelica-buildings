@@ -124,10 +124,6 @@ protected
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant chiStaSet(
     final k=1) "Chiller stage setpoint"
     annotation (Placement(transformation(extent={{-140,-270},{-120,-250}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis leaConPum(
-    final uLow=0.005, final uHigh=0.01)
-    "Lead condenser water pump status"
-    annotation (Placement(transformation(extent={{-240,-190},{-220,-170}})));
   Buildings.Controls.OBC.CDL.Logical.Not wseSta1 "Water side economizer status"
     annotation (Placement(transformation(extent={{-320,200},{-300,220}})));
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con3(final k=false)
@@ -225,11 +221,6 @@ equation
                                       color={255,0,255}));
   connect(chiStaSet.y, towCon.uChiStaSet) annotation (Line(points={{-118,-260},
           {108,-260},{108,349},{198,349}},color={255,127,0}));
-  connect(conWatPumSpe1[1].y, leaConPum.u) annotation (Line(points={{-278,-160},
-          {-260,-160},{-260,-180},{-242,-180}}, color={0,0,127}));
-  connect(leaConPum.y, towCon.uLeaConWatPum) annotation (Line(points={{-218,
-          -180},{114,-180},{114,345},{198,345}},
-                                           color={255,0,255}));
   connect(wseSta.y, wseSta1.u)
     annotation (Line(points={{-338,210},{-322,210}}, color={255,0,255}));
   connect(wseSta1.y, or3.u3) annotation (Line(points={{-298,210},{-200,210},{-200,
