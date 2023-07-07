@@ -130,8 +130,8 @@ annotation (experiment(StopTime=3600.0, Tolerance=1e-06),
   Documentation(info="<html>
 <p>
 This example validates
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.CapacityRequirement\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.Generic.CapacityRequirement</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.CapacityRequirement\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Staging.SetPoints.Subsequences.CapacityRequirement</a>.
 </p>
 </html>", revisions="<html>
 <ul>

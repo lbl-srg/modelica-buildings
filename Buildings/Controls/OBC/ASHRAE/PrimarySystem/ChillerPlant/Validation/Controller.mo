@@ -285,7 +285,7 @@ annotation (
   Documentation(info="<html>
 <p>
 This example validates composed chiller plant controller
-<a href=\"modelica://Buildings.Controls.OBC.Controller\">
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller\">
 Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Controller</a>. It shows the
 process of enabling plant, enabling waterside economizer and staging up one chiller.
 </p>

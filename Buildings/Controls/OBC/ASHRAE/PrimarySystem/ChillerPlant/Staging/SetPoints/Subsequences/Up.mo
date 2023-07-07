@@ -363,8 +363,8 @@ for either a shorter or a longer time period
 <p>
 Note that when the plant is enabled in chiller mode, the stage up signal will keep
 false. The plant will control by the
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableWithChiller\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.EnableWithChiller</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.Enable</a>.
 </p>
 </html>",
 revisions="<html>

@@ -172,8 +172,8 @@ section 5.2.8 Chilled water minimum flow bypass valve.
 </p>
 <p>
 The minimum chilled water flow setpoint <code>VChiWatSet_flow</code> is specified by block
-<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint\">
-Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.Subsequences.FlowSetpoint</a>.
+<a href=\"modelica://Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint\">
+Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.MinimumFlowBypass.FlowSetpoint</a>.
 </p>
 <p>
 When any chilled water pump is proven on (<code>uChiWatPum</code> = true),
