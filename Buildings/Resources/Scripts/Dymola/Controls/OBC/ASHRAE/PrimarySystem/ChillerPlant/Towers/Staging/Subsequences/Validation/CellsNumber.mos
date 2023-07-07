@@ -2,6 +2,6 @@ simulateModel("Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Towers.S
 createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.uChiSta", "enaTowCel.uChiStaSet"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=1, colors={{28,108,200},{0,140,72}});
 createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.uTowStaCha", "enaTowCel.uWse"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=2, colors={{28,108,200},{0,140,72}});
 createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.yNumCel"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=3, colors={{28,108,200}});
-createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.uLeaConWatPum", "enaTowCel.yLeaCel"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200},{0,140,72}});
+createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.yLeaCel"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=4, colors={{28,108,200}});
 createPlot(id=1, position={10, 10, 1000, 1200}, y={"enaTowCel.uConWatPumSpe[1]"}, range={0.0, 3600, 0, 0.5}, grid=true, subPlot=5, colors={{28,108,200}});
 

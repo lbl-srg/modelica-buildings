@@ -230,10 +230,12 @@ equation
           {78,-58}}, color={255,0,255}));
   connect(abs.y, hys.u) annotation (Line(points={{-18,-90},{-2,-90}},
                     color={0,0,127}));
-  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-70},{-100,
-          -70},{-100,-84},{-82,-84}}, color={0,0,127}));
-  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-110},{-100,-110},
-          {-100,-96},{-82,-96}}, color={0,0,127}));
+  connect(uConWatPumSpeSet, speDif.u1) annotation (Line(points={{-140,-70},{
+          -100,-70},{-100,-84},{-82,-84}},
+                                      color={0,0,127}));
+  connect(uConWatPumSpe, speDif.u2) annotation (Line(points={{-140,-110},{-100,
+          -110},{-100,-96},{-82,-96}},
+                                 color={0,0,127}));
   connect(uEnaPla, enaLeaHeaPum.uEnaPla) annotation (Line(points={{-140,30},{10,
           30},{10,124},{18,124}}, color={255,0,255}));
   connect(uEnaPla, enaLeaDedPum.uEnaPla) annotation (Line(points={{-140,30},{10,

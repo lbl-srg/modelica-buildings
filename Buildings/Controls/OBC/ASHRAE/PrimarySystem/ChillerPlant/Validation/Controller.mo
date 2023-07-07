@@ -87,7 +87,7 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[2]
     annotation (Placement(transformation(extent={{220,-50},{240,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply pro[2]
-    annotation (Placement(transformation(extent={{260,-30},{280,-10}})));
+    annotation (Placement(transformation(extent={{260,-10},{280,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp dpChiWat(
     final height=2*6895,
     final duration=3600,
@@ -120,7 +120,7 @@ model Controller "Validation head pressure controller"
   Buildings.Controls.OBC.CDL.Discrete.ZeroOrderHold zerOrdHol1[2](
     final samplePeriod=fill(5, 2))
     "Output the input signal with a zero order hold"
-    annotation (Placement(transformation(extent={{220,-20},{240,0}})));
+    annotation (Placement(transformation(extent={{200,40},{220,60}})));
   Buildings.Controls.OBC.CDL.Logical.Pre conWatPum[2](
     final pre_u_start=fill(false, 2))
     "Condenser water pump status setpoint"
@@ -203,12 +203,10 @@ equation
           {210,-40},{210,-230},{-100,-230},{-100,-90},{-30,-90}}, color={255,0,255}));
   connect(conWatPum.y, booToRea.u)
     annotation (Line(points={{182,-40},{218,-40}}, color={255,0,255}));
-  connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{242,-10},{250,-10},{
-          250,-14},{258,-14}}, color={0,0,127}));
   connect(booToRea.y, pro.u2) annotation (Line(points={{242,-40},{250,-40},{250,
-          -26},{258,-26}}, color={0,0,127}));
-  connect(pro.y, chiPlaCon.uConWatPumSpe) annotation (Line(points={{282,-20},{300,
-          -20},{300,-250},{-110,-250},{-110,-80},{-30,-80}},    color={0,0,127}));
+          -6},{258,-6}},   color={0,0,127}));
+  connect(pro.y, chiPlaCon.uConWatPumSpe) annotation (Line(points={{282,0},{300,
+          0},{300,-250},{-110,-250},{-110,-80},{-30,-80}},      color={0,0,127}));
   connect(chiPlaCon.yChiWatIsoVal, zerOrdHol2.u) annotation (Line(points={{90,-15},
           {100,-15},{100,-60},{118,-60}}, color={0,0,127}));
   connect(zerOrdHol2.y, chiPlaCon.uChiWatIsoVal) annotation (Line(points={{142,-60},
@@ -224,7 +222,7 @@ equation
   connect(chiWatFlo.y, chiPlaCon.VChiWat_flow) annotation (Line(points={{-278,-200},
           {-160,-200},{-160,130},{-30,130}},     color={0,0,127}));
   connect(chiPlaCon.yConWatPumSpe, zerOrdHol1.u) annotation (Line(points={{90,50},
-          {140,50},{140,-10},{218,-10}}, color={0,0,127}));
+          {198,50}},                     color={0,0,127}));
   connect(reaToInt1.y, chiPlaCon.chiPlaReq) annotation (Line(points={{-258,-70},
           {-100,-70},{-100,-60},{-30,-60}}, color={255,127,0}));
   connect(reaToInt1.y, intGreThr.u) annotation (Line(points={{-258,-70},{-220,-70},
@@ -278,6 +276,8 @@ equation
   connect(chiTwoSta.y, chiPlaCon.uChiWatReq[2]) annotation (Line(points={{162,
           90},{210,90},{210,270},{-100,270},{-100,202.5},{-30,202.5}}, color={
           255,0,255}));
+  connect(zerOrdHol1.y, pro.u1) annotation (Line(points={{222,50},{252,50},{252,
+          6},{258,6}}, color={0,0,127}));
 annotation (
   experiment(StopTime=10800.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Validation/Controller.mos"

@@ -37,10 +37,6 @@ block CellsNumber
     "True: plant is just enabled"
     annotation(Placement(transformation(extent={{-300,-110},{-260,-70}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatPum
-    "Enabling status of lead condenser water pump"
-    annotation (Placement(transformation(extent={{-300,-140},{-260,-100}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uConWatPumSpe[nConWatPum](
       final unit=fill("1", nConWatPum)) "Current condenser water pump speed"
     annotation (Placement(transformation(extent={{-300,-180},{-260,-140}}),
@@ -103,12 +99,6 @@ protected
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea2
     "Convert integer input to real"
     annotation (Placement(transformation(extent={{-220,50},{-200,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Latch leaCel
-    "Lead cell status"
-    annotation (Placement(transformation(extent={{140,-130},{160,-110}})));
-  Buildings.Controls.OBC.CDL.Logical.Not conPumOff
-    "All condenser water pumps are off"
-    annotation (Placement(transformation(extent={{80,-170},{100,-150}})));
   Buildings.Controls.OBC.CDL.Integers.Equal norOpe
     "Normal operation, not in the chiller stage change process"
     annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
@@ -157,11 +147,6 @@ equation
     annotation (Line(points={{142,-40},{158,-40}}, color={255,127,0}));
   connect(uConWatPumSpe, proOn.u)
     annotation (Line(points={{-280,-160},{-222,-160}}, color={0,0,127}));
-  connect(uLeaConWatPum, leaCel.u)
-    annotation (Line(points={{-280,-120},{138,-120}},  color={255,0,255}));
-  connect(conPumOff.y, leaCel.clr)
-    annotation (Line(points={{102,-160},{120,-160},{120,-126},{138,-126}},
-      color={255,0,255}));
   connect(uChiSta, norOpe.u1)
     annotation (Line(points={{-280,100},{-222,100}}, color={255,127,0}));
   connect(intToRea1.y, swi.u1)
@@ -187,12 +172,8 @@ equation
     annotation (Line(points={{242,0},{280,0}}, color={255,127,0}));
   connect(proOn.y, mulOr.u) annotation (Line(points={{-198,-160},{-170,-160},{-170,
           -160},{-142,-160}}, color={255,0,255}));
-  connect(mulOr.y, conPumOff.u)
-    annotation (Line(points={{-118,-160},{78,-160}}, color={255,0,255}));
   connect(uEnaPla, or2.u1)
     annotation (Line(points={{-280,-90},{198,-90}}, color={255,0,255}));
-  connect(leaCel.y, or2.u2) annotation (Line(points={{162,-120},{180,-120},{180,
-          -98},{198,-98}}, color={255,0,255}));
   connect(or2.y, yLeaCel)
     annotation (Line(points={{222,-90},{280,-90}}, color={255,0,255}));
   connect(greEquThr.y, pre1.u)
@@ -201,6 +182,8 @@ equation
     annotation (Line(points={{102,-40},{118,-40}}, color={255,0,255}));
   connect(norOpe.y, swi.u2)
     annotation (Line(points={{-198,100},{-122,100}}, color={255,0,255}));
+  connect(mulOr.y, or2.u2) annotation (Line(points={{-118,-160},{-80,-160},{-80,
+          -98},{198,-98}}, color={255,0,255}));
 annotation (
   defaultComponentName="enaCelNum",
   Icon(coordinateSystem(extent={{-100,-100},{100,100}}),
@@ -218,10 +201,6 @@ annotation (
           extent={{-96,-84},{-18,-96}},
           textColor={0,0,127},
           textString="uConWatPumSpe"),
-        Text(
-          extent={{-96,-54},{-18,-66}},
-          textColor={255,0,255},
-          textString="uLeaConWatPum"),
         Text(
           extent={{-98,-2},{-72,-16}},
           textColor={255,0,255},

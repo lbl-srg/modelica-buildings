@@ -2,62 +2,57 @@ within Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEna
 model DisableChillers
   "Validation sequence for disabling chillers and the associated devices"
 
-  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers disDev
+  Buildings.Controls.OBC.ASHRAE.PrimarySystem.ChillerPlant.Generic.PlantEnable.DisableChillers disDev(
+    have_WSE=true)
     "Disable chillers and the associated devices"
-    annotation (Placement(transformation(extent={{60,20},{80,40}})));
+    annotation (Placement(transformation(extent={{60,0},{80,20}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    final width=0.6,
-    final period=3600)
-    "Enabled plant"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[2](
-    final k={true,false})
-    "Enabled chiller"
+  Buildings.Controls.OBC.CDL.Logical.Sources.Constant staPro(final k=false)
+    "Staging change process"
+    annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse wseSta(final width=0.7,
+      final period=3600) "Waterside economizer"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul2(
-    final width=0.7,
-    final period=3600)
-    "Chilled water request"
-    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant chiIsoVal[2](
     final k={1,0})
     "Chilled water isolation valve"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul3(
-    final width=0.7,
-    final period=3600)
-    "Condenser water request"
-    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
+    annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conIsoVal1[2](
     final k={1,0})
     "Condenser water isolation valve"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant pumSpe[2](
     final k={0.75,0}) "Pumps speed"
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse chiSta[2](
+    final width={0.5,0.01},
+    final period={3600,7200},
+    shift={0,-100})
+                   "Chiller status"
+    annotation (Placement(transformation(extent={{-62,40},{-42,60}})));
 
 equation
-  connect(booPul.y, disDev.uPla) annotation (Line(points={{-18,50},{-5,50},{-5,37},
-          {58,37}}, color={255,0,255}));
-  connect(con.y, disDev.uChi) annotation (Line(points={{-58,80},{40,80},{40,39},
-          {58,39}}, color={255,0,255}));
-  connect(booPul2.y, disDev.uChiWatReq[1]) annotation (Line(points={{-58,20},{2,
-          20},{2,34},{58,34}}, color={255,0,255}));
-  connect(con[2].y, disDev.uChiWatReq[2]) annotation (Line(points={{-58,80},{2,80},
-          {2,34},{58,34}}, color={255,0,255}));
-  connect(chiIsoVal.y, disDev.uChiWatIsoVal) annotation (Line(points={{-18,0},{12,
-          0},{12,32},{58,32}}, color={0,0,127}));
-  connect(booPul3.y, disDev.uConWatReq[1]) annotation (Line(points={{-58,-20},{22,
-          -20},{22,28},{58,28}}, color={255,0,255}));
-  connect(con[2].y, disDev.uConWatReq[2]) annotation (Line(points={{-58,80},{40,
-          80},{40,28},{58,28}}, color={255,0,255}));
-  connect(conIsoVal1.y, disDev.uConWatIsoVal) annotation (Line(points={{-18,-50},
-          {32,-50},{32,26},{58,26}}, color={0,0,127}));
-  connect(pumSpe.y, disDev.uChiWatPumSpe) annotation (Line(points={{-58,-80},{40,
-          -80},{40,23},{58,23}}, color={0,0,127}));
-  connect(pumSpe.y, disDev.uConWatPumSpe) annotation (Line(points={{-58,-80},{40,
-          -80},{40,21},{58,21}}, color={0,0,127}));
+  connect(wseSta.y, disDev.uWSE) annotation (Line(points={{-58,80},{40,80},{40,19},
+          {58,19}}, color={255,0,255}));
+  connect(chiSta.y, disDev.uChi) annotation (Line(points={{-40,50},{36,50},{36,
+          17},{58,17}},
+                    color={255,0,255}));
+  connect(chiSta.y, disDev.uChiWatReq) annotation (Line(points={{-40,50},{32,50},
+          {32,15},{58,15}}, color={255,0,255}));
+  connect(chiIsoVal.y, disDev.uChiWatIsoVal) annotation (Line(points={{-58,20},{
+          24,20},{24,13},{58,13}}, color={0,0,127}));
+  connect(chiSta.y, disDev.uConWatReq) annotation (Line(points={{-40,50},{28,50},
+          {28,10},{58,10}}, color={255,0,255}));
+  connect(pumSpe.y, disDev.uConWatPumSpe) annotation (Line(points={{-58,-40},{
+          36,-40},{36,3},{58,3}},
+                               color={0,0,127}));
+  connect(staPro.y, disDev.chaPro) annotation (Line(points={{-18,-60},{40,-60},
+          {40,1},{58,1}},color={255,0,255}));
+  connect(conIsoVal1.y, disDev.uConWatIsoVal) annotation (Line(points={{-38,-10},
+          {24,-10},{24,7},{58,7}}, color={0,0,127}));
+  connect(pumSpe.y, disDev.uChiWatPumSpe) annotation (Line(points={{-58,-40},{
+          32,-40},{32,5},{58,5}},
+                               color={0,0,127}));
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/ASHRAE/PrimarySystem/ChillerPlant/Generic/PlantEnable/Validation/DisableChillers.mos"

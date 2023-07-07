@@ -68,9 +68,6 @@ block EnableDevices
   Buildings.Controls.OBC.CDL.Logical.Not not1
     "Not in initial stage"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  Buildings.Controls.OBC.CDL.Logical.Edge edg1
-    "Becoming not initial stage"
-    annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.OBC.CDL.Logical.Edge edg
     "Plant enable edge"
     annotation (Placement(transformation(extent={{-100,90},{-80,110}})));
@@ -114,8 +111,6 @@ equation
     annotation (Line(points={{-180,20},{-140,20},{-140,52},{-102,52}}, color={255,127,0}));
   connect(intEqu1.y, not1.u)
     annotation (Line(points={{-78,60},{-62,60}}, color={255,0,255}));
-  connect(not1.y, edg1.u)
-    annotation (Line(points={{-38,60},{-22,60}}, color={255,0,255}));
   connect(edg.y, ecoMod.u)
     annotation (Line(points={{-78,100},{38,100}}, color={255,0,255}));
   connect(ecoMod.y, yEnaPlaPro)

@@ -262,10 +262,6 @@ block Controller "Cooling tower controller"
     "Cooling tower stage change command from plant staging process"
     annotation (Placement(transformation(extent={{-140,-170},{-100,-130}}),
       iconTransformation(extent={{-140,-150},{-100,-110}})));
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uLeaConWatPum
-    "Enabling status of lead condenser water pump"
-    annotation (Placement(transformation(extent={{-140,-190},{-100,-150}}),
-      iconTransformation(extent={{-140,-170},{-100,-130}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uIsoVal[nTowCel](
     final min=fill(0, nTowCel),
     final max=fill(1, nTowCel),
@@ -429,8 +425,6 @@ equation
           -37},{-56,-150},{-120,-150}}, color={255,0,255}));
   connect(uWse, towSta.uWse) annotation (Line(points={{-120,180},{-48,180},{-48,
           -39},{-22,-39}}, color={255,0,255}));
-  connect(towSta.uLeaConWatPum, uLeaConWatPum) annotation (Line(points={{-22,-43},
-          {-52,-43},{-52,-170},{-120,-170}}, color={255,0,255}));
   connect(uConWatPumSpe, towSta.uConWatPumSpe) annotation (Line(points={{-120,-20},
           {-72,-20},{-72,-45},{-22,-45}}, color={0,0,127}));
   connect(towSta.yLeaCel, yLeaCel) annotation (Line(points={{2,-38},{40,-38},{40,
@@ -466,10 +460,6 @@ annotation (
           extent={{-98,-100},{-32,-118}},
           textColor={255,127,0},
           textString="uChiStaSet"),
-        Text(
-          extent={{-96,-140},{-8,-156}},
-          textColor={255,0,255},
-          textString="uLeaConWatPum"),
         Text(
           extent={{48,-160},{100,-176}},
           textColor={255,0,255},
