@@ -1,3 +1,4 @@
+within Buildings.Electrical.AC.ThreePhasesBalanced.Loads.MotorDrive.ThermoFluid;
 model Pump
   "Fan or pump with mechanical interface"
   extends Buildings.Fluid.Interfaces.PartialTwoPort(
