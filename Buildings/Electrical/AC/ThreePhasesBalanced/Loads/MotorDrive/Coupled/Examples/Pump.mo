@@ -20,10 +20,10 @@ model Pump "This example shows how to use the motor coupled pump model"
     JMotor=5,
     JLoad=5,
     redeclare Buildings.Fluid.Movers.Data.Pumps.Wilo.VeroLine50slash150dash4slash2 per,
-    simMot(VFD(
+    simMot(
     k=0.1,
     Ti=60,
-    reverseActing=true))) "Pump"
+    reverseActing=true)) "Pump"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
 
   Buildings.Electrical.AC.ThreePhasesBalanced.Sources.Grid gri(f=60, V=480)
