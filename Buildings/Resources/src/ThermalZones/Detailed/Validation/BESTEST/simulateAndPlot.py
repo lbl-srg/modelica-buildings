@@ -1085,21 +1085,21 @@ def _write_table_content(dataSet, have_limits=False):
         if have_limits:
             temp = temp + "<td>{}</td>".format(data['lowerLimits'][i]) + os.linesep
             temp = temp + "<td>{}</td>".format(data['upperLimits'][i]) + os.linesep
+            lim1 = float(data['lowerLimits'][i])
+            lim2 = float(data['upperLimits'][i])
+            lowLim = lim1 if lim1 < lim2 else lim2
+            uppLim = lim2 if lim1 < lim2 else lim1
         for j in range(len(tools)):
             tool = tools[j]
-            if have_limits and (j == len(tools)-1):
-                lim1 = float(data['lowerLimits'][i])
-                lim2 = float(data['upperLimits'][i])
-                lowLim = lim1 if lim1 < lim2 else lim2
-                uppLim = lim2 if lim1 < lim2 else lim1
-                mblVal = float(data[tool][i])
-                if ((mblVal > uppLim or mblVal < lowLim) and uppLim > 0.0):
-                    temp = temp + '''<td bgcolor=\\"#FF4500\\">''' + "{}</td>".format(data[tool][i]) + os.linesep
+            if have_limits:
+                tooVal = float(data[tool][i])
+                if ((tooVal > uppLim or tooVal < lowLim) and tooVal > 0.0):
+                    temp = temp + '''<td bgcolor=\\"#FF4500\\">''' + "{}</td>".format(tooVal) + os.linesep
                 else:
-                    temp = temp + '''<td bgcolor=\\"#90EE90\\">''' + "{}</td>".format(data[tool][i]) + os.linesep
+                    # temp = temp + '''<td bgcolor=\\"#90EE90\\">''' + "{}</td>".format(tooVal) + os.linesep
+                    temp = temp + "<td>{}</td>".format(tooVal) + os.linesep
             else:
                 temp = temp + "<td>{}</td>".format(data[tool][i]) + os.linesep
-
             if 'peak_' in setName or 'max_' in setName or 'min_' in setName:
                 toolHour = '{}_hour'.format(tool)
                 temp = temp + "<td>{}</td>".format(data[toolHour][i]) + os.linesep

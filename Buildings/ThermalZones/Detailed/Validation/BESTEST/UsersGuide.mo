@@ -103,13 +103,13 @@ in the table after the plots below.
 <td>Case600</td>
 <td>3.75</td>
 <td>4.98</td>
-<td>4.050</td>
+<td>4.05</td>
 <td>3.993</td>
 <td>4.047</td>
 <td>4.324</td>
 <td>4.362</td>
 <td>4.504</td>
-<td bgcolor=\"#90EE90\">4.452</td>
+<td>4.452</td>
 </tr>
 <tr>
 <td>Case610</td>
@@ -121,19 +121,19 @@ in the table after the plots below.
 <td>4.375</td>
 <td>4.527</td>
 <td>4.592</td>
-<td bgcolor=\"#90EE90\">4.478</td>
+<td>4.478</td>
 </tr>
 <tr>
 <td>Case620</td>
 <td>3.67</td>
 <td>5.38</td>
-<td>4.370</td>
+<td>4.37</td>
 <td>4.094</td>
 <td>4.297</td>
 <td>4.485</td>
 <td>4.514</td>
 <td>4.719</td>
-<td bgcolor=\"#90EE90\">4.562</td>
+<td>4.562</td>
 </tr>
 <tr>
 <td>Case630</td>
@@ -145,7 +145,7 @@ in the table after the plots below.
 <td>4.784</td>
 <td>5.051</td>
 <td>5.139</td>
-<td bgcolor=\"#90EE90\">4.743</td>
+<td>4.743</td>
 </tr>
 <tr>
 <td>Case640</td>
@@ -157,19 +157,19 @@ in the table after the plots below.
 <td>2.662</td>
 <td>2.654</td>
 <td>2.653</td>
-<td bgcolor=\"#90EE90\">2.715</td>
+<td>2.715</td>
 </tr>
 <tr>
 <td>Case650</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td bgcolor=\"#90EE90\">0.000</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr>
 <td>Case660</td>
@@ -180,20 +180,20 @@ in the table after the plots below.
 <td>3.821</td>
 <td>3.707</td>
 <td>3.787</td>
-<td>3.790</td>
-<td bgcolor=\"#90EE90\">3.604</td>
+<td>3.79</td>
+<td>3.604</td>
 </tr>
 <tr>
 <td>Case670</td>
 <td>4.00</td>
 <td>7.96</td>
 <td>5.484</td>
-<td>5.300</td>
+<td>5.3</td>
 <td>5.573</td>
 <td>5.616</td>
 <td>5.975</td>
-<td>6.140</td>
-<td bgcolor=\"#90EE90\">6.484</td>
+<td>6.14</td>
+<td>6.484</td>
 </tr>
 <tr>
 <td>Case680</td>
@@ -202,10 +202,10 @@ in the table after the plots below.
 <td>2.219</td>
 <td>1.786</td>
 <td>1.732</td>
-<td>2.180</td>
+<td>2.18</td>
 <td>2.132</td>
 <td>2.286</td>
-<td bgcolor=\"#90EE90\">2.225</td>
+<td>2.225</td>
 </tr>
 <tr>
 <td>Case685</td>
@@ -217,7 +217,7 @@ in the table after the plots below.
 <td>4.877</td>
 <td>4.904</td>
 <td>5.042</td>
-<td bgcolor=\"#90EE90\">4.935</td>
+<td>4.935</td>
 </tr>
 <tr>
 <td>Case695</td>
@@ -229,7 +229,7 @@ in the table after the plots below.
 <td>2.802</td>
 <td>2.732</td>
 <td>2.892</td>
-<td bgcolor=\"#90EE90\">2.764</td>
+<td>2.764</td>
 </tr>
 <tr>
 <td>Case900</td>
@@ -241,7 +241,7 @@ in the table after the plots below.
 <td>1.664</td>
 <td>1.585</td>
 <td>1.814</td>
-<td bgcolor=\"#90EE90\">1.711</td>
+<td>1.711</td>
 </tr>
 <tr>
 <td>Case910</td>
@@ -249,35 +249,35 @@ in the table after the plots below.
 <td>2.30</td>
 <td>2.163</td>
 <td>1.648</td>
-<td>1.860</td>
+<td>1.86</td>
 <td>1.956</td>
 <td>2.067</td>
 <td>2.132</td>
-<td bgcolor=\"#90EE90\">1.878</td>
+<td>1.878</td>
 </tr>
 <tr>
 <td>Case920</td>
 <td>2.55</td>
 <td>4.20</td>
-<td>3.500</td>
+<td>3.5</td>
 <td>2.956</td>
 <td>3.259</td>
 <td>3.337</td>
-<td>3.300</td>
+<td>3.3</td>
 <td>3.607</td>
-<td bgcolor=\"#90EE90\">3.313</td>
+<td>3.313</td>
 </tr>
 <tr>
 <td>Case930</td>
 <td>2.75</td>
 <td>5.35</td>
-<td>4.270</td>
+<td>4.27</td>
 <td>3.524</td>
 <td>3.933</td>
 <td>3.994</td>
 <td>4.278</td>
 <td>4.384</td>
-<td bgcolor=\"#90EE90\">3.733</td>
+<td>3.733</td>
 </tr>
 <tr>
 <td>Case940</td>
@@ -289,67 +289,67 @@ in the table after the plots below.
 <td>1.067</td>
 <td>1.015</td>
 <td>1.169</td>
-<td bgcolor=\"#90EE90\">1.187</td>
+<td>1.187</td>
 </tr>
 <tr>
 <td>Case950</td>
 <td>0.00</td>
 <td>0.00</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td>0.000</td>
-<td bgcolor=\"#90EE90\">0.000</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>0.0</td>
 </tr>
 <tr>
 <td>Case960</td>
 <td>2.00</td>
 <td>3.40</td>
-<td>0.000</td>
+<td>0.0</td>
 <td>2.522</td>
 <td>2.771</td>
 <td>2.689</td>
 <td>2.624</td>
-<td>2.860</td>
-<td bgcolor=\"#90EE90\">2.652</td>
+<td>2.86</td>
+<td>2.652</td>
 </tr>
 <tr>
 <td>Case980</td>
 <td>-0.61</td>
 <td>1.28</td>
-<td>0.720</td>
+<td>0.72</td>
 <td>0.246</td>
 <td>0.266</td>
 <td>0.411</td>
 <td>0.351</td>
-<td>0.450</td>
-<td bgcolor=\"#90EE90\">0.442</td>
+<td>0.45</td>
+<td>0.442</td>
 </tr>
 <tr>
 <td>Case985</td>
 <td>1.68</td>
 <td>3.09</td>
 <td>2.801</td>
-<td>2.120</td>
+<td>2.12</td>
 <td>2.279</td>
 <td>2.369</td>
 <td>2.283</td>
 <td>2.536</td>
-<td bgcolor=\"#90EE90\">2.363</td>
+<td>2.363</td>
 </tr>
 <tr>
 <td>Case995</td>
 <td>-0.15</td>
 <td>2.02</td>
-<td>1.330</td>
+<td>1.33</td>
 <td>0.755</td>
-<td>0.770</td>
+<td>0.77</td>
 <td>1.006</td>
 <td>0.905</td>
 <td>1.077</td>
-<td bgcolor=\"#90EE90\">0.980</td>
+<td>0.98</td>
 </tr>
 <tr><td colspan=\"10\"><b>Annual cooling load (MWh)</b></td></tr>
 <tr>
@@ -372,8 +372,8 @@ in the table after the plots below.
 <td>5.432</td>
 <td>6.027</td>
 <td>6.162</td>
-<td>5.780</td>
-<td bgcolor=\"#90EE90\">6.009</td>
+<td>5.78</td>
+<td>6.009</td>
 </tr>
 <tr>
 <td>Case610</td>
@@ -385,7 +385,7 @@ in the table after the plots below.
 <td>4.333</td>
 <td>4.233</td>
 <td>4.117</td>
-<td bgcolor=\"#90EE90\">4.845</td>
+<td>4.845</td>
 </tr>
 <tr>
 <td>Case620</td>
@@ -394,22 +394,22 @@ in the table after the plots below.
 <td>4.404</td>
 <td>4.079</td>
 <td>3.909</td>
-<td>4.060</td>
+<td>4.06</td>
 <td>4.246</td>
 <td>3.841</td>
-<td bgcolor=\"#90EE90\">4.111</td>
+<td>4.111</td>
 </tr>
 <tr>
 <td>Case630</td>
 <td>1.08</td>
 <td>4.42</td>
 <td>3.074</td>
-<td>3.020</td>
+<td>3.02</td>
 <td>2.787</td>
 <td>2.836</td>
 <td>2.595</td>
 <td>2.573</td>
-<td bgcolor=\"#90EE90\">3.342</td>
+<td>3.342</td>
 </tr>
 <tr>
 <td>Case640</td>
@@ -421,7 +421,7 @@ in the table after the plots below.
 <td>5.763</td>
 <td>5.893</td>
 <td>5.477</td>
-<td bgcolor=\"#90EE90\">5.760</td>
+<td>5.76</td>
 </tr>
 <tr>
 <td>Case650</td>
@@ -433,19 +433,19 @@ in the table after the plots below.
 <td>4.817</td>
 <td>4.945</td>
 <td>4.632</td>
-<td bgcolor=\"#90EE90\">4.854</td>
+<td>4.854</td>
 </tr>
 <tr>
 <td>Case660</td>
 <td>1.91</td>
 <td>4.33</td>
 <td>3.014</td>
-<td>3.340</td>
-<td>3.260</td>
+<td>3.34</td>
+<td>3.26</td>
 <td>3.232</td>
 <td>3.219</td>
 <td>2.966</td>
-<td bgcolor=\"#90EE90\">3.351</td>
+<td>3.351</td>
 </tr>
 <tr>
 <td>Case670</td>
@@ -455,33 +455,33 @@ in the table after the plots below.
 <td>6.578</td>
 <td>5.954</td>
 <td>6.623</td>
-<td>6.520</td>
+<td>6.52</td>
 <td>6.198</td>
-<td bgcolor=\"#90EE90\">6.401</td>
+<td>6.401</td>
 </tr>
 <tr>
 <td>Case680</td>
 <td>5.13</td>
 <td>7.70</td>
 <td>5.938</td>
-<td>6.430</td>
+<td>6.43</td>
 <td>5.932</td>
 <td>6.444</td>
 <td>6.529</td>
-<td>6.310</td>
-<td bgcolor=\"#90EE90\">6.147</td>
+<td>6.31</td>
+<td>6.147</td>
 </tr>
 <tr>
 <td>Case685</td>
 <td>7.70</td>
 <td>10.14</td>
-<td>9.130</td>
+<td>9.13</td>
 <td>8.859</td>
 <td>8.238</td>
 <td>9.119</td>
 <td>9.121</td>
 <td>8.851</td>
-<td bgcolor=\"#90EE90\">8.986</td>
+<td>8.986</td>
 </tr>
 <tr>
 <td>Case695</td>
@@ -493,19 +493,19 @@ in the table after the plots below.
 <td>9.172</td>
 <td>9.149</td>
 <td>9.039</td>
-<td bgcolor=\"#90EE90\">8.768</td>
+<td>8.768</td>
 </tr>
 <tr>
 <td>Case900</td>
 <td>2.35</td>
 <td>2.60</td>
-<td>2.714</td>
+<td bgcolor=\"#FF4500\">2.714</td>
 <td>2.464</td>
 <td>2.383</td>
 <td>2.489</td>
 <td>2.488</td>
-<td>2.267</td>
-<td bgcolor=\"#90EE90\">2.412</td>
+<td bgcolor=\"#FF4500\">2.267</td>
+<td>2.412</td>
 </tr>
 <tr>
 <td>Case910</td>
@@ -513,23 +513,23 @@ in the table after the plots below.
 <td>0.86</td>
 <td>1.484</td>
 <td>1.415</td>
-<td>1.490</td>
+<td>1.49</td>
 <td>1.383</td>
 <td>1.283</td>
 <td>1.191</td>
-<td bgcolor=\"#90EE90\">1.629</td>
+<td>1.629</td>
 </tr>
 <tr>
 <td>Case920</td>
 <td>2.43</td>
 <td>3.08</td>
-<td>3.128</td>
+<td bgcolor=\"#FF4500\">3.128</td>
 <td>2.789</td>
 <td>2.706</td>
 <td>2.731</td>
 <td>2.814</td>
 <td>2.549</td>
-<td bgcolor=\"#90EE90\">2.673</td>
+<td>2.673</td>
 </tr>
 <tr>
 <td>Case930</td>
@@ -541,7 +541,7 @@ in the table after the plots below.
 <td>1.919</td>
 <td>1.654</td>
 <td>1.672</td>
-<td bgcolor=\"#90EE90\">2.186</td>
+<td>2.186</td>
 </tr>
 <tr>
 <td>Case940</td>
@@ -552,8 +552,8 @@ in the table after the plots below.
 <td>2.343</td>
 <td>2.424</td>
 <td>2.428</td>
-<td>2.203</td>
-<td bgcolor=\"#90EE90\">2.358</td>
+<td bgcolor=\"#FF4500\">2.203</td>
+<td>2.358</td>
 </tr>
 <tr>
 <td>Case950</td>
@@ -565,43 +565,43 @@ in the table after the plots below.
 <td>0.707</td>
 <td>0.656</td>
 <td>0.642</td>
-<td bgcolor=\"#90EE90\">0.747</td>
+<td>0.747</td>
 </tr>
 <tr>
 <td>Case960</td>
 <td>0.62</td>
 <td>1.81</td>
-<td>0.000</td>
+<td>0.0</td>
 <td>0.926</td>
 <td>0.909</td>
 <td>0.907</td>
-<td>0.950</td>
+<td>0.95</td>
 <td>0.789</td>
-<td bgcolor=\"#90EE90\">0.946</td>
+<td>0.946</td>
 </tr>
 <tr>
 <td>Case980</td>
 <td>3.52</td>
 <td>4.49</td>
-<td>3.501</td>
+<td bgcolor=\"#FF4500\">3.501</td>
 <td>3.995</td>
 <td>3.758</td>
 <td>3.712</td>
 <td>3.775</td>
-<td>3.519</td>
+<td bgcolor=\"#FF4500\">3.519</td>
 <td bgcolor=\"#FF4500\">3.423</td>
 </tr>
 <tr>
 <td>Case985</td>
 <td>5.95</td>
 <td>7.26</td>
-<td>7.273</td>
+<td bgcolor=\"#FF4500\">7.273</td>
 <td>6.234</td>
-<td>5.880</td>
+<td bgcolor=\"#FF4500\">5.88</td>
 <td>6.359</td>
 <td>6.249</td>
 <td>6.113</td>
-<td bgcolor=\"#90EE90\">6.165</td>
+<td>6.165</td>
 </tr>
 <tr>
 <td>Case995</td>
@@ -613,7 +613,7 @@ in the table after the plots below.
 <td>7.203</td>
 <td>7.149</td>
 <td>7.064</td>
-<td bgcolor=\"#90EE90\">6.800</td>
+<td>6.8</td>
 </tr>
 </table>
 <br/>
