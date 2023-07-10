@@ -57,6 +57,9 @@ protected
 
   Boolean y_internal "True: the angular velocity is greater than zero";
 
+initial equation 
+  pre(y_internal)=false; "Value of pre(y_internal) at initial time is false"
+
 equation
   // check if omega_s > 0 with hysteresis
   y_internal = (not pre(y_internal) and omega_s > omegaHys
