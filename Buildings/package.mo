@@ -320,13 +320,14 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.FMI</b>
     </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
+<tr><td valign=\"top\">Buildings.Fluid.FMI.Adaptors.Outlet
+  </td>
+  <td valign=\"top\">Corrected dimension of <code>X</code> in function call, which caused the model to not translate with some tools
+                     if the media has only one component such as water.<br/>
+                     <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1768\">IBPSA, #1768</a>.
+  </td>
 </tr>
 </table>
 <p>
