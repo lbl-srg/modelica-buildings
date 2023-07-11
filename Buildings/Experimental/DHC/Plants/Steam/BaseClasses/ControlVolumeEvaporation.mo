@@ -21,17 +21,16 @@ equation
 annotation (defaultComponentName="vol",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}}), graphics={
+        extent={{-100,-100},{100,100}}),
+    graphics={
       Line(
         points={{40,42},{0,22},{40,-18},{0,-38}},
         color={238,46,47},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}}),
+        smooth=Smooth.Bezier),
       Line(
         points={{0,42},{-40,22},{0,-18},{-40,-38}},
         color={238,46,47},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}})}),
+        smooth=Smooth.Bezier)}),
     Documentation(revisions="<html>
 <ul>
 <li>
