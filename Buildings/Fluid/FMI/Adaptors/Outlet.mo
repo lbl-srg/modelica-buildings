@@ -85,7 +85,7 @@ equation
   bacPro_internal.T  = Medium.temperature_phX(
     p = p_in_internal,
     h = port_a.h_outflow,
-    X = port_a.Xi_outflow);
+    X = cat(1, port_a.Xi_outflow, {1-sum(port_a.Xi_outflow)}));
   bacPro_internal.C  = port_a.C_outflow;
 
   // Conditional connectors for pressure
@@ -152,6 +152,11 @@ for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 29, 2023, by Michael Wetter:<br/>
+Corrected dimension of <code>X</code> in function call.<br/>
+See <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1768\">#1768</a>.
+</li>
 <li>
 January 18, 2019, by Jianjun Hu:<br/>
 Limited the media choice to moist air and water.
