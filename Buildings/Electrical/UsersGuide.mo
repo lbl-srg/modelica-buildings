@@ -7,7 +7,7 @@ Documentation(info="<html>
 <h4>Overview</h4>
 <p>
 The <a href=\"modelica://Buildings.Electrical\">Buildings.Electrical</a> package extends the
-capabilities of the library with models for electrical systems, allowing
+capabilities of the Buildings library with models for electrical systems, allowing
 to study building-to-grid integration such as the effect of large scale PV on the
 voltage of the electrical distribution grid.
 The package contains models for different types of sources, loads, storage equipment,
