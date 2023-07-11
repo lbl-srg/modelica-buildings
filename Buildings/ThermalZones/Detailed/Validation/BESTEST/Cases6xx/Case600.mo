@@ -2,10 +2,24 @@ within Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx;
 model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Case600FF(
     redeclare Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.StandardResults staRes(
-    annualHea(Min=3.993*3.6e9, Max=4.504*3.6e9, Mean=4.213*3.6e9),
-    annualCoo(Min=-5.432*3.6e9, Max=-6.162*3.6e9, Mean=-5.856*3.6e9),
+      annualHea(
+        Min=3.993*3.6e9,
+        Max=4.504*3.6e9,
+        Mean=4.213*3.6e9),
+      annualCoo(
+        Min=-5.432*3.6e9,
+        Max=-6.162*3.6e9,
+        Mean=-5.856*3.6e9),
     peakHea(Min=3.020*1000, Max=3.359*1000, Mean=3.184*1000),
     peakCoo(Min=-5.422*1000, Max=-6.481*1000, Mean=-6.024*1000)));
+  replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.CriteriaLimits
+      heaCri(lowerLimit=3.75*3.6e9, upperLimit=4.98*3.6e9)
+    "Annual heating load limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
+    annotation (Placement(transformation(extent={{-96,82},{-82,96}})));
+  replaceable parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.CriteriaLimits
+      cooCri(lowerLimit=-5*3.6e9, upperLimit=-6.83*3.6e9)
+    "Annual cooling load limits of the test acceptance criteria from ASHRAE/ANSI Standard 140"
+    annotation (Placement(transformation(extent={{-96,62},{-82,76}})));
   Buildings.Controls.OBC.CDL.Continuous.PID conHea(
     k=0.1,
     Ti=300,
@@ -128,6 +142,12 @@ equation
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li>    
 <li>
 April 8, 2020, by Michael Wetter:<br/>
 Removed <code>initType</code> in PID controller.

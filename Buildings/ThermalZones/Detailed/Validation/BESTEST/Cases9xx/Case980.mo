@@ -8,7 +8,9 @@ model Case980
      annualHea(Min=0.246*3.6e9, Max=0.720*3.6e9, Mean=0.407*3.6e9),
      annualCoo(Min=-3.501*3.6e9, Max=-3.995*3.6e9, Mean=-3.710*3.6e9),
      peakHea(Min=1.254*1000, Max=1.693*1000, Mean=1.489*1000),
-     peakCoo(Min=-2.930*1000, Max=-3.668*1000, Mean=-3.348*1000)));
+     peakCoo(Min=-2.930*1000, Max=-3.668*1000, Mean=-3.348*1000)),
+   heaCri(lowerLimit=-0.61*3.6e9, upperLimit=1.28*3.6e9),
+   cooCri(lowerLimit=-3.52*3.6e9, upperLimit=-4.49*3.6e9));
 
   parameter Buildings.ThermalZones.Detailed.Validation.BESTEST.Data.ExteriorWallCase980 extWalCase980(
     roughness_a=Buildings.HeatTransfer.Types.SurfaceRoughness.Rough)
@@ -28,6 +30,12 @@ annotation (
       Tolerance=1e-06),
     Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 May 18, 2022, by Jianjun Hu:<br/>
 First implementation.
