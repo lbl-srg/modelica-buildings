@@ -3,13 +3,16 @@ model ControlVolumeEvaporation
   "Example model for heat transfer with the evaporation control volume"
   extends Modelica.Icons.Example;
 
-package MediumSte = Buildings.Media.Steam
+  package MediumSte = Buildings.Media.Steam
     "Steam medium - Medium model for port_b (outlet)";
-package MediumWat =
+  package MediumWat =
       Buildings.Media.Specialized.Water.TemperatureDependentDensity
     "Water medium - Medium model for port_a (inlet)";
 
+  parameter Modelica.Units.SI.AbsolutePressure p_start = 1E6 "Initial pressure";
+
   Buildings.Experimental.DHC.Plants.Steam.BaseClasses.ControlVolumeEvaporation volDyn(
+    p_start=p_start,
     V=1,
     redeclare package MediumWat = MediumWat,
     redeclare package MediumSte = MediumSte,
@@ -23,6 +26,7 @@ package MediumWat =
     redeclare package MediumSte = MediumSte,
     m_flow_nominal=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    p_start=p_start,
     allowFlowReversal=true) "Steady volume"
     annotation (Placement(transformation(extent={{10,-40},{30,-60}})));
   Modelica.Fluid.Sources.MassFlowSource_T sou(
@@ -39,7 +43,7 @@ package MediumWat =
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Fluid.Sources.FixedBoundary bou(
     redeclare package Medium = MediumSte,
-    p=volDyn.p_start,
+    p=p_start,
     nPorts=2) "Boundary condition"
     annotation (Placement(transformation(extent={{80,-20},{60,0}})));
   Modelica.Blocks.Sources.Ramp ramp(
@@ -72,10 +76,10 @@ equation
                              color={0,0,127}));
   connect(ramp.y, sou1.m_flow_in) annotation (Line(points={{-69,-10},{-40,-10},
           {-40,-42},{-20,-42}}, color={0,0,127}));
-  connect(volSte.port_b, bou.ports[1]) annotation (Line(points={{30,-50},{50,
-          -50},{50,-11},{60,-11}}, color={0,127,255}));
+  connect(volSte.port_b, bou.ports[1]) annotation (Line(points={{30,-50},{50,-50},
+          {50,-8},{60,-8}},        color={0,127,255}));
   connect(volDyn.port_b, bou.ports[2])
-    annotation (Line(points={{30,-10},{60,-10},{60,-9}}, color={0,127,255}));
+    annotation (Line(points={{30,-10},{60,-10},{60,-12}},color={0,127,255}));
   annotation (Documentation(
         info="<html>
 <p>
