@@ -210,13 +210,11 @@ equation
       Line(
         points={{20,18},{0,8},{20,-12},{0,-22}},
         color={0,0,0},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}}),
+        smooth=Smooth.Bezier),
       Line(
         points={{-2,18},{-22,8},{-2,-12},{-22,-22}},
         color={0,0,0},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}})}), Diagram(coordinateSystem(
+        smooth=Smooth.Bezier)}), Diagram(coordinateSystem(
           preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>
