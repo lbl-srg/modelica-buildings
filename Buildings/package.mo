@@ -232,6 +232,11 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        and free cooling in an ambient district network.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Combined
+    </td>
+    <td valign=\"top\">Package of models for central plants that provide heating and cooling.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
     </td>
     <td valign=\"top\">Package that contains models for standard connection

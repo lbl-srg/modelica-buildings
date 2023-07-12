@@ -1,5 +1,5 @@
 within Buildings.Experimental.DHC.Plants;
-package Combined "Package of models for central heating and cooling plants"
+package Combined "Package of models for central plants that provide heating and cooling"
   extends Modelica.Icons.VariantsPackage;
 
   annotation (Documentation(info="<html>
