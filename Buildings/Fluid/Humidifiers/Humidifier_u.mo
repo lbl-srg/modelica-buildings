@@ -5,7 +5,8 @@ model Humidifier_u
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol(
-    final prescribedHeatFlowRate=true));
+    final prescribedHeatFlowRate=true,
+    simplify_m_temperature=false));
 
   parameter Modelica.Units.SI.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";

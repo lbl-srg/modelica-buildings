@@ -17,6 +17,9 @@ model PartialMixingVolume
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero";
 
+  constant Boolean simplify_m_temperature = true
+    "If true, then mass is independent of temperature in conservation equations";
+
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   // Port definitions
@@ -69,6 +72,7 @@ protected
         annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.Interfaces.ConservationEquation dynBal(
     final simplify_mWat_flow = simplify_mWat_flow,
+    final simplify_m_temperature=simplify_m_temperature,
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -176,11 +180,11 @@ equation
     annotation (Line(points={{-31,0},{-38,0}},   color={0,0,127}));
   connect(heaFloSen.port_b, preTem.port)
     annotation (Line(points={{-70,0},{-65,0},{-60,0}},    color={191,0,0}));
-  connect(heaFloSen.Q_flow, steBal.Q_flow) annotation (Line(points={{-80,-10},{
-          -80,-16},{6,-16},{6,18},{18,18}},
+  connect(heaFloSen.Q_flow, steBal.Q_flow) annotation (Line(points={{-80,-11},{-80,
+          -16},{6,-16},{6,18},{18,18}},
                                      color={0,0,127}));
-  connect(heaFloSen.Q_flow, dynBal.Q_flow) annotation (Line(points={{-80,-10},{
-          -80,-10},{-80,-16},{6,-16},{6,24},{50,24},{50,16},{58,16}},
+  connect(heaFloSen.Q_flow, dynBal.Q_flow) annotation (Line(points={{-80,-11},{-80,
+          -11},{-80,-16},{6,-16},{6,24},{50,24},{50,16},{58,16}},
                                                                color={0,0,127}));
   annotation (
 defaultComponentName="vol",
@@ -304,6 +308,13 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 12, 2023, by Michael Wetter:<br/>
+Decoupled mass from energy balance when calculating <code>m</code>.
+This is controlled through the constant <code>simplify_m_temperature</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3459\">
+Buildings, #3459</a>.
+</li>
 <li>
 October 24, 2022, by Michael Wetter:<br/>
 Improved conversion from <code>Xi</code> to <code>X</code> so that it also works

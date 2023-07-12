@@ -11,6 +11,9 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   constant Boolean simplify_mWat_flow = true
     "Set to true to cause port_a.m_flow + port_b.m_flow = 0 even if mWat_flow is non-zero. Used only if Medium.nX > 1";
 
+  constant Boolean simplify_m_temperature = true
+    "If true, then mass is independent of temperature in conservation equations";
+
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
@@ -134,6 +137,10 @@ protected
       p=p_start,
       X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass";
 
+  parameter Modelica.Units.SI.Mass m_start = rho_start*fluidVolume
+    "Initial mass of volume";
+  Modelica.Units.SI.Mass mBal "Mass used in the energy and species balance equation";
+
   // Parameter for avoiding extra overhead calculations when CSen==0
   final parameter Boolean computeCSen = abs(mSenFac-1) > Modelica.Constants.eps
     annotation(Evaluate=true);
@@ -246,21 +253,26 @@ equation
       // If moisture is neglected in mass balance, assume for computation
       // of the mass of air that the air is at Medium.X_default.
       m = fluidVolume*Medium.density(Medium.setState_phX(
-        p = medium.p,
-        h = hOut,
-        X = Medium.X_default));
+          p = medium.p,
+          h = hOut,
+          X = Medium.X_default));
     else
       // Use actual density
       m = fluidVolume*medium.d;
     end if;
   end if;
-  mXi = m*medium.Xi;
+
+  mBal = if simplify_m_temperature then m_start else m;
+
   if computeCSen then
-    U = m*medium.u + CSen*(medium.T-Medium.reference_T);
+    U = mBal*medium.u + CSen*(medium.T-Medium.reference_T);
   else
-    U = m*medium.u;
+    U = mBal*medium.u;
   end if;
-  mC = m*C;
+  mXi= mBal*medium.Xi;
+  mC = mBal*C;
+
+
 
   hOut = medium.h;
   XiOut = medium.Xi;
@@ -309,7 +321,7 @@ equation
   if substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     zeros(Medium.nXi) = mbXi_flow + mWat_flow_internal * s;
   else
-    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/m;
+    der(medium.Xi) = (mbXi_flow + mWat_flow_internal * s)/mBal;
   end if;
 
   if traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
@@ -426,6 +438,13 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 12, 2023, by Michael Wetter:<br/>
+Decoupled mass from energy balance when calculating <code>m</code>.
+This is controlled through the constant <code>simplify_m_temperature</code>.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3459\">
+Buildings, #3459</a>.
+</li>
 <li>
 October 24, 2022, by Michael Wetter:<br/>
 Conditionally removed assertion that checks for water content as this is
