@@ -69,37 +69,6 @@ model Pump "Motor coupled chiller"
      annotation (Dialog(tab="Advanced",
                        group="Controller",
                        enable=have_controller));
-  parameter Real wp(min=0) = 1
-    "Set-point weight for Proportional block (0..1)"
-     annotation (Dialog(tab="Advanced",
-                        group="Controller",
-                        enable=have_controller));
-  parameter Real wd(min=0) = 0
-    "Set-point weight for Derivative block (0..1)"
-     annotation(Dialog(tab="Advanced",
-                        group="Controller",
-                        enable=have_controller and 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PD or 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
-    "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=have_controller and 
-   controllerType==.Modelica.Blocks.Types.SimpleController.PI or 
-   controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
-    "The higher Nd, the more ideal the derivative block"
-      annotation(Dialog(tab="Advanced",
-                        group="Controller",
-                        enable=have_controller and 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PD or 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Boolean reverseActing = false
-    "Set to true for reverse acting, or false for direct acting control action"
-      annotation (Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=have_controller));
 
   final Modelica.Blocks.Sources.RealExpression loaTor(y=pum.shaft.tau)
     "Pump torque block"
@@ -116,7 +85,13 @@ model Pump "Motor coupled chiller"
     final R_r=R_r,
     final X_s=X_s,
     final X_r=X_r,
-    final X_m=X_m) "Motor model"
+    final X_m=X_m
+    final controllerType=controllerType,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=yMax,
+    final yMin=yMin) "Motor model"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 
   Modelica.Blocks.Interfaces.RealInput setPoi "Set point of control target"
