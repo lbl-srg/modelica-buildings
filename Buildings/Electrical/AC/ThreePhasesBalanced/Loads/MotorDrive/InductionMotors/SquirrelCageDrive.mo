@@ -54,37 +54,7 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
      annotation (Dialog(tab="Advanced", 
                        group="Controller",
                        enable=have_controller));
-  parameter Real wp(min=0) = 1
-    "Set-point weight for Proportional block (0..1)"
-     annotation (Dialog(tab="Advanced",
-                        group="Controller", 
-                        enable=have_controller));
-  parameter Real wd(min=0) = 0
-    "Set-point weight for Derivative block (0..1)"
-     annotation(Dialog(tab="Advanced", 
-                        group="Controller", 
-                        enable=have_controller and 
-  controllerType==.Modelica.Blocks.Types.SimpleController.PD or 
-  controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
-    "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(tab="Advanced", 
-                       group="Controller", 
-                       enable=have_controller and 
-   controllerType==.Modelica.Blocks.Types.SimpleController.PI or 
-   controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
-    "The higher Nd, the more ideal the derivative block"
-      annotation(Dialog(tab="Advanced", 
-                        group="Controller", 
-                        enable=have_controller and 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PD or 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Boolean reverseActing = true
-    "Set to true for reverse acting, or false for direct acting control action"
-    annotation (Dialog(tab="Advanced", 
-                       group="Controller",
-                       enable=have_controller));
+  
   Real s(min=0,max=1) "Motor slip";
   Real v_rms "RMS voltage";
   Modelica.Units.SI.Torque tau_e
@@ -110,13 +80,13 @@ model SquirrelCageDrive "Squirrel cage type induction motor with electrical inte
   final Modelica.Blocks.Sources.RealExpression Vrms(y=v_rms) "RMS voltage"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Controls.Continuous.LimPID VFD(
-    controllerType=controllerType,
-    Td=Td,
-    yMax=yMax,
-    yMin=yMin,
-    k=k,
-    Ti=Ti,
-    reverseActing=true) if have_controller
+    final controllerType=controllerType,
+    final Td=Td,
+    final yMax=yMax,
+    final yMin=yMin,
+    final k=k,
+    final Ti=Ti,
+    final reverseActing=true) if have_controller
     "PI controller as variable frequency drive"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   final Modelica.Blocks.Sources.RealExpression fre(y=omega/(2*Modelica.Constants.pi))
