@@ -116,7 +116,7 @@ partial model PartialPlant
     annotation (Placement(transformation(extent={{300,140},{340,180}}),
       iconTransformation(extent={{300,120},{380,200}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput QFue_flow(
-    each final unit="W") if have_fue
+    final unit="W") if have_fue
     "Fuel energy input rate"
     annotation (
       Placement(transformation(extent={{300,100},{340,140}}),
