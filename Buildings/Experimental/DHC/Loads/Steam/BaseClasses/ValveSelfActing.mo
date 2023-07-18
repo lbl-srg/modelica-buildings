@@ -123,7 +123,7 @@ First implementation.
         Polygon(
           points={{0,0},{-76,60},{-76,-60},{0,0}},
           lineColor={0,0,0},
-          fillColor=DynamicSelect({0,0,0}, y*{255,255,255}),
+          fillColor=DynamicSelect({0,0,0}, max(0, min(1, dpSet.y/pb_nominal))*{255,255,255}),
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{0,0},{76,60},{76,-60},{0,0}},
