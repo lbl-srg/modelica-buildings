@@ -184,10 +184,10 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     final Ni=NiPum,
     final Nd=NdPum)
     "Pump control"
-    annotation (Placement(transformation(extent={{-80,80},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Modelica.Blocks.Math.Gain VNor(final k=1/VBoiWatSet)
     "Normalized volume setpoint"
-    annotation (Placement(transformation(extent={{160,80},{140,100}})));
+    annotation (Placement(transformation(extent={{160,60},{140,80}})));
   Buildings.Controls.Continuous.LimPID conBoi(
     final controllerType=controllerTypeBoi,
     final k=kBoi,
@@ -207,7 +207,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     "Steam pressure sensor"
     annotation (Placement(transformation(extent={{220,-80},{200,-100}})));
   Modelica.Blocks.Sources.Constant uni(final k=1) "Unitary"
-    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
+    annotation (Placement(transformation(extent={{-180,100},{-160,120}})));
   Buildings.Fluid.Storage.ExpansionVessel tanFW(
     redeclare final package Medium = Medium,
     final V_start=VTanFW_start,
@@ -231,13 +231,15 @@ equation
   connect(boi.port_b, port_bSerHea)
     annotation (Line(points={{160,0},{300,0}}, color={0,127,255}));
   connect(conPum.y, pumFW.y)
-    annotation (Line(points={{-59,70},{-30,70},{-30,12}}, color={0,0,127}));
+    annotation (Line(points={{-59,110},{-30,110},{-30,12}},
+                                                          color={0,0,127}));
   connect(uni.y, conPum.u_s)
-    annotation (Line(points={{-159,70},{-82,70}}, color={0,0,127}));
+    annotation (Line(points={{-159,110},{-82,110}},
+                                                  color={0,0,127}));
   connect(VNor.y, conPum.u_m)
-    annotation (Line(points={{139,90},{-70,90},{-70,82}}, color={0,0,127}));
+    annotation (Line(points={{139,70},{-70,70},{-70,98}}, color={0,0,127}));
   connect(boi.VLiq, VNor.u)
-    annotation (Line(points={{161,6},{180,6},{180,90},{162,90}},
+    annotation (Line(points={{161,6},{180,6},{180,70},{162,70}},
       color={0,0,127}));
   connect(senPreSte.port, boi.port_b)
     annotation (Line(points={{210,-80},{210,0},{160,0}}, color={0,127,255}));
@@ -249,7 +251,7 @@ equation
     annotation (Line(points={{101,-72},{120,-72},{120,8},{138,8}},
       color={0,0,127}));
   connect(uni.y, conBoi.u_s)
-    annotation (Line(points={{-159,70},{-150,70},{-150,-72},{78,-72}},
+    annotation (Line(points={{-159,110},{-150,110},{-150,-72},{78,-72}},
       color={0,0,127}));
   connect(QFue_flow, boi.QFueFlo)
     annotation (Line(points={{320,120},{200,120},{200,9},{161,9}},
