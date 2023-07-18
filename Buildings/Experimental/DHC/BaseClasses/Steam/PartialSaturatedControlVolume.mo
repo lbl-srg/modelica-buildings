@@ -36,9 +36,9 @@ partial model PartialSaturatedControlVolume
     final start=VWat_start,
     fixed=true,
     stateSelect=if massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState
-    then StateSelect.default else StateSelect.prefer)
+      then StateSelect.default else StateSelect.prefer)
     "Volume of liquid water phase";
-  Modelica.Units.SI.VolumeFlowRate VWat_flow(start=0) = der(VWat)
+  Modelica.Units.SI.VolumeFlowRate VWat_flow(start=0)
     "Volumetric flow rate of liquid water";
   MediumSte.SpecificEnthalpy hSte "Specific enthalpy of steam vapor";
   MediumWat.SpecificEnthalpy hWat "Specific enthalpy of liquid water";
@@ -46,7 +46,7 @@ partial model PartialSaturatedControlVolume
   MediumWat.Density rhoWat "Density of liquid water";
   Modelica.Units.SI.Mass m "Total mass of volume";
   Modelica.Units.SI.Energy U "Internal energy";
-  Modelica.Units.SI.MassFlowRate mWat_flow "Feed water mass flow rate";
+  Modelica.Units.SI.MassFlowRate mWat_flow "Water mass flow rate";
   Modelica.Units.SI.MassFlowRate mSte_flow "Steam mass flow rate";
 
   // Input
@@ -54,7 +54,7 @@ partial model PartialSaturatedControlVolume
     T(final start=T_start)) if not steadyDynamics "Heat port"
   annotation (Placement(transformation(extent={{-10,-90},{10,-110}})));
   //Output
-  Modelica.Blocks.Interfaces.RealOutput VLiq(unit="m3") "Liquid volume"
+  Modelica.Blocks.Interfaces.RealOutput VLiq(final unit="m3") "Liquid volume"
   annotation (Placement(transformation(
         origin={110,70},
         extent={{-10,-10},{10,10}},
@@ -112,6 +112,7 @@ equation
   else
     der(m) = mWat_flow + mSte_flow "Dynamic mass balance";
   end if;
+  der(VWat) = VWat_flow;
 
   // Energy balance
 
@@ -144,12 +145,12 @@ equation
   assert(VSte >= 0, "There is no more steam vapor in the volume.");
   assert(VWat >= 0, "There is no more liquid water in the volume.");
 
-    connect(portT.y,preTem. T)
-      annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
-    connect(heaFloSen.port_b,preTem. port)
-      annotation (Line(points={{-30,-50},{-40,-50}},color={191,0,0}));
-    connect(heaFloSen.port_a, heatPort)
-      annotation (Line(points={{-10,-50},{0,-50},{0,-100}}, color={191,0,0}));
+  connect(portT.y,preTem. T)
+    annotation (Line(points={{-69,-50},{-62,-50}},color={0,0,127}));
+  connect(heaFloSen.port_b,preTem. port)
+    annotation (Line(points={{-30,-50},{-40,-50}},color={191,0,0}));
+  connect(heaFloSen.port_a, heatPort)
+    annotation (Line(points={{-10,-50},{0,-50},{0,-100}}, color={191,0,0}));
 
 annotation (defaultComponentName="vol",
     Icon(coordinateSystem(
@@ -266,13 +267,14 @@ Three principal assumptions are made with this model:
 </p>
 <ul>
 <li>
-The fluid within the volume is wet steam
+The fluid within the volume is wet steam.
 </li>
 <li>
 Liquid and vapor subcomponents are at equilibrium; and
 </li>
 <li>
-Fluid is discharged from the volume as either saturated 
+Fluid is discharged from the volume as ei
+ther saturated 
 liquid or saturated vapor.
 </li>
 
