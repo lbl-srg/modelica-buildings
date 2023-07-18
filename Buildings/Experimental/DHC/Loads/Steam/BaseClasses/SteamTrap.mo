@@ -11,11 +11,12 @@ model SteamTrap "Steam trap with isenthalpic expansion from high to atmospheric
     Buildings.Media.Steam.saturationTemperature(pAtm)
     "Saturation temperature at atmospheric pressure";
 
-  Medium.SpecificEnthalpy dh
-    "Change in enthalpy";
   Modelica.Blocks.Interfaces.RealOutput QLos_flow(unit="W")
     "Heat transfer loss rate"
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
+
+  Medium.SpecificEnthalpy dh
+    "Change in enthalpy";
 equation
   // Pressure setpoints
   port_b.p = pAtm;
@@ -23,7 +24,9 @@ equation
   // Flashed steam condenses
   port_b.h_outflow = Medium.specificEnthalpy(
     state=Medium.setState_pTX(
-      p=pAtm,T=TSat,X=inStream(port_a.Xi_outflow)));
+      p=pAtm,
+      T=TSat,
+      X=inStream(port_a.Xi_outflow)));
   dh = port_b.h_outflow - inStream(port_a.h_outflow);
 
   // Return reverse flow as the inStream value
