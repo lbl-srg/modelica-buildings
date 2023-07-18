@@ -2,7 +2,6 @@ within Buildings.Experimental.DHC.Loads.Steam;
 model BuildingTimeSeriesAtETS
   "Steam heating building interconnection with the district piping only 
   and the load at the ETS provided as a time series."
-
   replaceable package MediumSte = Buildings.Media.Steam constrainedby
     Modelica.Media.Interfaces.PartialMedium
      "Steam medium";
@@ -10,6 +9,10 @@ model BuildingTimeSeriesAtETS
    Buildings.Media.Specialized.Water.TemperatureDependentDensity
    constrainedby Modelica.Media.Interfaces.PartialMedium
     "Water medium";
+
+  constant Boolean allowFlowReversal = false
+    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Set to false because the flow rate is prescribed."
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   parameter Boolean have_prv = false
     "Set to true if the building has a pressure reducing valve (PRV) station";
@@ -61,9 +64,6 @@ model BuildingTimeSeriesAtETS
     "Total volume of the steam side of the heat exchanger";
 
   // Assumptions
-  parameter Boolean allowFlowReversal = true
-    "= false to simplify equations, assuming, but not enforcing, no flow reversal. Used only if model has two ports."
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Type of energy balance: dynamic (3 initialization options) or steady state"
@@ -167,7 +167,7 @@ model BuildingTimeSeriesAtETS
     final extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic,
     final timeScale=timeScale)
     "Heating demand"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Modelica.Blocks.Continuous.Integrator IntEHea(y(unit="J"))
     "Integrator for heating energy of building"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
@@ -230,8 +230,8 @@ equation
           110,80}}, color={0,0,127}));
   connect(IntEHea.y, EHea) annotation (Line(points={{81,50},{96,50},{96,50},{
           110,50}}, color={0,0,127}));
-  connect(QHea.y[1], Q_flow) annotation (Line(points={{-59,70},{20,70},{20,80},{
-          110,80}}, color={0,0,127}));
+  connect(QHea.y[1], Q_flow) annotation (Line(points={{-59,80},{110,80}},
+                    color={0,0,127}));
   connect(IntEHea.u, Q_flow) annotation (Line(points={{58,50},{20,50},{20,80},{110,
           80}}, color={0,0,127}));
   connect(pumCNR.port_b, port_b)
@@ -246,8 +246,8 @@ equation
     annotation (Line(points={{0,-60},{20,-60}}, color={0,127,255}));
   connect(dh.y, m_flow.u2)
     annotation (Line(points={{21,-30},{30,-30}}, color={0,0,127}));
-  connect(QHea.y[1], m_flow.u1) annotation (Line(points={{-59,70},{20,70},{20,
-          -18},{30,-18}}, color={0,0,127}));
+  connect(QHea.y[1], m_flow.u1) annotation (Line(points={{-59,80},{20,80},{20,-18},
+          {30,-18}},      color={0,0,127}));
   connect(m_flow.y, pumCNR.m_flow_in)
     annotation (Line(points={{53,-24},{60,-24},{60,-48}}, color={0,0,127}));
   connect(hIn.h_out, dh.u1)
