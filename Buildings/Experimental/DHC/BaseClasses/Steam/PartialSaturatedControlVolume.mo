@@ -115,33 +115,37 @@ equation
   der(VWat) = VWat_flow;
 
   // Energy balance
-
   if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     der(U) = 0;
     Q_flow_internal = 0;
   else
     connect(heaFloSen.Q_flow, Q_flow_internal) "Needed because of conditional input";
-    der(U) = Q_flow_internal
+    if allowFlowReversal then
+      der(U) = Q_flow_internal
             + port_a.m_flow*actualStream(port_a.h_outflow)
-            + port_b.m_flow*actualStream(port_b.h_outflow)
-      "Dynamic energy balance";
+            + port_b.m_flow*actualStream(port_b.h_outflow);
+    else
+      der(U) = Q_flow_internal
+            + port_a.m_flow*inStream(port_a.h_outflow)
+            + port_b.m_flow*port_b.h_outflow;
+    end if;
   end if;
 
-// Properties of saturated liquid and steam
+  // Properties of saturated liquid and steam
   T = MediumSte.saturationTemperature(p);
   hSte=MediumSte.specificEnthalpy(stateSte);
   hWat=MediumWat.specificEnthalpy(stateWat);
   rhoSte=MediumSte.density(stateSte);
   rhoWat=MediumWat.density(stateWat);
 
-// boundary conditions at the ports
+  // boundary conditions at the ports
   port_a.p = p;
   port_b.p = p;
 
 // outputs
   VLiq = VWat;
 
-// Check that evaporation is actually possible
+  // Check that evaporation is actually possible
   assert(VSte >= 0, "There is no more steam vapor in the volume.");
   assert(VWat >= 0, "There is no more liquid water in the volume.");
 
