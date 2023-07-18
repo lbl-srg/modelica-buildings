@@ -1,12 +1,12 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay;
 block ResponseProcess
-  "Calculate the lengths of the On period and the Off period, the half period ratio, as well as the times when the tuning starts and ends"
+  "Calculate the lengths of the on and off period, the half period ratio, and the times when the tuning starts and ends"
   parameter Real yHig(min=1E-6) = 1
     "Higher value for the output";
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "Relay switch signal"
+    "Relay switch. True: tuning on perid, False: tuning off period"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(
@@ -19,22 +19,22 @@ block ResponseProcess
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the On period"
+    "Length of the on period"
     annotation (Placement(transformation(extent={{100,60},{140,100}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "length for the Off period"
+    "Length of the off period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triSta
-    "A boolean signal, true if the tuning starts"
+    "True: the tuning starts"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput triEnd
-    "A boolean signal, true if the tuning ends"
+    "True: the tuning ends"
     annotation (Placement(transformation(extent={{100,-100},{140,-60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tau
-    "A real signal of the normalized time delay"
+    "Normalized time delay"
     annotation (Placement(transformation(extent={{100,-10},{140,30}}),
         iconTransformation(extent={{100,-20},{140,20}})));
 protected

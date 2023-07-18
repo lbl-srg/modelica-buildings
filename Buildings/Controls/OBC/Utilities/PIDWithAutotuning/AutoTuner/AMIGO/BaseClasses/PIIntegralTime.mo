@@ -34,17 +34,21 @@ protected
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Block that calculates the input 1 divided by input 2"
     annotation (Placement(transformation(extent={{0,-4},{20,16}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(final k=12)
-    "Block that mutiples the time delay by 12"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
+    final k=12)
+    "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(final k=7)
-    "Block that mutiples the time delay by 7"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
+    final k=7)
+    "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(final k=13)
-    "Block that mutiples the output of mul3 by 13"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
+    final k=13)
+    "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-20,70},{-40,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(final k=0.35)
-    "Block that mutiples the time delay by 0.35"
+  Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai4(
+    final k=0.35)
+    "Block that calculates products of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul1
     "Block that calculates the product of the two inputs"
@@ -61,9 +65,9 @@ protected
 
 equation
   connect(add2.y, Ti)
-    annotation (Line(points={{82,0},{120,0}},   color={0,0,127}));
+    annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(gai4.u, L) annotation (Line(points={{-82,-20},{-92,-20},{-92,-60},{-120,
-          -60}},      color={0,0,127}));
+          -60}}, color={0,0,127}));
   connect(mul3.u1, T) annotation (Line(points={{-62,66},{-90,66},{-90,60},{-120,
           60}}, color={0,0,127}));
   connect(mul3.u2, T) annotation (Line(points={{-62,54},{-90,54},{-90,60},{-120,
@@ -79,27 +83,27 @@ equation
   connect(gai2.y, mul2.u2) annotation (Line(points={{-58,-80},{-6,-80},{-6,-56},
           {-2,-56}}, color={0,0,127}));
   connect(mul2.u1, L) annotation (Line(points={{-2,-44},{-92,-44},{-92,-60},{-120,
-          -60}},                          color={0,0,127}));
+          -60}}, color={0,0,127}));
   connect(gai3.u, mul3.y) annotation (Line(points={{-18,80},{-12,80},{-12,60},{
           -38,60}}, color={0,0,127}));
   connect(add1.u1, mul3.y) annotation (Line(points={{-2,60},{-38,60}},
-                    color={0,0,127}));
+          color={0,0,127}));
   connect(mul1.y, add1.u2) annotation (Line(points={{-18,30},{-10,30},{-10,48},
           {-2,48}}, color={0,0,127}));
   connect(mul2.y, add3.u2) annotation (Line(points={{22,-50},{58,-50}},
-                     color={0,0,127}));
+          color={0,0,127}));
   connect(add3.u1, add1.y) annotation (Line(points={{58,-38},{32,-38},{32,54},{
           22,54}}, color={0,0,127}));
   connect(add3.y, div.u2) annotation (Line(points={{82,-44},{90,-44},{90,-24},{
           -8,-24},{-8,0},{-2,0}},color={0,0,127}));
   connect(div.y, add2.u1)
-    annotation (Line(points={{22,6},{58,6}},                 color={0,0,127}));
+    annotation (Line(points={{22,6},{58,6}}, color={0,0,127}));
   connect(add2.u2, gai4.y) annotation (Line(points={{58,-6},{48,-6},{48,-20},{
           -58,-20}}, color={0,0,127}));
   connect(mul4.u2, L) annotation (Line(points={{-82,6},{-92,6},{-92,-60},{-120,
           -60}}, color={0,0,127}));
   connect(gai3.y, mul4.u1) annotation (Line(points={{-42,80},{-94,80},{-94,18},
-          {-82,18}},                   color={0,0,127}));
+          {-82,18}}, color={0,0,127}));
   connect(mul4.y, div.u1) annotation (Line(points={{-58,12},{-2,12}},
                 color={0,0,127}));
   annotation (defaultComponentName = "PIIntTim",

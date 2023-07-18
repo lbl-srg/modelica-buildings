@@ -22,6 +22,7 @@ block PIGain "Identify the control gain of a PI controller"
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput k
     "Control gain of a PI controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1
     "Calculate the sum of the time constant and the time delay"
@@ -30,13 +31,13 @@ protected
     "Calculate the sum of the two inputs"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const1(final k=0.35)
-    "Constant value 0.35"
+    "Constant value"
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant const2(final k=0.15)
-    "Constant value 0.15"
+    "Constant value"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div1
-    "Block that calculates 0.15 divided by the control gain"
+    "Block that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div2
     "Block that calculates input 1 divided by input 2"
@@ -78,22 +79,20 @@ equation
   connect(mul1.u2, add1.y) annotation (Line(points={{-22,-36},{-32,-36},{-32,
           -30},{-38,-30}}, color={0,0,127}));
   connect(div2.u2, mul1.y) annotation (Line(points={{18,-56},{10,-56},{10,-30},
-          {2,-30}},
-                 color={0,0,127}));
+          {2,-30}}, color={0,0,127}));
   connect(div2.u1, mul4.y) annotation (Line(points={{18,-44},{-20,-44},{-20,-70},
           {-38,-70}}, color={0,0,127}));
   connect(mul2.u1, kp) annotation (Line(points={{-62,26},{-80,26},{-80,60},{
-          -120,60}},               color={0,0,127}));
+          -120,60}}, color={0,0,127}));
   connect(mul2.u2, L) annotation (Line(points={{-62,14},{-80,14},{-80,-76},{
-          -120,-76}},                 color={0,0,127}));
+          -120,-76}}, color={0,0,127}));
   connect(div3.u2, mul2.y) annotation (Line(points={{-22,4},{-30,4},{-30,20},{
           -38,20}},  color={0,0,127}));
   connect(div3.u1, T) annotation (Line(points={{-22,16},{-34,16},{-34,0},{-120,
-          0}},
-        color={0,0,127}));
+          0}}, color={0,0,127}));
   connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}}, color={0,0,127}));
   connect(const2.y, div1.u1) annotation (Line(points={{-58,80},{-50,80},{-50,56},
-          {-42,56}},                   color={0,0,127}));
+          {-42,56}}, color={0,0,127}));
   connect(add2.u2, mul3.y) annotation (Line(points={{18,24},{10,24},{10,16},{48,
           16},{48,0},{42,0}}, color={0,0,127}));
   connect(add2.y, k) annotation (Line(points={{42,30},{60,30},{60,0},{120,0}},
@@ -104,7 +103,8 @@ equation
           {58,-38}}, color={0,0,127}));
   connect(sub.y, mul3.u2) annotation (Line(points={{82,-44},{90,-44},{90,-22},{
           10,-22},{10,-6},{18,-6}}, color={0,0,127}));
-  annotation (defaultComponentName = "PIGai",
+
+annotation (defaultComponentName = "PIGai",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

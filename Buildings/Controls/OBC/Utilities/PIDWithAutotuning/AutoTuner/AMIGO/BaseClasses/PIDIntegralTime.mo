@@ -22,25 +22,25 @@ block PIDIntegralTime "Identify the integral time of a PID controller"
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 protected
   Buildings.Controls.OBC.CDL.Continuous.Add add1
-    "Block that calculates the sum of the time delay and the product of 0.1 and the input time constant"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add2
-    "Block that calculates the sum of the output of gai1 and the product of 0.8 and the input time constant"
+    "Block that calculates the sum of the two inputs"
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Block that calculates input 1 divided by input 2"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.4)
-    "Block that calculates the product of 0.4 and the time delay"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.8)
-    "Block that calculates the product of 0.8 and the input time constant"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai3(
     final k=0.1)
-    "Block that calculates the product of 0.1 and the input time constant"
+    "Block that calculates the product of a constant and the input"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Block that calculates the two inputs"
@@ -64,8 +64,7 @@ equation
   connect(div.y, mul.u1)
     annotation (Line(points={{42,0},{48,0},{48,6},{58,6}}, color={0,0,127}));
   connect(mul.u2, L) annotation (Line(points={{58,-6},{50,-6},{50,-60},{-120,
-          -60}},
-        color={0,0,127}));
+          -60}}, color={0,0,127}));
   connect(mul.y, Ti)
     annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(div.u2, add1.y) annotation (Line(points={{18,-6},{10,-6},{10,-30},{2,

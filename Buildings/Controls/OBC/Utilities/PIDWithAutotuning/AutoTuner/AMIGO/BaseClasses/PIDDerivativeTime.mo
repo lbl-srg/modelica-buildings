@@ -24,40 +24,39 @@ block PIDDerivativeTime "Identify the derivative time of a PID controller"
 protected
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai1(
     final k=0.3)
-    "Block that calculates the product of 0.3 and the input"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
+    "Block that calculates the product of a constant and the input"
+    annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai2(
     final k=0.5)
-    "Block that calculates the product of 0.5 and the input"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    "Block that calculates the product of a constant and the input"
+    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul
     "Block that calculates the product of the two inputs"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Controls.OBC.CDL.Continuous.Add add
     "Block that calculates the sum of the two inputs"
-    annotation (Placement(transformation(extent={{-40,-64},{-20,-44}})));
+    annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
   Buildings.Controls.OBC.CDL.Continuous.Divide div
     "Block that calculates input 1 divided by input 2"
-    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
 equation
-  connect(div.y, Td) annotation (Line(points={{42,0},{120,0}}, color={0,0,127}));
-  connect(gai1.u, L) annotation (Line(points={{-82,-60},{-96,-60},{-96,-60},{-120,
-          -60}},      color={0,0,127}));
-  connect(gai1.y, add.u2) annotation (Line(points={{-58,-60},{-42,-60}},
-                      color={0,0,127}));
-  connect(add.u1, T) annotation (Line(points={{-42,-48},{-48,-48},{-48,60},{
-          -120,60}}, color={0,0,127}));
-  connect(gai2.u, T) annotation (Line(points={{-82,40},{-90,40},{-90,60},{-120,
+  connect(div.y, Td) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
+  connect(gai1.u, L) annotation (Line(points={{-62,-60},{-120,-60}},
+          color={0,0,127}));
+  connect(gai1.y, add.u2) annotation (Line(points={{-38,-60},{-20,-60},{-20,-46},
+          {-2,-46}},  color={0,0,127}));
+  connect(add.u1, T) annotation (Line(points={{-2,-34},{-80,-34},{-80,60},{-120,
           60}}, color={0,0,127}));
-  connect(mul.u2, L) annotation (Line(points={{-42,4},{-90,4},{-90,-60},{-120,
-          -60}}, color={0,0,127}));
-  connect(gai2.y, mul.u1) annotation (Line(points={{-58,40},{-52,40},{-52,16},{
-          -42,16}}, color={0,0,127}));
-  connect(mul.y, div.u1) annotation (Line(points={{-18,10},{2,10},{2,6},{18,6}},
+  connect(gai2.u, T) annotation (Line(points={{-62,60},{-120,60}}, color={0,0,127}));
+  connect(mul.u2, L) annotation (Line(points={{-2,14},{-70,14},{-70,-60},{-120,-60}},
+          color={0,0,127}));
+  connect(gai2.y, mul.u1) annotation (Line(points={{-38,60},{-20,60},{-20,26},{-2,
+          26}}, color={0,0,127}));
+  connect(mul.y, div.u1) annotation (Line(points={{22,20},{40,20},{40,6},{58,6}},
         color={0,0,127}));
-  connect(div.u2, add.y) annotation (Line(points={{18,-6},{12,-6},{12,-54},{-18,
-          -54}}, color={0,0,127}));
+  connect(div.u2, add.y) annotation (Line(points={{58,-6},{40,-6},{40,-40},{22,-40}},
+         color={0,0,127}));
   annotation (defaultComponentName = "PIDDerTim",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

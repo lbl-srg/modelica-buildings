@@ -31,30 +31,7 @@ block FirstOrderAMIGO
   parameter Real y_reset=xi_start
     "Value to which the controller output is reset if the boolean trigger has a rising edge"
     annotation (Dialog(enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID,group="Integrator reset"));
-  final parameter Real k_start(
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
-    "Start value of the gain of controller"
-    annotation (Dialog(group="Control gains"));
-  final parameter Real Ti_start(
-    final quantity="Time",
-    final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.5
-    "Start value of the time constant of integrator block"
-    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
-  final parameter Real Td_start(
-    final quantity="Time",
-    final unit="s",
-    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
-    "Start value of the time constant of derivative block"
-    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
-  final parameter Real yHig(min=1E-6) = 1
-    "Higher value for the relay output";
-  final parameter Real yLow(min=1E-6) = 0.1
-    "Lower value for the relay output";
-  final parameter Real deaBan(min=1E-6) = 0.1
-    "Deadband for holding the output value";
-  final parameter Real yRef(min=1E-6) = 0.8
-    "Reference output for the tuning process";
+
   Buildings.Controls.OBC.CDL.Interfaces.RealInput u_s
     "Connector of setpoint input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),iconTransformation(extent={{-140,-20},{-100,20}})));
@@ -126,9 +103,35 @@ block FirstOrderAMIGO
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Switch the block output to the output from the PID controller when the autotuning is disabled or is completed "
     annotation (Placement(transformation(extent={{60,-70},{80,-50}})));
-  Buildings.Controls.OBC.CDL.Logical.Not not1 "Becomes true when the autotuning is disabled"
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Becomes true when the autotuning is disabled"
     annotation (Placement(transformation(extent={{30,-78},{50,-58}})));
+
 protected
+  final parameter Real k_start(
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=1
+    "Start value of the gain of controller"
+    annotation (Dialog(group="Control gains"));
+  final parameter Real Ti_start(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.5
+    "Start value of the time constant of integrator block"
+    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PI or controllerType == CDL.Types.SimpleController.PID));
+  final parameter Real Td_start(
+    final quantity="Time",
+    final unit="s",
+    min=100*Buildings.Controls.OBC.CDL.Constants.eps)=0.1
+    "Start value of the time constant of derivative block"
+    annotation (Dialog(group="Control gains",enable=controllerType == CDL.Types.SimpleController.PD or controllerType == CDL.Types.SimpleController.PID));
+  final parameter Real yHig(min=1E-6) = 1
+    "Higher value for the relay output";
+  final parameter Real yLow(min=1E-6) = 0.1
+    "Lower value for the relay output";
+  final parameter Real deaBan(min=1E-6) = 0.1
+    "Deadband for holding the output value";
+  final parameter Real yRef(min=1E-6) = 0.8
+    "Reference output for the tuning process";
   final parameter Boolean with_D=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
     "Boolean flag to enable derivative action"
     annotation (Evaluate=true,HideResult=true);

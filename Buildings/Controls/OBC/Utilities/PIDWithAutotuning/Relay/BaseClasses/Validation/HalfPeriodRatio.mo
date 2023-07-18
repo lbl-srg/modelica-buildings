@@ -3,7 +3,7 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio
     halPerRat
     "Calculate the half period ratio"
-    annotation (Placement(transformation(extent={{22,-10},{42,10}})));
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig1(
     amplitude=-0.1,
     width=0.2,
@@ -31,13 +31,13 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
   connect(tOff.y, halPerRat.tOff) annotation (Line(points={{-58,-30},{0,-30},{0,
-          -6},{20,-6}},       color={0,0,127}));
+          -6},{18,-6}},       color={0,0,127}));
   connect(tOnSig2.y, tOn.u1) annotation (Line(points={{-58,70},{-40,70},{-40,56},
           {-36,56}}, color={0,0,127}));
   connect(tOnSig1.y, tOn.u2) annotation (Line(points={{-58,30},{-40,30},{-40,44},
           {-36,44}}, color={0,0,127}));
   connect(tOn.y, halPerRat.tOn)
-    annotation (Line(points={{-12,50},{0,50},{0,6},{20,6}}, color={0,0,127}));
+    annotation (Line(points={{-12,50},{0,50},{0,6},{18,6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,
