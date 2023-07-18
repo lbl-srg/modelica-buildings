@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Steam.BaseClasses;
 model BoilerPolynomial
   "A equilibrium boiler with water phase change from liquid to vapor, discharging
   saturated steam vapor, with the efficiency curve described by a polynomial."
@@ -164,8 +164,14 @@ equation
   connect(y,y_internal);
 
   if steadyDynamics then
-    -QWat_flow = port_a.m_flow*actualStream(port_a.h_outflow) +
-      port_b.m_flow*actualStream(port_b.h_outflow);
+    if allowFlowReversal then
+      -QWat_flow = port_a.m_flow*actualStream(port_a.h_outflow) +
+                   port_b.m_flow*actualStream(port_b.h_outflow);
+    else
+      -QWat_flow = port_a.m_flow*inStream(port_a.h_outflow) +
+                   port_b.m_flow*port_b.h_outflow;
+
+    end if;
   end if;
 
   connect(UAOve.port_a, heatPort) annotation (Line(
