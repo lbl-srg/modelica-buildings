@@ -45,7 +45,7 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Plant"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.ControlVolumeCondensation vol(
     redeclare final package MediumSte = MediumSte,
     redeclare final package MediumWat = MediumWat,
@@ -54,68 +54,69 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
     final m_flow_nominal=m_flow_nominal,
     V=1)
     "Volume"
-    annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
+    annotation (Placement(transformation(extent={{20,40},{40,20}})));
   Buildings.Fluid.FixedResistances.PressureDrop res(
     redeclare final package Medium = MediumWat,
     final m_flow_nominal=m_flow_nominal,
     final dp_nominal = dpPip)
     "Resistance in district network"
-    annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
+    annotation (Placement(transformation(extent={{0,-60},{-20,-40}})));
   Buildings.Experimental.DHC.Loads.Steam.BaseClasses.SteamTrap steTra(
     redeclare final package Medium = MediumWat,
     final m_flow_nominal=m_flow_nominal)
     "Steam trap"
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Sources.Sine inp(
     amplitude=-0.5,
     f=1/86400,
     phase=3.1415926535898,
     offset=0.5)
     "Input signal"
-    annotation (Placement(transformation(extent={{90,-20},{70,0}})));
+    annotation (Placement(transformation(extent={{-90,-20},{-70,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(
     redeclare final package Medium = MediumWat)
     "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
   Buildings.Controls.Continuous.LimPID conPumCNR(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1,
     Ti=15)
     "Controller"
-    annotation (Placement(transformation(extent={{20,-20},{0,0}})));
+    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Modelica.Blocks.Math.Gain m_flow(final k=m_flow_nominal)
     "Gain to calculate m_flow"
-    annotation (Placement(transformation(extent={{60,-20},{40,0}})));
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.Fluid.Movers.SpeedControlled_y pumCNR(
     redeclare final package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     final per=perPumCNR,
     y_start=1)
     "Condensate return pump"
-    annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
+    annotation (Placement(transformation(extent={{40,-60},{20,-40}})));
 equation
-  connect(res.port_b, pla.port_aSerHea) annotation (Line(points={{-80,-40},{-90,
-          -40},{-90,40},{-80,40}},
+  connect(res.port_b, pla.port_aSerHea) annotation (Line(points={{-20,-50},{-30,
+          -50},{-30,30},{-20,30}},
                               color={0,127,255}));
   connect(vol.port_b, steTra.port_a)
-    annotation (Line(points={{-20,40},{0,40}}, color={0,127,255}));
+    annotation (Line(points={{40,30},{60,30}}, color={0,127,255}));
   connect(pla.port_bSerHea, vol.port_a)
-    annotation (Line(points={{-60,40},{-40,40}},
-                                               color={0,127,255}));
-  connect(steTra.port_b, senMasFlo.port_a) annotation (Line(points={{20,40},{30,
-          40},{30,-40},{20,-40}}, color={0,127,255}));
+    annotation (Line(points={{0,30},{20,30}},  color={0,127,255}));
+  connect(steTra.port_b, senMasFlo.port_a) annotation (Line(points={{80,30},{90,
+          30},{90,-50},{80,-50}}, color={0,127,255}));
   connect(senMasFlo.port_b, pumCNR.port_a)
-    annotation (Line(points={{0,-40},{-20,-40}},color={0,127,255}));
+    annotation (Line(points={{60,-50},{40,-50}},color={0,127,255}));
   connect(pumCNR.port_b, res.port_a)
-    annotation (Line(points={{-40,-40},{-60,-40}}, color={0,127,255}));
+    annotation (Line(points={{20,-50},{0,-50}},    color={0,127,255}));
   connect(senMasFlo.m_flow, conPumCNR.u_m)
-    annotation (Line(points={{10,-29},{10,-22}}, color={0,0,127}));
+    annotation (Line(points={{70,-39},{70,-30},{10,-30},{10,-22}},
+                                                 color={0,0,127}));
   connect(conPumCNR.y, pumCNR.y)
-    annotation (Line(points={{-1,-10},{-30,-10},{-30,-28}}, color={0,0,127}));
+    annotation (Line(points={{21,-10},{30,-10},{30,-38}},   color={0,0,127}));
   connect(m_flow.y, conPumCNR.u_s)
-    annotation (Line(points={{39,-10},{22,-10}}, color={0,0,127}));
+    annotation (Line(points={{-39,-10},{-2,-10}},color={0,0,127}));
   connect(inp.y, m_flow.u)
-    annotation (Line(points={{69,-10},{62,-10}}, color={0,0,127}));
+    annotation (Line(points={{-69,-10},{-62,-10}},
+                                                 color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=86400, Tolerance=1e-6),
