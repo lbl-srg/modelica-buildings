@@ -39,6 +39,7 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
   Buildings.Experimental.DHC.Plants.Steam.SingleBoiler pla(
     redeclare final package Medium = MediumWat,
     redeclare final package MediumHea_b = MediumSte,
+    allowFlowReversal=true,
     final m_flow_nominal=m_flow_nominal,
     final pSteSet=pSat,
     final per=perPumFW,
@@ -89,6 +90,7 @@ model SingleBoiler "Example model to demonstrate the single-boiler steam plant
   Buildings.Fluid.Movers.SpeedControlled_y pumCNR(
     redeclare final package Medium = MediumWat,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    p_start=101325,
     final per=perPumCNR,
     y_start=1)
     "Condensate return pump"

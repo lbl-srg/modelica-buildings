@@ -10,8 +10,7 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     final fue={fueBoi},
     final have_eleHea=false,
     final have_eleCoo=false,
-    final have_weaBus=false,
-    final allowFlowReversal=false);
+    final have_weaBus=false);
 
   parameter Buildings.Fluid.Data.Fuels.Generic fueBoi=
     Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue()
@@ -61,10 +60,10 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
   parameter Modelica.Units.SI.Volume VTanFW_start=1
     "Setpoint for liquid water volume in the boiler"
     annotation(Dialog(tab = "Initialization"));
-  parameter Modelica.Media.Interfaces.Types.AbsolutePressure pBoi_start=pSteSet
+  parameter Modelica.Media.Interfaces.Types.AbsolutePressure pBoi_start=pTanFW
     "Start value of boiler pressure"
     annotation(Dialog(tab = "Initialization"));
-  parameter Real yPum_start=0.7 "Initial value of output"
+  parameter Real yPum_start=0.7 "Initial value of pump speed"
     annotation(Dialog(tab="Initialization"));
 
   // Dynamics
@@ -155,7 +154,8 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=true,
+    p_start=pTanFW,
+    final allowFlowReversal=allowFlowReversal,
     final per=per,
     final y_start=yPum_start)
     "Feedwater pump"
@@ -167,8 +167,8 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     redeclare final package MediumWat = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final allowFlowReversal=true,
-    final p_start=pBoi_start,
+    final allowFlowReversal=allowFlowReversal,
+    final p_start=pTanFW,
     fixed_p_start=true,
     final fue=fueBoi,
     final m_flow_nominal=m_flow_nominal,
@@ -186,7 +186,9 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
     final wp=wpPum,
     final wd=wdPum,
     final Ni=NiPum,
-    final Nd=NdPum)
+    final Nd=NdPum,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
+    y_start=yPum_start)
     "Pump control"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Modelica.Blocks.Math.Gain VNor(final k=1/VBoiWatSet)
@@ -284,6 +286,12 @@ maintains the discharge pressure setpoint.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 18, 2023, by Michael Wetter:<br/>
+Corrected assignment of <code>allowFlowReversal</code>, and set start pressure
+of boiler to be equal to start pressure of feed water tank. Otherwise, backflow
+occurs at the start of the simulation.
+</li>
 <li>
 March 3, 2022 by Kathryn Hinkelman:<br/>
 First implementation.
