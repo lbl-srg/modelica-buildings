@@ -151,20 +151,23 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
       controllerTypePum==.Modelica.Blocks.Types.SimpleController.PID,
       tab="Control", group="Pump"));
 
+  // Pump can have reverse flow at start up
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
     redeclare final package Medium = Medium,
     final energyDynamics=energyDynamics,
-    final allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=true,
     final per=per,
     final y_start=yPum_start)
     "Feedwater pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
+
+  // At start up, water leaves port_a, see Buildings.Experimental.DHC.Examples.Steam.SingleBoiler
   Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boi(
     redeclare final package MediumSte = MediumHea_b,
     redeclare final package MediumWat = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final allowFlowReversal=allowFlowReversal,
+    final allowFlowReversal=true,
     final p_start=pBoi_start,
     fixed_p_start=true,
     final fue=fueBoi,
