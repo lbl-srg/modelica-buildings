@@ -19,13 +19,11 @@ annotation (defaultComponentName="vol",
       Line(
         points={{38,40},{-2,20},{38,-20},{-2,-40}},
         color={0,0,255},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}}),
+        smooth=Smooth.Bezier),
       Line(
         points={{-2,40},{-42,20},{-2,-20},{-42,-40}},
         color={0,0,255},
-        smooth=Smooth.Bezier,
-          extent={{-60,-22},{-36,2}})}),
+        smooth=Smooth.Bezier)}),
     Documentation(revisions="<html>
 <ul>
 <li>
