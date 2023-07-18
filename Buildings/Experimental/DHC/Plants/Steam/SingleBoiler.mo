@@ -152,17 +152,18 @@ model SingleBoiler "A generic steam plant with a single boiler that discharges
       tab="Control", group="Pump"));
 
   Buildings.Fluid.Movers.SpeedControlled_y pumFW(
-    final energyDynamics=energyDynamics,
     redeclare final package Medium = Medium,
+    final energyDynamics=energyDynamics,
+    final allowFlowReversal=allowFlowReversal,
     final per=per,
     final y_start=yPum_start)
     "Feedwater pump"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Experimental.DHC.Plants.Steam.BaseClasses.BoilerPolynomial boi(
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
     redeclare final package MediumSte = MediumHea_b,
     redeclare final package MediumWat = Medium,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final allowFlowReversal=allowFlowReversal,
     final p_start=pBoi_start,
     fixed_p_start=true,
