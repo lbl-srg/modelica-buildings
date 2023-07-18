@@ -1,6 +1,7 @@
 within Buildings.Experimental.DHC.Loads.Steam.BaseClasses;
 model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(final allowFlowReversal=false);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+    final allowFlowReversal=false);
   parameter Modelica.Units.SI.Pressure pb_nominal(
     displayUnit="Pa",
     min=101325)
@@ -11,6 +12,13 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
     "Guess value of dp = port_a.p - port_b.p"
     annotation (Dialog(tab="Advanced"));
 
+  Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
+    "Pressure sensor"
+    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+  Buildings.Utilities.Math.SmoothMax dpSet(final deltaX=0.5) "Pressure drop setpoint"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+
+protected
   Buildings.Fluid.Movers.BaseClasses.IdealSource ideSou(
     redeclare final package Medium = Medium,
     final allowFlowReversal=allowFlowReversal,
@@ -24,15 +32,11 @@ model ValveSelfActing "Ideal pressure reducing valve for steam heating systems"
   Modelica.Blocks.Sources.RealExpression pbSet(final y=pb_nominal)
     "Downstream pressure setpoint"
     annotation (Placement(transformation(extent={{-60,30},{-40,50}})));
-  Buildings.Fluid.Sensors.Pressure pUp(redeclare final package Medium = Medium)
-    "Pressure sensor"
-    annotation (Placement(transformation(extent={{-90,50},{-70,70}})));
+
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zer(final k=0) "Zero"
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract dpReq "Calculating dp required"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.Utilities.Math.SmoothMax dpSet(final deltaX=0.5) "Pressure drop setpoint"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
 equation
   assert(dpReq.y > 0, "pb_nominal is set higher than the upstream pressure in "
