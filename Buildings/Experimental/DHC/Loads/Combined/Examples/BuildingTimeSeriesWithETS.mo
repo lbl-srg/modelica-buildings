@@ -43,9 +43,9 @@ model BuildingTimeSeriesWithETS
  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMaxSet(k=bui.THeaWatSup_nominal)
     "Heating water supply temperature set point - Maximum value"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
- Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet(each k(
-   final unit="K",
-   displayUnit="degC") = 301.15)
+ Buildings.Controls.OBC.CDL.Continuous.Sources.Constant THeaWatSupMinSet(
+   k(final unit="K",
+     displayUnit="degC") = 301.15)
    "Heating water supply temperature set point - Minimum value"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
 equation
@@ -83,7 +83,7 @@ equation
       Tolerance=1e-06),
     Documentation(info="<html>
 <p>
-Example model of a building with loads provided as time series for heat 
+Example model of a building with loads provided as time series for heat
 pump space heating, heat pump domestic hot water heating,
 and free cooling in an ambient district network.
 </p>
