@@ -132,6 +132,14 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Steam.BaseClasses.Examples.ControlVolumeEvaporation
+  openmodelica:
+    comment: simulation terminated by an assertion at initialization
+    simulate: false
+- model_name: Buildings.Experimental.DHC.Plants.Steam.Examples.SingleBoiler
+  optimica:
+    comment: 'Fails initialization, works if Buildings.Experimental.DHC.Plants.Steam.SingleBoiler.allowFlowReversal=true, but then OpenModelica fails'
+    simulate: false
 - model_name: Buildings.Fluid.Examples.FlowSystem.Basic
   openmodelica:
     comment: '''omc'' caused ''simulation terminated by an assertion at initialization''.'
