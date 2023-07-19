@@ -40,6 +40,7 @@ env:
     - MODELICA_JSON_HOME=${TRAVIS_BUILD_DIR}/modelica-json
 
   jobs:
+    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Experimental.DHC.Examples.Combined\" SINGLEPROC=\"true\""
     - TEST_ARG="make test-cdl-conformance"
     - TEST_ARG="make test-energyplus-validations test-dymola-spawn-spaces test-openmodelica-spawn-spaces test-openmodelica-cdl" #target test-optimica-spawn-fmu removed as it requires a local installation of OCT
     - TEST_ARG="make test-bestest"
@@ -74,7 +75,6 @@ env:
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Experimental.DHC.Examples.Cooling\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Experimental.DHC.Examples.Cooling\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Experimental.DHC.Examples.Combined\""
-    - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Experimental.DHC.Examples.Combined\""
     - TEST_ARG="make test-optimica  PACKAGE=\"Buildings.Experimental.DHC.Examples.Combined\""
     - TEST_ARG="make test-dymola    PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,Delays}\""
     - TEST_ARG="make test-openmodelica PACKAGE=\"Buildings.Fluid.{Actuators,BaseClasses,Boilers,Chillers,CHPs,Delays}\""
@@ -162,6 +162,11 @@ install:
   - if [[ "$TEST_ARG" == *EnergyPlus_9_6_0* ]] || [[ "$TEST_ARG" == *Buildings.Experimental.DHC.{EnergyTransferStations,Loads,Networks,Plants}* ]] || [[ "$TEST_ARG" == *spawn* ]]; then
       echo "Installing Spawn binaries";
       Buildings/Resources/src/ThermalZones/install.py --binaries-for-os-only;
+    fi;
+  - if [[ "$TEST_ARG" == *SINGLEPROC* ]]; then
+      export NPROC=1;
+    else
+      export NPROC=10;
     fi;
 
 # Execute tests

@@ -166,7 +166,7 @@ test-dymola:
 test-openmodelica:
 	(cd $(ROOT)/Buildings && \
 	  export PYTHONPATH=$(TRAVIS_BUILD_DIR)/Buildings/Resources/Python-Sources && \
-	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification)
+	  python3 ../bin/runUnitTests.py --batch --single-package $(PACKAGE) --tool openmodelica --skip-verification -n $(NPROC))
 
 test-optimica:
 	(cd $(ROOT)/Buildings && \
