@@ -114,37 +114,6 @@ model HeatPump "Motor coupled heat pump"
      annotation (Dialog(tab="Advanced",
                        group="Controller",
                        enable=have_controller));
-  parameter Real wp(min=0) = 1
-    "Set-point weight for Proportional block (0..1)"
-     annotation (Dialog(tab="Advanced",
-                        group="Controller",
-                        enable=have_controller));
-  parameter Real wd(min=0) = 0
-    "Set-point weight for Derivative block (0..1)"
-     annotation(Dialog(tab="Advanced",
-                        group="Controller",
-                        enable=have_controller and 
-  controllerType==.Modelica.Blocks.Types.SimpleController.PD or 
-  controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
-    "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=have_controller and 
-   controllerType==.Modelica.Blocks.Types.SimpleController.PI or 
-   controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real Nd(min=100*Modelica.Constants.eps) = 10
-    "The higher Nd, the more ideal the derivative block"
-      annotation(Dialog(tab="Advanced",
-                        group="Controller",
-                        enable=have_controller and 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PD or 
-    controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-  parameter Boolean reverseActing = false
-    "Set to true for reverse acting, or false for direct acting control action"
-      annotation (Dialog(tab="Advanced",
-                       group="Controller",
-                       enable=have_controller));
 
   final Modelica.Blocks.Sources.RealExpression loaTor(y=mecHea.shaft.tau)
     "Heat pump torque block"
