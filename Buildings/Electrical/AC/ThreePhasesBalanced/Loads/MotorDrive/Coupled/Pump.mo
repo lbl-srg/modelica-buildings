@@ -85,7 +85,7 @@ model Pump "Motor coupled chiller"
     final R_r=R_r,
     final X_s=X_s,
     final X_r=X_r,
-    final X_m=X_m
+    final X_m=X_m,
     final controllerType=controllerType,
     final k=k,
     final Ti=Ti,
