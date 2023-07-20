@@ -4,7 +4,7 @@ partial model PartialPlant
   replaceable package Medium=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium";
-  replaceable package MediumHea_b=Buildings.Media.Steam
+  replaceable package MediumHea_b=Buildings.Media.Water
     constrainedby Modelica.Media.Interfaces.PartialMedium
     "Service side medium at heating supply"
     annotation(Dialog(enable=

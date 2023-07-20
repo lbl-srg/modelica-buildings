@@ -69,6 +69,7 @@ model AllElectricCWStorage "Validation of all-electric plant model"
 
   Buildings.Experimental.DHC.Plants.Combined.AllElectricCWStorage pla(
     redeclare final package Medium = Medium,
+    redeclare package MediumHea_b = Medium,
     redeclare final package MediumConWatCoo = MediumConWatCoo,
     allowFlowReversal=true,
     dpConWatCooFri_nominal=1E4,
