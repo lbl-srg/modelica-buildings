@@ -4,14 +4,18 @@ block Controller "Controller for cooling only VAV box"
   parameter Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard venStd
     "Ventilation standard, ASHRAE 62.1 or Title 24";
   parameter Boolean have_winSen=true
-    "True: the zone has window sensor";
+    "True: the zone has window sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_occSen=true
-    "True: the zone has occupancy sensor";
+    "True: the zone has occupancy sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean have_CO2Sen=true
-    "True: the zone has CO2 sensor";
+    "True: the zone has CO2 sensor"
+    annotation (__cdl(ValueInReference=false));
   parameter Boolean permit_occStandby=true
     "True: occupied-standby mode is permitted"
-    annotation (Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
+    annotation (__cdl(ValueInReference=false),
+                Dialog(enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1
                               and have_occSen));
   parameter Real VOccMin_flow(unit="m3/s")
     "Zone minimum outdoor airflow for occupants"
@@ -37,99 +41,102 @@ block Controller "Controller for cooling only VAV box"
   // ---------------- Control loop parameters ----------------
   parameter Real kCooCon=0.1
     "Gain of controller for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Cooling"));
   parameter Real TiCooCon(unit="s")=900
     "Time constant of integrator block for cooling control loop"
-    annotation (Dialog(tab="Control loops", group="Cooling"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Cooling"));
   parameter Real kHeaCon=0.1
     "Gain of controller for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Heating"));
   parameter Real TiHeaCon(unit="s")=900
     "Time constant of integrator block for heating control loop"
-    annotation (Dialog(tab="Control loops", group="Heating"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Control loops", group="Heating"));
   // ---------------- Damper control parameters ----------------
-  parameter Boolean have_preIndDam=false
-    "True: the VAV damper is pressure independent (with built-in flow controller)"
-    annotation(Dialog(tab="Damper control"));
   parameter CDL.Types.SimpleController damCon=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI "Type of controller"
-    annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper control", group="Controller"));
   parameter Real kDam=0.5
     "Gain of controller for damper control"
-    annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper control", group="Controller"));
   parameter Real TiDam(unit="s")=300
     "Time constant of integrator block for damper control"
-    annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam
-             and (damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
-                  or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper control", group="Controller",
+      enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
+           or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
   parameter Real TdDam(unit="s")=0.1
     "Time constant of derivative block for damper control"
-    annotation (Dialog(tab="Damper control", group="Controller",
-      enable=not have_preIndDam
-             and (damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
-                  or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Damper control", group="Controller",
+      enable=(damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
+           or damCon == Buildings.Controls.OBC.CDL.Types.SimpleController.PID)));
 // ---------------- System request parameters ----------------
   parameter Real thrTemDif(unit="K")=3
     "Threshold difference between zone temperature and cooling setpoint for generating 3 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests"));
   parameter Real twoTemDif(unit="K")=2
     "Threshold difference between zone temperature and cooling setpoint for generating 2 cooling SAT reset requests"
-    annotation (Dialog(tab="System requests"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests"));
   parameter Real durTimTem(unit="s")=120
     "Duration time of zone temperature exceeds setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests", group="Duration time"));
   parameter Real durTimFlo(unit="s")=60
     "Duration time of airflow rate less than setpoint"
-    annotation (Dialog(tab="System requests", group="Duration time"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="System requests", group="Duration time"));
 // ---------------- Parameters for alarms ----------------
   parameter Real staPreMul=1
     "Importance multiplier for the zone static pressure reset control loop"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Alarms"));
   parameter Real lowFloTim(unit="s")=300
     "Threshold time to check low flow rate"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real fanOffTim(unit="s")=600
     "Threshold time to check fan off"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   parameter Real leaFloTim(unit="s")=600
     "Threshold time to check damper leaking airflow"
-    annotation (Dialog(tab="Alarms"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Alarms"));
   // ---------------- Parameters for time-based suppression ----------------
   parameter Real samplePeriod(unit="s")=120
     "Sample period of component, set to the same value as the trim and respond that process static pressure reset"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Time-based suppresion"));
   parameter Real chaRat=540
     "Gain factor to calculate suppression time based on the change of the setpoint, second per degC"
-    annotation (Dialog(tab="Time-based suppresion"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   parameter Real maxSupTim(unit="s")=1800
-                                "Maximum suppression time"
-    annotation (Dialog(tab="Time-based suppresion"));
+    "Maximum suppression time"
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Time-based suppresion"));
   // ---------------- Advanced parameters ----------------
   parameter Real dTHys(unit="K")=0.25
     "Near zero temperature difference, below which the difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real floHys(unit="m3/s")=0.01
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real floHys(unit="m3/s")=0.01*VMin_flow
     "Near zero flow rate, below which the flow rate or difference will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real looHys(unit="1")=0.01
     "Loop output hysteresis below which the output will be seen as zero"
-    annotation (Dialog(tab="Advanced"));
-  parameter Real damPosHys(unit="1")=0.05
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
+  parameter Real damPosHys(unit="1")=0.005
     "Near zero damper position, below which the damper will be seen as closed"
-    annotation (Dialog(tab="Advanced"));
+    annotation (__cdl(ValueInReference=false), Dialog(tab="Advanced"));
   parameter Real timChe(unit="s")=30
     "Threshold time to check the zone temperature status"
-    annotation (Dialog(tab="Advanced", group="Control loops"));
+    annotation (__cdl(ValueInReference=true), Dialog(tab="Advanced", group="Control loops"));
   parameter Real zonDisEff_cool(unit="1")=1.0
     "Zone cooling air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
   parameter Real zonDisEff_heat(unit="1")=0.8
     "Zone heating air distribution effectiveness"
-    annotation (Dialog(tab="Advanced", group="Distribution effectiveness",
+    annotation (__cdl(ValueInReference=true),
+                Dialog(tab="Advanced", group="Distribution effectiveness",
                        enable=venStd == Buildings.Controls.OBC.ASHRAE.G36.Types.VentilationStandard.ASHRAE62_1));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TZon(
@@ -330,7 +337,6 @@ block Controller "Controller for cooling only VAV box"
     annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
   Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers
     dam(
-    final have_preIndDam=have_preIndDam,
     final VMin_flow=VMin_flow,
     final VCooMax_flow=VCooMax_flow,
     final damCon=damCon,
@@ -686,6 +692,11 @@ Buildings.Controls.OBC.ASHRAE.G36.TerminalUnits.CoolingOnly.Subsequences.Dampers
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 12, 2023, by Jianjun Hu:<br/>
+Removed the parameter <code>have_preIndDam</code> to exclude the option of using pressure independant damper.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3139\">issue 3139</a>.
+</li>
 <li>
 August 1, 2020, by Jianjun Hu:<br/>
 First implementation.

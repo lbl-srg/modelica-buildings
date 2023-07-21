@@ -92,7 +92,7 @@ Added documentation.
 </html>", info="<html>
 <p>
 This model is identical to
-<a href=\"Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow\">
+<a href=\"modelica://Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow\">
 Buildings.Experimental.DHC.Examples.Combined.SeriesConstantFlow</a>
 except for the pipe diameter and the control of the main circulation pump.
 Rather than having a constant mass flow rate, the mass flow rate is varied

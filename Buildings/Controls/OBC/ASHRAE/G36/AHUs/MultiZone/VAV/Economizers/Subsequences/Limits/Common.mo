@@ -5,17 +5,20 @@ block Common
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Controller"));
 
   parameter Real k(
     final unit="1")=0.05 "Gain of damper limit controller"
-    annotation (Dialog(group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Controller"));
 
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=120
     "Time constant of damper limit controller integrator block"
-    annotation (Dialog(group="Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -23,7 +26,8 @@ block Common
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of damper limit controller derivative block"
-    annotation (Dialog(group="Controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Controller",
     enable=controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
         or controllerType == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
 
@@ -32,31 +36,37 @@ block Common
     final max=yMax,
     final unit="1") = 0.5
     "Loop signal value to start decreasing the maximum return air damper position"
-    annotation (Dialog(tab="Commissioning", group="Controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Controller"));
 
   parameter Real retDamPhy_max(
     final min=0,
     final max=1,
-    final unit="1") = 1 "Physically fixed maximum position of the return air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    final unit="1") = 1.0
+    "Physically fixed maximum position of the return air damper"
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real retDamPhy_min(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.0
     "Physically fixed minimum position of the return air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_max(
     final min=0,
     final max=1,
-    final unit="1") = 1
+    final unit="1") = 1.0
     "Physically fixed maximum position of the outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
   parameter Real outDamPhy_min(
     final min=0,
     final max=1,
-    final unit="1") = 0
+    final unit="1") = 0.0
     "Physically fixed minimum position of the outdoor air damper"
-    annotation (Dialog(tab="Commissioning", group="Physical damper position limits"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(tab="Commissioning", group="Physical damper position limits"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VOut_flow_normalized(
    final unit="1")
@@ -411,6 +421,12 @@ src=\"modelica://Buildings/Resources/Images/Controls/OBC/ASHRAE/G36/AHUs/MultiZo
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2023, by Michael Wetter:<br/>
+Changed constants from <code>0</code> to <code>0.0</code> and <code>1</code> to <code>1.0</code>.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/pull/3267#issuecomment-1450587671\">#3267</a>.
+</li>
 <li>
 July 10, 2020, by Antoine Gautier:<br/>
 Changed default value of integral time for minimum outdoor air control.

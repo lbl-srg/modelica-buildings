@@ -4,34 +4,41 @@ block ReturnFanAirflowTracking
   parameter Real difFloSet(
     final unit="m3/s",
     final quantity="VolumeFlowRate")
-    "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure";
+    "Airflow differential between supply air and return air fans required to maintain building pressure at desired pressure"
+    annotation (__cdl(ValueInReference=false));
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController conTyp=
     Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller"
-    annotation (Dialog(group="Fan controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan controller"));
   parameter Real k(final unit="1") = 1
     "Gain, normalized using dpBuiSet"
-    annotation (Dialog(group="Fan controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan controller"));
   parameter Real Ti(
     final unit="s",
     final quantity="Time")=0.5
     "Time constant of integrator block"
-    annotation (Dialog(group="Fan controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PI
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real Td(
     final unit="s",
     final quantity="Time")=0.1
     "Time constant of derivative block"
-    annotation (Dialog(group="Fan controller",
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan controller",
       enable=conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PD
           or conTyp == Buildings.Controls.OBC.CDL.Types.SimpleController.PID));
   parameter Real maxSpe=1
     "Upper limit of output"
-    annotation (Dialog(group="Fan controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan controller"));
   parameter Real minSpe=0
     "Lower limit of output"
-    annotation (Dialog(group="Fan controller"));
+    annotation (__cdl(ValueInReference=false),
+                Dialog(group="Fan controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput VAirSup_flow(
     final unit="m3/s",
@@ -59,6 +66,16 @@ block ReturnFanAirflowTracking
     "Return fan commanded on"
     annotation (Placement(transformation(extent={{100,-90},{140,-50}}),
         iconTransformation(extent={{100,-110},{140,-70}})));
+  Buildings.Controls.OBC.CDL.Continuous.PID conP(
+    final controllerType=conTyp,
+    final k=k,
+    final Ti=Ti,
+    final Td=Td,
+    final yMax=maxSpe,
+    final yMin=minSpe)
+    "Building static pressure controller"
+    annotation (Placement(transformation(extent={{0,70},{20,90}})));
+
 protected
   Buildings.Controls.OBC.CDL.Continuous.Switch swi
     "Check if relief damper should be enabled"
@@ -69,15 +86,6 @@ protected
     y(final unit="m3/s", displayUnit="m3/s"))
     "Control error"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conP(
-    final controllerType=conTyp,
-    final k=k,
-    final Ti=Ti,
-    final Td=Td,
-    final yMax=maxSpe,
-    final yMin=minSpe)
-    "Building static pressure controller"
-    annotation (Placement(transformation(extent={{0,70},{20,90}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant zerSpe(
     final k=0) "Disable return fan"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));

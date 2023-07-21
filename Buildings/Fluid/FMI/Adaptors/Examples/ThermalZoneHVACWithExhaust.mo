@@ -39,7 +39,7 @@ Buildings.Fluid.FMI.Adaptors.ThermalZone</a>
 </p>
 <p>
 It is identical to
-<a href=\"Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust\">
+<a href=\"modelica://Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust\">
 Buildings.Fluid.FMI.Adaptors.Examples.ThermalZoneHVACNoExhaust</a>
 except that it adds a forced exhaust air stream.
 </p>

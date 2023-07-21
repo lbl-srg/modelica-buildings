@@ -48,11 +48,11 @@ model Controller "Validation of the top-level controller"
     final k=1800)
     "Warm-up time"
     annotation (Placement(transformation(extent={{-180,150},{-160,170}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine cooSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin cooSetAdj(
     final freqHz=1/28800)
     "Cooling setpoint adjustment"
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine heaSetAdj(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin heaSetAdj(
     final freqHz=1/28800,
     final amplitude=0.5)
     "Heating setpoint adjustment"

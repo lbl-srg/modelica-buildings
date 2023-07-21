@@ -7,8 +7,7 @@ package UsersGuide "User's Guide"
 <p>
 This package contains preconfigured versions of the mover models.
 They automatically configure a mover model based on
-<code>m_flow_nominal</code> and <code>dp_nominal</code>
-(and <code>speed_rpm_nominal</code> for <code>SpeedControlled_Nrpm</code> only).
+<code>m_flow_nominal</code> and <code>dp_nominal</code>.
 </p>
 <p>
 The configuration is as follows:

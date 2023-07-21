@@ -4,15 +4,13 @@ partial model PartialFlowMachine
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
     final massDynamics=energyDynamics,
     final mSenFac=1);
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
-    m_flow_nominal(final min=Modelica.Constants.small),
-    show_T=false,
+  extends Buildings.Fluid.Interfaces.PartialTwoPort(
     port_a(
+      p(start=Medium.p_default),
       h_outflow(start=h_outflow_start)),
     port_b(
-      h_outflow(start=h_outflow_start),
       p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Modelica.Constants.inf else 0)));
+      h_outflow(start=h_outflow_start)));
 
   replaceable parameter Buildings.Fluid.Movers.Data.Generic per
     constrainedby Buildings.Fluid.Movers.Data.Generic
@@ -102,7 +100,62 @@ partial model PartialFlowMachine
   Real etaMot(unit="1", final quantity="Efficiency") = eff.etaMot "Motor efficiency";
 
   // Quantity to control
+
+  // Copied from Fluid.Interfaces.PartialTwoPortInterface
+  parameter Modelica.Units.SI.MassFlowRate m_flow_small(min=0) = 1E-4*abs(
+    _m_flow_nominal) "Small mass flow rate for regularization of zero flow"
+    annotation (Dialog(tab="Advanced"));
+  // Diagnostics
+   parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed"
+    annotation (
+      Dialog(tab="Advanced", group="Diagnostics"),
+      HideResult=true);
+
+  Modelica.Units.SI.MassFlowRate m_flow(start=_m_flow_start) = port_a.m_flow
+    "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
+
+  Modelica.Units.SI.PressureDifference dp(
+    start=_dp_start,
+    displayUnit="Pa") = port_a.p - port_b.p
+    "Pressure difference between port_a and port_b";
+
+  Medium.ThermodynamicState sta_a=
+    if allowFlowReversal then
+      Medium.setState_phX(port_a.p,
+                          noEvent(actualStream(port_a.h_outflow)),
+                          noEvent(actualStream(port_a.Xi_outflow)))
+    else
+      Medium.setState_phX(port_a.p,
+                          noEvent(inStream(port_a.h_outflow)),
+                          noEvent(inStream(port_a.Xi_outflow)))
+      if show_T "Medium properties in port_a";
+
+  Medium.ThermodynamicState sta_b=
+    if allowFlowReversal then
+      Medium.setState_phX(port_b.p,
+                          noEvent(actualStream(port_b.h_outflow)),
+                          noEvent(actualStream(port_b.Xi_outflow)))
+    else
+      Medium.setState_phX(port_b.p,
+                          noEvent(port_b.h_outflow),
+                          noEvent(port_b.Xi_outflow))
+       if show_T "Medium properties in port_b";
+  // - Copy continues in protected section
+
 protected
+  parameter Modelica.Units.SI.MassFlowRate _m_flow_nominal=
+    max(eff.per.pressure.V_flow)*rho_default
+    "Nominal mass flow rate";
+
+  // Copied from Fluid.Interfaces.PartialTwoPortInterface
+  final parameter Modelica.Units.SI.MassFlowRate _m_flow_start=0
+    "Start value for m_flow, used to avoid a warning if not set in m_flow, and to avoid m_flow.start in parameter window";
+  final parameter Modelica.Units.SI.PressureDifference _dp_start(displayUnit=
+        "Pa") = 0
+    "Start value for dp, used to avoid a warning if not set in dp, and to avoid dp.start in parameter window";
+  // - End of copy
+
   final parameter Modelica.Units.SI.VolumeFlowRate _VMachine_flow=0
     "Start value for VMachine_flow, used to avoid a warning if not specified";
 
@@ -172,7 +225,7 @@ protected
     final T_start=T_start,
     final X_start=X_start,
     final C_start=C_start,
-    final m_flow_nominal=m_flow_nominal,
+    final m_flow_nominal=_m_flow_nominal,
     final m_flow_small=m_flow_small,
     final p_start=p_start,
     final prescribedHeatFlowRate=true,
@@ -187,12 +240,6 @@ protected
     final initType=init) if use_inputFilter
     "Second order filter to approximate dynamics of the fan or pump's speed, and to improve numerics"
     annotation (Placement(transformation(extent={{20,61},{40,80}})));
-
-  Modelica.Blocks.Math.Gain gaiSpe(y(final unit="1"))
- if inputType == Buildings.Fluid.Types.InputType.Continuous and
-    speedIsInput
-    "Gain to normalized speed using speed_nominal or speed_rpm_nominal"
-    annotation (Placement(transformation(extent={{-4,74},{-16,86}})));
 
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
     redeclare final package Medium = Medium,
@@ -251,7 +298,7 @@ protected
     final nOri = nOri,
     final rho_default=rho_default,
     final computePowerUsingSimilarityLaws=computePowerUsingSimilarityLaws,
-    r_V(start=m_flow_nominal/rho_default),
+    r_V(start=_m_flow_nominal/rho_default),
     final preVar=preVar) "Flow machine"
     annotation (Placement(transformation(extent={{-32,-68},{-12,-48}})));
 
@@ -335,12 +382,6 @@ protected
             fillPattern=FillPattern.Solid)}));
   end Extractor;
 
-initial equation
-  // Check incorrect value of m_flow_nominal
-  assert(m_flow_nominal >= Modelica.Constants.small, "In "+ getInstanceName()+
-  ": The value of parameter m_flow_nominal should be greater or equal than " +
-  String(Modelica.Constants.small) + " but it equals " + String(m_flow_nominal));
-
 initial algorithm
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
   // Hence, the speed is computed using default values, which likely are wrong.
@@ -348,12 +389,10 @@ initial algorithm
   assert(nominalValuesDefineDefaultPressureCurve or
          per.havePressureCurve or
          (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed),
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve.
-             This leads to approximate calculations of the electrical power
-             consumption. Add the correct pressure curve in the record per
-             to obtain an accurate computation.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in " + getInstanceName() +
+": Mover is flow or pressure controlled and uses default pressure curve.
+This leads to an approximate power consumption.
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
          level=AssertionLevel.warning);
 
   // The control signal is dp or m_flow but the user did not provide a fan or pump curve.
@@ -368,15 +407,11 @@ initial algorithm
            (preVar == Buildings.Fluid.Movers.BaseClasses.Types.PrescribedVariable.Speed)) or
          per.etaHydMet<>
       Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate,
-"*** Warning: You are using a flow or pressure controlled mover with the
-             default pressure curve with per.etaHydMet set to
-             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate.
-             Since this can cause wrong power consumption, the model will overwrite
-             this setting and use instead
-             Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.NotProvided." +
-             "See the user guide to see what assumptions are made in this setting
-             or provide other information to the model.
-             Setting nominalValuesDefineDefaultPressureCurve=true will suppress this warning.",
+"*** Warning in " + getInstanceName() +
+": Mover is flow or pressure controlled, uses default pressure curve and
+has per.etaHydMet=.Power_VolumeFlowRate.
+As this can cause wrong power consumption, the model overrides this setting by using per.etaHydMet=.NotProvided.
+Set nominalValuesDefineDefaultPressureCurve=true to suppress this warning.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or
@@ -384,11 +419,10 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.Power_VolumeFlowRate
             or per.etaHydMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.HydraulicEfficiencyMethod.EulerNumber),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaHydMet is set to .Power_VolumeFlowRate or .EulerNumber.
-             This requires that per.pressure be provided.
-             Because it is not,
-             the model will override this setting and use .NotProvided instead.",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaHydMet=.Power_VolumeFlowRate or per.etaHydMet=.EulerNumber.
+This requires per.pressure to be provided.
+Because it is not, the model overrides this setting by using per.etaHydMet=.NotProvided.",
          level=AssertionLevel.warning);
 
   assert(per.havePressureCurve or per.haveWMot_nominal or
@@ -396,12 +430,10 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve. This requires that per.WMot_nominal be provided
-             or at least per.pressure be provided so that per.WMot_nominal can
-             be estimated. Because neither is provided,
-             the model will override this setting and use .NotProvided instead.",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve.
+This requires per.WMot_nominal or per.pressure to be provided. Because neither is provided,
+the model overrides this setting and by using per.etaMotMet=.NotProvided.",
          level=AssertionLevel.warning);
 
   assert(per.powerOrEfficiencyIsHydraulic or
@@ -409,12 +441,11 @@ initial algorithm
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.Efficiency_MotorPartLoadRatio
             or per.etaMotMet ==
                Buildings.Fluid.Movers.BaseClasses.Types.MotorEfficiencyMethod.GenericCurve),
-"*** Warning in "+ getInstanceName()+
-             ": per.etaMotMet is set to .Efficiency_MotorPartLoadRatio
-             or .GenericCurve while information is provided for total electric
-             power instead of hydraulic power. This forms an algebraic loop
-             and may cause the simulation to not converge
-             (see the \"Motor efficiency\" section in usersguide).",
+"*** Warning in " + getInstanceName() +
+": Mover has per.etaMotMet=.Efficiency_MotorPartLoadRatio or per.etaMotMet=.GenericCurve
+and provides information for total electric power instead of hydraulic power.
+This forms an algebraic loop. If simulation fails to converge,
+see the \"Motor efficiency\" section in the users guide for how to correct it.",
          level=AssertionLevel.warning);
 
 equation
@@ -577,9 +608,50 @@ The setting <code>addPowerToMedium=false</code> is physically incorrect
 the enthalpy of the medium), but this setting does in some cases lead to simpler equations
 and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
+<p>
+In the previous implementation, this model extends from
+<a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>.
+Now it copies much of the code instead.
+This is to resolve a potential circular parameter binding that occurs when
+<a href=\"Modelica://Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y\">
+Buildings.Fluid.Movers.Preconfigured.SpeedControlled_y</a>
+extends from
+<a href=\"Modelica://Buildings.Fluid.Movers.SpeedControlled_y\">
+Buildings.Fluid.Movers.SpeedControlled_y</a>.
+The former uses the nominal flow rate provided by user to construct
+the pressure curve, whilst the latter uses the user-provided pressure curve
+to determine the nominal flow rate. The new implementation removes the
+original declaration of nominal flow rate from
+<a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>
+and hides it (<code>protected _m_flow_nominal</code>) from the user.
+This way, A higher-level model (e.g.
+<a href=\"Modelica://Buildings.Fluid.Movers.FlowControlled_dp\">
+Buildings.Fluid.Movers.FlowControlled_dp</a>),
+can still provide a default but not the other way around.
+See discussions in
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 29, 2023, by Hongxiang Fu:<br/>
+Removed the gain block that normalised the speed input
+because it is no longer needed. This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1704\">IBPSA, #1704</a>.
+</li>
+<li>
+March 1, 2023, by Hongxiang Fu:<br/>
+Instead of extending
+<a href=\"Modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialTwoPortInterface</a>,
+this model now has its code copied, then rewrote <code>m_flow_nominal</code>
+as <code>protected _m_flow_nominal</code>.<br/>
+This is for
+<a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1705\">#1705</a>.
+</li>
 <li>
 May 6, 2022, by Hongxiang Fu:<br/>
 <ul>
@@ -601,7 +673,7 @@ Added an <code>assert()</code> warning when the model has to make an unreliable
 guess for efficiency computation using <code>.EulerNumber</code>.
 </li>
 <li>
-Added an <code>assert()</code> warning when the model has to overwrite
+Added an <code>assert()</code> warning when the model has to override
 <code>per.etaMotMet</code>.
 </li>
 </ul>
