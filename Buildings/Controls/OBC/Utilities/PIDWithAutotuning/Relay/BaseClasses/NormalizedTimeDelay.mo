@@ -93,7 +93,7 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block calculates the normalized time delay of the responses from a relay controller.
+This block calculates the normalized time delay of the output from a relay controller.
 </p>
 <h4>Main equations</h4>
 <p align=\"center\" style=\"font-style:italic;\">

@@ -123,18 +123,15 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the control gain of a PI model, <i>k</i></p>
+<p>This block calculates the control gain of a PI model</p>
 <h4>Main equations</h4>
-<p>
-The main equation is
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
 k = 0.15/k<sub>p</sub> + (0.35-LT/(L+T)<sup>2</sup>)(T/k<sub>p</sub>/L),
 </p>
 <p>
-where <code>k<sub>p</sub></code> is the gain of the first-order time-delayed model,
-<code>T</code> is the time constant of the first-order time-delayed model, and
-<code>L</code> is the time delay of the first-order time-delayed model.
+where <code>k<sub>p</sub></code> is the gain of the first-order time delayed model,
+<code>T</code> is the time constant of the first-order time delayed model, and
+<code>L</code> is the time delay of the first-order time delayed model.
 </p>
 <h4>References</h4>
 <p>

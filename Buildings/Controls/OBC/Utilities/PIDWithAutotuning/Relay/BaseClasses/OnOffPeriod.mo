@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses;
-block OnOffPeriod "Calculate the lengths of the on period and the off period"
+block OnOffPeriod "Calculate the lengths of the On period and the Off period"
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(
     final quantity="Time",
     final unit="s")
@@ -14,14 +14,14 @@ block OnOffPeriod "Calculate the lengths of the on period and the off period"
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the off period"
+    "Length for the Off period"
     annotation (Placement(transformation(extent={{100,-50},{140,-10}}),
         iconTransformation(extent={{102,-60},{142,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput tOn(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the on period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{100,20},{140,60}})));
 protected
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOn
@@ -34,25 +34,25 @@ protected
     "Relay switch off"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOffCal
-    "Block that calculates the horizon length for the off period"
+    "Block that calculates the horizon length for the Off period"
     annotation (Placement(transformation(extent={{10,-40},{30,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Subtract lenOnCal
-    "Block that calculates the horizon length for the on period"
+    "Block that calculates the horizon length for the On period"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOff
-    "Trigger the action to record the horizon length for the off period"
+    "Trigger the action to record the horizon length for the Off period"
     annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
   Buildings.Controls.OBC.CDL.Continuous.Greater greTimOn
-    "Trigger the action to record the horizon length for the on period"
+    "Trigger the action to record the horizon length for the On period"
     annotation (Placement(transformation(extent={{50,60},{70,80}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant minLen(final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOffRec
-    "Record the horizon length for the off period"
+    "Record the horizon length for the Off period"
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler timOnRec
-    "Record the horizon length for the on period"
+    "Record the horizon length for the On period"
     annotation (Placement(transformation(extent={{70,50},{90,30}})));
 
 equation
@@ -63,23 +63,21 @@ equation
   connect(timOn.trigger,on)  annotation (Line(points={{-40,28},{-40,20},{-90,20},
           {-90,-70},{-120,-70}}, color={255,0,255}));
   connect(lenOffCal.u1, timOn.y) annotation (Line(points={{8,-24},{0,-24},{0,40},
-          {-28,40}},     color={0,0,127}));
+          {-28,40}},color={0,0,127}));
   connect(lenOnCal.u2, timOn.y)
     annotation (Line(points={{8,34},{0,34},{0,40},{-28,40}}, color={0,0,127}));
   connect(lenOnCal.u1, timOff.y) annotation (Line(points={{8,46},{-10,46},{-10,
-          -40},{-28,-40}},
-                     color={0,0,127}));
+          -40},{-28,-40}},color={0,0,127}));
   connect(lenOffCal.u2, timOff.y) annotation (Line(points={{8,-36},{-10,-36},{
-          -10,-40},{-28,-40}},
-                           color={0,0,127}));
+          -10,-40},{-28,-40}},color={0,0,127}));
   connect(minLen.y, greTimOn.u2)
     annotation (Line(points={{-38,0},{-20,0},{-20,62},{48,62}}, color={0,0,127}));
   connect(lenOnCal.y, greTimOn.u1) annotation (Line(points={{32,40},{40,40},{40,
-          70},{48,70}},                 color={0,0,127}));
+          70},{48,70}},color={0,0,127}));
   connect(greTimOff.u2, greTimOn.u2) annotation (Line(points={{48,-78},{-20,-78},
           {-20,62},{48,62}}, color={0,0,127}));
   connect(lenOffCal.y, greTimOff.u1) annotation (Line(points={{32,-30},{40,-30},
-          {40,-70},{48,-70}},                   color={0,0,127}));
+          {40,-70},{48,-70}},color={0,0,127}));
   connect(greTimOff.y, timOffRec.trigger)
     annotation (Line(points={{72,-70},{80,-70},{80,-42}}, color={255,0,255}));
   connect(greTimOn.y, timOnRec.trigger)
@@ -87,7 +85,7 @@ equation
   connect(timOn.u, tim) annotation (Line(points={{-52,40},{-120,40}},
                      color={0,0,127}));
   connect(timOff.u, tim) annotation (Line(points={{-52,-40},{-80,-40},{-80,40},
-          {-120,40}},                   color={0,0,127}));
+          {-120,40}},color={0,0,127}));
   connect(timOnRec.y, tOn) annotation (Line(points={{92,40},{120,40}},
                 color={0,0,127}));
   connect(timOffRec.y, tOff) annotation (Line(points={{92,-30},{120,-30}},
@@ -117,10 +115,16 @@ First implementation<br/>
 </ul>
 </html>", info="<html>
 <p>
-This block processes a relay switch output signal and calculates the length of
-the on period (when the relay switch signal becomes <code>true</code>),
-and the length of the off period (when the relay switch signal becomes
-<code>false</code>), respectively.
+This block processes a relay switch output and calculates the length of
+the On period, <code>tOn</code>, and the length of the Off period, <code>tOff</code>, as shown below.
+</p>
+<p align=\"left\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/Onoff.png\" border=\"1\"/>
+</p>
+<p>
+Note that <code>tOn</code> is sampled when the relay switch output becomes false.
+Likewise, <code>tOff</code> is sampled when the relay switch output becomes true.
+</p>
 <h4>References</h4>
 <p>
 Josefin Berner (2017)

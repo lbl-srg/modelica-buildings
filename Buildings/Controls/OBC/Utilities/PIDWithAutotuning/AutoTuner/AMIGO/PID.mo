@@ -48,8 +48,9 @@ protected
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation
-  connect(derTim.Td, Td) annotation (Line(points={{12,-60},{120,-60}},
-                     color={0,0,127}));
+  connect(derTim.Td, Td) 
+    annotation (Line(points={{12,-60},{120,-60}},
+        color={0,0,127}));
   connect(intTim.Ti, Ti)
     annotation (Line(points={{12,0},{120,0}}, color={0,0,127}));
   connect(gai.k, k) annotation (Line(points={{12,50},{120,50}},

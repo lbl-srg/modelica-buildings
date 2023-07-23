@@ -11,14 +11,14 @@ block ControlProcessModel
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the on period"
+    "Length for the On period"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
     iconTransformation(extent={{-140,20},{-100,60}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tOff(
     final quantity="Time",
     final unit="s",
     min=100*Buildings.Controls.OBC.CDL.Constants.eps)
-    "Length for the off period"
+    "Length for the Off period"
     annotation (Placement(transformation(extent={{-140,-40},{-100,0}}),
     iconTransformation(extent={{-140,-60},{-100,-20}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tau(
@@ -117,42 +117,39 @@ equation
   connect(gain.tOff, tOff) annotation (Line(points={{-86,12},{-94,12},{-94,-20},
           {-120,-20}}, color={0,0,127}));
   connect(gain.triSta, triSta) annotation (Line(points={{-74,8},{-74,-120}},
-                            color={255,0,255}));
+         color={255,0,255}));
   connect(timConDel.T, samT.u)
     annotation (Line(points={{22,26},{60,26},{60,20},{68,20}},
-                                                           color={0,0,127}));
+         color={0,0,127}));
   connect(samT.y, T)
     annotation (Line(points={{92,20},{120,20}},
-                                              color={0,0,127}));
+         color={0,0,127}));
   connect(samT.trigger, triEnd) annotation (Line(points={{80,8},{80,-120}},
-                      color={255,0,255}));
+         color={255,0,255}));
   connect(L, samL.y)
     annotation (Line(points={{120,-60},{72,-60}}, color={0,0,127}));
   connect(samL.u, timConDel.L) annotation (Line(points={{48,-60},{44,-60},{44,14},
           {22,14}}, color={0,0,127}));
   connect(samL.trigger, triEnd) annotation (Line(points={{60,-72},{60,-90},{80,
-          -90},{80,-120}},
-                      color={255,0,255}));
+          -90},{80,-120}},color={255,0,255}));
   connect(samk.y, timConDel.k)
     annotation (Line(points={{-32,20},{-2,20}},
-                                              color={0,0,127}));
+         color={0,0,127}));
   connect(samk.trigger, triEnd) annotation (Line(points={{-44,8},{-44,-90},{80,
           -90},{80,-120}}, color={255,0,255}));
   connect(gain.k, samk.u)
-    annotation (Line(points={{-62,20},{-56,20}},
-                                               color={0,0,127}));
+    annotacolor={0,0,127}));
   connect(samk.y, k) annotation (Line(points={{-32,20},{-20,20},{-20,70},{120,
           70}},
         color={0,0,127}));
   connect(timConDel.tOn, samtOn.y) annotation (Line(points={{-2,26},{-28,26},{
-          -28,60},{-48,60}},
-                         color={0,0,127}));
+          -28,60},{-48,60}},color={0,0,127}));
   connect(samtOn.u, tOn)
     annotation (Line(points={{-72,60},{-94,60},{-94,40},{-120,40}},
-                                                  color={0,0,127}));
+        color={0,0,127}));
   connect(samtOn.trigger, triEnd) annotation (Line(points={{-60,48},{-60,-20},{
           -44,-20},{-44,-90},{80,-90},{80,-120}},
-                                              color={255,0,255}));
+         color={255,0,255}));
   connect(gai.y, addPar.u)
     annotation (Line(points={{-14,-60},{-10,-60}}, color={0,0,127}));
   connect(tau, samtau.u)

@@ -6,7 +6,7 @@ model HalfPeriodRatio "Test model for calculating the half period ratio"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse tOnSig1(
     amplitude=-0.1,
-    width=0.2,
+    width=0.1,
     period=1,
     offset=0.1)
     "Block that generates signals for forming the signal of the length of On period"
@@ -73,20 +73,17 @@ First implementation<br/>
 Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio</a>.
-This example mimics an output from a relay controller.
 </p>
 <ul>
 <li>
-At <i>0.1</i>s, the output switches from On to Off.
-The length of the On period becomes <i>0.1</i>s.
+At <i>0.1</i>s, the length of the On period becomes <i>0.1</i>s, triggering the training period to start.
 </li>
 <li>
-At <i>0.7</i>s, the output switches to On.
-The length of the Off period becomes <i>0.5</i>s.
+At <i>0.7</i>s, the length of the Off period becomes <i>0.5</i>s.
 </li>
 <li>
-At <i>0.9</i>s, the output switches to Off.
-The length of the On period becomes <i>0.2</i>s.
+At <i>0.9</i>s, the length of the On period changes from <i>0.1</i>s to <i>0.9</i>s while that of the Off period remains <i>0.5</i>s.
+This triggers the training period to end.
 </li>
 </ul>
 </html>"));
