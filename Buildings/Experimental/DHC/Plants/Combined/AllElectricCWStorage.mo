@@ -1623,7 +1623,7 @@ producing CHW and HW at their setpoint value at full load.
 <h4>References</h4>
 <p>
 <a name=\"Gill2021\"/>
-Brandon Gill, P.E., principal of Taylor Engineers in Alameda, Calif.<br/>
+Brandon Gill, P.E., Taylor Engineers, Alameda, CA, USA.<br/>
 <a href=\"https://tayloreng.egnyte.com/dl/hHl2ZkZRDC/ASHRAE_Journal_-_Solving_the_Large_Building_All-Electric_Heating_Problem.pdf_\">
 Solving the large building all-electric heating problem</a>.<br/>
 ASHRAE Journal, October 2021.
