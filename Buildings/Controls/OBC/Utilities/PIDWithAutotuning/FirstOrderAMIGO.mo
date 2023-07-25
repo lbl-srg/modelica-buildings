@@ -6,10 +6,10 @@ block FirstOrderAMIGO
   parameter Real r(
     min=100*CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
-  parameter Real yMax=1
+  final parameter Real yMax=1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
-  parameter Real yMin=0
+  final parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="Limits"));
   parameter Real Ni(
@@ -230,26 +230,28 @@ method calculates the PID parameters with an Approximate M-constrained Integral 
 This block is built based on
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
-and inherits all the parameters of the latter. However, through the parameter
+and inherits most of the parameters of the latter. However, through the parameter
 <code>controllerType</code>, the controller can only be configured as PI or
 PID controller.
+In addition, the output of this block is limited from 0 to 1.
+</p>
+<p>
+Note that the autotuning can be performed only once.
 </p>
 <h4>Brief guidance</h4>
 <p>
 To use this block, connect it with a control loop.
 This block starts the PID tuning process when the value of the boolean input signal <code>triTun</code> changes from
 <code>false</code> to <code>true</code>.
-Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.CDL.Continuous.PIDWithReset\">
-Buildings.Controls.OBC.CDL.Continuous.PIDWithReset</a>.
-During the PID tuning process, this block changes into a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
+Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
+During the PID tuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
 The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.HalfPeriodRatio</a>).
 Since then, this block turns back to a PID controller but with tuned PID parameters.
 </p>
-<p>
-Note that the output of this block is limited from 0 to 1.
-</p>
+
 <h4>References</h4>
 <p>
 J. Berner (2017).
