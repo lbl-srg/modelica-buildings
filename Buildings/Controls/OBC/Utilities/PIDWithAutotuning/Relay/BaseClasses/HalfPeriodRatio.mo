@@ -105,7 +105,7 @@ equation
   connect(halPerRat.y, rho) annotation (Line(points={{82,80},{120,80}},
                 color={0,0,127}));
   connect(addtOntOff.u2, tOff) annotation (Line(points={{-82,-36},{-88,-36},{-88,
-          -70},{-120,-70}},     color={0,0,127}));
+          -70},{-120,-70}}, color={0,0,127}));
   connect(addtOntOff.u1, tOn) annotation (Line(points={{-82,-24},{-94,-24},{-94,
           80},{-120,80}}, color={0,0,127}));
   connect(gretmaxtOntOff.y, triSta)

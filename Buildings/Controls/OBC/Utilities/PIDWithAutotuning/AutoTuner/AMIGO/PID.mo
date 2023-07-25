@@ -119,7 +119,7 @@ equation
           extent={{-18,-62},{82,-102}},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
-          textString="Td")}),     Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textString="Td")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>

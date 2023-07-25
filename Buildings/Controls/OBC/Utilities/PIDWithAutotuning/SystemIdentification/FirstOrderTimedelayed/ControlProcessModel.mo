@@ -113,7 +113,7 @@ equation
           80}},
         color={0,0,127}));
   connect(gain.tOn, tOn) annotation (Line(points={{-86,20},{-94,20},{-94,40},{
-          -120,40}},               color={0,0,127}));
+          -120,40}}, color={0,0,127}));
   connect(gain.tOff, tOff) annotation (Line(points={{-86,12},{-94,12},{-94,-20},
           {-120,-20}}, color={0,0,127}));
   connect(gain.triSta, triSta) annotation (Line(points={{-74,8},{-74,-120}},

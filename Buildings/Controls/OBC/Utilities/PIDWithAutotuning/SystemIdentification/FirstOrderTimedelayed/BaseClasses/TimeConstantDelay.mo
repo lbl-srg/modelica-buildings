@@ -127,7 +127,7 @@ equation
   connect(log.u, div2.y) annotation (Line(points={{-18,-90},{86,-90},{86,-70},{
           82,-70}}, color={0,0,127}));
   connect(absk.y, div1.u2) annotation (Line(points={{-58,0},{-20,0},{-20,-26},{
-          -2,-26}},       color={0,0,127}));
+          -2,-26}},  color={0,0,127}));
   connect(yHigSig.y, sub1.u1) annotation (Line(points={{-58,40},{-52,40},{-52,
           -64},{18,-64}}, color={0,0,127}));
   annotation (

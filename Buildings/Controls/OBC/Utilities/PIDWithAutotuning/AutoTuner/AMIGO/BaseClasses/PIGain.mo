@@ -65,7 +65,7 @@ equation
   connect(div1.u2, kp) annotation (Line(points={{-42,44},{-80,44},{-80,60},{
           -120,60}}, color={0,0,127}));
   connect(add2.u1, div1.y) annotation (Line(points={{18,36},{0,36},{0,50},{-18,
-          50}},     color={0,0,127}));
+          50}}, color={0,0,127}));
   connect(add1.u1, T) annotation (Line(points={{-62,-24},{-90,-24},{-90,0},{
           -120,0}}, color={0,0,127}));
   connect(add1.u2, L) annotation (Line(points={{-62,-36},{-80,-36},{-80,-76},{
@@ -87,7 +87,7 @@ equation
   connect(mul2.u2, L) annotation (Line(points={{-62,14},{-80,14},{-80,-76},{
           -120,-76}}, color={0,0,127}));
   connect(div3.u2, mul2.y) annotation (Line(points={{-22,4},{-30,4},{-30,20},{
-          -38,20}},  color={0,0,127}));
+          -38,20}}, color={0,0,127}));
   connect(div3.u1, T) annotation (Line(points={{-22,16},{-34,16},{-34,0},{-120,
           0}}, color={0,0,127}));
   connect(mul3.u1, div3.y) annotation (Line(points={{18,6},{10,6},{10,10},{2,10}}, color={0,0,127}));

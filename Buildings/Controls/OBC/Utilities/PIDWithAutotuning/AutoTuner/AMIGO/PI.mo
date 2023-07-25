@@ -90,7 +90,7 @@ equation
           extent={{-116,-10},{-16,-50}},
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
-          textString="Ti")}),     Diagram(coordinateSystem(preserveAspectRatio=false)),
+          textString="Ti")}), Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>
