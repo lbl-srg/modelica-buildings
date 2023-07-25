@@ -166,7 +166,7 @@ install:
   - if [[ "$TEST_ARG" == *SINGLEPROC* ]]; then
       export NPROC=1;
     else
-      export NPROC=$(shell grep -c ^processor /proc/cpuinfo);
+      export NPROC=10;
     fi;
 
 # Execute tests
