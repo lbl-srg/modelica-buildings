@@ -67,13 +67,13 @@ block ModeCondenserLoop
   Modelica.Blocks.Sources.RealExpression varCriWarUp(y=1 - fraChaTan.y)
     "Compute variable used to evaluate warmup criterion"
     annotation (Placement(transformation(extent={{-150,-90},{-130,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater criWarUp
+  Buildings.Controls.OBC.CDL.Continuous.Greater criWarUp(h=1e-3)
     "Enable criterion based on time to warmup"
     annotation (Placement(transformation(extent={{-100,-90},{-80,-70}})));
   Buildings.Controls.OBC.CDL.Logical.And criWarUpAndChaLow
     "Both enable criteria met"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criChaLow(t=0.97)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criChaLow(t=0.97, h=1e-3)
     "Low charge fraction criterion"
     annotation (Placement(transformation(extent={{-100,-130},{-80,-110}})));
   Buildings.Controls.OBC.CDL.Logical.Not enaFal[6]
@@ -89,7 +89,7 @@ block ModeCondenserLoop
     "Disable criterion based on flow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criTem(t=max(TTanSet)
-         - 2)
+         - 2, h=1e-3)
     "Disable criterion based on temperature"
            annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Controls.OBC.CDL.Logical.And criFloAndTem
