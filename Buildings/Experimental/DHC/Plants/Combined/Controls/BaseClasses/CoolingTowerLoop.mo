@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block CoolingTowerLoop "Cooling tower loop control"
 
   parameter Integer nCoo(final min=1, start=1)
@@ -151,7 +151,7 @@ block CoolingTowerLoop "Cooling tower loop control"
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo1(t=5*60)
     "Timer for flow exceeding triggering limit"
     annotation (Placement(transformation(extent={{-130,-50},{-110,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpOpe(t=1, h=1e-3)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold cmpOpe(t=0.99, h=0.005)
     "Valve opening criterion to enable lead pump"
     annotation (Placement(transformation(extent={{-160,-90},{-140,-70}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOpe(t=60)
