@@ -245,6 +245,7 @@
   openmodelica:
     comment: simulation terminated by an assertion at initialization
     simulate: false
+    time_out: 600
 - model_name: Buildings.Obsolete.Utilities.IO.Python36.Examples.KalmanFilter
   dymola:
     comment: Python 3.6 is not supported on Ubuntu 20.04, will be upgraded to more recent version
