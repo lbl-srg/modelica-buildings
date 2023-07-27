@@ -21,7 +21,9 @@ model Case960 "Case 900, but with an unconditioned sun-space"
       annualHea(Min=2.522*3.6e9, Max=2.860*3.6e9, Mean=2.693*3.6e9),
       annualCoo(Min=-0.789*3.6e9, Max=-0.950*3.6e9, Mean=-0.896*3.6e9),
       peakHea(Min=2.085*1000, Max=2.300*1000, Mean=2.196*1000),
-      peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)));
+      peakCoo(Min=-1.338*1000, Max=-1.480*1000, Mean=-1.393*1000)),
+   heaCri(lowerLimit=2*3.6e9, upperLimit=3.4*3.6e9),
+   cooCri(lowerLimit=-0.62*3.6e9, upperLimit=-1.81*3.6e9));
 
   Buildings.HeatTransfer.Conduction.MultiLayer
     parWal(layers=matLayPar, A=8*2.7,
@@ -234,6 +236,12 @@ equation
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>
+<li>
+May 12, 2023, by Jianjun Hu:<br/>
+Added test acceptance criteria limits.
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+</li> 
 <li>
 September 16, 2021, by Michael Wetter:<br/>
 Removed assignment of parameter <code>lat</code> as this is now obtained from the weather data reader.<br/>

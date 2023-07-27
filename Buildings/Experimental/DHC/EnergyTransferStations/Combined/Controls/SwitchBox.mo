@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Controls;
 block SwitchBox "Controller for flow switch box"
   extends Modelica.Blocks.Icons.Block;
   parameter Real trueHoldDuration(
@@ -53,7 +53,7 @@ equation
 <p>
 This block implements a control logic preventing flow reversal in the 
 service line, for instance with the hydronic configuration of 
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>.
 The block requires two input signals representing the mass flow rate contributing
 to a positive flow direction <code>mPos_flow</code> and the mass flow contributing

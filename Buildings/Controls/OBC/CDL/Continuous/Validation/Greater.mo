@@ -12,7 +12,7 @@ model Greater
     duration=10,
     offset=-1.5) "Ramp source"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     amplitude=3,
     freqHz=1/10,
     offset=-2,

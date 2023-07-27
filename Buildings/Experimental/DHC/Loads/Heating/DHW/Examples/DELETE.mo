@@ -68,7 +68,7 @@ package DELETE "These models are outdated"
       annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=0,
           origin={-60,150})));
-    EnergyTransferStations.Combined.HeatPumpHeatExchanger ets(
+    EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current ets(
       nPorts_aHeaWat=1,
       nPorts_aChiWat=1,
       nPorts_bChiWat=1,

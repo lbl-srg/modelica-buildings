@@ -142,7 +142,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false)),
   Documentation(info="<html>
 <p>
 Block that implements the equation fit method for the reverse heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>",

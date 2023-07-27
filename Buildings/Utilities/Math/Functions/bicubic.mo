@@ -20,7 +20,9 @@ algorithm
             + a[10] * x1 * x2Sq;
 
   annotation (smoothOrder=999, Documentation(info="<html>
+<p>
 This function computes
+</p>
 <p align=\"center\" style=\"font-style:italic;\">
  y = a<sub>1</sub>
     + a<sub>2</sub>  x<sub>1</sub> + a<sub>3</sub>  x<sub>1</sub><sup>2</sup>
@@ -33,6 +35,10 @@ This function computes
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 25, 2023, by Michael Wetter:<br/>
+Corrected html formatting.
+</li>
 <li>
 Sep 17, 2010 by Michael Wetter:<br/>
 First implementation.

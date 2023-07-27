@@ -32,12 +32,12 @@ protected
     final k=2.5)
     "Block that outputs the product of a gain value with the input signal"
     annotation (Placement(transformation(extent={{10,30},{30,50}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     final amplitude=1,
     final freqHz=10)
     "Sine signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin2(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin2(
     final amplitude=1,
     final freqHz=5)
     "Sine signal"

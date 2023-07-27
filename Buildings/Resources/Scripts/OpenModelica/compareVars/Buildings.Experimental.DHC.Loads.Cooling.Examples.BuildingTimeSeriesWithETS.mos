@@ -6,5 +6,6 @@ compareVars :=
     "buiWitETS.ets.senMasFlo.m_flow",
     "supChiWat.T",
     "buiWitETS.ets.senTDisSup.T",
-    "buiWitETS.ets.senTDisRet.T"
+    "buiWitETS.ets.senTDisRet.T",
+    "buiWitETS.ets.senTBuiSup.T"
   };

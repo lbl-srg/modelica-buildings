@@ -1,4 +1,4 @@
-within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
+﻿within Buildings.Experimental.DHC.EnergyTransferStations.Combined.Subsystems;
 model HeatPump "Base subsystem with water-to-water heat pump"
   replaceable package Medium1=Modelica.Media.Interfaces.PartialMedium
     "Medium model on condenser side"
@@ -146,7 +146,8 @@ model HeatPump "Base subsystem with water-to-water heat pump"
   Buildings.Experimental.DHC.EnergyTransferStations.BaseClasses.Pump_m_flow pumCon(
     redeclare final package Medium = Medium1,
     final m_flow_nominal=m1_flow_nominal,
-    final allowFlowReversal=allowFlowReversal1) if have_pumCon
+    final allowFlowReversal=allowFlowReversal1,
+    dp_nominal=dp1_nominal)                     if have_pumCon
     "Heat pump condenser water pump"
     annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant floConNom(
@@ -333,6 +334,13 @@ supply temperature set point at the condenser outlet.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+May 3, 2023, by David Blum:<br/>
+Assigned <code>dp_nominal</code> to condenser pump.<br/>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3379\">
+issue 3379</a>.
+</li>
 <li>
 November 16, 2022, by Michael Wetter:<br/>
 Set <code>pumEva.dp_nominal</code> to correct value.

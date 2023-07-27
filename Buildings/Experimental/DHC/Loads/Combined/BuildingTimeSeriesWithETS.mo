@@ -96,7 +96,7 @@ equation
     Documentation(info="<html>
 <p>
 This model is composed of a heat pump based energy transfer station model
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
 connected to a simplified building model where the space heating, cooling
 and hot water loads are provided as time series.

@@ -27,7 +27,7 @@ partial model PartialBoiler "Boiler base class with efficiency unspecified"
   Modelica.Units.SI.Power QWat_flow=eta*QFue_flow + UAOve.Q_flow
     "Heat transfer from gas into water";
     // The direction of UAOve.Q_flow is from the ambient to the boiler
-    //   and therefore it takes a plus size here.
+    //   and therefore it takes a plus sign here.
   Modelica.Units.SI.MassFlowRate mFue_flow=QFue_flow/fue.h
     "Fuel mass flow rate";
   Modelica.Units.SI.VolumeFlowRate VFue_flow=mFue_flow/fue.d

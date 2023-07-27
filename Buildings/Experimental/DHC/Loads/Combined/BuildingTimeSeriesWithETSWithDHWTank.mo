@@ -3,14 +3,18 @@ model BuildingTimeSeriesWithETSWithDHWTank
   "Model of a building with loads provided as time series, with a domestic hot water heat pump and tank, connected to an ETS"
   extends
     Buildings.Experimental.DHC.Loads.Combined.BaseClasses.PartialBuildingWithETS(
-    redeclare Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries bui(
+     redeclare
+      Buildings.Experimental.DHC.Loads.BaseClasses.Examples.BaseClasses.BuildingTimeSeries
+      bui(
       final filNam=filNam,
       have_hotWat=true,
       T_aHeaWat_nominal=ets.THeaWatSup_nominal,
       T_bHeaWat_nominal=ets.THeaWatRet_nominal,
       T_aChiWat_nominal=ets.TChiWatSup_nominal,
-      T_bChiWat_nominal=ets.TChiWatRet_nominal),
-    redeclare Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank ets(
+      T_bChiWat_nominal=ets.TChiWatRet_nominal), redeclare
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchangerDHWTank
+      ets(
+      have_hotWat=true,
       QChiWat_flow_nominal=QCoo_flow_nominal,
       QHeaWat_flow_nominal=QHea_flow_nominal,
       QHotWat_flow_nominal=QHot_flow_nominal,
@@ -100,7 +104,7 @@ equation
     Documentation(info="<html>
 <p>
 This model is composed of a heat pump based energy transfer station model
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
 connected to a simplified building model where the space heating, cooling
 and hot water loads are provided as time series.

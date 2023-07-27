@@ -45,7 +45,7 @@ model PartialHydronicConfiguration
     annotation(Dialog(group="Pump"), Evaluate=true);
 
   parameter Buildings.Fluid.HydronicConfigurations.Types.PumpModel typPumMod=
-    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.SpeedFractional
+    Buildings.Fluid.HydronicConfigurations.Types.PumpModel.Speed
     "Type of pump model"
     annotation(Dialog(group="Pump",
     enable=typPum<>Buildings.Fluid.HydronicConfigurations.Types.Pump.None),

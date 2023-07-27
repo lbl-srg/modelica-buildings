@@ -7,7 +7,7 @@ model LessThreshold
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesHys(t=2, h=1)
     "Less block, with hysteresis"
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin(
     amplitude=8,
     freqHz=1/10,
     offset=-2,

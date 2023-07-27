@@ -223,9 +223,11 @@ equation
     annotation (Line(points={{282,-60},{290,-60},{290,-40},{320,-40}},
                                                   color={0,0,127}));
   connect(hex.yValIso_actual[1],valIsoCon.y_actual)
-    annotation (Line(points={{-12,-251},{-40,-251},{-40,-113},{-55,-113}},color={0,0,127}));
+    annotation (Line(points={{-12,-251.5},{-40,-251.5},{-40,-113},{-55,-113}},
+                                                                          color={0,0,127}));
   connect(hex.yValIso_actual[2],valIsoEva.y_actual)
-    annotation (Line(points={{-12,-253},{-16,-253},{-16,-240},{40,-240},{40,-113},{55,-113}},color={0,0,127}));
+    annotation (Line(points={{-12,-252.5},{-16,-252.5},{-16,-240},{40,-240},{40,
+          -113},{55,-113}},                                                                  color={0,0,127}));
   connect(valIsoEva.port_b,colAmbWat.port_bDisSup)
     annotation (Line(points={{50,-120},{30,-120},{30,-106},{20,-106}},color={0,127,255}));
   connect(valIsoCon.port_b,colAmbWat.port_aDisSup)

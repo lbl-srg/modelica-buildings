@@ -1,11 +1,13 @@
 within Buildings.Experimental.DHC.Loads.Combined.BaseClasses;
 model PartialBuildingWithETS
   "Partial model with ETS model and partial building model"
-  extends Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
+  extends
+    Buildings.Experimental.DHC.Loads.BaseClasses.PartialBuildingWithPartialETS(
     nPorts_heaWat=1,
     nPorts_chiWat=1,
     redeclare
-      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger ets(
+      Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger
+      ets(
       final dT_nominal=dT_nominal,
       final TDisWatMin=datDes.TLooMin,
       final TDisWatMax=datDes.TLooMax,
@@ -114,7 +116,7 @@ equation
     Documentation(info="<html>
 <p>
 This model is composed of a heat pump based energy transfer station model 
-<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger\">
+<a href=\"modelica://Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger_Current\">
 Buildings.Experimental.DHC.EnergyTransferStations.Combined.HeatPumpHeatExchanger</a>
 connected to a repleacable building load model. 
 </p>

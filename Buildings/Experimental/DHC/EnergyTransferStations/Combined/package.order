@@ -1,6 +1,8 @@
 ChillerBorefield
 HeatPumpHeatExchanger
+HeatPumpHeatExchanger_Current
 HeatPumpHeatExchangerDHWTank
+HeatPumpHeatExchangerDHWTank_Current
 Controls
 Subsystems
 Examples

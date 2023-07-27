@@ -9,7 +9,7 @@ model SupplySignals_Valve
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse supFanSta(period=7200)
     "Supply fan status"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     amplitude=2,
     offset=16 + 273.15,
     freqHz=1/7200) "Supply air temperature"

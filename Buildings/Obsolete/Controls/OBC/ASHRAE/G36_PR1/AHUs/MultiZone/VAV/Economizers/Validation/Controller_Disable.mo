@@ -98,7 +98,7 @@ protected
     final height=1,
     final offset=0) "Supply air temperature control signal"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine sin1(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin sin1(
     amplitude=20,
     freqHz=1/1800,
     offset=272.15,

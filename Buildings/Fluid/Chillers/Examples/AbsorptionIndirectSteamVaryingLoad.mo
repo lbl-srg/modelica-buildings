@@ -141,7 +141,7 @@ equation
   Documentation(info="<html>
 <p>
 This model validates
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 for the case with varying cooling load.
 </p>
