@@ -1,4 +1,4 @@
-﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner;
+within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner;
 package AMIGO "Package with components related to AMIGO tuners"
 annotation (Documentation(info="<html>
 <p>
