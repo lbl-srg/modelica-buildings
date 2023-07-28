@@ -314,8 +314,8 @@ equation
     annotation (Line(points={{-138,110},{-130,110},{-130,-230},{58,-230}},
       color={255,0,255}));
   connect(logSwi4.y, logSwi5.u3)
-    annotation (Line(points={{182,-160},{190,-160},{190,-210},{40,-210},
-      {40,-238},{58,-238}}, color={255,0,255}));
+    annotation (Line(points={{182,-160},{190,-160},{190,-204},{40,-204},{40,
+          -238},{58,-238}}, color={255,0,255}));
   connect(logSwi5.y, yEndSta)
     annotation (Line(points={{82,-230},{100,-230},{100,-190},{220,-190}},
       color={255,0,255}));

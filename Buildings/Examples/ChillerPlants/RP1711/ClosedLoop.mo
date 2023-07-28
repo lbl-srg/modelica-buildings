@@ -209,7 +209,8 @@ equation
       color={255,204,51},
       thickness=0.5));
   connect(cooCoi.port_b1, bou.ports[1])
-    annotation (Line(points={{130,-4},{180,-4}}, color={0,127,255}));
+    annotation (Line(points={{130,-4},{180,-4}}, color={0,127,255},
+      thickness=0.5));
   connect(airSupTemSet.y, temDif.u2) annotation (Line(points={{-218,-40},{-210,
           -40},{-210,40},{-240,40},{-240,114},{-222,114}}, color={0,0,127}));
   connect(supAirTem.T, conPID.u_m) annotation (Line(points={{69,-100},{-190,
