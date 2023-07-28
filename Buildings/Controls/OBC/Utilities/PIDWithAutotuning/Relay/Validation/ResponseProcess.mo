@@ -3,21 +3,20 @@ model ResponseProcess "Test model for processing the response of a relay control
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.ResponseProcess resPro(
     yHig=1,
     yLow=0.2)
-    "Calculate the length of the on period and the off period"
+    "Calculate the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relSwi(
     width=0.2,
     period=0.8,
-    shift=-0.1)
-    "Enable signal"
+    shift=-0.1) "Control switch output"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
   connect(modTim.y, resPro.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
           6},{-12,6}}, color={0,0,127}));
-  connect(enaSig.y,resPro.on)  annotation (Line(points={{-38,-20},{-20,-20},{-20,
+  connect(relSwi.y,resPro.on)  annotation (Line(points={{-38,-20},{-20,-20},{-20,
           -6},{-12,-6}}, color={255,0,255}));
   annotation (
       experiment(

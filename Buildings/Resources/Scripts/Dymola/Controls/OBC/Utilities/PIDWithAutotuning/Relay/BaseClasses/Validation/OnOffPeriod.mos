@@ -1,3 +1,3 @@
 simulateModel("Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation.OnOffPeriod", method="Cvode", tolerance=1e-06, resultFile="OnOffPeriod");
-createPlot(id=1, position={30, 0, 930, 617}, y={"enaSig.y"}, range={0.0, 1.0, -0.2, 1.2000000000000002}, grid=true, subPlot=101, colors={{28,108,200}});
+createPlot(id=1, position={30, 0, 930, 617}, y={"relSwi.y"}, range={0.0, 1.0, -0.2, 1.2000000000000002}, grid=true, subPlot=101, colors={{28,108,200}});
 createPlot(id=1, position={30, 0, 930, 617}, y={"onOffPer.tOn", "onOffPer.tOff"}, range={0.0, 1.0, -0.2, 0.8}, grid=true, subPlot=102, colors={{238,46,47}, {28,108,200}});

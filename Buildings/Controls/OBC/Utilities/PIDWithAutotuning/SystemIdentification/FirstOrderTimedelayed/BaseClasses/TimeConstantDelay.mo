@@ -110,7 +110,7 @@ equation
   connect(div2.u1, add1.y) annotation (Line(points={{58,-64},{54,-64},{54,-48},
           {84,-48},{84,-30},{82,-30}},color={0,0,127}));
   connect(tOn, div3.u1) annotation (Line(points={{-120,76},{-42,76}},
-                    color={0,0,127}));
+          color={0,0,127}));
   connect(div3.u2, log.y) annotation (Line(points={{-42,64},{-46,64},{-46,-90},{
           -42,-90}},  color={0,0,127}));
   connect(div3.y, T) annotation (Line(points={{-18,70},{120,70}},
@@ -127,7 +127,7 @@ equation
   connect(log.u, div2.y) annotation (Line(points={{-18,-90},{86,-90},{86,-70},{
           82,-70}}, color={0,0,127}));
   connect(absk.y, div1.u2) annotation (Line(points={{-58,0},{-20,0},{-20,-26},{
-          -2,-26}},       color={0,0,127}));
+          -2,-26}},  color={0,0,127}));
   connect(yHigSig.y, sub1.u1) annotation (Line(points={{-58,40},{-52,40},{-52,
           -64},{18,-64}}, color={0,0,127}));
   annotation (

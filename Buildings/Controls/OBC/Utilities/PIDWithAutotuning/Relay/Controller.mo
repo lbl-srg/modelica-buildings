@@ -16,14 +16,14 @@ block Controller
     annotation (Placement(transformation(origin={0,-120},extent={{20,-20},{-20,20}},rotation=270),
         iconTransformation(extent={{20,-20},{-20,20}},rotation=270,origin={0,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput trigger
-    "Resets the controller output when trigger becomes true"
+    "Connector for enabling the relay controller"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},rotation=90,origin={-80,-120}),
         iconTransformation(extent={{-20,-20},{20,20}},rotation=90,origin={-60,-120})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput y
     "Control output"
     annotation (Placement(transformation(extent={{100,40},{140,80}})));
   Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yOn
-    "Control switch output"
+    "Relay switch output, true when control output switches to the higher value"
     annotation (Placement(transformation(extent={{100,-80},{140,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yErr
     "Control error"
@@ -120,13 +120,13 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
-            ={28,108,200})}),                                    Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
+             {28,108,200})}),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>
 This block generates a real control output <code>y</code>, a
-boolean control switch output <code>yOn</code>, and the control error
+boolean relay switch output <code>yOn</code>, and the control error
 <code>yErr</code>. They are calculated as below:
 </p>
 <ul>
@@ -142,7 +142,7 @@ if <code>yErr &gt; deaBan</code> and <code>trigger</code> is <code>true</code>,
 then <code>y = -yLow</code>, <code>yOn = false</code>,
 </li>
 <li>
-else, <code>y</code> and <code>yOn</code> are kept unchanged,
+else, <code>y</code> and <code>yOn</code> are kept as the initial values,
 </li>
 </ul>
 <p>where <code>deaBan</code> is a dead band, <code>yHig</code>

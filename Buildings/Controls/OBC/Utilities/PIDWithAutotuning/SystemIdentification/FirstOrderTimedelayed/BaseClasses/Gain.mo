@@ -61,15 +61,15 @@ equation
   connect(refRelOut.y, Iy.y_reset_in) annotation (Line(points={{-38,20},{-20,20},
           {-20,32},{-12,32}}, color={0,0,127}));
   connect(Iy.trigger, triSta) annotation (Line(points={{0,28},{0,-120}},
-                                       color={255,0,255}));
+          color={255,0,255}));
   connect(divIyIu.u1, Iy.y) annotation (Line(points={{58,6},{40,6},{40,40},{12,
           40}}, color={0,0,127}));
   connect(Iu.y, addPar.u) annotation (Line(points={{-18,-40},{18,-40}},color={0,0,127}));
   connect(addPar.y, divIyIu.u2) annotation (Line(points={{42,-40},{50,-40},{50,
-          -6},{58,-6}},              color={0,0,127}));
+          -6},{58,-6}}, color={0,0,127}));
   connect(divIyIu.y, k) annotation (Line(points={{82,0},{120,0}}, color={0,0,127}));
   connect(gaiOnyHig.u, tOn) annotation (Line(points={{-82,-20},{-120,-20}},
-                     color={0,0,127}));
+          color={0,0,127}));
   connect(gaiOnyHig.y, Iu.u1) annotation (Line(points={{-58,-20},{-50,-20},{-50,
           -34},{-42,-34}}, color={0,0,127}));
   connect(gaiOffyLow.u, tOff)
@@ -117,7 +117,7 @@ where <i>y<sub>hig</sub></i> and <i>y<sub>low</sub></i> are the higher value
 and the lower value of the relay control output, respectively.
 <i>y<sub>ref</sub></i> is the reference value of the relay output.
 <i>t<sub>on</sub></i> and <i>t<sub>off</sub></i> are the length of the On
-period and the off period, respectively.
+period and the Off period, respectively.
 </p>
 <p>
 During an On period, the relay switch signal becomes <code>true</code>.

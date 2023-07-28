@@ -1,21 +1,20 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Validation;
-model OnOffPeriod "Test model for calculating the length of the on period and the off period"
+model OnOffPeriod "Test model for calculating the length of the On period and the Off period"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod
-    onOffPer "Calculate the length of the on period and the off period"
+    onOffPer "Calculate the length of the On period and the Off period"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.ModelTime modTim
     "Simulation time"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse enaSig(
+  Buildings.Controls.OBC.CDL.Logical.Sources.Pulse relSwi(
     width=0.2,
     period=0.8,
-    shift=-0.1)
-    "Enable signal"
+    shift=-0.1) "Control switch output"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   connect(modTim.y, onOffPer.tim) annotation (Line(points={{-38,20},{-20,20},{-20,
           6},{-12,6}}, color={0,0,127}));
-  connect(enaSig.y, onOffPer.on) annotation (Line(points={{-38,-10},{-20,-10},{-20,
+  connect(relSwi.y, onOffPer.on) annotation (Line(points={{-38,-10},{-20,-10},{-20,
           -6},{-12,-6}}, color={255,0,255}));
   annotation (
       experiment(
@@ -53,16 +52,16 @@ Validation test for the block
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.OnOffPeriod</a>.
 </p>
-This example considers an output from a relay controller, <code>enaSig</code>.
+This example considers a relay switch output from a relay controller, <code>relSwi</code>.
 <ul>
 <li>
-At <i>0.06</i>s, <code>enaSig</code> switches from On to Off.
+At <i>0.06</i>s, <code>relSwi</code> changes from On to Off.
 </li>
 <li>
-At <i>0.7</i>s, <code>enaSig</code> switches to On.
+At <i>0.7</i>s, <code>relSwi</code> changes into On.
 </li>
 <li>
-At <i>0.86</i>s, <code>enaSig</code> switches to Off.
+At <i>0.86</i>s, <code>relSwi</code> changes into Off.
 </li>
 </ul>
 </html>"));

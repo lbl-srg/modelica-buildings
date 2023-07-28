@@ -54,7 +54,7 @@ equation
   connect(gai2.u, T) annotation (Line(points={{-82,60},{-120,60}},
                 color={0,0,127}));
   connect(gai1.y, add2.u2) annotation (Line(points={{-58,-10},{-30,-10},{-30,14},
-          {-22,14}},       color={0,0,127}));
+          {-22,14}}, color={0,0,127}));
   connect(add2.u1, gai2.y) annotation (Line(points={{-22,26},{-30,26},{-30,60},
           {-58,60}}, color={0,0,127}));
   connect(add1.u2, L) annotation (Line(points={{-22,-36},{-90,-36},{-90,-60},{
@@ -92,15 +92,12 @@ First implementation<br/>
 </html>", info="<html>
 <p>This block calculates the integral time of a PID model.</p>
 <h4>Main equations</h4>
-<p>
-The main equation is
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>i</sub> = L (0.4 L + 0.8 T)/(L + 0.1 T),
 </p>
 <p>
-where <code>T</code> is the time constant of the first-order time-delayed model
-and <code>L</code> is the time delay of the first-order time-delayed model.
+where <code>T</code> is the time constant of the first-order time delayed model
+and <code>L</code> is the time delay of the first-order time delayed model.
 </p>
 <h4>References</h4>
 <p>

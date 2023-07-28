@@ -1,9 +1,9 @@
-within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner;
+﻿within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner;
 package AMIGO "Package with components related to AMIGO tuners"
 annotation (Documentation(info="<html>
 <p>
-This package contains the blocks to implement AMIGO (approximate M-constrained integral gain optimization) tuners. 
-Those AMIGO tuners calculates the parameters of PI/PID controllers based on the parameters of reduced order models.
+This package contains the blocks to implement an AMIGO (approximate M-constrained integral gain optimization) tuner. 
+The AMIGO tuner calculates the parameters of PI/PID controllers based on the parameters of reduced order models.
 Those reduced order models approximate the control process.
 </p>
 <h4>References</h4>

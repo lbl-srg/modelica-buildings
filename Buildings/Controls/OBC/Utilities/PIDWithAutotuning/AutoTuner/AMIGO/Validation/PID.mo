@@ -66,7 +66,10 @@ Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.PID</a>.
 </p>
 <p>
 The input <code>kp</code> varies from <i>1</i> to <i>2</i>, input <code>T</code> varies from <i>0.5</i> to <i>1</i>,
-and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>. The control gain,
+and input <code>L</code> varies from <i>0.3</i> to <i>0.6</i>.
+</p>
+<p>
+The control gain,
 time constant of the integral term and time constant of the derivative term are calculated
 based on the equations shown in
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.AutoTuner.AMIGO.BaseClasses.PIDGain\">

@@ -71,14 +71,13 @@ equation
   connect(sub2.u1, uniDel2.y) annotation (Line(points={{58,-4},{40,-4},{40,-20},
           {32,-20}}, color={0,0,127}));
   connect(derivative2.y,sub2. u2) annotation (Line(points={{58,-50},{52,-50},{
-          52,-16},{58,-16}},
-                          color={0,0,127}));
+          52,-16},{58,-16}}, color={0,0,127}));
   connect(sub2.y, PIDWitTun.u_m) annotation (Line(points={{82,-10},{88,-10},
           {88,-26},{46,-26},{46,-38},{-10,-38},{-10,-32}}, color={0,0,127}));
   connect(derivative2.k, derivative1.k) annotation (Line(points={{82,-42},{92,-42},
           {92,44},{80,44}}, color={0,0,127}));
   connect(derivative2.T, T.y) annotation (Line(points={{82,-46},{148,-46},{148,
-          -10},{158,-10}},         color={0,0,127}));
+          -10},{158,-10}}, color={0,0,127}));
   connect(derivative1.u, sub1.u1) annotation (Line(points={{80,36},{88,36},{88,20},
           {40,20},{40,86},{58,86}}, color={0,0,127}));
   connect(derivative2.u, uniDel2.y) annotation (Line(points={{82,-50},{92,-50},

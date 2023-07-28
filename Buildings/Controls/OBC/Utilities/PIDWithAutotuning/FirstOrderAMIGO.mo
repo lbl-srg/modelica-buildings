@@ -1,15 +1,15 @@
 within Buildings.Controls.OBC.Utilities.PIDWithAutotuning;
 block FirstOrderAMIGO
-  "An autotuning PID controller with an AMIGO tuner and a first-order time delayed system model"
+  "An autotuning PID controller with an AMIGO tuner that employs a first-order time delayed system model"
   parameter Buildings.Controls.OBC.CDL.Types.SimpleController controllerType=Buildings.Controls.OBC.CDL.Types.SimpleController.PI
     "Type of controller";
   parameter Real r(
     min=100*CDL.Constants.eps)=1
     "Typical range of control error, used for scaling the control error";
-  parameter Real yMax=1
+  final parameter Real yMax=1
     "Upper limit of output"
     annotation (Dialog(group="Limits"));
-  parameter Real yMin=0
+  final parameter Real yMin=0
     "Lower limit of output"
     annotation (Dialog(group="Limits"));
   parameter Real Ni(
@@ -98,7 +98,7 @@ block FirstOrderAMIGO
     final yHig=yHig - yRef,
     final yLow=yRef + yLow,
     final deaBan=deaBan)
-    "Calculates the parameters of a first-order time-delayed model"
+    "Calculates the parameters of a first-order time delayed model"
     annotation (Placement(transformation(extent={{-20,40},{-40,60}})));
   Buildings.Controls.OBC.CDL.Logical.Or or1
     "Switch the block output to the output from the PID controller when the autotuning is disabled or is completed "
@@ -183,7 +183,7 @@ equation
   connect(PIDPar.Ti, samTi.u) annotation (Line(points={{-82,50},{-90,50},{-90,-50},
           {-82,-50}}, color={0,0,127}));
   connect(PIPar.kp, conProMod.k) annotation (Line(points={{-58,86},{-46,86},{
-          -46,56},{-42,56}},     color={0,0,127}));
+          -46,56},{-42,56}}, color={0,0,127}));
   connect(PIPar.T, conProMod.T) annotation (Line(points={{-58,80},{-50,80},{-50,
           50},{-42,50}}, color={0,0,127}));
   connect(PIPar.L, conProMod.L) annotation (Line(points={{-58,74},{-54,74},{-54,
@@ -222,33 +222,36 @@ equation
 <p>
 This block implements a rule-based PID tuning method.
 Specifically, this PID tuning method approximates the control process with a
-first-order delay (FOD) model.
-It then determines the parameters of this FOD model based on the responses of
+first-order time delayed (FOTD) model.
+It then determines the parameters of this FOTD model based on the responses of
 the control process to an asymmetric relay feedback.
-After that, taking the parameters of this FOD mode as inputs, this PID tuning
+After that, taking the parameters of this FOTD mode as inputs, this PID tuning
 method calculates the PID parameters with an Approximate M-constrained Integral Gain Optimization (AMIGO) Tuner.
 This block is built based on
 <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
 Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>
-and inherits all the parameters of the latter. However, through the parameter
+and inherits most of the parameters of the latter. However, through the parameter
 <code>controllerType</code>, the controller can only be configured as PI or
 PID controller.
+In addition, the output of this block is limited from 0 to 1.
+</p>
+<p>
+Note that the autotuning can be performed only once.
 </p>
 <h4>Brief guidance</h4>
 <p>
-To use this block, connect it to the control loop.
-It will start the PID tuning process whenever the value of the boolean input signal <code>triTun</code> changes from
+To use this block, connect it with a control loop.
+This block starts the PID tuning process when the value of the boolean input signal <code>triTun</code> changes from
 <code>false</code> to <code>true</code>.
-Before the PID tuning process starts, the control loop is controlled by a PI or PID controller.  
-During the PID tuning process, the control loop is controlled by a relay feedback controller.
-The PID tuning process will end automatically based on the algorithm defined
-in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.HalfPeriodRatio</a>.
-Starting from then, the control loop is controlled by a PI or PID controller.
+Before the PID tuning process starts, this block is equivalent to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithInputGains\">
+Buildings.Controls.OBC.Utilities.PIDWithInputGains</a>.
+During the PID tuning process, the output of the block changes into that of a relay controller (see <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>).
+The PID tuning process ends automatically (see details in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.HalfPeriodRatio\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.BaseClasses.Relay.HalfPeriodRatio</a>).
+Since then, this block turns back to a PID controller but with tuned PID parameters.
 </p>
-<p>
-Note that the output of this block is limited from 0 to 1.
-</p>
+
 <h4>References</h4>
 <p>
 J. Berner (2017).

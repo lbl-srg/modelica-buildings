@@ -45,7 +45,7 @@ equation
   connect(gai1.u, L) annotation (Line(points={{-62,-60},{-120,-60}},
           color={0,0,127}));
   connect(gai1.y, add.u2) annotation (Line(points={{-38,-60},{-20,-60},{-20,-46},
-          {-2,-46}},  color={0,0,127}));
+          {-2,-46}}, color={0,0,127}));
   connect(add.u1, T) annotation (Line(points={{-2,-34},{-80,-34},{-80,60},{-120,
           60}}, color={0,0,127}));
   connect(gai2.u, T) annotation (Line(points={{-62,60},{-120,60}}, color={0,0,127}));
@@ -76,18 +76,14 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the derivative time of a PID controller, based on a reduced-order model,
-i.e., a first-order time-delayed model, that approximates the control process.</p>
+<p>This block calculates the derivative time of a PID controller.</p>
 <h4>Main equations</h4>
-<p>
-The main equation is
-</p>
 <p align=\"center\" style=\"font-style:italic;\">
 T<sub>d</sub> = 0.5 L T/(0.3 L + T),
 </p>
 <p>
-where <code>T</code> is the time constant of the first-order time-delayed model
-and <code>L</code> is the time delay of the first-order time-delayed model.
+where <code>T</code> is the time constant of the first-order time delayed model
+and <code>L</code> is the time delay of the first-order time delayed model.
 </p>
 <h4>References</h4>
 <p>
