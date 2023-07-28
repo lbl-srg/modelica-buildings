@@ -6,7 +6,7 @@ block ResponseProcess
   parameter Real yLow(min=1E-6) = 0.5
     "Lower value for the output";
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput on
-    "Relay switch. True: tuning on perid, False: tuningoff period"
+    "Relay switch. True: tuning on perid, False: tuning off period"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
   Buildings.Controls.OBC.CDL.Interfaces.RealInput tim(

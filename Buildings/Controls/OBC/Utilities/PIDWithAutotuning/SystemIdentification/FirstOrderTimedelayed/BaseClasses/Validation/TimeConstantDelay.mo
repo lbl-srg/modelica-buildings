@@ -27,8 +27,8 @@ equation
           6},{-12,6}}, color={0,0,127}));
   connect(k.y, timConDel.k)
     annotation (Line(points={{-38,0},{-12,0}}, color={0,0,127}));
-  connect(ratioLT.y, timConDel.ratioLT) annotation (Line(points={{-38,-40},{-20,
-          -40},{-20,-6},{-12,-6}}, color={0,0,127}));
+  connect(ratioLT.y, timConDel.rat) annotation (Line(points={{-38,-40},{-20,-40},
+          {-20,-6},{-12,-6}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

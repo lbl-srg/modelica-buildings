@@ -120,8 +120,8 @@ equation
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175},
           textString="Relay"),
-        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color=
-             {28,108,200})}),                                    Diagram(
+        Line(points={{-70,24},{-34,24},{-34,58},{38,58},{38,24},{66,24}}, color
+            ={28,108,200})}),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false)),
 Documentation(info="<html>
 <p>

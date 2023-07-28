@@ -38,12 +38,12 @@ protected
      final k=0)
     "Minimum value for the horizon length"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOnSam(final y_start=
-        Buildings.Controls.OBC.CDL.Constants.eps)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOnSam(
+    final y_start=Buildings.Controls.OBC.CDL.Constants.eps)
     "Block that samples tOn when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSam(final y_start=
-        Buildings.Controls.OBC.CDL.Constants.eps)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler tOffSam(
+    final y_start=Buildings.Controls.OBC.CDL.Constants.eps)
     "Block that samples tOff when the tuning period ends"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-80}})));
   Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samAddtOntOff
@@ -175,10 +175,10 @@ lengths of the On period and the Off period, respectively.
 An On period is defined as the period when the relay switch output of the relay controller is
 <code>true</code>.
 Likewise, an Off period is defined as the period when the relay switch output is <code>false</code>.
-See details of the relay switch output in <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
+See details of the relay switch output in
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a>.
 </p>
-
 <p>
 This block also detects when a PID tuning period should start and end.
 Specifically, the tuning period is triggered to begin when either <code>t<sub>on</sub></code>
@@ -186,8 +186,8 @@ or <code>t<sub>off</sub></code> becomes positive.
 The tuning period is triggered to end when either <code>t<sub>on</sub></code>
 or <code>t<sub>off</sub></code> changes after the tuning period starts, as illustrated below:
 </p>
-<p align=\"left\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/algorithm.png\" border=\"1\"/>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/algorithm.png\"/>
 </p>
 
 <h4>References</h4>

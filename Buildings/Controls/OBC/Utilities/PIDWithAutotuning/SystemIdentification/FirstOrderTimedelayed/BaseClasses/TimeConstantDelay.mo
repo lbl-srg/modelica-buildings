@@ -18,7 +18,7 @@ block TimeConstantDelay
     "Gain"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput ratioLT
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput rat
     "Ratio between the time constant and the time delay"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
         iconTransformation(extent={{-140,-80},{-100,-40}})));
@@ -85,7 +85,7 @@ protected
 equation
   connect(absk.u, k)
     annotation (Line(points={{-82,0},{-120,0}}, color={0,0,127}));
-  connect(ratioLT, exp.u)
+  connect(rat, exp.u)
     annotation (Line(points={{-120,-50},{-82,-50}}, color={0,0,127}));
   connect(relDeaBan.y, div1.u1) annotation (Line(points={{22,40},{28,40},{28,0},
           {-4,0},{-4,-14},{-2,-14}}, color={0,0,127}));
@@ -116,8 +116,7 @@ equation
   connect(div3.y, T) annotation (Line(points={{-18,70},{120,70}},
         color={0,0,127}));
   connect(mul2.u2, T) annotation (Line(points={{-2,78},{-10,78},{-10,70},{120,
-          70}},
-        color={0,0,127}));
+          70}}, color={0,0,127}));
   connect(mul2.u1, exp.u) annotation (Line(points={{-2,90},{-90,90},{-90,-50},{-82,
           -50}}, color={0,0,127}));
   connect(mul2.y, L) annotation (Line(points={{22,84},{92,84},{92,-60},{120,-60}},

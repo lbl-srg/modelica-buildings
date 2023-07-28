@@ -48,7 +48,7 @@ protected
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
 equation
-  connect(derTim.Td, Td) 
+  connect(derTim.Td, Td)
     annotation (Line(points={{12,-60},{120,-60}},
         color={0,0,127}));
   connect(intTim.Ti, Ti)

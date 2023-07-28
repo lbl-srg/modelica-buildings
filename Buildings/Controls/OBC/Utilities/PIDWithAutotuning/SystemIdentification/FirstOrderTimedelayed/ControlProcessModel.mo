@@ -100,7 +100,8 @@ protected
     final y_start=1)
     "Block that samples the time constant when the tuning period ends"
     annotation (Placement(transformation(extent={{70,10},{90,30}})));
-  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtau(final y_start=0.5)
+  Buildings.Controls.OBC.CDL.Discrete.TriggeredSampler samtau(
+    final y_start=0.5)
     "Block that samples the normalized time delay when the tuning period ends"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gai(
@@ -110,8 +111,7 @@ protected
 
 equation
   connect(gain.u, u) annotation (Line(points={{-86,28},{-88,28},{-88,80},{-120,
-          80}},
-        color={0,0,127}));
+          80}},  color={0,0,127}));
   connect(gain.tOn, tOn) annotation (Line(points={{-86,20},{-94,20},{-94,40},{
           -120,40}}, color={0,0,127}));
   connect(gain.tOff, tOff) annotation (Line(points={{-86,12},{-94,12},{-94,-20},
@@ -137,19 +137,15 @@ equation
          color={0,0,127}));
   connect(samk.trigger, triEnd) annotation (Line(points={{-44,8},{-44,-90},{80,
           -90},{80,-120}}, color={255,0,255}));
-  connect(gain.k, samk.u)
-    annotacolor={0,0,127}));
   connect(samk.y, k) annotation (Line(points={{-32,20},{-20,20},{-20,70},{120,
-          70}},
-        color={0,0,127}));
+          70}}, color={0,0,127}));
   connect(timConDel.tOn, samtOn.y) annotation (Line(points={{-2,26},{-28,26},{
           -28,60},{-48,60}},color={0,0,127}));
   connect(samtOn.u, tOn)
     annotation (Line(points={{-72,60},{-94,60},{-94,40},{-120,40}},
         color={0,0,127}));
   connect(samtOn.trigger, triEnd) annotation (Line(points={{-60,48},{-60,-20},{
-          -44,-20},{-44,-90},{80,-90},{80,-120}},
-         color={255,0,255}));
+          -44,-20},{-44,-90},{80,-90},{80,-120}}, color={255,0,255}));
   connect(gai.y, addPar.u)
     annotation (Line(points={{-14,-60},{-10,-60}}, color={0,0,127}));
   connect(tau, samtau.u)
@@ -162,9 +158,11 @@ equation
           -60,-90},{-60,-72}}, color={255,0,255}));
   connect(addPar.y, div.u2) annotation (Line(points={{14,-60},{20,-60},{20,-40},
           {6,-40},{6,-26},{10,-26}}, color={0,0,127}));
-  connect(div.y, timConDel.ratioLT) annotation (Line(points={{34,-20},{36,-20},
-          {36,0},{-12,0},{-12,14},{-2,14}}, color={0,0,127}));
-  annotation (
+  connect(div.y, timConDel.rat) annotation (Line(points={{34,-20},{36,-20},{36,
+          0},{-12,0},{-12,14},{-2,14}}, color={0,0,127}));
+  connect(gain.k, samk.u)
+    annotation (Line(points={{-62,20},{-56,20}}, color={0,0,127}));
+annotation (
         defaultComponentName = "conProMod",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -192,7 +190,7 @@ equation
               34}}, color={28,108,200}),
         Line(points={{-58,36},{82,36}}, color={28,108,200},
           pattern=LinePattern.Dash)}),
-                                  Diagram(coordinateSystem(preserveAspectRatio=false)),
+  Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -201,17 +199,26 @@ First implementation<br/>
 </li>
 </ul>
 </html>", info="<html>
-<p>This block calculates the model parameters of a first-order time delayed model.
-Specifically, it employs <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain</a> and <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay\">
+<p>
+This block calculates the model parameters of a first-order time delayed model.
+Specifically, it employs
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain\">
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.Gain</a>
+and
+<a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay\">
 Buildings.Controls.OBC.Utilities.PIDWithAutotuning.SystemIdentification.FirstOrderTimedelayed.BaseClasses.TimeConstantDelay</a>
-to identify the gain and the time constant/the time delay, respectively.</p>
-<p>This block is inactive by default and is active once the tuning period starts, i.e., <code>triSta</code> becomes true;
-It then calculates the model parameters at the time when the tuning period ends, i.e., <code>triEnd</code> becomes true.
+to identify the gain, the time constant and the time delay, respectively.
+</p>
+<p>
+The calculations are disabled by default. They will be enabled once the tuning period starts,
+i.e., <code>triSta</code> becomes true;
+It then calculates the model parameters at the time when the tuning period ends,
+i.e., <code>triEnd</code> becomes true.
 </p>
 <p>
 Refer to <a href=\"modelica://Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller\">
-Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a> for detailed explanation of the parameters <code>yHig</code>, <code>yLow</code>, and <code>deaBan</code>.
+Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.Controller</a> for detailed explanation
+of the parameters <code>yHig</code>, <code>yLow</code>, and <code>deaBan</code>.
 </p>
 </html>"));
 end ControlProcessModel;

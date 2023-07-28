@@ -2,7 +2,7 @@ within Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.Vali
 model NormalizedTimeDelay "Test model for calculating the normalized time delay"
   Buildings.Controls.OBC.Utilities.PIDWithAutotuning.Relay.BaseClasses.NormalizedTimeDelay
     norTimDel(gamma=3) "Calculate the normalized time delay"
-    annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse rho(
     amplitude=1,
     width=0.7,
@@ -12,7 +12,7 @@ model NormalizedTimeDelay "Test model for calculating the normalized time delay"
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
 equation
   connect(rho.y, norTimDel.rho)
-    annotation (Line(points={{-28,0},{-10,0}}, color={0,0,127}));
+    annotation (Line(points={{-28,0},{-12,0}}, color={0,0,127}));
   annotation (
       experiment(
       StopTime=1.0,

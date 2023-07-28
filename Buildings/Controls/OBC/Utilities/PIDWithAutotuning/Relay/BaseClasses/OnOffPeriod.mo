@@ -118,8 +118,8 @@ First implementation<br/>
 This block processes a relay switch output and calculates the length of
 the On period, <code>tOn</code>, and the length of the Off period, <code>tOff</code>, as shown below.
 </p>
-<p align=\"left\">
-<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/Onoff.png\" border=\"1\"/>
+<p align=\"center\">
+<img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Controls/OBC/Utilities/PIDWithAutotuning/Relay/BaseClasses/OnOff.png\"/>
 </p>
 <p>
 Note that <code>tOn</code> is sampled when the relay switch output becomes false.
