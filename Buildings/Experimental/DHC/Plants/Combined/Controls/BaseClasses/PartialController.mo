@@ -60,7 +60,7 @@ block PartialController "Interface class for plant controller"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal_approx
     "Cooling design heat flow rate of HRC in cascading cooling mode (all units), approximate for scaling"
-    annotation (Dialog(group="CW loop, TES tank and heat pumps"));
+    annotation (Dialog(group="HW loop and heat recovery chillers"));
   final parameter Modelica.Units.SI.HeatFlowRate QChiWat_flow_nominal=
     QChiWatChi_flow_nominal+QChiWatCasCoo_flow_nominal
     "Plant cooling design heat flow rate (all units)";
