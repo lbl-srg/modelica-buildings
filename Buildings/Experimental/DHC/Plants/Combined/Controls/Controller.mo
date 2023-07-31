@@ -84,13 +84,17 @@ block Controller "Plant controller"
     "Replicate signal"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
   BaseClasses.ModeCondenserLoop modConLoo(
+    final mConWatHexCoo_flow_nominal=mConWatCon_flow_nominal,
+    final QHeaPum_flow_nominal=QHeaPum_flow_nominal,
     final TTanSet=TTanSet,
     final fraUslTan=fraUslTan,
     final ratFraChaTanLim=ratFraChaTanLim,
     final cp_default=cp_default,
     nTTan=nTTan) "Condenser loop operating mode"
     annotation (Placement(transformation(extent={{-170,-170},{-150,-150}})));
-  BaseClasses.TankCycle cycTan(final TTanSet=TTanSet, nTTan=nTTan)
+  BaseClasses.TankCycle cycTan(
+    mConWatHexCoo_flow_nominal=mConWatCon_flow_nominal,
+                               final TTanSet=TTanSet, nTTan=nTTan)
     "Determine tank cycle"
     annotation (Placement(transformation(extent={{-170,-110},{-150,-90}})));
   Buildings.Controls.OBC.CDL.Integers.Equal isModChaAss
@@ -147,6 +151,7 @@ block Controller "Plant controller"
     "Control logic for HRC in direct HR mode"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   BaseClasses.CoolingTowerLoop coo(
+    final mConWatHexCoo_flow_nominal=mConWatCon_flow_nominal,
     final nCoo=nCoo,
     final nPumConWatCoo=nPumConWatCoo,
     final QChiWat_flow_nominal=QChiWat_flow_nominal,

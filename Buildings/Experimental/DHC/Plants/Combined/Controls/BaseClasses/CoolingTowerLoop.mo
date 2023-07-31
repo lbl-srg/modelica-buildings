@@ -1,6 +1,8 @@
 ﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block CoolingTowerLoop "Cooling tower loop control"
 
+  parameter Modelica.Units.SI.MassFlowRate mConWatHexCoo_flow_nominal
+    "Design total CW mass flow rate through condenser barrels (all units)";
   parameter Integer nCoo(final min=1, start=1)
     "Number of cooling tower cells operating at design conditions"
     annotation (Evaluate=true);
@@ -142,7 +144,8 @@ block CoolingTowerLoop "Cooling tower loop control"
     yUp=0.8)
     "Stage pumps"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpFlo(t=3, h=3e-3)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold cmpFlo(t=0.025*
+        mConWatHexCoo_flow_nominal, h=0.025*mConWatHexCoo_flow_nominal/2)
     "Flow criterion to enable lead pump"
     annotation (Placement(transformation(extent={{-160,-10},{-140,10}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timFlo(t=60)
@@ -473,11 +476,11 @@ of the active tank cycle minus the design heat exchanger approach.
 The lead pump is enabled whenever the TES tank bypass valve commanded
 position is lower than <i>1</i> for <i>1&nbsp;</i>min and the
 CW mass flow rate through the secondary side of the cooling heat exchanger
-is higher than <i>3&nbsp;</i>kg/s for <i>1&nbsp;</i>min.
+is higher than <i>2.5&nbsp;%</i> of design condition for <i>1&nbsp;</i>min.
 The lead pump is disabled whenever the TES tank bypass valve commanded
 position is equal to <i>1</i> for <i>1&nbsp;</i>min or the
 CW mass flow rate through the secondary side of the cooling heat exchanger
-is lower than <i>3&nbsp;</i>kg/s for <i>5&nbsp;</i>min.
+is lower than <i>2.5&nbsp;%</i> of design condition for <i>5&nbsp;</i>min.
 </p>
 <p>
 The lag pump is enabled whenever the pump speed command (common to all pumps)

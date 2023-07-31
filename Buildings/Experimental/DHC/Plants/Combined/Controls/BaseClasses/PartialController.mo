@@ -50,6 +50,9 @@ block PartialController "Interface class for plant controller"
   parameter Modelica.Units.SI.HeatFlowRate QChiWatChi_flow_nominal
     "Cooling design heat flow rate of cooling-only chillers (all units)"
     annotation (Dialog(group="CHW loop and cooling-only chillers"));
+  parameter Modelica.Units.SI.HeatFlowRate QHeaPum_flow_nominal
+    "Heating design heat flow rate of heat pumps (all units)"
+    annotation (Dialog(group="CW loop, TES tank and heat pumps"));
   parameter Real PLRStaTra(final unit="1", final min=0, final max=1) = 0.85
     "Part load ratio triggering stage transition";
   parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal
@@ -62,7 +65,7 @@ block PartialController "Interface class for plant controller"
     "Heating design heat flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
+    Buildings.Utilities.Psychrometrics.Constants.cpWatmConWatCon_flow_nominalLiq
     "Specific heat capacity of the fluid";
 
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(

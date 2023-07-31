@@ -2,6 +2,10 @@ within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block ModeCondenserLoop
   "Block that determines the condenser loop mode"
 
+  parameter Modelica.Units.SI.MassFlowRate mConWatHexCoo_flow_nominal
+    "Design total CW mass flow rate through condenser barrels (all units)";
+  parameter Modelica.Units.SI.HeatFlowRate QHeaPum_flow_nominal
+    "Design heat flow from heat pumps (all units)";
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
     annotation(Dialog(group="CW loop, TES tank and heat pumps"));
@@ -85,7 +89,8 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Logical.Timer tim2(t=15*60)
     "None of the enabling conditions is true for given time"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo(t=1E-4, h=1E-4)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo(t=1E-3*
+        mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
     "Disable criterion based on flow rate"
     annotation (Placement(transformation(extent={{-100,50},{-80,70}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criTem(t=max(TTanSet)
@@ -122,7 +127,8 @@ block ModeCondenserLoop
   "CW mass flow rate through secondary (plant) side of HX"
     annotation (Placement(transformation(extent={{-240,100},{-200,140}}),
         iconTransformation(extent={{-140,60},{-100,100}})));
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criFlo1(t=-1E-4, h=1E-4)
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold criFlo1(t=-1E-3*
+        mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
     annotation (Placement(transformation(extent={{-100,110},{-80,130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timCriFlo1(t=60)
     "Criterion true for given time"
@@ -204,8 +210,9 @@ block ModeCondenserLoop
   Buildings.Controls.OBC.CDL.Continuous.Subtract ratHeaRec
     "Compute heat recovery rate"
     annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criRatHeaRec(t=1E-4, h
-      =1E-4) "Disable criterion based on heat recovery rate"
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criRatHeaRec(final t=
+        1E-3*QHeaPum_flow_nominal, final h=1E-3*QHeaPum_flow_nominal/2)
+             "Disable criterion based on heat recovery rate"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
 equation
   connect(ratFraChaTanVal.y, lesThr.u)

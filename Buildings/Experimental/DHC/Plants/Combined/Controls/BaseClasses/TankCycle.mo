@@ -1,5 +1,8 @@
-within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block TankCycle "Block that determines the tank cycle flag"
+
+  parameter Modelica.Units.SI.MassFlowRate mConWatHexCoo_flow_nominal
+    "Design total CW mass flow rate through condenser barrels (all units)";
 
   parameter Modelica.Units.SI.Temperature TTanSet[2, 2]
     "Tank temperature setpoints: 2 cycles with 2 setpoints"
@@ -33,7 +36,8 @@ block TankCycle "Block that determines the tank cycle flag"
   Buildings.Controls.OBC.CDL.Logical.MultiAnd allCriTem1(final nin=nTTan)
     "All temperature criteria met"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo1(final t=0, h=1E-4)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criFlo1(final t=1E-3*
+        mConWatHexCoo_flow_nominal, h=1E-3*mConWatHexCoo_flow_nominal/2)
     "Flow criterion for first tank cycle"
     annotation (Placement(transformation(extent={{-150,110},{-130,130}})));
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold criTem2[nTTan](each t=sum(TTanSet[1])/2, each h=1E-4)
