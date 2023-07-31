@@ -281,7 +281,8 @@ The plants are controlled as follows:
 </p>
 <ul>
 <li>
-In plant 1, the chiller is always on. The speed-controlled pump
+In plant 1, for the sake of this discussion, assume the chiller is always on.
+The speed-controlled pump
 ensures that the users have enough pressure head at all times.
 This includes plant 2 when its tank is charged remotely by plant 1 and
 it acts like an energy consumer.
@@ -330,6 +331,11 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/Cont
 </p>
 <h4>Implementation</h4>
 <p>
+fixme: This is confusing as the chiller is implemented in the example, and not in this model.
+Please update the documentation accordingly.
+I like it that you show the exemplar schematic diagram here in the documentation of the model,
+but when you describe the implementation that is used in the example, then this needs to be done
+in the example.<br/>
 The chiller is implemented as an ideal temperature source where the outlet
 temperature is always at the prescribed value in
 <a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealTemperatureSource\">
