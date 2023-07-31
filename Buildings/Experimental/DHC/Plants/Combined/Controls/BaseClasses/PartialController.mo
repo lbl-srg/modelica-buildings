@@ -68,7 +68,7 @@ block PartialController "Interface class for plant controller"
     "Heating design heat flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.SpecificHeatCapacity cp_default=
-    Buildings.Utilities.Psychrometrics.Constants.cpWatmConWatCon_flow_nominalLiq
+    Buildings.Utilities.Psychrometrics.Constants.cpWatLiq
     "Specific heat capacity of the fluid";
 
   parameter Modelica.Units.SI.MassFlowRate mChiWat_flow_nominal(
