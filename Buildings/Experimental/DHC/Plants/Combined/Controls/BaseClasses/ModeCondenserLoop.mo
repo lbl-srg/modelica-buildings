@@ -211,7 +211,9 @@ block ModeCondenserLoop
     "Compute heat recovery rate"
     annotation (Placement(transformation(extent={{-90,-190},{-70,-170}})));
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold criRatHeaRec(final t=
-        1E-3*QHeaPum_flow_nominal, final h=1E-3*QHeaPum_flow_nominal/2)
+        1E-4*(mConWatHexCoo_flow_nominal*(TTanSet[1, 2] - TTanSet[1, 1])*4184
+         - QHeaPum_flow_nominal), final h=1E-4*(mConWatHexCoo_flow_nominal*(
+        TTanSet[1, 2] - TTanSet[1, 1])*4184 - QHeaPum_flow_nominal)/2)
              "Disable criterion based on heat recovery rate"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
 equation

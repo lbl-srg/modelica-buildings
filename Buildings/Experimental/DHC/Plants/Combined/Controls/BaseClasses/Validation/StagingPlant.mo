@@ -40,6 +40,7 @@ model StagingPlant "Validation of plant staging block"
     final nChiHea=nChiHea,
     final QChiWatChi_flow_nominal=QChiWatChi_flow_nominal,
     final QChiWatCasCoo_flow_nominal=QChiWatCasCoo_flow_nominal,
+    QChiWatCasCoo_flow_nominal_approx=QChiWatCasCoo_flow_nominal,
     final QHeaWat_flow_nominal=QHeaWat_flow_nominal) "Chiller staging block"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
   Buildings.Controls.OBC.CDL.Continuous.Sources.TimeTable ratFlo(table=[0,0,0; 1,

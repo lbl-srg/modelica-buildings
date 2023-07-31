@@ -844,7 +844,7 @@ model AllElectricCWStorage
   Buildings.Experimental.DHC.Plants.Combined.Controls.Controller ctl(
     final nChi=nChi,
     final nPumChiWat=nPumChiWat,
-    QHeaPum_flow_nominal=datHeaPum.hea.Q_flow*nHeaPum,
+    final QHeaPum_flow_nominal=datHeaPum.hea.Q_flow*nHeaPum,
     final dTLifChi_min=dTLifChi_min,
     final dTLifChi_nominal=dTLifChi_nominal,
     final nChiHea=nChiHea,
@@ -878,6 +878,7 @@ model AllElectricCWStorage
     final dpValEvaChiHea_nominal=max(chiHea.valEva.dpValve_nominal),
     final QChiWatChi_flow_nominal=chi.QChiWat_flow_nominal,
     final QChiWatCasCoo_flow_nominal=chiHea.QChiWatCasCoo_flow_nominal,
+    final QChiWatCasCoo_flow_nominal_approx=chiHea.QChiWat_flow_nominal,
     final QHeaWat_flow_nominal=QHeaWat_flow_nominal,
     final cp_default=cp_default,
     final fraUslTan=fraUslTan,

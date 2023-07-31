@@ -18,6 +18,9 @@ block StagingPlant
   parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal
     "Cooling design heat flow rate of HRC in cascading cooling mode (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
+  parameter Modelica.Units.SI.HeatFlowRate QChiWatCasCoo_flow_nominal_approx
+    "Cooling design heat flow rate of HRC in cascading cooling mode (all units), approximate for scaling"
+    annotation (Dialog(group="HW loop and heat recovery chillers"));
   parameter Modelica.Units.SI.HeatFlowRate QHeaWat_flow_nominal
     "Heating design heat flow rate (all units)"
     annotation (Dialog(group="HW loop and heat recovery chillers"));
@@ -228,7 +231,8 @@ block StagingPlant
          - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
     "Total capacity at current stage (>0) times stage-up PLR limit "
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
-  Buildings.Controls.OBC.CDL.Continuous.Greater cmpOPLRLimUp(h=1E-1)
+  Buildings.Controls.OBC.CDL.Continuous.Greater cmpOPLRLimUp(h=-1E-4*(
+        QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
     "Check OPLR limit"
     annotation (Placement(transformation(extent={{-80,110},{-60,130}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim(t=15*60)
@@ -273,7 +277,8 @@ block StagingPlant
         0, staCoo.preIdxSta - 1 - nChi)/nChiHea*QChiWatCasCoo_flow_nominal)))
     "Total capacity at next lower stage (>0) times stage-down PLR limit "
     annotation (Placement(transformation(extent={{-120,62},{-100,82}})));
-  Buildings.Controls.OBC.CDL.Continuous.Less cmpOPLRLimDow1(h=1E-1)
+  Buildings.Controls.OBC.CDL.Continuous.Less cmpOPLRLimDow1(h=-1E-4*(
+        QChiWatChi_flow_nominal + QChiWatCasCoo_flow_nominal_approx)/2)
     "Check OPLR limit"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
   Buildings.Controls.OBC.CDL.Logical.Timer timOPLRExcLim3(t=15*60)

@@ -74,6 +74,7 @@ block Controller "Plant controller"
     final QChiWatChi_flow_nominal=QChiWatChi_flow_nominal,
     final nChiHea=nChiHea,
     final QChiWatCasCoo_flow_nominal=QChiWatCasCoo_flow_nominal,
+    final QChiWatCasCoo_flow_nominal_approx=QChiWatCasCoo_flow_nominal_approx,
     final QHeaWat_flow_nominal=QHeaWat_flow_nominal,
     final cp_default=cp_default) "Plant staging"
     annotation (Placement(transformation(extent={{-210,140},{-190,172}})));
