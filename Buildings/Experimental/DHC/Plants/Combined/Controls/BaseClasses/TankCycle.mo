@@ -1,4 +1,4 @@
-﻿within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
+within Buildings.Experimental.DHC.Plants.Combined.Controls.BaseClasses;
 block TankCycle "Block that determines the tank cycle flag"
 
   parameter Modelica.Units.SI.MassFlowRate mConWatHexCoo_flow_nominal
