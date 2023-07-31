@@ -9,7 +9,7 @@ block TankStatus "Block that returns the status of the tank"
   parameter Modelica.Units.SI.TemperatureDifference dTUnc = 0.1
     "Temperature sensor uncertainty";
   parameter Modelica.Units.SI.TemperatureDifference dTHys = 1
-    "Deadband for hysteresis";
+    "Hysteresis for temperature control";
 
   Modelica.Blocks.Interfaces.RealInput TTan[2](
     each final quantity="Temperature",
@@ -139,8 +139,16 @@ equation
 This block outputs tank status signals using the temperature signals
 from the storage tank top (<i>T<sub>1</sub></i>) and the bottom
 (<i>T<sub>2</sub></i>). The status is output as an array of three boolean
-signals indicating whether the tank is (1) depleted, (2) cooled, and
-(3) overcooled.
+signals. The signal <code>y[1] = true</code> means the tank is depleted,
+<code>y[2] = true</code> means it is cooled, and
+<code>y[3] = true</code> means it is overcooled.
+fixme: This is not clear: Does cooled mean it is fully cooled or partically cooled,
+and why is overcooled needed? Why not using fully depleted and fully charged, and everything
+else is partially charged? So two outputs should suffice?<br/>
+fixme: it is also not clear why an uncertainty is needed. This is the first place in the library
+where this is used. Can it be removed, and if not, what is the constraint between uncertainty and hysteresis?
+They seem not independent.<br/>
+fixme: Also, add a validation case in Controls.Validation.
 </p>
 <p>
 This block is implemented as a state graph with transition conditions
@@ -184,11 +192,11 @@ the tank is considered both \"cooled\" and \"overcooled\".
 </tbody>
 </table>
 <p>
-Symbols:
-<i>T<sub>Hig</sub></i> - Higher threshold,
-<i>T<sub>Low</sub></i> - Lower threshold,
-<i>&Delta;T<sub>Unc</sub></i> - Meter uncertainty,
-<i>&Delta;T<sub>Hys</sub></i> - Band for hysteresis.
+In the above table,
+<i>T<sub>Hig</sub></i> is the higher threshold,
+<i>T<sub>Low</sub></i> is the lower threshold,
+<i>&Delta;T<sub>Unc</sub></i> is the meter uncertainty, and
+<i>&Delta;T<sub>Hys</sub></i> is the hysteresis.
 </p>
 </html>"),
 revisions="<html>

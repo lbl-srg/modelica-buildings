@@ -4,10 +4,17 @@ model ParallelJunctions "A pair of junctions in parallel"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium package";
 
-  parameter Modelica.Units.SI.Temperature T1_start
-    "Start temperature of the volume";
-  parameter Modelica.Units.SI.Temperature T2_start
-    "Start temperature of the volume";
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
+    "Design mass flow rate (used to approximate dynamics"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.Units.SI.Time tau=30 "Time constant at nominal flow"
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
+  parameter Modelica.Units.SI.Temperature T1_start=Medium.T_default
+    "Start temperature of the volume"
+    annotation(Dialog(tab = "Initialization"));
+  parameter Modelica.Units.SI.Temperature T2_start=Medium.T_default
+    "Start temperature of the volume"
+    annotation(Dialog(tab = "Initialization"));
 
   Modelica.Fluid.Interfaces.FluidPort_a port_a2(
     redeclare final package Medium = Medium,
@@ -42,18 +49,18 @@ model ParallelJunctions "A pair of junctions in parallel"
   Buildings.Fluid.FixedResistances.Junction jun1(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    tau=30,
+    final tau=tau,
     final T_start=T1_start,
-    m_flow_nominal={-1,-1,1},
+    final m_flow_nominal={-m_flow_nominal,-m_flow_nominal,m_flow_nominal},
     final dp_nominal={0,0,0})
     "Junction"
     annotation (Placement(transformation(extent={{-70,70},{-50,50}})));
   Buildings.Fluid.FixedResistances.Junction jun2(
     redeclare final package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    tau=30,
+    final tau=tau,
     final T_start=T2_start,
-    m_flow_nominal={1,1,-1},
+    final m_flow_nominal={m_flow_nominal,m_flow_nominal,-m_flow_nominal},
     final dp_nominal={0,0,0})
     "Junction"
     annotation (Placement(transformation(extent={{50,-50},{70,-70}})));
@@ -131,6 +138,10 @@ This model is for breaking algebraic loops only and has no pressure drop.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 31, 2023, by Michael Wetter:<br/>
+Propagated parameters, and introduced design flow rate <code>m_flow_nominal</code>.
+</li>
 <li>
 October 31, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for

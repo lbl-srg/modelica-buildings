@@ -117,7 +117,7 @@ model StoragePlantDualSource
         rotation=0,
         origin={90,-170})));
   Modelica.Blocks.Sources.Constant set_dpUse(final k=1)
-    "Normalised consumer differential pressure setpoint"
+    "Normalized consumer differential pressure setpoint"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-90,170})));
@@ -154,7 +154,8 @@ model StoragePlantDualSource
     parJunPla1(
     redeclare final package Medium = Medium,
     T1_start=T_CHWS_nominal,
-    T2_start=T_CHWR_nominal)
+    T2_start=T_CHWR_nominal,
+    m_flow_nominal = 2*m_flow_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -164,7 +165,8 @@ model StoragePlantDualSource
     parJunUse2(
     redeclare final package Medium = Medium,
     T1_start=T_CHWR_nominal,
-    T2_start=T_CHWS_nominal)
+    T2_start=T_CHWS_nominal,
+    m_flow_nominal = 2*m_flow_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
@@ -174,7 +176,8 @@ model StoragePlantDualSource
     parJunPla2(
     redeclare final package Medium = Medium,
     T1_start=T_CHWS_nominal,
-    T2_start=T_CHWR_nominal)
+    T2_start=T_CHWR_nominal,
+    m_flow_nominal = 2*m_flow_nominal)
     "Parallel junctions for breaking algebraic loops" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},

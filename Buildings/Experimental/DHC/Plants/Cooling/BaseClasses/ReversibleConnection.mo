@@ -11,7 +11,8 @@ model ReversibleConnection
   parameter Modelica.Units.SI.PressureDifference dpVal_nominal
     "Nominal pressure difference for return valve sizing";
   parameter Modelica.Units.SI.ThermodynamicTemperature T_start
-    "Start temperature";
+    "Start temperature"
+   annotation(Dialog(tab = "Initialization"));
 
   Modelica.Blocks.Interfaces.RealOutput PEle(
     final quantity="Power",
@@ -24,8 +25,7 @@ model ReversibleConnection
         rotation=0,
         origin={110,60})));
   Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
-    "Normalised speed signal for pump"
-                              annotation (Placement(
+    "Normalized speed signal for pump" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -53,7 +53,7 @@ model ReversibleConnection
     "Valve that throttles CHW from the supply line to the tank"
     annotation (Placement(transformation(extent={{20,-40},{0,-20}})));
   Modelica.Blocks.Interfaces.RealInput yVal(final unit="1")
-    "Normalised flow signal for valve" annotation (Placement(transformation(
+    "Normalized flow signal for valve" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-110,-70}), iconTransformation(
@@ -106,7 +106,7 @@ equation
     annotation (Line(points={{-20,50},{0,50}}, color={0,127,255}));
   annotation (Documentation(info="<html>
 <p>
-This model implements the reversible connection between the storage plant
+This model implements a piping connection for reversible mass flow rate between the storage plant
 and the district network.
 </p>
 </html>", revisions="<html>

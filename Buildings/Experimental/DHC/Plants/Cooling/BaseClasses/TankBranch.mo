@@ -221,7 +221,7 @@ equation
 <p>
 This model is part of a storage plant. This branch has a stratified tank.
 This tank can potentially be charged remotely by a chiller from the district
-CHW network other than its own local chiller.
+CHW network, or by a chiller that is local to the energy transfer station that contains this tank.
 </p>
 </html>", revisions="<html>
 <ul>

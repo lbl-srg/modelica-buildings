@@ -39,7 +39,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
     final addPowerToMedium=false,
     final m_flow_nominal=mChi_flow_nominal,
     final dp_nominal=chi2PreDro.dp_nominal) "Primary CHW pump"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-40,-14},{-20,6}})));
   Buildings.Fluid.FixedResistances.PressureDrop chi2PreDro(
     redeclare final package Medium = Medium,
     final m_flow_nominal=mChi_flow_nominal,
@@ -48,7 +48,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-30,-50})));
+        origin={-30,-60})));
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.TankBranch tanBra(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
@@ -98,8 +98,8 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         iconTransformation(extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,110})));
-  Modelica.Blocks.Interfaces.BooleanInput hasLoa "True: Has load"
-                                                 annotation (Placement(
+  Modelica.Blocks.Interfaces.BooleanInput hasLoa
+    "Set to true if the district has a load"     annotation (Placement(
         transformation(rotation=-90,
                                    extent={{-10,-10},{10,10}},
         origin={-80,110}),
@@ -107,7 +107,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
         rotation=-90,
         origin={-60,110})));
   Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
-    "Normalised speed signal for the secondary pump"        annotation (
+    "Normalized speed signal for the secondary pump"        annotation (
       Placement(transformation(rotation=-90,
                                            extent={{-10,-10},{10,10}},
         origin={-20,110}),
@@ -117,7 +117,7 @@ model StoragePlant "Model of a storage plant with a chiller and a CHW tank"
   Buildings.Fluid.Sensors.RelativePressure senRelPre(
     redeclare final package Medium = Medium)
     "Relative pressure sensor"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
       rotation=-90,origin={80,10})));
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput dp(
     final quantity="PressureDifference",
@@ -134,7 +134,7 @@ equation
   connect(tanSta.y, floCon.tanSta) annotation (Line(points={{61,-70},{70,-70},{70,
           -90},{-70,-90},{-70,42},{-61,42}},                   color={255,0,255}));
   connect(floCon.mPriPum_flow, pumPri.m_flow_in)
-    annotation (Line(points={{-39,58},{-30,58},{-30,22}}, color={0,0,127}));
+    annotation (Line(points={{-39,58},{-30,58},{-30,8}},  color={0,0,127}));
   connect(floCon.ySecPum,revCon. yPum) annotation (Line(points={{-39,54},{34,54},
           {34,36},{39,36}},          color={0,0,127}));
   connect(floCon.yVal,revCon. yVal) annotation (Line(points={{-39,50},{30,50},{
@@ -153,25 +153,27 @@ equation
   connect(yPum, floCon.yPum) annotation (Line(points={{-20,110},{-20,72},{-68,72},
           {-68,58},{-61,58}},
                             color={0,0,127}));
-  connect(port_b2, chi2PreDro.port_b) annotation (Line(points={{-100,-60},{-84,-60},
-          {-84,-50},{-40,-50}}, color={0,127,255}));
+  connect(port_b2, chi2PreDro.port_b) annotation (Line(points={{-100,-60},{-40,
+          -60}},                color={0,127,255}));
   connect(tanBra.port_a2, port_a2) annotation (Line(points={{20,-16},{80,-16},{80,
           -60},{100,-60}}, color={0,127,255}));
   connect(revCon.port_b, port_b1) annotation (Line(points={{60,30},{80,30},{80,60},
           {100,60}}, color={0,127,255}));
-  connect(port_a1, pumPri.port_a) annotation (Line(points={{-100,60},{-84,60},{-84,
-          10},{-40,10}}, color={0,127,255}));
-  connect(pumPri.port_b, tanBra.port_a1) annotation (Line(points={{-20,10},{-6,10},
-          {-6,-4},{0,-4}}, color={0,127,255}));
-  connect(tanBra.port_b2, chi2PreDro.port_a) annotation (Line(points={{0,-16},{-6,
-          -16},{-6,-50},{-20,-50}}, color={0,127,255}));
+  connect(port_a1, pumPri.port_a) annotation (Line(points={{-100,60},{-84,60},{
+          -84,-4},{-40,-4}},
+                         color={0,127,255}));
+  connect(pumPri.port_b, tanBra.port_a1) annotation (Line(points={{-20,-4},{0,
+          -4}},            color={0,127,255}));
+  connect(tanBra.port_b2, chi2PreDro.port_a) annotation (Line(points={{0,-16},{
+          -6,-16},{-6,-60},{-20,-60}},
+                                    color={0,127,255}));
   connect(tanBra.port_b1, revCon.port_a) annotation (Line(points={{20,-4},{34,-4},
           {34,30},{40,30}}, color={0,127,255}));
   connect(port_b1, senRelPre.port_a)
     annotation (Line(points={{100,60},{80,60},{80,20}}, color={0,127,255}));
   connect(port_a2, senRelPre.port_b) annotation (Line(points={{100,-60},{80,-60},
           {80,-3.55271e-15}}, color={0,127,255}));
-  connect(senRelPre.p_rel, dp) annotation (Line(points={{71,10},{66,10},{66,-30},
+  connect(senRelPre.p_rel, dp) annotation (Line(points={{89,10},{92,10},{92,-30},
           {110,-30}},color={0,0,127}));
   connect(floCon.isChaRem, isChaRem) annotation (Line(points={{-39,46},{94,46},
           {94,40},{110,40}}, color={255,0,255}));

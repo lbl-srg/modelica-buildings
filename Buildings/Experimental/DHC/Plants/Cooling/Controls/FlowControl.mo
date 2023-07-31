@@ -22,21 +22,36 @@ block FlowControl
     "Chiller enable status, true if chiller is enabled"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
         iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealOutput mPriPum_flow
+  Modelica.Blocks.Interfaces.BooleanInput hasLoa "Set to true if there is a load"
+    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
+        iconTransformation(extent={{-120,-50},{-100,-30}})));
+  Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
+    "Normalized speed signal for the secondary pump"
+     annotation (Placement(
+        transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,130}),iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-110,80})));
+
+  Modelica.Blocks.Interfaces.RealOutput yVal "Valve normalized mass flow rate"
+    annotation (Placement(transformation(extent={{780,-80},{800,-60}}),
+        iconTransformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput mPriPum_flow(final unit="kg/s")
     "Primary pump mass flow rate"
     annotation (Placement(transformation(extent={{780,40},{800,60}}),
                        iconTransformation(extent={{100,70},{120,90}})));
-  Modelica.Blocks.Interfaces.RealOutput ySecPum
-    "Secondary pump normalised speed" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput ySecPum(final unit="1")
+    "Secondary pump normalized speed" annotation (Placement(transformation(
           extent={{780,-20},{800,0}}), iconTransformation(extent={{100,30},{120,
             50}})));
   inner Modelica.StateGraph.StateGraphRoot stateGraphRoot "State graph root"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Modelica.StateGraph.InitialStep allOff(nOut=1, nIn=1) "Initial step, all off"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Blocks.Interfaces.BooleanInput hasLoa "True: Has load"
-    annotation (Placement(transformation(extent={{-120,-70},{-100,-50}}),
-        iconTransformation(extent={{-120,-50},{-100,-30}})));
+
   Modelica.StateGraph.Transition traChaLoc(condition=com == 1 and (not tanSta[2])
          and chiEnaSta)
     "Transition: Charge tank command AND tank not cooled AND chiller enabled"
@@ -89,19 +104,7 @@ block FlowControl
   Modelica.StateGraph.Alternative alt(nBranches=3)
     "Alternative: Tank charging or plant outputting CHW"
     annotation (Placement(transformation(extent={{-8,-200},{646,100}})));
-  Modelica.Blocks.Interfaces.RealOutput yVal "Valve normalised mass flow rate"
-    annotation (Placement(transformation(extent={{780,-80},{800,-60}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput yPum(final unit="1")
-    "Normalised speed signal for the secondary pump"
-                              annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,130}),iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-110,80})));
+
   Buildings.Controls.OBC.CDL.Continuous.Switch swiSecPum
     "Switch for secondary pump flow"
     annotation (Placement(transformation(extent={{740,-20},{760,0}})));
