@@ -12,7 +12,7 @@ model FanCoil2PipeCooling
     final have_chiWat=true,
     final have_QReq_flow=true,
     allowFlowReversal=false,
-    allowFlowReversalLoa=true,
+    final allowFlowReversalLoa=false,
     final have_chaOve=false,
     final have_eleHea=false,
     final have_eleCoo=false,
@@ -35,12 +35,13 @@ model FanCoil2PipeCooling
   parameter Boolean have_speVar=true
     "Set to true for a variable speed fan (otherwise fan is always on)"
     annotation (Evaluate=true, Dialog(group="Configuration"));
-  parameter Modelica.Units.SI.HeatFlowRate QRooHea_flow_nominal(min=0) = 0
-    "Nominal heating load (for room air temperature prediction)"
+  parameter Modelica.Units.SI.HeatFlowRate QEnv_flow_nominal(min=0)
+    "Nominal envelope heat loss (for room air temperature prediction)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.Units.SI.Temperature TRooHea_nominal=21.1 + 273.15
-    "Room temperature at heating nominal conditions (for room air temperature prediction)"
+  parameter Modelica.Units.SI.TemperatureDifference dTEnv_nominal = 15
+    "Design temperature difference at which envelope heat loss is QEnv_flow_nominal"
     annotation (Dialog(group="Nominal condition"));
+
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset con(
     final k=k,
     final Ti=Ti,
@@ -54,7 +55,7 @@ model FanCoil2PipeCooling
     final m_flow_nominal=mLoaCoo_flow_nominal,
     redeclare final Fluid.Movers.Data.Generic per,
     nominalValuesDefineDefaultPressureCurve=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     use_inputFilter=false,
     final dp_nominal=dpLoa_nominal)
     "Fan"
@@ -98,10 +99,9 @@ model FanCoil2PipeCooling
     "Source for return air"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},rotation=0,origin={112,0})));
   Buildings.Experimental.DHC.Loads.BaseClasses.SimpleRoomODE TLoaODE(
-    TOutHea_nominal=273.15 - 5,
-    final TIndHea_nominal=TRooHea_nominal,
-    final QHea_flow_nominal=QRooHea_flow_nominal)
-    "Predicted room air temperature"
+    final dTEnv_nominal=dTEnv_nominal,
+    TAir_start=297.15,
+    final QEnv_flow_nominal=QEnv_flow_nominal) "Predicted room air temperature"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   Buildings.Controls.OBC.CDL.Continuous.MultiplyByParameter gaiHeaFlo(k=1/
         QCoo_flow_nominal)
@@ -118,6 +118,7 @@ model FanCoil2PipeCooling
     annotation (Placement(transformation(extent={{-50,190},{-30,210}})));
   Fluid.FixedResistances.PressureDrop resLoa(
     redeclare final package Medium = Medium2,
+    final allowFlowReversal=allowFlowReversalLoa,
     final m_flow_nominal=mLoaCoo_flow_nominal,
     final dp_nominal=dpLoa_nominal)
     "Load side pressure drop"
@@ -186,7 +187,7 @@ equation
     Documentation(
       info="<html>
 <p>
-This is a sensible only simplified model of a two-pipe fan coil unit for cooling.
+This is a simplified model of a two-pipe fan coil unit for cooling.
 It is intended to be used
 </p>
 <ul>
@@ -201,9 +202,6 @@ Buildings.Experimental.DHC.Loads.BaseClasses.FlowDistribution</a>:
 it therefore computes the water mass flow rate required to meet the load.
 </li>
 </ul>
-<p>
-For the sake of simplicity, a sensible only heat exchanger model is considered.
-</p>
 <p>
 For the sake of computational performance, a PI controller is used instead of an inverse
 model of the heat exchanger to assess the required water mass flow rate.
@@ -231,5 +229,26 @@ February 21, 2020, by Antoine Gautier:<br/>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"), Icon(graphics={
+        Ellipse(
+          extent={{-100,100},{100,-100}},
+          lineColor={28,108,200},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Line(
+          points={{-120,-1.46958e-14},{-80,-9.79717e-15},{-40,60},{40,-60},{80,9.79717e-15},{120,1.46958e-14}},
+          color={255,255,255},
+          thickness=1,
+          rotation=180),
+        Polygon(
+          points={{46,62},{70,70},{62,46},{46,62}},
+          lineColor={255,255,255},
+          lineThickness=1,
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-118,-118},{120,120}},
+          color={255,255,255},
+          thickness=1)}));
 end FanCoil2PipeCooling;

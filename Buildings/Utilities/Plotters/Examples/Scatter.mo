@@ -13,10 +13,10 @@ model Scatter "Simple scatter plots"
     introduction="This plot shows a scatter plot of sine vs cosine.")
     "Scatter plot"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Sources.RealExpression sine(y=sin(time))
+  Modelica.Blocks.Sources.RealExpression sine(y=sin(uniCon*time))
   "Sine signal"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  Modelica.Blocks.Sources.RealExpression cosine(y=cos(time))
+  Modelica.Blocks.Sources.RealExpression cosine(y=cos(uniCon*time))
   "Cosine signal"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Buildings.Utilities.Plotters.Scatter sca1(
@@ -32,6 +32,9 @@ model Scatter "Simple scatter plots"
   Modelica.Blocks.Math.Product product
     "Product to compute the square of cos(time)"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
+protected
+  constant Real uniCon(final unit="1/s") = 1
+    "Unit conversion to satisfy unit check";
 equation
   connect(sca.x, sine.y)
     annotation (Line(points={{58,-8},{52,-8},{52,-20},{-19,-20}},
@@ -41,14 +44,15 @@ equation
   connect(sca1.x, sine.y)
     annotation (Line(points={{58,32},{52,32},{52,-20},{-19,-20}},
                                                            color={0,0,127}));
-  connect(cosine.y, sca1.y[1]) annotation (Line(points={{-19,0},{0,0},{0,41},{
-          58,41}},            color={0,0,127}));
+  connect(cosine.y, sca1.y[1]) annotation (Line(points={{-19,0},{0,0},{0,39.5},{
+          58,39.5}},          color={0,0,127}));
   connect(cosine.y, product.u1)
     annotation (Line(points={{-19,0},{0,0},{0,26},{18,26}}, color={0,0,127}));
   connect(cosine.y, product.u2)
     annotation (Line(points={{-19,0},{0,0},{0,14},{18,14}}, color={0,0,127}));
-  connect(product.y, sca1.y[2]) annotation (Line(points={{41,20},{50,20},{50,39},
-          {58,39}}, color={0,0,127}));
+  connect(product.y, sca1.y[2]) annotation (Line(points={{41,20},{50,20},{50,40.5},
+          {58,40.5}},
+                    color={0,0,127}));
   annotation ( experiment(Tolerance=1e-6, StopTime=10.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Plotters/Examples/Scatter.mos"
         "Simulate and plot"),
@@ -64,6 +68,12 @@ in the plot configuration <code>plotConfiguration</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 6, 2023, by Michael Wetter:<br/>
+Added a constant in order for unit check to pass.<br/>
+See  <a href=\"https://github.com/ibpsa/modelica-ibpsa/issues/1711\">#1711</a>
+for a discussion.
+</li>
 <li>
 March 23, 2018, by Michael Wetter:<br/>
 First implementation.

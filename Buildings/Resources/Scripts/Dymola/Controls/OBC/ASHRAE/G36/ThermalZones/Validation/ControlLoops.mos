@@ -1,0 +1,5 @@
+simulateModel("Buildings.Controls.OBC.ASHRAE.G36.ThermalZones.Validation.ControlLoops", method="Cvode", stopTime=7200, tolerance=1e-06, resultFile="conLoo");
+createPlot(id=1, position={5, 1, 1110, 834}, y={"conLoo.TCooSet", "conLoo.TZon", "conLoo.THeaSet"}, range={0.0, 7500.0, 0.0, 30.0}, grid=true, subPlot=1, colors={{28,108,200}, {238,46,47}, {0,140,72}}, timeUnit="s", displayUnits={"degC", "degC", "degC"});
+createPlot(id=1, position={5, 1, 1110, 834}, y={"conLoo.yCoo"}, range={0.0, 7500.0, -0.5, 1.5}, grid=true, subPlot=2, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+createPlot(id=1, position={5, 1, 1110, 834}, y={"conLoo.yHea"}, range={0.0, 7500.0, -0.5, 1.5}, grid=true, subPlot=3, colors={{28,108,200}}, timeUnit="s", displayUnits={"1"});
+

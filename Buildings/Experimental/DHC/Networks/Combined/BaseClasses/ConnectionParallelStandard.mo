@@ -3,7 +3,12 @@ model ConnectionParallelStandard
   "Model for connecting an agent to the DHC system"
   extends Buildings.Experimental.DHC.Networks.BaseClasses.PartialConnection2Pipe(
     tau=5*60,
-    redeclare replaceable model Model_pipDis = PipeStandard (
+    redeclare replaceable model Model_pipDisSup = PipeStandard (
+      roughness=7e-6,
+      fac=1.5,
+      final length=lDis,
+      final dh=dhDis),
+    redeclare replaceable model Model_pipDisRet = PipeStandard (
       roughness=7e-6,
       fac=1.5,
       final length=lDis,

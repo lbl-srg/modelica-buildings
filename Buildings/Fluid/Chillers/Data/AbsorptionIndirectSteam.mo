@@ -60,7 +60,7 @@ package AbsorptionIndirectSteam
 <p>
 This record is used as a template for performance data
 for the absorption chiller model
-<a href=\"Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
+<a href=\"modelica://Buildings.Fluid.Chillers.AbsorptionIndirectSteam\">
 Buildings.Fluid.Chillers.AbsorptionIndirectSteam</a>.
 </p>
 </html>",

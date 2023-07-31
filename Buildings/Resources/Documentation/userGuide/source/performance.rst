@@ -1,7 +1,35 @@
 Simulation Performance
 ======================
 
-This section provides tips for how to implement numerically efficient models.
+This section provides tips for how to implement numerically efficient models
+and for how to debug models.
+
+All Modelica simulation environments have debugging and profiling capabilities
+that give insight into where computing time is spent and how to speed up simulations.
+The use of these features varies among the different Modelica tools.
+We recommend users read the documentation of their respective simulation environment,
+take opportunity of training that is offered on request by many tool providers,
+and contact their support for tool related questions.
+
+
+Unstable control loops
+----------------------
+
+Most solvers in Modelica tools adapt the time step during the simulation
+in order to accurately resolve the dynamics of the model.
+If feedback control loops are unstable, then trajectories can have
+high frequency oscillations, just as in a real HVAC system.
+The solver is then required to simulate with small time steps,
+which increases the simulation time.
+
+In large models, to detect which control loop is unstable, it can be
+helpful to log which state variables dominate the integration error
+or the integrator time step control.
+This usually points to the control loop that is unstable.
+There are various methods for tuning a controller, and the documentation of
+`Buildings.Controls.OBC.CDL.Continuous.PIDWithReset <https://simulationresearch.lbl.gov/modelica/releases/v9.1.0/help/Buildings_Controls_OBC_CDL_Continuous.html#Buildings.Controls.OBC.CDL.Continuous.PIDWithReset>`_
+outlines one approach for tuning the gains of a PI-controller.
+
 
 .. _sec_con_inp_equ:
 
@@ -407,4 +435,3 @@ However, the actual magnitude of the global integration error
 depends on the stability of the differential equation.
 As an extreme case, if a system is chaotic
 and uncontrolled, then the global integration error will grow rapidly.
-

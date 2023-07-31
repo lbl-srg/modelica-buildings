@@ -24,7 +24,7 @@ Documentation(info="<html>
 <p>
 This record is used as a template for performance data
 for the heat pump model
-<a href=\"Buildings.Fluid.HeatPumps.EquationFitReversible\">
+<a href=\"modelica://Buildings.Fluid.HeatPumps.EquationFitReversible\">
 Buildings.Fluid.HeatPumps.EquationFitReversible</a>.
 </p>
 </html>",  revisions="<html>

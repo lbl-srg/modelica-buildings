@@ -14,7 +14,7 @@ model SupplyAirTemperature
     k=13 + 273.15)
     "Set point"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     phase=3.1415926535898,
     y(final unit="K", displayUnit="degC"),
     amplitude=5,

@@ -1,0 +1,9 @@
+last-generated=2022-09-07
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+cmp=[1e+00, 1e+00]

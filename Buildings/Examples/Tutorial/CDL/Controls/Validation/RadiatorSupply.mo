@@ -11,7 +11,7 @@ model RadiatorSupply
   Buildings.Examples.Tutorial.CDL.Controls.RadiatorSupply
     conRadSup "Controller for radiator supply water temperature"
               annotation (Placement(transformation(extent={{10,-10},{30,10}})));
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Sine TSup(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Sin TSup(
     amplitude=20,
     freqHz=1/720,
     offset=303.15) "Measured supply water temperature"

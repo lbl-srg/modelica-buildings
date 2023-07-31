@@ -13,14 +13,24 @@ partial model PartialElectric
     vol1(
       final prescribedHeatFlowRate=true));
 
+  parameter Boolean have_switchover=false
+    "Set to true for heat recovery chiller with built-in switchover"
+    annotation(Evaluate=true);
+
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
         iconTransformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
-    "Set point for leaving chilled water temperature"
+    "Set point for leaving chilled water temperature (condenser water if have_switchover=true and coo=false)"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
         iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
+    "Electric power consumed by compressor"
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
+  Modelica.Blocks.Interfaces.RealOutput COP_h(final unit="1") if have_switchover
+    "Coefficient of performance of heating";
 
   Modelica.Units.SI.Temperature TEvaEnt "Evaporator entering temperature";
   Modelica.Units.SI.Temperature TEvaLvg "Evaporator leaving temperature";
@@ -30,10 +40,7 @@ partial model PartialElectric
   Modelica.Units.SI.Efficiency COP "Coefficient of performance";
   Modelica.Units.SI.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.Units.SI.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
-    "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,80},{120,100}}),
-        iconTransformation(extent={{100,80},{120,100}})));
+
 
   Real capFunT(min=0, unit="1")
     "Cooling capacity factor function of temperature curve";
@@ -41,16 +48,36 @@ partial model PartialElectric
     "Power input to cooling capacity ratio function of temperature curve";
   Modelica.Units.SI.Efficiency EIRFunPLR
     "Power input to cooling capacity ratio function of part load ratio";
-  Real PLR1(min=0, unit="1") "Part load ratio";
+  Real PLR1(min=0, unit="1", start=0) "Part load ratio";
   Real PLR2(min=0, unit="1") "Part load ratio";
   Real CR(min=0, unit="1") "Cycling ratio";
 
+  Controls.OBC.CDL.Interfaces.BooleanInput coo if have_switchover
+    "Switchover signal: true for cooling, false for heating" annotation (
+      Placement(transformation(extent={{-140,-20},{-100,20}}),
+        iconTransformation(
+        extent={{-40,-40},{40,40}},
+        rotation=-90,
+        origin={-80,140})));
+  Controls.OBC.CDL.Logical.Sources.Constant tru(
+    final k=true) if not have_switchover
+    "Constant true signal"
+    annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
 protected
+  Controls.OBC.CDL.Interfaces.BooleanInput coo_internal
+    "Internal switchover signal: true for cooling, false for heating"
+    annotation (Placement(transformation(extent={{-100,-20},{-60,20}}),
+        iconTransformation(extent={{-140,-20},{-100,20}})));
+
   Modelica.Units.SI.HeatFlowRate QEva_flow_ava(nominal=QEva_flow_nominal, start
       =QEva_flow_nominal) "Cooling capacity available at evaporator";
   Modelica.Units.SI.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal, start
       =QEva_flow_nominal)
     "Cooling capacity required to cool to set point temperature";
+  Modelica.Units.SI.HeatFlowRate QCon_flow_set(
+    nominal=-QEva_flow_nominal * (1 + 1 / COP_nominal * etaMotor),
+    start=-QEva_flow_nominal * (1 + 1 / COP_nominal * etaMotor))
+    "Heating capacity required to heat up condenser water to setpoint";
   Modelica.Units.SI.SpecificEnthalpy hSet
     "Enthalpy setpoint for leaving chilled water";
   // Performance data
@@ -88,7 +115,10 @@ protected
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
     "Condenser heat flow rate"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-
+  Modelica.Blocks.Sources.RealExpression calCOPHea(
+    final y=QCon_flow/(P - Q_flow_small)) if have_switchover
+    "Compute heating COP"
+    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be smaller than zero.");
   assert(Q_flow_small < 0, "Parameter Q_flow_small must be smaller than zero.");
@@ -106,20 +136,32 @@ equation
   TEvaLvg_degC=Modelica.Units.Conversions.to_degC(TEvaLvg);
 
   // Enthalpy of temperature setpoint
-  hSet = Medium2.specificEnthalpy_pTX(
-           p=port_b2.p,
-           T=TSet,
-           X=cat(1, port_b2.Xi_outflow, {1-sum(port_b2.Xi_outflow)}));
+  hSet =if coo_internal then Medium2.specificEnthalpy_pTX(
+    p=port_b2.p,
+    T=TSet,
+    X=cat(
+      1,
+      port_b2.Xi_outflow,
+      {1 - sum(port_b2.Xi_outflow)})) else Medium1.specificEnthalpy_pTX(
+    p=port_b1.p,
+    T=TSet,
+    X=cat(
+      1,
+      port_b1.Xi_outflow,
+      {1 - sum(port_b1.Xi_outflow)}));
 
   if on then
     // Available cooling capacity
     QEva_flow_ava = QEva_flow_nominal*capFunT;
     // Cooling capacity required to chill water to setpoint
     QEva_flow_set = Buildings.Utilities.Math.Functions.smoothMin(
-      x1 = m2_flow*(hSet-inStream(port_a2.h_outflow)),
-      x2= Q_flow_small,
+      x1=if coo_internal then m2_flow * (hSet - inStream(port_a2.h_outflow))
+         else P * etaMotor - QCon_flow_set,
+      x2=Q_flow_small,
       deltaX=-Q_flow_small/100);
-
+    // Heating capacity required to heat up condenser water to setpoint
+    QCon_flow_set = if coo_internal then QCon_flow
+                    else m1_flow * (hSet - inStream(port_a1.h_outflow));
     // Part load ratio
     PLR1 = Buildings.Utilities.Math.Functions.smoothMin(
       x1 = QEva_flow_set/(QEva_flow_ava+Q_flow_small),
@@ -157,6 +199,7 @@ equation
   else
     QEva_flow_ava = 0;
     QEva_flow_set = 0;
+    QCon_flow_set = 0;
     PLR1 = 0;
     PLR2 = 0;
     CR   = 0;
@@ -165,7 +208,7 @@ equation
     QCon_flow = 0;
     COP  = 0;
   end if;
-
+  connect(calCOPHea.y, COP_h);
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
       points={{-59,40},{-39,40}},
       color={0,0,127},
@@ -182,12 +225,18 @@ equation
       points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(coo, coo_internal)
+    annotation (Line(points={{-120,0},{-80,0}}, color={255,0,255}));
+  connect(tru.y, coo_internal)
+    annotation (Line(points={{-42,0},{-80,0}}, color={255,0,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                    graphics={
-        Text(extent={{62,96},{112,82}},   textString="P",
+        Text(extent={{62,96},{112,82}},
+          textString="P",
           textColor={0,0,127}),
-        Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
+        Text(extent={{-104,-16},{-58,-28}},
+          textString="TSet",
           textColor={0,0,127}),
         Rectangle(
           extent={{-99,-54},{102,-66}},
@@ -263,7 +312,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(extent={{-108,36},{-62,24}},
           textColor={0,0,127},
-          textString="on")}),
+          textString="on"),
+        Text(extent={{-102,96},{-56,84}},
+          textColor={0,0,127},
+          visible=have_switchover,
+          textString="coo")}),
 Documentation(info="<html>
 <p>
 Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the
@@ -280,14 +333,14 @@ The model has three tests on the part load ratio and the cycling ratio:
 <li>
 The test
 <pre>
-  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax);
+  PLR1 =min(QEva_flow_set/QEva_flow_ava, PLRMax)
 </pre>
 ensures that the chiller capacity does not exceed the chiller capacity specified
 by the parameter <code>PLRMax</code>.
 </li>
 <li>
 The test <pre>
-  CR = min(PLR1/per.PRLMin, 1.0);
+  CR = min(PLR1/per.PRLMin, 1.0)
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
 that a chiller would run if it were to cycle because its load is smaller than
@@ -298,7 +351,7 @@ average temperature between the modes where the compressor is off and on.
 </li>
 <li>
 The test <pre>
-  PLR2 = max(PLRMinUnl, PLR1);
+  PLR2 = max(PLRMinUnl, PLR1)
 </pre>
 computes the part load ratio of the compressor.
 The assumption is that for a part load ratio below <code>PLRMinUnl</code>,
@@ -309,28 +362,97 @@ power draw does not change.
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
+<p>
+Optionally, the model can be configured to represent heat recovery chillers with
+a switchover option by setting the parameter <code>have_switchover</code> to
+<code>true</code>.
+In that case an additional Boolean input connector <code>coo</code> is used.
+The chiller is tracking a chilled water supply temperature setpoint at the
+outlet of the evaporator barrel if <code>coo</code> is <code>true</code>.
+Otherwise, if <code>coo</code> is <code>false</code>, the chiller is tracking
+a hot water supply temperature setpoint at the outlet of the condenser barrel.
+See
+<a href=\"modelica://Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery\">
+Buildings.Fluid.Chillers.Examples.ElectricEIR_HeatRecovery</a>
+for an example with a chiller operating in heating mode.
+</p>
 <h4>Implementation</h4>
 <p>
-Models that extend from this base class need to provide
-three functions to predict capacity and power consumption:
+This implementation computes the chiller capacity and power consumption
+the same way as documented in
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a> section 14.3.9.2.
+Especially see equations 14.234 and 14.240 in the referenced document.
 </p>
+<p>
+The available chiller capacity <code>QEva_flow_ava</code> is adjusted from
+its nominal capacity <code>QEva_flow_nominal</code>
+by factor <code>capFunT</code> as
+</p>
+<pre>  QEva_flow_ava = QEva_flow_nominal*capFunT</pre>
+<p>
+and the compressor power consumption is computed as
+</p>
+<pre>  P = -QEva_flow_ava*(1/COP_nominal)*EIRFunT*EIRFunPLR*CR.</pre>
+<p>
+The models that extend from this base class implement the functions used above
+in ways that are shown in the table below.
+</p>
+<table summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<thead>
+  <tr>
+    <th rowspan=\"2\">Function</th>
+    <th rowspan=\"2\">Description</th>
+    <th colspan=\"2\">Formulation</th>
+  </tr>
+  <tr>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricEIR\">ElectricEIR</a></code></th>
+    <th><code><a href=\"Modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">ElectricReformulatedEIR</a></code></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><code>capFunT</code></td>
+    <td>Adjusts cooling capacity for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+  <tr>
+    <td><code>EIRFunPLR</code></td>
+    <td>Adjusts EIR for the current PLR</td>
+    <td>Quadratic on PLR</td>
+    <td>Bicubic on <code>TConLvg</code> and PLR</td>
+  </tr>
+  <tr>
+    <td><code>EIRFunT</code></td>
+    <td>Adjusts EIR for current fluid temperatures</td>
+    <td>Biquadratic on <code>TConEnt</code> and <code>TEvaLvg</code></td>
+    <td>Biquadratic on <code>TConLvg</code> and <code>TEvaLvg</code></td>
+  </tr>
+</tbody>
+</table>
+<p>
+where
+<code>TConEnt</code> is the condenser entering temperature,
+<code>TEvaLvg</code> is the evaporator leaving temperature,
+<code>TConLvg</code> is the condenser leaving temperatore, and
+PLR is the part load ratio.
+</p>
+<h4>References</h4>
 <ul>
 <li>
-A function to predict cooling capacity. The function value needs
-to be assigned to <code>capFunT</code>.
-</li>
-<li>
-A function to predict the power input as a function of temperature.
-The function value needs to be assigned to <code>EIRFunT</code>.
-</li>
-<li>
-A function to predict the power input as a function of the part load ratio.
-The function value needs to be assigned to <code>EIRFunPLR</code>.
+<a href=\"https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v22.1.0/EngineeringReference.pdf\">
+EnergyPlus v22.1.0 Engineering Reference</a>
 </li>
 </ul>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 11, 2023, by Antoine Gautier:<br/>
+Added optional switchover mode for heat recovery chillers.<br/>
+This is for <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3211\">#3211</a>.
+</li>
 <li>
 November 19, 2021, by David Blum:<br/>
 Add humidity to entering condenser state calculation.<br/>

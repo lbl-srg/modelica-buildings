@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.CDL.Conversions;
 block BooleanToReal
   "Convert Boolean to Real signal"
-  parameter Real realTrue=1
+  parameter Real realTrue=1.0
     "Output signal for true Boolean input";
-  parameter Real realFalse=0
+  parameter Real realFalse=0.0
     "Output signal for false Boolean input";
   Interfaces.BooleanInput u
     "Connector of Boolean input signal"

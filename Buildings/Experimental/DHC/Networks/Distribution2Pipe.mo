@@ -17,7 +17,7 @@ This is a model of a two-pipe distribution network using
 <ul>
 <li>
 a connection model with fixed hydraulic resistance with no heat loss as a pipe
-model, and
+model in the main line, and
 </li>
 <li>
 a dummy pipe model with no hydraulic resistance and no heat loss for the end of
