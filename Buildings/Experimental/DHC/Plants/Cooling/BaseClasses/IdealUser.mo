@@ -6,8 +6,6 @@ model IdealUser "Ideal user model"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal
     "Nominal mass flow rate";
 
-  parameter Modelica.Units.SI.Temperature T_CHWS_nominal
-    "Nominal temperature of CHW supply";
   parameter Modelica.Units.SI.Temperature T_CHWR_nominal
     "Nominal temperature of CHW return";
   parameter Modelica.Units.SI.PressureDifference dp_nominal(
@@ -136,12 +134,17 @@ equation
 This is a simple ideal user model used by
 <a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource\">
 Buildings.Experimental.DHC.Plants.Cooling.Examples.StoragePlantDualSource</a>.
-The load of the user is described by a varying flow rate setpoint.
-The valve is controlled to maintain the requested flow.
-CHW always leaves the user at a fixed return temperature.
+The load of the user is described by a varying mass flow rate setpoint.
+The valve is controlled to maintain the requested mass flow rate.
+The model sets its leaving water temperature to the user-specified temperature
+<code>T_CHWR_nominal</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 31, 2023, by Michael Wetter:<br/>
+Revised implementation, removed unused parameter.
+</li>
 <li>
 February 18, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for

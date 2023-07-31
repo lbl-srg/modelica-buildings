@@ -24,9 +24,8 @@ model IdealUser "Test model for the dummy user"
   Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealUser ideUse(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    final T_CHWS_nominal=T_CHWS_nominal,
-    final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
+    T_CHWR_nominal=T_CHWR_nominal,
+    final dp_nominal=dp_nominal) "Ideal user" annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare final package Medium = Medium,
@@ -66,6 +65,10 @@ This is a simple test model for the ideal user.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 31, 2023, by Michael Wetter:<br/>
+Revised implementation, removed unused parameter.
+</li>
 <li>
 February 18, 2022 by Hongxiang Fu:<br/>
 First implementation. This is for

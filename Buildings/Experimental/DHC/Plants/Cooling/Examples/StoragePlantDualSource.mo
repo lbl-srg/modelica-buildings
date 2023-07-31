@@ -93,7 +93,6 @@ model StoragePlantDualSource
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.6*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
-    final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -103,7 +102,6 @@ model StoragePlantDualSource
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
-    final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -113,7 +111,6 @@ model StoragePlantDualSource
     redeclare final package Medium = Medium,
     final m_flow_nominal=0.65*m_flow_nominal,
     dp_nominal=0.2*dp_nominal,
-    final T_CHWS_nominal=T_CHWS_nominal,
     final T_CHWR_nominal=T_CHWR_nominal) "Ideal user" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -425,6 +422,10 @@ This stops once the tank is cooled.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+July 31, 2023, by Michael Wetter:<br/>
+Revised implementation, removed unused parameter.
+</li>
 <li>
 January 11, 2023 by Hongxiang Fu:<br/>
 First implementation. This is for
