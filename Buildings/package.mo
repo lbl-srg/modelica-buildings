@@ -232,6 +232,31 @@ The following <b style=\"color:blue\">new libraries</b> have been added:
                        and free cooling in an ambient district network.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.BaseClasses.Steam
+    </td>
+    <td valign=\"top\">Package for steam systems using the split-medium approach..
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Examples.Steam
+    </td>
+    <td valign=\"top\">Package of example models for steam district heating systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Loads.Steam
+    </td>
+    <td valign=\"top\">Package with models for loads involving steam systems.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Steam
+    </td>
+    <td valign=\"top\">Package of models for distribution networks involving steam.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Steam
+    </td>
+    <td valign=\"top\">Package with models for steam plants.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.HydronicConfigurations
     </td>
     <td valign=\"top\">Package that contains models for standard connection
@@ -362,6 +387,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.ThermalZones.Detailed.Validation.BESTEST.UsersGuide<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases6xx<br/>
+                       Buildings.ThermalZones.Detailed.Validation.BESTEST.Cases9xx
+    </td>
+    <td valign=\"top\">Added test acceptance criteria limits.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3396\">issue 3396</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Controls.OBC.Utilities</b>
     </td>
 </tr>
@@ -464,6 +501,21 @@ have been <b style=\"color:blue\">improved</b> in a
                         <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2302\">#2302</a>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2Pipe
+    </td>
+    <td valign=\"top\">Removed renamed model redeclare to solve error and allow separate pipe 
+                       declarations on sup/ret of DHC networks.<br/>
+                        This is for
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Networks.Connection2PipePlugFlow
+    </td>
+    <td valign=\"top\">Fix redeclare of dis pipe models in connections.<br/>
+                        This is for
+                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Actuators</b>
     </td>
   </tr>
@@ -620,6 +672,23 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Removed a self-dependent default binding of a function input.<br/>
                        This is for
                        <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3384\">#3384</a>.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.Steam
+    </td>
+    <td valign=\"top\">Changed the variable type definition of <code>pHat</code> and <code>THat</code> 
+                       from absolute to <code>Modelica.Units.SI.PressureDifference</code> and 
+                       <code>Modelica.Units.SI.TemperatureDifference</code> to prevent min/max 
+                       assertion erros during initilization.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.<br/>
+                       In function <code>rho_pT</code>, created and used new function extending
+                       <code>Modelica.Media.Water.IF97_Utilities.BaseIF97.Basic.g2</code> with an
+                       annotation <code>smoothOrder=2</code>.  This is to specifcally pass on the 
+                       <code>smoothOrder=2</code> annotion placed on <code>rho_pT</code> to 
+                       the <code>g2</code> function.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/2905\">#2905</a>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Obsolete.Controls.OBC.ASHRAE.G36_PR1</b>

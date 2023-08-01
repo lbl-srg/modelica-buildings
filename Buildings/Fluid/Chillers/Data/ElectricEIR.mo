@@ -27,6 +27,11 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
 for the chiller model
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
+To provide performance data for
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>, use
+<a href=\"modelica://Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic\">
+Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.Generic</a> instead.
 </p>
 </html>", revisions="<html>
 <ul>
