@@ -82,37 +82,50 @@ model ClosedLoop
   Buildings.Controls.OBC.CDL.Continuous.Subtract temDif
     "Difference between supply air temperature and its setpoint"
     annotation (Placement(transformation(extent={{-220,110},{-200,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(uLow=2.9, uHigh=3.1)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys(
+    uLow=2.9,
+    uHigh=3.1)
     "Higher than setpoint by 3 degC"
     annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
-  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(uLow=1.9, uHigh=2.1)
+  Buildings.Controls.OBC.CDL.Continuous.Hysteresis hys1(
+    uLow=1.9,
+    uHigh=2.1)
     "Higher than setpoint by 2 degC"
     annotation (Placement(transformation(extent={{-180,40},{-160,60}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel(
+    delayTime=120)
     "Check if the temperature has been higher than setpoint by sufficient time"
     annotation (Placement(transformation(extent={{-140,110},{-120,130}})));
-  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(delayTime=120)
+  Buildings.Controls.OBC.CDL.Logical.TrueDelay truDel1(
+    delayTime=120)
     "Check if the temperature has been higher than setpoint by sufficient time"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
   Buildings.Controls.OBC.CDL.Integers.Switch chiWatResReq
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{-20,110},{0,130}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(final k=3) "Constant three"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
+    final k=3) "Constant three"
     annotation (Placement(transformation(extent={{-140,150},{-120,170}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi1
     "Chilled water reset request"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(final k=2) "Constant two"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt1(
+    final k=2) "Constant two"
     annotation (Placement(transformation(extent={{-140,70},{-120,90}})));
-  Buildings.Controls.OBC.CDL.Continuous.PID conPID(final reverseActing=false)
+  Buildings.Controls.OBC.CDL.Continuous.PID conPID(
+    final reverseActing=false)
     "Chilled water valve control"
     annotation (Placement(transformation(extent={{-200,-50},{-180,-30}})));
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(t=0.95, h=0.1)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr(
+    t=0.95,
+    h=0.1)
     "Send one request when the input is greater than threshold unit it is less than threshold minus hysteresis"
     annotation (Placement(transformation(extent={{-140,-50},{-120,-30}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(final k=1) "Constant one"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt2(
+    final k=1) "Constant one"
     annotation (Placement(transformation(extent={{-140,-10},{-120,10}})));
-  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(final k=0) "Constant zero"
+  Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt3(
+    final k=0) "Constant zero"
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Buildings.Controls.OBC.CDL.Integers.Switch intSwi2
     "Chilled water reset request"
@@ -121,9 +134,12 @@ model ClosedLoop
     redeclare package Medium = MediumW, nPorts=1)
     "Reference pressure"
     annotation (Placement(transformation(extent={{200,-14},{180,6}})));
-  Controls.OBC.CDL.Integers.Switch chiPlaReq "Chiller plant request"
+  Buildings.Controls.OBC.CDL.Integers.Switch chiPlaReq
+    "Chiller plant request"
     annotation (Placement(transformation(extent={{-20,-30},{0,-10}})));
-  Controls.OBC.CDL.Continuous.GreaterThreshold           greThr1(t=0.95, h=0.85)
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThr1(
+    t=0.95,
+    h=0.85)
     "Send one request when the input is greater than threshold unit it is less than threshold minus hysteresis"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 equation
@@ -236,7 +252,7 @@ annotation (experiment(
       StartTime=15638400,
       StopTime=15897600,
       Tolerance=1e-06),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/RP1711/ClosedLoop.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlants/RP1711/ClosedLoop.mos"
     "Simulate and plot"),
   Diagram(coordinateSystem(extent={{-280,-220},{280,220}})), Icon(
         coordinateSystem(extent={{-100,-100},{100,100}})));
