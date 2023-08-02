@@ -4,9 +4,9 @@ model ORC_FluidPort "Example ORC with fluid port implementation"
     redeclare Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ran(
       redeclare final package Medium = MediumEva,
       final m_flow_nominal = mEva_flow_nominal,
+      final UA=50,
       eva(
-        final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-        final UA=50)),
+        final energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)),
     souEva(nPorts=1),
     sinEva(nPorts=1));
   extends Modelica.Icons.Example;

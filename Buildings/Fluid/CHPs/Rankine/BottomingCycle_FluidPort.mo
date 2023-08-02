@@ -4,10 +4,14 @@ model BottomingCycle_FluidPort
   extends BaseClasses.PartialBottomingCycle;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
+  parameter Modelica.Units.SI.ThermalConductance UA
+    "Thermal conductance of heat exchanger";
+
   Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
     redeclare final package Medium = Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
+    final UA=UA,
     from_dp=false,
     dp_nominal=0,
     linearizeFlowResistance=true) "Evaporator"
