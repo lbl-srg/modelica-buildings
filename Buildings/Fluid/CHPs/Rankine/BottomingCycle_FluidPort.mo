@@ -17,7 +17,7 @@ model BottomingCycle_FluidPort
     linearizeFlowResistance=true) "Evaporator"
     annotation (Placement(transformation(extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={70,52})));
+        origin={50,70})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     min=0,
     final quantity="Power",
@@ -28,40 +28,48 @@ model BottomingCycle_FluidPort
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow on the evaporator side"
-    annotation (Placement(transformation(extent={{0,0},{20,20}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Prescribed temperature"
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(
     redeclare final package Medium = Medium,
     final m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-80,42},{-60,62}})));
-  Buildings.Controls.OBC.CDL.Continuous.Limiter lim(
-    uMax=Modelica.Constants.inf,
-    uMin=TEva)
-    "Limits the direction of heat transfer via temperature differential"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min min1
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+  Modelica.Blocks.Sources.Constant SouTEva(final k=TEva) "Source block"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Blocks.Math.Gain gaiEva(k(final unit="W") = -1, y(final unit="W"))
+    "Sign reversal" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=-90,
+        origin={10,0})));
 equation
   connect(eva.port_b, port_b)
-    annotation (Line(points={{80,52},{100,52},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{60,70},{100,70},{100,0}}, color={0,127,255}));
   connect(heaFloSen.port_b, eva.port_ref)
-    annotation (Line(points={{20,10},{70,10},{70,46}}, color={191,0,0}));
+    annotation (Line(points={{20,30},{50,30},{50,64}}, color={191,0,0}));
   connect(preTem.port, heaFloSen.port_a)
-    annotation (Line(points={{-20,10},{0,10}}, color={191,0,0}));
+    annotation (Line(points={{-20,30},{0,30}}, color={191,0,0}));
   connect(port_a, senTem.port_a)
-    annotation (Line(points={{-100,0},{-100,52},{-80,52}}, color={0,127,255}));
+    annotation (Line(points={{-100,0},{-100,70},{-60,70}}, color={0,127,255}));
   connect(senTem.port_b, eva.port_a)
-    annotation (Line(points={{-60,52},{60,52}}, color={0,127,255}));
-  connect(heaFloSen.Q_flow, mulExp.u1)
-    annotation (Line(points={{10,-1},{10,-24},{18,-24}}, color={0,0,127}));
-  connect(heaFloSen.Q_flow, mulCon.u2) annotation (Line(points={{10,-1},{10,-24},
-          {-24,-24},{-24,-86},{18,-86}}, color={0,0,127}));
-  connect(lim.y, preTem.T)
-    annotation (Line(points={{-58,10},{-42,10}}, color={0,0,127}));
-  connect(lim.u, senTem.T) annotation (Line(points={{-82,10},{-90,10},{-90,63},{
-          -70,63}}, color={0,0,127}));
-  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{81,56},{96,56},{96,80},
+    annotation (Line(points={{-40,70},{40,70}}, color={0,127,255}));
+  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{61,74},{80,74},{80,80},
           {110,80}}, color={0,0,127}));
+  connect(min1.y, preTem.T)
+    annotation (Line(points={{-58,30},{-42,30}}, color={0,0,127}));
+  connect(min1.u1, senTem.T) annotation (Line(points={{-82,36},{-90,36},{-90,81},
+          {-50,81}}, color={0,0,127}));
+  connect(SouTEva.y, min1.u2) annotation (Line(points={{-59,-30},{-56,-30},{-56,
+          0},{-88,0},{-88,24},{-82,24}}, color={0,0,127}));
+  connect(heaFloSen.Q_flow, gaiEva.u) annotation (Line(points={{10,19},{10,15.5},
+          {10,15.5},{10,12}}, color={0,0,127}));
+  connect(gaiEva.y, mulExp.u1)
+    annotation (Line(points={{10,-11},{10,-24},{18,-24}}, color={0,0,127}));
+  connect(gaiEva.y, mulCon.u2) annotation (Line(points={{10,-11},{10,-24},{-30,-24},
+          {-30,-86},{18,-86}}, color={0,0,127}));
 annotation (defaultComponentName="ran",
     Icon(coordinateSystem(preserveAspectRatio=false)),         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

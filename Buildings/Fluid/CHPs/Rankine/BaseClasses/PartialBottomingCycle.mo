@@ -41,7 +41,7 @@ partial model PartialBottomingCycle
     "Superheating differential temperature ";
   parameter Real etaExp "Expander efficiency";
 protected
-  Modelica.Blocks.Math.Gain gai(k(final unit="W") = -1, y(final unit="W"))
+  Modelica.Blocks.Math.Gain gaiCon(k(final unit="W") = -1, y(final unit="W"))
     "Sign reversal"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
@@ -54,9 +54,9 @@ equation
   connect(equ.etaThe,etaThe)  annotation (Line(points={{1,-46},{80,-46},{80,-60},
           {110,-60}},
                  color={0,0,127}));
-  connect(gai.u,mulCon. y)
+  connect(gaiCon.u, mulCon.y)
     annotation (Line(points={{58,-80},{42,-80}}, color={0,0,127}));
-  connect(gai.y,QCon_flow)
+  connect(gaiCon.y, QCon_flow)
     annotation (Line(points={{81,-80},{110,-80}}, color={0,0,127}));
   connect(mulCon.u1, equ.rConEva) annotation (Line(points={{18,-74},{10,-74},{
           10,-54},{1,-54}}, color={0,0,127}));
