@@ -25,7 +25,6 @@ partial model PartialBottomingCycle
         transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-80},
             {120,-60}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
-    min=0,
     final quantity="Power",
     final unit="W") "Heat rejected through the condenser (positive)"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),

@@ -19,12 +19,18 @@ model BottomingCycle_FluidPort
         rotation=180,
         origin={50,70})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
-    min=0,
     final quantity="Power",
-    final unit="W") "Heat injected through the evaporator" annotation (
-      Placement(transformation(extent={{100,70},{120,90}}), iconTransformation(
-          extent={{100,50},{120,70}})));
+    final unit="W") "Heat injected through the evaporator (negative)"
+                                                           annotation (
+      Placement(transformation(extent={{100,40},{120,60}}), iconTransformation(
+          extent={{100,30},{120,50}})));
 
+  Modelica.Blocks.Interfaces.RealOutput TOut(unit="K")
+    "Outlet medium temperature" annotation (Placement(transformation(extent={{100,
+            60},{120,80}}), iconTransformation(extent={{100,60},{120,80}})));
+  Modelica.Blocks.Interfaces.RealOutput TInl(unit="K")
+    "Inlet medium temperature" annotation (Placement(transformation(extent={{100,
+            80},{120,100}}), iconTransformation(extent={{100,90},{120,110}})));
 protected
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow on the evaporator side"
@@ -47,7 +53,8 @@ protected
         origin={10,0})));
 equation
   connect(eva.port_b, port_b)
-    annotation (Line(points={{60,70},{100,70},{100,0}}, color={0,127,255}));
+    annotation (Line(points={{60,70},{70,70},{70,0},{100,0}},
+                                                        color={0,127,255}));
   connect(heaFloSen.port_b, eva.port_ref)
     annotation (Line(points={{20,30},{50,30},{50,64}}, color={191,0,0}));
   connect(preTem.port, heaFloSen.port_a)
@@ -56,12 +63,13 @@ equation
     annotation (Line(points={{-100,0},{-100,70},{-60,70}}, color={0,127,255}));
   connect(senTem.port_b, eva.port_a)
     annotation (Line(points={{-40,70},{40,70}}, color={0,127,255}));
-  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{61,74},{80,74},{80,80},
-          {110,80}}, color={0,0,127}));
+  connect(eva.Q_flow, QEva_flow) annotation (Line(points={{61,74},{90,74},{90,50},
+          {110,50}}, color={0,0,127}));
   connect(min1.y, preTem.T)
     annotation (Line(points={{-58,30},{-42,30}}, color={0,0,127}));
-  connect(min1.u1, senTem.T) annotation (Line(points={{-82,36},{-90,36},{-90,81},
-          {-50,81}}, color={0,0,127}));
+  connect(min1.u1, senTem.T) annotation (Line(points={{-82,36},{-90,36},{-90,90},
+          {-50,90},{-50,81}},
+                     color={0,0,127}));
   connect(SouTEva.y, min1.u2) annotation (Line(points={{-59,-30},{-56,-30},{-56,
           0},{-88,0},{-88,24},{-82,24}}, color={0,0,127}));
   connect(heaFloSen.Q_flow, gaiEva.u) annotation (Line(points={{10,19},{10,15.5},
@@ -70,6 +78,10 @@ equation
     annotation (Line(points={{10,-11},{10,-24},{18,-24}}, color={0,0,127}));
   connect(gaiEva.y, mulCon.u2) annotation (Line(points={{10,-11},{10,-24},{-30,-24},
           {-30,-86},{18,-86}}, color={0,0,127}));
+  connect(eva.T, TOut) annotation (Line(points={{61,78},{94,78},{94,70},{110,70}},
+        color={0,0,127}));
+  connect(senTem.T, TInl)
+    annotation (Line(points={{-50,81},{-50,90},{110,90}}, color={0,0,127}));
 annotation (defaultComponentName="ran",
     Icon(coordinateSystem(preserveAspectRatio=false)),         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

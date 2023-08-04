@@ -17,7 +17,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     UA=1800,
     eva(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
     "Rankine cycle"
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Fluid.CHPs.ThermalElectricalFollowing eleFol(
     redeclare package Medium = Medium,
     redeclare Data.ValidationData3 per,
@@ -55,18 +55,10 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     redeclare package Medium = Medium,
     p(displayUnit="Pa"),
     nPorts=1) "Cooling water sink"
-    annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
+    annotation (Placement(transformation(extent={{100,0},{80,20}})));
   parameter Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids.Pentane pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TRanIn(
-    redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TRanOut(
-    redeclare final package Medium = Medium,
-    m_flow_nominal=m_flow_nominal)
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 equation
   connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-19,50},{-10,50},{-10,
           19},{-2,19}}, color={255,0,255}));
@@ -80,13 +72,9 @@ equation
           50},{-50,18},{-42,18}}, color={0,0,127}));
   connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-59,50},{-50,50},
           {-50,30},{-14,30},{-14,13},{-2,13}}, color={0,0,127}));
-  connect(eleFol.port_b, TRanIn.port_a) annotation (Line(points={{20,10},{30,10},
-          {30,-32},{-46,-32},{-46,-50},{-40,-50}}, color={0,127,255}));
-  connect(TRanIn.port_b, ran.port_a)
-    annotation (Line(points={{-20,-50},{0,-50}}, color={0,127,255}));
-  connect(sin.ports[1], TRanOut.port_b)
-    annotation (Line(points={{80,-50},{60,-50}}, color={0,127,255}));
-  connect(TRanOut.port_a, ran.port_b)
-    annotation (Line(points={{40,-50},{20,-50}}, color={0,127,255}));
+  connect(eleFol.port_b, ran.port_a)
+    annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
+  connect(ran.port_b, sin.ports[1])
+    annotation (Line(points={{60,10},{80,10}}, color={0,127,255}));
 annotation(experiment(StopTime=10000, Tolerance=1e-6));
 end CHPWithORC;
