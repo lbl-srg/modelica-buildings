@@ -13,7 +13,9 @@ model DryFluid "Organic Rankine cycle with a dry working fluid"
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{60,60},{80,80}})),
       choicesAllMatching=true);
-annotation(Documentation(info="<html>
+annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/BaseClasses/Validation/DryFluid.mos"
+        "Simulate and plot"),
+        Documentation(info="<html>
 <p>
 This model demonstrates the basic use of
 <a href=\"Modelica://Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations\">

@@ -70,11 +70,13 @@ equation
           14},{-42,14}}, color={0,0,127}));
   connect(valDat.y[2], cooWat.m_flow_in) annotation (Line(points={{-59,50},{-50,
           50},{-50,18},{-42,18}}, color={0,0,127}));
-  connect(valDat.y[1], CHP.PEleDem) annotation (Line(points={{-59,50},{-50,50},
-          {-50,30},{-14,30},{-14,13},{-2,13}}, color={0,0,127}));
+  connect(valDat.y[1], CHP.PEleDem) annotation (Line(points={{-59,50},{-50,50},{
+          -50,30},{-14,30},{-14,13},{-2,13}}, color={0,0,127}));
   connect(CHP.port_b, ORC.port_a)
     annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
   connect(ORC.port_b, sin.ports[1])
     annotation (Line(points={{60,10},{80,10}}, color={0,127,255}));
-annotation(experiment(StopTime=10000, Tolerance=1e-6));
+    annotation(experiment(StopTime=10000, Tolerance=1e-6),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Examples/CHPWithORC.mos"
+        "Simulate and plot"));
 end CHPWithORC;
