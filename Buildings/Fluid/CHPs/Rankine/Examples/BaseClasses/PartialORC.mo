@@ -11,12 +11,11 @@ partial model PartialORC "Partial example model of an organic Rankine cycle"
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 1
     "Medium flow rate in the condenser";
 
-  replaceable Buildings.Fluid.CHPs.Rankine.BaseClasses.PartialBottomingCycle ran(
+  replaceable Buildings.Fluid.CHPs.Rankine.BaseClasses.PartialBottomingCycle ORC(
     pro=pro,
     TEva(displayUnit="degC") = 357.95,
     TCon(displayUnit="degC") = 298.15,
-    etaExp=0.7)
-    "Bottoming Rankine cycle"
+    etaExp=0.7) "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   Buildings.Fluid.Sources.MassFlowSource_T souEva(
@@ -55,7 +54,7 @@ equation
     annotation (Line(points={{10,-50},{60,-50}}, color={0,127,255}));
   connect(con.port_b,sinCon. ports[1])
     annotation (Line(points={{-10,-50},{-60,-50}}, color={0,127,255}));
-  connect(ran.QCon_flow,con. Q_flow) annotation (Line(points={{11,-10},{20,-10},
+  connect(ORC.QCon_flow,con. Q_flow) annotation (Line(points={{11,-10},{20,-10},
           {20,-44},{12,-44}},color={0,0,127}));
   annotation (Documentation(info="<html>
 <p>

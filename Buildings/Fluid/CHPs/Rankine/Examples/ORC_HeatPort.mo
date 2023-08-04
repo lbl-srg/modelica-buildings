@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.Rankine.Examples;
 model ORC_HeatPort "Example ORC model with heat port implementation"
   extends BaseClasses.PartialORC(
-    redeclare Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort ran);
+    redeclare Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort ORC);
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
@@ -18,7 +18,7 @@ model ORC_HeatPort "Example ORC model with heat port implementation"
         rotation=180,
         origin={0,50})));
 equation
-  connect(eva.port_ref,ran. port_a) annotation (Line(points={{-1.27676e-15,44},{
+  connect(eva.port_ref,ORC.port_a)  annotation (Line(points={{-1.27676e-15,44},{
           -1.27676e-15,27},{0,27},{0,10}}, color={191,0,0}));
   connect(souEva.ports[1], eva.port_a)
     annotation (Line(points={{-60,50},{-10,50}}, color={0,127,255}));

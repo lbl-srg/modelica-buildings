@@ -1,7 +1,7 @@
 within Buildings.Fluid.CHPs.Rankine.Examples;
 model ORC_FluidPort "Example ORC with fluid port implementation"
   extends BaseClasses.PartialORC(
-    redeclare Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ran(
+    redeclare Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ORC(
       redeclare final package Medium = MediumEva,
       final m_flow_nominal = mEva_flow_nominal,
       final UA=50,
@@ -12,9 +12,9 @@ model ORC_FluidPort "Example ORC with fluid port implementation"
   extends Modelica.Icons.Example;
 
 equation
-  connect(souEva.ports[1], ran.port_a) annotation (Line(points={{-60,50},{-40,
+  connect(souEva.ports[1],ORC.port_a)  annotation (Line(points={{-60,50},{-40,
           50},{-40,0},{-10,0}}, color={0,127,255}));
-  connect(ran.port_b, sinEva.ports[1]) annotation (Line(points={{10,0},{40,0},{
+  connect(ORC.port_b, sinEva.ports[1]) annotation (Line(points={{10,0},{40,0},{
           40,50},{60,50}}, color={0,127,255}));
 annotation(Documentation(info="<html>
 <p>

@@ -25,7 +25,7 @@ equation
     annotation (Line(points={{-30,59},{-30,-24},{18,-24}}, color={0,0,127}));
   connect(mulCon.u2, heaFloSen.Q_flow)
     annotation (Line(points={{18,-86},{-30,-86},{-30,59}}, color={0,0,127}));
-annotation (defaultComponentName="ran",
+annotation (defaultComponentName="ORC",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-149,-100},{151,-140}},

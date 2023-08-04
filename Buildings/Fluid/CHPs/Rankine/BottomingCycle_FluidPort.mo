@@ -82,7 +82,7 @@ equation
         color={0,0,127}));
   connect(senTem.T, TInl)
     annotation (Line(points={{-50,81},{-50,90},{110,90}}, color={0,0,127}));
-annotation (defaultComponentName="ran",
+annotation (defaultComponentName="ORC",
     Icon(coordinateSystem(preserveAspectRatio=false)),         Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

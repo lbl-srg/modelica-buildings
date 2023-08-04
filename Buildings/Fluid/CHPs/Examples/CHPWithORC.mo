@@ -7,25 +7,25 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.4
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ran(
+  Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ORC(
     final pro=pro,
     final m_flow_nominal=m_flow_nominal,
-    TEva=320,
-    TCon=300,
+    TEva(displayUnit="K") = 320,
+    TCon(displayUnit="K") = 300,
     etaExp=0.85,
     redeclare final package Medium = Medium,
     UA=1800,
     eva(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
-    "Rankine cycle"
+    "Organic Rankine cycle"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Fluid.CHPs.ThermalElectricalFollowing eleFol(
+  Buildings.Fluid.CHPs.ThermalElectricalFollowing CHP(
     redeclare package Medium = Medium,
     redeclare Data.ValidationData3 per,
     final m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     switchThermalElectricalFollowing=false,
     TEngIni=273.15 + 69.55,
-    waitTime=0) "CHP unit with the electricity demand priority"
+    waitTime=0) "CHP unit"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.BooleanTable avaSig(startValue=true, table={172800})
     "Plant availability signal"
@@ -60,9 +60,9 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
 equation
-  connect(avaSig.y, eleFol.avaSig) annotation (Line(points={{-19,50},{-10,50},{-10,
+  connect(avaSig.y, CHP.avaSig) annotation (Line(points={{-19,50},{-10,50},{-10,
           19},{-2,19}}, color={255,0,255}));
-  connect(cooWat.ports[1], eleFol.port_a)
+  connect(cooWat.ports[1], CHP.port_a)
     annotation (Line(points={{-20,10},{0,10}}, color={0,127,255}));
   connect(valDat.y[3], TWatIn.u) annotation (Line(points={{-59,50},{-50,50},{-50,
           30},{-92,30},{-92,10},{-82,10}}, color={0,0,127}));
@@ -70,11 +70,11 @@ equation
           14},{-42,14}}, color={0,0,127}));
   connect(valDat.y[2], cooWat.m_flow_in) annotation (Line(points={{-59,50},{-50,
           50},{-50,18},{-42,18}}, color={0,0,127}));
-  connect(valDat.y[1], eleFol.PEleDem) annotation (Line(points={{-59,50},{-50,50},
+  connect(valDat.y[1], CHP.PEleDem) annotation (Line(points={{-59,50},{-50,50},
           {-50,30},{-14,30},{-14,13},{-2,13}}, color={0,0,127}));
-  connect(eleFol.port_b, ran.port_a)
+  connect(CHP.port_b, ORC.port_a)
     annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
-  connect(ran.port_b, sin.ports[1])
+  connect(ORC.port_b, sin.ports[1])
     annotation (Line(points={{60,10},{80,10}}, color={0,127,255}));
 annotation(experiment(StopTime=10000, Tolerance=1e-6));
 end CHPWithORC;
