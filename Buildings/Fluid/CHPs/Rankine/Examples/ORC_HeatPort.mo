@@ -24,9 +24,10 @@ equation
     annotation (Line(points={{-60,50},{-10,50}}, color={0,127,255}));
   connect(sinEva.ports[1], eva.port_b)
     annotation (Line(points={{60,50},{10,50}}, color={0,127,255}));
-annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Examples/ORC_HeatPort.mos"
-        "Simulate and plot"),
-        Documentation(info="<html>
+annotation(experiment(StopTime=1, Tolerance=1e-6),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Examples/ORC_HeatPort.mos"
+  "Simulate and plot"),
+  Documentation(info="<html>
 <p>
 This model demonstrates the use of
 <a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort\">
