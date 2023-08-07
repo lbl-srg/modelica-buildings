@@ -16,7 +16,9 @@ equation
           50},{-40,0},{-10,0}}, color={0,127,255}));
   connect(ORC.port_b, sinEva.ports[1]) annotation (Line(points={{10,0},{40,0},{
           40,50},{60,50}}, color={0,127,255}));
-annotation(Documentation(info="<html>
+annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Examples/ORC_FluidPort.mos"
+        "Simulate and plot"),
+        Documentation(info="<html>
 <p>
 This model demonstrates the use of
 <a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort\">

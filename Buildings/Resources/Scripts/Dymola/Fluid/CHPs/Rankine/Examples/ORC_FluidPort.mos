@@ -1,0 +1,22 @@
+simulateModel("Buildings.Fluid.CHPs.Rankine.Examples.ORC_FluidPort",
+    method="dassl", stopTime=1, tolerance=1e-06, resultFile="ORC_FluidPort");
+// Plot commands
+createPlot(id=1,
+ position={21, 12, 612, 518},
+ y={"ORC.etaThe"},
+ range={0.0, 1.0, 0.085, 0.115},
+ grid=true,
+ subPlot=101,
+ colors={{28,108,200}},
+ timeUnit="s",
+ displayUnits={"1"});
+createPlot(id=1,
+ position={21, 12, 612, 518},
+ y={"ORC.P", "ORC.QEva_flow", "ORC.QCon_flow"},
+ range={0.0, 1.0, -8000.0, 6000.0},
+ grid=true,
+ subPlot=102,
+ colors={{28,108,200}, {238,46,47}, {0,140,72}},
+ timeUnit="s",
+ displayUnits={"W", "W", "W"});
+
