@@ -180,60 +180,7 @@ equation
     connect(QHea.y, preHeaFlo.Q_flow)
       annotation (Line(points={{-59,60},{-50,60}}, color={0,0,127}));
   end if;
-  annotation (
-defaultComponentName="dxDeh",
-Documentation(info="<html>
-<p>
-This is a zone air DX dehumidifier model. The model assumes that this equipment 
-removes the moisture from the air stream and simultaneously heats the air. 
-</p>
-<p>
-Two performance curves <code>watRemMod</code> and <code>eneFacMod</code> are 
-specified to characterize the change in water removal and energy consumption at 
-part-load conditions.
-</p>
-<p>
-The amount of exchanged moisture <code>mWat_flow</code> is equal to
-</p>
-<p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod &rho; V̇<sub>flow_nominal</sub></i>
-</p>
-<p>
-The amount of heat added to the air stream <code>QHea</code> is equal to 
-</p>
-<p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> h<sub>fg</sub> + P<sub>deh</sub> ,</i>
-</p>
-<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod / (eneFac<sub>nominal</sub> eneFacMod), </i>
-</p>
-<p>
-where <code>VWat_flow_nominal</code> is the rated water removal flow rate and 
-<code>eneFac_nominal</code> is the rated energy factor. h<sub>fg</sub> is the 
-enthalpy of vaporization of air.
-</p>
-<h4>Performance Curve Modifiers</h4>
-<p>
-The water removal modifier curve <code>watRemMod</code> is a biquadratic curve 
-with two independent variables: dry-bulb temperature and relative humidity of the 
-air entering the dehumidifier.
-</p>
-<p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub> + a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub> <sup>2</sup> + a<sub>4</sub> phi<sub>in</sub> + a<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + a<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
-</p>
-<p>
-The energy factor modifier curve <code>eneFacMod</code> is a biquadratic curve 
-with two independent variables: dry-bulb temperature and relative humidity of the 
-air entering the dehumidifier. 
-</p>
-<p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub> + b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub> <sup>2</sup> + b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + b<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-June 20, 2023, by Xing Lu:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-100,-80},{100,80}}), graphics={
+  annotation (Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-70,60},{70,-60}},
           lineColor={0,0,255},
@@ -287,5 +234,56 @@ First implementation.
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
-    Diagram(coordinateSystem(extent={{-100,-80},{100,80}})));
+defaultComponentName="dxDeh",
+Documentation(info="<html>
+<p>
+This is a zone air DX dehumidifier model. The model assumes that this equipment 
+removes the moisture from the air stream and simultaneously heats the air. 
+</p>
+<p>
+Two performance curves <code>watRemMod</code> and <code>eneFacMod</code> are 
+specified to characterize the change in water removal and energy consumption at 
+part-load conditions.
+</p>
+<p>
+The amount of exchanged moisture <code>mWat_flow</code> is equal to
+</p>
+<p align=\"center\"><i>ṁ<sub>wat_flow</sub> = watRemMod &rho; V̇<sub>flow_nominal</sub></i>
+</p>
+<p>
+The amount of heat added to the air stream <code>QHea</code> is equal to 
+</p>
+<p align=\"center\"><i>Q̇<sub>hea</sub> = ṁ<sub>wat_flow</sub> h<sub>fg</sub> + P<sub>deh</sub> ,</i>
+</p>
+<p align=\"center\"><i>P<sub>deh</sub> = V̇<sub>flow_nominal</sub> watRemMod / (eneFac<sub>nominal</sub> eneFacMod), </i>
+</p>
+<p>
+where <code>VWat_flow_nominal</code> is the rated water removal flow rate and 
+<code>eneFac_nominal</code> is the rated energy factor. h<sub>fg</sub> is the 
+enthalpy of vaporization of air.
+</p>
+<h4>Performance Curve Modifiers</h4>
+<p>
+The water removal modifier curve <code>watRemMod</code> is a biquadratic curve 
+with two independent variables: dry-bulb temperature and relative humidity of the 
+air entering the dehumidifier.
+</p>
+<p align=\"center\"><i>watRemMod(T<sub>in</sub>, phi<sub>in</sub>) = a<sub>1</sub> + a<sub>2</sub> T<sub>in</sub> + a<sub>3</sub> T<sub>in</sub> <sup>2</sup> + a<sub>4</sub> phi<sub>in</sub> + a<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + a<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
+</p>
+<p>
+The energy factor modifier curve <code>eneFacMod</code> is a biquadratic curve 
+with two independent variables: dry-bulb temperature and relative humidity of the 
+air entering the dehumidifier. 
+</p>
+<p align=\"center\"><i>eneFacMod(T<sub>in</sub>, phi<sub>in</sub>) = b<sub>1</sub> + b<sub>2</sub> T<sub>in</sub> + b<sub>3</sub> T<sub>in</sub> <sup>2</sup> + b<sub>4</sub> phi<sub>in</sub> + b<sub>5</sub> phi<sub>in</sub> <sup>2</sup> + b<sub>6</sub> T<sub>in</sub> phi<sub>in</sub></i>
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+June 20, 2023, by Xing Lu:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end DXDehumidifier;

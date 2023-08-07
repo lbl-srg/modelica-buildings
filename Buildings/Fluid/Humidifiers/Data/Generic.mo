@@ -42,16 +42,5 @@ June 20, 2023, by Xing Lu:<br/>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(graphics={
-        Text(
-          extent={{-91,1},{-8,-54}},
-          textColor={0,0,255},
-          fontSize=16,
-          textString="watRem"),
-        Text(
-          extent={{2,-16},{94,-38}},
-          textColor={0,0,255},
-          textString="eneFac",
-          fontSize=16)}));
+</html>"));
 end Generic;
