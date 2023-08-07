@@ -7,8 +7,7 @@ model DXDehumidifier
     "Nominal mass flow rate";
 
   parameter Modelica.Units.SI.Time tStepAve = 3600
-    "Time-step used to average out Modelica results for comparison with EPlus 
-    results.";
+    "Time-step used to average out Modelica results for comparison with EPlus results";
 
   package Medium = Buildings.Media.Air
     "Fluid medium";
