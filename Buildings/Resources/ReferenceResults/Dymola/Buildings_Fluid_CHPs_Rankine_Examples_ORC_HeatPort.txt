@@ -1,0 +1,16 @@
+last-generated=2023-08-07
+statistics-initialization=
+{
+  "linear": "0"
+}
+statistics-simulation=
+{
+  "linear": " ",
+  "nonlinear": " ",
+  "numerical Jacobians": "0"
+}
+time=[0e+00, 1e+00]
+ORC.etaThe=[9.968819469213486e-02, 9.968819469213486e-02]
+ORC.P=[3.04380126953125e+02, 3.04380126953125e+02]
+eva.Q_flow=[-3.053321533203125e+03, -3.053321533203125e+03]
+ORC.QCon_flow=[2.74894140625e+03, 2.74894140625e+03]

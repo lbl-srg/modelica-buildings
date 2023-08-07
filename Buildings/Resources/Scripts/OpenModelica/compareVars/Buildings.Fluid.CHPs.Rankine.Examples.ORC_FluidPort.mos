@@ -1,0 +1,7 @@
+compareVars :=
+  {
+    "ORC.etaThe",
+    "ORC.P",
+    "ORC.QEva_flow",
+    "ORC.QCon_flow"
+  };
