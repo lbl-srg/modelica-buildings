@@ -432,6 +432,13 @@ The tank is therefore charged remotely by the district.
 This stops once the tank is cooled.
 </li>
 </ul>
+<h4>Implementation</h4>
+<p>
+The chiller is implemented as an ideal temperature source where the outlet
+temperature is always at the prescribed value in
+<a href=\"Modelica://Buildings.Fluid.Sources.PropertySource_T\">
+Buildings.Fluid.Sources.PropertySource_T</a>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

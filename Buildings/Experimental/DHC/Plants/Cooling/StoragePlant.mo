@@ -331,17 +331,6 @@ src=\"modelica://Buildings/Resources/Images/Experimental/DHC/Plants/Cooling/Cont
 </p>
 <h4>Implementation</h4>
 <p>
-fixme: This is confusing as the chiller is implemented in the example, and not in this model.
-Please update the documentation accordingly.
-I like it that you show the exemplar schematic diagram here in the documentation of the model,
-but when you describe the implementation that is used in the example, then this needs to be done
-in the example.<br/>
-The chiller is implemented as an ideal temperature source where the outlet
-temperature is always at the prescribed value in
-<a href=\"Modelica://Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealTemperatureSource\">
-Buildings.Experimental.DHC.Plants.Cooling.BaseClasses.IdealTemperatureSource</a>.
-</p>
-<p>
 The control of the storage plant is implemented as a state graph in
 <a href=\"modelica://Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl\">
 Buildings.Experimental.DHC.Plants.Cooling.Controls.FlowControl</a>.
