@@ -20,8 +20,7 @@ model BottomingCycle_FluidPort
         origin={50,70})));
   Modelica.Blocks.Interfaces.RealOutput QEva_flow(
     final quantity="Power",
-    final unit="W") "Heat injected through the evaporator (negative)"
-                                                           annotation (
+    final unit="W") "Heat injected through evaporation"    annotation (
       Placement(transformation(extent={{100,40},{120,60}}), iconTransformation(
           extent={{100,30},{120,50}})));
 
@@ -46,11 +45,6 @@ protected
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant SouTEva(final k=TEva) "Source block"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
-  Modelica.Blocks.Math.Gain gaiEva(k(final unit="W") = -1, y(final unit="W"))
-    "Sign reversal" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={10,0})));
 equation
   connect(eva.port_b, port_b)
     annotation (Line(points={{60,70},{70,70},{70,0},{100,0}},
@@ -72,16 +66,14 @@ equation
                      color={0,0,127}));
   connect(SouTEva.y, min1.u2) annotation (Line(points={{-59,-30},{-56,-30},{-56,
           0},{-88,0},{-88,24},{-82,24}}, color={0,0,127}));
-  connect(heaFloSen.Q_flow, gaiEva.u) annotation (Line(points={{10,19},{10,15.5},
-          {10,15.5},{10,12}}, color={0,0,127}));
-  connect(gaiEva.y, mulExp.u1)
-    annotation (Line(points={{10,-11},{10,-24},{18,-24}}, color={0,0,127}));
-  connect(gaiEva.y, mulCon.u2) annotation (Line(points={{10,-11},{10,-24},{-30,-24},
-          {-30,-86},{18,-86}}, color={0,0,127}));
   connect(eva.T, TOut) annotation (Line(points={{61,78},{94,78},{94,70},{110,70}},
         color={0,0,127}));
   connect(senTem.T, TInl)
     annotation (Line(points={{-50,81},{-50,90},{110,90}}, color={0,0,127}));
+  connect(heaFloSen.Q_flow, mulExp.u1)
+    annotation (Line(points={{10,19},{10,-24},{18,-24}}, color={0,0,127}));
+  connect(heaFloSen.Q_flow, mulCon.u2) annotation (Line(points={{10,19},{10,-24},
+          {-30,-24},{-30,-86},{18,-86}}, color={0,0,127}));
 annotation (defaultComponentName="ORC",
     Icon(coordinateSystem(preserveAspectRatio=false)),         Diagram(
         coordinateSystem(preserveAspectRatio=false)),

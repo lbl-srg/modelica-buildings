@@ -26,7 +26,7 @@ partial model PartialBottomingCycle
             {120,-60}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="Power",
-    final unit="W") "Heat rejected through the condenser (positive)"
+    final unit="W") "Heat rejected through condensation"
     annotation (Placement(transformation(extent={{100,-90},{120,-70}}),
         iconTransformation(extent={{100,-110},{120,-90}})));
   parameter Buildings.Fluid.CHPs.Rankine.Data.Generic pro
@@ -40,25 +40,26 @@ partial model PartialBottomingCycle
     "Superheating differential temperature ";
   parameter Real etaExp "Expander efficiency";
 protected
-  Modelica.Blocks.Math.Gain gaiCon(k(final unit="W") = -1, y(final unit="W"))
-    "Sign reversal"
-    annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+  Modelica.Blocks.Math.Gain gai(k(final unit="W") = -1, y(final unit="W"))
+    "Sign reversal" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,-30})));
 equation
   connect(equ.etaThe,mulExp. u2)
     annotation (Line(points={{1,-46},{10,-46},{10,-36},{18,-36}},
                                                              color={0,0,127}));
-  connect(mulExp.y,P)
-    annotation (Line(points={{42,-30},{90,-30},{90,-40},{110,-40}},
-                                                color={0,0,127}));
   connect(equ.etaThe,etaThe)  annotation (Line(points={{1,-46},{80,-46},{80,-60},
           {110,-60}},
                  color={0,0,127}));
-  connect(gaiCon.u, mulCon.y)
-    annotation (Line(points={{58,-80},{42,-80}}, color={0,0,127}));
-  connect(gaiCon.y, QCon_flow)
-    annotation (Line(points={{81,-80},{110,-80}}, color={0,0,127}));
   connect(mulCon.u1, equ.rConEva) annotation (Line(points={{18,-74},{10,-74},{
           10,-54},{1,-54}}, color={0,0,127}));
+  connect(mulCon.y, QCon_flow)
+    annotation (Line(points={{42,-80},{110,-80}}, color={0,0,127}));
+  connect(mulExp.y, gai.u)
+    annotation (Line(points={{42,-30},{58,-30}}, color={0,0,127}));
+  connect(gai.y, P) annotation (Line(points={{81,-30},{90,-30},{90,-40},{110,
+          -40}}, color={0,0,127}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
