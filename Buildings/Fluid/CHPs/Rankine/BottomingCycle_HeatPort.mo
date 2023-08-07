@@ -28,7 +28,7 @@ equation
 annotation (defaultComponentName="ORC",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
-          extent={{-149,-100},{151,-140}},
+          extent={{-149,-114},{151,-154}},
           textColor={0,0,255},
           textString="%name")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false)),
