@@ -2,6 +2,9 @@ within Buildings.Fluid.CHPs.Rankine;
 model BottomingCycle_HeatPort
   "Model for the Rankine cycle as a bottoming cycle using a heat port"
 
+  parameter Boolean preventHeatBackflow = false
+    "Set true to stop heat back flow when upstream medium colder than working fluid";
+
   Buildings.Fluid.CHPs.Rankine.BaseClasses.Equations equ(
     final pro=pro,
     final TEva=TEva,
@@ -17,14 +20,14 @@ model BottomingCycle_HeatPort
     min=0,
     final quantity="Power",
     final unit="W") "Power output of the expander"
-                                   annotation (Placement(transformation(extent={{100,-50},
-            {120,-30}}),           iconTransformation(extent={{100,-50},{120,
+                                   annotation (Placement(transformation(extent={{100,-40},
+            {120,-20}}),           iconTransformation(extent={{100,-50},{120,
             -30}})));
   Modelica.Blocks.Interfaces.RealOutput etaThe(
     min=0,
     final unit="1") "Thermal efficiency"
     annotation (Placement(
-        transformation(extent={{100,-70},{120,-50}}), iconTransformation(extent={{100,-80},
+        transformation(extent={{100,-56},{120,-36}}), iconTransformation(extent={{100,-80},
             {120,-60}})));
   Modelica.Blocks.Interfaces.RealOutput QCon_flow(
     final quantity="Power",
@@ -47,33 +50,44 @@ model BottomingCycle_HeatPort
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
       iconTransformation(extent={{-10,90},{10,110}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput TUps if preventHeatBackflow
+    "Temperature of upstream fluid" annotation (Placement(transformation(extent={{-140,36},
+            {-100,76}}),           iconTransformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Routing.RealPassThrough pas if not preventHeatBackflow
+    "Routing block"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 protected
-  Buildings.HeatTransfer.Sources.FixedTemperature preTem(final T=TEva)
-    "Working fluid temperature on the evaporator side"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow on the evaporator side"
-    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+    annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Modelica.Blocks.Math.Gain gai(k(final unit="W") = -1, y(final unit="W"))
     "Sign reversal" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-30})));
 
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
+    "Prescribed temperature"
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+  Buildings.Controls.OBC.CDL.Continuous.Min min1 if preventHeatBackflow
+    "Minimum"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Modelica.Blocks.Sources.Constant SouTEva(final k=TEva) "Source block"
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(preTem.port, heaFloSen.port_a)
-    annotation (Line(points={{-60,70},{-40,70}}, color={191,0,0}));
   connect(heaFloSen.port_b, port_a)
-    annotation (Line(points={{-20,70},{0,70},{0,100}}, color={191,0,0}));
+    annotation (Line(points={{80,50},{84,50},{84,86},{0,86},{0,100}},
+                                                       color={191,0,0}));
   connect(heaFloSen.Q_flow, mulExp.u1)
-    annotation (Line(points={{-30,59},{-30,-24},{18,-24}}, color={0,0,127}));
+    annotation (Line(points={{70,39},{70,-10},{10,-10},{10,-24},{18,-24}},
+                                                           color={0,0,127}));
   connect(mulCon.u2, heaFloSen.Q_flow)
-    annotation (Line(points={{18,-86},{-30,-86},{-30,59}}, color={0,0,127}));
+    annotation (Line(points={{18,-86},{-30,-86},{-30,-10},{70,-10},{70,39}},
+                                                           color={0,0,127}));
   connect(equ.etaThe,mulExp. u2)
     annotation (Line(points={{1,-46},{10,-46},{10,-36},{18,-36}},
                                                              color={0,0,127}));
-  connect(equ.etaThe,etaThe)  annotation (Line(points={{1,-46},{80,-46},{80,-60},
-          {110,-60}},
+  connect(equ.etaThe,etaThe)  annotation (Line(points={{1,-46},{110,-46}},
                  color={0,0,127}));
   connect(mulCon.u1, equ.rConEva) annotation (Line(points={{18,-74},{10,-74},{
           10,-54},{1,-54}}, color={0,0,127}));
@@ -81,8 +95,20 @@ equation
     annotation (Line(points={{42,-80},{110,-80}}, color={0,0,127}));
   connect(mulExp.y, gai.u)
     annotation (Line(points={{42,-30},{58,-30}}, color={0,0,127}));
-  connect(gai.y, P) annotation (Line(points={{81,-30},{90,-30},{90,-40},{110,
-          -40}}, color={0,0,127}));
+  connect(gai.y, P) annotation (Line(points={{81,-30},{110,-30}},
+                 color={0,0,127}));
+  connect(min1.y, preTem.T)
+    annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
+  connect(SouTEva.y,min1. u2) annotation (Line(points={{-39,10},{-30,10},{-30,44},
+          {-22,44}},                     color={0,0,127}));
+  connect(heaFloSen.port_a, preTem.port)
+    annotation (Line(points={{60,50},{40,50}}, color={191,0,0}));
+  connect(min1.u1, TUps) annotation (Line(points={{-22,56},{-120,56}},
+                color={0,0,127}));
+  connect(SouTEva.y, pas.u)
+    annotation (Line(points={{-39,10},{-22,10}}, color={0,0,127}));
+  connect(pas.y, preTem.T) annotation (Line(points={{1,10},{12,10},{12,50},{18,50}},
+        color={0,0,127}));
 annotation (defaultComponentName="ORC",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
