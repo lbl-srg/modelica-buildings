@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.Rankine;
-model BottomingCycle_HeatPort
+model OrganicBottomingCycle
   "Model for the Rankine cycle as a bottoming cycle using a heat port"
 
   parameter Boolean preventHeatBackflow = false
@@ -169,4 +169,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end BottomingCycle_HeatPort;
+end OrganicBottomingCycle;

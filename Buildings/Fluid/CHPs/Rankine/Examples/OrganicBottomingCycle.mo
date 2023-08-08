@@ -1,5 +1,5 @@
 within Buildings.Fluid.CHPs.Rankine.Examples;
-model ORC_HeatPort "Example ORC model with heat port implementation"
+model OrganicBottomingCycle "Example ORC model"
   extends Modelica.Icons.Example;
 
   parameter Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids.R123 pro
@@ -12,7 +12,7 @@ model ORC_HeatPort "Example ORC model with heat port implementation"
   parameter Modelica.Units.SI.MassFlowRate mCon_flow_nominal = 1
     "Medium flow rate in the condenser";
 
-  Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort ORC(
+  Buildings.Fluid.CHPs.Rankine.OrganicBottomingCycle ORC(
     pro=pro,
     TEva(displayUnit="degC") = 357.95,
     TCon(displayUnit="degC") = 298.15,
@@ -77,12 +77,12 @@ equation
   connect(ORC.QCon_flow,con. Q_flow) annotation (Line(points={{11,-10},{20,-10},
           {20,-44},{12,-44}},color={0,0,127}));
 annotation(experiment(StopTime=1, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Examples/ORC_HeatPort.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Examples/OrganicBottomingCycle.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
 This model demonstrates the use of
-<a href=\"modelica://Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort\">
+<a href=\"modelica://Buildings.Fluid.CHPs.Rankine.OrganicBottomingCycle\">
 Buildings.Fluid.CHPs.Rankine.BottomingCycle</a>.
 </html>",revisions="<html>
 <ul>
@@ -93,4 +93,4 @@ First implementation. This is for
 </li>
 </ul>
 </html>"));
-end ORC_HeatPort;
+end OrganicBottomingCycle;

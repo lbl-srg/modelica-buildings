@@ -1,5 +1,5 @@
-simulateModel("Buildings.Fluid.CHPs.Rankine.Examples.ORC_HeatPort",
-    method="dassl", stopTime=1, tolerance=1e-06, resultFile="ORC_HeatPort");
+simulateModel("Buildings.Fluid.CHPs.Rankine.Examples.OrganicBottomingCycle",
+    method="dassl", stopTime=1, tolerance=1e-06, resultFile="OrganicBottomingCycle");
 // Plot commands
 createPlot(id=1,
  position={21, 12, 648, 520},

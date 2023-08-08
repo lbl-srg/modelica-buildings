@@ -7,7 +7,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.4
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort ORC(
+  Buildings.Fluid.CHPs.Rankine.OrganicBottomingCycle ORC(
     preventHeatBackflow=false,
     final pro=pro,
     TEva(displayUnit="K") = 320,
