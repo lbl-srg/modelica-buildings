@@ -60,6 +60,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     redeclare final package Medium = Medium,
     final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     final UA=1800,
     from_dp=false,
     dp_nominal=0,
