@@ -7,17 +7,13 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
   parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=0.4
     "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Fluid.CHPs.Rankine.BottomingCycle_FluidPort ORC(
+  Buildings.Fluid.CHPs.Rankine.BottomingCycle_HeatPort ORC(
     final pro=pro,
-    final m_flow_nominal=m_flow_nominal,
     TEva(displayUnit="K") = 320,
     TCon(displayUnit="K") = 300,
-    etaExp=0.85,
-    redeclare final package Medium = Medium,
-    UA=1800,
-    eva(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState))
+    etaExp=0.85)
     "Organic Rankine cycle"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Buildings.Fluid.CHPs.ThermalElectricalFollowing CHP(
     redeclare package Medium = Medium,
     redeclare Data.ValidationData3 per,
@@ -59,6 +55,17 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
   parameter Buildings.Fluid.CHPs.Rankine.Data.WorkingFluids.Pentane pro
     "Property record of the working fluid"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  Buildings.Fluid.HeatExchangers.EvaporatorCondenser eva(
+    redeclare final package Medium = Medium,
+    final allowFlowReversal=false,
+    final m_flow_nominal=m_flow_nominal,
+    final UA=1800,
+    from_dp=false,
+    dp_nominal=0,
+    linearizeFlowResistance=true) "Evaporator"
+    annotation (Placement(transformation(extent={{10,10},{-10,-10}},
+        rotation=180,
+        origin={50,10})));
 equation
   connect(avaSig.y, CHP.avaSig) annotation (Line(points={{-19,50},{-10,50},{-10,
           19},{-2,19}}, color={255,0,255}));
@@ -72,10 +79,12 @@ equation
           50},{-50,18},{-42,18}}, color={0,0,127}));
   connect(valDat.y[1], CHP.PEleDem) annotation (Line(points={{-59,50},{-50,50},{
           -50,30},{-14,30},{-14,13},{-2,13}}, color={0,0,127}));
-  connect(CHP.port_b, ORC.port_a)
-    annotation (Line(points={{20,10},{40,10}}, color={0,127,255}));
-  connect(ORC.port_b, sin.ports[1])
-    annotation (Line(points={{60,10},{80,10}}, color={0,127,255}));
+  connect(CHP.port_b, eva.port_a) annotation (Line(points={{20,10},{30,10},{30,10},
+          {40,10}}, color={0,127,255}));
+  connect(eva.port_b, sin.ports[1]) annotation (Line(points={{60,10},{70,10},{70,
+          10},{80,10}}, color={0,127,255}));
+  connect(eva.port_ref, ORC.port_a)
+    annotation (Line(points={{50,4},{50,-20}}, color={191,0,0}));
     annotation(experiment(StopTime=10000, Tolerance=1e-6),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Examples/CHPWithORC.mos"
         "Simulate and plot"));
