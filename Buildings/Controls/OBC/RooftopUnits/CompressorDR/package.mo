@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.RooftopUnits;
-package CompressorDR "Package with control modules for compressor demand response"
+package CompressorDR "Sequences for compressor speed control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control modules for compressor demand response.
+This package contains control sequences of compressor speed for demand response.
 </p>
 </html>"),
   Icon(graphics={

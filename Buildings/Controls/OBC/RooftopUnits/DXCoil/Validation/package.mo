@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil;
-package Validation "Package with control modules for rooftop units"
+package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
     <p>

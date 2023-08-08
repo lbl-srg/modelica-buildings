@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits;
-package Validation "Package with validation models for rooftop units"
+package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

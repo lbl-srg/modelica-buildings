@@ -1,11 +1,11 @@
-within Buildings.Controls.OBC.RooftopUnits.DefrostCycle;
-package Validation "Collection of validation models"
+within Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences;
+package Validation
 
 annotation (preferredView="info", Documentation(info="<html>
   <p>
   This package contains validation model for the classes in
-  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Validation\">
-  Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Validation</a>.
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences.Validation\">
+  Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences.Validation</a>.
   </p>
   </html>"),
     Icon(graphics={

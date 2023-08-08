@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.CompressorDR;
-package Validation "Package with control modules for compressor demand response"
+package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

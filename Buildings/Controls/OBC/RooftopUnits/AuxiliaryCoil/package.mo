@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.RooftopUnits;
-package AuxiliaryCoil "Package with control modules for rooftop units"
+package AuxiliaryCoil "Sequences for auxiliary heating coil control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control modules for auxiliary coil.
+This package contains control sequences for auxiliary heating coils.
 </p>
 </html>"),
   Icon(graphics={

@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block DXCoilEnable "DX coil enable and disable controller"
+block DXCoilEnable
+  "Sequence for enabling and disabling DX coils"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nCoi=2
@@ -28,8 +29,9 @@ block DXCoilEnable "DX coil enable and disable controller"
     "Delay time period for disabling DX coil";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
-    "DX coil status" annotation (Placement(transformation(extent={{-140,40},
-            {-100,80}}), iconTransformation(extent={{-140,40},{-100,80}})));
+    "DX coil status"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
@@ -39,9 +41,15 @@ block DXCoilEnable "DX coil enable and disable controller"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCooCoi(t=
-        uThrCooCoi2,
-    h=dUHys) "Pass cooling coil signal equal to or greater than threshold"
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi
+    "DX coil signal"
+    annotation (Placement(transformation(extent={{100,-20},{140,20}}),
+      iconTransformation(extent={{100,-20},{140,20}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCooCoi(
+    final t=uThrCooCoi2,
+    final h=dUHys)
+    "Check if cooling coil signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(t=timPer2)
@@ -53,7 +61,7 @@ block DXCoilEnable "DX coil enable and disable controller"
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    nin=nCoi)
+    final nin=nCoi)
     "Multi Or"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
@@ -65,8 +73,10 @@ block DXCoilEnable "DX coil enable and disable controller"
     "Logical And"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(t=uThrCooCoi3,
-    h=dUHys) "Pass cooling coil signal less than threshold"
+  Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
+    final t=uThrCooCoi3,
+    final h=dUHys)
+    "Check if cooling coil signal is less than threshold"
     annotation (Placement(transformation(extent={{-70,-70},{-50,-50}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
@@ -77,11 +87,7 @@ block DXCoilEnable "DX coil enable and disable controller"
     "Count time"
     annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi
-    "DX coil signal" annotation (Placement(transformation(extent={{100,-20},
-            {140,20}}), iconTransformation(extent={{100,-20},{140,20}})));
-
-  CDL.Logical.Latch lat
+  Buildings.Controls.OBC.CDL.Logical.Latch lat
     "Maintain DX coil status till the conditions to change it are met"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
@@ -116,6 +122,7 @@ equation
           {68,-6}}, color={255,0,255}));
   connect(lat.y, yDXCoi)
     annotation (Line(points={{92,0},{120,0}}, color={255,0,255}));
+
   annotation (
     defaultComponentName="DXCoiEna",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -140,5 +147,29 @@ equation
        Text(extent={{52,8},{94,-6}},
           textColor={255,0,255},
           textString="yDXCoi")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Documentation(info="<html>
+  <p>
+  This is a control module for enabling DX coil operation signal. 
+  The control module is operated as follows: 
+  </p>
+  <ul>
+  <li>
+  Enable DX coil <code>yDXCoi = true</code> when cooling coil valve position <code>uCooCoi</code> 
+  exceeds its threshold <code>uThrCooCoi2</code> for the duration of <code>timPer2</code>, 
+  and no changes in DX coil status <code>uDXCoi</code> are detected.
+  </li>
+  <li>
+  Disable DX coil <code>yDXCoi = false</code> when <code>uCooCoi</code> falls below <code>uThrCooCoi3</code>
+  for <code>timPer3</code>, and no changes in <code>uDXCoi</code> are detected. 
+  </li>
+  </ul>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  August 4, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end DXCoilEnable;

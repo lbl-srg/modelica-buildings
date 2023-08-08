@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits;
-package DefrostCycle "Package with control modules for defrost cycle"
+package DefrostCycle "Sequences for defrost cycle control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>

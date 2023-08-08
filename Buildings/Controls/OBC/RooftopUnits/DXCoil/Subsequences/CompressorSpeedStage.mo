@@ -1,13 +1,13 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
 block CompressorSpeedStage
-    "Compressor speed controller corresponding to DX coil staging status"
+  "Sequence for regulating compressor speed corresponding to previously enabled DX coil signal"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real conCooCoiLow=0.2
-    "Constant lower DX coil signal";
+    "Constant lower cooling coil valve position signal";
 
   parameter Real conCooCoiHig=0.8
-    "Constant higher DX coil signal";
+    "Constant higher cooling coil valve position signal";
 
   parameter Real minComSpe(
     final unit="1",
@@ -33,6 +33,19 @@ block CompressorSpeedStage
     "Gain of DX coil controller"
     annotation (Dialog(group="P controller"));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPreDXCoi
+    "Previously enabled DX coil signal"
+    annotation (Placement(transformation(extent={{-160,20},{-120,60}}),
+      iconTransformation(extent={{-140,38},{-100,78}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
+    final min=0,
+    final max=1,
+    final unit="1")
+    "Cooling coil valve position"
+    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
+      iconTransformation(extent={{-140,-80},{-100,-40}})));
+
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe(
     final min=0,
     final max=1,
@@ -41,27 +54,21 @@ block CompressorSpeedStage
     annotation (Placement(transformation(extent={{120,-20},{160,20}}),
       iconTransformation(extent={{100,-20},{140,20}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
-    final min=0,
-    final max=1,
-    final unit="1") "Cooling coil valve position"
-    annotation (Placement(transformation(extent={{-160,-80},{-120,-40}}),
-      iconTransformation(extent={{-140,-80},{-100,-40}})));
-
   Buildings.Controls.Continuous.LimPID conP(
-    controllerType=controllerType,
-    k=k,
-    yMax=1,
-    yMin=0,
-    reverseActing=false)
+    final controllerType=controllerType,
+    final k=k,
+    final yMax=1,
+    final yMin=0,
+    final reverseActing=false)
     "Regulate compressor speed"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Add add "Logical Add"
+  Buildings.Controls.OBC.CDL.Continuous.Add add
+    "Logical Add"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conMinSpe(
-    k=minComSpe)
+    final k=minComSpe)
     "Minimum compressor speed"
     annotation (Placement(transformation(extent={{-60,2},{-40,22}})));
 
@@ -69,22 +76,20 @@ block CompressorSpeedStage
     "Switch between the speed calculated by the P controller and the maximum speed"
     annotation (Placement(transformation(extent={{80,-10},{100,10}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPreDXCoi
-    "Previous enable DX coil signal" annotation (Placement(transformation(
-          extent={{-160,20},{-120,60}}), iconTransformation(extent={{-140,
-            38},{-100,78}})));
-
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conDXCoi(
-    k=conCooCoiLow) "Constant DX coil signal with lower value"
+    final k=conCooCoiLow)
+    "Constant DX coil signal with lower value"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conMaxSpe(
-    k=maxComSpe)
+    final k=maxComSpe)
     "Maximum compressor speed"
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
 
-  CDL.Continuous.Min min "Pass through the minimum compressor speed"
+  Buildings.Controls.OBC.CDL.Continuous.Min min
+    "Pass through the minimum compressor speed"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
 equation
   connect(conP.u_m, uCooCoi) annotation (Line(points={{-50,-42},{-50,-60},{
           -140,-60}},                  color={0,0,127}));
@@ -108,6 +113,7 @@ equation
           18,-56}}, color={0,0,127}));
   connect(conMaxSpe.y, min.u1) annotation (Line(points={{42,60},{50,60},{50,
           0},{14,0},{14,-44},{18,-44}}, color={0,0,127}));
+
   annotation (
     defaultComponentName="ComSpeSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -134,5 +140,29 @@ equation
             textColor={0,0,127},
             pattern=LinePattern.Dash,
           textString="yComSpe")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{120,100}})),
+  Documentation(info="<html>
+  <p>
+  This is a control module for regulating compressor speed, utilizing a previously enabled DX coil signal. 
+  The control module is operated as follows: 
+  </p>
+  <ul>
+  <li>
+  Run compressor speed <code>yComSpe</code> at its maximum level when the previously enabled DX coil signal
+  is true <code>uPreDXCoi = true</code>.
+  </li>
+  <li>
+  Implement a linear mapping to modulate <code>yComSpe</code>, aligning its minimum and maximum speed 
+  with a lower cooling coil valve position signal <code>conCooCoiLow</code> and a higher one 
+  <code>conCooCoiHig</code> from the cooling coil signal <code>uCooCoi</code> when <code>uPreDXCoi = false</code>.
+  </li>
+  </ul>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  August 4, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end CompressorSpeedStage;

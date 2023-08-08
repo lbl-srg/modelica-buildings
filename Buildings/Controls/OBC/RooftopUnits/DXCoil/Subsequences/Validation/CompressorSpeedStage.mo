@@ -12,15 +12,15 @@ model CompressorSpeedStage
     annotation (Placement(transformation(extent={{20,-12},{40,8}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Pulse booPul(
-    width=0.5,
-    period=3600,
-    shift=1800)
+    final width=0.5,
+    final period=3600,
+    final shift=1800)
     "Previous enable signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    height=1,
-    duration=1800)
+    final height=1,
+    final duration=1800)
     "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
@@ -29,24 +29,40 @@ equation
           {0,30},{0,3.8},{18,3.8}}, color={255,0,255}));
   connect(ram.y, ComSpeSta.uCooCoi) annotation (Line(points={{-18,-30},{0,-30},{
           0,-8},{18,-8}}, color={0,0,127}));
+
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/CompressorSpeedStage.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
-<p>
-This example validates
-<a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.CompressorSpeedStage\">
-Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.CompressorSpeedStage</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-July 13, 2022, by Junke Wang and Karthik Devaprasad:<br/>
-First implementation.
-</li>
-</ul>
-</html>"),
+    Documentation(info="<html>
+    <p>
+    This is a validation model for the controller
+    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage\">
+    Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage</a>. 
+    </p>
+    <p>
+    Simulation results are observed as follows: 
+    <ul>
+    <li>
+    When the previously enabled DX coil signal is false <code>booPul.y = false</code>, 
+    the controller maps a compressor's minimum speed 
+    <code>ComSpeSta.minComSpe</code> of 0.1 and maximum speed <code>ComSpeSta.maxComSpe</code> 
+    of 1 to a lower cooling coil valve position signal <code>ComSpeSta.conCooCoiLow</code> of 0.2 and a higher one 
+    <code>ComSpeSta.conCooCoiHig</code> of 0.8 from the cooling coil signal <code>ram.y</code>. 
+    </li>
+    <li>
+    When <code>booPul.y = true</code>, the controller outputs <code>ComSpeSta.yComSpe=1</code>. 
+    </li>
+    </ul>
+    </p>
+    </html>",revisions="<html>
+    <ul>
+    <li>
+    August 7, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+    First implementation.
+    </li>
+    </ul>
+    </html>"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
           Ellipse(lineColor = {75,138,73},

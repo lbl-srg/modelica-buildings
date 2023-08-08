@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil;
-block Controller "Sequences to control DX coil and corresponding compressor speed"
+block Controller
+  "Sequences to stage DX coils and regulate their corresponding compressor speeds"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nCoi = 2
@@ -88,21 +89,31 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
     "DX coil status"
-    annotation (Placement(transformation(extent={{-260,40},{-220,80}}),
-      iconTransformation(extent={{-140,10},{-100,50}})));
+    annotation (Placement(transformation(extent={{-260,20},{-220,60}}),
+      iconTransformation(extent={{-140,60},{-100,100}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoiAva[nCoi]
+    "DX coil availability"
+    annotation (Placement(transformation(extent={{-260,100},{-220,140}}),
+      iconTransformation(extent={{-140,20},{-100,60}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCoiSeq[nCoi]
+    "DX coil available sequence order"
+    annotation (Placement(transformation(extent={{-260,-60},{-220,-20}}),
+      iconTransformation(extent={{-140,-58},{-100,-18}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
     final max=1,
     final unit="1")
     "Cooling coil valve position"
-    annotation (Placement(transformation(extent={{-260,-160},{-220,-120}}),
+    annotation (Placement(transformation(extent={{-260,-140},{-220,-100}}),
       iconTransformation(extent={{-140,-100},{-100,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoiAva[nCoi]
-    "DX coil availability"
-    annotation (Placement(transformation(extent={{-260,-82},{-220,-42}}),
-      iconTransformation(extent={{-140,-50},{-100,-10}})));
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi[nCoi]
+    "DX coil signal"
+    annotation (Placement(transformation(extent={{220,60},{260,100}}),
+      iconTransformation(extent={{100,20},{140,60}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealOutput yComSpe[nCoi](
     final min=0,
@@ -110,29 +121,19 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     final unit="1")
     "Compressor commanded speed"
     annotation (Placement(transformation(extent={{220,-140},{260,-100}}),
-      iconTransformation(extent={{100,-70},{140,-30}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDXCoi[nCoi]
-    "DX coil signal"
-    annotation (Placement(transformation(extent={{220,60},{260,100}}),
-      iconTransformation(extent={{100,30},{140,70}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.IntegerInput uCoiSeq[nCoi]
-    "DX coil available sequence order"
-    annotation (Placement(transformation(extent={{-260,120},{-220,160}}),
-      iconTransformation(extent={{-140,60},{-100,100}})));
+      iconTransformation(extent={{100,-60},{140,-20}})));
 
   Buildings.Controls.OBC.CDL.Conversions.IntegerToReal intToRea[nCoi]
     "Convert integer to real number"
-    annotation (Placement(transformation(extent={{-200,130},{-180,150}})));
+    annotation (Placement(transformation(extent={{-190,130},{-170,150}})));
 
   Buildings.Controls.OBC.CDL.Integers.Sources.Constant conInt(
-    k=1)
+    final k=1)
     "Constant one"
-    annotation (Placement(transformation(extent={{-200,90},{-180,110}})));
+    annotation (Placement(transformation(extent={{-190,90},{-170,110}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealExtractor extIndRea(
-    nin=nCoi)
+    final nin=nCoi)
     "DX coil index"
     annotation (Placement(transformation(extent={{-150,130},{-130,150}})));
 
@@ -141,7 +142,7 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     annotation (Placement(transformation(extent={{180,70},{200,90}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con[nCoi](
-    k=fill(false,nCoi))
+    final k=fill(false,nCoi))
     "Constant Boolean False signal"
     annotation (Placement(transformation(extent={{130,50},{150,70}})));
 
@@ -154,7 +155,7 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
 
   Buildings.Controls.OBC.CDL.Integers.MultiSum mulSumInt(
-    nin=nCoi)
+    final nin=nCoi)
     "Sum of integer inputs"
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
 
@@ -163,17 +164,22 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.GreaterEqualThreshold intGreEquThr(
-    t=1)
+    final t=1)
     "Output true Boolean signal if integer is greater or equal than threshold"
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 
   Buildings.Controls.OBC.CDL.Integers.LessEqualThreshold intLesEquThr(
-    t=1)
+    final t=1)
     "Output true Boolean signal if integer is less or equal than threshold"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.And and2 "Logical And"
+  Buildings.Controls.OBC.CDL.Logical.And and2
+    "Logical And"
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
+
+  Buildings.Controls.OBC.CDL.Logical.Not not1
+    "Logical Not"
+    annotation (Placement(transformation(extent={{-50,44},{-30,64}})));
 
   Buildings.Controls.OBC.CDL.Logical.Or or2
     "Logical Or"
@@ -196,30 +202,30 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage DXCoiSta(
-    nCoi=nCoi,
-    uThrCooCoi=uThrCooCoi,
-    uThrCooCoi1=uThrCooCoi1,
-    timPer=timPer,
-    timPer1=timPer1)
+    final nCoi=nCoi,
+    final uThrCooCoi=uThrCooCoi,
+    final uThrCooCoi1=uThrCooCoi1,
+    final timPer=timPer,
+    final timPer1=timPer1)
     "DX coil staging"
     annotation (Placement(transformation(extent={{-150,50},{-130,70}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable DXCoiEna(
-    nCoi=nCoi,
-    uThrCooCoi2=uThrCooCoi2,
-    uThrCooCoi3=uThrCooCoi3,
-    timPer2=timPer2,
-    timPer3=timPer3)
+    final nCoi=nCoi,
+    final uThrCooCoi2=uThrCooCoi2,
+    final uThrCooCoi3=uThrCooCoi3,
+    final timPer2=timPer2,
+    final timPer3=timPer3)
     "DX coil enable and disable"
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage ComSpeSta[nCoi](
-    conCooCoiLow=conCooCoiLow,
-    conCooCoiHig=conCooCoiHig,
-    minComSpe=minComSpe,
-    maxComSpe=maxComSpe,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=k)
+    final conCooCoiLow=conCooCoiLow,
+    final conCooCoiHig=conCooCoiHig,
+    final minComSpe=minComSpe,
+    final maxComSpe=maxComSpe,
+    final controllerType=Modelica.Blocks.Types.SimpleController.P,
+    final k=k)
     "Compressor speed stage"
     annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
 
@@ -228,17 +234,17 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus chaSta(
-    nCoi=nCoi)
+    final nCoi=nCoi)
     "Change DX coil status"
     annotation (Placement(transformation(extent={{0,134},{22,154}})));
 
   Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.ChangeStatus chaSta1(
-    nCoi=nCoi)
+    final nCoi=nCoi)
     "Change DX coil status"
     annotation (Placement(transformation(extent={{130,92},{152,112}})));
 
   Buildings.Controls.OBC.CDL.Routing.RealScalarReplicator reaScaRep(
-    nout=nCoi)
+    final nout=nCoi)
     "Real scalar replicator"
     annotation (Placement(transformation(extent={{80,-160},{100,-140}})));
 
@@ -247,30 +253,39 @@ block Controller "Sequences to control DX coil and corresponding compressor spee
     annotation (Placement(transformation(extent={{-150,-132},{-130,-112}})));
 
   Buildings.Controls.OBC.CDL.Routing.IntegerScalarReplicator intScaRep(
-    nout=nCoi) "Integer scalar replicator"
+    final nout=nCoi) "Integer scalar replicator"
     annotation (Placement(transformation(extent={{-150,-82},{-130,-62}})));
 
-  CDL.Integers.Greater                     intGre[nCoi]
+  Buildings.Controls.OBC.CDL.Integers.Greater intGre[nCoi]
     "Output true Boolean signal if integer is greater than threshold"
     annotation (Placement(transformation(extent={{-50,-124},{-30,-104}})));
 
+  Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToRea[nCoi]
+    "Convert Boolean to Real number"
+    annotation (Placement(transformation(extent={{130,-70},{150,-50}})));
+
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoi]
+    "Logical Multiply"
+    annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
+
 equation
   connect(uCoiSeq, intToRea.u)
-    annotation (Line(points={{-240,140},{-202,140}}, color={255,127,0}));
+    annotation (Line(points={{-240,-40},{-200,-40},{-200,140},{-192,140}},
+                                                     color={255,127,0}));
   connect(intToRea.y, extIndRea.u)
-    annotation (Line(points={{-178,140},{-152,140}}, color={0,0,127}));
-  connect(conInt.y, extIndRea.index) annotation (Line(points={{-178,100},{-140,100},
+    annotation (Line(points={{-168,140},{-152,140}}, color={0,0,127}));
+  connect(conInt.y, extIndRea.index) annotation (Line(points={{-168,100},{-140,100},
           {-140,128}},color={255,127,0}));
   connect(extIndRea.y, reaToInt.u)
     annotation (Line(points={{-128,140},{-102,140}},
                                                    color={0,0,127}));
   connect(uDXCoi, booToInt.u)
-    annotation (Line(points={{-240,60},{-168,60},{-168,-20},{-152,-20}},
+    annotation (Line(points={{-240,40},{-168,40},{-168,-20},{-152,-20}},
                                                    color={255,0,255}));
   connect(booToInt.y, mulSumInt.u)
     annotation (Line(points={{-128,-20},{-102,-20}},
                                                    color={255,127,0}));
-  connect(conInt.y, addInt.u1) annotation (Line(points={{-178,100},{-110,100},{-110,
+  connect(conInt.y, addInt.u1) annotation (Line(points={{-168,100},{-110,100},{-110,
           26},{-102,26}},      color={255,127,0}));
   connect(mulSumInt.y, addInt.u2) annotation (Line(points={{-78,-20},{-74,-20},{
           -74,0},{-110,0},{-110,14},{-102,14}},
@@ -279,38 +294,36 @@ equation
                                                          color={255,127,0}));
   connect(reaToInt.y, chaSta.uLasDXCoi) annotation (Line(points={{-78,140},{-40,
           140},{-40,136},{-2,136}},  color={255,127,0}));
-  connect(uDXCoi, chaSta.uDXCoil) annotation (Line(points={{-240,60},{-168,60},{
+  connect(uDXCoi, chaSta.uDXCoil) annotation (Line(points={{-240,40},{-168,40},{
           -168,90},{-20,90},{-20,144},{-2,144}},                        color={255,
           0,255}));
-  connect(uDXCoi, DXCoiEna.uDXCoi) annotation (Line(points={{-240,60},{-168,60},
+  connect(uDXCoi, DXCoiEna.uDXCoi) annotation (Line(points={{-240,40},{-168,40},
           {-168,26},{-152,26}},
                               color={255,0,255}));
-  connect(uCooCoi, DXCoiEna.uCooCoi) annotation (Line(points={{-240,-140},{-180,
-          -140},{-180,14},{-152,14}}, color={0,0,127}));
+  connect(uCooCoi, DXCoiEna.uCooCoi) annotation (Line(points={{-240,-120},{-180,
+          -120},{-180,14},{-152,14}}, color={0,0,127}));
   connect(DXCoiEna.yDXCoi, chaSta.uNexDXCoiSta) annotation (Line(points={{-128,20},
-          {-120,20},{-120,120},{-60,120},{-60,152},{-2,152}},
+          {-120,20},{-120,126},{-60,126},{-60,152},{-2,152}},
         color={255,0,255}));
   connect(DXCoiEna.yDXCoi, chaSta.uLasDXCoiSta) annotation (Line(points={{-128,20},
-          {-120,20},{-120,120},{-60,120},{-60,149},{-2,149}},
+          {-120,20},{-120,126},{-60,126},{-60,149},{-2,149}},
                                                             color={255,0,255}));
   connect(chaSta.yDXCoi, chaSta1.uDXCoil) annotation (Line(points={{24,144},{
           120,144},{120,102},{128,102}},
                                  color={255,0,255}));
   connect(DXCoiSta.uCooCoi, uCooCoi) annotation (Line(points={{-152,54},{-180,54},
-          {-180,-140},{-240,-140}}, color={0,0,127}));
-  connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,60},{-168,60},
+          {-180,-120},{-240,-120}}, color={0,0,127}));
+  connect(uDXCoi, DXCoiSta.uDXCoi) annotation (Line(points={{-240,40},{-168,40},
           {-168,66},{-152,66}}, color={255,0,255}));
   connect(mulSumInt.y, intGreEquThr.u) annotation (Line(points={{-78,-20},{-60,-20},
           {-60,20},{-52,20}},   color={255,127,0}));
   connect(mulSumInt.y, intLesEquThr.u) annotation (Line(points={{-78,-20},{-52,-20}},
                                 color={255,127,0}));
-  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,66},{20,66},{20,
+  connect(DXCoiSta.yUp, and2.u1) annotation (Line(points={{-128,66},{-60,66},{-60,
           110},{38,110}},
                         color={255,0,255}));
   connect(intGreEquThr.y, and2.u2) annotation (Line(points={{-28,20},{30,20},{30,
           102},{38,102}},    color={255,0,255}));
-  connect(DXCoiSta.yDow, or2.u1) annotation (Line(points={{-128,54},{38,54}},
-                        color={255,0,255}));
   connect(intLesEquThr.y, or2.u2) annotation (Line(points={{-28,-20},{-20,-20},{
           -20,46},{38,46}},
                         color={255,0,255}));
@@ -325,13 +338,13 @@ equation
                                 color={255,0,255}));
   connect(con.y, logSwi.u3) annotation (Line(points={{152,60},{160,60},{160,72},
           {178,72}}, color={255,0,255}));
-  connect(uDXCoiAva, logSwi.u2) annotation (Line(points={{-240,-62},{-190,-62},{
-          -190,80},{178,80}},                         color={255,0,255}));
-  connect(intToRea.y, nexDXCoi.u) annotation (Line(points={{-178,140},{-170,140},
-          {-170,110},{-10,110},{-10,-20},{-2,-20}},
+  connect(uDXCoiAva, logSwi.u2) annotation (Line(points={{-240,120},{20,120},{20,
+          80},{178,80}},                              color={255,0,255}));
+  connect(intToRea.y, nexDXCoi.u) annotation (Line(points={{-168,140},{-162,140},
+          {-162,116},{-10,116},{-10,-20},{-2,-20}},
                                                 color={0,0,127}));
-  connect(intToRea.y, lasDXCoi.u) annotation (Line(points={{-178,140},{-170,140},
-          {-170,110},{-10,110},{-10,-60},{-2,-60}},
+  connect(intToRea.y, lasDXCoi.u) annotation (Line(points={{-168,140},{-162,140},
+          {-162,116},{-10,116},{-10,-60},{-2,-60}},
                                                   color={0,0,127}));
   connect(addInt.y, nexDXCoi.index) annotation (Line(points={{-78,20},{-68,20},{
           -68,-36},{10,-36},{10,-32}},
@@ -356,11 +369,9 @@ equation
   connect(zerStaIndCor.yReaMod, reaToInt2.u) annotation (Line(points={{-28,-64},
           {-20,-64},{-20,-88},{60,-88},{60,-20},{78,-20}},
                                                          color={0,0,127}));
-  connect(ComSpeSta.yComSpe, yComSpe)
-    annotation (Line(points={{152,-120},{240,-120}}, color={0,0,127}));
   connect(reaScaRep.y, ComSpeSta.uCooCoi) annotation (Line(points={{102,-150},{120,
           -150},{120,-126},{128,-126}}, color={0,0,127}));
-  connect(uCooCoi, reaScaRep.u) annotation (Line(points={{-240,-140},{-180,-140},
+  connect(uCooCoi, reaScaRep.u) annotation (Line(points={{-240,-120},{-180,-120},
           {-180,-150},{78,-150}},                        color={0,0,127}));
   connect(mulSumInt.y, intScaRep.u) annotation (Line(points={{-78,-20},{-74,-20},
           {-74,-48},{-168,-48},{-168,-72},{-152,-72}}, color={255,127,0}));
@@ -370,6 +381,19 @@ equation
           {-80,-114},{-52,-114}}, color={255,127,0}));
   connect(conInt1.y, intGre.u2)
     annotation (Line(points={{-128,-122},{-52,-122}}, color={255,127,0}));
+  connect(logSwi.y, booToRea.u) annotation (Line(points={{202,80},{210,80},{210,
+          -30},{120,-30},{120,-60},{128,-60}}, color={255,0,255}));
+  connect(mul.y, yComSpe)
+    annotation (Line(points={{202,-120},{240,-120}}, color={0,0,127}));
+  connect(ComSpeSta.yComSpe, mul.u2) annotation (Line(points={{152,-120},{160,-120},
+          {160,-126},{178,-126}}, color={0,0,127}));
+  connect(booToRea.y, mul.u1) annotation (Line(points={{152,-60},{170,-60},{170,
+          -114},{178,-114}}, color={0,0,127}));
+  connect(DXCoiSta.yDow, not1.u)
+    annotation (Line(points={{-128,54},{-52,54}}, color={255,0,255}));
+  connect(not1.y, or2.u1)
+    annotation (Line(points={{-28,54},{38,54}}, color={255,0,255}));
+
   annotation (defaultComponentName="DXCoiCon",
     Icon(coordinateSystem(preserveAspectRatio=false,
       extent={{-100,-100},{100,100}}),
@@ -378,26 +402,56 @@ equation
             extent={{-100,140},{100,140}},
             textColor={0,0,255}),
           Text(
-            extent={{-96,-72},{-52,-88}},
+            extent={{-94,-72},{-50,-88}},
             textColor={0,0,127},
             pattern=LinePattern.Dash,
             textString="uCooCoi"),
-       Text(extent={{-96,88},{-50,74}},
-          textColor={255,127,0},
-          textString="uCoiSeq"),
-       Text(extent={{-98,36},{-52,22}},
-          textColor={255,0,255},
-          textString="uDXCoi"),
-       Text(extent={{-94,-22},{-40,-38}},
-          textColor={255,0,255},
-          textString="uDXCoiAva"),
-       Text(extent={{52,58},{94,44}},
-          textColor={255,0,255},
-          textString="yDXCoi"),
-          Text(
-            extent={{44,-42},{94,-58}},
-            textColor={0,0,127},
-            pattern=LinePattern.Dash,
-          textString="yComSpe")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}})));
+         Text(extent={{-96,-30},{-50,-44}},
+            textColor={255,127,0},
+            textString="uCoiSeq"),
+         Text(extent={{-98,88},{-52,74}},
+            textColor={255,0,255},
+            textString="uDXCoi"),
+         Text(extent={{-94,48},{-40,32}},
+            textColor={255,0,255},
+            textString="uDXCoiAva"),
+         Text(extent={{52,48},{94,34}},
+            textColor={255,0,255},
+            textString="yDXCoi"),
+            Text(
+              extent={{44,-32},{94,-48}},
+              textColor={0,0,127},
+              pattern=LinePattern.Dash,
+        textString="yComSpe")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-220,-180},{220,180}})),
+  Documentation(info="<html>
+  <p>
+  This is a control module for staging DX coils and adjusting their corresponding compressor speeds. 
+  The control module consists of: 
+  </p>
+  <ul>
+  <li>
+  Subsequences to stage up and down DX coils 
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage\">
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage</a>.
+  </li>
+  <li>
+  Subsequences to enable and disable DX coils 
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable\">
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilEnable</a>.
+  </li>
+  <li>
+  Subsequences to control compressor speed 
+  <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage\">
+  Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.CompressorSpeedStage</a>.
+  </li>
+  </ul>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  August 8, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end Controller;

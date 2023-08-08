@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil;
-package Validation "Package with validation models for auxiliary coil"
+package Validation "Collection of validation models"
 
 annotation (preferredView="info", Documentation(info="<html>
     <p>

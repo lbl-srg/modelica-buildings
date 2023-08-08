@@ -1,10 +1,9 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil;
-package Subsequences "Package with control modules for DX coils"
+package Subsequences "Subsequences for DX coil control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains subsequences for controlling DX coil and 
-compressor speed when there is staging command.
+This package contains control subsequences for staging DX coils and adjusting their corresponding compressor speeds.
 </p>
 </html>"),
   Icon(graphics={

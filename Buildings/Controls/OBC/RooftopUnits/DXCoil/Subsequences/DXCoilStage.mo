@@ -1,5 +1,6 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block DXCoilStage "DX coil staging controller"
+block DXCoilStage
+  "Sequence for staging up and down DX coils"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Integer nCoi=2
@@ -28,8 +29,9 @@ block DXCoilStage "DX coil staging controller"
     "Delay time period for staging down DX coil";
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
-    "DX coil status" annotation (Placement(transformation(extent={{-140,30},
-            {-100,70}}), iconTransformation(extent={{-140,40},{-100,80}})));
+    "DX coil status"
+    annotation (Placement(transformation(extent={{-140,30},{-100,70}}),
+      iconTransformation(extent={{-140,40},{-100,80}})));
 
   Buildings.Controls.OBC.CDL.Interfaces.RealInput uCooCoi(
     final min=0,
@@ -39,13 +41,24 @@ block DXCoilStage "DX coil staging controller"
     annotation (Placement(transformation(extent={{-140,-70},{-100,-30}}),
       iconTransformation(extent={{-140,-80},{-100,-40}})));
 
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
+    "Next DX coil status"
+    annotation (Placement(transformation(extent={{100,20},{140,60}}),
+      iconTransformation(extent={{100,40},{140,80}})));
+
+  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDow
+    "Last DX coil status"
+    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
+      iconTransformation(extent={{100,-80},{140,-40}})));
+
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrCooCoi(
-    t=uThrCooCoi,
-    h=dUHys) "Pass cooling coil signal equal to or greater than threshold"
+    final t=uThrCooCoi,
+    final h=dUHys)
+    "Check if cooling coil signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim(
-    t=timPer)
+    final t=timPer)
     "Count time"
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
 
@@ -58,8 +71,8 @@ block DXCoilStage "DX coil staging controller"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.MultiOr mulOr(
-    nin=nCoi)
-    "Multi Or"
+    final nin=nCoi)
+    "Logical Multi Or"
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Buildings.Controls.OBC.CDL.Logical.Not not1
@@ -67,28 +80,19 @@ block DXCoilStage "DX coil staging controller"
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThr(
-    t=uThrCooCoi1,
-    h=dUHys) "Pass cooling coil signal less than threshold"
+    final t=uThrCooCoi1,
+    final h=dUHys)
+    "Check if cooling coil signal is less than threshold"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Timer tim1(
-    t=timPer1)
+    final t=timPer1)
     "Count time"
     annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.And and2
     "Logical And"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yUp
-    "Next DX coil status"
-    annotation (Placement(transformation(extent={{100,20},{140,60}}),
-      iconTransformation(extent={{100,40},{140,80}})));
-
-  Buildings.Controls.OBC.CDL.Interfaces.BooleanOutput yDow
-    "Last DX coil status"
-    annotation (Placement(transformation(extent={{100,-60},{140,-20}}),
-      iconTransformation(extent={{100,-80},{140,-40}})));
 
 equation
   connect(uCooCoi, greThrCooCoi.u) annotation (Line(points={{-120,-50},{-80,-50},
@@ -118,6 +122,7 @@ equation
     annotation (Line(points={{-38,50},{-12,50}}, color={255,0,255}));
   connect(tim.passed, yUp) annotation (Line(points={{52,-8},{80,-8},{80,40},{120,
           40}}, color={255,0,255}));
+
   annotation (
     defaultComponentName="DXCoiSta",
     Icon(coordinateSystem(preserveAspectRatio=false,
@@ -145,5 +150,29 @@ equation
        Text(extent={{58,-54},{100,-68}},
           textColor={255,0,255},
           textString="yDow")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  Documentation(info="<html>
+  <p>
+  This is a control module for staging DX coil operation signal. 
+  The control module is operated as follows: 
+  </p>
+  <ul>
+  <li>
+  Stage up <code>yUp = true</code> when cooling coil valve position <code>uCooCoi</code> exceeds 
+  its threshold <code>uThrCooCoi</code> for the duration of <code>timPer</code>, and no changes 
+  in DX coil status <code>uDXCoi</code> are detected. 
+  </li>
+  <li>
+  Stage down <code>yDow = false</code> when <code>uCooCoi</code> falls below <code>uThrCooCoi1</code>
+  for <code>timPer1</code>, and no changes in <code>uDXCoi</code> are detected. 
+  </li>
+  </ul>
+  </html>", revisions="<html>
+  <ul>
+  <li>
+  August 4, 2023, by Junke Wang and Karthik Devaprasad:<br/>
+  First implementation.
+  </li>
+  </ul>
+  </html>"));
 end DXCoilStage;

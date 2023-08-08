@@ -1,9 +1,9 @@
 within Buildings.Controls.OBC.RooftopUnits;
-package DXCoil "Package with control modules for DX coils"
+package DXCoil "Sequences for DX coil control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains control sequences for DX coil staging.
+This package contains control sequences to stage DX coils and regulate their corresponding compressor speeds.
 </p>
 </html>"),
   Icon(graphics={

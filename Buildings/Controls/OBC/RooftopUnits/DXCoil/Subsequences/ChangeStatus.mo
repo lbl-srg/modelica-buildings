@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-block ChangeStatus "Sequence to change DX coil status"
+block ChangeStatus "Sequence for changing DX coil status"
 
   parameter Integer nCoi = 2
     "Total number of DX coils";

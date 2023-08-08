@@ -1,9 +1,9 @@
-within Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences;
-package Validation "Collection of validation models"
+within Buildings.Controls.OBC.RooftopUnits.DefrostCycle;
+package Subsequences "Subsequences for defrost control"
 
 annotation (preferredView="info", Documentation(info="<html>
 <p>
-This package contains validaton models for DX coil and compressor speed control sequences.
+This package contains control modules for defrost cycle of rooftop units.
 </p>
 </html>"),
   Icon(graphics={
@@ -40,4 +40,4 @@ This package contains validaton models for DX coil and compressor speed control 
           pattern=LinePattern.None,
           fillPattern=FillPattern.Solid,
           extent={{-80.0,-80.0},{-20.0,-20.0}})}));
-end Validation;
+end Subsequences;

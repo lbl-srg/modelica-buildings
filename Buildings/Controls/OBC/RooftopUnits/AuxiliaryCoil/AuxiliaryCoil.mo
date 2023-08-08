@@ -1,5 +1,5 @@
 within Buildings.Controls.OBC.RooftopUnits.AuxiliaryCoil;
-block AuxiliaryCoil "Auxiliary heating coil controller"
+block AuxiliaryCoil "Sequences to control auxiliary heating coils"
   extends Modelica.Blocks.Icons.Block;
 
   parameter Real TLocOut(
@@ -20,11 +20,11 @@ block AuxiliaryCoil "Auxiliary heating coil controller"
     annotation (Dialog(group="P controller"));
 
   parameter Real k1=1
-    "Gain of auxiliary heating controller"
+    "Gain of auxiliary heating controller 1"
     annotation (Dialog(group="P controller"));
 
   parameter Real k2=10
-    "Gain of auxiliary heating controller"
+    "Gain of auxiliary heating controller 2"
     annotation (Dialog(group="P controller"));
 
   parameter Real uThrHeaCoi=0.9
@@ -59,11 +59,11 @@ block AuxiliaryCoil "Auxiliary heating coil controller"
       iconTransformation(extent={{100,-20},{140,20}})));
 
   Buildings.Controls.Continuous.LimPID conPHeaHig(
-    controllerType=controllerType,
-    k=k2,
-    yMax=1,
-    yMin=0,
-    reverseActing=false)
+    final controllerType=controllerType,
+    final k=k2,
+    final yMax=1,
+    final yMin=0,
+    final reverseActing=false)
     "Regulate supply air temperature at or above its setpoint when load is unmet by DX heating"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
 
@@ -72,14 +72,15 @@ block AuxiliaryCoil "Auxiliary heating coil controller"
     annotation (Placement(transformation(extent={{30,-76},{50,-56}})));
 
   Buildings.Controls.OBC.CDL.Continuous.LessThreshold lesThrLocOut(
-    t=TLocOut,
-    h=dTHys)
-    "Outdoor air lockout temperature for DX coil"
+    final t=TLocOut,
+    final h=dTHys)
+    "Check if outdoor air lockout temperature is less than threshold"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.GreaterThreshold greThrHeaCoi(
-    t=uThrHeaCoi,
-    h=dUHys) "Pass heating coil signal equal to or greater than 0.9"
+    final t=uThrHeaCoi,
+    final h=dUHys)
+    "Check if heating coil signal is equal to or greater than threshold"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
 
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal booToReaSupHeaHig
@@ -95,16 +96,16 @@ block AuxiliaryCoil "Auxiliary heating coil controller"
     annotation (Placement(transformation(extent={{70,-10},{90,10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSig(
-    k=0.9)
-    "Constant heating coil command signal"
+    final k=0.9)
+    "Constant heating coil signal"
     annotation (Placement(transformation(extent={{-46,-70},{-26,-50}})));
 
   Buildings.Controls.Continuous.LimPID conPHeaLocOut(
-    controllerType=controllerType,
-    k=k1,
-    yMax=1,
-    yMin=0,
-    reverseActing=false)
+    final controllerType=controllerType,
+    final k=k1,
+    final yMax=1,
+    final yMin=0,
+    final reverseActing=false)
     "Regulate supply air temperature at or above its setpoint"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
 
@@ -117,8 +118,8 @@ block AuxiliaryCoil "Auxiliary heating coil controller"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conHeaCoiSig1(
-    k=0)
-    "Constant heating coil command signal"
+    final k=0)
+    "Constant heating coil signal"
     annotation (Placement(transformation(extent={{-46,60},{-26,80}})));
 
 equation
@@ -156,6 +157,7 @@ equation
     annotation (Line(points={{-24,70},{-12,70}}, color={0,0,127}));
   connect(uHeaCoi, conPHeaLocOut.u_m) annotation (Line(points={{-120,-20},{-90,-20},
           {-90,48},{0,48},{0,58}}, color={0,0,127}));
+
   annotation (defaultComponentName="conAuxCoi",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
@@ -177,7 +179,7 @@ equation
   Documentation(info="<html>
   <p>
   This is a control module for adjusting auxiliary heating coil operation signal. 
-  The control module is operated as follows.
+  The control module is operated as follows: 
   </p>
   <ul>
   <li>
@@ -195,8 +197,7 @@ equation
   staging or when the coils are unable to meet the heating load.
   </li>
   </ul>
-  </html>
-  ",   revisions="<html>
+  </html>", revisions="<html>
   <ul>
   <li>
   July 3, 2023, by Junke Wang and Karthik Devaprasad:<br/>

@@ -34,7 +34,8 @@ model DXCoilStage
     "Maintain DX coil status till the conditions to change it are met"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.Controls.OBC.CDL.Logical.Pre pre "Logical Pre block"
+  Buildings.Controls.OBC.CDL.Logical.Pre pre1
+    "Feedback delay"
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
 
 equation
@@ -49,26 +50,44 @@ equation
   connect(DXCoiSta.yUp, lat.u)
     annotation (Line(points={{-28,6},{-10,6},{-10,0},{-2,0}},
                                                          color={255,0,255}));
-  connect(lat.y, pre.u)
+  connect(lat.y, pre1.u)
     annotation (Line(points={{22,0},{48,0}}, color={255,0,255}));
-  connect(pre.y, DXCoiSta.uDXCoi[1]) annotation (Line(points={{72,0},{80,
-          0},{80,72},{-60,72},{-60,6},{-52,6}}, color={255,0,255}));
+  connect(pre1.y, DXCoiSta.uDXCoi[1]) annotation (Line(points={{72,0},{80,0},{
+          80,72},{-60,72},{-60,6},{-52,6}}, color={255,0,255}));
   connect(DXCoiSta.yDow, lat.clr)
     annotation (Line(points={{-28,-6},{-2,-6}},color={255,0,255}));
+
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/OBC/RooftopUnits/DXCoil/Subsequences/Validation/DXCoilStage.mos"
     "Simulate and plot"),
-  Documentation(info="<html>
+    Documentation(info="<html>
     <p>
-    This example validates
-    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.DXCoilStage\">
-    Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.DXCoilStage</a>.
+    This is a validation model for the controller
+    <a href=\"modelica://Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage\">
+    Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.DXCoilStage</a>. 
     </p>
-    </html>", revisions="<html>
+    <p>
+    Simulation results are observed as follows: 
     <ul>
     <li>
-    July 13, 2022, by Junke Wang and Karthik Devaprasad:<br/>
+    When the cooling coil valve position <code>pul.y</code> exceeds the threshold 
+    <code>DXCoiSta.uThrCooCoi</code> set at 0.8 for a duration of <code>DXCoiSta.timPer</code> 
+    amounting to 480 seconds, and no changes in DX coil status <code>DXCoiSta.uDXCoi[1]</code> 
+    are detected, the controller initiates staging up of the DX coil <code>nexDXCoi.y=true</code>. 
+    </li>
+    <li>
+    When <code>pul.y</code> falls below the threshold <code>DXCoiSta.uThrCooCoi1</code> set at 0.2 
+    for a duration of <code>DXCoiSta.timPer</code> amounting to 180 seconds, and no changes 
+    in <code>DXCoiSta.uDXCoi[1]</code> are detected, the controller initiates staging down 
+    of the DX coil <code>preDXCoi.y=true</code>. 
+    </li>
+    </ul>
+    </p>
+    </html>",revisions="<html>
+    <ul>
+    <li>
+    August 7, 2023, by Junke Wang and Karthik Devaprasad:<br/>
     First implementation.
     </li>
     </ul>
