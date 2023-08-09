@@ -80,7 +80,7 @@ model ChilledWaterPumpSpeed
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Math.RealToBoolean twoPum(threshold=1.5) "Two pumps are on"
     annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
-  Modelica.Blocks.Math.Sum totPum(nin=2) "Total number of pumps on"
+  Modelica.Blocks.Math.Sum totPum(final nin=numPum) "Total number of pumps on"
     annotation (Placement(transformation(extent={{42,-60},{22,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
