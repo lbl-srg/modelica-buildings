@@ -1,4 +1,4 @@
-within Buildings.Fluid.CHPs.Rankine.Examples;
+within Buildings.Fluid.CHPs.Rankine.Validation;
 model OrganicBottomingCycle "Example ORC model"
   extends Modelica.Icons.Example;
 
@@ -88,7 +88,7 @@ equation
   connect(TSou.y, ORC.TUps) annotation (Line(points={{-59,30},{-50,30},{-50,-4},
           {-2,-4}}, color={0,0,127}));
 annotation(experiment(StopTime=1, Tolerance=1e-6),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Examples/OrganicBottomingCycle.mos"
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/CHPs/Rankine/Validation/OrganicBottomingCycle.mos"
   "Simulate and plot"),
   Documentation(info="<html>
 <p>
