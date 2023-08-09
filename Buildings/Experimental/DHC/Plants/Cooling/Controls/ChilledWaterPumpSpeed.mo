@@ -161,6 +161,20 @@ equation
       revisions="<html>
 <ul>
 <li>
+August 9, 2023, by Hongxiang Fu:<br/>
+Restricted this block to a two-pump configuration as intended.
+<ul>
+<li>
+Set <code>final totPum.nin = numPum</code>.
+</li>
+<li>
+Corrected the \"up to two pumps\" language in documentation.
+</li>
+</ul>
+This is for
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3470\">#3470</a>.
+</li>
+<li>
 December 30, 2022, by Kathryn Hinkelman:<br/>
 Added an <code>on</code> input for a plant-level override to turn pumps off.
 </li>
@@ -193,7 +207,7 @@ reference point from the demand side. The output <code>y</code> is a vector
 of pump speeds.
 </p>
 <p>
-The model currently only supports the control of up to two variable speed pumps.
+The model currently only supports the control of two variable speed pumps.
 </p>
 </html>"));
 end ChilledWaterPumpSpeed;

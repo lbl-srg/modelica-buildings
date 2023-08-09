@@ -387,6 +387,18 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table class=\"releaseTable\" summary=\"summary\" border=\"1\" cellspacing=\"0\" cellpadding=\"2\" style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Experimental.DHC.Plants.Cooling</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Experimental.DHC.Plants.Cooling.Controls.ChilledWaterPumpSpeed
+    </td>
+    <td valign=\"top\">Set <code>final totPum.nin = numPum</code> so that this block is restricted
+                       to a two-pump configuration as intended.
+                       Also corrected the \"up to two pumps\" language in documentation.<br/>
+                       This is for
+                       <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/3470\">issue 3470</a>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.ThermalZones.Detailed.Validation.BESTEST</b>
     </td>
 </tr>
