@@ -33,7 +33,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     use_T_in=true,
     nPorts=1) "Cooling water source"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Controls.OBC.UnitConversions.From_degC           TWatIn
+  Buildings.Controls.OBC.UnitConversions.From_degC TWatIn
     "Convert cooling water inlet temperature from degC to kelvin"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.CombiTimeTable valDat(
@@ -61,7 +61,7 @@ model CHPWithORC "A CHP system with an ORC as its bottoming cycle"
     final allowFlowReversal=false,
     final m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    final UA=1800,
+    UA=1800,
     from_dp=false,
     dp_nominal=0,
     linearizeFlowResistance=true) "Evaporator"

@@ -12,10 +12,6 @@ model OrganicBottomingCycle
     final dTSup=dTSup,
     final etaExp=etaExp) "Core equations for the Rankine cycle"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulExp "Expander work"
-    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mulCon "Condenser heat flow"
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Modelica.Blocks.Interfaces.RealOutput P(
     min=0,
     final quantity="Power",
@@ -57,6 +53,10 @@ model OrganicBottomingCycle
     "Routing block"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 protected
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulExp "Expander work"
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+  Buildings.Controls.OBC.CDL.Continuous.Multiply mulCon "Condenser heat flow"
+    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen
     "Heat flow on the evaporator side"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
