@@ -3,5 +3,7 @@ compareVars :=
     "ORC.etaThe",
     "ORC.P",
     "eva.Q_flow",
-    "ORC.QCon_flow"
+    "ORC.QCon_flow",
+    "ORC.TEva",
+    "TSou.y"
   };
