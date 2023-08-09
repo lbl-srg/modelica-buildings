@@ -65,7 +65,7 @@ model ChilledWaterPumpSpeed
     final criPoiSpe=criPoiSpe,
     final deaBanSpe=deaBanSpe)
     "Chilled water pump staging control"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+    annotation (Placement(transformation(extent={{10,-10},{30,10}})));
   Buildings.Controls.OBC.CDL.Continuous.PIDWithReset conPID(
     final controllerType=controllerType,
     final Ti=Ti,
@@ -79,9 +79,9 @@ model ChilledWaterPumpSpeed
   Modelica.Blocks.Math.Gain gai(k=1/dpSetPoi) "Gain for mesaured dp value"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Math.RealToBoolean twoPum(threshold=1.5) "Two pumps are on"
-    annotation (Placement(transformation(extent={{70,-60},{90,-40}})));
+    annotation (Placement(transformation(extent={{10,-60},{-10,-40}})));
   Modelica.Blocks.Math.Sum totPum(nin=2) "Total number of pumps on"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+    annotation (Placement(transformation(extent={{42,-60},{22,-40}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "On signal of the plant"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -93,11 +93,11 @@ protected
     "Number of chilled water pumps";
 equation
   connect(pumStaCon.masFloPum,masFloPum)
-    annotation (Line(points={{-2,4},{-10,4},{-10,20},{-120,20}}, color={0,0,127}));
+    annotation (Line(points={{8,4},{0,4},{0,20},{-120,20}},      color={0,0,127}));
   connect(conPID.y,pumStaCon.speSig)
-    annotation (Line(points={{-18,0},{-2,0}},                 color={0,0,127}));
+    annotation (Line(points={{-18,0},{0,0},{0,0},{8,0}},      color={0,0,127}));
   connect(pumStaCon.y,pumSpe.u1)
-    annotation (Line(points={{21,0},{50,0},{50,6},{58,6}},color={0,0,127}));
+    annotation (Line(points={{31,0},{50,0},{50,6},{58,6}},color={0,0,127}));
   connect(conPID.y,pumSpe[1].u2)
     annotation (Line(points={{-18,0},{-10,0},{-10,-20},{48,-20},{48,-6},{58,-6}},
       color={0,0,127}));
@@ -110,16 +110,16 @@ equation
     annotation (Line(points={{-120,-40},{-82,-40}}, color={0,0,127}));
   connect(gai.y, conPID.u_m)
     annotation (Line(points={{-59,-40},{-30,-40},{-30,-12}}, color={0,0,127}));
-  connect(pumStaCon.y, totPum.u) annotation (Line(points={{21,0},{30,0},{30,-50},
-          {38,-50}}, color={0,0,127}));
+  connect(pumStaCon.y, totPum.u) annotation (Line(points={{31,0},{50,0},{50,-50},
+          {44,-50}}, color={0,0,127}));
   connect(totPum.y, twoPum.u)
-    annotation (Line(points={{61,-50},{68,-50}},color={0,0,127}));
+    annotation (Line(points={{21,-50},{12,-50}},color={0,0,127}));
   connect(pumSpe.y, y)
     annotation (Line(points={{81,0},{110,0}}, color={0,0,127}));
-  connect(on, pumStaCon.on) annotation (Line(points={{-120,80},{-6,80},{-6,8},{-2,
+  connect(on, pumStaCon.on) annotation (Line(points={{-120,80},{4,80},{4,8},{8,
           8}}, color={255,0,255}));
-  connect(twoPum.y, orRes.u2) annotation (Line(points={{91,-50},{96,-50},{96,-90},
-          {-68,-90},{-68,-78},{-62,-78}},      color={255,0,255}));
+  connect(twoPum.y, orRes.u2) annotation (Line(points={{-11,-50},{-20,-50},{-20,
+          -90},{-70,-90},{-70,-78},{-62,-78}}, color={255,0,255}));
   connect(on, orRes.u1) annotation (Line(points={{-120,80},{-90,80},{-90,-70},{
           -62,-70}}, color={255,0,255}));
   connect(orRes.y, conPID.trigger) annotation (Line(points={{-39,-70},{-36,-70},
@@ -194,10 +194,6 @@ of pump speeds.
 </p>
 <p>
 The model currently only supports the control of up to two variable speed pumps.
-fixme: This seems wrong: pumStaCon.y always has size two. So I doubt the model works
-for one pump only. Also, if it were to be used for one pump, the user has no means
-to set the protected parameter numPum. Hence, the model seem to be applicable only
-for two pumps (and not for up to two pumps).
 </p>
 </html>"));
 end ChilledWaterPumpSpeed;
