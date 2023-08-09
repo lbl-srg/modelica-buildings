@@ -49,10 +49,13 @@ model OrganicBottomingCycle
   Buildings.Controls.OBC.CDL.Interfaces.RealInput TUps if preventHeatBackflow
     "Temperature of upstream fluid" annotation (Placement(transformation(extent={{-140,36},
             {-100,76}}),           iconTransformation(extent={{-140,40},{-100,80}})));
+  Buildings.Utilities.Math.SmoothMin smoMin(deltaX=1) if preventHeatBackflow
+    "Prevents heat transfer when upstream temperature lower than working fluid"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+protected
   Modelica.Blocks.Routing.RealPassThrough pas if not preventHeatBackflow
     "Routing block"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-protected
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulExp "Expander work"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.Controls.OBC.CDL.Continuous.Multiply mulCon "Condenser heat flow"
@@ -65,14 +68,11 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-30})));
-
   Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     "Prescribed temperature"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.Controls.OBC.CDL.Continuous.Min min1 if preventHeatBackflow
-    "Minimum"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.Constant SouTEva(final k=TEva) "Source block"
+  Modelica.Blocks.Sources.Constant SouTEva(final k=TEva)
+    "Constant evaporator temperature of the working fluid"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(heaFloSen.port_b, port_a)
@@ -97,14 +97,14 @@ equation
     annotation (Line(points={{42,-30},{58,-30}}, color={0,0,127}));
   connect(gai.y, P) annotation (Line(points={{81,-30},{110,-30}},
                  color={0,0,127}));
-  connect(min1.y, preTem.T)
-    annotation (Line(points={{2,50},{18,50}}, color={0,0,127}));
-  connect(SouTEva.y,min1. u2) annotation (Line(points={{-39,10},{-30,10},{-30,44},
-          {-22,44}},                     color={0,0,127}));
+  connect(smoMin.y, preTem.T)
+    annotation (Line(points={{1,50},{18,50}}, color={0,0,127}));
+  connect(SouTEva.y, smoMin.u2) annotation (Line(points={{-39,10},{-30,10},{-30,
+          44},{-22,44}}, color={0,0,127}));
   connect(heaFloSen.port_a, preTem.port)
     annotation (Line(points={{60,50},{40,50}}, color={191,0,0}));
-  connect(min1.u1, TUps) annotation (Line(points={{-22,56},{-120,56}},
-                color={0,0,127}));
+  connect(smoMin.u1, TUps)
+    annotation (Line(points={{-22,56},{-120,56}}, color={0,0,127}));
   connect(SouTEva.y, pas.u)
     annotation (Line(points={{-39,10},{-22,10}}, color={0,0,127}));
   connect(pas.y, preTem.T) annotation (Line(points={{1,10},{12,10},{12,50},{18,50}},
