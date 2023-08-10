@@ -35,8 +35,7 @@ model AuxiliaryCoil
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Constant TOut1(
-    final k=273.15 - 10)
-    "Outdoor air dry bulb temperature"
+    final k=273.15 - 10) "Outdoor air dry bulb temperature"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
 
   Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp HeaCoi1(

@@ -3,37 +3,45 @@ block Controller
   "Sequences to stage DX coils and regulate their corresponding compressor speeds"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Integer nCoi = 2
+  parameter Integer nCoi=2
     "Total number of DX coils"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real conCooCoiLow=0.2
+  parameter Real conCooCoiLow(
+    final min=0,
+    final max=1)=0.2
     "Constant lower DX coil signal"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real conCooCoiHig=0.8
+  parameter Real conCooCoiHig(
+    final min=0,
+    final max=1)=0.8
     "Constant higher DX coil signal"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi=0.8
+  parameter Real uThrCooCoi(
+    final min=0,
+    final max=1)=0.8
     "Threshold of cooling coil valve position signal above which DX coil is staged up"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi1=0.2
+  parameter Real uThrCooCoi1(
+    final min=0,
+    final max=1)=0.2
     "Threshold of cooling coil valve position signal below which DX coil staged down"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi2=0.8
+  parameter Real uThrCooCoi2(
+     final min=0,
+    final max=1)=0.8
     "Threshold of cooling coil valve position signal above which DX coil is enabled"
     annotation (Dialog(group="DX coil parameters"));
 
-  parameter Real uThrCooCoi3=0.1
+  parameter Real uThrCooCoi3(
+    final min=0,
+    final max=1)=0.1
     "Threshold of cooling coil valve position signal below which DX coil is disabled"
     annotation (Dialog(group="DX coil parameters"));
-
-  parameter Real dUHys=0.01
-    "Small temperature difference used in comparison blocks"
-    annotation(Dialog(tab="Advanced"));
 
   parameter Real timPer(
     final unit="s",
@@ -64,28 +72,20 @@ block Controller
     annotation (Dialog(group="DX coil parameters"));
 
   parameter Real minComSpe(
-    final unit="1",
-    displayUnit="1",
     final min=0,
     final max=maxComSpe) = 0.1
     "Minimum compressor speed"
     annotation (Dialog(group="Compressor parameters"));
 
   parameter Real maxComSpe(
-    final unit="1",
-    displayUnit="1",
     final min=minComSpe,
     final max=1) = 1
     "Maximum compressor speed"
     annotation (Dialog(group="Compressor parameters"));
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
-    "Type of DX coil controller"
-    annotation (Dialog(group="P controller"));
-
-  parameter Real k = (maxComSpe - minComSpe) / (conCooCoiHig- conCooCoiLow)
-    "Gain of DX coil controller"
-    annotation (Dialog(group="P controller"));
+  parameter Real dUHys=0.01
+    "Small temperature difference used in comparison blocks"
+    annotation(Dialog(tab="Advanced"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uDXCoi[nCoi]
     "DX coil status"
@@ -223,9 +223,7 @@ block Controller
     final conCooCoiLow=conCooCoiLow,
     final conCooCoiHig=conCooCoiHig,
     final minComSpe=minComSpe,
-    final maxComSpe=maxComSpe,
-    final controllerType=Modelica.Blocks.Types.SimpleController.P,
-    final k=k)
+    final maxComSpe=maxComSpe)
     "Compressor speed stage"
     annotation (Placement(transformation(extent={{130,-130},{150,-110}})));
 
@@ -267,6 +265,15 @@ block Controller
   Buildings.Controls.OBC.CDL.Continuous.Multiply mul[nCoi]
     "Logical Multiply"
     annotation (Placement(transformation(extent={{180,-130},{200,-110}})));
+
+protected
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
+    "Type of DX coil controller"
+    annotation (Dialog(group="P controller"));
+
+  parameter Real k = (maxComSpe - minComSpe) / (conCooCoiHig- conCooCoiLow)
+    "Gain of DX coil controller"
+    annotation (Dialog(group="P controller"));
 
 equation
   connect(uCoiSeq, intToRea.u)

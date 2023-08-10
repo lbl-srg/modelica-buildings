@@ -3,15 +3,21 @@ block CompressorDR
   "Sequences to control compressor speed for demand reponse"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real k1=0.9
+  parameter Real k1(
+    final min=0,
+    final max=1)=0.9
     "Constant compressor speed gain at demand-limit Level 1"
     annotation (Dialog(group="Compressor DR parameters"));
 
-  parameter Real k2=0.85
+  parameter Real k2(
+    final min=0,
+    final max=1)=0.85
     "Constant compressor speed gain at demand-limit Level 2"
     annotation (Dialog(group="Compressor DR parameters"));
 
-  parameter Real k3=0.8
+  parameter Real k3(
+    final min=0,
+    final max=1)=0.8
     "Constant compressor speed gain at demand-limit Level 3"
     annotation (Dialog(group="Compressor DR parameters"));
 

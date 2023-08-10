@@ -6,10 +6,14 @@ block DXCoilStage
   parameter Integer nCoi=2
   "Number of DX coils";
 
-  parameter Real uThrCooCoi=0.8
+  parameter Real uThrCooCoi(
+    final min=0,
+    final max=1)=0.8
     "Threshold of cooling coil valve position signal above which DX coil is staged up";
 
-  parameter Real uThrCooCoi1=0.2
+  parameter Real uThrCooCoi1(
+    final min=0,
+    final max=1)=0.2
     "Threshold of cooling coil valve position signal below which DX coil staged down";
 
   parameter Real dUHys=0.01

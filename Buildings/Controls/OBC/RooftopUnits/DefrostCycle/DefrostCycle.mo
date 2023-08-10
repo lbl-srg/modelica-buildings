@@ -71,21 +71,12 @@ block DefrostCycle "Sequences to control defrost cycle"
   Buildings.Controls.OBC.RooftopUnits.DefrostCycle.Subsequences.DefrostTime DefTim
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Constant conTim(
-    final k=300)
-    "Constant time"
-    annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-
-  Buildings.Controls.OBC.CDL.Continuous.Multiply mul
-    annotation (Placement(transformation(extent={{-10,-36},{10,-16}})));
-
   Buildings.Controls.OBC.CDL.Conversions.BooleanToReal                        booToRea[nCoi]
     "Convert Boolean to Real number"
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
 
-  Buildings.Controls.OBC.CDL.Interfaces.RealOutput yDefTimPer[nCoi](
-    final quantity="Time", final unit="s")
-    "Defrost time period"
+  CDL.Interfaces.RealOutput yDefFra[nCoi](final unit="1")
+    "Defrost operation timestep fraction"
     annotation (Placement(transformation(extent={{140,-80},{180,-40}}),
       iconTransformation(extent={{100,-60},{140,-20}})));
 
@@ -121,19 +112,11 @@ equation
         color={255,0,255}));
   connect(TFroSen, lesThr.u) annotation (Line(points={{-160,-20},{-120,-20},{-120,
           40},{-102,40}}, color={0,0,127}));
-  connect(conTim.y, mul.u2)
-    annotation (Line(points={{-28,-60},{-20,-60},{-20,-32},{-12,-32}},
-                                                             color={0,0,127}));
-  connect(DefTim.yDefTim, mul.u1)
-    annotation (Line(points={{-38,-20},{-12,-20}},           color={0,0,127}));
   connect(pre.y, yDXCoiMod)
     annotation (Line(points={{82,40},{160,40}},   color={255,0,255}));
   connect(pre.y, booToRea.u) annotation (Line(points={{82,40},{100,40},{100,0},{
           20,0},{20,-70},{28,-70}},
                     color={255,0,255}));
-  connect(mul.y, reaScaRep.u)
-    annotation (Line(points={{12,-26},{28,-26}},
-                                              color={0,0,127}));
   connect(reaScaRep.y, mul1.u1)
     annotation (Line(points={{52,-26},{88,-26}},
                                                color={0,0,127}));
@@ -151,6 +134,8 @@ equation
     annotation (Line(points={{2,32},{18,32}}, color={255,0,255}));
   connect(and2.u1, uDXCoiAva) annotation (Line(points={{18,40},{10,40},{10,60},{
           -160,60}}, color={255,0,255}));
+  connect(DefTim.yDefFra, reaScaRep.u) annotation (Line(points={{-38,-20},{0,-20},
+          {0,-26},{28,-26}}, color={0,0,127}));
     annotation (Dialog(group="Defrost parameters"),
     defaultComponentName="DefCyc",
     Icon(coordinateSystem(preserveAspectRatio=false,

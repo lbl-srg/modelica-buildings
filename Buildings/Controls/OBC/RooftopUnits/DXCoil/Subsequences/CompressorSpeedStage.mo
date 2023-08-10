@@ -3,35 +3,27 @@ block CompressorSpeedStage
   "Sequence for regulating compressor speed corresponding to previously enabled DX coil signal"
   extends Modelica.Blocks.Icons.Block;
 
-  parameter Real conCooCoiLow=0.2
+  parameter Real conCooCoiLow(
+    final min=0,
+    final max=1)=0.2
     "Constant lower cooling coil valve position signal";
 
-  parameter Real conCooCoiHig=0.8
+  parameter Real conCooCoiHig(
+    final min=0,
+    final max=1)=0.8
     "Constant higher cooling coil valve position signal";
 
   parameter Real minComSpe(
-    final unit="1",
-    displayUnit="1",
     final min=0,
     final max=maxComSpe) = 0.1
     "Minimum compressor speed"
     annotation (Dialog(group="Compressor parameters"));
 
   parameter Real maxComSpe(
-    final unit="1",
-    displayUnit="1",
     final min=minComSpe,
     final max=1) = 1
     "Maximum compressor speed"
     annotation (Dialog(group="Compressor parameters"));
-
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
-    "Type of DX coil controller"
-    annotation (Dialog(group="P controller"));
-
-  parameter Real k = (maxComSpe - minComSpe) / (conCooCoiHig- conCooCoiLow)
-    "Gain of DX coil controller"
-    annotation (Dialog(group="P controller"));
 
   Buildings.Controls.OBC.CDL.Interfaces.BooleanInput uPreDXCoi
     "Previously enabled DX coil signal"
@@ -89,6 +81,15 @@ block CompressorSpeedStage
   Buildings.Controls.OBC.CDL.Continuous.Min min
     "Pass through the minimum compressor speed"
     annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
+
+protected
+  parameter Real k = (maxComSpe - minComSpe) / (conCooCoiHig- conCooCoiLow)
+    "Gain of DX coil controller"
+    annotation (Dialog(group="P controller"));
+
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
+    "Type of DX coil controller"
+    annotation (Dialog(group="P controller"));
 
 equation
   connect(conP.u_m, uCooCoi) annotation (Line(points={{-50,-42},{-50,-60},{

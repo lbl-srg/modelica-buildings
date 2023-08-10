@@ -6,10 +6,14 @@ block DXCoilEnable
   parameter Integer nCoi=2
     "Number of DX coils";
 
-  parameter Real uThrCooCoi2=0.8
+  parameter Real uThrCooCoi2(
+    final min=0,
+    final max=1)=0.8
     "Threshold of cooling coil valve position signal above which DX coil is enabled";
 
-  parameter Real uThrCooCoi3=0.1
+  parameter Real uThrCooCoi3(
+    final min=0,
+    final max=1)=0.1
     "Threshold of cooling coil valve position signal below which DX coil is disabled";
 
   parameter Real dUHys=0.01

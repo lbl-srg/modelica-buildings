@@ -29,11 +29,10 @@ model Controller "Validation model for DX coil controller"
     "Constant integer signal"
     annotation (Placement(transformation(extent={{-60,-14},{-40,6}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCooCoi(
     final height=0.5,
     final duration=3600,
-    final offset=0.5)
-    "Ramp signal"
+    final offset=0.5) "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
   Buildings.Controls.OBC.CDL.Logical.Sources.Constant con1[3](
@@ -43,16 +42,17 @@ model Controller "Validation model for DX coil controller"
 
 equation
   connect(DXCoiCon.yDXCoi, pre1.u)
-    annotation (Line(points={{12,7},{22,7},{22,0},{28,0}}, color={255,0,255}));
+    annotation (Line(points={{12,5.6},{22,5.6},{22,0},{28,0}},
+                                                           color={255,0,255}));
   connect(pre1.y, DXCoiCon.uDXCoi) annotation (Line(points={{52,0},{60,0},{60,
           30},{-20,30},{-20,11.2},{-12,11.2}},
                                              color={255,0,255}));
-  connect(ram.y, DXCoiCon.uCooCoi) annotation (Line(points={{-38,-50},{-20,-50},
-          {-20,-11.2},{-12,-11.2}}, color={0,0,127}));
+  connect(ramCooCoi.y, DXCoiCon.uCooCoi) annotation (Line(points={{-38,-50},{-20,
+          -50},{-20,-11.2},{-12,-11.2}}, color={0,0,127}));
   connect(con1.y, DXCoiCon.uDXCoiAva) annotation (Line(points={{-38,40},{-30,40},
-          {-30,4.2},{-12,4.2}},   color={255,0,255}));
+          {-30,5.6},{-12,5.6}},   color={255,0,255}));
   connect(conInt.y, DXCoiCon.uCoiSeq) annotation (Line(points={{-38,-4},{-25,-4},
-          {-25,-4.2},{-12,-4.2}},                   color={255,127,0}));
+          {-25,-5.32},{-12,-5.32}},                 color={255,127,0}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),

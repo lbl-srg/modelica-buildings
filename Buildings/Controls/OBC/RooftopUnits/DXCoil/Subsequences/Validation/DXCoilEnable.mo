@@ -12,12 +12,11 @@ model DXCoilEnable
     "Enable DX coil"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pul(
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Pulse pulCooCoi(
     final amplitude=0.9,
     final width=0.6,
     final period=1800,
-    final offset=0.05)
-    "Cooling coil valve position"
+    final offset=0.05) "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 
   Buildings.Controls.OBC.CDL.Logical.TrueFalseHold CoiEna(
@@ -30,8 +29,8 @@ model DXCoilEnable
     annotation (Placement(transformation(extent={{40,30},{60,50}})));
 
 equation
-  connect(pul.y, DXCoiEna.uCooCoi) annotation (Line(points={{-38,-40},{-20,-40},
-          {-20,-6},{-12,-6}}, color={0,0,127}));
+  connect(pulCooCoi.y, DXCoiEna.uCooCoi) annotation (Line(points={{-38,-40},{-20,
+          -40},{-20,-6},{-12,-6}}, color={0,0,127}));
   connect(DXCoiEna.yDXCoi, CoiEna.u)
     annotation (Line(points={{12,0},{38,0}}, color={255,0,255}));
   connect(DXCoiEna.yDXCoi, pre1.u) annotation (Line(points={{12,0},{20,0},{20,
@@ -53,13 +52,13 @@ annotation (
     Simulation results are observed as follows: 
     <ul>
     <li>
-    When the cooling coil valve position <code>pul.y</code> exceeds the threshold 
+    When the cooling coil valve position <code>pulCooCoi.y</code> exceeds the threshold 
     <code>DXCoiEna.uThrCooCoi2</code> set at 0.8 for a duration of <code>DXCoiEna.timPer2</code> 
     amounting to 300 seconds, and no changes in DX coil status <code>DXCoiEna.uDXCoi[1]</code> 
     are detected, the controller initiates staging up of the DX coil <code>CoiEna.y=true</code>. 
     </li>
     <li>
-    When <code>pul.y</code> falls below the threshold <code>DXCoiEna.uThrCooCoi3</code> set at 0.1 
+    When <code>pulCooCoi.y</code> falls below the threshold <code>DXCoiEna.uThrCooCoi3</code> set at 0.1 
     for a duration of <code>DXCoiEna.timPer3</code> amounting to 300 seconds, and no changes in 
     <code>DXCoiEna.uDXCoi[1]</code> are detected, the controller initiates staging down 
     of the DX coil <code>CoiEna.y=false</code>. 

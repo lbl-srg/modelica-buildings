@@ -1,4 +1,4 @@
 simulateModel("Buildings.Controls.OBC.RooftopUnits.DXCoil.Subsequences.Validation.CompressorSpeedStage", stopTime=3600, method="Cvode", tolerance=1e-06, resultFile="DXCoilEnable");
 createPlot(id=1, position={15, 15, 600, 400}, y={"booPul.y"}, range={0.0, 3600.0, -0.2, 1.2}, erase=false, grid=true, autoscale=false, filename="CompressorSpeedStage.mat", subPlot=101, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s");
-createPlot(id=1, position={15, 15, 600, 400}, y={"ram.y"}, range={0.0, 3600.0, -0.2, 1.2}, erase=false, grid=true, autoscale=false, subPlot=102, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
+createPlot(id=1, position={15, 15, 600, 400}, y={"ramCooCoi.y"}, range={0.0, 3600.0, -0.2, 1.2}, erase=false, grid=true, autoscale=false, subPlot=102, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});
 createPlot(id=1, position={15, 15, 600, 400}, y={"ComSpeSta.yComSpe"}, range={0.0, 3600.0, 0.0, 1.2}, erase=false, grid=true, autoscale=false, subPlot=103, colors={{28,108,200}}, thicknesses={0.5}, timeUnit="s", displayUnits={""});

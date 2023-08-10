@@ -6,8 +6,7 @@ model CompressorSpeedStage
     conCooCoiLow=0.2,
     conCooCoiHig=0.8,
     minComSpe=0.1,
-    maxComSpe=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    maxComSpe=1)
     "Compressor speed control for DX coil staging signal"
     annotation (Placement(transformation(extent={{20,-12},{40,8}})));
 
@@ -18,17 +17,15 @@ model CompressorSpeedStage
     "Previous enable signal"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
 
-  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ram(
-    final height=1,
-    final duration=1800)
-    "Cooling coil valve position"
+  Buildings.Controls.OBC.CDL.Continuous.Sources.Ramp ramCooCoi(final height=1,
+      final duration=1800) "Cooling coil valve position"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 
 equation
   connect(booPul.y, ComSpeSta.uPreDXCoi) annotation (Line(points={{-18,30},
           {0,30},{0,3.8},{18,3.8}}, color={255,0,255}));
-  connect(ram.y, ComSpeSta.uCooCoi) annotation (Line(points={{-18,-30},{0,-30},{
-          0,-8},{18,-8}}, color={0,0,127}));
+  connect(ramCooCoi.y, ComSpeSta.uCooCoi) annotation (Line(points={{-18,-30},{0,
+          -30},{0,-8},{18,-8}}, color={0,0,127}));
 
 annotation (
   experiment(StopTime=3600.0, Tolerance=1e-06),
@@ -48,7 +45,7 @@ annotation (
     the controller maps a compressor's minimum speed 
     <code>ComSpeSta.minComSpe</code> of 0.1 and maximum speed <code>ComSpeSta.maxComSpe</code> 
     of 1 to a lower cooling coil valve position signal <code>ComSpeSta.conCooCoiLow</code> of 0.2 and a higher one 
-    <code>ComSpeSta.conCooCoiHig</code> of 0.8 from the cooling coil signal <code>ram.y</code>. 
+    <code>ComSpeSta.conCooCoiHig</code> of 0.8 from the cooling coil signal <code>ramCooCoi.y</code>. 
     </li>
     <li>
     When <code>booPul.y = true</code>, the controller outputs <code>ComSpeSta.yComSpe=1</code>. 

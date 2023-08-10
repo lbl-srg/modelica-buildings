@@ -15,10 +15,6 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     "Small temperature difference used in comparison blocks"
     annotation(Dialog(tab="Advanced"));
 
-  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
-    "Type of auxiliary heating controller"
-    annotation (Dialog(group="P controller"));
-
   parameter Real k1=1
     "Gain of auxiliary heating controller 1"
     annotation (Dialog(group="P controller"));
@@ -27,7 +23,9 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     "Gain of auxiliary heating controller 2"
     annotation (Dialog(group="P controller"));
 
-  parameter Real uThrHeaCoi=0.9
+  parameter Real uThrHeaCoi(
+    final min=0,
+    final max=1)=0.9
     "Threshold of heating coil valve position signal above which auxiliary coil is enabled";
 
   parameter Real dUHys=0.01
@@ -121,6 +119,10 @@ block AuxiliaryCoil "Sequences to control auxiliary heating coils"
     final k=0)
     "Constant heating coil signal"
     annotation (Placement(transformation(extent={{-46,60},{-26,80}})));
+protected
+  parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.P
+    "Type of auxiliary heating controller"
+    annotation (Dialog(group="P controller"));
 
 equation
   connect(lesThrLocOut.u, TOut)
